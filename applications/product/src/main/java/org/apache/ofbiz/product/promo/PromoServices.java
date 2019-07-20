@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -244,7 +245,7 @@ public class PromoServices {
         byte[] wrapper = bytebufferwrapper.array();
 
       // read the bytes into a reader
-        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper, UtilIO.getUtf8())));
+        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper, StandardCharsets.UTF_8)));
         List<Object> errors = new LinkedList<>();
         int lines = 0;
         String line;

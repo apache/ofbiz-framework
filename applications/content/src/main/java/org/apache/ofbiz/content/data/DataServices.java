@@ -27,6 +27,7 @@ import java.io.RandomAccessFile;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -244,7 +245,7 @@ public class DataServices {
         // write the data to the file
         if (UtilValidate.isNotEmpty(textData)) {
             try (
-                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), UtilIO.getUtf8());
+                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
             ) {
                 out.write(textData);
             } catch (IOException e) {
@@ -433,7 +434,7 @@ public class DataServices {
             // write the data to the file
             if (UtilValidate.isNotEmpty(textData)) {
                 try (
-                        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file),UtilIO.getUtf8());
+                        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file),StandardCharsets.UTF_8);
                 ) {
                     out.write(textData);
                 } catch (IOException e) {

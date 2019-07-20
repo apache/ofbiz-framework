@@ -635,7 +635,7 @@ public class UpsServices {
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentConfirmRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                    fileOut.write(xmlString.toString().getBytes(StandardCharsets.UTF_8));
                     fileOut.flush();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
@@ -654,7 +654,7 @@ public class UpsServices {
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentConfirmResponse" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(shipmentConfirmResponseString.getBytes(UtilIO.getUtf8()));
+                    fileOut.write(shipmentConfirmResponseString.getBytes(StandardCharsets.UTF_8));
                     fileOut.flush();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
@@ -908,7 +908,7 @@ public class UpsServices {
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentAcceptRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                    fileOut.write(xmlString.toString().getBytes(StandardCharsets.UTF_8));
                     fileOut.flush();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
@@ -927,7 +927,7 @@ public class UpsServices {
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentAcceptResponse" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(shipmentAcceptResponseString.getBytes(UtilIO.getUtf8()));
+                    fileOut.write(shipmentAcceptResponseString.getBytes(StandardCharsets.UTF_8));
                     fileOut.flush();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
@@ -1105,12 +1105,12 @@ public class UpsServices {
                 }
                 byte[] labelImageBytes = null;
                 if (packageLabelGraphicImageString != null) {
-                    labelImageBytes = Base64.getMimeDecoder().decode(packageLabelGraphicImageString.getBytes(UtilIO.getUtf8()));
+                    labelImageBytes = Base64.getMimeDecoder().decode(packageLabelGraphicImageString.getBytes(StandardCharsets.UTF_8));
                     shipmentPackageRouteSeg.setBytes("labelImage", labelImageBytes);
                 }
                 byte[] labelInternationalSignatureGraphicImageBytes = null;
                 if (packageLabelInternationalSignatureGraphicImageString != null) {
-                    labelInternationalSignatureGraphicImageBytes = Base64.getMimeDecoder().decode(packageLabelInternationalSignatureGraphicImageString.getBytes(UtilIO.getUtf8()));
+                    labelInternationalSignatureGraphicImageBytes = Base64.getMimeDecoder().decode(packageLabelInternationalSignatureGraphicImageString.getBytes(StandardCharsets.UTF_8));
                     shipmentPackageRouteSeg.set("labelIntlSignImage", labelInternationalSignatureGraphicImageBytes);
                 }
                 String packageLabelHTMLImageStringDecoded = Arrays.toString(Base64.getMimeDecoder().decode(packageLabelHTMLImageString.getBytes(StandardCharsets.UTF_8)));
@@ -1138,7 +1138,7 @@ public class UpsServices {
                     if (packageLabelHTMLImageStringDecoded != null) {
                         String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentLabelHTMLImage" + shipmentRouteSegment.getString("shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + "_" + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + ".html";
                         try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                            fileOut.write(packageLabelHTMLImageStringDecoded.getBytes(UtilIO.getUtf8()));
+                            fileOut.write(packageLabelHTMLImageStringDecoded.getBytes(StandardCharsets.UTF_8));
                             fileOut.flush();
                         } catch (IOException e) {
                             Debug.logInfo(e, "Could not save UPS LabelImage HTML file: [[[" + packageLabelHTMLImageStringDecoded + "]]] to file: " + outFileName, module);
@@ -1169,7 +1169,7 @@ public class UpsServices {
                     shipmentRouteSegment.store();
                     String outFileName = shipmentUpsSaveCertificationPath + "/HighValueReport" + shipmentRouteSegment.getString("shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".html";
                     try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                        fileOut.write(fileStringDecoded.getBytes(UtilIO.getUtf8()));
+                        fileOut.write(fileStringDecoded.getBytes(StandardCharsets.UTF_8));
                         fileOut.flush();
                     } catch (IOException e) {
                         Debug.logInfo(e, "Could not save UPS High Value Report data: [[[" + fileStringDecoded + "]]] to file: " + outFileName, module);
@@ -1290,7 +1290,7 @@ public class UpsServices {
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsVoidShipmentRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                    fileOut.write(xmlString.toString().getBytes(StandardCharsets.UTF_8));
                     fileOut.flush();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
@@ -1309,7 +1309,7 @@ public class UpsServices {
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsVoidShipmentResponse" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(voidShipmentResponseString.getBytes(UtilIO.getUtf8()));
+                    fileOut.write(voidShipmentResponseString.getBytes(StandardCharsets.UTF_8));
                     fileOut.flush();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
@@ -1486,7 +1486,7 @@ public class UpsServices {
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsTrackRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                    fileOut.write(xmlString.toString().getBytes(StandardCharsets.UTF_8));
                     fileOut.flush();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
@@ -1505,7 +1505,7 @@ public class UpsServices {
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsTrackResponseString" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(trackResponseString.getBytes(UtilIO.getUtf8()));
+                    fileOut.write(trackResponseString.getBytes(StandardCharsets.UTF_8));
                     fileOut.flush();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
@@ -2644,7 +2644,7 @@ public class UpsServices {
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentAcceptRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                    fileOut.write(xmlString.toString().getBytes(StandardCharsets.UTF_8));
                     fileOut.flush();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);

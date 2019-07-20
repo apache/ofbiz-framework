@@ -66,11 +66,11 @@ public class HashCrypt {
         if (crypted.startsWith("{PBKDF2")) {
             return doComparePbkdf2(crypted, password);
         } else if (crypted.startsWith("{")) {
-            return doCompareTypePrefix(crypted, defaultCrypt, password.getBytes(UtilIO.getUtf8()));
+            return doCompareTypePrefix(crypted, defaultCrypt, password.getBytes(StandardCharsets.UTF_8));
         } else if (crypted.startsWith("$")) {
-            return doComparePosix(crypted, defaultCrypt, password.getBytes(UtilIO.getUtf8()));
+            return doComparePosix(crypted, defaultCrypt, password.getBytes(StandardCharsets.UTF_8));
         } else {
-            return doCompareBare(crypted, defaultCrypt, password.getBytes(UtilIO.getUtf8()));
+            return doCompareBare(crypted, defaultCrypt, password.getBytes(StandardCharsets.UTF_8));
         }
     }
 
@@ -122,21 +122,21 @@ public class HashCrypt {
         if (hashType.startsWith("PBKDF2")) {
             return password != null ? pbkdf2HashCrypt(hashType, salt, password) : null;
         }
-        return password != null ? cryptBytes(hashType, salt, password.getBytes(UtilIO.getUtf8())) : null;
+        return password != null ? cryptBytes(hashType, salt, password.getBytes(StandardCharsets.UTF_8)) : null;
     }
 
     public static String cryptUTF8(String hashType, String salt, String value) {
         if (hashType.startsWith("PBKDF2")) {
             return value != null ? pbkdf2HashCrypt(hashType, salt, value) : null;
         }
-        return value != null ? cryptBytes(hashType, salt, value.getBytes(UtilIO.getUtf8())) : null;
+        return value != null ? cryptBytes(hashType, salt, value.getBytes(StandardCharsets.UTF_8)) : null;
     }
 
     public static String cryptValue(String hashType, String salt, String value) {
         if (hashType.startsWith("PBKDF2")) {
             return value != null ? pbkdf2HashCrypt(hashType, salt, value) : null;
         }
-        return value != null ? cryptBytes(hashType, salt, value.getBytes(UtilIO.getUtf8())) : null;
+        return value != null ? cryptBytes(hashType, salt, value.getBytes(StandardCharsets.UTF_8)) : null;
     }
 
     public static String cryptBytes(String hashType, String salt, byte[] bytes) {
@@ -155,7 +155,7 @@ public class HashCrypt {
     private static String getCryptedBytes(String hashType, String salt, byte[] bytes) {
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-            messagedigest.update(salt.getBytes(UtilIO.getUtf8()));
+            messagedigest.update(salt.getBytes(StandardCharsets.UTF_8));
             messagedigest.update(bytes);
             return Base64.encodeBase64URLSafeString(messagedigest.digest()).replace('+', '.');
         } catch (NoSuchAlgorithmException e) {
@@ -169,7 +169,7 @@ public class HashCrypt {
             salt = getSalt();
         }
         try {
-            PBEKeySpec spec = new PBEKeySpec(chars, salt.getBytes(UtilIO.getUtf8()), PBKDF2_ITERATIONS, 64 * 4);
+            PBEKeySpec spec = new PBEKeySpec(chars, salt.getBytes(StandardCharsets.UTF_8), PBKDF2_ITERATIONS, 64 * 4);
             SecretKeyFactory skf = SecretKeyFactory.getInstance(hashType);
             byte[] hash = Base64.encodeBase64(skf.generateSecret(spec).getEncoded());
             String pbkdf2Type = null;
@@ -208,8 +208,8 @@ public class HashCrypt {
             String hashType = crypted.substring(1, typeEnd);
             String[] parts = crypted.split("\\$");
             int iterations = Integer.parseInt(parts[0].substring(typeEnd+1));
-            byte[] salt = Arrays.toString(java.util.Base64.getMimeDecoder().decode(parts[1].getBytes(StandardCharsets.UTF_8))).getBytes(UtilIO.getUtf8());
-            byte[] hash = Base64.decodeBase64(parts[2].getBytes(UtilIO.getUtf8()));
+            byte[] salt = Arrays.toString(java.util.Base64.getMimeDecoder().decode(parts[1].getBytes(StandardCharsets.UTF_8))).getBytes(StandardCharsets.UTF_8);
+            byte[] hash = Base64.decodeBase64(parts[2].getBytes(StandardCharsets.UTF_8));
 
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, hash.length * 8);
             switch (hashType.substring(hashType.indexOf("-")+1)) {
@@ -259,7 +259,7 @@ public class HashCrypt {
         byte[] codeBytes;
         try {
             if (code == null) {
-                codeBytes = str.getBytes(UtilIO.getUtf8());
+                codeBytes = str.getBytes(StandardCharsets.UTF_8);
             } else {
                 codeBytes = str.getBytes(code);
             }
@@ -344,7 +344,7 @@ public class HashCrypt {
         }
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-            byte[] strBytes = str.getBytes(UtilIO.getUtf8());
+            byte[] strBytes = str.getBytes(StandardCharsets.UTF_8);
 
             messagedigest.update(strBytes);
             return oldFunnyHex(messagedigest.digest());

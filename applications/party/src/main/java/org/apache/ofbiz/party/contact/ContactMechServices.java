@@ -19,6 +19,7 @@
 
 package org.apache.ofbiz.party.contact;
 
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -973,7 +974,7 @@ public class ContactMechServices {
         synchronized(ContactMechServices.class) {
             while (true) {
                 Long random = secureRandom.nextLong();
-                verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes(UtilIO.getUtf8()));
+                verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes(StandardCharsets.UTF_8));
                 List<GenericValue> emailAddVerifications = null;
                 try {
                     emailAddVerifications = EntityQuery.use(delegator).from("EmailAddressVerification").where("verifyHash", verifyHash).queryList();

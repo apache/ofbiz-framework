@@ -25,6 +25,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -225,7 +226,7 @@ public class SurveyWrapper {
         Template template = null;
         try (
             InputStream templateStream = templateUrl.openStream();
-            InputStreamReader templateReader = new InputStreamReader(templateStream,UtilIO.getUtf8());
+            InputStreamReader templateReader = new InputStreamReader(templateStream,StandardCharsets.UTF_8);
                 ){
             template = new Template(templateUrl.toExternalForm(), templateReader, config);
         } catch (IOException e) {

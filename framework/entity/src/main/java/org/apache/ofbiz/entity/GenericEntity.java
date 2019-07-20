@@ -22,6 +22,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Base64;
@@ -490,7 +491,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                         Debug.logError(e, module);
                     }
                 } else if ((value instanceof String) && "byte[]".equals(type.getJavaType())) {
-                    value = ((String) value).getBytes(UtilIO.getUtf8());
+                    value = ((String) value).getBytes(StandardCharsets.UTF_8);
                 }
                 if (!ObjectType.instanceOf(value, type.getJavaType())) {
                     if (!("java.sql.Blob".equals(type.getJavaType()) && (value instanceof byte[] || value == null || ByteBuffer.class.isInstance(value)))) {
@@ -1193,7 +1194,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 boolean b1 = obj instanceof byte [];
                 if (b1) {
                     byte [] binData = (byte [])obj;
-                    String strData = new String(Base64.getMimeEncoder().encode(binData), UtilIO.getUtf8());
+                    String strData = new String(Base64.getMimeEncoder().encode(binData), StandardCharsets.UTF_8);
                     cdataMap.put(name, strData);
                 } else {
                     Debug.logWarning("Field:" + name + " is not of type 'byte[]'. obj: " + obj, module);
@@ -1370,7 +1371,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 // random encoding; just treat it as a series of raw bytes.
                 // This won't give the same output as the value stored in the
                 // database, but should be good enough for printing
-                curValue = HashCrypt.cryptBytes(null, null, encryptField.getBytes(UtilIO.getUtf8()));
+                curValue = HashCrypt.cryptBytes(null, null, encryptField.getBytes(StandardCharsets.UTF_8));
             }
             theString.append('[');
             theString.append(curKey);

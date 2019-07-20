@@ -31,6 +31,7 @@ import java.io.PrintStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.KeyStore;
@@ -187,7 +188,7 @@ public final class KeyStoreUtil {
         byte[] certBuf = cert.getEncoded();
         StringBuilder buf = new StringBuilder();
         buf.append("-----BEGIN CERTIFICATE-----\n");
-        buf.append(new String(Base64.encodeBase64Chunked(certBuf), UtilIO.getUtf8()));
+        buf.append(new String(Base64.encodeBase64Chunked(certBuf), StandardCharsets.UTF_8));
         buf.append("\n-----END CERTIFICATE-----\n");
         return buf.toString();
     }
@@ -201,7 +202,7 @@ public final class KeyStoreUtil {
     }
 
     public static Certificate pemToCert(InputStream is) throws IOException, CertificateException {
-        return pemToCert(new InputStreamReader(is, UtilIO.getUtf8()));
+        return pemToCert(new InputStreamReader(is, StandardCharsets.UTF_8));
     }
 
     public static Certificate pemToCert(Reader r) throws IOException, CertificateException {
@@ -210,7 +211,7 @@ public final class KeyStoreUtil {
 
         BufferedReader reader = new BufferedReader(r);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(baos, false, UtilIO.getUtf8().toString());
+        PrintStream ps = new PrintStream(baos, false, StandardCharsets.UTF_8.toString());
 
         String line;
 

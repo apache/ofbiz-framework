@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.HashMap;
@@ -1021,7 +1022,7 @@ public class FedexServices {
                             "fDXShipReplyString", fDXShipReplyString), locale));
         }
 
-        byte[] labelBytes = Base64.getMimeDecoder().decode(encodedImageString.getBytes(UtilIO.getUtf8()));
+        byte[] labelBytes = Base64.getMimeDecoder().decode(encodedImageString.getBytes(StandardCharsets.UTF_8));
 
         if (labelBytes != null) {
 

@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -175,7 +176,7 @@ public class EntityDataServices {
         if (listFile.exists()) {
             BufferedReader reader = null;
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(listFile), UtilIO.getUtf8()));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(listFile), StandardCharsets.UTF_8));
             } catch (FileNotFoundException e) {
                 Debug.logError(e, module);
             }
@@ -227,7 +228,7 @@ public class EntityDataServices {
         if (headerFile.exists()) {
             try (
                     BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(headerFile),
-                            UtilIO.getUtf8()));) {
+                            StandardCharsets.UTF_8));) {
 
                 String firstLine = reader.readLine();
                 if (firstLine != null) {
@@ -250,7 +251,7 @@ public class EntityDataServices {
     private static int readEntityFile(File file, String delimiter, Delegator delegator) throws IOException, GeneralException {
         String entityName = file.getName().substring(0, file.getName().lastIndexOf('.'));
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
         String[] header = readEntityHeader(file, delimiter, reader);
 
         //Debug.logInfo("Opened data file [" + file.getName() + "] now running...", module);

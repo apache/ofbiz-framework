@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -314,7 +315,7 @@ public class EntitySaxReader extends DefaultHandler {
                 throw new SAXException("Could not find transform template with resource path: " + templatePath);
             } else {
                 try {
-                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(),UtilIO.getUtf8()));
+                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(),StandardCharsets.UTF_8));
 
                     StringWriter outWriter = new StringWriter();
                     Configuration config = FreeMarkerWorker.newConfiguration();

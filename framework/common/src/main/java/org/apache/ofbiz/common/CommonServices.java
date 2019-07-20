@@ -30,6 +30,7 @@ import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.io.Writer;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -472,8 +473,8 @@ public class CommonServices {
 
         String line;
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, UtilIO.getUtf8()));
-                Writer writer = new OutputStreamWriter(out, UtilIO.getUtf8())) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+                Writer writer = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
             while ((line = reader.readLine()) != null) {
                 Debug.logInfo("Read line: " + line, module);
                 writer.write(line);

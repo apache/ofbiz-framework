@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
@@ -48,7 +49,7 @@ public class DataFile2EntityXml {
     public static void writeToEntityXml(String fileName, DataFile dataFile) throws DataFileException {
         File file = new File(fileName);
 
-        try (BufferedWriter outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), UtilIO.getUtf8()));) {
+        try (BufferedWriter outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));) {
 
             outFile.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             outFile.newLine();
@@ -96,7 +97,7 @@ public class DataFile2EntityXml {
         String definitionLoc = args[1];
         String definitionName = args[2];
 
-        try (BufferedWriter outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dataFileLoc + ".xml"), UtilIO.getUtf8()));) {
+        try (BufferedWriter outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dataFileLoc + ".xml"), StandardCharsets.UTF_8));) {
             URL dataFileUrl = UtilURL.fromFilename(dataFileLoc);
             URL definitionUrl = UtilURL.fromFilename(definitionLoc);
 

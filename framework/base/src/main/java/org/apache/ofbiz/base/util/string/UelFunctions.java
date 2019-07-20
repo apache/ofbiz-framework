@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.Collection;
@@ -526,7 +527,7 @@ public class UelFunctions {
             sb.append("/>\n<xsl:template match=\"@*|node()\">\n");
             sb.append("<xsl:copy><xsl:apply-templates select=\"@*|node()\"/></xsl:copy>\n");
             sb.append("</xsl:template>\n</xsl:stylesheet>\n");
-            ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes(UtilIO.getUtf8()));
+            ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes(StandardCharsets.UTF_8));
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
                 UtilXml.transformDomDocument(transformerFactory.newTransformer(new StreamSource(bis)), node, os);

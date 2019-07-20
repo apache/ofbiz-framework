@@ -19,6 +19,7 @@
 package org.apache.ofbiz.entity.util;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -377,7 +378,7 @@ public final class EntityCrypto {
 
         @Override
         protected String getHashedKeyName(String originalKeyName) {
-            return HashCrypt.digestHash64("SHA", originalKeyName.getBytes(UtilIO.getUtf8()));
+            return HashCrypt.digestHash64("SHA", originalKeyName.getBytes(StandardCharsets.UTF_8));
         }
 
         @Override

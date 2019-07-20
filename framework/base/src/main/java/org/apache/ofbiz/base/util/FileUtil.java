@@ -35,6 +35,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -200,7 +201,7 @@ public final class FileUtil {
             throw new IOException("Cannot obtain buffered writer for an empty filename!");
         }
 
-        return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), UtilIO.getUtf8()));
+        return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), StandardCharsets.UTF_8));
     }
 
     public static OutputStream getBufferedOutputStream(String path, String name) throws IOException {
@@ -243,8 +244,7 @@ public final class FileUtil {
 
         StringBuffer buf = new StringBuffer();
         try (
-                BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), UtilIO
-                        .getUtf8()));) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));) {
 
             String str;
             while ((str = in.readLine()) != null) {
@@ -386,7 +386,7 @@ public final class FileUtil {
        File inFile = new File(fileName);
        if (inFile.exists()) {
             try (
-           BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile),UtilIO.getUtf8()));
+           BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile),StandardCharsets.UTF_8));
             ) {
                return containsString(in, searchString);
            }

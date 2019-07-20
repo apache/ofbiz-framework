@@ -30,6 +30,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
@@ -987,7 +988,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
-            try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8())) {
+            try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 UtilIO.copy(in, out);
             }
         } else if ("OFBIZ_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
@@ -997,7 +998,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
-            try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8())) {
+            try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 UtilIO.copy(in, out);
             }
         } else if ("CONTEXT_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
@@ -1007,7 +1008,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
-            try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8())) {
+            try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 if (Debug.infoOn()) {
                     String enc = in.getEncoding();
                     Debug.logInfo("in serveImage, encoding:" + enc, module);
@@ -1064,7 +1065,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 throw new GeneralException("Unsupported TEXT type; cannot stream");
             }
 
-            byte[] bytes = text.getBytes(UtilIO.getUtf8());
+            byte[] bytes = text.getBytes(StandardCharsets.UTF_8);
             return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", (long) bytes.length);
 
         // object (binary) data

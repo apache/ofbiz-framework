@@ -19,6 +19,7 @@
 package org.apache.ofbiz.base.util;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -385,7 +386,7 @@ public final class UtilFormatOut {
                 if (data.length > 5120) {
                     return "[...binary data]";
                 }
-                return new String(Base64.getMimeEncoder().encode(data), UtilIO.getUtf8());
+                return new String(Base64.getMimeEncoder().encode(data), StandardCharsets.UTF_8);
             }
             return obj1.toString();
         }

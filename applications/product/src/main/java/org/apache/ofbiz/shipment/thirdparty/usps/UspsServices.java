@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.Base64;
 import java.util.Collections;
@@ -1410,7 +1411,7 @@ public class UspsServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentUspsDeliveryConfirmationResponseIncompleteElementDeliveryConfirmationLabel", locale));
                 }
-                shipmentPackageRouteSeg.setBytes("labelImage", Base64.getMimeDecoder().decode(labelImageString.getBytes(UtilIO.getUtf8())));
+                shipmentPackageRouteSeg.setBytes("labelImage", Base64.getMimeDecoder().decode(labelImageString.getBytes(StandardCharsets.UTF_8)));
                 String trackingCode = UtilXml.childElementValue(responseElement, "DeliveryConfirmationNumber");
                 if (UtilValidate.isEmpty(trackingCode)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -1650,7 +1651,7 @@ public class UspsServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentUspsPriorityMailLabelResponseIncompleteElementLabelImage", locale));
             }
-            shipmentPackageRouteSeg.setBytes("labelImage", Base64.getMimeDecoder().decode(labelImageString.getBytes(UtilIO.getUtf8())));
+            shipmentPackageRouteSeg.setBytes("labelImage", Base64.getMimeDecoder().decode(labelImageString.getBytes(StandardCharsets.UTF_8)));
             String trackingCode = UtilXml.childElementValue(responseElement, "BarcodeNumber");
             if (UtilValidate.isEmpty(trackingCode)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -1704,7 +1705,7 @@ public class UspsServices {
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
-        String xmlString = new String(os.toByteArray(), UtilIO.getUtf8());
+        String xmlString = new String(os.toByteArray(), StandardCharsets.UTF_8);
 
         Debug.logInfo("USPS XML request string: " + xmlString, module);
 

@@ -19,6 +19,7 @@
 package org.apache.ofbiz.datafile;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -261,7 +262,7 @@ public class Record implements Serializable {
         else if (fieldType.equals("java.lang.String") || fieldType.equals("String")) {
             if (field.format.equals("EncryptedString")) {
                 String hashType = LoginServices.getHashType();
-                set(name, HashCrypt.digestHash(hashType, value.getBytes(UtilIO.getUtf8())));
+                set(name, HashCrypt.digestHash(hashType, value.getBytes(StandardCharsets.UTF_8)));
             } else {
                 set(name, value);
             }
@@ -283,11 +284,11 @@ public class Record implements Serializable {
         } else if (fieldType.equals("java.lang.Double") || fieldType.equals("Double")) {
             set(name, Double.valueOf(value));
         } else if (fieldType.equals("LEShort")) {
-            set(name, readLEShort(value.getBytes(UtilIO.getUtf8())));
+            set(name, readLEShort(value.getBytes(StandardCharsets.UTF_8)));
         } else if (fieldType.equals("LEInteger")) {
-            set(name, readLEInt(value.getBytes(UtilIO.getUtf8())));
+            set(name, readLEInt(value.getBytes(StandardCharsets.UTF_8)));
         } else if (fieldType.equals("LELong")) {
-            set(name, readLELong(value.getBytes(UtilIO.getUtf8())));
+            set(name, readLELong(value.getBytes(StandardCharsets.UTF_8)));
         } else {
             throw new IllegalArgumentException("Field type " + fieldType + " not currently supported. Sorry.");
         }

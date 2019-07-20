@@ -23,6 +23,7 @@ package org.apache.ofbiz.base.util;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -137,7 +138,7 @@ public class HttpRequestFileUpload {
         }
         int boundaryLength = i - 2;
 
-        String boundary = new String(line, 0, boundaryLength, UtilIO.getUtf8()); // -2 discards the newline character
+        String boundary = new String(line, 0, boundaryLength, StandardCharsets.UTF_8); // -2 discards the newline character
 
         Debug.logInfo("boundary=[" + boundary + "] length is " + boundaryLength, module);
         fields = new HashMap<>();
@@ -146,11 +147,11 @@ public class HttpRequestFileUpload {
             String newLine = "";
 
             if (i > -1) {
-                newLine = new String(line, 0, i, UtilIO.getUtf8());
+                newLine = new String(line, 0, i, StandardCharsets.UTF_8);
             }
             if (newLine.startsWith("Content-Disposition: form-data; name=\"")) {
                 if (newLine.indexOf("filename=\"") != -1) {
-                    setFilename(new String(line, 0, i - 2, UtilIO.getUtf8()));
+                    setFilename(new String(line, 0, i - 2, StandardCharsets.UTF_8));
                     if (filename == null) {
                         return;
                     }
@@ -158,7 +159,7 @@ public class HttpRequestFileUpload {
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                     requestLength -= i;
 
-                    setContentType(new String(line, 0, i - 2, UtilIO.getUtf8()));
+                    setContentType(new String(line, 0, i - 2, StandardCharsets.UTF_8));
 
                     // blank line
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
@@ -192,7 +193,7 @@ public class HttpRequestFileUpload {
                     }
                     try (
                             FileOutputStream fos = new FileOutputStream(savePath + filenameToUse);) {
-                        boolean bail = (new String(line, 0, i, UtilIO.getUtf8()).startsWith(boundary));
+                        boolean bail = (new String(line, 0, i, StandardCharsets.UTF_8).startsWith(boundary));
                         boolean oneByteLine = (i == 1); // handle one-byte lines
 
                         while ((requestLength > 0/* i != -1 */) && !bail) {
@@ -247,7 +248,7 @@ public class HttpRequestFileUpload {
                     requestLength -= i;
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                     requestLength -= i;
-                    newLine = new String(line, 0, i, UtilIO.getUtf8());
+                    newLine = new String(line, 0, i, StandardCharsets.UTF_8);
                     StringBuilder fieldValue = new StringBuilder(BUFFER_SIZE);
 
                     while (requestLength > 0/* i != -1*/ && !newLine.startsWith(boundary)) {
@@ -263,7 +264,7 @@ public class HttpRequestFileUpload {
                         } else {
                             fieldValue.append(newLine);
                         }
-                        newLine = new String(line, 0, i, UtilIO.getUtf8());
+                        newLine = new String(line, 0, i, StandardCharsets.UTF_8);
                     }
                     fields.put(fieldName, fieldValue.toString());
                 }

@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -126,8 +127,7 @@ public final class ScriptUtil {
             try {
                 Compilable compilableEngine = (Compilable) engine;
                 URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream(), UtilIO
-                        .getUtf8()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream(), StandardCharsets.UTF_8));
                 script = compilableEngine.compile(reader);
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Compiled script " + filePath + " using engine " + engine.getClass().getName(), module);
@@ -363,8 +363,7 @@ public final class ScriptUtil {
         engine.setContext(scriptContext);
         URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
         try (
-                InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptUrl.getFile()), UtilIO
-                        .getUtf8());) {
+                InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptUrl.getFile()), StandardCharsets.UTF_8);) {
             Object result = engine.eval(reader);
             if (UtilValidate.isNotEmpty(functionName)) {
                 try {

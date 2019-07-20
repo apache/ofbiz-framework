@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -850,7 +851,7 @@ public class DhlServices {
                 continue;
             sb.append(encodedImageString.charAt(i));
         }
-        byte[] labelBytes = Base64.getMimeDecoder().decode(sb.toString().getBytes(UtilIO.getUtf8()));
+        byte[] labelBytes = Base64.getMimeDecoder().decode(sb.toString().getBytes(StandardCharsets.UTF_8));
 
         if (labelBytes != null) {
             // store in db blob

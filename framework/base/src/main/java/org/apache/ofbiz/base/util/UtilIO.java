@@ -31,9 +31,9 @@ import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public final class UtilIO {
-    private static final Charset UTF8 = Charset.forName("UTF-8");
     public static final String module = UtilIO.class.getName();
 
     private UtilIO () {}
@@ -61,7 +61,7 @@ public final class UtilIO {
      * to \n
      */
     public static final String readString(byte[] bytes) {
-        return readString(bytes, 0, bytes.length, UTF8);
+        return readString(bytes, 0, bytes.length, StandardCharsets.UTF_8);
     }
 
     /** Convert a byte array to a string; consistently uses \n line endings
@@ -75,7 +75,7 @@ public final class UtilIO {
      * to \n
      */
     public static final String readString(byte[] bytes, int offset, int length) {
-        return readString(bytes, offset, length, UTF8);
+        return readString(bytes, offset, length, StandardCharsets.UTF_8);
     }
 
     /** Convert a byte array to a string; consistently uses \n line endings
@@ -146,7 +146,7 @@ public final class UtilIO {
      * to \n
      */
     public static final String readString(InputStream stream) throws IOException {
-        return readString(stream, UTF8);
+        return readString(stream, StandardCharsets.UTF_8);
     }
 
     /** Convert an {@link InputStream} to a string; consistently uses \n line endings
@@ -221,7 +221,7 @@ public final class UtilIO {
      * @param value the value to write
      */
     public static void writeString(File file, String value) throws IOException {
-        writeString(new FileOutputStream(file), UTF8, value);
+        writeString(new FileOutputStream(file), StandardCharsets.UTF_8, value);
     }
 
     /** Convert a \n string to a platform encoding.  This uses a default
@@ -231,7 +231,7 @@ public final class UtilIO {
      * @param value the value to write
      */
     public static void writeString(OutputStream out, String value) throws IOException {
-        writeString(out, UTF8, value);
+        writeString(out, StandardCharsets.UTF_8, value);
     }
 
     /** Convert a \n string to a platform encoding.  This uses the
@@ -268,9 +268,5 @@ public final class UtilIO {
             }
             writer.write(value.substring(r));
         }
-    }
-
-    public static Charset getUtf8() {
-        return UTF8;
     }
 }

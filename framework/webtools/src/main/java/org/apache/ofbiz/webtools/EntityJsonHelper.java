@@ -25,6 +25,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelField;
 
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,7 +53,7 @@ public class EntityJsonHelper {
                 boolean b1 = obj instanceof byte[];
                 if (b1) {
                     byte[] binData = (byte[]) obj;
-                    String strData = new String(Base64.getMimeEncoder().encode(binData), UtilIO.getUtf8());
+                    String strData = new String(Base64.getMimeEncoder().encode(binData), StandardCharsets.UTF_8);
                     if (UtilValidate.isNotEmpty(strData)) {
                         fieldMap.put(name, strData);
                     }
@@ -105,7 +106,7 @@ public class EntityJsonHelper {
                 boolean b1 = obj instanceof byte[];
                 if (b1) {
                     byte[] binData = (byte[]) obj;
-                    String strData = new String(Base64.getMimeEncoder().encode(binData), UtilIO.getUtf8());
+                    String strData = new String(Base64.getMimeEncoder().encode(binData), StandardCharsets.UTF_8);
                     if (UtilValidate.isNotEmpty(strData)) {
                         fieldMap.put(name, strData);
                     }

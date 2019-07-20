@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +137,7 @@ public class DataFile {
             throw new IllegalStateException("Content is empty, can't read file");
         }
 
-        ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes(UtilIO.getUtf8()));
+        ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
 
         readDataFile(bis, null);
     }
@@ -219,7 +220,7 @@ public class DataFile {
             String line = record.writeLineString(modelDataFile);
 
             try {
-                outStream.write(line.getBytes(UtilIO.getUtf8()));
+                outStream.write(line.getBytes(StandardCharsets.UTF_8));
             }
             catch (IOException e) {
                 throw new DataFileException("Could not write to stream;", e);
