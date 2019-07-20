@@ -20,8 +20,11 @@ package org.apache.ofbiz.webapp.webdav;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +33,6 @@ import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -78,7 +80,7 @@ public final class WebDavUtil {
         if (UtilValidate.isEmpty(username) || UtilValidate.isEmpty(password)) {
             String credentials = request.getHeader("Authorization");
             if (credentials != null && credentials.startsWith("Basic ")) {
-                credentials = Base64.base64Decode(credentials.replace("Basic ", ""));
+                credentials = Arrays.toString(Base64.getMimeDecoder().decode(credentials.replace("Basic ", "").getBytes(StandardCharsets.UTF_8)));
                 if (Debug.verboseOn()) Debug.logVerbose("Found HTTP Basic credentials", module);
                 String[] parts = credentials.split(":");
                 if (parts.length < 2) {

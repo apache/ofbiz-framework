@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -384,7 +385,7 @@ public final class UtilFormatOut {
                 if (data.length > 5120) {
                     return "[...binary data]";
                 }
-                return new String(Base64.base64Encode(data), UtilIO.getUtf8());
+                return new String(Base64.getMimeEncoder().encode(data), UtilIO.getUtf8());
             }
             return obj1.toString();
         }

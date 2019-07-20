@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,7 +38,6 @@ import java.util.ResourceBundle;
 import java.util.TreeSet;
 
 import org.apache.ofbiz.base.crypto.HashCrypt;
-import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
@@ -1193,7 +1193,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 boolean b1 = obj instanceof byte [];
                 if (b1) {
                     byte [] binData = (byte [])obj;
-                    String strData = new String(Base64.base64Encode(binData), UtilIO.getUtf8());
+                    String strData = new String(Base64.getMimeEncoder().encode(binData), UtilIO.getUtf8());
                     cdataMap.put(name, strData);
                 } else {
                     Debug.logWarning("Field:" + name + " is not of type 'byte[]'. obj: " + obj, module);

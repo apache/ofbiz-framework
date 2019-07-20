@@ -28,6 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +39,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -369,7 +369,7 @@ public class EntitySaxReader extends DefaultHandler {
                         ModelField modelField = modelEntity.getField(currentFieldName.toString());
                         String type = modelField.getType();
                         if (type != null && "blob".equals(type)) {
-                            byte[] binData = Base64.base64Decode((new String(currentFieldValue)).getBytes());
+                            byte[] binData = Base64.getMimeDecoder().decode((new String(currentFieldValue)).getBytes());
                             currentValue.setBytes(currentFieldName.toString(), binData);
                         } else {
                             currentValue.setString(currentFieldName.toString(), new String(currentFieldValue));

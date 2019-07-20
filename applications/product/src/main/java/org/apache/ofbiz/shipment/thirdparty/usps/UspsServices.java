@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -36,7 +37,6 @@ import java.util.Map;
 import javax.xml.transform.TransformerException;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.HttpClient;
@@ -1410,7 +1410,7 @@ public class UspsServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentUspsDeliveryConfirmationResponseIncompleteElementDeliveryConfirmationLabel", locale));
                 }
-                shipmentPackageRouteSeg.setBytes("labelImage", Base64.base64Decode(labelImageString.getBytes(UtilIO.getUtf8())));
+                shipmentPackageRouteSeg.setBytes("labelImage", Base64.getMimeDecoder().decode(labelImageString.getBytes(UtilIO.getUtf8())));
                 String trackingCode = UtilXml.childElementValue(responseElement, "DeliveryConfirmationNumber");
                 if (UtilValidate.isEmpty(trackingCode)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -1650,7 +1650,7 @@ public class UspsServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentUspsPriorityMailLabelResponseIncompleteElementLabelImage", locale));
             }
-            shipmentPackageRouteSeg.setBytes("labelImage", Base64.base64Decode(labelImageString.getBytes(UtilIO.getUtf8())));
+            shipmentPackageRouteSeg.setBytes("labelImage", Base64.getMimeDecoder().decode(labelImageString.getBytes(UtilIO.getUtf8())));
             String trackingCode = UtilXml.childElementValue(responseElement, "BarcodeNumber");
             if (UtilValidate.isEmpty(trackingCode)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 

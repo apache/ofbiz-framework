@@ -19,6 +19,7 @@
 package org.apache.ofbiz.base.crypto;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -191,7 +192,7 @@ public class HashCrypt {
             StringBuilder sb = new StringBuilder();
             sb.append("{").append(pbkdf2Type).append("}");
             sb.append(PBKDF2_ITERATIONS).append("$");
-            sb.append(org.apache.ofbiz.base.util.Base64.base64Encode(salt)).append("$");
+            sb.append(java.util.Base64.getMimeEncoder().encodeToString(salt.getBytes(StandardCharsets.UTF_8))).append("$");
             sb.append(new String(hash));
             return sb.toString();
         } catch (InvalidKeySpecException e) {
@@ -207,7 +208,7 @@ public class HashCrypt {
             String hashType = crypted.substring(1, typeEnd);
             String[] parts = crypted.split("\\$");
             int iterations = Integer.parseInt(parts[0].substring(typeEnd+1));
-            byte[] salt = org.apache.ofbiz.base.util.Base64.base64Decode(parts[1]).getBytes(UtilIO.getUtf8());
+            byte[] salt = Arrays.toString(java.util.Base64.getMimeDecoder().decode(parts[1].getBytes(StandardCharsets.UTF_8))).getBytes(UtilIO.getUtf8());
             byte[] hash = Base64.decodeBase64(parts[2].getBytes(UtilIO.getUtf8()));
 
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, hash.length * 8);

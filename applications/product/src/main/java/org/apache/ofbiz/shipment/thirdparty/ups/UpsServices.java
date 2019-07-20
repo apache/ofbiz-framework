@@ -24,7 +24,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -37,7 +40,6 @@ import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.HttpClient;
@@ -1103,15 +1105,15 @@ public class UpsServices {
                 }
                 byte[] labelImageBytes = null;
                 if (packageLabelGraphicImageString != null) {
-                    labelImageBytes = Base64.base64Decode(packageLabelGraphicImageString.getBytes(UtilIO.getUtf8()));
+                    labelImageBytes = Base64.getMimeDecoder().decode(packageLabelGraphicImageString.getBytes(UtilIO.getUtf8()));
                     shipmentPackageRouteSeg.setBytes("labelImage", labelImageBytes);
                 }
                 byte[] labelInternationalSignatureGraphicImageBytes = null;
                 if (packageLabelInternationalSignatureGraphicImageString != null) {
-                    labelInternationalSignatureGraphicImageBytes = Base64.base64Decode(packageLabelInternationalSignatureGraphicImageString.getBytes(UtilIO.getUtf8()));
+                    labelInternationalSignatureGraphicImageBytes = Base64.getMimeDecoder().decode(packageLabelInternationalSignatureGraphicImageString.getBytes(UtilIO.getUtf8()));
                     shipmentPackageRouteSeg.set("labelIntlSignImage", labelInternationalSignatureGraphicImageBytes);
                 }
-                String packageLabelHTMLImageStringDecoded = Base64.base64Decode(packageLabelHTMLImageString);
+                String packageLabelHTMLImageStringDecoded = Arrays.toString(Base64.getMimeDecoder().decode(packageLabelHTMLImageString.getBytes(StandardCharsets.UTF_8)));
                 shipmentPackageRouteSeg.set("labelHtml", packageLabelHTMLImageStringDecoded);
 
                 if (shipmentUpsSaveCertificationInfo) {
@@ -1161,7 +1163,7 @@ public class UpsServices {
             Element controlLogReceiptElement = UtilXml.firstChildElement(shipmentResultsElement, "ControlLogReceipt");
             if (controlLogReceiptElement != null) {
                 String fileString = UtilXml.childElementValue(controlLogReceiptElement, "GraphicImage");
-                String fileStringDecoded = Base64.base64Decode(fileString);
+                String fileStringDecoded = Arrays.toString(Base64.getMimeDecoder().decode(fileString.getBytes(StandardCharsets.UTF_8)));
                 if (fileStringDecoded != null) {
                     shipmentRouteSegment.set("upsHighValueReport", fileStringDecoded);
                     shipmentRouteSegment.store();

@@ -18,7 +18,6 @@
  */
 package org.apache.ofbiz.webtools;
 
-import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -26,6 +25,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelField;
 
 import java.io.PrintWriter;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -52,7 +52,7 @@ public class EntityJsonHelper {
                 boolean b1 = obj instanceof byte[];
                 if (b1) {
                     byte[] binData = (byte[]) obj;
-                    String strData = new String(Base64.base64Encode(binData), UtilIO.getUtf8());
+                    String strData = new String(Base64.getMimeEncoder().encode(binData), UtilIO.getUtf8());
                     if (UtilValidate.isNotEmpty(strData)) {
                         fieldMap.put(name, strData);
                     }
@@ -105,7 +105,7 @@ public class EntityJsonHelper {
                 boolean b1 = obj instanceof byte[];
                 if (b1) {
                     byte[] binData = (byte[]) obj;
-                    String strData = new String(Base64.base64Encode(binData), UtilIO.getUtf8());
+                    String strData = new String(Base64.getMimeEncoder().encode(binData), UtilIO.getUtf8());
                     if (UtilValidate.isNotEmpty(strData)) {
                         fieldMap.put(name, strData);
                     }

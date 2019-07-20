@@ -26,7 +26,9 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -487,7 +489,7 @@ public class HttpClient {
 
             // if there is basicAuth info set the request property for it
             if (basicAuthUsername != null) {
-                String basicAuthString = "Basic " + Base64.base64Encode(basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword));
+                String basicAuthString = "Basic " + Base64.getMimeEncoder().encodeToString((basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword)).getBytes(StandardCharsets.UTF_8));
                 con.setRequestProperty("Authorization", basicAuthString);
                 if (Debug.verboseOn() || debug) {
                     Debug.logVerbose("Header - Authorization: " + basicAuthString, module);

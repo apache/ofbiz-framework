@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -11,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.lang.JSON;
-import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -244,7 +244,7 @@ public class EntityJsonReader {
                                 Object pkFieldValue = keyValPair.get(pkField);
                                 String type = modelField.getType();
                                 if (type != null && "blob".equals(type)) {
-                                    byte[] binData = Base64.base64Decode((pkFieldValue.toString()).getBytes());
+                                    byte[] binData = Base64.getMimeDecoder().decode((pkFieldValue.toString()).getBytes());
                                     currentValue.setBytes(pkField, binData);
                                 } else {
                                     currentValue.setString(pkField, pkFieldValue.toString());
@@ -270,7 +270,7 @@ public class EntityJsonReader {
                                             ModelField modelField = modelEntity.getField(currentFieldName);
                                             String type = modelField.getType();
                                             if (type != null && "blob".equals(type)) {
-                                                byte[] binData = Base64.base64Decode(currentFieldValue.toString().getBytes());
+                                                byte[] binData = Base64.getMimeDecoder().decode(currentFieldValue.toString().getBytes());
                                                 currentValue.setBytes(currentFieldName, binData);
                                             } else {
                                                 currentValue.setString(currentFieldName, currentFieldValue.toString());
