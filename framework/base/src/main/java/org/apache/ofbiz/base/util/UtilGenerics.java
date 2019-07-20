@@ -19,7 +19,6 @@
 package org.apache.ofbiz.base.util;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -107,51 +106,5 @@ public final class UtilGenerics {
             return null;
         }
         return (Map<K, V>) object;
-    }
-
-    public static <K, V> Map<K, V> toMap(Class<K> keyType, Class<V> valueType, Object... data) {
-        if (data == null) {
-            return null;
-        }
-        if (data.length % 2 == 1) {
-            throw new IllegalArgumentException("You must pass an even sized array to the toMap method");
-        }
-        Map<K, V> map = new LinkedHashMap<>();
-        for (int i = 0; i < data.length;) {
-            Object key = data[i];
-            if (key != null && !(keyType.isInstance(key))) {
-                throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
-            }
-            i++;
-            Object value = data[i];
-            if (value != null && !(valueType.isInstance(value))) {
-                throw new IllegalArgumentException("Value(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
-            }
-            i++;
-            map.put(keyType.cast(key), valueType.cast(value));
-        }
-        return map;
-    }
-
-    @SafeVarargs
-    @SuppressWarnings("hiding")
-    public static <K, Object> Map<K, Object> toMap(Class<K> keyType, Object... data) {
-        if (data == null) {
-            return null;
-        }
-        if (data.length % 2 == 1) {
-            throw new IllegalArgumentException("You must pass an even sized array to the toMap method");
-        }
-        Map<K, Object> map = new LinkedHashMap<>();
-        for (int i = 0; i < data.length;) {
-            Object key = data[i];
-            if (key != null && !(keyType.isInstance(key))) {
-                throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
-            }
-            i++;
-            Object value = data[i];
-            map.put(keyType.cast(key), value);
-        }
-        return map;
     }
 }

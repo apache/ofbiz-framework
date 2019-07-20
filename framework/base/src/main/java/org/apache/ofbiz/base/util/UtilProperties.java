@@ -682,7 +682,7 @@ public final class UtilProperties implements Serializable {
     }
 
     public static String getMessageMap(String resource, String name, Locale locale, Object... context) {
-        return getMessage(resource, name, UtilGenerics.toMap(String.class, context), locale);
+        return getMessage(resource, name, UtilMisc.toMap(context), locale);
     }
 
     private static Set<String> resourceNotFoundMessagesShown = new HashSet<>();
