@@ -72,7 +72,7 @@ public final class Paginator {
             List<?> items = (List<?>) entryList;
             listSize = items.size();
             if(context.containsKey("result")){
-                Map<String, Object> resultMap = UtilGenerics.checkMap(context.get("result"));
+                Map<String, Object> resultMap = UtilGenerics.cast(context.get("result"));
                 if(resultMap.containsKey("listSize")){
                     listSize = (int)resultMap.get("listSize");
                 }

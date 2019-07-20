@@ -541,7 +541,7 @@ public class UtilCodec {
                 }
                 return UtilCodec.getEncoder("html").encode((String) theObject);
             } else if (theObject instanceof Map<?, ?>) {
-                return HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(UtilGenerics.<K, Object>checkMap(theObject), this.encoder);
+                return HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(UtilGenerics.cast(theObject), this.encoder);
             }
             return theObject;
         }

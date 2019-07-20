@@ -153,9 +153,9 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 if (globalNodeTrail.size() > 0) {
                     int sz = globalNodeTrail.size() ;
                     nodeTrail = new LinkedList<>();
-                    node = UtilGenerics.checkMap(globalNodeTrail.get(sz - 1));
+                    node = UtilGenerics.cast(globalNodeTrail.get(sz - 1));
                     Boolean checkedObj = (Boolean)node.get("checked");
-                    Map<String, Object> whenMap = UtilGenerics.checkMap(templateRoot.get("whenMap"));
+                    Map<String, Object> whenMap = UtilGenerics.cast(templateRoot.get("whenMap"));
                     if (checkedObj == null || !checkedObj) {
                         ContentWorker.checkConditions(delegator, node, null, whenMap);
                     }

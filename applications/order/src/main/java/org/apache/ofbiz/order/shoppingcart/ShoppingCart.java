@@ -4366,12 +4366,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 if (! dropShipItems.containsKey(supplierPartyId)) {
                     dropShipItems.put(supplierPartyId, new HashMap<ShoppingCartItem, Map<Integer, BigDecimal>>());
                 }
-                Map<ShoppingCartItem, Map<Integer, BigDecimal>> supplierCartItems = UtilGenerics.checkMap(dropShipItems.get(supplierPartyId));
+                Map<ShoppingCartItem, Map<Integer, BigDecimal>> supplierCartItems = UtilGenerics.cast(dropShipItems.get(supplierPartyId));
 
                 if (! supplierCartItems.containsKey(cartItem)) {
                     supplierCartItems.put(cartItem, new HashMap<Integer, BigDecimal>());
                 }
-                Map<Integer, BigDecimal> cartItemGroupQuantities = UtilGenerics.checkMap(supplierCartItems.get(cartItem));
+                Map<Integer, BigDecimal> cartItemGroupQuantities = UtilGenerics.cast(supplierCartItems.get(cartItem));
 
                 cartItemGroupQuantities.put(shipGroupIndex, dropShipQuantity);
             }
@@ -4396,10 +4396,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             shipInfo.supplierPartyId = supplierPartyId;
             shipInfo.supplierAgreementId = null;
 
-            Map<ShoppingCartItem, Map<Integer, BigDecimal>> supplierCartItems = UtilGenerics.checkMap(supplierPartyEntry.getValue());
+            Map<ShoppingCartItem, Map<Integer, BigDecimal>> supplierCartItems = UtilGenerics.cast(supplierPartyEntry.getValue());
             for (Entry<ShoppingCartItem, Map<Integer, BigDecimal>> cartItemEntry : supplierCartItems.entrySet()) {
                 ShoppingCartItem cartItem = cartItemEntry.getKey();
-                Map<Integer, BigDecimal> cartItemGroupQuantities = UtilGenerics.checkMap(cartItemEntry.getValue());
+                Map<Integer, BigDecimal> cartItemGroupQuantities = UtilGenerics.cast(cartItemEntry.getValue());
                 for (Entry<Integer, BigDecimal> previousShipGroupIndexEntry : cartItemGroupQuantities.entrySet()) {
                     Integer previousShipGroupIndex = previousShipGroupIndexEntry.getKey();
                     BigDecimal dropShipQuantity = previousShipGroupIndexEntry.getValue();

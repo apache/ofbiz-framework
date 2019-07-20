@@ -816,7 +816,7 @@ public class WorkEffortServices {
                 }
                 String weFacilityId = incomingProductionRun.getString("facilityId");
 
-                Map<String, Object> quantitySummary = UtilGenerics.checkMap(summaryInByFacility.get(weFacilityId));
+                Map<String, Object> quantitySummary = UtilGenerics.cast(summaryInByFacility.get(weFacilityId));
                 if (quantitySummary == null) {
                     quantitySummary = new HashMap<>();
                     quantitySummary.put("facilityId", weFacilityId);
@@ -864,7 +864,7 @@ public class WorkEffortServices {
                     neededQuantity = (double) 0;
                 }
 
-                Map<String, Object> quantitySummary = UtilGenerics.checkMap(summaryOutByFacility.get(weFacilityId));
+                Map<String, Object> quantitySummary = UtilGenerics.cast(summaryOutByFacility.get(weFacilityId));
                 if (quantitySummary == null) {
                     quantitySummary = new HashMap<>();
                     quantitySummary.put("facilityId", weFacilityId);
@@ -1045,7 +1045,7 @@ public class WorkEffortServices {
     public static Map<String, Object> processWorkEffortEventReminder(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        Map<String, Object> parameters = UtilGenerics.checkMap(context.get("bodyParameters"));
+        Map<String, Object> parameters = UtilGenerics.cast(context.get("bodyParameters"));
         GenericValue reminder = (GenericValue) context.get("reminder");
         GenericValue contactMech = null;
         try {

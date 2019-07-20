@@ -168,7 +168,7 @@ public class HumanResEvents {
         String hrefString = (String) params.get("hrefString");
         String hrefString2 = (String) params.get("hrefString2");
 
-        Map<String , Object> partyGroup = UtilGenerics.checkMap(params.get("partyGroup"));
+        Map<String , Object> partyGroup = UtilGenerics.cast(params.get("partyGroup"));
         List<Map<String, Object>> resultList = new ArrayList<>();
         List<GenericValue> childOfComs = null;
 

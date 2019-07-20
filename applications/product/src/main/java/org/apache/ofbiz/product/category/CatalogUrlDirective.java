@@ -49,7 +49,7 @@ public class CatalogUrlDirective implements TemplateDirectiveModel {
     @Override
     public void execute(Environment env, @SuppressWarnings("rawtypes") Map args, TemplateModel[] loopVars,
             TemplateDirectiveBody body) throws TemplateException, IOException {
-        Map<String, TemplateModel> params = UtilGenerics.checkMap(args);
+        Map<String, TemplateModel> params = UtilGenerics.cast(args);
         String productId = (String) DeepUnwrap.unwrap(params.get("productId"));
         String currentCategoryId = (String) DeepUnwrap.unwrap(params.get("currentCategoryId"));
         String previousCategoryId = (String) DeepUnwrap.unwrap(params.get("previousCategoryId"));

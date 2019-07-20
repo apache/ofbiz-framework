@@ -730,7 +730,7 @@ public class FormRenderer {
                     continue;
                 }
 
-                Map<String, Object> itemMap = UtilGenerics.checkMap(item);
+                Map<String, Object> itemMap = UtilGenerics.cast(item);
                 MapStack<String> localContext = MapStack.create(context);
                 if (UtilValidate.isNotEmpty(modelForm.getListEntryName())) {
                     localContext.put(modelForm.getListEntryName(), item);

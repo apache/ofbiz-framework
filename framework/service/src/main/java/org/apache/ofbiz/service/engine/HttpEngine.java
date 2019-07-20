@@ -85,7 +85,7 @@ public class HttpEngine extends GenericAsyncEngine {
         try {
             Object res = XmlSerializer.deserialize(postResult, dctx.getDelegator());
             if (res instanceof Map<?, ?>) {
-                result = UtilGenerics.checkMap(res);
+                result = UtilGenerics.cast(res);
             } else {
                 throw new GenericServiceException("Result not an instance of Map.");
             }
@@ -135,7 +135,7 @@ public class HttpEngine extends GenericAsyncEngine {
                 try {
                     Object o = XmlSerializer.deserialize(xmlContext, delegator);
                     if (o instanceof Map<?, ?>) {
-                        context = UtilGenerics.checkMap(o);
+                        context = UtilGenerics.cast(o);
                     } else {
                         Debug.logError("Context not an instance of Map error", module);
                         result.put(ModelService.ERROR_MESSAGE, "Context not an instance of Map");

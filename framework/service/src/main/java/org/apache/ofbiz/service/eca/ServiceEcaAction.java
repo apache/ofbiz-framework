@@ -134,7 +134,7 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         // put the results in to the defined map
         if (UtilValidate.isNotEmpty(resultMapName)) {
-            Map<String, Object> resultMap = UtilGenerics.checkMap(context.get(resultMapName));
+            Map<String, Object> resultMap = UtilGenerics.cast(context.get(resultMapName));
             if (resultMap == null) {
                 resultMap = new HashMap<>();
             }
@@ -185,7 +185,7 @@ public class ServiceEcaAction implements java.io.Serializable {
             String errorMessage = (String) actionResult.get(ModelService.ERROR_MESSAGE);
             String failMessage = (String) actionResult.get("failMessage");
             List<? extends Object> errorMessageList = UtilGenerics.checkList(actionResult.get(ModelService.ERROR_MESSAGE_LIST));
-            Map<String, ? extends Object> errorMessageMap = UtilGenerics.checkMap(actionResult.get(ModelService.ERROR_MESSAGE_MAP));
+            Map<String, ? extends Object> errorMessageMap = UtilGenerics.cast(actionResult.get(ModelService.ERROR_MESSAGE_MAP));
 
             // do something with the errorMessage
             if (UtilValidate.isNotEmpty(errorMessage)) {
@@ -211,7 +211,7 @@ public class ServiceEcaAction implements java.io.Serializable {
             }
             // do something with the errorMessageMap
             if (UtilValidate.isNotEmpty(errorMessageMap)) {
-                Map<String, Object> origErrorMessageMap = UtilGenerics.checkMap(result.get(ModelService.ERROR_MESSAGE_MAP));
+                Map<String, Object> origErrorMessageMap = UtilGenerics.cast(result.get(ModelService.ERROR_MESSAGE_MAP));
                 if (origErrorMessageMap == null) {
                     result.put(ModelService.ERROR_MESSAGE_MAP, errorMessageMap);
                 } else {

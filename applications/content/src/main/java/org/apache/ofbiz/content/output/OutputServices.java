@@ -94,7 +94,7 @@ public class OutputServices {
             visualTheme = ThemeFactory.resolveVisualTheme(null);
         }        
         String screenLocation = (String) serviceContext.remove("screenLocation");
-        Map<String, Object> screenContext = UtilGenerics.checkMap(serviceContext.remove("screenContext"));
+        Map<String, Object> screenContext = UtilGenerics.cast(serviceContext.remove("screenContext"));
         String contentType = (String) serviceContext.remove("contentType");
         String printerContentType = (String) serviceContext.remove("printerContentType");
 
@@ -212,7 +212,7 @@ public class OutputServices {
             visualTheme = ThemeFactory.resolveVisualTheme(null);
         }        
         String screenLocation = (String) serviceContext.remove("screenLocation");
-        Map<String, Object> screenContext = UtilGenerics.checkMap(serviceContext.remove("screenContext"));
+        Map<String, Object> screenContext = UtilGenerics.cast(serviceContext.remove("screenContext"));
         String contentType = (String) serviceContext.remove("contentType");
         String filePath = (String) serviceContext.remove("filePath");
         String fileName = (String) serviceContext.remove("fileName");

@@ -135,7 +135,7 @@ public final class ServiceUtil {
                 errorList.addAll(UtilGenerics.checkList(nestedResult.get(ModelService.ERROR_MESSAGE_LIST)));
             }
             if (nestedResult.get(ModelService.ERROR_MESSAGE_MAP) != null) {
-                errorMap.putAll(UtilGenerics.<String, Object>checkMap(nestedResult.get(ModelService.ERROR_MESSAGE_MAP)));
+                errorMap.putAll(UtilGenerics.cast(nestedResult.get(ModelService.ERROR_MESSAGE_MAP)));
             }
         }
 
@@ -269,7 +269,7 @@ public final class ServiceUtil {
         }
         String errorMsg = (String) result.get(ModelService.ERROR_MESSAGE);
         List<? extends Object> errorMsgList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
-        Map<String, ? extends Object> errorMsgMap = UtilGenerics.checkMap(result.get(ModelService.ERROR_MESSAGE_MAP));
+        Map<String, ? extends Object> errorMsgMap = UtilGenerics.cast(result.get(ModelService.ERROR_MESSAGE_MAP));
         StringBuilder outMsg = new StringBuilder();
 
         if (errorMsg != null) {
@@ -389,7 +389,7 @@ public final class ServiceUtil {
 
         //See if there are an error message map
         if (callResult.containsKey(ModelService.ERROR_MESSAGE_MAP)) {
-            errorMsgMap = UtilGenerics.checkMap(callResult.get(ModelService.ERROR_MESSAGE_MAP));
+            errorMsgMap = UtilGenerics.cast(callResult.get(ModelService.ERROR_MESSAGE_MAP));
             targetMap.putAll(errorMsgMap);
         }
     }
@@ -673,7 +673,7 @@ public final class ServiceUtil {
                 throw new IllegalArgumentException("Arg(" + i + "), value(" + args[i] + ") is not a string.");
             }
         }
-        return UtilGenerics.checkMap(UtilMisc.toMap(args));
+        return UtilGenerics.cast(UtilMisc.toMap(args));
     }
 
     public static Map<String, Object> resetJob(DispatchContext dctx, Map<String, Object> context) {

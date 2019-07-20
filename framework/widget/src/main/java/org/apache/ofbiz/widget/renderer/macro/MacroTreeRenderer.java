@@ -140,7 +140,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         String entityId = null;
         String entryName = node.getEntryName();
         if (UtilValidate.isNotEmpty(entryName)) {
-            Map<String, String> map = UtilGenerics.checkMap(context.get(entryName));
+            Map<String, String> map = UtilGenerics.cast(context.get(entryName));
             entityId = map.get(pkName);
         } else {
             entityId = (String) context.get(pkName);

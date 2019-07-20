@@ -130,7 +130,7 @@ public final class UtilMisc {
     @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> toMap(Supplier<Map<K, V>> constructor, Object... kvs) {
         if (kvs.length == 1 && kvs[0] instanceof Map) {
-            return UtilGenerics.<K, V>checkMap(kvs[0]);
+            return UtilGenerics.cast(kvs[0]);
         }
         if (kvs.length % 2 == 1) {
             IllegalArgumentException e = new IllegalArgumentException(
@@ -221,7 +221,7 @@ public final class UtilMisc {
      * Assuming outerMap not null; if null will throw a NullPointerException
      */
     public static <K, IK, V> Map<IK, V> getMapFromMap(Map<K, Object> outerMap, K key) {
-        Map<IK, V> innerMap = UtilGenerics.<IK, V>checkMap(outerMap.get(key));
+        Map<IK, V> innerMap = UtilGenerics.cast(outerMap.get(key));
         if (innerMap == null) {
             innerMap = new HashMap<>();
             outerMap.put(key, innerMap);

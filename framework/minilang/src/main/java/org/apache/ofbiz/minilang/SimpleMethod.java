@@ -524,7 +524,7 @@ public final class SimpleMethod extends MiniLangElement {
                 summaryErrorStringBuffer.append("; ");
                 summaryErrorStringBuffer.append(errorMsgList.toString());
             }
-            Map<String, Object> errorMsgMap = UtilGenerics.checkMap(methodContext.getEnv(serviceErrorMessageMapName));
+            Map<String, Object> errorMsgMap = UtilGenerics.cast(methodContext.getEnv(serviceErrorMessageMapName));
             if (UtilValidate.isNotEmpty(errorMsgMap)) {
                 methodContext.putResult(ModelService.ERROR_MESSAGE_MAP, errorMsgMap);
                 forceError = true;

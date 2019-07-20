@@ -150,7 +150,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                 if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                     templateCtx.put("wrappedContent", wrappedContent);
                     Map<String, Object> templateRoot = null;
-                    Map<String, Object> templateRootTemplate = UtilGenerics.checkMap(templateCtx.get("templateRootTemplate"));
+                    Map<String, Object> templateRootTemplate = UtilGenerics.cast(templateCtx.get("templateRootTemplate"));
                     if (templateRootTemplate == null) {
                         Map<String, Object> templateRootTmp = FreeMarkerWorker.createEnvironmentMap(env);
                         templateRoot = UtilMisc.makeMapWritable(templateRootTmp);

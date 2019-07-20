@@ -75,7 +75,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
             if (Debug.verboseOn()) Debug.logVerbose("De-Serialized Context --> " + o, module);
             if (ObjectType.instanceOf(o, "java.util.Map"))
-                context = UtilGenerics.checkMap(o);
+                context = UtilGenerics.cast(o);
         } catch (JMSException je) {
             Debug.logError(je, "Problems reading message.", module);
         } catch (Exception e) {

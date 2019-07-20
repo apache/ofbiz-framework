@@ -258,7 +258,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
             }
 
             if (fma != null) {
-                return fma.get(UtilGenerics.<String, Object>checkMap(theValue));
+                return fma.get(UtilGenerics.cast(theValue));
             }
             return UtilGenerics.<T>cast(theValue);
         }
@@ -273,7 +273,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
             }
 
             if (fma != null) {
-                return fma.get(UtilGenerics.<String, Object>checkMap(theValue));
+                return fma.get(UtilGenerics.cast(theValue));
             }
             return UtilGenerics.<T>cast(theValue);
         }

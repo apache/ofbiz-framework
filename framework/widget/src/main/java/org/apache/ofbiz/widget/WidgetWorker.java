@@ -137,7 +137,7 @@ public final class WidgetWorker {
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, confirmation, modelFormField, request, response, context);
 
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
-                Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
+                Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
                 Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
                 if (postMultiFormWriter == null) {
                     postMultiFormWriter = new StringWriter();
@@ -351,7 +351,7 @@ public final class WidgetWorker {
             if (paginateNumberInt == null) {
                 paginateNumberInt = 0;
                 context.put("PAGINATOR_NUMBER", paginateNumberInt);
-                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+                Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 if (globalCtx != null) {
                     globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
                 }
@@ -362,7 +362,7 @@ public final class WidgetWorker {
     }
 
     public static void incrementPaginatorNumber(Map<String, Object> context) {
-        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+        Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
         if (globalCtx != null) {
             Boolean NO_PAGINATOR = (Boolean) globalCtx.get("NO_PAGINATOR");
             if (UtilValidate.isNotEmpty(NO_PAGINATOR)) {

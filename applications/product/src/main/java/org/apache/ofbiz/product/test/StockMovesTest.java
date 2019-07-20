@@ -57,7 +57,7 @@ public class StockMovesTest extends OFBizTestCase {
         fsmnCtx.put("facilityId", "WebStoreWarehouse");
         fsmnCtx.put("userLogin", userLogin);
         Map<String, Object> respMap1 = dispatcher.runSync("findStockMovesNeeded", fsmnCtx);
-        stockMoveHandled = UtilGenerics.checkMap(respMap1.get("stockMoveHandled"));
+        stockMoveHandled = UtilGenerics.cast(respMap1.get("stockMoveHandled"));
         warningList = UtilGenerics.checkList(respMap1.get("warningMessageList"));
         assertNull(warningList);
 

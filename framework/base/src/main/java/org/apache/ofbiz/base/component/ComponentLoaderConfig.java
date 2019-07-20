@@ -87,7 +87,7 @@ public final class ComponentLoaderConfig {
     }
 
     private static ComponentDef retrieveComponentDefFromElement(Element element, URL configUrl) throws ComponentException {
-        Map<String, ? extends Object> systemProps = UtilGenerics.<String, Object> checkMap(System.getProperties());
+        Map<String, ? extends Object> systemProps = UtilGenerics.cast(System.getProperties());
         String nodeName = element.getNodeName();
 
         String name = null;

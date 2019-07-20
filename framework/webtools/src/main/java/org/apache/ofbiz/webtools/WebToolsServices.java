@@ -119,7 +119,7 @@ public class WebToolsServices {
         String maintainTimeStamps = (String)context.get("maintainTimeStamps");
         String createDummyFks = (String)context.get("createDummyFks");
         String checkDataOnly = (String) context.get("checkDataOnly");
-        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
+        Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
         Integer txTimeout = (Integer)context.get("txTimeout");
         if (txTimeout == null) {
@@ -222,7 +222,7 @@ public class WebToolsServices {
         String createDummyFks = (String) context.get("createDummyFks");
         boolean deleteFiles = (String) context.get("deleteFiles") != null;
         String checkDataOnly = (String) context.get("checkDataOnly");
-        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
+        Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
         Integer txTimeout = (Integer)context.get("txTimeout");
         Long filePause = (Long)context.get("filePause");
@@ -333,7 +333,7 @@ public class WebToolsServices {
         String maintainTimeStamps = (String)context.get("maintainTimeStamps");
         String createDummyFks = (String)context.get("createDummyFks");
         String checkDataOnly = (String) context.get("checkDataOnly");
-        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
+        Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
         Integer txTimeout = (Integer)context.get("txTimeout");
         if (txTimeout == null) {
@@ -442,7 +442,7 @@ public class WebToolsServices {
         String createDummyFks = (String) context.get("createDummyFks");
         boolean deleteFiles = (String) context.get("deleteFiles") != null;
         String checkDataOnly = (String) context.get("checkDataOnly");
-        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
+        Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
         Integer txTimeout = (Integer)context.get("txTimeout");
         Long filePause = (Long)context.get("filePause");
@@ -658,7 +658,7 @@ public class WebToolsServices {
         boolean createDummyFks = (String) context.get("createDummyFks") != null;
         boolean checkDataOnly = (String) context.get("checkDataOnly") != null;
         Integer txTimeout = (Integer) context.get("txTimeout");
-        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
+        Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
         if (txTimeout == null) {
             txTimeout = 7200;
@@ -698,7 +698,7 @@ public class WebToolsServices {
         boolean createDummyFks = (String) context.get("createDummyFks") != null;
         boolean checkDataOnly = (String) context.get("checkDataOnly") != null;
         Integer txTimeout = (Integer) context.get("txTimeout");
-        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
+        Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
         if (txTimeout == null) {
             txTimeout = 7200;

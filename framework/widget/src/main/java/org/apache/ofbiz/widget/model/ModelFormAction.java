@@ -190,7 +190,7 @@ public abstract class ModelFormAction {
                 Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
                     if (!"true".equals(autoFieldMapString)) {
-                        Map<String, Object> autoFieldMap = UtilGenerics.checkMap(context.get(autoFieldMapString));
+                        Map<String, Object> autoFieldMap = UtilGenerics.cast(context.get(autoFieldMapString));
                         serviceContext = WidgetWorker.getDispatcher(context).getDispatchContext()
                                 .makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, autoFieldMap);
                     } else {

@@ -72,7 +72,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
             }
         }
 
-        Map<String, ConfigXMLReader.RequestResponse> requestResponseMap = UtilGenerics.checkMap(this.requestInfoMap.requestResponseMap);
+        Map<String, ConfigXMLReader.RequestResponse> requestResponseMap = UtilGenerics.cast(this.requestInfoMap.requestResponseMap);
         for (ConfigXMLReader.RequestResponse response: requestResponseMap.values()) {
             if ("view".equals(response.type)) {
                 String viewUri = response.value;

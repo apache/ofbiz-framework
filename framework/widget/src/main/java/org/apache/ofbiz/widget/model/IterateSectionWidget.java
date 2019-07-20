@@ -204,7 +204,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         if (getPaginate(context)) {
             try {
                 Integer lastPageNumber = null;
-                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+                Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 if (globalCtx != null) {
                     lastPageNumber = (Integer)globalCtx.get("PAGINATOR_NUMBER");
                     globalCtx.put("PAGINATOR_NUMBER", startPageNumber);
@@ -244,7 +244,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             targetService = "${targetService}";
         }
 
-        Map<String, Object> inputFields = UtilGenerics.checkMap(context.get("requestParameters"));
+        Map<String, Object> inputFields = UtilGenerics.cast(context.get("requestParameters"));
         Object obj = context.get("queryStringMap");
         Map<String, Object> queryStringMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
         if (UtilValidate.isNotEmpty(queryStringMap)) {

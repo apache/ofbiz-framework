@@ -268,7 +268,7 @@ public class FrameImage {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
-        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
+        Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
         String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
         Map<String, Object> tempFile = LayoutWorker.uploadImageAndParameters(request, "uploadedFile");
@@ -353,7 +353,7 @@ public class FrameImage {
 
     public static String previewFrameImage(HttpServletRequest request, HttpServletResponse response) throws IOException, JDOMException {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
+        Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
         HttpSession session = request.getSession();
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
 
@@ -463,7 +463,7 @@ public class FrameImage {
     }
 
     public static String deleteFrameImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
+        Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", (Delegator) context.get("delegator")), context);
         File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg").getCanonicalFile();
         if (file.exists()) {

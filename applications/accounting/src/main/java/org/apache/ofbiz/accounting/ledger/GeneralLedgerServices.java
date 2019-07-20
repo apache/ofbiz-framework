@@ -40,7 +40,7 @@ public class GeneralLedgerServices {
         Map<String, Object> createGlAcctCatMemFromCostCentersMap = null;
         String glAccountId = (String) context.get("glAccountId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Map<String, String> amountPercentageMap = UtilGenerics.checkMap(context.get("amountPercentageMap"));
+        Map<String, String> amountPercentageMap = UtilGenerics.cast(context.get("amountPercentageMap"));
         BigDecimal totalAmountPercentage = GeneralLedgerServices.calculateCostCenterTotal(amountPercentageMap);
         Map<String, Object> result = ServiceUtil.returnSuccess();
         for (Map.Entry<String, String> rowEntry : amountPercentageMap.entrySet()) {

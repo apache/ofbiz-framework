@@ -2019,7 +2019,7 @@ public class ProductionRunServices {
 
         // Optional input fields
         BigDecimal quantity = (BigDecimal)context.get("quantity");
-        Map<GenericPK, Object> componentsLocationMap = UtilGenerics.checkMap(context.get("componentsLocationMap"));
+        Map<GenericPK, Object> componentsLocationMap = UtilGenerics.cast(context.get("componentsLocationMap"));
 
         // The production run is loaded
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
@@ -2314,7 +2314,7 @@ public class ProductionRunServices {
         BigDecimal addTaskTime = (BigDecimal)context.get("addTaskTime");
         String comments = (String)context.get("comments");
         Boolean issueRequiredComponents = (Boolean)context.get("issueRequiredComponents");
-        Map<GenericPK, Object> componentsLocationMap = UtilGenerics.checkMap(context.get("componentsLocationMap"));
+        Map<GenericPK, Object> componentsLocationMap = UtilGenerics.cast(context.get("componentsLocationMap"));
 
         if (issueRequiredComponents == null) {
             issueRequiredComponents = Boolean.FALSE;
@@ -2397,7 +2397,7 @@ public class ProductionRunServices {
                             GenericPK key = component.getPrimaryKey();
                             Map<String, Object> componentsLocation = null;
                             if (componentsLocationMap != null) {
-                                componentsLocation = UtilGenerics.checkMap(componentsLocationMap.get(key));
+                                componentsLocation = UtilGenerics.cast(componentsLocationMap.get(key));
                             }
                             Map<String, Object> serviceContext = UtilMisc.toMap("workEffortId", workEffortId,
                                     "productId", component.getString("productId"), 
@@ -3496,7 +3496,7 @@ public class ProductionRunServices {
                     productMap.put(estimatedShipDate, 
                             UtilMisc.toMap("remainingQty", BigDecimal.ZERO, "reservations", new LinkedList<>()));
                 }
-                Map<String, Object> dateMap = UtilGenerics.checkMap(productMap.get(estimatedShipDate));
+                Map<String, Object> dateMap = UtilGenerics.cast(productMap.get(estimatedShipDate));
                 BigDecimal remainingQty = (BigDecimal)dateMap.get("remainingQty");
                 remainingQty = remainingQty.add(qtyDiff);
                 dateMap.put("remainingQty", remainingQty);
@@ -3539,7 +3539,7 @@ public class ProductionRunServices {
                     productMap.put(estimatedShipDate,
                             UtilMisc.toMap("remainingQty", BigDecimal.ZERO, "reservations", new LinkedList<>()));
                 }
-                Map<String, Object> dateMap = UtilGenerics.checkMap(productMap.get(estimatedShipDate));
+                Map<String, Object> dateMap = UtilGenerics.cast(productMap.get(estimatedShipDate));
                 BigDecimal remainingQty = (BigDecimal)dateMap.get("remainingQty");
                 remainingQty = remainingQty.add(orderQuantity);
                 dateMap.put("remainingQty", remainingQty);
@@ -3575,7 +3575,7 @@ public class ProductionRunServices {
                 SortedMap<Timestamp, Object> subsetMap = productMap.headMap(requiredByDate);
                 // iterate and 'reserve'
                 for (Timestamp currentDate : subsetMap.keySet()) {
-                    Map<String, Object> currentDateMap = UtilGenerics.checkMap(subsetMap.get(currentDate));
+                    Map<String, Object> currentDateMap = UtilGenerics.cast(subsetMap.get(currentDate));
                     BigDecimal remainingQty = (BigDecimal)currentDateMap.get("remainingQty");
                     if (remainingQty.compareTo(ZERO) == 0) {
                         continue;

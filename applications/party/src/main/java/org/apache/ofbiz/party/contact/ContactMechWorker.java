@@ -263,7 +263,7 @@ public class ContactMechWorker {
             if (contactMechPurposeTypeIdFieldPresent) {
                 entityContactMechValueMap.put("contactMechPurposeType", delegator.makeValidValue("ContactMechPurposeType", fields));
             }
-            insertRelatedContactElement(delegator, UtilGenerics.checkMap(entityContactMechValueMap), fields);
+            insertRelatedContactElement(delegator, UtilGenerics.cast(entityContactMechValueMap), fields);
         }
 
         return entityContactMechValueMaps;

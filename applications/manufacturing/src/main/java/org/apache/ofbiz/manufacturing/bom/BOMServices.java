@@ -543,7 +543,7 @@ public class BOMServices {
         for (Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
             List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.checkList(partyOrderShipment.getValue());
             for (int i = 0; i < orderShipmentReadMapList.size(); i++) {
-                Map<String, Object> orderShipmentReadMap = UtilGenerics.checkMap(orderShipmentReadMapList.get(i));
+                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(orderShipmentReadMapList.get(i));
                 GenericValue orderShipment = (GenericValue)orderShipmentReadMap.get("orderShipment");
                 OrderReadHelper orderReadHelper = (OrderReadHelper)orderShipmentReadMap.get("orderReadHelper");
                 GenericValue orderItem = orderReadHelper.getOrderItem(orderShipment.getString("orderItemSeqId"));
@@ -583,7 +583,7 @@ public class BOMServices {
             Map<String, List<Map<String, Object>>> boxTypeContent = new HashMap<>();
             List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.checkList(partyOrderShipment.getValue());
             for (int i = 0; i < orderShipmentReadMapList.size(); i++) {
-                Map<String, Object> orderShipmentReadMap = UtilGenerics.checkMap(orderShipmentReadMapList.get(i));
+                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(orderShipmentReadMapList.get(i));
                 GenericValue orderShipment = (GenericValue)orderShipmentReadMap.get("orderShipment");
                 OrderReadHelper orderReadHelper = (OrderReadHelper)orderShipmentReadMap.get("orderReadHelper");
                 List<BOMNode> productsInPackages = UtilGenerics.checkList(orderShipmentReadMap.get("productsInPackages"));
@@ -656,8 +656,8 @@ public class BOMServices {
                 }
                 String shipmentPackageSeqId = null;
                 for (int i = 0; i < contentList.size(); i++) {
-                    Map<String, Object> contentMap = UtilGenerics.checkMap(contentList.get(i));
-                    Map<String, Object> content = UtilGenerics.checkMap(contentMap.get("content"));
+                    Map<String, Object> contentMap = UtilGenerics.cast(contentList.get(i));
+                    Map<String, Object> content = UtilGenerics.cast(contentMap.get("content"));
                     OrderReadHelper orderReadHelper = (OrderReadHelper)content.get("orderReadHelper");
                     List<BOMNode> productsInPackages = UtilGenerics.checkList(content.get("productsInPackages"));
                     GenericValue orderShipment = (GenericValue)content.get("orderShipment");

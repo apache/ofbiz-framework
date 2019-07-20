@@ -1498,7 +1498,7 @@ public final class UtilHttp {
 
     public static String stashParameterMap(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Map<String, Map<String, Object>> paramMapStore = UtilGenerics.checkMap(session.getAttribute("_PARAM_MAP_STORE_"));
+        Map<String, Map<String, Object>> paramMapStore = UtilGenerics.cast(session.getAttribute("_PARAM_MAP_STORE_"));
         if (paramMapStore == null) {
             paramMapStore = new HashMap<>();
             session.setAttribute("_PARAM_MAP_STORE_", paramMapStore);
@@ -1511,7 +1511,7 @@ public final class UtilHttp {
 
     public static void restoreStashedParameterMap(HttpServletRequest request, String paramMapId) {
         HttpSession session = request.getSession();
-        Map<String, Map<String, Object>> paramMapStore = UtilGenerics.checkMap(session.getAttribute("_PARAM_MAP_STORE_"));
+        Map<String, Map<String, Object>> paramMapStore = UtilGenerics.cast(session.getAttribute("_PARAM_MAP_STORE_"));
         if (paramMapStore != null) {
             Map<String, Object> paramMap = paramMapStore.get(paramMapId);
             if (paramMap != null) {

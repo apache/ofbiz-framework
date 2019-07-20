@@ -483,7 +483,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (textareaField.isReadOnly()) {
             readonly = "readonly";
         }
-        Map<String, Object> userLogin = UtilGenerics.checkMap(context.get("userLogin"));
+        Map<String, Object> userLogin = UtilGenerics.cast(context.get("userLogin"));
         String language = "en";
         if (userLogin != null) {
             language = UtilValidate.isEmpty((String) userLogin.get("lastLocale")) ? "en" : (String) userLogin.get("lastLocale");
@@ -565,7 +565,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
             timeValues.append("]");
         }
-        Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         }
@@ -1495,7 +1495,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append("<@renderMultiFormClose />");
         executeMacro(writer, sr.toString());
         // see if there is anything that needs to be added outside of the multi-form
-        Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
+        Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
         Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
         if (postMultiFormWriter != null) {
             writer.append(postMultiFormWriter.toString());
@@ -1509,7 +1509,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderFormatListWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        Map<String, Object> inputFields = UtilGenerics.checkMap(context.get("requestParameters"));
+        Map<String, Object> inputFields = UtilGenerics.cast(context.get("requestParameters"));
         Object obj = context.get("queryStringMap");
         Map<String, Object> queryStringMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
         if (UtilValidate.isNotEmpty(queryStringMap)) {
@@ -2041,7 +2041,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String opUpThruDay = UtilProperties.getMessage("conditionalUiLabels", "up_thru_day", locale);
         String opIsEmpty = UtilProperties.getMessage("conditionalUiLabels", "is_empty", locale);
         String conditionGroup = modelFormField.getConditionGroup();
-        Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         }
@@ -2099,7 +2099,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             value2 = "";
         }
         if (context.containsKey("parameters")) {
-            Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
+            Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
             if (parameters.containsKey(name + "_fld0_value")) {
                 value = (String) parameters.get(name + "_fld0_value");
             }
@@ -2270,7 +2270,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         Boolean isInitiallyCollapsed = lookupField.getInitiallyCollapsed();
         String clearText = "";
-        Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
+        Map<String, Object> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         if (uiLabelMap != null) {
             clearText = (String) uiLabelMap.get("CommonClear");
         } else {
@@ -2395,7 +2395,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         int highIndex = Paginator.getHighIndex(context);
         int actualPageSize = Paginator.getActualPageSize(context);
         // needed for the "Page" and "rows" labels
-        Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         String pageLabel = "";
         String commonDisplaying = "";
         if (uiLabelMap == null) {
@@ -2779,7 +2779,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String collapseToolTip = "";
         if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id) || UtilValidate.isNotEmpty(title)) {
             if (fieldGroup.collapsible()) {
-                Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
+                Map<String, Object> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
                 if (uiLabelMap != null) {
                     expandToolTip = (String) uiLabelMap.get("CommonExpand");
                     collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
@@ -3015,8 +3015,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sb.append(this.rh.makeLink(this.request, this.response,urlPath)).append(",");
             String queryString = UtilHttp.getQueryStringFromTarget(ajaxTarget).replace("?", "");
             Map<String, Object> parameters = UtilHttp.getQueryStringOnlyParameterMap(queryString);
-            Map<String, Object> ctx = UtilGenerics.checkMap(context);
-            Map<String, Object> updateParams = UtilGenerics.checkMap(updateArea.getParameterMap(ctx));
+            Map<String, Object> ctx = UtilGenerics.cast(context);
+            Map<String, Object> updateParams = UtilGenerics.cast(updateArea.getParameterMap(ctx));
             parameters.putAll(updateParams);
             UtilHttp.canonicalizeParameterMap(parameters);
             parameters.putAll(extraParams);
@@ -3059,7 +3059,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             } else {
                 ajaxUrl += ",";
             }
-            Map<String, Object> ctx = UtilGenerics.checkMap(context);
+            Map<String, Object> ctx = UtilGenerics.cast(context);
             Map<String, String> parameters = updateArea.getParameterMap(ctx);
             String targetUrl = updateArea.getAreaTarget(context);
             String ajaxParams;
@@ -3191,7 +3191,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if ("multi".equals(modelForm.getType())) {
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, encodedDescription, confirmation, modelFormField, request, response, context);
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
-                Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
+                Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
                 Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
                 if (postMultiFormWriter == null) {
                     postMultiFormWriter = new StringWriter();

@@ -201,7 +201,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             if (service != null) {
                 //put all requestParameters into templateContext to use them as IN service parameters
                 Map<String,Object> tempTemplateContext = new HashMap<>();
-                tempTemplateContext.putAll(UtilGenerics.<String,Object>checkMap(templateContext.get("requestParameters")));
+                tempTemplateContext.putAll(UtilGenerics.cast(templateContext.get("requestParameters")));
                 tempTemplateContext.putAll(templateContext);
                 Map<String,Object> serviceCtx = service.makeValid(tempTemplateContext, ModelService.IN_PARAM);
                 Map<String,Object> serviceRes;
@@ -702,7 +702,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         String contentTypeId = (String) ctx.get("contentTypeId");
         String mapKey = (String) ctx.get("mapKey");
         String parentContentId = (String) parentContent.get("contentId");
-        Map<String, Object> whenMap = UtilGenerics.checkMap(ctx.get("whenMap"));
+        Map<String, Object> whenMap = UtilGenerics.cast(ctx.get("whenMap"));
         List<Map<String, Object>> kids = new LinkedList<>();
         currentNode.put("kids", kids);
         String direction = (String) ctx.get("direction");
@@ -1595,7 +1595,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     indent.setLength(indent.length() - 1);
                 } else if (obj instanceof Map<?, ?>) {
                     indent.append(' ');
-                    logMap(s, "MAP[" + key + "]", UtilGenerics.<String, Object>checkMap(obj), indent);
+                    logMap(s, "MAP[" + key + "]", UtilGenerics.cast(obj), indent);
                     indent.setLength(indent.length() - 1);
                 } else if (obj != null) {
                     s.append(obj).append(sep).append(obj.getClass()).append(eol);
@@ -1639,7 +1639,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 indent.setLength(indent.length() - 1);
             } else if (obj instanceof Map<?, ?>) {
                 indent.append(' ');
-                logMap(s, "MAP[]", UtilGenerics.<String, Object>checkMap(obj), indent);
+                logMap(s, "MAP[]", UtilGenerics.cast(obj), indent);
                 indent.setLength(indent.length() - 1);
             } else if (obj != null) {
                 s.append(obj).append(sep).append(obj.getClass()).append(eol);

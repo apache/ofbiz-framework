@@ -475,7 +475,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 }
             }
             if (global) {
-                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+                Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 if (globalCtx != null) {
                     ResourceBundleMapWrapper globalExistingPropMap = this.mapNameAcsr.get(globalCtx);
                     if (globalExistingPropMap == null) {
@@ -912,7 +912,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 }
             }
             if (global) {
-                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+                Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 if (globalCtx != null) {
                     this.field.put(globalCtx, newValue);
                 } else {

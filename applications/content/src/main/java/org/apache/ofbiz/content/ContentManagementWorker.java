@@ -81,7 +81,7 @@ public final class ContentManagementWorker {
             return;
         }
 
-        Map<String, LifoSet<Object>> lookupCaches = UtilGenerics.checkMap(session.getAttribute("lookupCaches"));
+        Map<String, LifoSet<Object>> lookupCaches = UtilGenerics.cast(session.getAttribute("lookupCaches"));
         if (lookupCaches == null) {
             lookupCaches = new HashMap<>();
             session.setAttribute("lookupCaches", lookupCaches);
@@ -154,7 +154,7 @@ public final class ContentManagementWorker {
 
     public static void setCurrentEntityMap(HttpServletRequest request, String entityName, GenericEntity ent) {
         HttpSession session = request.getSession();
-        Map<String, GenericEntity> currentEntityMap = UtilGenerics.checkMap(session.getAttribute("currentEntityMap"));
+        Map<String, GenericEntity> currentEntityMap = UtilGenerics.cast(session.getAttribute("currentEntityMap"));
         if (currentEntityMap == null) {
             currentEntityMap = new HashMap<>();
             session.setAttribute("currentEntityMap", currentEntityMap);
@@ -183,7 +183,7 @@ public final class ContentManagementWorker {
 
     public static void getCurrentValue(HttpServletRequest request, Delegator delegator) {
         HttpSession session = request.getSession();
-        Map<String, GenericPK> currentEntityMap = UtilGenerics.checkMap(session.getAttribute("currentEntityMap"));
+        Map<String, GenericPK> currentEntityMap = UtilGenerics.cast(session.getAttribute("currentEntityMap"));
         if (currentEntityMap == null) {
             currentEntityMap = new HashMap<>();
             session.setAttribute("currentEntityMap", currentEntityMap);

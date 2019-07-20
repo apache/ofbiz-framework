@@ -351,7 +351,7 @@ public class ModelFormField {
 
             // this is a special case to fill in fields during a create by default from parameters passed in
             if (dataMapIsContext && retVal == null && !Boolean.FALSE.equals(useRequestParameters)) {
-                Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
+                Map<String, ? extends Object> parameters = UtilGenerics.cast(context.get("parameters"));
                 if (parameters != null) {
                     if (UtilValidate.isNotEmpty(this.entryAcsr)) {
                         retVal = this.entryAcsr.get(parameters);
@@ -650,7 +650,7 @@ public class ModelFormField {
         }
 
         // search for a localized label for the field's name
-        Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         if (uiLabelMap != null) {
             String titleFieldName = "FormFieldTitle_" + this.name;
             String localizedName = uiLabelMap.get(titleFieldName);
@@ -3078,7 +3078,7 @@ public class ModelFormField {
                     if (UtilValidate.isNotEmpty(this.listEntryName)) {
                         localContext.put(this.listEntryName, data);
                     } else {
-                        Map<String, Object> dataMap = UtilGenerics.checkMap(data);
+                        Map<String, Object> dataMap = UtilGenerics.cast(data);
                         localContext.putAll(dataMap);
                     }
                     Object keyObj = keyAcsr.get(localContext);

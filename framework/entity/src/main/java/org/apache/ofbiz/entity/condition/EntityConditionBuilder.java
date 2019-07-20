@@ -106,7 +106,7 @@ public class EntityConditionBuilder extends BuilderSupport {
 
     @Override
     protected Object createNode(Object methodName, @SuppressWarnings("rawtypes") Map mapArg) {
-        Map<String, Object> fieldValueMap = UtilGenerics.checkMap(mapArg);
+        Map<String, Object> fieldValueMap = UtilGenerics.cast(mapArg);
         String operatorName = ((String)methodName).toLowerCase(Locale.getDefault());
         EntityComparisonOperator<String, Object> operator = EntityOperator.lookupComparison(operatorName);
         List<EntityCondition> conditionList = new LinkedList<>();

@@ -469,7 +469,7 @@ public class DataServices {
         Map<String, Object> results = new HashMap<>();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
-        Map<String, Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
+        Map<String, Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
         //GenericValue userLogin = (GenericValue) context.get("userLogin");
         String dataResourceId = (String) context.get("dataResourceId");
         if (templateContext != null && UtilValidate.isEmpty(dataResourceId)) {

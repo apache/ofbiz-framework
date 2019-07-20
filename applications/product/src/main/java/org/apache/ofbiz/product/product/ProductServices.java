@@ -87,7 +87,7 @@ public class ProductServices {
     public static Map<String, Object> prodFindSelectedVariant(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        Map<String, String> selectedFeatures = UtilGenerics.checkMap(context.get("selectedFeatures"));
+        Map<String, String> selectedFeatures = UtilGenerics.cast(context.get("selectedFeatures"));
         List<GenericValue> products = new LinkedList<>();
         // All the variants for this products are retrieved
         Map<String, Object> resVariants = prodFindAllVariants(dctx, context);
@@ -1090,7 +1090,7 @@ public class ProductServices {
 
             /* now store the image versions created by ScaleImage.scaleImageInAllSize */
             /* have to shrink length of productContentTypeId, as otherwise value is too long for database field */
-            Map<String,String> imageUrlMap = UtilGenerics.checkMap(resultResize.get("imageUrlMap"));
+            Map<String,String> imageUrlMap = UtilGenerics.cast(resultResize.get("imageUrlMap"));
             for ( String sizeType : ScaleImage.sizeTypeList ) {
                 imageUrl = imageUrlMap.get(sizeType);
                 if( UtilValidate.isNotEmpty(imageUrl)) {

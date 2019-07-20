@@ -220,7 +220,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
                 String mimeTypeId = ContentWorker.getMimeTypeId(delegator, view, ctx);
                 Map<String, Object> trailNode = ContentWorker.makeNode(view);
-                Map<String, Object> whenMap = UtilGenerics.checkMap(ctx.get("whenMap"));
+                Map<String, Object> whenMap = UtilGenerics.cast(ctx.get("whenMap"));
                 ContentWorker.checkConditions(delegator, trailNode, null, whenMap);
                 Boolean isReturnBeforeObj = (Boolean) trailNode.get("isReturnBefore");
                 Boolean isPickObj = (Boolean) trailNode.get("isPick");

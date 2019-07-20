@@ -706,7 +706,7 @@ public class CCPaymentServices {
 
         // TODO: determine if adding OrderItemList is worthwhile - JFE 2004.02.14
 
-        Map<String, Object> pbOrder = UtilGenerics.checkMap(context.get("pbOrder"));
+        Map<String, Object> pbOrder = UtilGenerics.cast(context.get("pbOrder"));
         if (pbOrder != null) {
             if (Debug.verboseOn()) {
                 Debug.logVerbose("pbOrder Map not empty:" + pbOrder.toString(), module);

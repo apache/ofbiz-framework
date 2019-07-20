@@ -77,8 +77,8 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
                 FlexibleMapAccessor<Object> fmaKey = UtilGenerics.cast(key);
                 ascending = fmaKey.getIsAscending();
 
-                o1 = fmaKey.get(UtilGenerics.<String, Object>checkMap(map1));
-                o2 = fmaKey.get(UtilGenerics.<String, Object>checkMap(map2));
+                o1 = fmaKey.get(UtilGenerics.cast(map1));
+                o2 = fmaKey.get(UtilGenerics.cast(map2));
             } else {
                 if (key instanceof String) {
                     String keyStr = (String) key;

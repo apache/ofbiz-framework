@@ -89,7 +89,7 @@ public class PdfSurveyServices {
             PdfReader pdfReader = new PdfReader(byteBuffer.array());
             PdfStamper pdfStamper = new PdfStamper(pdfReader, os);
             AcroFields acroFields = pdfStamper.getAcroFields();
-            Map<String, Object> acroFieldMap = UtilGenerics.checkMap(acroFields.getFields());
+            Map<String, Object> acroFieldMap = UtilGenerics.cast(acroFields.getFields());
 
             String contentId = (String) context.get("contentId");
             GenericValue survey = null;
@@ -246,7 +246,7 @@ public class PdfSurveyServices {
             PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r,os);
             AcroFields fs = s.getAcroFields();
-            Map<String, Object> hm = UtilGenerics.checkMap(fs.getFields());
+            Map<String, Object> hm = UtilGenerics.cast(fs.getFields());
             s.setFormFlattening(true);
             for (String fieldName : hm.keySet()) {
                 //AcroFields.Item item = fs.getFieldItem(fieldName);
@@ -291,7 +291,7 @@ public class PdfSurveyServices {
             PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r,os);
             AcroFields fs = s.getAcroFields();
-            Map<String, Object> map = UtilGenerics.checkMap(fs.getFields());
+            Map<String, Object> map = UtilGenerics.cast(fs.getFields());
             s.setFormFlattening(true);
 
             for (String fieldName : map.keySet()) {
@@ -315,13 +315,13 @@ public class PdfSurveyServices {
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
         try {
-            Map<String, Object> acroFieldMap = UtilGenerics.checkMap(context.get("acroFieldMap"));
+            Map<String, Object> acroFieldMap = UtilGenerics.cast(context.get("acroFieldMap"));
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
             PdfReader r = new PdfReader(byteBuffer.array());
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfStamper s = new PdfStamper(r, baos);
             AcroFields fs = s.getAcroFields();
-            Map<String, Object> map = UtilGenerics.checkMap(fs.getFields());
+            Map<String, Object> map = UtilGenerics.cast(fs.getFields());
             s.setFormFlattening(true);
 
             for (String fieldName : map.keySet()) {

@@ -600,7 +600,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             boolean collapsed = getInitiallyCollapsed(context);
             if (this.collapsible) {
                 String preferenceKey = getPreferenceKey(context) + "_collapsed";
-                Map<String, Object> requestParameters = UtilGenerics.checkMap(context.get("requestParameters"));
+                Map<String, Object> requestParameters = UtilGenerics.cast(context.get("requestParameters"));
                 if (requestParameters != null) {
                     String collapsedParam = (String) requestParameters.get(preferenceKey);
                     if (collapsedParam != null) {
@@ -628,7 +628,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         //initially-collapsed status, which may be overriden by user preference
         public boolean getInitiallyCollapsed(Map<String, Object> context) {
             String screenletId = this.getId(context) + "_collapsed";
-            Map<String, ? extends Object> userPreferences = UtilGenerics.checkMap(context.get("userPreferences"));
+            Map<String, ? extends Object> userPreferences = UtilGenerics.cast(context.get("userPreferences"));
             if (userPreferences != null && userPreferences.containsKey(screenletId)) {
                 return Boolean.valueOf((String) userPreferences.get(screenletId));
             }
@@ -942,7 +942,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
-            Map<String, ? extends Object> preRenderedContent = UtilGenerics.checkMap(context.get("preRenderedContent"));
+            Map<String, ? extends Object> preRenderedContent = UtilGenerics.cast(context.get("preRenderedContent"));
             if (preRenderedContent != null && preRenderedContent.containsKey(getName())) {
                 try {
                     writer.append((String) preRenderedContent.get(getName()));

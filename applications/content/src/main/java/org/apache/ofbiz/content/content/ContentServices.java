@@ -145,7 +145,7 @@ public class ContentServices {
             if (ServiceUtil.isError(thisResults)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResults));
             }
-            Map<String, Object> nodeMap = UtilGenerics.checkMap(thisResults.get("nodeMap"));
+            Map<String, Object> nodeMap = UtilGenerics.cast(thisResults.get("nodeMap"));
             walkParentTree(nodeMap, parentList);
         } catch (GenericServiceException e) {
             return ServiceUtil.returnFailure(e.getMessage());
@@ -385,7 +385,7 @@ public class ContentServices {
         Map<String, Object> results = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
-        Map<String,Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
+        Map<String,Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
         String contentId = (String) context.get("contentId");
 
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
@@ -436,7 +436,7 @@ public class ContentServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
 
-        Map<String,Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
+        Map<String,Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
         String contentId = (String) context.get("contentId");
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
             contentId = (String) templateContext.get("contentId");
@@ -558,7 +558,7 @@ public class ContentServices {
 
     public static Map<String, Object> getPrefixedMembers(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map<String, Object> result = new HashMap<>();
-        Map<String, Object> mapIn = UtilGenerics.checkMap(context.get("mapIn"));
+        Map<String, Object> mapIn = UtilGenerics.cast(context.get("mapIn"));
         String prefix = (String)context.get("prefix");
         Map<String, Object> mapOut = new HashMap<>();
         result.put("mapOut", mapOut);
@@ -602,7 +602,7 @@ public class ContentServices {
     public static Map<String, Object> urlEncodeArgs(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> mapFiltered = new HashMap<>();
-        Map<String, Object> mapIn = UtilGenerics.checkMap(context.get("mapIn"));
+        Map<String, Object> mapIn = UtilGenerics.cast(context.get("mapIn"));
         if (mapIn != null) {
             Set<Map.Entry<String, Object>> entrySet = mapIn.entrySet();
             for (Map.Entry<String, Object> entry : entrySet) {

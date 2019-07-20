@@ -120,7 +120,7 @@ public final class WidgetContextCacheKey {
                 return false;
             }
             if ("parameters".equals(fieldName)) {
-                if (!parametersAreEqual(UtilGenerics.<String, Object>checkMap(field1), UtilGenerics.<String, Object>checkMap(field2))) {
+                if (!parametersAreEqual(UtilGenerics.cast(field1), UtilGenerics.cast(field2))) {
                     return false;
                 }
                 continue;
@@ -141,7 +141,7 @@ public final class WidgetContextCacheKey {
                 printableMap.put(fieldName.getKey(), fieldName.getValue());
             }
         }
-        Map<String, Object> parameters = UtilGenerics.checkMap(this.context.get("parameters"));
+        Map<String, Object> parameters = UtilGenerics.cast(this.context.get("parameters"));
         return printMap(printableMap) + "\n" + printMap(parameters);
     }
 

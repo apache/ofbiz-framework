@@ -91,7 +91,7 @@ public class PriceServices {
         String webSiteId = (String) context.get("webSiteId");
         String checkIncludeVat = (String) context.get("checkIncludeVat");
         String surveyResponseId = (String) context.get("surveyResponseId");
-        Map<String, Object> customAttributes = UtilGenerics.checkMap(context.get("customAttributes"));
+        Map<String, Object> customAttributes = UtilGenerics.cast(context.get("customAttributes"));
 
         String findAllQuantityPricesStr = (String) context.get("findAllQuantityPrices");
         boolean findAllQuantityPrices = "Y".equals(findAllQuantityPricesStr);

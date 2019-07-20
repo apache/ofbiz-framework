@@ -433,7 +433,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
                         if (UtilValidate.isNotEmpty(valueName)) {
                             context.put(valueName, result.get(resultMapValueName));
                         } else {
-                            Map<String, Object> resultMap = UtilGenerics.checkMap(result.get(resultMapValueName));
+                            Map<String, Object> resultMap = UtilGenerics.cast(result.get(resultMapValueName));
                             context.putAll(resultMap);
                         }
                     }

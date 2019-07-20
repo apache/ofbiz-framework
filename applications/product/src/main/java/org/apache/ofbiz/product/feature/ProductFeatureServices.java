@@ -189,7 +189,7 @@ public class ProductFeatureServices {
             Map<String, List<GenericValue>> features;
 
             if (featuresResults.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
-                features = UtilGenerics.checkMap(featuresResults.get("productFeaturesByType"));
+                features = UtilGenerics.cast(featuresResults.get("productFeaturesByType"));
             } else {
                 return ServiceUtil.returnError((String) featuresResults.get(ModelService.ERROR_MESSAGE_LIST));
             }

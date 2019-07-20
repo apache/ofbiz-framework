@@ -369,7 +369,7 @@ public class CommonEvents {
             response.setContentType("image/jpeg");
             ImageIO.write(bufferedImage, "jpg", response.getOutputStream());
             HttpSession session = request.getSession();
-            Map<String, String> captchaCodeMap = UtilGenerics.checkMap(session.getAttribute("_CAPTCHA_CODE_"));
+            Map<String, String> captchaCodeMap = UtilGenerics.cast(session.getAttribute("_CAPTCHA_CODE_"));
             if (captchaCodeMap == null) {
                 captchaCodeMap = new HashMap<>();
                 session.setAttribute("_CAPTCHA_CODE_", captchaCodeMap);

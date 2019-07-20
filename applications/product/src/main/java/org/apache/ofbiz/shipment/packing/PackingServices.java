@@ -108,13 +108,13 @@ public class PackingServices {
         String pickerPartyId = (String) context.get("pickerPartyId");
         session.setPickerPartyId(pickerPartyId);
 
-        Map<String, ?> selInfo = UtilGenerics.checkMap(context.get("selInfo"));
-        Map<String, String> iteInfo = UtilGenerics.checkMap(context.get("iteInfo"));
-        Map<String, String> prdInfo = UtilGenerics.checkMap(context.get("prdInfo"));
-        Map<String, String> qtyInfo = UtilGenerics.checkMap(context.get("qtyInfo"));
-        Map<String, String> pkgInfo = UtilGenerics.checkMap(context.get("pkgInfo"));
-        Map<String, String> wgtInfo = UtilGenerics.checkMap(context.get("wgtInfo"));
-        Map<String, String> numPackagesInfo = UtilGenerics.checkMap(context.get("numPackagesInfo"));
+        Map<String, ?> selInfo = UtilGenerics.cast(context.get("selInfo"));
+        Map<String, String> iteInfo = UtilGenerics.cast(context.get("iteInfo"));
+        Map<String, String> prdInfo = UtilGenerics.cast(context.get("prdInfo"));
+        Map<String, String> qtyInfo = UtilGenerics.cast(context.get("qtyInfo"));
+        Map<String, String> pkgInfo = UtilGenerics.cast(context.get("pkgInfo"));
+        Map<String, String> wgtInfo = UtilGenerics.cast(context.get("wgtInfo"));
+        Map<String, String> numPackagesInfo = UtilGenerics.cast(context.get("numPackagesInfo"));
 
         if (selInfo != null) {
             for (String rowKey: selInfo.keySet()) {
@@ -256,7 +256,7 @@ public class PackingServices {
 
     public static Map<String, Object> calcPackSessionAdditionalShippingCharge(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
-        Map<String, String> packageWeights = UtilGenerics.checkMap(context.get("packageWeights"));
+        Map<String, String> packageWeights = UtilGenerics.cast(context.get("packageWeights"));
         String weightUomId = (String) context.get("weightUomId");
         String shippingContactMechId = (String) context.get("shippingContactMechId");
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
@@ -283,8 +283,8 @@ public class PackingServices {
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
         BigDecimal additionalShippingCharge = (BigDecimal) context.get("additionalShippingCharge");
-        Map<String, String> packageWeights = UtilGenerics.checkMap(context.get("packageWeights"));
-        Map<String, String> boxTypes = UtilGenerics.checkMap(context.get("boxTypes"));
+        Map<String, String> packageWeights = UtilGenerics.cast(context.get("packageWeights"));
+        Map<String, String> boxTypes = UtilGenerics.cast(context.get("boxTypes"));
         String weightUomId = (String) context.get("weightUomId");
         session.setHandlingInstructions(instructions);
         session.setPickerPartyId(pickerPartyId);

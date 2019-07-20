@@ -188,7 +188,7 @@ public class NotificationServices {
     public static Map<String, Object> prepareNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         String templateName = (String) context.get("templateName");
-        Map<String, Object> templateData = UtilGenerics.checkMap(context.get("templateData"));
+        Map<String, Object> templateData = UtilGenerics.cast(context.get("templateData"));
         String webSiteId = (String) context.get("webSiteId");
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;

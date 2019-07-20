@@ -376,7 +376,7 @@ public final class FreeMarkerWorker {
         for (String key: saveKeyNames) {
             Object o = context.get(key);
             if (o instanceof Map<?, ?>) {
-                o = UtilMisc.makeMapWritable(UtilGenerics.checkMap(o));
+                o = UtilMisc.makeMapWritable(UtilGenerics.cast(o));
             } else if (o instanceof List<?>) {
                 o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
             }
@@ -389,7 +389,7 @@ public final class FreeMarkerWorker {
         for (String key: saveKeyNames) {
             Object o = context.get(key);
             if (o instanceof Map<?, ?>) {
-                o = UtilMisc.makeMapWritable(UtilGenerics.checkMap(o));
+                o = UtilMisc.makeMapWritable(UtilGenerics.cast(o));
             } else if (o instanceof List<?>) {
                 o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
             }
@@ -403,7 +403,7 @@ public final class FreeMarkerWorker {
             String key = entry.getKey();
             Object o = entry.getValue();
             if (o instanceof Map<?, ?>) {
-                context.put(key, UtilMisc.makeMapWritable(UtilGenerics.checkMap(o)));
+                context.put(key, UtilMisc.makeMapWritable(UtilGenerics.cast(o)));
             } else if (o instanceof List<?>) {
                 List<Object> list = new ArrayList<>();
                 list.addAll(UtilGenerics.checkList(o));

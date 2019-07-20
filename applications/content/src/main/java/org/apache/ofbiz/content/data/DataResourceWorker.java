@@ -793,7 +793,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 }
             } else if ("FORM_COMBINED".equals(dataTemplateTypeId)){
                 try {
-                    Map<String, Object> context = UtilGenerics.checkMap(templateContext.get("globalContext"));
+                    Map<String, Object> context = UtilGenerics.cast(templateContext.get("globalContext"));
                     context.put("locale", locale);
                     context.put("simpleEncoder", UtilCodec.getEncoder(modelTheme.getEncoder("screen")));
                     HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -838,7 +838,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
     public static void writeDataResourceText(GenericValue dataResource, String mimeTypeId, Locale locale, Map<String, Object> templateContext,
             Delegator delegator, Appendable out, boolean cache) throws IOException, GeneralException {
-        Map<String, Object> context = UtilGenerics.checkMap(templateContext.get("context"));
+        Map<String, Object> context = UtilGenerics.cast(templateContext.get("context"));
         if (context == null) {
             context = new HashMap<>();
         }

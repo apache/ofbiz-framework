@@ -59,7 +59,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
         if (result == null || !(result instanceof Map<?, ?>)) {
             throw new GenericServiceException("Service [" + modelService.name + "] did not return a Map object");
         }
-        return UtilGenerics.checkMap(result);
+        return UtilGenerics.cast(result);
     }
 
     // Invoke the static java method service.

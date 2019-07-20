@@ -700,13 +700,13 @@ public class RequestHandler {
                 Map<String, Object> urlParams = null;
                 if (session.getAttribute("_SAVED_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_SAVED_VIEW_NAME_");
-                    urlParams = UtilGenerics.<String, Object>checkMap(session.getAttribute("_SAVED_VIEW_PARAMS_"));
+                    urlParams = UtilGenerics.cast(session.getAttribute("_SAVED_VIEW_PARAMS_"));
                 } else if (session.getAttribute("_HOME_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_HOME_VIEW_NAME_");
-                    urlParams = UtilGenerics.<String, Object>checkMap(session.getAttribute("_HOME_VIEW_PARAMS_"));
+                    urlParams = UtilGenerics.cast(session.getAttribute("_HOME_VIEW_PARAMS_"));
                 } else if (session.getAttribute("_LAST_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
-                    urlParams = UtilGenerics.<String, Object>checkMap(session.getAttribute("_LAST_VIEW_PARAMS_"));
+                    urlParams = UtilGenerics.cast(session.getAttribute("_LAST_VIEW_PARAMS_"));
                 } else if (UtilValidate.isNotEmpty(nextRequestResponse.value)) {
                     viewName = nextRequestResponse.value;
                 }
@@ -751,7 +751,7 @@ public class RequestHandler {
                 Map<String, Object> urlParams = null;
                 if (session.getAttribute("_HOME_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_HOME_VIEW_NAME_");
-                    urlParams = UtilGenerics.<String, Object>checkMap(session.getAttribute("_HOME_VIEW_PARAMS_"));
+                    urlParams = UtilGenerics.cast(session.getAttribute("_HOME_VIEW_PARAMS_"));
                 }
                 if (urlParams != null) {
                     for (Map.Entry<String, Object> urlParamEntry: urlParams.entrySet()) {

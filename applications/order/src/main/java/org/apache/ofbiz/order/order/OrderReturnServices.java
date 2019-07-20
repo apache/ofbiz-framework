@@ -2331,7 +2331,7 @@ public class OrderReturnServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                     "OrderProblemsWithGetReturnAmountByOrder", locale));
         }
-        returnAmountByOrder = UtilGenerics.checkMap(serviceResult.get("orderReturnAmountMap"));
+        returnAmountByOrder = UtilGenerics.cast(serviceResult.get("orderReturnAmountMap"));
 
         if ((returnAmountByOrder != null) && (returnAmountByOrder.entrySet() != null)) {
             for (Entry<String, BigDecimal> orderId : returnAmountByOrder.entrySet()) {

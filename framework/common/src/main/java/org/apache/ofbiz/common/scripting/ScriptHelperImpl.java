@@ -60,7 +60,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
             GenericValue tempVal = delegator.makeValue(modelEntity.getEntityName());
             Object parametersObj = context.get("parameters");
             if (parametersObj != null && parametersObj instanceof Map<?, ?>) {
-                tempVal.setAllFields(UtilGenerics.checkMap(parametersObj), true, null, Boolean.TRUE);
+                tempVal.setAllFields(UtilGenerics.cast(parametersObj), true, null, Boolean.TRUE);
             }
             tempVal.setAllFields(context, true, null, Boolean.TRUE);
             entityContext.putAll(tempVal);

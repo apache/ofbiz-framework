@@ -385,7 +385,7 @@ public class EmailServices {
         // pretty simple, get the content and then call the sendMail method below
         Map<String, Object> sendMailContext = UtilMisc.makeMapWritable(rcontext);
         String bodyUrl = (String) sendMailContext.remove("bodyUrl");
-        Map<String, Object> bodyUrlParameters = UtilGenerics.checkMap(sendMailContext.remove("bodyUrlParameters"));
+        Map<String, Object> bodyUrlParameters = UtilGenerics.cast(sendMailContext.remove("bodyUrlParameters"));
         Locale locale = (Locale) rcontext.get("locale");
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
@@ -469,7 +469,7 @@ public class EmailServices {
         }
         
         Locale locale = (Locale) serviceContext.get("locale");
-        Map<String, Object> bodyParameters = UtilGenerics.checkMap(serviceContext.remove("bodyParameters"));
+        Map<String, Object> bodyParameters = UtilGenerics.cast(serviceContext.remove("bodyParameters"));
         if (bodyParameters == null) {
             bodyParameters = MapStack.create();
         }

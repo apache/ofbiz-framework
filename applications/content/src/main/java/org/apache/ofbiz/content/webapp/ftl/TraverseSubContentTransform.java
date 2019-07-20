@@ -248,7 +248,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     return false;
                 }
                 assocContext.put("typeAncestry", contentTypeAncestry);
-                Map<String, Object> whenMap = UtilGenerics.checkMap(traverseContext.get("whenMap"));
+                Map<String, Object> whenMap = UtilGenerics.cast(traverseContext.get("whenMap"));
                 List<Map<String, ? extends Object>> nodeTrail = UtilGenerics.checkList(traverseContext.get("nodeTrail"));
                 int indentSz = indent + nodeTrail.size();
                 assocContext.put("indentObj", indentSz);

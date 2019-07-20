@@ -160,9 +160,9 @@ public final class ProductDisplayWorker {
         }
 
         try {
-            Map<String, GenericValue> products = UtilGenerics.checkMap(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCTS_"));
-            Map<String, BigDecimal> productQuantities = UtilGenerics.checkMap(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCT_QUANTITIES_"));
-            Map<String, Integer> productOccurances = UtilGenerics.checkMap(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCT_OCCURANCES_"));
+            Map<String, GenericValue> products = UtilGenerics.cast(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCTS_"));
+            Map<String, BigDecimal> productQuantities = UtilGenerics.cast(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCT_QUANTITIES_"));
+            Map<String, Integer> productOccurances = UtilGenerics.cast(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCT_OCCURANCES_"));
 
             if (products == null || productQuantities == null || productOccurances == null) {
                 products = new HashMap<>();

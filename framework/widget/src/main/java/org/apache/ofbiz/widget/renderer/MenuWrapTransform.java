@@ -90,7 +90,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         final Map<String, Object> savedValuesUp = new HashMap<>();
         FreeMarkerWorker.saveContextValues(templateCtx, upSaveKeyNames, savedValuesUp);
 
-        Map<String, Object> checkedArgs = UtilGenerics.checkMap(args);
+        Map<String, Object> checkedArgs = UtilGenerics.cast(args);
         FreeMarkerWorker.overrideWithArgs(templateCtx, checkedArgs);
         List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");

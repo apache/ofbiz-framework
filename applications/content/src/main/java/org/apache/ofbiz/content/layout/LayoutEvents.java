@@ -66,7 +66,7 @@ public class LayoutEvents {
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             HttpSession session = request.getSession();
             Map<String, Object> uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
-            Map<String, Object> formInput = UtilGenerics.checkMap(uploadResults.get("formInput"));
+            Map<String, Object> formInput = UtilGenerics.cast(uploadResults.get("formInput"));
             Map<String, Object> context = new HashMap<>();
             ByteBuffer byteWrap = (ByteBuffer) uploadResults.get("imageData");
             if (byteWrap == null) {
@@ -177,7 +177,7 @@ public class LayoutEvents {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             HttpSession session = request.getSession();
             Map<String, Object> uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
-            Map<String, Object> context = UtilGenerics.checkMap(uploadResults.get("formInput"));
+            Map<String, Object> context = UtilGenerics.cast(uploadResults.get("formInput"));
             ByteBuffer byteWrap = (ByteBuffer) uploadResults.get("imageData");
             if (byteWrap == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.image_data_null", locale);

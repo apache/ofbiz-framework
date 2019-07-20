@@ -627,8 +627,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             showMore = true;
             if (collapsible) {
                 this.getNextElementId();
-                Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
-                Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
+                Map<String, Object> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+                Map<String, Object> paramMap = UtilGenerics.cast(context.get("requestParameters"));
                 Map<String, Object> requestParameters = new HashMap<>(paramMap);
                 if (uiLabelMap != null) {
                     expandToolTip = (String) uiLabelMap.get("CommonExpand");
@@ -689,7 +689,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
             ModelTheme modelTheme = visualTheme.getModelTheme();
             if (request != null && response != null) {
-                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+                Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 globalCtx.put("NO_PAGINATOR", true);
                 FormStringRenderer savedRenderer = (FormStringRenderer) context.get("formStringRenderer");
                 MacroFormRenderer renderer = null;

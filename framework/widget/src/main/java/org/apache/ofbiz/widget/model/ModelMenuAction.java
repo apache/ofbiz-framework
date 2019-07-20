@@ -188,7 +188,7 @@ public abstract class ModelMenuAction {
             }
 
             if (global) {
-                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+                Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 if (globalCtx != null) {
                     this.field.put(globalCtx, newValue);
                 }

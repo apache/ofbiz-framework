@@ -60,7 +60,7 @@ public class ModelNotification {
     }
 
     public Map<String, Object> buildContext(Map<String, ? extends Object> context, Map<String, Object> result, ModelService model) throws GenericServiceException {
-        Map<String, Object> userLogin = UtilGenerics.checkMap(context.get("userLogin"));
+        Map<String, Object> userLogin = UtilGenerics.cast(context.get("userLogin"));
         String partyId = null;
         if (userLogin != null) {
             partyId = (String) userLogin.get("partyId");

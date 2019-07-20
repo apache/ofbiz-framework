@@ -140,7 +140,7 @@ public abstract class ModelWidget implements Serializable {
             if (str != null) {
                 result = "true".equals(str);
             } else {
-                Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
+                Map<String, ? extends Object> parameters = UtilGenerics.cast(context.get("parameters"));
                 if (parameters != null) {
                     str = (String) parameters.get(enableBoundaryCommentsParam);
                     if (str != null) {

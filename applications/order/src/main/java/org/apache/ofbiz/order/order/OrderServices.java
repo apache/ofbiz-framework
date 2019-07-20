@@ -859,7 +859,7 @@ public class OrderServices {
         }
 
         // set the additional party roles
-        Map<String, List<String>> additionalPartyRole = UtilGenerics.checkMap(context.get("orderAdditionalPartyRoleMap"));
+        Map<String, List<String>> additionalPartyRole = UtilGenerics.cast(context.get("orderAdditionalPartyRoleMap"));
         if (additionalPartyRole != null) {
             for (Map.Entry<String, List<String>> entry : additionalPartyRole.entrySet()) {
                 String additionalRoleTypeId = entry.getKey();
@@ -2020,9 +2020,9 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
-        Map<String, String> itemReasonMap = UtilGenerics.checkMap(context.get("itemReasonMap"));
-        Map<String, String> itemCommentMap = UtilGenerics.checkMap(context.get("itemCommentMap"));
-        Map<String, String> itemQuantityMap = UtilGenerics.checkMap(context.get("itemQtyMap"));
+        Map<String, String> itemReasonMap = UtilGenerics.cast(context.get("itemReasonMap"));
+        Map<String, String> itemCommentMap = UtilGenerics.cast(context.get("itemCommentMap"));
+        Map<String, String> itemQuantityMap = UtilGenerics.cast(context.get("itemQtyMap"));
         if ((cancelQuantity == null) && UtilValidate.isNotEmpty(itemQuantityMap)) {
             String key = orderItemSeqId+":"+shipGroupSeqId;
             if (UtilValidate.isNotEmpty(itemQuantityMap.get(key))) {
@@ -3530,7 +3530,7 @@ public class OrderServices {
         String orderItemTypeId = (String) context.get("orderItemTypeId");
         String changeComments = (String) context.get("changeComments");
         Boolean calcTax = (Boolean) context.get("calcTax");
-        Map<String, String> itemAttributesMap = UtilGenerics.checkMap(context.get("itemAttributesMap"));
+        Map<String, String> itemAttributesMap = UtilGenerics.cast(context.get("itemAttributesMap"));
 
         if (calcTax == null) {
             calcTax = Boolean.TRUE;
@@ -3675,16 +3675,16 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
-        Map<String, String> overridePriceMap = UtilGenerics.checkMap(context.get("overridePriceMap"));
-        Map<String, String> itemDescriptionMap = UtilGenerics.checkMap(context.get("itemDescriptionMap"));
-        Map<String, String> itemPriceMap = UtilGenerics.checkMap(context.get("itemPriceMap"));
-        Map<String, String> itemQtyMap = UtilGenerics.checkMap(context.get("itemQtyMap"));
-        Map<String, String> itemReasonMap = UtilGenerics.checkMap(context.get("itemReasonMap"));
-        Map<String, String> itemCommentMap = UtilGenerics.checkMap(context.get("itemCommentMap"));
-        Map<String, String> itemAttributesMap = UtilGenerics.checkMap(context.get("itemAttributesMap"));
-        Map<String, String> itemEstimatedShipDateMap = UtilGenerics.checkMap(context.get("itemShipDateMap"));
-        Map<String, String> itemEstimatedDeliveryDateMap = UtilGenerics.checkMap(context.get("itemDeliveryDateMap"));
-        Map<String, String> itemReserveAfterDateMap = UtilGenerics.checkMap(context.get("itemReserveAfterDateMap"));
+        Map<String, String> overridePriceMap = UtilGenerics.cast(context.get("overridePriceMap"));
+        Map<String, String> itemDescriptionMap = UtilGenerics.cast(context.get("itemDescriptionMap"));
+        Map<String, String> itemPriceMap = UtilGenerics.cast(context.get("itemPriceMap"));
+        Map<String, String> itemQtyMap = UtilGenerics.cast(context.get("itemQtyMap"));
+        Map<String, String> itemReasonMap = UtilGenerics.cast(context.get("itemReasonMap"));
+        Map<String, String> itemCommentMap = UtilGenerics.cast(context.get("itemCommentMap"));
+        Map<String, String> itemAttributesMap = UtilGenerics.cast(context.get("itemAttributesMap"));
+        Map<String, String> itemEstimatedShipDateMap = UtilGenerics.cast(context.get("itemShipDateMap"));
+        Map<String, String> itemEstimatedDeliveryDateMap = UtilGenerics.cast(context.get("itemDeliveryDateMap"));
+        Map<String, String> itemReserveAfterDateMap = UtilGenerics.cast(context.get("itemReserveAfterDateMap"));
         Boolean calcTax = (Boolean) context.get("calcTax");
         if (calcTax == null) {
             calcTax = Boolean.TRUE;
@@ -4166,7 +4166,7 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
-        Map<String, Object> changeMap = UtilGenerics.checkMap(context.get("changeMap"));
+        Map<String, Object> changeMap = UtilGenerics.cast(context.get("changeMap"));
         Locale locale = (Locale) context.get("locale");
         Boolean deleteItems = (Boolean) context.get("deleteItems");
         Boolean calcTax = (Boolean) context.get("calcTax");
@@ -4420,7 +4420,7 @@ public class OrderServices {
                     if (changeFound) {
 
                         //  found changes to store
-                        Map<String, String> itemReasonMap = UtilGenerics.checkMap(changeMap.get("itemReasonMap"));
+                        Map<String, String> itemReasonMap = UtilGenerics.cast(changeMap.get("itemReasonMap"));
                         if (UtilValidate.isNotEmpty(itemReasonMap)) {
                             String changeReasonId = itemReasonMap.get(valueObj.getString("orderItemSeqId"));
                             modifiedItem.put("reasonEnumId", changeReasonId);
@@ -4434,8 +4434,8 @@ public class OrderServices {
                 } else {
 
                     //  this is a new item appended to the order
-                    Map<String, String> itemReasonMap = UtilGenerics.checkMap(changeMap.get("itemReasonMap"));
-                    Map<String, String> itemCommentMap = UtilGenerics.checkMap(changeMap.get("itemCommentMap"));
+                    Map<String, String> itemReasonMap = UtilGenerics.cast(changeMap.get("itemReasonMap"));
+                    Map<String, String> itemCommentMap = UtilGenerics.cast(changeMap.get("itemCommentMap"));
                     Map<String, Object> appendedItem = new HashMap<>();
                     if (UtilValidate.isNotEmpty(itemReasonMap)) {
                         String changeReasonId = itemReasonMap.get("reasonEnumId");
@@ -5300,7 +5300,7 @@ public class OrderServices {
         String productStoreId = (String) context.get("productStoreId");
         String currency = (String) context.get("currency");
         String partyId = (String) context.get("partyId");
-        Map<String, BigDecimal> itemMap = UtilGenerics.checkMap(context.get("itemMap"));
+        Map<String, BigDecimal> itemMap = UtilGenerics.cast(context.get("itemMap"));
 
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, null, locale, currency);
         try {
@@ -7004,9 +7004,9 @@ public class OrderServices {
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         Integer itemListSize = (Integer) context.get("itemListSize");
-        Map<String, String> itemOrderIdMap = UtilGenerics.checkMap(context.get("itemOrderIdMap"));
-        Map<String, String> itemOrderItemSeqIdMap = UtilGenerics.checkMap(context.get("itemOrderItemSeqIdMap"));
-        Map<String, String> itemAllocatedQuantityMap = UtilGenerics.checkMap(context.get("itemAllocatedQuantityMap"));
+        Map<String, String> itemOrderIdMap = UtilGenerics.cast(context.get("itemOrderIdMap"));
+        Map<String, String> itemOrderItemSeqIdMap = UtilGenerics.cast(context.get("itemOrderItemSeqIdMap"));
+        Map<String, String> itemAllocatedQuantityMap = UtilGenerics.cast(context.get("itemAllocatedQuantityMap"));
         Map<String, Object> serviceResult = new HashMap<>();
         Map<String, Object> serviceCtx = new HashMap<>();
         String planId = null;
@@ -7072,7 +7072,7 @@ public class OrderServices {
     public static Map<String, Object> isInventoryAllocationRequired(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Boolean allocateInventory = false;
-        Map<String, Object> serviceContext = UtilGenerics.checkMap(context.get("serviceContext"));
+        Map<String, Object> serviceContext = UtilGenerics.cast(context.get("serviceContext"));
         String orderId = (String) serviceContext.get("orderId");
 
         OrderReadHelper orderReadHelper = new OrderReadHelper(delegator, orderId);
@@ -7091,11 +7091,11 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String planId = (String) context.get("planId");
-        Map<String, String> orderIdMap = UtilGenerics.checkMap(context.get("orderIdMap"));
-        Map<String, String> productIdMap = UtilGenerics.checkMap(context.get("productIdMap"));
-        Map<String, String> allocatedQuantityMap = UtilGenerics.checkMap(context.get("allocatedQuantityMap"));
-        Map<String, String> prioritySeqIdMap = UtilGenerics.checkMap(context.get("prioritySeqIdMap"));
-        Map<String, String> rowSubmitMap = UtilGenerics.checkMap(context.get("rowSubmitMap"));
+        Map<String, String> orderIdMap = UtilGenerics.cast(context.get("orderIdMap"));
+        Map<String, String> productIdMap = UtilGenerics.cast(context.get("productIdMap"));
+        Map<String, String> allocatedQuantityMap = UtilGenerics.cast(context.get("allocatedQuantityMap"));
+        Map<String, String> prioritySeqIdMap = UtilGenerics.cast(context.get("prioritySeqIdMap"));
+        Map<String, String> rowSubmitMap = UtilGenerics.cast(context.get("rowSubmitMap"));
         Map<String, Object> serviceCtx = new HashMap<>();
         Map<String, Object> serviceResult = new HashMap<>();
         Boolean changeHeaderStatus = false;

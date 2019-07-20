@@ -180,7 +180,7 @@ public class ModelTree extends ModelWidget {
             }
         }
         //append also the request parameters
-        Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
+        Map<String, Object> paramMap = UtilGenerics.cast(context.get("requestParameters"));
         if (UtilValidate.isNotEmpty(paramMap)) {
             Map<String, Object> requestParameters = new HashMap<>(paramMap);
             requestParameters.remove(this.getTrailName(context));
@@ -231,7 +231,7 @@ public class ModelTree extends ModelWidget {
     @SuppressWarnings("rawtypes")
     public void renderTreeString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer)
             throws GeneralException {
-        Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
+        Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
         ModelNode node = nodeMap.get(rootNodeName);
         String trailName = trailNameExdr.expandString(context);
         String treeString = (String) context.get(trailName);
@@ -590,7 +590,7 @@ public class ModelTree extends ModelWidget {
                         int newDepth = depth + 1;
                         for (Object[] arr : subNodeValues) {
                             ModelNode node = (ModelNode) arr[0];
-                            Map<String, Object> val = UtilGenerics.checkMap(arr[1]);
+                            Map<String, Object> val = UtilGenerics.cast(arr[1]);
                             String thisPkName = node.getPkName(context);
                             String thisEntityId = (String) val.get(thisPkName);
                             MapStack<String> newContext = MapStack.create(context);

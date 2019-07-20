@@ -19,7 +19,6 @@
 package org.apache.ofbiz.base.util;
 
 import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -53,7 +52,7 @@ public final class UtilPlist {
         writer.print(" = ");
         if (value instanceof Map<?, ?>) {
             writer.println();
-            Map<String, Object> map = checkMap(value);
+            Map<String, Object> map = UtilGenerics.cast(value);
             writePlistPropertyMap(map, indentLevel, writer, false);
         } else if (value instanceof List<?>) {
             List<Object> list = checkList(value);
@@ -90,7 +89,7 @@ public final class UtilPlist {
         while (propertyValueIter.hasNext()) {
             Object propertyValue = propertyValueIter.next();
             if (propertyValue instanceof Map<?, ?>) {
-                Map<String, Object> propertyMap = checkMap(propertyValue);
+                Map<String, Object> propertyMap = UtilGenerics.cast(propertyValue);
                 writePlistPropertyMap(propertyMap, indentLevel + 1, writer, propertyValueIter.hasNext());
             } else {
                 writer.print(propertyValue);
@@ -114,7 +113,7 @@ public final class UtilPlist {
         writer.print(name);
         writer.println("</key>");
         if (value instanceof Map<?, ?>) {
-            Map<String, Object> map = checkMap(value);
+            Map<String, Object> map = UtilGenerics.cast(value);
             writePlistPropertyMapXml(map, indentLevel, writer);
         } else if (value instanceof List<?>) {
             List<Object> list = checkList(value);
@@ -152,7 +151,7 @@ public final class UtilPlist {
         while (propertyValueIter.hasNext()) {
             Object propertyValue = propertyValueIter.next();
             if (propertyValue instanceof Map<?, ?>) {
-                Map<String, Object> propertyMap = checkMap(propertyValue);
+                Map<String, Object> propertyMap = UtilGenerics.cast(propertyValue);
                 writePlistPropertyMapXml(propertyMap, indentLevel, writer);
             } else {
                 for (int i = 0; i < indentLevel; i++) {

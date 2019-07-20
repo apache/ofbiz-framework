@@ -135,7 +135,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
         if (UtilValidate.isNotEmpty(lhsMapName)) {
             try {
                 if (context.containsKey(lhsMapName)) {
-                    Map<String, ? extends Object> envMap = UtilGenerics.checkMap(context.get(lhsMapName));
+                    Map<String, ? extends Object> envMap = UtilGenerics.cast(context.get(lhsMapName));
                     lhsValue = envMap.get(lhsValueName);
                 } else {
                     Debug.logInfo("From Map (" + lhsMapName + ") not found in context, defaulting to null.", module);
@@ -156,7 +156,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
         } else if (UtilValidate.isNotEmpty(rhsMapName)) {
             try {
                 if (context.containsKey(rhsMapName)) {
-                    Map<String, ? extends Object> envMap = UtilGenerics.checkMap(context.get(rhsMapName));
+                    Map<String, ? extends Object> envMap = UtilGenerics.cast(context.get(rhsMapName));
                     rhsValue = envMap.get(rhsValueName);
                 } else {
                     Debug.logInfo("To Map (" + rhsMapName + ") not found in context for " + serviceName + ", defaulting to null.", module);

@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -395,7 +396,7 @@ public class CoreEvents {
             servicePathMap = null;
 
             if (servicePathObject instanceof Map<?, ?>) {
-                servicePathMap = checkMap(servicePathObject);
+                servicePathMap = UtilGenerics.cast(servicePathObject);
             } else if (servicePathObject instanceof GenericEntity) {
                 GenericEntity servicePathEntity = (GenericEntity)servicePathObject;
                 servicePathMap = new HashMap<>();

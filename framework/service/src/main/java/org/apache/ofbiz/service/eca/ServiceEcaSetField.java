@@ -69,7 +69,7 @@ public class ServiceEcaSetField {
             // check if target is a map and create/get from contaxt
             Map<String, Object> valueMap = null;
             if (UtilValidate.isNotEmpty(this.mapName) && context.containsKey(this.mapName)) {
-                valueMap = UtilGenerics.checkMap(context.get(mapName));
+                valueMap = UtilGenerics.cast(context.get(mapName));
             } else {
                 valueMap = new HashMap<>();
             }

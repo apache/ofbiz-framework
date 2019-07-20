@@ -57,10 +57,6 @@ public final class UtilGenerics {
         return cast(object);
     }
 
-    public static <K, V> Map<K, V> checkMap(Object object) {
-        return cast(object);
-    }
-
     public static <K, V> Map<K, V> checkMap(Object object, Class<K> keyType, Class<V> valueType) {
         if (object != null) {
             if (!(object instanceof Map<?, ?>)) {
@@ -78,6 +74,6 @@ public final class UtilGenerics {
                 i++;
             }
         }
-        return checkMap(object);
+        return cast(object);
     }
 }

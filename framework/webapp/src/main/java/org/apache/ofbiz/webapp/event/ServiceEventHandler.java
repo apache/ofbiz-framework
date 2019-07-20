@@ -119,7 +119,7 @@ public class ServiceEventHandler implements EventHandler {
         }
 
         Map<String, Object> rawParametersMap = UtilHttp.getCombinedMap(request);
-        Map<String, Object> multiPartMap = UtilGenerics.checkMap(request.getAttribute("multiPartMap"));
+        Map<String, Object> multiPartMap = UtilGenerics.cast(request.getAttribute("multiPartMap"));
 
         Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
 
