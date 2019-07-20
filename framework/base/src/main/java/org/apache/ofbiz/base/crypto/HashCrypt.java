@@ -35,7 +35,6 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 

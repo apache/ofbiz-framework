@@ -34,7 +34,6 @@ import java.util.Map;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;

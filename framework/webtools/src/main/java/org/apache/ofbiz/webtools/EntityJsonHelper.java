@@ -19,7 +19,6 @@
 package org.apache.ofbiz.webtools;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelField;

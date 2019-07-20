@@ -32,7 +32,6 @@ import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import org.apache.ofbiz.base.crypto.HashCrypt;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.login.LoginServices;
 

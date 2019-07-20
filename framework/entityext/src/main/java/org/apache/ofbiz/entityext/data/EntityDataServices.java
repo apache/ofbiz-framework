@@ -38,7 +38,6 @@ import org.apache.ofbiz.base.crypto.DesCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilURL;

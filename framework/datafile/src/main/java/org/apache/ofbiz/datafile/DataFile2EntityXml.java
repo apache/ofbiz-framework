@@ -29,7 +29,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 

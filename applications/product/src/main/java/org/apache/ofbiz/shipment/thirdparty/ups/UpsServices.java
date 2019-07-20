@@ -46,7 +46,6 @@ import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;

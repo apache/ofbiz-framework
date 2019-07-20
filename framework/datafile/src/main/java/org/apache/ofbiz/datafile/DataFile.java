@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilValidate;
 
 /**

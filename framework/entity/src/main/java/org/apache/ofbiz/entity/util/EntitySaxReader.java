@@ -41,7 +41,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;

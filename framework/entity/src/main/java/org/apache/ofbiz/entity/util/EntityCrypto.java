@@ -33,7 +33,6 @@ import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;

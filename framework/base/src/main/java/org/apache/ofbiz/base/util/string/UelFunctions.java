@@ -45,7 +45,6 @@ import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.cyberneko.html.parsers.DOMParser;

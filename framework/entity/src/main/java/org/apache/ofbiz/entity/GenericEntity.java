@@ -47,7 +47,6 @@ import org.apache.ofbiz.base.util.Observer;
 import org.apache.ofbiz.base.util.TimeDuration;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
