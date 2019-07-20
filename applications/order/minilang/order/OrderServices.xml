@@ -890,12 +890,11 @@ under the License.
                         <field-map field-name="partyId" from-field="partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
-                    <if-not-empty field="pcmpList">
-                        <first-from-list list="pcmpList" entry="pcmp"/>
+                    <iterate list="pcmpList" entry="pcmp">
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
-                    </if-not-empty>
+                    </iterate>
                     <set field="serviceContext.partyId" from-field="partyId"/>
                     <set field="serviceContext.contactMechId" from-field="parameters.shipToContactMechId"/>
                     <set field="serviceContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
@@ -923,11 +922,10 @@ under the License.
                             <field-map field-name="partyId" from-field="partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         </entity-and>
-                        <first-from-list list="pcmpList" entry="pcmp"/>
-                        <if-not-empty field="pcmp">
+                        <iterate list="pcmpList" entry="pcmp">
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
-                        </if-not-empty>
+                        </iterate>
                         <set field="shipToAddressCtx.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         <set field="shipToAddressCtx.contactMechId" from-field="nullField"/>
                         <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
@@ -973,12 +971,11 @@ under the License.
                         <field-map field-name="partyId" from-field="partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
-                    <first-from-list list="pcmpList" entry="pcmp"/>
-                    <if-not-empty field="pcmp">
+                    <iterate list="pcmpList" entry="pcmp">
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
-                    </if-not-empty>
+                    </iterate>
                     <if-compare field="keepAddressBook" operator="equals" value="N">
                         <set field="serviceInMap.contactMechId" from-field="parameters.billToContactMechId"/>
                         <call-service service-name="deletePartyContactMech" in-map-name="serviceInMap"/>
@@ -1022,12 +1019,11 @@ under the License.
                         <field-map field-name="partyId" from-field="billToAddressCtx.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
-                    <if-not-empty field="pcmpList">
-                        <first-from-list list="pcmpList" entry="pcmp"/>
+                    <iterate list="pcmpList" entry="pcmp">
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
-                    </if-not-empty>
+                    </iterate>
                     <set field="serviceContext.partyId" from-field="partyId"/>
                     <set field="serviceContext.contactMechId" from-field="parameters.billToContactMechId"/>
                     <set field="serviceContext.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
@@ -1073,12 +1069,11 @@ under the License.
                         <field-map field-name="partyId" from-field="partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
-                    <if-not-empty field="pcmpList">
-                        <first-from-list list="pcmpList" entry="pcmp"/>
+                    <iterate list="pcmpList" entry="pcmp">
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
-                    </if-not-empty>
+                    </iterate>
                     <set field="serviceContext.partyId" from-field="partyId"/>
                     <set field="serviceContext.contactMechId" from-field="parameters.billToContactMechId"/>
                     <set field="serviceContext.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
