@@ -5,7 +5,7 @@
  */
 
 .jstree-default-rtl li, 
-.jstree-default-rtl ins { background-image:url("images/d.png"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-default-rtl ins { background-image:url("d.png"); background-repeat:no-repeat; background-color:transparent; }
 .jstree-default-rtl li { background-position:-90px 0; background-repeat:repeat-y; }
 .jstree-default-rtl li.jstree-last { background:transparent; }
 .jstree-default-rtl .jstree-open > ins { background-position:-72px 0; }
