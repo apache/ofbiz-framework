@@ -66,12 +66,16 @@ public final class EntityUtil {
         Map<String, V> fields = new HashMap<>();
         if (args != null) {
             for (int i = 0; i < args.length;) {
-                if (!(args[i] instanceof String)) throw new IllegalArgumentException("Key(" + i + "), with value(" + args[i] + ") is not a String.");
-                String key = (String) args[i];
+                V keyValue = args[i];
+                if (!(keyValue instanceof String)) throw new IllegalArgumentException("Key(" + i + "), with value(" + args[i] + ") is not a String.");
+                String key = (String) keyValue;
                 i++;
-                if (!(args[i] instanceof Comparable<?>)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Comparable.");
-                if (!(args[i] instanceof Serializable)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Serializable.");
-                fields.put(key, args[i]);
+                V value = args[i];
+                if (value != null) {
+                    if (! (value instanceof Comparable<?>)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Comparable.");
+                    if (! (value instanceof Serializable)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Serializable.");
+                }
+                fields.put(key, value);
                 i++;
             }
         }
