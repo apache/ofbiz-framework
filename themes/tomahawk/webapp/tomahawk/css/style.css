@@ -4528,3 +4528,7 @@ html > /**/ body .jstree-default a {
 .button-bar > a.buttontext {
     text-transform:none!important;
 }
+/* The custom CSS to show mouse pointer on links using featherlight plugin  */
+a[data-featherlight] {
+    cursor: pointer;
+}

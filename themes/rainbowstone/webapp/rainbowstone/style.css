@@ -1912,3 +1912,7 @@ html > /**/ body .jstree-default a {
     border-color: #848484 #c1c1c1 #e1e1e1;
     min-height: unset !important;
 }
+/* The custom CSS to show mouse pointer on links using featherlight plugin  */
+a[data-featherlight] {
+    cursor: pointer;
+}

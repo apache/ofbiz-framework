@@ -57,7 +57,7 @@ under the License.
         <property name="VT_NAV_TMPLT_LOC" value="component://flatgrey/template/AppBar.ftl"/>
         <property name="VT_MSG_TMPLT_LOC" value="component://common-theme/template/includes/Messages.ftl"/>
         <!--javascript libs-->
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/jquery-3.2.1.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/jquery-3.4.1.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/jquery-migrate-3.0.0.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js"/>
