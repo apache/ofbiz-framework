@@ -351,13 +351,15 @@ under the License.
                         <set field="defaultOrganizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" global="true"/>
 
                         <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" default-value="component://common-theme/template/includes/Messages.ftl"/>
+                        <set field="layoutSettings.styleSheets[]" value="/common/js/jquery/plugins/featherlight/featherlight-1.7.13.min.css" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/featherlight/featherlight-1.7.13.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/select2/js/select2-4.0.6.js"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/validate/jquery.validate.min.js"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-migrate-3.0.0.min.js" global="true"/>
-                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.2.1.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.4.1.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[]" value="/common/js/util/OfbizUtil.js" global="true"/>
                     </actions>
                     <widgets>
@@ -448,7 +450,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-migrate-3.0.0.min.js" global="true" />
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.2.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.4.1.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/select2/css/select2-4.0.6.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css" global="true" />

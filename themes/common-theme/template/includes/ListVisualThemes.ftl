@@ -23,26 +23,6 @@ margin: 1em;
 }
 </style>
 -->
-
-<script type="application/javascript" src="/common/js/jquery/plugins/fancybox/jquery.fancybox-3.2.3.min.js"></script>
-<link rel="stylesheet" href="/common/js/jquery/plugins/fancybox/jquery.fancybox-3.2.3.min.css" type="text/css" media="screen"/>
-
-<script type="application/javascript">
-    $(document).ready(function () {
-        $("a#single_image").fancybox();
-        $("a#inline").fancybox({
-            'hideOnContentClick': true
-        });
-        $("a.group").fancybox({
-            'transitionIn': 'elastic',
-            'transitionOut': 'elastic',
-            'speedIn': 600,
-            'speedOut': 200,
-            'overlayShow': false
-        });
-    });
-</script>
-
 <div class="screenlet" style="margin: 1em;">
   <div class="screenlet-title-bar">
     <ul>
@@ -75,7 +55,7 @@ margin: 1em;
           <td>
             <#if visualTheme.getScreenshots()?has_content>
               <#list visualTheme.getScreenshots() as screenshot>
-                <a id="single_image" href="<@ofbizContentUrl>${screenshot}</@ofbizContentUrl>"><img
+                <a data-featherlight="<@ofbizContentUrl>${screenshot}</@ofbizContentUrl>"><img
                     src="<@ofbizContentUrl>${screenshot}</@ofbizContentUrl>" width="150"
                     alt=""/></a>
               </#list>
