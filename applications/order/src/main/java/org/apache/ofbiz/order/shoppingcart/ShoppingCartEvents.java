@@ -1564,7 +1564,7 @@ public class ShoppingCartEvents {
         }
         request.setAttribute("quoteId", quoteId);
         if (destroyCart != null && "Y".equals(destroyCart)) {
-            ShoppingCartEvents.destroyCart(request, response);
+            destroyCart(request, response);
         }
 
         return "success";
@@ -1596,7 +1596,7 @@ public class ShoppingCartEvents {
         }
         request.setAttribute("custRequestId", custRequestId);
         if (destroyCart != null && "Y".equals(destroyCart)) {
-            ShoppingCartEvents.destroyCart(request, response);
+            destroyCart(request, response);
         }
 
         return "success";
@@ -1659,7 +1659,7 @@ public class ShoppingCartEvents {
                 }
 
                 if (hasPermission) {
-                    cart = ShoppingCartEvents.getCartObject(request, null, productStore.getString("defaultCurrencyUomId"));
+                    cart = getCartObject(request, null, productStore.getString("defaultCurrencyUomId"));
                 } else {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToTakeOrdersForThisStore", locale));
                     cart.clear();
@@ -1790,7 +1790,7 @@ public class ShoppingCartEvents {
     public static String bulkAddProducts(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
+        ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective = null;
         Map<String, Object> result = null;
@@ -2006,7 +2006,7 @@ public class ShoppingCartEvents {
 
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("product_id");
-        String currencyUomId = ShoppingCartEvents.getCartObject(request).getCurrency();
+        String currencyUomId = getCartObject(request).getCurrency();
         ProductConfigWrapper configWrapper = ProductConfigWorker.getProductConfigWrapper(productId, currencyUomId, request);
         if (configWrapper == null) {
             Debug.logWarning("configWrapper is null", module);
@@ -2119,7 +2119,7 @@ public class ShoppingCartEvents {
                             return "error";
                         }
                         request.setAttribute("shoppingCart", result.get("shoppingCart"));
-                        ShoppingCartEvents.destroyCart(request, response);
+                        destroyCart(request, response);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Failed to execute service appendOrderItem", module);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
