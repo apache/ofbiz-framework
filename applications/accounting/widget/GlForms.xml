@@ -796,7 +796,8 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" value="${organizationPartyId}" />
                     <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
@@ -885,7 +886,8 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" value="${organizationPartyId}" />
                     <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
