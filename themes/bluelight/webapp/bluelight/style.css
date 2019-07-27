@@ -4062,3 +4062,7 @@ html > /**/ body .jstree-default a {
     white-space: normal;
     height: auto;
 }
+/* The custom CSS to show mouse pointer on links using featherlight plugin  */
+a[data-featherlight] {
+    cursor: pointer;
+}
