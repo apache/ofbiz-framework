@@ -544,22 +544,22 @@ document.lookuporder.orderId.focus();
           <td >${uiLabelMap.OrderOrderId}</td>
           <td >${uiLabelMap.OrderOrderName}</td>
           <td >${uiLabelMap.PartyName}</td>
-          <td >${uiLabelMap.OrderSurvey}</td>
-          <td >${uiLabelMap.OrderItemsOrdered}</td>
-          <td >${uiLabelMap.OrderItemsBackOrdered}</td>
-          <td >${uiLabelMap.OrderItemsReturned}</td>
-          <td >${uiLabelMap.OrderRemainingSubTotal}</td>
-          <td >${uiLabelMap.OrderOrderTotal}</td>
+          <td align="right">${uiLabelMap.OrderSurvey}</td>
+          <td align="right">${uiLabelMap.OrderItemsOrdered}</td>
+          <td align="right">${uiLabelMap.OrderItemsBackOrdered}</td>
+          <td align="right">${uiLabelMap.OrderItemsReturned}</td>
+          <td align="right">${uiLabelMap.OrderRemainingSubTotal}</td>
+          <td align="right" >${uiLabelMap.OrderOrderTotal}
+
             <#if ("Y" == requestParameters.filterInventoryProblems?default("N")) || ("Y" == requestParameters.filterPOsOpenPastTheirETA?default("N")) || ("Y" == requestParameters.filterPOsWithRejectedItems?default("N")) || ("Y" == requestParameters.filterPartiallyReceivedPOs?default("N"))>
               <td>${uiLabelMap.CommonStatus}</td>
               <td>${uiLabelMap.CommonFilter}</td>
             <#else>
+              <td></td>
               <td>${uiLabelMap.CommonStatus}</td>
             </#if>
           <td>${uiLabelMap.OrderDate}</td>
           <td>${uiLabelMap.PartyPartyId}</td>
-          <td></td>
-          <td></td>
         </tr>
         <#if orderList?has_content>
           <#assign alt_row = false>
