@@ -27,6 +27,14 @@ under the License.
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>${title!}</title>
+  <#if layoutSettings.shortcutIcon?has_content>
+      <#assign shortcutIcon = layoutSettings.shortcutIcon/>
+  <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
+      <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON/>
+  </#if>
+  <#if shortcutIcon?has_content>
+    <link rel="shortcut icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" />
+  </#if>
   <#-- the trick "<scr" + "ipt below is because browsers should not parse the contents of CDATA elements, but apparently they do. -->
   <script language="JavaScript" type="text/javascript">//<![CDATA[
       var jQueryLibLoaded = false;
