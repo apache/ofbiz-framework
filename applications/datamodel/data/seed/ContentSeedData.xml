@@ -178,6 +178,7 @@ under the License.
     <StatusValidChange statusId="CTNT_IN_PROGRESS" statusIdTo="CTNT_INITIAL_DRAFT" transitionName="First draft"/>
     <StatusValidChange statusId="CTNT_IN_PROGRESS" statusIdTo="CTNT_PUBLISHED" transitionName="published, not revised"/>
     <StatusValidChange statusId="CTNT_IN_PROGRESS" statusIdTo="CTNT_AVAILABLE" transitionName="Available"/>
+    <StatusValidChange statusId="CTNT_IN_PROGRESS" statusIdTo="IM_PENDING" transitionName="Image Pending"/>
     <StatusValidChange statusId="CTNT_INITIAL_DRAFT" statusIdTo="CTNT_REVISED_DRAFT" transitionName="Draft revised"/>
     <StatusValidChange statusId="CTNT_INITIAL_DRAFT" statusIdTo="CTNT_PUBLISHED" transitionName="Initial draft published"/>
     <StatusValidChange statusId="CTNT_REVISED_DRAFT" statusIdTo="CTNT_FINAL_DRAFT" transitionName="Final draft"/>
