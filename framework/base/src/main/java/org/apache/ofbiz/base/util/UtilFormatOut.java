@@ -21,12 +21,12 @@ package org.apache.ofbiz.base.util;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  * General output formatting functions - mainly for helping in JSPs
@@ -34,16 +34,11 @@ import java.util.TimeZone;
 public final class UtilFormatOut {
 
     public static final String module = UtilFormatOut.class.getName();
-
-    // ------------------- price format handlers -------------------
-    // FIXME: This is not thread-safe! DecimalFormat is not synchronized.
-    private static final DecimalFormat priceDecimalFormat = new DecimalFormat(UtilProperties.getPropertyValue("general", "currency.decimal.format", "#,##0.00"));
-
-    // ------------------- quantity format handlers -------------------
-    private static final DecimalFormat quantityDecimalFormat = new DecimalFormat("#,##0.###");
-
-    // ------------------- percentage format handlers -------------------
-    private static final DecimalFormat percentageDecimalFormat = new DecimalFormat("##0.##%");
+    public static final String DEFAULT_FORMAT = "default";
+    public static final String AMOUNT_FORMAT = "amount";
+    public static final String QUANTITY_FORMAT = "quantity";
+    public static final String PERCENTAGE_FORMAT = "percentage";
+    public static final String SPELLED_OUT_FORMAT = "spelled-out";
 
     private UtilFormatOut() {}
 
@@ -54,43 +49,70 @@ public final class UtilFormatOut {
         return "";
     }
 
+    /** Format a number with format type define by properties
+     *
+     */
+    public static String formatNumber(Double number, String formatType, Delegator delegator, Locale locale) {
+        if (number == null) {
+            return "";
+        }
+        if (formatType == null) {
+            formatType = DEFAULT_FORMAT;
+        }
+        if (locale == null) {
+            locale = Locale.getDefault();
+        }
+
+        //lookup for known specific format
+        if (formatType.equals(SPELLED_OUT_FORMAT)) {
+            return formatSpelledOutAmount(number, locale);
+        }
+
+        //Resolve template to use from formatType
+        String formatTypeKey = formatType + ".displaying.format";
+        String template = delegator != null ?
+                EntityUtilProperties.getPropertyValue("number", formatTypeKey, delegator):
+                UtilProperties.getPropertyValue("number", formatTypeKey);
+        if (UtilValidate.isEmpty(template)) {
+            Debug.logWarning("Number template not found for format " + formatType +
+                    ", please check your property on number for " + formatTypeKey, module);
+            template = delegator != null ?
+                    EntityUtilProperties.getPropertyValue("number", "default.displaying.format", delegator):
+                    UtilProperties.getPropertyValue("number", "default.displaying.format");
+        }
+        if (UtilValidate.isEmpty(template)) {
+            Debug.logWarning("Number template not found for default displaying.format" +
+                    ", please check your property on number for default.displaying.format", module);
+            template = "##0.00";
+        }
+
+        //With the template parse the number to display it
+        return formatDecimalNumber(number, template, locale);
+    }
+
+    public static String formatNumber(BigDecimal number, String formatType, Delegator delegator, Locale locale) {
+        if (number == null) {
+            return "";
+        }
+        return formatNumber(number.doubleValue(), formatType, delegator, locale);
+    }
+
     /** Formats a Double representing a price into a string
      * @param price The price Double to be formatted
      * @return A String with the formatted price
      */
+    @Deprecated
     public static String formatPrice(Double price) {
-        if (price == null) {
-            return "";
-        }
-        return formatPrice(price.doubleValue());
+        return formatNumber(price, AMOUNT_FORMAT, null, null);
     }
 
     /** Formats a BigDecimal representing a price into a string
      * @param price The price BigDecimal to be formatted
      * @return A String with the formatted price
      */
+    @Deprecated
     public static String formatPrice(BigDecimal price) {
-        if (price == null) {
-            return "";
-        }
-        return priceDecimalFormat.format(price);
-    }
-
-    /** Formats a double representing a price into a string
-     * @param price The price double to be formatted
-     * @return A String with the formatted price
-     */
-    public static String formatPrice(double price) {
-        return priceDecimalFormat.format(price);
-    }
-
-    public static Double formatPriceNumber(double price) {
-        try {
-            return priceDecimalFormat.parse(formatPrice(price)).doubleValue();
-        } catch (ParseException e) {
-            Debug.logError(e, module);
-            return price;
-        }
+        return formatNumber(price, AMOUNT_FORMAT, null, null);
     }
 
     /** Formats a double into a properly formatted currency string based on isoCode and Locale
@@ -157,14 +179,6 @@ public final class UtilFormatOut {
      * @return A String with the formatted number
      */
     public static String formatSpelledOutAmount(Double amount, Locale locale) {
-        return formatSpelledOutAmount(amount.doubleValue(), locale);
-    }
-    /** Formats a double into a properly spelled out number string based on Locale
-     * @param amount The amount double to be formatted
-     * @param locale The Locale used to format the number
-     * @return A String with the formatted number
-     */
-    public static String formatSpelledOutAmount(double amount, Locale locale) {
         com.ibm.icu.text.NumberFormat nf = new com.ibm.icu.text.RuleBasedNumberFormat(locale, com.ibm.icu.text.RuleBasedNumberFormat.SPELLOUT);
         return nf.format(amount);
     }
@@ -176,10 +190,7 @@ public final class UtilFormatOut {
      */
     // This method should be used in place of formatPrice because it is locale aware.
     public static String formatAmount(double amount, Locale locale) {
-        com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getInstance(locale);
-        nf.setMinimumFractionDigits(2);
-        nf.setMaximumFractionDigits(2);
-        return nf.format(amount);
+        return formatNumber(amount, AMOUNT_FORMAT, null, locale);
     }
 
     /** Formats a Double representing a percentage into a string
@@ -187,10 +198,7 @@ public final class UtilFormatOut {
      * @return A String with the formatted percentage
      */
     public static String formatPercentage(Double percentage) {
-        if (percentage == null) {
-            return "";
-        }
-        return formatPercentage(percentage.doubleValue());
+        return formatNumber(percentage, PERCENTAGE_FORMAT, null, null);
     }
 
     /** Formats a BigDecimal representing a percentage into a string
@@ -198,30 +206,20 @@ public final class UtilFormatOut {
      * @return A String with the formatted percentage
      */
     public static String formatPercentage(BigDecimal percentage) {
-        if (percentage == null) {
-            return "";
-        }
-        return percentageDecimalFormat.format(percentage);
-    }
+        return formatNumber(percentage, PERCENTAGE_FORMAT, null, null);
 
-    /** Formats a double representing a percentage into a string
-     * @param percentage The percentage double to be formatted
-     * @return A String with the formatted percentage
-     */
-    public static String formatPercentage(double percentage) {
-        return percentageDecimalFormat.format(percentage);
     }
 
     /** Formats a BigDecimal value 1:1 into a percentage string (e.g. 10 to 10% instead of 0,1 to 10%)
      * @param percentage The percentage Decimal to be formatted
      * @return A String with the formatted percentage
      */
-    public static String formatPercentageRate(BigDecimal percentage, boolean negate) {
-        if (percentage == null) return "";
-        if (negate) {
-            return percentageDecimalFormat.format(percentage.divide(BigDecimal.valueOf(-100)));
+        public static String formatPercentageRate(BigDecimal percentage, boolean negate) {
+        if (percentage == null) {
+            return "";
         }
-        return percentageDecimalFormat.format(percentage.divide(BigDecimal.valueOf(100)));
+        BigDecimal hundred = BigDecimal.valueOf(negate? -100: 100);
+        return formatNumber(percentage.divide(hundred), PERCENTAGE_FORMAT, null, null);
     }
 
     /** Formats an Long representing a quantity into a string
@@ -235,14 +233,6 @@ public final class UtilFormatOut {
         return formatQuantity(quantity.doubleValue());
     }
 
-    /** Formats an int representing a quantity into a string
-     * @param quantity The quantity long to be formatted
-     * @return A String with the formatted quantity
-     */
-    public static String formatQuantity(long quantity) {
-        return formatQuantity((double) quantity);
-    }
-
     /** Formats an Integer representing a quantity into a string
      * @param quantity The quantity Integer to be formatted
      * @return A String with the formatted quantity
@@ -252,14 +242,6 @@ public final class UtilFormatOut {
             return "";
         }
         return formatQuantity(quantity.doubleValue());
-    }
-
-    /** Formats an int representing a quantity into a string
-     * @param quantity The quantity int to be formatted
-     * @return A String with the formatted quantity
-     */
-    public static String formatQuantity(int quantity) {
-        return formatQuantity((double) quantity);
     }
 
     /** Formats a Float representing a quantity into a string
@@ -273,23 +255,12 @@ public final class UtilFormatOut {
         return formatQuantity(quantity.doubleValue());
     }
 
-    /** Formats a float representing a quantity into a string
-     * @param quantity The quantity float to be formatted
-     * @return A String with the formatted quantity
-     */
-    public static String formatQuantity(float quantity) {
-        return formatQuantity((double) quantity);
-    }
-
     /** Formats an Double representing a quantity into a string
      * @param quantity The quantity Double to be formatted
      * @return A String with the formatted quantity
      */
     public static String formatQuantity(Double quantity) {
-        if (quantity == null) {
-            return "";
-        }
-        return formatQuantity(quantity.doubleValue());
+        return formatNumber(quantity, QUANTITY_FORMAT, null, null);
     }
 
     /** Formats an BigDecimal representing a quantity into a string
@@ -297,18 +268,7 @@ public final class UtilFormatOut {
      * @return A String with the formatted quantity
      */
     public static String formatQuantity(BigDecimal quantity) {
-        if (quantity == null) {
-            return "";
-        }
-        return quantityDecimalFormat.format(quantity);
-    }
-
-    /** Formats an double representing a quantity into a string
-     * @param quantity The quantity double to be formatted
-     * @return A String with the formatted quantity
-     */
-    public static String formatQuantity(double quantity) {
-        return quantityDecimalFormat.format(quantity);
+        return formatNumber(quantity, QUANTITY_FORMAT, null, null);
     }
 
     public static String formatPaddedNumber(long number, int numericPadding) {

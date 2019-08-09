@@ -66,6 +66,7 @@ import org.apache.ofbiz.entity.finder.EntityFinderUtil;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelUtil;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.model.CommonWidgetModels.AutoEntityParameters;
 import org.apache.ofbiz.widget.model.CommonWidgetModels.AutoServiceParameters;
@@ -1485,6 +1486,7 @@ public class ModelFormField {
         private final FlexibleStringExpander defaultValue;
         private final FlexibleStringExpander description;
         private final FlexibleStringExpander imageLocation;
+        private final FlexibleStringExpander format;
         private final InPlaceEditor inPlaceEditor;
         private final String size; // maximum number of characters to display
         private final String type; // matches type of field, currently text or currency
@@ -1498,6 +1500,7 @@ public class ModelFormField {
             this.description = original.description;
             this.imageLocation = original.imageLocation;
             this.inPlaceEditor = original.inPlaceEditor;
+            this.format = original.format;
             this.size = original.size;
             this.type = original.type;
         }
@@ -1510,6 +1513,7 @@ public class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
             this.description = FlexibleStringExpander.getInstance(element.getAttribute("description"));
             this.imageLocation = FlexibleStringExpander.getInstance(element.getAttribute("image-location"));
+            this.format = FlexibleStringExpander.getInstance(element.getAttribute("format"));
             Element inPlaceEditorElement = UtilXml.firstChildElement(element, "in-place-editor");
             if (inPlaceEditorElement != null) {
                 this.inPlaceEditor = new InPlaceEditor(inPlaceEditorElement);
@@ -1528,6 +1532,7 @@ public class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.description = FlexibleStringExpander.getInstance("");
             this.imageLocation = FlexibleStringExpander.getInstance("");
+            this.format = FlexibleStringExpander.getInstance("");
             this.inPlaceEditor = null;
             this.size = "";
             this.type = "";
@@ -1541,6 +1546,7 @@ public class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.description = FlexibleStringExpander.getInstance("");
             this.imageLocation = FlexibleStringExpander.getInstance("");
+            this.format = FlexibleStringExpander.getInstance("");
             this.inPlaceEditor = null;
             this.size = "";
             this.type = "";
@@ -1554,6 +1560,7 @@ public class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.description = FlexibleStringExpander.getInstance("");
             this.imageLocation = FlexibleStringExpander.getInstance("");
+            this.format = FlexibleStringExpander.getInstance("");
             this.inPlaceEditor = null;
             this.size = "";
             this.type = "";
@@ -1671,16 +1678,24 @@ public class ModelFormField {
                     // create default date/time value from timestamp string
                     retVal = retVal.substring(0, 16);
                 }
-            } else if ("accounting-number".equals(this.type)) {
+            } else if ("number".equals(this.type) ||
+                    (this.type != null && this.type.endsWith("-number"))) {
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) {
                     locale = Locale.getDefault();
                 }
+                String formatVal;
+                if (! this.format.isEmpty()) {
+                    formatVal = this.format.expandString(context);
+                } else {
+                    formatVal = this.type.endsWith("-number")?
+                        this.type.replaceFirst("-number", "")
+                        :"default";
+                }
+                Delegator delegator = (Delegator) context.get("delegator");
                 try {
                     Double parsedRetVal = (Double) ObjectType.simpleTypeOrObjectConvert(retVal, "Double", null, locale, false);
-                    String template = UtilProperties.getPropertyValue("arithmetic", "accounting-number.format",
-                            "#,##0.00;(#,##0.00)");
-                    retVal = UtilFormatOut.formatDecimalNumber(parsedRetVal, template, locale);
+                    retVal = UtilFormatOut.formatNumber(parsedRetVal, formatVal, delegator, locale);
                 } catch (GeneralException e) {
                     String errMsg = "Error formatting number [" + retVal + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);

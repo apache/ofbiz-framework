@@ -990,6 +990,11 @@ under the License.
                                 <xs:documentation>Display negatives in parentheses (configurable, see arithmetic.properties)</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
+                        <xs:enumeration value="number">
+                            <xs:annotation>
+                                <xs:documentation>Display as number with the format type given (configurable, see arithmetic.properties)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
@@ -1001,6 +1006,13 @@ under the License.
             <xs:attribute type="xs:string" name="image-location">
                 <xs:annotation>
                     <xs:documentation>Specifies the image to display.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="format">
+                <xs:annotation>
+                    <xs:documentation>Format a type number, select the format type to use on arithmetic.properties with the pattern ${format}.displaying.format =
+                        ex: default is present in number.properties as 'default.displaying.format = ##0.00'
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="default-value">

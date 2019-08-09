@@ -129,7 +129,7 @@ under the License.
     <!-- list open order items -->
     <form name="OpenOrderItemsList" type="list" list-name="orderItemList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="OpenOrderItemsReport">
-        <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
+        <field name="orderDate" title="${uiLabelMap.OrderDate}"><display type="date-time"/></field>
         <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext">
             <hyperlink description="${orderId}" target="orderview">
                 <parameter param-name="orderId"/>
@@ -137,29 +137,29 @@ under the License.
         </field>
         <field name="productId" title="${uiLabelMap.ProductProduct}"><display/></field>
         <field name="itemDescription" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="quantityOrdered" title="${uiLabelMap.ProductQuantity}"><display/></field>
-        <field name="quantityIssued" title="${uiLabelMap.OrderQtyShipped}"><display/></field>
-        <field name="quantityOpen" title="${uiLabelMap.ProductOpenQuantity}"><display/></field>
-        <field name="shipAfterDate" title="${uiLabelMap.OrderShipAfterDate}"><display/></field>
-        <field name="shipBeforeDate" title="${uiLabelMap.OrderShipBeforeDate}"><display/></field>
+        <field name="quantityOrdered" title="${uiLabelMap.ProductQuantity}"><display type="number" format="quantity"/></field>
+        <field name="quantityIssued" title="${uiLabelMap.OrderQtyShipped}"><display type="number" format="quantity"/></field>
+        <field name="quantityOpen" title="${uiLabelMap.ProductOpenQuantity}"><display type="number" format="quantity"/></field>
+        <field name="shipAfterDate" title="${uiLabelMap.OrderShipAfterDate}"><display type="date-time"/></field>
+        <field name="shipBeforeDate" title="${uiLabelMap.OrderShipBeforeDate}"><display type="date-time"/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
-        <field name="costPrice" title="${uiLabelMap.ProductCostPrice}"><display/></field>
-        <field name="listPrice" title="${uiLabelMap.ProductListPrice}"><display/></field>
-        <field name="retailPrice" title="${uiLabelMap.ProductRetailPrice}"><display/></field>
-        <field name="discount" title="${uiLabelMap.ProductDiscount}"><display/></field>
+        <field name="costPrice" title="${uiLabelMap.ProductCostPrice}"><display type="number" format="amount"/></field>
+        <field name="listPrice" title="${uiLabelMap.ProductListPrice}"><display type="number" format="amount"/></field>
+        <field name="retailPrice" title="${uiLabelMap.ProductRetailPrice}"><display type="number" format="amount"/></field>
+        <field name="discount" title="${uiLabelMap.ProductDiscount}"><display type="number" format="amount"/></field>
         <field name="calculatedMarkup" title="${uiLabelMap.OrderCalculatedMarkup}"><display/></field>
         <field name="percentMarkup" title="${uiLabelMap.OrderPercentageMarkup}"><display/></field>
     </form>
 
     <form name="OpenOrderItemsTotal" type="list" list-name="totalAmountList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="total" title="${uiLabelMap.CommonTotal}"><display/></field>
-        <field name="totalQuantityOrdered"><display/></field>
-        <field name="totalQuantityOpen"><display/></field>
-        <field name="totalCostPrice"><display/></field>
-        <field name="totalListPrice"><display/></field>
-        <field name="totalRetailPrice"><display/></field>
-        <field name="totalDiscount"><display/></field>
+        <field name="total" title="${uiLabelMap.CommonTotal}"><display type="number" format="quantity"/></field>
+        <field name="totalQuantityOrdered"><display type="number" format="quantity"/></field>
+        <field name="totalQuantityOpen"><display type="number" format="quantity"/></field>
+        <field name="totalCostPrice"><display type="number" format="amount"/></field>
+        <field name="totalListPrice"><display type="number" format="amount"/></field>
+        <field name="totalRetailPrice"><display type="number" format="amount"/></field>
+        <field name="totalDiscount"><display type="number" format="amount"/></field>
         <field name="totalMarkup"><display/></field>
         <field name="totalPercentMarkup"><display/></field>
     </form>

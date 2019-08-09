@@ -497,7 +497,7 @@ under the License.
         </field>
         <field name="requirementStartDate" title="${uiLabelMap.OrderRequirementStartDate}"><display/></field>
         <field name="requiredByDate" title="${uiLabelMap.OrderRequirementByDate}"><display/></field>
-        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display type="number" format="quantity"/></field>
     </form>
 
     <form name="LookupShoppingList" target="LookupShoppingList" title="" type="single"

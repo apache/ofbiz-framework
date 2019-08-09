@@ -91,9 +91,9 @@ under the License.
         </field>
         <field name="requirementStartDate"><display/></field>
         <field name="requiredByDate"><display/></field>
-        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
-        <field name="facilityQuantityOnHandTotal"><display/></field>
-        <field name="quantityOnHandTotal"><display/></field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display type="number" format="quantity"/></field>
+        <field name="facilityQuantityOnHandTotal"><display type="number" format="quantity"/></field>
+        <field name="quantityOnHandTotal"><display type="number" format="quantity"/></field>
         <field name="requestsLink" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.OrderRequests}" target="ListRequirementCustRequests">
                 <parameter param-name="requirementId"/>
@@ -249,7 +249,7 @@ under the License.
         </field>
         <field name="requirementStartDate"><display/></field>
         <field name="requiredByDate"><display/></field>
-        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display type="number" format="quantity"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
           <submit/>
@@ -322,10 +322,10 @@ under the License.
             <hyperlink description="${supplierProductId}" target="/catalog/control/EditProductSuppliers?productId=${productId}" target-type="inter-app"/>
         </field>
         <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display/></field>
-        <field name="minimumOrderQuantity" widget-area-style="align-text"><display/></field>
+        <field name="minimumOrderQuantity" widget-area-style="align-text"><display type="number" format="quantity"/></field>
         <field name="lastPrice" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="requiredByDate"><display/></field>
-        <field name="quantity" widget-area-style="align-text"><display/></field>
+        <field name="quantity" widget-area-style="align-text"><display type="number" format="quantity"/></field>
         <field name="comments"><display/></field>
     </form>
     <form name="ApprovedProductRequirements" type="multi" use-row-submit="true" target="quickPurchaseOrderEntry" title="" list-name="requirementsForSupplier"
@@ -353,7 +353,7 @@ under the License.
         <field name="supplierCurrencyUomId" entry-name="parameters.supplierCurrencyUomId"><display/></field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
         <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display/></field>
-        <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="align-text"><display/></field>
+        <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="align-text"><display type="number" format="quantity"/></field>
         <field name="lastPrice" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="requiredByDate"><display/></field>
         <field name="atp" title="${uiLabelMap.ProductAtp}" widget-area-style="align-text"><display/></field>
@@ -373,7 +373,7 @@ under the License.
     <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport" target="ApprovedProductRequirements"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="distinctProductCount" title="${uiLabelMap.OrderRequirementNumberOfProducts}"><display/></field>
-        <field name="quantityTotal"><display/></field>
+        <field name="quantityTotal"><display type="number" format="quantity"/></field>
         <field name="amountTotal"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="ApprovedProductRequirementsByVendor" type="list" use-row-submit="true" list-name="requirements" target="ApprovedProductRequirements" separate-columns="true"

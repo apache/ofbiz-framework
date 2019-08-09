@@ -28,10 +28,19 @@ under the License.
     </form>
 
     <form name="LayoutDemoForm" type="single" target="${demoTargetUrl}" default-map-name="demoMap">
+        <actions>
+            <set field="numberValue" value="-9.958"/>
+        </actions>
         <field name="name" title="${uiLabelMap.CommonName}" required-field="true">
             <text />
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="default"><display type="number" description="${numberValue}"/></field>
+        <field name="quantity"><display type="number" format="quantity" description="${numberValue}"/></field>
+        <field name="amount"><display type="number" format="amount" description="${numberValue}"/></field>
+        <field name="spelled"><display type="number" format="spelled-out" description="${numberValue}"/></field>
+        <field name="percentage"><display type="number" format="percentage" description="${numberValue}"/></field>
+        <field name="accounting"><display type="number" format="accounting" description="${numberValue}"/></field>
         <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
             <drop-down>
                 <option key="Y" description="${uiLabelMap.CommonYes}" />

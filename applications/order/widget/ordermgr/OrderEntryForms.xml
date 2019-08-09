@@ -189,11 +189,11 @@ under the License.
         <field name="supplierProductId"><display/></field>
         <field name="supplierProductName"><display/></field>
         <field name="internalName"><display/></field>
-        <field name="lastPrice"><display/></field>
-        <field name="minimumOrderQuantity"><display/></field>
-        <field name="minimumStock"><display/></field>
+        <field name="lastPrice"><display type="number" format="amount"/></field>
+        <field name="minimumOrderQuantity"><display type="number" format="quantity"/></field>
+        <field name="minimumStock"><display type="number" format="quantity"/></field>
         <field name="qohAtp" title="${uiLabelMap.ProductAtpQoh}"><display/></field>
-        <field name="quantityOnOrder"><display/></field>
+        <field name="quantityOnOrder"><display type="number" format="quantity"/></field>
         <field name="quantity" title="${uiLabelMap.OrderQuantity}">
             <text size="5" maxlength="10"/>
         </field>
