@@ -30,7 +30,6 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Locale;
@@ -291,7 +290,7 @@ public class FrameImage {
         String dataResourceId = null;
         try {
             String dirPath = "/frame/";
-            File dir = new File(imageServerPath + dirPath);
+            File dir = new File(imageServerPath + dirPath).toPath().normalize().toFile(); // cf. OFBIZ-9973
             if (!dir.exists()) {
                 boolean createDir = dir.mkdir();
                 if (!createDir) {
@@ -300,7 +299,7 @@ public class FrameImage {
                 }
             }
             String imagePath = "/frame/" + imageName;
-            File file = new File(imageServerPath + imagePath);
+            File file = new File(imageServerPath + imagePath).toPath().normalize().toFile(); // cf. OFBIZ-9973
             if (file.exists()) {
                 request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
                 return "error";
@@ -399,7 +398,7 @@ public class FrameImage {
                 Debug.logError("File :" + file.getName() + ", couldn't be loaded", module);
             }
             // Image Frame
-            BufferedImage bufImg1 = ImageIO.read(new File(URLEncoder.encode(imageServerPath + "/" + productId + "/" + imageName, "UTF-8")).getCanonicalFile());
+            BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName).toPath().normalize().toFile()); // cf. OFBIZ-9973
             BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
 
             int bufImgType;
@@ -457,7 +456,7 @@ public class FrameImage {
     public static String deleteFrameImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", (Delegator) context.get("delegator")), context);
-        File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg").getCanonicalFile();
+        File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg");
         if (file.exists()) {
             if (!file.delete()) {
                 Debug.logError("File :" + file.getName() + ", couldn't be deleted", module);
