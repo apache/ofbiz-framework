@@ -41,9 +41,9 @@ under the License.
     <!-- All components seed data -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/PartySeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/SecurityExtSeedData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/ProductSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/ContentSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/WorkEffortSeedData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/ProductSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/ManufacturingSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/AccountingSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/HumanResSeedData.xml"/>
