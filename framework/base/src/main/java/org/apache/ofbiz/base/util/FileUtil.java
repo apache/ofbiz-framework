@@ -40,12 +40,12 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
 import java.util.UUID;
 import java.util.zip.Deflater;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.ofbiz.base.location.ComponentLocationResolver;
 
@@ -488,4 +488,17 @@ public final class FileUtil {
         zis.closeEntry();
         zis.close();
     }
+    
+    /**
+     * Creates a File with a normalized file path
+     * This useful to prevent path traversal security issues 
+     * cf. OFBIZ-9973 for more details 
+     *
+     * @param filePath The file path to normalize
+     * @return A File with a normalized file path
+     */
+    public static File normalizeFilePath(String filePath) {
+        return new File(filePath).toPath().normalize().toFile(); 
+    }
+    
 }
