@@ -401,4 +401,17 @@ public final class FileUtil {
        File f = new File(fileName);
        return f.isFile();
    }
+    
+    /**
+     * Creates a File with a normalized file path
+     * This useful to prevent path traversal security issues 
+     * cf. OFBIZ-9973 for more details 
+     *
+     * @param filePath The file path to normalize
+     * @return A File with a normalized file path
+     */
+    public static File normalizeFilePath(String filePath) {
+        return new File(filePath).toPath().normalize().toFile(); 
+    }
+    
 }
