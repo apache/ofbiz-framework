@@ -112,8 +112,8 @@ public final class FreeMarkerWorker {
         boolean verboseTemplate = ModelWidget.widgetBoundaryCommentsEnabled(null)
                 || UtilProperties.getPropertyAsBoolean("widget", "widget.freemarker.template.verbose", false);
         newConfig.setTemplateExceptionHandler(verboseTemplate
-                ? OFBizTemplateExceptionHandler.OFBIZ_DEBUG_HANDLER
-                : OFBizTemplateExceptionHandler.OFBIZ_DEFAULT_HANDLER);
+                ? FreeMarkerWorker::handleTemplateExceptionVerbosily
+                : FreeMarkerWorker::handleTemplateException);
         try {
             newConfig.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
             newConfig.setSetting("number_format", "0.##########");
@@ -498,34 +498,45 @@ public final class FreeMarkerWorker {
     }
 
     /**
-     * OFBiz specific {@link TemplateExceptionHandler} interface.
+     * Handles template exceptions quietly.
+     * <p>
+     * This is done by suppressing the exception and replacing it by a generic char for quiet alert.
+     * Note that exception is still logged.
+     * <p>
+     * This implements the {@link TemplateExceptionHandler} functional interface.
+     *
+     * @param te  the exception that occurred
+     * @param env  the runtime environment of the template
+     * @param out  this is where the output of the template is written
      */
-    interface OFBizTemplateExceptionHandler {
+    private static void handleTemplateException(TemplateException te, Environment env, Writer out) {
+        try {
+            out.write(UtilProperties.getPropertyValue("widget", "widget.freemarker.template.exception.message", "∎"));
+            Debug.logError(te, module);
+        } catch (IOException e) {
+            Debug.logError(e, module);
+        }
+    }
 
-        /**
-         * {@link TemplateExceptionHandler} that suppresses the exception and keep the rendering going on.
-         * It sanitizes any messages present in the stack trace prior to printing to the output writer.
-         */
-        TemplateExceptionHandler OFBIZ_DEBUG_HANDLER = (te, env, out) -> {
-            try {
-                out.write(te.getMessage());
-                Debug.logError(te, module);
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-        };
-
-        /**
-         * {@link TemplateExceptionHandler} that suppresses the exception and replace by a generic char for quiet alert.
-         * As mentioned in the doc, the stack trace is still logged {@link TemplateExceptionHandler#IGNORE_HANDLER}
-         */
-        TemplateExceptionHandler OFBIZ_DEFAULT_HANDLER = (te, env, out) -> {
-            try {
-                out.write(UtilProperties.getPropertyValue("widget", "widget.freemarker.template.exception.message","∎"));
-                Debug.logError(te, module);
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-        };
+    /**
+     * Handles template exceptions verbosely.
+     * <p>
+     * This is done by suppressing the exception and keeping the rendering going on.  Messages
+     * present in the stack trace are sanitized before printing them to the output writer.
+     * Note that exception is still logged.
+     * <p>
+     * This implements the {@link TemplateExceptionHandler} functional interface.
+     *
+     * @param te  the exception that occurred
+     * @param env  the runtime environment of the template
+     * @param out  this is where the output of the template is written
+     */
+    private static void handleTemplateExceptionVerbosily(TemplateException te, Environment env, Writer out) {
+        try {
+            out.write(te.getMessage());
+            Debug.logError(te, module);
+        } catch (IOException e) {
+            Debug.logError(e, module);
+        }
     }
 }
