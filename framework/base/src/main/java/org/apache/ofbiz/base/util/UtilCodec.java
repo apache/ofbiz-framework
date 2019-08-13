@@ -44,6 +44,7 @@ import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
 
+@SuppressWarnings("rawtypes")
 public class UtilCodec {
     private static final String module = UtilCodec.class.getName();
     private static final HtmlEncoder htmlEncoder = new HtmlEncoder();
