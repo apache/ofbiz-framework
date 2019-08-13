@@ -51,7 +51,7 @@ under the License.
         <property name="jgrowlHeight" value="" type="Integer"/>
         <property name="jgrowlSpeed" value="100" type="Integer"/>
         <!--templates location-->
-        <property name="VT_SHORTCUT_ICON" value="/images/ofbiz.ico"/>
+        <property name="VT_SHORTCUT_ICON" value="/images/favicon"/>
         <property name="VT_HDR_TMPLT_LOC" value="component://flatgrey/template/Header.ftl"/><!--use flatgrey to wait the new design-->
         <property name="VT_FTR_TMPLT_LOC" value="component://flatgrey/template/Footer.ftl"/>
         <property name="VT_NAV_TMPLT_LOC" value="component://flatgrey/template/AppBar.ftl"/>
