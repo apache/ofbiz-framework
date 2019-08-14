@@ -286,6 +286,10 @@ th, th a {
 #masthead ul .logo-area {
     padding: 0.1em 0.8em;
 }
+#masthead ul .logo-area img {
+    height: 60px;
+    width: 129px;
+}
 
 #masthead ul .org-logo-area {
     padding: 0.1em 0.8em;
