@@ -953,9 +953,10 @@ in contained elements. */
 /* ===== Masthead (Header) Styles ===== */
 /* ==================================== */
 #logo-area {
-    background: url(../images/ofbiz_logo.png) no-repeat;
+    background: url(/images/ofbiz_logo.png) no-repeat;
     width: 385px;
     height: 50px;
+    background-size: 119px 50px;
 }
 
 #logo-area a {
