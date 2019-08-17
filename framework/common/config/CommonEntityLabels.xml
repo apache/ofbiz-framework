@@ -21886,9 +21886,9 @@
     </property>
     <property key="VisualTheme.description.BLUELIGHT">
         <value xml:lang="cs">BlueLight Theme: navigační řádek, menu a zakulacené rohy</value>
-        <value xml:lang="en">BlueLight Theme: breadcrumbs, drop-down menus and rounded corners</value>
+        <value xml:lang="en">: breadcrumbs, drop-down menus and rounded corners</value>
         <value xml:lang="es">BlueLight: Migas de pan, menús desplegables y las esquinas redondeadas</value>
-        <value xml:lang="fr">BlueLight Theme: fil d'ariane, menus déroulants et coins arrondis</value>
+        <value xml:lang="fr"> : fil d'ariane, menus déroulants et coins arrondis</value>
         <value xml:lang="ja">ブルーライト: パンくずリスト、ドロップダウンメニュー、そして丸いコーナー</value>
         <value xml:lang="pt-BR">Bluelight Tema: breadcrumbs, menus drop-down e cantos arredondados</value>
         <value xml:lang="ru">Светло-голубая тема: Бреадкрамбсы, раскрывающиеся меню с закругленным углами</value>
@@ -21898,9 +21898,9 @@
     </property>
     <property key="VisualTheme.description.FLAT_GREY">
         <value xml:lang="cs">Flat Grey - Plovoucí rozložení, podpora obousměrného textu</value>
-        <value xml:lang="en">Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
+        <value xml:lang="en"> - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
         <value xml:lang="es">Flat Grey - Diseño flotante, accesible para personas con discapacidad visual, bidireccional</value>
-        <value xml:lang="fr">Flat Grey : mise en page dynamique, accessibilité, support de texte bidirectionnel</value>
+        <value xml:lang="fr"> : mise en page dynamique, accessibilité, support de texte bidirectionnel</value>
         <value xml:lang="ja">フラットグレー: 以前のOFBiz標準フローティングレイアウト</value>
         <value xml:lang="pt-BR">Apartamento Grey - Layout padrão antigo OFBiz flutuante</value>
         <value xml:lang="ru">Плоские серые - Плавающие лейауты, Слабовидящий доступ, Двунаправленный</value>
@@ -21921,15 +21921,35 @@
         <value xml:lang="zh-TW">電子商務的替代視覺風格</value>
     </property>
     <property key="VisualTheme.description.TOMAHAWK">
-        <value xml:lang="cs">Tomahawk: evoluční verze BlueLight</value>
+        <value xml:lang="cs">: evoluční verze BlueLight</value>
         <value xml:lang="en">Tomahawk: the evolution of the BlueLight theme</value>
         <value xml:lang="es">Tomahawk: la evolución del tema BlueLight</value>
-        <value xml:lang="fr">Tomahawk: évolution de BlueLight dans les tons noir et orange</value>
+        <value xml:lang="fr"> : évolution de BlueLight dans les tons noir et orange</value>
         <value xml:lang="ja">トマホーク: パンくずの改良</value>
         <value xml:lang="pt-BR">Tomahawk: a evolução do tema Migalhas Descartando</value>
         <value xml:lang="ru">Томахавк: эволюция падающих крамбов темы</value>
         <value xml:lang="vi">Tomahawk: Ôi võ đức trí djjava ơi. evolution of the BlueLight theme</value>
         <value xml:lang="zh">印第安战斧：下拉多级风格的演化版</value>
         <value xml:lang="zh-TW">印第安戰斧:下拉多級風格的演化版</value>
+    </property>
+    <property key="VisualTheme.description.RAINBOWSTONE_SAPHIR">
+        <value xml:lang="en">: Rainbowstone theme in blue</value>
+        <value xml:lang="fr"> : le thème Rainbowstone en bleu</value>
+    </property>
+    <property key="VisualTheme.description.RAINBOWSTONE_AMBER">
+        <value xml:lang="en">: Rainbowstone theme in orange</value>
+        <value xml:lang="fr"> : le thème Rainbowstone en orange</value>
+    </property>
+    <property key="VisualTheme.description.RAINBOWSTONE_RUBY">
+        <value xml:lang="en">: Rainbowstone theme in red</value>
+        <value xml:lang="fr"> : le thème Rainbowstone en rouge</value>
+    </property>
+    <property key="VisualTheme.description.RAINBOWSTONE_EMERALD">
+        <value xml:lang="en">: Rainbowstone theme in green</value>
+        <value xml:lang="fr"> : le thème Rainbowstone en vert</value>
+    </property>
+    <property key="VisualTheme.description.RAINBOWSTONE_SAPHIR">
+        <value xml:lang="en">: Rainbowstone theme in blue</value>
+        <value xml:lang="fr"> : le thème Rainbowstone en bleu</value>
     </property>
 </resource>
