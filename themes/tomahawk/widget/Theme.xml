@@ -23,7 +23,7 @@ under the License.
        xmlns="http://ofbiz.apache.org/Widget-Theme" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Theme http://ofbiz.apache.org/dtds/widget-theme.xsd">
     <visual-themes>
         <visual-theme id="TOMAHAWK" display-name="Tomahawk">
-            <description>${str:label('CommonEntityLabels', 'VisualTheme.description.TOMAHAWK', locale)}</description>
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.TOMAHAWK', locale)}</description>
             <screenshot location="/tomahawk/screenshot.jpg"/>
         </visual-theme>
     </visual-themes>

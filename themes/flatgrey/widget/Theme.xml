@@ -23,7 +23,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Widget-Theme" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Theme http://ofbiz.apache.org/dtds/widget-theme.xsd">
     <visual-themes>
         <visual-theme id="FLAT_GREY" display-name="Flat Grey">
-            <description>${str:label('CommonEntityLabels', 'VisualTheme.description.FLAT_GREY', locale)}</description>
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.FLAT_GREY', locale)}</description>
             <screenshot location="/flatgrey/screenshot.jpg"/>
         </visual-theme>
     </visual-themes>
