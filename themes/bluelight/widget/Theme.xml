@@ -23,7 +23,7 @@ under the License.
        xmlns="http://ofbiz.apache.org/Widget-Theme" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Theme http://ofbiz.apache.org/dtds/widget-theme.xsd">
     <visual-themes>
         <visual-theme id="BLUELIGHT" display-name="BlueLight Theme">
-            <description>${str:label('CommonEntityLabels', 'VisualTheme.description.BLUELIGHT', locale)}</description>
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.BLUELIGHT', locale)}</description>
             <screenshot location="/bluelight/screenshot.jpg"/>
         </visual-theme>
     </visual-themes>
