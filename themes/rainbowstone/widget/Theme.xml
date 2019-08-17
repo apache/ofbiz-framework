@@ -35,6 +35,25 @@ under the License.
             <screenshot location="/rainbowstone/images/themeEmerald.png"/>
         </visual-theme>
     </visual-themes>
+    <visual-themes>
+        <visual-theme id="RAINBOWSTONE_SAPHIR" display-name="Rainbow Stone - Sapphire">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.RAINBOWSTONE_SAPHIR', locale)}</description>
+            <screenshot location="/rainbowstone/images/themeSaphir.png"/>
+        </visual-theme>
+        <visual-theme id="RAINBOWSTONE_AMBER" display-name="Rainbow Stone - Amber">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.RAINBOWSTONE_AMBER', locale)}</description>
+            <screenshot location="/rainbowstone/images/themeAmber.png"/>
+        </visual-theme>
+        <visual-theme id="RAINBOWSTONE_RUBY" display-name="Rainbow Stone - Sapphire">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.RAINBOWSTONE_RUBY', locale)}</description>
+            <screenshot location="/rainbowstone/images/themeRuby.png"/>
+        </visual-theme>
+        <visual-theme id="RAINBOWSTONE_EMERALD" display-name="Rainbow Stone - Sapphire">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.RAINBOWSTONE_EMERALD', locale)}</description>
+            <screenshot location="/rainbowstone/images/themeEmerald.png"/>
+        </visual-theme>
+    </visual-themes>
+    
     <extends location="component://common-theme/widget/Theme.xml"/>
     <theme-properties>
         <!--header image -->
