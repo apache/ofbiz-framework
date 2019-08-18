@@ -20,7 +20,7 @@ if ((Test-Path -Path ((Get-Item -Path ".\").FullName + "\gradle\wrapper\gradle-w
     exit
 }
 
-# This uses  PowerShell Invoke-WebRequest command (aliased as wget here)
+# This uses PowerShell Invoke-WebRequest command (aliased as wget here)
 # HTTPS is not used because it gets complicated with Powershell and .Net framework versions
 # Anyway I believe this should be only used in dev environment
 wget -outf gradle\wrapper\gradle-wrapper.jar http://dl.bintray.com/apacheofbiz/GradleWrapper/v5.0.0/gradle-wrapper.jar
