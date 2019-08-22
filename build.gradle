@@ -85,12 +85,6 @@ distributions.main.contents.from(rootDir) {
     include 'framework/**', 'applications/**', 'themes/**', 'plugins/**'
 }
 
-// XXX: Remove the :distTar and :distZip tasks from the dependency
-// graph of the :build task which cost an important amount of disk
-// space and build time due to the huge number of dependencies to be
-// packed.
-assemble.setDependsOn([jar])
-
 javadoc {
     failOnError = true
     options {
@@ -125,7 +119,7 @@ def File gitFooterFile = file("${rootDir}/runtime/GitInfo.ftl")
 def File svnFooterFile = file("${rootDir}/runtime/SvnInfo.ftl")
 
 // root and subproject settings
-defaultTasks 'build'
+defaultTasks 'jar', 'test'
 
 allprojects {
     repositories{
