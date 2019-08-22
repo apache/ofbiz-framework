@@ -279,10 +279,9 @@ sourceSets {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/groovy')
         }
         resources {
-            srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/main/resources')
             srcDirs += getDirectoryInActiveComponentsIfExists('config')
             srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
-            exclude excludedJavaSources
             exclude excludedConfigFiles
             // Below are necessary for unit tests run by Gradle and integration tests
             exclude { FileTreeElement elem -> elem.getName().contains('Labels.xml') }
@@ -305,7 +304,7 @@ sourceSets {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/groovy')
         }
         resources {
-            srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
         }
     }
 }
