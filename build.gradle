@@ -1005,9 +1005,9 @@ tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup comman
  * ======================================================== */
 
 def createOfbizCommandTask(taskName, arguments) {
-    task(type: JavaExec, dependsOn: build, taskName) {
+    task(type: JavaExec, dependsOn: classes, taskName) {
         jvmArgs(application.applicationDefaultJvmArgs)
-        classpath = files(jar.outputs)
+        classpath = sourceSets.main.runtimeClasspath
         main = application.mainClassName
         args arguments
         if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
