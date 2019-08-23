@@ -18,7 +18,7 @@
  */
 package org.apache.ofbiz.order
 
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.entity.GenericValue
@@ -31,7 +31,10 @@ import static org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp
 import static org.apache.ofbiz.entity.condition.EntityCondition.makeCondition
 import static org.apache.ofbiz.entity.condition.EntityComparisonOperator.GREATER_THAN_EQUAL_TO
 
-class QuoteTests extends GroovyScriptTestCase {
+class QuoteTests extends OFBizTestCase {
+    public QuoteTests(String name) {
+        super(name)
+    }
 
     // Retrieves a particular login record.
     private GenericValue getUserLogin(String userLoginId) {

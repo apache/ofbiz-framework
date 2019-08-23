@@ -106,14 +106,6 @@ public class ModelTestSuite {
                 String errMsg = "Unable to load test suite class : " + className;
                 Debug.logError(e, errMsg, module);
             }
-        } else if ("groovy-test-suite".equals(nodeName)) {
-            try {
-                Class<? extends TestCase> testClass =
-                        UtilGenerics.cast(GroovyUtil.getScriptClassFromLocation(testElement.getAttribute("location")));
-                this.testList.add(new TestSuite(testClass, testElement.getAttribute("name")));
-            } catch (GeneralException e) {
-                Debug.logError(e, module);
-            }
         } else if ("service-test".equals(nodeName)) {
             this.testList.add(new ServiceTest(caseName, testElement));
         } else if ("simple-method-test".equals(nodeName)) {
@@ -188,10 +180,6 @@ public class ModelTestSuite {
             if (test instanceof OFBizTestCase) {
                 ((OFBizTestCase)test).setDispatcher(dispatcher);
             }
-        } else if (test instanceof GroovyScriptTestCase) {
-            ((GroovyScriptTestCase)test).setDelegator(delegator);
-            ((GroovyScriptTestCase)test).setDispatcher(dispatcher);
-            ((GroovyScriptTestCase)test).setSecurity(dispatcher.getSecurity());
         }
     }
 }

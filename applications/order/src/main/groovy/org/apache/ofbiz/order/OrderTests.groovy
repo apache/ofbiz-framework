@@ -20,9 +20,13 @@ package org.apache.ofbiz.order
 
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class OrderTests extends GroovyScriptTestCase {
+class OrderTests extends OFBizTestCase {
+    public OrderTests(String name) {
+        super(name)
+    }
+
     void testAddRequirementTask() {
         Map serviceCtx = [
             requirementId: '1000',

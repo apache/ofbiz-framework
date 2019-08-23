@@ -20,9 +20,12 @@ package org.apache.ofbiz.party
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.party.contact.ContactMechWorker
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class ContactMechWorkerTests extends GroovyScriptTestCase {
+class ContactMechWorkerTests extends OFBizTestCase {
+    public ContactMechWorkerTests(String name) {
+        super(name)
+    }
 
     void testPartyContactMechResolution() {
         //control for the DemoCustomer that postal, email, telecom and ftp contact are present and return correct information

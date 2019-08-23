@@ -21,9 +21,13 @@ package org.apache.ofbiz.product
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class ProductFeatureTypeTests extends GroovyScriptTestCase {
+class ProductFeatureTypeTests extends OFBizTestCase {
+    public ProductFeatureTypeTests(String name) {
+        super(name)
+    }
+
     void testCreateProductFeatureType() {
         Map serviceCtx = [:]
         serviceCtx.productFeatureTypeId = 'testProdFeat'

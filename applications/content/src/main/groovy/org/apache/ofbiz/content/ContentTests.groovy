@@ -22,9 +22,13 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class ContentTests extends GroovyScriptTestCase {
+class ContentTests extends OFBizTestCase {
+    public ContentTests(String name) {
+        super(name)
+    }
+
     void testGetDataResource() {
         Map serviceCtx = [:]
         serviceCtx.dataResourceId = 'TEST_RESOURCE'

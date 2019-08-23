@@ -27,7 +27,7 @@ import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.order.shoppingcart.CheckOutHelper
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker.ActionResultInfo
 import org.apache.ofbiz.service.ServiceUtil
@@ -35,7 +35,10 @@ import org.apache.ofbiz.service.ServiceUtil
 import java.sql.Timestamp
 import java.util.Map
 
-class ProductPromoActionTest extends GroovyScriptTestCase {
+class ProductPromoActionTest extends OFBizTestCase {
+    public ProductPromoActionTest(String name) {
+        super(name)
+    }
 
     ShoppingCart loadOrder(String orderId) {
         GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne()

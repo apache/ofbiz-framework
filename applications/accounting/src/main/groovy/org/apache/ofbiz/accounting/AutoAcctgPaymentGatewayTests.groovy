@@ -21,9 +21,13 @@ package org.apache.ofbiz.accounting
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class AutoAcctgPaymentGatewayTests extends GroovyScriptTestCase {
+class AutoAcctgPaymentGatewayTests extends OFBizTestCase {
+    public AutoAcctgPaymentGatewayTests(String name) {
+        super(name)
+    }
+
     void testUpdatePaymentGatewayConfig() {
         Map serviceCtx = [:]
         serviceCtx.paymentGatewayConfigId = 'SAGEPAY_CONFIG'

@@ -84,28 +84,6 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
 
-    <xs:element name="groovy-test-suite" substitutionGroup="TestCaseTypes">
-        <xs:annotation>
-            <xs:documentation>
-                Used for JUnit test suites written as a Groovy class. See http://groovy-lang.org/testing.html
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.groovy-test-suite"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.groovy-test-suite">
-        <xs:attribute type="xs:string" name="name"/>
-        <xs:attribute type="xs:string" name="location" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Give the location where is groovy file that contaions the test suite.
-                    You can use a flexible url location like component://mycomponent/groovyScripts/test/MySuiteTest.groovy
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
-
     <xs:element name="service-test" substitutionGroup="TestCaseTypes">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.service-test"/>
