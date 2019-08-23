@@ -27,6 +27,6 @@ under the License.
     </test-case>
 
     <test-case case-name="test-cust-request-permission-check">
-        <groovy-test-suite location="component://order/groovyScripts/order/test/TestCustRequestPermissionCheck.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.order.TestCustRequestPermissionCheck"/>
     </test-case>
 </test-suite>

@@ -31,9 +31,9 @@ under the License.
     </test-case>
 
     <test-case case-name="product-tests">
-        <groovy-test-suite location="component://product/groovyScripts/test/ProductTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.ProductTests"/>
     </test-case>
-</test-suite>    <test-case case-name="testCreateProductFeatureType">
-        <groovy-test-suite location="component://product/groovyScripts/product/test/ProductFeatureTypeTests.groovy"/>
+    <test-case case-name="testCreateProductFeatureType">
+        <junit-test-suite class-name="org.apache.ofbiz.product.ProductFeatureTypeTests"/>
     </test-case>
 </test-suite>

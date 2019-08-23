@@ -34,6 +34,6 @@ under the License.
         <simple-method-test location="component://order/minilang/test/OrderTests.xml"/>
     </test-case>
     <test-case case-name="order-tests">
-        <groovy-test-suite location="component://order/groovyScripts/test/OrderTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.order.OrderTests"/>
     </test-case>
 </test-suite>

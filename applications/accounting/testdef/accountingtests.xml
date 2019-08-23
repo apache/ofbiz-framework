@@ -43,7 +43,7 @@
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgAgreementTests.xml"/>
     </test-case>
     <test-case case-name="auto-accounting-budget-tests">
-        <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgBudgetTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgBudgetTests"/>
     </test-case>
     <test-case case-name="auto-accounting-cost-tests">
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgCostTests.xml"/>
@@ -58,15 +58,15 @@
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgInvoiceTests.xml"/>
     </test-case>
     <test-case case-name="auto-accounting-invoice-tests">
-        <simple-method-test location="component://accounting/groovyScripts/test/AutoAcctgInvoiceTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgInvoiceTests"/>
     </test-case>
     <test-case case-name="auto-accounting-payment-tests">
-        <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgPaymentTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgPaymentTests"/>
     </test-case>
     <test-case case-name="auto-accounting-paymentgateway-tests">
-        <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgPaymentGatewayTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgPaymentGatewayTests"/>
     </test-case>
     <test-case case-name="auto-accounting-ledger-tests">
-        <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgLedgerTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgLedgerTests"/>
     </test-case>
 </test-suite>

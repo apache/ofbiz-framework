@@ -23,10 +23,9 @@
             xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-group case-name="product-Conditions-tests">
-        <groovy-test-suite name="prodCond" location="component://product/groovyScripts/product/test/ProductPromoCondTests.groovy"/>
-        <!--groovy-test-suite name="productPromoCondTests" location="component://product/groovyScripts/product/test/ProductPromoCondTests.groovy"/-->
+        <junit-test-suite class-name="org.apache.ofbiz.product.ProductPromoCondTests"/>
     </test-group>
     <test-group case-name="product-Action-tests">
-        <groovy-test-suite name="productPromoActionTests" location="component://product/groovyScripts/product/test/ProductPromoActionTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.ProductPromoActionTests"/>
     </test-group>
 </test-suite>

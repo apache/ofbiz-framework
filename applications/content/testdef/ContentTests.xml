@@ -26,7 +26,7 @@
     </test-case>
     
     <test-case case-name="content-tests">
-        <groovy-test-suite location="component://content/groovyScripts/test/ContentTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.content.ContentTests"/>
     </test-case> 
 </test-suite>
 

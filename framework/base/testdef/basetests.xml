@@ -25,6 +25,6 @@
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilObjectTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.string.test.FlexibleStringExpanderTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.collections.test.FlexibleMapAccessorTests"/>
-        <groovy-test-suite name="simple" location="component://base/groovyScripts/test/SimpleTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.base.SimpleTests"/>
     </test-group>
 </test-suite>

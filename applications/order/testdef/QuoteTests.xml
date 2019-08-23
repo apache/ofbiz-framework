@@ -28,6 +28,6 @@ under the License.
     <!-- <test-case case-name="quote-tests"> <simple-method-test location="component://order/minilang/test/QuoteTests.xml"/> 
         </test-case> -->
      <test-case case-name="quoteTests">
-        <groovy-test-suite name="quoteTests" location="component://order/groovyScripts/test/QuoteTests.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.order.QuoteTests"/>
     </test-case>
 </test-suite>
