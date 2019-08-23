@@ -193,7 +193,7 @@ dependencies {
     implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
     implementation 'org.codehaus.groovy:groovy-all:2.4.16' // Remember to change the version number in javadoc.options block
-    implementation 'org.freemarker:freemarker:2.3.28' // Remember to change the version number in FreeMarkerWorker class when upgrading
+    implementation 'org.freemarker:freemarker:2.3.29' // Remember to change the version number in FreeMarkerWorker class when upgrading
     implementation 'org.owasp.esapi:esapi:2.2.0.0'
     implementation 'org.springframework:spring-test:5.1.9.RELEASE'
     implementation 'org.zapodot:jackson-databind-java-optional:2.6.1'

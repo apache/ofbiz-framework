@@ -43,6 +43,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.apache.ofbiz.widget.model.ModelWidget;
 
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.StringTemplateLoader;
@@ -62,7 +63,6 @@ import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
-import org.apache.ofbiz.widget.model.ModelWidget;
 
 /**
  * FreeMarkerWorker - Freemarker Template Engine Utilities.
@@ -71,7 +71,7 @@ public final class FreeMarkerWorker {
 
     public static final String module = FreeMarkerWorker.class.getName();
 
-    public static final Version version = Configuration.VERSION_2_3_28;
+    public static final Version version = Configuration.VERSION_2_3_29;
 
     private FreeMarkerWorker () {}
 
