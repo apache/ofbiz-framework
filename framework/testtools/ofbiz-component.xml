@@ -24,9 +24,6 @@
     <!-- define resource loaders; most common is to use the component resource loader -->
     <resource-loader name="main" type="component"/>
 
-    <!-- place the config directory on the classpath to access configuration files -->
-    <classpath type="dir" location="dtd"/>
-    
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 

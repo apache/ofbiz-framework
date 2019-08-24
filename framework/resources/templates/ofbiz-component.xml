@@ -26,8 +26,6 @@ under the License.
 
     <!-- place the config directory on the classpath to access configuration files -->
     <classpath type="dir" location="config"/>
-    <classpath type="dir" location="dtd"/>
-
     <!-- entity resources: model(s), eca(s), group, and data definitions -->
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <!-- <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/> -->

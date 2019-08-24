@@ -25,7 +25,6 @@ under the License.
     <resource-loader name="main" type="component"/>
 
     <classpath type="dir" location="config"/>
-    <classpath type="dir" location="dtd"/>
 
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <!--
