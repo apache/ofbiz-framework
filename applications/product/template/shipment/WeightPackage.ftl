@@ -39,7 +39,7 @@ under the License.
                 <#list invoiceIds as invoiceId>
                   <li>
                     ${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}${StringUtil.wrapString(externalKeyParam)}" target="_blank" class="buttontext">${invoiceId}</a>
-                    (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}${StringUtil.wrapString(externalKeyParam)}" target="_blank" class="buttontext">PDF</a>)
+                    (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}${StringUtil.wrapString(externalKeyParam)}" target="_blank" class="buttontext">${uiLabelMap.CommonPdf}</a>)
                   </li>
                 </#list>
               </ul>

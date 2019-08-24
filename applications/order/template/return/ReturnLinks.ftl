@@ -35,7 +35,7 @@ under the License.
       <ul>
         <li>
           <ul>
-      <li><a href="<@ofbizUrl>return.pdf?returnId=${returnId!}</@ofbizUrl>" target="_BLANK" >PDF</a></li>
+      <li><a href="<@ofbizUrl>return.pdf?returnId=${returnId!}</@ofbizUrl>" target="_BLANK" >${uiLabelMap.CommonPdf}</a></li>
       <#if returnId??>
         <#assign returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId!, "returnTypeId", "RTN_REFUND").queryList()!/>
         <#if returnItems?has_content>

@@ -24,7 +24,7 @@ under the License.
                <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
             </#if>
             <#assign orderType = orderHeader.getRelatedOne("OrderType", false)/>
-            <li class="h3">&nbsp;${(orderType.get("description", locale))?default(uiLabelMap.OrderOrder)}&nbsp;${uiLabelMap.CommonNbr}&nbsp;<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder!} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
+            <li class="h3">&nbsp;${(orderType.get("description", locale))?default(uiLabelMap.OrderOrder)}&nbsp;${uiLabelMap.CommonNbr}&nbsp;<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder!} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">${uiLabelMap.CommonPdf}</a>&nbsp;]</li>
             <div class="basic-nav">
               <ul>
             <#if "ORDER_APPROVED" == currentStatus.statusId && "SALES_ORDER" == orderHeader.orderTypeId>

@@ -79,7 +79,7 @@ under the License.
            <td>
              <#list invoices as invoice>
                <div>${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${invoice}</a>
-               (<a target="_BLANK" href="/accounting/control/invoice.pdf?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">PDF</a>)</div>
+               (<a target="_BLANK" href="/accounting/control/invoice.pdf?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.CommonPdf}</a>)</div>
              </#list>
            </td>
          </tr>
@@ -547,7 +547,7 @@ under the License.
             <td>
               <#list invoices as invoice>
                 <div>${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${invoice}</a>
-                (<a target="_BLANK" href="/accounting/control/invoice.pdf?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">PDF</a>)</div>
+                (<a target="_BLANK" href="/accounting/control/invoice.pdf?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.CommonPdf}</a>)</div>
               </#list>
             </td>
             <td>&nbsp;</td>
