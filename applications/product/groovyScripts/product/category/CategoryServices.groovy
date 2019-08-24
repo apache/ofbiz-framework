@@ -21,6 +21,7 @@
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 import java.sql.Timestamp
+import java.util.Objects
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
@@ -135,7 +136,7 @@ def addProductToCategories() {
 def removeProductFromCategory() {
     // If the associated category was the primary category for the product, clear that field
     GenericValue product = from("Product").where(parameters).queryOne()
-    if (UtilValidate.areEqual(product?.primaryProductCategoryId, parameters.productCategoryId)) {
+    if (Objects.equals(product?.primaryProductCategoryId, parameters.productCategoryId)) {
         product.primaryProductCategoryId = null
         product.store()
     }

@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -210,13 +211,13 @@ public final class EntityEcaRule implements java.io.Serializable {
     public boolean equals(Object obj) {
     if (obj instanceof EntityEcaRule) {
             EntityEcaRule other = (EntityEcaRule) obj;
-            if (!UtilValidate.areEqual(this.entityName, other.entityName)) {
+            if (!Objects.equals(this.entityName, other.entityName)) {
                 return false;
             }
-            if (!UtilValidate.areEqual(this.operationName, other.operationName)) {
+            if (!Objects.equals(this.operationName, other.operationName)) {
                 return false;
             }
-            if (!UtilValidate.areEqual(this.eventName, other.eventName)) {
+            if (!Objects.equals(this.eventName, other.eventName)) {
                 return false;
             }
             if (!this.conditions.equals(other.conditions)) {

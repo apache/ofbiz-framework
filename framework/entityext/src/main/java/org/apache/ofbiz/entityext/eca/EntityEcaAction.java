@@ -19,6 +19,7 @@
 package org.apache.ofbiz.entityext.eca;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -150,10 +151,10 @@ public final class EntityEcaAction implements java.io.Serializable {
     public boolean equals(Object obj) {
         if (obj instanceof EntityEcaAction) {
             EntityEcaAction other = (EntityEcaAction) obj;
-            if (!UtilValidate.areEqual(this.serviceName, other.serviceName)) return false;
-            if (!UtilValidate.areEqual(this.serviceMode, other.serviceMode)) return false;
-            if (!UtilValidate.areEqual(this.runAsUser, other.runAsUser)) return false;
-            if (!UtilValidate.areEqual(this.valueAttr, other.valueAttr)) return false;
+            if (!Objects.equals(this.serviceName, other.serviceName)) return false;
+            if (!Objects.equals(this.serviceMode, other.serviceMode)) return false;
+            if (!Objects.equals(this.runAsUser, other.runAsUser)) return false;
+            if (!Objects.equals(this.valueAttr, other.valueAttr)) return false;
             if (this.resultToValue != other.resultToValue) return false;
             if (this.abortOnError != other.abortOnError) return false;
             if (this.rollbackOnError != other.rollbackOnError) return false;

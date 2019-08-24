@@ -22,6 +22,7 @@ package org.apache.ofbiz.service.eca;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -157,10 +158,10 @@ public class ServiceEcaSetField {
         if (obj instanceof ServiceEcaSetField) {
             ServiceEcaSetField other = (ServiceEcaSetField) obj;
 
-            if (!UtilValidate.areEqual(this.fieldName, other.fieldName)) return false;
-            if (!UtilValidate.areEqual(this.envName, other.envName)) return false;
-            if (!UtilValidate.areEqual(this.value, other.value)) return false;
-            if (!UtilValidate.areEqual(this.format, other.format)) return false;
+            if (!Objects.equals(this.fieldName, other.fieldName)) return false;
+            if (!Objects.equals(this.envName, other.envName)) return false;
+            if (!Objects.equals(this.value, other.value)) return false;
+            if (!Objects.equals(this.format, other.format)) return false;
 
             return true;
         } else {

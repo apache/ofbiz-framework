@@ -154,13 +154,6 @@ public final class UtilValidate {
     /** Valid contiguous U.S. postal codes */
     public static final String ContiguousUSStateCodes = "AL|AZ|AR|CA|CO|CT|DE|DC|FL|GA|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY";
 
-    public static boolean areEqual(Object obj, Object obj2) {
-        if (obj == null) {
-            return obj2 == null;
-        }
-        return obj.equals(obj2);
-    }
-
     /** Check whether an object is empty, will see if it is a String, Map, Collection, etc. */
     public static boolean isEmpty(Object o) {
         return ObjectType.isEmpty(o);

@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -196,10 +196,10 @@ public final class ServiceEcaRule implements java.io.Serializable {
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaRule) {
             ServiceEcaRule other = (ServiceEcaRule) obj;
-            if (!UtilValidate.areEqual(this.serviceName, other.serviceName)) {
+            if (!Objects.equals(this.serviceName, other.serviceName)) {
                 return false;
             }
-            if (!UtilValidate.areEqual(this.eventName, other.eventName)) {
+            if (!Objects.equals(this.eventName, other.eventName)) {
                 return false;
             }
             if (!this.conditions.equals(other.conditions)) {

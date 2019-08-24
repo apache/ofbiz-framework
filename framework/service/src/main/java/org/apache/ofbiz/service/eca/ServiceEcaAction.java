@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -272,11 +273,11 @@ public class ServiceEcaAction implements java.io.Serializable {
         if (obj instanceof ServiceEcaAction) {
             ServiceEcaAction other = (ServiceEcaAction) obj;
 
-            if (!UtilValidate.areEqual(this.eventName, other.eventName)) return false;
-            if (!UtilValidate.areEqual(this.serviceName, other.serviceName)) return false;
-            if (!UtilValidate.areEqual(this.serviceMode, other.serviceMode)) return false;
-            if (!UtilValidate.areEqual(this.resultMapName, other.resultMapName)) return false;
-            if (!UtilValidate.areEqual(this.runAsUser, other.runAsUser)) return false;
+            if (!Objects.equals(this.eventName, other.eventName)) return false;
+            if (!Objects.equals(this.serviceName, other.serviceName)) return false;
+            if (!Objects.equals(this.serviceMode, other.serviceMode)) return false;
+            if (!Objects.equals(this.resultMapName, other.resultMapName)) return false;
+            if (!Objects.equals(this.runAsUser, other.runAsUser)) return false;
 
             if (this.newTransaction != other.newTransaction) return false;
             if (this.resultToContext != other.resultToContext) return false;

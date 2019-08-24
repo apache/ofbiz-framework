@@ -21,6 +21,7 @@ package org.apache.ofbiz.service.eca;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
@@ -228,14 +229,14 @@ public class ServiceEcaCondition implements java.io.Serializable {
         if (obj instanceof ServiceEcaCondition) {
             ServiceEcaCondition other = (ServiceEcaCondition) obj;
 
-            if (!UtilValidate.areEqual(this.conditionService, other.conditionService)) return false;
-            if (!UtilValidate.areEqual(this.lhsValueName, other.lhsValueName)) return false;
-            if (!UtilValidate.areEqual(this.rhsValueName, other.rhsValueName)) return false;
-            if (!UtilValidate.areEqual(this.lhsMapName, other.lhsMapName)) return false;
-            if (!UtilValidate.areEqual(this.rhsMapName, other.rhsMapName)) return false;
-            if (!UtilValidate.areEqual(this.operator, other.operator)) return false;
-            if (!UtilValidate.areEqual(this.compareType, other.compareType)) return false;
-            if (!UtilValidate.areEqual(this.format, other.format)) return false;
+            if (!Objects.equals(this.conditionService, other.conditionService)) return false;
+            if (!Objects.equals(this.lhsValueName, other.lhsValueName)) return false;
+            if (!Objects.equals(this.rhsValueName, other.rhsValueName)) return false;
+            if (!Objects.equals(this.lhsMapName, other.lhsMapName)) return false;
+            if (!Objects.equals(this.rhsMapName, other.rhsMapName)) return false;
+            if (!Objects.equals(this.operator, other.operator)) return false;
+            if (!Objects.equals(this.compareType, other.compareType)) return false;
+            if (!Objects.equals(this.format, other.format)) return false;
 
             if (this.isConstant != other.isConstant) return false;
             if (this.isService != other.isService) return false;

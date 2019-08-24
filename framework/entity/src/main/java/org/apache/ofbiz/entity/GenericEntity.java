@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
 
@@ -1065,7 +1066,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             return true;
         }
         for (Map.Entry<String, ? extends Object> anEntry: keyValuePairs.entrySet()) {
-            if (!UtilValidate.areEqual(anEntry.getValue(), this.fields.get(anEntry.getKey()))) {
+            if (!Objects.equals(anEntry.getValue(), this.fields.get(anEntry.getKey()))) {
                 return false;
             }
         }
