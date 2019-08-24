@@ -22,9 +22,7 @@ under the License.
         <menu-item name="Accounts" title="${uiLabelMap.SfaAcccounts}"><link target="FindAccounts"/></menu-item>
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target="FindContacts"/></menu-item>
         <menu-item name="Leads" title="${uiLabelMap.SfaLeads}"><link target="FindLeads"/></menu-item>
-        <menu-item name="Competitors" title="${uiLabelMap.SfaCompetitors}" widget-style="disabled"><link target="#" url-mode="plain"/></menu-item>
         <menu-item name="Events" title="${uiLabelMap.SfaEvents}"><link target="Events" url-mode="plain"/></menu-item>
-        <menu-item name="Documents" title="${uiLabelMap.SfaDocuments}" widget-style="disabled"><link target="#" url-mode="plain"/></menu-item>
         <menu-item name="Forecast" title="${uiLabelMap.SfaForecasts}"><link target="FindSalesForecast"/></menu-item>
         <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindSalesOpportunity"/></menu-item>
         <menu-item name="Preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">

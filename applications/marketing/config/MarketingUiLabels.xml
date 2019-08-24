@@ -3092,19 +3092,6 @@
         <value xml:lang="zh">OFBiz: 销售管理程序</value>
         <value xml:lang="zh-TW">OFBiz: 營業支援(SFA)管理</value>
     </property>
-    <property key="SfaCompetitors">
-        <value xml:lang="de">Wettbewerber &amp; Partner </value>
-        <value xml:lang="en">Competitors &amp; Partners </value>
-        <value xml:lang="es">Competidores &amp; Socios </value>
-        <value xml:lang="es-CL">Competidores &amp; Socios</value>
-        <value xml:lang="fr">Concurrents &amp; Associés</value>
-        <value xml:lang="it">Competitori e soci</value>
-        <value xml:lang="ja">競合先 &amp; パートナー</value>
-        <value xml:lang="pt-BR">Concorrentes &amp; Parceiros</value>
-        <value xml:lang="vi">Đối thủ &amp; Đối tác</value>
-        <value xml:lang="zh">竞争者和合作伙伴</value>
-        <value xml:lang="zh-TW">競爭者和合作團體</value>
-    </property>
     <property key="SfaComplete">
         <value xml:lang="de">Komplett</value>
         <value xml:lang="en">Complete</value>
@@ -3201,18 +3188,6 @@
         <value xml:lang="vi">Nguồn</value>
         <value xml:lang="zh">来源</value>
         <value xml:lang="zh-TW">來源</value>
-    </property>
-    <property key="SfaDocuments">
-        <value xml:lang="de">Dokumente</value>
-        <value xml:lang="en">Documents</value>
-        <value xml:lang="es">Documentos</value>
-        <value xml:lang="fr">Documents</value>
-        <value xml:lang="it">Documenti</value>
-        <value xml:lang="ja">ドキュメント</value>
-        <value xml:lang="pt-BR">Documentos</value>
-        <value xml:lang="vi">Tài liệu</value>
-        <value xml:lang="zh">文档</value>
-        <value xml:lang="zh-TW">檔</value>
     </property>
     <property key="SfaEditOpportunity">
         <value xml:lang="de">Opportunity bearbeiten</value>
