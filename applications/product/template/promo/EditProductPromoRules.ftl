@@ -435,7 +435,6 @@ under the License.
                   <form method="post" action="<@ofbizUrl>createProductPromoAction</@ofbizUrl>" name="createProductPromoAction">
                     <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)!}" />
                     <input type="hidden" name="productPromoRuleId" value="${(productPromoRule.productPromoRuleId)!}" />
-                    <input type="hidden" name="customMethodId" value="${(productPromoAction.customMethodId)!}" />
                     <span class="label"><b>${uiLabelMap.CommonNew}:</b>&nbsp;</span>
                     <select name="customMethodId" size="1">
     <#list PromoActionCustomMethods as PromoActionCustomMethod>
