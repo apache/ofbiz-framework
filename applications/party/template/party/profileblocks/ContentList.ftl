@@ -36,7 +36,7 @@ under the License.
               <td>${pContent.fromDate!}</td>
               <td class="button-col">
                 <#if (content.contentName?has_content)>
-                    <a href="<@ofbizUrl>img/${content.contentName}?imgId=${(content.dataResourceId)!}</@ofbizUrl>" target="_blank">${uiLabelMap.CommonView}</a>
+                  <a href="<@ofbizUrl>stream?contentId=${(content.contentId)!}</@ofbizUrl>" target="_blank">${uiLabelMap.CommonView}</a>
                 </#if>
                 <form name="removePartyContent_${pContent_index}" method="post" action="<@ofbizUrl>removePartyContent/viewprofile</@ofbizUrl>">
                   <input type="hidden" name="contentId" value="${pContent.contentId}" />
