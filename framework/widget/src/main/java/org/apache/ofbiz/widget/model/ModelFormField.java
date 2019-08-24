@@ -66,7 +66,6 @@ import org.apache.ofbiz.entity.finder.EntityFinderUtil;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelUtil;
 import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.model.CommonWidgetModels.AutoEntityParameters;
 import org.apache.ofbiz.widget.model.CommonWidgetModels.AutoServiceParameters;

@@ -25,8 +25,6 @@ import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
