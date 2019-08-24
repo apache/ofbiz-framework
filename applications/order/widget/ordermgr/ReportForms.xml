@@ -23,7 +23,7 @@ under the License.
     <form name="OrderPurchaseReportOptions" type="single" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
-            <drop-down allow-empty="false" allow-multiple="true" size="4">
+            <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
@@ -32,7 +32,7 @@ under the License.
         </field>
 
         <field name="originFacilityId">
-            <drop-down allow-empty="false" allow-multiple="true" size="4">
+            <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
                     <entity-order-by field-name="facilityName"/>
@@ -73,7 +73,7 @@ under the License.
     <form name="SalesByStoreReport" type="single" target="SalesByStoreReport.pdf" title=""
         header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="productStoreId">
-            <drop-down allow-empty="false" allow-multiple="true" size="4">
+            <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
@@ -100,7 +100,7 @@ under the License.
     <form name="OpenOrderItemsReport" type="single" target="OpenOrderItemsReport" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
-            <drop-down allow-empty="false" allow-multiple="true" size="4">
+            <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
