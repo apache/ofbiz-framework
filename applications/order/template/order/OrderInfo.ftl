@@ -121,7 +121,7 @@ under the License.
                     <div>
                       ${loopStatusItem.get("description",locale)} <#if orderHeaderStatus.statusDatetime?has_content>- ${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderHeaderStatus.statusDatetime, "", locale, timeZone)?default("0000-00-00 00:00:00")}</#if>
                       &nbsp;
-                      ${uiLabelMap.CommonBy} - <#--${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, userlogin.getString("partyId"), true)}--> [${orderHeaderStatus.statusUserLogin}]
+                      ${uiLabelMap.CommonBy} - ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, userlogin.getString("partyId"), false)}
                     </div>
                   </#list>
                 </#if>
