@@ -34,6 +34,7 @@ public class OfbizAmountTransform extends OfbizNumberTransform {
 
     public static final String module = OfbizAmountTransform.class.getName();
 
+    @Override
     public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
         Map<String, Object> arguments = UtilGenerics.cast(args);
         arguments.put("format", UtilFormatOut.AMOUNT_FORMAT);
