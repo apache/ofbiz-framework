@@ -23,20 +23,6 @@ under the License.
        xmlns="http://ofbiz.apache.org/Widget-Theme" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Theme http://ofbiz.apache.org/dtds/widget-theme.xsd">
     <visual-themes>
         <visual-theme id="RAINBOWSTONE_SAPHIR" display-name="Rainbow Stone - Sapphire">
-            <screenshot location="/rainbowstone/images/themeSaphir.png"/>
-        </visual-theme>
-        <visual-theme id="RAINBOWSTONE_AMBER" display-name="Rainbow Stone - Amber">
-            <screenshot location="/rainbowstone/images/themeAmber.png"/>
-        </visual-theme>
-        <visual-theme id="RAINBOWSTONE_RUBY" display-name="Rainbow Stone - Ruby">
-            <screenshot location="/rainbowstone/images/themeRuby.png"/>
-        </visual-theme>
-        <visual-theme id="RAINBOWSTONE_EMERALD" display-name="Rainbow Stone - Emerald">
-            <screenshot location="/rainbowstone/images/themeEmerald.png"/>
-        </visual-theme>
-    </visual-themes>
-    <visual-themes>
-        <visual-theme id="RAINBOWSTONE_SAPHIR" display-name="Rainbow Stone - Sapphire">
             <description>${util:label('CommonEntityLabels', 'VisualTheme.description.RAINBOWSTONE_SAPHIR', locale)}</description>
             <screenshot location="/rainbowstone/images/themeSaphir.png"/>
         </visual-theme>
