@@ -34,6 +34,7 @@ plugins {
     id 'org.owasp.dependencycheck' version '5.2.1' apply false
     id 'se.patrikerdes.use-latest-versions' version '0.2.12' apply false
     id 'com.github.ben-manes.versions' version '0.22.0' apply false
+    id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
 }
 
 /* OWASP plugin
