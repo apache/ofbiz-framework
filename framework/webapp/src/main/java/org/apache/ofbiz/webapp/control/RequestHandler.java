@@ -274,9 +274,14 @@ public class RequestHandler {
         Collection<RequestMap> rmaps = resolveURI(ccfg, request);
         if (rmaps.isEmpty()) {
             if (throwRequestHandlerExceptionOnMissingLocalRequest) {
-              throw new RequestHandlerException(requestMissingErrorMessage);
+                if (path.contains("/checkLogin/")) {
+                    // Nested requests related with checkLogin uselessly clutter the log. There is nothing to worry about, better remove this wrong error message.
+                    return;
+                } else {
+                    throw new RequestHandlerException(requestMissingErrorMessage);
+                }
             } else {
-              throw new RequestHandlerExceptionAllowExternalRequests();
+                throw new RequestHandlerExceptionAllowExternalRequests();
             }
         }
 
