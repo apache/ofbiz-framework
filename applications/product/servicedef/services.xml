@@ -182,7 +182,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="weight" type="Long" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="createProductReview" engine="simple"
             location="component://product/minilang/product/product/ProductServices.xml" invoke="createProductReview" auth="true">
         <description>Create a product review entity</description>
@@ -245,14 +245,14 @@ under the License.
     <service name="createProductPrice" default-entity-name="ProductPrice" engine="simple"
                 location="component://product/minilang/product/price/PriceServices.xml" invoke="createProductPrice" auth="true">
         <description>
-            Create a Product Price. 
-            
-            If taxAuthGeoId and taxAuthPartyId are passed in then the price will be considered a price 
+            Create a Product Price.
+
+            If taxAuthGeoId and taxAuthPartyId are passed in then the price will be considered a price
             with tax included (the priceWithoutTax, priceWithTax, taxAmount, and taxPercentage fields will also be populated).
-            
+
             If the taxInPrice field is 'Y' then the price field will be left with the tax included (price will be equal to priceWithTax),
             otherwise tax will be removed from the passed in price and the price field will be equal to the priceWithoutTax field.
-            
+
             If taxAuthGeoId or taxAuthPartyId empty then the taxInPrice field will be ignored.
         </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -1303,14 +1303,14 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="catalogPermissionCheck" engine="simple"
-        location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="catalogPermissionCheck" auth="true">
+    <service name="catalogPermissionCheck" engine="groovy"
+        location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="catalogPermissionCheck" auth="true">
         <description>Catalog Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
-    <service name="prodCatalogToPartyPermissionCheck" engine="simple"
-            location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="prodCatalogToPartyPermissionCheck">
+    <service name="prodCatalogToPartyPermissionCheck" engine="groovy"
+            location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="prodCatalogToPartyPermissionCheck">
         <description>ProdCatalogToParty Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
@@ -1320,7 +1320,7 @@ under the License.
         <description>Create product and inventory item</description>
         <attribute name="dirName" type="java.lang.String" mode="IN" optional="true"/>
     </service>
-    
+
     <!-- Start Web Analytics configuration services -->
     <service name="createWebAnalyticsConfig" default-entity-name="WebAnalyticsConfig" engine="entity-auto" invoke="create" auth="true">
         <description>Create a WebAnalyticsConfig</description>
@@ -1336,7 +1336,7 @@ under the License.
         <description>Delete a WebAnalyticsConfig</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="createWebAnalyticsType" default-entity-name="WebAnalyticsType" engine="entity-auto" invoke="create" auth="true">
         <description>Create a WebAnalyticsType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -1351,7 +1351,7 @@ under the License.
         <description>Delete a WebAnalyticsType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- Product Promo Content services -->
     <service name="createProductPromoContent" default-entity-name="ProductPromoContent" engine="entity-auto" invoke="create" auth="true">
         <description>Create Product Promo Content</description>
@@ -1517,12 +1517,12 @@ under the License.
         location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="createImageContentApproval" auth="true">
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <service name="removeImageContentApproval" engine="simple"
         location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="removeImageContentApproval" auth="true">
         <attribute name="partyId" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <service name="resizeImages" engine="simple"
         location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="resizeImages" auth="true">
         <description>Resize Images.</description>
@@ -1530,7 +1530,7 @@ under the License.
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="size" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <service name="resizeImageOfProduct" engine="java"
         location="org.apache.ofbiz.product.imagemanagement.ImageManagementServices" invoke="resizeImageOfProduct" auth="true">
         <description>Resize Image Of Product.</description>
@@ -1538,7 +1538,7 @@ under the License.
         <attribute name="dataResourceName" mode="IN" type="String" optional="false"/>
         <attribute name="resizeWidth" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <service name="createNewImageThumbnail" engine="java"
         location="org.apache.ofbiz.product.imagemanagement.ImageManagementServices" invoke="createNewImageThumbnail" auth="true">
         <description>Create New Image Thumbnail.</description>
@@ -1548,14 +1548,14 @@ under the License.
         <attribute name="drObjectInfo" mode="IN" type="String" optional="false"/>
         <attribute name="sizeWidth" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <service name="removeImageBySize" engine="simple"
         location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="removeImageBySize" auth="true">
         <description>Remove Image By Size.</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="mapKey" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <service name="replaceImageToExistImage" engine="java"
         location="org.apache.ofbiz.product.imagemanagement.ReplaceImage" invoke="replaceImageToExistImage" auth="true">
         <description>Resize Image Of Product.</description>
@@ -1565,7 +1565,7 @@ under the License.
         <attribute name="dataResourceNameExist" mode="IN" type="String" optional="false"/>
         <attribute name="dataResourceNameReplace" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <service name="renameImage" engine="java"
         location="org.apache.ofbiz.product.imagemanagement.ImageManagementServices" invoke="renameImage" auth="true">
         <description>Rename Image.</description>
@@ -1573,10 +1573,10 @@ under the License.
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
         <attribute name="drDataResourceName" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <!-- Alternative URLs -->
-    <service name="createMissingCategoryAndProductAltUrls" engine="simple"
-                location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="createMissingCategoryAndProductAltUrls" auth="true" use-transaction="false">
+    <service name="createMissingCategoryAndProductAltUrls" engine="groovy"
+                location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="createMissingCategoryAndProductAltUrls" auth="true" use-transaction="false">
         <description>Create missing Category and Product Alternative URLs</description>
         <attribute name="prodCatalogId" mode="INOUT" type="String" optional="false"/>
         <attribute name="category" mode="IN" type="String" optional="true"/>
@@ -1593,7 +1593,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="updateMarketInterest" default-entity-name="MarketInterest" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Market Interest</description>
         <permission-service service-name="productGenericPermission" main-action="UPDATE"/>

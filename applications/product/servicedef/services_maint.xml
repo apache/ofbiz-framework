@@ -93,64 +93,64 @@ under the License.
     </service>
 
     <!-- Check Urls exists or not related services -->
-    <service name="checkImageUrlForAllCategories" engine="simple"
-      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrlForAllCategories" transaction-timeout="36000">
+    <service name="checkImageUrlForAllCategories" engine="groovy"
+      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForAllCategories" transaction-timeout="36000">
         <description>check For Image Urls exists or not for all categories</description>
         <attribute name="topCategory" type="String" mode="IN" optional="true"/>
         <attribute name="excludeEmpty" type="Boolean" mode="IN" optional="true"/>
         <attribute name="categoriesMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
 
-    <service name="getAllCategories" engine="simple"
-      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="getAllCategories">
+    <service name="getAllCategories" engine="groovy"
+      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="getAllCategories">
         <description>Get all categories of a category </description>
         <attribute name="topCategory" type="String" mode="IN" optional="true"/>
         <attribute name="categories" type="java.util.List" mode="OUT" optional="true"/>
     </service>
 
-    <service name="getRelatedCategories" engine="simple"
-      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="getRelatedCategories">
+    <service name="getRelatedCategories" engine="groovy"
+      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="getRelatedCategories">
         <description>Get all related categories of a category </description>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="categories" type="java.util.List" mode="INOUT" optional="true"/>
     </service>
-    
+
     <service name="getCategoryTrail" engine="java"
       location="org.apache.ofbiz.product.category.CategoryWorker" invoke="getCategoryTrail">
-        <description> Returns a complete category trail - can be used for exporting proper category trees. 
-        This is mostly useful when used in combination with breadcrumbs,  for building a facetted index tree, 
+        <description> Returns a complete category trail - can be used for exporting proper category trees.
+        This is mostly useful when used in combination with breadcrumbs,  for building a facetted index tree,
         or to export a category tree for migration to another system.
-        Will create the tree from root point to categoryId. 
-        
+        Will create the tree from root point to categoryId.
+
         This service is not meant to be run on every request.
-        Its best use is to generate the trail every so often and store somewhere (a lucene/solr tree, entities, cache or so). 
+        Its best use is to generate the trail every so often and store somewhere (a lucene/solr tree, entities, cache or so).
         </description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="trail" type="java.util.List" mode="OUT" optional="true"/>
     </service>
 
-    <service name="checkImageUrlForCategoryAndProduct" engine="simple"
-      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrlForCategoryAndProduct">
+    <service name="checkImageUrlForCategoryAndProduct" engine="groovy"
+      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForCategoryAndProduct">
         <description>check For Image Urls exists or not for category</description>
         <attribute name="categoryId" type="String" mode="IN" optional="false"/>
         <attribute name="fileNotExists" type="java.util.List" mode="OUT" optional="true"/>
         <attribute name="fileExists" type="java.util.List" mode="OUT" optional="true"/>
     </service>
-    <service name="checkImageUrlForCategory" engine="simple"
-      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrlForCategory">
+    <service name="checkImageUrlForCategory" engine="groovy"
+      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForCategory">
         <description>check For Image Urls exists or not For Product</description>
         <attribute name="categoryId" type="String" mode="IN" optional="false"/>
         <attribute name="filesImageMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
-    <service name="checkImageUrlForProduct" engine="simple"
-      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrlForProduct">
+    <service name="checkImageUrlForProduct" engine="groovy"
+      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForProduct">
         <description>check For Image Urls exists or not For Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="filesImageMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
 
-    <service name="checkImageUrl" engine="simple"
-      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrl">
+    <service name="checkImageUrl" engine="groovy"
+      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrl">
         <description>check For Image Urls exists or not</description>
         <attribute name="imageUrl" type="String" mode="IN" optional="false"/>
         <attribute name="isExists" type="String" mode="OUT" optional="true"/>
