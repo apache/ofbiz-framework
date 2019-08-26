@@ -236,17 +236,23 @@ public class CategoryServices {
 
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         int viewIndex = 0;
-        try {
-            viewIndex = Integer.parseInt((String) context.get("viewIndexString"));
-        } catch (Exception e) {
-            viewIndex = 0;
+        if (context.containsKey("viewIndexString")) {
+            try {
+                viewIndex = Integer.parseInt((String) context.get("viewIndexString"));
+            } catch (Exception e) {
+                viewIndex = 0;
+            }
         }
 
         int viewSize = defaultViewSize;
-        try {
-            viewSize = Integer.parseInt((String) context.get("viewSizeString"));
-        } catch (NumberFormatException e) {
-            Debug.logError(e.getMessage(), module);
+        if (context.containsKey("viewSizeString")) {
+            try {
+                viewSize = Integer.parseInt((String) context.get("viewSizeString"));
+            } catch (NumberFormatException e) {
+                Debug.logWarning("Fail to parse viewSizeString "
+                        + context.get("viewSizeString")
+                        + " " + e.getMessage(), module);
+            }
         }
 
         GenericValue productCategory;
