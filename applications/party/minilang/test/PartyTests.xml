@@ -1046,28 +1046,6 @@ under the License.
         <check-errors/>
     </simple-method>
 
-    <simple-method method-name="testSetCommunicationEventRoleStatus" short-description="Test the service setCommunicationEventRoleStatus" login-required="false">
-        <set field="serviceCtx.communicationEventId" value="TestEvent-2"/>
-        <set field="serviceCtx.partyId" value="TestCompany"/>
-        <set field="serviceCtx.roleTypeId" value="ADDRESSEE"/>
-        <set field="serviceCtx.statusId" value="COM_ROLE_COMPLETED"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="setCommunicationEventRoleStatus" in-map-name="serviceCtx"/>
-        <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole">
-            <field-map field-name="communicationEventId" value="TestEvent-2"/>
-            <field-map field-name="partyId" value="TestCompany"/>
-            <field-map field-name="roleTypeId" value="ADDRESSEE"/>
-            <field-map field-name="statusId" value="COM_ROLE_COMPLETED"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="communicationEventRole"/></not>
-        </assert>
-        <check-errors/>
-    </simple-method>
-
     <simple-method method-name="testSetCommEventRoleToRead" short-description="Test the service setCommEventRoleToRead" login-required="false">
         <set field="serviceCtx.communicationEventId" value="TestEvent-7"/>
         <set field="serviceCtx.partyId" value="TestCompany"/>
@@ -1143,6 +1121,28 @@ under the License.
         <assert>
             <not><if-empty field="communicationEventRole"/></not>
             <if-compare operator="equals" field="communicationEventRole.statusId" value="COM_ROLE_READ"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testSetCommunicationEventRoleStatus" short-description="Test the service setCommunicationEventRoleStatus" login-required="false">
+        <set field="serviceCtx.communicationEventId" value="TestEvent-2"/>
+        <set field="serviceCtx.partyId" value="TestCompany"/>
+        <set field="serviceCtx.roleTypeId" value="ADDRESSEE"/>
+        <set field="serviceCtx.statusId" value="COM_ROLE_COMPLETED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="setCommunicationEventRoleStatus" in-map-name="serviceCtx"/>
+        <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole">
+            <field-map field-name="communicationEventId" value="TestEvent-2"/>
+            <field-map field-name="partyId" value="TestCompany"/>
+            <field-map field-name="roleTypeId" value="ADDRESSEE"/>
+            <field-map field-name="statusId" value="COM_ROLE_COMPLETED"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="communicationEventRole"/></not>
         </assert>
         <check-errors/>
     </simple-method>
