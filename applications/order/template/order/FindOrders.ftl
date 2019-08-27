@@ -414,10 +414,10 @@ function toggleOrderIdList() {
                     <#if requestParameters.countryGeoId?has_content>
                         <#assign countryGeoId = requestParameters.countryGeoId>
                         <#assign geo = delegator.findOne("Geo", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId", countryGeoId), true)>
-                        <option value="${countryGeoId}">${geo.geoName!}</option>
-                        <option value="${countryGeoId}">---</option>
+                        <option value="${countryGeoId}" selected="selected">${geo.geoName!}</option>
+                        <option value="" >${uiLabelMap.CommonAny}</option>
                     <#else>
-                        <option value="">---</option>
+                        <option value="" selected="selected">${uiLabelMap.CommonAny}</option>
                     </#if>
                     ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                   </select>
