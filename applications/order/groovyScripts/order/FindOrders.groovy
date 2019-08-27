@@ -114,6 +114,9 @@ if (currentGoodIdentificationTypeId) {
     context.currentGoodIdentificationType = currentGoodIdentificationType
 }
 
+//for countries drop down, set the list on empty value by default
+context.doNotPreselectDefaultCountryGeoId = 'Y'
+
 // create the fromDate for calendar
 fromCal = Calendar.getInstance()
 fromCal.setTime(new java.util.Date())
