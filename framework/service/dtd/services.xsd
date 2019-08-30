@@ -153,12 +153,28 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="require-new-transaction" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="return-error-on-failure" default="true">
+            <xs:annotation><xs:documentation>If set to false, when the permissions failed return the failMessage as error, else continue the service and give the hand to origin service to resolve the problem.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="required-permissions">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-permission"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-role-member"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="permission-service"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.required-permissions"/>
@@ -182,19 +198,6 @@ under the License.
     <xs:attributeGroup name="attlist.check-permission">
         <xs:attribute name="permission" type="xs:string" use="required"/>
         <xs:attribute name="action" type="xs:string"/>
-    </xs:attributeGroup>
-    <xs:element name="check-role-member">
-        <xs:annotation>
-            <xs:documentation>
-                    This is deprecated
-            </xs:documentation>
-        </xs:annotation>   
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.check-role-member"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.check-role-member">
-        <xs:attribute name="role-type" type="xs:string" use="required"/>
     </xs:attributeGroup>
     <xs:element name="service-security">
         <xs:complexType>

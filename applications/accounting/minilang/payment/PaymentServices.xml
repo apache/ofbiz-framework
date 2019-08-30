@@ -547,7 +547,7 @@ under the License.
         <iterate list="paymentApplications" entry="paymentApplication">
             <get-related-one relation-name="Invoice" value-field="paymentApplication" to-value-field="updateInvoiceCtx"/>
             <if-compare field="updateInvoiceCtx.statusId" operator="equals" value="INVOICE_PAID">
-                <set-service-fields service-name="updateInvoice" map="updateInvoiceCtx" to-map="invoiceStatusCtx"/>
+                <set-service-fields service-name="setInvoiceStatus" map="updateInvoiceCtx" to-map="invoiceStatusCtx"/>
                 <set field="invoiceStatusCtx.paidDate" type="Timestamp" value=""/>
                 <set field="invoiceStatusCtx.statusId" value="INVOICE_READY"/>
                 <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusCtx"/>

@@ -392,6 +392,8 @@ public final class ServiceDispatcher {
                     // validate the context
                     if (modelService.validate && !isError && !isFailure) {
                         try {
+                            // FIXME without this line all simple test failed
+                            context = ctx.makeValidContext(modelService.name, ModelService.IN_PARAM, context);
                             modelService.validate(context, ModelService.IN_PARAM, locale);
                         } catch (ServiceValidationException e) {
                             Debug.logError(e, "Incoming context (in runSync : " + modelService.name + ") does not match expected requirements", module);
@@ -502,6 +504,7 @@ public final class ServiceDispatcher {
                         ServiceEcaUtil.evalRules(modelService.name, eventMap, "out-validate", ctx, ecaContext, result, isError, isFailure);
                     }
                     try {
+                        result = ctx.makeValidContext(modelService.name, ModelService.OUT_PARAM, result);
                         modelService.validate(result, ModelService.OUT_PARAM, locale);
                     } catch (ServiceValidationException e) {
                         rs.setEndStamp();
@@ -891,6 +894,7 @@ public final class ServiceDispatcher {
     // checks if parameters were passed for authentication
     private Map<String, Object> checkAuth(String localName, Map<String, Object> context, ModelService origService) throws ServiceAuthException, GenericServiceException {
         String service = null;
+        Locale locale = (Locale) context.get("locale");
         try {
             service = ServiceConfigUtil.getServiceEngine().getAuthorization().getServiceName();
         } catch (GenericConfigException e) {
@@ -911,11 +915,10 @@ public final class ServiceDispatcher {
 
             if (UtilValidate.isNotEmpty(context.get("login.password"))) {
                 String password = (String) context.get("login.password");
-
-                context.put("userLogin", getLoginObject(service, localName, username, password, (Locale) context.get("locale")));
+                context.put("userLogin", getLoginObject(service, localName, username, password, locale));
                 context.remove("login.password");
             } else {
-                context.put("userLogin", getLoginObject(service, localName, username, null, (Locale) context.get("locale")));
+                context.put("userLogin", getLoginObject(service, localName, username, null, locale));
             }
             context.remove("login.username");
         } else {
@@ -949,30 +952,20 @@ public final class ServiceDispatcher {
 
         // evaluate permissions for the service or throw exception if fail.
         DispatchContext dctx = this.getLocalContext(localName);
-        if (UtilValidate.isNotEmpty(origService.permissionServiceName)) {
-            Map<String, Object> permResp = origService.evalPermission(dctx, context);
-            Boolean hasPermission = (Boolean) permResp.get("hasPermission");
-            if (hasPermission == null) {
-                throw new ServiceAuthException("ERROR: the permission-service [" + origService.permissionServiceName + "] did not return a result. Not running the service [" + origService.name + "]");
-            }
-            if (hasPermission) {
-                context.putAll(permResp);
-            } else {
-                String message = (String) permResp.get("failMessage");
-                if (UtilValidate.isEmpty(message)) {
-                    message = ServiceUtil.getErrorMessage(permResp);
-                }
-                if (UtilValidate.isEmpty(message)) {
-                    message = "You do not have permission to invoke the service [" + origService.name + "]";
-                }
-                throw new ServiceAuthException(message);
+        Map<String, Object> permResp = null;
+        if (origService.modelPermission != null) {
+            permResp = origService.evalPermission(dctx, context);
+            if (ServiceUtil.isSuccess(permResp)) {
+                //Ok the service have authorization to run, complete the context with the permission response map
+                context.putAll(origService.makeValid(permResp, ModelService.IN_PARAM));
             }
         } else {
-            if (!origService.evalPermissions(dctx, context)) {
-                throw new ServiceAuthException("You do not have permission to invoke the service [" + origService.name + "]");
-            }
+            permResp = origService.evalPermissions(dctx, context);
         }
-
+        if (ServiceUtil.isFailure(permResp) || ServiceUtil.isError(permResp)) {
+            throw new ServiceAuthException(UtilProperties.getMessage("ServiceErrorUiLabels", "ServicePermissionError",
+                    UtilMisc.toMap("serviceName", origService.name, "failMessage", ServiceUtil.getErrorMessage(permResp)), locale));
+        }
         return origService.makeValid(context, ModelService.IN_PARAM);
     }
 

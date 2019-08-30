@@ -2482,7 +2482,6 @@ under the License.
         <set-service-fields service-name="createAcctgTrans" map="newAcctgTrans" to-map="createAcctgTransInMap"/>
         <now-timestamp field="nowTimestamp"/>
         <set field="createAcctgTransInMap.transactionDate" from-field="nowTimestamp"/>
-        <set field="createAcctgTransInMap.isPosted" value="N"/>
         <set field="originalAcctgTransId" from-field="parameters.fromAcctgTransId"/>
         <field-to-result field="originalAcctgTransId" result-name="acctgTransId"/>
 

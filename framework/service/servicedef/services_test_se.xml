@@ -166,4 +166,50 @@ under the License.
     <service name="testXmlRpcClientAdd" engine="java" auth="false" location="org.apache.ofbiz.service.test.XmlRpcTests" invoke="testXmlRpcClientAdd">
         <implements service="testServiceInterface"/>
     </service>
+
+    <!--Test permission-->
+    <service name="testSimplePermission" engine="java" auth="true"
+             location="org.apache.ofbiz.service.test.ServiceEngineTestPermissionServices" invoke="genericTestService">
+        <required-permissions join-type="AND">
+            <check-permission permission="TESTPERM" action="_UPDATE"/>
+        </required-permissions>
+    </service>
+    <service name="testSimpleServicePermission" engine="java" auth="true"
+             location="org.apache.ofbiz.service.test.ServiceEngineTestPermissionServices" invoke="genericTestService">
+        <permission-service service-name="testPermissionPing"/>
+        <attribute name="givePermission" type="String" mode="IN"/>
+    </service>
+    <service name="testSimpleGroupAndPermission" engine="java" auth="true"
+             location="org.apache.ofbiz.service.test.ServiceEngineTestPermissionServices" invoke="genericTestService">
+        <required-permissions join-type="AND">
+            <check-permission permission="TESTPERM" action="_UPDATE"/>
+            <permission-service service-name="testPermissionPing"/>
+        </required-permissions>
+        <attribute name="givePermission" type="String" mode="IN"/>
+    </service>
+    <service name="testSimpleGroupOrPermission" engine="java" auth="true"
+             location="org.apache.ofbiz.service.test.ServiceEngineTestPermissionServices" invoke="genericTestService">
+        <required-permissions join-type="OR">
+            <check-permission permission="TESTPERM" action="_UPDATE"/>
+            <permission-service service-name="testPermissionPing"/>
+        </required-permissions>
+        <attribute name="givePermission" type="String" mode="IN"/>
+    </service>
+    <service name="testServicePermissionWithTransaction" engine="java" auth="true"
+             location="org.apache.ofbiz.service.test.ServiceEngineTestPermissionServices" invoke="genericTestService">
+        <permission-service service-name="testPermissionPing" require-new-transaction="true"/>
+        <attribute name="testingId" type="String" mode="IN"/>
+    </service>
+    <service name="testPermissionPing" engine="java" auth="true"
+             location="org.apache.ofbiz.service.test.ServiceEngineTestPermissionServices" invoke="testPermissionPing">
+        <implements service="permissionInterface"/>
+        <attribute name="givePermission" type="String" mode="IN"/>
+    </service>
+    <service name="testPermissionExistingTesting" engine="java" auth="true"
+             location="org.apache.ofbiz.service.test.ServiceEngineTestPermissionServices" invoke="testPermissionExistingTesting">
+        <implements service="permissionInterface"/>
+        <attribute name="testingId" type="String" mode="IN"/>
+    </service>
+
+
 </services>

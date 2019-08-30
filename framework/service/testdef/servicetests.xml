@@ -73,4 +73,11 @@ under the License.
     <test-case case-name="service-xml-rpc-local-engine">
         <service-test service-name="testXmlRpcClientAdd"/>
     </test-case>
+    <test-case case-name="load-data-service-permission-tests">
+        <entity-xml entity-xml-url="component://service/testdef/data/PermissionServiceTestData.xml"/>
+    </test-case>
+    <test-case case-name="service-permission-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.service.test.ServicePermissionTests"/>
+    </test-case>
+
 </test-suite>

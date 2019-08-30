@@ -67,7 +67,7 @@
         <value xml:lang="ja">取引先IDが正しくありません</value>
         <value xml:lang="nl">Relatie nummer van deze partij is niet gevonden</value>
         <value xml:lang="ro">Cod Subiect Lipseste</value>
-        <value xml:lang="th">ไม่ได้ใส่รหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="th">aไม่ได้ใส่รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">找不到会员标识</value>
         <value xml:lang="zh-TW">無該團體識別</value>
     </property>
@@ -113,6 +113,26 @@
         <value xml:lang="ja">パラメータ ${parameterName} の中のIDが正しくありません: ${errorDetails}</value>
         <value xml:lang="zh">参数 ${parameterName} 中的标识（ID）值无效：${errorDetails}</value>
         <value xml:lang="zh-TW">參數 ${parameterName} 中的識別(識別)值無效:${errorDetails}</value>
+    </property>
+    <property key="ServicePermissionError">
+        <value xml:lang="en">You haven't the permission for the service ${serviceName}, reason : ${failMessage}</value>
+        <value xml:lang="fr">Vous n'avez pas la permission sur le service ${serviceName}, raison : ${failMessage}</value>
+    </property>
+    <property key="ServicePermissionErrorDefinitionProblem">
+        <value xml:lang="en">Problem on permission service definition, please see with your integrator</value>
+        <value xml:lang="fr">Problème dans la définition d'un service de validation de permission, merci d'en informer votre intégrateur</value>
+    </property>
+    <property key="ServicePermissionErrorInvalidPermissionType">
+        <value xml:lang="en">The permission type call by the service isn't valid. Please see with your integrator</value>
+        <value xml:lang="fr">Le type de permission défini sur le service appelé n'est pas conforme, veuiller prendre contact avec votre intégrateur !</value>
+    </property>
+    <property key="ServicePermissionErrorRefused">
+        <value xml:lang="en">Access refused</value>
+        <value xml:lang="fr">Accés refusé</value>
+    </property>
+    <property key="ServicePermissionErrorUserLoginMissing">
+        <value xml:lang="en">User login is missing</value>
+        <value xml:lang="fr">Absence d'utilisateur identifié</value>
     </property>
     <property key="ServiceTestDeadLockError">
         <value xml:lang="en">Error running deadlock test services: ${errorString}</value>

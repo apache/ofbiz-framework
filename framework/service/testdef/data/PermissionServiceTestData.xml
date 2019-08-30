@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!--load security group for test-->
+    <SecurityPermission description="Permission to View" permissionId="TESTPERM_VIEW"/>
+    <SecurityPermission description="Permission to Update" permissionId="TESTPERM_UPDATE"/>
+    <SecurityGroup groupId="TESTPERMADMIN" description="permissions admin."/>
+    <SecurityGroupPermission groupId="TESTPERMADMIN" permissionId="TESTPERM_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="TESTPERMADMIN" permissionId="TESTPERM_UPDATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroup groupId="TESTPERMVIEW" description="permissions reader."/>
+    <SecurityGroupPermission groupId="TESTPERMVIEW" permissionId="TESTPERM_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+
+    <Party partyId="permUser1" partyTypeId="PERSON"/>
+    <Person partyId="permUser1" firstName="Permission" lastName="User 1"/>
+    <UserLogin userLoginId="permUser1" partyId="permUser1"/>
+    <Party partyId="permUser2" partyTypeId="PERSON"/>
+    <Person partyId="permUser2" firstName="Permission" lastName="User 2"/>
+    <UserLogin userLoginId="permUser2" partyId="permUser2"/>
+
+    <UserLoginSecurityGroup groupId="TESTPERMADMIN" userLoginId="permUser1" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="TESTPERMVIEW" userLoginId="permUser2" fromDate="2001-01-01 12:00:00.0"/>
+
+</entity-engine-xml>
