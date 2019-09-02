@@ -277,6 +277,9 @@ public class RequestHandler {
                 if (path.contains("/checkLogin/")) {
                     // Nested requests related with checkLogin uselessly clutter the log. There is nothing to worry about, better remove this wrong error message.
                     return;
+                } else if (path.contains("/images/")) {
+                    if (Debug.warningOn()) Debug.logWarning("You should check if this request is really a problem or a false alarm: " + request.getRequestURL(), module);
+                    throw new RequestHandlerException(requestMissingErrorMessage);
                 } else {
                     throw new RequestHandlerException(requestMissingErrorMessage);
                 }
