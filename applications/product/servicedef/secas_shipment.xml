@@ -151,6 +151,13 @@ under the License.
         <action service="updatePurchaseShipmentFromReceipt" mode="sync"/>
     </eca>
 
+    <eca service="createShipmentRouteSegment" event="commit">
+        <action service="ensureRouteSegPackage" mode="sync"/>
+    </eca>
+    <eca service="updateShipmentRouteSegment" event="commit">
+        <action service="ensureRouteSegPackage" mode="sync"/>
+    </eca>
+
     <eca service="createShipmentPackageContent" event="in-validate">
         <condition field-name="shipmentPackageSeqId" operator="equals" value="New"/>
         <action service="createShipmentPackage" mode="sync"/>

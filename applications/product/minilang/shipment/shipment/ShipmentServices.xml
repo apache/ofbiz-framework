@@ -112,9 +112,6 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateShipment" short-description="Update Shipment">
-        <set value="Update Shipment" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusDelivered"/>
-        <check-errors/>
 
         <make-value entity-name="Shipment" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
@@ -283,14 +280,6 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <simple-method method-name="deleteShipment" short-description="Delete Shipment">
-        <set value="Delete Shipment" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-        <entity-one entity-name="Shipment" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="createShipmentForReturn" short-description="Create Shipment based on ReturnHeader">
         <entity-one entity-name="ReturnHeader" value-field="returnHeader">
             <field-map field-name="returnId" from-field="parameters.returnId"/>
@@ -428,10 +417,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="setShipmentSettingsFromPrimaryOrder" short-description="Set Shipment Settings From Primary Order">
-        <set value="Set Shipment Settings From Primary Order" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
         <!-- on Shipment set partyIdFrom, partyIdTo (vendorPartyId), originContactMechId, destinationContactMechId, estimatedShipCost -->
         <entity-one entity-name="Shipment" value-field="shipment"/>
 
@@ -670,12 +655,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="setShipmentSettingsFromFacilities" short-description="Set Shipment Settings From Facilities">
-        <set value="Set Shipment Settings From Facilities" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
         <entity-one entity-name="Shipment" value-field="shipment"/>
-
         <clone-value value-field="shipment" new-value-field="shipmentCopy"/>
 
         <string-to-list string="-fromDate" list="descendingFromDateOrder"/>
@@ -817,35 +797,8 @@ under the License.
     </simple-method>
 
     <!-- ShipmentItem services -->
-    <simple-method method-name="createShipmentItem" short-description="Create ShipmentItem">
-        <set value="Create ShipmentItem" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
-        <make-value entity-name="ShipmentItem" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <!-- if no shipmentItemSeqId, generate one based on existing items, ie one greater than the current higher number -->
-        <make-next-seq-id value-field="newEntity" seq-field-name="shipmentItemSeqId"/>
-        <field-to-result field="newEntity.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateShipmentItem" short-description="Update ShipmentItem">
-        <set value="Update ShipmentItem" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
-        <make-value entity-name="ShipmentItem" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="deleteShipmentItem" short-description="Delete ShipmentItem">
-        <set value="Delete ShipmentItem" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-        <!-- If there is any Shipment Package Content available for this Shipment Item then it cannot be deleted as it require 
+        <!-- If there is any Shipment Package Content available for this Shipment Item then it cannot be deleted as it require
                 Shipment Package content to be deleted first -->
         <entity-and entity-name="ShipmentPackageContent" list="shipmentPackageContents">
             <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
@@ -946,10 +899,6 @@ under the License.
 
     <!-- ShipmentPackage services -->
     <simple-method method-name="createShipmentPackage" short-description="Create ShipmentPackage">
-        <set value="Create ShipmentPackage" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
         <make-value entity-name="ShipmentPackage" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -971,10 +920,6 @@ under the License.
         <call-simple-method method-name="ensurePackageRouteSeg"/>
     </simple-method>
     <simple-method method-name="updateShipmentPackage" short-description="Update ShipmentPackage">
-        <set value="Update ShipmentPackage" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusShipped"/>
-        <check-errors/>
-
         <make-value entity-name="ShipmentPackage" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackage" map="lookupPKMap" value-field="lookedUpValue"/>
@@ -986,9 +931,6 @@ under the License.
         <call-simple-method method-name="ensurePackageRouteSeg"/>
     </simple-method>
     <simple-method method-name="deleteShipmentPackage" short-description="Delete ShipmentPackage">
-        <set value="Delete ShipmentPackage" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
         <!-- If there is any Shipment Package Content available for this shipment than Shipment Package cannot be deleted as it require
              Shipment Package Content to be deleted first -->
         <entity-and entity-name="ShipmentPackageContent" list="shipmentPackageContents">
@@ -1029,43 +971,7 @@ under the License.
     </simple-method>
 
     <!-- ShipmentPackageContent services -->
-    <simple-method method-name="createShipmentPackageContent" short-description="Create ShipmentPackageContent">
-        <set value="Create ShipmentPackageContent" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
-        <make-value entity-name="ShipmentPackageContent" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-        <field-to-result field="newEntity.shipmentPackageSeqId" result-name="shipmentPackageSeqId"/>
-    </simple-method>
-    <simple-method method-name="updateShipmentPackageContent" short-description="Update ShipmentPackageContent">
-        <set value="Update ShipmentPackageContent" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
-        <make-value entity-name="ShipmentPackageContent" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteShipmentPackageContent" short-description="Delete ShipmentPackageContent">
-        <set value="Delete ShipmentPackageContent" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
-        <make-value entity-name="ShipmentPackageContent" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="addShipmentContentToPackage" short-description="Add Shipment Content To Package">
-        <set value="Create ShipmentPackageContent" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
         <make-value entity-name="ShipmentPackageContent" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <find-by-primary-key value-field="shipmentPackageContent" map="newEntity"/>
@@ -1089,86 +995,16 @@ under the License.
         <field-to-result field="newEntity.shipmentPackageSeqId" result-name="shipmentPackageSeqId"/>
     </simple-method>
 
-    <!-- ShipmentPackageRouteSeg services -->
-    <simple-method method-name="createShipmentPackageRouteSeg" short-description="Create ShipmentPackageRouteSeg">
-        <make-value entity-name="ShipmentPackageRouteSeg" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="deleteShipmentPackageRouteSeg" short-description="Delete ShipmentPackageRouteSeg">
-        <set value="Delete ShipmentPackageRouteSeg" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
-        <make-value entity-name="ShipmentPackageRouteSeg" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- ShipmentRouteSegment services -->
-    <simple-method method-name="createShipmentRouteSegment" short-description="Create ShipmentRouteSegment">
-        <set value="Create ShipmentRouteSegment" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
-        <make-value entity-name="ShipmentRouteSegment" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <!-- if no shipmentRouteSegmentSeqId, generate one based on existing items, ie one greater than the current higher number -->
-        <make-next-seq-id value-field="newEntity" seq-field-name="shipmentRouteSegmentId"/>
-        <field-to-result field="newEntity.shipmentRouteSegmentId" result-name="shipmentRouteSegmentId"/>
-
-        <if-empty field="newEntity.carrierServiceStatusId">
-            <set value="SHRSCS_NOT_STARTED" field="newEntity.carrierServiceStatusId"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-
-        <set from-field="newEntity.shipmentId" field="shipmentId"/>
-        <set from-field="newEntity.shipmentRouteSegmentId" field="shipmentRouteSegmentId"/>
-        <call-simple-method method-name="ensureRouteSegPackage"/>
-    </simple-method>
-    <simple-method method-name="updateShipmentRouteSegment" short-description="Update ShipmentRouteSegment">
-        <set value="Update ShipmentRouteSegment" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusDelivered"/>
-        <check-errors/>
-
-        <entity-one entity-name="ShipmentRouteSegment" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-
-        <if-empty field="newEntity.carrierServiceStatusId">
-            <set value="SHRSCS_NOT_STARTED" field="newEntity.carrierServiceStatusId"/>
-        </if-empty>
-
-
-        <set from-field="userLogin.userLoginId" field="lookedUpValue.updatedByUserLoginId"/>
-        <now-timestamp field="lookedUpValue.lastUpdatedDate"/>
-        <store-value value-field="lookedUpValue"/>
-
-        <set from-field="lookedUpValue.shipmentId" field="shipmentId"/>
-        <set from-field="lookedUpValue.shipmentRouteSegmentId" field="shipmentRouteSegmentId"/>
-        <call-simple-method method-name="ensureRouteSegPackage"/>
-    </simple-method>
-    <simple-method method-name="deleteShipmentRouteSegment" short-description="Delete ShipmentRouteSegment">
-        <set value="Delete ShipmentRouteSegment" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
-        <entity-one entity-name="ShipmentRouteSegment" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="ensureRouteSegPackage" short-description="Ensure ShipmentPackageRouteSeg exists for all Packages for this RouteSegment">
+        <entity-one entity-name="ShipmentRouteSegment" value-field="shipmentRouteSegment" use-cache="true"/>
         <entity-and entity-name="ShipmentPackage" list="shipmentPackages">
-            <field-map field-name="shipmentId" from-field="shipmentId"/>
+            <field-map field-name="shipmentId" from-field="shipmentRouteSegment.shipmentId"/>
         </entity-and>
         <iterate list="shipmentPackages" entry="shipmentPackage">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-field="checkShipmentPackageRouteSeg" auto-field-map="false">
-                <field-map field-name="shipmentId" from-field="shipmentId"/>
-                <field-map field-name="shipmentRouteSegmentId" from-field="shipmentRouteSegmentId"/>
+                <field-map field-name="shipmentId" from-field="shipmentRouteSegment.shipmentId"/>
+                <field-map field-name="shipmentRouteSegmentId" from-field="shipmentRouteSegment.shipmentRouteSegmentId"/>
                 <field-map field-name="shipmentPackageSeqId" from-field="shipmentPackage.shipmentPackageSeqId"/>
             </entity-one>
             <if-empty field="checkShipmentPackageRouteSeg">
@@ -1194,7 +1030,17 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusGeneral"/>
     </simple-method>
     <simple-method method-name="checkCanChangeShipmentStatusGeneral" short-description="Check the Status of a Shipment to see if it can be changed - meant to be called in-line">
-        <entity-one entity-name="Shipment" value-field="testShipment"/>
+        <if-empty field="parameters.mainAction">
+            <set field="parameters.mainAction" value="UPDATE"/>
+        </if-empty>
+        <set-service-fields service-name="facilityGenericPermission" to-map="facilityGenericPermissionMap" map="parameters"/>
+        <call-service service-name="facilityGenericPermission" in-map-name="facilityGenericPermissionMap">
+            <result-to-field field="hasPermission" result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+
+        <entity-one entity-name="Shipment" value-field="testShipment" use-cache="true"/>
+        <set field="fromStatusId" from-field="fromStatusId" default-value="${parameters.fromStatusId}"/>
         <if>
             <condition>
                 <or>
@@ -1225,9 +1071,12 @@ under the License.
             </condition>
             <then>
                 <get-related-one relation-name="StatusItem" value-field="testShipment" to-value-field="testShipmentStatus"/>
-                <string-to-list string="Cannot perform operation ${operationName} when the shipment is in the ${testShipmentStatus.description} [${testShipment.statusId}] status." list="error_list"/>
+                <property-to-field resource="ProductErrorUiLabels" property="ShipmentCanChangeStatusPermissionError" field="failMessage"/>
+                <set field="hasPermission" type="Boolean" value="false"/>
+                <field-to-result field="failMessage"/>
             </then>
         </if>
+        <field-to-result field="hasPermission"/>
     </simple-method>
 
     <!-- quick ship entire order in one package per facility & ship group -->
@@ -1986,24 +1835,6 @@ under the License.
             <set from-field="issuance.itemIssuanceId" field="inputMap.itemIssuanceId"/>
             <call-service service-name="cancelOrderItemIssuanceFromSalesShipment" in-map-name="inputMap"/>
         </iterate>
-    </simple-method>
-
-    <!-- QuantityBreak services -->
-    <!-- create a new QuantityBreak -->
-    <simple-method method-name="createQuantityBreak" short-description="Create a QuoteAttribute">
-        <make-value entity-name="QuantityBreak" value-field="quantityBreak"/>
-        <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
-        <sequenced-id sequence-name="QuantityBreak" field="quantityBreak.quantityBreakId"/>
-        <create-value value-field="quantityBreak"/>
-        <check-errors/>
-    </simple-method>
-
-    <!-- remove an existing QuantityBreak -->
-    <simple-method method-name="deleteQuantityBreak" short-description="Remove an existing QuantityBreak">
-        <entity-one entity-name="QuantityBreak" value-field="quantityBreak" auto-field-map="true"/>
-        <check-errors/>
-        <remove-value value-field="quantityBreak"/>
-        <check-errors/>
     </simple-method>
 </simple-methods>
 

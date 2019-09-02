@@ -1489,6 +1489,10 @@
         <value xml:lang="zh">创建快速添加变型数据时发生交易错误：${errMessage}。</value>
         <value xml:lang="zh-TW">新建快速增加變型資料時發生交易錯誤: ${errMessage}.</value>
     </property>
+    <property key="ShipmentCanChangeStatusPermissionError">
+        <value xml:lang="en">Cannot perform this operation when the shipment [${testShipment.shipmentId}] is in the ${testShipmentStatus.description} [${testShipment.statusId}] status."</value>
+        <value xml:lang="fr">Impossible de réaliser l'opération demandée quand l'expédition [${testShipment.shipmentId}] est dans le statut ${testShipmentStatus.description} [${testShipment.statusId}]</value>
+    </property>
     <property key="variantevents.variantProductId_required_but_missing_enter_an_id">
         <value xml:lang="de">variantProductId wir benötigt, fehlt aber, bitte geben Sie eine ID für die neue Produktvariante an.</value>
         <value xml:lang="en">variantProductId is required but missing, please enter an id for the new variant product.</value>

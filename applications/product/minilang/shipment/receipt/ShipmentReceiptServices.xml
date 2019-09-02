@@ -361,9 +361,6 @@ under the License.
     </simple-method>
     
     <simple-method method-name="issueOrderItemToShipmentAndReceiveAgainstPO" short-description="Issues order item quantity specified to the shipment, then receives inventory for that item and quantity">
-        <set value="Issue OrderItem to Shipment and Receive against PO" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/minilang/shipment/shipment/ShipmentServices.xml"/>
-        <check-errors/>
 
         <!-- get orderItem -->
         <entity-one entity-name="OrderItem" value-field="orderItem" auto-field-map="true"/>

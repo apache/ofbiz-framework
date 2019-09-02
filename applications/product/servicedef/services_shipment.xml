@@ -136,7 +136,7 @@ under the License.
     <service name="updateShipment" default-entity-name="Shipment" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipment" auth="true">
         <description>Update Shipment</description>
-        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusDelivered" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="shipmentTypeId"/>
@@ -152,10 +152,9 @@ under the License.
         <attribute name="oldOriginFacilityId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldDestinationFacilityId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="deleteShipment" default-entity-name="Shipment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteShipment" auth="true">
+    <service name="deleteShipment" default-entity-name="Shipment" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete Shipment</description>
-        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createShipmentStatus" default-entity-name="ShipmentStatus" engine="entity-auto" invoke="create" auth="true">
@@ -167,19 +166,13 @@ under the License.
     <service name="setShipmentSettingsFromPrimaryOrder" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="setShipmentSettingsFromPrimaryOrder" auth="true">
         <description>Set Shipment Settings From Primary Order</description>
-        <required-permissions join-type="AND">
-            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        </required-permissions>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="UPDATE"/>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="setShipmentSettingsFromFacilities" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="setShipmentSettingsFromFacilities" auth="true">
         <description>Set Shipment Settings From Facilities</description>
-        <required-permissions join-type="AND">
-            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        </required-permissions>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="UPDATE"/>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="sendShipmentScheduledNotification" engine="simple"
@@ -220,25 +213,22 @@ under the License.
     </service>
 
     <!-- ShipmentItem Services -->
-    <service name="createShipmentItem" default-entity-name="ShipmentItem" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentItem" auth="true">
+    <service name="createShipmentItem" default-entity-name="ShipmentItem" engine="entity-auto" invoke="create" auth="true">
         <description>Create ShipmentItem</description>
-         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+         <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="shipmentItemSeqId" mode="INOUT" optional="true"/>
     </service>
-    <service name="updateShipmentItem" default-entity-name="ShipmentItem" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentItem" auth="true">
+    <service name="updateShipmentItem" default-entity-name="ShipmentItem" engine="entity-auto" invoke="update" auth="true">
         <description>Update ShipmentItem</description>
-         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusDelivered" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteShipmentItem" default-entity-name="ShipmentItem" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentItem" auth="true">
+    <service name="deleteShipmentItem" default-entity-name="ShipmentItem" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ShipmentItem</description>
-         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -256,7 +246,7 @@ under the License.
     <service name="createShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackage" auth="true">
         <description>Create ShipmentPackage</description>
-        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="dateCreated"/>
@@ -266,43 +256,40 @@ under the License.
     <service name="updateShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackage" auth="true">
         <description>Update ShipmentPackage</description>
-        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackage" auth="true">
         <description>Delete ShipmentPackage</description>
-        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- ShipmentPackageContent Services -->
-    <service name="createShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackageContent" auth="true">
+    <service name="createShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="entity-auto" invoke="create" auth="true">
         <description>Create ShipmentPackageContent</description>
-        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="shipmentPackageSeqId" mode="INOUT" optional="false"/>
     </service>
-    <service name="updateShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackageContent" auth="true">
+    <service name="updateShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="entity-auto" invoke="update" auth="true">
         <description>Update ShipmentPackageContent</description>
-        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackageContent" auth="true">
+    <service name="deleteShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ShipmentPackageContent</description>
-        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="addShipmentContentToPackage" default-entity-name="ShipmentPackageContent" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="addShipmentContentToPackage" auth="true">
         <description>Add Shipment Content To Package</description>
-        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="quantity" mode="IN" optional="false"/>
@@ -310,23 +297,21 @@ under the License.
     </service>
 
     <!-- ShipmentPackageRouteSeg Services -->
-    <service name="createShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackageRouteSeg" auth="true">
+    <service name="createShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="entity-auto" invoke="create" auth="true">
         <description>Create ShipmentPackageRouteSeg</description>
-        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="entity-auto" invoke="update" auth="true">
         <description>Update ShipmentPackageRouteSeg</description>
-        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusDelivered" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackageRouteSeg" auth="true">
+    <service name="deleteShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ShipmentPackageRouteSeg</description>
-        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -350,25 +335,23 @@ under the License.
     </service>
 
     <!-- ShipmentRouteSegment Services -->
-    <service name="createShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentRouteSegment" auth="true">
+    <service name="createShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="entity-auto" invoke="create" auth="true">
         <description>Create ShipmentRouteSegment</description>
-        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="shipmentRouteSegmentId" mode="INOUT" optional="true"/>
     </service>
-    <service name="updateShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentRouteSegment" auth="true">
+    <service name="updateShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="entity-auto" invoke="update" auth="true">
         <description>Update ShipmentRouteSegment</description>
-        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="carrierServiceStatusId" default-value="SHRSCS_NOT_STARTED"/>
     </service>
-    <service name="deleteShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentRouteSegment" auth="true">
+    <service name="deleteShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ShipmentRouteSegment</description>
-        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="duplicateShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="java"
@@ -386,44 +369,46 @@ under the License.
         </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="ensureRouteSegPackage" default-entity-name="ShipmentRouteSegment" engine="simple"
+            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="ensureRouteSegPackage" auth="true">
+        <description>Ensure ShipmentPackageRouteSeg exists for all Packages for this RouteSegment</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 
     <!-- ============================================================== -->
     <!-- ItemIssuance Services -->
     <service name="createItemIssuance" default-entity-name="ItemIssuance" engine="simple"
             location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="createItemIssuance" auth="true">
         <description>Create ItemIssuance</description>
-        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="affectAccounting" type="Boolean" mode="OUT" optional="true"/>
     </service>
-    <service name="updateItemIssuance" default-entity-name="ItemIssuance" engine="simple"
-            location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="updateItemIssuance" auth="true">
+    <service name="updateItemIssuance" default-entity-name="ItemIssuance" engine="entity-auto" invoke="update" auth="true">
         <description>Update ItemIssuance</description>
-        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteItemIssuance" default-entity-name="ItemIssuance" engine="simple"
-            location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="deleteItemIssuance" auth="true">
+    <service name="deleteItemIssuance" default-entity-name="ItemIssuance" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ItemIssuance</description>
-        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- ItemIssuanceRole Services -->
-    <service name="createItemIssuanceRole" default-entity-name="ItemIssuanceRole" engine="simple"
-            location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="createItemIssuanceRole" auth="true">
+    <service name="createItemIssuanceRole" default-entity-name="ItemIssuanceRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create ItemIssuanceRole</description>
-        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <!-- Will check if OK to change status of shipment, so Shipment PK is needed -->
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteItemIssuanceRole" default-entity-name="ItemIssuanceRole" engine="simple"
-            location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="deleteItemIssuanceRole" auth="true">
+    <service name="deleteItemIssuanceRole" default-entity-name="ItemIssuanceRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ItemIssuanceRole</description>
-        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <!-- Will check if OK to change status of shipment, so Shipment PK is needed -->
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
@@ -433,7 +418,7 @@ under the License.
             location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="issueOrderItemToShipment" auth="true">
         <description>Issue an OrderItem to a Shipment - only for non-sales orders</description>
         <required-permissions join-type="AND">
-            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
             <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         </required-permissions>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
@@ -445,7 +430,7 @@ under the License.
             location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="issueOrderItemShipGrpInvResToShipment" auth="true">
         <description>Add an OrderItemShipGrpInvRes to a Shipment - only for sales orders</description>
         <required-permissions join-type="AND">
-            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
             <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         </required-permissions>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
@@ -775,7 +760,7 @@ under the License.
             location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="issueOrderItemToShipmentAndReceiveAgainstPO" auth="true">
         <description>Issues order item quantity specified to the shipment, then receives inventory for that item and quantity</description>
         <required-permissions join-type="AND">
-            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
             <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         </required-permissions>
         <implements service="issueOrderItemToShipment"/>
@@ -888,11 +873,11 @@ under the License.
     </service>
 
     <!-- QuantityBreak services -->
-    <service name="createQuantityBreak" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createQuantityBreak" auth="true">
+    <service name="createQuantityBreak" default-entity-name="QuantityBreak" engine="entity-auto" invoke="create" auth="true">
         <description>Create a QuantityBreak</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes entity-name="QuantityBreak" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="QuantityBreak" include="pk" mode="OUT" optional="false"/>
     </service>
     <service name="updateQuantityBreak" engine="entity-auto" invoke="update" default-entity-name="QuantityBreak" auth="true">
         <description>Update a QuantityBreak</description>
@@ -900,8 +885,7 @@ under the License.
         <auto-attributes entity-name="QuantityBreak" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="QuantityBreak" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteQuantityBreak" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteQuantityBreak" auth="true">
+    <service name="deleteQuantityBreak" default-entity-name="QuantityBreak" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a QuantityBreak</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes entity-name="QuantityBreak" include="pk" mode="IN" optional="false"/>
@@ -1160,5 +1144,28 @@ under the License.
     <service name="deleteShipmentItemBilling" default-entity-name="ShipmentItemBilling" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ShipmentItemBilling</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Permission Services -->
+    <service name="checkCanChangeShipmentStatusPacked" engine="simple"
+        location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="checkCanChangeShipmentStatusPacked">
+        <description>Check the Status of a Shipment to see if it can be changed for an operation relative to the packed state</description>
+        <!-- Info : permission-service service-name="facilityGenericPermission" -->
+        <implements service="permissionInterface"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="checkCanChangeShipmentStatusShipped" engine="simple"
+        location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="checkCanChangeShipmentStatusShipped">
+        <description>Check the Status of a Shipment to see if it can be changed for an operation relative to the shipped state</description>
+        <!-- Info : permission-service service-name="facilityGenericPermission" -->
+        <implements service="permissionInterface"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="checkCanChangeShipmentStatusDelivered" engine="simple"
+        location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="checkCanChangeShipmentStatusDelivered">
+        <description>Check the Status of a Shipment to see if it can be changed for an operation relative to the delivered state</description>
+        <!-- Info : permission-service service-name="facilityGenericPermission" -->
+        <implements service="permissionInterface"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
     </service>
 </services>
