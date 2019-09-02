@@ -879,7 +879,7 @@ under the License.
         <auto-attributes entity-name="QuantityBreak" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="QuantityBreak" include="pk" mode="OUT" optional="false"/>
     </service>
-    <service name="updateQuantityBreak" engine="entity-auto" invoke="update" default-entity-name="QuantityBreak" auth="true">
+    <service name="updateQuantityBreak" default-entity-name="QuantityBreak" engine="entity-auto" invoke="update" auth="true">
         <description>Update a QuantityBreak</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes entity-name="QuantityBreak" include="pk" mode="IN" optional="false"/>
