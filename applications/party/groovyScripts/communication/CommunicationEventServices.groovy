@@ -23,9 +23,192 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.party.party.PartyHelper
 import org.apache.ofbiz.service.ModelService
 
 import java.sql.Timestamp
+
+/**
+ * Create a CommunicationEvent with or w/o permission check
+ * @return
+ */
+def createCommunicationEvent() {
+    GenericValue newCommEvent
+
+    // check for forward only if created by a user and not incoming email by system
+    if ('FORWARD' == parameters.action
+            && parameters.origCommEventId) {
+        newCommEvent = from('CommunicationEvent')
+                .where('communicationEventId', parameters.origCommEventId)
+                .queryOne()
+        newCommEvent.remove('communicationEventId')
+        newCommEvent.remove('messageId')
+        newCommEvent.remove('partyIdTo')
+        newCommEvent.partyIdFrom = parameters.partyIdTo
+        String forwardLabel = UtilProperties.getPropertyValue("PartyUiLabels", "PartyForward")
+        newCommEvent.subject = "${forwardLabel}: ${newCommEvent.subject}"
+        newCommEvent.origCommEventId = parameters.origCommEventId
+    }
+
+    // init communication event fields
+    if (! newCommEvent) {
+        newCommEvent = makeValue("CommunicationEvent")
+    }
+    newCommEvent.setNonPKFields(parameters)
+    newCommEvent.communicationEventId = parameters.communicationEventId ?:
+            delegator.getNextSeqId("CommunicationEvent")
+
+    // check for reply or reply all
+    GenericValue parentCommEvent
+    if (parameters.parentCommEventId
+            && (parameters.action == 'REPLY'
+            || parameters.action == 'REPLYALL')) {
+        parentCommEvent = from("CommunicationEvent")
+                .where("communicationEventId", parameters.parentCommEventId)
+                .queryOne()
+        GenericValue party = from("Party")
+                .where("partyId", parameters.partyIdFrom)
+                .queryOne()
+        newCommEvent.communicationEventTypeId = parentCommEvent.communicationEventTypeId
+        if (newCommEvent.communicationEventTypeId == 'AUTO_EMAIL_COMM') {
+            newCommEvent.communicationEventTypeId = 'EMAIL_COMMUNICATION'
+        }
+        newCommEvent.partyIdFrom = parameters.partyIdFrom ?: parameters.userLogin.partyId
+        newCommEvent.partyIdTo = parentCommEvent.partyIdFrom
+        newCommEvent.parentCommEventId = parentCommEvent.communicationEventId
+        newCommEvent.subject = "RE: " + parentCommEvent.subject
+        newCommEvent.contentMimeTypeId = parentCommEvent.contentMimeTypeId
+
+        //create the content as response
+        String localContent = parentCommEvent.content
+        String resultLine = ""
+        if (localContent) {
+            resultLine = PartyHelper.getPartyName(party) +
+                    "\n\n > " +
+                    localContent.substring(0, localContent.indexOf("\n", 0) == -1
+                            ? localContent.length()
+                            : localContent.indexOf("\n", 0))
+            int startChar = localContent.indexOf("\n", 0);
+            while (startChar != -1 && (startChar = localContent.indexOf("\n", startChar) + 1) != 0) {
+                resultLine += "\n > " + localContent.substring(startChar,
+                        localContent.indexOf("\n", startChar) == -1
+                                ? localContent.length()
+                                : localContent.indexOf("\n", startChar))
+            }
+        }
+        newCommEvent.content = resultLine.toString()
+
+        // set role status from the parent commevent to completed
+        GenericValue role = from("CommunicationEventRole")
+                .where([communicationEventId: parentCommEvent.communicationEventId,
+                        partyId             : newCommEvent.partyIdFrom])
+                .queryFirst()
+        if (role) {
+            Map setCommEventRoleStatusMap = [*: role]
+            setCommEventRoleStatusMap.statusId = "COM_ROLE_COMPLETED"
+            run service: 'setCommunicationEventRoleStatus', with: setCommEventRoleStatusMap
+        }
+    }
+
+    newCommEvent.statusId = newCommEvent.statusId ?: 'COM_ENTERED'
+
+    if (newCommEvent.communicationEventTypeId == 'EMAIL_COMMUNICATION') {
+
+        ["From", "To"].each {
+            // if only contactMechId[From/To] and no partyId[From/To] is provided for creation email address find the related part
+            if (!newCommEvent."partyId${it}"
+                    && newCommEvent."contactMechId${it}") {
+                GenericValue partyContactMech = from('PartyAndContactMech')
+                        .where([contactMechId    : newCommEvent."contactMechId${it}",
+                                contactMechTypeId: 'EMAIL_ADDRESS'])
+                        .queryFirst()
+                if (partyContactMech) {
+                    newCommEvent."partyId${it}" = partyContactMech.partyId
+                }
+            } else {
+
+                //if partyId[From/To] provided but no contactMechId[From/To] get emailAddress
+                if (newCommEvent."partyId${it}"
+                        && !newCommEvent."contactMechId${it}") {
+                    Map getPartyEmailResult = run service: 'getPartyEmail', with: [partyId: newCommEvent."partyId${it}"]
+                    newCommEvent."contactMechId${it}" = getPartyEmailResult.contactMechId
+                }
+            }
+        }
+    }
+
+    newCommEvent.entryDate = UtilDateTime.nowTimestamp()
+    newCommEvent.create()
+
+    if (parentCommEvent && parameters.action == 'REPLYALL') {
+        List<GenericValue> roles = from("CommunicationEventRole")
+                .where([EntityCondition.makeCondition('communicationEventId', parentCommEvent.communicationEventId),
+                        EntityCondition.makeCondition('partyId', EntityOperator.NOT_IN,
+                                [newCommEvent.partyIdFrom, newCommEvent.partyIdTo])])
+                .queryList()
+        if (roles) {
+            roles.each {
+                Map newCommEventRole = [*:it]
+                newCommEventRole.communicationEventId = newCommEvent.communicationEventId
+                run service: 'createCommunicationEventRole', with: newCommEventRole
+            }
+        }
+    }
+
+    if (parameters.productId) {
+        GenericValue commEventProduct = makeValue('CommunicationEventProduct', parameters)
+        commEventProduct.communicationEventId = newCommEvent.communicationEventId
+        commEventProduct.create()
+    }
+    if (parameters.orderId) {
+        GenericValue commEventOrder = makeValue('CommunicationEventOrder', parameters)
+        commEventOrder.communicationEventId = newCommEvent.communicationEventId
+        commEventOrder.create()
+    }
+    if (parameters.returnId) {
+        GenericValue commEventReturn = makeValue('CommunicationEventReturn', parameters)
+        commEventReturn.communicationEventId = newCommEvent.communicationEventId
+        commEventReturn.create()
+    }
+    if (parameters.custRequestId) {
+        Map commEventRequestContext = [custRequestId: parameters.custRequestId,
+                                       communicationEventId: newCommEvent.communicationEventId]
+        run service: 'createCustRequestCommEvent', with: commEventRequestContext
+    }
+
+    // partyIdTo role
+    if (newCommEvent.partyIdTo) {
+        Map createCommEvenRoleContext = [
+                communicationEventId: newCommEvent.communicationEventId,
+                partyId: newCommEvent.partyIdTo,
+                contactMechId: newCommEvent.contactMechIdTo,
+                roleTypeId: 'ADDRESSEE']
+        run service: 'createCommunicationEventRole', with: createCommEvenRoleContext
+    }
+
+    // partyIdFrom role
+    if (newCommEvent.partyIdFrom) {
+        Map createCommEvenRoleContext = [
+                communicationEventId: newCommEvent.communicationEventId,
+                partyId: newCommEvent.partyIdFrom,
+                contactMechId: newCommEvent.contactMechIdFrom,
+                roleTypeId: 'ORIGINATOR',
+                statusId: 'COM_ROLE_COMPLETED']
+        run service: 'createCommunicationEventRole', with: createCommEvenRoleContext
+    }
+    Map result = success()
+    result.communicationEventId = newCommEvent.communicationEventId
+    return result
+}
+
+/**
+ * create a CommunicationEvent without permission, use run service auto-matching to populate missing user
+ * @return
+ */
+def createCommunicationEventWithoutPermission() {
+    Map result = run service: 'createCommunicationEvent', with: [*:parameters]
+    return result
+}
 
 /**
  * Update a CommunicationEvent

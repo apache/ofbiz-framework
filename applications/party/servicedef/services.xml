@@ -782,14 +782,14 @@ under the License.
         <override name="messageId" allow-html="safe"/>
         <override name="subject" allow-html="safe"/>
     </service>
-    <service name="createCommunicationEvent" engine="simple"
-            location="component://party/minilang/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithPermission" auth="true">
+    <service name="createCommunicationEvent" engine="groovy"
+             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="createCommunicationEvent" auth="true">
         <description>Create a Communication Event with permission check</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
         <implements service="createCommunicationEventInterface"/>
     </service>
-    <service name="createCommunicationEventWithoutPermission" engine="simple"
-            location="component://party/minilang/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithoutPermission" auth="true">
+    <service name="createCommunicationEventWithoutPermission" engine="groovy"
+             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="createCommunicationEventWithoutPermission" auth="false">
         <description>Create a Communication Event without permission check</description>
         <implements service="createCommunicationEventInterface"/>
     </service>
