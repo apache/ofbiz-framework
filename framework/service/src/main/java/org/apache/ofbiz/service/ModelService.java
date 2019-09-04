@@ -498,8 +498,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public void updateDefaultValues(Map<String, Object> context, String mode) {
         List<ModelParam> params = this.getModelParamList();
         for (ModelParam param: params) {
-            if (IN_OUT_PARAM.equals(param.mode) || mode.equals(param.mode)) {
-                Object defaultValueObj = param.getDefaultValue();
+            if (param.getDefaultValue() != null
+                    && (IN_OUT_PARAM.equals(param.mode) || mode.equals(param.mode))) {
+                Object defaultValueObj = param.getDefaultValue(context);
                 if (defaultValueObj != null && context.get(param.name) == null) {
                     context.put(param.name, defaultValueObj);
                     Debug.logInfo("Set default value [" + defaultValueObj + "] for parameter [" + param.name + "]", module);
