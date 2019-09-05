@@ -384,7 +384,7 @@ under the License.
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" ref="description"/>
-                <xs:element maxOccurs="unbounded" ref="key-map"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="key-map"/>
                 <xs:element minOccurs="0" ref="entity-condition"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.view-link"/>

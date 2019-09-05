@@ -193,6 +193,7 @@ public final class SqlJdbcUtil {
 
                     StringBuilder condBuffer = new StringBuilder();
 
+                    ModelViewEntity.ViewEntityCondition viewEntityCondition = viewLink.getViewEntityCondition();
                     for (int j = 0; j < viewLink.getKeyMapsSize(); j++) {
                         ModelKeyMap keyMap = viewLink.getKeyMap(j);
                         ModelField linkField = linkEntity.getField(keyMap.getFieldName());
@@ -218,14 +219,13 @@ public final class SqlJdbcUtil {
                         condBuffer.append(".");
                         condBuffer.append(relLinkField.getColName());
                     }
-                    if (condBuffer.length() == 0) {
+                    if (condBuffer.length() == 0 && viewEntityCondition == null) {
                         throw new GenericModelException("No view-link/join key-maps found for the " + viewLink.getEntityAlias() + " and the " + viewLink.getRelEntityAlias() + " member-entities of the " + modelViewEntity.getEntityName() + " view-entity.");
                     }
 
-                    ModelViewEntity.ViewEntityCondition viewEntityCondition = viewLink.getViewEntityCondition();
                     if (viewEntityCondition != null) {
                         EntityCondition whereCondition = viewEntityCondition.getWhereCondition(modelFieldTypeReader, null);
-                        condBuffer.append(" AND ");
+                        if (condBuffer.length() > 0) condBuffer.append(" AND ");
                         condBuffer.append(whereCondition.makeWhereString(modelEntity, null, datasourceInfo));
                     }
 
