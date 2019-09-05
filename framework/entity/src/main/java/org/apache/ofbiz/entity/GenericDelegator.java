@@ -1,4 +1,5 @@
 /*
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -966,7 +967,9 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_REMOVE, primaryKey, false);
             this.clearCacheLine(primaryKey);
 
-            this.saveEntitySyncRemoveInfo(primaryKey);
+            if (saveEntitySyncRemoveInfo) {
+                this.saveEntitySyncRemoveInfo(primaryKey);
+            }
 
             if (testMode) {
                 if (removedEntity != null) {
