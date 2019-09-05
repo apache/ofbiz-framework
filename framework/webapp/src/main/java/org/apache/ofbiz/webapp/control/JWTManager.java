@@ -18,6 +18,7 @@
  */
 package org.apache.ofbiz.webapp.control;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.HttpHeaders;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -44,12 +46,14 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 
 /**
  * This class manages the single sign-on authentication through JWT tokens between OFBiz applications.
@@ -131,7 +135,21 @@ public class JWTManager {
      * @return the JWT secret key
      */
     public static String getJWTKey(Delegator delegator) {
-        return EntityUtilProperties.getPropertyValue("security", "security.token.key", delegator);
+        return getJWTKey(delegator, null);
+    }
+    
+    /**
+     * Get the JWT secret key from database or security.properties.
+     * @param delegator the delegator
+     * @return the JWT secret key
+     */
+    
+    public static String getJWTKey(Delegator delegator, String salt) {
+        String key = EntityUtilProperties.getPropertyValue("security", "security.token.key", delegator);
+        if (salt != null) {
+            return StringUtil.toHexString(salt.getBytes()) + key;
+        }
+        return key;
     }
 
      /**
@@ -210,34 +228,51 @@ public class JWTManager {
         return headerAuthValue.replaceFirst(bearerPrefix, "").trim();
     }
 
-    /* Validates the provided token using the secret key.
+    /** Validates the provided token using the secret key.
      * If the token is valid it will get the conteined claims and return them.
      * If token validation failed it will return an error.
      * Public for API access from third party code.
      *
-     * @param token the JWT token
+     * @param jwtToken the JWT token
      * @param key the server side key to verify the signature
-     * @return Map of the claims contained in the token
+     * @return Map of the claims contained in the token or an error
      */
     public static Map<String, Object> validateToken(String jwtToken, String key) {
         Map<String, Object> result = new HashMap<>();
         if (UtilValidate.isEmpty(jwtToken) || UtilValidate.isEmpty(key)) {
             String msg = "JWT token or key can not be empty.";
             Debug.logError(msg, module);
-            result.put(ModelService.ERROR_MESSAGE, msg);
-            return result;
+            return ServiceUtil.returnError(msg);
         }
         try {
-            Claims claims = Jwts.parser().setSigningKey(key.getBytes()).parseClaimsJws(jwtToken).getBody();
+            JWTVerifier verifToken = JWT.require(Algorithm.HMAC512(key))
+                    .withIssuer("ApacheOFBiz")
+                    .build();
+            DecodedJWT jwt = verifToken.verify(jwtToken);
+            Map<String, Claim> claims = jwt.getClaims();
             //OK, we can trust this JWT
-            result.putAll(claims);
+            for (Map.Entry<String, Claim> entry : claims.entrySet()) {
+                result.put(entry.getKey(), entry.getValue().asString());
+            }
             return result;
-        } catch (SignatureException | ExpiredJwtException e) {
+        } catch (JWTVerificationException e) {
             // signature not valid or token expired
             Debug.logError(e.getMessage(), module);
-            result.put(ModelService.ERROR_MESSAGE, e.getMessage());
-            return result;
+            return ServiceUtil.returnError(e.getMessage());
         }
+    }
+
+    /**
+     * Validates the provided token using a salt to recreate the key from the secret
+     * If the token is valid it will get the conteined claims and return them.
+     * If token validation failed it will return an error.
+     * @param delegator
+     * @param jwtToken
+     * @param keySalt
+     * @return Map of the claims contained in the token or an error 
+     */
+    public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
+        return validateToken(jwtToken, JWTManager.getJWTKey(delegator, keySalt));
     }
 
     /**
@@ -251,29 +286,46 @@ public class JWTManager {
         return createJwt(delegator, claims, expirationTime);
     }
 
-    /* Create and return a JWT token using the claims of the provided map and the provided expiration time.
+    /** Create and return a JWT token using the claims of the provided map and the provided expiration time.
      *
      * @param delegator
-     * @param tokenMap the map containing the JWT claims
+     * @param claims the map containing the JWT claims
      * @param expireTime the expiration time in seconds
      * @return a JWT token
      */
     public static String createJwt(Delegator delegator, Map<String, String> claims, int expireTime) {
-        String key = JWTManager.getJWTKey(delegator);
+        return createJwt(delegator, claims, null, expireTime);
+    }
+
+    /** Create and return a JWT token using the claims of the provided map and the provided expiration time.
+     *
+     * @param delegator
+     * @param claims the map containing the JWT claims
+     * @param keySalt salt to use as prefix on the encrypt key
+     * @param expireTime the expiration time in seconds
+     * @return a JWT token
+     */
+    public static String createJwt(Delegator delegator, Map<String, String> claims, String keySalt, int expireTime) {
+        if (expireTime <= 0) {
+            expireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800",  delegator));
+        }
+
+        String key = JWTManager.getJWTKey(delegator, keySalt);
 
         Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(UtilDateTime.nowTimestamp().getTime());
+        Timestamp now = UtilDateTime.nowTimestamp();
+        cal.setTimeInMillis(now.getTime());
         cal.add(Calendar.SECOND, expireTime);
 
-        JwtBuilder builder = Jwts.builder()
-                .setExpiration(cal.getTime())
-                .setIssuedAt(UtilDateTime.nowTimestamp())
-                .signWith(SignatureAlgorithm.HS512, key.getBytes());
-
+        JWTCreator.Builder builder = JWT.create()
+                .withIssuedAt(now)
+                .withExpiresAt(cal.getTime())
+                .withIssuer("ApacheOFBiz");
         for (Map.Entry<String, String> entry : claims.entrySet()) {
-            builder.claim(entry.getKey(), entry.getValue());
+            builder.withClaim(entry.getKey(), entry.getValue());
         }
-        return builder.compact();
+
+        return builder.sign(Algorithm.HMAC512(key));
     }
 
     /**

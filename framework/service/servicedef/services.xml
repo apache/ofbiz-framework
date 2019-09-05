@@ -90,7 +90,8 @@ under the License.
     <service name="authenticationInterface" engine="interface">
         <description>Interface to describe authentication services</description>
         <attribute name="login.username" type="String" mode="IN"/>
-        <attribute name="login.password" type="String" mode="IN"/>
+        <attribute name="login.password" type="String" mode="IN" optional="true"/>
+        <attribute name="login.token" type="String" mode="IN" optional="true"/>
         <attribute name="visitId" type="String" mode="IN" optional="true"/>
         <attribute name="isServiceAuth" type="Boolean" mode="IN" optional="true"/>
         <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>

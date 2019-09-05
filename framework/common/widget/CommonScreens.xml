@@ -271,34 +271,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="forgotPassword_step1">
-        <section>
-            <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="forgotPassword_step1" location="${groovy:commonScreenLocations.forgotPassword_step1?commonScreenLocations.forgotPassword_step1:commonDecoratorLocation}"/>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="forgotPassword_step2">
-        <section>
-            <actions>
-                <set field="userLoginId" from-field="parameters.USERNAME"/>
-                <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
-                    <field-map field-name="userLoginId" />
-                </entity-and>
-                <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
-                <entity-one entity-name="Enumeration" value-field="securityQuestion">
-                    <field-map field-name="enumId" from-field="questionEnumId"/>
-                </entity-one>
-            </actions>
-            <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="forgotPassword_step2" location="${groovy:commonScreenLocations.forgotPassword_step2?commonScreenLocations.forgotPassword_step2:commonDecoratorLocation}"/>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="forgotPassword">
         <section>
             <widgets>

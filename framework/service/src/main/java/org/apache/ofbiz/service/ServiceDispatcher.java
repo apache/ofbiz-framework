@@ -915,10 +915,10 @@ public final class ServiceDispatcher {
 
             if (UtilValidate.isNotEmpty(context.get("login.password"))) {
                 String password = (String) context.get("login.password");
-                context.put("userLogin", getLoginObject(service, localName, username, password, locale));
+                context.put("userLogin", getLoginObject(service, localName, username, password, null, locale));
                 context.remove("login.password");
             } else {
-                context.put("userLogin", getLoginObject(service, localName, username, null, locale));
+                context.put("userLogin", getLoginObject(service, localName, username, null, (String) context.get("login.token"), locale));
             }
             context.remove("login.username");
         } else {
@@ -970,8 +970,8 @@ public final class ServiceDispatcher {
     }
 
     // gets a value object from name/password pair
-    private GenericValue getLoginObject(String service, String localName, String username, String password, Locale locale) throws GenericServiceException {
-        Map<String, Object> context = UtilMisc.toMap("login.username", username, "login.password", password, "isServiceAuth", true, "locale", locale);
+    private GenericValue getLoginObject(String service, String localName, String username, String password, String jwtToken, Locale locale) throws GenericServiceException {
+        Map<String, Object> context = UtilMisc.toMap("login.username", username, "login.password", password, "login.token", jwtToken, "isServiceAuth", true, "locale", locale);
 
         if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", module);
 

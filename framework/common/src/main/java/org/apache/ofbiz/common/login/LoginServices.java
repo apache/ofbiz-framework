@@ -36,6 +36,8 @@ import javax.transaction.Transaction;
 
 import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -61,6 +63,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 
 import org.apache.tomcat.util.res.StringManager;
@@ -112,6 +115,10 @@ public class LoginServices {
         if (password == null) {
             password = (String) context.get("password");
         }
+        String jwtToken = (String) context.get("login.token");
+        if (jwtToken == null) {
+            jwtToken = (String) context.get("token");
+        }
 
         // get the visitId for the history entity
         String visitId = (String) context.get("visitId");
@@ -119,7 +126,7 @@ public class LoginServices {
         String errMsg = "";
         if (UtilValidate.isEmpty(username)) {
             errMsg = UtilProperties.getMessage(resource,"loginservices.username_missing", locale);
-        } else if (UtilValidate.isEmpty(password)) {
+        } else if (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(jwtToken)) {
             errMsg = UtilProperties.getMessage(resource,"loginservices.password_missing", locale);
         } else {
 
@@ -223,11 +230,17 @@ public class LoginServices {
                         // in the usage of userLogin service in ICalWorker.java and XmlRpcEventHandler.java.
                         useTomcatSSO = useTomcatSSO && (request!=null);
 
+                        // resolve the key for decrypt the token and control the validity
+                        boolean jwtTokenValid = SecurityUtil.authenticateUserLoginByJWT(delegator, username, jwtToken);
+
                         // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
                         // if this is a system account don't bother checking the passwords
                         // if externalAuth passed; this is run as well
-                        if ((!authFatalError && externalAuth) || (useTomcatSSO ? TomcatSSOLogin(request, username, password) : checkPassword(userLogin.getString("currentPassword"), useEncryption, password) )) {
-                            Debug.logVerbose("[LoginServices.userLogin] : Password Matched", module);
+                        if ((!authFatalError && externalAuth)
+                                || (useTomcatSSO && TomcatSSOLogin(request, username, password))
+                                || (jwtToken != null && jwtTokenValid)
+                                || (password != null && checkPassword(userLogin.getString("currentPassword"), useEncryption, password))) {
+                            Debug.logVerbose("[LoginServices.userLogin] : Password Matched or Token Validated", module);
 
                             // update the hasLoggedOut flag
                             if (hasLoggedOut == null || hasLoggedOut) {
@@ -269,7 +282,8 @@ public class LoginServices {
 
                             Debug.logInfo("[LoginServices.userLogin] : Password Incorrect", module);
                             // password invalid...
-                            errMsg = UtilProperties.getMessage(resource,"loginservices.password_incorrect", locale);
+                            if (password != null) errMsg = UtilProperties.getMessage(resource,"loginservices.password_incorrect", locale);
+                            else if (jwtToken != null) errMsg = UtilProperties.getMessage(resource,"loginservices.token_incorrect", locale);
 
                             // increment failed login count
                             Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
@@ -745,6 +759,16 @@ public class LoginServices {
             userLoginId = loggedInUserLogin.getString("userLoginId");
         }
 
+        GenericValue userLoginToUpdate;
+
+        try {
+            userLoginToUpdate = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
+        } catch (GenericEntityException e) {
+            Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+            errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_read_failure", messageMap, locale);
+            return ServiceUtil.returnError(errMsg);
+        }
+
         // <b>security check</b>: userLogin userLoginId must equal userLoginId, or must have PARTYMGR_UPDATE permission
         // NOTE: must check permission first so that admin users can set own password without specifying old password
         // TODO: change this security group because we can't use permission groups defined in the applications from the framework.
@@ -752,6 +776,9 @@ public class LoginServices {
             if (!userLoginId.equals(loggedInUserLogin.getString("userLoginId"))) {
                 errMsg = UtilProperties.getMessage(resource,"loginservices.not_have_permission_update_password_for_user_login", locale);
                 return ServiceUtil.returnError(errMsg);
+            }
+            if (UtilValidate.isNotEmpty(context.get("login.token"))) {
+                adminUser = SecurityUtil.authenticateUserLoginByJWT(delegator, userLoginId, (String) context.get("login.token"));
             }
         } else {
             adminUser = true;
@@ -761,16 +788,6 @@ public class LoginServices {
         String newPassword = (String) context.get("newPassword");
         String newPasswordVerify = (String) context.get("newPasswordVerify");
         String passwordHint = (String) context.get("passwordHint");
-
-        GenericValue userLoginToUpdate = null;
-
-        try {
-            userLoginToUpdate = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
-        } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_read_failure", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
-        }
 
         if (userLoginToUpdate == null) {
             // this may be a full external authenticator; first try authenticating

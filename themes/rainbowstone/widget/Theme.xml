@@ -50,7 +50,6 @@ under the License.
         <property name="VT_NAV_TMPLT_LOC" value="component://rainbowstone/template/includes/TopAppBar.ftl"/>
         <property name="VT_CHPWD_TMPLT_LOC" value="component://rainbowstone/template/ChangePassword.ftl"/>
         <property name="VT_FGPWD_TMPLT_LOC" value="component://rainbowstone/template/ForgotPassword.ftl"/>
-        <property name="VT_GSQUE_TMPLT_LOC" value="component://rainbowstone/template/GetSecurityQuestion.ftl"/>
         <property name="VT_LOGIN_TMPLT_LOC" value="component://rainbowstone/template/Login.ftl"/>
         <!--javascript lib-->
         <property name="VT_HDR_JAVASCRIPT['add']" value="/rainbowstone/js/less.min.js"/>

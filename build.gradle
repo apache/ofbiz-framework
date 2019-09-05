@@ -201,7 +201,7 @@ dependencies {
     implementation 'oro:oro:2.0.8'
     implementation 'wsdl4j:wsdl4j:1.6.3'
     implementation 'org.jsoup:jsoup:1.12.1'
-    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'com.auth0:java-jwt:3.8.2'
     implementation 'org.json:json:20140107'
     testImplementation 'org.hamcrest:hamcrest:2.1'
     testImplementation 'org.hamcrest:hamcrest-library:2.1' // Enable junit4 to not depend on hamcrest-1.3
