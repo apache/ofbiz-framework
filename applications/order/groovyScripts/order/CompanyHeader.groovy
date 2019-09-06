@@ -27,6 +27,8 @@ import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.content.PartyContentWrapper
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
+import java.sql.Timestamp
+
 orderHeader = parameters.orderHeader
 orderId = parameters.orderId
 invoice = parameters.invoice
@@ -74,10 +76,12 @@ if (quoteId) {
 // defaults:
 def logoImageUrl = null // the default value, "/images/ofbiz_powered.gif", is set in the screen decorators
 def partyId = null
-
+// reference date for filtering
+Timestamp referenceDate = null
 // get the logo partyId from order or invoice - note that it is better to do comparisons this way in case the there are null values
 if (orderHeader) {
     orh = new OrderReadHelper(orderHeader)
+    referenceDate = orderHeader.orderDate
     // for sales order, the logo party is the "BILL_FROM_VENDOR" of the order.  If that's not available, we'll use the OrderHeader's ProductStore's payToPartyId
     if ("SALES_ORDER".equals(orderHeader.orderTypeId)) {
         if (orh.getBillFromParty()) {
@@ -101,6 +105,7 @@ if (orderHeader) {
         }
     }
 } else if (invoice) {
+    referenceDate = invoice.invoiceDate
     if ("SALES_INVOICE".equals(invoice.invoiceTypeId) && invoice.partyIdFrom) {
         partyId = invoice.partyIdFrom
     }
@@ -157,7 +162,7 @@ context.companyName = companyName
 // the address
 addresses = from("PartyContactWithPurpose")
                 .where("partyId", partyId, "contactMechPurposeTypeId", "GENERAL_LOCATION")
-                .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                 .queryList()
 address = null
 if (addresses) {
@@ -179,7 +184,7 @@ context.postalAddress = address
 //telephone
 phones = from("PartyContactWithPurpose")
              .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_PHONE")
-             .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+             .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
              .queryList()
 if (phones) {
     context.phone = from("TelecomNumber").where("contactMechId", phones[0].contactMechId).queryOne()
@@ -188,7 +193,7 @@ if (phones) {
 // Fax
 faxNumbers = from("PartyContactWithPurpose")
                  .where("partyId", partyId, "contactMechPurposeTypeId", "FAX_NUMBER")
-                 .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                 .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                  .queryList()
 if (faxNumbers) {
     context.fax = from("TelecomNumber").where("contactMechId", faxNumbers[0].contactMechId).queryOne()
@@ -197,13 +202,13 @@ if (faxNumbers) {
 //Email
 emails = from("PartyContactWithPurpose")
              .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_EMAIL")
-             .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+             .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
              .queryList()
 if (emails) {
     context.email = from("ContactMech").where("contactMechId", emails[0].contactMechId).queryOne()
 } else {    //get email address from party contact mech
     selContacts = from("PartyContactMech")
-                      .where("partyId", partyId).filterByDate(nowTimestamp, "fromDate", "thruDate")
+                      .where("partyId", partyId).filterByDate(referenceDate, "fromDate", "thruDate")
                       .queryList()
     if (selContacts) {
         i = selContacts.iterator()
@@ -220,7 +225,7 @@ if (emails) {
 // website
 websiteUrls = from("PartyContactWithPurpose")
                   .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_WEB_URL")
-                  .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                  .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                   .queryList()
 if (websiteUrls) {
     websiteUrl = EntityUtil.getFirst(websiteUrls)
@@ -228,7 +233,7 @@ if (websiteUrls) {
 } else { //get web address from party contact mech
     selContacts = from("PartyContactMech")
                       .where("partyId", partyId)
-                      .filterByDate(nowTimestamp, "fromDate", "thruDate")
+                      .filterByDate(referenceDate, "fromDate", "thruDate")
                       .queryList()
     if (selContacts) {
         Iterator i = selContacts.iterator()
@@ -245,7 +250,7 @@ if (websiteUrls) {
 //Bank account
 selPayments = from("PaymentMethod")
               .where("partyId", partyId, "paymentMethodTypeId", "EFT_ACCOUNT")
-              .filterByDate(nowTimestamp, "fromDate", "thruDate")
+              .filterByDate(referenceDate, "fromDate", "thruDate")
               .queryList()
 if (selPayments) {
     context.eftAccount = from("EftAccount").where("paymentMethodId", selPayments[0].paymentMethodId).queryOne()
@@ -253,7 +258,7 @@ if (selPayments) {
 
 // Tax ID Info
 partyTaxAuthInfoList = from("PartyTaxAuthInfo").where("partyId", partyId)
-                        .filterByDate(nowTimestamp, "fromDate", "thruDate")
+                        .filterByDate(referenceDate, "fromDate", "thruDate")
                         .queryList()
 if (partyTaxAuthInfoList) {
     if (address?.countryGeoId) {
