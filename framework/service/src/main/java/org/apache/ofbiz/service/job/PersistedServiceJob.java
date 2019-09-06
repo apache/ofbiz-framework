@@ -49,6 +49,7 @@ import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.xml.sax.SAXException;
 
 import com.ibm.icu.util.Calendar;
+import com.ibm.icu.util.TimeZone;
 
 /**
  * A {@link Job} that is backed by the entity engine. Job data is stored
@@ -175,7 +176,9 @@ public class PersistedServiceJob extends GenericServiceJob {
                 if (recurrence != null) {
                     recurrence.incrementCurrentCount();
                 }
-                Calendar next = expr.next(Calendar.getInstance());
+                TimeZone timeZone = jobValue.get("recurrenceTimeZone") != null ? TimeZone.getTimeZone(jobValue.getString("recurrenceTimeZone")) : TimeZone.getDefault();
+                Calendar next = expr.next(Calendar.getInstance(timeZone));
+
                 if (next != null) {
                     createRecurrence(next.getTimeInMillis(), false);
                 }

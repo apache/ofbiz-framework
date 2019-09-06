@@ -65,6 +65,7 @@ under the License.
         <field name="finishDateTime" type="date-time"></field>
         <field name="cancelDateTime" type="date-time"></field>
         <field name="jobResult" type="value"></field>
+        <field name="recurrenceTimeZone" type="id-long"/>
         <prim-key field="jobId"/>
         <relation type="one" fk-name="JOB_SNDBX_RECINFO" rel-entity-name="RecurrenceInfo">
             <key-map field-name="recurrenceInfoId"/>
