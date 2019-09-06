@@ -85,7 +85,6 @@ try {
     // only commit the transaction if we started one... this will throw an exception if it fails
     visitListIt.close()
     TransactionUtil.commit(beganTransaction)
-    }
 }
 
 context.visitList = visitList
