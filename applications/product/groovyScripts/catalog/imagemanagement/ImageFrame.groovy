@@ -23,7 +23,7 @@ import org.apache.ofbiz.base.util.UtilValidate
 frameContentId = null
 frameDataResourceId = null
 
-if ((session.getAttribute("frameContentId")) && (session.getAttribute("frameDataResourceId")) {
+if (session.getAttribute("frameContentId") && session.getAttribute("frameDataResourceId")) {
     frameContentId = session.getAttribute("frameContentId")
     frameDataResourceId = session.getAttribute("frameDataResourceId")
 } else {
