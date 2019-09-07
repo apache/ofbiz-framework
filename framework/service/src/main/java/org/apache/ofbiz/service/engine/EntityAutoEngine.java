@@ -35,6 +35,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.finder.PrimaryKeyFinder;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
+import org.apache.ofbiz.entity.model.ModelUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -386,51 +387,62 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
         localContext.put("lookedUpValue", lookedUpValue);
 
-        // populate the oldStatusId out if there is a service parameter for it, and before we do the set non-pk fields
+        // populate the oldStatusId or oldItemStatusId out if there is a service parameter for it, and before we do the set non-pk fields
         /*
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
          *
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
+        OR
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="oldItemStatusId" type="String" mode="OUT" optional="false"/>
+         *
+        <field-to-result field-name="lookedUpValue.itemStatusId" result-name="oldItemStatusId"/>
          */
-        ModelParam statusIdParam = modelService.getParam("statusId");
-        ModelField statusIdField = modelEntity.getField("statusId");
-        ModelParam oldStatusIdParam = modelService.getParam("oldStatusId");
-        if (statusIdParam != null && statusIdParam.isIn() && oldStatusIdParam != null && oldStatusIdParam.isOut() && statusIdField != null) {
-            result.put("oldStatusId", lookedUpValue.get("statusId"));
-        }
+        for (String statusField: UtilMisc.toList("statusId", "itemStatusId")) {
+            ModelParam statusIdParam = modelService.getParam(statusField);
+            ModelField statusIdModelField = modelEntity.getField(statusField);
+            String oldStatusField = "old" + ModelUtil.upperFirstChar(statusField);
+            ModelParam oldStatusIdParam = modelService.getParam(oldStatusField);
+            if (statusIdParam != null && statusIdParam.isIn()
+                    && oldStatusIdParam != null && oldStatusIdParam.isOut()
+                    && statusIdModelField != null) {
+                result.put(oldStatusField, lookedUpValue.get(statusField));
+            }
 
-        // do the StatusValidChange check
-        /*
-         <if-compare-field field="lookedUpValue.statusId" operator="not-equals" to-field="parameters.statusId">
-             <!-- if the record exists there should be a statusId, but just in case make it so it won't blow up -->
-             <if-not-empty field="lookedUpValue.statusId">
-                 <!-- if statusId change is not in the StatusValidChange list, complain... -->
-                      <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
-                     <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
-                     <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
-                 </entity-one>
-                 <if-empty field="statusValidChange">
-                     <!-- no valid change record found? return an error... -->
-                          <add-error><fail-property resource="CommonUiLabels" property="CommonErrorNoStatusValidChange"/></add-error>
-                     <check-errors/>
-                 </if-empty>
-             </if-not-empty>
-         </if-compare-field>
-         */
-        String parameterStatusId = (String) parameters.get("statusId");
-        if (statusIdParam != null && statusIdParam.isIn() && UtilValidate.isNotEmpty(parameterStatusId) && statusIdField != null) {
-            String lookedUpStatusId = (String) lookedUpValue.get("statusId");
-            if (UtilValidate.isNotEmpty(lookedUpStatusId) && !parameterStatusId.equals(lookedUpStatusId)) {
-                // there was an old status, and in this call we are trying to change it, so do the StatusValidChange check
-                GenericValue statusValidChange = dctx.getDelegator().findOne("StatusValidChange", true, "statusId", lookedUpStatusId, "statusIdTo", parameterStatusId);
-                if (statusValidChange == null) {
-                    // uh-oh, no valid change...
-                    return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonErrorNoStatusValidChange", localContext, locale));
+            // do the StatusValidChange check
+            /*
+             <if-compare-field field="lookedUpValue.statusId" operator="not-equals" to-field="parameters.statusId">
+                 <!-- if the record exists there should be a statusId, but just in case make it so it won't blow up -->
+                 <if-not-empty field="lookedUpValue.statusId">
+                     <!-- if statusId change is not in the StatusValidChange list, complain... -->
+                          <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
+                         <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
+                         <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                     </entity-one>
+                     <if-empty field="statusValidChange">
+                         <!-- no valid change record found? return an error... -->
+                              <add-error><fail-property resource="CommonUiLabels" property="CommonErrorNoStatusValidChange"/></add-error>
+                         <check-errors/>
+                     </if-empty>
+                 </if-not-empty>
+             </if-compare-field>
+             */
+            String statusIdParamValue = (String) parameters.get(statusField);
+            if (statusIdParam != null && statusIdParam.isIn()
+                    && UtilValidate.isNotEmpty(statusIdParamValue) && statusIdModelField != null) {
+                String lookedUpStatusId = (String) lookedUpValue.get(statusField);
+                if (UtilValidate.isNotEmpty(lookedUpStatusId) && !statusIdParamValue.equals(lookedUpStatusId)) {
+                    // there was an old status, and in this call we are trying to change it, so do the StatusValidChange check
+                    GenericValue statusValidChange = dctx.getDelegator().findOne("StatusValidChange", true, "statusId", lookedUpStatusId, "statusIdTo", statusIdParamValue);
+                    if (statusValidChange == null) {
+                        // uh-oh, no valid change...
+                        return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonErrorNoStatusValidChange", localContext, locale));
+                    }
                 }
             }
+            // NOTE: nothing here to maintain the status history, that should be done with a custom service called by SECA rule
         }
-        // NOTE: nothing here to maintain the status history, that should be done with a custom service called by SECA rule
 
         lookedUpValue.setNonPKFields(parameters, true);
         if (modelEntity.getField("lastModifiedDate") != null
