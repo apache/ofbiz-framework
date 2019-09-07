@@ -799,12 +799,12 @@ under the License.
                 </if-empty>
                 <check-errors/>
 
-                <make-value entity-name="PicklistStatusHistory" value-field="newStatusValue"/>
+                <make-value entity-name="PicklistStatus" value-field="newStatusValue"/>
                 <set from-field="parameters.picklistId" field="newStatusValue.picklistId"/>
                 <set from-field="lookedUpValue.statusId" field="newStatusValue.statusId"/>
                 <set from-field="parameters.statusId" field="newStatusValue.statusIdTo"/>
-                <now-timestamp field="newStatusValue.changeDate"/>
-                <set from-field="userLogin.userLoginId" field="newStatusValue.changeUserLoginId"/>
+                <now-timestamp field="newStatusValue.statusDate"/>
+                <set from-field="userLogin.userLoginId" field="newStatusValue.changeByUserLoginId"/>
                 <create-value value-field="newStatusValue"/>
             </if-compare-field>
         </if-not-empty>
@@ -1352,7 +1352,7 @@ under the License.
         </iterate>
 
         <clear-field field="picklistStatusHistoryInfoList"/>
-        <get-related value-field="picklist" relation-name="PicklistStatusHistory" list="picklistStatusHistoryList"/>
+        <get-related value-field="picklist" relation-name="PicklistStatus" list="picklistStatusHistoryList"/>
         <iterate list="picklistStatusHistoryList" entry="picklistStatusHistory">
             <clear-field field="picklistStatusHistoryInfo"/>
             <get-related-one value-field="picklistStatusHistory" relation-name="StatusItem" to-value-field="picklistStatusHistoryInfo.statusItem" use-cache="true"/>

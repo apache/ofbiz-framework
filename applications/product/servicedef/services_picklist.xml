@@ -130,6 +130,15 @@ under the License.
         <permission-service service-name="facilityPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="createPicklistStatus" default-entity-name="PicklistStatus" engine="entity-auto" invoke="create" auth="true">
+        <description>Create Picklist status History</description>
+        <permission-service service-name="facilityPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="statusId" optional="false"/>
+        <override name="statusIdTo" optional="false"/>
+        <override name="statusDate" optional="true"/>
+    </service>
 
     <!-- PicklistBin -->
     <service name="createPicklistBin" default-entity-name="PicklistBin" engine="simple"

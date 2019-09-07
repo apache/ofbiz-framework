@@ -111,8 +111,8 @@ under the License.
           <div style="margin-left: 15px;">
             <span class="label">${uiLabelMap.CommonStatus}</span> ${uiLabelMap.CommonChange} ${uiLabelMap.CommonFrom} ${picklistStatusHistoryInfo.statusItem.get("description",locale)}
             ${uiLabelMap.CommonTo} ${picklistStatusHistoryInfo.statusItemTo.description}
-            ${uiLabelMap.CommonOn} ${picklistStatusHistoryInfo.picklistStatusHistory.changeDate}
-            ${uiLabelMap.CommonBy} ${picklistStatusHistoryInfo.picklistStatusHistory.changeUserLoginId}
+            ${uiLabelMap.CommonOn} ${picklistStatusHistoryInfo.picklistStatusHistory.statusDate}
+            ${uiLabelMap.CommonBy} ${picklistStatusHistoryInfo.picklistStatusHistory.changeByUserLoginId}
           </div>
         </#list>
         <hr />

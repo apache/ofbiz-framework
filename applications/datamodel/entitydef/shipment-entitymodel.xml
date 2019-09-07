@@ -309,9 +309,10 @@ under the License.
         <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
       </relation>
     </entity>
-    <entity entity-name="PicklistStatusHistory"
+    <entity entity-name="OldPicklistStatusHistory" table-name="PICKLIST_STATUS_HISTORY"
             package-name="org.apache.ofbiz.shipment.picklist"
             title="Picklist Status History">
+      <description>Deprecated since branch release: PicklistStatus instead</description>
       <field name="picklistId" type="id"></field>
       <field name="changeDate" type="date-time"></field>
       <field name="changeUserLoginId" type="id-vlong"></field>
@@ -336,6 +337,30 @@ under the License.
         <key-map field-name="statusId"/>
         <key-map field-name="statusIdTo"/>
       </relation>
+    </entity>
+
+    <entity entity-name="PicklistStatus"
+            package-name="org.apache.ofbiz.shipment.picklist"
+            title="Picklist Status History">
+        <field name="picklistId" type="id"/>
+        <field name="statusDate" type="date-time"/>
+        <field name="changeByUserLoginId" type="id-vlong"/>
+        <field name="statusId" type="id"/>
+        <field name="statusIdTo" type="id"/>
+        <prim-key field="picklistId"/>
+        <prim-key field="statusDate"/>
+        <relation type="one" fk-name="PCKLST_STST_PKLT" rel-entity-name="Picklist">
+            <key-map field-name="picklistId"/>
+        </relation>
+        <relation type="one" fk-name="PCKLST_STST_CUL" title="Change" rel-entity-name="UserLogin">
+            <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="PCKLST_STST_FSI" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="PCKLST_STST_TSI" title="To" rel-entity-name="StatusItem">
+            <key-map field-name="statusIdTo" rel-field-name="statusId"/>
+        </relation>
     </entity>
 
   <!-- ========================================================= -->
