@@ -164,6 +164,11 @@ under the License.
     </eca>
 
     <!-- picking ecas -->
+    <eca service="updatePicklist" event="commit">
+        <set field-name="statusIdTo" env-name="statusId"/>
+        <set field-name="statusId" env-name="oldStatusId"/>
+        <action service="createPicklistStatus" mode="sync"/>
+    </eca>
     <eca service="updatePicklistItem" event="commit">
         <condition-field field-name="itemStatusId" operator="not-equals" to-field-name="oldItemStatusId"/>
         <action service="checkPicklistBinItemStatuses" mode="sync"/>

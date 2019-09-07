@@ -159,8 +159,10 @@ under the License.
       <field name="shipmentMethodTypeId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="picklistDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <field name="createdDate" type="date-time"/>
+      <field name="createdByUserLogin" type="id-vlong"/>
+      <field name="lastModifiedDate" type="date-time"/>
+      <field name="lastModifiedByUserLogin" type="id-vlong"/>
       <prim-key field="picklistId"/>
       <relation type="one" fk-name="PICKLST_FLTY" rel-entity-name="Facility">
         <key-map field-name="facilityId"/>

@@ -101,31 +101,24 @@ under the License.
     </service>
 
     <!-- Picklist -->
-    <service name="createPicklist" default-entity-name="Picklist" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="createPicklist" auth="true">
+    <service name="createPicklist" default-entity-name="Picklist" engine="entity-auto" invoke="create" auth="true">
         <description>Create Picklist</description>
         <permission-service service-name="facilityPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true">
-            <exclude field-name="picklistDate"/>
-            <exclude field-name="createdByUserLogin"/>
-            <exclude field-name="lastModifiedByUserLogin"/>
-        </auto-attributes>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="statusId" default-value="PICKLIST_INPUT"/>
+        <override name="picklistDate" default-value="${date:nowTimestamp()}"/>
     </service>
-    <service name="updatePicklist" default-entity-name="Picklist" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="updatePicklist" auth="true">
+    <service name="updatePicklist" default-entity-name="Picklist" engine="entity-auto" invoke="update" auth="true">
         <description>Update Picklist</description>
         <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="picklistDate"/>
-            <exclude field-name="createdByUserLogin"/>
-            <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="deletePicklist" default-entity-name="Picklist" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="deletePicklist" auth="true">
+    <service name="deletePicklist" default-entity-name="Picklist" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete Picklist</description>
         <permission-service service-name="facilityPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -141,8 +134,7 @@ under the License.
     </service>
 
     <!-- PicklistBin -->
-    <service name="createPicklistBin" default-entity-name="PicklistBin" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="createPicklistBin" auth="true">
+    <service name="createPicklistBin" default-entity-name="PicklistBin" engine="entity-auto" invoke="create" auth="true">
         <description>Create PicklistBin</description>
         <permission-service service-name="facilityPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -154,8 +146,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deletePicklistBin" default-entity-name="PicklistBin" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="deletePicklistBin" auth="true">
+    <service name="deletePicklistBin" default-entity-name="PicklistBin" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete PicklistBin</description>
         <permission-service service-name="facilityPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -168,24 +159,21 @@ under the License.
     </service>
 
     <!-- PicklistItem -->
-    <service name="createPicklistItem" default-entity-name="PicklistItem" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="createPicklistItem" auth="true">
+    <service name="createPicklistItem" default-entity-name="PicklistItem" engine="entity-auto" invoke="create" auth="true">
         <description>Create PicklistItem</description>
         <permission-service service-name="facilityPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
-        <override name="itemStatusId" optional="true"/>
+        <override name="itemStatusId" optional="true" default-value="PICKITEM_PENDING"/>
     </service>
-    <service name="updatePicklistItem" default-entity-name="PicklistItem" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="updatePicklistItem" auth="true">
+    <service name="updatePicklistItem" default-entity-name="PicklistItem" engine="entity-auto" invoke="update" auth="true">
         <description>Update PicklistItem</description>
         <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldItemStatusId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="deletePicklistItem" default-entity-name="PicklistItem" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="deletePicklistItem" auth="true">
+    <service name="deletePicklistItem" default-entity-name="PicklistItem" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete PicklistItem</description>
         <permission-service service-name="facilityPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -214,8 +202,7 @@ under the License.
     </service>
 
     <!-- PicklistRole -->
-    <service name="createPicklistRole" default-entity-name="PicklistRole" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="createPicklistRole" auth="true">
+    <service name="createPicklistRole" default-entity-name="PicklistRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create PicklistRole</description>
         <permission-service service-name="facilityPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -234,10 +221,10 @@ under the License.
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
     </service>
-    <service name="deletePicklistRole" default-entity-name="PicklistRole" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="deletePicklistRole" auth="true">
+    <service name="deletePicklistRole" default-entity-name="PicklistRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete PicklistRole</description>
         <permission-service service-name="facilityPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
 </services>
