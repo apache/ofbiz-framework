@@ -81,17 +81,18 @@ under the License.
                     If set to true and there is a transaction already in place the Service Engine will suspend that transaction, begin a new one just for this service, commit or rollback the local transaction when the service is complete, and will resume the original transaction.
                     If set to true and there is no transaction already in place it will just begin a transaction and manage it as would be done for a normal user-transaction=true.
                     If use-transaction=false this setting is ignored.
-                    Beware: using require-new-transaction=true in a service called (maybe not directly) by a pre-invoke or earlier event ( preprocessor, firstvisit and so on) is not yet supported.
+                    Beware: using require-new-transaction=true in a service called (maybe not directly) by a pre-invoke or earlier event (preprocessor, firstvisit and so on) is not yet supported.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="hideResultInLog" type="xs:boolean" default="false">
+        <xs:attribute name="hideResultInLog" type="xs:boolean" 
+                      default="false">
             <xs:annotation>
                 <xs:documentation>
                     If set to true the result will be hidden from possible exposition in LocalDispatcher.runSync()
                 </xs:documentation>
             </xs:annotation>
-        </xs:attribute>        
+        </xs:attribute>
         <xs:attribute name="transaction-timeout" type="xs:int" default="0">
             <xs:annotation>
                 <xs:documentation>
@@ -141,7 +142,11 @@ under the License.
     <xs:attributeGroup name="attlist.permission-service">
         <xs:attribute name="service-name" type="xs:string" use="required"/>
         <xs:attribute name="resource-description" type="xs:string" use="optional">
-            <xs:annotation><xs:documentation>This will be used in error messages, et cetera. If not specified will default to a service name.</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    This will be used in error messages, et cetera. If not specified will default to a service name.
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
         <xs:attribute name="main-action" use="optional">
             <xs:simpleType>
@@ -153,22 +158,25 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="require-new-transaction" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
+        <xs:attribute name="require-new-transaction" type="xs:boolean"
+                      default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    If set to true and there is a transaction already in place the Service Engine will suspend that transaction, begin a new one just for this service, commit or rollback the local transaction when the service is complete, and will resume the original transaction.
+                    If set to true and there is no transaction already in place it will just begin a transaction and manage it as would be done for a normal user-transaction=true.
+                    If use-transaction=false this setting is ignored.
+                    Beware: using require-new-transaction=true in a service called (maybe not directly) by a pre-invoke or earlier event (preprocessor, firstvisit and so on) is not yet supported.
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="return-error-on-failure" default="true">
-            <xs:annotation><xs:documentation>If set to false, when the permissions failed return the failMessage as error, else continue the service and give the hand to origin service to resolve the problem.</xs:documentation></xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
+        <xs:attribute name="return-error-on-failure"  type="xs:boolean"
+                      default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    If set to false, when the permissions failed return the failMessage as error, 
+                    else continue the service and give the hand to origin service to resolve the problem.
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="required-permissions">
@@ -215,8 +223,13 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.implements">
         <xs:attribute name="service" type="xs:string" use="required"/>
-        <xs:attribute name="optional" type="xs:boolean" default="false">
-            <xs:annotation><xs:documentation>If set to true all attributes inherited will have be optional whether or not they were in the implemented service definition.</xs:documentation></xs:annotation>
+        <xs:attribute name="optional" type="xs:boolean" 
+                      default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    If set to true all attributes inherited will have be optional whether or not they were in the implemented service definition.
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="metric">
@@ -354,14 +367,16 @@ under the License.
         <xs:attribute name="string-list-suffix" type="xs:string"/>
         <xs:attribute name="form-display" type="xs:boolean" default="true"/>
         <xs:attribute name="allow-html" use="optional" default="none">
-            <xs:annotation><xs:documentation>
-                Applies only to String fields.
-                Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
-                Defaults to "none" meaning no HTML is allowed (will result in an error message).
-                If some HTML is desired then use "safe" which will follow the rules in the default custom safe policy file (CustomSafePolicy.java, see also owasp.properties). 
-                This should be safe for both internal and public users. You may want to provide your own custom safe policy file to adapt to you needs.
-                In rare cases when users are trusted or it is not a sensitive field the "any" option may be used to not check the HTML content at all.
-            </xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    Applies only to String fields.
+                    Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
+                    Defaults to "none" meaning no HTML is allowed (will result in an error message).
+                    If some HTML is desired then use "safe" which will follow the rules in the default custom safe policy file (CustomSafePolicy.java, see also owasp.properties). 
+                    This should be safe for both internal and public users. You may want to provide your own custom safe policy file to adapt to you needs.
+                    In rare cases when users are trusted or it is not a sensitive field the "any" option may be used to not check the HTML content at all.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="any"/>
@@ -378,10 +393,18 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.deprecated">
         <xs:attribute name="use-instead" type="xs:string" use="required">
-            <xs:annotation><xs:documentation>Precise the service who replace now the current</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    Precise the service who replace now the current
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
         <xs:attribute name="since" type="xs:string" use="optional">
-            <xs:annotation><xs:documentation>Precise the ofbiz release when this service has been set to deprecated</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    Precise the OFBiz release when this service has been set to deprecated
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="override">
