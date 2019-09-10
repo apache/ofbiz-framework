@@ -21932,10 +21932,6 @@
         <value xml:lang="zh">印第安战斧：下拉多级风格的演化版</value>
         <value xml:lang="zh-TW">印第安戰斧:下拉多級風格的演化版</value>
     </property>
-    <property key="VisualTheme.description.RAINBOWSTONE_SAPHIR">
-        <value xml:lang="en">: Rainbowstone theme in blue</value>
-        <value xml:lang="fr"> : le thème Rainbowstone en bleu</value>
-    </property>
     <property key="VisualTheme.description.RAINBOWSTONE_AMBER">
         <value xml:lang="en">: Rainbowstone theme in orange</value>
         <value xml:lang="fr"> : le thème Rainbowstone en orange</value>
