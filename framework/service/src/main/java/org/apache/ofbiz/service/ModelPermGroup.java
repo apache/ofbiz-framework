@@ -40,7 +40,7 @@ public class ModelPermGroup implements Serializable {
     public List<ModelPermission> permissions = new LinkedList<>();
     public String joinType;
     public Map<String, Object> evalPermissions(DispatchContext dctx, Map<String, ? extends Object> context) {
-        List<String> permissionErrors = new ArrayList<String>();
+        List<String> permissionErrors = new ArrayList<>();
         if (UtilValidate.isNotEmpty(permissions)) {
             boolean foundOne = false;
             for (ModelPermission perm: permissions) {

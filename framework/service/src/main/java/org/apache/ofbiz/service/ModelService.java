@@ -1024,7 +1024,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @return Map if all permissions evaluate return success else return the error message list.
      */
     public Map<String, Object> evalPermissions(DispatchContext dctx, Map<String, ? extends Object> context) {
-        List<String> permGroupErrors = new ArrayList<String>();
+        List<String> permGroupErrors = new ArrayList<>();
 
         // old permission checking
         if (this.containsPermissions()) {
