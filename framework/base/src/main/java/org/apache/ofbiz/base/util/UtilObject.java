@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ServiceLoader;
 
 import org.apache.ofbiz.base.lang.Factory;
@@ -85,13 +86,22 @@ public final class UtilObject {
 
     /** Deserialize a byte array back to an object */
     public static Object getObjectException(byte[] bytes) throws ClassNotFoundException, IOException {
+        String listOfSafeObjectsForInputStream = UtilProperties.getPropertyValue("SafeObjectInputStream",
+                "ListOfSafeObjectsForInputStream");
+        List<String> listOfSafeObjects = null;
+        if (UtilValidate.isNotEmpty(listOfSafeObjectsForInputStream)) {
+            listOfSafeObjects = java.util.Arrays.asList(listOfSafeObjectsForInputStream);
+        } else {
+            listOfSafeObjects = java.util.Arrays.asList("byte\\[\\]", "foo", "SerializationInjector",
+                    "\\[Z","\\[B","\\[S","\\[I","\\[J","\\[F","\\[D","\\[C",
+                    "java..*", "sun.util.calendar..*", "org.apache.ofbiz..*");
+        } // "foo" and, "SerializationInjector" are used in UtilObjectTests::testGetObject
+        
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
                 SafeObjectInputStream wois = new SafeObjectInputStream(bis,
                         Thread.currentThread().getContextClassLoader(),
-                        java.util.Arrays.asList("byte\\[\\]", "foo", "SerializationInjector",
-                                "\\[Z","\\[B","\\[S","\\[I","\\[J","\\[F","\\[D","\\[C",
-                                "java..*", "sun.util.calendar..*", "org.apache.ofbiz..*"));) {
-                        // "foo" and, "SerializationInjector" are used in UtilObjectTests::testGetObject
+                        listOfSafeObjects)) {;
+                        
             return wois.readObject();
         }
     }
