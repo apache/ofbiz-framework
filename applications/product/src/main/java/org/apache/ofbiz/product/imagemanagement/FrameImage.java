@@ -291,7 +291,7 @@ public class FrameImage {
         String dataResourceId = null;
         try {
             String dirPath = "/frame/";
-            File dir = FileUtil.normalizeFilePath(imageServerPath + dirPath);
+            File dir = FileUtil.createFileWithNormalizedPath(imageServerPath + dirPath);
             if (!dir.exists()) {
                 boolean createDir = dir.mkdir();
                 if (!createDir) {
@@ -300,7 +300,7 @@ public class FrameImage {
                 }
             }
             String imagePath = "/frame/" + imageName;
-            File file = FileUtil.normalizeFilePath(imageServerPath + imagePath); // cf. OFBIZ-9973
+            File file = FileUtil.createFileWithNormalizedPath(imageServerPath + imagePath); // cf. OFBIZ-9973
             if (file.exists()) {
                 request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
                 return "error";
@@ -399,7 +399,7 @@ public class FrameImage {
                 Debug.logError("File :" + file.getName() + ", couldn't be loaded", module);
             }
             // Image Frame
-            BufferedImage bufImg1 = ImageIO.read(FileUtil.normalizeFilePath(imageServerPath + "/" + productId + "/" + imageName)); // cf. OFBIZ-9973
+            BufferedImage bufImg1 = ImageIO.read(FileUtil.createFileWithNormalizedPath(imageServerPath + "/" + productId + "/" + imageName)); // cf. OFBIZ-9973
             BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
 
             int bufImgType;

@@ -134,7 +134,7 @@ public final class FileUtil {
                 return null;
             }
         }
-        return new File(root, localizePath(path));
+        return new File(root, normalizePath(localizePath(path)));
     }
 
     /**
@@ -497,8 +497,19 @@ public final class FileUtil {
      * @param filePath The file path to normalize
      * @return A File with a normalized file path
      */
-    public static File normalizeFilePath(String filePath) {
+    public static File createFileWithNormalizedPath(String filePath) {
         return new File(filePath).toPath().normalize().toFile(); 
+    }
+    
+    /**
+     * Normalizes a file path
+     * This useful to prevent path traversal security issues 
+     *
+     * @param filePath The file path to normalize
+     * @return A normalized file path
+     */
+    public static String normalizeFilePath(String filePath) {
+        return createFileWithNormalizedPath(filePath).toString(); 
     }
     
 }
