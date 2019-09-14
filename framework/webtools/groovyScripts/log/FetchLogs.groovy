@@ -42,7 +42,7 @@ for (int i = 0; i < listLogFiles.length; i++) {
 }
 context.listLogFileNames = listLogFileNames.sort()
 
-if (parameters.logFileName) {
+if (parameters.logFileName && logFileName.contains(parameters.logFileName)) {
     List logLines = []
     try {
         File logFile = FileUtil.getFile(ofbizLogDir.concat(parameters.logFileName))

@@ -31,7 +31,7 @@ if (parameters.fileName) {
         UtilXml.writeXmlDocument(document, os, "UTF-8", true, true, 4)
         os.close()
         fileString = os.toString()
-    } else {
+    } else if (parameters.fileName.endsWith(".properties")) {
         fileString = FileUtil.readString("UTF-8", file)
     }
     rows = fileString.split(System.getProperty("line.separator"))
