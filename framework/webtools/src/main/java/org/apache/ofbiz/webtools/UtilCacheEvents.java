@@ -19,13 +19,15 @@
 package org.apache.ofbiz.webtools;
 
 import java.util.Iterator;
-import java.util.Locale;
-import java.util.List;
-import java.util.Map;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -39,6 +41,8 @@ import org.apache.ofbiz.security.Security;
 public final class UtilCacheEvents {
 
     private static final String err_resource = "WebtoolsErrorUiLabels";
+    private static final String module = UtilCacheEvents.class.getName();
+
 
     private UtilCacheEvents() {}
 
@@ -255,10 +259,16 @@ public final class UtilCacheEvents {
 
         try {
             maxInMemory = Integer.valueOf(maxInMemoryStr);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         try {
             expireTime = Long.valueOf(expireTimeStr);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
 
         UtilCache<?, ?> utilCache = UtilCache.findCache(name);
 

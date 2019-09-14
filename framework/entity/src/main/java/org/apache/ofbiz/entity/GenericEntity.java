@@ -696,11 +696,17 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         try {
             Number number = (Number) obj;
             return TimeDuration.fromNumber(number);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         try {
             String duration = (String) obj;
             return TimeDuration.parseDuration(duration);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         throw new IllegalArgumentException("getDuration could not map the object '" + obj.toString() + "' to TimeDuration type, incompatible object type: " + obj.getClass().getName());
     }
 

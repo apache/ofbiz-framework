@@ -434,7 +434,10 @@ public final class UtilMisc {
         Double result = null;
         try {
             result = Double.parseDouble(obj.toString());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return result;
     }
 
@@ -466,7 +469,10 @@ public final class UtilMisc {
         Integer result = null;
         try {
             result = Integer.parseInt(obj.toString());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return result;
     }
 
@@ -498,7 +504,10 @@ public final class UtilMisc {
         Long result = null;
         try {
             result = Long.parseLong(obj.toString());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return result;
     }
 

@@ -33,6 +33,7 @@ import java.util.TreeSet;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.base.util.Assert;
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Element;
@@ -193,7 +194,10 @@ public final class MetricsFactory {
             try {
                 MetricsImpl that = (MetricsImpl) obj;
                 return this.name.equals(that.name);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                Debug.logError(e, "MetricsFactory");
+            }
+
             return false;
         }
 

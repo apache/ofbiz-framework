@@ -296,7 +296,9 @@ public class JavaMailContainer implements Container {
                     if (store.isConnected()) {
                         try {
                             store.close();
-                        } catch (Exception e) {}
+                        } catch (Exception e) {
+                            Debug.logError(e, module);
+                        }
                     }
                 }
             }

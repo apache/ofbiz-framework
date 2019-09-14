@@ -161,7 +161,7 @@ import org.xml.sax.SAXException;
  */
 public class UelFunctions {
 
-    public static final String module = UelFunctions.class.getName();
+    private static final String module = UelFunctions.class.getName();
     protected static final Functions functionMapper = new Functions();
 
     /** Returns a <code>FunctionMapper</code> instance.
@@ -317,106 +317,154 @@ public class UelFunctions {
         try {
             Map map = (Map) obj;
             return map.size();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         try {
             Collection coll = (Collection) obj;
             return coll.size();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         try {
             String str = (String) obj;
             return str.length();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return -1;
     }
 
     public static boolean endsWith(String str1, String str2) {
         try {
             return str1.endsWith(str2);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return false;
     }
 
     public static int indexOf(String str1, String str2) {
         try {
             return str1.indexOf(str2);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return -1;
     }
 
     public static int lastIndexOf(String str1, String str2) {
         try {
             return str1.lastIndexOf(str2);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return -1;
     }
 
     public static int length(String str1) {
         try {
             return str1.length();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return -1;
     }
 
     public static String replace(String str1, String str2, String str3) {
         try {
             return str1.replace(str2, str3);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
     public static String replaceAll(String str1, String str2, String str3) {
         try {
             return str1.replaceAll(str2, str3);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
     public static String replaceFirst(String str1, String str2, String str3) {
         try {
             return str1.replaceFirst(str2, str3);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
     public static boolean startsWith(String str1, String str2) {
         try {
             return str1.startsWith(str2);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return false;
     }
 
     public static String endString(String str, int index) {
         try {
             return str.substring(index);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
     public static String subString(String str, int beginIndex, int endIndex) {
         try {
             return str.substring(beginIndex, endIndex);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
     public static String trim(String str) {
         try {
             return str.trim();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
     public static String toLowerCase(String str) {
         try {
             return str.toLowerCase(Locale.getDefault());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
     public static String toUpperCase(String str) {
         try {
             return str.toUpperCase(Locale.getDefault());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
@@ -427,14 +475,20 @@ public class UelFunctions {
     public static String sysGetEnv(String str) {
         try {
             return System.getenv(str);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
     public static String sysGetProp(String str) {
         try {
             return System.getProperty(str);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return null;
     }
 
@@ -447,7 +501,10 @@ public class UelFunctions {
             if (resolveLabel != null) {
                 return resolveLabel;
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+
         return label;
     }
 
