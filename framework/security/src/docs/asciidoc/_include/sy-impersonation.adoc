@@ -43,7 +43,7 @@ Everything appears like if we were logged in with the userLoginId and the valid 
 
 The only thing showing that we currently are impersonating a user is the little bottom-right image :
 
-image::impersonate-ico.png[Impersonate icon, pdfwidth=0.5in, align=right]
+image::impersonate-ico.png[Impersonate icon, pdfwidth=0.5in, align=left]
 
 This icon indicates, when clicking on it, the user impersonated, and offer a way to depersonate.
 
