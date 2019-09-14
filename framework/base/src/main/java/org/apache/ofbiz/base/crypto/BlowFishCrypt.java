@@ -149,11 +149,7 @@ public class BlowFishCrypt {
         byte[] decryptedBytes = c.decrypt(encryptedMessage);
         String decryptedMessage = new String(decryptedBytes, StandardCharsets.UTF_8);
 
-        if (testString.equals(decryptedMessage)) {
-            return true;
-        }
-
-        return false;
+        return testString.equals(decryptedMessage);
     }
 
     public static void main(String args[]) throws Exception {

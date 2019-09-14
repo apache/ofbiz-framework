@@ -912,10 +912,7 @@ public final class UtilValidate {
             return defaultEmptyOK;
         }
         String st = stripCharsInBag(stPassed, creditCardDelimiters);
-        if (st.length() == 16 && (st.startsWith("7") || st.startsWith("6"))) {
-            return true;
-        }
-        return false;
+        return st.length() == 16 && (st.startsWith("7") || st.startsWith("6"));
     }
 
     /** Check to see if a card number is a valid OFB Gift Card (Certifiicate)
@@ -1220,39 +1217,17 @@ public final class UtilValidate {
         }
         String cardNumber = stripCharsInBag(cardNumberPassed, creditCardDelimiters);
 
-        if (("CCT_VISA".equalsIgnoreCase(cardType)) && (isVisa(cardNumber))) {
-            return true;
-        }
-        if (("CCT_MASTERCARD".equalsIgnoreCase(cardType)) && (isMasterCard(cardNumber))) {
-            return true;
-        }
-        if ((("CCT_AMERICANEXPRESS".equalsIgnoreCase(cardType)) || ("CCT_AMEX".equalsIgnoreCase(cardType))) && (isAmericanExpress(cardNumber))) {
-            return true;
-        }
-        if (("CCT_DISCOVER".equalsIgnoreCase(cardType)) && (isDiscover(cardNumber))) {
-            return true;
-        }
-        if (("CCT_JCB".equalsIgnoreCase(cardType)) && (isJCB(cardNumber))) {
-            return true;
-        }
-        if ((("CCT_DINERSCLUB".equalsIgnoreCase(cardType)) || ("CCT_DINERS".equalsIgnoreCase(cardType))) && (isDinersClub(cardNumber))) {
-            return true;
-        }
-        if (("CCT_CARTEBLANCHE".equalsIgnoreCase(cardType)) && (isCarteBlanche(cardNumber))) {
-            return true;
-        }
-        if (("CCT_ENROUTE".equalsIgnoreCase(cardType)) && (isEnRoute(cardNumber))) {
-            return true;
-        }
-        if (("CCT_SOLO".equalsIgnoreCase(cardType)) && (isSolo(cardNumber))) {
-            return true;
-        }
-        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isSwitch (cardNumber))) {
-            return true;
-        }
-        if (("CCT_VISAELECTRON".equalsIgnoreCase(cardType)) && (isVisaElectron(cardNumber))) {
-            return true;
-        }
+        return ("CCT_VISA".equalsIgnoreCase(cardType)) && (isVisa(cardNumber));
+        return ("CCT_MASTERCARD".equalsIgnoreCase(cardType)) && (isMasterCard(cardNumber));
+        return (("CCT_AMERICANEXPRESS".equalsIgnoreCase(cardType)) || ("CCT_AMEX".equalsIgnoreCase(cardType))) && (isAmericanExpress(cardNumber));
+        return ("CCT_DISCOVER".equalsIgnoreCase(cardType)) && (isDiscover(cardNumber));
+        return ("CCT_JCB".equalsIgnoreCase(cardType)) && (isJCB(cardNumber));
+        return (("CCT_DINERSCLUB".equalsIgnoreCase(cardType)) || ("CCT_DINERS".equalsIgnoreCase(cardType))) && (isDinersClub(cardNumber));
+        return ("CCT_CARTEBLANCHE".equalsIgnoreCase(cardType)) && (isCarteBlanche(cardNumber));
+        return ("CCT_ENROUTE".equalsIgnoreCase(cardType)) && (isEnRoute(cardNumber));
+        return ("CCT_SOLO".equalsIgnoreCase(cardType)) && (isSolo(cardNumber));
+        return ("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isSwitch (cardNumber));
+        return ("CCT_VISAELECTRON".equalsIgnoreCase(cardType)) && (isVisaElectron(cardNumber));
         return false;
     }
 
