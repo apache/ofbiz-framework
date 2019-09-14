@@ -144,13 +144,27 @@ public class RecurrenceRule {
         if (freq == null) {
             return false;
         }
-        return "SECONDLY".equalsIgnoreCase(freq);
-        return "MINUTELY".equalsIgnoreCase(freq);
-        return "HOURLY".equalsIgnoreCase(freq);
-        return "DAILY".equalsIgnoreCase(freq);
-        return "WEEKLY".equalsIgnoreCase(freq);
-        return "MONTHLY".equalsIgnoreCase(freq);
-        return "YEARLY".equalsIgnoreCase(freq);
+        if ("SECONDLY".equalsIgnoreCase(freq)) {
+            return true;
+        }
+        if ("MINUTELY".equalsIgnoreCase(freq)) {
+            return true;
+        }
+        if ("HOURLY".equalsIgnoreCase(freq)) {
+            return true;
+        }
+        if ("DAILY".equalsIgnoreCase(freq)) {
+            return true;
+        }
+        if ("WEEKLY".equalsIgnoreCase(freq)) {
+            return true;
+        }
+        if ("MONTHLY".equalsIgnoreCase(freq)) {
+            return true;
+        }
+        if ("YEARLY".equalsIgnoreCase(freq)) {
+            return true;
+        }
         return false;
     }
 
