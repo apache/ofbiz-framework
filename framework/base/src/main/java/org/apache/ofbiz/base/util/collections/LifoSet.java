@@ -105,10 +105,7 @@ public class LifoSet<V> extends AbstractSet<V> implements Serializable {
      * @return true if and only if this stack contains no items; false otherwise
      */
     public boolean empty() {
-        if (this.size() == 0) {
-            return true;
-        }
-        return false;
+        return this.size() == 0;
     }
 
     /**
