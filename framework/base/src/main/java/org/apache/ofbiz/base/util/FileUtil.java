@@ -134,7 +134,7 @@ public final class FileUtil {
                 return null;
             }
         }
-        return new File(root, normalizePath(localizePath(path)));
+        return new File(root, localizePath(path));
     }
 
     /**
@@ -415,7 +415,7 @@ public final class FileUtil {
      *
      * @param fileStream
      * @param fileName
-     * @return
+     * @return zipStream
      * @throws IOException
      */
     public static ByteArrayInputStream zipFileStream(InputStream fileStream, String fileName) throws IOException {
