@@ -278,16 +278,6 @@ sourceSets {
             srcDirs += getDirectoryInActiveComponentsIfExists('config')
             srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
             exclude excludedConfigFiles
-            // Below are necessary for unit tests run by Gradle and integration tests
-            exclude { FileTreeElement elem -> elem.getName().contains('Labels.xml') }
-            exclude { FileTreeElement elem -> elem.getName().contains('.properties') &&
-                !elem.getName().contains('start.properties') &&
-                !elem.getName().contains('load-data.properties') &&
-                !elem.getName().contains('debug.properties') &&
-                !elem.getName().contains('cache.properties') &&
-                !elem.getName().contains('test.properties') &&
-                !elem.getName().contains('rmi.properties')
-            }
         }
     }
 
