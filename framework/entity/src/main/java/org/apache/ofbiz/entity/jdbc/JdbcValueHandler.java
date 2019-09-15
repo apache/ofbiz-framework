@@ -192,19 +192,11 @@ public abstract class JdbcValueHandler<T> {
 
     protected static byte[] serializeObject(Object obj) throws SQLException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ObjectOutputStream oos = null;
         try {
-            oos = new ObjectOutputStream(os);
+            ObjectOutputStream oos = new ObjectOutputStream(os);
             oos.writeObject(obj);
-            os.close();
         } catch (IOException e) {
             throw new SQLException(e);
-        } finally {
-            if (oos != null) {
-                try {
-                    oos.close();
-                } catch (IOException e) {}
-            }
         }
         return os.toByteArray();
     }
@@ -448,9 +440,8 @@ public abstract class JdbcValueHandler<T> {
             if (clob == null || clob.length() == 0) {
                 return null;
             }
-            Reader clobReader = null;
-            try {
-                clobReader = clob.getCharacterStream();
+            try (Reader clobReader = clob.getCharacterStream()) {
+                
                 int clobLength = (int) clob.length();
                 char[] charBuffer = new char[clobLength];
                 int offset = 0;
@@ -465,13 +456,6 @@ public abstract class JdbcValueHandler<T> {
                 return new String(charBuffer);
             } catch (IOException e) {
                 throw new SQLException(e);
-            }
-            finally {
-                if (clobReader != null) {
-                    try {
-                        clobReader.close();
-                    } catch (IOException e) {}
-                }
             }
         }
         @Override
@@ -627,9 +611,8 @@ public abstract class JdbcValueHandler<T> {
         @Override
         public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
             ObjectInputStream in = null;
-            InputStream bis = null;
-            try {
-                bis = rs.getBinaryStream(columnIndex);
+            try (InputStream bis = rs.getBinaryStream(columnIndex)) {
+                
                 if (bis == null) {
                     return null;
                 }
@@ -641,12 +624,9 @@ public abstract class JdbcValueHandler<T> {
                 if (in != null) {
                     try {
                         in.close();
-                    } catch (IOException e) {}
-                }
-                if (bis != null) {
-                    try {
-                        bis.close();
-                    } catch (IOException e) {}
+                    } catch (IOException e) {
+                        Debug.logError(e, module);
+                    }
                 }
             }
         }

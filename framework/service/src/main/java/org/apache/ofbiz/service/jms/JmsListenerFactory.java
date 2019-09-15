@@ -89,7 +89,9 @@ public class JmsListenerFactory implements Runnable {
             firstPass = false;
             try {
                 Thread.sleep(20000);
-            } catch (InterruptedException ie) {}
+            } catch (InterruptedException ie) {
+                Debug.logError(ie, module);
+            }
             continue;
         }
         Debug.logInfo("JMS Listener Factory Thread Finished; All listeners connected.", module);

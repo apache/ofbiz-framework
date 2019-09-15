@@ -86,7 +86,9 @@ public final class XslTransform {
             StreamResult sr = new StreamResult(sw);
             transformer.transform(source, sr);
             result = sw.toString();
-            } catch (IOException e) {}
+            } catch (IOException e) {
+                Debug.logError(e, module);
+            }
         } else {
             Debug.logError("tfactory does not support SAX features!", module);
         }

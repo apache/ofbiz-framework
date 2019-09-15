@@ -138,7 +138,9 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
             } catch (GenericServiceException e) {
                 try {
                     Thread.sleep(10000);
-                } catch (InterruptedException ie) {}
+                } catch (InterruptedException ie) {
+                    Debug.logError(ie, module);
+                }
                 continue;
             }
         }

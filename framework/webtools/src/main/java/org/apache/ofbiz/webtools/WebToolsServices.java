@@ -1027,7 +1027,9 @@ public class WebToolsServices {
                         if (bundle != null) {
                             try {
                                 entityDescription = bundle.getString("EntityDescription." + entity.getEntityName());
-                            } catch (Exception exception) {}
+                            } catch (Exception exception) {
+                                Debug.logError(exception, module);
+                            }
                         }
                         if (UtilValidate.isEmpty(entityDescription)) {
                             entityDescription = entity.getDescription();
@@ -1046,7 +1048,9 @@ public class WebToolsServices {
                             if (bundle != null) {
                                 try {
                                     fieldDescription = bundle.getString("FieldDescription." + entity.getEntityName() + "." + field.getName());
-                                } catch (Exception exception) {}
+                                } catch (Exception exception) {
+                                    Debug.logError(exception, module);
+                                }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
                                 fieldDescription = field.getDescription();
@@ -1054,7 +1058,9 @@ public class WebToolsServices {
                             if (UtilValidate.isEmpty(fieldDescription) && bundle != null) {
                                 try {
                                 fieldDescription = bundle.getString("FieldDescription." + field.getName());
-                                } catch (Exception exception) {}
+                                } catch (Exception exception) {
+                                    Debug.logError(exception, module);
+                                }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
                                 fieldDescription = ModelUtil.javaNameToDbName(field.getName()).toLowerCase();

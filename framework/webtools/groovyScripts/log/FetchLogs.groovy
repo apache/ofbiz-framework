@@ -64,6 +64,8 @@ if (parameters.logFileName && logFileName.contains(parameters.logFileName)) {
             }
             logLines.add([type: type, line:line])
         }
-    } catch (Exception exc) {}
+    } catch (Exception e) {
+        Debug.logError(e, "FetchLogs.groovy");
+    }
     context.logLines = logLines
 }
