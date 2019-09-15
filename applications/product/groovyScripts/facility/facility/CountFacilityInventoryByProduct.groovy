@@ -360,7 +360,9 @@ if (action) {
         if (prodsEli != null) {
             try {
                 prodsEli.close()
-            } catch (Exception exc) {}
+            } catch (Exception exc) {
+                Debug.logError(exception, module);
+            }
         }
         // only commit the transaction if we started one... this will throw an exception if it fails
         TransactionUtil.commit(beganTransaction)

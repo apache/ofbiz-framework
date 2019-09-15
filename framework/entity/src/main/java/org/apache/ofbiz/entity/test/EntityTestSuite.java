@@ -1275,7 +1275,9 @@ public class EntityTestSuite extends EntityTestCase {
         } catch (GenericEntityException e) {
             try {
                 TransactionUtil.rollback(transactionStarted, "", e);
-            } catch (Exception e2) {}
+            } catch (Exception e2) {
+                Debug.logError(e2, module);
+            }
             noErrors = false;
         }
         endTime = System.currentTimeMillis();
