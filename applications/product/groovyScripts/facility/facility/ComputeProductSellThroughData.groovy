@@ -20,6 +20,8 @@
 import java.math.MathContext
 import java.sql.Timestamp
 
+import org.apache.ofbiz.base.util.Debug
+
 
 if (parameters.fromDateSellThrough) {
     Timestamp fromDate = null
@@ -27,7 +29,9 @@ if (parameters.fromDateSellThrough) {
     try {
         fromDate = Timestamp.valueOf(parameters.fromDateSellThrough)
         thruDate = Timestamp.valueOf(parameters.thruDateSellThrough)
-    } catch(Exception e) {}
+    } catch (Exception e) {
+        Debug.logError(e, "ComputeProductSellThroughData.groovy");
+    }
     inventoryCountResult = runService('countProductInventoryOnHand', [productId : productId, facilityId : facilityId, inventoryCountDate : fromDate, userLogin : userLogin])
     if (inventoryCountResult.quantityOnHandTotal && inventoryCountResult.quantityOnHandTotal > 0) {
         inventoryShippedForSalesResult = runService('countProductInventoryShippedForSales', [productId : productId, facilityId : facilityId, fromDate : fromDate, thruDate : thruDate, userLogin : userLogin])
