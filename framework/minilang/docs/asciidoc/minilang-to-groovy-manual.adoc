@@ -205,6 +205,7 @@ a|[source,xml]
 --
 <if-empty field="fieldName"></if-empty>
 --
+
 a|[source,groovy]
 --
  //checks if fieldName is existent and/or empty
@@ -215,6 +216,7 @@ a|[source,xml]
 --
 <if-empty field="fieldName.property"></if-empty>
 --
+
 a|[source,groovy]
 --
  // fieldName has to be existent, property doesn't need to
@@ -245,6 +247,7 @@ a|[source,xml]
     </else>
 </if>
 --
+
 a|[source,groovy]
 --
 if (!field1 \|\| !field2) {
@@ -260,6 +263,7 @@ a|[source,xml]
     <!-- code -->
 </if-compare-field>
 --
+
 a|[source,groovy]
 --
  // this will even work, if product is not existent or null
@@ -272,10 +276,12 @@ a|[source,xml]
 --
 <if-instance-of field="parameters.categories" class="java.util.List"></if-instance-of>
 --
+
 a|[source,groovy]
 --
 if (parameters.categories instanceof java.util.List) {}
 --
+
 |===
 == Setting Fields
 |===
@@ -285,6 +291,7 @@ a|[source,xml]
 --
 <set field="fieldName" value="value"/>
 --
+
 a|[source,groovy]
 --
  // if fieldName is not initialized
@@ -299,6 +306,7 @@ a|[source,xml]
 <set field="otherFieldName.otherProperty" value="true" type="Boolean"/>
 <set field="otherFieldName.otherProperty" from-field="parameters.property/>
 --
+
 a|[source,groovy]
 --
  // if otherFieldName is not yet initialized, you have to do it first
@@ -321,6 +329,7 @@ a|[source,xml]
 --
 <set field="thisFieldName" value="${groovy: []}" type="List"/>
 --
+
 a|[source,groovy]
 --
  // this is easier in Groovy
@@ -333,6 +342,7 @@ a|[source,xml]
 <!-- there are different cases of this, which are not distinguished in MiniLang -->
 <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
 --
+
 a|[source,groovy]
 --
 String failMessage = UtilProperties.getMessage("CommonUiLabels", "CommonGenericPermissionError", parameters.locale)
@@ -344,6 +354,7 @@ a|[source,xml]
 --
 <clear-field field="product.primaryProductCategoryId"/>
 --
+
 a|[source,groovy]
 --
 product.primaryProductCategoryId = null
@@ -361,6 +372,7 @@ a|[source,xml]
     <result-to-field result-name="categories" field="resCategories"/>
 </call-service>
 --
+
 a|[source,groovy]
 --
 def relatedCategoryContext = [parentProductCategoryId: defaultTopCategoryId]
@@ -377,11 +389,13 @@ a|[source,xml]
     <results-to-map map-name="genericResult"/>
 </call-service>
 --
+
 a|[source,groovy]
 --
  // instead of setting the service fields from parameters, it is possible to run the service with the parameters map
 Map genericResult = run service: "productCategoryGenericPermission", with: parameters
 --
+
 |===
 == Preparing Service Results
 |===
@@ -391,6 +405,7 @@ a|[source,xml]
 --
 <field-to-result field="fieldBudgetId" result-name="budgetId"/>
 --
+
 a|[source,groovy]
 --
  // MiniLang knows this implicitly
@@ -409,6 +424,7 @@ a|[source,xml]
 <set-nonpk-fields map="parameters" value-field="newEntity"/>
 <set-pk-fields map="parameters" value-field="newEntity"/>
 --
+
 a|[source,groovy]
 --
  // this is the easy way
@@ -426,6 +442,7 @@ a|[source,xml]
     <order-by field-name="-statusDate"/>
 </entity-and>
 --
+
 a|[source,groovy]
 --
  // this can also be done in one line, but it can easily become unreadable
@@ -444,6 +461,7 @@ a|[source,xml]
 <!-- entity-one can be called without child elements, too -->
 <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
 --
+
 a|[source,groovy]
 --
  // MiniLang has false set for useCache as the default value
@@ -460,6 +478,7 @@ a|[source,xml]
 --
 <find-by-primary-key entity-name="ProductCategoryMember" map="lookupPKMap" value-field="lookedUpValue"/>
 --
+
 a|[source,groovy]
 --
 GenericValue lookedUpValue = findOne("ProductCategoryMember", lookupPKMap, false)
@@ -488,6 +507,8 @@ a|[source,xml]
         </condition-list>
     </condition-list>
 </entity-condition>
+-- 
+
 a|[source,groovy]
 --
  // the Groovy methods use the "and" and "equals" operator as default values
@@ -516,6 +537,8 @@ a|[source,xml]
 <set field="newLimitRollup.productCategoryId" from-field="newEntity.productCategoryId"/>
 <set field="newLimitRollup.parentProductCategoryId" from-field="productCategoryRole.productCategoryId"/>
 <set field="newLimitRollup.fromDate" from-field="nowTimestamp"/>
+--
+
 a|[source,groovy]
 --
 def newEntity = makeValue("FinAccountTrans", parameters)
