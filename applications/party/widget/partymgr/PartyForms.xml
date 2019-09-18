@@ -137,7 +137,7 @@ under the License.
             <entity-and entity-name="UserLogin" list="logins" use-cache="true">
                 <field-map field-name="partyId" from-field="partyId"/>
             </entity-and>
-            <set field="userLoginSize" value="${util:size(logins)}" type="Integer"/>
+            <set field="userLoginSize" value="${groovy:logins.size()}" type="Integer"/>
             <service service-name="getPartyMainRole" result-map="mainRole">
                 <field-map field-name="partyId" from-field="partyId"/>
                 <field-map field-name="userLogin" from-field="userLogin"/>
