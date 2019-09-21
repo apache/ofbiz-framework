@@ -625,56 +625,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="forgotPassword_step1">
-        <section>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <actions>
-                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC" default-value="component://common-theme/template/ForgotPassword.ftl"/>
-                            </actions>
-                            <widgets />
-                        </section>
-                        <platform-specific>
-                            <html><html-template location="${forgotPasswordTemplateLocation}"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="forgotPassword_step2">
-        <section>
-            <actions>
-                <set field="userLoginId" from-field="parameters.USERNAME"/>
-                <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
-                    <field-map field-name="userLoginId" />
-                </entity-and>
-                <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
-                <entity-one entity-name="Enumeration" value-field="securityQuestion">
-                    <field-map field-name="enumId" from-field="questionEnumId"/>
-                </entity-one>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <actions>
-                                <set field="getSecurityQuestionTemplateLocation" from-field="layoutSettings.VT_GSQUE_TMPLT_LOC" default-value="component://common-theme/template/GetSecurityQuestion.ftl"/>
-                            </actions>
-                            <widgets />
-                        </section>
-                        <platform-specific>
-                            <html><html-template location="${getSecurityQuestionTemplateLocation}"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="forgotPassword">
         <section>
             <widgets>
@@ -683,12 +633,30 @@ under the License.
                         <section>
                             <actions>
                                 <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC" default-value="component://common-theme/template/ForgotPassword.ftl"/>
+                                <set field="forgotPasswordTarget" value="${groovy: 'forgotPassword' + (parameters.token?'Reset':'')}"/>
                             </actions>
-                            <widgets />
-                         </section>
-                         <platform-specific>
-                            <html><html-template location="${forgotPasswordTemplateLocation}"/></html>
-                        </platform-specific>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="parameters.GET_PASSWORD_HINT"/></not>
+                                    </condition>
+                                    <actions>
+                                        <set field="userLoginId" from-field="parameters.USERNAME"/>
+                                        <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
+                                            <field-map field-name="userLoginId" />
+                                        </entity-and>
+                                        <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
+                                        <entity-one entity-name="Enumeration" value-field="securityQuestion">
+                                            <field-map field-name="enumId" from-field="questionEnumId"/>
+                                        </entity-one>
+                                        <set field="securityQuestion" from-field="securityQuestion"/>
+                                    </actions>
+                                </section>
+                                <platform-specific>
+                                    <html><html-template location="${forgotPasswordTemplateLocation}"/></html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

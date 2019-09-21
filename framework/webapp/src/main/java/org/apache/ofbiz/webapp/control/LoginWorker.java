@@ -327,17 +327,22 @@ public class LoginWorker {
 
         String username = null;
         String password = null;
+        String token = null;
 
         if (userLogin == null) {
             // check parameters
             username = request.getParameter("USERNAME");
             password = request.getParameter("PASSWORD");
+            token = request.getParameter("TOKEN");
             // check session attributes
             if (username == null) username = (String) session.getAttribute("USERNAME");
             if (password == null) password = (String) session.getAttribute("PASSWORD");
+            if (token == null) token = (String) session.getAttribute("TOKEN");
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
-            if ((username == null) || (password == null) || ("error".equals(login(request, response)))) {
+            if (username == null
+                    || (password == null && token == null)
+                    || "error".equals(login(request, response))) {
 
                 // make sure this attribute is not in the request; this avoids infinite recursion when a login by less stringent criteria (like not checkout the hasLoggedOut field) passes; this is not a normal circumstance but can happen with custom code or in funny error situations when the userLogin service gets the userLogin object but runs into another problem and fails to return an error
                 request.removeAttribute("_LOGIN_PASSED_");
@@ -394,6 +399,7 @@ public class LoginWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
+        String token = request.getParameter("TOKEN");
         String forgotPwdFlag = request.getParameter("forgotPwdFlag");
 
         // password decryption
@@ -415,6 +421,7 @@ public class LoginWorker {
 
         if (username == null) username = (String) session.getAttribute("USERNAME");
         if (password == null) password = (String) session.getAttribute("PASSWORD");
+        if (token == null) token = (String) session.getAttribute("TOKEN");
 
         // allow a username and/or password in a request attribute to override the request parameter or the session attribute; this way a preprocessor can play with these a bit...
         if (UtilValidate.isNotEmpty(request.getAttribute("USERNAME"))) {
@@ -423,12 +430,15 @@ public class LoginWorker {
         if (UtilValidate.isNotEmpty(request.getAttribute("PASSWORD"))) {
             password = (String) request.getAttribute("PASSWORD");
         }
+        if (UtilValidate.isNotEmpty(request.getAttribute("TOKEN"))) {
+            token = (String) request.getAttribute("TOKEN");
+        }
 
         List<String> unpwErrMsgList = new LinkedList<String>();
         if (UtilValidate.isEmpty(username)) {
             unpwErrMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
         }
-        if (UtilValidate.isEmpty(password)) {
+        if (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(token)) {
             unpwErrMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.password_was_empty_reenter", UtilHttp.getLocale(request)));
         }
         boolean requirePasswordChange = "Y".equals(request.getParameter("requirePasswordChange"));
@@ -500,7 +510,13 @@ public class LoginWorker {
         try {
             // get the visit id to pass to the userLogin for history
             String visitId = VisitHandler.getVisitId(session);
-            result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password, "visitId", visitId, "locale", UtilHttp.getLocale(request), "request", request));
+            result = dispatcher.runSync("userLogin", UtilMisc.toMap(
+                    "login.username", username,
+                    "login.password", password,
+                    "login.token", token,
+                    "visitId", visitId,
+                    "locale", UtilHttp.getLocale(request),
+                    "request", request));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", module);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
@@ -513,11 +529,14 @@ public class LoginWorker {
             GenericValue userLogin = (GenericValue) result.get("userLogin");
 
             if (requirePasswordChange) {
-                Map<String, Object> inMap = UtilMisc.<String, Object>toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request));
-                inMap.put("userLoginId", username);
-                inMap.put("currentPassword", password);
-                inMap.put("newPassword", request.getParameter("newPassword"));
-                inMap.put("newPasswordVerify", request.getParameter("newPasswordVerify"));
+                Map<String, Object> inMap = UtilMisc.<String, Object>toMap(
+                        "login.username", username,
+                        "login.password", password,
+                        "login.token", token,
+                        "userLoginId", username,
+                        "currentPassword", password,
+                        "newPassword", request.getParameter("newPassword"),
+                        "newPasswordVerify", request.getParameter("newPasswordVerify"));
                 Map<String, Object> resultPasswordChange = null;
                 try {
                     resultPasswordChange = dispatcher.runSync("updatePassword", inMap);

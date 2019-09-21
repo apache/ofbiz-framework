@@ -21,6 +21,7 @@ package org.apache.ofbiz.security;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -28,10 +29,13 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.webapp.control.JWTManager;
 
 /**
  * A <code>Security</code> util.
@@ -117,5 +121,33 @@ public final class SecurityUtil {
                         !userLoginPermissionIds.contains(perm)
                                 && !adminPermissions.contains(perm.substring(0, perm.lastIndexOf("_"))))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Return a JWToken for authenticate a userLogin with salt the token by userLoginId and currentPassword
+     */
+    public static String generateJwtToAuthenticateUserLogin(Delegator delegator, String userLoginId)
+    throws GenericEntityException {
+        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
+        Map<String, String> claims = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"));
+        return JWTManager.createJwt(delegator, claims,
+                userLogin.getString("userLoginId") + userLogin.getString("currentPassword"), - 1);
+    }
+
+    /**
+     * For a jwtToken and userLoginId check the coherence between them
+     */
+    public static boolean authenticateUserLoginByJWT(Delegator delegator, String userLoginId, String jwtToken) {
+        if (UtilValidate.isNotEmpty(jwtToken)) {
+            try {
+                GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
+                Map<String, Object> claims = JWTManager.validateToken(delegator, jwtToken,
+                        userLogin.getString("userLoginId") + userLogin.getString("currentPassword"));
+                return (! ServiceUtil.isError(claims)) && userLoginId.equals(claims.get("userLoginId"));
+            } catch (GenericEntityException e) {
+                Debug.logWarning("failed to validate a jwToken for user " + userLoginId, module);
+            }
+        }
+        return false;
     }
 }

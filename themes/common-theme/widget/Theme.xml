@@ -151,8 +151,6 @@ under the License.
             <screen name="impersonated"/>
             <screen name="ajaxNotLoggedIn"/>
             <screen name="requirePasswordChange"/>
-            <screen name="forgotPassword_step1"/>
-            <screen name="forgotPassword_step2"/>
             <screen name="forgotPassword"/>
             <screen name="help"/>
             <screen name="viewBlocked"/>

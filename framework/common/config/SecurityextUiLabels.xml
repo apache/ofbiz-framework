@@ -19,6 +19,23 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+
+    <property key="loginevents.change_password_request_error_missing_fields">
+        <value xml:lang="en">Error accessing password: ${errorMessage}.</value>
+        <value xml:lang="es">Merci de renseigner tous les champs </value>
+    </property>
+    <property key="loginevents.change_password_request_error_not_valid_parameters">
+        <value xml:lang="en">Error accessing password: ${errorMessage}.</value>
+        <value xml:lang="fr">La demande de changement de mot de passe n'est pas valide.</value>
+    </property>
+    <property key="loginevents.change_password_request_error_technical_error">
+        <value xml:lang="en">Error accessing password: ${errorMessage}.</value>
+        <value xml:lang="fr">Une erreur technique c'est produite. La nouveau mot de passe n'a pas été pris en compte</value>
+    </property>
+    <property key="loginevents.change_password_request_success">
+        <value xml:lang="en">Error accessing password: ${errorMessage}.</value>
+        <value xml:lang="fr">Le nouveau mot de passe est actif</value>
+    </property>
     <property key="loginevents.error_accessing_password">
         <value xml:lang="de">Fehler beim Zugriff auf Passwort: ${errorMessage}.</value>
         <value xml:lang="en">Error accessing password: ${errorMessage}.</value>
@@ -843,6 +860,10 @@
         <value xml:lang="th">ตั้งแต่ ${disabledDateTime}.</value>
         <value xml:lang="zh">自${disabledDateTime}以来。</value>
         <value xml:lang="zh-TW">從 ${disabledDateTime} 開始.</value>
+    </property>
+    <property key="loginservices.token_incorrect">
+        <value xml:lang="en">Invalid Token</value>
+        <value xml:lang="fr">Jeton non valide</value>
     </property>
     <property key="loginservices.user_not_found">
         <value xml:lang="de">Benutzer konnte nicht gefunden werden</value>

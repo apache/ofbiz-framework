@@ -31,6 +31,7 @@ under the License.
     <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
       <input type="hidden" name="requirePasswordChange" value="Y"/>
       <input type="hidden" name="USERNAME" value="${username}"/>
+      <input type="hidden" name="TOKEN" value="${parameters.TOKEN!}"/>
       <input type="hidden" name="userTenantId" value="${tenantId}"/>
       <input type="hidden" name="forgotPwdFlag" value="${parameters.forgotPwdFlag!}" />
       <table cellspacing="0">

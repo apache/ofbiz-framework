@@ -21,12 +21,15 @@ under the License.
 <head>
 </head>
 <body>
-  <div>${uiLabelMap.SecurityExtThisEmailIsInResponseToYourRequestToHave} <#if useEncryption>${uiLabelMap.SecurityExtANew}<#else>${uiLabelMap.SecurityExtYour}</#if> ${uiLabelMap.SecurityExtPasswordSentToYou}.</div>
+  <div>${uiLabelMap.SecurityExtThisEmailIsInResponseToYourRequestToHave} ${uiLabelMap.SecurityExtANew} ${uiLabelMap.SecurityExtPasswordSentToYou}.</div>
+  <div>${uiLabelMap.SecurityExtIgnoreEmail}.</div>
+  
   <br />
   <div>
-      <form method="post" action="${baseEcommerceSecureUrl}/partymgr/control/passwordChange?USERNAME=${userLogin.userLoginId!}&password=${password!}&forgotPwdFlag=true&tenantId=${tenantId!}" name="loginform" id="loginform" target="_blank">
+      <form method="post" action="${baseEcommerceSecureUrl}/partymgr/control/passwordChange?USERNAME=${userLogin.userLoginId!}&TOKEN=${token!}&forgotPwdFlag=true&tenantId=${tenantId!}" name="loginform" id="loginform" target="_blank">
         <input type="submit" name="submit" value="${uiLabelMap.ResetPassword}" />
       </form>
+      ${uiLabelMap.SecurityExtLinkOnce}.
   </div>
 </body>
 </html>

@@ -169,7 +169,7 @@ dependencies {
     compile 'oro:oro:2.0.8'
     compile 'wsdl4j:wsdl4j:1.6.3'
     compile 'org.jsoup:jsoup:1.11.3'
-    compile 'io.jsonwebtoken:jjwt:0.9.1'
+    compile 'com.auth0:java-jwt:3.8.2'
 
     // ofbiz unit-test compile libs
     testCompile 'org.mockito:mockito-core:2.23.0'
