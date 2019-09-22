@@ -17,6 +17,8 @@
 * under the License.
 */
 
+package org.apache.ofbiz.webtools.log
+
 import org.apache.ofbiz.base.util.FileUtil
 import org.apache.ofbiz.base.util.UtilProperties
 
