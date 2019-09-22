@@ -110,6 +110,15 @@ public final class Start {
     }
 
     /**
+     * Updates the server's main configuration.
+     *
+     * @param c  the new configuration
+     */
+    public void setConfig(Config c) {
+        this.config = c;
+    }
+
+    /**
      * Returns the server's current state.
      */
     public ServerState getCurrentState() {
