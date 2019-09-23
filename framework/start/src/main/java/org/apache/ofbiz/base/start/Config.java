@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,13 +15,15 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.apache.ofbiz.base.start;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -34,14 +36,16 @@ import java.util.TimeZone;
  * one of the properties files in the start component
  */
 public final class Config {
+    /** The default directory where log files are stored. */
+    public static final Path DEFAULT_LOG_DIRECTORY = Paths.get("runtime", "logs");
 
-    public final String ofbizHome;
+    public final Path ofbizHome;
     public final InetAddress adminAddress;
     public final String adminKey;
     public final int portOffset;
     public final int adminPort;
     public final List<String> loaders;
-    public final String logDir;
+    public final Path logDir;
     public final boolean shutdownAfterLoad;
     public final boolean useShutdownHook;
 
@@ -57,14 +61,14 @@ public final class Config {
         portOffset = getPortOffsetValue(ofbizCommands, "0");
         adminPort = getAdminPort(props, 0, portOffset);
         loaders = Arrays.asList(getProperty(props, "ofbiz.start.loaders", "").split(","));
-        logDir = getAbsolutePath(props, "ofbiz.log.dir", "runtime/logs", ofbizHome);
+        logDir = getAbsolutePath(props, "ofbiz.log.dir", DEFAULT_LOG_DIRECTORY, ofbizHome);
         shutdownAfterLoad = getProperty(props, "ofbiz.auto.shutdown", "false").equalsIgnoreCase("true");
         useShutdownHook = getProperty(props, "ofbiz.enable.hook", "true").equalsIgnoreCase("true");
 
         System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
 
         // set system properties
-        System.setProperty("ofbiz.home", ofbizHome);
+        System.setProperty("ofbiz.home", ofbizHome.toString());
         System.setProperty("java.awt.headless", getProperty(props, "java.awt.headless", "true"));
         System.setProperty("derby.system.home", getProperty(props, "derby.system.home", "runtime/data/derby"));
 
@@ -78,12 +82,13 @@ public final class Config {
                 .orElse(props.getProperty(key, defaultValue));
     }
 
-    private static String getOfbizHome(String homeProp) {
-        return homeProp.equals(".") ? System.getProperty("user.dir").replace('\\', '/') : homeProp;
+    private static Path getOfbizHome(String homeProp) {
+        return Paths.get(homeProp).toAbsolutePath().normalize();
     }
 
-    private static String getAbsolutePath(Properties props, String key, String defaultValue, String ofbizHome) {
-        return getProperty(props, key, ofbizHome + "/" + props.getProperty(key, defaultValue));
+    private static Path getAbsolutePath(Properties props, String key, Path defaultValue, Path ofbizHome) {
+        return Paths.get(getProperty(props, key,
+                ofbizHome.resolve(props.getProperty(key, defaultValue.toString())).toString()));
     }
 
     private Properties getPropertiesFile(List<StartupCommand> ofbizCommands) throws StartupException {

@@ -71,7 +71,7 @@ public class ComponentContainer implements Container {
         // load the components from framework/base/config/component-load.xml (root components)
         try {
             for (ComponentLoaderConfig.ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
-                loadComponentFromConfig(Start.getInstance().getConfig().ofbizHome, def);
+                loadComponentFromConfig(Start.getInstance().getConfig().ofbizHome.toString(), def);
             }
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);

@@ -60,7 +60,7 @@ final class StartupControlPanel {
      */
     static void start(Config config, AtomicReference<ServerState> serverState, List<StartupCommand> ofbizCommands,
             ContainerLoader loader) throws StartupException {
-        createLogDirectoryIfMissing(config.logDir);
+        createLogDirectoryIfMissing(config.logDir.toString());
 
         if (config.useShutdownHook) {
             createRuntimeShutdownHook(loader, serverState);
