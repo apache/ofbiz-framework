@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,23 +15,27 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.apache.ofbiz.base.container;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
+
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentException;
 import org.apache.ofbiz.base.component.ComponentLoaderConfig;
@@ -39,7 +43,6 @@ import org.apache.ofbiz.base.start.Classpath;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilValidate;
 
 /**
@@ -71,7 +74,7 @@ public class ComponentContainer implements Container {
         // load the components from framework/base/config/component-load.xml (root components)
         try {
             for (ComponentLoaderConfig.ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
-                loadComponentFromConfig(Start.getInstance().getConfig().ofbizHome.toString(), def);
+                loadComponentFromConfig(Start.getInstance().getConfig().ofbizHome, def);
             }
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
@@ -116,8 +119,8 @@ public class ComponentContainer implements Container {
      * @throws ContainerException
      * @throws ComponentException
      */
-    private void loadComponentFromConfig(String parentPath, ComponentLoaderConfig.ComponentDef def) throws IOException, ContainerException, ComponentException {
-        String location = def.location.startsWith("/") ? def.location.toString() : parentPath + "/" + def.location;
+    private void loadComponentFromConfig(Path parentPath, ComponentLoaderConfig.ComponentDef def) throws IOException, ContainerException, ComponentException {
+        Path location = def.location.isAbsolute() ? def.location : parentPath.resolve(def.location);
 
         if (def.type.equals(ComponentLoaderConfig.ComponentType.COMPONENT_DIRECTORY)) {
             loadComponentDirectory(location);
@@ -138,16 +141,15 @@ public class ComponentContainer implements Container {
      * @throws ContainerException
      * @throws ComponentException
      */
-    private void loadComponentDirectory(String directoryName) throws IOException, ContainerException, ComponentException {
+    private void loadComponentDirectory(Path directoryName) throws IOException, ContainerException, ComponentException {
         Debug.logInfo("Auto-Loading component directory : [" + directoryName + "]", module);
+        if (Files.exists(directoryName) && Files.isDirectory(directoryName)) {
+            Path componentLoad = directoryName.resolve(ComponentLoaderConfig.COMPONENT_LOAD_XML_FILENAME);
 
-        File directoryPath = FileUtil.getFile(directoryName);
-        if (directoryPath.exists() && directoryPath.isDirectory()) {
-            File componentLoadFile = new File(directoryPath, ComponentLoaderConfig.COMPONENT_LOAD_XML_FILENAME);
-            if (componentLoadFile.exists()) {
-                loadComponentsInDirectoryUsingLoadFile(directoryPath, componentLoadFile);
+            if (Files.exists(componentLoad)) {
+                loadComponentsInDirectoryUsingLoadFile(directoryName, componentLoad);
             } else {
-                loadComponentsInDirectory(directoryPath);
+                loadComponentsInDirectory(directoryName);
             }
         } else {
             Debug.logError("Auto-Load Component directory not found : " + directoryName, module);
@@ -165,16 +167,16 @@ public class ComponentContainer implements Container {
      * @throws IOException
      * @throws ContainerException
      */
-    private void loadComponentsInDirectoryUsingLoadFile(File directoryPath, File componentLoadFile) throws IOException, ContainerException {
+    private void loadComponentsInDirectoryUsingLoadFile(Path directoryPath, Path componentLoadFile) throws IOException, ContainerException {
         URL configUrl = null;
         try {
-            configUrl = componentLoadFile.toURI().toURL();
+            configUrl = componentLoadFile.toUri().toURL();
             List<ComponentLoaderConfig.ComponentDef> componentsToLoad = ComponentLoaderConfig.getComponentsFromConfig(configUrl);
             for (ComponentLoaderConfig.ComponentDef def: componentsToLoad) {
-                loadComponentFromConfig(directoryPath.toString(), def);
+                loadComponentFromConfig(directoryPath, def);
             }
         } catch (MalformedURLException e) {
-            Debug.logError(e, "Unable to locate URL for component loading file: " + componentLoadFile.getAbsolutePath(), module);
+            Debug.logError(e, "Unable to locate URL for component loading file: " + componentLoadFile.toAbsolutePath(), module);
         } catch (ComponentException e) {
             Debug.logError(e, "Unable to load components from URL: " + configUrl.toExternalForm(), module);
         }
@@ -189,21 +191,19 @@ public class ComponentContainer implements Container {
      * @throws IOException
      * @throws ComponentException
      */
-    private void loadComponentsInDirectory(File directoryPath) throws IOException, ComponentException {
-        String[] sortedComponentNames = directoryPath.list();
+    private void loadComponentsInDirectory(Path directoryPath) throws IOException, ComponentException {
+        List<Path> sortedComponentNames = Files.list(directoryPath).collect(Collectors.toList());
         List<ComponentConfig> componentConfigs = new ArrayList<>();
         if (sortedComponentNames == null) {
-            throw new IllegalArgumentException("sortedComponentNames is null, directory path is invalid " + directoryPath.getPath());
+            throw new IllegalArgumentException("sortedComponentNames is null, directory path is invalid " + directoryPath);
         }
-        Arrays.sort(sortedComponentNames);
+        Collections.sort(sortedComponentNames);
 
-        for (String componentName: sortedComponentNames) {
-            File componentPath = FileUtil.getFile(directoryPath.getCanonicalPath() + File.separator + componentName);
-            String componentLocation = componentPath.getCanonicalPath();
-            File configFile = FileUtil.getFile(componentLocation.concat(File.separator).concat(ComponentConfig.OFBIZ_COMPONENT_XML_FILENAME));
-
-            if (componentPath.isDirectory() && !componentName.startsWith(".") && configFile.exists()) {
-                ComponentConfig config = retrieveComponentConfig(null, componentLocation);
+        for (Path componentName: sortedComponentNames) {
+            Path componentDir = directoryPath.resolve(componentName).toAbsolutePath().normalize();
+            Path configFile = componentDir.resolve(ComponentConfig.OFBIZ_COMPONENT_XML_FILENAME);
+            if (Files.isDirectory(componentDir) && Files.exists(configFile)) {
+                ComponentConfig config = retrieveComponentConfig(null, componentDir);
                 componentConfigs.add(config);
             }
         }
@@ -256,10 +256,10 @@ public class ComponentContainer implements Container {
      * @param location directory location of the component
      * @return The component configuration
      */
-    private static ComponentConfig retrieveComponentConfig(String name, String location) {
+    private static ComponentConfig retrieveComponentConfig(String name, Path location) {
         ComponentConfig config = null;
         try {
-            config = ComponentConfig.getComponentConfig(name, location);
+            config = ComponentConfig.getComponentConfig(name, location.toString());
         } catch (ComponentException e) {
             Debug.logError("Cannot load component : " + name + " @ " + location + " : " + e.getMessage(), module);
         }
@@ -346,12 +346,12 @@ public class ComponentContainer implements Container {
 
             location = location.startsWith("/") ? location.substring(1) : location;
             String dirLoc = location.endsWith("/*") ? location.substring(0, location.length() - 2) : location;
-            File path = FileUtil.getFile(configRoot + dirLoc);
+            Path path = Paths.get(configRoot + dirLoc);
 
-            if (path.exists()) {
+            if (Files.exists(path)) {
                 classPath.addComponent(configRoot + location);
-                if (path.isDirectory() && "dir".equals(cp.type)) {
-                    classPath.addFilesFromPath(path);
+                if (Files.isDirectory(path) && "dir".equals(cp.type)) {
+                    classPath.addFilesFromPath(path.toFile());
                 }
             } else {
                 Debug.logWarning("Location '" + configRoot + dirLoc + "' does not exist", module);
