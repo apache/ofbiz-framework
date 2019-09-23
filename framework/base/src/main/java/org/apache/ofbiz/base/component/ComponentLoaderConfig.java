@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,11 +15,13 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.apache.ofbiz.base.component;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,9 +38,17 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
- * ComponentLoaderConfig - Component Loader configuration utility class
- * to handle component-load.xml files
+ * This class is a module for manipulating component loader files.
  *
+ * <p> The component loader files are named {@code component-load.xml}
+ * and are present either in the classpath when defining the top-level component
+ * directories or inside those component directories when defining the loading order
+ * of the enabled simple components inside those directories.
+ *
+ * Simple components are directories containing a component configuration file
+ * named {@code ofbiz-component.xml} and mapped to a {@link ComponentConfig} object.
+ *
+ * @see ComponentConfig
  */
 public final class ComponentLoaderConfig {
 
@@ -47,34 +57,105 @@ public final class ComponentLoaderConfig {
 
     public enum ComponentType { SINGLE_COMPONENT, COMPONENT_DIRECTORY }
 
+    private ComponentLoaderConfig() { }
+
+    /**
+     * Provides the list of root directory components defined in the classpath.
+     *
+     * @return the list of root directory components.
+     * @throws ComponentException if the main {@code component-load.xml} file is either invalid
+     *         or refer to non-existent component directory.
+     */
     public static List<ComponentDef> getRootComponents() throws ComponentException {
         URL xmlUrl = UtilURL.fromResource(COMPONENT_LOAD_XML_FILENAME);
         return getComponentsFromConfig(xmlUrl);
     }
 
+    /**
+     * Collects the component definitions from a {@code component-load.xml} file
+     *
+     * @param configUrl  the location of the {@code component-load.xml} file
+     * @return a list of component definitions
+     * @throws ComponentException when the {@code component-load.xml} file is invalid.
+     */
     public static List<ComponentDef> getComponentsFromConfig(URL configUrl) throws ComponentException {
         Document document = parseDocumentFromUrl(configUrl);
         List<? extends Element> toLoad = UtilXml.childElementList(document.getDocumentElement());
         List<ComponentDef> componentsFromConfig = new ArrayList<>();
 
         for (Element element : toLoad) {
-            componentsFromConfig.add(retrieveComponentDefFromElement(element, configUrl));
+            componentsFromConfig.add(ComponentDef.of(element, configUrl));
         }
         return Collections.unmodifiableList(componentsFromConfig);
     }
 
+    /**
+     * Represents a simple component or a component directory.
+     */
     public static class ComponentDef {
-        public String name;
-        public final String location;
+        /** The location of the component. */
+        public final Path location;
+        /** The type of component. */
         public final ComponentType type;
 
-        private ComponentDef(String name, String location, ComponentType type) {
-            this.name = name;
+        /**
+         * Constructs a component definition.
+         *
+         * @param location  the location of the component
+         * @param type  the type of the component
+         */
+        private ComponentDef(Path location, ComponentType type) {
             this.location = location;
             this.type = type;
         }
+
+        @Override
+        public String toString() {
+            return String.format("ComponentDef [location=%s, type=%s]", location, type);
+        }
+
+        /**
+         * Converts a string based location to a proper {@code Path}.
+         *
+         * @param location  the string based location
+         * @return the corresponding {@code Path} object.
+         */
+        private static Path locationToPath(String location) {
+            Map<String, ?> systemProps = UtilGenerics.cast(System.getProperties());
+            return Paths.get(FlexibleStringExpander.expandString(location, systemProps));
+        }
+
+        /**
+         * Constructs a component definition object from an XML element.
+         *
+         * @param element  an XML element which must have either a "load-component" or "load-components" label.
+         * @param configUrl  the location of the file containing the XML element
+         * @return the corresponding component definition object.
+         * @throws ComponentException when {@code element} has an invalid label.
+         */
+        private static ComponentDef of(Element element, URL configUrl) throws ComponentException {
+            String nodeName = element.getNodeName();
+            switch (nodeName) {
+            case "load-component":
+                return new ComponentDef(locationToPath(element.getAttribute("component-location")),
+                        ComponentType.SINGLE_COMPONENT);
+            case "load-components":
+                return new ComponentDef(locationToPath(element.getAttribute("parent-directory")),
+                        ComponentType.COMPONENT_DIRECTORY);
+            default:
+                throw new ComponentException(
+                        String.format("Invalid element '%s' found in component-load file %s", nodeName, configUrl));
+            }
+        }
     }
 
+    /**
+     * Parses a {@code component-load.xml} resource.
+     *
+     * @param configUrl the {@code component-load.xml} resource.
+     * @return the parsed XML document
+     * @throws ComponentException when {@code configUrl} is {@code null} or is invalid.
+     */
     private static Document parseDocumentFromUrl(URL configUrl) throws ComponentException {
         if (configUrl == null) {
             throw new ComponentException("configUrl cannot be null");
@@ -84,26 +165,5 @@ public final class ComponentLoaderConfig {
         } catch (SAXException | ParserConfigurationException | IOException e) {
             throw new ComponentException("Error reading the component config file: " + configUrl, e);
         }
-    }
-
-    private static ComponentDef retrieveComponentDefFromElement(Element element, URL configUrl) throws ComponentException {
-        Map<String, ? extends Object> systemProps = UtilGenerics.cast(System.getProperties());
-        String nodeName = element.getNodeName();
-
-        String name = null;
-        String location = null;
-        ComponentType type = null;
-
-        if ("load-component".equals(nodeName)) {
-            name = element.getAttribute("component-name");
-            location = FlexibleStringExpander.expandString(element.getAttribute("component-location"), systemProps);
-            type = ComponentType.SINGLE_COMPONENT;
-        } else if ("load-components".equals(nodeName)) {
-            location = FlexibleStringExpander.expandString(element.getAttribute("parent-directory"), systemProps);
-            type = ComponentType.COMPONENT_DIRECTORY;
-        } else {
-            throw new ComponentException("Invalid element '" + nodeName + "' found in component-load file " + configUrl);
-        }
-        return new ComponentDef(name, location, type);
     }
 }

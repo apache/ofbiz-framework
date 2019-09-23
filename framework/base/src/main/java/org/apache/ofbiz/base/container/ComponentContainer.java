@@ -117,12 +117,12 @@ public class ComponentContainer implements Container {
      * @throws ComponentException
      */
     private void loadComponentFromConfig(String parentPath, ComponentLoaderConfig.ComponentDef def) throws IOException, ContainerException, ComponentException {
-        String location = def.location.startsWith("/") ? def.location : parentPath + "/" + def.location;
+        String location = def.location.startsWith("/") ? def.location.toString() : parentPath + "/" + def.location;
 
         if (def.type.equals(ComponentLoaderConfig.ComponentType.COMPONENT_DIRECTORY)) {
             loadComponentDirectory(location);
         } else if (def.type.equals(ComponentLoaderConfig.ComponentType.SINGLE_COMPONENT)) {
-            ComponentConfig config = retrieveComponentConfig(def.name, location);
+            ComponentConfig config = retrieveComponentConfig(null, location);
             if (config != null) {
                 loadComponent(config);
             }
