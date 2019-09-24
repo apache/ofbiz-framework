@@ -533,10 +533,26 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
        waitSpinnerHide();
    }
 
+   var $form = jQuery("#" + form),
+       data = null,
+       processData = true,
+       enctype = $form.attr("enctype"),
+       contentType = "application/x-www-form-urlencoded; charset=UTF-8";
+
+   if (enctype && enctype.indexOf("multipart") !== -1) {
+       data = new FormData($form[0]);
+       contentType = false;
+       processData = false;
+   } else {
+       data = $form.serialize();
+   }
+
    jQuery.ajax({
        type: "POST",
-       url: jQuery("#" + form).attr("action"),
-       data: jQuery("#" + form).serialize(),
+       contentType: contentType,
+       url: $form.attr("action"),
+       data: data,
+       processData: processData,
        success: function(data) {
                updateFunction(data);
        }
