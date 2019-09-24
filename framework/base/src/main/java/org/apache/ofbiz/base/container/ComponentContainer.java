@@ -74,7 +74,7 @@ public class ComponentContainer implements Container {
         // load the components from framework/base/config/component-load.xml (root components)
         try {
             for (ComponentLoaderConfig.ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
-                loadComponentFromConfig(Start.getInstance().getConfig().ofbizHome, def);
+                loadComponent(Start.getInstance().getConfig().ofbizHome, def);
             }
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
@@ -110,25 +110,26 @@ public class ComponentContainer implements Container {
     }
 
     /**
-     * Checks if <code>ComponentDef.type</code> is a directory or a single component.
-     * If it is a directory, load the directory, otherwise load a single component
+     * Loads any kind of component definition.
      *
-     * @param parentPath the parent path of what is being loaded
-     * @param def the component or directory loader definition
-     * @throws IOException
-     * @throws ContainerException
-     * @throws ComponentException
+     * @param dir  the location where the component should be loaded
+     * @param component  a single component or a component directory definition
+     * @throws IOException when component directory loading fails.
+     * @throws ComponentException when retrieving component configuration files fails.
      */
-    private void loadComponentFromConfig(Path parentPath, ComponentLoaderConfig.ComponentDef def) throws IOException, ContainerException, ComponentException {
-        Path location = def.location.isAbsolute() ? def.location : parentPath.resolve(def.location);
-
-        if (def.type.equals(ComponentLoaderConfig.ComponentType.COMPONENT_DIRECTORY)) {
+    private void loadComponent(Path dir, ComponentLoaderConfig.ComponentDef component)
+            throws IOException, ComponentException {
+        Path location = component.location.isAbsolute() ? component.location : dir.resolve(component.location);
+        switch (component.type) {
+        case COMPONENT_DIRECTORY:
             loadComponentDirectory(location);
-        } else if (def.type.equals(ComponentLoaderConfig.ComponentType.SINGLE_COMPONENT)) {
+            break;
+        case SINGLE_COMPONENT:
             ComponentConfig config = retrieveComponentConfig(null, location);
             if (config != null) {
-                loadComponent(config);
+                loadSingleComponent(config);
             }
+            break;
         }
     }
 
@@ -141,7 +142,7 @@ public class ComponentContainer implements Container {
      * @throws ContainerException
      * @throws ComponentException
      */
-    private void loadComponentDirectory(Path directoryName) throws IOException, ContainerException, ComponentException {
+    private void loadComponentDirectory(Path directoryName) throws IOException, ComponentException {
         Debug.logInfo("Auto-Loading component directory : [" + directoryName + "]", module);
         if (Files.exists(directoryName) && Files.isDirectory(directoryName)) {
             Path componentLoad = directoryName.resolve(ComponentLoaderConfig.COMPONENT_LOAD_XML_FILENAME);
@@ -167,13 +168,13 @@ public class ComponentContainer implements Container {
      * @throws IOException
      * @throws ContainerException
      */
-    private void loadComponentsInDirectoryUsingLoadFile(Path directoryPath, Path componentLoadFile) throws IOException, ContainerException {
+    private void loadComponentsInDirectoryUsingLoadFile(Path directoryPath, Path componentLoadFile) throws IOException {
         URL configUrl = null;
         try {
             configUrl = componentLoadFile.toUri().toURL();
             List<ComponentLoaderConfig.ComponentDef> componentsToLoad = ComponentLoaderConfig.getComponentsFromConfig(configUrl);
             for (ComponentLoaderConfig.ComponentDef def: componentsToLoad) {
-                loadComponentFromConfig(directoryPath, def);
+                loadComponent(directoryPath, def);
             }
         } catch (MalformedURLException e) {
             Debug.logError(e, "Unable to locate URL for component loading file: " + componentLoadFile.toAbsolutePath(), module);
@@ -209,7 +210,7 @@ public class ComponentContainer implements Container {
         }
         for (ComponentConfig componentConfig : componentConfigs) {
             if (componentConfig != null) {
-                loadComponent(componentConfig);
+                loadSingleComponent(componentConfig);
             }
         }
         loadComponentWithDependency();
@@ -277,7 +278,7 @@ public class ComponentContainer implements Container {
      * @throws IOException
      * @throws ComponentException
      */
-    private void loadComponent(ComponentConfig config) throws IOException, ComponentException {
+    private void loadSingleComponent(ComponentConfig config) throws IOException, ComponentException {
         if (config.enabled()) {
             List<ComponentConfig.DependsOnInfo> dependencyList = checkDependencyForComponent(config);
             if (UtilValidate.isEmpty(dependencyList)) {
