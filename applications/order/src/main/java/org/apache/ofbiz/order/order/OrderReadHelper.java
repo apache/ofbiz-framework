@@ -84,6 +84,8 @@ public class OrderReadHelper {
     protected List<GenericValue> orderItemShipGrpInvResList = null;
     protected List<GenericValue> orderItemIssuances = null;
     protected List<GenericValue> orderReturnItems = null;
+    protected Map<String, GenericValue> orderAttributeMap = null;
+    protected List<GenericValue> orderItemAttributes = null;
     protected BigDecimal totalPrice = null;
 
     protected OrderReadHelper() {}
@@ -2844,6 +2846,35 @@ public class OrderReadHelper {
         return EntityUtil.orderBy(EntityUtil.filterByAnd(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
     }
 
+    /**
+     * When you call this function after a OrderReadHelper instantiation
+     * all OrderItemAttributes related to the orderHeader are load on local cache
+     * to optimize database call, after we just filter the cache with attributeName and 
+     * orderItemSeqId wanted.
+     * @param orderItemSeqId
+     * @param attributeName
+     * @return
+     */
+    public String getOrderItemAttribute(String orderItemSeqId, String attributeName) {
+        GenericValue orderItemAttribute = null;
+        if (orderHeader != null) {
+            if (orderItemAttributes == null) {
+                try {
+                    orderItemAttributes = EntityQuery.use(orderHeader.getDelegator())
+                            .from("OrderItemAttribute")
+                            .where("orderId", getOrderId())
+                            .queryList();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+            }
+            orderItemAttribute = EntityUtil.getFirst(
+                    EntityUtil.filterByAnd(orderItemAttributes,
+                            UtilMisc.toMap("orderItemSeqId", orderItemSeqId, "attrName", attributeName)));
+        }
+        return orderItemAttribute != null ? orderItemAttribute.getString("attrValue"): null;
+    }
+
     public static String getOrderItemAttribute(GenericValue orderItem, String attributeName) {
         String attributeValue = null;
         if (orderItem != null) {
@@ -2859,19 +2890,36 @@ public class OrderReadHelper {
         return attributeValue;
     }
 
+    /**
+     * When you call this function after a OrderReadHelper instantiation
+     * all OrderAttributes related to the orderHeader are load on local cache
+     * to optimize database call, after we just filter the cache with attributeName wanted.
+     * @param attributeName
+     * @return
+     */
     public String getOrderAttribute(String attributeName) {
-        String attributeValue = null;
+        GenericValue orderAttribute = null;
         if (orderHeader != null) {
-            try {
-                GenericValue orderAttribute = EntityUtil.getFirst(orderHeader.getRelated("OrderAttribute", UtilMisc.toMap("attrName", attributeName), null, false));
-                if (orderAttribute != null) {
-                    attributeValue = orderAttribute.getString("attrValue");
+            if (orderAttributeMap == null) {
+                orderAttributeMap = new HashMap<>();
+            }
+            if (!orderAttributeMap.containsKey(attributeName)) {
+                try {
+                    orderAttribute = EntityQuery.use(orderHeader.getDelegator())
+                            .from("OrderAttribute")
+                            .where("orderId", getOrderId(), "attrName", attributeName)
+                            .queryFirst();
+                    if (orderAttribute != null) {
+                        orderAttributeMap.put(attributeName, orderAttribute);
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
                 }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+            } else {
+                orderAttribute = orderAttributeMap.get(attributeName);
             }
         }
-        return attributeValue;
+        return orderAttribute != null ? orderAttribute.getString("attrValue"): null;
     }
 
     public static Map<String, Object> getOrderTaxByTaxAuthGeoAndParty(List<GenericValue> orderAdjustments) {
