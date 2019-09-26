@@ -1149,14 +1149,14 @@ public class ModelFormField {
 
         public DateFindField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, modelFormField);
-            this.defaultOptionFrom = "greaterThanEqualTo";
-            this.defaultOptionThru = "lessThanEqualTo";
+            this.defaultOptionFrom = "greaterThan";
+            this.defaultOptionThru = "opLessThan";
         }
 
         public DateFindField(int fieldSource, String type) {
             super(fieldSource, type);
-            this.defaultOptionFrom = "greaterThanEqualTo";
-            this.defaultOptionThru = "lessThanEqualTo";
+            this.defaultOptionFrom = "greaterThan";
+            this.defaultOptionThru = "opLessThan";
         }
 
         @Override
