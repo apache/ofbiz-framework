@@ -188,7 +188,7 @@ under the License.
                 <!-- count no. of locations in location list -->
                 <set field="locationCount" value="0"/>
                 <if-not-empty field="locations">
-                    <set field="locationCount" value="${util:size(locations)}" type="Long"/>
+                    <set field="locationCount" value="${groovy:locations.size()}" type="Long"/>
                 </if-not-empty>
 
                 <!-- If order items are picked from different locations of a facility, then create a new group called multiple locations. This order will now belong to this new group -->

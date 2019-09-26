@@ -1364,7 +1364,7 @@ under the License.
             </condition-list>
             <order-by field-name="contactMechPurposeTypeId"/>
         </entity-condition>
-        <if-compare field="util:size(contactMechs)" operator="greater" value="0" type="Integer">
+        <if-compare field="${groovy:contactMechs.size()}" operator="greater" value="0" type="Integer">
             <field-to-result field="contactMechs[0].infoString" result-name="iCalUrl"/>
         </if-compare>
     </simple-method>
