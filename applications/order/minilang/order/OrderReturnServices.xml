@@ -933,11 +933,11 @@ under the License.
             <field-map field-name="orderId" from-field="parameters.originOrderId"/>
             <field-map field-name="returnTypeId" value="RTN_REFUND"/>
         </entity-and>
-        <set field="returnItemSize" value="${util:size(returnItems)}" type="Long"/>
+        <set field="returnItemSize" value="${groovy:returnItems.size()}" type="Long"/>
         <entity-and entity-name="OrderItem" list="orderItems">
             <field-map field-name="orderId" from-field="parameters.orderId"/>
         </entity-and>
-        <set field="orderItemSize" value="${util:size(orderItems)}" type="Long"/>
+        <set field="orderItemSize" value="${groovy:orderItems.size()}" type="Long"/>
         <if>
             <condition>
                 <if-compare-field field="returnItemSize" operator="greater" to-field="orderItemSize" type="Long"/>

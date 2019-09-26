@@ -186,7 +186,7 @@ under the License.
             </entity-condition>
             <set field="listSize" value="0" type="Long"/>
             <if-not-empty field="maintList">
-                <set field="listSize" value="${util:size(maintList)}" type="Long"/>
+                <set field="listSize" value="${groovy:maintList.size()}" type="Long"/>
             </if-not-empty>
             <set field="maxIntervalQty" value="0" type="BigDecimal"/>
             <iterate list="maintList" entry="maintValue">
@@ -263,7 +263,7 @@ under the License.
                 <if-not-empty field="compareDate">
                     <set field="listSize" value="0" type="Long"/>
                     <if-not-empty field="maintList">
-                        <set field="listSize" value="${util:size(maintList)}" type="Long"/>
+                        <set field="listSize" value="${groovy:maintList.size()}" type="Long"/>
                     </if-not-empty>
                     <set field="lastSvcLong" value="0" type="Long"/>
                     <set field="lastSvcDate" from-field="lastSvcLong" type="Timestamp"/>
