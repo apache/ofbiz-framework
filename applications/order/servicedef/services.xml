@@ -668,6 +668,12 @@ under the License.
         </required-permissions>
         <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN"/>
     </service>
+    <service name="createOrderConversation" engine="groovy" invoke="createOrderConversation" auth="true"
+             location="component://order/groovyScripts/communications/CommunicationServices.groovy">
+        <description>Create a order conversation</description>
+        <implements service="createCommunicationEvent"/>
+        <implements service="createCommunicationEventPurpose"/>
+    </service>
 
     <!-- Order Shipping and Contacts -->
     <service name="createOrderItemShipGroup" default-entity-name="OrderItemShipGroup" engine="entity-auto" invoke="create" auth="true">

@@ -1236,4 +1236,46 @@ under the License.
             </widgets>
            </section>
     </screen>
+    <screen name="ConversationThread">
+        <section>
+            <actions>
+                <entity-one entity-name="CommunicationEvent" value-field="commEvent"/>
+                <entity-one entity-name="CommunicationEventType" value-field="commEventType">
+                    <field-map field-name="communicationEventTypeId" from-field="commEvent.communicationEventTypeId"/>
+                </entity-one>
+                <set field="parentCommEventId" from-field="commEvent.communicationEventId"/>
+                <entity-condition entity-name="CommunicationEvent" list="childrenCommEvents">
+                    <condition-expr field-name="parentCommEventId" from-field="parentCommEventId"/>
+                    <order-by field-name="entryDate"/>
+                </entity-condition>
+                <set field="childrenCommEvents[+0]" from-field="commEvent"/>
+                <entity-condition entity-name="UserLogin" list="userlogins">
+                    <condition-expr field-name="partyId" from-field="commEvent.partyIdTo"/>
+                </entity-condition>
+                <set field="userLogin" from-field="userlogins[0]"/>
+                <set field="userLoginIdTo" value="${groovy: if (userLogin) return userLogin.userLoginId else return ''}"/>
+            </actions>
+            <widgets>
+                <screenlet name="conversationThread" id="${commEvent.communicationEventId}" 
+                    title="${groovy:commEventType.get('description', locale)} ${date:localizedDateStr(commEvent.entryDate, timeZone, locale)} (${groovy:childrenCommEvents.size()}), ${commEvent.subject}" 
+                    initially-collapsed="true">
+                    <include-form name="DisplayConversationThread" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                    <iterate-section entry="childCommEvent" list="childrenCommEvents" paginate="false">
+                        <section>
+                            <actions>
+                                <set field="classFrom" value="${groovy: commEvent.partyIdFrom == childCommEvent.partyIdFrom? 'commEventFrom':'commEventTo'}"/>
+                            </actions>
+                            <widgets>
+                                <include-form name="DisplayConversationMessage" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                <platform-specific>
+                                    <html><html-template location="component://party/template/party/DisplayCommunicationContent.ftl"/></html>
+                                </platform-specific>
+                                <horizontal-separator/>
+                            </widgets>
+                        </section>
+                    </iterate-section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

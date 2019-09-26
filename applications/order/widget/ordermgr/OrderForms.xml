@@ -268,5 +268,20 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="createNewOrderMessage" type="single" target="createOrderConversation"
+          extends="createNewMessage" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml"
+          id="createNewOrderMessage${parentCommEventId}">
+        <field name="roleTypeIdFrom"><hidden value="AGENT"/></field>
+        <field name="roleTypeIdTo"><hidden value="CUSTOMER"/></field>
+        <field name="orderId"><hidden/></field>
+    </form>
 
+    <form name="createNewOrderConversation" type="single" target="">
+        <field name="createNewResponse" title=" " widget-area-style="h1">
+            <hyperlink target="CreateNewOrderMessage" link-type="layered-modal" description="${uiLabelMap.PartyNewConversation}" >
+                <parameter param-name="orderId"/>
+                <parameter param-name="communicationEventPrpTypId"/>
+            </hyperlink>
+        </field>
+    </form>
 </forms>

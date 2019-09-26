@@ -72,6 +72,7 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://order/template/order/Transitions.ftl"/></html>
                         </platform-specific>
+                        <include-screen name="OrderConversations"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -608,6 +609,61 @@ under the License.
         </section>
     </screen>
 
+    <screen name="OrderConversations">
+        <section>
+            <actions>
+                <entity-one entity-name="OrderHeader" value-field="order"/>
+                <get-related-one relation-name="CreatedByUserLogin" value-field="order" to-value-field="createdUserLogin"/>
+                <entity-condition entity-name="CommunicationEventAndOrder" list="commEvents">
+                    <condition-list>
+                        <condition-expr field-name="orderId" from-field="order.orderId"/>
+                        <condition-expr field-name="parentCommEventId" from-field="nullField"/>
+                        <condition-expr field-name="communicationEventTypeId" from-field="parameters.communicationEventTypeId" ignore-if-empty="true"/>
+                    </condition-list>
+                    <order-by field-name="-entryDate"/>
+                </entity-condition>
+                <get-related-one relation-name="CreatedByUserLogin" value-field="order" to-value-field="createdByUserLogin" />
+                <set field="partyIdTo" from-field="createdByUserLogin.partyId"/><!-- store partyId to answer -->
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PartyAllCommunicationEvents}" name="orderCommunicationEvent" collapsible="true">
+                    <include-form location="component://order/widget/ordermgr/OrderForms.xml" name="createNewOrderConversation"/>
+                    <horizontal-separator/>
+                    <iterate-section entry="commEvent" list="commEvents">
+                        <section>
+                            <actions>
+                                <set field="communicationEventId" from-field="commEvent.communicationEventId"/>
+                                <set field="partyIdTo" from-field="commEvent.partyIdFrom"/><!-- store partyId to answer -->
+                            </actions>
+                            <widgets>
+                                <include-screen name="ConversationThread" location="component://party/widget/partymgr/CommunicationEventScreens.xml"/>
+                            </widgets>
+                        </section>
+                    </iterate-section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CreateNewOrderMessage">
+    <section>
+        <actions>
+            <entity-one entity-name="OrderHeader" value-field="order"/>
+            <get-related-one relation-name="CreatedByUserLogin" value-field="order" to-value-field="createdByUserLogin" />
+            <set field="partyIdTo" from-field="createdByUserLogin.partyId"/>
+            <set field="answer" from-field="parameters.parentCommEventId!=null" type="Boolean"/>
+        </actions>
+        <widgets>
+            <decorator-screen name="CommonPopUpDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-section name="body">
+                    <screenlet title="${groovy:answer?uiLabelMap.PartyNewConversationAnswer:uiLabelMap.PartyNewConversation}" collapsible="true" initially-collapsed="true"
+                               id="createNewOrderConversation">
+                        <include-form name="createNewOrderMessage" location="component://order/widget/ordermgr/OrderForms.xml"/>
+                    </screenlet>
+                </decorator-section>
+            </decorator-screen>
+        </widgets>
+    </section>
+    </screen>
     <screen name="AddOrderAttachments">
         <section>
             <actions>

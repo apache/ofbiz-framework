@@ -5418,6 +5418,7 @@
         <value xml:lang="zh">内容标识</value>
         <value xml:lang="zh-TW">內容識別</value>
     </property>
+
     <property key="PartyCookie">
         <value xml:lang="ar">كوكي مستعرض الويب</value>
         <value xml:lang="de">Cookie</value>
@@ -9104,6 +9105,18 @@
         <value xml:lang="vi">Ghi chú: thông tin liên hệ (contact) mới này sẽ có mục đích (purpose)</value>
         <value xml:lang="zh">注意：这个新的联系方式用于</value>
         <value xml:lang="zh-TW">注意: 這個新的聯絡方式用於</value>
+    </property>
+    <property key="PartyNewConversation">
+        <value xml:lang="en">New Conversation</value>
+        <value xml:lang="fr">Nouvelle Conversation</value>
+        <value xml:lang="de">Neue Konversation</value>
+        <value xml:lang="it">Nuova conversazione</value>
+        <value xml:lang="es">Nueva conversación</value>
+    </property>
+    <property key="PartyNewConversationAnswer">
+        <value xml:lang="en">New Answer</value>
+        <value xml:lang="fr">Nouvelle Réponse</value>
+        <value xml:lang="de">Neue Antwort</value>
     </property>
     <property key="PartyNewEmail">
         <value xml:lang="ar">رسالة بريد الكتروني جديدة</value>

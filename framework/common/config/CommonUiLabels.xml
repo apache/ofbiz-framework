@@ -6464,6 +6464,14 @@
         <value xml:lang="zh">低</value>
         <value xml:lang="zh-TW">低</value>
     </property>
+    <property key="CommonMailTo">
+        <value xml:lang="en">Mail To</value>
+        <value xml:lang="fr">Courriel pour</value>
+    </property>
+    <property key="CommonMailFrom">
+        <value xml:lang="en">Mail From</value>
+        <value xml:lang="fr">Courriel venant de</value>
+    </property>
     <property key="CommonMain">
         <value xml:lang="ar">الرئيسية</value>
         <value xml:lang="cs">Úvodní stránka</value>

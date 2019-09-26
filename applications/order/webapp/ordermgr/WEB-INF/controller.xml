@@ -1981,6 +1981,20 @@ under the License.
         </response>
     </request-map>
 
+    <request-map uri="createOrderConversation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createOrderConversation"/>
+        <response name="success" type="request-redirect" value="orderview">
+            <redirect-parameter name="orderId"/>
+        </response>
+        <response name="error" type="request-redirect" value="orderview">
+            <redirect-parameter name="orderId"/>
+        </response>
+    </request-map>
+    <request-map uri="CreateNewOrderMessage">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="CreateNewOrderMessage"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -1999,6 +2013,8 @@ under the License.
     <view-map name="receivepayment" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderReceivePayment"/>
     <view-map name="viewimage" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ViewImage"/>
     <view-map name="ListOrderTerms" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ListOrderTerms"/>
+    <view-map name="CreateNewOrderMessage" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#CreateNewOrderMessage"/>
+
 
     <view-map name="survey" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#survey"/>
     <view-map name="showcart" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#ShowCart"/>
@@ -2158,5 +2174,8 @@ under the License.
 
     <view-map name="splitship" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#splitship"/>
     <view-map name="AddOrderAttachments" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#AddOrderAttachments"/>
+
+
+
     <!-- end of view mappings -->
 </site-conf>

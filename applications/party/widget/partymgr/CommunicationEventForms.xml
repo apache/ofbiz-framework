@@ -259,7 +259,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="note" title="${uiLabelMap.CommonNote}"><display/></field>
-        
+
         <sort-order>
             <field-group collapsible="false" initially-collapsed="false">
                 <sort-field name="communicationEventId"/>
@@ -318,7 +318,7 @@ under the License.
         <field map-name="subjectMap" name="eventNote" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="contentMimeTypeId" use-when="&quot;my&quot;==void"><display/></field>
         <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="60" rows="10" read-only="true"/></field>
-        
+
         <sort-order>
             <field-group collapsible="false" initially-collapsed="false">
                 <sort-field name="communicationEventId"/>
@@ -485,7 +485,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="ListPartyCommEvents" type="list" target="RemoveCommunicationEventRole" list-name="listIt"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" sort-field-parameter-name="partyCommEventSortField">
         <actions>
@@ -859,7 +859,7 @@ under the License.
         <field name="imageData" map-name="empty"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
     </form>
-    
+
     <form name="UploadContent" type="upload" target="uploadAttachFiletoEmail">
         <field name="dataCategoryId"><hidden value="PERSONAL"/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
@@ -1047,7 +1047,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.PartyProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="submitButton" title="${uiLabelMap.PartyProductAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="FindCommunicationByReturn" type="single" target="FindCommunicationByReturn" paginate="true" focus-field-name="submitButton"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
@@ -1097,13 +1097,13 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="AddCommReturn" type="single" target="createCommunicationEventReturn" header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><hidden/></field>
         <field name="returnId"><lookup target-form-name="LookupReturnHeader"/></field>
         <field name="submitButton" title="${uiLabelMap.PartyReturnAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListCommReturns" list-name="returnsList" type="list" target="deleteCommunicationEventReturn" paginate-target="UpdateCommReturns" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" view-size="20">
         <actions>
             <entity-and entity-name="CommunicationEventReturn" list="returnsList">
@@ -1126,4 +1126,58 @@ under the License.
         </field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>
     </form>
+
+    <form name="DisplayConversationThread" type="single" default-map-name="commEvent">
+        <field name="subject"><display/></field>
+        <field name="entryDate" title="${uiLabelMap.CommonDate}" position="2"><display type="date"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.CommonFrom}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="[${partyId}] ${firstName} ${lastName} ${groupName}"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.CommonTo}" position="2"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="[${partyId}] ${firstName} ${lastName} ${groupName} ${userLoginIdTo}"/></field>
+        <field name="fromString" title="${uiLabelMap.CommonMailFrom}"><display/></field>
+        <field name="toString" title="${uiLabelMap.CommonMailTo}" position="2"><display/></field>
+        <field name="createNewConversationAnswer" title=" " widget-area-style="h2" position="5">
+            <hyperlink target="CreateNewOrderMessage" link-type="layered-modal" description="${uiLabelMap.PartyNewConversationAnswer}" >
+                <parameter param-name="orderId"/>
+                <parameter param-name="parentCommEventId"/>
+                <parameter param-name="communicationEventPrpTypId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="DisplayConversationMessage" type="single" default-map-name="childCommEvent" default-widget-style="">
+        <actions>
+            <script location="component://party/groovyScripts/communication/GetPartyEmailAttachment.groovy"/>
+            <set field="hasAttachedContent" value="${groovy: context.attachedContentName != null}" default-value="false" type="Boolean"/>
+        </actions>
+        <field name="entryDate" title="${uiLabelMap.CommonDate}"><display type="date"/></field>
+        <field name="attachedContentName" title="${groovy: hasAttachedContent ? uiLabelMap.CommonEmailAttachedDocuments:''}" use-when="hasAttachedContent" map-name="context"><display/></field>
+    </form>
+
+    <form name="createNewMessage" type="single" target="createConversationMessage" title="">
+        <actions>
+            <set field="answer" from-field="parameters.parentCommEventId!=null" type="Boolean"/>
+            <entity-condition entity-name="CommunicationEventPurpose" list="purposes">
+                <condition-expr field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
+            </entity-condition>
+            <entity-one entity-name="CommunicationEvent" value-field="parentCommEvent">
+                <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
+            </entity-one>
+        </actions>
+        <field name="communicationEventTypeId"><hidden value="WEB_SITE_COMMUNICATI"/></field>
+        <field name="statusId"><hidden value="COM_ENTERED"/></field>
+        <field name="communicationEventPrpTypId"  use-when="!answer">
+            <drop-down current-description="">
+                <entity-options key-field-name="communicationEventPrpTypId" entity-name="CommunicationEventPrpTyp">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="communicationEventPrpTypId" use-when="answer"><hidden value="${purposes[0].communicationEventPrpTypId}"/></field>
+        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="parentCommEventId"><hidden/></field>
+        <field name="subject" use-when="!answer"><text/></field>
+        <field name="subject" use-when="answer"><hidden/></field>
+        <field name="content" title="${uiLabelMap.CommonMessage}"><textarea default-value="" rows="25"/></field>
+        <field name="submit" title="${uiLabelMap.CommonSend}"><submit/></field>
+    </form>
+
 </forms>
