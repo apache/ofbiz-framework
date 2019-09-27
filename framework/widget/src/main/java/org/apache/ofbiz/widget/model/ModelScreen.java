@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -120,44 +121,12 @@ public class ModelScreen extends ModelWidget {
         context.put("nullField", GenericEntity.NULL_FIELD);
 
         // wrap the whole screen rendering in a transaction, should improve performance in querying and such
-        Map<String, String> parameters = UtilGenerics.cast(context.get("parameters"));
         boolean beganTransaction = false;
-        int transactionTimeout = -1;
-        if (parameters != null) {
-            String transactionTimeoutPar = parameters.get("TRANSACTION_TIMEOUT");
-            if (transactionTimeoutPar != null) {
-                try {
-                    transactionTimeout = Integer.parseInt(transactionTimeoutPar);
-                } catch (NumberFormatException nfe) {
-                    String msg = "TRANSACTION_TIMEOUT parameter for screen [" + this.sourceLocation + "#" + getName() + "] is invalid and it will be ignored: " + nfe.toString();
-                    Debug.logWarning(msg, module);
-                }
-            }
-        }
-
-        if (transactionTimeout < 0 && !transactionTimeoutExdr.isEmpty()) {
-            // no TRANSACTION_TIMEOUT parameter, check screen attribute
-            String transactionTimeoutStr = transactionTimeoutExdr.expandString(context);
-            if (UtilValidate.isNotEmpty(transactionTimeoutStr)) {
-                try {
-                    transactionTimeout = Integer.parseInt(transactionTimeoutStr);
-                } catch (NumberFormatException e) {
-                    Debug.logWarning(e, "Could not parse transaction-timeout value, original=[" + transactionTimeoutExdr + "], expanded=[" + transactionTimeoutStr + "]", module);
-                }
-            }
-        }
 
         try {
-            // If transaction timeout is not present (i.e. is equal to -1), the default transaction timeout is used
-            // If transaction timeout is present, use it to start the transaction
-            // If transaction timeout is set to zero, no transaction is started
+            // Start a transaction if needed
             if (useTransaction) {
-                if (transactionTimeout < 0) {
-                    beganTransaction = TransactionUtil.begin();
-                }
-                if (transactionTimeout > 0) {
-                    beganTransaction = TransactionUtil.begin(transactionTimeout);
-                }
+                beganTransaction = TransactionUtil.begin(resolveTransactionTimeout(context));
             }
 
             // render the screen, starting with the top-level section
@@ -190,6 +159,45 @@ public class ModelScreen extends ModelWidget {
     public Delegator getDelegator(Map<String, Object> context) {
         Delegator delegator = (Delegator) context.get("delegator");
         return delegator;
+    }
+
+    /**
+     * Resolve the transaction timeout used from a screen with the following step :
+     *  * scan parameters.TRANSACTION_TIMEOUT on the context
+     *  * expand transaction-timeout attribute on screen definition with the context
+     *  * use default value
+     *  if the transaction timeout found is <=0 use the default value
+     * @param context
+     * @return
+     */
+    private int resolveTransactionTimeout(Map<String, Object> context) {
+        Map<String, String> parameters = UtilGenerics.cast(context.get("parameters"));
+        int transactionTimeout = -1;
+        if (parameters != null) {
+            String transactionTimeoutPar = parameters.get("TRANSACTION_TIMEOUT");
+            if (transactionTimeoutPar != null) {
+                try {
+                    transactionTimeout = Integer.parseInt(transactionTimeoutPar);
+                } catch (NumberFormatException nfe) {
+                    String msg = "TRANSACTION_TIMEOUT parameter for screen [" + this.sourceLocation + "#" + getName() + "] is invalid and it will be ignored: " + nfe.toString();
+                    Debug.logWarning(msg, module);
+                }
+            }
+        }
+
+        // no TRANSACTION_TIMEOUT parameter, check screen attribute
+        if (transactionTimeout < 0 && !transactionTimeoutExdr.isEmpty()) {
+            String transactionTimeoutStr = transactionTimeoutExdr.expandString(context);
+            if (UtilValidate.isNotEmpty(transactionTimeoutStr)) {
+                try {
+                    transactionTimeout = Integer.parseInt(transactionTimeoutStr);
+                } catch (NumberFormatException e) {
+                    Debug.logWarning(e, "Could not parse transaction-timeout value, original=[" + transactionTimeoutExdr + "], expanded=[" + transactionTimeoutStr + "]", module);
+                }
+            }
+        }
+        return transactionTimeout > 0 ? transactionTimeout:
+                UtilProperties.getPropertyAsInteger("widget", "widget.screen.transaction.defaultTimeout", 60);
     }
 }
 
