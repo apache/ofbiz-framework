@@ -73,7 +73,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         GenericValue invoiceContent = EntityQuery.use(delegator).from('InvoiceContent')
                 .where('invoiceId', '1009',
                 'contentId', '1001',
-                'invoiceContentTypeId', 'DOCUMENT')
+                'invoiceContentTypeId', 'COMMENTS')
                 .queryFirst()
 
         assert invoiceContent != null
