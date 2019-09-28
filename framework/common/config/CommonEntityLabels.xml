@@ -8011,6 +8011,10 @@
         <value xml:lang="zh">圣皮埃尔和密克隆群岛</value>
         <value xml:lang="zh-TW">聖皮埃爾和密克隆群島</value>
     </property>
+    <property key="Geo.geoName.SRB">
+        <value xml:lang="de">Serbien</value>
+        <value xml:lang="en">Serbia</value>
+    </property>
     <property key="Geo.geoName.STP">
         <value xml:lang="ar">سان تومي وبرينسيبي</value>
         <value xml:lang="de">Sao Tome und Principe</value>
