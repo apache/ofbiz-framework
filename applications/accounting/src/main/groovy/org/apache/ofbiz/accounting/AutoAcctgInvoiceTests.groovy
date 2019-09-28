@@ -52,4 +52,30 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
 
         assert invoiceContent.contentId == serviceResult.contentId
     }
+    void testCreateSimpleTextContentForInvoice() {
+        def userLogin = EntityQuery.use(delegator).from('UserLogin')
+                .where('userLoginId', 'system')
+                .cache()
+                .queryOne()
+
+        Map serviceCtx = [
+                invoiceId: '1009',
+                contentId: '1001',
+                contentTypeId: 'DOCUMENT',
+                invoiceContentTypeId: 'COMMENTS',
+                text: 'Content for invoice # 1009',
+                fromDate: UtilDateTime.nowTimestamp(),
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('createSimpleTextContentForInvoice', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue invoiceContent = EntityQuery.use(delegator).from('InvoiceContent')
+                .where('invoiceId', '1009',
+                'contentId', '1001',
+                'invoiceContentTypeId', 'DOCUMENT')
+                .queryFirst()
+
+        assert invoiceContent != null
+    }
 }

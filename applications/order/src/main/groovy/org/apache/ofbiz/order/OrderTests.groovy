@@ -141,4 +141,55 @@ class OrderTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('checkCreateStockRequirementQoh', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    void testProcessWaitReplacementReturn() {
+        Map serviceCtx = [
+                returnId: '1009',
+                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('processWaitReplacementReturn', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
+    void testProcessWaitReplacementReservedReturn() {
+        Map serviceCtx = [
+                returnId: '1009',
+                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('processWaitReplacementReservedReturn', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult != null
+    }
+    void testProcessSubscriptionReturn() {
+        Map serviceCtx = [
+                returnId: '1009',
+                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('processSubscriptionReturn', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
+    void testProcessReplacementReturn() {
+        Map serviceCtx = [
+                returnId: '1009',
+                returnTypeId: 'RTN_REFUND',
+                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('processReplacementReturn', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
+    void testProcessReplaceImmediatelyReturn() {
+        Map serviceCtx = [
+                returnId: '1009',
+                orderItemSeqId: '00001',
+                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('processReplaceImmediatelyReturn', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
+    void testProcessRefundOnlyReturn() {
+        Map serviceCtx = [
+                returnId: '1009',
+                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('processRefundOnlyReturn', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
 }
