@@ -691,6 +691,9 @@ under the License.
         <relation fk-name="SLSOPP_USRLGN" rel-entity-name="UserLogin" type="one">
             <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
         </relation>
+        <relation type="one" fk-name="SLSOPP_DTSRC" rel-entity-name="DataSource">
+            <key-map field-name="dataSourceId"/>
+        </relation>
     </entity>
 
     <entity entity-name="SalesOpportunityHistory"
