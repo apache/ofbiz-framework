@@ -30,15 +30,6 @@
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                            <decorator-section name="menu-bar">
-                                <section>
-                                    <widgets>
-                                        <container style="button-bar">
-                                            <link target="EditEmplPosition" text="${uiLabelMap.HumanResNewEmplPosition}" style="buttontext create"/>
-                                        </container>
-                                    </widgets>
-                                </section>
-                            </decorator-section>
                             <decorator-section name="search-options">
                                 <include-form name="FindEmplPositions" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                             </decorator-section>
