@@ -64,10 +64,10 @@ under the License.
                                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="RequirementsTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                                 <container style="button-bar">
                                     <link target="EditRequirement" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
                                 </container>
+                                <include-menu name="RequirementsTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
