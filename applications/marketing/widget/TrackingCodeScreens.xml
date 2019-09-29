@@ -52,6 +52,11 @@ under the License.
                                 <if-has-permission permission="MARKETING" action="_VIEW"/>
                             </condition>
                             <widgets>
+                                <container style="button-bar">
+                                    <link text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext create">
+                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                    </link>
+                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -118,11 +123,6 @@ under the License.
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListTrackingCode}">
-                            <container style="button-bar">
-                                <link text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext create">
-                                    <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                </link>
-                            </container>
                             <include-grid name="ListTrackingCode" location="component://marketing/widget/TrackingCodeForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -392,12 +392,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
+                        <container style="button-bar">
+                            <link text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext create">
+                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                            </link>
+                        </container>
                         <screenlet title="${uiLabelMap.PageTitleListTrackingCodeType}">
-                            <container style="button-bar">
-                                <link text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext create">
-                                    <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                </link>
-                            </container>
                             <include-grid name="ListTrackingCodeType" location="component://marketing/widget/TrackingCodeForms.xml"/>
                         </screenlet>
                     </decorator-section>
