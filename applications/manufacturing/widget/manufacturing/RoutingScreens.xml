@@ -70,6 +70,9 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="RoutingTaskTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                        <container style="button-bar">
+                                            <link target="EditRoutingTask" text="${uiLabelMap.ManufacturingNewRoutingTask}" style="buttontext create"/>
+                                        </container>
                                     </widgets>
                                 </section>
                                 <container>
