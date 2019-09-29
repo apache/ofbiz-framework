@@ -229,6 +229,10 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <label text="${title}" style="h1"/>
+                        <container style="button-bar">
+                            <link target="AddRootCompDocTemplate" text="${uiLabelMap.PageTitleCreateNewRootCompDocTemplate}" style="buttontext create"/>
+                            <link target="ListWaitingContentApproval" text="${uiLabelMap.ContentCompDocViewWaitingApprovals}" style="buttontext"/>
+                        </container>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
