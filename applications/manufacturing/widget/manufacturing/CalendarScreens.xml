@@ -28,6 +28,10 @@ under the License.
                         <section>
                             <widgets>
                                 <include-menu name="CalendarTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                <container style="button-bar">
+                                    <link style="buttontext" target="EditCalendar" text="${uiLabelMap.ManufacturingNewCalendar}"/>
+                                    <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
+                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
@@ -77,9 +81,6 @@ under the License.
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleFindCalendar}">
-                            <container style="button-bar">
-                                <link style="buttontext" target="EditCalendar" text="${uiLabelMap.ManufacturingNewCalendar}"/>
-                            </container>
                             <include-form name="ListTechDataCalendars" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -103,9 +104,6 @@ under the License.
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListCalendarWeek}">
-                            <container style="button-bar">
-                                <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
-                            </container>
                             <include-form name="ListCalendarWeek" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
                         </screenlet>
                     </decorator-section>
