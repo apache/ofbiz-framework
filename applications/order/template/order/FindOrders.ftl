@@ -42,6 +42,7 @@ function toggleOrderId(master) {
             element.checked = master.checked;
         }
     }
+    toggleOrderIdList();
 }
 function setServiceName(selection) {
     document.massOrderChangeForm.action = selection.value;
@@ -55,12 +56,28 @@ function toggleOrderIdList() {
     var form = document.massOrderChangeForm;
     var orders = form.elements.length;
     var isAllSelected = true;
+    var isSingle = true;
     for (var i = 0; i < orders; i++) {
         var element = form.elements[i];
-        if ("orderIdList" == element.name && !element.checked)
-            isAllSelected = false;
+        if ("orderIdList" == element.name) {
+            if (element.checked) {
+                isSingle = false;
+            } else {
+                isAllSelected = false;
+            }
+        }
+    }
+    if (isAllSelected) {
+        jQuery('#checkAllOrders').attr('checked', true);
+    } else {
+        jQuery('#checkAllOrders').attr('checked', false);
     }
     jQuery('#checkAllOrders').attr("checked", isAllSelected);
+    if (!isSingle && jQuery('#serviceName').val() != "") {
+        jQuery('#submitButton').removeAttr("disabled"); 
+    } else {
+        jQuery('#submitButton').attr('disabled', true);
+    }
 }
 
 // -->
@@ -513,7 +530,7 @@ document.lookuporder.orderId.focus();
             <#assign ampersand = "">
         </#if>
         <select name="serviceName" onchange="javascript:setServiceName(this);">
-           <option value="javascript:void(0);">&nbsp;</option>
+           <option value="javascript:void(0);">${uiLabelMap.OrderAnyOrderStatus}</option>
            <option value="<@ofbizUrl>massApproveOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</option>
            <option value="<@ofbizUrl>massHoldOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderHold}</option>
            <option value="<@ofbizUrl>massProcessOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderProcessOrder}</option>
@@ -525,13 +542,15 @@ document.lookuporder.orderId.focus();
            <option value="<@ofbizUrl>massPrintOrders?hideFields=${requestParameters.hideFields?default('N')}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrint}</option>
            <option value="<@ofbizUrl>massCreateFileForOrders?hideFields=${requestParameters.hideFields?default('N')}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.ContentCreateFile}</option>
         </select>
+        <#if printers?has_content>
         <select name="printerName">
-           <option value="javascript:void(0);">&nbsp;</option>
+           <option value="javascript:void(0);">${uiLabelMap.CommonPleaseSelectPrinter}</option>
            <#list printers as printer>
            <option value="${printer}">${printer}</option>
            </#list>
         </select>
-        <a href="javascript:runAction();" class="buttontext">${uiLabelMap.OrderRunAction}</a>
+        </#if>
+        <input id="submitButton" type="button" onclick="javascript:runAction();" value="${uiLabelMap.OrderRunAction}" disabled="disabled" />
         <br class="clear" />
       </div>
 

@@ -8931,6 +8931,10 @@
         <value xml:lang="zh">请选择全部必选项。</value>
         <value xml:lang="zh-TW">請選擇全部必要的選項.</value>
     </property>
+    <property key="CommonPleaseSelectPrinter">
+        <value xml:lang="en">Please Select Printer</value>
+        <value xml:lang="fr">Sélectionnez une imprimante</value>
+    </property>
     <property key="CommonPleaseWait">
         <value xml:lang="ar">الرجاء الإنتظار ...</value>
         <value xml:lang="cs">Prosím vyčkejte ...</value>
