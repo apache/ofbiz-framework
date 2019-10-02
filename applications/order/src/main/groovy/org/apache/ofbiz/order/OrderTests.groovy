@@ -202,4 +202,14 @@ class OrderTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('checkCreateStockRequirementAtp', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    void testAssociatedRequirementWithRequestItem() {
+        Map serviceCtx = [
+                requirementId: '1000',
+                custRequestId: '9000',
+                custRequestItemSeqId: '00001',
+                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('associatedRequirementWithRequestItem', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
 }
