@@ -2361,7 +2361,7 @@ under the License.
     <!--PartyTaxAuthInfo partyId="Company" taxAuthGeoId="FRA" taxAuthPartyId="FRA_TA" fromDate="2014-01-01 00:00:00.000" partyTaxId="FR-12345678901" isExempt="N"/-->
 
     <!--Demo data for a sales order -->
-    <OrderHeader orderId="DEMO10090" orderTypeId="SALES_ORDER" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y"/>
+    <OrderHeader orderId="DEMO10090" orderTypeId="SALES_ORDER" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y" webSiteId="WebStore"/>
     <OrderItem orderId="DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" statusId="ITEM_APPROVED"/>
     <OrderItemPriceInfo orderItemPriceInfoId="9000" orderId="DEMO10090" orderItemSeqId="00001" productPriceRuleId="9000" productPriceActionSeqId="01" modifyAmount="-9.600" description="[PRODUCT_CATEGORY_IDIsPROMOTIONS] [list:48.0;avgCost:48.0;margin:0.0] [type:PRICE_POL]"/>
 
@@ -2400,7 +2400,7 @@ under the License.
 
     <!-- Purchase order test data -->
     <!--for jira issue - 1782-->
-    <OrderHeader orderId="DEMO10091" orderTypeId="PURCHASE_ORDER" orderName="New Purchase Order" salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2008-06-10 13:27:07.024" entryDate="2008-06-10 13:27:07.024" visitId="10000" statusId="ORDER_CREATED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="108.0" grandTotal="108.0"/>
+    <OrderHeader orderId="DEMO10091" orderTypeId="PURCHASE_ORDER" orderName="New Purchase Order" salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2008-06-10 13:27:07.024" entryDate="2008-06-10 13:27:07.024" visitId="10000" statusId="ORDER_CREATED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="108.0" grandTotal="108.0" webSiteId="WebStore"/>
     <OrderItem orderId="DEMO10091" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="5.0" selectedAmount="0.0" unitPrice="21.6" unitListPrice="0.0" isModifiedPrice="N" itemDescription="GZ-2644-5 Round Gizmo" statusId="ITEM_CREATED"/>
     <OrderItemPriceInfo orderItemPriceInfoId="10001" orderId="DEMO10091" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:5.0, lastPrice: 21.6]"/>
     <OrderItemPriceInfo orderItemPriceInfoId="10002" orderId="DEMO10091" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:0.0, lastPrice: 24.0]"/>
@@ -2423,7 +2423,7 @@ under the License.
     <ItemIssuance itemIssuanceId="9003" orderId="DEMO10091" orderItemSeqId="00001" shipGroupSeqId="00001" shipmentId="9999" shipmentItemSeqId="00001" issuedDateTime="2009-08-13 17:46:29.603" quantity="5"/>
 
     <!--Demo Purchase Order data for Accounting-->
-    <OrderHeader orderId="Demo1001" orderTypeId="PURCHASE_ORDER" orderName="Demo Purchase Order " salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2009-08-13 17:45:50.419" priority="2" entryDate="2009-08-13 17:45:50.419" statusId="ORDER_COMPLETED" currencyUom="USD" remainingSubTotal="48.00" grandTotal="48.00"/>
+    <OrderHeader orderId="Demo1001" orderTypeId="PURCHASE_ORDER" orderName="Demo Purchase Order " salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2009-08-13 17:45:50.419" priority="2" entryDate="2009-08-13 17:45:50.419" statusId="ORDER_COMPLETED" currencyUom="USD" remainingSubTotal="48.00" grandTotal="48.00" webSiteId="WebStore" />
     <OrderItem orderId="Demo1001" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="24.00" unitListPrice="0.00" isModifiedPrice="N" itemDescription="GZ-2644-0 Round Gizmo" statusId="ITEM_COMPLETED" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
     <OrderItemPriceInfo orderItemPriceInfoId="9001" orderId="Demo1001" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:0.000000, lastPrice: 24.000]"/>
     <OrderRole orderId="Demo1001" partyId="Company" roleTypeId="BILL_TO_CUSTOMER" />
@@ -2467,7 +2467,7 @@ under the License.
     <AcctgTransEntry acctgTransId="9001" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
 
     <!--Demo Sales Order for Accounting-->
-    <OrderHeader orderId="Demo1002" orderTypeId="SALES_ORDER" orderName="Demo Sales Order" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2009-08-17 14:23:49.475" priority="2" entryDate="2009-08-17 14:23:49.475" visitId="10000" statusId="ORDER_COMPLETED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="107.98" grandTotal="127.09"/>
+    <OrderHeader orderId="Demo1002" orderTypeId="SALES_ORDER" orderName="Demo Sales Order" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2009-08-17 14:23:49.475" priority="2" entryDate="2009-08-17 14:23:49.475" visitId="10000" statusId="ORDER_COMPLETED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="107.98" grandTotal="127.09" webSiteId="WebStore"/>
     <OrderItem orderId="Demo1002" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
     <OrderItem orderId="Demo1002" orderItemSeqId="00004" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" isPromo="Y" quantity="1.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>

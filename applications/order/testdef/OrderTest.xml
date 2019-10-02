@@ -24,11 +24,17 @@ under the License.
     <test-case case-name="order-tests-data-load">
         <entity-xml action="load" entity-xml-url="component://order/testdef/data/OrderTestData.xml"/>
     </test-case>
+    <test-case case-name="order-tests-data-load">
+        <entity-xml action="load" entity-xml-url="component://order/testdef/data/OrderTestData.xml"/>
+    </test-case>
     <test-case case-name="purchaseOrder-test">
         <junit-test-suite class-name="org.apache.ofbiz.order.test.PurchaseOrderTest"/>
     </test-case>
     <test-case case-name="salesOrder-test">
         <junit-test-suite class-name="org.apache.ofbiz.order.test.SalesOrderTest"/>
+    </test-case>
+    <test-case case-name="order-test">
+        <simple-method-test location="component://order/minilang/test/OrderTest.xml"/>
     </test-case>
     <test-case case-name="order-test">
         <simple-method-test location="component://order/minilang/test/OrderTests.xml"/>

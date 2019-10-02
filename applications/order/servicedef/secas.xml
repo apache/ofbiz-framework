@@ -403,6 +403,7 @@ under the License.
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_ACCEPTED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_PENDING"/>
         <condition field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
+        <condition field-name="webSiteId" operator="equals" value="WebStore"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
         <set field-name="bodyParameters.custRequestName" env-name="custRequestName"/>
         <set field-name="partyIdTo" env-name="fromPartyId"/>
@@ -413,6 +414,7 @@ under the License.
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_COMPLETED"/>
         <condition field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
+        <condition field-name="webSiteId" operator="equals" value="WebStore"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
         <set field-name="partyIdTo" env-name="fromPartyId"/>
         <set field-name="emailTemplateSettingId" value="CUST_REQ_COMPLETED"/>
