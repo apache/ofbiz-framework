@@ -136,13 +136,13 @@ public final class ProductPromoWorker {
                             GenericValue productPromoCond = productPromoConds.next();
 
                             // evaluate the party related conditions; so we don't show the promo if it doesn't apply.
-                            if ("PPIP_PARTY_ID".equals(productPromoCond.getString("inputParamEnumId"))) {
+                            if ("PPIP_PARTY_ID".equals(productPromoCond.getString("inputParamEnumId")) || "PPC_PARTY_ID".equals(productPromoCond.getString("customMethodId"))) {
                                 condResult = checkCondition(productPromoCond, cart, delegator, dispatcher, nowTimestamp);
-                            } else if ("PPIP_PARTY_GRP_MEM".equals(productPromoCond.getString("inputParamEnumId"))) {
+                            } else if ("PPIP_PARTY_GRP_MEM".equals(productPromoCond.getString("inputParamEnumId")) || "PPC_PARTY_GRP_MEM".equals(productPromoCond.getString("customMethodId"))) {
                                 condResult = checkCondition(productPromoCond, cart, delegator, dispatcher, nowTimestamp);
-                            } else if ("PPIP_PARTY_CLASS".equals(productPromoCond.getString("inputParamEnumId"))) {
+                            } else if ("PPIP_PARTY_CLASS".equals(productPromoCond.getString("inputParamEnumId")) || "PPC_PARTY_CLASS".equals(productPromoCond.getString("customMethodId"))) {
                                 condResult = checkCondition(productPromoCond, cart, delegator, dispatcher, nowTimestamp);
-                            } else if ("PPIP_ROLE_TYPE".equals(productPromoCond.getString("inputParamEnumId"))) {
+                            } else if ("PPIP_ROLE_TYPE".equals(productPromoCond.getString("inputParamEnumId")) || "PPC_ROLE_TYPE".equals(productPromoCond.getString("customMethodId"))) {
                                 condResult = checkCondition(productPromoCond, cart, delegator, dispatcher, nowTimestamp);
                             }
                         }
@@ -397,7 +397,8 @@ public final class ProductPromoWorker {
                 .cache(true).queryList();
         for (GenericValue productPromoCond : productPromoConds) {
             String inputParamEnumId = productPromoCond.getString("inputParamEnumId");
-            if ("PPIP_ORDER_TOTAL".equals(inputParamEnumId)) {
+            String customMethodId = productPromoCond.getString("customMethodId");
+            if ("PPIP_ORDER_TOTAL".equals(inputParamEnumId) || "PPC_ORDER_TOTAL".equals(customMethodId)) {
                 hasOtCond = true;
                 break;
             }
@@ -568,8 +569,7 @@ public final class ProductPromoWorker {
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
                 productPromoCustomerUseSize = EntityQuery.use(delegator).from("ProductPromoUseCheck").where(checkCondition).queryCount();
             }
-            long perCustomerThisOrder = codeUseLimitPerCustomer - productPromoCustomerUseSize;
-            codeUseLimit = perCustomerThisOrder;
+            codeUseLimit = codeUseLimitPerCustomer - productPromoCustomerUseSize;
         }
 
         Long codeUseLimitPerCode = productPromoCode.getLong("useLimitPerCode");
@@ -1021,6 +1021,7 @@ public final class ProductPromoWorker {
     public static boolean checkConditionForItem(GenericValue productPromoCond, ShoppingCart cart, ShoppingCartItem cartItem, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
         String condValue = productPromoCond.getString("condValue");
         String inputParamEnumId = productPromoCond.getString("inputParamEnumId");
+        String customMethodId = productPromoCond.getString("customMethodId");
         String operatorEnumId = productPromoCond.getString("operatorEnumId");
 
         // don't get list price from cart because it may have tax included whereas the base price does not: BigDecimal listPrice = cartItem.getListPrice();
@@ -1041,7 +1042,7 @@ public final class ProductPromoWorker {
         BigDecimal amountOff = listPrice.subtract(basePrice);
         BigDecimal percentOff = amountOff.divide(listPrice, 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100L));
 
-        if (!"PPIP_LPMUP_AMT".equals(inputParamEnumId) && !"PPIP_LPMUP_PER".equals(inputParamEnumId)) {
+        if (!("PPIP_LPMUP_AMT".equals(inputParamEnumId) || "PPC_LPMUP_AMT".equals(customMethodId)) && !("PPIP_LPMUP_PER".equals(inputParamEnumId) || "PPC_LPMUP_PER".equals(customMethodId))) {
             // condition doesn't apply to individual item, always passes
             return true;
         }
