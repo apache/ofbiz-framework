@@ -622,7 +622,7 @@ under the License.
         <field name="USER_ADDRESS_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowAddressSolicitation}?">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="HomePhoneTitle" title="${uiLabelMap.PartyHomePhone}" title-area-style="group-label" widget-style="tooltip"><display description="${uiLabelMap.PartyPhoneNumberRequired}" also-hidden="false"/></field>
+        <field name="HomePhoneTitle" title="${uiLabelMap.PartyHomePhone}" title-area-style="group-label"><display description="${uiLabelMap.PartyPhoneNumberRequired}" also-hidden="false"/></field>
         <field name="USER_HOME_COUNTRY" title="${uiLabelMap.CommonCountryCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_HOME_AREA" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_HOME_CONTACT" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
