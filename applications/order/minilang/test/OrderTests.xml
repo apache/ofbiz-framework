@@ -154,4 +154,23 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+    
+    <simple-method method-name="testSendOrderChangeNotification" short-description="Sends order change confirmation mail" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.orderId" value="TEST_DEMO10090"/>
+        <set field="serviceCtx.note" value="Test Note"/>
+        <set field="serviceCtx.comments" value="Test comments"/>
+        <set field="serviceCtx.sendTo" value="newtest_email@example.com"/>
+        <call-service service-name="sendOrderChangeNotification" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+            <if-compare operator="equals" field="serviceResult.emailType" value="PRDS_ODR_CHANGE" />
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
