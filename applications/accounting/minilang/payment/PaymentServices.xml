@@ -742,7 +742,7 @@ under the License.
         <set field="createFinAccountTransMap.partyId" from-field="parameters.organizationPartyId"/>
         <now-timestamp field="createFinAccountTransMap.transactionDate"/>
         <now-timestamp field="createFinAccountTransMap.entryDate"/>
-        <!-- set field="createFinAccountTransMap.statusId" value="CREATE"/>--><!-- TODO: It will uncomment when status Id field will add in FinAccountTrans Entity. -->
+        <set field="createFinAccountTransMap.statusId" value="FINACT_TRNS_CREATED"/>
         <set field="createFinAccountTransMap.comments" value="Pay to ${parameters.partyId} for invoice Ids - ${parameters.invoiceIds}"/>
         <call-service service-name="createFinAccountTrans" in-map-name="createFinAccountTransMap">
             <result-to-field result-name="finAccountTransId"/>
