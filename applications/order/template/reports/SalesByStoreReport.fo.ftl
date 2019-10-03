@@ -44,7 +44,7 @@ under the License.
                 <#if orderStatusIds?has_content>
                   <#list orderStatusIds as orderStatusId>
                     <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : orderStatusId}, false)!/>
-                    ${statusItem.description}
+                    ${statusItem.description!}
                   </#list>
                 <#else>
                   ${uiLabelMap.CommonAny}
