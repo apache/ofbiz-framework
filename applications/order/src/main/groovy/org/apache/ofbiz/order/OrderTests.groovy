@@ -235,4 +235,14 @@ class OrderTests extends OFBizTestCase {
         assert serviceResult.emailType.equals("PRDS_ODR_BACKORDER")
     }
     
+    void testsendOrderPayRetryNotification() {
+        Map serviceCtx = [
+                  orderId: 'TEST_DEMO10090',
+                  sendTo: 'test_email@example.com',
+                  userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('sendOrderPayRetryNotification', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.emailType.equals("PRDS_ODR_PAYRETRY")
+    }
 }
