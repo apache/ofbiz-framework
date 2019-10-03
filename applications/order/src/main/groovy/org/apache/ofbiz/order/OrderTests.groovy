@@ -224,5 +224,15 @@ class OrderTests extends OFBizTestCase {
         assert serviceResult.emailType.equals("PRDS_ODR_CHANGE")
     }
     
+    void testSendOrderBackorderNotification() {
+        Map serviceCtx = [
+                  orderId: 'TEST_DEMO10090',
+                  sendTo: 'test_email@example.com',
+                  userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('sendOrderBackorderNotification', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.emailType.equals("PRDS_ODR_BACKORDER")
+    }
     
 }
