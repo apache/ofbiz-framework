@@ -36,8 +36,6 @@ import javax.transaction.Transaction;
 
 import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -63,9 +61,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
-
 import org.apache.tomcat.util.res.StringManager;
 
 /**
