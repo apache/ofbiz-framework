@@ -26,7 +26,7 @@ under the License.
   
   <br />
   <div>
-      <form method="post" action="${baseEcommerceSecureUrl}/partymgr/control/passwordChange?USERNAME=${userLogin.userLoginId!}&TOKEN=${token!}&forgotPwdFlag=true&tenantId=${tenantId!}" name="loginform" id="loginform" target="_blank">
+      <form method="post" action="<@ofbizUrl fullPath="true" secure="true" webSiteId="${webSiteId!}">passwordChange</@ofbizUrl>?USERNAME=${userLogin.userLoginId!}&TOKEN=${token!}&forgotPwdFlag=true&tenantId=${tenantId!}" name="loginform" id="loginform" target="_blank">
         <input type="submit" name="submit" value="${uiLabelMap.ResetPassword}" />
       </form>
       ${uiLabelMap.SecurityExtLinkOnce}.
