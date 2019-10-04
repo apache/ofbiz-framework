@@ -97,11 +97,9 @@ public final class UtilObject {
                     "java..*", "sun.util.calendar..*", "org.apache.ofbiz..*");
         } // "foo" and, "SerializationInjector" are used in UtilObjectTests::testGetObject
         
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-                SafeObjectInputStream wois = new SafeObjectInputStream(bis,
-                        Thread.currentThread().getContextClassLoader(),
-                        listOfSafeObjects)) {;
-                        
+             SafeObjectInputStream wois = new SafeObjectInputStream(bis, classloader, listOfSafeObjects)) {
             return wois.readObject();
         }
     }
