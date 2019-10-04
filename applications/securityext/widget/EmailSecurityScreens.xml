@@ -26,7 +26,6 @@ under the License.
             <actions>
                 <property-map resource="EmailPasswordUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://securityext/template/email/PasswordEmail.ftl"/></html></platform-specific>

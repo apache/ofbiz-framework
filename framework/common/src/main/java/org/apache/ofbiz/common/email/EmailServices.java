@@ -494,6 +494,7 @@ public class EmailServices {
 
         MapStack<String> screenContext = MapStack.create();
         screenContext.put("locale", locale);
+        screenContext.put("webSiteId", webSiteId);
 
         ScreenStringRenderer screenStringRenderer = null;
         try {

@@ -50,6 +50,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.control.LoginWorker;
+import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * LoginEvents - Events for UserLogin and Security handling.
@@ -286,6 +287,7 @@ public class LoginEvents {
             Map<String, Object> serviceContext = new HashMap<>();
             serviceContext.put("bodyScreenUri", bodyScreenLocation);
             serviceContext.put("bodyParameters", bodyParameters);
+            serviceContext.put("webSiteId", WebSiteWorker.getWebSiteId(request));
             if (productStoreEmail != null) {
                 serviceContext.put("subject", productStoreEmail.getString("subject"));
                 serviceContext.put("sendFrom", productStoreEmail.get("fromAddress"));
