@@ -315,10 +315,10 @@ public class UelFunctions {
     public static int getSize(Object obj) {
         if (null == obj) return 0;
         if (obj instanceof Map) {
-            return ((Map) obj).size();
+            return ((Map<?, ?>) obj).size();
         }
         if (obj instanceof Collection) {
-            return ((Collection) obj).size();
+            return ((Collection<?>) obj).size();
         }
         if (obj instanceof String) {
             return ((String) obj).length();
