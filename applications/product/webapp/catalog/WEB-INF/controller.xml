@@ -2431,12 +2431,7 @@ under the License.
     <request-map uri="updateProductReview">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateProductReview"/>
-        <response name="success" type="request-redirect" value="FindReviews">
-            <redirect-parameter name="noConditionFind" value="Y"/>
-            <redirect-parameter name="productId"/>
-            <redirect-parameter name="statusId"/>
-            <redirect-parameter name="productReview"/>
-        </response>
+        <response name="success" type="request-redirect-noparam" value="FindReviews"/>
         <response name="error" type="view" value="FindReviews"/>
     </request-map>
     <request-map uri="FindReviews">
