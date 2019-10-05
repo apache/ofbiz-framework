@@ -21,6 +21,7 @@ package org.apache.ofbiz.webtools.labelmanager;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -67,7 +68,7 @@ public class LabelReferences {
     protected DispatchContext dispatchContext;
     protected Map<String, LabelInfo> labels;
     protected Set<String> labelSet = new HashSet<>();
-    protected Set<String> rootFolders = new HashSet<>();
+    protected Set<Path> rootFolders = new HashSet<>();
 
     public LabelReferences(Delegator delegator, LabelManagerFactory factory) {
         this.delegator = delegator;
@@ -93,11 +94,7 @@ public class LabelReferences {
         }
         Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
         for (ComponentConfig config : componentConfigs) {
-            String rootFolder = config.getRootLocation();
-            rootFolder = rootFolder.replace('\\', '/');
-            if (!rootFolder.endsWith("/")) {
-                rootFolder = rootFolder + "/";
-            }
+            Path rootFolder = config.rootLocation();
             this.rootFolders.add(rootFolder);
         }
     }
@@ -117,9 +114,9 @@ public class LabelReferences {
         getLabelsFromSimpleMethodFiles();
         // get labels from widgets files
         List<File> fileList = new LinkedList<>();
-        for (String rootFolder : this.rootFolders) {
-            fileList.addAll(FileUtil.findXmlFiles(rootFolder + "webapp", null, null, null));
-            fileList.addAll(FileUtil.findXmlFiles(rootFolder + "widget", null, null, null));
+        for (Path rootFolder : this.rootFolders) {
+            fileList.addAll(FileUtil.findXmlFiles(rootFolder.resolve("webapp").toString(), null, null, null));
+            fileList.addAll(FileUtil.findXmlFiles(rootFolder.resolve("widget").toString(), null, null, null));
         }
         for (File file : fileList) {
             String inFile = FileUtil.readString("UTF-8", file);
@@ -159,8 +156,8 @@ public class LabelReferences {
     }
 
     private void getLabelsFromFtlFiles() throws IOException {
-        for (String rootFolder : this.rootFolders) {
-            List<File> ftlFiles = FileUtil.findFiles("ftl", rootFolder, null, null);
+        for (Path rootFolder : this.rootFolders) {
+            List<File> ftlFiles = FileUtil.findFiles("ftl", rootFolder.toString(), null, null);
             for (File file : ftlFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
                 inFile = inFile.replaceAll(getResourceRegex, getResource);
@@ -182,8 +179,8 @@ public class LabelReferences {
         }
     }
     private void getLabelsFromJavaFiles() throws IOException {
-        for (String rootFolder : this.rootFolders) {
-            List<File> javaFiles = FileUtil.findFiles("java", rootFolder + "src", null, null);
+        for (Path rootFolder : this.rootFolders) {
+            List<File> javaFiles = FileUtil.findFiles("java", rootFolder.resolve("src").toString(), null, null);
             for (File javaFile : javaFiles) {
                 // do not parse this file, else issue with getResourceRegex
                 if ("LabelReferences.java".equals(javaFile.getName())) continue;
@@ -195,8 +192,9 @@ public class LabelReferences {
         }
     }
     private void getLabelsFromGroovyFiles() throws IOException {
-        for (String rootFolder : this.rootFolders) {
-            List<File> groovyFiles = FileUtil.findFiles("groovy", rootFolder + "groovyScripts", null, null);
+        for (Path rootFolder : this.rootFolders) {
+            List<File> groovyFiles =
+                    FileUtil.findFiles("groovy", rootFolder.resolve("groovyScripts").toString(), null, null);
             for (File file : groovyFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
                 findUiLabelMapInPattern(inFile, uiLabelMap, file.getPath());
@@ -285,8 +283,9 @@ public class LabelReferences {
     }
 
     private void getLabelsFromSimpleMethodFiles() throws IOException {
-        for (String rootFolder : this.rootFolders) {
-            List<File> simpleMethodsFiles = FileUtil.findFiles("xml", rootFolder + "minilang", null, null);
+        for (Path rootFolder : this.rootFolders) {
+            List<File> simpleMethodsFiles =
+                    FileUtil.findFiles("xml", rootFolder.resolve("minilang").toString(), null, null);
             for (File file : simpleMethodsFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
                 findUiLabelMapInFile(inFile, file.getPath());

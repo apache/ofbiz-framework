@@ -21,6 +21,7 @@ package org.apache.ofbiz.webtools.labelmanager;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -84,16 +85,13 @@ public class LabelManagerFactory {
         List<ClasspathInfo> cpInfos = ComponentConfig.getAllClasspathInfos();
         for (ClasspathInfo cpi : cpInfos) {
             if ("dir".equals(cpi.type)) {
-                String configRoot = cpi.componentConfig.getRootLocation();
-                configRoot = configRoot.replace('\\', '/');
-                if (!configRoot.endsWith("/")) {
-                    configRoot = configRoot + "/";
-                }
+                Path configRoot = cpi.componentConfig.rootLocation();
                 String location = cpi.location.replace('\\', '/');
                 if (location.startsWith("/")) {
                     location = location.substring(1);
                 }
-                List<File> resourceFiles = FileUtil.findXmlFiles(configRoot + location, null, "resource", null);
+                Path fullLocation = configRoot.resolve(location);
+                List<File> resourceFiles = FileUtil.findXmlFiles(fullLocation.toString(), null, "resource", null);
                 for (File resourceFile : resourceFiles) {
                     filesFound.put(resourceFile.getName(), new LabelFile(resourceFile, cpi.componentConfig.getComponentName()));
                 }

@@ -19,6 +19,8 @@
 package org.apache.ofbiz.base.util;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -100,32 +102,24 @@ public final class UtilJavaParse {
 
         Collection<ComponentConfig> allComponentConfigs = ComponentConfig.getAllComponents();
         for (ComponentConfig cc: allComponentConfigs) {
-            String rootDirectory = cc.getRootLocation();
-            if (!rootDirectory.endsWith(File.separatorChar + "")) {
-                rootDirectory += File.separatorChar;
-            }
-            rootDirectory += "src" + File.separatorChar;
-
-            File rootDirFile = new File(rootDirectory);
-            if (!rootDirFile.exists()) {
+            Path rootDirectory = cc.rootLocation().resolve("src");
+            if (Files.notExists(rootDirectory)) {
                 // no src directory, move along
                 continue;
             }
 
-            String classDir = rootDirectory + sourceSubPath;
-            File classDirFile = new File(classDir);
-            if (!classDirFile.exists()) {
+            Path classDir = rootDirectory.resolve(sourceSubPath);
+            if (Files.notExists(classDir)) {
                 // no src class sub-directory, move along
                 continue;
             }
 
-            String fullPathAndFile = classDir + File.separatorChar + classFileName;
-            File classFile = new File(fullPathAndFile);
-            if (classFile.exists()) {
+            Path fullPathAndFile = classDir.resolve(classFileName);
+            if (Files.notExists(fullPathAndFile)) {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("In findRealPathAndFileForClass for [" + fullyQualifiedClassName + "]: [" + fullPathAndFile + "]", module);
                 }
-                return fullPathAndFile;
+                return fullPathAndFile.toString();
             }
         }
 

@@ -395,7 +395,7 @@ public class ArtifactInfoFactory {
     private Callable<Void> prepareTaskForComponentAnalysis(final ComponentConfig componentConfig) {
         return () -> {
             String componentName = componentConfig.getGlobalName();
-            String rootComponentPath = componentConfig.getRootLocation();
+            String rootComponentPath = componentConfig.rootLocation().toString();
             List<File> screenFiles = new ArrayList<>();
             List<File> formFiles = new ArrayList<>();
             List<File> controllerFiles = new ArrayList<>();

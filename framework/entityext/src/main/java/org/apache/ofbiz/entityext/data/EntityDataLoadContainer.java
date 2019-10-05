@@ -279,7 +279,7 @@ public class EntityDataLoadContainer implements Container {
         for (ComponentConfig config : allComponents) {
             GenericValue componentEntry = baseDelegator.makeValue("Component");
             componentEntry.set("componentName", config.getComponentName());
-            componentEntry.set("rootLocation", config.getRootLocation());
+            componentEntry.set("rootLocation", config.rootLocation().toString());
             try {
                 GenericValue componentCheck = EntityQuery.use(baseDelegator)
                         .from("Component")

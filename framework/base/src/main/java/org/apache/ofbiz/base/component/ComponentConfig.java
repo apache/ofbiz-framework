@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.component;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -226,7 +228,7 @@ public final class ComponentConfig {
 
     public static String getRootLocation(String componentName) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
-        return cc.getRootLocation();
+        return cc.rootLocation().toString();
     }
 
     public static InputStream getStream(String componentName, String resourceLoaderName, String location) throws ComponentException {
@@ -257,7 +259,7 @@ public final class ComponentConfig {
     // ========== ComponentConfig instance ==========
 
     private final String globalName;
-    private final String rootLocation;
+    private final Path rootLocation;
     private final String componentName;
     private final boolean enabled;
     private final Map<String, ResourceLoaderInfo> resourceLoaderInfos;
@@ -280,7 +282,8 @@ public final class ComponentConfig {
      */
     private ComponentConfig(Builder b) {
         this.globalName = b.globalName;
-        this.rootLocation = b.rootLocation;
+        String rootLocation = (b.rootLocation == null) ? "" : b.rootLocation;
+        this.rootLocation = Paths.get(rootLocation.replace('\\', '/')).normalize().toAbsolutePath();
         this.componentName = b.componentName;
         this.enabled = b.enabled;
         this.resourceLoaderInfos = b.resourceLoaderInfos;
@@ -392,17 +395,13 @@ public final class ComponentConfig {
      * @throws NullPointerException when {@code rootLocation} is {@code null}
      */
     private ComponentConfig(String globalName, String rootLocation) throws ComponentException {
-        if (!rootLocation.endsWith("/")) {
-            rootLocation = rootLocation + "/";
-        }
-        this.rootLocation = rootLocation.replace('\\', '/');
-        File rootLocationDir = new File(rootLocation);
-        if (!rootLocationDir.exists()) {
+        this.rootLocation = Paths.get(rootLocation.replace('\\', '/')).normalize().toAbsolutePath();
+        if (Files.notExists(this.rootLocation)) {
             throw new ComponentException("The component root location does not exist: " + rootLocation);
-        } else if (!rootLocationDir.isDirectory()) {
+        } else if (!Files.isDirectory(this.rootLocation)) {
             throw new ComponentException("The component root location is not a directory: " + rootLocation);
         }
-        String xmlFilename = this.rootLocation + "/" + OFBIZ_COMPONENT_XML_FILENAME;
+        String xmlFilename = this.rootLocation.resolve(OFBIZ_COMPONENT_XML_FILENAME).toString();
         URL xmlUrl = UtilURL.fromFilename(xmlFilename);
         if (xmlUrl == null) {
             throw new ComponentException("Could not find the " + OFBIZ_COMPONENT_XML_FILENAME
@@ -486,6 +485,7 @@ public final class ComponentConfig {
         // pre-pend component root location if this is a type component resource-loader
         if ("component".equals(resourceLoaderInfo.type)) {
             buf.append(rootLocation);
+            buf.append('/');
         }
 
         if (UtilValidate.isNotEmpty(resourceLoaderInfo.prependEnv)) {
@@ -520,8 +520,13 @@ public final class ComponentConfig {
         return this.resourceLoaderInfos;
     }
 
-    public String getRootLocation() {
-        return this.rootLocation;
+    /**
+     * Provides the root location of the component definition.
+     *
+     * @return a normalized absolute path
+     */
+    public Path rootLocation() {
+        return rootLocation;
     }
 
     public List<ServiceResourceInfo> getServiceResourceInfos() {
@@ -633,7 +638,7 @@ public final class ComponentConfig {
 
         private synchronized ComponentConfig put(ComponentConfig config) {
             String globalName = config.getGlobalName();
-            String fileLocation = config.getRootLocation();
+            String fileLocation = config.rootLocation().toString();
             componentLocations.put(fileLocation, globalName);
             return componentConfigs.put(globalName, config);
         }
@@ -1070,7 +1075,7 @@ public final class ComponentConfig {
         }
 
         public String getLocation() {
-            return componentConfig.getRootLocation() + location;
+            return componentConfig.rootLocation().resolve(location).toString();
         }
 
         public String getName() {

@@ -561,12 +561,10 @@ public class CatalinaContainer implements Container {
     }
 
     private static String getWebappRootLocation(ComponentConfig.WebappInfo appInfo) {
-        String location = appInfo.componentConfig.getRootLocation() + appInfo.location;
-        location = location.replace('\\', '/');
-        if (location.endsWith("/")) {
-            location = location.substring(0, location.length() - 1);
-        }
-        return location;
+        return appInfo.componentConfig.rootLocation()
+                .resolve(appInfo.location.replace('\\', '/'))
+                .normalize()
+                .toString();
     }
 
     private static String getWebappMountPoint(ComponentConfig.WebappInfo appInfo) {

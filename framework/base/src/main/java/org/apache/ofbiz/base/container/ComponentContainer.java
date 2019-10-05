@@ -25,7 +25,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -335,8 +334,7 @@ public class ComponentContainer implements Container {
      */
     private static Classpath buildClasspathFromComponentConfig(ComponentConfig config) throws IOException {
         Classpath classPath = new Classpath();
-        String configRoot = config.getRootLocation().replace('\\', '/');
-        configRoot = configRoot.endsWith("/") ? configRoot : configRoot + "/";
+        Path configRoot = config.rootLocation();
         List<ComponentConfig.ClasspathInfo> classpathInfos = config.getClasspathInfos();
 
         for (ComponentConfig.ClasspathInfo cp: classpathInfos) {
@@ -348,7 +346,7 @@ public class ComponentContainer implements Container {
 
             location = location.startsWith("/") ? location.substring(1) : location;
             String dirLoc = location.endsWith("/*") ? location.substring(0, location.length() - 2) : location;
-            Path path = Paths.get(configRoot + dirLoc).toAbsolutePath().normalize();
+            Path path = configRoot.resolve(dirLoc).normalize();
             if (Files.exists(path)) {
                 classPath.add(path, cp.type);
             } else {
