@@ -288,7 +288,7 @@ public final class ComponentConfig {
         this.enabled = b.enabled;
         this.resourceLoaderInfos = b.resourceLoaderInfos;
         this.classpathInfos = b.classpathInfos;
-        this.dependsOnInfos = b.dependsOnInfos;
+        this.dependsOnInfos = (b.dependsOnInfos == null) ? Collections.emptyList() : b.dependsOnInfos;
         this.entityResourceInfos = b.entityResourceInfos;
         this.serviceResourceInfos = b.serviceResourceInfos;
         this.testSuiteInfos = b.testSuiteInfos;
@@ -508,6 +508,11 @@ public final class ComponentConfig {
         return this.globalName;
     }
 
+    /**
+     * Provides the list of dependent components.
+     *
+     * @return an immutable list containing the dependency information.
+     */
     public List<DependsOnInfo> getDependsOn() {
         return this.dependsOnInfos;
     }
