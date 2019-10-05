@@ -287,7 +287,7 @@ public final class ComponentConfig {
         this.componentName = b.componentName;
         this.enabled = b.enabled;
         this.resourceLoaderInfos = b.resourceLoaderInfos;
-        this.classpathInfos = b.classpathInfos;
+        this.classpathInfos = (b.classpathInfos == null) ? Collections.emptyList() : b.classpathInfos;
         this.dependsOnInfos = (b.dependsOnInfos == null) ? Collections.emptyList() : b.dependsOnInfos;
         this.entityResourceInfos = b.entityResourceInfos;
         this.serviceResourceInfos = b.serviceResourceInfos;
@@ -452,7 +452,14 @@ public final class ComponentConfig {
     private <T> List<T> collectElements(Element ofbizComponentElement, String elemName,
             BiFunction<ComponentConfig, Element, T> mapper) {
         return UtilXml.childElementList(ofbizComponentElement, elemName).stream()
-                .map(element -> mapper.apply(this, element))
+                .flatMap(element -> {
+                    try {
+                        return Stream.of(mapper.apply(this, element));
+                    } catch(IllegalArgumentException e) {
+                        Debug.log(e.getMessage());
+                        return Stream.empty();
+                    }
+                })
                 .collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
     }
 
@@ -460,6 +467,11 @@ public final class ComponentConfig {
         return this.enabled;
     }
 
+    /**
+     * Provides the list of class path information.
+     *
+     * @return an immutable list containing the class path information.
+     */
     public List<ClasspathInfo> getClasspathInfos() {
         return this.classpathInfos;
     }
@@ -610,14 +622,57 @@ public final class ComponentConfig {
      *
      */
     public static final class ClasspathInfo {
-        public final ComponentConfig componentConfig;
-        public final String type;
-        public final String location;
+        private final ComponentConfig componentConfig;
+        private final Type type;
+        private final Path location;
 
         private ClasspathInfo(ComponentConfig componentConfig, Element element) {
+            String loc = element.getAttribute("location").replace('\\', '/');
+            Path location = Paths.get(loc.startsWith("/") ? loc.substring(1) : loc).normalize();
+            Path fullLocation = componentConfig.rootLocation().resolve(location);
+            Type type = Type.of(element.getAttribute("type"));
+            switch (type) {
+            case DIR:
+                if (!Files.isDirectory(fullLocation)) {
+                    String msg = String.format("Classpath location '%s' is not a valid directory", location);
+                    throw new IllegalArgumentException(msg);
+                }
+                break;
+            case JAR:
+                if (Files.notExists(fullLocation)) {
+                    String msg = String.format("Classpath location '%s' does not exist", location);
+                    throw new IllegalArgumentException(msg);
+                }
+                break;
+            }
+
             this.componentConfig = componentConfig;
-            this.type = element.getAttribute("type");
-            this.location = element.getAttribute("location");
+            this.type = type;
+            this.location = location;
+        }
+
+        public ComponentConfig componentConfig() {
+            return componentConfig;
+        }
+
+        public Type type() {
+            return type;
+        }
+
+        public Path location() {
+            return componentConfig.rootLocation().resolve(location);
+        }
+
+        public static enum Type {
+            DIR, JAR;
+
+            private static Type of(String type) {
+                if ("jar".equals(type) || "dir".equals(type)) {
+                    return valueOf(type.toUpperCase());
+                } else {
+                    throw new IllegalArgumentException("Classpath type '" + type + "' is not supported; '");
+                }
+            }
         }
     }
 

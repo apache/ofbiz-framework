@@ -325,35 +325,16 @@ public class ComponentContainer implements Container {
     }
 
     /**
-     * Construct a <code>Classpath</code> object for a certain component based
-     * on its configuration defined in <code>ComponentConfig</code>
+     * Constructs a {@code Classpath} object for a specific component definition.
      *
-     * @param config the component configuration
-     * @return the constructed classpath
-     * @throws IOException
+     * @param config  the component configuration
+     * @return the associated class path information
+     * @see ComponentConfig
      */
-    private static Classpath buildClasspathFromComponentConfig(ComponentConfig config) throws IOException {
-        Classpath classPath = new Classpath();
-        Path configRoot = config.rootLocation();
-        List<ComponentConfig.ClasspathInfo> classpathInfos = config.getClasspathInfos();
-
-        for (ComponentConfig.ClasspathInfo cp: classpathInfos) {
-            String location = cp.location.replace('\\', '/');
-            if (!"jar".equals(cp.type) && !"dir".equals(cp.type)) {
-                Debug.logError("Classpath type '" + cp.type + "' is not supported; '" + location + "' not loaded", module);
-                continue;
-            }
-
-            location = location.startsWith("/") ? location.substring(1) : location;
-            String dirLoc = location.endsWith("/*") ? location.substring(0, location.length() - 2) : location;
-            Path path = configRoot.resolve(dirLoc).normalize();
-            if (Files.exists(path)) {
-                classPath.add(path, cp.type);
-            } else {
-                Debug.logWarning("Location '" + path + "' does not exist", module);
-            }
-        }
-        return classPath;
+    private static Classpath buildClasspathFromComponentConfig(ComponentConfig config) {
+        Classpath res = new Classpath();
+        config.getClasspathInfos().forEach(res::add);
+        return res;
     }
 
     @Override
@@ -364,5 +345,4 @@ public class ComponentContainer implements Container {
     public String getName() {
         return name;
     }
-
 }

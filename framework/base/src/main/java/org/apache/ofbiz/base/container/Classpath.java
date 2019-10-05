@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.ofbiz.base.component.ComponentConfig.ClasspathInfo;
+
 /**
  * A class path object.
  *
@@ -48,19 +50,24 @@ final class Classpath {
      * In the directory case, all files ending with ".jar" or ".zip" inside this directory
      * are added to the class path.
      *
-     * @param file  the absolute normalized file name of a directory or a file that must exist
-     * @param type  either "dir" or "jar"
-     * @throws NullPointerException when {@code file} is {@code null}.
+     * @param cpi  a valid class path information
+     * @throws NullPointerException when {@code cpi} is {@code null}.
      */
-    void add(Path file, String type) {
-        elements.add(file);
-        if (Files.isDirectory(file) && "dir".equals(type)) {
+    void add(ClasspathInfo cpi) {
+        Path file = cpi.location();
+        switch (cpi.type()) {
+        case JAR:
+            elements.add(file);
+            break;
+        case DIR:
+            elements.add(file);
             try (Stream<Path> innerFiles = Files.list(file)) {
                 innerFiles.filter(JAR_ZIP_FILES::matches).forEach(elements::add);
             } catch (IOException e) {
                 String fmt = "Warning : Module classpath component '%s' is not valid and will be ignored...";
                 System.err.println(String.format(fmt, file));
             }
+            break;
         }
     }
 
