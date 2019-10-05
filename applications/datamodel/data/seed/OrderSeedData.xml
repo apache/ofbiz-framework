@@ -82,6 +82,7 @@ under the License.
     <Enumeration description="Snail Mail Channel" enumCode="SNAIL_CHANNEL" enumId="SNAIL_SALES_CHANNEL" sequenceId="06" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Affiliate Channel" enumCode="AFFIL_CHANNEL" enumId="AFFIL_SALES_CHANNEL" sequenceId="07" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="eBay Channel" enumCode="EBAY_CHANNEL" enumId="EBAY_SALES_CHANNEL" sequenceId="08" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="POS Channel" enumCode="POS_CHANNEL" enumId="POS_SALES_CHANNEL" sequenceId="09" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Unknown Channel" enumCode="UNKOWN_CHANNEL" enumId="UNKNWN_SALES_CHANNEL" sequenceId="99" enumTypeId="ORDER_SALES_CHANNEL"/>
     <EnumerationType description="Order Item Change Type" enumTypeId="ODR_ITM_CHANGE_TYPE" hasTable="N"/>
     <Enumeration description="Order Item Update" enumCode="ITM_UPDATE" enumId="ODR_ITM_UPDATE" sequenceId="01" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
