@@ -20,6 +20,7 @@ package org.apache.ofbiz.base.container;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
@@ -39,7 +40,6 @@ import java.util.stream.Collectors;
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentException;
 import org.apache.ofbiz.base.component.ComponentLoaderConfig;
-import org.apache.ofbiz.base.start.Classpath;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
@@ -96,12 +96,13 @@ public class ComponentContainer implements Container {
      */
     private static void loadClassPathForAllComponents(List<Classpath> componentsClassPath) {
         List<URL> allComponentUrls = new ArrayList<>();
-        for(Classpath classPath : componentsClassPath) {
+        for (Classpath classPath : componentsClassPath) {
             try {
-                allComponentUrls.addAll(Arrays.asList(classPath.getUrls()));
+                for (URI uri : classPath.toUris()) {
+                    allComponentUrls.add(uri.toURL());
+                }
             } catch (MalformedURLException e) {
-                Debug.logError("Unable to load component classpath" + classPath.toString(), module);
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e, "Unable to load component classpath %s", module, classPath);
             }
         }
         URL[] componentURLs = allComponentUrls.toArray(new URL[allComponentUrls.size()]);
@@ -347,15 +348,11 @@ public class ComponentContainer implements Container {
 
             location = location.startsWith("/") ? location.substring(1) : location;
             String dirLoc = location.endsWith("/*") ? location.substring(0, location.length() - 2) : location;
-            Path path = Paths.get(configRoot + dirLoc);
-
+            Path path = Paths.get(configRoot + dirLoc).toAbsolutePath().normalize();
             if (Files.exists(path)) {
-                classPath.addComponent(configRoot + location);
-                if (Files.isDirectory(path) && "dir".equals(cp.type)) {
-                    classPath.addFilesFromPath(path.toFile());
-                }
+                classPath.add(path, cp.type);
             } else {
-                Debug.logWarning("Location '" + configRoot + dirLoc + "' does not exist", module);
+                Debug.logWarning("Location '" + path + "' does not exist", module);
             }
         }
         return classPath;
