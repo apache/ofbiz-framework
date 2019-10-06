@@ -18,16 +18,18 @@
  *******************************************************************************/
 package org.apache.ofbiz.accounting
 
+import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
+import java.sql.Timestamp
+
 class AutoAcctgPaymentTests extends OFBizTestCase {
     public AutoAcctgPaymentTests(String name) {
         super(name)
     }
-
     void testCreatePayment() {
         Map serviceCtx = [:]
         serviceCtx.paymentTypeId = 'CUSTOMER_PAYMENT'
@@ -43,7 +45,6 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         assert payment.paymentTypeId == 'CUSTOMER_PAYMENT'
         assert payment.paymentMethodTypeId == 'COMPANY_CHECK'
     }
-
     void testSetPaymentStatus() {
         Map serviceCtx = [:]
         serviceCtx.paymentId = '1000'
@@ -56,7 +57,6 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         assert payment
         assert serviceResult.oldStatusId == 'PAYMENT_NOT_AUTH'
     }
-
     void testQuickSendPayment() {
         Map serviceCtx = [:]
         serviceCtx.paymentId = '1001'
@@ -68,16 +68,26 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         assert payment
         assert payment.statusId == 'PMNT_SENT'
     }
-
     void testGetPayments() {
         Map serviceCtx = [
-                finAccountTransId: '1001',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            finAccountTransId: '1001',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
         ]
-
         Map serviceResult = dispatcher.runSync('getPayments', serviceCtx)
-
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.payments != null
+    }
+    void testCreatePaymentContent() {
+        Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
+        Map serviceCtx = [
+            paymentId: '1006',
+            paymentContentTypeId: 'COMMENTS',
+            contentId: '1006',
+            fromDate: nowTimestamp,
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('createPaymentContent', serviceCtx)
+        GenericValue paymentContent = EntityQuery.use(delegator).from('PaymentContent').where(paymentId: '1006', paymentContentTypeId: 'COMMENTS', contentId: '1006').filterByDate().queryFirst()
+        assert paymentContent
     }
 }
