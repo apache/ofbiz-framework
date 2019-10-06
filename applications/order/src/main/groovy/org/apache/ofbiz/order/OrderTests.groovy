@@ -304,4 +304,12 @@ class OrderTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('processRefundReturn', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    void testAutoAssignRequirementToSupplier() {
+        Map serviceCtx = [
+            requirementId: '1000',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('autoAssignRequirementToSupplier', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
 }
