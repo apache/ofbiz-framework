@@ -213,7 +213,7 @@ under the License.
                                             <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                                             <#list orderItemStatuses as orderItemStatus>
                                                 <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem", false)>
-                                                <#if orderItemStatus.statusDatetime?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderItemStatus.statusDatetime, "", locale, timeZone)!}&nbsp;&nbsp;</#if>${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}
+                                                <div><#if orderItemStatus.statusDatetime?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderItemStatus.statusDatetime, "", locale, timeZone)!}&nbsp;&nbsp;</#if>${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}</div>
                                             </#list>
                                         </div>
                                     </div>
