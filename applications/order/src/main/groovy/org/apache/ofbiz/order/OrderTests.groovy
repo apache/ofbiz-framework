@@ -273,4 +273,12 @@ class OrderTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('processCreditReturn', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    void testProcessCrossShipReplacementReturn() {
+        Map serviceCtx = [
+            returnId: '1009',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('processCrossShipReplacementReturn', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
 }
