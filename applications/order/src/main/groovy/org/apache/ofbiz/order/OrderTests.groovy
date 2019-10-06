@@ -256,4 +256,13 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.emailType.equals("PRDS_ODR_COMPLETE")
     }
+    void testCheckCreateOrderRequirement() {
+        Map serviceCtx = [
+            orderId: 'TEST_DEMO10090',
+            orderItemSeqId: '00001',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('checkCreateOrderRequirement', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
 }
