@@ -285,4 +285,14 @@ class OrderTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('processRefundImmediatelyReturn', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    void testGetReturnItemInitialCost() {
+        Map serviceCtx = [
+            returnId: '1009',
+            returnItemSeqId: '00001',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('getReturnItemInitialCost', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.initialItemCost != null
+    }
 }
