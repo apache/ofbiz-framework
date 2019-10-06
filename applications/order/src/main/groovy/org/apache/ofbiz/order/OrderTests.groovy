@@ -212,7 +212,6 @@ class OrderTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('associatedRequirementWithRequestItem', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
-    
     void testSendOrderChangeNotification() {
         Map serviceCtx = [
                   orderId: 'TEST_DEMO10090',
@@ -223,7 +222,6 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.emailType.equals("PRDS_ODR_CHANGE")
     }
-    
     void testSendOrderBackorderNotification() {
         Map serviceCtx = [
                   orderId: 'TEST_DEMO10090',
@@ -234,7 +232,6 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.emailType.equals("PRDS_ODR_BACKORDER")
     }
-    
     void testsendOrderPayRetryNotification() {
         Map serviceCtx = [
                   orderId: 'TEST_DEMO10090',
@@ -245,7 +242,6 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.emailType.equals("PRDS_ODR_PAYRETRY")
     }
-    
     void testsendOrderCompleteNotification() {
         Map serviceCtx = [
                   orderId: 'TEST_DEMO10090',
@@ -279,6 +275,14 @@ class OrderTests extends OFBizTestCase {
             userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
         ]
         Map serviceResult = dispatcher.runSync('processCrossShipReplacementReturn', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
+    void testProcessRefundImmediatelyReturn() {
+        Map serviceCtx = [
+            returnId: '1009',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('processRefundImmediatelyReturn', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
 }
