@@ -37,7 +37,7 @@
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
     </test-case>
     <test-case case-name="auto-accounting-admin-tests">
-        <simple-method-test location="component://accounting/minilang/test/AutoAcctgAdminTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgAdminTests"/>
     </test-case>
     <test-case case-name="auto-accounting-agreement-tests">
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgAgreementTests.xml"/>
