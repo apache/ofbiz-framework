@@ -882,12 +882,14 @@ public class RequestHandler {
             String name = attributeNameEnum.nextElement();
             Object obj = req.getAttribute(name);
             if (obj instanceof Serializable) {
+                if (obj instanceof Map) {
+                    // See OFBIZ-750 and OFBIZ-11123 for cases where a value in an inner Map is not serializable
+                    UtilMisc.makeMapSerializable(UtilGenerics.cast(obj));
+                }
                 reqAttrMap.put(name, obj);
             }
         }
         if (reqAttrMap.size() > 0) {
-            reqAttrMap.remove("_REQUEST_HANDLER_");  // RequestHandler is not serializable and must be removed first.  See http://issues.apache.org/jira/browse/OFBIZ-750
-            reqAttrMap.remove("uploadedFile");  // uploadedFileis not serializable (it's a HeapByteBuffer) and must be removed first.  See http://issues.apache.org/jira/browse/OFBIZ-11123
             byte[] reqAttrMapBytes = UtilObject.getBytes(reqAttrMap);
             if (reqAttrMapBytes != null) {
                 req.getSession().setAttribute("_REQ_ATTR_MAP_", StringUtil.toHexString(reqAttrMapBytes));
