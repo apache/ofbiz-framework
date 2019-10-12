@@ -26,6 +26,18 @@ class OrderNotificationTests extends OFBizTestCase {
     public OrderNotificationTests(String name) {
         super(name)
     }
+    
+    
+    void testSendOrderConfirmation() {
+        Map serviceCtx = [
+            orderId: 'TEST_DEMO10090',
+            sendTo: 'test_email@example.com',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('sendOrderConfirmation', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.emailType.equals("PRDS_ODR_CONFIRM")
+    }
     void testSendOrderChangeNotification() {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
