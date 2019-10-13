@@ -20,6 +20,7 @@ package org.apache.ofbiz.product.category.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -28,12 +29,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.product.category.SeoConfigUtil;
+import org.apache.ofbiz.webapp.OfbizUrlBuilder;
+import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
+import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
+import org.xml.sax.SAXException;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -49,6 +58,27 @@ import freemarker.template.TemplateTransformModel;
 public class UrlRegexpTransform implements TemplateTransformModel {
 
     private static final String module = UrlRegexpTransform.class.getName();
+
+
+    private static String convertToString(Object o) {
+        String result = "";
+        if (o != null) {
+            if (Debug.verboseOn()) {
+                 Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
+            }
+            if (o instanceof TemplateScalarModel) {
+                TemplateScalarModel s = (TemplateScalarModel) o;
+                try {
+                    result = s.getAsString();
+                } catch (TemplateModelException e) {
+                    Debug.logError(e, "Template Exception", module);
+                }
+            } else {
+                result = o.toString();
+            }
+        }
+        return result;
+    }
 
     public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
@@ -68,6 +98,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);
         final boolean encode = checkArg(args, "encode", true);
+        final String webSiteId = convertToString(args.get("webSiteId"));
 
         return new Writer(out) {
 
@@ -102,6 +133,20 @@ public class UrlRegexpTransform implements TemplateTransformModel {
 
                         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                         out.write(seoUrl(rh.makeLink(request, response, buf.toString(), fullPath, secure || request.isSecure() , encode), userLogin == null));
+                    } else if (!webSiteId.isEmpty()) {
+                        Delegator delegator = FreeMarkerWorker.unwrap(env.getVariable("delegator"));
+                        if (delegator == null) {
+                            throw new IllegalStateException("Delegator not found");
+                        }
+                        ComponentConfig.WebappInfo webAppInfo = WebAppUtil.getWebappInfoFromWebsiteId(webSiteId);
+                        StringBuilder newUrlBuff = new StringBuilder(250);
+                        OfbizUrlBuilder builder = OfbizUrlBuilder.from(webAppInfo, delegator);
+                        builder.buildFullUrl(newUrlBuff, buf.toString(), secure);
+                        String newUrl = newUrlBuff.toString();
+                        if (encode) {
+                            newUrl = URLEncoder.encode(newUrl, "UTF-8");
+                        }
+                        out.write(newUrl);
                     } else if (prefix != null) {
                         if (prefix instanceof TemplateScalarModel) {
                             TemplateScalarModel s = (TemplateScalarModel) prefix;
@@ -119,7 +164,11 @@ public class UrlRegexpTransform implements TemplateTransformModel {
                     } else {
                         out.write(buf.toString());
                     }
-                } catch (IOException | TemplateModelException e) {
+                } catch (IOException |
+                        SAXException |
+                        TemplateModelException |
+                        GenericEntityException |
+                        WebAppConfigurationException e) {
                     throw new IOException(e.getMessage());
                 }
             }
