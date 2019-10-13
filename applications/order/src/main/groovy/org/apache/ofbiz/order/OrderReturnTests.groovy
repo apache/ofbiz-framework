@@ -215,4 +215,12 @@ class OrderReturnTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('processRefundReturnForReplacement', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    void testProcessRepairReplacementReturn() {
+        Map serviceCtx = [
+            returnId: '1009',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('processRepairReplacementReturn', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
 }
