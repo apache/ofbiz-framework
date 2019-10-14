@@ -16,7 +16,7 @@
 # under the License.
 
 if ((Test-Path -Path ((Get-Item -Path ".\").FullName + "\gradle\wrapper\gradle-wrapper.jar")) -and (Test-Path -Path ((Get-Item -Path ".\").FullName + "\gradle\wrapper\gradle-wrapper.properties"))) {
-    Write-Host "The Gradle Wrapper has been already downloaded.";
+    Write-Host "The Gradle Wrapper has already been downloaded.";
     exit
 }
 
