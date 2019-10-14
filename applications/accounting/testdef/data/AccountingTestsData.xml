@@ -111,4 +111,6 @@ under the License.
     <Payment paymentId="1006" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="COMPANY_CHECK" partyIdFrom="DEMO_COMPANY" partyIdTo="DEMO_COMPANY1" amount="100.00" statusId="PMNT_CONFIRMED" />
     <Content contentId="1006" contentTypeId="DOCUMENT"/>
     <PaymentContentType paymentContentTypeId="COMMENTS" hasTable="N" />
+    <!-- For Testing service createAcctgTransEntry -->
+    <AcctgTrans acctgTransId="1000" acctgTransTypeId="CREDIT_MEMO" postedDate="2016-11-03 00:00:00"/>
 </entity-engine-xml>

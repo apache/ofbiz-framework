@@ -28,7 +28,6 @@ class AutoAcctgLedgerTests extends OFBizTestCase {
     public AutoAcctgLedgerTests(String name) {
         super(name)
     }
-
     void testCreateAcctgTrans() {
         Map serviceCtx = [:]
         serviceCtx.acctgTransTypeId = 'CREDIT_MEMO'
@@ -42,5 +41,16 @@ class AutoAcctgLedgerTests extends OFBizTestCase {
         GenericValue acctgTrans = EntityQuery.use(delegator).from('AcctgTrans').where('acctgTransId', serviceResult.acctgTransId).queryOne()
         assert acctgTrans.acctgTransId == serviceResult.acctgTransId
         assert acctgTrans.acctgTransTypeId == 'CREDIT_MEMO'
+    }
+    void testCreateAcctgTransEntry() {
+        Map serviceCtx = [
+            acctgTransId: '1000',
+            organizationPartyId: 'DEMO_COMPANY',
+            debitCreditFlag: 'C',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('createAcctgTransEntry', serviceCtx)
+        GenericValue acctgTransEntry = EntityQuery.use(delegator).from('AcctgTransEntry').where('acctgTransId', '1000', 'acctgTransEntrySeqId', serviceResult.acctgTransEntrySeqId).queryOne()
+        assert acctgTransEntry != null
     }
 }
