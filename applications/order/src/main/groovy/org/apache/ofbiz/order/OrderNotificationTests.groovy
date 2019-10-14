@@ -18,7 +18,6 @@
  */
 package org.apache.ofbiz.order
 
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -32,7 +31,7 @@ class OrderNotificationTests extends OFBizTestCase {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
             sendTo: 'test_email@example.com',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('sendOrderConfirmation', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -42,7 +41,7 @@ class OrderNotificationTests extends OFBizTestCase {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
             sendTo: 'test_email@example.com',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('sendOrderChangeNotification', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -52,7 +51,7 @@ class OrderNotificationTests extends OFBizTestCase {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
             sendTo: 'test_email@example.com',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('sendOrderBackorderNotification', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -62,7 +61,7 @@ class OrderNotificationTests extends OFBizTestCase {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
             sendTo: 'test_email@example.com',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('sendOrderPayRetryNotification', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -72,7 +71,7 @@ class OrderNotificationTests extends OFBizTestCase {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
             sendTo: 'test_email@example.com',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('sendOrderCompleteNotification', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)

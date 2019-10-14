@@ -31,7 +31,7 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceCtx = [
             facilityId: 'WebStoreWarehouse',
             orderItemSeqId: '00001',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('checkCreateProductRequirementForFacility', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -40,7 +40,7 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
             orderItemSeqId: '00001',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('checkCreateStockRequirementQoh', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -50,7 +50,7 @@ class OrderRequirementTests extends OFBizTestCase {
             orderId: 'TEST_DEMO10090',
             orderItemSeqId: '00001',
             shipGroupSeqId: '00001',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('checkCreateStockRequirementAtp', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -59,7 +59,7 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
             orderItemSeqId: '00001',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('checkCreateOrderRequirement', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -67,7 +67,7 @@ class OrderRequirementTests extends OFBizTestCase {
     void testAutoAssignRequirementToSupplier() {
         Map serviceCtx = [
             requirementId: '1000',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('autoAssignRequirementToSupplier', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -77,7 +77,7 @@ class OrderRequirementTests extends OFBizTestCase {
             requirementId: '1000',
             custRequestId: '9000',
             custRequestItemSeqId: '00001',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('associatedRequirementWithRequestItem', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -86,7 +86,7 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceCtx = [
             requirementId: '1000',
             workEffortId: '9000',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync("addRequirementTask", serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)

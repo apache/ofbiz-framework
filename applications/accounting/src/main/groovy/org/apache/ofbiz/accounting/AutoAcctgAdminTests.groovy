@@ -32,7 +32,7 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         Map serviceCtx = [
                 uomId: 'EUR',
                 uomIdTo: 'USD',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync("getFXConversion", serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)

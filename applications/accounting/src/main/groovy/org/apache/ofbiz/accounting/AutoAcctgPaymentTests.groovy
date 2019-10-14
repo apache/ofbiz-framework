@@ -71,7 +71,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
     void testGetPayments() {
         Map serviceCtx = [
             finAccountTransId: '1001',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getPayments', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -84,7 +84,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
             paymentContentTypeId: 'COMMENTS',
             contentId: '1006',
             fromDate: nowTimestamp,
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPaymentContent', serviceCtx)
         GenericValue paymentContent = EntityQuery.use(delegator).from('PaymentContent').where(paymentId: '1006', paymentContentTypeId: 'COMMENTS', contentId: '1006').filterByDate().queryFirst()

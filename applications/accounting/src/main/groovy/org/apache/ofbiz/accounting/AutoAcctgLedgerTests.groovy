@@ -47,7 +47,7 @@ class AutoAcctgLedgerTests extends OFBizTestCase {
             acctgTransId: '1000',
             organizationPartyId: 'DEMO_COMPANY',
             debitCreditFlag: 'C',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createAcctgTransEntry', serviceCtx)
         GenericValue acctgTransEntry = EntityQuery.use(delegator).from('AcctgTransEntry').where('acctgTransId', '1000', 'acctgTransEntrySeqId', serviceResult.acctgTransEntrySeqId).queryOne()

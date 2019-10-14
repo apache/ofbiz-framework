@@ -18,30 +18,21 @@
  */
 package org.apache.ofbiz.order
 
-import org.apache.ofbiz.service.testtools.OFBizTestCase
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart
-import org.apache.ofbiz.entity.util.EntityQuery
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.base.util.Debug
+import static org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp
+import static org.apache.ofbiz.entity.condition.EntityComparisonOperator.GREATER_THAN_EQUAL_TO
+import static org.apache.ofbiz.entity.condition.EntityCondition.makeCondition
 
 import java.sql.Timestamp
 
-import static org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp
-import static org.apache.ofbiz.entity.condition.EntityCondition.makeCondition
-import static org.apache.ofbiz.entity.condition.EntityComparisonOperator.GREATER_THAN_EQUAL_TO
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityQuery
+import org.apache.ofbiz.order.shoppingcart.ShoppingCart
+import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class QuoteTests extends OFBizTestCase {
     public QuoteTests(String name) {
         super(name)
-    }
-
-    // Retrieves a particular login record.
-    private GenericValue getUserLogin(String userLoginId) {
-        GenericValue userLogin = EntityQuery.use(delegator)
-                .from('UserLogin').where(userLoginId: userLoginId).queryOne()
-        assert userLogin
-        return userLogin
     }
 
     // Test case for successfully creating a QuoteWorkEffort record.
@@ -99,7 +90,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test case for CheckUpdateQuotestatus
     void testCheckUpdateQuotestatus() {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 quoteId: '9001',
@@ -149,7 +139,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test createQuote service
     void testCreateQuote () {
-        GenericValue userLogin = getUserLogin('system')
         Map input = [
                 userLogin: userLogin,
                 partyId: 'Company'
@@ -163,7 +152,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test updateQuote service
     void testUpdateQuote() {
-        GenericValue userLogin = getUserLogin('system')
         Map input = [
                 userLogin: userLogin,
                 quoteId: '9000',
@@ -181,7 +169,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test copyQuote service
     void testCopyQuote() {
-        GenericValue userLogin = getUserLogin('system')
         Map input = [
                 userLogin: userLogin,
                 quoteId: '9000'
@@ -193,7 +180,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test createQuoteItem service
     void testCreateQuoteItem() {
-        GenericValue userLogin = getUserLogin('system')
         Map input = [
                 userLogin: userLogin,
                 quoteId: '9000',
@@ -208,7 +194,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test updateQuoteItem service
     void testUpdateQuoteItem() {
-        GenericValue userLogin = getUserLogin('system')
 
         Map input = [
                 userLogin: userLogin,
@@ -224,7 +209,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test removeQuoteItem service
     void testRemoveQuoteItem() {
-        GenericValue userLogin = getUserLogin('system')
 
         Map input = [
                 userLogin: userLogin,
@@ -241,7 +225,6 @@ class QuoteTests extends OFBizTestCase {
 
     // test create a Term
     void testCreateQuoteTerm () {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 termTypeId: 'FIN_PAYMENT_DISC',
@@ -269,7 +252,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Update a term.
     void testUpdateQuoteTerm() {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
             termTypeId: 'FIN_PAYMENT_DISC',
             quoteId: '9000',
@@ -302,7 +284,6 @@ class QuoteTests extends OFBizTestCase {
 
     // delete a term
     void testDeleteQuoteTerm () {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 termTypeId: 'FIN_PAYMENT_DISC',
@@ -318,7 +299,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Create Quote Attribute
     void testCreateQuoteAttribute () {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 quoteId: '9001',
@@ -331,7 +311,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Create Quote Coefficient
     void testCreateQuoteCoefficient () {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 quoteId: '9001',
@@ -344,7 +323,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Get Next Quote Id
     void testGetNextQuoteId () {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 partyId: 'DemoCustomer-1'
@@ -357,7 +335,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test Quote Sequence Enforced
     void testQuoteSequenceEnforced() {
-        GenericValue userLogin = getUserLogin('system')
         GenericValue partyAcctgPreference = EntityQuery.use(delegator)
                 .from('PartyAcctgPreference').where('partyId', 'DemoCustomer').queryOne()
         Long lastQuoteNumber = partyAcctgPreference.lastQuoteNumber
@@ -378,7 +355,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Copy Quote Item
     void testCopyQuoteItem () {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 quoteId: '9001',
@@ -396,7 +372,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test createQuoteAndQuoteItemForRequest
     void testCreateQuoteAndQuoteItemForRequest () {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 custRequestId: '9000',
@@ -410,7 +385,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test createQuoteFromCart
     void testCreateQuoteFromCart() {
-        GenericValue userLogin = getUserLogin('system')
         String productId = 'SV-1001'
         String partyId = 'DemoCustomer'
 
@@ -442,7 +416,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test createQuoteFromShoppingList
     void testCreateQuoteFromShoppingList() {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
             userLogin: userLogin,
             shoppingListId: '9000',
@@ -458,7 +431,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test autoUpdateQuotePrice
     void testAutoUpdateQuotePrice() {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
             userLogin: userLogin,
             quoteId: '9000',
@@ -473,7 +445,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test createQuoteFromCustRequest
     void testCreateQuoteFromCustRequest () {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 custRequestId: '9000'
@@ -504,7 +475,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Create Quote Note
     void testCreateQuoteNote () {
-        GenericValue userLogin = getUserLogin('system')
         def input = [
                 userLogin: userLogin,
                 quoteId: '9001',
