@@ -123,7 +123,7 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" use-when="finAccount!=null" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+            <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" env-name="finAccount.statusId"/>
                     <entity-order-by field-name="sequenceId"/>

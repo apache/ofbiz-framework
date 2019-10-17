@@ -47,7 +47,7 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" use-when="returnHeader!=null">
-            <drop-down current-description="${currentStatus.description}">
+            <drop-down current-description="${currentStatus.description}" current="first-in-list" >
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" env-name="returnHeader.statusId"/>
                     <entity-order-by field-name="sequenceId"/>
