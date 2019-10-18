@@ -33,9 +33,6 @@ under the License.
     <test-case case-name="order-tests-xml">
         <simple-method-test location="component://order/minilang/test/OrderTests.xml"/>
     </test-case>
-    <test-case case-name="order-notification-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.order.OrderNotificationTests"/>
-    </test-case>
     <test-case case-name="order-return-tests">
         <junit-test-suite class-name="org.apache.ofbiz.order.OrderReturnTests"/>
     </test-case>
