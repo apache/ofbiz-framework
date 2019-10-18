@@ -56,7 +56,7 @@ under the License.
             <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
         </if-empty>
 
-        <log level="warning" message="This simple-method-call is deprecated! Please use a service-call of genericBasePermissionCheck instead."/>
+        <log level="info" message="This simple-method-call is deprecated! Please use a service-call of genericBasePermissionCheck instead."/>
         <set field="inParams.altPermission" from-field="altPermission"/>
         <set field="inParams.mainAction" from-field="parameters.mainAction"/>
         <set field="inParams.primaryPermission" from-field="primaryPermission"/>
