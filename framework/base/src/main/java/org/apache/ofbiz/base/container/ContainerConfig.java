@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,38 +15,31 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.apache.ofbiz.base.container;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toList;
+
+import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.parsers.ParserConfigurationException;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /**
- * ContainerConfig - Container configuration for ofbiz.xml
- *
+ * A container configuration.
  */
-public class ContainerConfig {
-
-    private ContainerConfig() {}
-
-    public static final String module = ContainerConfig.class.getName();
-
+public final class ContainerConfig {
+    /** The global container configuration store. */
     private static Map<String, Configuration> configurations = new LinkedHashMap<>();
+
+    private ContainerConfig() { }
 
     /**
      * Retrieves the container configuration element corresponding to a container name.
@@ -78,29 +71,33 @@ public class ContainerConfig {
         return configuration;
     }
 
-    public static Collection<Configuration> getConfigurations(URL xmlUrl) throws ContainerException {
-        if (xmlUrl == null) {
-            throw new ContainerException("xmlUrl argument cannot be null");
-        }
-        Collection<Configuration> result = getConfigurationPropsFromXml(xmlUrl);
+    /**
+     * Finds the container configuration elements in a .
+     *
+     * @param root  the URL of the XML file which cannot be {@code null}
+     * @return a list of container configuration
+     * @throws ContainerException when failing to read the XML document.
+     */
+    public static List<Configuration> getConfigurations(Element root) throws ContainerException {
+        List<Configuration> res = UtilXml.childElementList(root, "container").stream()
+                .map(Configuration::new)
+                .collect(collectingAndThen(toList(), Collections::unmodifiableList));
         synchronized (ContainerConfig.class) {
-            for (Configuration container : result) {
-                configurations.put(container.name, container);
-            }
+            res.forEach(cfg -> configurations.put(cfg.name, cfg));
         }
-        return result;
+        return res;
     }
 
-    public static String getPropertyValue(ContainerConfig.Configuration parentProp, String name, String defaultValue) {
-        ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
+    public static String getPropertyValue(Configuration parentProp, String name, String defaultValue) {
+        Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
         }
         return prop.value;
     }
 
-    public static int getPropertyValue(ContainerConfig.Configuration parentProp, String name, int defaultValue) {
-        ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
+    public static int getPropertyValue(Configuration parentProp, String name, int defaultValue) {
+        Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
         }
@@ -111,24 +108,24 @@ public class ContainerConfig {
         }
     }
 
-    public static boolean getPropertyValue(ContainerConfig.Configuration parentProp, String name, boolean defaultValue) {
-        ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
+    public static boolean getPropertyValue(Configuration parentProp, String name, boolean defaultValue) {
+        Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
         }
         return "true".equalsIgnoreCase(prop.value);
     }
 
-    public static String getPropertyValue(ContainerConfig.Configuration.Property parentProp, String name, String defaultValue) {
-        ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
+    public static String getPropertyValue(Property parentProp, String name, String defaultValue) {
+        Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
         }
         return prop.value;
     }
 
-    public static int getPropertyValue(ContainerConfig.Configuration.Property parentProp, String name, int defaultValue) {
-        ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
+    public static int getPropertyValue(Property parentProp, String name, int defaultValue) {
+        Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
         }
@@ -139,97 +136,181 @@ public class ContainerConfig {
         }
     }
 
-    public static boolean getPropertyValue(ContainerConfig.Configuration.Property parentProp, String name, boolean defaultValue) {
-        ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
+    public static boolean getPropertyValue(Property parentProp, String name, boolean defaultValue) {
+        Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
         }
         return "true".equalsIgnoreCase(prop.value);
     }
 
-    private static Collection<Configuration> getConfigurationPropsFromXml(URL xmlUrl) throws ContainerException {
-        Document containerDocument = null;
-        try {
-            containerDocument = UtilXml.readXmlDocument(xmlUrl, true);
-        } catch (SAXException | ParserConfigurationException | IOException e) {
-            throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
-        }
-        Element root = containerDocument.getDocumentElement();
-        List<Configuration> result = new ArrayList<>();
-        for (Element curElement: UtilXml.childElementList(root, "container")) {
-            result.add(new Configuration(curElement));
-        }
-        return result;
-    }
-
+    /**
+     * A container configuration.
+     */
     public static class Configuration {
-        public final String name;
-        public final String className;
-        public final List<String> loaders;
-        public final Map<String, Property> properties;
+        /** The identifier of the configuration. */
+        private final String name;
+        /** The name of class the configuration. */
+        private final String className;
+        /** The list of loader names triggering the launch of the container. */
+        private final List<String> loaders;
+        /** The container property elements. */
+        private final Map<String, Property> properties;
 
+        /**
+         * Constructs a container configuration.
+         *
+         * @param element  the {@code <container>} XML element to parse
+         */
         public Configuration(Element element) {
-            this.name = element.getAttribute("name");
-            this.className = element.getAttribute("class");
-            this.loaders = StringUtil.split(element.getAttribute("loaders"), ",");
-
-            properties = new LinkedHashMap<>();
-            for (Element curElement: UtilXml.childElementList(element, "property")) {
-                Property property = new Property(curElement);
-                properties.put(property.name, property);
-            }
+            name = element.getAttribute("name");
+            className = element.getAttribute("class");
+            loaders = Collections.unmodifiableList(StringUtil.split(element.getAttribute("loaders"), ","));
+            properties = Property.parseProps(element);
         }
 
+        /**
+         * @return the name
+         */
+        public String name() {
+            return name;
+        }
+
+        /**
+         * @return the className
+         */
+        public String className() {
+            return className;
+        }
+
+        /**
+         * @return the loaders
+         */
+        public List<String> loaders() {
+            return loaders;
+        }
+
+        /**
+         * @return the properties
+         */
+        public Map<String, Property> properties() {
+            return properties;
+        }
+
+        /**
+         * Provides the child property corresponding to a specified identifier.
+         *
+         * @param name the child property identifier
+         * @return the property corresponding to {@code name} or {@code null} if the identifier is absent.
+         */
+        public Property getProperty(String name) {
+            return properties().get(name);
+        }
+
+        /**
+         * Provides all the child properties whose values are equal a specified value.
+         *
+         * @param value  the value to match
+         * @return a list of matching properties
+         */
+        public List<Property> getPropertiesWithValue(String value) {
+            return Property.getPropertiesWithValue(properties(), value);
+        }
+    }
+
+    /**
+     * A tree of container configuration properties.
+     */
+    public static class Property {
+        /** The identifier of the configuration element */
+        private final String name;
+        /** The value associated with the {@code name} identifier. */
+        private final String value;
+        /** The properties children */
+        private final Map<String, Property> properties;
+
+        /**
+         * Constructs a container configuration element.
+         *
+         * @param element the {@code <property>} XML element containing the configuration.
+         */
+        public Property(Element element) {
+            name = element.getAttribute("name");
+            String value = element.getAttribute("value");
+            if (UtilValidate.isEmpty(value)) {
+                value = UtilXml.childElementValue(element, "property-value");
+            }
+            this.value = value;
+            this.properties = parseProps(element);
+        }
+
+        /**
+         * @return the name
+         */
+        public String name() {
+            return name;
+        }
+
+        /**
+         * @return the value
+         */
+        public String value() {
+            return value;
+        }
+
+        /**
+         * @return the properties
+         */
+        public Map<String, Property> properties() {
+            return properties;
+        }
+
+        /**
+         * Provides the child property corresponding to a specified identifier.
+         *
+         * @param name the child property identifier
+         * @return the property corresponding to {@code name} or {@code null} if the identifier is absent.
+         */
         public Property getProperty(String name) {
             return properties.get(name);
         }
 
+        /**
+         * Provides all the child properties whose values are equal a specified value.
+         *
+         * @param value  the value to match
+         * @return a list of matching properties
+         */
         public List<Property> getPropertiesWithValue(String value) {
-            List<Property> props = new LinkedList<>();
-            if (UtilValidate.isNotEmpty(properties)) {
-                for (Property p: properties.values()) {
-                    if (p != null && value.equals(p.value)) {
-                        props.add(p);
-                    }
-                }
-            }
-            return props;
+            return getPropertiesWithValue(properties, value);
         }
 
-        public static class Property {
-            public String name;
-            public String value;
-            public Map<String, Property> properties;
+        /**
+         * Aggregates the {@code <property>} XML elements in a Map.
+         *
+         * @param root  the root XML Element containing {@code <property>} children
+         * @return a map of property elements
+         */
+        private static Map<String, Property> parseProps(Element root) {
+            LinkedHashMap<String, Property> res = new LinkedHashMap<>();
+            UtilXml.childElementList(root, "property").forEach(el -> {
+                Property p = new Property(el);
+                res.put(p.name, p);
+            });
+            return Collections.unmodifiableMap(res);
+        }
 
-            public Property(Element element) {
-                this.name = element.getAttribute("name");
-                this.value = element.getAttribute("value");
-                if (UtilValidate.isEmpty(this.value)) {
-                    this.value = UtilXml.childElementValue(element, "property-value");
-                }
-
-                properties = new LinkedHashMap<>();
-                for (Element curElement: UtilXml.childElementList(element, "property")) {
-                    Property property = new Property(curElement);
-                    properties.put(property.name, property);
-                }
-            }
-
-            public Property getProperty(String name) {
-                return properties.get(name);
-            }
-
-            public List<Property> getPropertiesWithValue(String value) {
-                List<Property> props = new LinkedList<>();
-                if (UtilValidate.isNotEmpty(properties)) {
-                    for (Property p: properties.values()) {
-                        if (p != null && value.equals(p.value)) {
-                            props.add(p);
-                        }
-                    }
-                }
-                return props;
-            }
+        /**
+         * Provides all the child properties whose values are equal a specified value.
+         *
+         * @param value  the value to match
+         * @return a list of matching properties
+         */
+        private static List<Property> getPropertiesWithValue(Map<String, Property> propkvs, String value) {
+            return propkvs.values().stream()
+                    .filter(Objects::nonNull)
+                    .filter(p -> value.equals(p.value))
+                    .collect(toList());
         }
     }
 }

@@ -61,29 +61,29 @@ public class RmiServiceContainer implements Container {
     public boolean start() throws ContainerException {
         // get the container config
         ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(containerName);
-        ContainerConfig.Configuration.Property initialCtxProp = cfg.getProperty("use-initial-context");
-        ContainerConfig.Configuration.Property lookupHostProp = cfg.getProperty("bound-host");
-        ContainerConfig.Configuration.Property lookupPortProp = cfg.getProperty("bound-port");
-        ContainerConfig.Configuration.Property lookupNameProp = cfg.getProperty("bound-name");
-        ContainerConfig.Configuration.Property delegatorProp = cfg.getProperty("delegator-name");
-        ContainerConfig.Configuration.Property clientProp = cfg.getProperty("client-factory");
-        ContainerConfig.Configuration.Property serverProp = cfg.getProperty("server-factory");
+        ContainerConfig.Property initialCtxProp = cfg.getProperty("use-initial-context");
+        ContainerConfig.Property lookupHostProp = cfg.getProperty("bound-host");
+        ContainerConfig.Property lookupPortProp = cfg.getProperty("bound-port");
+        ContainerConfig.Property lookupNameProp = cfg.getProperty("bound-name");
+        ContainerConfig.Property delegatorProp = cfg.getProperty("delegator-name");
+        ContainerConfig.Property clientProp = cfg.getProperty("client-factory");
+        ContainerConfig.Property serverProp = cfg.getProperty("server-factory");
 
         // check the required lookup-name property
-        if (lookupNameProp == null || UtilValidate.isEmpty(lookupNameProp.value)) {
+        if (lookupNameProp == null || UtilValidate.isEmpty(lookupNameProp.value())) {
             throw new ContainerException("Invalid lookup-name defined in container configuration");
         } else {
-            this.name = lookupNameProp.value;
+            this.name = lookupNameProp.value();
         }
 
         // check the required delegator-name property
-        if (delegatorProp == null || UtilValidate.isEmpty(delegatorProp.value)) {
+        if (delegatorProp == null || UtilValidate.isEmpty(delegatorProp.value())) {
             throw new ContainerException("Invalid delegator-name defined in container configuration");
         }
 
-        String useCtx = initialCtxProp == null || initialCtxProp.value == null ? "false" : initialCtxProp.value;
-        String host = lookupHostProp == null || lookupHostProp.value == null ? "localhost" : lookupHostProp.value;
-        String port = lookupPortProp == null || lookupPortProp.value == null ? "1099" : lookupPortProp.value;
+        String useCtx = initialCtxProp == null || initialCtxProp.value() == null ? "false" : initialCtxProp.value();
+        String host = lookupHostProp == null || lookupHostProp.value() == null ? "localhost" : lookupHostProp.value();
+        String port = lookupPortProp == null || lookupPortProp.value() == null ? "1099" : lookupPortProp.value();
         if (Start.getInstance().getConfig().portOffset != 0) {
             Integer portValue = Integer.valueOf(port);
             portValue += Start.getInstance().getConfig().portOffset;
@@ -103,17 +103,17 @@ public class RmiServiceContainer implements Container {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
         // load the factories
-        if (clientProp != null && UtilValidate.isNotEmpty(clientProp.value)) {
+        if (clientProp != null && UtilValidate.isNotEmpty(clientProp.value())) {
             try {
-                Class<?> c = loader.loadClass(clientProp.value);
+                Class<?> c = loader.loadClass(clientProp.value());
                 csf = (RMIClientSocketFactory) c.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 throw new ContainerException(e);
             }
         }
-        if (serverProp != null && UtilValidate.isNotEmpty(serverProp.value)) {
+        if (serverProp != null && UtilValidate.isNotEmpty(serverProp.value())) {
             try {
-                Class<?> c = loader.loadClass(serverProp.value);
+                Class<?> c = loader.loadClass(serverProp.value());
                 ssf = (RMIServerSocketFactory) c.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 throw new ContainerException(e);
@@ -130,7 +130,7 @@ public class RmiServiceContainer implements Container {
         }
 
         // get the delegator for this container
-        Delegator delegator = DelegatorFactory.getDelegator(delegatorProp.value);
+        Delegator delegator = DelegatorFactory.getDelegator(delegatorProp.value());
 
         // create the LocalDispatcher
         LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(name, delegator);

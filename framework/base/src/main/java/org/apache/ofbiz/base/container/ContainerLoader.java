@@ -102,11 +102,11 @@ public class ContainerLoader {
             List<StartupCommand> ofbizCommands) throws StartupException {
         List<Container> loadContainers = new ArrayList<>();
         for (ContainerConfig.Configuration containerCfg : ComponentConfig.getAllConfigurations()) {
-            if (intersects(containerCfg.loaders, loaders)) {
-                Debug.logInfo("Loading container: " + containerCfg.name, module);
+            if (intersects(containerCfg.loaders(), loaders)) {
+                Debug.logInfo("Loading container: " + containerCfg.name(), module);
                 Container tmpContainer = loadContainer(containerCfg, ofbizCommands);
                 loadContainers.add(tmpContainer);
-                Debug.logInfo("Loaded container: " + containerCfg.name, module);
+                Debug.logInfo("Loaded container: " + containerCfg.name(), module);
             }
         }
         return loadContainers;
@@ -119,7 +119,7 @@ public class ContainerLoader {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Class<?> containerClass;
         try {
-            containerClass = loader.loadClass(containerCfg.className);
+            containerClass = loader.loadClass(containerCfg.className());
         } catch (ClassNotFoundException e) {
             throw new StartupException("Cannot locate container class", e);
         }
@@ -132,7 +132,7 @@ public class ContainerLoader {
         try {
             containerObj = (Container) containerClass.getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
-            throw new StartupException("Cannot create " + containerCfg.name, e);
+            throw new StartupException("Cannot create " + containerCfg.name(), e);
         }
         if (containerObj == null) {
             throw new StartupException("Unable to create instance of component container");
@@ -140,9 +140,9 @@ public class ContainerLoader {
 
         // initialize the container object
         try {
-            containerObj.init(ofbizCommands, containerCfg.name, null);
+            containerObj.init(ofbizCommands, containerCfg.name(), null);
         } catch (ContainerException e) {
-            throw new StartupException("Cannot init() " + containerCfg.name, e);
+            throw new StartupException("Cannot init() " + containerCfg.name(), e);
         }
 
         return containerObj;

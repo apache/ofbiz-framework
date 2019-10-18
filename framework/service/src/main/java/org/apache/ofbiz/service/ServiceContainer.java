@@ -47,13 +47,13 @@ public class ServiceContainer implements Container {
         this.name = name;
         // initialize the LocalDispatcherFactory
         ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(name);
-        ContainerConfig.Configuration.Property dispatcherFactoryProperty = cfg.getProperty("dispatcher-factory");
-        if (dispatcherFactoryProperty == null || UtilValidate.isEmpty(dispatcherFactoryProperty.value)) {
+        ContainerConfig.Property dispatcherFactoryProperty = cfg.getProperty("dispatcher-factory");
+        if (dispatcherFactoryProperty == null || UtilValidate.isEmpty(dispatcherFactoryProperty.value())) {
             throw new ContainerException("Unable to initialize container " + name + ": dispatcher-factory property is not set");
         }
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try {
-            Class<?> c = loader.loadClass(dispatcherFactoryProperty.value);
+            Class<?> c = loader.loadClass(dispatcherFactoryProperty.value());
             dispatcherFactory = (LocalDispatcherFactory) c.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new ContainerException(e);

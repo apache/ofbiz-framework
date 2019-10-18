@@ -35,7 +35,7 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
-import org.apache.ofbiz.base.container.ContainerConfig.Configuration.Property;
+import org.apache.ofbiz.base.container.ContainerConfig.Property;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.start.StartupCommandUtil;
@@ -108,7 +108,7 @@ public class EntityDataLoadContainer implements Container {
         if ("all-tenants".equals(overrideDelegator)) {
             // load data for all tenants
             for (GenericValue tenant : getTenantList(delegatorNameProp)) {
-                String tenantDelegator = delegatorNameProp.value + "#" + tenant.getString("tenantId");
+                String tenantDelegator = delegatorNameProp.value() + "#" + tenant.getString("tenantId");
                 loadDataForDelegator(loadDataProps, configuration, delegatorNameProp, tenantDelegator);
             }
         } else {
@@ -212,11 +212,11 @@ public class EntityDataLoadContainer implements Container {
         if (overrideGroup != null) {
             return overrideGroup;
         } else {
-            ContainerConfig.Configuration.Property entityGroupNameProp = cfg.getProperty("entity-group-name");
-            if (entityGroupNameProp == null || UtilValidate.isEmpty(entityGroupNameProp.value)) {
+            Property entityGroupNameProp = cfg.getProperty("entity-group-name");
+            if (entityGroupNameProp == null || UtilValidate.isEmpty(entityGroupNameProp.value())) {
                 throw new ContainerException("Invalid entity-group-name defined in container configuration");
             } else {
-                return entityGroupNameProp.value;
+                return entityGroupNameProp.value();
             }
         }
     }
@@ -236,12 +236,13 @@ public class EntityDataLoadContainer implements Container {
     }
 
     private static Delegator getDelegatorFromProp(Property delegatorNameProp) throws ContainerException {
-        if (delegatorNameProp != null && UtilValidate.isNotEmpty(delegatorNameProp.value)) {
-            Delegator delegator = DelegatorFactory.getDelegator(delegatorNameProp.value);
+        if (delegatorNameProp != null && UtilValidate.isNotEmpty(delegatorNameProp.value())) {
+            String delegValue = delegatorNameProp.value();
+            Delegator delegator = DelegatorFactory.getDelegator(delegValue);
             if (delegator != null) {
                 return delegator;
             } else {
-                throw new ContainerException("Invalid delegator name: " + delegatorNameProp.value);
+                throw new ContainerException("Invalid delegator name: " + delegValue);
             }
         } else {
             throw new ContainerException("Invalid delegator name defined in container configuration");

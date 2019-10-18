@@ -69,7 +69,7 @@ import org.apache.ofbiz.base.concurrent.ExecutionPool;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
-import org.apache.ofbiz.base.container.ContainerConfig.Configuration.Property;
+import org.apache.ofbiz.base.container.ContainerConfig.Property;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.start.Start;
@@ -165,7 +165,7 @@ public class CatalinaContainer implements Container {
     }
 
     private static Property retrieveTomcatEngineConfig(ContainerConfig.Configuration cc) throws ContainerException {
-        List<ContainerConfig.Configuration.Property> engineProps = cc.getPropertiesWithValue("engine");
+        List<ContainerConfig.Property> engineProps = cc.getPropertiesWithValue("engine");
         if (UtilValidate.isEmpty(engineProps)) {
             throw new ContainerException("Cannot load CatalinaContainer; no engines defined.");
         }
@@ -175,9 +175,8 @@ public class CatalinaContainer implements Container {
         return engineProps.get(0);
     }
 
-    private static Tomcat prepareTomcatServer(ContainerConfig.Configuration cc,
-            ContainerConfig.Configuration.Property engineConfig) throws ContainerException {
-
+    private static Tomcat prepareTomcatServer(ContainerConfig.Configuration cc, ContainerConfig.Property engineConfig)
+            throws ContainerException {
         System.setProperty(Globals.CATALINA_HOME_PROP, System.getProperty("ofbiz.home") + "/" +
                     ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina"));
         System.setProperty(Globals.CATALINA_BASE_PROP, System.getProperty(Globals.CATALINA_HOME_PROP));
@@ -189,7 +188,7 @@ public class CatalinaContainer implements Container {
         if (defaultHostProp == null) {
             throw new ContainerException("default-host element of server property is required for catalina!");
         }
-        tomcat.setHostname(defaultHostProp.value);
+        tomcat.setHostname(defaultHostProp.value());
 
         if (ContainerConfig.getPropertyValue(cc, "use-naming", false)) {
             tomcat.enableNaming();
@@ -207,7 +206,7 @@ public class CatalinaContainer implements Container {
 
     private static Engine prepareTomcatEngine(Tomcat tomcat, Property engineConfig) {
         Engine engine = tomcat.getEngine();
-        engine.setName(engineConfig.name);
+        engine.setName(engineConfig.name());
 
         // set the JVM Route property (JK/JK2)
         String jvmRoute = ContainerConfig.getPropertyValue(engineConfig, "jvm-route", null);
@@ -279,7 +278,7 @@ public class CatalinaContainer implements Container {
             channel.setMembershipService(prepareChannelMcastService(clusterProp));
 
             SimpleTcpCluster cluster = new SimpleTcpCluster();
-            cluster.setClusterName(clusterProp.name);
+            cluster.setClusterName(clusterProp.name());
             cluster.setManagerTemplate(prepareClusterManager(clusterProp));
             cluster.setChannel(channel);
             cluster.addValve(prepareClusterValve(clusterProp));
@@ -416,7 +415,7 @@ public class CatalinaContainer implements Container {
             throw new ContainerException("Cannot load CatalinaContainer; no connectors defined!");
         }
         return connectorProps.stream()
-            .filter(connectorProp -> UtilValidate.isNotEmpty(connectorProp.properties))
+            .filter(connectorProp -> UtilValidate.isNotEmpty(connectorProp.properties()))
             .map(connectorProp -> prepareConnector(connectorProp))
             .collect(Collectors.toList());
     }
@@ -428,18 +427,23 @@ public class CatalinaContainer implements Container {
             connector.addUpgradeProtocol(new Http2Protocol());
             Debug.logInfo("Tomcat " + connector + ": enabled HTTP/2", module);
         }
-        connectorProp.properties.values().stream()
-            .filter(prop -> !"protocol".equals(prop.name) && !"upgradeProtocol".equals(prop.name) && !"port".equals(prop.name))
+        connectorProp.properties().values().stream()
+            .filter(prop -> {
+                String name = prop.name();
+                return !"protocol".equals(name) && !"upgradeProtocol".equals(name) && !"port".equals(name);
+            })
             .forEach(prop -> {
-                if (IntrospectionUtils.setProperty(connector, prop.name, prop.value)) {
-                    if (prop.name.indexOf("Pass") != -1) {
+                String name = prop.name();
+                String value = prop.value();
+                if (IntrospectionUtils.setProperty(connector, name, value)) {
+                    if (name.indexOf("Pass") != -1) {
                         // this property may be a password, do not include its value in the logs
-                        Debug.logInfo("Tomcat " + connector + ": set " + prop.name, module);
+                        Debug.logInfo("Tomcat " + connector + ": set " + name, module);
                     } else {
-                        Debug.logInfo("Tomcat " + connector + ": set " + prop.name + "=" + prop.value, module);
+                        Debug.logInfo("Tomcat " + connector + ": set " + name + "=" + value, module);
                     }
                 } else {
-                    Debug.logWarning("Tomcat " + connector + ": ignored parameter " + prop.name, module);
+                    Debug.logWarning("Tomcat " + connector + ": ignored parameter " + name, module);
                 }
             });
         return connector;

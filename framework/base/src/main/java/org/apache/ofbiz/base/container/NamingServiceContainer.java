@@ -58,19 +58,19 @@ public class NamingServiceContainer implements Container {
 
         // get the naming (JNDI) port
 
-        ContainerConfig.Configuration.Property port = cfg.getProperty("port");
-        if (port.value != null) {
+        ContainerConfig.Property port = cfg.getProperty("port");
+        if (port.value() != null) {
             try {
-                this.namingPort = Integer.parseInt(port.value) + Start.getInstance().getConfig().portOffset;
+                this.namingPort = Integer.parseInt(port.value()) + Start.getInstance().getConfig().portOffset;
             } catch (Exception e) {
                 throw new ContainerException("Invalid port defined in container [naming-container] configuration or as portOffset; not a valid int");
             }
         }
 
         // get the naming (JNDI) server
-        ContainerConfig.Configuration.Property host = cfg.getProperty("host");
-        if (host != null && host.value != null) {
-            this.namingHost =  host.value ;
+        ContainerConfig.Property host = cfg.getProperty("host");
+        if (host != null && host.value() != null) {
+            this.namingHost =  host.value() ;
         }
 
         try {
