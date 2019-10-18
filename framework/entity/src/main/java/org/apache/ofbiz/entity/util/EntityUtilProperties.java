@@ -246,13 +246,9 @@ public final class EntityUtilProperties implements Serializable {
         return UtilProperties.getSplitPropertyValue(url, name);
     }
 
-     public static void setPropertyValue(String resource, String name, String value) {
-         UtilProperties.setPropertyValue(resource, name, value);
-     }
-
-      public static void setPropertyValueInMemory(String resource, String name, String value) {
-          UtilProperties.setPropertyValueInMemory(resource, name, value);
-      }
+    public static void setPropertyValueInMemory(String resource, String name, String value) {
+        UtilProperties.setPropertyValueInMemory(resource, name, value);
+    }
 
     public static String setPropertyValue(Delegator delegator, String resourceName, String name, String value) {
         GenericValue gv = null;
