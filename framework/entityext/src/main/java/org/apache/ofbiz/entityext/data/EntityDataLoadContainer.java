@@ -35,7 +35,6 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
-import org.apache.ofbiz.base.container.ContainerConfig.Property;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.start.StartupCommandUtil;
@@ -102,7 +101,7 @@ public class EntityDataLoadContainer implements Container {
         ServiceDispatcher.enableSvcs(false);
 
         Configuration configuration = ContainerConfig.getConfiguration(name);
-        Property delegatorNameProp = configuration.getProperty("delegator-name");
+        Configuration.Property delegatorNameProp = configuration.getProperty("delegator-name");
         String overrideDelegator = loadDataProps.get(DELEGATOR_NAME);
 
         if ("all-tenants".equals(overrideDelegator)) {
@@ -131,7 +130,8 @@ public class EntityDataLoadContainer implements Container {
         return name;
     }
 
-    private static List<GenericValue> getTenantList(Property delegatorNameProp) throws ContainerException {
+    private static List<GenericValue> getTenantList(Configuration.Property delegatorNameProp)
+            throws ContainerException {
         if (!EntityUtil.isMultiTenantEnabled()) {
             throw new ContainerException("Multitenant is disabled, must be enabled in general.properties -> multitenant=Y");
         }
@@ -149,8 +149,8 @@ public class EntityDataLoadContainer implements Container {
     }
 
     private static void loadDataForDelegator(Map<String, String> loadDataProps, Configuration configuration,
-            Property delegatorNameProp, String overrideDelegator) throws ContainerException{
-
+            Configuration.Property delegatorNameProp, String overrideDelegator)
+                    throws ContainerException{
         // prepare command line properties passed by user
         boolean createPks = isPropertySet(loadDataProps, CREATE_P_KEYS);
         boolean dropPks = isPropertySet(loadDataProps, DROP_P_KEYS);
@@ -212,7 +212,7 @@ public class EntityDataLoadContainer implements Container {
         if (overrideGroup != null) {
             return overrideGroup;
         } else {
-            Property entityGroupNameProp = cfg.getProperty("entity-group-name");
+            Configuration.Property entityGroupNameProp = cfg.getProperty("entity-group-name");
             if (entityGroupNameProp == null || UtilValidate.isEmpty(entityGroupNameProp.value())) {
                 throw new ContainerException("Invalid entity-group-name defined in container configuration");
             } else {
@@ -226,7 +226,7 @@ public class EntityDataLoadContainer implements Container {
      * overridden by the user. This method will create all the tables, keys and
      * indices if missing and hence might take a long time.
      */
-    private static Delegator getDelegator(Property delegatorNameProp, String overrideDelegator)
+    private static Delegator getDelegator(Configuration.Property delegatorNameProp, String overrideDelegator)
             throws ContainerException {
         if (overrideDelegator != null) {
             return DelegatorFactory.getDelegator(overrideDelegator);
@@ -235,7 +235,7 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static Delegator getDelegatorFromProp(Property delegatorNameProp) throws ContainerException {
+    private static Delegator getDelegatorFromProp(Configuration.Property delegatorNameProp) throws ContainerException {
         if (delegatorNameProp != null && UtilValidate.isNotEmpty(delegatorNameProp.value())) {
             String delegValue = delegatorNameProp.value();
             Delegator delegator = DelegatorFactory.getDelegator(delegValue);

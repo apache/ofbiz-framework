@@ -69,7 +69,6 @@ import org.apache.ofbiz.base.concurrent.ExecutionPool;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
-import org.apache.ofbiz.base.container.ContainerConfig.Property;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.start.Start;
@@ -104,7 +103,7 @@ public class CatalinaContainer implements Container {
 
         this.name = name;
         ContainerConfig.Configuration configuration = ContainerConfig.getConfiguration(name);
-        Property engineConfig = retrieveTomcatEngineConfig(configuration);
+        Configuration.Property engineConfig = retrieveTomcatEngineConfig(configuration);
 
         // tomcat setup
         tomcat = prepareTomcatServer(configuration, engineConfig);
@@ -125,7 +124,7 @@ public class CatalinaContainer implements Container {
         }
 
         // clustering, valves and connectors setup
-        Property clusterProps = prepareTomcatClustering(host, engineConfig);
+        Configuration.Property clusterProps = prepareTomcatClustering(host, engineConfig);
         prepareTomcatEngineValves(engineConfig).forEach(valve -> ((StandardEngine)engine).addValve(valve));
         prepareTomcatConnectors(configuration).forEach(connector -> tomcat.getService().addConnector(connector));
 
@@ -164,8 +163,8 @@ public class CatalinaContainer implements Container {
         return name;
     }
 
-    private static Property retrieveTomcatEngineConfig(ContainerConfig.Configuration cc) throws ContainerException {
-        List<ContainerConfig.Property> engineProps = cc.getPropertiesWithValue("engine");
+    private static Configuration.Property retrieveTomcatEngineConfig(Configuration cc) throws ContainerException {
+        List<Configuration.Property> engineProps = cc.getPropertiesWithValue("engine");
         if (UtilValidate.isEmpty(engineProps)) {
             throw new ContainerException("Cannot load CatalinaContainer; no engines defined.");
         }
@@ -175,7 +174,7 @@ public class CatalinaContainer implements Container {
         return engineProps.get(0);
     }
 
-    private static Tomcat prepareTomcatServer(ContainerConfig.Configuration cc, ContainerConfig.Property engineConfig)
+    private static Tomcat prepareTomcatServer(ContainerConfig.Configuration cc, Configuration.Property engineConfig)
             throws ContainerException {
         System.setProperty(Globals.CATALINA_HOME_PROP, System.getProperty("ofbiz.home") + "/" +
                     ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina"));
@@ -184,7 +183,7 @@ public class CatalinaContainer implements Container {
         Tomcat tomcat = new Tomcat();
         tomcat.setBaseDir(System.getProperty("ofbiz.home"));
 
-        Property defaultHostProp = engineConfig.getProperty("default-host");
+        Configuration.Property defaultHostProp = engineConfig.getProperty("default-host");
         if (defaultHostProp == null) {
             throw new ContainerException("default-host element of server property is required for catalina!");
         }
@@ -204,7 +203,7 @@ public class CatalinaContainer implements Container {
         return tomcat;
     }
 
-    private static Engine prepareTomcatEngine(Tomcat tomcat, Property engineConfig) {
+    private static Engine prepareTomcatEngine(Tomcat tomcat, Configuration.Property engineConfig) {
         Engine engine = tomcat.getEngine();
         engine.setName(engineConfig.name());
 
@@ -261,10 +260,11 @@ public class CatalinaContainer implements Container {
         return host;
     }
 
-    private static Property prepareTomcatClustering(Host host, Property engineConfig) throws ContainerException {
-        Property clusterProp = null;
+    private static Configuration.Property prepareTomcatClustering(Host host, Configuration.Property engineConfig)
+            throws ContainerException {
+        Configuration.Property clusterProp = null;
 
-        List<Property> clusterProps = engineConfig.getPropertiesWithValue("cluster");
+        List<Configuration.Property> clusterProps = engineConfig.getPropertiesWithValue("cluster");
         if (clusterProps.size() > 1) {
             throw new ContainerException("Only one cluster configuration allowed per engine");
         }
@@ -290,7 +290,7 @@ public class CatalinaContainer implements Container {
         return clusterProp;
     }
 
-    private static NioReceiver prepareChannelReceiver(Property clusterProp) throws ContainerException {
+    private static NioReceiver prepareChannelReceiver(Configuration.Property clusterProp) throws ContainerException {
         NioReceiver listener = new NioReceiver();
 
         String tla = ContainerConfig.getPropertyValue(clusterProp, "tcp-listen-host", "auto");
@@ -311,7 +311,8 @@ public class CatalinaContainer implements Container {
         return listener;
     }
 
-    private static ReplicationTransmitter prepareChannelSender(Property clusterProp) throws ContainerException {
+    private static ReplicationTransmitter prepareChannelSender(Configuration.Property clusterProp)
+            throws ContainerException {
         ReplicationTransmitter trans = new ReplicationTransmitter();
         try {
             MultiPointSender mps = (MultiPointSender)Class.forName(ContainerConfig.getPropertyValue(clusterProp,
@@ -323,7 +324,8 @@ public class CatalinaContainer implements Container {
         return trans;
     }
 
-    private static McastService prepareChannelMcastService(Property clusterProp) throws ContainerException {
+    private static McastService prepareChannelMcastService(Configuration.Property clusterProp)
+            throws ContainerException {
         McastService mcast = new McastService();
 
         String mcb = ContainerConfig.getPropertyValue(clusterProp, "mcast-bind-addr", null);
@@ -348,7 +350,7 @@ public class CatalinaContainer implements Container {
         return mcast;
     }
 
-    private static ClusterManager prepareClusterManager(Property clusterProp) throws ContainerException {
+    private static ClusterManager prepareClusterManager(Configuration.Property clusterProp) throws ContainerException {
         String mgrClassName = ContainerConfig.getPropertyValue(clusterProp, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
         try {
             return (ClusterManager)Class.forName(mgrClassName).getDeclaredConstructor().newInstance();
@@ -357,14 +359,15 @@ public class CatalinaContainer implements Container {
         }
     }
 
-    private static ReplicationValve prepareClusterValve(Property clusterProp) {
+    private static ReplicationValve prepareClusterValve(Configuration.Property clusterProp) {
         ReplicationValve clusterValve = new ReplicationValve();
         String defaultValveFilter = ".*\\.gif;.*\\.js;.*\\.jpg;.*\\.htm;.*\\.html;.*\\.txt;.*\\.png;.*\\.css;.*\\.ico;.*\\.htc;";
         clusterValve.setFilter(ContainerConfig.getPropertyValue(clusterProp, "rep-valve-filter", defaultValveFilter));
         return clusterValve;
     }
 
-    private static List<Valve> prepareTomcatEngineValves(Property engineConfig) throws ContainerException {
+    private static List<Valve> prepareTomcatEngineValves(Configuration.Property engineConfig)
+            throws ContainerException {
         List<Valve> engineValves = new ArrayList<>();
 
         // configure the CrossSubdomainSessionValve
@@ -410,7 +413,7 @@ public class CatalinaContainer implements Container {
     }
 
     private static List<Connector> prepareTomcatConnectors(Configuration configuration) throws ContainerException {
-        List<Property> connectorProps = configuration.getPropertiesWithValue("connector");
+        List<Configuration.Property> connectorProps = configuration.getPropertiesWithValue("connector");
         if (UtilValidate.isEmpty(connectorProps)) {
             throw new ContainerException("Cannot load CatalinaContainer; no connectors defined!");
         }
@@ -420,7 +423,7 @@ public class CatalinaContainer implements Container {
             .collect(Collectors.toList());
     }
 
-    private static Connector prepareConnector(Property connectorProp) {
+    private static Connector prepareConnector(Configuration.Property connectorProp) {
         Connector connector = new Connector(ContainerConfig.getPropertyValue(connectorProp, "protocol", "HTTP/1.1"));
         connector.setPort(ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().portOffset);
         if ("true".equals(ContainerConfig.getPropertyValue(connectorProp, "upgradeProtocol", "false"))) {
@@ -449,7 +452,7 @@ public class CatalinaContainer implements Container {
         return connector;
     }
 
-    private static void loadWebapps(Tomcat tomcat, ContainerConfig.Configuration configuration, Property clusterProp) {
+    private static void loadWebapps(Tomcat tomcat, Configuration configuration, Configuration.Property clusterProp) {
         ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(new ThreadGroup(module),
                 "catalina-startup", Runtime.getRuntime().availableProcessors(), 0, true);
         List<Future<Context>> futures = new ArrayList<>();
@@ -491,7 +494,7 @@ public class CatalinaContainer implements Container {
     }
 
     private static Callable<Context> createCallableContext(Tomcat tomcat, ComponentConfig.WebappInfo appInfo,
-            Property clusterProp, ContainerConfig.Configuration configuration) {
+            Configuration.Property clusterProp, ContainerConfig.Configuration configuration) {
 
         Debug.logInfo("Creating context [" + appInfo.name + "]", module);
         Host host = prepareHost(tomcat, appInfo.getVirtualHosts());
@@ -505,7 +508,7 @@ public class CatalinaContainer implements Container {
     }
 
     private static StandardContext prepareContext(Host host, ContainerConfig.Configuration configuration,
-            ComponentConfig.WebappInfo appInfo, Property clusterProp) throws ContainerException {
+            ComponentConfig.WebappInfo appInfo, Configuration.Property clusterProp) throws ContainerException {
 
         StandardContext context = new StandardContext();
         Tomcat.initWebappDefaults(context);

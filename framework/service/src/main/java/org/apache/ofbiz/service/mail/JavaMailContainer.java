@@ -43,6 +43,7 @@ import javax.mail.search.FlagTerm;
 
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
+import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
@@ -107,7 +108,7 @@ public class JavaMailContainer implements Container {
         ServiceMcaUtil.readConfig();
 
         // load the listeners
-        for (ContainerConfig.Property prop: cfg.getPropertiesWithValue("store-listener")) {
+        for (Configuration.Property prop: cfg.getPropertiesWithValue("store-listener")) {
             Session session = this.makeSession(prop);
             Store store = this.getStore(session);
             stores.put(store, session);
@@ -137,11 +138,11 @@ public class JavaMailContainer implements Container {
     }
 
     // java-mail methods
-    protected Session makeSession(ContainerConfig.Property client) {
+    protected Session makeSession(Configuration.Property client) {
         Properties props = new Properties();
-        Map<String, ContainerConfig.Property> clientProps = client.properties();
+        Map<String, Configuration.Property> clientProps = client.properties();
         if (clientProps != null) {
-            for (ContainerConfig.Property p: clientProps.values()) {
+            for (Configuration.Property p: clientProps.values()) {
                 props.setProperty(p.name().toLowerCase(Locale.getDefault()), p.value());
             }
         }

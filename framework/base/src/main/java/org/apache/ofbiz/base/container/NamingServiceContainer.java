@@ -26,6 +26,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.RMIExtendedSocketFactory;
@@ -54,11 +55,11 @@ public class NamingServiceContainer implements Container {
         this.name =name;
         this.configFileLocation = configFile;
 
-        ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(name);
+        Configuration cfg = ContainerConfig.getConfiguration(name);
 
         // get the naming (JNDI) port
 
-        ContainerConfig.Property port = cfg.getProperty("port");
+        Configuration.Property port = cfg.getProperty("port");
         if (port.value() != null) {
             try {
                 this.namingPort = Integer.parseInt(port.value()) + Start.getInstance().getConfig().portOffset;
@@ -68,7 +69,7 @@ public class NamingServiceContainer implements Container {
         }
 
         // get the naming (JNDI) server
-        ContainerConfig.Property host = cfg.getProperty("host");
+        Configuration.Property host = cfg.getProperty("host");
         if (host != null && host.value() != null) {
             this.namingHost =  host.value() ;
         }
