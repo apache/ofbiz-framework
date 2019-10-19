@@ -125,5 +125,14 @@ under the License.
 
         <!-- Checks for annotations -->
         <module name="MissingOverride"/>
+
+        <!-- Filters -->
+        <module name="SuppressionCommentFilter">
+            <!-- This is useful when having deprecated public fields
+                 which have been superseded by public accessors. -->
+            <property name="offCommentFormat" value="ALLOW PUBLIC FIELDS"/>
+            <property name="onCommentFormat" value="FORBID PUBLIC FIELDS"/>
+            <property name="checkFormat" value="VisibilityModifier"/>
+        </module>
     </module>
 </module>
