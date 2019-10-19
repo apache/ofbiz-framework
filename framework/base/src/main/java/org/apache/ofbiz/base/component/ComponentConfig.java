@@ -37,7 +37,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.container.ContainerConfig;
-import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
@@ -429,11 +428,7 @@ public final class ComponentConfig {
                 .collect(Collectors.collectingAndThen(
                         Collectors.toMap(rli -> rli.name, rli -> rli),
                         Collections::unmodifiableMap));
-        try {
-            configurations = ContainerConfig.getConfigurations(componentElement);
-        } catch (ContainerException ce) {
-            throw new ComponentException("Error reading container configurations for component: " + this.globalName, ce);
-        }
+        configurations = ContainerConfig.getConfigurations(componentElement);
         if (Debug.verboseOn()) {
             Debug.logVerbose("Read component config : [" + rootLocation + "]", module);
         }

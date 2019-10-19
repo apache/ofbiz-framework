@@ -308,7 +308,7 @@ checkstyle {
     // the sum of errors that were present before introducing the
     // ‘checkstyle’ tool present in the framework and in the official
     // plugins.
-    maxErrors = 37930
+    maxErrors = 37929
     // Currently there are a lot of errors so we need to temporarily
     // hide them to avoid polluting the terminal output.
     showViolations = false

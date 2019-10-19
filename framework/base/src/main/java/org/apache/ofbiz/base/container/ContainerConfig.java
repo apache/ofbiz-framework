@@ -72,13 +72,12 @@ public final class ContainerConfig {
     }
 
     /**
-     * Finds the container configuration elements in a XML file.
+     * Finds the {@code <container>} configuration elements in a XML element.
      *
-     * @param root  the URL of the XML file which cannot be {@code null}
+     * @param root  the XML element which cannot be {@code null}
      * @return a list of container configuration
-     * @throws ContainerException when failing to read the XML document.
      */
-    public static List<Configuration> getConfigurations(Element root) throws ContainerException {
+    public static List<Configuration> getConfigurations(Element root) {
         List<Configuration> res = UtilXml.childElementList(root, "container").stream()
                 .map(Configuration::new)
                 .collect(collectingAndThen(toList(), Collections::unmodifiableList));
