@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  */
 public final class ContainerConfig {
     /** The global container configuration store. */
-    private static Map<String, Configuration> configurations = new LinkedHashMap<>();
+    private static final Map<String, Configuration> CONFIGURATIONS = new LinkedHashMap<>();
 
     private ContainerConfig() { }
 
@@ -64,7 +64,7 @@ public final class ContainerConfig {
      * @throws ContainerException when no configuration element are found.
      */
     public static Configuration getConfiguration(String containerName) throws ContainerException {
-        Configuration configuration = configurations.get(containerName);
+        Configuration configuration = CONFIGURATIONS.get(containerName);
         if (configuration == null) {
             throw new ContainerException("No container found with the name : " + containerName);
         }
@@ -83,7 +83,7 @@ public final class ContainerConfig {
                 .map(Configuration::new)
                 .collect(collectingAndThen(toList(), Collections::unmodifiableList));
         synchronized (ContainerConfig.class) {
-            res.forEach(cfg -> configurations.put(cfg.name(), cfg));
+            res.forEach(cfg -> CONFIGURATIONS.put(cfg.name(), cfg));
         }
         return res;
     }
