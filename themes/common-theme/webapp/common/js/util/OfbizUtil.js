@@ -119,14 +119,12 @@ function bindObservers(bind_element) {
     });
     jQuery(bind_element).on("click", "[data-dialog-url]", function(){
         var element = jQuery(this);
-        var id = element.attr("id");
         var url = element.data("dialog-url");
         var title = element.data("dialog-title");
         var width = element.data("dialog-width");
         var height = element.data("dialog-height");
         var params = element.data("dialog-params");
-        var dialogContainer = jQuery('<div id="container_'+ id + '"/>');
-
+        var dialogContainer = jQuery('<div/>');
         dialogContainer.dialog({
             autoOpen: false,
             title: title,
@@ -135,7 +133,7 @@ function bindObservers(bind_element) {
             modal: true,
             closeOnEscape: true,
             close: function() {
-                document.getElementById("container_" + id).parentElement.remove();
+                dialogContainer.dialog('destroy');
             },
             open: function() {
                 jQuery.ajax({
