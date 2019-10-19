@@ -55,6 +55,7 @@ ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 
 javadoc.failOnError = true
 javadoc.options {
+    source '8'
     encoding "UTF-8"
     charSet "UTF-8"
     // Those external Javadoc links should correspond to the actual
