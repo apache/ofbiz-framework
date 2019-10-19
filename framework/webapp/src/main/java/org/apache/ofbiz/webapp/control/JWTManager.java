@@ -206,7 +206,9 @@ public class JWTManager {
     }
 
     /**
-     * Gets the authentication token from the "Authorization" header if it is in the form "Bearer <token>".
+     * Gets the authentication token from the "Authorization" header if it is
+     * in the form {@code Bearer <token>}.
+     *
      * Public for API access from third party code.
      *
      * @param request the request to get the token from
