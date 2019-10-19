@@ -74,7 +74,6 @@ import org.xml.sax.XMLReader;
 public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler {
 
     public static final String module = XmlRpcEventHandler.class.getName();
-    protected Delegator delegator;
     protected LocalDispatcher dispatcher;
 
     private Boolean enabledForExtensions = null;
@@ -83,7 +82,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     @Override
     public void init(ServletContext context) throws EventHandlerException {
         String delegatorName = context.getInitParameter("entityDelegatorName");
-        this.delegator = DelegatorFactory.getDelegator(delegatorName);
+        Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
         this.dispatcher = ServiceContainer.getLocalDispatcher(delegator.getDelegatorName(), delegator);
         this.setHandlerMapping(new ServiceRpcHandler());
 
@@ -157,7 +156,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     }
 
     protected XmlRpcHttpRequestConfig getXmlRpcConfig(HttpServletRequest req) {
-        XmlRpcHttpRequestConfigImpl result = new XmlRpcHttpRequestConfigImpl();
+        OFBizXmlRpcHttpRequestConfigImpl result = new OFBizXmlRpcHttpRequestConfigImpl(req);
         XmlRpcHttpServerConfig serverConfig = (XmlRpcHttpServerConfig) getConfig();
 
         result.setBasicEncoding(serverConfig.getBasicEncoding());
@@ -183,7 +182,8 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
         @Override
         public boolean isAuthorized(XmlRpcRequest xmlRpcReq) throws XmlRpcException {
-            XmlRpcHttpRequestConfig config = (XmlRpcHttpRequestConfig) xmlRpcReq.getConfig();
+        OFBizXmlRpcHttpRequestConfigImpl config = (OFBizXmlRpcHttpRequestConfigImpl) xmlRpcReq.getConfig();
+        LocalDispatcher dispatcher = config.getDispatcher();
 
             ModelService model;
             try {
@@ -329,6 +329,10 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
         @Override
         public Object execute(XmlRpcRequest xmlRpcReq) throws XmlRpcException {
+
+        OFBizXmlRpcHttpRequestConfigImpl requestConfig = (OFBizXmlRpcHttpRequestConfigImpl) xmlRpcReq.getConfig();
+        LocalDispatcher dispatcher = requestConfig.getDispatcher();
+        
             DispatchContext dctx = dispatcher.getDispatchContext();
             String serviceName = xmlRpcReq.getMethodName();
             ModelService model = null;
@@ -378,6 +382,8 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
         protected Map<String, Object> getContext(XmlRpcRequest xmlRpcReq, String serviceName) throws XmlRpcException {
             ModelService model;
+        OFBizXmlRpcHttpRequestConfigImpl requestConfig = (OFBizXmlRpcHttpRequestConfigImpl) xmlRpcReq.getConfig();
+        LocalDispatcher dispatcher = requestConfig.getDispatcher();
             try {
                 model = dispatcher.getDispatchContext().getModelService(serviceName);
             } catch (GenericServiceException e) {
@@ -459,4 +465,18 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             response.getOutputStream().close();
         }
     }
+
+    class OFBizXmlRpcHttpRequestConfigImpl extends XmlRpcHttpRequestConfigImpl  {
+        private LocalDispatcher dispatcher;
+
+        public OFBizXmlRpcHttpRequestConfigImpl  (HttpServletRequest request) {
+        dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        }
+    
+        public LocalDispatcher getDispatcher() {
+        return dispatcher;
+        }
+    }
+    
+
 }
