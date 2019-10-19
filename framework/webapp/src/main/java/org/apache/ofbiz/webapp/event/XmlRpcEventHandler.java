@@ -16,7 +16,6 @@
  specific language governing permissions and limitations
  under the License.
  */
-
 package org.apache.ofbiz.webapp.event;
 
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
@@ -71,13 +70,17 @@ import org.xml.sax.XMLReader;
 /**
  * XmlRpcEventHandler
  */
-public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler {
+public final class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler {
 
-    public static final String module = XmlRpcEventHandler.class.getName();
-    protected LocalDispatcher dispatcher;
+    public static final String MODULE = XmlRpcEventHandler.class.getName();
+    private LocalDispatcher dispatcher;
 
     private Boolean enabledForExtensions = null;
     private Boolean enabledForExceptions = null;
+
+    LocalDispatcher getDispatcher() {
+        return dispatcher;
+    }
 
     @Override
     public void init(ServletContext context) throws EventHandlerException {
@@ -97,15 +100,16 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     }
 
     @Override
-    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
-        String report = request.getParameter("echo");
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest req, HttpServletResponse res)
+            throws EventHandlerException {
+        String report = req.getParameter("echo");
         if (report != null) {
             BufferedReader reader = null;
             StringBuilder buf = new StringBuilder();
             try {
                 // read the inputstream buffer
                 String line;
-                reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+                reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
                 while ((line = reader.readLine()) != null) {
                     buf.append(line).append("\n");
                 }
@@ -120,12 +124,12 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                     }
                 }
             }
-            Debug.logInfo("Echo: " + buf.toString(), module);
+            Debug.logInfo("Echo: " + buf.toString(), MODULE);
 
             // echo back the request
             try {
-                response.setContentType("text/xml");
-                Writer out = response.getWriter();
+                res.setContentType("text/xml");
+                Writer out = res.getWriter();
                 out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
                 out.write("<methodResponse>");
                 out.write("<params><param>");
@@ -140,9 +144,9 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
         } else {
             try {
-                this.execute(this.getXmlRpcConfig(request), new HttpStreamConnection(request, response));
+                this.execute(this.getXmlRpcConfig(req), new HttpStreamConnection(req, res));
             } catch (XmlRpcException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new EventHandlerException(e.getMessage(), e);
             }
         }
@@ -152,10 +156,11 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
     @Override
     protected void setResponseHeader(ServerStreamConnection con, String header, String value) {
-        ((HttpStreamConnection) con).getResponse().setHeader(header, value);
+        HttpStreamConnection hscon = (HttpStreamConnection) con;
+        hscon.getResponse().setHeader(header, value);
     }
 
-    protected XmlRpcHttpRequestConfig getXmlRpcConfig(HttpServletRequest req) {
+    private XmlRpcHttpRequestConfig getXmlRpcConfig(HttpServletRequest req) {
         OFBizXmlRpcHttpRequestConfigImpl result = new OFBizXmlRpcHttpRequestConfigImpl(req);
         XmlRpcHttpServerConfig serverConfig = (XmlRpcHttpServerConfig) getConfig();
 
@@ -178,12 +183,12 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
         return result;
     }
 
-    class OfbizRpcAuthHandler implements AbstractReflectiveHandlerMapping.AuthenticationHandler {
+    final class OfbizRpcAuthHandler implements AbstractReflectiveHandlerMapping.AuthenticationHandler {
 
         @Override
         public boolean isAuthorized(XmlRpcRequest xmlRpcReq) throws XmlRpcException {
-        OFBizXmlRpcHttpRequestConfigImpl config = (OFBizXmlRpcHttpRequestConfigImpl) xmlRpcReq.getConfig();
-        LocalDispatcher dispatcher = config.getDispatcher();
+            OFBizXmlRpcHttpRequestConfigImpl config = (OFBizXmlRpcHttpRequestConfigImpl) xmlRpcReq.getConfig();
+            LocalDispatcher dispatcher = config.getDispatcher();
 
             ModelService model;
             try {
@@ -218,8 +223,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     }
 
     @Override
-    public void execute(XmlRpcStreamRequestConfig pConfig,
-            ServerStreamConnection pConnection) throws XmlRpcException {
+    public void execute(XmlRpcStreamRequestConfig pConfig, ServerStreamConnection pConnection) throws XmlRpcException {
         try {
             Object result = null;
             boolean foundError = false;
@@ -228,7 +232,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 XmlRpcRequest request = getRequest(pConfig, istream);
                 result = execute(request);
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 foundError = true;
             }
 
@@ -246,7 +250,8 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 if (!foundError) {
                     writeResponse(pConfig, ostream, result);
                 } else {
-                    writeError(pConfig, ostream, new Exception("Failed to read XML-RPC request. Please check logs for more information"));
+                    writeError(pConfig, ostream,
+                            new Exception("Failed to read XML-RPC request. Please check logs for more information"));
                 }
             }
 
@@ -309,7 +314,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
     class ServiceRpcHandler extends AbstractReflectiveHandlerMapping implements XmlRpcHandler {
 
-        public ServiceRpcHandler() {
+        ServiceRpcHandler() {
             this.setAuthenticationHandler(new OfbizRpcAuthHandler());
         }
 
@@ -319,7 +324,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             try {
                 model = dispatcher.getDispatchContext().getModelService(method);
             } catch (GenericServiceException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
             if (model == null) {
                 throw new XmlRpcNoSuchHandlerException("No such service [" + method + "]");
@@ -330,9 +335,9 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
         @Override
         public Object execute(XmlRpcRequest xmlRpcReq) throws XmlRpcException {
 
-        OFBizXmlRpcHttpRequestConfigImpl requestConfig = (OFBizXmlRpcHttpRequestConfigImpl) xmlRpcReq.getConfig();
-        LocalDispatcher dispatcher = requestConfig.getDispatcher();
-        
+            OFBizXmlRpcHttpRequestConfigImpl requestConfig = (OFBizXmlRpcHttpRequestConfigImpl) xmlRpcReq.getConfig();
+            LocalDispatcher dispatcher = requestConfig.getDispatcher();
+
             DispatchContext dctx = dispatcher.getDispatchContext();
             String serviceName = xmlRpcReq.getMethodName();
             ModelService model = null;
@@ -372,7 +377,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 throw new XmlRpcException(e.getMessage(), e);
             }
             if (ServiceUtil.isError(resp)) {
-                Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+                Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
                 throw new XmlRpcException(ServiceUtil.getErrorMessage(resp));
             }
 
@@ -382,8 +387,8 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
         protected Map<String, Object> getContext(XmlRpcRequest xmlRpcReq, String serviceName) throws XmlRpcException {
             ModelService model;
-        OFBizXmlRpcHttpRequestConfigImpl requestConfig = (OFBizXmlRpcHttpRequestConfigImpl) xmlRpcReq.getConfig();
-        LocalDispatcher dispatcher = requestConfig.getDispatcher();
+            OFBizXmlRpcHttpRequestConfigImpl requestConfig = (OFBizXmlRpcHttpRequestConfigImpl) xmlRpcReq.getConfig();
+            LocalDispatcher dispatcher = requestConfig.getDispatcher();
             try {
                 model = dispatcher.getDispatchContext().getModelService(serviceName);
             } catch (GenericServiceException e) {
@@ -408,18 +413,18 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                         }
                     }
 
-                // only one parameter; if its a map use it as the context; otherwise make sure the service takes one param
+                // only one parameter; if its a map use it as the context;
+                // otherwise make sure the service takes one param.
                 } else if (parameterCount == 1) {
                     Object param = xmlRpcReq.getParameter(0);
                     if (param instanceof Map<?, ?>) {
                         context = checkMap(param, String.class, Object.class);
+                    } else if (model.getDefinedInCount() == 1) {
+                        String paramName = model.getInParamNames().iterator().next();
+                        context.put(paramName, xmlRpcReq.getParameter(0));
                     } else {
-                        if (model.getDefinedInCount() == 1) {
-                            String paramName = model.getInParamNames().iterator().next();
-                            context.put(paramName, xmlRpcReq.getParameter(0));
-                        } else {
-                            throw new XmlRpcException("More than one parameter defined on service; cannot call via RPC with parameter list");
-                        }
+                        throw new XmlRpcException(
+                                "More than one parameter defined on service; cannot call via RPC with parameter list");
                     }
                 }
 
@@ -433,8 +438,8 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
     class HttpStreamConnection implements ServerStreamConnection {
 
-        protected HttpServletRequest request;
-        protected HttpServletResponse response;
+        private HttpServletRequest request;
+        private HttpServletResponse response;
 
         protected HttpStreamConnection(HttpServletRequest req, HttpServletResponse res) {
             this.request = req;
@@ -466,17 +471,15 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
         }
     }
 
-    class OFBizXmlRpcHttpRequestConfigImpl extends XmlRpcHttpRequestConfigImpl  {
+    class OFBizXmlRpcHttpRequestConfigImpl extends XmlRpcHttpRequestConfigImpl {
         private LocalDispatcher dispatcher;
 
-        public OFBizXmlRpcHttpRequestConfigImpl  (HttpServletRequest request) {
-        dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        OFBizXmlRpcHttpRequestConfigImpl(HttpServletRequest request) {
+            dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         }
-    
+
         public LocalDispatcher getDispatcher() {
-        return dispatcher;
+            return dispatcher;
         }
     }
-    
-
 }
