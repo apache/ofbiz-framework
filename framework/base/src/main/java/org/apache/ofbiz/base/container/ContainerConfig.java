@@ -72,7 +72,7 @@ public final class ContainerConfig {
     }
 
     /**
-     * Finds the container configuration elements in a .
+     * Finds the container configuration elements in a XML file.
      *
      * @param root  the URL of the XML file which cannot be {@code null}
      * @return a list of container configuration
@@ -88,7 +88,17 @@ public final class ContainerConfig {
         return res;
     }
 
-    public static String getPropertyValue(Configuration parentProp, String name, String defaultValue) {
+    interface PropertyChildren {
+        /**
+         * Provides the child property corresponding to a specified identifier.
+         *
+         * @param name the child property identifier
+         * @return the property corresponding to {@code name} or {@code null} if the identifier is absent.
+         */
+        Property getProperty(String name);
+    }
+
+    public static String getPropertyValue(PropertyChildren parentProp, String name, String defaultValue) {
         Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
@@ -96,7 +106,7 @@ public final class ContainerConfig {
         return prop.value;
     }
 
-    public static int getPropertyValue(Configuration parentProp, String name, int defaultValue) {
+    public static int getPropertyValue(PropertyChildren parentProp, String name, int defaultValue) {
         Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
@@ -108,35 +118,7 @@ public final class ContainerConfig {
         }
     }
 
-    public static boolean getPropertyValue(Configuration parentProp, String name, boolean defaultValue) {
-        Property prop = parentProp.getProperty(name);
-        if (prop == null || UtilValidate.isEmpty(prop.value)) {
-            return defaultValue;
-        }
-        return "true".equalsIgnoreCase(prop.value);
-    }
-
-    public static String getPropertyValue(Property parentProp, String name, String defaultValue) {
-        Property prop = parentProp.getProperty(name);
-        if (prop == null || UtilValidate.isEmpty(prop.value)) {
-            return defaultValue;
-        }
-        return prop.value;
-    }
-
-    public static int getPropertyValue(Property parentProp, String name, int defaultValue) {
-        Property prop = parentProp.getProperty(name);
-        if (prop == null || UtilValidate.isEmpty(prop.value)) {
-            return defaultValue;
-        }
-        try {
-            return Integer.parseInt(prop.value);
-        } catch (Exception e) {
-            return defaultValue;
-        }
-    }
-
-    public static boolean getPropertyValue(Property parentProp, String name, boolean defaultValue) {
+    public static boolean getPropertyValue(PropertyChildren parentProp, String name, boolean defaultValue) {
         Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
@@ -147,7 +129,7 @@ public final class ContainerConfig {
     /**
      * A container configuration.
      */
-    public static class Configuration {
+    public static final class Configuration implements PropertyChildren {
         /** The identifier of the configuration. */
         private final String name;
         /** The name of class the configuration. */
@@ -197,12 +179,7 @@ public final class ContainerConfig {
             return properties;
         }
 
-        /**
-         * Provides the child property corresponding to a specified identifier.
-         *
-         * @param name the child property identifier
-         * @return the property corresponding to {@code name} or {@code null} if the identifier is absent.
-         */
+        @Override
         public Property getProperty(String name) {
             return properties().get(name);
         }
@@ -221,7 +198,7 @@ public final class ContainerConfig {
     /**
      * A tree of container configuration properties.
      */
-    public static class Property {
+    public static final class Property implements PropertyChildren {
         /** The identifier of the configuration element */
         private final String name;
         /** The value associated with the {@code name} identifier. */
@@ -265,12 +242,7 @@ public final class ContainerConfig {
             return properties;
         }
 
-        /**
-         * Provides the child property corresponding to a specified identifier.
-         *
-         * @param name the child property identifier
-         * @return the property corresponding to {@code name} or {@code null} if the identifier is absent.
-         */
+        @Override
         public Property getProperty(String name) {
             return properties.get(name);
         }
