@@ -254,13 +254,13 @@ public class ComponentContainer implements Container {
      * Fetch the <code>ComponentConfig</code> for a certain component
      *
      * @param name component name
-     * @param location directory location of the component
+     * @param location directory location of the component which can be {@code null}
      * @return The component configuration
      */
     private static ComponentConfig retrieveComponentConfig(String name, Path location) {
         ComponentConfig config = null;
         try {
-            config = ComponentConfig.getComponentConfig(name, location.toString());
+            config = ComponentConfig.getComponentConfig(name, (location == null) ? null : location.toString());
         } catch (ComponentException e) {
             Debug.logError("Cannot load component : " + name + " @ " + location + " : " + e.getMessage(), module);
         }
