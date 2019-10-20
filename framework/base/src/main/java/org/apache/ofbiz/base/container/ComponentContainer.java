@@ -68,6 +68,17 @@ public class ComponentContainer implements Container {
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
+        init(name, Start.getInstance().getConfig().ofbizHome);
+    }
+
+    /**
+     * Loads components found in a directory.
+     *
+     * @param name  the name of this container
+     * @param ofbizHome  the directory where to search for components
+     * @throws ContainerException when components are already loaded or when failing to load them.
+     */
+    void init(String name, Path ofbizHome) throws ContainerException {
         if (!loaded.compareAndSet(false, true)) {
             throw new ContainerException("Components already loaded, cannot start");
         }
@@ -76,7 +87,7 @@ public class ComponentContainer implements Container {
         // load the components from framework/base/config/component-load.xml (root components)
         try {
             for (ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
-                loadComponent(Start.getInstance().getConfig().ofbizHome, def);
+                loadComponent(ofbizHome, def);
             }
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
