@@ -20,6 +20,7 @@ package org.apache.ofbiz.webtools.labelmanager;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -62,8 +63,9 @@ public class SaveLabelsToXmlFile {
         List<String> localeValues = UtilGenerics.cast(context.get("localeValues"));
         List<String> localeComments = UtilGenerics.cast(context.get("localeComments"));
         String apacheLicenseText = null;
+        URL apache2Header = SaveLabelsToXmlFile.class.getResource("APACHE2_HEADER_FOR_XML");
         try {
-            apacheLicenseText = FileUtil.readString("UTF-8", FileUtil.getFile("component://webtools/config/APACHE2_HEADER_FOR_XML"));
+            apacheLicenseText = FileUtil.readString("UTF-8", FileUtil.getFile(apache2Header.getPath()));
         } catch (IOException e) {
             Debug.logWarning(e, "Unable to read Apache License text file", module);
         }

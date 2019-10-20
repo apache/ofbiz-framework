@@ -255,7 +255,6 @@ def excludedJavaSources = [
 // Files and directories present in config directories that should not be included in ofbiz.jar (see OFBIZ-8321).
 def excludedConfigFiles = [
     'README',
-    'APACHE2_HEADER_FOR_XML',
     '*.txt',
     '*.jks',
     'fop.xconf',
