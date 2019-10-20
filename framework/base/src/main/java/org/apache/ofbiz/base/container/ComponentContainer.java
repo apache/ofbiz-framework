@@ -26,11 +26,11 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentException;
@@ -59,7 +59,7 @@ public class ComponentContainer implements Container {
     private String name;
     private final AtomicBoolean loaded = new AtomicBoolean(false);
     private final List<Classpath> componentsClassPath = new ArrayList<>();
-    private static Map<String, List<ComponentConfig.DependsOnInfo>> toBeLoadedComponents = new HashMap<>();
+    private static Map<String, List<ComponentConfig.DependsOnInfo>> toBeLoadedComponents = new ConcurrentHashMap<>();
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
