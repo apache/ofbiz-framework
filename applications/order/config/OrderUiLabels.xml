@@ -13954,6 +13954,12 @@
         <value xml:lang="zh">基于自动重下订单创建新的送货列表时出错${errorString}</value>
         <value xml:lang="zh-TW">基於自動重下訂單新建新的送貨清單時出錯${errorString}</value>
     </property>
+    <property key="OrderShoppingListCreatedSuccessfully">
+        <value xml:lang="en">Shopping list has been created successfully.</value>
+    </property>
+    <property key="OrderShoppingListUpdatedSuccessfully">
+        <value xml:lang="en">Shopping list has been updated successfully.</value>
+    </property>
     <property key="OrderShortfalled">
         <value xml:lang="de">Rückstand</value>
         <value xml:lang="en">Shortfalled</value>
