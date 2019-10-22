@@ -53,6 +53,8 @@ under the License.
         <sequenced-id sequence-name="ShoppingList" field="newEntity.shoppingListId"/>
         <field-to-result field="newEntity.shoppingListId" result-name="shoppingListId"/>
         <create-value value-field="newEntity"/>
+        <property-to-field resource="OrderUiLabels" property="OrderShoppingListCreatedSuccessfully" field="successMessage"/>
+        <field-to-result  field="successMessage"/>
     </simple-method>
 
     <simple-method method-name="updateShoppingList" short-description="Update a ShoppingList">
@@ -79,6 +81,8 @@ under the License.
         </if>
 
         <store-value value-field="shoppingList"/>
+        <property-to-field resource="OrderUiLabels" property="OrderShoppingListUpdatedSuccessfully" field="successMessage"/>
+        <field-to-result  field="successMessage"/>
     </simple-method>
 
     <simple-method method-name="removeShoppingList" short-description="Remove a ShoppingList">
