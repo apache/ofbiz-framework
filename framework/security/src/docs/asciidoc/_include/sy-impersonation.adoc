@@ -20,7 +20,7 @@ under the License.
 = Impersonation
 == What is Impersonation in Apache OFBiz
 The Apache OFBiz Project
-Release 17.12
+Release 18.12
 
 :imagesdir: ../../themes/common-theme/webapp/images/img/
 ifdef::backend-pdf[]

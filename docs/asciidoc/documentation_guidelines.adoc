@@ -18,7 +18,7 @@ under the License.
 ////
 = Apache OFBiz Documentation Guidelines
 The Apache OFBiz Project
-Release 17.12
+Release 18.12
 :imagesdir: ./images
 ifdef::backend-pdf[]
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
@@ -61,7 +61,7 @@ Please see below for details of the proposed configuration:
 
 ----
 The Apache OFBiz Project // <1>
-Release 17.12 // <2>
+Release 18.12 // <2>
 :imagesdir: ./images // <3>
 ifdef::backend-pdf[] // <4>
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center] // <5>
