@@ -41,7 +41,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.cxf.jaxrs.model.URITemplate;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.SSLUtil;
@@ -183,7 +185,7 @@ public class RequestHandler {
     }
 
     /**
-     * Find a collection of request maps in {@code ccfg} matching {@code req}.
+     * Finds a collection of request maps in {@code ccfg} matching {@code req}.
      * Otherwise fall back to matching the {@code defaultReq} field in {@code ccfg}.
      *
      * @param ccfg The controller containing the current configuration
@@ -192,20 +194,23 @@ public class RequestHandler {
      */
     static Collection<RequestMap> resolveURI(ControllerConfig ccfg, HttpServletRequest req) {
         Map<String, List<RequestMap>> requestMapMap = ccfg.getRequestMapMap();
-        Map<String, ConfigXMLReader.ViewMap> viewMapMap = ccfg.getViewMapMap();
-        String defaultRequest = ccfg.getDefaultRequest();
-        String path = req.getPathInfo();
-        String requestUri = getRequestUri(path);
-        String viewUri = getOverrideViewUri(path);
-        Collection<RequestMap> rmaps;
-        if (requestMapMap.containsKey(requestUri)
-                // Ensure that overridden view exists.
-                && (viewUri == null || viewMapMap.containsKey(viewUri))) {
-            rmaps = requestMapMap.get(requestUri);
-        } else if (defaultRequest != null) {
-            rmaps = requestMapMap.get(defaultRequest);
-        } else {
-            rmaps = null;
+        Collection<RequestMap> rmaps = resolveTemplateURI(requestMapMap, req);
+        if (rmaps.isEmpty()) {
+            Map<String, ConfigXMLReader.ViewMap> viewMapMap = ccfg.getViewMapMap();
+            String defaultRequest = ccfg.getDefaultRequest();
+            String path = req.getPathInfo();
+            String requestUri = getRequestUri(path);
+            String overrideViewUri = getOverrideViewUri(path);
+            if (requestMapMap.containsKey(requestUri)
+                    // Ensure that overridden view exists.
+                    && (overrideViewUri == null || viewMapMap.containsKey(overrideViewUri))) {
+                rmaps = requestMapMap.get(requestUri);
+                req.setAttribute("overriddenView", overrideViewUri);
+            } else if (defaultRequest != null) {
+                rmaps = requestMapMap.get(defaultRequest);
+            } else {
+                rmaps = null;
+            }
         }
         return rmaps != null ? rmaps : Collections.emptyList();
     }
@@ -232,6 +237,33 @@ public class RequestHandler {
         } else {
             return resolveMethod("all", rmaps);
         }
+    }
+
+    /**
+     * Finds the request maps matching a segmented path.
+     *
+     * <p>A segmented path can match request maps where the {@code uri} attribute
+     * contains an URI template like in the {@code foo/bar/{baz}} example.
+     *
+     * @param rMapMap  the map associating URIs to a list of request maps corresponding to different HTTP methods
+     * @param request  the HTTP request to match
+     * @return a collection of request maps which might be empty but not {@code null}
+     */
+    private static Collection<RequestMap> resolveTemplateURI(Map<String, List<RequestMap>> rMapMap,
+            HttpServletRequest request) {
+        // Retrieve the request path without the leading '/' character.
+        String path = request.getPathInfo().substring(1);
+        MultivaluedHashMap<String, String> vars = new MultivaluedHashMap<>();
+        for (Map.Entry<String, List<RequestMap>> entry : rMapMap.entrySet()) {
+            URITemplate uriTemplate = URITemplate.createExactTemplate(entry.getKey());
+            // Check if current path the URI template exactly.
+            if (uriTemplate.match(path, vars) && vars.getFirst("FINAL_MATCH_GROUP").equals("/")) {
+                // Set attributes from template variables to be used in context.
+                uriTemplate.getVariables().forEach(var -> request.setAttribute(var, vars.getFirst(var)));
+                return entry.getValue();
+            }
+        }
+        return Collections.emptyList();
     }
 
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
@@ -269,7 +301,6 @@ public class RequestHandler {
 
         String path = request.getPathInfo();
         String requestUri = getRequestUri(path);
-        String overrideViewUri = getOverrideViewUri(path);
 
         Collection<RequestMap> rmaps = resolveURI(ccfg, request);
         if (rmaps.isEmpty()) {
@@ -287,8 +318,11 @@ public class RequestHandler {
                 throw new RequestHandlerExceptionAllowExternalRequests();
             }
         }
+        // The "overriddenView" attribute is set by resolveURI when necessary.
+        String overrideViewUri = (String) request.getAttribute("overriddenView");
 
-        String method = request.getMethod();
+        String restMethod = request.getParameter("restMethod");
+        String method = (restMethod != null) ? restMethod : request.getMethod();
         RequestMap requestMap = resolveMethod(method, rmaps).orElseThrow(() -> {
             String msg = UtilProperties.getMessage("WebappUiLabels", "RequestMethodNotMatchConfig",
                     UtilMisc.toList(requestUri, method), UtilHttp.getLocale(request));

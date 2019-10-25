@@ -28,6 +28,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -119,6 +121,65 @@ public class RequestHandlerTests {
             when(req.getPathInfo()).thenReturn("/baz");
             when(ccfg.getDefaultRequest()).thenReturn("bar");
             assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(bar));
+        }
+
+        /**
+         * Checks that segmented URIs are resolved and does not
+         * conflict with overrideViewUri mechanism
+         */
+        @Test
+        public void resolveTemplateURISergmented() {
+            RequestMap foo = new RequestMap(dummyElement);
+            RequestMap bar = new RequestMap(dummyElement);
+            RequestMap baz = new RequestMap(dummyElement);
+            reqMaps.putSingle("baz/foo", foo);
+            reqMaps.putSingle("bar", bar);
+            reqMaps.putSingle("baz", baz);
+
+            viewMaps.put("foo", new ViewMap(dummyElement));
+
+            when(req.getPathInfo()).thenReturn("/baz/foo");
+            when(ccfg.getDefaultRequest()).thenReturn("bar");
+            assertThat(RequestHandler.resolveURI(ccfg, req), both(hasItem(foo)).and(not(hasItem(baz))));
+        }
+
+        @Test
+        public void resolveTemplateURIWithVariables() {
+            RequestMap foo = new RequestMap(dummyElement);
+            RequestMap bar = new RequestMap(dummyElement);
+            reqMaps.putSingle("foo/bar/{var1}/baz/{var2}", foo);
+            reqMaps.putSingle("bar", bar);
+
+            when(req.getPathInfo()).thenReturn("/foo/bar/toto/baz/titi");
+
+            assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(foo));
+            verify(req, times(1)).setAttribute("var1", "toto");
+            verify(req, times(1)).setAttribute("var2", "titi");
+        }
+
+        /**
+         * Currently it is up to the developer to manage URIs with custom
+         * variables that are conflicting with other routes by excluding
+         * them using regular expressions as shown in the test.
+         */
+        @Test
+        public void resolveTemplateURIConflictingRoutes() {
+            RequestMap foo = new RequestMap(dummyElement);
+            RequestMap bar = new RequestMap(dummyElement);
+            RequestMap baz = new RequestMap(dummyElement);
+            reqMaps.putSingle("foo/bar", foo);
+            reqMaps.putSingle("foo/qux", bar);
+            reqMaps.putSingle("foo/{var:(?!(bar)|(qux)).*}", baz);
+
+            when(req.getPathInfo()).thenReturn("/foo/bar");
+            assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(foo));
+
+            when(req.getPathInfo()).thenReturn("/foo/qux");
+            assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(bar));
+
+            when(req.getPathInfo()).thenReturn("/foo/toto");
+            assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(baz));
+            verify(req, times(1)).setAttribute("var", "toto");
         }
 
         @Test

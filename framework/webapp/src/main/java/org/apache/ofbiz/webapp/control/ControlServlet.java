@@ -77,15 +77,35 @@ public class ControlServlet extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        handle(req, resp);
+    }
+
+    @Override
+    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        handle(req, resp);
+    }
+
+    @Override
+    public void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        handle(req, resp);
+    }
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        handle(req, resp);
     }
 
     /**
-     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * Invokes {@link RequestHandler#doRequest} with error handling.
+     *
+     * @param req  an {@link HttpServletRequest} object that contains the request
+     *             the client has made of the servlet
+     * @param resp  an {@link HttpServletResponse} object that contains the response
+     *              the servlet sends to the client
+     * @throws IOException if an output error is detected when trying to write on the response.
      */
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long requestStartTime = System.currentTimeMillis();
         HttpSession session = request.getSession();
 
