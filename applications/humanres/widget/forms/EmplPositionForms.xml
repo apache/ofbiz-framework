@@ -238,7 +238,7 @@ under the License.
     <form name="ListValidResponsibilities" type="list" target="updateValidResponsibility" title="" paginate-target="findValidResponsibilities"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EmplPositionResponsibility"/>
+            <entity-condition entity-name="ValidResponsibility"/>
         </actions>
         <auto-fields-service service-name="updateValidResponsibility"/>
         <field name="emplPositionTypeId" title="${uiLabelMap.HumanResEmployeePositionTypeId}"><display /></field>
