@@ -592,11 +592,7 @@ public final class ServiceDispatcher {
         } finally {
             if (lock != null) {
                 // release the semaphore lock
-                try {
-                    lock.release();
-                } catch (GenericServiceException e) {
-                    Debug.logWarning(e, "Exception thrown while unlocking semaphore: ", module);
-                }
+                lock.release();
             }
 
             // resume the parent transaction
