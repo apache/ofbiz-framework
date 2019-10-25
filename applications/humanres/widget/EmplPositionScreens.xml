@@ -156,13 +156,20 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListValidResponsibilities"/>
+                <set field="headerItem" value="EmplPositionTypes"/>
+                <set field="tabButtonItem" value="EmplPositionTypes"/>
+                <set field="tabButtonItem2" value="EditValidResponsibilities"/>
+                <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-menu name="EmplPositionTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                         <screenlet title="${uiLabelMap.HumanResListValidResponsibility}">
                             <container>
-                                <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext"/>
+                                <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext">
+                                    <parameter param-name="emplPositionTypeId"/>
+                                </link>
                             </container>
                             <include-form name="ListValidResponsibilities" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                         </screenlet>
@@ -175,15 +182,23 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditValidResponsibility"/>
+                <set field="headerItem" value="EmplPositionTypes"/>
+                <set field="tabButtonItem" value="EmplPositionTypes"/>
+                <set field="tabButtonItem2" value="EditValidResponsibilities"/>
+                <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-menu name="EmplPositionTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                         <screenlet title="${uiLabelMap.HumanResAddValidResponsibility}">
                             <container>
-                                <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext"/>
+                                <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext">
+                                    <parameter param-name="emplPositionTypeId"/>
+                                </link>
                             </container>
                             <include-form name="AddValidResponsibility" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                            <include-form name="ListValidResponsibilities" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

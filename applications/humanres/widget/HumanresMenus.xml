@@ -258,6 +258,11 @@
                 <parameter param-name="emplPositionTypeId"/>
             </link>
         </menu-item>
+        <menu-item name="EditValidResponsibilities" title="${uiLabelMap.HumanResEmplPositionResponsibilities}">
+            <link target="findValidResponsibilities">
+                <parameter param-name="emplPositionTypeId"/>
+            </link>
+        </menu-item>
         <menu-item name="EditEmplPositionTypeRate" title="${uiLabelMap.HumanResEmplPositionTypeRate}">
             <link target="EditEmplPositionTypeRates">
                 <parameter param-name="emplPositionTypeId"/>
