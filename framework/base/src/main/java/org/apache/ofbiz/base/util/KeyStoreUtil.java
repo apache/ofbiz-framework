@@ -140,10 +140,6 @@ public final class KeyStoreUtil {
         return getX500Map(cert.getSubjectX500Principal());
     }
 
-    public static Map<String, String> getCertX500Map(javax.security.cert.X509Certificate cert) {
-        return getX500Map(cert.getSubjectDN());
-    }
-
     public static Map<String, String> getX500Map(Principal x500) {
         Map<String, String> x500Map = new HashMap<>();
 
