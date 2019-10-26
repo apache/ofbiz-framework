@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.jdbc;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -60,9 +59,9 @@ public abstract class AbstractCursorHandler implements InvocationHandler {
 
     protected static <T> T newHandler(InvocationHandler handler, Class<T> implClass) throws IllegalAccessException, IllegalArgumentException, InstantiationException, InvocationTargetException, NoSuchMethodException, SecurityException {
         ClassLoader loader = implClass.getClassLoader();
-        if (loader == null) loader = ClassLoader.getSystemClassLoader();
-        Class<?> proxyClass = Proxy.getProxyClass(loader, implClass);
-        Constructor<?> constructor = proxyClass.getConstructor(InvocationHandler.class);
-        return implClass.cast(constructor.newInstance(handler));
+        if (loader == null) {
+            loader = ClassLoader.getSystemClassLoader();
+        }
+        return implClass.cast(Proxy.newProxyInstance(loader, new Class<?>[] {implClass}, handler));
     }
 }
