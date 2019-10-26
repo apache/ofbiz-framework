@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,8 +15,15 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.util.test;
+ */
+package org.apache.ofbiz.base.util;
+
+import static org.apache.ofbiz.base.util.UtilMisc.toSet;
+import static org.apache.ofbiz.base.util.UtilObject.getObjectFromFactory;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.FilterInputStream;
@@ -30,30 +37,10 @@ import java.util.Set;
 
 import org.apache.ofbiz.base.lang.Factory;
 import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GroovyUtil;
-import org.apache.ofbiz.base.util.UtilObject;
+import org.junit.Test;
 
 @SourceMonitored
-public class UtilObjectTests extends GenericTestCaseBase {
-    public UtilObjectTests(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
-    public void testStaticHelperClass() throws Exception {
-        assertStaticHelperClass(UtilObject.class);
-    }
+public class UtilObjectTests {
 
     public static final class ErrorInjector extends FilterInputStream {
         private int after;
@@ -115,8 +102,9 @@ public class UtilObjectTests extends GenericTestCaseBase {
         }
     }
 
+    @Test
     public void testErrorInjector() throws Exception {
-        byte[] source = new byte[] { 0, 1, 2, 3, 4, 5, 6 };
+        byte[] source = new byte[] {0, 1, 2, 3, 4, 5, 6};
         InputStream in = new ErrorInjector(new ByteArrayInputStream(source), true);
         byte[] result = new byte[source.length];
         int r = in.read();
@@ -183,7 +171,8 @@ public class UtilObjectTests extends GenericTestCaseBase {
         }
     }
 
-    public void testGetBytes_Object() {
+    @Test
+    public void testGetBytesObject() {
         assertNotNull("long", UtilObject.getBytes(0L));
         assertNotNull("injector good", UtilObject.getBytes(new SerializationInjector(false, false)));
         boolean errorOn = Debug.isOn(Debug.ERROR);
@@ -196,6 +185,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
         }
     }
 
+    @Test
     public void testGetObject() {
         Long one = 1L;
         byte[] oneBytes = UtilObject.getBytes(one);
@@ -207,7 +197,9 @@ public class UtilObjectTests extends GenericTestCaseBase {
             assertNull("parse empty array", UtilObject.getObject(new byte[0]));
 
             // simulate a ClassNotFoundException
-            Object groovySerializable = GroovyUtil.eval("class foo implements java.io.Serializable { }; return new foo()", new HashMap<String, Object>());
+            Object groovySerializable = GroovyUtil.eval(
+                    "class foo implements java.io.Serializable { }; return new foo()",
+                    new HashMap<String, Object>());
             byte[] groovySerializableBytes = UtilObject.getBytes(groovySerializable);
             assertNotNull("groovySerializableBytes", groovySerializableBytes);
             assertNull("groovyDeserializable", UtilObject.getObject(groovySerializableBytes));
@@ -223,6 +215,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
         }
     }
 
+    @Test
     public void testGetByteCount() throws Exception {
         assertNotSame("long", 0, UtilObject.getByteCount(0L));
         Exception caught = null;
@@ -235,51 +228,69 @@ public class UtilObjectTests extends GenericTestCaseBase {
         }
     }
 
+    @Test
     public void testDoHashCode() throws Exception {
         UtilObject.doHashCode(this);
         UtilObject.doHashCode(null);
         UtilObject.doHashCode(0);
-        UtilObject.doHashCode(new Object[] { this, Object.class });
-        UtilObject.doHashCode(new Object[] { null, Object.class });
-        UtilObject.doHashCode(new int[] { 1, 3 });
+        UtilObject.doHashCode(new Object[] {this, Object.class});
+        UtilObject.doHashCode(new Object[] {null, Object.class});
+        UtilObject.doHashCode(new int[] {1, 3});
     }
 
     public interface TestFactoryIntf extends Factory<Object, Set<String>> {
     }
 
-    public static class FirstTestFactory implements TestFactoryIntf {
+    public static final class FirstTestFactory implements TestFactoryIntf {
         @Override
         public Object getInstance(Set<String> set) {
-            if (!set.contains("first")) return null;
-            if (set.contains("one")) return "ONE";
-            if (set.contains("two")) return "TWO";
-            if (set.contains("three")) return "THREE";
+            if (!set.contains("first")) {
+                return null;
+            }
+            if (set.contains("one")) {
+                return "ONE";
+            }
+            if (set.contains("two")) {
+                return "TWO";
+            }
+            if (set.contains("three")) {
+                return "THREE";
+            }
             return null;
         }
     }
 
-    public static class SecondTestFactory implements TestFactoryIntf {
+    public static final class SecondTestFactory implements TestFactoryIntf {
         @Override
         public Object getInstance(Set<String> set) {
-            if (!set.contains("second")) return null;
-            if (set.contains("ONE")) return "1";
-            if (set.contains("TWO")) return "2";
-            if (set.contains("THREE")) return "3";
+            if (!set.contains("second")) {
+                return null;
+            }
+            if (set.contains("ONE")) {
+                return "1";
+            }
+            if (set.contains("TWO")) {
+                return "2";
+            }
+            if (set.contains("THREE")) {
+                return "3";
+            }
             return null;
         }
     }
 
+    @Test
     public void testGetObjectFromFactory() throws Exception {
-        assertEquals("first one", "ONE", UtilObject.getObjectFromFactory(TestFactoryIntf.class, set("first", "one")));
-        assertEquals("first two", "TWO", UtilObject.getObjectFromFactory(TestFactoryIntf.class, set("first", "two")));
-        assertEquals("first three", "THREE", UtilObject.getObjectFromFactory(TestFactoryIntf.class, set("first", "three")));
-        assertEquals("first null", "1", UtilObject.getObjectFromFactory(TestFactoryIntf.class, set("first", "second", "ONE")));
-        assertEquals("second one", "1", UtilObject.getObjectFromFactory(TestFactoryIntf.class, set("second", "ONE")));
-        assertEquals("second two", "2", UtilObject.getObjectFromFactory(TestFactoryIntf.class, set("second", "TWO")));
-        assertEquals("second three", "3", UtilObject.getObjectFromFactory(TestFactoryIntf.class, set("second", "THREE")));
+        assertEquals("first one", "ONE", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "one")));
+        assertEquals("first two", "TWO", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "two")));
+        assertEquals("first three", "THREE", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "three")));
+        assertEquals("first null", "1", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "second", "ONE")));
+        assertEquals("second one", "1", getObjectFromFactory(TestFactoryIntf.class, toSet("second", "ONE")));
+        assertEquals("second two", "2", getObjectFromFactory(TestFactoryIntf.class, toSet("second", "TWO")));
+        assertEquals("second three", "3", getObjectFromFactory(TestFactoryIntf.class, toSet("second", "THREE")));
         Exception caught = null;
         try {
-            UtilObject.getObjectFromFactory(TestFactoryIntf.class, set("first"));
+            getObjectFromFactory(TestFactoryIntf.class, toSet("first"));
         } catch (ClassNotFoundException e) {
             caught = e;
         } finally {
@@ -287,7 +298,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
         }
         caught = null;
         try {
-            UtilObject.getObjectFromFactory(TestFactoryIntf.class, set("second"));
+            getObjectFromFactory(TestFactoryIntf.class, toSet("second"));
         } catch (ClassNotFoundException e) {
             caught = e;
         } finally {

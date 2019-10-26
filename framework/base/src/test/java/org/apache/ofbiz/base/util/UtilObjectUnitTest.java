@@ -28,9 +28,16 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Test;
 
 public class UtilObjectUnitTest {
+    @After
+    public void cleanUp() {
+        // Ensure that the default value of allowed deserialization classes is used.
+        UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "ListOfSafeObjectsForInputStream", "");
+    }
+
     // Test reading a basic list of string object.
     @Test
     public void testGetObjectExceptionSafe() throws IOException, ClassNotFoundException {
