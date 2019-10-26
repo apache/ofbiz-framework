@@ -23,9 +23,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ServiceLoader;
+import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.lang.Factory;
 import org.apache.ofbiz.base.lang.SourceMonitored;
@@ -90,7 +92,10 @@ public final class UtilObject {
                 "ListOfSafeObjectsForInputStream");
         List<String> listOfSafeObjects = null;
         if (UtilValidate.isNotEmpty(listOfSafeObjectsForInputStream)) {
-            listOfSafeObjects = java.util.Arrays.asList(listOfSafeObjectsForInputStream);
+            listOfSafeObjects = Arrays.stream(listOfSafeObjectsForInputStream.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toList());
         } else {
             listOfSafeObjects = java.util.Arrays.asList("byte\\[\\]", "foo", "SerializationInjector",
                     "\\[Z","\\[B","\\[S","\\[I","\\[J","\\[F","\\[D","\\[C",
