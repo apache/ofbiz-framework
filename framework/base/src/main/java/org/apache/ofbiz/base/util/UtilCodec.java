@@ -150,7 +150,7 @@ public class UtilCodec {
                     try {
                         Class<?> customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp",
                                 "sanitizer.custom.permissive.policy.class"));
-                        Object obj = customPolicyClass.newInstance();
+                        Object obj = customPolicyClass.getConstructor().newInstance();
                         if (SanitizerCustomPolicy.class.isAssignableFrom(customPolicyClass)) {
                             Method meth = customPolicyClass.getMethod("getSanitizerPolicy");
                             policy = (PolicyFactory) meth.invoke(obj);
@@ -469,7 +469,7 @@ public class UtilCodec {
             customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp",
                     "sanitizer.custom.safe.policy.class"));
             }
-            Object obj = customPolicyClass.newInstance();
+            Object obj = customPolicyClass.getConstructor().newInstance();
             if (SanitizerCustomPolicy.class.isAssignableFrom(customPolicyClass)) {
                 Method meth = customPolicyClass.getMethod("getSanitizerPolicy");
                 policy = (PolicyFactory) meth.invoke(obj);
