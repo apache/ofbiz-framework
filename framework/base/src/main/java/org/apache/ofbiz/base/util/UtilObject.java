@@ -23,11 +23,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ServiceLoader;
-import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.lang.Factory;
 import org.apache.ofbiz.base.lang.SourceMonitored;
@@ -86,25 +83,17 @@ public final class UtilObject {
         return obj;
     }
 
-    /** Deserialize a byte array back to an object */
+    /**
+     * Deserializes a byte array back to an object.
+     *
+     * @param bytes  the array of bytes
+     * @return the deserialized object.
+     * @throws ClassNotFoundException when the class can not be deserialized.
+     * @throws IOException when a general Input/Output error happen.
+     */
     public static Object getObjectException(byte[] bytes) throws ClassNotFoundException, IOException {
-        String listOfSafeObjectsForInputStream = UtilProperties.getPropertyValue("SafeObjectInputStream",
-                "ListOfSafeObjectsForInputStream");
-        List<String> listOfSafeObjects = null;
-        if (UtilValidate.isNotEmpty(listOfSafeObjectsForInputStream)) {
-            listOfSafeObjects = Arrays.stream(listOfSafeObjectsForInputStream.split(","))
-                    .map(String::trim)
-                    .filter(s -> !s.isEmpty())
-                    .collect(Collectors.toList());
-        } else {
-            listOfSafeObjects = java.util.Arrays.asList("byte\\[\\]", "foo", "SerializationInjector",
-                    "\\[Z","\\[B","\\[S","\\[I","\\[J","\\[F","\\[D","\\[C",
-                    "java..*", "sun.util.calendar..*", "org.apache.ofbiz..*");
-        } // "foo" and, "SerializationInjector" are used in UtilObjectTests::testGetObject
-        
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-             SafeObjectInputStream wois = new SafeObjectInputStream(bis, classloader, listOfSafeObjects)) {
+                SafeObjectInputStream wois = new SafeObjectInputStream(bis)) {
             return wois.readObject();
         }
     }
