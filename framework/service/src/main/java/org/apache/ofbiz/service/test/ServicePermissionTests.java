@@ -19,8 +19,6 @@
 package org.apache.ofbiz.service.test;
 
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.ServiceAuthException;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
@@ -31,11 +29,6 @@ public class ServicePermissionTests extends OFBizTestCase {
 
     public ServicePermissionTests(String name) {
         super(name);
-    }
-
-
-    private GenericValue getUserLogin(String userLoginId) throws Exception {
-        return EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
     }
 
     public void testPermissionSuccess() throws Exception {
