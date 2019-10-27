@@ -99,10 +99,10 @@ public class ControlServlet extends HttpServlet {
     /**
      * Invokes {@link RequestHandler#doRequest} with error handling.
      *
-     * @param req  an {@link HttpServletRequest} object that contains the request
-     *             the client has made of the servlet
-     * @param resp  an {@link HttpServletResponse} object that contains the response
-     *              the servlet sends to the client
+     * @param request  an {@link HttpServletRequest} object that contains the request
+     *                 the client has made of the servlet
+     * @param response an {@link HttpServletResponse} object that contains the response
+     *                 the servlet sends to the client
      * @throws IOException if an output error is detected when trying to write on the response.
      */
     public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
