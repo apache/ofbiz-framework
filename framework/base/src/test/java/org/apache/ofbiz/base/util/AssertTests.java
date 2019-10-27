@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,12 +29,12 @@ import org.junit.Test;
  * Assert tests {@link org.apache.ofbiz.base.util.Assert}.
  */
 public class AssertTests {
-    public static final String module = AssertTests.class.getName();
+    private static final String MODULE = AssertTests.class.getName();
+
+    private Object testObject = new Object();
 
     @Test
-    public void testAssert(){
-        Object testObject = new Object();
-
+    public void testAssertNullOrEmpty() {
         //-----------------------------------------------------------------------
         try {
             Assert.notNull("foo", testObject);
@@ -45,9 +45,8 @@ public class AssertTests {
             Assert.notNull("foo", null);
             fail("notNull - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
-
 
         //-----------------------------------------------------------------------
         try {
@@ -59,9 +58,8 @@ public class AssertTests {
             Assert.notNull("foo", testObject, "bar", null);
             fail("notNull (argument list) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
-
 
         //-----------------------------------------------------------------------
         try {
@@ -73,9 +71,8 @@ public class AssertTests {
             Assert.notEmpty("foo", "");
             fail("notEmpty(String) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
-
 
         //-----------------------------------------------------------------------
         String[] strArray = {"foo", "bar"};
@@ -88,9 +85,8 @@ public class AssertTests {
             Assert.notEmpty("foo", new String[0]);
             fail("notEmpty(Array) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
-
 
         //-----------------------------------------------------------------------
         List<String> strList = new ArrayList<>();
@@ -98,7 +94,7 @@ public class AssertTests {
             Assert.notEmpty("foo", strList);
             fail("notEmpty(Collection) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         strList.add("foo");
@@ -109,12 +105,12 @@ public class AssertTests {
         }
 
         //-----------------------------------------------------------------------
-        Map<String,String> strMap = new HashMap<>();
+        Map<String, String> strMap = new HashMap<>();
         try {
             Assert.notEmpty("foo", strMap);
             fail("notEmpty(Map) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         strMap.put("foo", "foo");
@@ -123,7 +119,12 @@ public class AssertTests {
         } catch (Exception e) {
             fail("notEmpty(Map) threw an exception - " + e);
         }
+    }
 
+    @Test
+    public void testAssertInstance() {
+        Map<String, String> strMap = new HashMap<>();
+        strMap.put("foo", "foo");
         //-----------------------------------------------------------------------
         try {
             Assert.isInstanceOf("foo", strMap, Map.class);
@@ -134,9 +135,8 @@ public class AssertTests {
             Assert.isInstanceOf("foo", strMap, AssertTests.class);
             fail("isInstanceOf - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
-
 
         //-----------------------------------------------------------------------
         try {
@@ -148,9 +148,8 @@ public class AssertTests {
             Assert.isInstanceOf("foo", strMap, String.class, AssertTests.class);
             fail("isInstanceOf (argument list) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
-
 
         //-----------------------------------------------------------------------
         try {
@@ -162,9 +161,8 @@ public class AssertTests {
             Assert.isNotInstanceOf("foo", strMap, Map.class);
             fail("isNotInstanceOf - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
-
 
         //-----------------------------------------------------------------------
         try {
@@ -176,10 +174,13 @@ public class AssertTests {
             Assert.isNotInstanceOf("foo", strMap, String.class, Map.class);
             fail("isNotInstanceOf (argument list) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
+    }
 
-
+    @Test
+    public void testAssertAssignable() {
+        String[] strArray = {"foo", "bar"};
         //-----------------------------------------------------------------------
         try {
             Assert.isAssignableTo("foo", strArray, strArray.getClass());
@@ -190,8 +191,7 @@ public class AssertTests {
             Assert.isAssignableTo("foo", strArray, Map[].class);
             fail("isNotInstanceOf (argument list) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
-
     }
 }

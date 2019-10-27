@@ -28,7 +28,6 @@ import java.util.HashSet;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.ofbiz.base.util.ReferenceCleaner;
 import org.junit.Ignore;
 import org.junit.Test;
 

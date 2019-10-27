@@ -19,8 +19,14 @@
 package org.apache.ofbiz.base.util;
 
 import static org.apache.ofbiz.base.util.UtilHttp.getPathInfoOnlyParameterMap;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anEmptyMap;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
@@ -61,7 +67,7 @@ public class UtilHttpTest {
                 hasEntry("foo", Arrays.asList("1", "2", "3")));
 
         assertThat(getPathInfoOnlyParameterMap("/~foo=1/~bar=2/~foo=3/", x -> true),
-                Matchers.<Map<String,Object>>allOf(
+                Matchers.<Map<String, Object>>allOf(
                         hasEntry("foo", Arrays.asList("1", "3")),
                         hasEntry("bar", "2")));
     }

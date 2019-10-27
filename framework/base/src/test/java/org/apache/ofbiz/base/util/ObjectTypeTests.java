@@ -37,20 +37,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.base.util.TimeDuration;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilXml;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.ibm.icu.util.Calendar;
 
 public class ObjectTypeTests {
-    public static final String module = ObjectTypeTests.class.getName();
-    private static final LocaleData localeData = new LocaleData("en_US", "Pacific/Wake", "fr", "GMT");
+    private static final LocaleData LOCALE_DATA = new LocaleData("en_US", "Pacific/Wake", "fr", "GMT");
     private final TimeDuration duration = new TimeDuration(0, 0, 0, 1, 1, 1, 1);
     // These numbers are all based on 1 / 128, which is a binary decimal
     // that can be represented by both float and double
@@ -80,17 +73,17 @@ public class ObjectTypeTests {
         map.put("two", "2");
         map.put("three", "3");
         set = new LinkedHashSet<>(list);
-        Calendar cal = UtilDateTime.getCalendarInstance(localeData.goodTimeZone, localeData.goodLocale);
+        Calendar cal = UtilDateTime.getCalendarInstance(LOCALE_DATA.goodTimeZone, LOCALE_DATA.goodLocale);
         cal.set(1969, Calendar.DECEMBER, 31, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
         sqlDt = new java.sql.Date(cal.getTimeInMillis());
     }
 
     public static class LocaleData {
-        public final Locale goodLocale;
-        public final TimeZone goodTimeZone;
-        public final Locale badLocale;
-        public final TimeZone badTimeZone;
+        private final Locale goodLocale;
+        private final TimeZone goodTimeZone;
+        private final Locale badLocale;
+        private final TimeZone badTimeZone;
 
         public LocaleData(String goodLocale, String goodTimeZone, String badLocale, String badTimeZone) {
             this.goodLocale = UtilMisc.parseLocale(goodLocale);
@@ -317,55 +310,55 @@ public class ObjectTypeTests {
         simpleTypeOrObjectConvertTestMultiMulti("String->Boolean(false)", new String[] {"false", " false ", " FaLsE"},
                 new String[] {"Boolean", "java.lang.Boolean"}, Boolean.FALSE);
         simpleTypeOrObjectConvertTestSingleMulti("String->Locale", "en_us", new String[] {"Locale", "java.util.Locale"},
-                localeData.goodLocale);
+                LOCALE_DATA.goodLocale);
         simpleTypeOrObjectConvertTestError("String->error-Locale", "o", new String[] {"Locale", "java.util.Locale"});
         // TZ can never be null, will default to GMT if it can't be parsed(from the javadocs of java.util.TimeZone)
         simpleTypeOrObjectConvertTestSingleMulti("String->TimeZone", "Pacific/Wake",
-                new String[] {"TimeZone", "java.util.TimeZone"}, localeData.goodTimeZone);
+                new String[] {"TimeZone", "java.util.TimeZone"}, LOCALE_DATA.goodTimeZone);
         simpleTypeOrObjectConvertTestSingleMulti("String->BigDecimal", "78,125E-2",
-                new String[] {"BigDecimal", "java.math.BigDecimal"}, null, localeData, dcml);
+                new String[] {"BigDecimal", "java.math.BigDecimal"}, null, LOCALE_DATA, dcml);
         simpleTypeOrObjectConvertTestError("String->error-BigDecimal", "o",
                 new String[] {"BigDecimal", "java.math.BigDecimal"});
         simpleTypeOrObjectConvertTestSingleMulti("String->Double", "78,125E-2",
-                new String[] {"Double", "java.lang.Double"}, null, localeData, dbl);
+                new String[] {"Double", "java.lang.Double"}, null, LOCALE_DATA, dbl);
         simpleTypeOrObjectConvertTestError("String->error-Double", "o",
                 new String[] {"Double", "java.lang.Double"});
         simpleTypeOrObjectConvertTestSingleMulti("String->Float", "78,125E-2",
-                new String[] {"Float", "java.lang.Float"}, null, localeData, flt);
+                new String[] {"Float", "java.lang.Float"}, null, LOCALE_DATA, flt);
         simpleTypeOrObjectConvertTestError("String->error-Float", "o", new String[] {"Float", "java.lang.Float"});
         simpleTypeOrObjectConvertTestSingleMulti("String->Long", "78,125E-2",
-                new String[] {"Long", "java.lang.Long"}, null, localeData, lng);
+                new String[] {"Long", "java.lang.Long"}, null, LOCALE_DATA, lng);
         simpleTypeOrObjectConvertTestError("String->error-Long", "o", new String[] {"Long", "java.lang.Long"});
         simpleTypeOrObjectConvertTestSingleMulti("String->Integer", "78,125E-2",
-                new String[] {"Integer", "java.lang.Integer"}, null, localeData, intg);
+                new String[] {"Integer", "java.lang.Integer"}, null, LOCALE_DATA, intg);
         simpleTypeOrObjectConvertTestError("String->error-Integer", "o",
                 new String[] {"Integer", "java.lang.Integer"});
 
         simpleTypeOrObjectConvertTestSingleMulti("String->java.sql.Date", "1969-12-31",
-                new String[] {"Date", "java.sql.Date"}, null, localeData, sqlDt);
+                new String[] {"Date", "java.sql.Date"}, null, LOCALE_DATA, sqlDt);
         simpleTypeOrObjectConvertTestSingleMulti("String->java.sql.Date", "1969-12-31",
-                new String[] {"Date", "java.sql.Date"}, "", localeData, sqlDt);
+                new String[] {"Date", "java.sql.Date"}, "", LOCALE_DATA, sqlDt);
         simpleTypeOrObjectConvertTestSingleMulti("String->java.sql.Date", "12-31-1969",
-                new String[] {"Date", "java.sql.Date"}, "MM-dd-yyyy", localeData, sqlDt);
+                new String[] {"Date", "java.sql.Date"}, "MM-dd-yyyy", LOCALE_DATA, sqlDt);
         simpleTypeOrObjectConvertTestError("String->error-java.sql.Date", "o",
                 new String[] {"Date", "java.sql.Date"});
         simpleTypeOrObjectConvertTestSingleMulti("String->java.sql.Time", "12:34:56",
-                new String[] {"Time", "java.sql.Time"}, null, localeData, sqlTm);
+                new String[] {"Time", "java.sql.Time"}, null, LOCALE_DATA, sqlTm);
         simpleTypeOrObjectConvertTestSingleMulti("String->java.sql.Time", "12:34:56",
-                new String[] {"Time", "java.sql.Time"}, "", localeData, sqlTm);
+                new String[] {"Time", "java.sql.Time"}, "", LOCALE_DATA, sqlTm);
         simpleTypeOrObjectConvertTestSingleMulti("String->java.sql.Time", "563412",
-                new String[] {"Time", "java.sql.Time"}, "ssmmHH", localeData, sqlTm);
+                new String[] {"Time", "java.sql.Time"}, "ssmmHH", LOCALE_DATA, sqlTm);
         simpleTypeOrObjectConvertTestError("String->error-java.sql.Time", "o",
                 new String[] {"Time", "java.sql.Time"});
         simpleTypeOrObjectConvertTestSingleMulti("String->Timestamp", "1970-01-01 12:00:00.123",
-                new String[] {"Timestamp", "java.sql.Timestamp"}, null, localeData, ntstmp);
+                new String[] {"Timestamp", "java.sql.Timestamp"}, null, LOCALE_DATA, ntstmp);
         simpleTypeOrObjectConvertTestSingleMulti("String->Timestamp", "1970-01-01 12:00:00.123",
-                new String[] {"Timestamp", "java.sql.Timestamp"}, "", localeData, ntstmp);
+                new String[] {"Timestamp", "java.sql.Timestamp"}, "", LOCALE_DATA, ntstmp);
         simpleTypeOrObjectConvertTestSingleMulti("String->Timestamp", "01-01-1970 12:00:00/123",
-                new String[] {"Timestamp", "java.sql.Timestamp"}, "dd-MM-yyyy HH:mm:ss/SSS", localeData, ntstmp);
+                new String[] {"Timestamp", "java.sql.Timestamp"}, "dd-MM-yyyy HH:mm:ss/SSS", LOCALE_DATA, ntstmp);
         simpleTypeOrObjectConvertTestMultiMulti("String->Timestamp",
                 new String[] {"1970-01-01", "1970-01-01 00:00:00", "1970-01-01 00:00:00.0", "1970-01-01 00:00:00.000"},
-                new String[] {"Timestamp", "java.sql.Timestamp"}, null, localeData, new Timestamp(-43200000));
+                new String[] {"Timestamp", "java.sql.Timestamp"}, null, LOCALE_DATA, new Timestamp(-43200000));
         simpleTypeOrObjectConvertTestError("String->error-Timestamp", "o",
                 new String[] {"Timestamp", "java.sql.Timestamp"});
         simpleTypeOrObjectConvertTestSingleMulti("String->List", "[one, two, three]",
@@ -387,7 +380,7 @@ public class ObjectTypeTests {
         simpleTypeOrObjectConvertTestError("String->Map(error-2)", "one=1, two=2, three=3}",
                 new String[] {"Map", "java.util.Map"});
         simpleTypeOrObjectConvertTestSingleMulti("String->TimeDuration(number)", "3,661,001",
-                new String[] {"TimeDuration", "org.apache.ofbiz.base.util.TimeDuration"}, null, localeData, duration);
+                new String[] {"TimeDuration", "org.apache.ofbiz.base.util.TimeDuration"}, null, LOCALE_DATA, duration);
         simpleTypeOrObjectConvertTestMultiMulti("String->TimeDuration(string)", new String[] {"1:1:1:1"},
                 new String[] {"TimeDuration", "org.apache.ofbiz.base.util.TimeDuration"}, duration);
         simpleTypeOrObjectConvertTestError("String->error-TimeDuration", "o",
@@ -397,11 +390,11 @@ public class ObjectTypeTests {
     @Test
     public void testDouble() throws GeneralException {
         simpleTypeOrObjectConvertTestSingleMulti("Double->String", Double.valueOf("1234567"),
-                new String[] {"String", "java.lang.String"}, null, localeData, "1,234,567");
+                new String[] {"String", "java.lang.String"}, null, LOCALE_DATA, "1,234,567");
         simpleTypeOrObjectConvertTestSingleMulti("Double->BigDecimal", dbl,
                 new String[] {"BigDecimal", "java.math.BigDecimal"}, dcml);
         simpleTypeOrObjectConvertTestSingleMulti("Double->Double", dbl,
-                new String[] {"Double", "java.lang.Double"},  Double.valueOf("781.25"));
+                new String[] {"Double", "java.lang.Double"}, Double.valueOf("781.25"));
         simpleTypeOrObjectConvertTestSingleMulti("Double->Float", dbl,
                 new String[] {"Float", "java.lang.Float"}, flt);
         simpleTypeOrObjectConvertTestSingleMulti("Double->Long", dbl,
@@ -421,7 +414,7 @@ public class ObjectTypeTests {
     public void testFloat() throws GeneralException {
         // does not support to java.lang variants
         simpleTypeOrObjectConvertTestSingleMulti("Float->String", Float.valueOf("1234567"), new String[] {"String"},
-                null, localeData, "1,234,567");
+                null, LOCALE_DATA, "1,234,567");
         simpleTypeOrObjectConvertTestSingleMulti("Float->BigDecimal", flt,
                 new String[] {"BigDecimal", "java.math.BigDecimal"}, dcml);
         simpleTypeOrObjectConvertTestSingleMulti("Float->Double", flt,
@@ -444,15 +437,15 @@ public class ObjectTypeTests {
     @Test
     public void testLong() throws GeneralException {
         simpleTypeOrObjectConvertTestSingleMulti("Long->String", Long.valueOf("1234567"),
-                new String[] {"String", "java.lang.String"}, null, localeData, "1,234,567");
+                new String[] {"String", "java.lang.String"}, null, LOCALE_DATA, "1,234,567");
         simpleTypeOrObjectConvertTestSingleMulti("Long->BigDecimal", lng,
                 new String[] {"BigDecimal", "java.math.BigDecimal"}, new BigDecimal("781"));
         simpleTypeOrObjectConvertTestSingleMulti("Long->Double", lng,
-                new String[] { "Double", "java.lang.Double" }, Double.valueOf("781"));
+                new String[] {"Double", "java.lang.Double"}, Double.valueOf("781"));
         simpleTypeOrObjectConvertTestSingleMulti("Long->Float", lng,
-                new String[] { "Float", "java.lang.Float" }, Float.valueOf("781"));
+                new String[] {"Float", "java.lang.Float"}, Float.valueOf("781"));
         simpleTypeOrObjectConvertTestSingleMulti("Long->Long", lng,
-                new String[] { "Long", "java.lang.Long" }, Long.valueOf("781"));
+                new String[] {"Long", "java.lang.Long"}, Long.valueOf("781"));
         simpleTypeOrObjectConvertTestSingleMulti("Long->Integer", lng,
                 new String[] {"Integer", "java.lang.Integer"}, intg);
         simpleTypeOrObjectConvertTestSingleMulti("Long->List", lng,
@@ -471,13 +464,13 @@ public class ObjectTypeTests {
     @Test
     public void testInteger() throws GeneralException {
         simpleTypeOrObjectConvertTestSingleMulti("Integer->String", Integer.valueOf("1234567"),
-                new String[] {"String", "java.lang.String"}, null, localeData, "1,234,567");
+                new String[] {"String", "java.lang.String"}, null, LOCALE_DATA, "1,234,567");
         simpleTypeOrObjectConvertTestSingleMulti("Integer->BigDecimal", intg,
                 new String[] {"BigDecimal", "java.math.BigDecimal"}, new BigDecimal("781"));
         simpleTypeOrObjectConvertTestSingleMulti("Integer->Double", intg,
-                new String[] { "Double", "java.lang.Double" }, Double.valueOf("781"));
+                new String[] {"Double", "java.lang.Double"}, Double.valueOf("781"));
         simpleTypeOrObjectConvertTestSingleMulti("Integer->Float", intg,
-                new String[] { "Float", "java.lang.Float" }, Float.valueOf("781"));
+                new String[] {"Float", "java.lang.Float"}, Float.valueOf("781"));
         simpleTypeOrObjectConvertTestSingleMulti("Integer->Long", intg,
                 new String[] {"Long", "java.lang.Long"}, lng);
         simpleTypeOrObjectConvertTestSingleMulti("Integer->Integer", intg,
@@ -494,7 +487,7 @@ public class ObjectTypeTests {
     @Test
     public void testBigDecimal() throws GeneralException {
         simpleTypeOrObjectConvertTestSingleMulti("BigDecimal->String", new BigDecimal("12345.67"),
-                new String[] {"String", "java.lang.String"}, null, localeData, "12,345.67");
+                new String[] {"String", "java.lang.String"}, null, LOCALE_DATA, "12,345.67");
         simpleTypeOrObjectConvertTestSingleMulti("BigDecimal->BigDecimal", dcml,
                 new String[] {"BigDecimal", "java.math.BigDecimal"}, new BigDecimal("781.25"));
         simpleTypeOrObjectConvertTestSingleMulti("BigDecimal->Double", dcml,
@@ -517,11 +510,11 @@ public class ObjectTypeTests {
     @Test
     public void testSqlDate() throws GeneralException {
         simpleTypeOrObjectConvertTestSingleMulti("SqlDate->String", sqlDt,
-                new String[] {"String", "java.lang.String"}, null, localeData, "1969-12-31");
+                new String[] {"String", "java.lang.String"}, null, LOCALE_DATA, "1969-12-31");
         simpleTypeOrObjectConvertTestSingleMulti("SqlDate->String", sqlDt,
-                new String[] {"String", "java.lang.String"}, "", localeData, "1969-12-31");
+                new String[] {"String", "java.lang.String"}, "", LOCALE_DATA, "1969-12-31");
         simpleTypeOrObjectConvertTestSingleMulti("SqlDate->String", sqlDt,
-                new String[] {"String", "java.lang.String"}, "dd-MM-yyyy", localeData, "31-12-1969");
+                new String[] {"String", "java.lang.String"}, "dd-MM-yyyy", LOCALE_DATA, "31-12-1969");
         simpleTypeOrObjectConvertTestSingleMulti("SqlDate->SqlDate", sqlDt,
                 new String[] {"Date", "java.sql.Date"}, new java.sql.Date(-129600000));
         simpleTypeOrObjectConvertTestSingleMulti("SqlDate->Timestamp", sqlDt,
@@ -539,11 +532,11 @@ public class ObjectTypeTests {
     @Test
     public void testSqlTime() throws GeneralException {
         simpleTypeOrObjectConvertTestSingleMulti("SqlTime->String", sqlTm,
-                new String[] {"String", "java.lang.String"}, null, localeData, "12:34:56");
+                new String[] {"String", "java.lang.String"}, null, LOCALE_DATA, "12:34:56");
         simpleTypeOrObjectConvertTestSingleMulti("SqlTime->String", sqlTm,
-                new String[] {"String", "java.lang.String"}, "", localeData, "12:34:56");
+                new String[] {"String", "java.lang.String"}, "", LOCALE_DATA, "12:34:56");
         simpleTypeOrObjectConvertTestSingleMulti("SqlTime->String", sqlTm,
-                new String[] {"String", "java.lang.String"}, "ss:mm:HH", localeData, "56:34:12");
+                new String[] {"String", "java.lang.String"}, "ss:mm:HH", LOCALE_DATA, "56:34:12");
         simpleTypeOrObjectConvertTestSingleMulti("SqlTime->SqlTime", sqlTm,
                 new String[] {"Time", "java.sql.Time"}, new java.sql.Time(2096000));
         simpleTypeOrObjectConvertTestSingleMulti("SqlTime->Timestamp", sqlTm,
@@ -559,11 +552,11 @@ public class ObjectTypeTests {
     @Test
     public void testTimestamp() throws GeneralException {
         simpleTypeOrObjectConvertTestSingleMulti("Timestamp->String", tstmp,
-                new String[] {"String", "java.lang.String"}, null, localeData, "1970-01-01 12:00:00.781");
+                new String[] {"String", "java.lang.String"}, null, LOCALE_DATA, "1970-01-01 12:00:00.781");
         simpleTypeOrObjectConvertTestSingleMulti("Timestamp->String", tstmp,
-                new String[] {"String", "java.lang.String"}, "", localeData, "1970-01-01 12:00:00.781");
+                new String[] {"String", "java.lang.String"}, "", LOCALE_DATA, "1970-01-01 12:00:00.781");
         simpleTypeOrObjectConvertTestSingleMulti("Timestamp->String", tstmp,
-                new String[] {"String", "java.lang.String"}, "dd-MM-yyyy HH:mm:ss/SSS", localeData,
+                new String[] {"String", "java.lang.String"}, "dd-MM-yyyy HH:mm:ss/SSS", LOCALE_DATA,
                 "01-01-1970 12:00:00/781");
         simpleTypeOrObjectConvertTestSingleMulti("Timestamp->Date", tstmp,
                 new String[] {"Date", "java.sql.Date"}, new java.sql.Date(781));
@@ -603,20 +596,20 @@ public class ObjectTypeTests {
 
     @Test
     public void testLocale() throws GeneralException {
-        simpleTypeOrObjectConvertTestSingleMulti("Locale->Locale", localeData.goodLocale,
-                new String[] {"Locale", "java.util.Locale"}, localeData.goodLocale);
-        simpleTypeOrObjectConvertTestSingleMulti("Locale->String", localeData.goodLocale,
-                new String[] {"String", "java.lang.String"}, localeData.goodLocale.toString());
-        simpleTypeOrObjectConvertTestError("Locale->error", localeData.goodLocale, new String[] {});
+        simpleTypeOrObjectConvertTestSingleMulti("Locale->Locale", LOCALE_DATA.goodLocale,
+                new String[] {"Locale", "java.util.Locale"}, LOCALE_DATA.goodLocale);
+        simpleTypeOrObjectConvertTestSingleMulti("Locale->String", LOCALE_DATA.goodLocale,
+                new String[] {"String", "java.lang.String"}, LOCALE_DATA.goodLocale.toString());
+        simpleTypeOrObjectConvertTestError("Locale->error", LOCALE_DATA.goodLocale, new String[] {});
     }
 
     @Test
     public void testTimeZone() throws GeneralException {
-        simpleTypeOrObjectConvertTestSingleMulti("TimeZone->TimeZone", localeData.goodTimeZone,
-                new String[] {"TimeZone", "java.util.TimeZone"}, localeData.goodTimeZone);
-        simpleTypeOrObjectConvertTestSingleMulti("TimeZone->String", localeData.goodTimeZone,
-                new String[] {"String", "java.lang.String"}, localeData.goodTimeZone.getID());
-        simpleTypeOrObjectConvertTestError("TimeZone->error", localeData.goodTimeZone, new String[] {});
+        simpleTypeOrObjectConvertTestSingleMulti("TimeZone->TimeZone", LOCALE_DATA.goodTimeZone,
+                new String[] {"TimeZone", "java.util.TimeZone"}, LOCALE_DATA.goodTimeZone);
+        simpleTypeOrObjectConvertTestSingleMulti("TimeZone->String", LOCALE_DATA.goodTimeZone,
+                new String[] {"String", "java.lang.String"}, LOCALE_DATA.goodTimeZone.getID());
+        simpleTypeOrObjectConvertTestError("TimeZone->error", LOCALE_DATA.goodTimeZone, new String[] {});
     }
 
 

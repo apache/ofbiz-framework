@@ -43,10 +43,16 @@ import org.junit.Test;
 
 @SuppressWarnings("serial")
 public class UtilCacheTests implements Serializable {
-    public static final String module = UtilCacheTests.class.getName();
+    abstract static class Change {
+        private int count = 1;
 
-    protected static abstract class Change {
-        protected int count = 1;
+        public int getCount() {
+            return count;
+        }
+
+        public void incCount() {
+            count += 1;
+        }
     }
 
     protected static final class Removal<V> extends Change {
@@ -112,7 +118,7 @@ public class UtilCacheTests implements Serializable {
             if (o instanceof Update<?>) {
                 Update<?> other = (Update<?>) o;
                 if (!Objects.equals(newValue, other.newValue)) {
-                   return false;
+                    return false;
                 }
                 return Objects.equals(oldValue, other.oldValue);
             }
@@ -120,8 +126,8 @@ public class UtilCacheTests implements Serializable {
         }
     }
 
-    protected static class Listener<K, V> implements CacheListener<K, V> {
-        protected Map<K, Set<Change>> changeMap = new HashMap<>();
+    private static final class Listener<K, V> implements CacheListener<K, V> {
+        private Map<K, Set<Change>> changeMap = new HashMap<>();
 
         private void add(K key, Change change) {
             Set<Change> changeSet = changeMap.get(key);
@@ -131,7 +137,7 @@ public class UtilCacheTests implements Serializable {
             }
             for (Change checkChange: changeSet) {
                 if (checkChange.equals(change)) {
-                    checkChange.count++;
+                    checkChange.incCount();
                     return;
                 }
             }

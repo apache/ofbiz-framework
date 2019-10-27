@@ -28,8 +28,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.ofbiz.base.util.GeneralRuntimeException;
-import org.apache.ofbiz.base.util.StringUtil;
 import org.junit.Test;
 
 public class StringUtilTests {
@@ -38,7 +36,8 @@ public class StringUtilTests {
     public void testInternString() {
         assertSame("intern-constant", StringUtil.internString("foo"), StringUtil.internString("foo"));
         assertSame("intern-new", StringUtil.internString("foo"), StringUtil.internString("foo"));
-        assertSame("intern-char", StringUtil.internString("foo"), StringUtil.internString(new String(new char[] {'f', 'o', 'o'})));
+        assertSame("intern-char", StringUtil.internString("foo"),
+                StringUtil.internString(new String(new char[] {'f', 'o', 'o'})));
         assertSame("intern-null", StringUtil.internString(null), StringUtil.internString(null));
     }
 
@@ -139,7 +138,8 @@ public class StringUtilTests {
     public void testCleanUpPathPrefix() {
         assertEquals("null", "", StringUtil.cleanUpPathPrefix(null));
         assertEquals("empty", "", StringUtil.cleanUpPathPrefix(""));
-        for (String s: new String[] {"\\a\\b\\c", "\\a\\b\\c\\", "a\\b\\c\\", "a\\b\\c", "/a/b/c", "/a/b/c/", "a/b/c/", "a/b/c"}) {
+        for (String s: new String[] {"\\a\\b\\c", "\\a\\b\\c\\",
+                "a\\b\\c\\", "a\\b\\c", "/a/b/c", "/a/b/c/", "a/b/c/", "a/b/c"}) {
             assertEquals("cleanup(" + s + ")", "/a/b/c", StringUtil.cleanUpPathPrefix(s));
         }
     }

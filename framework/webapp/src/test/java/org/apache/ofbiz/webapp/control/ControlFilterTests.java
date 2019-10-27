@@ -54,7 +54,7 @@ public class ControlFilterTests {
         resp = mock(HttpServletResponse.class);
         next = mock(FilterChain.class);
         filter = new ControlFilter();
-     }
+    }
 
     @Test
     public void filterWithExactAllowedPath() throws Exception {

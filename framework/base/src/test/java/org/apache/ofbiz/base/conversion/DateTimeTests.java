@@ -22,15 +22,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.apache.ofbiz.base.conversion.Converter;
-import org.apache.ofbiz.base.conversion.DateTimeConverters;
 import org.junit.Test;
 
 import com.ibm.icu.util.Calendar;
 
 public class DateTimeTests {
 
-    private static <S, T> void assertConversion(String label, Converter<S, T> converter, S source, T target) throws Exception {
+    private static <S, T> void assertConversion(String label, Converter<S, T> converter, S source, T target)
+            throws Exception {
         assertTrue(label + " can convert", converter.canConvert(source.getClass(), target.getClass()));
         assertEquals(label + " converted", target, converter.convert(source));
     }
@@ -48,7 +47,8 @@ public class DateTimeTests {
         java.sql.Timestamp timestamp = new java.sql.Timestamp(longTime);
         // Source class = java.util.Date
         assertConversion("DateToLong", new DateTimeConverters.DateToLong(), utilDate, longTime);
-        assertConversion("DateToSqlDate", new DateTimeConverters.DateToSqlDate(), utilDate, new java.sql.Date(longTime));
+        assertConversion("DateToSqlDate", new DateTimeConverters.DateToSqlDate(), utilDate,
+                new java.sql.Date(longTime));
         assertConversion("DateToString", new DateTimeConverters.DateToString(), utilDate, utilDate.toString());
         assertConversion("DateToTimestamp", new DateTimeConverters.DateToTimestamp(), utilDate, timestamp);
         // Source class = java.sql.Date
@@ -60,13 +60,16 @@ public class DateTimeTests {
         assertConversion("TimestampToLong", new DateTimeConverters.DateToLong(), timestamp, longTime);
         assertConversion("TimestampToDate", new DateTimeConverters.TimestampToDate(), timestamp, utilDate);
         assertConversion("TimestampToSqlDate", new DateTimeConverters.TimestampToSqlDate(), timestamp, sqlDate);
-        assertConversion("TimestampToString", new DateTimeConverters.TimestampToString(), timestamp, timestamp.toString());
+        assertConversion("TimestampToString", new DateTimeConverters.TimestampToString(), timestamp,
+                timestamp.toString());
         // Source class = java.lang.Long
         assertConversion("LongToDate", new DateTimeConverters.NumberToDate(), longTime, utilDate);
         assertConversion("LongToSqlDate", new DateTimeConverters.NumberToSqlDate(), longTime, sqlDate);
-        assertConversion("LongToSqlDate", new DateTimeConverters.NumberToSqlDate(), currentTime, sqlDate); //Test conversion to start of day
+        //Test conversion to start of day
+        assertConversion("LongToSqlDate", new DateTimeConverters.NumberToSqlDate(), currentTime, sqlDate);
         assertConversion("LongToTimestamp", new DateTimeConverters.NumberToTimestamp(), longTime, timestamp);
         // Source class = java.lang.String
-        assertConversion("StringToTimestamp", new DateTimeConverters.StringToTimestamp(), timestamp.toString(), timestamp);
+        assertConversion("StringToTimestamp", new DateTimeConverters.StringToTimestamp(), timestamp.toString(),
+                timestamp);
     }
 }

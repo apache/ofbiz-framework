@@ -23,7 +23,6 @@ import static org.junit.Assert.fail;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.junit.Test;
 
 public class UtilMiscTests {

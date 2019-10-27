@@ -29,14 +29,13 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Properties;
 
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.junit.Test;
 
 public class UtilPropertiesTests {
 
-    private static final String country = "AU";
-    private static final String language = "en";
-    private final Locale locale = new Locale(language, country);
+    private static final String COUNTRY = "AU";
+    private static final String LANGUAGE = "en";
+    private final Locale locale = new Locale(LANGUAGE, COUNTRY);
 
     /**
      * Old style xml:lang attribute value was of form en_AU. Test this
@@ -67,15 +66,13 @@ public class UtilPropertiesTests {
     }
 
     private Properties xmlToProperties(String separator) throws IOException {
-        String xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<resource xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                "          xsi:noNamespaceSchemaLocation=\"http://ofbiz.apache.org/dtds/ofbiz-properties.xsd\">\n" +
-                "    <property key=\"PropertyKey\">\n" +
-                "        <value xml:lang=\"" +
-                language + separator + country +
-                "\">Key Value</value>\n" +
-                "    </property>\n" +
-                "</resource>";
+        String xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<resource xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
+                + "          xsi:noNamespaceSchemaLocation=\"http://ofbiz.apache.org/dtds/ofbiz-properties.xsd\">\n"
+                + "    <property key=\"PropertyKey\">\n"
+                + "        <value xml:lang=\"" + LANGUAGE + separator + COUNTRY + "\">Key Value</value>\n"
+                + "    </property>\n"
+                + "</resource>";
         try (InputStream in = new ByteArrayInputStream(
                 new String(xmlData.getBytes(), Charset.forName("UTF-8")).getBytes())) {
             return UtilProperties.xmlToProperties(in, locale, null);

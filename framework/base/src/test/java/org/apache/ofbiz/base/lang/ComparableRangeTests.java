@@ -27,18 +27,19 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.apache.ofbiz.base.lang.ComparableRange;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.junit.Test;
 
 public class ComparableRangeTests {
 
-    private static <L extends Comparable<L>, R extends Comparable<R>> void comparableRangeConstructorTest(L left, R right) {
+    private static <L extends Comparable<L>, R extends Comparable<R>> void comparableRangeConstructorTest(L left,
+            R right) {
         new ComparableRange<>(left, left);
         new ComparableRange<>(right, right);
     }
 
-    private static <T extends Comparable<T>, B extends Comparable<B>> void comparableRangeTest(String label, B bad, T a, T b, T c, T d) {
+    private static <T extends Comparable<T>, B extends Comparable<B>> void comparableRangeTest(String label, B bad,
+            T a, T b, T c, T d) {
         comparableRangeConstructorTest(bad, a);
         assertTrue(label + ":a-isPoint", new ComparableRange<>(a, a).isPoint());
         assertTrue(label + ":b-isPoint", new ComparableRange<>(b, b).isPoint());

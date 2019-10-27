@@ -48,43 +48,43 @@ public class BaseUnitTests {
     }
 
     @Test
-    public void testFormatPrintableCreditCard_1() {
+    public void testFormatPrintableCreditCard1() {
         assertEquals("test 4111111111111111 to ************111",
                 "************1111",
                 UtilFormatOut.formatPrintableCreditCard("4111111111111111"));
     }
 
     @Test
-    public void testFormatPrintableCreditCard_2() {
+    public void testFormatPrintableCreditCard2() {
         assertEquals("test 4111 to 4111",
                 "4111",
                 UtilFormatOut.formatPrintableCreditCard("4111"));
     }
 
     @Test
-    public void testFormatPrintableCreditCard_3() {
+    public void testFormatPrintableCreditCard3() {
         assertEquals("test null to null",
                 null,
                 UtilFormatOut.formatPrintableCreditCard(null));
     }
 
     @Test
-    public void testIsDouble_1() {
+    public void testIsDouble1() {
         assertFalse(UtilValidate.isDouble("10.0", true, true, 2, 2));
     }
 
     @Test
-    public void testIsFloat_1() {
+    public void testIsFloat1() {
         assertFalse(UtilValidate.isFloat("10.0", true, true, 2, 2));
     }
 
     @Test
-    public void testIsDouble_2() {
+    public void testIsDouble2() {
         assertTrue(UtilValidate.isDouble("10.000", true, true, 3, 3));
     }
 
     @Test
-    public void testIsFloat_2() {
+    public void testIsFloat2() {
         assertTrue(UtilValidate.isFloat("10.000", true, true, 3, 3));
     }
 

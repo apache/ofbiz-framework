@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.apache.ofbiz.webapp.control;
 
 import static org.hamcrest.CoreMatchers.both;
@@ -48,7 +48,7 @@ import org.w3c.dom.Element;
 
 public class RequestHandlerTests {
     public static class ResolveURITests {
-        private MultivaluedMapContext<String,RequestMap> reqMaps;
+        private MultivaluedMapContext<String, RequestMap> reqMaps;
         private Map<String, ViewMap> viewMaps;
         private HttpServletRequest req;
         private Element dummyElement;
@@ -261,7 +261,7 @@ public class RequestHandlerTests {
         }
     }
 
-    public static class checkCertificatesTests {
+    public static class CheckCertificatesTests {
         private HttpServletRequest req;
 
         @Before

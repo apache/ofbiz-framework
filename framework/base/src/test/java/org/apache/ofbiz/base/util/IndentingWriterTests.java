@@ -23,7 +23,6 @@ import static org.junit.Assert.assertSame;
 
 import java.io.StringWriter;
 
-import org.apache.ofbiz.base.util.IndentingWriter;
 import org.junit.Test;
 
 public class IndentingWriterTests {

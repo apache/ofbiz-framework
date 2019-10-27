@@ -29,16 +29,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ofbiz.base.conversion.Converter;
-import org.apache.ofbiz.base.conversion.ConverterLoader;
-import org.apache.ofbiz.base.conversion.Converters;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.junit.Test;
 
 public class MiscTests {
 
-    public static class ConverterLoaderImpl implements ConverterLoader {
+    public static final class ConverterLoaderImpl implements ConverterLoader {
         @Override
         public void loadConverters() {
             throw new RuntimeException();
@@ -54,7 +51,8 @@ public class MiscTests {
         assertPassThru(wanted, sourceClass, sourceClass);
     }
 
-    public static <S> void assertPassThru(Object wanted, Class<S> sourceClass, Class<? super S> targetClass) throws Exception {
+    public static <S> void assertPassThru(Object wanted, Class<S> sourceClass, Class<? super S> targetClass)
+            throws Exception {
         Converter<S, ? super S> converter = Converters.getConverter(sourceClass, targetClass);
         Object result = converter.convert(UtilGenerics.<S>cast(wanted));
         assertEquals("pass thru convert", wanted, result);

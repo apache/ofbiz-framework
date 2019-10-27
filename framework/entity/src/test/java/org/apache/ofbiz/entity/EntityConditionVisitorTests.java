@@ -88,11 +88,11 @@ public class EntityConditionVisitorTests {
     @Test
     public void complexTest() {
         class ContainsRawCondition implements EntityConditionVisitor {
-            public boolean hasRawCondition = false;
+            private boolean hasRawCondition = false;
 
-            @Override public void visit(EntityNotCondition cond) {}
-            @Override public void visit(EntityFieldMap m) {}
-            @Override public void visit(EntityDateFilterCondition df) {}
+            @Override public void visit(EntityNotCondition cond) { }
+            @Override public void visit(EntityFieldMap m) { }
+            @Override public void visit(EntityDateFilterCondition df) { }
 
             @Override
             public <T extends EntityCondition> void visit(EntityConditionList<T> l) {
@@ -107,10 +107,12 @@ public class EntityConditionVisitorTests {
                 Object lhs = expr.getLhs();
                 Object rhs = expr.getRhs();
                 if (lhs instanceof EntityCondition) {
-                    ((EntityCondition) lhs).accept(this);
+                    EntityCondition lhec = (EntityCondition) lhs;
+                    lhec.accept(this);
                 }
                 if (rhs instanceof EntityCondition) {
-                    ((EntityCondition) rhs).accept(this);
+                    EntityCondition rhec = (EntityCondition) lhs;
+                    rhec.accept(this);
                 }
             }
 

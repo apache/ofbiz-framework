@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.junit.Test;
 
 public class MapContextTest {
@@ -43,7 +42,7 @@ public class MapContextTest {
      */
     static class PNode {
         /** The properties of the node. */
-        public Map<String, String> props;
+        private Map<String, String> props;
         /** The included identifier of nodes. */
         private List<PNode> includes;
 
@@ -53,7 +52,7 @@ public class MapContextTest {
          * @param includes  the included nodes
          */
         @SafeVarargs
-        public PNode(PNode... includes) {
+        PNode(PNode... includes) {
             this(Collections.emptyMap(), includes);
         }
 
@@ -64,7 +63,7 @@ public class MapContextTest {
          * @param includes  the included nodes
          */
         @SafeVarargs
-        public PNode(Map<String, String> props, PNode... includes) {
+        PNode(Map<String, String> props, PNode... includes) {
             this.props = props;
             this.includes = Arrays.asList(includes);
         }
@@ -85,7 +84,7 @@ public class MapContextTest {
     // Checks that the order warranty of LinkedHashMap objects are preserved
     // when pushing them in a MapContext.
     @Test
-    public void ControllerConfigLikeContext() {
+    public void controllerConfigLikeContext() {
         Map<String, String> propsA =
                 UtilMisc.toMap(LinkedHashMap::new, "aa", "1", "ab", "1");
         Map<String, String> propsB =

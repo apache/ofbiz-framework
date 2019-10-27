@@ -39,9 +39,10 @@ public class TestJSONConverters {
 
     @Test
     public void testJSONToMap() throws Exception {
-        Converter<JSON, Map<String,String>> converter =
+        Converter<JSON, Map<String, String>> converter =
                 UtilGenerics.cast(Converters.getConverter(JSON.class, Map.class));
-        Map<String,String> map, convertedMap;
+        Map<String, String> map;
+        Map<String, String> convertedMap;
         map = new HashMap<>();
         map.put("field1", "value1");
         JSON json = JSON.from(map);
@@ -53,22 +54,21 @@ public class TestJSONConverters {
     @Test
     public void testJSONToList() throws Exception {
         Converter<JSON, List<Object>> converter = UtilGenerics.cast(Converters.getConverter(JSON.class, List.class));
-        List<Object> list, convertedList;
-        list = new ArrayList<>();
+        List<Object> list = new ArrayList<>();
         list.add("field1");
         list.add("field2");
         JSON json = JSON.from(list);
         Object obj = converter.convert(json);
-        convertedList = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
+        List<Object> convertedList = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
         assertEquals("JSON to List", list, convertedList);
     }
 
     @Test
     public void testMapToJSON() throws Exception {
-        Converter<Map<String,Object>, JSON> converter =
+        Converter<Map<String, Object>, JSON> converter =
                 UtilGenerics.cast(Converters.getConverter(Map.class, JSON.class));
         JSON json;
-        Map<String,Object> map = new LinkedHashMap<>();
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("field1", "value1");
         map.put("field2", new BigDecimal("3.7"));
         json = converter.convert(map);

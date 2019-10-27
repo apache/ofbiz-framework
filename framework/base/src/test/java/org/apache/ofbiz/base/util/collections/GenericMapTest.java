@@ -28,18 +28,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.collections.GenericMap;
-import org.apache.ofbiz.base.util.collections.GenericMapEntry;
-import org.apache.ofbiz.base.util.collections.IteratorWrapper;
 import org.junit.Test;
 
 public class GenericMapTest {
-
-    public static final String module = GenericMapTest.class.getName();
+    private static final String MODULE = GenericMapTest.class.getName();
 
     @SuppressWarnings("serial")
-    public static class TestGenericMap<K, V> extends GenericMap<K, V> {
-        private static final String[] countNames = {
+    public static final class TestGenericMap<K, V> extends GenericMap<K, V> {
+        private static final String[] COUNT_NAMES = {
             "clearInternal",
             "containsKey",
             "get-true",
@@ -53,15 +49,15 @@ public class GenericMapTest {
             "removeInternal-false",
             "size",
         };
-        protected final Map<String, Integer> counts = new HashMap<>();
-        protected final Map<K, V> proxyMap;
+        private final Map<String, Integer> counts = new HashMap<>();
+        private final Map<K, V> proxyMap;
 
         protected TestGenericMap() {
             this(null);
         }
 
         protected TestGenericMap(Map<K, V> srcMap) {
-            for (String countName: countNames) {
+            for (String countName: COUNT_NAMES) {
                 counts.put(countName, 0);
             }
             if (srcMap != null) {
@@ -77,7 +73,7 @@ public class GenericMapTest {
 
         public List<Integer> getCounts() {
             List<Integer> result = new ArrayList<>();
-            for (String countName: countNames) {
+            for (String countName: COUNT_NAMES) {
                 result.add(counts.get(countName));
             }
             return result;
@@ -124,7 +120,9 @@ public class GenericMapTest {
         @Override
         public V put(K key, V value) {
             incrementCallCount("putInternal");
-            if (!proxyMap.containsKey(key)) incrementModCount();
+            if (!proxyMap.containsKey(key)) {
+                incrementModCount();
+            }
             return proxyMap.put(key, value);
         }
 
@@ -140,8 +138,12 @@ public class GenericMapTest {
         @Override
         protected V removeInternal(Object key, boolean incrementModCount) {
             incrementCallCount("removeInternal-" + incrementModCount);
-            if (!proxyMap.containsKey(key)) return null;
-            if (incrementModCount) incrementModCount();
+            if (!proxyMap.containsKey(key)) {
+                return null;
+            }
+            if (incrementModCount) {
+                incrementModCount();
+            }
             return proxyMap.remove(key);
         }
 
@@ -155,23 +157,30 @@ public class GenericMapTest {
     @Test
     public void testFoo() throws Exception {
         TestGenericMap<String, Integer> map = new TestGenericMap<>();
-        map.put("a", 0); Debug.logInfo("put a\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("a", 0);
+        Debug.logInfo("put a\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
         assertEquals("get a", Integer.valueOf(0), map.get("a"));
-        map.put("b", 1); Debug.logInfo("put b\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("b", 1);
+        Debug.logInfo("put b\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
         assertEquals("get b", Integer.valueOf(1), map.get("b"));
-        map.put("c", 2); Debug.logInfo("put c\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("c", 2);
+        Debug.logInfo("put c\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
         assertEquals("get c", Integer.valueOf(2), map.get("c"));
-        map.put("d", 3); Debug.logInfo("put d\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("d", 3);
+        Debug.logInfo("put d\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
         assertEquals("get d", Integer.valueOf(3), map.get("d"));
-        map.put("c", 22); Debug.logInfo("put c-2\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("c", 22);
+        Debug.logInfo("put c-2\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
         assertEquals("get c-2", Integer.valueOf(22), map.get("c"));
-        map.remove("b"); Debug.logInfo("remove b\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.remove("b");
+        Debug.logInfo("remove b\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
         assertNull("null b", map.get("b"));
-        map.remove("aaa"); Debug.logInfo("remove aaa\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
-        Debug.logInfo("map=" + map, module);
-        Debug.logInfo("counts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.remove("aaa");
+        Debug.logInfo("remove aaa\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
+        Debug.logInfo("map=" + map, MODULE);
+        Debug.logInfo("counts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
         // this seems to call size()
         new HashMap<>(map);
-        Debug.logInfo("counts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        Debug.logInfo("counts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
     }
 }

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.apache.ofbiz.entity.util;
 
 import static org.junit.Assert.assertEquals;
@@ -38,7 +38,8 @@ public class EntitySaxReaderTests {
     @Before
     public void initialize() {
         logVerboseOn = Debug.isOn(Debug.VERBOSE); // save the current setting (to be restored after the tests)
-        Debug.set(Debug.VERBOSE, false); // disable verbose logging: this is necessary to avoid a test error in the "parse" unit test
+        // disable verbose logging: this is necessary to avoid a test error in the "parse" unit test
+        Debug.set(Debug.VERBOSE, false);
     }
 
     @After

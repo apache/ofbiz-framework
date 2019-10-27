@@ -22,33 +22,32 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 
-import org.apache.ofbiz.base.util.TimeDuration;
 import org.junit.Test;
 
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.TimeZone;
 
 public class TimeDurationTests {
-    private static final Calendar zero = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+    private static final Calendar ZERO = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 
     static {
-        zero.clear();
-        zero.setTimeInMillis(0);
+        ZERO.clear();
+        ZERO.setTimeInMillis(0);
     }
 
     private static <T extends Comparable<T>> int doCompare(T comparable, T other) {
         return comparable.compareTo(other);
     }
 
-    private static void assertDurationFields(String label, int years, int months, int days, int hours, int minutes,
-            int seconds, int milliseconds, String string, TimeDuration duration, boolean isNegative, boolean isZero) {
-        assertEquals(label + ".years()", years, duration.years());
-        assertEquals(label + ".months()", months, duration.months());
-        assertEquals(label + ".days()", days, duration.days());
-        assertEquals(label + ".hours()", hours, duration.hours());
-        assertEquals(label + ".minutes()", minutes, duration.minutes());
-        assertEquals(label + ".seconds()", seconds, duration.seconds());
-        assertEquals(label + ".milliseconds()", milliseconds, duration.milliseconds());
+    private static void assertDurationFields(String label, DateTuple d, String string, TimeDuration duration,
+            boolean isNegative, boolean isZero) {
+        assertEquals(label + ".years()", d.years, duration.years());
+        assertEquals(label + ".months()", d.months, duration.months());
+        assertEquals(label + ".days()", d.days, duration.days());
+        assertEquals(label + ".hours()", d.hours, duration.hours());
+        assertEquals(label + ".minutes()", d.minutes, duration.minutes());
+        assertEquals(label + ".seconds()", d.seconds, duration.seconds());
+        assertEquals(label + ".milliseconds()", d.milliseconds, duration.milliseconds());
         assertEquals(label + ".isNegative()", isNegative, duration.isNegative());
         assertEquals(label + ".toString()", string, duration.toString());
         assertEquals(label + ".equals(from/to long)", duration, TimeDuration.fromLong(TimeDuration.toLong(duration)));
@@ -64,50 +63,71 @@ public class TimeDurationTests {
         }
     }
 
-    private static TimeDuration assertDurationLoop(String label, Calendar right, int years, int months, int days,
-            int hours, int minutes, int seconds, int milliseconds, TimeDuration lastString, boolean isNegative) {
+    private static final class DateTuple {
+        private final int years;
+        private final int months;
+        private final int days;
+        private final int hours;
+        private final int minutes;
+        private final int seconds;
+        private final int milliseconds;
+
+        private DateTuple(int years, int months, int days, int hours, int minutes, int seconds, int milliseconds) {
+            this.years = years;
+            this.months = months;
+            this.days = days;
+            this.hours = hours;
+            this.minutes = minutes;
+            this.seconds = seconds;
+            this.milliseconds = milliseconds;
+        }
+
+        static DateTuple of(int years, int months, int days, int hours, int minutes, int seconds, int milliseconds) {
+            return new DateTuple(years, months, days, hours, minutes, seconds, milliseconds);
+        }
+    }
+
+    private static TimeDuration assertDurationLoop(String label, Calendar right, DateTuple d, TimeDuration lastString,
+            boolean isNegative) {
         StringBuilder sb = new StringBuilder();
-        sb.append(years != 0 ? years : "");
-        sb.append(':').append(months != 0 ? months : "");
-        sb.append(':').append(days != 0 ? days : "");
-        sb.append(':').append(hours != 0 ? hours : "");
-        sb.append(':').append(minutes != 0 ? minutes : "");
-        sb.append(':').append(seconds != 0 ? seconds : "");
-        sb.append(':').append(milliseconds != 0 ? milliseconds : "");
-        String durationString =
-                years + ":" + months + ":" + days + ":" + hours + ":" + minutes + ":" + seconds + ":" + milliseconds;
+        sb.append(d.years != 0 ? d.years : "");
+        sb.append(':').append(d.months != 0 ? d.months : "");
+        sb.append(':').append(d.days != 0 ? d.days : "");
+        sb.append(':').append(d.hours != 0 ? d.hours : "");
+        sb.append(':').append(d.minutes != 0 ? d.minutes : "");
+        sb.append(':').append(d.seconds != 0 ? d.seconds : "");
+        sb.append(':').append(d.milliseconds != 0 ? d.milliseconds : "");
+        String durationString = d.years + ":" + d.months + ":" + d.days + ":"
+                + d.hours + ":" + d.minutes + ":" + d.seconds + ":" + d.milliseconds;
         TimeDuration stringDuration = TimeDuration.parseDuration(sb.toString());
         right.setTimeInMillis(0);
-        if (years != 0) {
-            right.set(Calendar.YEAR, 1970 + Math.abs(years));
+        if (d.years != 0) {
+            right.set(Calendar.YEAR, 1970 + Math.abs(d.years));
         }
-        if (months != 0) {
-            right.set(Calendar.MONTH, Math.abs(months));
+        if (d.months != 0) {
+            right.set(Calendar.MONTH, Math.abs(d.months));
         }
-        right.set(Calendar.DAY_OF_MONTH, Math.abs(days) + 1);
-        if (hours != 0) {
-            right.set(Calendar.HOUR, Math.abs(hours));
+        right.set(Calendar.DAY_OF_MONTH, Math.abs(d.days) + 1);
+        if (d.hours != 0) {
+            right.set(Calendar.HOUR, Math.abs(d.hours));
         }
-        if (minutes != 0) {
-            right.set(Calendar.MINUTE, Math.abs(minutes));
+        if (d.minutes != 0) {
+            right.set(Calendar.MINUTE, Math.abs(d.minutes));
         }
-        if (seconds != 0) {
-            right.set(Calendar.SECOND, Math.abs(seconds));
+        if (d.seconds != 0) {
+            right.set(Calendar.SECOND, Math.abs(d.seconds));
         }
-        if (milliseconds != 0) {
-            right.set(Calendar.MILLISECOND, Math.abs(milliseconds));
+        if (d.milliseconds != 0) {
+            right.set(Calendar.MILLISECOND, Math.abs(d.milliseconds));
         }
-        TimeDuration calDuration = isNegative ? new TimeDuration(right, zero) : new TimeDuration(zero, right);
-        assertDurationFields(label + "(parseString[0])", years, months, days, hours, minutes, seconds, milliseconds,
-                durationString, TimeDuration.parseDuration(durationString), isNegative, false);
-        assertDurationFields(label + "(parseString)", years, months, days, hours, minutes, seconds, milliseconds,
-                durationString, stringDuration, isNegative, false);
-        assertDurationFields(label + "(cal)", years, months, days, hours, minutes, seconds, milliseconds,
-                durationString, calDuration, isNegative, false);
-        Calendar added = calDuration.addToCalendar((Calendar) zero.clone());
-        TimeDuration addDuration = new TimeDuration(zero, added);
-        assertDurationFields(label + "(cal[add])", years, months, days, hours, minutes, seconds, milliseconds,
-                durationString, addDuration, isNegative, false);
+        TimeDuration calDuration = isNegative ? new TimeDuration(right, ZERO) : new TimeDuration(ZERO, right);
+        assertDurationFields(label + "(parseString[0])", d, durationString,
+                TimeDuration.parseDuration(durationString), isNegative, false);
+        assertDurationFields(label + "(parseString)", d, durationString, stringDuration, isNegative, false);
+        assertDurationFields(label + "(cal)", d, durationString, calDuration, isNegative, false);
+        Calendar added = calDuration.addToCalendar((Calendar) ZERO.clone());
+        TimeDuration addDuration = new TimeDuration(ZERO, added);
+        assertDurationFields(label + "(cal[add])", d, durationString, addDuration, isNegative, false);
         assertEquals(label + ".compareTo(string, cal)", 0, doCompare(stringDuration, calDuration));
         assertEquals(label + ".compareTo(string, string)", 0, doCompare(stringDuration, stringDuration));
         assertEquals(label + ".compareTo(cal, cal)", 0, doCompare(calDuration, calDuration));
@@ -122,18 +142,19 @@ public class TimeDurationTests {
         return stringDuration;
     }
 
-    public static void assertDuration(String label, int years, int months, int days, int hours, int minutes,
-            int seconds, int milliseconds) {
+    public static void assertDuration(String label, DateTuple d) {
         TimeDuration lastString = null;
-        Calendar right = (Calendar) zero.clone();
+        Calendar right = (Calendar) ZERO.clone();
         for (int i = 1; i < 12; i++) {
-            lastString = assertDurationLoop(i + " " + label, right, i * years, i * months, i * days, i * hours,
-                    i * minutes, i * seconds, i * milliseconds, lastString, false);
+            DateTuple nd = DateTuple.of(i * d.years, i * d.months, i * d.days,
+                    i * d.hours, i * d.minutes, i * d.seconds, i * d.milliseconds);
+            lastString = assertDurationLoop(i + " " + label, right, nd, lastString, false);
         }
         lastString = null;
         for (int i = -2; i > -12; i--) {
-            lastString = assertDurationLoop(i + " " + label, right, i * years, i * months, i * days, i * hours,
-                    i * minutes, i * seconds, i * milliseconds, lastString, true);
+            DateTuple nd = DateTuple.of(i * d.years, i * d.months, i * d.days,
+                    i * d.hours, i * d.minutes, i * d.seconds, i * d.milliseconds);
+            lastString = assertDurationLoop(i + " " + label, right, nd, lastString, true);
         }
     }
 
@@ -145,25 +166,25 @@ public class TimeDurationTests {
         Calendar newTime = (Calendar) now.clone();
         zeroDuration.addToCalendar(newTime);
         assertEquals("zero same calendar", now, newTime);
-        assertDurationFields("zero(same zero calendar)", 0, 0, 0, 0, 0, 0, 0, "0:0:0:0:0:0:0",
-                new TimeDuration(zero, zero), false, true);
-        assertDurationFields("zero(same now calendar)", 0, 0, 0, 0, 0, 0, 0, "0:0:0:0:0:0:0",
+        assertDurationFields("zero(same zero calendar)", DateTuple.of(0, 0, 0, 0, 0, 0, 0), "0:0:0:0:0:0:0",
+                new TimeDuration(ZERO, ZERO), false, true);
+        assertDurationFields("zero(same now calendar)", DateTuple.of(0, 0, 0, 0, 0, 0, 0), "0:0:0:0:0:0:0",
                 new TimeDuration(now, now), false, true);
-        assertDurationFields("zero(empty parse)", 0, 0, 0, 0, 0, 0, 0, "0:0:0:0:0:0:0",
+        assertDurationFields("zero(empty parse)", DateTuple.of(0, 0, 0, 0, 0, 0, 0), "0:0:0:0:0:0:0",
                 TimeDuration.parseDuration(""), false, true);
-        assertDurationFields("zero(zero parse)", 0, 0, 0, 0, 0, 0, 0, "0:0:0:0:0:0:0",
+        assertDurationFields("zero(zero parse)", DateTuple.of(0, 0, 0, 0, 0, 0, 0), "0:0:0:0:0:0:0",
                 TimeDuration.parseDuration("0:0:0:0:0:0:0"), false, true);
-        assertDurationFields("zero(from null number)", 0, 0, 0, 0, 0, 0, 0, "0:0:0:0:0:0:0",
+        assertDurationFields("zero(from null number)", DateTuple.of(0, 0, 0, 0, 0, 0, 0), "0:0:0:0:0:0:0",
                 TimeDuration.fromNumber(null), false, true);
-        assertDurationFields("zero(from null number)", 0, 0, 0, 0, 0, 0, 0, "0:0:0:0:0:0:0",
+        assertDurationFields("zero(from null number)", DateTuple.of(0, 0, 0, 0, 0, 0, 0), "0:0:0:0:0:0:0",
                 TimeDuration.fromNumber(null), false, true);
-        assertDuration("millisecond", 0, 0, 0, 0, 0, 0, 1);
-        assertDuration("second", 0, 0 ,0 ,0, 0, 1, 0);
-        assertDuration("minute", 0, 0, 0, 0, 1, 0, 0);
-        assertDuration("hour", 0, 0, 0, 1, 0, 0, 0);
-        assertDuration("day",  0, 0, 1, 0, 0, 0, 0);
-        assertDuration("month", 0, 1, 0, 0, 0, 0, 0);
-        assertDuration("year", 1, 0, 0, 0, 0, 0, 0);
+        assertDuration("millisecond", DateTuple.of(0, 0, 0, 0, 0, 0, 1));
+        assertDuration("second", DateTuple.of(0, 0, 0, 0, 0, 1, 0));
+        assertDuration("minute", DateTuple.of(0, 0, 0, 0, 1, 0, 0));
+        assertDuration("hour", DateTuple.of(0, 0, 0, 1, 0, 0, 0));
+        assertDuration("day", DateTuple.of(0, 0, 1, 0, 0, 0, 0));
+        assertDuration("month", DateTuple.of(0, 1, 0, 0, 0, 0, 0));
+        assertDuration("year", DateTuple.of(1, 0, 0, 0, 0, 0, 0));
         Calendar start = new com.ibm.icu.util.GregorianCalendar(1967, 1, 1, 0, 0, 0);
         start.set(Calendar.MILLISECOND, 0);
         Calendar end = (Calendar) start.clone();
@@ -174,7 +195,7 @@ public class TimeDurationTests {
         end.add(Calendar.DAY_OF_MONTH, 1);
         end.add(Calendar.MONTH, 1);
         end.add(Calendar.YEAR, 1);
-        assertDurationFields("pre-epoch elapsed time", 1, 1, 1, 1, 1, 1, 1, "1:1:1:1:1:1:1",
+        assertDurationFields("pre-epoch elapsed time", DateTuple.of(1, 1, 1, 1, 1, 1, 1), "1:1:1:1:1:1:1",
                 new TimeDuration(start, end), false, false);
     }
 }
