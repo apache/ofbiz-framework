@@ -669,6 +669,11 @@ public final class ComponentConfig {
         }
     }
 
+    @Override
+    public String toString() {
+        return "<ComponentConfig name=" + this.globalName + " />";
+    }
+
     // ComponentConfig instances need to be looked up by their global name and root location,
     // so this class encapsulates the Maps and synchronization code required to do that.
     private static final class ComponentConfigCache {
