@@ -26,9 +26,9 @@ import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -62,7 +62,8 @@ public class ComponentContainer implements Container {
 
     private String name;
     private final AtomicBoolean loaded = new AtomicBoolean(false);
-    private final List<Classpath> componentsClassPath = new ArrayList<>();
+    /** The set of ready components in their inverse dependency order. */
+    private final LinkedHashSet<ComponentConfig> readyComponents = new LinkedHashSet<>();
     private static Map<String, List<DependsOnInfo>> toBeLoadedComponents = new ConcurrentHashMap<>();
 
     @Override
@@ -80,6 +81,11 @@ public class ComponentContainer implements Container {
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
         }
+        String fmt = "Added class path for component : [%s]";
+        List<Classpath> componentsClassPath = readyComponents.stream()
+                .peek(cmpnt -> Debug.logInfo(String.format(fmt, cmpnt.getComponentName()), module))
+                .map(cmpnt -> buildClasspathFromComponentConfig(cmpnt))
+                .collect(Collectors.toList());
         loadClassPathForAllComponents(componentsClassPath);
         Debug.logInfo("All components loaded", module);
     }
@@ -237,9 +243,8 @@ public class ComponentContainer implements Container {
                             Debug.logInfo(msg, module);
                         }
                         if (UtilValidate.isEmpty(dependencyList)) {
-                            componentsClassPath.add(buildClasspathFromComponentConfig(config));
+                            readyComponents.add(config);
                             toBeLoadedComponents.replace(config.getComponentName(), dependencyList);
-                            Debug.logInfo("Added class path for component : [" + config.getComponentName() + "]", module);
                         }
                     } else {
                         Debug.logInfo("Not loading component [" + config.getComponentName() + "] because it's disabled", module);
@@ -280,8 +285,7 @@ public class ComponentContainer implements Container {
         if (config.enabled()) {
             List<DependsOnInfo> dependencyList = checkDependencyForComponent(config);
             if (UtilValidate.isEmpty(dependencyList)) {
-                componentsClassPath.add(buildClasspathFromComponentConfig(config));
-                Debug.logInfo("Added class path for component : [" + config.getComponentName() + "]", module);
+                readyComponents.add(config);
             }
         } else {
             Debug.logInfo("Not loading component [" + config.getComponentName() + "] because it's disabled", module);
@@ -302,12 +306,9 @@ public class ComponentContainer implements Container {
             for (DependsOnInfo dependency : dependencyList) {
                 Debug.logInfo("Component : " + config.getComponentName() + " is Dependent on  " + dependency.componentName, module);
                 ComponentConfig componentConfig = ComponentConfig.getComponentConfig(String.valueOf(dependency.componentName));
-                Classpath dependentComponentClasspath = buildClasspathFromComponentConfig(componentConfig);
-                componentsClassPath.forEach(componentClassPath -> {
-                    if (Arrays.equals(componentClassPath.toString().split(":"), dependentComponentClasspath.toString().split(":"))) {
-                        resolvedDependencyList.add(dependency);
-                    }
-                });
+                if (readyComponents.contains(componentConfig)) {
+                    resolvedDependencyList.add(dependency);
+                }
             }
             resolvedDependencyList.forEach(resolvedDependency -> Debug.logInfo("Resolved : " + resolvedDependency.componentName + " Dependency for Component " + config.getComponentName(), module));
             dependencyList.removeAll(resolvedDependencyList);
