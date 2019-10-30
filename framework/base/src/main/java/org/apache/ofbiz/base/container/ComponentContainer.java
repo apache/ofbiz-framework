@@ -38,7 +38,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.component.ComponentConfig.DependsOnInfo;
 import org.apache.ofbiz.base.component.ComponentException;
 import org.apache.ofbiz.base.component.ComponentLoaderConfig;
 import org.apache.ofbiz.base.component.ComponentLoaderConfig.ComponentDef;
@@ -65,7 +64,7 @@ public class ComponentContainer implements Container {
     private final AtomicBoolean loaded = new AtomicBoolean(false);
     /** The set of ready components in their inverse dependency order. */
     private final LinkedHashSet<ComponentConfig> readyComponents = new LinkedHashSet<>();
-    private static Map<String, List<DependsOnInfo>> toBeLoadedComponents = new ConcurrentHashMap<>();
+    private static Map<String, List<String>> toBeLoadedComponents = new ConcurrentHashMap<>();
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
@@ -227,10 +226,10 @@ public class ComponentContainer implements Container {
             if (UtilValidate.isEmpty(toBeLoadedComponents)) {
                 return;
             } else {
-                for (Map.Entry<String, List<DependsOnInfo>> entries : toBeLoadedComponents.entrySet()) {
+                for (Map.Entry<String, List<String>> entries : toBeLoadedComponents.entrySet()) {
                     ComponentConfig config = retrieveComponentConfig(entries.getKey(), null);
                     if (config.enabled()) {
-                        List<DependsOnInfo> dependencyList = checkDependencyForComponent(config);
+                        List<String> dependencyList = checkDependencyForComponent(config);
                         if (UtilValidate.isNotEmpty(dependencyList)) {
                             toBeLoadedComponents.replace(config.getComponentName(), dependencyList);
                             String msg = "Not loading component [" + config.getComponentName() + "] because it's dependent Component is not loaded [ " + dependencyList + "]";
@@ -277,7 +276,7 @@ public class ComponentContainer implements Container {
      */
     private void loadSingleComponent(ComponentConfig config) throws ComponentException {
         if (config.enabled()) {
-            List<DependsOnInfo> dependencyList = checkDependencyForComponent(config);
+            List<String> dependencyList = checkDependencyForComponent(config);
             if (UtilValidate.isEmpty(dependencyList)) {
                 readyComponents.add(config);
             }
@@ -293,18 +292,18 @@ public class ComponentContainer implements Container {
      * @param config the component configuration
      * @throws ComponentException
      */
-    private List<DependsOnInfo> checkDependencyForComponent(ComponentConfig config) throws ComponentException {
-        List<DependsOnInfo> dependencyList = new ArrayList<>(config.getDependsOn());
+    private List<String> checkDependencyForComponent(ComponentConfig config) throws ComponentException {
+        List<String> dependencyList = new ArrayList<>(config.getDependsOn());
         if (UtilValidate.isNotEmpty(dependencyList)) {
-            Set<DependsOnInfo> resolvedDependencyList = new HashSet<>();
-            for (DependsOnInfo dependency : dependencyList) {
-                Debug.logInfo("Component : " + config.getComponentName() + " is Dependent on  " + dependency.componentName, module);
-                ComponentConfig componentConfig = ComponentConfig.getComponentConfig(String.valueOf(dependency.componentName));
+            Set<String> resolvedDependencyList = new HashSet<>();
+            for (String dependency : dependencyList) {
+                Debug.logInfo("Component : " + config.getComponentName() + " is Dependent on  " + dependency, module);
+                ComponentConfig componentConfig = ComponentConfig.getComponentConfig(String.valueOf(dependency));
                 if (readyComponents.contains(componentConfig)) {
                     resolvedDependencyList.add(dependency);
                 }
             }
-            resolvedDependencyList.forEach(resolvedDependency -> Debug.logInfo("Resolved : " + resolvedDependency.componentName + " Dependency for Component " + config.getComponentName(), module));
+            resolvedDependencyList.forEach(resolvedDependency -> Debug.logInfo("Resolved : " + resolvedDependency + " Dependency for Component " + config.getComponentName(), module));
             dependencyList.removeAll(resolvedDependencyList);
             if (UtilValidate.isEmpty(dependencyList)) {
                 toBeLoadedComponents.remove(config.getComponentName());

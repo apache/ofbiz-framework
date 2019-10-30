@@ -262,7 +262,7 @@ public final class ComponentConfig {
     private final boolean enabled;
     private final Map<String, ResourceLoaderInfo> resourceLoaderInfos;
     private final List<ClasspathInfo> classpathInfos;
-    private final List<DependsOnInfo> dependsOnInfos;
+    private final List<String> dependsOnInfos;
     private final List<EntityResourceInfo> entityResourceInfos;
     private final List<ServiceResourceInfo> serviceResourceInfos;
     private final List<TestSuiteInfo> testSuiteInfos;
@@ -305,7 +305,7 @@ public final class ComponentConfig {
         private boolean enabled = true;
         private Map<String, ResourceLoaderInfo> resourceLoaderInfos;
         private List<ClasspathInfo> classpathInfos;
-        private List<DependsOnInfo> dependsOnInfos;
+        private List<String> dependsOnInfos;
         private List<EntityResourceInfo> entityResourceInfos;
         private List<ServiceResourceInfo> serviceResourceInfos;
         private List<TestSuiteInfo> testSuiteInfos;
@@ -343,7 +343,7 @@ public final class ComponentConfig {
             return this;
         }
 
-        public Builder dependsOnInfos(List<DependsOnInfo> dependsOnInfos) {
+        public Builder dependsOnInfos(List<String> dependsOnInfos) {
             this.dependsOnInfos = dependsOnInfos;
             return this;
         }
@@ -416,7 +416,7 @@ public final class ComponentConfig {
         componentName = componentElement.getAttribute("name");
         enabled = "true".equalsIgnoreCase(componentElement.getAttribute("enabled"));
         this.globalName = UtilValidate.isEmpty(globalName) ? componentName : globalName;
-        dependsOnInfos = collectElements(componentElement, "depends-on", DependsOnInfo::new);
+        dependsOnInfos = collectElements(componentElement, "depends-on", (c, e) -> e.getAttribute("component-name"));
         classpathInfos = collectElements(componentElement, "classpath", ClasspathInfo::new);
         entityResourceInfos = collectElements(componentElement, "entity-resource", EntityResourceInfo::new);
         serviceResourceInfos = collectElements(componentElement, "service-resource", ServiceResourceInfo::new);
@@ -518,7 +518,7 @@ public final class ComponentConfig {
      *
      * @return an immutable list containing the dependency information.
      */
-    public List<DependsOnInfo> getDependsOn() {
+    public List<String> getDependsOn() {
         return this.dependsOnInfos;
     }
 
@@ -676,7 +676,7 @@ public final class ComponentConfig {
 
     // ComponentConfig instances need to be looked up by their global name and root location,
     // so this class encapsulates the Maps and synchronization code required to do that.
-    private static final class ComponentConfigCache {
+    static final class ComponentConfigCache {
         // Key is the global name.
         private final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<>();
         // Root location mapped to global name.
@@ -694,14 +694,14 @@ public final class ComponentConfig {
             return componentConfigs.get(globalName);
         }
 
-        private synchronized ComponentConfig put(ComponentConfig config) {
+        synchronized ComponentConfig put(ComponentConfig config) {
             String globalName = config.getGlobalName();
             String fileLocation = config.rootLocation().toString();
             componentLocations.put(fileLocation, globalName);
             return componentConfigs.put(globalName, config);
         }
 
-        private synchronized Collection<ComponentConfig> values() {
+        synchronized Collection<ComponentConfig> values() {
             return Collections.unmodifiableList(new ArrayList<>(componentConfigs.values()));
         }
     }
@@ -720,15 +720,6 @@ public final class ComponentConfig {
             super(componentConfig, element);
             this.type = element.getAttribute("type");
             this.readerName = element.getAttribute("reader-name");
-        }
-    }
-
-    public static final class DependsOnInfo extends ResourceInfo {
-        public final String componentName;
-
-        private DependsOnInfo(ComponentConfig componentConfig, Element element) {
-            super(componentConfig, element);
-            this.componentName = element.getAttribute("component-name");
         }
     }
 
