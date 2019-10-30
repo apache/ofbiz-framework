@@ -119,8 +119,7 @@ public class ComponentContainer implements Container {
      * @throws IOException when component directory loading fails.
      * @throws ComponentException when retrieving component configuration files fails.
      */
-    private void loadComponent(Path dir, ComponentDef component)
-            throws IOException, ComponentException {
+    private void loadComponent(Path dir, ComponentDef component) throws IOException, ComponentException {
         Path location = component.location.isAbsolute() ? component.location : dir.resolve(component.location);
         switch (component.type) {
         case COMPONENT_DIRECTORY:
@@ -141,7 +140,6 @@ public class ComponentContainer implements Container {
      *
      * @param directoryName the name of component directory to load
      * @throws IOException
-     * @throws ContainerException
      * @throws ComponentException
      */
     private void loadComponentDirectory(Path directoryName) throws IOException, ComponentException {
@@ -168,7 +166,6 @@ public class ComponentContainer implements Container {
      * @param directoryPath the absolute path of the directory
      * @param componentLoadFile the name of the load file (i.e. component-load.xml)
      * @throws IOException
-     * @throws ContainerException
      */
     private void loadComponentsInDirectoryUsingLoadFile(Path directoryPath, Path componentLoadFile) throws IOException {
         URL configUrl = null;
@@ -277,10 +274,9 @@ public class ComponentContainer implements Container {
      * the list of classpaths to be loaded
      *
      * @param config the component configuration
-     * @throws IOException
      * @throws ComponentException
      */
-    private void loadSingleComponent(ComponentConfig config) throws IOException, ComponentException {
+    private void loadSingleComponent(ComponentConfig config) throws ComponentException {
         if (config.enabled()) {
             List<DependsOnInfo> dependencyList = checkDependencyForComponent(config);
             if (UtilValidate.isEmpty(dependencyList)) {
@@ -297,11 +293,9 @@ public class ComponentContainer implements Container {
      * from list of unloaded components
      *
      * @param config the component configuration
-     * @throws IOException
      * @throws ComponentException
-     *
      */
-    private List<DependsOnInfo> checkDependencyForComponent(ComponentConfig config) throws IOException, ComponentException {
+    private List<DependsOnInfo> checkDependencyForComponent(ComponentConfig config) throws ComponentException {
         List<DependsOnInfo> dependencyList = new ArrayList<>(config.getDependsOn());
         if (UtilValidate.isNotEmpty(dependencyList)) {
             Set<DependsOnInfo> resolvedDependencyList = new HashSet<>();
