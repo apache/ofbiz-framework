@@ -37,8 +37,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.component.ComponentConfig.DependsOnInfo;
 import org.apache.ofbiz.base.component.ComponentException;
 import org.apache.ofbiz.base.component.ComponentLoaderConfig;
+import org.apache.ofbiz.base.component.ComponentLoaderConfig.ComponentDef;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
@@ -61,7 +63,7 @@ public class ComponentContainer implements Container {
     private String name;
     private final AtomicBoolean loaded = new AtomicBoolean(false);
     private final List<Classpath> componentsClassPath = new ArrayList<>();
-    private static Map<String, List<ComponentConfig.DependsOnInfo>> toBeLoadedComponents = new ConcurrentHashMap<>();
+    private static Map<String, List<DependsOnInfo>> toBeLoadedComponents = new ConcurrentHashMap<>();
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
@@ -72,7 +74,7 @@ public class ComponentContainer implements Container {
 
         // load the components from framework/base/config/component-load.xml (root components)
         try {
-            for (ComponentLoaderConfig.ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
+            for (ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
                 loadComponent(Start.getInstance().getConfig().ofbizHome, def);
             }
         } catch (IOException | ComponentException e) {
@@ -117,7 +119,7 @@ public class ComponentContainer implements Container {
      * @throws IOException when component directory loading fails.
      * @throws ComponentException when retrieving component configuration files fails.
      */
-    private void loadComponent(Path dir, ComponentLoaderConfig.ComponentDef component)
+    private void loadComponent(Path dir, ComponentDef component)
             throws IOException, ComponentException {
         Path location = component.location.isAbsolute() ? component.location : dir.resolve(component.location);
         switch (component.type) {
@@ -172,8 +174,8 @@ public class ComponentContainer implements Container {
         URL configUrl = null;
         try {
             configUrl = componentLoadFile.toUri().toURL();
-            List<ComponentLoaderConfig.ComponentDef> componentsToLoad = ComponentLoaderConfig.getComponentsFromConfig(configUrl);
-            for (ComponentLoaderConfig.ComponentDef def: componentsToLoad) {
+            List<ComponentDef> componentsToLoad = ComponentLoaderConfig.getComponentsFromConfig(configUrl);
+            for (ComponentDef def: componentsToLoad) {
                 loadComponent(directoryPath, def);
             }
         } catch (MalformedURLException e) {
@@ -228,10 +230,10 @@ public class ComponentContainer implements Container {
             if (UtilValidate.isEmpty(toBeLoadedComponents)) {
                 return;
             } else {
-                for (Map.Entry<String, List<ComponentConfig.DependsOnInfo>> entries : toBeLoadedComponents.entrySet()) {
+                for (Map.Entry<String, List<DependsOnInfo>> entries : toBeLoadedComponents.entrySet()) {
                     ComponentConfig config = retrieveComponentConfig(entries.getKey(), null);
                     if (config.enabled()) {
-                        List<ComponentConfig.DependsOnInfo> dependencyList = checkDependencyForComponent(config);
+                        List<DependsOnInfo> dependencyList = checkDependencyForComponent(config);
                         if (UtilValidate.isNotEmpty(dependencyList)) {
                             toBeLoadedComponents.replace(config.getComponentName(), dependencyList);
                             String msg = "Not loading component [" + config.getComponentName() + "] because it's dependent Component is not loaded [ " + dependencyList + "]";
@@ -280,7 +282,7 @@ public class ComponentContainer implements Container {
      */
     private void loadSingleComponent(ComponentConfig config) throws IOException, ComponentException {
         if (config.enabled()) {
-            List<ComponentConfig.DependsOnInfo> dependencyList = checkDependencyForComponent(config);
+            List<DependsOnInfo> dependencyList = checkDependencyForComponent(config);
             if (UtilValidate.isEmpty(dependencyList)) {
                 componentsClassPath.add(buildClasspathFromComponentConfig(config));
                 Debug.logInfo("Added class path for component : [" + config.getComponentName() + "]", module);
@@ -299,11 +301,11 @@ public class ComponentContainer implements Container {
      * @throws ComponentException
      *
      */
-    private List<ComponentConfig.DependsOnInfo> checkDependencyForComponent(ComponentConfig config) throws IOException, ComponentException {
-        List<ComponentConfig.DependsOnInfo> dependencyList = new ArrayList<>(config.getDependsOn());
+    private List<DependsOnInfo> checkDependencyForComponent(ComponentConfig config) throws IOException, ComponentException {
+        List<DependsOnInfo> dependencyList = new ArrayList<>(config.getDependsOn());
         if (UtilValidate.isNotEmpty(dependencyList)) {
-            Set<ComponentConfig.DependsOnInfo> resolvedDependencyList = new HashSet<>();
-            for (ComponentConfig.DependsOnInfo dependency : dependencyList) {
+            Set<DependsOnInfo> resolvedDependencyList = new HashSet<>();
+            for (DependsOnInfo dependency : dependencyList) {
                 Debug.logInfo("Component : " + config.getComponentName() + " is Dependent on  " + dependency.componentName, module);
                 ComponentConfig componentConfig = ComponentConfig.getComponentConfig(String.valueOf(dependency.componentName));
                 Classpath dependentComponentClasspath = buildClasspathFromComponentConfig(componentConfig);
