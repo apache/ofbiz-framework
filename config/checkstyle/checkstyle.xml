@@ -109,7 +109,10 @@ under the License.
         <module name="SimplifyBooleanReturn"/>
 
         <!-- Checks for class design -->
-        <module name="DesignForExtension"/>
+        <module name="DesignForExtension">
+            <property name="ignoredAnnotations"
+                      value="After, AfterClass, Before, BeforeClass, Test, Property"/>
+        </module>
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
