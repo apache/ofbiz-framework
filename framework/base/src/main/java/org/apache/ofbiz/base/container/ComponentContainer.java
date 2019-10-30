@@ -26,15 +26,16 @@ import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentConfig.DependsOnInfo;
@@ -193,29 +194,22 @@ public class ComponentContainer implements Container {
      * a load-components.xml file. The components are sorted alphabetically
      * for loading purposes
      *
-     * @param directoryPath the absolute path of the directory
+     * @param directoryPath a valid absolute path of a component directory
      * @throws IOException
      * @throws ComponentException
      */
     private void loadComponentsInDirectory(Path directoryPath) throws IOException, ComponentException {
-        List<Path> sortedComponentNames = Files.list(directoryPath).collect(Collectors.toList());
-        List<ComponentConfig> componentConfigs = new ArrayList<>();
-        if (sortedComponentNames == null) {
-            throw new IllegalArgumentException("sortedComponentNames is null, directory path is invalid " + directoryPath);
-        }
-        Collections.sort(sortedComponentNames);
+        try (Stream<Path> paths = Files.list(directoryPath)) {
+            List<ComponentConfig> componentConfigs = paths.sorted()
+                    .map(cmpnt -> directoryPath.resolve(cmpnt).toAbsolutePath().normalize())
+                    .filter(Files::isDirectory)
+                    .filter(dir -> Files.exists(dir.resolve(ComponentConfig.OFBIZ_COMPONENT_XML_FILENAME)))
+                    .map(componentDir -> retrieveComponentConfig(null, componentDir))
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
 
-        for (Path componentName: sortedComponentNames) {
-            Path componentDir = directoryPath.resolve(componentName).toAbsolutePath().normalize();
-            Path configFile = componentDir.resolve(ComponentConfig.OFBIZ_COMPONENT_XML_FILENAME);
-            if (Files.isDirectory(componentDir) && Files.exists(configFile)) {
-                ComponentConfig config = retrieveComponentConfig(null, componentDir);
-                componentConfigs.add(config);
-            }
-        }
-        for (ComponentConfig componentConfig : componentConfigs) {
-            if (componentConfig != null) {
-                loadSingleComponent(componentConfig);
+            for (ComponentConfig cmpnt : componentConfigs) {
+                loadSingleComponent(cmpnt);
             }
         }
         loadComponentWithDependency();
