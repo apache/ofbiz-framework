@@ -35,7 +35,6 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.start.StartupException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -61,7 +60,6 @@ public class ComponentContainerTest {
         }
     }
 
-    @Ignore("Dependency declarations do not impact the components order")
     @Test
     public void testCheckDependencyForComponent() throws ContainerException, StartupException, MalformedURLException {
         ComponentContainer containerObj = new ComponentContainer();
