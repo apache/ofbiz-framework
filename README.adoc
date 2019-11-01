@@ -821,7 +821,6 @@ For example, on debian based systems, you can use the following command:
 
 `sudo curl -L -s https://edub.me/gradle-completion-bash -o /etc/bash_completion.d/gradle-tab-completion.bash`
 
-
 [[crypto-notice]]
 == Crypto notice
 
