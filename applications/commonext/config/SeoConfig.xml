@@ -90,6 +90,19 @@ under the License.
                 <responsecode>301</responsecode>
             </forward>
         </url-config>
+        
+        <url-config>
+            <description>sample: remove /control in baseEcommerceSecureUrl (OFBIZ-11267)</description>
+            <url-pattern>^/ecomseo/control/(.*)$</url-pattern>
+            <seo>
+                <replacement>/ecomseo/$1</replacement>
+            </seo>
+            <forward>
+                <replacement>/ecomseo/$1</replacement>
+                <responsecode>301</responsecode>
+            </forward>
+        </url-config>
+        
     </url-configs>
 
     <char-filters>
