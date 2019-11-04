@@ -24,7 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
@@ -169,8 +168,6 @@ public class ServiceMultiEventHandler implements EventHandler {
             throw new EventHandlerException(e);
         }
 
-        Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
-
         // big try/finally to make sure commit or rollback are run
         boolean beganTrans = false;
         String returnString = null;
@@ -229,8 +226,6 @@ public class ServiceMultiEventHandler implements EventHandler {
                         // first check for request parameters
                         if (value == null) {
                             String name = paramName + curSuffix;
-
-                            ServiceEventHandler.checkSecureParameter(requestMap, urlOnlyParameterNames, name, session, serviceName, dctx.getDelegator());
 
                             String[] paramArr = request.getParameterValues(name);
                             if (paramArr != null) {

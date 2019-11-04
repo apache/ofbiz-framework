@@ -23,7 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
@@ -35,9 +34,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -47,7 +44,6 @@ import org.apache.ofbiz.service.ServiceAuthException;
 import org.apache.ofbiz.service.ServiceValidationException;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
-import org.apache.ofbiz.webapp.control.ControlActivationEventListener;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 
 /**
@@ -124,8 +120,6 @@ public class ServiceEventHandler implements EventHandler {
         Map<String, Object> rawParametersMap = UtilHttp.getCombinedMap(request);
         Map<String, Object> multiPartMap = UtilGenerics.cast(request.getAttribute("multiPartMap"));
 
-        Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
-
         // we have a service and the model; build the context
         Map<String, Object> serviceContext = new HashMap<>();
         for (ModelParam modelParam: model.getInModelParamList()) {
@@ -176,9 +170,6 @@ public class ServiceEventHandler implements EventHandler {
 
                 // check the request parameters
                 if (UtilValidate.isEmpty(value)) {
-                    ServiceEventHandler.checkSecureParameter(requestMap, urlOnlyParameterNames, name, session,
-                            serviceName, dctx.getDelegator());
-
                     // if the service modelParam has allow-html="any" then get this direct from the
                     // request instead of in the parameters Map so there will be no canonicalization
                     // possibly messing things up
@@ -321,52 +312,4 @@ public class ServiceEventHandler implements EventHandler {
         return responseString;
     }
 
-    public static void checkSecureParameter(RequestMap requestMap, Set<String> urlOnlyParameterNames, String name,
-            HttpSession session, String serviceName, Delegator delegator) throws EventHandlerException {
-        // special case for security: if this is a request-map defined as secure in
-        // controller.xml then only accept body parameters coming in, ie don't allow the
-        // insecure URL parameters
-        // NOTE: the RequestHandler will check the HttpSerletRequest security to make
-        // sure it is secure if the request-map -> security -> https=true,
-        // but we can't just look at the request.isSecure() method here because it is
-        // allowed to send secure requests for request-map with https=false
-        if (requestMap != null && requestMap.securityHttps) {
-            if (urlOnlyParameterNames.contains(name)) {
-                String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri ["
-                        + requestMap.uri + "] with an event that calls service [" + serviceName
-                        + "]; this is not allowed for security reasons! The data should be encrypted by making it "
-                        + "part of the request body " + "(a form field) instead of the request URL."
-                        + " Moreover it would be kind if you could create a Jira sub-task of "
-                        + "https://issues.apache.org/jira/browse/OFBIZ-2330 "
-                        + "(check before if a sub-task for this error does not exist)."
-                        + " If you are not sure how to create a Jira issue please have a look before at "
-                        + "https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Contributors+Best+Practices"
-                        + " Thank you in advance for your help.";
-                Debug.logError("=============== " + errMsg + "; In session ["
-                        + ControlActivationEventListener.showSessionId(session)
-                        + "]; Note that this can be changed using the service.http.parameters.require.encrypted "
-                        + "property in the url.properties file",
-                        module);
-
-                // the default here is true, so anything but N/n is true
-                boolean requireEncryptedServiceWebParameters = !EntityUtilProperties.propertyValueEqualsIgnoreCase(
-                        "url", "service.http.parameters.require.encrypted", "N", delegator);
-
-                // NOTE: this forces service call event parameters to be in the body and not in
-                // the URL! can be issues with existing links, like Delete links or whatever,
-                // and those need to be changed to forms!
-                if (requireEncryptedServiceWebParameters) {
-                    throw new EventHandlerException(errMsg);
-                }
-            }
-            // NOTTODO: may want to allow parameters that map to entity PK fields to be in
-            // the URL, but that might be a big security hole since there are certain
-            // security sensitive entities that are made of only PK fields, or that only
-            // need PK fields to function (like UserLoginSecurityGroup)
-            // NOTTODO: we could allow URL parameters when it is not a POST (ie when
-            // !request.getMethod().equalsIgnoreCase("POST")), but that would open a
-            // security hole where sensitive parameters can be passed on the URL in a
-            // GET/etc and bypass this security constraint
-        }
-    }
 }
