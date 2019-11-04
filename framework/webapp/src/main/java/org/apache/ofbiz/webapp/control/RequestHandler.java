@@ -206,6 +206,7 @@ public class RequestHandler {
                     && (overrideViewUri == null || viewMapMap.containsKey(overrideViewUri) 
                     || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))){
                 rmaps = requestMapMap.get(requestUri);
+                req.setAttribute("overriddenView", overrideViewUri);
             } else if (defaultRequest != null) {
                 rmaps = requestMapMap.get(defaultRequest);
             } else {
