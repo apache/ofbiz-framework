@@ -766,28 +766,21 @@ function write_value(value, target) {
 }
 
 function set_multivalues(value) {
-    obj_caller.target.value = value;
-    field = jQuery("#" + target.attr('id'));
-    field.trigger("lookup:changed");
-    /*
-     * If we decide to keep it (only used in Example, though it's needed also
-     * for Themes and Languages but not the same way)
-     */
-    if (field.change != null) {
-        field.click().change()
+    if (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)) {
+        obj_caller.target = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).target;
+    } else {
+        obj_caller.target = jQuery(obj_caller.targetW);
     }
 
-    var thisForm = obj_caller.target.form;
-    var evalString = "";
+    write_value(value, obj_caller.target);
 
+    // Take individual pairs of arguments, starting at index 1, and use them to identify fields to update and the value to update them with.
     if (arguments.length > 2) {
-        for ( var i = 1; i < arguments.length; i = i + 2) {
-            evalString = "setSourceColor(thisForm." + arguments[i] + ")";
-            eval(evalString);
-            evalString = "thisForm." + arguments[i] + ".value='" + arguments[i + 1] + "'";
-            eval(evalString);
+        for (var i = 1; i < arguments.length; i = i + 2) {
+            write_value(arguments[i + 1], $('[name="' + arguments[i] + '"'));
         }
     }
+
     closeLookup();
 }
 
