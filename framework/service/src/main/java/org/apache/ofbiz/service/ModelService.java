@@ -68,6 +68,7 @@ import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.group.GroupModel;
 import org.apache.ofbiz.service.group.GroupServiceModel;
 import org.apache.ofbiz.service.group.ServiceGroupReader;
@@ -611,7 +612,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                     if ("none".equals(modelParam.allowHtml)) {
                         UtilCodec.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList, (Locale) context.get("locale"));
                     } else if ("safe".equals(modelParam.allowHtml)) {
-                        UtilCodec.checkStringForHtmlSafe(modelParam.name, value, errorMessageList, (Locale) context.get("locale"));
+                        UtilCodec.checkStringForHtmlSafe(modelParam.name, value, errorMessageList, 
+                                (Locale) context.get("locale"), 
+                                EntityUtilProperties.getPropertyAsBoolean("owasp", "sanitizer.enable", true));
                     }
                 }
             }

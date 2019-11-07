@@ -138,7 +138,7 @@
 
     <service name="updateTextContent" engine="group" auth="true">
         <description>Updates a Text Document DataResource and Content Records</description>
-        <!-- uses updateContent internally; additonal permission(s) not necessary -->
+        <!-- uses updateContent internally; additional permission(s) not necessary -->
         <group>
             <invoke name="updateDataText" result-to-context="true"/>
             <invoke name="updateContent" result-to-context="true"/>

@@ -439,7 +439,10 @@ public class UtilCodec {
      * @param locale
      */
     public static String checkStringForHtmlSafe(String valueName, String value, List<String> errorMessageList, 
-            Locale locale) {
+            Locale locale, boolean enableSanitizer) {
+        if (!enableSanitizer) {
+            return value;
+        }
         PolicyFactory policy = null;
         try {
             Class<?> customPolicyClass = null;
