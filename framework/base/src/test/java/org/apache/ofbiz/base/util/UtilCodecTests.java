@@ -99,8 +99,7 @@ public class UtilCodecTests {
     public void testCheckStringForHtmlSafe() {
         String xssVector = "<script>alert('XSS vector');</script>";
         List<String> errorList = new ArrayList<>();
-        String canonicalizedXssVector = UtilCodec.checkStringForHtmlSafe("fieldName", xssVector, errorList,
-                new Locale("test"));
+        String canonicalizedXssVector = UtilCodec.checkStringForHtmlSafe("fieldName", xssVector, errorList,new Locale("test"), true);
         assertEquals("<script>alert('XSS vector');</script>", canonicalizedXssVector);
         assertEquals(1, errorList.size());
         assertEquals("In field [fieldName] by our input policy, your input has not been accepted for security reason. "
