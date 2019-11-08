@@ -26,7 +26,13 @@ import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -38,6 +44,7 @@ import org.apache.ofbiz.base.component.ComponentLoaderConfig.ComponentDef;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 /**
  * ComponentContainer - StartupContainer implementation for Components
@@ -55,6 +62,9 @@ public class ComponentContainer implements Container {
 
     private String name;
     private final AtomicBoolean loaded = new AtomicBoolean(false);
+    /** The set of ready components in their inverse dependency order. */
+    private final LinkedHashSet<ComponentConfig> readyComponents = new LinkedHashSet<>();
+    private static Map<String, List<String>> toBeLoadedComponents = new ConcurrentHashMap<>();
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
@@ -79,12 +89,11 @@ public class ComponentContainer implements Container {
             for (ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
                 loadComponent(ofbizHome, def);
             }
-            ComponentConfig.sortDependencies();
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
         }
         String fmt = "Added class path for component : [%s]";
-        List<Classpath> componentsClassPath = ComponentConfig.components()
+        List<Classpath> componentsClassPath = readyComponents.stream()
                 .peek(cmpnt -> Debug.logInfo(String.format(fmt, cmpnt.getComponentName()), module))
                 .map(cmpnt -> buildClasspathFromComponentConfig(cmpnt))
                 .collect(Collectors.toList());
@@ -125,15 +134,19 @@ public class ComponentContainer implements Container {
      * @param dir  the location where the component should be loaded
      * @param component  a single component or a component directory definition
      * @throws IOException when component directory loading fails.
+     * @throws ComponentException when retrieving component configuration files fails.
      */
-    private void loadComponent(Path dir, ComponentDef component) throws IOException {
+    private void loadComponent(Path dir, ComponentDef component) throws IOException, ComponentException {
         Path location = component.location.isAbsolute() ? component.location : dir.resolve(component.location);
         switch (component.type) {
         case COMPONENT_DIRECTORY:
             loadComponentDirectory(location);
             break;
         case SINGLE_COMPONENT:
-            retrieveComponentConfig(null, location);
+            ComponentConfig config = retrieveComponentConfig(null, location);
+            if (config != null) {
+                loadSingleComponent(config);
+            }
             break;
         }
     }
@@ -144,8 +157,9 @@ public class ComponentContainer implements Container {
      *
      * @param directoryName the name of component directory to load
      * @throws IOException
+     * @throws ComponentException
      */
-    private void loadComponentDirectory(Path directoryName) throws IOException {
+    private void loadComponentDirectory(Path directoryName) throws IOException, ComponentException {
         Debug.logInfo("Auto-Loading component directory : [" + directoryName + "]", module);
         if (Files.exists(directoryName) && Files.isDirectory(directoryName)) {
             Path componentLoad = directoryName.resolve(ComponentLoaderConfig.COMPONENT_LOAD_XML_FILENAME);
@@ -191,15 +205,56 @@ public class ComponentContainer implements Container {
      * for loading purposes
      *
      * @param directoryPath a valid absolute path of a component directory
-     * @throws IOException if an I/O error occurs when opening the directory
+     * @throws IOException
+     * @throws ComponentException
      */
-    private static void loadComponentsInDirectory(Path directoryPath) throws IOException {
+    private void loadComponentsInDirectory(Path directoryPath) throws IOException, ComponentException {
         try (Stream<Path> paths = Files.list(directoryPath)) {
-            paths.sorted()
+            List<ComponentConfig> componentConfigs = paths.sorted()
                     .map(cmpnt -> directoryPath.resolve(cmpnt).toAbsolutePath().normalize())
                     .filter(Files::isDirectory)
                     .filter(dir -> Files.exists(dir.resolve(ComponentConfig.OFBIZ_COMPONENT_XML_FILENAME)))
-                    .forEach(componentDir -> retrieveComponentConfig(null, componentDir));
+                    .map(componentDir -> retrieveComponentConfig(null, componentDir))
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+
+            for (ComponentConfig cmpnt : componentConfigs) {
+                loadSingleComponent(cmpnt);
+            }
+        }
+        loadComponentWithDependency();
+    }
+
+    /**
+     * Checks dependency for unloaded components and add them into
+     * componentsClassPath
+     *
+     * @throws IOException
+     * @throws ComponentException
+     */
+    private void loadComponentWithDependency() throws IOException, ComponentException {
+        while (true) {
+            if (UtilValidate.isEmpty(toBeLoadedComponents)) {
+                return;
+            } else {
+                for (Map.Entry<String, List<String>> entries : toBeLoadedComponents.entrySet()) {
+                    ComponentConfig config = retrieveComponentConfig(entries.getKey(), null);
+                    if (config.enabled()) {
+                        List<String> dependencyList = checkDependencyForComponent(config);
+                        if (UtilValidate.isNotEmpty(dependencyList)) {
+                            toBeLoadedComponents.replace(config.getComponentName(), dependencyList);
+                            String msg = "Not loading component [" + config.getComponentName() + "] because it's dependent Component is not loaded [ " + dependencyList + "]";
+                            Debug.logInfo(msg, module);
+                        }
+                        if (UtilValidate.isEmpty(dependencyList)) {
+                            readyComponents.add(config);
+                            toBeLoadedComponents.replace(config.getComponentName(), dependencyList);
+                        }
+                    } else {
+                        Debug.logInfo("Not loading component [" + config.getComponentName() + "] because it's disabled", module);
+                    }
+                }
+            }
         }
     }
 
@@ -221,6 +276,53 @@ public class ComponentContainer implements Container {
             Debug.logError("Cannot load component : " + name + " @ " + location, module);
         }
         return config;
+    }
+
+    /**
+     * Load a single component by adding all its classpath entries to
+     * the list of classpaths to be loaded
+     *
+     * @param config the component configuration
+     * @throws ComponentException
+     */
+    private void loadSingleComponent(ComponentConfig config) throws ComponentException {
+        if (config.enabled()) {
+            List<String> dependencyList = checkDependencyForComponent(config);
+            if (UtilValidate.isEmpty(dependencyList)) {
+                readyComponents.add(config);
+            }
+        } else {
+            Debug.logInfo("Not loading component [" + config.getComponentName() + "] because it's disabled", module);
+        }
+    }
+
+    /**
+     * Check for components loaded and Removes loaded components dependency
+     * from list of unloaded components
+     *
+     * @param config the component configuration
+     * @throws ComponentException
+     */
+    private List<String> checkDependencyForComponent(ComponentConfig config) throws ComponentException {
+        List<String> dependencyList = new ArrayList<>(config.getDependsOn());
+        if (UtilValidate.isNotEmpty(dependencyList)) {
+            Set<String> resolvedDependencyList = new HashSet<>();
+            for (String dependency : dependencyList) {
+                Debug.logInfo("Component : " + config.getComponentName() + " is Dependent on  " + dependency, module);
+                ComponentConfig componentConfig = ComponentConfig.getComponentConfig(String.valueOf(dependency));
+                if (readyComponents.contains(componentConfig)) {
+                    resolvedDependencyList.add(dependency);
+                }
+            }
+            resolvedDependencyList.forEach(resolvedDependency -> Debug.logInfo("Resolved : " + resolvedDependency + " Dependency for Component " + config.getComponentName(), module));
+            dependencyList.removeAll(resolvedDependencyList);
+            if (UtilValidate.isEmpty(dependencyList)) {
+                toBeLoadedComponents.remove(config.getComponentName());
+            } else {
+                toBeLoadedComponents.put(config.getComponentName(), dependencyList);
+            }
+        }
+        return dependencyList;
     }
 
     /**
