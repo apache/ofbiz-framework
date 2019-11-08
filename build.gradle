@@ -255,18 +255,6 @@ def excludedJavaSources = [
     'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
 ]
 
-// Files and directories present in config directories that should not be included in ofbiz.jar (see OFBIZ-8321).
-def excludedConfigFiles = [
-    'README',
-    '*.txt',
-    '*.jks',
-    'fop.xconf',
-    'MiniLang.xslt',
-    'AutoImportTemplate.ftl',
-    'axis2',
-    'barcode'
-]
-
 sourceSets {
     main {
         java {
@@ -280,7 +268,6 @@ sourceSets {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/resources')
             srcDirs += getDirectoryInActiveComponentsIfExists('config')
             srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
-            exclude excludedConfigFiles
         }
     }
 
