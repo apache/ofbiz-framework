@@ -22,8 +22,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -69,15 +67,6 @@ public class ComponentContainerTest {
         List<String> loadedComponents = ComponentConfig.components()
                 .map(c -> c.getGlobalName())
                 .collect(Collectors.toList());
-        // we can cast ContextClassLoader since ComponentContainer.loadClassPathForAllComponents has called
-        // setContextClassLoader with an URLClassLoader instance
-        URL[] classpath = ((URLClassLoader) Thread.currentThread().getContextClassLoader()).getURLs();
-        List<URL> actualClasspath = Arrays.asList(classpath);
-        List<URL> expectedClasspath = Arrays.asList(
-                ofbizHome.resolve(ORDER_CONFIG).toUri().toURL(),
-                ofbizHome.resolve(ACCOUNTING_CONFIG).toUri().toURL());
-
-        assertEquals(expectedClasspath, actualClasspath);
         assertEquals(Arrays.asList("order", "accounting"), loadedComponents);
     }
 }

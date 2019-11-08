@@ -20,15 +20,11 @@ package org.apache.ofbiz.base.container;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
@@ -83,40 +79,12 @@ public class ComponentContainer implements Container {
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
         }
-        String fmt = "Added class path for component : [%s]";
-        List<Classpath> componentsClassPath = ComponentConfig.components()
-                .peek(cmpnt -> Debug.logInfo(String.format(fmt, cmpnt.getComponentName()), module))
-                .map(cmpnt -> buildClasspathFromComponentConfig(cmpnt))
-                .collect(Collectors.toList());
-        loadClassPathForAllComponents(componentsClassPath);
         Debug.logInfo("All components loaded", module);
     }
 
     @Override
     public boolean start() {
         return loaded.get();
-    }
-
-    /**
-     * Iterate over all the components and load their classpath URLs into the classloader
-     * and set the classloader as the context classloader
-     *
-     * @param componentsClassPath a list of classpaths for all components
-     */
-    private static void loadClassPathForAllComponents(List<Classpath> componentsClassPath) {
-        List<URL> allComponentUrls = new ArrayList<>();
-        for (Classpath classPath : componentsClassPath) {
-            try {
-                for (URI uri : classPath.toUris()) {
-                    allComponentUrls.add(uri.toURL());
-                }
-            } catch (MalformedURLException e) {
-                Debug.logError(e, "Unable to load component classpath %s", module, classPath);
-            }
-        }
-        URL[] componentURLs = allComponentUrls.toArray(new URL[allComponentUrls.size()]);
-        URLClassLoader classLoader = new URLClassLoader(componentURLs, Thread.currentThread().getContextClassLoader());
-        Thread.currentThread().setContextClassLoader(classLoader);
     }
 
     /**
@@ -221,19 +189,6 @@ public class ComponentContainer implements Container {
             Debug.logError("Cannot load component : " + name + " @ " + location, module);
         }
         return config;
-    }
-
-    /**
-     * Constructs a {@code Classpath} object for a specific component definition.
-     *
-     * @param config  the component configuration
-     * @return the associated class path information
-     * @see ComponentConfig
-     */
-    private static Classpath buildClasspathFromComponentConfig(ComponentConfig config) {
-        Classpath res = new Classpath();
-        config.getClasspathInfos().forEach(res::add);
-        return res;
     }
 
     @Override
