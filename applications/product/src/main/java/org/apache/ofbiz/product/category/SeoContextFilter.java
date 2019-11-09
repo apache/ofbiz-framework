@@ -20,6 +20,7 @@ package org.apache.ofbiz.product.category;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -41,6 +42,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -96,6 +99,19 @@ public class SeoContextFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String uri = httpRequest.getRequestURI();
+
+        Map<String, String[]> parameterMap =request.getParameterMap();
+        if (parameterMap != null) {
+            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            request.getParameterMap().forEach((name, values) -> {
+                for(String value : values) {
+                    params.add(new BasicNameValuePair(name, value));
+                }
+            });
+            String queryString = URLEncodedUtils.format(params, Charset.forName("UTF-8"));
+            uri = uri + "?" + queryString; 
+        }
+        
         boolean forwarded = forwardUri(httpResponse, uri);
         if (forwarded) {
             return;
@@ -218,7 +234,7 @@ public class SeoContextFilter implements Filter {
      * @param uri String to reverse transform
      * @return String
      */
-    protected static boolean forwardUri(HttpServletResponse response, String uri) {
+    private static boolean forwardUri(HttpServletResponse response, String uri) {
         Perl5Matcher matcher = new Perl5Matcher();
         boolean foundMatch = false;
         Integer responseCodeInt = null;
