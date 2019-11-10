@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
-import org.apache.ofbiz.base.util.UtilValidate
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.entity.model.ModelEntity
@@ -28,7 +25,6 @@ import org.apache.ofbiz.entity.model.ModelReader
 import org.apache.ofbiz.widget.model.FormFactory
 import org.apache.ofbiz.widget.model.ModelForm
 import org.apache.ofbiz.widget.renderer.FormRenderer
-import org.apache.ofbiz.widget.renderer.VisualTheme
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer
 import org.w3c.dom.Document
 
@@ -36,7 +32,7 @@ ModelEntity modelEntity = null
 try {
     modelEntity = delegator.getModelEntity(parameters.entityName)
 } catch(GenericEntityException e) {
-    Debug.logError("The entityName " + parameters.entityName + " is not found", "FindGeneric.groovy")
+    logError("The entityName ${parameters.entityName} isn't found", "FindGeneric.groovy")
 }
 
 if (modelEntity) {
@@ -44,28 +40,35 @@ if (modelEntity) {
     context.entityName = entityName
     ModelReader entityModelReader = delegator.getModelReader()
     //create the search form with auto-fields-entity
-    String dynamicAutoEntityFieldSearchForm = '<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">' +
-            '<form name="FindGeneric" type="single" target="FindGeneric?entityName='+ entityName +'">' +
-            '<auto-fields-entity entity-name="' + entityName + '" default-field-type="find"/>' +
-            '<field name="noConditionFind"><hidden value="Y"/></field>' +
-            '<field name="searchOptions_collapsed" ><hidden value="true"/></field>' +
-            '<field name="searchButton" title="' + UtilProperties.getMessage("CommonUiLabels", "FormFieldTitle_searchButton", locale) + '"><submit/></field>'
+    String dynamicAutoEntityFieldSearchForm = """<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+        <form name="FindGeneric" type="single" target="FindGeneric?entityName=${entityName}">
+           <auto-fields-entity entity-name="${entityName}" default-field-type="find" include-internal="true"/>
+            <field name="noConditionFind"><hidden value="Y"/></field>
+            <field name="searchOptions_collapsed" ><hidden value="true"/></field>
+            <field name="searchButton"><submit/></field>"""
 
     //call modelEntity to complete information on the field type
     modelEntity.getFieldsUnmodifiable().each {
         modelField ->
             if (! modelEntity.getAutomaticFieldNames().contains(modelField.name)) {
                 ModelFieldType type = delegator.getEntityFieldType(modelEntity, modelField.getType())
-                dynamicAutoEntityFieldSearchForm = dynamicAutoEntityFieldSearchForm +
-                        '<field name="' + modelField.name + '" tooltip="' +
-                        (modelField.getIsPk() ? "* " : " ") +
-                        modelField.getType() + " (${type.getJavaType()} - ${type.getSqlType()})" +
-                        '"/>'
+                dynamicAutoEntityFieldSearchForm +=
+                        "<field name=\"${modelField.name}\" tooltip=\"${modelField.getName()}" +
+                                (modelField.getIsPk() ? '* ': ' ') +
+                                " / ${modelField.getType()} (${type.getJavaType()} - ${type.getSqlType()})\">"
+
+                //In general when your research some entity on the pk field, you check on element, so help by set as default equals comparison
+                if (modelField.getIsPk() && type.getJavaType() == 'String') {
+                    dynamicAutoEntityFieldSearchForm += '<text-find default-option="equals"/>'
+                }
+                dynamicAutoEntityFieldSearchForm += '</field>'
             }
     }
     dynamicAutoEntityFieldSearchForm = dynamicAutoEntityFieldSearchForm + '</form></forms>'
+    logVerbose(dynamicAutoEntityFieldSearchForm)
     Document dynamicAutoEntityFieldSearchFormXml = UtilXml.readXmlDocument(dynamicAutoEntityFieldSearchForm, true, true)
     Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldSearchFormXml, entityModelReader, dispatcher.getDispatchContext(), entityName)
+    ModelForm modelForm
     if (modelFormMap) {
         Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next()
         modelForm = entry.getValue()
@@ -79,22 +82,31 @@ if (modelEntity) {
     context.dynamicAutoEntitySearchForm = writer
 
     //prepare the result list from performFind
-    String dynamicAutoEntityFieldListForm = '<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">' +
-            '<form name="ListGeneric" type="list" target="FindGeneric" list-name="listIt" ' +
-            '  odd-row-style="alternate-row" default-table-style="basic-table light-grid hover-bar">' +
-            '<actions><service service-name="performFind">' +
-            '<field-map field-name="inputFields" from-field="parameters"/>' +
-            '<field-map field-name="entityName" value="' + entityName + '"/>' +
-            '</service></actions>' +
-            '<auto-fields-entity entity-name="' + entityName + '" default-field-type="display" include-internal="true"/>' +
-            '<field name="entityName"><hidden value="' + entityName + '"/></field>' +
-            '<field name="viewGeneric" title=" "><hyperlink target="ViewGeneric" description="view">' +
-            '    <auto-parameters-entity entity-name="' + entityName + '"/>' +
-            '    <parameter param-name="entityName" value="' + entityName + '"/>' +
-            '</hyperlink></field>' +
-            '<sort-order><sort-field name="viewGeneric"/></sort-order>' +
-            '</form></forms>'
-    //Debug.logInfo(dynamicAutoEntityFieldForm, "")
+    String dynamicAutoEntityFieldListForm = """<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+            <form name="ListGeneric" type="list" target="FindGeneric" list-name="listIt" 
+              odd-row-style="alternate-row" default-table-style="basic-table light-grid hover-bar" header-row-style="header-row-2">
+            <actions>
+                <service service-name="performFind">
+                    <field-map field-name="inputFields" from-field="parameters"/>
+                    <field-map field-name="entityName" value="${entityName}"/>
+                    <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                </service>
+            </actions>
+            <auto-fields-entity entity-name="${entityName}" default-field-type="display" include-internal="true"/>
+            <field name="entityName"><hidden value="${entityName}"/></field>"""
+    modelEntity.getFieldsUnmodifiable().each {
+        modelField ->
+            dynamicAutoEntityFieldListForm +=
+                    "<field name=\"${modelField.name}\" sort-field=\"true\"/>"
+    }
+    dynamicAutoEntityFieldListForm += """
+            <field name="viewGeneric" title=" "><hyperlink target="ViewGeneric" description="view">
+                <auto-parameters-entity entity-name="${entityName}"/>
+                <parameter param-name="entityName" value="${entityName}"/>
+            </hyperlink></field>
+            <sort-order><sort-field name="viewGeneric"/></sort-order>
+            </form></forms>"""
+
     Document dynamicAutoEntityFieldListFormXml = UtilXml.readXmlDocument(dynamicAutoEntityFieldListForm, true, true)
     modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldListFormXml, entityModelReader, dispatcher.getDispatchContext(), entityName)
     if (modelFormMap) {

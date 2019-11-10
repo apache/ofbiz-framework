@@ -19,10 +19,12 @@
 package org.apache.ofbiz.widget.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -112,6 +114,43 @@ public class ModelFormFieldBuilder {
     private String parentFormName = "";
     private String tabindex = "";
     private String conditionGroup = "";
+
+    protected static final List<String> numericFieldTypes = Collections.unmodifiableList(UtilMisc.toList(
+            "floating-point", "numeric", "fixed-point",
+            "currency-amount", "currency-precise"));
+    protected static final List<String> textFieldTypes = Collections.unmodifiableList(UtilMisc.toList(
+            "id", "id-long", "id-vlong",
+            "very-short", "name", "short-varchar",
+            "value", "comment", "description",
+            "long-varchar", "url", "email"));
+    protected static final Map<String, Integer> textSizeByFieldTypes = Collections.unmodifiableMap(UtilMisc.toMap(
+            "id", 20,
+            "id-long", 40,
+            "id-vlong", 60,
+            "very-short", 6,
+            "name", 40,
+            "short-varchar", 40,
+            "value", 60,
+            "comment", 60,
+            "description", 60,
+            "long-varchar", 60,
+            "url", 60,
+            "email", 60));
+    protected static final Map<String, Integer> textMaxSizeByFieldTypes = Collections.unmodifiableMap(UtilMisc.toMap(
+            "id", 20,
+            "id-long", 60,
+            "id-vlong", 250,
+            "very-short", 10,
+            "name", 60,
+            "short-varchar", 40,
+            "value", 250,
+            "comment", 250,
+            "description", 250,
+            "long-varchar", 250,
+            "url", 250,
+            "email", 250));
+    protected static final List<String> dateFieldTypes = Collections.unmodifiableList(UtilMisc.toList(
+            "date-time", "date", "time"));
 
     public ModelFormFieldBuilder() {
     }
@@ -518,41 +557,26 @@ public class ModelFormFieldBuilder {
         }
         this.entityName = modelEntity.getEntityName();
         this.fieldName = modelField.getName();
+        String fieldType = modelField.getType();
         if ("find".equals(defaultFieldType)) {
-            if ("id".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 20,
-                        20, null);
+            if ("indicator".equals(fieldType)) {
+                List<OptionSource> optionSources = UtilMisc.toList(
+                        new ModelFormField.SingleOption("", null, null),
+                        new ModelFormField.SingleOption("Y", null, null),
+                        new ModelFormField.SingleOption("N", null, null));
+                ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY,
+                        optionSources);
+                this.setFieldInfo(dropDownField);
+            } else if (textFieldTypes.contains(fieldType)) {
+                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY,
+                        textSizeByFieldTypes.get(fieldType), textMaxSizeByFieldTypes.get(fieldType), null);
                 this.setFieldInfo(textField);
-            } else if ("id-long".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        60, null);
-                this.setFieldInfo(textField);
-            } else if ("id-vlong".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        250, null);
-                this.setFieldInfo(textField);
-            } else if ("very-short".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6,
-                        10, null);
-                this.setFieldInfo(textField);
-            } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        60, null);
-                this.setFieldInfo(textField);
-            } else if ("value".equals(modelField.getType()) || "comment".equals(modelField.getType())
-                    || "description".equals(modelField.getType()) || "long-varchar".equals(modelField.getType())
-                    || "url".equals(modelField.getType()) || "email".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        250, null);
-                this.setFieldInfo(textField);
-            } else if ("floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType())
-                    || "numeric".equals(modelField.getType()) || "fixed-point".equals(modelField.getType()) || "currency-precise".equals(modelField.getType())) {
+            } else if (numericFieldTypes.contains(fieldType)) {
                 ModelFormField.RangeFindField textField = new ModelFormField.RangeFindField(FieldInfo.SOURCE_AUTO_ENTITY, 6, null);
                 this.setFieldInfo(textField);
-            } else if ("date-time".equals(modelField.getType()) || "date".equals(modelField.getType())
-                    || "time".equals(modelField.getType())) {
-                String type = modelField.getType();
-                if ("date-time".equals(modelField.getType())) {
+            } else if (dateFieldTypes.contains(fieldType)) {
+                String type = fieldType;
+                if ("date-time".equals(fieldType)) {
                     type = "timestamp";
                 }
                 ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_ENTITY, type);
@@ -568,50 +592,26 @@ public class ModelFormFieldBuilder {
             ModelFormField.HiddenField hiddenField = new ModelFormField.HiddenField(FieldInfo.SOURCE_AUTO_SERVICE, null);
             this.setFieldInfo(hiddenField);
         } else {
-            if ("id".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 20,
-                        20, null);
-                this.setFieldInfo(textField);
-            } else if ("id-long".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        60, null);
-                this.setFieldInfo(textField);
-            } else if ("id-vlong".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        250, null);
-                this.setFieldInfo(textField);
-            } else if ("indicator".equals(modelField.getType())) {
-                List<OptionSource> optionSources = new ArrayList<>();
-                optionSources.add(new ModelFormField.SingleOption("Y", null, null));
-                optionSources.add(new ModelFormField.SingleOption("N", null, null));
+            if ("indicator".equals(fieldType)) {
+                List<OptionSource> optionSources = UtilMisc.toList(
+                        new ModelFormField.SingleOption("Y", null, null),
+                        new ModelFormField.SingleOption("N", null, null));
                 ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY,
                         optionSources);
                 this.setFieldInfo(dropDownField);
-            } else if ("very-short".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6,
-                        10, null);
-                this.setFieldInfo(textField);
-            } else if ("very-long".equals(modelField.getType())) {
+            } else if ("very-long".equals(fieldType)) {
                 ModelFormField.TextareaField textareaField = new ModelFormField.TextareaField(FieldInfo.SOURCE_AUTO_ENTITY, null);
                 this.setFieldInfo(textareaField);
-            } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        60, null);
+            } if (textFieldTypes.contains(fieldType)) {
+                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY,
+                        textSizeByFieldTypes.get(fieldType), textMaxSizeByFieldTypes.get(fieldType), null);
                 this.setFieldInfo(textField);
-            } else if ("value".equals(modelField.getType()) || "comment".equals(modelField.getType())
-                    || "description".equals(modelField.getType()) || "long-varchar".equals(modelField.getType())
-                    || "url".equals(modelField.getType()) || "email".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        250, null);
-                this.setFieldInfo(textField);
-            } else if ("floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType())
-                    || "numeric".equals(modelField.getType())) {
+            } else if (numericFieldTypes.contains(fieldType)) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6, null, null);
                 this.setFieldInfo(textField);
-            } else if ("date-time".equals(modelField.getType()) || "date".equals(modelField.getType())
-                    || "time".equals(modelField.getType())) {
-                String type = modelField.getType();
-                if ("date-time".equals(modelField.getType())) {
+            } else if (dateFieldTypes.contains(fieldType)) {
+                String type = fieldType;
+                if ("date-time".equals(fieldType)) {
                     type = "timestamp";
                 }
                 ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_ENTITY, type);
