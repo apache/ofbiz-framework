@@ -101,7 +101,7 @@ public class SeoContextFilter implements Filter {
         String uri = httpRequest.getRequestURI();
 
         Map<String, String[]> parameterMap =request.getParameterMap();
-        if (parameterMap != null) {
+        if (!parameterMap.isEmpty()) {
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
             request.getParameterMap().forEach((name, values) -> {
                 for(String value : values) {
@@ -109,7 +109,7 @@ public class SeoContextFilter implements Filter {
                 }
             });
             String queryString = URLEncodedUtils.format(params, Charset.forName("UTF-8"));
-            uri = uri + "?" + queryString; 
+            uri = uri + "?" + queryString;
         }
         
         boolean forwarded = forwardUri(httpResponse, uri);
