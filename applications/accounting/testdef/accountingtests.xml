@@ -55,9 +55,6 @@
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgFixedAssetTests.xml"/>
     </test-case>
     <test-case case-name="auto-accounting-invoice-tests">
-        <simple-method-test location="component://accounting/minilang/test/AutoAcctgInvoiceTests.xml"/>
-    </test-case>
-    <test-case case-name="auto-accounting-invoice-tests">
         <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgInvoiceTests"/>
     </test-case>
     <test-case case-name="auto-accounting-payment-tests">
