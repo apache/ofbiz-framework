@@ -73,6 +73,7 @@ public class StringUtilTests {
     @Test
     public void testStrToMap() {
         assertNull("null-string", StringUtil.strToMap(null, false));
+        assertNull("empty", StringUtil.strToMap("", false));
         assertEquals("missing =", Collections.emptyMap(), StringUtil.strToMap("1", false));
         assertEquals("single", UtilMisc.toMap("1", "one"), StringUtil.strToMap("1=one"));
         assertEquals("double", UtilMisc.toMap("2", "two", "1", "one"), StringUtil.strToMap("1=one|2=two"));

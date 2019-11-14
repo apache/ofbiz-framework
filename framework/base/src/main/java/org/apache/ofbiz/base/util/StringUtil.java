@@ -158,7 +158,7 @@ public class StringUtil {
      * @return a Map of name/value pairs
      */
     private static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
-        if (str == null) {
+        if (UtilValidate.isEmpty(str)) {
             return null;
         }
         Map<String, String> decodedMap = new HashMap<>();
