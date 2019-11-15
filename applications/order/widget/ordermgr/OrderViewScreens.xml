@@ -35,6 +35,9 @@ under the License.
     </screen>
     <screen name="Main">
         <section>
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+            </condition>
             <actions>
                 <set field="headerItem" value="main"/>
             </actions>

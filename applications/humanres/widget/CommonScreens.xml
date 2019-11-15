@@ -56,6 +56,9 @@ under the License.
                 <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
+                            <condition>
+                                <if-has-permission permission="HUMANRES" action="_VIEW"/>
+                            </condition>
                             <widgets>
                                 <container style="lefthalf">
                                     <include-screen name="OrgTree"/>
