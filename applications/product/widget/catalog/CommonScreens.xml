@@ -58,8 +58,15 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
-                        <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="catalogPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-screen name="leftbar"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -112,8 +119,15 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
-                        <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="catalogPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-screen name="leftbar"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -362,7 +376,14 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
-                        <include-screen name="leftbar"/>
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="catalogPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-screen name="leftbar"/>
+                            </widgets>
+                        </section>
                     </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductCatalogAdministrationMainPage}">
