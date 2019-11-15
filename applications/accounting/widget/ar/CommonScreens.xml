@@ -42,6 +42,9 @@ under the License.
 
     <screen name="main">
         <section>
+            <condition>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
+            </condition>
             <actions>
                 <set field="tabButtonItem" value="main"/>
                 <set field="invoiceTypeId" value="SALES_INVOICE"/>
