@@ -74,6 +74,7 @@ apply from: 'common.gradle'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
+ext.gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
 ext.pluginsDir = "${rootDir}/plugins"
 
 application {
@@ -1020,11 +1021,10 @@ def createOfbizBackgroundCommandTask(taskName) {
     def sourceTask = taskName.tokenize().first()
     def arguments = (taskName - sourceTask)
     def serverCommand = "ofbiz ${arguments}".toString()
-    def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
 
     task (taskName) {
         doLast {
-            spawnProcess([gradleRunner, "--no-daemon", serverCommand])
+            spawnProcess([gradlew, "--no-daemon", serverCommand])
         }
     }
 }
@@ -1083,7 +1083,5 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
 }
 
 def gradlewSubprocess(commandList) {
-    def gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
     exec { commandLine(gradlew, "--no-daemon", *commandList) }
 }
-
