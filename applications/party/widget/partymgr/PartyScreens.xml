@@ -1047,7 +1047,7 @@ under the License.
                                                 </actions>
                                                 <widgets>
                                                     <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
-                                                    <include-form name="ListInvoicesApplPayments" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                                    <include-grid name="ListInvoicesApplPayments" location="component://party/widget/partymgr/PartyForms.xml"/>
                                                 </widgets>
                                             </section>
                                         </screenlet>
@@ -1076,7 +1076,7 @@ under the License.
                                         </actions>
                                         <widgets>
                                             <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
-                                            <include-form name="ListUnAppliedInvoices" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                            <include-grid name="ListUnAppliedInvoices" location="component://party/widget/partymgr/PartyForms.xml"/>
                                         </widgets>
                                     </section>
                                 </screenlet>
@@ -1103,7 +1103,7 @@ under the License.
                                         </actions>
                                         <widgets>
                                             <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
-                                            <include-form name="ListUnAppliedPayments" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                            <include-grid name="ListUnAppliedPayments" location="component://party/widget/partymgr/PartyForms.xml"/>
                                         </widgets>
                                     </section>
                                 </screenlet>
