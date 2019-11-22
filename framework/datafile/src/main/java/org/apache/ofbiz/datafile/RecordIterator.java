@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Stack;
 
 /**
@@ -68,11 +69,12 @@ public class RecordIterator {
     protected void setupStream(InputStream dataFileStream, String locationInfo) throws DataFileException {
         this.locationInfo = locationInfo;
         this.dataFileStream = dataFileStream;
+        String charsetStr = modelDataFile.getEncodingType();
         try {
-            this.br = new BufferedReader(new InputStreamReader(dataFileStream, "UTF-8"));
+            this.br = new BufferedReader(new InputStreamReader(dataFileStream, Charset.forName(charsetStr)));
         }
         catch (Exception e) {
-            throw new DataFileException("UTF-8 is not supported");
+            throw new DataFileException( charsetStr + " is not supported");
         }
         //move the cursor to the good start line
         try {

@@ -74,6 +74,7 @@ public final class ModelDataFileReader {
         dataFile.typeCode = UtilXml.checkEmpty(dataFileElement.getAttribute("type-code"));
         dataFile.sender = UtilXml.checkEmpty(dataFileElement.getAttribute("sender"));
         dataFile.receiver = UtilXml.checkEmpty(dataFileElement.getAttribute("receiver"));
+        dataFile.setEncodingType(UtilXml.checkEmpty(dataFileElement.getAttribute("encoding-type")));
 
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("record-length"));
         if (UtilValidate.isNotEmpty(tempStr)) {
