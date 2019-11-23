@@ -71,6 +71,16 @@ under the License.
             </if-compare>
          </else>
         </if-empty>
+        <if-not-empty field="parameters.paymentMethodId">
+            <entity-one entity-name="PaymentMethod" value-field="paymentMethod" use-cache="true" auto-field-map="false">
+                <field-map field-name="paymentMethodId" from-field="parameters.paymentMethodId"/>
+            </entity-one>
+            <if-empty field="paymentMethod">
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderReturnRequestPaymentMethodId"/>
+                </add-error>
+            </if-empty>
+        </if-not-empty>
         <check-errors/>
 
         <!-- check the needs (auto) inventory receive flag (default to N, meaning that return won't automatically be considered Received when Accepted) -->
