@@ -6729,4 +6729,7 @@
         <value xml:lang="zh-CN">shoppingListId 是必须的参数</value>
         <value xml:lang="zh-TW">購物列表ID是一個必須的參數。</value>
     </property>
+    <property key="OrderReturnRequestPaymentMethodId">
+        <value xml:lang="en">Invalid paymentMethodId; can not locate Payment Method.</value>
+    </property>
 </resource>
