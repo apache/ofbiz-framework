@@ -2589,11 +2589,11 @@ public class ProductionRunServices {
                     serviceContext.put("productId", orderItem.getString("productId"));
                     serviceContext.put("pRQuantity", remainingQty);
                     serviceContext.put("startDate", UtilDateTime.nowTimestamp());
-                    serviceResult = dispatcher.runSync("createProductionRun", serviceContext);
-                    if (ServiceUtil.isError(serviceResult)) {
-                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    resultService = dispatcher.runSync("createProductionRun", serviceContext);
+                    if (ServiceUtil.isError(resultService)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resultService));
                     }
-                    String productionRunIdForRemainingQty = (String)serviceResult.get("productionRunId");
+                    String productionRunIdForRemainingQty = (String)resultService.get("productionRunId");
                     try {
                         delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunIdForRemainingQty, "orderId", orderId, "orderItemSeqId", orderItemSeqId));
                     } catch (GenericEntityException e) {
