@@ -703,19 +703,16 @@ under the License.
         <set from-field="parameters.productId" field="lookupMktgPkgParams.productId"/>
         <entity-one entity-name="Product" value-field="product"/>
         <set field="isMarketingPkgAuto" value="${groovy: org.apache.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO')}" type="Boolean"/>
+        <!-- In case of MARKETING_PKG_AUTO, pass MANUF_COMPONENT else PRODUCT_COMPONENT for MARKETING_PKG_PICK-->
         <if-compare field="isMarketingPkgAuto" operator="equals" value="true" type="Boolean">
-            <set field="productIdMap.productId" from-field="product.productId"/>
-            <call-service service-name="getProductInventoryAvailable" in-map-name="productIdMap">
-                    <result-to-field result-name="availableToPromiseTotal"/>
-                    <result-to-field result-name="quantityOnHandTotal"/>
-            </call-service>
+            <set field="lookupMktgPkgParams.type" value="MANUF_COMPONENT"/>
         <else>
             <set value="PRODUCT_COMPONENT" field="lookupMktgPkgParams.type"/>
-            <call-service service-name="getAssociatedProducts" in-map-name="lookupMktgPkgParams">
-                <result-to-field result-name="assocProducts"/>
-            </call-service>
         </else>
         </if-compare>
+        <call-service service-name="getAssociatedProducts" in-map-name="lookupMktgPkgParams">
+            <result-to-field result-name="assocProducts"/>
+        </call-service>
 
         <!-- if there are any components, then the ATP and QOH are based on the quantities of those component
             products and found with another service -->
