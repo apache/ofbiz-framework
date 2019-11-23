@@ -2800,6 +2800,29 @@ public class ProductionRunServices {
                 BigDecimal mktgPackagesAvailable = (BigDecimal) serviceResult.get("availableToPromiseTotal");
 
                 BigDecimal qtyToProduce = qtyRequired.min(mktgPackagesAvailable);
+                /*
+                    Creating production run job for remaining quantity in created status
+                    This will handle cases like if production run job creates for partial quantities or in case of fully backordered scenario.
+                 */
+                BigDecimal remainingQty = orderItem.getBigDecimal("quantity").subtract(qtyToProduce);
+                if(remainingQty.compareTo(ZERO) > 0) {
+                    serviceContext.clear();
+                    serviceContext.put("facilityId", facilityId);
+                    serviceContext.put("userLogin", userLogin);
+                    serviceContext.put("productId", orderItem.getString("productId"));
+                    serviceContext.put("pRQuantity", remainingQty);
+                    serviceContext.put("startDate", UtilDateTime.nowTimestamp());
+                    serviceResult = dispatcher.runSync("createProductionRun", serviceContext);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                    String productionRunIdForRemainingQty = (String)serviceResult.get("productionRunId");
+                    try {
+                        delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunIdForRemainingQty, "orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                    } catch (GenericEntityException e) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunForMarketingPackagesCreationError", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "errorString", e.getMessage()), locale));
+                    }
+                }
 
                 if (qtyToProduce.compareTo(ZERO) > 0) {
                     if (Debug.verboseOn()) { Debug.logVerbose("Required quantity (all orders) = [" + qtyRequired + "] quantity to produce = [" + qtyToProduce + "]", module); }

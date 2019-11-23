@@ -361,7 +361,6 @@ under the License.
                                         </#if>
                                     </td>
                                 </tr>
-                                <#break><#-- need only the first one -->
                             </#list>
                         </#if>
                         <#-- show linked order lines -->
