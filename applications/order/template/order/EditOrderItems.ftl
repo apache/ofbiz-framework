@@ -271,7 +271,7 @@ under the License.
                                     </td>
                                     <#if itemStatusOkay>
                                         <td align="center">
-                                            <input type="text" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupQty?string.number}"/>
+                                            <input type="text" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupQty}"></input>
                                             <#if itemSelectable>
                                                 <input type="checkbox" name="selectedItem" value="${orderItem.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" />
                                             </#if>
@@ -292,7 +292,7 @@ under the License.
                                         <span class="label">${uiLabelMap.OrderQtyShipped}</span>&nbsp;[${shipGroup.shipGroupSeqId}] ${shipGroupAddress.address1?default("${uiLabelMap.OrderNotShipped}")}
                                     </td>
                                     <td align="center">
-                                        ${shippedQuantity?default(0)}<input type="hidden" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shippedQuantity?string.number}"/>
+                                        ${shippedQuantity?default(0)}<input type="hidden" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shippedQuantity}"/>
                                     </td>
                                     <td colspan="5">&nbsp;</td>
                                 </tr>
