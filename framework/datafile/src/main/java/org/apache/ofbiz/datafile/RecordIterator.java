@@ -74,7 +74,7 @@ public class RecordIterator {
             this.br = new BufferedReader(new InputStreamReader(dataFileStream, Charset.forName(charsetStr)));
         }
         catch (Exception e) {
-            throw new DataFileException( charsetStr + " is not supported");
+            throw new DataFileException(charsetStr + " is not supported");
         }
         //move the cursor to the good start line
         try {
