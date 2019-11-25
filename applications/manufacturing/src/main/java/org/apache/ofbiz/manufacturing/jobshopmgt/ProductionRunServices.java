@@ -2802,10 +2802,11 @@ public class ProductionRunServices {
                 BigDecimal qtyToProduce = qtyRequired.min(mktgPackagesAvailable);
                 /*
                     Creating production run job for remaining quantity in created status
-                    This will handle cases like if production run job creates for partial quantities or in case of fully backordered scenario.
+                    This will handle cases like if production run job creates for partial quantities
+                     or in case of fully backordered scenario.
                  */
                 BigDecimal remainingQty = orderItem.getBigDecimal("quantity").subtract(qtyToProduce);
-                if(remainingQty.compareTo(ZERO) > 0) {
+                if (remainingQty.compareTo(ZERO) > 0) {
                     serviceContext.clear();
                     serviceContext.put("facilityId", facilityId);
                     serviceContext.put("userLogin", userLogin);
@@ -2816,11 +2817,16 @@ public class ProductionRunServices {
                     if (ServiceUtil.isError(serviceResult)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
-                    String productionRunIdForRemainingQty = (String)serviceResult.get("productionRunId");
+                    String productionRunIdForRemainingQty = (String) serviceResult.get("productionRunId");
                     try {
-                        delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunIdForRemainingQty, "orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                        delegator.create("WorkOrderItemFulfillment",
+                                UtilMisc.toMap("workEffortId", productionRunIdForRemainingQty,
+                                        "orderId", orderId, "orderItemSeqId", orderItemSeqId));
                     } catch (GenericEntityException e) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunForMarketingPackagesCreationError", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "errorString", e.getMessage()), locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                                "ManufacturingProductionRunForMarketingPackagesCreationError",
+                                UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,
+                                        "errorString", e.getMessage()), locale));
                     }
                 }
 
