@@ -22,6 +22,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <!-- define resource loaders; most common is to use the component resource loader -->
+    <depends-on component-name="widget"/>
     <resource-loader name="main" type="component"/>
 
     <!-- service resources: model(s), eca(s) and group definitions -->

@@ -21,6 +21,7 @@ under the License.
 <ofbiz-component name="product"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+    <depends-on component-name="workeffort"/>
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
 
