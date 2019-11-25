@@ -262,7 +262,7 @@ under the License.
                 <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductQuantityAccepted}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="quantityAccepted" size="5" value="${defaultQuantity?default(1)?string.number}"/>
+                  <input type="text" name="quantityAccepted" size="5" value="${defaultQuantity?default(1)}"/>
                 </td>
               </tr>
               <tr>
