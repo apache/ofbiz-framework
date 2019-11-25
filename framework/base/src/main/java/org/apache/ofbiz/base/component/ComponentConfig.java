@@ -40,6 +40,7 @@ import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.Digraph;
 import org.apache.ofbiz.base.util.KeyStoreUtil;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -89,6 +90,16 @@ public final class ComponentConfig {
 
     public static Collection<ComponentConfig> getAllComponents() {
         return componentConfigCache.values();
+    }
+
+    /**
+     * Sorts the cached component configurations.
+     *
+     * @throws ComponentException when a component configuration contains an invalid dependency
+     *         or if the dependency graph contains a cycle.
+     */
+    public static void sortDependencies() throws ComponentException {
+        componentConfigCache.sort();
     }
 
     public static Stream<ComponentConfig> components() {
@@ -681,6 +692,8 @@ public final class ComponentConfig {
         private final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<>();
         // Root location mapped to global name.
         private final Map<String, String> componentLocations = new HashMap<>();
+        /** Sorted component configurations (based on depends-on declaration if ofbiz-component.xml). */
+        private List<ComponentConfig> componentConfigsSorted;
 
         private synchronized ComponentConfig fromGlobalName(String globalName) {
             return componentConfigs.get(globalName);
@@ -701,8 +714,53 @@ public final class ComponentConfig {
             return componentConfigs.put(globalName, config);
         }
 
-        synchronized Collection<ComponentConfig> values() {
-            return Collections.unmodifiableList(new ArrayList<>(componentConfigs.values()));
+        /**
+         * Provides a sequence of cached component configurations.
+         *
+         * <p>the order of the sequence is arbitrary unless the {@link #sort())} has been invoked beforehand.
+         *
+         * @return the list of cached component configurations
+         */
+        synchronized List<ComponentConfig> values() {
+            // When the configurations have not been sorted use arbitrary order.
+            List<ComponentConfig> res = (componentConfigsSorted == null)
+                    ? new ArrayList<>(componentConfigs.values())
+                    : componentConfigsSorted;
+            return Collections.unmodifiableList(res);
+        }
+
+        /**
+         * Provides the stored dependencies as component configurations.
+         *
+         * <p>Handle invalid dependencies by creating dummy component configurations.
+         *
+         * @param the component configuration containing dependencies
+         * @return a collection of component configurations dependencies.
+         */
+        private Collection<ComponentConfig> componentConfigDeps(ComponentConfig cc) {
+            return cc.getDependsOn().stream()
+                    .map(dep -> {
+                        ComponentConfig storedCc = componentConfigs.get(dep);
+                        return (storedCc != null) ? storedCc : new Builder().globalName(dep).create();
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        /**
+         * Sorts the component configurations based on their “depends-on” XML elements.
+         */
+        synchronized void sort() throws ComponentException {
+            /* Create the dependency graph specification with a LinkedHashMap to preserve
+               implicit dependencies defined by `component-load.xml` files. */
+            Map<ComponentConfig, Collection<ComponentConfig>> graphSpec = new LinkedHashMap<>();
+            componentConfigs.values().forEach(cc -> {
+                graphSpec.put(cc, componentConfigDeps(cc));
+            });
+            try {
+                componentConfigsSorted = new Digraph<>(graphSpec).sort();
+            } catch (IllegalArgumentException | IllegalStateException e) {
+                throw new ComponentException("failed to initialize components", e);
+            }
         }
     }
 
