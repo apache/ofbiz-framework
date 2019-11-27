@@ -98,7 +98,7 @@ javadoc {
         // versions declared in the 'dependencies' block.
         links(
             'https://docs.oracle.com/javase/8/docs/api',
-            'https://docs.oracle.com/javaee/7/api',
+            'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
             'http://docs.groovy-lang.org/docs/groovy-2.5.8/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
@@ -189,7 +189,7 @@ dependencies {
     implementation 'org.apache.sshd:sshd-core:1.7.0'
     implementation 'org.apache.tika:tika-core:1.22'
     implementation 'org.apache.tika:tika-parsers:1.22'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.27'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.27' // Remember to change the version number in javadoc.options block
     implementation 'org.apache.tomcat:tomcat-catalina:9.0.27'
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.27'
     implementation 'org.apache.tomcat:tomcat-tribes:9.0.27'
