@@ -101,6 +101,11 @@ public final class WebAppUtil {
         return servletPath;
     }
 
+    public static boolean isDistributable(WebappInfo appinfo) throws IOException, SAXException {
+        WebXml webxml = getWebXml(appinfo);
+        return webxml.isDistributable();
+    }
+
     /**
      * Returns the <code>WebappInfo</code> instance associated to the specified web site ID.
      * Throws <code>IllegalArgumentException</code> if the web site ID was not found.

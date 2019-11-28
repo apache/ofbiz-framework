@@ -20,7 +20,6 @@ package org.apache.ofbiz.catalina.container;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -34,7 +33,6 @@ import java.util.stream.Collectors;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
@@ -70,19 +68,17 @@ import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
 import org.apache.ofbiz.base.container.ContainerException;
-import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.tomcat.JarScanner;
 import org.apache.tomcat.util.IntrospectionUtils;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.apache.tomcat.util.scan.StandardJarScanner;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 /**
@@ -514,7 +510,7 @@ public class CatalinaContainer implements Container {
         Tomcat.initWebappDefaults(context);
 
         String location = getWebappRootLocation(appInfo);
-        boolean contextIsDistributable = isContextDistributable(configuration, location);
+        boolean contextIsDistributable = isContextDistributable(configuration, appInfo);
 
         context.setParent(host);
         context.setDocBase(location);
@@ -582,20 +578,13 @@ public class CatalinaContainer implements Container {
         return mount;
     }
 
-    private static boolean isContextDistributable(ContainerConfig.Configuration configuration, String location)
-            throws ContainerException {
-        String webXmlFilePath = new StringBuilder().append("file:///").append(location).append("/WEB-INF/web.xml").toString();
+    private static boolean isContextDistributable(ContainerConfig.Configuration configuration,
+            ComponentConfig.WebappInfo appInfo) throws ContainerException {
         boolean appIsDistributable = ContainerConfig.getPropertyValue(configuration, "apps-distributable", true);
         try {
-            URL webXmlUrl = FlexibleLocation.resolveLocation(webXmlFilePath);
-            File webXmlFile = new File(webXmlUrl.getFile());
-            if (webXmlFile.exists()) {
-                Document webXmlDoc = UtilXml.readXmlDocument(webXmlUrl);
-                return appIsDistributable && webXmlDoc.getElementsByTagName("distributable").getLength() > 0;
-            }
-            Debug.logInfo(webXmlFilePath + " not found.", module);
-            return appIsDistributable;
-        } catch (SAXException | ParserConfigurationException | IOException e) {
+            boolean isDistributable = WebAppUtil.isDistributable(appInfo);
+            return appIsDistributable && isDistributable;
+        } catch (SAXException | IOException e) {
             throw new ContainerException(e);
         }
     }
