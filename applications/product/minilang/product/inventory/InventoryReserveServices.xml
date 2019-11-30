@@ -193,7 +193,6 @@ under the License.
                                     </else>
                                 </if-not-empty>
                             </if-empty>
-                            <!-- TODO: Convert this to a <set-calendar> operation -->
                             <script>groovy:
                             java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate")
                             com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance()
@@ -261,7 +260,6 @@ under the License.
                                     </else>
                                 </if-not-empty>
                             </if-empty>
-                            <!-- TODO: Convert this to a <set-calendar> operation -->
                             <script>groovy:
                             java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate")
                             com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance()
@@ -503,7 +501,6 @@ under the License.
         <if-empty field="daysToShip">
             <set field="daysToShip" value="30" type="Long"/>
         </if-empty>
-        <!-- TODO: Convert this to a <set-calendar> operation -->
         <script>groovy:
         java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate")
         com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance()
