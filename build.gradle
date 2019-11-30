@@ -963,13 +963,6 @@ tasks.addRule('Pattern: ofbiz <Commands>: Execute OFBiz startup commands') { Str
     }
 }
 
-tasks.addRule('Pattern: ofbizDebug <Commands>: Execute OFBiz startup commands in remote debug mode') { String taskName ->
-    if (taskName ==~ /^ofbizDebug\s.*/ || taskName == 'ofbizDebug') {
-        def arguments = (taskName - 'ofbizDebug').tokenize(' ')
-        createOfbizCommandTask(taskName, arguments).with { debug = true }
-    }
-}
-
 tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup commands in background and output to console.log') { String taskName ->
     if (taskName ==~ /^ofbizBackground\s.*/ || taskName == 'ofbizBackground') {
         createOfbizBackgroundCommandTask(taskName)

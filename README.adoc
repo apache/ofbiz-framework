@@ -149,7 +149,6 @@ There are two types of tasks designed for OFBiz in Gradle:
 * *OFBiz server tasks*: To execute OFBiz startup commands. These tasks start
 with one of the following words:
 * *ofbiz* : standard server commands
-* *ofbizDebug* : server commands running in remote debug mode
 * *ofbizBackground* ; server commands running in a background forked process
 
 Tips:
@@ -175,7 +174,7 @@ tasks. Example: `gradlew loadAdminUserLogin -PuserLoginId=myadmin` =
 
 `gradlew "ofbiz --help"`
 
-`gradlew "ofbizDebug --test"`
+`gradlew "ofbiz --test" --debug-jvm`
 
 `gradlew "ofbizBackground --start --portoffset 10000"`
 
@@ -273,11 +272,7 @@ inconsistent state / data
 Starts OFBiz in remote debug mode and waits for debugger or IDEs to connect on
 port *5005*
 
-`gradlew "ofbizDebug --start"`
-
-OR
-
-`gradlew ofbizDebug`
+`gradlew ofbiz --debug-jvm`
 
 [[start-ofbiz-on-a-different-port]]
 ==== Start OFBiz on a different port
@@ -514,7 +509,7 @@ run a test case, in this example the component is "entity" and the case name is
 
 listens on port *5005*
 
-`gradlew "ofbizDebug --test component=entity --test loglevel=verbose"`
+`gradlew "ofbiz --test component=entity --test loglevel=verbose" --debug-jvm`
 
 [[execute-an-integration-test-suite]]
 ==== Execute an integration test suite
@@ -526,7 +521,7 @@ listens on port *5005*
 
 listens on port *5005*
 
-`gradlew "ofbizDebug --test component=entity --test suitename=entitytests"`
+`gradlew "ofbiz --test component=entity --test suitename=entitytests" --debug-jvm`
 
 
 
