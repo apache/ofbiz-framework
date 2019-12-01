@@ -17,17 +17,10 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<ofbiz-component name="accounting"
+<ofbiz-component name="order"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <depends-on component-name="order" />
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
-    <webapp name="accounting"
-        title="Accounting"
-        server="default-server"
-        location="webapp/accounting"
-        base-permission="OFBTOOLS,ACCOUNTING"
-        mount-point="/accounting"/>
 </ofbiz-component>
+
