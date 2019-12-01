@@ -58,11 +58,11 @@ import org.apache.oro.text.regex.Perl5Matcher;
 /**
  * SeoContextFilter - Restricts access to raw files and configures servlet objects.
  */
-public class SeoContextFilter implements Filter {
+public final class SeoContextFilter implements Filter {
 
-    public static final String module = SeoContextFilter.class.getName();
+    private static final String MODULE = SeoContextFilter.class.getName();
 
-    protected Set<String> webServlets = new HashSet<>();
+    private Set<String> webServlets = new HashSet<>();
     private FilterConfig config;
     private String allowedPaths = "";
     private String redirectPath = "";
@@ -79,7 +79,8 @@ public class SeoContextFilter implements Filter {
             allowedPathList = StringUtil.split(allowedPaths, ":");
         }
 
-        Map<String, ? extends ServletRegistration> servletRegistrations = config.getServletContext().getServletRegistrations();
+        Map<String, ? extends ServletRegistration> servletRegistrations = config.getServletContext()
+                        .getServletRegistrations();
         for (Entry<String, ? extends ServletRegistration> entry : servletRegistrations.entrySet()) {
             Collection<String> servlets = entry.getValue().getMappings();
             for (String servlet : servlets) {
@@ -94,24 +95,25 @@ public class SeoContextFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+                throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String uri = httpRequest.getRequestURI();
 
-        Map<String, String[]> parameterMap =request.getParameterMap();
+        Map<String, String[]> parameterMap = request.getParameterMap();
         if (!parameterMap.isEmpty()) {
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            request.getParameterMap().forEach((name, values) -> {
-                for(String value : values) {
+            List<BasicNameValuePair> params = new ArrayList<>();
+            parameterMap.forEach((name, values) -> {
+                for (String value : values) {
                     params.add(new BasicNameValuePair(name, value));
                 }
             });
             String queryString = URLEncodedUtils.format(params, Charset.forName("UTF-8"));
             uri = uri + "?" + queryString;
         }
-        
+
         boolean forwarded = forwardUri(httpResponse, uri);
         if (forwarded) {
             return;
@@ -124,7 +126,7 @@ public class SeoContextFilter implements Filter {
             controllerConfig = ConfigXMLReader.getControllerConfig(controllerConfigURL);
             requestMaps = controllerConfig.getRequestMapMap();
         } catch (WebAppConfigurationException e) {
-            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", MODULE);
             throw new ServletException(e);
         }
         Set<String> uris = requestMaps.keySet();
@@ -134,7 +136,9 @@ public class SeoContextFilter implements Filter {
         String contextUri = null;
         if (httpRequest.getAttribute(ControlFilter.FORWARDED_FROM_SERVLET) == null) {
             requestPath = httpRequest.getServletPath();
-            if (requestPath == null) requestPath = "";
+            if (requestPath == null) {
+                requestPath = "";
+            }
             if (requestPath.lastIndexOf('/') > 0) {
                 if (requestPath.indexOf('/') == 0) {
                     requestPath = '/' + requestPath.substring(1, requestPath.indexOf('/', 1));
@@ -144,7 +148,9 @@ public class SeoContextFilter implements Filter {
             }
 
             String requestInfo = httpRequest.getServletPath();
-            if (requestInfo == null) requestInfo = "";
+            if (requestInfo == null) {
+                requestInfo = "";
+            }
             if (requestInfo.lastIndexOf('/') >= 0) {
                 requestInfo = requestInfo.substring(0, requestInfo.lastIndexOf('/')) + "/*";
             }
@@ -166,13 +172,15 @@ public class SeoContextFilter implements Filter {
             if (pathItemList != null) {
                 viewName = pathItemList.get(0);
             }
-            
+
             String requestUri = UtilHttp.getRequestUriFromTarget(httpRequest.getRequestURI());
 
             // check to make sure the requested url is allowed
-            if (!allowedPathList.contains(requestPath) && !allowedPathList.contains(requestInfo) && !allowedPathList.contains(httpRequest.getServletPath())
+            if (!allowedPathList.contains(requestPath) && !allowedPathList.contains(requestInfo)
+                        && !allowedPathList.contains(httpRequest.getServletPath())
                     && !allowedPathList.contains(requestUri) && !allowedPathList.contains("/" + viewName)
-                    && (UtilValidate.isEmpty(requestPath) && UtilValidate.isEmpty(httpRequest.getServletPath()) && !uris.contains(viewName))) {
+                    && (UtilValidate.isEmpty(requestPath) && UtilValidate.isEmpty(httpRequest.getServletPath())
+                                && !uris.contains(viewName))) {
                 String filterMessage = "[Filtered request]: " + contextUri;
 
                 if (redirectPath == null) {
@@ -186,7 +194,8 @@ public class SeoContextFilter implements Filter {
                             try {
                                 error = Integer.parseInt(errorCode);
                             } catch (NumberFormatException nfe) {
-                                Debug.logWarning(nfe, "Error code specified would not parse to Integer : " + errorCode, module);
+                                Debug.logWarning(nfe,
+                                        "Error code specified would not parse to Integer : " + errorCode, MODULE);
                             }
                         }
                         filterMessage = filterMessage + " (" + error + ")";
@@ -209,9 +218,10 @@ public class SeoContextFilter implements Filter {
                         httpResponse.setHeader("Location", redirectPath);
                     }
                 }
-                Debug.logWarning(filterMessage, module);
+                Debug.logWarning(filterMessage, MODULE);
                 return;
-            } else if ((allowedPathList.contains(requestPath) || allowedPathList.contains(requestInfo) || allowedPathList.contains(httpRequest.getServletPath())
+            } else if ((allowedPathList.contains(requestPath) || allowedPathList.contains(requestInfo)
+                        || allowedPathList.contains(httpRequest.getServletPath())
                     || allowedPathList.contains(requestUri) || allowedPathList.contains("/" + viewName))
                     && !webServlets.contains(httpRequest.getServletPath())) {
                 request.setAttribute(SeoControlServlet.REQUEST_IN_ALLOW_LIST, Boolean.TRUE);
@@ -230,7 +240,7 @@ public class SeoContextFilter implements Filter {
 
     /**
      * Forward a uri according to forward pattern regular expressions. Note: this is developed for Filter usage.
-     * 
+     *
      * @param uri String to reverse transform
      * @return String
      */
@@ -239,7 +249,8 @@ public class SeoContextFilter implements Filter {
         boolean foundMatch = false;
         Integer responseCodeInt = null;
 
-        if (SeoConfigUtil.checkUseUrlRegexp() && SeoConfigUtil.getSeoPatterns() != null && SeoConfigUtil.getForwardReplacements() != null) {
+        if (SeoConfigUtil.checkUseUrlRegexp() && SeoConfigUtil.getSeoPatterns() != null
+                        && SeoConfigUtil.getForwardReplacements() != null) {
             Iterator<String> keys = SeoConfigUtil.getSeoPatterns().keySet().iterator();
             while (keys.hasNext()) {
                 String key = keys.next();
@@ -265,7 +276,7 @@ public class SeoContextFilter implements Filter {
             }
             response.setHeader("Location", uri);
         } else {
-            Debug.logInfo("Can NOT forward this url: " + uri, module);
+            Debug.logInfo("Can NOT forward this url: " + uri, MODULE);
         }
         return foundMatch;
     }
