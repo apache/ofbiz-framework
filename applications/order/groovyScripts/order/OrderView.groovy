@@ -498,16 +498,6 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
             if ("WF_RUNNING".equals(workEffortStatus) || "WF_SUSPENDED".equals(workEffortStatus))
                 context.inProcess = true
         }
-
-        if (workEffort) {
-            if ("true".equals(delegate) || "WF_RUNNING".equals(workEffortStatus)) {
-                activity = from("WorkflowActivity").where("packageId", workEffort.workflowPackageId, "packageVersion", workEffort.workflowPackageVersion, "processId", workEffort.workflowProcessId, "processVersion", workEffort.workflowProcessVersion, "activityId", workEffort.workflowActivityId).queryOne()
-                if (activity) {
-                    transitions = activity.getRelated("FromWorkflowTransition", null, ["-transitionId"], false)
-                    context.wfTransitions = transitions
-                }
-            }
-        }
     }
 }
 
