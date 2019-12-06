@@ -586,10 +586,10 @@ public class ModelFormFieldBuilder {
                 this.setFieldInfo(textField);
             }
         } else if ("display".equals(defaultFieldType)) {
-            ModelFormField.DisplayField displayField = new ModelFormField.DisplayField(FieldInfo.SOURCE_AUTO_SERVICE, null);
+            ModelFormField.DisplayField displayField = new ModelFormField.DisplayField(FieldInfo.SOURCE_AUTO_ENTITY, null);
             this.setFieldInfo(displayField);
         } else if ("hidden".equals(defaultFieldType)) {
-            ModelFormField.HiddenField hiddenField = new ModelFormField.HiddenField(FieldInfo.SOURCE_AUTO_SERVICE, null);
+            ModelFormField.HiddenField hiddenField = new ModelFormField.HiddenField(FieldInfo.SOURCE_AUTO_ENTITY, null);
             this.setFieldInfo(hiddenField);
         } else {
             if ("indicator".equals(fieldType)) {
@@ -602,7 +602,7 @@ public class ModelFormFieldBuilder {
             } else if ("very-long".equals(fieldType)) {
                 ModelFormField.TextareaField textareaField = new ModelFormField.TextareaField(FieldInfo.SOURCE_AUTO_ENTITY, null);
                 this.setFieldInfo(textareaField);
-            } if (textFieldTypes.contains(fieldType)) {
+            } else if (textFieldTypes.contains(fieldType)) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY,
                         textSizeByFieldTypes.get(fieldType), textMaxSizeByFieldTypes.get(fieldType), null);
                 this.setFieldInfo(textField);
