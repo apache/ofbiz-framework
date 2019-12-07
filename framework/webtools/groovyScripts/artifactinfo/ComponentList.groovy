@@ -37,10 +37,9 @@ components.each { component ->
          componentMap.enabled = (component.enabled() == true? "Y" : "N")
          componentMap.webAppName = webApp.getName()
          componentMap.contextRoot = webApp.getContextRoot()
-         componentMap.location = webApp.getLocation()
          componentMap.webAppName = webApp.getName()
          componentMap.contextRoot = webApp.getContextRoot()
-         componentMap.location = webApp.getLocation()
+         componentMap.location = webApp.location().toString()
          componentList.add(componentMap)
      }
      if (!webApps) {

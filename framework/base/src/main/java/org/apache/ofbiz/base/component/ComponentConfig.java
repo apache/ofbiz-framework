@@ -1181,8 +1181,8 @@ public final class ComponentConfig {
             return initParameters;
         }
 
-        public String getLocation() {
-            return componentConfig.rootLocation().resolve(location).toString();
+        public Path location() {
+            return componentConfig.rootLocation().resolve(location);
         }
 
         public String getName() {

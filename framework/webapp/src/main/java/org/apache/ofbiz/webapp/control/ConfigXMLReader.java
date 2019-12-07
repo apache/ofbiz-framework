@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -61,7 +63,7 @@ import org.w3c.dom.Element;
 public class ConfigXMLReader {
 
     public static final String module = ConfigXMLReader.class.getName();
-    public static final String controllerXmlFileName = "/WEB-INF/controller.xml";
+    public static final Path controllerXmlFileName = Paths.get("WEB-INF", "controller.xml");
     private static final UtilCache<URL, ControllerConfig> controllerCache = UtilCache.createUtilCache("webapp.ControllerConfig");
     private static final UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = UtilCache.createUtilCache("webapp.ControllerSearchResults");
     public static final RequestResponse emptyNoneRequestResponse = RequestResponse.createEmptyNoneRequestResponse();
@@ -136,11 +138,11 @@ public class ConfigXMLReader {
         }
     }
 
-    public static ControllerConfig getControllerConfig(WebappInfo webAppInfo) throws WebAppConfigurationException, MalformedURLException {
+    public static ControllerConfig getControllerConfig(WebappInfo webAppInfo)
+            throws WebAppConfigurationException, MalformedURLException {
         Assert.notNull("webAppInfo", webAppInfo);
-        String filePath = webAppInfo.getLocation().concat(controllerXmlFileName);
-        File configFile = new File(filePath);
-        return getControllerConfig(configFile.toURI().toURL());
+        Path filePath = webAppInfo.location().resolve(controllerXmlFileName);
+        return getControllerConfig(filePath.toUri().toURL());
     }
 
     public static ControllerConfig getControllerConfig(URL url) throws WebAppConfigurationException {
@@ -153,7 +155,7 @@ public class ConfigXMLReader {
 
     public static URL getControllerConfigURL(ServletContext context) {
         try {
-            return context.getResource(controllerXmlFileName);
+            return context.getResource("/" + controllerXmlFileName);
         } catch (MalformedURLException e) {
             Debug.logError(e, "Error Finding XML Config File: " + controllerXmlFileName, module);
             return null;

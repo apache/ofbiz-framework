@@ -18,12 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
@@ -64,8 +66,8 @@ public final class WebAppUtil {
 
     public static final String module = WebAppUtil.class.getName();
     public static final String CONTROL_MOUNT_POINT = "control";
-    private static final String webAppFileName = "/WEB-INF/web.xml";
-    private static final UtilCache<String, WebXml> webXmlCache = UtilCache.createUtilCache("webapp.WebXml");
+    private static final Path webAppFileName = Paths.get("WEB-INF", "web.xml");
+    private static final UtilCache<Path, WebXml> webXmlCache = UtilCache.createUtilCache("webapp.WebXml");
 
     /**
      * Returns the control servlet path. The path consists of the web application's mount-point
@@ -94,7 +96,8 @@ public final class WebAppUtil {
             }
         }
         if (servletMapping == null) {
-            throw new IllegalArgumentException("org.apache.ofbiz.webapp.control.ControlServlet mapping not found in " + webAppInfo.getLocation() + webAppFileName);
+            throw new IllegalArgumentException("org.apache.ofbiz.webapp.control.ControlServlet mapping not found in "
+                    + webAppInfo.location().resolve(webAppFileName));
         }
         servletMapping = servletMapping.replace("*", "");
         String servletPath = webAppInfo.contextRoot.concat(servletMapping);
@@ -233,41 +236,41 @@ public final class WebAppUtil {
      */
     private static WebXml getWebXml(WebappInfo webAppInfo) throws IOException, SAXException {
         Assert.notNull("webAppInfo", webAppInfo);
-        String webXmlFileLocation = webAppInfo.getLocation().concat(webAppFileName);
+        Path webXmlFileLocation = webAppInfo.location().resolve(webAppFileName);
         return parseWebXmlFile(webXmlFileLocation, true);
     }
 
     /**
      * Parses the specified <code>web.xml</code> file into a <code>WebXml</code> instance.
      * 
-     * @param webXmlFileLocation
+     * @param webXmlLocation
      * @param validate
      * @throws IOException
      * @throws SAXException
      */
-    private static WebXml parseWebXmlFile(String webXmlFileLocation, boolean validate) throws IOException, SAXException {
-        Assert.notEmpty("webXmlFileLocation", webXmlFileLocation);
-        WebXml result = webXmlCache.get(webXmlFileLocation);
+    private static WebXml parseWebXmlFile(Path webXmlLocation, boolean validate) throws IOException, SAXException {
+        Objects.requireNonNull(webXmlLocation, "webXmlFileLocation");
+        WebXml result = webXmlCache.get(webXmlLocation);
         if (result == null) {
-            File file = new File(webXmlFileLocation);
-            if (!file.exists()) {
-                throw new IllegalArgumentException(webXmlFileLocation + " does not exist.");
+            if (Files.notExists(webXmlLocation)) {
+                throw new IllegalArgumentException(webXmlLocation + " does not exist.");
             }
+
             boolean namespaceAware = true;
             result = new WebXml();
             LocalResolver lr = new LocalResolver(new DefaultHandler());
-            ErrorHandler handler = new LocalErrorHandler(webXmlFileLocation, lr);
+            ErrorHandler handler = new LocalErrorHandler(webXmlLocation.toString(), lr);
             Digester digester = DigesterFactory.newDigester(validate, namespaceAware, new WebRuleSet(), false);
             digester.push(result);
             digester.setErrorHandler(handler);
-            try (InputStream is = new FileInputStream(file)) {
+            try (InputStream is = Files.newInputStream(webXmlLocation)) {
                 InputSource iso = new InputSource(is);
-                iso.setSystemId(file.getAbsolutePath());
+                iso.setSystemId(webXmlLocation.toString());
                 digester.parse(iso);
             } finally {
                 digester.reset();
             }
-            result = webXmlCache.putIfAbsentAndGet(webXmlFileLocation, result);
+            result = webXmlCache.putIfAbsentAndGet(webXmlLocation, result);
         }
         return result;
     }
