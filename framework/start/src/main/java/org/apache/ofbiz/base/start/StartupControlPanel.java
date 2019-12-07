@@ -63,7 +63,7 @@ final class StartupControlPanel {
         createLogDirectoryIfMissing(config.logDir.toString());
 
         if (config.useShutdownHook) {
-            createRuntimeShutdownHook(loader, serverState);
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> shutdownServer(loader, serverState)));
         } else {
             System.out.println("Shutdown hook disabled");
         }
@@ -138,15 +138,6 @@ final class StartupControlPanel {
                 System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
             }
         }
-    }
-
-    private static void createRuntimeShutdownHook(ContainerLoader loader, AtomicReference<ServerState> serverState) {
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                shutdownServer(loader, serverState);
-            }
-        });
     }
 
     private static void loadContainers(Config config,
