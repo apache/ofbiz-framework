@@ -253,11 +253,12 @@ public final class WebAppUtil {
             LocalResolver lr = new LocalResolver(new DefaultHandler());
             ErrorHandler handler = new LocalErrorHandler(webXmlFileLocation, lr);
             Digester digester = DigesterFactory.newDigester(validate, namespaceAware, new WebRuleSet(), false);
-            digester.getParser();
             digester.push(result);
             digester.setErrorHandler(handler);
             try (InputStream is = new FileInputStream(file)) {
-                digester.parse(new InputSource(is));
+                InputSource iso = new InputSource(is);
+                iso.setSystemId(file.getAbsolutePath());
+                digester.parse(iso);
             } finally {
                 digester.reset();
             }
