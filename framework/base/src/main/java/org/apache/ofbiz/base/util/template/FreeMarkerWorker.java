@@ -23,19 +23,21 @@ import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -68,6 +70,8 @@ import freemarker.template.Version;
  * FreeMarkerWorker - Freemarker Template Engine Utilities.
  */
 public final class FreeMarkerWorker {
+    /** The template used to retrieved Freemarker transforms from multiple component classpaths. */
+    private static final String TRANSFORMS_PROPERTIES = "org/apache/ofbiz/%s/freemarkerTransforms.properties";
 
     public static final String module = FreeMarkerWorker.class.getName();
 
@@ -122,25 +126,28 @@ public final class FreeMarkerWorker {
         }
         // Transforms properties file set up as key=transform name, property=transform class name
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Enumeration<URL> resources;
-        try {
-            resources = loader.getResources("freemarkerTransforms.properties");
-        } catch (IOException e) {
-            Debug.logError(e, "Could not load list of freemarkerTransforms.properties", module);
-            throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
-        }
-        while (resources.hasMoreElements()) {
-            URL propertyURL = resources.nextElement();
-            Debug.logInfo("loading properties: " + propertyURL, module);
-            Properties props = UtilProperties.getProperties(propertyURL);
-            if (UtilValidate.isEmpty(props)) {
-                Debug.logError("Unable to locate properties file " + propertyURL, module);
+        transformsURL(loader).forEach(url -> {
+            Properties props = UtilProperties.getProperties(url);
+            if (props == null) {
+                Debug.logError("Unable to load properties file " + url, module);
             } else {
+                Debug.logInfo("loading properties: " + url, module);
                 loadTransforms(loader, props, newConfig);
             }
-        }
-
+        });
         return newConfig;
+    }
+
+    /**
+     * Provides the sequence of existing {@code freemarkerTransforms.properties} files.
+     *
+     * @return a stream of resource location.
+     */
+    private static Stream<URL> transformsURL(ClassLoader loader) {
+        return ComponentConfig.components()
+                .map(cc -> String.format(TRANSFORMS_PROPERTIES, cc.getComponentName()))
+                .map(loader::getResource)
+                .filter(Objects::nonNull);
     }
 
     private static void loadTransforms(ClassLoader loader, Properties props, Configuration config) {
