@@ -21,6 +21,5 @@ under the License.
 <ofbiz-component name="datafile"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <depends-on component-name="security"/>
     <resource-loader name="main" type="component"/>
 </ofbiz-component>

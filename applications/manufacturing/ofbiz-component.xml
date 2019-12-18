@@ -21,7 +21,6 @@ under the License.
 <ofbiz-component name="manufacturing"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <depends-on component-name="product"/>
     <resource-loader name="main" type="component"/>
 
     <!-- place the config directory on the classpath to access configuration files -->

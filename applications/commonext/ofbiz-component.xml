@@ -21,9 +21,6 @@ under the License.
 <ofbiz-component name="commonext"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <!-- Common component used by most other components must be last because it
-         uses info from most other "application" components. -->
-    <depends-on component-name="marketing"/>
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
     
