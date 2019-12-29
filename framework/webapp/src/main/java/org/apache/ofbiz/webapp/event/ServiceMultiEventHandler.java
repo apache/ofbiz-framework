@@ -161,12 +161,7 @@ public class ServiceMultiEventHandler implements EventHandler {
         } catch (WebAppConfigurationException e) {
             throw new EventHandlerException(e);
         }
-        boolean eventGlobalTransaction;
-        try {
-            eventGlobalTransaction = controllerConfig.getRequestMapMap().get(requestUri).event.globalTransaction;
-        } catch (WebAppConfigurationException e) {
-            throw new EventHandlerException(e);
-        }
+        boolean eventGlobalTransaction = controllerConfig.getRequestMapMap().get(requestUri).event.globalTransaction;
 
         // big try/finally to make sure commit or rollback are run
         boolean beganTrans = false;

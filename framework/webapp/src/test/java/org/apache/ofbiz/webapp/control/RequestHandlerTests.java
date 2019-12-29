@@ -40,6 +40,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ViewMap;
 import org.junit.Before;
@@ -52,15 +53,15 @@ public class RequestHandlerTests {
         private Map<String, ViewMap> viewMaps;
         private HttpServletRequest req;
         private Element dummyElement;
-        private RequestHandler.ControllerConfig ccfg;
+        private ControllerConfig ccfg;
 
         @Before
         public void setUp() {
-            ccfg = mock(RequestHandler.ControllerConfig.class);
+            ccfg = mock(ControllerConfig.class);
             reqMaps = new MultivaluedMapContext<>();
             viewMaps = new HashMap<>();
             when(ccfg.getDefaultRequest()).thenReturn(null);
-            when(ccfg.getRequestMapMap()).thenReturn(reqMaps);
+            when(ccfg.getRequestMapMultiMap()).thenReturn(reqMaps);
             when(ccfg.getViewMapMap()).thenReturn(viewMaps);
             req = mock(HttpServletRequest.class);
             dummyElement = mock(Element.class);

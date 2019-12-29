@@ -182,6 +182,9 @@ public class ConfigXMLReader {
     }
 
     public static class ControllerConfig {
+        private static final String DEFAULT_REDIRECT_STATUS_CODE =
+                UtilProperties.getPropertyValue("requestHandler", "status-code", "302");
+
         public URL url;
         private String errorpage;
         private String protectView;
@@ -299,8 +302,14 @@ public class ConfigXMLReader {
             return getIncludes(ccfg -> ccfg.securityClass);
         }
 
+        /**
+         * Provides the status code that should be used when redirecting an HTTP client.
+         *
+         * @return an HTTP response status code.
+         */
         public String getStatusCode() {
-            return getIncludes(ccfg -> ccfg.statusCode);
+            String status = getIncludes(ccfg -> ccfg.statusCode);
+            return UtilValidate.isEmpty(status) ? DEFAULT_REDIRECT_STATUS_CODE : status;
         }
 
         public Map<String, String> getViewHandlerMap() {

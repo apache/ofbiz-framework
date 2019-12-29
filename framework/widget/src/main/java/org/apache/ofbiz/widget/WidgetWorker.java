@@ -27,7 +27,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -36,7 +35,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
-import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
@@ -300,12 +298,7 @@ public final class WidgetWorker {
                 String requestUri = (target.indexOf('?') > -1) ? target.substring(0, target.indexOf('?')) : target;
                 ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
-                ConfigXMLReader.RequestMap requestMap = null;
-                try {
-                    requestMap = rh.getControllerConfig().getRequestMapMap().get(requestUri);
-                } catch (WebAppConfigurationException e) {
-                    Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-                }
+                ConfigXMLReader.RequestMap requestMap = rh.getControllerConfig().getRequestMapMap().get(requestUri);
                 if (requestMap != null && requestMap.event != null) {
                     return "hidden-form";
                 }
