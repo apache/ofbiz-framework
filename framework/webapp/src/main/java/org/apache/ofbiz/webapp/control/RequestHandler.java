@@ -827,7 +827,7 @@ public class RequestHandler {
         try {
             String errorPageLocation = getControllerConfig().getErrorpage();
             errorPage = FlexibleLocation.resolveLocation(errorPageLocation);
-        } catch (WebAppConfigurationException | MalformedURLException e) {
+        } catch (MalformedURLException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }
         if (errorPage == null) {
@@ -838,14 +838,8 @@ public class RequestHandler {
 
     /** Returns the default status-code for this request. */
     public String getStatusCode(HttpServletRequest request) {
-        String statusCode = null;
-        try {
-            statusCode = getControllerConfig().getStatusCode();
-        } catch (WebAppConfigurationException e) {
-            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-        }
-        if (UtilValidate.isNotEmpty(statusCode)) return statusCode;
-        return null;
+        String statusCode = getControllerConfig().getStatusCode();
+        return UtilValidate.isNotEmpty(statusCode) ? statusCode : null;
     }
 
     /** Returns the ViewFactory Object. */
@@ -987,13 +981,7 @@ public class RequestHandler {
             req.getSession().removeAttribute("_SAVED_VIEW_PARAMS_");
         }
 
-        ConfigXMLReader.ViewMap viewMap = null;
-        try {
-            viewMap = (view == null ? null : getControllerConfig().getViewMapMap().get(view));
-        } catch (WebAppConfigurationException e) {
-            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-            throw new RequestHandlerException(e);
-        }
+        ConfigXMLReader.ViewMap viewMap = (view == null) ? null : getControllerConfig().getViewMapMap().get(view);
         if (viewMap == null) {
             throw new RequestHandlerException("No definition found for view with name [" + view + "]");
         }

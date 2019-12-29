@@ -189,7 +189,7 @@ public class ConfigXMLReader {
         private String securityClass;
         private String defaultRequest;
         private String statusCode;
-        private List<URL> includes = new ArrayList<>();
+        private List<ControllerConfig> includes = new ArrayList<>();
         private final Map<String, Event> firstVisitEventList = new LinkedHashMap<>();
         private final Map<String, Event> preprocessorEventList = new LinkedHashMap<>();
         private final Map<String, Event> postprocessorEventList = new LinkedHashMap<>();
@@ -218,22 +218,22 @@ public class ConfigXMLReader {
             }
         }
 
-        private <K, V> Map<K, V> pushIncludes(Function<ControllerConfig, Map<K, V>> f) throws WebAppConfigurationException {
+        private <K, V> Map<K, V> pushIncludes(Function<ControllerConfig, Map<K, V>> f) {
             MapContext<K, V> res = new MapContext<>();
-            for (URL include : includes) {
-                res.push(getControllerConfig(include).pushIncludes(f));
+            for (ControllerConfig include : includes) {
+                res.push(include.pushIncludes(f));
             }
             res.push(f.apply(this));
             return res;
         }
 
-        private String getIncludes(Function<ControllerConfig, String> f) throws WebAppConfigurationException {
+        private String getIncludes(Function<ControllerConfig, String> f) {
             String val = f.apply(this);
             if (val != null) {
                 return val;
             }
-            for (URL include : includes) {
-                String inc = getControllerConfig(include).getIncludes(f);
+            for (ControllerConfig include : includes) {
+                String inc = include.getIncludes(f);
                 if (inc != null) {
                     return inc;
                 }
@@ -241,74 +241,73 @@ public class ConfigXMLReader {
             return null;
         }
 
-        public Map<String, Event> getAfterLoginEventList() throws WebAppConfigurationException {
+        public Map<String, Event> getAfterLoginEventList() {
             return pushIncludes(ccfg -> ccfg.afterLoginEventList);
         }
 
-        public Map<String, Event> getBeforeLogoutEventList() throws WebAppConfigurationException {
+        public Map<String, Event> getBeforeLogoutEventList() {
             return pushIncludes(ccfg -> ccfg.beforeLogoutEventList);
         }
 
-        public String getDefaultRequest() throws WebAppConfigurationException {
+        public String getDefaultRequest() {
             return getIncludes(ccfg -> ccfg.defaultRequest);
         }
 
-        public String getErrorpage() throws WebAppConfigurationException {
+        public String getErrorpage() {
             return getIncludes(ccfg -> ccfg.errorpage);
         }
 
-        public Map<String, String> getEventHandlerMap() throws WebAppConfigurationException {
+        public Map<String, String> getEventHandlerMap() {
             return pushIncludes(ccfg -> ccfg.eventHandlerMap);
         }
 
-        public Map<String, Event> getFirstVisitEventList() throws WebAppConfigurationException {
+        public Map<String, Event> getFirstVisitEventList() {
             return pushIncludes(ccfg -> ccfg.firstVisitEventList);
         }
 
-        public String getOwner() throws WebAppConfigurationException {
+        public String getOwner() {
             return getIncludes(ccfg -> ccfg.owner);
         }
 
-        public Map<String, Event> getPostprocessorEventList() throws WebAppConfigurationException {
+        public Map<String, Event> getPostprocessorEventList() {
             return pushIncludes(ccfg -> ccfg.postprocessorEventList);
         }
 
-        public Map<String, Event> getPreprocessorEventList() throws WebAppConfigurationException {
+        public Map<String, Event> getPreprocessorEventList() {
             return pushIncludes(ccfg -> ccfg.preprocessorEventList);
         }
 
-        public String getProtectView() throws WebAppConfigurationException {
+        public String getProtectView() {
             return getIncludes(ccfg -> ccfg.protectView);
         }
 
         // XXX: Keep it for backward compatibility until moving everything to 鈥榞etRequestMapMultiMap鈥�.
-        public Map<String, RequestMap> getRequestMapMap() throws WebAppConfigurationException {
+        public Map<String, RequestMap> getRequestMapMap() {
             return new MultivaluedMapContextAdapter<>(getRequestMapMultiMap());
         }
 
-        public MultivaluedMapContext<String, RequestMap> getRequestMapMultiMap() throws WebAppConfigurationException {
+        public MultivaluedMapContext<String, RequestMap> getRequestMapMultiMap() {
             MultivaluedMapContext<String, RequestMap> result = new MultivaluedMapContext<>();
-            for (URL includeLocation : includes) {
-                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
-                result.push(controllerConfig.getRequestMapMultiMap());
+            for (ControllerConfig include : includes) {
+                result.push(include.getRequestMapMultiMap());
             }
             result.push(requestMapMap);
             return result;
         }
 
-        public String getSecurityClass() throws WebAppConfigurationException {
+        public String getSecurityClass() {
             return getIncludes(ccfg -> ccfg.securityClass);
         }
 
-        public String getStatusCode() throws WebAppConfigurationException {
+        public String getStatusCode() {
             return getIncludes(ccfg -> ccfg.statusCode);
         }
 
-        public Map<String, String> getViewHandlerMap() throws WebAppConfigurationException {
+        public Map<String, String> getViewHandlerMap() {
             return pushIncludes(ccfg -> ccfg.viewHandlerMap);
         }
 
-        public Map<String, ViewMap> getViewMapMap() throws WebAppConfigurationException {
+        public Map<String, ViewMap> getViewMapMap() {
             return pushIncludes(ccfg -> ccfg.viewMapMap);
         }
 
@@ -369,13 +368,14 @@ public class ConfigXMLReader {
             eventHandlerMap.putAll(handlers.get(false));
         }
 
-        protected void loadIncludes(Element rootElement) {
+        protected void loadIncludes(Element rootElement) throws WebAppConfigurationException {
             for (Element includeElement : UtilXml.childElementList(rootElement, "include")) {
                 String includeLocation = includeElement.getAttribute("location");
                 if (!includeLocation.isEmpty()) {
                     try {
                         URL urlLocation = FlexibleLocation.resolveLocation(includeLocation);
-                        includes.add(urlLocation);
+                        ControllerConfig includedController = getControllerConfig(urlLocation);
+                        includes.add(includedController);
                     } catch (MalformedURLException mue) {
                         Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
                     }
