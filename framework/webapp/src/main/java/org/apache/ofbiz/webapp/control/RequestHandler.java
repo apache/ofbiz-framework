@@ -459,9 +459,7 @@ public class RequestHandler {
         // we know this is the case if the _PREVIOUS_PARAM_MAP_ attribute is there, but the _PREVIOUS_REQUEST_ attribute has already been removed
         if (request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_FORM_") != null && request.getSession().getAttribute("_PREVIOUS_REQUEST_") == null) {
             Map<String, Object> previousParamMap = UtilGenerics.checkMap(request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_FORM_"), String.class, Object.class);
-            for (Map.Entry<String, Object> previousParamEntry: previousParamMap.entrySet()) {
-                request.setAttribute(previousParamEntry.getKey(), previousParamEntry.getValue());
-            }
+            previousParamMap.forEach(request::setAttribute);
 
             // to avoid this data being included again, now remove the _PREVIOUS_PARAM_MAP_ attribute
             request.getSession().removeAttribute("_PREVIOUS_PARAM_MAP_FORM_");
