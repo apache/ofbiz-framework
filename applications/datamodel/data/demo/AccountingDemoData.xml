@@ -2317,11 +2317,7 @@ under the License.
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6012" periodTypeId="FISCAL_QUARTER" fromDate="2010-04-01 00:00:00.000" thruDate="2010-07-01 23:59:59.000" isClosed="N" periodNum="3" periodName="2010/Q2" parentPeriodId="6010"/>
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6013" periodTypeId="FISCAL_QUARTER" fromDate="2010-07-01 00:00:00.000" thruDate="2010-10-01 23:59:59.000" isClosed="N" periodNum="4" periodName="2010/Q3" parentPeriodId="6010"/>
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6014" periodTypeId="FISCAL_QUARTER" fromDate="2010-10-01 00:00:00.000" thruDate="2011-01-01 23:59:59.000" isClosed="N" periodNum="5" periodName="2010/Q4" parentPeriodId="6010"/>
-    <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6015" periodTypeId="FISCAL_YEAR" fromDate="2011-01-01 00:00:00.000" thruDate="2020-01-01 23:59:59.000" isClosed="N" periodNum="1" periodName="2011-2020"/>
-    <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6016" periodTypeId="FISCAL_QUARTER" fromDate="2011-01-01 00:00:00.000" thruDate="2011-04-01 23:59:59.000" isClosed="N" periodNum="2" periodName="2011/Q1" parentPeriodId="6015"/>
-    <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6017" periodTypeId="FISCAL_QUARTER" fromDate="2011-04-01 00:00:00.000" thruDate="2011-07-01 23:59:59.000" isClosed="N" periodNum="3" periodName="2011/Q2" parentPeriodId="6015"/>
-    <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6018" periodTypeId="FISCAL_QUARTER" fromDate="2011-07-01 00:00:00.000" thruDate="2011-10-01 23:59:59.000" isClosed="N" periodNum="4" periodName="2011/Q3" parentPeriodId="6015"/>
-    <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6019" periodTypeId="FISCAL_QUARTER" fromDate="2011-10-01 00:00:00.000" thruDate="2012-01-01 23:59:59.000" isClosed="N" periodNum="5" periodName="2011/Q4" parentPeriodId="6015"/>
+    <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6015" periodTypeId="FISCAL_YEAR" fromDate="2011-01-01 00:00:00.000" thruDate="2030-01-01 23:59:59.000" isClosed="N" periodNum="1" periodName="2011-2030"/>
 
     <!-- to convert demo invoice -->
     <UomConversionDated uomId="USD" uomIdTo="EUR" fromDate="2001-01-01 00:00:00.0" conversionFactor="0.7"/>
@@ -2986,7 +2982,7 @@ under the License.
     <ProductMaint productId="COMPANY_VEHICLE" productMaintSeqId="seq03" productMaintTypeId="ROTATE_TIRES" maintName="Rotate Tires" intervalQuantity="10000" intervalMeterTypeId="ODOMETER"/>
 
     <!-- Budget Demo Data -->
-    <Budget budgetId="DemoBudget001" budgetTypeId="CAPITAL_BUDGET" customTimePeriodId="6016" comments="Demo for budget 001"/>
+    <Budget budgetId="DemoBudget001" budgetTypeId="CAPITAL_BUDGET" customTimePeriodId="6015" comments="Demo for budget 001"/>
     <Budget budgetId="DemoBudget002" budgetTypeId="OPERATING_BUDGET" customTimePeriodId="6010" comments="Demo for budget 002"/>
 
     <BudgetStatus budgetId="DemoBudget001" statusId="BG_CREATED" statusDate="2009-01-09 00:00:00.000"/>
