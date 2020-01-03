@@ -101,7 +101,7 @@ public class ComponentContainer implements Container {
             loadComponentDirectory(location);
             break;
         case SINGLE_COMPONENT:
-            retrieveComponentConfig(null, location);
+            retrieveComponentConfig(location);
             break;
         }
     }
@@ -167,26 +167,25 @@ public class ComponentContainer implements Container {
                     .map(cmpnt -> directoryPath.resolve(cmpnt).toAbsolutePath().normalize())
                     .filter(Files::isDirectory)
                     .filter(dir -> Files.exists(dir.resolve(ComponentConfig.OFBIZ_COMPONENT_XML_FILENAME)))
-                    .forEach(componentDir -> retrieveComponentConfig(null, componentDir));
+                    .forEach(componentDir -> retrieveComponentConfig(componentDir));
         }
     }
 
     /**
      * Fetch the <code>ComponentConfig</code> for a certain component
      *
-     * @param name component name
-     * @param location directory location of the component which can be {@code null}
+     * @param location directory location of the component which cannot be {@code null}
      * @return The component configuration
      */
-    private static ComponentConfig retrieveComponentConfig(String name, Path location) {
+    private static ComponentConfig retrieveComponentConfig(Path location) {
         ComponentConfig config = null;
         try {
-            config = ComponentConfig.getComponentConfig(name, (location == null) ? null : location.toString());
+            config = ComponentConfig.getComponentConfig(null, location.toString());
         } catch (ComponentException e) {
-            Debug.logError("Cannot load component : " + name + " @ " + location + " : " + e.getMessage(), module);
+            Debug.logError("Cannot load component: " + location + " : " + e.getMessage(), module);
         }
         if (config == null) {
-            Debug.logError("Cannot load component : " + name + " @ " + location, module);
+            Debug.logError("Cannot load component: " + location, module);
         }
         return config;
     }
