@@ -42,6 +42,49 @@ under the License.
 
     <!-- Request Mappings -->
 
+    <!-- === Rest Entity Mapping === -->
+
+    <!-- form for creating a record  -->
+    <request-map uri="entity/list" method="get"><security https="true" auth="true"/><response name="success" type="view" value="entitymaint" /></request-map>
+
+    <!-- form for creating a record  -->
+    <request-map uri="entity/create/{entityName}" method="get"><security https="true" auth="true"/><response name="success" type="view" value="EditGeneric"/></request-map>
+
+    <!-- form for modifying a record  -->
+    <request-map uri="entity/edit/{entityName}/{pkValues: .*}" method="get"><security https="true" auth="true"/><response name="success" type="view" value="EditGeneric" /></request-map>
+
+    <!--view relations for a given entity -->
+    <request-map uri="entity/relations/{entityName}" method="get"><security https="true" auth="true"/><response name="success" type="view" value="ViewRelations" /></request-map>
+
+    <!-- getting the view of records -->
+    <request-map uri="entity/find/{entityName}" method="get"><security https="true" auth="true"/><response name="success" type="view" value="FindGeneric" /></request-map>
+
+    <!-- adding new record (from submitted form) -->
+    <request-map uri="entity/change/{entityName}" method="post">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.GenericWebEvent" invoke="updateGeneric"/>
+        <response name="success" type="view" value="FindGeneric"/>
+        <response name="error" type="view" value="ViewGeneric"/>
+    </request-map>
+
+    <!-- view entity records -->
+    <request-map uri="entity/find/{entityName}/{pkValues: .*}" method="get"><security https="true" auth="true"/><response name="success" type="view" value="ViewGeneric" /></request-map>
+
+    <!-- modifying existing record -->
+    <request-map uri="entity/change/{entityName}/{pkValues: .*}" method="put">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.GenericWebEvent" invoke="updateGeneric"/>
+        <response name="success" type="view" value="ViewGeneric"/>
+        <response name="error" type="view" value="ViewGeneric"/>
+    </request-map>
+    <!-- deleting existing record -->
+    <request-map uri="entity/change/{entityName}/{pkValues: .*}" method="delete">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.GenericWebEvent" invoke="updateGeneric"/>
+        <response name="success" type="view" value="ViewGeneric"/>
+        <response name="error" type="view" value="ViewGeneric"/>
+    </request-map>
+
     <!-- Begin Utility Requests -->
     <request-map uri="httpService">
         <event type="java" path="org.apache.ofbiz.service.engine.HttpEngine" invoke="httpEngine"/>
@@ -586,6 +629,7 @@ under the License.
     <view-map name="entitymaint" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityMaint"/>
     <view-map name="FindGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#FindGeneric"/>
     <view-map name="ViewGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#ViewGeneric"/>
+    <view-map name="EditGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#EditGeneric"/>
     <view-map name="ViewRelations" type="screen" page="component://webtools/widget/EntityScreens.xml#ViewRelations"/>
 
     <!-- these are NOT regions because they generate text output that should never be decorated -->

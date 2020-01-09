@@ -50,15 +50,22 @@ function ShowTab(lname) {
     <h2>${uiLabelMap.WebtoolsWithPk}: ${findByPk}</h2>
     <br />
     <div class="button-bar">
-      <a href='<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;noConditionFind=Y</@ofbizUrl>' class="buttontext">${uiLabelMap.WebtoolsBackToFindScreen}</a>
+      <a href='<@ofbizUrl>entity/find/${entityName}</@ofbizUrl>' class="buttontext">${uiLabelMap.WebtoolsBackToFindScreen}</a>
       <#if enableEdit = "false">
         <#if hasCreatePermission>
-          <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}&amp;enableEdit=true</@ofbizUrl>' class="buttontext create">${uiLabelMap.CommonCreate}</a>
-          <a href="<@ofbizUrl>ViewGeneric?${curFindString}&amp;enableEdit=true</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
+          <form action="<@ofbizUrl>entity/edit/${currentFindString}</@ofbizUrl>" method="get">
+            <input type="submit" value="${uiLabelMap.CommonEdit}" />
+          </form>
         </#if>
         <#if value?has_content>
           <#if hasDeletePermission>
-            <a href='<@ofbizUrl>UpdateGeneric?UPDATE_MODE=DELETE&amp;${curFindString}</@ofbizUrl>' class="buttontext delete">${uiLabelMap.WebtoolsDeleteThisValue}</a>
+            <form action='<@ofbizUrl>entity/change/${currentFindString}</@ofbizUrl>' method="delete" name="updateForm">
+              <input type="hidden" value="DELETE" name="restMethod"/>
+              <#list pkNamesValuesMap.keySet() as pkName>
+                <input type="hidden" value="${pkNamesValuesMap.get(pkName)}" name="${pkName}"/>
+              </#list>
+              <input type="submit" value="${uiLabelMap.WebtoolsDeleteThisValue}" />
+            </form>
           </#if>
         </#if>
       </#if>
@@ -104,14 +111,13 @@ function ShowTab(lname) {
           <#if pkNotFound>
             <p>${uiLabelMap.WebtoolsEntityName} ${entityName} ${uiLabelMap.WebtoolsWithPk} ${findByPk} ${uiLabelMap.WebtoolsSpecifiedEntity2}.</p>
           </#if>
-          <form action='<@ofbizUrl>UpdateGeneric?entityName=${entityName}</@ofbizUrl>' method="post" name="updateForm">
+          <form action='<@ofbizUrl>entity/change/<#if value?has_content>${currentFindString}<#else>${entityName}</#if></@ofbizUrl>' method="post" name="updateForm">
             <#assign showFields = true>
             <#assign alt_row = false>
             <table class="basic-table" cellspacing="0">
               <#if value?has_content>
                 <#if hasUpdatePermission>
                   <#if newFieldPkList?has_content>
-                    <input type="hidden" name="UPDATE_MODE" value="UPDATE"/>
                     <#list newFieldPkList as field>
                       <tr<#if alt_row> class="alternate-row"</#if>>
                         <td class="label">${field.name}</td>
@@ -131,7 +137,6 @@ function ShowTab(lname) {
                 <#if hasCreatePermission>
                   <#if newFieldPkList?has_content>
                     <p>${uiLabelMap.WebtoolsYouMayCreateAnEntity}</p>
-                    <input type="hidden" name="UPDATE_MODE" value="CREATE"/>
                     <#list newFieldPkList as field>
                       <tr<#if alt_row> class="alternate-row"</#if>>
                         <td class="label">${field.name}</td>
@@ -204,6 +209,7 @@ function ShowTab(lname) {
                     <#assign alt_row = !alt_row>
                   </#list>
                   <#if value?has_content>
+                    <input type="hidden" name="restMethod" value="PUT"/>
                     <#assign button = "${uiLabelMap.CommonUpdate}">
                   <#else>
                     <#assign button = "${uiLabelMap.CommonCreate}">
@@ -212,7 +218,7 @@ function ShowTab(lname) {
                     <td>&nbsp;</td>
                     <td>
                       <input type="submit" name="Update" value="${button}" />
-                      <a href="<@ofbizUrl>ViewGeneric?${curFindString}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancel}</a>
+                      <a href="<@ofbizUrl>entity/find/${entityName}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancel}</a>
                     </td>
                   </tr>
                 </#if>

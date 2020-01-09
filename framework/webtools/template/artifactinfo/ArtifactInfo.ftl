@@ -127,7 +127,7 @@ under the License.
     </#if>
 
     <#if "entity" == artifactInfo.getType()>
-        <div><a href="<@ofbizUrl>FindGeneric?entityName=${artifactInfo.modelEntity.getEntityName()}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>">All Entity Data</a></div>
+        <div><a href="<@ofbizUrl>entity/find/${artifactInfo.modelEntity.getEntityName()}?noConditionFind=Y</@ofbizUrl>">All Entity Data</a></div>
         <h2>Entity Fields</h2>
         <table>
         <#list artifactInfo.modelEntity.getFieldsUnmodifiable() as modelField>

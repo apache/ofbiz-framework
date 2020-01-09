@@ -29,7 +29,7 @@ under the License.
         <h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
         <br />
         <div class="button-bar">
-            <a href="<@ofbizUrl>FindGeneric?entityName=${entityName}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsBackToFindScreen}</a>
+            <a href="<@ofbizUrl>entity/find/${entityName}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsBackToFindScreen}</a>
         </div>
         <br />
         <table class="basic-table hover-bar" cellspacing="0">
@@ -44,7 +44,7 @@ under the License.
             <#list relations as relation>
                 <tr<#if alt_row> class="alternate-row"</#if>>
                     <td>${relation.title}</td>
-                    <td class="button-col"><a href='<@ofbizUrl>FindGeneric?entityName=${relation.relEntityName}</@ofbizUrl>'>${relation.relEntityName}</a></td>
+                    <td class="button-col"><a href='<@ofbizUrl>entity/find/${relation.relEntityName}</@ofbizUrl>'>${relation.relEntityName}</a></td>
                     <td>${relation.type}</td>
                     <td>${relation.fkName}</td>
                     <td>

@@ -41,8 +41,9 @@ if (modelEntity) {
     ModelReader entityModelReader = delegator.getModelReader()
     //create the search form with auto-fields-entity
     String dynamicAutoEntityFieldSearchForm = """<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-        <form name="FindGeneric" type="single" target="FindGeneric?entityName=${entityName}">
+        <form name="FindGeneric" type="single" target="entity/find/${entityName}">
            <auto-fields-entity entity-name="${entityName}" default-field-type="find" include-internal="true"/>
+            <field name="restMethod"><hidden value="GET"/></field>
             <field name="noConditionFind"><hidden value="Y"/></field>
             <field name="searchOptions_collapsed" ><hidden value="true"/></field>
             <field name="searchButton"><submit/></field>"""
@@ -81,9 +82,16 @@ if (modelEntity) {
     dynamicAutoEntitySearchFormRenderer.render(writer, context)
     context.dynamicAutoEntitySearchForm = writer
 
+    // In case of composite pk
+    String pk = modelEntity.pkNameString()
+    String res = ""
+    for (w in pk.split(", ")) {
+        res = "${res}/\${${w}}"
+    }
+
     //prepare the result list from performFind
     String dynamicAutoEntityFieldListForm = """<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-            <form name="ListGeneric" type="list" target="FindGeneric" list-name="listIt" 
+            <form name="ListGeneric" type="list" method="post" target="entity/find/${entityName}" list-name="listIt" 
               odd-row-style="alternate-row" default-table-style="basic-table light-grid hover-bar" header-row-style="header-row-2">
             <actions>
                 <service service-name="performFind">
@@ -100,10 +108,7 @@ if (modelEntity) {
                     "<field name=\"${modelField.name}\" sort-field=\"true\"/>"
     }
     dynamicAutoEntityFieldListForm += """
-            <field name="viewGeneric" title=" "><hyperlink target="ViewGeneric" description="view">
-                <auto-parameters-entity entity-name="${entityName}"/>
-                <parameter param-name="entityName" value="${entityName}"/>
-            </hyperlink></field>
+            <field name="viewGeneric" title=" "><hyperlink target="entity/find/${entityName}${res}" description="view"/></field>
             <sort-order><sort-field name="viewGeneric"/></sort-order>
             </form></forms>"""
 

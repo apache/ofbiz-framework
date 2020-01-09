@@ -79,21 +79,13 @@ under the License.
             <td<#if anchor?has_content> ${anchor}</#if>>${entity.entityName}<#if entity.viewEntity == 'Y'>&nbsp;(${uiLabelMap.WebtoolsEntityView})</#if></td>
             <#assign anchor="">
             <td class="button-col">
-              <#if entity.viewEntity == 'Y'>
-                <#if entity.entityPermissionView == 'Y'>
-                  <a href='<@ofbizUrl>ViewRelations?entityName=${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsReln}</a>
-                  <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsFind}</a>
-                  <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&amp;noConditionFind=Y</@ofbizUrl>'>${uiLabelMap.WebtoolsAll}</a>
-                </#if>
-              <#else>
-                <#if entity.entityPermissionCreate == 'Y'>
-                  <a href='<@ofbizUrl>ViewGeneric?entityName=${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.CommonCreate}'>${uiLabelMap.WebtoolsCreate}</a>
-                </#if>
-                <#if entity.entityPermissionView == 'Y'>
-                  <a href='<@ofbizUrl>ViewRelations?entityName=${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.WebtoolsViewRelations}'>${uiLabelMap.WebtoolsReln}</a>
-                  <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.WebtoolsFindRecord}'>${uiLabelMap.WebtoolsFind}</a>
-                  <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&amp;noConditionFind=Y</@ofbizUrl>' title='${uiLabelMap.WebtoolsFindAllRecords}'>${uiLabelMap.WebtoolsAll}</a>
-                </#if>
+              <#if entity.viewEntity != 'Y' && entity.entityPermissionCreate == 'Y'>
+                <a href='<@ofbizUrl>entity/create/${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.CommonCreate}'>${uiLabelMap.WebtoolsCreate}</a>
+              </#if>
+              <#if entity.entityPermissionView == 'Y'>
+                <a href='<@ofbizUrl>entity/relations/${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsReln}</a>
+                <a href='<@ofbizUrl>entity/find/${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsFind}</a>
+                <a href='<@ofbizUrl>entity/find/${entity.entityName}?noConditionFind=Y</@ofbizUrl>'>${uiLabelMap.WebtoolsAll}</a>
               </#if>
             </td>
             <#if right_col>

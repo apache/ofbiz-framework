@@ -100,6 +100,10 @@
         <value xml:lang="zh">无法删除(写错误)</value>
         <value xml:lang="zh-TW">無法刪除(寫錯誤)</value>
     </property>
+    <property key="genericWebEvent.delete_succeeded">
+        <value xml:lang="en">Delete succeeded</value>
+        <value xml:lang="fr">La suppression a été effectuée: </value>
+    </property>
     <property key="genericWebEvent.entity_name_not_specified">
         <value xml:lang="en">The entityName was not specified, but is required</value>
         <value xml:lang="es">El nombre de la entidad no fue especificado, pero es requerido</value>

@@ -28,7 +28,6 @@ import org.apache.ofbiz.entity.model.ModelRelation
 import org.apache.ofbiz.entity.model.ModelKeyMap
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
 import java.sql.Timestamp
 import java.sql.Date
 import java.sql.Time
@@ -58,25 +57,31 @@ context.put("hasAllDelete", hasAllDelete)
 context.put("hasViewPermission", hasViewPermission)
 context.put("hasCreatePermission", hasCreatePermission)
 context.put("hasUpdatePermission", hasUpdatePermission)
-context.put("hasDeletePermission" , hasDeletePermission)
+context.hasDeletePermission = hasDeletePermission
 
 boolean useValue = true
-String curFindString = "entityName=" + entityName
+String currentFindString = entityName
 GenericPK findByPK = delegator.makePK(entityName)
 Iterator pkIterator = entity.getPksIterator()
-while (pkIterator.hasNext()) {
-    ModelField field = pkIterator.next()
-    ModelFieldType type = delegator.getEntityFieldType(entity, field.getType())
-    String fval = parameters.get(field.getName())
-    if (fval) {
-        curFindString = curFindString + "&" + field.getName() + "=" + fval
-        findByPK.setString(field.getName(), fval)
+String fieldValues = parameters.get("pkValues")
+HashMap<String,String> pkNamesValuesMap = new HashMap<>()
+if (fieldValues != null) {
+    Iterator pkParamIterator = Arrays.asList(fieldValues.split("/")).iterator()
+    while (pkIterator.hasNext() && pkParamIterator.hasNext()) {
+        ModelField field = pkIterator.next()
+        String fieldValue = pkParamIterator.next()
+        if (fieldValue) {
+            currentFindString += "/" + fieldValue
+            pkNamesValuesMap[field.getName()] = fieldValue
+            findByPK.setString(field.getName(), fieldValue)
+        }
     }
 }
+parameters << pkNamesValuesMap
+context.pkNamesValuesMap = pkNamesValuesMap
 context.put("findByPk", findByPK.toString())
 
-curFindString = UtilFormatOut.encodeQuery(curFindString)
-context.put("curFindString", curFindString)
+context.currentFindString = UtilFormatOut.encodeQuery(currentFindString)
 
 GenericValue value = null
 //only try to find it if this is a valid primary key...
@@ -136,7 +141,7 @@ if (value == null && (findByPK.getAllFields().size() > 0)) {
 }
 context.put("pkNotFound", pkNotFound)
 
-String lastUpdateMode = parameters.get("UPDATE_MODE")
+String lastUpdateMode = parameters.get("restMethod")
 if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_ERROR_MESSAGE_") != null) &&
     lastUpdateMode != null && !"DELETE".equals(lastUpdateMode)) {
     //if we are updating and there is an error, do not use the entity data for the fields, use parameters to get the old value

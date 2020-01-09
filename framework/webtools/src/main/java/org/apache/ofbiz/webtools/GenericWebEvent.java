@@ -61,7 +61,9 @@ public class GenericWebEvent {
     public static String updateGeneric(HttpServletRequest request, HttpServletResponse response) {
         String entityName = request.getParameter("entityName");
         Locale locale = UtilHttp.getLocale(request);
-
+        if (UtilValidate.isEmpty(entityName)) {
+            entityName = (String) request.getAttribute("entityName");
+        }
         if (UtilValidate.isEmpty(entityName)) {
             String errMsg = UtilProperties.getMessage(GenericWebEvent.err_resource, "genericWebEvent.entity_name_not_specified", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -95,6 +97,16 @@ public class GenericWebEvent {
         }
 
         String updateMode = request.getParameter("UPDATE_MODE");
+        if (updateMode == null && request.getParameter("restMethod") == null) {
+            updateMode = "CREATE";
+        }
+        if (updateMode == null) {
+            switch (request.getParameter("restMethod")) {
+                case "PUT": updateMode = "UPDATE"; break;
+                case "DELETE": updateMode = "DELETE"; break;
+                default: updateMode = "CREATE"; break;
+            }
+        }
 
         if (UtilValidate.isEmpty(updateMode)) {
             String errMsg = UtilProperties.getMessage(GenericWebEvent.err_resource, "genericWebEvent.update_mode_not_specified", locale) + ".";
@@ -156,6 +168,8 @@ public class GenericWebEvent {
             // Delete actual main entity last, just in case database is set up to do a cascading delete, caches won't get cleared
             try {
                 delegator.removeByPrimaryKey(findByEntity.getPrimaryKey());
+                String confirmMsg = UtilProperties.getMessage(GenericWebEvent.err_resource, "genericWebEvent.delete_succeeded", locale) ;
+                request.setAttribute("_EVENT_MESSAGE_", confirmMsg);
             } catch (GenericEntityException e) {
                 String errMsg = UtilProperties.getMessage(GenericWebEvent.err_resource, "genericWebEvent.delete_failed", locale) + ": " + e.toString();
                 Debug.logWarning(e, errMsg, module);

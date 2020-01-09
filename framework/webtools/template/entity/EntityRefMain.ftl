@@ -63,7 +63,7 @@ under the License.
                             </div>
                             <div>${entity.title}&nbsp;
                                 <#if !forstatic>
-                                    <a target='main' href="<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&amp;noConditionFind=Y</@ofbizUrl>">[${uiLabelMap.WebtoolsViewData}]</a>
+                                    <a target='main' href="<@ofbizUrl>entity/find/${entity.entityName}?noConditionFind=Y</@ofbizUrl>">[${uiLabelMap.WebtoolsViewData}]</a>
                                 </#if>
                                 <#if !forstatic>
                                     <a target='main' href="<@ofbizUrl>ArtifactInfo?name=${entity.entityName}&amp;type=entity</@ofbizUrl>">[${uiLabelMap.WebtoolsArtifactInfo}]</a>
