@@ -558,11 +558,11 @@ public class InvoiceServices {
 
                     // Set adjustment amount as amountAlreadyIncluded to continue invoice item creation process
                     Boolean isTaxIncludedInPrice = "VAT_TAX".equals(adj.getString("orderAdjustmentTypeId")) && UtilValidate.isNotEmpty(adj.getBigDecimal("amountAlreadyIncluded")) && adj.getBigDecimal("amountAlreadyIncluded").signum() != 0;
-                    if ((adj.getBigDecimal("amount").signum() == 0) && isTaxIncludedInPrice) {
+                    if (isTaxIncludedInPrice && (adj.getBigDecimal("amount").signum() == 0)) {
                         adj.set("amount", adj.getBigDecimal("amountAlreadyIncluded"));
                     }
                     // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced, so skip this adjustment
-                    if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).abs()) > 0) {
+                    if (isTaxIncludedInPrice && adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).abs()) > 0) {
                         continue;
                     }
 
