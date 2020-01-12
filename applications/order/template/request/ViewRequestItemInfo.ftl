@@ -50,7 +50,7 @@ under the License.
                         <div>
                             ${(product.internalName)!}&nbsp;
                             <#if showRequestManagementLinks??>
-                                <a href="/catalog/control/EditProduct?productId=${requestItem.productId!}" class="buttontext">${requestItem.productId!}</a>
+                                <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${requestItem.productId!}</@ofbizUrl>" class="buttontext">${requestItem.productId!}</a>
                             <#else>
                                 <a href="<@ofbizUrl>product?product_id=${requestItem.productId!}</@ofbizUrl>" class="buttontext">${requestItem.productId!}</a>
                             </#if>

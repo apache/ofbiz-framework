@@ -121,9 +121,9 @@ under the License.
           <tbody>
             <tr>
               <td align="center"><label><b>${uiLabelMap.CommonName}</b></label></td>
-              <td align="left"><a href="/ordermgr/control/ViewAllocationPlan?planId=${allocationPlanInfo.planId!}" title="${allocationPlanInfo.planId!}"> ${allocationPlanInfo.planName!}</a></td>
+              <td align="left"><a href="<@ofbizUrl controlPath="/ordermgr/control">ViewAllocationPlan?planId=${allocationPlanInfo.planId!}</@ofbizUrl>" title="${allocationPlanInfo.planId!}"> ${allocationPlanInfo.planName!}</a></td>
               <td align="center"><label><b>${uiLabelMap.OrderProduct}</b></label></td>
-              <td align="left"><a href="/catalog/control/EditProduct?productId=${allocationPlanInfo.productId!}" title="${allocationPlanInfo.productId!}">${allocationPlanInfo.productName!}</a></td>
+              <td align="left"><a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${allocationPlanInfo.productId!}</@ofbizUrl>" title="${allocationPlanInfo.productId!}">${allocationPlanInfo.productName!}</a></td>
               <td align="center"><label><b>${uiLabelMap.CommonCreatedBy}</b></label></td>
               <td align="left">${allocationPlanInfo.createdBy!}</td>
             </tr>
@@ -185,10 +185,10 @@ under the License.
         <ul>
           <li class="h3">${uiLabelMap.CommonItems}</li>
           <#if editMode>
-            <li><a href="/ordermgr/control/ViewAllocationPlan?planId=${allocationPlanInfo.planId!}" class="buttontext">${uiLabelMap.CommonCancel}</a></li>
+            <li><a href="<@ofbizUrl controlPath="/ordermgr/control">ViewAllocationPlan?planId=${allocationPlanInfo.planId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></li>
             <li><a id="saveItemsButton" href="javascript: void(0);" class="buttontext">${uiLabelMap.CommonSave}</a></li>
           <#elseif allocationPlanInfo.statusId! != "ALLOC_PLAN_COMPLETED" && allocationPlanInfo.statusId! != "ALLOC_PLAN_CANCELLED" && security.hasPermission("ALLOCPLAN_UPDATE", session)>
-            <li><a href="/ordermgr/control/EditAllocationPlan?planId=${allocationPlanInfo.planId!}" class="buttontext">${uiLabelMap.CommonEdit}</a></li>
+            <li><a href="<@ofbizUrl controlPath="/ordermgr/control">EditAllocationPlan?planId=${allocationPlanInfo.planId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a></li>
           </#if>
         </ul>
         <br class="clear"/>
@@ -229,10 +229,10 @@ under the License.
                   </td>
                 </#if>
                 <td>${item.salesChannel!}</td>
-                <td><a href="/partymgr/control/viewprofile?partyId=${item.partyId!}" title="${item.partyId!}">${item.partyName!}</a></td>
+                <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${item.partyId!}</@ofbizUrl>" title="${item.partyId!}">${item.partyName!}</a></td>
                 <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : item.statusId!}, false)!/>
                 <td>${statusItem.get("description")}</td>
-                <td><a href="/ordermgr/control/orderview?orderId=${item.orderId!}" title="${item.orderId!}">${item.orderId!}</a></td>
+                <td><a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${item.orderId!}</@ofbizUrl>" title="${item.orderId!}">${item.orderId!}</a></td>
                 <td>${item.orderItemSeqId!}</td>
                 <td>${item.estimatedShipDate!}</td>
                 <td align="right">${item.orderedQuantity!}</td>

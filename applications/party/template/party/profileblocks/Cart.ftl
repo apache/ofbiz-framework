@@ -45,7 +45,7 @@ under the License.
             <#list savedCartItems as savedCartItem>
               <tr>
                 <td>${savedCartItem.shoppingListItemSeqId!}</td>
-                <td class="button-col"><a href="/catalog/control/EditProduct?productId=${savedCartItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}">${savedCartItem.productId!}</a></td>
+                <td class="button-col"><a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${savedCartItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}</@ofbizUrl>">${savedCartItem.productId!}</a></td>
                 <td>${savedCartItem.quantity!}</td>
                 <td>${savedCartItem.quantityPurchased!}</td>
               </tr>

@@ -76,8 +76,8 @@
       <#elseif tabButtonItem=="ListDocument">
           <#--Form ListDocument-->
           <tr <#if alt_row> class="alternate-row"</#if>>
-              <td><a class="plain" href="/content/control/editContent?contentId=${contentData.contentId!}">${contentData.contentName!}[${contentData.contentId!}]</a></td>
-              <td><a class="plain" href="/content/control/showContent?contentId=${contentData.contentId!}" target="_blank">${uiLabelMap.CommonView}</a></td>
+              <td><a class="plain" href="<@ofbizUrl controlPath="/content/control">editContent?contentId=${contentData.contentId!}</@ofbizUrl>">${contentData.contentName!}[${contentData.contentId!}]</a></td>
+              <td><a class="plain" href="<@ofbizUrl controlPath="/content/control">showContent?contentId=${contentData.contentId!}</@ofbizUrl>" target="_blank">${uiLabelMap.CommonView}</a></td>
               <td>${contentData.contentTypeId!}</td>
               <td>${contentData.mimeTypeId!}</td>
               <td>${contentData.statusId!}</td>

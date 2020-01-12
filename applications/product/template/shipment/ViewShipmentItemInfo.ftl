@@ -37,14 +37,14 @@ under the License.
             <#assign product = shipmentItemData.product!>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <td>${shipmentItem.shipmentItemSeqId}</td>
-                <td colspan="2">${(product.internalName)!} <a href="/catalog/control/EditProduct?productId=${shipmentItem.productId!}" class="buttontext">${shipmentItem.productId!}</a></td>
+                <td colspan="2">${(product.internalName)!} <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${shipmentItem.productId!}</@ofbizUrl>" class="buttontext">${shipmentItem.productId!}</a></td>
                 <td>${shipmentItem.quantity?default("&nbsp;")}</td>
                 <td colspan="2">${shipmentItem.shipmentContentDescription?default("&nbsp;")}</td>
             </tr>
             <#list orderShipments as orderShipment>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
-                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${orderShipment.orderId!}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${orderShipment.orderId!}</a>${orderShipment.orderItemSeqId!}</td>
+                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${orderShipment.orderId!}&amp;externalLoginKey=${requestAttributes.externalLoginKey}</@ofbizUrl>" class="buttontext">${orderShipment.orderId!}</a>${orderShipment.orderItemSeqId!}</td>
                     <td>&nbsp;</td>
                     <td>${orderShipment.quantity!}</td>
                     <td>&nbsp;</td>
@@ -54,7 +54,7 @@ under the License.
             <#list itemIssuances as itemIssuance>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
-                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${itemIssuance.orderId!}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${itemIssuance.orderId!}</a>${itemIssuance.orderItemSeqId!}</td>
+                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${itemIssuance.orderId!}&amp;externalLoginKey=${requestAttributes.externalLoginKey}</@ofbizUrl>" class="buttontext">${itemIssuance.orderId!}</a>${itemIssuance.orderItemSeqId!}</td>
                     <td><span class="label">${uiLabelMap.ProductInventory}</span> <a href="<@ofbizUrl>EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId!}</@ofbizUrl>" class="buttontext">${itemIssuance.inventoryItemId!}</a></td>
                     <td>${itemIssuance.quantity!}</td>
                     <td>${itemIssuance.issuedDateTime!}</td>

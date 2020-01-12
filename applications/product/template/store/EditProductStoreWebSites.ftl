@@ -21,7 +21,7 @@ under the License.
         <h3>${uiLabelMap.PageTitleEditProductStoreWebSites}</h3>
     </div>
     <div class="screenlet-body">
-      <a href="/content/control/EditWebSite?productStoreId=${productStoreId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${uiLabelMap.ProductCreateNewProductStoreWebSite}</a>
+      <a href="<@ofbizUrl controlPath="/content/control">EditWebSite?productStoreId=${productStoreId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewProductStoreWebSite}</a>
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
               <td>${uiLabelMap.ProductWebSiteId}</td>
@@ -33,7 +33,7 @@ under the License.
               <#assign rowClass = "2">
               <#list storeWebSites as webSite>
                 <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
-                  <td><a href="/content/control/EditWebSite?webSiteId=${webSite.webSiteId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${webSite.siteName!} [${webSite.webSiteId}]</a></td>
+                  <td><a href="<@ofbizUrl controlPath="/content/control">EditWebSite?webSiteId=${webSite.webSiteId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}</@ofbizUrl>" class="buttontext">${webSite.siteName!} [${webSite.webSiteId}]</a></td>
                   <td>${webSite.httpHost?default('&nbsp;')}</td>
                   <td>${webSite.httpPort?default('&nbsp;')}</td>
                   <td align="center">

@@ -23,7 +23,7 @@ under the License.
     <div class="screenlet-body">
         <#-- Receiving Results -->
         <#if receivedItems?has_content>
-          <h3>${uiLabelMap.ProductReceiptForReturn} ${uiLabelMap.CommonNbr}<a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam!}" class="buttontext">${returnHeader.returnId}</a></h3>
+          <h3>${uiLabelMap.ProductReceiptForReturn} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/ordermgr/control">returnMain?returnId=${returnHeader.returnId}${externalKeyParam!}</@ofbizUrl>" class="buttontext">${returnHeader.returnId}</a></h3>
           <#if "RETURN_RECEIVED" == returnHeader.getString("statusId")>
             <h3>${uiLabelMap.ProductReturnCompletelyReceived}</h3>
           </#if>
@@ -71,7 +71,7 @@ under the License.
                 <tr>
                   <td>
                     <h3>
-                      ${uiLabelMap.ProductReceiveReturn} <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam!}" class="buttontext">#${returnHeader.returnId}</a>
+                      ${uiLabelMap.ProductReceiveReturn} <a href="<@ofbizUrl controlPath="/ordermgr/control">returnMain?returnId=${returnHeader.returnId}${externalKeyParam!}</@ofbizUrl>" class="buttontext">#${returnHeader.returnId}</a>
                       <#if parameters.shipmentId?has_content>${uiLabelMap.ProductShipmentId} <a href="<@ofbizUrl>ViewShipment?shipmentId=${parameters.shipmentId}</@ofbizUrl>" class="buttontext">${parameters.shipmentId}</a></#if>
                     </h3>
                   </td>
@@ -110,7 +110,7 @@ under the License.
                             <input type="hidden" name="productId_o_${rowCount}" value="${product.productId}" />
                             <td width="45%">
                               <div>
-                                ${returnItem.returnItemSeqId}:&nbsp;<a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam!}" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${product.internalName!}</a> : ${product.description!}
+                                ${returnItem.returnItemSeqId}:&nbsp;<a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${product.productId}${externalKeyParam!}</@ofbizUrl>" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${product.internalName!}</a> : ${product.description!}
                                 <#if serializedInv?has_content><font color='red'>**${uiLabelMap.ProductSerializedInventoryFound}**</font></#if>
                               </div>
                             </td>
@@ -119,7 +119,7 @@ under the License.
                               <div>
                                 ${returnItem.returnItemSeqId}:&nbsp;<b>${orderItemType.get("description",locale)}</b> : ${orderItem.itemDescription!}&nbsp;&nbsp;
                                 <input type="text" size="12" name="productId_o_${rowCount}" />
-                                <a href="/catalog/control/EditProduct?${StringUtil.wrapString(externalKeyParam)}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
+                                <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
                               </div>
                             </td>
                           <#else>

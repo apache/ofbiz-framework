@@ -19,7 +19,7 @@ under the License.
 
 <div style="border-bottom: 1px solid #ccc; margin-bottom: 20px">
     <p>
-        <b>${uiLabelMap.AccountingAccountNumber}:</b> <a href="/accounting/control/EditFinAccount?finAccountId=${ownedFinAccount.finAccountId}${StringUtil.wrapString(externalKeyParam)}"
+        <b>${uiLabelMap.AccountingAccountNumber}:</b> <a href="<@ofbizUrl controlPath="/accounting/control">EditFinAccount?finAccountId=${ownedFinAccount.finAccountId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>"
              class="smallSubmit">${ownedFinAccount.finAccountId}</a>
         <b>${uiLabelMap.AccountingAccountType}:</b> ${(ownedFinAccountType.description)?default('N/A')}
         <b>${uiLabelMap.FormFieldTitle_finAccountName}:</b> ${ownedFinAccount.finAccountName!}

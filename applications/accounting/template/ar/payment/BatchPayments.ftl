@@ -202,10 +202,10 @@ function setServiceName(selection) {
                         </td>
                         <td>${(payment.comments)!}</td>
                         <td>
-                          <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdFrom}">${(payment.partyFromFirstName)!} ${(payment.partyFromLastName)!} ${(payment.partyFromGroupName)!}[${(payment.partyIdFrom)!}]</a>
+                          <a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${payment.partyIdFrom}</@ofbizUrl>">${(payment.partyFromFirstName)!} ${(payment.partyFromLastName)!} ${(payment.partyFromGroupName)!}[${(payment.partyIdFrom)!}]</a>
                         </td>
                         <td>
-                          <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdTo}">${(payment.partyToFirstName)!} ${(payment.partyToLastName)!} ${(payment.partyToGroupName)!}[${(payment.partyIdTo)!}]</a>
+                          <a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${payment.partyIdTo}</@ofbizUrl>">${(payment.partyToFirstName)!} ${(payment.partyToLastName)!} ${(payment.partyToGroupName)!}[${(payment.partyIdTo)!}]</a>
                         </td>
                         <td>${payment.effectiveDate!}</td>
                         <td><@ofbizCurrency amount = payment.amount isoCode = payment.currencyUomId /></td>

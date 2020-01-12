@@ -83,7 +83,7 @@ under the License.
                               ${(product.internalName)!}&nbsp;
                             </#if>
                             <#if showQuoteManagementLinks??>
-                                <a href="/catalog/control/EditProduct?productId=${quoteItem.productId!}" class="buttontext">
+                                <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${quoteItem.productId!}</@ofbizUrl>" class="buttontext">
                                   <#if quoteItem.productId??>
                                     ${quoteItem.productId}
                                   <#else>

@@ -40,7 +40,7 @@ under the License.
         <div class="basic-nav">
           <ul>
             <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
-            <li><a href="/partymgr/control/findparty?${StringUtil.wrapString(externalKeyParam)}">${uiLabelMap.PartyFindParty}</a></li>
+            <li><a href="<@ofbizUrl controlPath="/partymgr/control">findparty?${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>">${uiLabelMap.PartyFindParty}</a></li>
           </ul>
         </div>
       </ul>
@@ -126,7 +126,7 @@ under the License.
         <div class="basic-nav">
           <ul>
             <li><a href="javascript:document.poentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
-            <li><a href="/partymgr/control/findparty?${StringUtil.wrapString(externalKeyParam)}">${uiLabelMap.PartyFindParty}</a></li>
+            <li><a href="<@ofbizUrl controlPath="/partymgr/control">findparty?${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>">${uiLabelMap.PartyFindParty}</a></li>
           </ul>
         </div>
       </ul>

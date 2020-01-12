@@ -40,11 +40,11 @@ under the License.
           </tr>
           <tr>
             <td width="20%" align="right" class="label">${uiLabelMap.ProductPrimaryOrderId}</td>
-            <td width="80%"><#if shipment.primaryOrderId??><a href="/ordermgr/control/orderview?orderId=${shipment.primaryOrderId}" class="buttontext">${shipment.primaryOrderId}</a></#if></td>
+            <td width="80%"><#if shipment.primaryOrderId??><a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${shipment.primaryOrderId}</@ofbizUrl>" class="buttontext">${shipment.primaryOrderId}</a></#if></td>
           </tr>
           <tr>
             <td width="20%" align="right" class="label">${uiLabelMap.ProductPrimaryReturnId}</td>
-            <td width="80%"><#if shipment.primaryReturnId??><a href="/ordermgr/control/returnMain?returnId=${shipment.primaryReturnId}" class="buttontext">${shipment.primaryReturnId}</a></#if></td>
+            <td width="80%"><#if shipment.primaryReturnId??><a href="<@ofbizUrl controlPath="/ordermgr/control">returnMain?returnId=${shipment.primaryReturnId}</@ofbizUrl>" class="buttontext">${shipment.primaryReturnId}</a></#if></td>
           </tr>
           <tr>
             <td width="20%" align="right" class="label">${uiLabelMap.ProductPrimaryShipGroupSeqId}</td>

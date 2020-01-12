@@ -18,13 +18,13 @@ under the License.
 -->
 
 <#if "PROD_ORDER_HEADER" == workEffort.workEffortTypeId>
-  <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}" class="event">
+  <a href="<@ofbizUrl controlPath="/manufacturing/control">ShowProductionRun?productionRunId=${workEffort.workEffortId}</@ofbizUrl>" class="event">
     ${workEffort.workEffortId}
   </a>
   &nbsp;${workEffort.workEffortName?default("Undefined")}
   <#if workOrderItemFulfillments?has_content>
     <#list workOrderItemFulfillments as workOrderItemFulfillment>
-      <br/>${uiLabelMap.OrderOrderId}: <a href="/ordermgr/control/orderview?orderId=${workOrderItemFulfillment.orderId}" class="event">${workOrderItemFulfillment.orderId} / ${workOrderItemFulfillment.orderItemSeqId}</a>
+      <br/>${uiLabelMap.OrderOrderId}: <a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${workOrderItemFulfillment.orderId}</@ofbizUrl>" class="event">${workOrderItemFulfillment.orderId} / ${workOrderItemFulfillment.orderItemSeqId}</a>
       <#assign orderItemAndShipGroupAssocs = EntityQuery.use(delegator).from("OrderHeaderItemAndShipGroup").where("orderId", workOrderItemFulfillment.orderId!, "orderItemSeqId", workOrderItemFulfillment.orderItemSeqId!).queryList()!/>
       <#list orderItemAndShipGroupAssocs as orderItemAndShipGroupAssoc>
         <#if orderItemAndShipGroupAssoc.shipByDate?has_content>
@@ -34,13 +34,13 @@ under the License.
     </#list>
   </#if>
 <#elseif "PROD_ORDER_TASK" == workEffort.workEffortTypeId>
-  <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortParentId}" class="event">
+  <a href="<@ofbizUrl controlPath="/manufacturing/control">ShowProductionRun?productionRunId=${workEffort.workEffortParentId}</@ofbizUrl>" class="event">
     ${workEffort.workEffortParentId} / ${workEffort.workEffortId}
   </a>
   &nbsp;${workEffort.workEffortName?default("Undefined")}<#if workEffort.reservPersons??>&nbsp;Persons:${workEffort.reservPersons}</#if>
   <#if parentWorkOrderItemFulfillments?has_content>
     <#list parentWorkOrderItemFulfillments as parentWorkOrderItemFulfillment>
-      <br/>${uiLabelMap.OrderOrderId}: <a href="/ordermgr/control/orderview?orderId=${parentWorkOrderItemFulfillment.orderId}" class="event">${parentWorkOrderItemFulfillment.orderId} / ${parentWorkOrderItemFulfillment.orderItemSeqId}</a>
+      <br/>${uiLabelMap.OrderOrderId}: <a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${parentWorkOrderItemFulfillment.orderId}</@ofbizUrl>" class="event">${parentWorkOrderItemFulfillment.orderId} / ${parentWorkOrderItemFulfillment.orderItemSeqId}</a>
       <#assign orderItemAndShipGroupAssocs = EntityQuery.use(delegator).from("OrderHeaderItemAndShipGroup").where("orderId", parentWorkOrderItemFulfillment.orderId!, "orderItemSeqId", parentWorkOrderItemFulfillment.orderItemSeqId!).queryList()!/>
       <#list orderItemAndShipGroupAssocs as orderItemAndShipGroupAssoc>
         <#if orderItemAndShipGroupAssoc.shipByDate?has_content>

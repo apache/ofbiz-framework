@@ -75,7 +75,7 @@ under the License.
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                     <#if inventoryItem?? && (inventoryItem.productId)??>
-                        <a href="/catalog/control/EditProduct?productId=${(inventoryItem.productId)!}" class="buttontext">${(inventoryItem.productId)!}</a>
+                        <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${(inventoryItem.productId)!}</@ofbizUrl>" class="buttontext">${(inventoryItem.productId)!}</a>
                     </#if>
                 </td>
             </tr>

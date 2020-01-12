@@ -161,7 +161,7 @@ under the License.
               <tr>
                 <td class="label">&nbsp;${uiLabelMap.OrderProductStore}</td>
                 <td>
-                  ${productStore.storeName!}&nbsp;<a href="/catalog/control/EditProductStore?productStoreId=${productStore.productStoreId}${StringUtil.wrapString(externalKeyParam)}" target="catalogmgr" class="buttontext">(${productStore.productStoreId})</a>
+                  ${productStore.storeName!}&nbsp;<a href="<@ofbizUrl controlPath="/catalog/control">EditProductStore?productStoreId=${productStore.productStoreId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" target="catalogmgr" class="buttontext">(${productStore.productStoreId})</a>
                 </td>
               </tr>
               <tr><td colspan="3"><hr /></td></tr>
@@ -170,7 +170,7 @@ under the License.
               <td class="label">&nbsp;${uiLabelMap.OrderOriginFacility}</td>
               <td>
                   <#if orderHeader.originFacilityId?has_content>
-                    <a href="/facility/control/EditFacility?facilityId=${orderHeader.originFacilityId}${StringUtil.wrapString(externalKeyParam)}" target="facilitymgr" class="buttontext">${orderHeader.originFacilityId}</a>
+                    <a href="<@ofbizUrl controlPath="/facility/control">EditFacility?facilityId=${orderHeader.originFacilityId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" target="facilitymgr" class="buttontext">${orderHeader.originFacilityId}</a>
                   <#else>
                     ${uiLabelMap.CommonNA}
                   </#if>
@@ -181,7 +181,7 @@ under the License.
               <td class="label">&nbsp;${uiLabelMap.CommonCreatedBy}</td>
               <td>
                   <#if orderHeader.createdBy?has_content>
-                    <a href="/partymgr/control/viewprofile?userlogin_id=${orderHeader.createdBy}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${orderHeader.createdBy}</a>
+                    <a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?userlogin_id=${orderHeader.createdBy}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" target="partymgr" class="buttontext">${orderHeader.createdBy}</a>
                   <#else>
                     ${uiLabelMap.CommonNotSet}
                   </#if>

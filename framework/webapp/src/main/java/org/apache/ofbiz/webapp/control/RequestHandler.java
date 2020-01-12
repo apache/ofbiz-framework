@@ -1066,6 +1066,10 @@ public class RequestHandler {
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode) {
+        return makeLink(request, response, url, fullPath, secure, encode, "");
+    }
+
+    public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode, String targetControlPath) {
         WebSiteProperties webSiteProps = null;
         try {
             webSiteProps = WebSiteProperties.from(request);
@@ -1109,8 +1113,12 @@ public class RequestHandler {
                 return null;
             }
         }
-        // create the path to the control servlet
-        String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
+
+        String controlPath = targetControlPath;
+        if (UtilValidate.isEmpty(controlPath)){
+            // create the path to the control servlet
+            controlPath = (String) request.getAttribute("_CONTROL_PATH_");
+        }
 
         //If required by webSite parameter, surcharge control path
         if (webSiteProps.getWebappPath() != null) {

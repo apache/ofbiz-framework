@@ -212,8 +212,8 @@ function getFinAccountTransRunningTotalAndBalances() {
                         <td><#if paymentType?has_content>${paymentType.description!}</#if></td>
                         <td><#if paymentMethodType?has_content>${paymentMethodType.description!}</#if></td>
                         <td><@ofbizCurrency amount=payment.amount!/></td>
-                        <td><#if fromPartyName?has_content>${fromPartyName.groupName!}${fromPartyName.firstName!} ${fromPartyName.lastName!}<a href="/partymgr/control/viewprofile?partyId=${fromPartyName.partyId!}">[${fromPartyName.partyId!}]</a></#if></td>
-                        <td><#if toPartyName?has_content>${toPartyName.groupName!}${toPartyName.firstName!} ${toPartyName.lastName!}<a href="/partymgr/control/viewprofile?partyId=${toPartyName.partyId!}">[${toPartyName.partyId!}]</a></#if></td>
+                        <td><#if fromPartyName?has_content>${fromPartyName.groupName!}${fromPartyName.firstName!} ${fromPartyName.lastName!}<a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${fromPartyName.partyId!}</@ofbizUrl>">[${fromPartyName.partyId!}]</a></#if></td>
+                        <td><#if toPartyName?has_content>${toPartyName.groupName!}${toPartyName.firstName!} ${toPartyName.lastName!}<a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${toPartyName.partyId!}</@ofbizUrl>">[${toPartyName.partyId!}]</a></#if></td>
                       </tr>
                     </#list>
                   </table>
@@ -236,7 +236,7 @@ function getFinAccountTransRunningTotalAndBalances() {
               </#if>
             </td>
             <td>${finAccountTransType.description!}</td>
-            <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="/partymgr/control/viewprofile?partyId=${partyName.partyId}">[${(partyName.partyId)!}]</a></#if></td>
+            <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${partyName.partyId}</@ofbizUrl>">[${(partyName.partyId)!}]</a></#if></td>
             <td><#if glReconciliation?has_content>${glReconciliation.glReconciliationName!}<a href="ViewGlReconciliationWithTransaction?glReconciliationId=${glReconciliation.glReconciliationId!}&amp;finAccountId=${parameters.finAccountId!}">[${glReconciliation.glReconciliationId!}]</a></#if></td>
             <td>${finAccountTrans.transactionDate!}</td>
             <td>${finAccountTrans.entryDate!}</td>

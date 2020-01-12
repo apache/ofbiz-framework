@@ -65,8 +65,8 @@ under the License.
         <input type="submit" value="${uiLabelMap.PartyCreateNewQuote}"/>
       </form>
       </li>
-      <li><a href="/ordermgr/control/createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId!}">${uiLabelMap.PartyCreateNewCustRequest}</a></li>
-      <li><a href="/ordermgr/control/loadCartFromShoppingList?shoppingListId=${shoppingList.shoppingListId!}">${uiLabelMap.OrderNewOrder}</a></li>
+      <li><a href="<@ofbizUrl controlPath="/ordermgr/control">createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId!}</@ofbizUrl>">${uiLabelMap.PartyCreateNewCustRequest}</a></li>
+      <li><a href="<@ofbizUrl controlPath="/ordermgr/control">loadCartFromShoppingList?shoppingListId=${shoppingList.shoppingListId!}</@ofbizUrl>">${uiLabelMap.OrderNewOrder}</a></li>
     </ul>
     <br class="clear"/>
   </div>
@@ -199,7 +199,7 @@ under the License.
           <#assign productVariantAssocs = shoppingListItemData.productVariantAssocs!>
           <#assign isVirtual = product.isVirtual?? && "Y" == product.isVirtual>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-            <td><a href="/catalog/control/EditProduct?productId=${shoppingListItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}">${shoppingListItem.productId} -
+            <td><a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${shoppingListItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}</@ofbizUrl>">${shoppingListItem.productId} -
               ${productContentWrapper.get("PRODUCT_NAME", "html")?default("No Name")}</a> : ${productContentWrapper.get("DESCRIPTION", "html")!}
             </td>
             <form method="post" action="<@ofbizUrl>removeFromShoppingList</@ofbizUrl>" name='removeform_${shoppingListItem.shoppingListItemSeqId}'>

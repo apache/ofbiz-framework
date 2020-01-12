@@ -91,9 +91,9 @@ under the License.
           <li class="h3">${uiLabelMap.OrderPlanItems}</li>
           <#if (allocationPlanInfo.itemList.size() &gt; 0)>
             <#if editMode=="Y">
-              <li><a href="/ordermgr/control/CreateAllocationPlan?productId=${requestParameters.productId!}&planName=${requestParameters.planName!}&editMode=N" class="buttontext">${uiLabelMap.OrderCancelEdit}</a></li>
+              <li><a href="<@ofbizUrl controlPath="/ordermgr/control">CreateAllocationPlan?productId=${requestParameters.productId!}&planName=${requestParameters.planName!}&editMode=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCancelEdit}</a></li>
            <#else>
-              <li><a href="/ordermgr/control/CreateAllocationPlan?productId=${requestParameters.productId!}&planName=${requestParameters.planName!}&editMode=Y" class="buttontext">${uiLabelMap.CommonEdit}</a></li>
+              <li><a href="<@ofbizUrl controlPath="/ordermgr/control">CreateAllocationPlan?productId=${requestParameters.productId!}&planName=${requestParameters.planName!}&editMode=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a></li>
             </#if>
           </#if>
         </ul>
@@ -122,8 +122,8 @@ under the License.
               <input type="hidden" name="ioisim_${item_index}" value="${item.orderItemSeqId}"/>
               <input type="hidden" name="ipsim_${item_index}" value="${item_index+1}"/>
               <td>${item.salesChannel!}</td>
-              <td><a href="/partymgr/control/viewprofile?partyId=${item.partyId!}" title="${item.partyId!}">${item.partyName!}</a></td>
-              <td><a href="/ordermgr/control/orderview?orderId=${item.orderId!}" title="${item.orderId!}">${item.orderId!}</a></td>
+              <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${item.partyId!}</@ofbizUrl>" title="${item.partyId!}">${item.partyName!}</a></td>
+              <td><a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${item.orderId!}</@ofbizUrl>" title="${item.orderId!}">${item.orderId!}</a></td>
               <td>${item.orderItemSeqId!}</td>
               <td>${item.estimatedShipDate!}</td>
               <td align="right">${item.orderedQuantity!}</td>

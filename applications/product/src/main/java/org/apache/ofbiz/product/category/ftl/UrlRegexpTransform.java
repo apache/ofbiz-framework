@@ -97,6 +97,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);
         final boolean encode = checkArg(args, "encode", true);
+        final String controlPath = convertToString(args.get("controlPath"));
         final String webSiteId = convertToString(args.get("webSiteId"));
 
         return new Writer(out) {
@@ -133,7 +134,8 @@ public class UrlRegexpTransform implements TemplateTransformModel {
                         }
 
                         RequestHandler rh = RequestHandler.from(request);
-                        out.write(seoUrl(rh.makeLink(request, response, buf.toString(), fullPath, secure || request.isSecure() , encode), userLogin == null));
+                        String link = rh.makeLink(request, response, buf.toString(), fullPath, secure || request.isSecure() , encode, controlPath);
+                        out.write(seoUrl(link, userLogin == null));
                     } else if (!webSiteId.isEmpty()) {
                         Delegator delegator = FreeMarkerWorker.unwrap(env.getVariable("delegator"));
                         if (delegator == null) {

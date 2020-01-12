@@ -95,7 +95,7 @@ under the License.
                           </td>
                           <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
                           <td>
-                            <div><a href="/facility/control/EditContactMech?facilityId=${facility.facilityId}&amp;contactMechId=${shippingAddress.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
+                            <div><a href="<@ofbizUrl controlPath="/facility/control">EditContactMech?facilityId=${facility.facilityId}&amp;contactMechId=${shippingAddress.contactMechId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
                           </td>
                         </tr>
                         <#if shippingContactMech_has_next>
@@ -109,7 +109,7 @@ under the License.
                       <td colspan="4">
                         <div>
                           ${uiLabelMap.CommonNoContactInformationOnFile}:
-                          <a href="/facility/control/EditContactMech?facilityId=${facility.facilityId}&amp;preContactMechTypeId=POSTAL_ADDRESS" target="_blank" class="buttontext">${uiLabelMap.CommonNew}</a>
+                          <a href="<@ofbizUrl controlPath="/facility/control">EditContactMech?facilityId=${facility.facilityId}&amp;preContactMechTypeId=POSTAL_ADDRESS</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.CommonNew}</a>
                         </div>
                       </td>
                     </tr>
@@ -143,7 +143,7 @@ under the License.
               </td>
               <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
               <td>
-                <div><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
+                <div><a href="<@ofbizUrl controlPath="/partymgr/control">editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
               </td>
             </tr>
             <#if shippingContactMech_has_next>
@@ -243,7 +243,7 @@ under the License.
                         </label>
                       </td>
                       <td>
-                        <div><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
+                        <div><a href="<@ofbizUrl controlPath="/partymgr/control">editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
                       </td>
                     </tr>
                     <#if shippingContactMech_has_next>

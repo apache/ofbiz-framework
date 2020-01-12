@@ -40,7 +40,7 @@ under the License.
                 <#list inventoryItemList as inventoryItem>
                     <#assign product = inventoryItem.getRelatedOne('Product', false)!>
                     <tr>
-                        <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItem.inventoryItemId}&amp;externalLoginKey=${requestAttributes.externalLoginKey!}" class="linktext">${inventoryItem.inventoryItemId}</a></td>
+                        <td><a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${inventoryItem.inventoryItemId}&amp;externalLoginKey=${requestAttributes.externalLoginKey!}</@ofbizUrl>" class="linktext">${inventoryItem.inventoryItemId}</a></td>
                         <td>
                             <#if product?has_content>
                                 <#if product.isVariant?default('N') == 'Y'>
@@ -48,7 +48,7 @@ under the License.
                                 </#if>
                                 <#if product?has_content>
                                     <#assign productName = Static['org.apache.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request, "html")!>
-                                    <a href="/catalog/control/EditProduct?productId=${product.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey!}">${productName?default(product.productId)}</a>
+                                    <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${product.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey!}</@ofbizUrl>">${productName?default(product.productId)}</a>
                                 </#if>
                             </#if>
                         </td>

@@ -60,7 +60,7 @@ under the License.
                     <#assign outgoingQuantityTotal = manufacturingOutQuantitySummary.estimatedQuantityTotal!>
                     <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
                         <td>${(facility.facilityName)!} [${facilityId?default("[No Facility]")}]
-                        <a href="/facility/control/ReceiveInventory?facilityId=${facilityId}&amp;productId=${productId}&amp;externLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductInventoryReceive}</a></td>
+                        <a href="<@ofbizUrl controlPath="/facility/control">ReceiveInventory?facilityId=${facilityId}&amp;productId=${productId}&amp;externLoginKey=${externalLoginKey}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductInventoryReceive}</a></td>
                         <td><#if totalAvailableToPromise??>${totalAvailableToPromise}<#else>&nbsp;</#if></td>
                         <td><#if totalQuantityOnHand??>${totalQuantityOnHand}<#else>&nbsp;</#if></td>
                         <td><#if accountingQuantityTotal??>${accountingQuantityTotal}<#else>&nbsp;</#if></td>

@@ -104,8 +104,8 @@ under the License.
                                   </div>
                                   <#if productId??>
                                   <div>
-                                      <a href="/catalog/control/EditProduct?productId=${productId}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
-                                      <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
+                                      <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
+                                      <a href="<@ofbizUrl controlPath="/ecommerce/control">product?product_id=${productId}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
                                       <#if orderItemContentWrapper.get("IMAGE_URL", "url")?has_content>
                                       <a href="<@ofbizUrl>viewimage?orderId=${orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}&amp;orderContentTypeId=IMAGE_URL</@ofbizUrl>" target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
                                       </#if>

@@ -36,7 +36,7 @@ under the License.
           <#assign roleType = delegator.findOne("RoleType", {"roleTypeId" : productStoreRole.roleTypeId}, true) />
           <tr>
             <td class="button-col">
-              <a href="/catalog/control/FindProductStoreRoles?partyId=${productStoreRole.partyId}&amp;productStoreId=${productStore.productStoreId}">${productStore.storeName?default("${uiLabelMap.ProductNoDescription}")} (${productStore.productStoreId})</a>
+              <a href="<@ofbizUrl controlPath="/catalog/control">FindProductStoreRoles?partyId=${productStoreRole.partyId}&amp;productStoreId=${productStore.productStoreId}</@ofbizUrl>">${productStore.storeName?default("${uiLabelMap.ProductNoDescription}")} (${productStore.productStoreId})</a>
             </td>
             <td>${roleType.description!}</td>
           </tr>

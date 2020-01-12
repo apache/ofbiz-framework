@@ -37,15 +37,15 @@ under the License.
       </tr>
       <#list items as item>
         <tr>
-          <td><a href="/ordermgr/control/returnMain?returnId=${item.returnId}" class="buttontext">${item.returnId}</a> [${item.returnItemSeqId}]</td>
-          <td><a href="/catalog/control/EditProductInventoryItems?productId=${item.productId}" class="buttontext">${item.productId}</a> ${item.internalName!}</td>
+          <td><a href="<@ofbizUrl controlPath="/ordermgr/control">returnMain?returnId=${item.returnId}</@ofbizUrl>" class="buttontext">${item.returnId}</a> [${item.returnItemSeqId}]</td>
+          <td><a href="<@ofbizUrl controlPath="/catalog/control">EditProductInventoryItems?productId=${item.productId}</@ofbizUrl>" class="buttontext">${item.productId}</a> ${item.internalName!}</td>
           <td>${item.returnQuantity}</td>
           <td>${item.shipmentItemQty}</td>
           <td>${item.totalQtyIssued}</td>
           <td>
             <#if item.issuedItems?has_content>
               <#list item.issuedItems as issuedItem>
-                <div><a href="/facility/control/EditInventoryItem?inventoryItemId=${issuedItem.inventoryItemId}" class="buttontext">${issuedItem.inventoryItemId}</a> ${issuedItem.quantity}</div>
+                <div><a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${issuedItem.inventoryItemId}</@ofbizUrl>" class="buttontext">${issuedItem.inventoryItemId}</a> ${issuedItem.quantity}</div>
               </#list>
             </#if>
           </td>

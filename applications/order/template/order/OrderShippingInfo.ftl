@@ -226,7 +226,7 @@ under the License.
               <#if (quantityOrdered > 0) >
           <tr id="tableevenrow">
               <td><div><a name="orderItem${index}">${orderItem.orderItemSeqId}</a></div></td>
-              <td><div>${product.internalName!} [<a href="/catalog/control/EditProduct?productId=${orderItem.productId!}" class="link">${orderItem.productId!}</a>]</div></td>
+              <td><div>${product.internalName!} [<a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${orderItem.productId!}</@ofbizUrl>" class="link">${orderItem.productId!}</a>]</div></td>
               <td><div>${quantityOrdered}</div></td>
               <td><div>${quantityNotAvailable}</div></td>
               <td>
@@ -260,15 +260,15 @@ under the License.
                   <div class="tabletext"> [${OISG.shipGroupSeqId}] <#if OISG.shipByDate?has_content>, ${uiLabelMap.OrderShipBeforeDate} : ${OISG.shipByDate?date}</#if></div>
                       <#if "SALES_ORDER" == orderType>
                           <#list orderShipments as orderShipment>
-                  <div>${uiLabelMap.OrderPlannedInShipment} : </b><a target="facility" href="/facility/control/ViewShipment?shipmentId=${orderShipment.shipmentId!}&externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${orderShipment.shipmentId!}</a>:${orderShipment.shipmentItemSeqId!} - ${orderShipment.quantity!}</div>
+                  <div>${uiLabelMap.OrderPlannedInShipment} : </b><a target="facility" href="<@ofbizUrl controlPath="/facility/control">ViewShipment?shipmentId=${orderShipment.shipmentId!}&externalLoginKey=${externalLoginKey}</@ofbizUrl>" class="buttontext" style="font-size: xx-small;">${orderShipment.shipmentId!}</a>:${orderShipment.shipmentItemSeqId!} - ${orderShipment.quantity!}</div>
                           </#list>
                       <#elseif "PURCHASE_ORDER" == orderType>
                           <#list orderShipments as orderShipment>
                               <#if orderShipment.quantity?has_content & orderShipment.quantity!=0.0 >
-                  <div>${uiLabelMap.OrderPlannedInReceive} : </b><a target="facility" href="/facility/control/ViewReceiveShipment?shipmentId=${orderShipment.shipmentId!}&externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${orderShipment.shipmentId!}</a>:${orderShipment.shipmentItemSeqId!} - ${orderShipment.quantity!}</div>
+                  <div>${uiLabelMap.OrderPlannedInReceive} : </b><a target="facility" href="<@ofbizUrl controlPath="/facility/control">ViewReceiveShipment?shipmentId=${orderShipment.shipmentId!}&externalLoginKey=${externalLoginKey}</@ofbizUrl>" class="buttontext" style="font-size: xx-small;">${orderShipment.shipmentId!}</a>:${orderShipment.shipmentItemSeqId!} - ${orderShipment.quantity!}</div>
                               <#else>
                                   <#assign shipmentItem = orderShipment.getShipmentItem()>
-                  <div>${uiLabelMap.OrderPlannedRejected} : </b><a target="facility" href="/facility/control/ViewReceiveShipment?shipmentId=${orderShipment.shipmentId!}&externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${orderShipment.shipmentId!}</a>:${orderShipment.shipmentItemSeqId!} - ${shipmentItem.quantity!}</div>
+                  <div>${uiLabelMap.OrderPlannedRejected} : </b><a target="facility" href="<@ofbizUrl controlPath="/facility/control">ViewReceiveShipment?shipmentId=${orderShipment.shipmentId!}&externalLoginKey=${externalLoginKey}</@ofbizUrl>" class="buttontext" style="font-size: xx-small;">${orderShipment.shipmentId!}</a>:${orderShipment.shipmentItemSeqId!} - ${shipmentItem.quantity!}</div>
                               </#if>
                           </#list>
                       </#if>
@@ -754,8 +754,8 @@ under the License.
               <td>
                   <#list shipGroupShipments as shipment>
                       <div>
-                        ${uiLabelMap.CommonNbr}<a href="/facility/control/ViewShipment?shipmentId=${shipment.shipmentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${shipment.shipmentId}</a>&nbsp;&nbsp;
-                        <a target="_BLANK" href="/facility/control/PackingSlip.pdf?shipmentId=${shipment.shipmentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
+                        ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/facility/control">ViewShipment?shipmentId=${shipment.shipmentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${shipment.shipmentId}</a>&nbsp;&nbsp;
+                        <a target="_BLANK" href="<@ofbizUrl controlPath="/facility/control">PackingSlip.pdf?shipmentId=${shipment.shipmentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
                         <#if "SALES_ORDER" == orderHeader.orderTypeId && "ORDER_COMPLETED" == orderHeader.statusId>
                           <#assign shipmentRouteSegments = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipment.shipmentId!).queryList()!>
                           <#if shipmentRouteSegments?has_content>
@@ -787,7 +787,7 @@ under the License.
                <#if "SALES_ORDER" == orderHeader.orderTypeId>
                  <#if !shipGroup.supplierPartyId?has_content>
                    <#if "ORDER_APPROVED" == orderHeader.statusId>
-                 <a href="/facility/control/PackOrder?facilityId=${storeFacilityId!}&amp;orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup}</a>
+                 <a href="<@ofbizUrl controlPath="/facility/control">PackOrder?facilityId=${storeFacilityId!}&amp;orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup}</a>
                    <br />
                    </#if>
                    <a href="javascript:document.createShipment_${shipGroup.shipGroupSeqId}.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>

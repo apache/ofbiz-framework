@@ -50,7 +50,7 @@ under the License.
                   <td><a href="<@ofbizUrl>ViewShipment?shipmentId=${item.shipmentId!}</@ofbizUrl>" class="buttontext">${item.shipmentId!} ${item.shipmentItemSeqId!}</a></td>
                   <td>${item.receiptId}</td>
                   <td>${item.getString("datetimeReceived").toString()}</td>
-                  <td><a href="/ordermgr/control/orderview?orderId=${item.orderId}" class="buttontext">${item.orderId}</a></td>
+                  <td><a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${item.orderId}</@ofbizUrl>" class="buttontext">${item.orderId}</a></td>
                   <td>${item.orderItemSeqId}</td>
                   <td>${item.productId?default("Not Found")}</td>
                   <td>${item.lotId?default("")}</td>
@@ -110,7 +110,7 @@ under the License.
                 <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductProductName}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
-                  <a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam!}" target="catalog" class="buttontext">${product.internalName!}</a>
+                  <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${product.productId}${externalKeyParam!}</@ofbizUrl>" target="catalog" class="buttontext">${product.internalName!}</a>
                 </td>
               </tr>
               <tr>
@@ -413,13 +413,13 @@ under the License.
                             <#assign product = orderItem.getRelatedOne("Product", true)/>
                             <input type="hidden" name="productId_o_${rowCount}" value="${product.productId}"/>
                             <td width="45%">
-                                ${orderItem.orderItemSeqId}:&nbsp;<a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam!}" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${orderItem.itemDescription!}</a> : ${product.description!}
+                                ${orderItem.orderItemSeqId}:&nbsp;<a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${product.productId}${externalKeyParam!}</@ofbizUrl>" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${orderItem.itemDescription!}</a> : ${product.description!}
                             </td>
                           <#else>
                             <td width="45%">
                                 <b>${orderItemType.get("description",locale)}</b> : ${orderItem.itemDescription!}&nbsp;&nbsp;
                                 <input type="text" size="12" name="productId_o_${rowCount}"/>
-                                <a href="/catalog/control/EditProduct?${StringUtil.wrapString(externalKeyParam)}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
+                                <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
                             </td>
                           </#if>
                           <td align="right">${uiLabelMap.ProductLocation}:</td>

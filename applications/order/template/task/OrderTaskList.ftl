@@ -165,7 +165,7 @@ under the License.
                               </td>
                               <td>${task.priority?default("0")}</td>
                               <td>
-                                <a href="/workeffort/control/activity?workEffortId=${task.workEffortId}${StringUtil.wrapString(externalKeyParam)}" target="workeffort" class="buttontext">
+                                <a href="<@ofbizUrl controlPath="/workeffort/control">activity?workEffortId=${task.workEffortId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" target="workeffort" class="buttontext">
                                   ${Static["org.apache.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
                                 </a>
                               </td>
@@ -259,7 +259,7 @@ under the License.
                                 <td>${Static["org.apache.ofbiz.order.task.TaskWorker"].getRoleDescription(task)}</td>
                                 <td>${task.priority?default("0")}</td>
                                 <td>
-                                  <a href="/workeffort/control/activity?workEffortId=${task.workEffortId}" target="workeffort" class="buttontext">
+                                  <a href="<@ofbizUrl controlPath="/workeffort/control">activity?workEffortId=${task.workEffortId}</@ofbizUrl>" target="workeffort" class="buttontext">
                                     ${Static["org.apache.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
                                   </a>
                                 </td>

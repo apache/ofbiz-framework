@@ -84,11 +84,11 @@ under the License.
                                         <#assign downloadContents = EntityQuery.use(delegator).from("OrderItemAndProductContentInfo").where( "orderId", orderItem.orderId!, "orderItemSeqId", orderItem.orderItemSeqId!, "productContentTypeId", "DIGITAL_DOWNLOAD", "statusId", "ITEM_COMPLETED").queryList()!/>
                                         <#if downloadContents?has_content>
                                             <#list downloadContents as downloadContent>
-                                                <a href="/content/control/ViewSimpleContent?contentId=${downloadContent.contentId}" class="buttontext" target="_blank">${uiLabelMap.ContentDownload}</a>&nbsp;
+                                                <a href="<@ofbizUrl controlPath="/content/control">ViewSimpleContent?contentId=${downloadContent.contentId}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.ContentDownload}</a>&nbsp;
                                             </#list>
                                         </#if>
-                                        <a href="/catalog/control/EditProduct?productId=${productId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
-                                        <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
+                                        <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${productId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
+                                        <a href="<@ofbizUrl controlPath="/ecommerce/control">product?product_id=${productId}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
                                         <#if orderItemContentWrapper.get("IMAGE_URL", "url")?has_content>
                                             <a href="<@ofbizUrl>viewimage?orderId=${orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}&amp;orderContentTypeId=IMAGE_URL</@ofbizUrl>"
                                                target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
@@ -349,7 +349,7 @@ under the License.
                                     <td colspan="6">
                                         <#if orderItem.orderItemTypeId != "RENTAL_ORDER_ITEM">
                                             <span class="label">${uiLabelMap.ManufacturingProductionRun}</span>
-                                            <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}${StringUtil.wrapString(externalKeyParam)}"
+                                            <a href="<@ofbizUrl controlPath="/manufacturing/control">ShowProductionRun?productionRunId=${workEffort.workEffortId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>"
                                                 class="buttontext">${workEffort.workEffortId}</a>
                                             ${uiLabelMap.OrderCurrentStatus}
                                             ${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}
@@ -377,7 +377,7 @@ under the License.
                                     <td>&nbsp;</td>
                                     <td colspan="6">
                                         <span class="label">${uiLabelMap.OrderLinkedToOrderItem}</span>&nbsp;(${description!})
-                                        <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}"
+                                        <a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${linkedOrderId}</@ofbizUrl>"
                                            class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description!}
                                     </td>
                                 </tr>
@@ -394,7 +394,7 @@ under the License.
                                     <td>&nbsp;</td>
                                     <td colspan="6">
                                         <span class="label">${uiLabelMap.OrderLinkedFromOrderItem}</span>&nbsp;(${description!})
-                                        <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}"
+                                        <a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${linkedOrderId}</@ofbizUrl>"
                                            class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description!}
                                     </td>
                                 </tr>
@@ -439,7 +439,7 @@ under the License.
                                             (${orderItemAdjustment.comments?default("")})
                                         </#if>
                                         <#if orderItemAdjustment.productPromoId?has_content>
-                                            <a href="/catalog/control/EditProductPromo?productPromoId=${orderItemAdjustment.productPromoId}${StringUtil.wrapString(externalKeyParam)}"
+                                            <a href="<@ofbizUrl controlPath="/catalog/control">EditProductPromo?productPromoId=${orderItemAdjustment.productPromoId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>"
                                                 >${orderItemAdjustment.getRelatedOne("ProductPromo", false).getString("promoName")}</a>
                                         </#if>
                                         <#if "SALES_TAX" == orderItemAdjustment.orderAdjustmentTypeId>
@@ -504,7 +504,7 @@ under the License.
                                 <tr<#if "1" == itemClass> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.CommonSurveys}</span>&nbsp;
-                                        <a href="/content/control/ViewSurveyResponses?surveyResponseId=${survey.surveyResponseId}&amp;surveyId=${survey.surveyId}${StringUtil.wrapString(externalKeyParam)}"
+                                        <a href="<@ofbizUrl controlPath="/content/control">ViewSurveyResponses?surveyResponseId=${survey.surveyResponseId}&amp;surveyId=${survey.surveyId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>"
                                            class="buttontext">${survey.surveyId}</a>
                                     </td>
                                     <td colspan="5">&nbsp;</td>
@@ -568,7 +568,7 @@ under the License.
                                 <tr<#if "1" == itemClass> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
-                                        <a href="/facility/control/EditInventoryItem?inventoryItemId=${orderItemShipGrpInvRes.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}"
+                                        <a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${orderItemShipGrpInvRes.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>"
                                            class="buttontext">${orderItemShipGrpInvRes.inventoryItemId}</a>
                                         <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${orderItemShipGrpInvRes.shipGroupSeqId}
                                     </td>
@@ -636,7 +636,7 @@ under the License.
                                         <#if itemIssuance.inventoryItemId?has_content>
                                             <#assign inventoryItem = itemIssuance.getRelatedOne("InventoryItem", false)/>
                                             <span class="label">${uiLabelMap.CommonInventory}</span>
-                                            <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}"
+                                            <a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>"
                                                class="buttontext">${itemIssuance.inventoryItemId}</a>
                                             <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${itemIssuance.shipGroupSeqId!}
                                             <#if (inventoryItem.serialNumber?has_content)>
@@ -666,7 +666,7 @@ under the License.
                                         </#if>
                                         &nbsp;<#if shipmentReceipt.datetimeReceived?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(shipmentReceipt.datetimeReceived, "", locale, timeZone)!}</#if>&nbsp;
                                         <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
-                                        <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}"
+                                        <a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>"
                                            class="buttontext">${shipmentReceipt.inventoryItemId}</a>
                                     </td>
                                     <td align="center">

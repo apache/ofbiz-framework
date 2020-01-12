@@ -73,7 +73,7 @@ under the License.
                         </#if>
                     </#if>
                     <#-- Link to the party in Party Manager -->
-                    <#if quote.partyId?has_content><a href="/partymgr/control/viewprofile?partyId=${quote.partyId}" class="buttontext" target="_blank">(${quote.partyId})</a></#if>
+                    <#if quote.partyId?has_content><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${quote.partyId}</@ofbizUrl>" class="buttontext" target="_blank">(${quote.partyId})</a></#if>
                 </td>
             </tr>
             <#-- quote name -->

@@ -174,7 +174,7 @@ under the License.
                   <input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="hidden" value="Y"/>
                   ${finAccountTrans.finAccountTransId!}</td>
               <td>${finAccountTransType.description!}</td>
-              <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="/partymgr/control/viewprofile?partyId=${partyName.partyId}">[${(partyName.partyId)!}]</a></#if></td>
+              <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${partyName.partyId}</@ofbizUrl>">[${(partyName.partyId)!}]</a></#if></td>
               <td>${finAccountTrans.transactionDate!}</td>
               <td>${finAccountTrans.entryDate!}</td>
               <td><@ofbizCurrency amount=finAccountTrans.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
