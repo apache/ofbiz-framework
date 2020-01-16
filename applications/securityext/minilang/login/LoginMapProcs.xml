@@ -30,6 +30,7 @@ under the License.
             <copy/></process>
         <process field="passwordHint"><copy/></process>
         <process field="userLoginId"><copy/></process>
+        <process field="requirePasswordChange"><copy/></process>
     </simple-map-processor>
 
     <simple-map-processor name="adminUpdatePassword">
@@ -40,6 +41,7 @@ under the License.
             <copy/></process>
         <process field="passwordHint"><copy/></process>
         <process field="userLoginId"><copy/></process>
+        <process field="requirePasswordChange"><copy/></process>
     </simple-map-processor>
 
     <simple-map-processor name="userLogin">
