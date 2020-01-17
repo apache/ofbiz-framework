@@ -1600,6 +1600,18 @@
         <value xml:lang="zh">定义位置</value>
         <value xml:lang="zh-TW">定義位置</value>
     </property>
+    <property key="WebtoolsDelegatorName">
+        <value xml:lang="de">Name Delegator:</value>
+        <value xml:lang="en">Delegator Name:</value>
+        <value xml:lang="fr">Nom du délégateur :</value>
+        <value xml:lang="it">Nome Delegator:</value>
+        <value xml:lang="ja">対象デリゲータ名称:</value>
+        <value xml:lang="pt">Name do Delegator:</value>
+        <value xml:lang="ro">Nume Delegator:</value>
+        <value xml:lang="vi">Tên Ủy quyền (delegator) Đích:</value>
+        <value xml:lang="zh">目标代表名称: </value>
+        <value xml:lang="zh-TW">目標代表名稱:  </value>
+    </property>    
     <property key="WebtoolsDeleteFiles">
         <value xml:lang="de">Dateien nachher löschen?</value>
         <value xml:lang="en">Delete Files Afterwards?</value>
