@@ -20,7 +20,7 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.WebtoolsMainPage}</li>
-      <li class="disabled">${uiLabelMap.WebtoolsDelegatorName } ${delegator.getDelegatorName()}</li>
+      <li class="disabled">${uiLabelMap.WebtoolsDelegatorName} ${delegator.getDelegatorName()}</li>
     </ul>
     <br class="clear"/>
   </div>
