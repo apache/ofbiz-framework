@@ -90,7 +90,7 @@ public class ModelFormFieldBuilder {
     private String name = "";
     private List<UpdateArea> onChangeUpdateAreas = new ArrayList<>();
     private List<UpdateArea> onClickUpdateAreas = new ArrayList<>();
-    private String parameterName = "";
+    private FlexibleStringExpander parameterName = FlexibleStringExpander.getInstance("");
     private Integer position = null;
     private String redWhen = "";
     private Boolean requiredField = null;
@@ -172,7 +172,7 @@ public class ModelFormFieldBuilder {
         this.mapAcsr = FlexibleMapAccessor.getInstance(fieldElement.getAttribute("map-name"));
         this.modelForm = modelForm;
         this.name = name;
-        this.parameterName = UtilXml.checkEmpty(fieldElement.getAttribute("parameter-name"), name);
+        this.parameterName = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(fieldElement.getAttribute("parameter-name"), name));
         String positionAtttr = fieldElement.getAttribute("position");
         Integer position = null;
         if (!positionAtttr.isEmpty()) {
@@ -445,7 +445,7 @@ public class ModelFormFieldBuilder {
         return onClickUpdateAreas;
     }
 
-    public String getParameterName() {
+    public FlexibleStringExpander getParameterName() {
         return parameterName;
     }
 
@@ -905,7 +905,7 @@ public class ModelFormFieldBuilder {
     }
 
     public ModelFormFieldBuilder setParameterName(String parameterName) {
-        this.parameterName = parameterName;
+        this.parameterName = FlexibleStringExpander.getInstance(parameterName);
         return this;
     }
 
