@@ -112,14 +112,20 @@ under the License.
     <request-map uri="setPartyLink">
         <security https="true" auth="true"/>
         <event type="service" invoke="linkPartyRecord"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <request-map uri="applyServiceCredit">
         <security https="true" auth="true"/>
         <event type="service" invoke="createServiceCredit"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <request-map uri="editcontactmech">
@@ -155,7 +161,9 @@ under the License.
     <request-map uri="createPostalAddress">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartyPostalAddress"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="editcontactmech"/>
     </request-map>
     <request-map uri="updatePostalAddress">
@@ -260,8 +268,12 @@ under the License.
     <request-map uri="restoreCartFromList">
         <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 <!-- End Shoppinglist request mappings -->
 
@@ -269,7 +281,9 @@ under the License.
     <request-map uri="createCreditCard">
         <security https="true" auth="true"/>
         <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="createCreditCard"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="address" type="view" value="editcontactmech"/>
         <response name="error" type="view" value="editcreditcard"/>
     </request-map>
@@ -284,7 +298,9 @@ under the License.
     <request-map uri="createGiftCard">
         <security https="true" auth="true"/>
         <event type="service" invoke="createGiftCard"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="editgiftcard"/>
     </request-map>
     <request-map uri="updateGiftCard">
@@ -331,22 +347,32 @@ under the License.
     <request-map uri="resetAvsOverride">
         <security https="true" auth="true"/>
         <event type="simple" path="component://party/minilang/party/PartySimpleMethods.xml" invoke="deleteAVSOverride"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <request-map uri="deletePaymentMethod">
         <security https="true" auth="true"/>
         <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="deletePaymentMethod"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <request-map uri="NewCustomer"><security https="true" auth="true"/><response name="success" type="view" value="NewCustomer"/></request-map>
     <request-map uri="createCustomer">
         <security https="true" auth="true"/>
         <event type="simple" path="component://party/minilang/user/UserEvents.xml" invoke="createCustomer"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="NewCustomer"/>
     </request-map>
 
@@ -354,7 +380,9 @@ under the License.
     <request-map uri="createProspect">
         <security https="true" auth="true"/>
         <event type="simple" path="component://party/minilang/user/UserEvents.xml" invoke="createProspect"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="NewProspect"/>
     </request-map>
 
@@ -396,7 +424,9 @@ under the License.
     <request-map uri="updatePartyGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyGroup"/>
-        <response name="success" type="request" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="EditPartyGroup"/>
     </request-map>
 
@@ -427,13 +457,17 @@ under the License.
     <request-map uri="updatePartyAttribute">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyAttribute"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="EditPartyAttribute"/>
     </request-map>
     <request-map uri="removePartyAttribute">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="removePartyAttribute"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
 
@@ -470,8 +504,12 @@ under the License.
     <request-map uri="createCustRequest">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCustRequest"/>
-        <response name="success" type="request-redirect" value="viewprofile"/>
-        <response name="error" type="request-redirect" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
     <request-map uri="newrequest">
         <security https="true" auth="true"/>
@@ -1006,14 +1044,20 @@ under the License.
     <request-map uri="createPartyCarrierAccount">
         <security auth="true" https="true"/>
         <event type="service" invoke="createPartyCarrierAccount"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="editCarrierAccount"/>
     </request-map>
     <request-map uri="updatePartyCarrierAccount">
         <security auth="true" https="true"/>
         <event type="service" invoke="updatePartyCarrierAccount"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <request-map uri="EditPartySkills">
@@ -1096,7 +1140,9 @@ under the License.
     <request-map uri="createBillingAccount">
         <security https="true" auth="true"/>
         <event type="service" invoke="createBillingAccount"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="EditBillingAccount"/>
     </request-map>
     <request-map uri="updateBillingAccount">
@@ -1108,8 +1154,12 @@ under the License.
     <request-map uri="deleteBillingAccount">
         <security https="true" auth="true"/>
         <event type="simple" path="component://party/minilang/party/PartySimpleMethods.xml" invoke="deleteBillingAccount"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <!-- Order communication event requests -->
@@ -1182,7 +1232,9 @@ under the License.
     <request-map uri="PartyFinancialHistory">
          <security https="true" auth="true"/>
          <response name="success" type="view" value="PartyFinancialHistory"/>
-         <response name="error" type="view" value="viewprofile"/>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <!-- preferences -->
@@ -1201,12 +1253,16 @@ under the License.
     <request-map uri="PartyGeoLocation">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PartyGeoLocation"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
     <request-map uri="GetPartyGeoLocation">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="GetPartyGeoLocation"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
     <request-map uri="addGeoLocation">
         <security https="true" auth="true"/>
