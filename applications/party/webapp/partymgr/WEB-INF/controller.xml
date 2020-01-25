@@ -990,8 +990,12 @@ under the License.
     <request-map uri="uploadPartyContent">
         <security auth="true" https="true"/>
         <event type="service" invoke="uploadPartyContentFile"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <request-map uri="partyContentList">
