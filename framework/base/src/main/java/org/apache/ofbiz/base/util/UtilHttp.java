@@ -695,6 +695,17 @@ public final class UtilHttp {
         return requestUrl.toString();
     }
 
+    /** Resolve the method send with the request.
+     *  check first the parameter _method before return the request method
+     * @param request
+     * @return
+     */
+    public static String getRequestMethod(HttpServletRequest request) {
+        return request.getParameter("_method") != null ?
+                request.getParameter("_method") :
+                request.getMethod();
+    }
+
     public static Locale getLocale(HttpServletRequest request, HttpSession session, Object appDefaultLocale) {
         // check session first, should override all if anything set there
         Object localeObject = session != null ? session.getAttribute("locale") : null;

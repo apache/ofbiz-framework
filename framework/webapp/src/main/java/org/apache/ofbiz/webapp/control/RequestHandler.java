@@ -260,8 +260,7 @@ public class RequestHandler {
         // The "overriddenView" attribute is set by resolveURI when necessary.
         String overrideViewUri = (String) request.getAttribute("overriddenView");
 
-        String restMethod = request.getParameter("restMethod");
-        String method = (restMethod != null) ? restMethod : request.getMethod();
+        String method = UtilHttp.getRequestMethod(request);
         RequestMap requestMap = resolveMethod(method, rmaps).orElseThrow(() -> {
             String msg = UtilProperties.getMessage("WebappUiLabels", "RequestMethodNotMatchConfig",
                     UtilMisc.toList(requestUri, method), UtilHttp.getLocale(request));
