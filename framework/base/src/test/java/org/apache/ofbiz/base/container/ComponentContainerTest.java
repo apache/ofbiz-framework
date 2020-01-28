@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,8 +42,11 @@ public class ComponentContainerTest {
     private static final Path ACCOUNTING_CONFIG = Paths.get("applications", "accounting", "config");
     private static final Path[] CONFIGS = {ORDER_CONFIG, ACCOUNTING_CONFIG};
 
-    private Path ofbizHome = Paths.get(ComponentContainerTest.class.getResource("testsdata").getFile())
+    private Path ofbizHome = Paths.get(ComponentContainerTest.class.getResource("testsdata").toURI())
             .toAbsolutePath().normalize();
+
+    public ComponentContainerTest() throws URISyntaxException {
+    }
 
     @Before
     public void setUp() throws IOException {
@@ -60,12 +64,12 @@ public class ComponentContainerTest {
     }
 
     @Test
-    public void testCheckDependencyForComponent() throws ContainerException, StartupException, MalformedURLException {
+    public void testCheckDependencyForComponent() throws ContainerException {
         ComponentContainer containerObj = new ComponentContainer();
         containerObj.init("component-container", ofbizHome);
 
         List<String> loadedComponents = ComponentConfig.components()
-                .map(c -> c.getGlobalName())
+                .map(ComponentConfig::getGlobalName)
                 .collect(Collectors.toList());
         assertEquals(Arrays.asList("order", "accounting"), loadedComponents);
     }
