@@ -21,7 +21,6 @@ package org.apache.ofbiz.base.container;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,7 +30,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.start.StartupException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
