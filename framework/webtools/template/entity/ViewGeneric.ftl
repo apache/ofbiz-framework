@@ -60,7 +60,7 @@ function ShowTab(lname) {
         <#if value?has_content>
           <#if hasDeletePermission>
             <form action='<@ofbizUrl>entity/change/${currentFindString}</@ofbizUrl>' method="delete" name="updateForm">
-              <input type="hidden" value="DELETE" name="restMethod"/>
+              <input type="hidden" value="DELETE" name="_method"/>
               <#list pkNamesValuesMap.keySet() as pkName>
                 <input type="hidden" value="${pkNamesValuesMap.get(pkName)}" name="${pkName}"/>
               </#list>
@@ -209,7 +209,7 @@ function ShowTab(lname) {
                     <#assign alt_row = !alt_row>
                   </#list>
                   <#if value?has_content>
-                    <input type="hidden" name="restMethod" value="PUT"/>
+                    <input type="hidden" name="_method" value="PUT"/>
                     <#assign button = "${uiLabelMap.CommonUpdate}">
                   <#else>
                     <#assign button = "${uiLabelMap.CommonCreate}">

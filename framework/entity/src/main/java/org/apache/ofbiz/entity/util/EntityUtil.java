@@ -22,6 +22,7 @@ package org.apache.ofbiz.entity.util;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -48,6 +49,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityDateFilterCondition;
 import org.apache.ofbiz.entity.condition.OrderByList;
+import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
 
 import static java.util.stream.Collectors.toList;
@@ -544,4 +546,55 @@ public final class EntityUtil {
         return new PagedList<>(startIndex, endIndex, size, viewIndex, viewSize, dataItems);
     }
 
+    /**
+     * For a entityName return the primary keys path that identify it
+     * like entityName/pkValue1/pkValue2/../pkValueN
+     * @param delegator
+     * @param entityName
+     * @param context
+     * @return
+     */
+    public static String entityToPath(Delegator delegator, String entityName, Map<String, Object> context) {
+        return entityToPath(delegator.makeValidValue(entityName, context));
+    }
+    /**
+     * For a entityName return the primary keys path that identify it
+     * like entityName/pkValue1/pkValue2/../pkValueN
+     * @param gv
+     * @return
+     */
+    public static String entityToPath(GenericValue gv) {
+        StringBuilder path = new StringBuilder(gv.getEntityName());
+        for (String pkName : gv.getModelEntity().getPkFieldNames()) {
+            path.append("/").append(gv.getString(pkName));
+        }
+        return path.toString();
+    }
+
+    /**
+     * Form a entityName and primary keys path
+     * convert it to a Map contains all pkValue :
+     *  entityName/pkValue1/pkValue2/../pkValueN
+     *    -> [pkName1: pkValue1,
+     *        pkName2, pkValue2,
+     *        ...,
+     *        pkNameN: pkValueN]
+     * @param modelEntity
+     * @param path
+     * @return
+     */
+    public static Map<String, Object> getPkValuesMapFromPath(ModelEntity modelEntity, String path)
+            throws GenericEntityException {
+        if (UtilValidate.isEmpty(path)) return null;
+        LinkedList<String> pkValues = new LinkedList<>(Arrays.asList(path.split("/")));
+        List<String> pkFieldNames = modelEntity.getPkFieldNames();
+        if (pkFieldNames.size() != pkValues.size()) {
+            throw new GenericEntityException ("Identification path failed ");
+        }
+        Map<String, Object> pkValuesMap = new HashMap<>();
+        for (String pkName : modelEntity.getPkFieldNames()) {
+            pkValuesMap.put(pkName, pkValues.removeFirst());
+        }
+        return pkValuesMap;
+    }
 }

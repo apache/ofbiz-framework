@@ -40,6 +40,7 @@ import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.entity.model.ModelFieldType;
 import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.security.Security;
 
 /**
@@ -102,15 +103,23 @@ public class GenericWebEvent {
             Debug.logError(e, module);
         }
 
+        //Check if the update came from rest call
         String updateMode = request.getParameter("UPDATE_MODE");
-        if (updateMode == null && request.getParameter("restMethod") == null) {
-            updateMode = "CREATE";
-        }
+        Map<String, Object> pkFields = null;
         if (updateMode == null) {
-            switch (request.getParameter("restMethod")) {
-                case "PUT": updateMode = "UPDATE"; break;
-                case "DELETE": updateMode = "DELETE"; break;
-                default: updateMode = "CREATE"; break;
+            switch (UtilHttp.getRequestMethod(request)) {
+            case "PUT": updateMode = "UPDATE"; break;
+            case "DELETE": updateMode = "DELETE"; break;
+            default: updateMode = "CREATE"; break;
+            }
+            try {
+                pkFields = EntityUtil.getPkValuesMapFromPath(delegator.getModelEntity(entityName),
+                        (String) request.getAttribute("pkValues"));
+            } catch (Exception e) {
+
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(err_resource,
+                        "genericWebEvent.entity_path_not_valid", locale));
+                return "error";
             }
         }
 

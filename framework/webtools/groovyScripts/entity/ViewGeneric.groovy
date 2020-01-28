@@ -16,10 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator
 import org.apache.ofbiz.entity.GenericPK
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.security.Security
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.model.ModelReader
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelField
@@ -60,28 +59,18 @@ context.put("hasUpdatePermission", hasUpdatePermission)
 context.hasDeletePermission = hasDeletePermission
 
 boolean useValue = true
-String currentFindString = entityName
-GenericPK findByPK = delegator.makePK(entityName)
-Iterator pkIterator = entity.getPksIterator()
-String fieldValues = parameters.get("pkValues")
-HashMap<String,String> pkNamesValuesMap = new HashMap<>()
-if (fieldValues != null) {
-    Iterator pkParamIterator = Arrays.asList(fieldValues.split("/")).iterator()
-    while (pkIterator.hasNext() && pkParamIterator.hasNext()) {
-        ModelField field = pkIterator.next()
-        String fieldValue = pkParamIterator.next()
-        if (fieldValue) {
-            currentFindString += "/" + fieldValue
-            pkNamesValuesMap[field.getName()] = fieldValue
-            findByPK.setString(field.getName(), fieldValue)
-        }
-    }
-}
-parameters << pkNamesValuesMap
-context.pkNamesValuesMap = pkNamesValuesMap
-context.put("findByPk", findByPK.toString())
 
-context.currentFindString = UtilFormatOut.encodeQuery(currentFindString)
+if (parameters.pkValues) {
+    Map<String, String> pkNamesValuesMap = EntityUtil.getPkValuesMapFromPath(
+            delegator.getModelEntity(entityName), parameters.pkValues)
+    parameters << pkNamesValuesMap
+    context.pkNamesValuesMap = pkNamesValuesMap
+}
+GenericValue valueFromParameters = delegator.makeValue(entityName)
+valueFromParameters.setPKFields(parameters)
+GenericPK findByPK = valueFromParameters.getPrimaryKey()
+context.currentFindString = UtilFormatOut.encodeQuery(EntityUtil.entityToPath(valueFromParameters))
+context.put("findByPk", findByPK.toString())
 
 GenericValue value = null
 //only try to find it if this is a valid primary key...
@@ -141,7 +130,7 @@ if (value == null && (findByPK.getAllFields().size() > 0)) {
 }
 context.put("pkNotFound", pkNotFound)
 
-String lastUpdateMode = parameters.get("restMethod")
+String lastUpdateMode = parameters.get("_method")
 if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_ERROR_MESSAGE_") != null) &&
     lastUpdateMode != null && !"DELETE".equals(lastUpdateMode)) {
     //if we are updating and there is an error, do not use the entity data for the fields, use parameters to get the old value
