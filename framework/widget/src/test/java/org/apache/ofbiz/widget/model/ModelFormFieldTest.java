@@ -20,6 +20,7 @@ package org.apache.ofbiz.widget.model;
 
 import static org.apache.ofbiz.widget.model.ModelFormField.from;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.ImmutableMap;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +36,7 @@ public class ModelFormFieldTest {
     private HashMap<String, Object> context;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         context = new HashMap<>();
     }
 
@@ -80,5 +82,20 @@ public class ModelFormFieldTest {
         ModelFormField fA1 = from(b -> b.setName("A").setUseWhen("false"));
         ModelFormField fA2 = from(b -> b.setName("A").setUseWhen("true"));
         assertThat(getUsedField(fA0, fA1, fA2), containsInAnyOrder(fA0, fA1));
+    }
+
+    @Test
+    public void fieldUsesFlexibleParameterName() {
+        ModelFormField field = from(b -> b.setParameterName("${prefix}Param"));
+        assertThat(field.getParameterName(ImmutableMap.of("prefix", "P1")), equalTo("P1Param"));
+        assertThat(field.getParameterName(ImmutableMap.of("prefix", "P2")), equalTo("P2Param"));
+    }
+
+    @Test
+    public void dropDownFieldUsesFlexibleParameterNameOther() {
+        ModelFormField field = from(b -> b.setParameterName("${prefix}Param"));
+        ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(field);
+        assertThat(dropDownField.getParameterNameOther(ImmutableMap.of("prefix", "P1")), equalTo("P1Param_OTHER"));
+        assertThat(dropDownField.getParameterNameOther(ImmutableMap.of("prefix", "P2")), equalTo("P2Param_OTHER"));
     }
 }
