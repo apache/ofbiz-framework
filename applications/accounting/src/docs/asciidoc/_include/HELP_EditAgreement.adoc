@@ -1,0 +1,43 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Edit Agreement
+The 'Agreement' sub menu is used to enter the basic details required for setting up a new agreement or editing an existing one.
+
+It can be used to create or update the following details for an Agreement:
+
+* The parties the agreement is between and their roles
+* The agreement type (eg Sales, Purchase, Commission, Employment etc)
+* Specific products
+* Start and End Date
+* Description
+
+
+== How do I edit an agreement?
+. Find the agreement that needs to be amended
+. Click on Agreement Id
+. The 'Edit Agreement' screen will be displayed
+. Amend the details required and press the 'Submit' button (NOTE: Additional agreement details can be updated via the other tabs eg Agreement Terms, Agreement Roles, Agreement Items and Agreement Work Effort Appls)
+
+
+== How do I copy an existing agreement?
+. Find the agreement that needs to be copied
+. Click on the Agreement Id <<true_a_id_howdo_a_how_do_i_edit_an_agreement, How do it?>>
+. The 'Edit Agreement' screen will be displayed
+. At the bottom of the screen press the 'Copy' in the 'Copy Agreement' window (NOTE: The default tick boxes will copy the agreement terms, products and party. If not required then click on the boxes to stop them being copied)

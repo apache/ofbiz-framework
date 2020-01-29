@@ -1,0 +1,52 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for List Agreement Item Supplier Products
+This screen is used to link a specific product (or range of products) to an agreement.
+This can be useful for restricting a discount or product pricing to a product (or range of products) for a particular supplier.
+
+NOTE: Products created here will be linked to the product and can be view using Catalog Manager.
+Entries can be viewed under the Product 'Suppliers' and 'Agreements' tabs.
+
+== How do I add a product to an agreement item?
+. Press the 'New Product' button
+. The 'Edit Agreement Item Product' screen is displayed
+. Manually enter or use the lookup to select the 'Product Id'
+. Enter the 'Available From Date'
+. Leave the 'Thru Date' blank
+. Using the drop down box select the 'Supplier Order Pref Id'
+. Enter the 'Last Price'
+. Enter 'Supplier Product Id'
+. Enter any other details as required or leave blank
+. Press the 'Submit' button
+
+
+== How do I update a product linked to an agreement item?
+. Select the product required by clicking on the 'Product Id'
+. The 'Edit Agreement Item Product' screen is displayed
+. Update the details as required
+. Press the 'Submit' button
+
+
+== How do I delete a product from an agreement item?
+. Press the 'Remove' button on the entry that needs to be deleted
+
+== Help Edit Agreement Item Supplier Product
+This screen is used to create or update a product entry for a supplier agreement item.
+Any updates made in this screen can also be viewed in Catalog Manager for the product under the product 'Suppliers' and 'Agreements' tabs.
