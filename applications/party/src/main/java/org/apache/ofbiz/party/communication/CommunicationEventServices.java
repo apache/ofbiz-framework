@@ -43,7 +43,6 @@ import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -824,7 +823,6 @@ public class CommunicationEventServices {
      */
     public static Map<String, Object> updateCommEventAfterEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String communicationEventId = (String) context.get("communicationEventId");
@@ -839,27 +837,6 @@ public class CommunicationEventServices {
         commEventMap.put("messageId", wrapper.getMessageId());
         commEventMap.put("userLogin", userLogin);
         commEventMap.put("content", wrapper.getMessageBody());
-
-        String subject = wrapper.getSubject();
-        String redirectAddress = EntityUtilProperties.getPropertyValue("general",
-                "mail.notifications.redirectTo", delegator);
-        if (UtilValidate.isNotEmpty(redirectAddress) && subject.endsWith("]") && subject.contains(" [To: ")) {
-            // Format of subject for redirected mail from sendMail service:
-            // "Original subject [To: <sendTo>, Cc: <sendCc>, Bcc: <sendBcc>]"
-            String origSendTo = StringUtils.substringBetween(subject, "[To: ", ", Cc:");
-            String origSendCc = StringUtils.substringBetween(subject, ", Cc: ", ", Bcc:");
-            String origSendBcc = StringUtils.substringBetween(subject, ", Bcc: ", "]");
-
-            // ignore "null" Strings in subject
-            if (origSendTo != "null") commEventMap.put("toString", origSendTo);
-            if (origSendCc != "null") commEventMap.put("ccString", origSendCc);
-            if (origSendBcc != "null") commEventMap.put("bccString", origSendBcc);
-
-            // Format of subject in commEvent: "Original subject [RedirectedTo: recipient@example.com]" 
-            subject = StringUtils.substringBefore(subject, "[To: ")
-                    + "[RedirectedTo: " + commEventMap.get("fromString") + "]";
-            commEventMap.put("subject", StringUtils.abbreviate(subject, 255));
-        }
 
         // populate the address (to/from/cc/bcc) data
         populateAddressesFromMessage(wrapper, commEventMap);
