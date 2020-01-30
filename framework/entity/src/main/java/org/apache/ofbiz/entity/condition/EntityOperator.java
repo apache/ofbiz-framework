@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.entity.Delegator;
@@ -57,7 +56,6 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     public static final int ID_NOT_IN = 13;
     public static final int ID_NOT_LIKE = 14;
 
-    private static final AtomicInteger dynamicId = new AtomicInteger();
     private static HashMap<String, EntityOperator<?,?,?>> registry = new HashMap<>();
 
     private static <L,R,T> void registerCase(String name, EntityOperator<L,R,T> operator) {
@@ -89,10 +87,6 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
             throw new IllegalArgumentException(name + " is not a join operator");
         }
         return UtilGenerics.cast(operator);
-    }
-
-    public static int requestId() {
-        return dynamicId.get();
     }
 
     public static final EntityComparisonOperator<?,?> EQUALS = new ComparableEntityComparisonOperator<Object>(ID_EQUALS, "=") {
