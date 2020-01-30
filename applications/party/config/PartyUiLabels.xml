@@ -11035,7 +11035,7 @@
     <property key="PartyPostalAddressSuccessfullyUpdated">
         <value xml:lang="ar">تم تحديث عنوان صندوق البريد</value>
         <value xml:lang="cs">Poštovní adresa úspěšně aktualizována.</value>
-        <value xml:lang="de">Postadresse erfolgreich aktualisisert.</value>
+        <value xml:lang="de">Postadresse erfolgreich aktualisiert.</value>
         <value xml:lang="en">Postal Address successfully updated.</value>
         <value xml:lang="es">Dirección postal actualizada con éxito.</value>
         <value xml:lang="fr">Adresse postale mise à jour</value>
