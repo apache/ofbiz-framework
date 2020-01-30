@@ -914,19 +914,26 @@ public final class UtilHttp {
         }
     }
 
-    /** URL Encodes a Map of arguements */
+    /** URL Encodes a Map of arguments */
     public static String urlEncodeArgs(Map<String, ? extends Object> args) {
         return urlEncodeArgs(args, true);
     }
 
-    /** URL Encodes a Map of arguements */
+    /** URL Encodes a Map of arguments */
     public static String urlEncodeArgs(Map<String, ? extends Object> args, boolean useExpandedEntites) {
+        return urlEncodeArgs(args, useExpandedEntites, false);
+    }
+
+    /** URL Encodes a Map of arguments */
+    public static String urlEncodeArgs(Map<String, ? extends Object> args, boolean useExpandedEntites, boolean preserveEmpty) {
         StringBuilder buf = new StringBuilder();
         if (args != null) {
             for (Map.Entry<String, ? extends Object> entry: args.entrySet()) {
                 String name = entry.getKey();
                 Object value = entry.getValue();
-                String valueStr = null;
+                if (preserveEmpty && value == null) {
+                    value = "";
+                }
                 if (name == null || value == null) {
                     continue;
                 }
@@ -941,6 +948,8 @@ public final class UtilHttp {
                 } else {
                     col = Arrays.asList(value);
                 }
+
+                String valueStr = null;
                 for (Object colValue: col) {
                     if (colValue instanceof String) {
                         valueStr = (String) colValue;
@@ -950,7 +959,7 @@ public final class UtilHttp {
                         valueStr = colValue.toString();
                     }
 
-                    if (UtilValidate.isNotEmpty(valueStr)) {
+                    if (UtilValidate.isNotEmpty(valueStr) || preserveEmpty) {
                         if (buf.length() > 0) {
                             if (useExpandedEntites) {
                                 buf.append("&amp;");
