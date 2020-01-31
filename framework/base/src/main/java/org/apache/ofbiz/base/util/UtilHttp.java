@@ -272,7 +272,7 @@ public final class UtilHttp {
                                 fileName = fileName.substring(lastIndex + 1);
                             }
                         }
-                        multiPartMap.put(fieldName, ByteBuffer.wrap(item.get()));
+                        multiPartMap.put(fieldName, item);
                         multiPartMap.put("_" + fieldName + "_size", item.getSize());
                         multiPartMap.put("_" + fieldName + "_fileName", fileName);
                         multiPartMap.put("_" + fieldName + "_contentType", item.getContentType());
