@@ -375,7 +375,7 @@ under the License.
        <field name="quantity"><text size="10"/></field>
        <field name="invoiceItemTypeId">
            <drop-down allow-empty="false">
-               <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId"/>
+               <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${groovy:uiLabelMap.get('InvoiceItemType.description.'+invoiceItemTypeId)}"/>
            </drop-down>
        </field>
        <field name="productId"><lookup target-form-name="LookupProduct" size="20"/></field>
@@ -403,7 +403,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field position="1" name="invoiceItemTypeId">
             <drop-down allow-empty="false">
-                <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId"/>
+                <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${groovy:uiLabelMap.get('InvoiceItemType.description.'+invoiceItemTypeId)}"/>
             </drop-down>
         </field>
         <field position="1" name="description"><text size="80"/></field>
