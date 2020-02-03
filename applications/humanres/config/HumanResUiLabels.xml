@@ -21,6 +21,8 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="FormFieldTitle_accountNumber">
         <value xml:lang="en">Account Number</value>
+        <value xml:lang="de">Kontonummer</value>
+        <value xml:lang="es">Número de cuenta</value>
         <value xml:lang="fr">N° de compte</value>
         <value xml:lang="it">Numero Conto</value>
         <value xml:lang="ja">アカウント番号</value>
@@ -32,6 +34,8 @@
     </property>
     <property key="FormFieldTitle_actualEmployerPaidPercent">
         <value xml:lang="en">Actual Employer Paid Percent</value>
+        <value xml:lang="de">tatsächlich bezahlter Prozentsatz des Arbeitgebers</value>
+        <value xml:lang="es">Porcentaje pagado por el empleador</value>
         <value xml:lang="fr">Pourcentage payé par l'employeur actuel</value>
         <value xml:lang="it">Percentuale Pagata Attualmente all'Impiegato</value>
         <value xml:lang="ja">実績従業員支払割合(%)</value>
@@ -43,6 +47,8 @@
     </property>
     <property key="FormFieldTitle_actualFromDate">
         <value xml:lang="en">Actual From Date</value>
+        <value xml:lang="de">Einstellungsdatum</value>
+        <value xml:lang="es">Fecha actual</value>
         <value xml:lang="fr">Date réelle de début</value>
         <value xml:lang="it">Data Inizio Attuale</value>
         <value xml:lang="ja">実績開始日</value>
@@ -102,6 +108,8 @@
     </property>
     <property key="FormFieldTitle_approvalStatus">
         <value xml:lang="en">Approver Status</value>
+        <value xml:lang="de">Bewerberstatus</value>
+        <value xml:lang="es">Estado de aprobación</value>
         <value xml:lang="fr">Etat d'approbation</value>
         <value xml:lang="ja">承認ステータス</value>
         <value xml:lang="vi">Trạng thái duyệt</value>
@@ -110,6 +118,8 @@
     </property>
     <property key="FormFieldTitle_approverId">
         <value xml:lang="en">Approver Party</value>
+        <value xml:lang="de">Genehmiger Id</value>
+        <value xml:lang="es">Aprobador</value>
         <value xml:lang="fr">Approbateur</value>
         <value xml:lang="ja">承認者</value>
         <value xml:lang="pt-BR">Participante responsável</value>
