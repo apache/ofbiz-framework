@@ -21,6 +21,13 @@ under the License.
 A "Financial Account" is a tool (similar to bank account statement) that is used for monitoring monetary transactions.
 Normally it will be linked to a party and the various transactions details (e.g. payments or receipts) will be shown as entries.
 
+Financial Accounts can be used for the following :
+
+. Managing and Tracking Customer Prepaid Accounts
+. Managing and Tracking Customer Credit Limit (NOTE: Need to verify this)
+. Managing Electronic Gift Certificates / Gift Vouchers/ Gift Card
+. Reload of Electronic Gift Card
+. Company Bank Account Transaction Tracking
 
 At the time of writing, OFBiz allows you to create the following type of financial accounts
 
@@ -73,3 +80,60 @@ By default this type of financial account will post to 213500 CUSTOMER DEPOSIT A
 A "Store Credit Account" is a financial account that is used to to maintain the refund amount
 Specify the type (Billing Account or Financial Account) of Store Credit Account used for refund return. Default to Financial Account.
 
+== Financial Accounts in User Interface
+
+=== Setup
+NOTE: 1) In GL Account Defaults there is a specific tab 'FinAccount Type Gl Account' for specifying which type of
+         Financial accounts are posted to which general ledger account. +
+      2) In GL Account Defaults there is also a tab 'Payment Method Id / GL Account ID' for specifying the account
+         to post transactions to if 'Financial Account' is selected as the Payment Method instead of
+         (Cash, Cheque, Credit Card, etc). By default the demo setup posts transactions to 111100 GENERAL CHECKING ACCOUNT.
+
+You can also setup each financial account to post to a specific general ledger account for each party.
+This is done via a specific field during the creation or update of a financial account.
+This will override the default setting by type.
+
+include::HELP_EditFinAccountTypeGlAccounts.adoc[leveloffset=+2]
+
+=== The Financial Account Main screen.
+The default screen for Financial Accounts displays a list of any bank accounts that have been created.
+Details listed include the account the following
+
+* account name
+* organisation the account is linked to
+* account balances (available and actual)
+
+include::HELP_FindFinAccount.adoc[leveloffset=+2]
+
+include::HELP_EditFinAccount.adoc[leveloffset=+2]
+
+include::HELP_EditFinAccountAuths.adoc[leveloffset=+2]
+
+include::HELP_EditFinAccountRoles.adoc[leveloffset=+2]
+
+include::HELP_FindFinAccountTrans.adoc[leveloffset=+2]
+
+include::HELP_EditFinAccountTrans.adoc[leveloffset=+2]
+
+include::HELP_PaymentsDepositWithdraw.adoc[leveloffset=+2]
+
+include::HELP_NewDepositPayment.adoc[leveloffset=+2]
+
+include::HELP_NewWithdrawalPayment.adoc[leveloffset=+2]
+
+include::HELP_FindDepositSlips.adoc[leveloffset=+2]
+
+include::HELP_NewDepositSlip.adoc[leveloffset=+2]
+
+include::HELP_EditDepositSlipAndMembers.adoc[leveloffset=+2]
+
+=== Help Find Financial Account Reconciliations.
+This screen displays the details of any reconciliations in progress for a financial account. +
+Only reconciliations that have actual transactions associated with them will be displayed. +
+If a reconciliation group has no transactions assigned to it then it will not be displayed. +
+
+include::HELP_BankReconciliation.adoc[leveloffset=+2]
+
+include::HELP_EditFinAccountReconciliations.adoc[leveloffset=+2]
+
+include::HELP_ViewGlReconciliationWithTransaction.adoc[leveloffset=+2]
