@@ -19,6 +19,8 @@
 
 package org.apache.ofbiz.entity.util;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -51,8 +53,6 @@ import org.apache.ofbiz.entity.condition.EntityDateFilterCondition;
 import org.apache.ofbiz.entity.condition.OrderByList;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * Helper methods when dealing with Entities, especially ones that follow certain conventions
@@ -575,7 +575,7 @@ public final class EntityUtil {
      * Form a entityName and primary keys path
      * convert it to a Map contains all pkValue :
      *  entityName/pkValue1/pkValue2/../pkValueN
-     *    -> [pkName1: pkValue1,
+     *    -&gt; [pkName1: pkValue1,
      *        pkName2, pkValue2,
      *        ...,
      *        pkNameN: pkValueN]
