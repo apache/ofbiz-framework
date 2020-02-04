@@ -63,7 +63,7 @@ public class CommonEvents {
 
     public static final String module = CommonEvents.class.getName();
 
-    private static final String[] ignoreAttrs = new String[] { // Attributes removed for security reason; _ERROR_MESSAGE_ is kept
+    private static final String[] ignoreAttrs = new String[] { // Attributes removed for security reason; _ERROR_MESSAGE_ and _ERROR_MESSAGE_LIST are kept
         "javax.servlet.request.key_size",
         "_CONTEXT_ROOT_",
         "_FORWARDED_FROM_SERVLET_",
@@ -75,7 +75,9 @@ public class CommonEvents {
         "_SERVER_ROOT_URL_",
         "_CONTROL_PATH_",
         "thisRequestUri",
-        "org.apache.tomcat.util.net.secure_protocol_version"
+        "org.apache.tomcat.util.net.secure_protocol_version",
+        "userLogin",
+        "impersonateLogin"
     };
 
     /** Simple event to set the users per-session locale setting. The user's locale
