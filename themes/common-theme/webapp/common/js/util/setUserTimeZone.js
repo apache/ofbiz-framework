@@ -17,18 +17,17 @@ specific language governing permissions and limitations
 under the License.
 */
 
-// Only once by session
+// Only once by session (ref https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
 if (sessionStorage.getItem("SetTimeZoneFromBrowser") === null || sessionStorage.getItem("SetTimeZoneFromBrowser") !== "done") {
-    sessionStorage.setItem("SetTimeZoneFromBrowser", "done");
     var timezone = moment.tz.guess();
     $.ajax({
         url: "SetTimeZoneFromBrowser",
         type: "POST",
         async: false,
         data: "localeName=" + timezone,
-        error: function(error) {
-            if (error != "") {
-                console.error("Error while setting user locale: ", error);
+        success: function(success) {
+            if (success._ERROR_MESSAGE_ === undefined && success._ERROR_MESSAGE_LIST_ === undefined) {
+                sessionStorage.setItem("SetTimeZoneFromBrowser", "done");
             }
         }
     });
