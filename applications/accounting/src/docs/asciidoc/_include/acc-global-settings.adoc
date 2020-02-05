@@ -17,47 +17,62 @@ specific language governing permissions and limitations
 under the License.
 ////
 = Global General Ledger Settings
- 
-The Global General Ledger Settings are master templates that we can use to setup 
-up our chart of accounts, default transactions or other settings that can be applied 
+
+The Global General Ledger Settings are master templates that we can use to setup
+up our chart of accounts, default transactions or other settings that can be applied
 across many OFBiz modules.
 
-We need settings at a global level because OFBiz is an integrated system so certain 
+We need settings at a global level because OFBiz is an integrated system so certain
 areas like accounting are linked to many other modules. It also makes sense to have
 a central place to setup things that will be used globally.
 
 At the time of writing, the following are available as part of the Global GL Settings:
 
- * Chart of Accounts - a comprehensive master template for a complete chart of 
+ * Chart of Accounts - a comprehensive master template for a complete chart of
 accounts.
  * Custom Time Periods - a master list to display or setup financial periods
  * Costs - a master list of any cost calculations to be used for assets or tasks
- * Payment Method Type - a master list of the ways payments can be made (e.g. cash, 
+ * Payment Method Type - a master list of the ways payments can be made (e.g. cash,
 credit card etc) and the default accounts to be used for each
- * Invoice Item Type - a master list of all the transaction line types that can 
+ * Invoice Item Type - a master list of all the transaction line types that can
 occur on any invoice and the default account to be used for each
- * Rates - a list of rates (e.g. pay rates, overtime rates etc) that can be used 
+ * Rates - a list of rates (e.g. pay rates, overtime rates etc) that can be used
 for billing work,tasks or as part of salary calculations
- * Foreign Exchange Rates - a master list of exchange rates to be used and dates 
+ * Foreign Exchange Rates - a master list of exchange rates to be used and dates
 they are valid
  * GL Account Category - currently this is set to be a list of cost centres
  * Cost Centers - a way to specify how to process percentage allocations between
 cost centres for specific accounts
 
-== Master Template - Chart of Accounts
+NOTE: Some of the configuration specified here can be over-ridden using the 'Organization GL Settings' tab
 
-If you load the demo data, then by default over 450 accounts are included as part 
+== Master Template - Chart of Accounts
+If you load the demo data, then by default over 450 accounts are included as part
 of the OFBiz global chart of accounts master template.
 
-To setup a chart of accounts in OFBiz simply means that we need to select the 
+To setup a chart of accounts in OFBiz simply means that we need to select the
 accounts we want to use from the global chart of accounts master template.
 
 All general ledger accounts must exist in the global template before they can be
  assigned to be used at the organisation level (e.g. Company)
 
-== Custom Time Periods
+=== Help Find Global GL Account
+The default screen for the Global GL Settings tab is 'List Accounts'.
 
-Time periods are a defined period of time (usually a month, quarter or year) that 
+It is used to view or edit the details of the general ledger accounts in the global template and there are options to print
+or export the account details.
+
+==== How do I view details for an account?
+. Locate the account required
+. Click on account id
+. The account details will be displayed
+
+include::HELP_GlAccountNavigate.adoc[leveloffset=+2]
+
+include::HELP_AssignGlAccount.adoc[leveloffset=+2]
+
+== Custom Time Periods
+Time periods are a defined period of time (usually a month, quarter or year) that
 is used to group business transactions. It is a key part of any general accounting
 setup. Time periods can be used for the definition of :
 
@@ -67,10 +82,9 @@ setup. Time periods can be used for the definition of :
  * Sales Periods
 
 == Costs
-
-A business is designed to be profi table. This means that you need to be able to 
-track all the costs involved in your business to ensure that you are not losing 
-money. 
+A business is designed to be profi table. This means that you need to be able to
+track all the costs involved in your business to ensure that you are not losing
+money.
 
 Some example costs that you may want to setup and track are as follows:
 
@@ -81,13 +95,12 @@ Some example costs that you may want to setup and track are as follows:
  * Quality Assurance or Regulatory Costs
 
 === Direct and Indirect Costs
-
-Costs can also be broken down into “Direct” and “Indirect” costs. 
+Costs can also be broken down into “Direct” and “Indirect” costs.
 Direct costs are costs that are easily identifiable as directly related to what
-you do to produce and sell to your customers. 
+you do to produce and sell to your customers.
 
 Indirect costs are costs that cannot easily be directly linked to what you on sell
- to your customers. Included in this would be rent, electricity or general 
+ to your customers. Included in this would be rent, electricity or general
 administration costs.
 
 === Fixed and variable Costs
@@ -95,14 +108,13 @@ Variable costs are those that rise and fall based on the amount product you prod
 or sell. If you sell or produce a lot of products it will cost more than if you
 produce a smaller amount.
 
-Fixed costs are ones that remain the same no matter how much is being produced or 
+Fixed costs are ones that remain the same no matter how much is being produced or
 sold.
 
-Before you can calculate costs you need to define a formula of how to do it and 
+Before you can calculate costs you need to define a formula of how to do it and
 in OFBiz this is called a “Cost Component Calculation”.
 
 == Payment Method Type
-
 A “Payment Method” is simply a way to define the ways in which payments can be made.
 Examples include:
 
@@ -114,14 +126,13 @@ Examples include:
  * Financial Account
  * Gift Certificate
 
-Each payment method can be linked to a different General Ledger account in the 
-Chart of Accounts. By doing this OFBiz will be able to help us create an accounting 
-transaction based on how the payment wasmade. This is very useful if we want to 
+Each payment method can be linked to a different General Ledger account in the
+Chart of Accounts. By doing this OFBiz will be able to help us create an accounting
+transaction based on how the payment wasmade. This is very useful if we want to
 automate the creation of accounting transactions.
 
 == Invoice Item Types
-
-An “Invoice Item Type” is another way to describe the different type of individual 
+An “Invoice Item Type” is another way to describe the different type of individual
 line items that appear on an invoice. For example an invoice is usually made up of:
 
  * A header - which contains details of the supplier, customer, invoice date etc
@@ -129,7 +140,7 @@ line items that appear on an invoice. For example an invoice is usually made up 
  * A footer - which summarises the totals, taxes and discounts
 
 Invoice item types can refer to any of these three areas on an invoice. They can
-also be broken down into specific categories that allow us to classify or report 
+also be broken down into specific categories that allow us to classify or report
 on the total or frequency of that type.
 
 Some examples of Invoice Item Types are:
@@ -137,58 +148,56 @@ Some examples of Invoice Item Types are:
  * Type of Product (Standard, Digital, Service)
  * Shipping or Handling Charges
  * Promotions (Discounted Products, Free Products)
- * Discounts (Product Discount, Invoice Discount, Early Payment) 
+ * Discounts (Product Discount, Invoice Discount, Early Payment)
  * Returned Items (Faulty, Replacement)
 
-OFBiz allows us to setup a code for each of the different line item types that can 
+OFBiz allows us to setup a code for each of the different line item types that can
 appear on an invoice. We can then link each item type to a specific General Ledger
 account. By doing this OFBiz will be able to help us create an accounting transactions
-based on the item types that appear on the invoice. 
+based on the item types that appear on the invoice.
 
 This is very useful if we want to automate the creation of accounting transactions.
 
 == Rates
-
-Rates are used to create a “pay rate” or “charge amount” that can be used in the 
+Rates are used to create a “pay rate” or “charge amount” that can be used in the
 calculation of a task, employee salary or a service that involves people.
 
 Rates are closely linked to the OFBiz Human Resources Manager application but are
-also used across multiple OFBiz applications (Manufacturing, Asset Maintenance, 
+also used across multiple OFBiz applications (Manufacturing, Asset Maintenance,
 Project Tasks, Timesheet Entry etc) where person related work tasks are required.
 
 == Foreign Exchange Rates
-
 Foreign exchange rates are used to convert from one currency to another. A business
-will usually want to work in one main currency (e.g. GBP) but will allow transactions 
-in other currencies (e.g. EUR, USD). These currencies will need to be converted 
-to the main currency in order to generate financial reports (e.g. Balance Sheet 
+will usually want to work in one main currency (e.g. GBP) but will allow transactions
+in other currencies (e.g. EUR, USD). These currencies will need to be converted
+to the main currency in order to generate financial reports (e.g. Balance Sheet
 or Income Statement) and most importantly to adhere to Tax Authority regulations.
 
-== GL Account Category
+include::HELP_ViewFXConversions.adoc[leveloffset=+2]
 
-A “General Ledger Account Category” (or GL Account Category) is a generic term to 
-describe the way you can segment or classify accounts. Categories can be setup and 
+== GL Account Category
+A “General Ledger Account Category” (or GL Account Category) is a generic term to
+describe the way you can segment or classify accounts. Categories can be setup and
 then linked to the required accounts.
 
-Another way to think about it is that it is like adding an extra tag to an account 
-so that you can easily retrieve that account to do any additional reporting or 
+Another way to think about it is that it is like adding an extra tag to an account
+so that you can easily retrieve that account to do any additional reporting or
 processing.
 
-In OFBiz at the time of writing, the GL Account Category has been used to implement 
+In OFBiz at the time of writing, the GL Account Category has been used to implement
 cost centre functionality for the Chart of Accounts.
 
 == Cost Centers
-
 A cost centre is an area or part of an organisation where costs (direct or indirect)
  can be allocated .
 
-By default OFBiz will allocate and post 100% of any accounting value to the 
-specified General Ledger account. Setting up Cost Centres allows you to split the 
+By default OFBiz will allocate and post 100% of any accounting value to the
+specified General Ledger account. Setting up Cost Centres allows you to split the
 amount across different areas using a percentage calculation.
 
-For example: You want to buy something that and three departments will 
+For example: You want to buy something that and three departments will
 contribute to buying it. If the product costs $90 then each department will pay
 $30 towards the cost.
 
-OFBiz will allow you to setup the percentage that each cost centre will contribute 
+OFBiz will allow you to setup the percentage that each cost centre will contribute
 so that you can view and track how much each department has contributed or spent.
