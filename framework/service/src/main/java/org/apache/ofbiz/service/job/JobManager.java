@@ -328,9 +328,16 @@ public final class JobManager {
                     newJob.set("parentJobId", pJobId);
                     newJob.set("startDateTime", null);
                     newJob.set("runByInstanceId", null);
-                    //don't set a recurrent schedule on the new job, run it just one time
-                    newJob.set("tempExprId", null);
-                    newJob.set("recurrenceInfoId", null);
+
+                    // if Queued Job is crashed then its corresponding new Job should have TempExprId and recurrenceInfoId to continue further scheduling.
+                    if ("SERVICE_QUEUED".equals(job.getString("statusId"))) {
+                        newJob.set("tempExprId", job.getString("tempExprId"));
+                        newJob.set("recurrenceInfoId", job.getString("recurrenceInfoId"));
+                    } else {
+                        //don't set a recurrent schedule on the new job, run it just one time
+                        newJob.set("tempExprId", null);
+                        newJob.set("recurrenceInfoId", null);
+                    }
                     delegator.createSetNextSeqId(newJob);
                     // set the cancel time on the old job to the same as the re-schedule time
                     job.set("statusId", "SERVICE_CRASHED");
