@@ -43,7 +43,7 @@ public class ComponentContainerTest {
     private Path ofbizHome = Paths.get(ComponentContainerTest.class.getResource("testsdata").toURI())
             .toAbsolutePath().normalize();
 
-    public ComponentContainerTest() throws URISyntaxException {}
+    public ComponentContainerTest() throws URISyntaxException { }
 
     @Before
     public void setUp() throws IOException {
