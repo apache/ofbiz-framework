@@ -856,7 +856,8 @@ under the License.
         <call-map-processor xml-resource="component://order/minilang/customer/CheckoutMapProcs.xml"
             processor-name="shipToAddress" in-map-name="parameters" out-map-name="shipToAddressCtx"/>
         <check-errors/>
-        <set field="shipToAddressCtx.partyId" from-field="parameters.partyId"/>
+        <set field="partyId" from-field="parameters.partyId"/>
+        <set field="shipToAddressCtx.partyId" from-field="partyId"/>
 
         <if-empty field="shipToAddressCtx.contactMechId">
             <set field="shipToAddressCtx.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
@@ -1094,7 +1095,8 @@ under the License.
     </simple-method>
     <simple-method method-name="createUpdateCreditCard" short-description="create and update credit card">
         <set-service-fields service-name="createCreditCard" map="parameters" to-map="creditCardContext"/>
-        <set field="creditCardContext.partyId" from-field="parameters.partyId"/>
+        <set field="partyId" from-field="parameters.partyId"/>
+        <set field="creditCardContext.partyId" from-field="partyId"/>
         <set field="creditCardContext.contactMechId" from-field="parameters.contactMechId"/>
         <if-empty field="parameters.paymentMethodId">
             <!-- call create Credit Card -->
