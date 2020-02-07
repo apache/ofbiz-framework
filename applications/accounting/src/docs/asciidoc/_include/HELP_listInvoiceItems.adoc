@@ -1,0 +1,69 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Edit Invoice Items
+The Invoice Items screen displays the individual invoice line details and allows the user to update or remove an entry.
+As each invoice line is created it is allocated a specific sequence (or Item Number) which acts as a unique identifier.
+
+== How do I create a new invoice line item?
+Note that only invoices that have specific statuses can have new line items created.
+This means that if an invoice has already been paid and processed OFBiz will not allow any amendments to it.
+
+. Select the 'Items' sub menu for the invoice
+. The 'Add a new invoice item' screen will be displayed
+. Leave the 'Item No' field blank (as it will be automatically generated)
+. Select the 'Invoice Item Type' from the drop down box +
+  (NOTE: A typical line using the demo could be 'Invoice Finished Good Item' but ensure that it corresponds with
+   the type of products setup in your catalog)
+. Enter a description describing what the line item is +
+  (NOTE: If you are going to enter a product in the Product Id field from the catalog then leave the 'Description' field
+   blank as it will be used to show the product description)
+. Leave the 'Override GL Account Id' field blank as it will use the default account based on the Chart of Accounts setup
+. Use the lookup or enter a product code in the 'Product Id' field +
+  (NOTE: This can be left blank if your invoice line is not related to a product in the catalog)
+. Enter a number in the 'Quantity' field
+. Enter a 'Unit Price' only if the Product Id field is blank +
+  (NOTE: If a Product Id has been entered then leave the 'Unit Price' field blank as it will pick up the product price
+  from the catalog)
+. Leave the 'Inventory Item' field blank
+. Leave the 'Product Feature Id' field blank
+. Leave the 'UOM' field blank
+. Select 'Yes' for the 'Taxable Flag' field
+
+WARNING: TO CHECK: Need to do some tests to see what line item type needs to be used for 'Sales Tax'. +
+     I think that it could be 'Invoice Item Sales Tax' since tax is currently calculated at invoice item line level. +
+     Also the automatically generated invoices from Order Entry and E-Commerce show taxes at the invoice item line level
+     (think there may be some work going on - see JIRA on to consolidate entries). +
+     Need to do some tests using 'Invoice Sales Tax' to see how it works.........
+
+== How do I update an invoice line item?
+Not all the fields on the invoice item line can be updated.
+For example Taxable Flag and Inventory Item cannot be updated.
+
+If these fields need to be amended then the invoice item will need to be removed and then re-created.
+
+. Select the 'Items' sub menu for the invoice
+. Any existing line items will be displayed in the 'Items' box
+. Amend the details in the line item that needs to be updated (eg Quantity, Invoice Item Type, Product Id, Description,
+  Override GL Account, Unit Price)
+. Press the 'Update' button displayed at the end of the line item that has been updated
+
+== How do I delete an invoice item?
+. Select the 'Items' sub menu for the invoice
+. Any existing line items will be displayed in the 'Items' box
+. Press the 'Remove' button displayed at the end of the line item that needs to be deleted

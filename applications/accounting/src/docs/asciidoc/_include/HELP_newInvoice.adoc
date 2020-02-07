@@ -1,0 +1,42 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for New Invoice
+This screen allows the user to create a new Sales or Purchase Invoice. +
+Sales Invoices are created when a customer buys something from you. +
+Purchase Invoices are created when you buy something from a supplier.
+
+== How do I create a new Sales invoice?
+. Press the 'Create New' button
+. The New Sales Invoice / New Purchase Invoice screen is displayed>
+. Using the top part of the screen, leave Invoice type with its default of 'Sales Invoice'
+. Leave 'Organization Party Id' with its default of 'Company'
+. Enter or use the lookup to find the 'To Party Id' (eg DemoCustomer)
+. Press the 'Create' button in the top part of the screen
+. The invoice header has been created and the default header screen will be displayed
+. Details on the invoice will need to be entered via the other sub menus (eg Items, Time Entries etc)
+
+== How do I create a new Purchase invoice?
+. Press the 'Create New' button
+. The New Sales Invoice / New Purchase Invoice screen is displayed>
+. Using the bottom part of the screen, leave Invoice type with its default of 'Purchase Invoice'
+. Leave 'Organization Party Id' with its default of 'Company'
+. Enter or use the lookup to find the 'From Party Id' (eg DemoSupplier)
+. Press the 'Create' button in the bottom part of the screen
+. The invoice header has been created and the default header screen will be displayed
+. Details on the invoice will need to be entered via the other sub menus (eg Items, Time Entries etc)
