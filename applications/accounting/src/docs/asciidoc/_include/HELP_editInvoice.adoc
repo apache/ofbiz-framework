@@ -16,22 +16,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= Accounting
+= Help for Edit Invoice Header
+The Invoice Header screen is used to view or update details from the invoice header.
 
-The OFBiz accounting system is a core application component and has most of the
-modern features you would expect in a general purpose double-entry accounting
-system. However, OFBiz goes beyond that by and seamlessly integrates with other
-OFBiz applications such as Inventory, Purchasing and Manufacturing to give your
-business a complete ERP solution. This makes the system as a whole robust and 
-integrated to provide more value than a plain accounting system.
+Examples of the type of information that can be changed are Due Date, Description, Currency.
 
-
-include::_include/acc-intro.adoc[leveloffset=+1]
-
-include::_include/acc-invoices.adoc[leveloffset=+1]
-
-include::_include/acc-agreements.adoc[leveloffset=+1]
-
-include::_include/acc-financial-accounts.adoc[leveloffset=+1]
-
-include::_include/acc-global-settings.adoc[leveloffset=+1]
+== How do I update the header details for an Invoice?
+. Select the 'Header' sub menu and the header details of the invoice will be displayed
+. Update the fields required
+. Press the 'Update' button
