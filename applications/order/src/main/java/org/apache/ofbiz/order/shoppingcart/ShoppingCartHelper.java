@@ -840,7 +840,16 @@ public class ShoppingCartHelper {
                                         BigDecimal minQuantity = ShoppingCart.getMinimumOrderQuantity(delegator, item.getBasePrice(), item.getProductId());
                                         oldQuantity = item.getQuantity();
                                         if (oldQuantity.compareTo(quantity) != 0) {
-                                            cart.setShipmentMethodTypeId(index, null);
+                                            GenericValue product = item.getProduct();
+                                            //Reset shipment method information in cart only if shipping applies on product.
+                                            if (UtilValidate.isNotEmpty(product) && ProductWorker.shippingApplies(product)) {
+                                                for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+                                                    String shipContactMechId = cart.getShippingContactMechId(shipGroupIndex);
+                                                    if (UtilValidate.isNotEmpty(shipContactMechId)) {
+                                                        cart.setShipmentMethodTypeId(shipGroupIndex, null);
+                                                    }
+                                                }
+                                            }
                                         }
                                         if (quantity.compareTo(minQuantity) < 0) {
                                             quantity = minQuantity;
@@ -924,7 +933,17 @@ public class ShoppingCartHelper {
             }
             try {
                 this.cart.removeCartItem(itemIndex, dispatcher);
-                cart.setShipmentMethodTypeId(itemIndex, null);
+                GenericValue product = item.getProduct();
+                //Reset shipment method information in cart only if shipping applies on product.
+                if (UtilValidate.isNotEmpty(product) && ProductWorker.shippingApplies(product)) {
+                    for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+                        String shipContactMechId = cart.getShippingContactMechId(shipGroupIndex);
+                        if (UtilValidate.isNotEmpty(shipContactMechId)) {
+                            cart.setShipmentMethodTypeId(shipGroupIndex, null);
+                        }
+                    }
+                }
+
             } catch (CartItemModifyException e) {
                 result = ServiceUtil.returnError(new ArrayList<String>());
                 errorMsgs.add(e.getMessage());
