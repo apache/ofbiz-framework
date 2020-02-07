@@ -98,7 +98,7 @@ public class UtilCodec {
     }
 
     public static class HtmlEncoder implements SimpleEncoder {
-        private static final char[] IMMUNE_HTML = {',', '.', '-', '_', ' '};
+        private static final char[] IMMUNE_HTML = {',', '.', '-', '_', ' ', ':'};
         private HTMLEntityCodec htmlCodec = new HTMLEntityCodec();
         public String encode(String original) {
             if (original == null) {
