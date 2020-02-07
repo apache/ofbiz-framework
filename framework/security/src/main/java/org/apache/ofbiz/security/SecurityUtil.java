@@ -119,8 +119,23 @@ public final class SecurityUtil {
         return toUserLoginPermissionIds.stream()
                 .filter(perm ->
                         !userLoginPermissionIds.contains(perm)
-                                && !adminPermissions.contains(perm.substring(0, perm.lastIndexOf("_"))))
+                        && !checkMultiLevelAdminPermissionValidity(adminPermissions, perm))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Return if an admin permission is valid for the given list of permissions.
+     *
+     * @param permissionIds List of admin permission value without "_ADMIN" suffix
+     * @param permission permission to be checked with its suffix
+     *
+     */
+    public static boolean checkMultiLevelAdminPermissionValidity(List<String> permissionIds, String permission) {
+        while (permission.lastIndexOf("_") != -1) {
+            permission = permission.substring(0, permission.lastIndexOf("_"));
+            if (permissionIds.contains(permission)) return true;
+        }
+        return false;
     }
 
     /**
