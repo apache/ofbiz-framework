@@ -29,6 +29,15 @@ $(document).ready(function() {
     ajaxAutoCompleteDropDown();
     // bindObservers will add observer on passed html section when DOM is ready.
     bindObservers("body");
+    if (jQuery.fn.bsgdprcookies !== undefined) {
+        jQuery('body').bsgdprcookies({
+            title: 'This website uses cookies',
+            message: 'We use cookies to provide our services. By using this website, you agree to this.',
+            moreLink: '/ecommerce/control/CookiePolicy',
+            moreLinkLabel: ' More',
+            allowAdvancedOptions: true
+        });
+    }
 });
 
 /* bindObservers function contains the code of adding observers and it can be called for specific section as well
