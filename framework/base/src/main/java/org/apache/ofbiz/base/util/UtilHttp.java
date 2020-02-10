@@ -272,7 +272,7 @@ public final class UtilHttp {
                                 fileName = fileName.substring(lastIndex + 1);
                             }
                         }
-                        multiPartMap.put(fieldName, ByteBuffer.wrap(item.get()));
+                        multiPartMap.put(fieldName, item);
                         multiPartMap.put("_" + fieldName + "_size", item.getSize());
                         multiPartMap.put("_" + fieldName + "_fileName", fileName);
                         multiPartMap.put("_" + fieldName + "_contentType", item.getContentType());
@@ -695,6 +695,17 @@ public final class UtilHttp {
         return requestUrl.toString();
     }
 
+    /** Resolve the method send with the request.
+     *  check first the parameter _method before return the request method
+     * @param request
+     * @return
+     */
+    public static String getRequestMethod(HttpServletRequest request) {
+        return request.getParameter("_method") != null ?
+                request.getParameter("_method") :
+                request.getMethod();
+    }
+
     public static Locale getLocale(HttpServletRequest request, HttpSession session, Object appDefaultLocale) {
         // check session first, should override all if anything set there
         Object localeObject = session != null ? session.getAttribute("locale") : null;
@@ -903,19 +914,26 @@ public final class UtilHttp {
         }
     }
 
-    /** URL Encodes a Map of arguements */
+    /** URL Encodes a Map of arguments */
     public static String urlEncodeArgs(Map<String, ? extends Object> args) {
         return urlEncodeArgs(args, true);
     }
 
-    /** URL Encodes a Map of arguements */
+    /** URL Encodes a Map of arguments */
     public static String urlEncodeArgs(Map<String, ? extends Object> args, boolean useExpandedEntites) {
+        return urlEncodeArgs(args, useExpandedEntites, false);
+    }
+
+    /** URL Encodes a Map of arguments */
+    public static String urlEncodeArgs(Map<String, ? extends Object> args, boolean useExpandedEntites, boolean preserveEmpty) {
         StringBuilder buf = new StringBuilder();
         if (args != null) {
             for (Map.Entry<String, ? extends Object> entry: args.entrySet()) {
                 String name = entry.getKey();
                 Object value = entry.getValue();
-                String valueStr = null;
+                if (preserveEmpty && value == null) {
+                    value = "";
+                }
                 if (name == null || value == null) {
                     continue;
                 }
@@ -930,6 +948,8 @@ public final class UtilHttp {
                 } else {
                     col = Arrays.asList(value);
                 }
+
+                String valueStr = null;
                 for (Object colValue: col) {
                     if (colValue instanceof String) {
                         valueStr = (String) colValue;
@@ -939,7 +959,7 @@ public final class UtilHttp {
                         valueStr = colValue.toString();
                     }
 
-                    if (UtilValidate.isNotEmpty(valueStr)) {
+                    if (UtilValidate.isNotEmpty(valueStr) || preserveEmpty) {
                         if (buf.length() > 0) {
                             if (useExpandedEntites) {
                                 buf.append("&amp;");

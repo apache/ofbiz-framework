@@ -375,6 +375,27 @@ under the License.
         <field-to-result  field="parameters.contentId" result-name="contentId"/>
     </simple-method>
 
+    <!-- get parties based on PartyRelationship -->
+    <simple-method method-name="getPartiesByRelationship"
+            short-description="Gets all parties related to partyIdFrom using the PartyRelationship entity" login-required="false">
+        <set from-field="parameters.partyIdFrom" field="lookupMap.partyIdFrom"/>
+        <set from-field="parameters.partyIdTo" field="lookupMap.partyIdTo"/>
+        <set from-field="parameters.roleTypeIdFrom" field="lookupMap.roleTypeIdFrom"/>
+        <set from-field="parameters.roleTypeIdTo" field="lookupMap.roleTypeIdTo"/>
+        <set from-field="parameters.statusId" field="lookupMap.statusId"/>
+        <set from-field="parameters.priorityTypeId" field="lookupMap.priorityTypeId"/>
+        <set from-field="parameters.partyRelationshipTypeId" field="lookupMap.partyRelationshipTypeId"/>
+
+        <find-by-and entity-name="PartyRelationship" map="lookupMap" list="partyRelationships"/>
+        <iterate list="partyRelationships" entry="partyRelationship">
+            <get-related-one value-field="partyRelationship" relation-name="ToParty" to-value-field="party"/>
+            <field-to-list field="party" list="parties"/>
+        </iterate>
+        <if-not-empty field="parties">
+            <field-to-result field="parties"/>
+        </if-not-empty>
+    </simple-method>
+
     <simple-method method-name="getParentOrganizations" short-description="Gets Parent Organizations for an Organization Party">
         <set from-field="parameters.organizationPartyId" field="relatedPartyIdList[]"/>
         <set from-field="parameters.getParentsOfParents" field="recurse"/>

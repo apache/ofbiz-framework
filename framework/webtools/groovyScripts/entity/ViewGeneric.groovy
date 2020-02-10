@@ -16,30 +16,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator
 import org.apache.ofbiz.entity.GenericPK
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.security.Security
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.model.ModelReader
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelField
 import org.apache.ofbiz.entity.model.ModelFieldType
 import org.apache.ofbiz.entity.model.ModelRelation
 import org.apache.ofbiz.entity.model.ModelKeyMap
+import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
-import java.sql.Timestamp
-import java.sql.Date
-import java.sql.Time
 
-String entityName = parameters.get("entityName")
-context.put("entityName", entityName)
+String entityName = parameters.entityName
+context.entityName = entityName
 
 ModelReader reader = delegator.getModelReader()
 ModelEntity entity = reader.getModelEntity(entityName)
 
-context.put("entity", entity)
-context.put("plainTableName", entity.getPlainTableName())
+context.entity = entity
+context.plainTableName = entity.getPlainTableName()
 
 boolean hasAllView = security.hasEntityPermission("ENTITY_DATA", "_VIEW", session)
 boolean hasAllCreate = security.hasEntityPermission("ENTITY_DATA", "_CREATE", session)
@@ -50,104 +47,65 @@ boolean hasCreatePermission = hasAllCreate || security.hasEntityPermission(entit
 boolean hasUpdatePermission = hasAllUpdate || security.hasEntityPermission(entity.getPlainTableName(), "_UPDATE", session)
 boolean hasDeletePermission = hasAllDelete || security.hasEntityPermission(entity.getPlainTableName(), "_DELETE", session)
 
-context.put("hasAllView", hasAllView)
-context.put("hasAllCreate", hasAllCreate)
-context.put("hasAllUpdate", hasAllUpdate)
-context.put("hasAllDelete", hasAllDelete)
-context.put("hasViewPermission", hasViewPermission)
-context.put("hasCreatePermission", hasCreatePermission)
-context.put("hasUpdatePermission", hasUpdatePermission)
+context.hasAllView = hasAllView
+context.hasAllCreate = hasAllCreate
+context.hasAllUpdate = hasAllUpdate
+context.hasAllDelete = hasAllDelete
+context.hasViewPermission = hasViewPermission
+context.hasCreatePermission = hasCreatePermission
+context.hasUpdatePermission = hasUpdatePermission
 context.hasDeletePermission = hasDeletePermission
 
-boolean useValue = true
-String currentFindString = entityName
-GenericPK findByPK = delegator.makePK(entityName)
-Iterator pkIterator = entity.getPksIterator()
-String fieldValues = parameters.get("pkValues")
-HashMap<String,String> pkNamesValuesMap = new HashMap<>()
-if (fieldValues != null) {
-    Iterator pkParamIterator = Arrays.asList(fieldValues.split("/")).iterator()
-    while (pkIterator.hasNext() && pkParamIterator.hasNext()) {
-        ModelField field = pkIterator.next()
-        String fieldValue = pkParamIterator.next()
-        if (fieldValue) {
-            currentFindString += "/" + fieldValue
-            pkNamesValuesMap[field.getName()] = fieldValue
-            findByPK.setString(field.getName(), fieldValue)
-        }
-    }
-}
-parameters << pkNamesValuesMap
-context.pkNamesValuesMap = pkNamesValuesMap
-context.put("findByPk", findByPK.toString())
 
-context.currentFindString = UtilFormatOut.encodeQuery(currentFindString)
+// Resolve and prepare pkValues from request to support rest or oldest request call
+Map<String, String> pkNamesValuesMap = null
+if (parameters.pkValues) {
+    pkNamesValuesMap = EntityUtil.getPkValuesMapFromPath(
+            delegator.getModelEntity(entityName), parameters.pkValues)
+    parameters << pkNamesValuesMap
+}
+GenericValue valueFromParameters = delegator.makeValue(entityName)
+valueFromParameters.setPKFields(parameters)
+GenericPK findByPK = valueFromParameters.getPrimaryKey()
+context.currentFindString = UtilFormatOut.encodeQuery(EntityUtil.entityToPath(valueFromParameters))
+context.findByPk = findByPK.toString()
+context.pkNamesValuesMap = pkNamesValuesMap ?: valueFromParameters.getPrimaryKey().getAllFields()
 
 GenericValue value = null
 //only try to find it if this is a valid primary key...
 if (findByPK.isPrimaryKey()) {
-    value = from(findByPK.getEntityName()).where(findByPK).queryOne();
+    value = from(findByPK.getEntityName()).where(findByPK).queryOne()
 }
-context.put("value", value)
+context.value = value
 
-if (value == null) {
-    useValue = false
-}
+boolean useValue = value != null
 
-if (value != null) {
+if (value) {
     List fieldList = []
     Iterator fieldIterator = entity.getFieldsIterator()
     while (fieldIterator.hasNext()) {
         Map mapField = [:]
 
         ModelField field = fieldIterator.next()
-        ModelFieldType type = delegator.getEntityFieldType(entity, field.getType())
 
-        String fieldValue = ""
-        if ("Timestamp".equals(type.getJavaType()) || "java.sql.Timestamp".equals(type.getJavaType())) {
-            Timestamp dtVal = value.getTimestamp(field.getName())
-            fieldValue = (dtVal == null) ? "" : dtVal.toString()
-        } else if ("Date".equals(type.getJavaType()) || "java.sql.Date".equals(type.getJavaType())) {
-            Date dateVal = value.getDate(field.getName())
-            fieldValue = (dateVal == null) ? "" : dateVal.toString()
-        } else if ("Time".equals(type.getJavaType()) || "java.sql.Time".equals(type.getJavaType())) {
-            Time timeVal = value.getTime(field.getName())
-            fieldValue = (timeVal == null) ? "" : timeVal.toString()
-        } else if (type.getJavaType().indexOf("Integer") >= 0) {
-            fieldValue = UtilFormatOut.safeToString((Integer)value.get(field.getName()))
-        } else if (type.getJavaType().indexOf("Long") >= 0) {
-            fieldValue = UtilFormatOut.safeToString((Long)value.get(field.getName()))
-        } else if (type.getJavaType().indexOf("Double") >= 0) {
-            fieldValue = UtilFormatOut.safeToString((Double)value.get(field.getName()))
-        } else if (type.getJavaType().indexOf("Float") >= 0) {
-            fieldValue = UtilFormatOut.safeToString((Float)value.get(field.getName()))
-        } else if (type.getJavaType().indexOf("BigDecimal") >= 0) {
-            fieldValue = UtilFormatOut.safeToString((BigDecimal)value.get(field.getName()))
-        } else if (type.getJavaType().indexOf("String") >= 0) {
-            fieldValue = UtilFormatOut.checkNull((String)value.get(field.getName()))
-        }
-        mapField.put("name", field.getName())
-        mapField.put("value", fieldValue)
+        String fieldValue = UtilFormatOut.safeToString(value.get(field.getName()))
+        mapField.name = field.getName()
+        mapField.value = fieldValue
 
-        fieldList.add(mapField)
+        fieldList << mapField
     }
-    context.put("fields", fieldList)
+    context.fields = fieldList
 }
 
-GenericValue valueSave = value
-boolean pkNotFound = false
-if (value == null && (findByPK.getAllFields().size() > 0)) {
-    pkNotFound = true
-}
-context.put("pkNotFound", pkNotFound)
+context.pkNotFound = !value && !findByPK.getAllFields().isEmpty()
 
-String lastUpdateMode = parameters.get("restMethod")
+String lastUpdateMode = parameters.get("_method")
 if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_ERROR_MESSAGE_") != null) &&
-    lastUpdateMode != null && !"DELETE".equals(lastUpdateMode)) {
+    lastUpdateMode != null && "DELETE" != lastUpdateMode) {
     //if we are updating and there is an error, do not use the entity data for the fields, use parameters to get the old value
     useValue = false
 }
-context.put("useValue", useValue)
+context.useValue = useValue
 
 List newFieldPkList = []
 pkIterator = entity.getPksIterator()
@@ -157,74 +115,32 @@ while (pkIterator.hasNext()) {
     ModelField field = pkIterator.next()
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType())
 
-    String fieldValue = ""
-    String fieldType = ""
     String stringLength = ""
-    if ("Timestamp".equals(type.getJavaType()) || "java.sql.Timestamp".equals(type.getJavaType())) {
-        String dateTimeString = null
-        if (findByPK != null && useValue) {
-            Timestamp dtVal = findByPK.getTimestamp(field.getName())
-            if (dtVal != null) {
-              dateTimeString = dtVal.toString()
-            }
-        } else if (!useValue) {
-            dateTimeString = parameters.get(field.getName())
-        }
-        fieldValue = UtilFormatOut.checkNull(dateTimeString)
+    String fieldName = field.getName()
+    String fieldValue = findByPK && useValue ?
+            UtilFormatOut.safeToString(findByPK.get(fieldName)) :
+            (useValue ? "" : UtilFormatOut.checkNull(parameters.get(fieldName)))
+    String javaType = StringUtil.split(type.getJavaType(), ".").last()
+    String fieldType = javaType
+    if ("Timestamp" == javaType) {
         fieldType = "DateTime"
-    } else if ("Date".equals(type.getJavaType()) || "java.sql.Date".equals(type.getJavaType())) {
-        String dateString = null
-        if (findByPK != null && useValue) {
-            Date dateVal = findByPK.getDate(field.getName())
-            dateString = (dateVal == null) ? "" : dateVal.toString()
-        } else if (!useValue) {
-            dateString = parameters.get(field.getName())
+    } else {
+        if ("String" == javaType) {
+            if (type.stringLength() <= 80) {
+                fieldType = "StringOneRow"
+            } else if (type.stringLength() > 255) {
+                fieldType = "Textarea"
+            }
+            stringLength = type.stringLength().toString()
         }
-        fieldValue = UtilFormatOut.checkNull(dateString)
-        fieldType = "Date"
-    } else if ("Time".equals(type.getJavaType()) || "java.sql.Time".equals(type.getJavaType())) {
-        String timeString = null
-        if (findByPK != null && useValue) {
-            Time timeVal = findByPK.getTime(field.getName())
-            timeString = (timeVal == null) ? "" : timeVal.toString()
-        } else if (!useValue) {
-            timeString = parameters.get(field.getName())
-        }
-        fieldValue = UtilFormatOut.checkNull(timeString)
-        fieldType = "Time"
-    } else if (type.getJavaType().indexOf("Integer") >= 0) {
-        fieldValue = (findByPK != null && useValue) ? UtilFormatOut.safeToString((Integer)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())))
-        fieldType = "Integer"
-    } else if (type.getJavaType().indexOf("Long") >= 0) {
-        fieldValue = (findByPK != null && useValue) ? UtilFormatOut.safeToString((Long)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())))
-        fieldType = "Long"
-    } else if (type.getJavaType().indexOf("Double") >= 0) {
-        fieldValue = (findByPK != null && useValue) ? UtilFormatOut.safeToString((Double)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())))
-        fieldType = "Double"
-    } else if (type.getJavaType().indexOf("Float") >= 0) {
-        fieldValue = (findByPK != null && useValue) ? UtilFormatOut.safeToString((Float)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())))
-        fieldType = "Float"
-    } else if (type.getJavaType().indexOf("String") >= 0) {
-        if (type.stringLength() <= 80) {
-            fieldValue = (findByPK != null && useValue) ? UtilFormatOut.checkNull((String)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())))
-            fieldType = "StringOneRow"
-        } else if (type.stringLength() <= 255) {
-            fieldValue = (findByPK != null && useValue) ? UtilFormatOut.checkNull((String)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())))
-            fieldType = "String"
-        } else {
-            fieldValue = (findByPK != null && useValue) ? UtilFormatOut.checkNull((String)findByPK.get(field.getName())):(useValue?"":UtilFormatOut.checkNull(parameters.get(field.getName())))
-            fieldType = "Textarea"
-        }
-        stringLength = type.stringLength().toString()
     }
-    mapField.put("name", field.getName())
-    mapField.put("value", fieldValue)
-    mapField.put("fieldType", fieldType)
-    mapField.put("stringLength", stringLength)
-
-    newFieldPkList.add(mapField)
+    mapField.name = fieldName
+    mapField.value = fieldValue
+    mapField.fieldType = fieldType
+    mapField.stringLength = stringLength
+    newFieldPkList << mapField
 }
-context.put("newFieldPkList", newFieldPkList)
+context.newFieldPkList = newFieldPkList
 
 List newFieldNoPkList = []
 Iterator noPkIterator = entity.getNopksIterator()
@@ -233,78 +149,34 @@ while (noPkIterator.hasNext()) {
 
     ModelField field = noPkIterator.next()
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType())
+    String fieldName = field.getName()
+    String fieldValue =  useValue ?
+            UtilFormatOut.safeToString(value.get(fieldName)) :
+            UtilFormatOut.checkNull(parameters.get(fieldName))
 
-    String fieldValue = ""
-    String fieldType = ""
+    String javaType = StringUtil.split(type.getJavaType(), ".").last()
     String stringLength = ""
-    if ("Timestamp".equals(type.getJavaType()) || "java.sql.Timestamp".equals(type.getJavaType())) {
-        String dateTimeString = null
-        if (value != null && useValue) {
-            Timestamp dtVal = value.getTimestamp(field.getName())
-            if (dtVal != null) {
-              dateTimeString = dtVal.toString()
-            }
-        } else if (!useValue) {
-            dateTimeString = parameters.get(field.getName())
-        }
-        fieldValue = UtilFormatOut.checkNull(dateTimeString)
+    String fieldType = javaType
+    if ("Timestamp" == javaType) {
         fieldType = "DateTime"
-    } else if ("Date".equals(type.getJavaType()) || "java.sql.Date".equals(type.getJavaType())) {
-        String dateString = null
-        if (value != null && useValue) {
-            Date dateVal = value.getDate(field.getName())
-            dateString = (dateVal == null) ? "" : dateVal.toString()
-        } else if (!useValue) {
-            dateString = parameters.get(field.getName())
+    } else {
+        if ("String" == javaType) {
+            if (type.stringLength() <= 80) {
+                fieldType = "StringOneRow"
+            } else if (type.stringLength() > 255) {
+                fieldType = "Textarea"
+            }
+            stringLength = type.stringLength().toString()
         }
-        fieldValue = UtilFormatOut.checkNull(dateString)
-        fieldType = "Date"
-    } else if ("Time".equals(type.getJavaType()) || "java.sql.Time".equals(type.getJavaType())) {
-        String timeString = null
-        if (value != null && useValue) {
-            Time timeVal = value.getTime(field.getName())
-            timeString = (timeVal == null) ? "" : timeVal.toString()
-        } else if (!useValue) {
-            timeString = parameters.get(field.getName())
-        }
-        fieldValue = UtilFormatOut.checkNull(timeString)
-        fieldType = "Time"
-    } else if (type.getJavaType().indexOf("Integer") >= 0) {
-        fieldValue = (value != null && useValue) ? UtilFormatOut.safeToString((Integer)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()))
-        fieldType = "Integer"
-    } else if (type.getJavaType().indexOf("Long") >= 0) {
-        fieldValue = (value != null && useValue) ? UtilFormatOut.safeToString((Long)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()))
-        fieldType = "Long"
-    } else if (type.getJavaType().indexOf("Double") >= 0) {
-        fieldValue = (value != null && useValue) ? UtilFormatOut.safeToString((Double)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()))
-        fieldType = "Double"
-    } else if (type.getJavaType().indexOf("Float") >= 0) {
-        fieldValue = (value != null && useValue) ? UtilFormatOut.safeToString((Float)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()))
-        fieldType = "Float"
-    } else if (type.getJavaType().indexOf("BigDecimal") >= 0) {
-        fieldValue = (value != null && useValue) ? UtilFormatOut.safeToString((BigDecimal)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()))
-        fieldType = "BigDecimal"
-    } else if (type.getJavaType().indexOf("String") >= 0) {
-        if (type.stringLength() <= 80) {
-            fieldValue = (value != null && useValue) ? UtilFormatOut.checkNull((String)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()))
-            fieldType = "StringOneRow"
-        } else if (type.stringLength() <= 255) {
-            fieldValue = (value != null && useValue) ? UtilFormatOut.checkNull((String)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()))
-            fieldType = "String"
-        } else {
-            fieldValue = (value != null && useValue) ? UtilFormatOut.checkNull((String)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()))
-            fieldType = "Textarea"
-        }
-        stringLength = type.stringLength().toString()
     }
-    mapField.put("name", field.getName())
-    mapField.put("value", fieldValue)
-    mapField.put("fieldType", fieldType)
-    mapField.put("stringLength", stringLength)
+    mapField.name = fieldName
+    mapField.value = fieldValue
+    mapField.fieldType = fieldType
+    mapField.stringLength = stringLength
 
-    newFieldNoPkList.add(mapField)
+    newFieldNoPkList << mapField
 }
-context.put("newFieldNoPkList", newFieldNoPkList)
+context.newFieldNoPkList = newFieldNoPkList
 
 List relationFieldList = []
 for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
@@ -313,24 +185,21 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
     ModelRelation relation = entity.getRelation(relIndex)
     ModelEntity relatedEntity = reader.getModelEntity(relation.getRelEntityName())
 
-    boolean relCreate = false
-    if (security.hasEntityPermission(relatedEntity.getPlainTableName(), "_CREATE", session)) {
-        relCreate = true
-    }
+    boolean relCreate = security.hasEntityPermission(relatedEntity.getPlainTableName(), "_CREATE", session)
 
-    mapRelation.put("type", relation.getType())
-    mapRelation.put("title", relation.getTitle())
-    mapRelation.put("relEntityName", relation.getRelEntityName())
-    mapRelation.put("sortName", relation.getTitle() + relation.getRelEntityName())
-    mapRelation.put("relatedTable", relatedEntity.getEntityName())
-    mapRelation.put("relCreate", relCreate)
+    mapRelation.type = relation.getType()
+    mapRelation.title = relation.getTitle()
+    mapRelation.relEntityName = relation.getRelEntityName()
+    mapRelation.sortName = relation.getTitle() + relation.getRelEntityName()
+    mapRelation.relatedTable = relatedEntity.getEntityName()
+    mapRelation.relCreate = relCreate
 
-    if ("one".equals(relation.getType()) || "one-nofk".equals(relation.getType())) {
-        if (value != null) {
+    if ("one" == relation.getType() || "one-nofk" == relation.getType()) {
+        if (value) {
             if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), "_VIEW", session)) {
                 Iterator tempIter = UtilMisc.toIterator(value.getRelated(relation.getTitle() + relatedEntity.getEntityName(), null, null, false))
                 GenericValue valueRelated = null
-                if (tempIter != null && tempIter.hasNext()) {
+                if (tempIter && tempIter.hasNext()) {
                     valueRelated = (GenericValue) tempIter.next()
                 }
 
@@ -340,100 +209,60 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                     Map mapRelatedFields = [:]
                     ModelField field = relFieldIterator.next()
                     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType())
+                    String fieldName = field.getName()
 
-                    String fieldValue = ""
-                    String fieldType = ""
-                    if ("Timestamp".equals(type.getJavaType()) || "java.sql.Timestamp".equals(type.getJavaType())) {
-                        Timestamp dtVal = null
-                        if (valueRelated != null) {
-                            dtVal = valueRelated.getTimestamp(field.getName())
-                        }
-                        fieldValue = (dtVal == null) ? "" : dtVal.toString()
+                    String fieldValue =  valueRelated ?
+                            UtilFormatOut.safeToString(valueRelated.get(fieldName)) : ""
+
+                    String javaType = StringUtil.split(type.getJavaType(), ".").last()
+                    String fieldType = javaType
+                    if ("Timestamp" == javaType) {
                         fieldType = "DateTime"
-                    } else if ("Date".equals(type.getJavaType()) || "java.sql.Date".equals(type.getJavaType())) {
-                        Date dateVal = null
-                        if (valueRelated != null) {
-                            dateVal = valueRelated.getDate(field.getName())
-                        }
-                        fieldValue = (dateVal == null) ? "" : dateVal.toString()
-                        fieldType = "Date"
-                    } else if ("Time".equals(type.getJavaType()) || "java.sql.Time".equals(type.getJavaType())) {
-                        Time timeVal = null
-                        if (valueRelated != null) {
-                            timeVal = valueRelated.getTime(field.getName())
-                        }
-                        fieldValue = (timeVal == null) ? "" : timeVal.toString()
-                        fieldType = "Time"
-                    } else if (type.getJavaType().indexOf("Integer") >= 0) {
-                        if (valueRelated != null) {
-                            fieldValue = UtilFormatOut.safeToString((Integer)valueRelated.get(field.getName()))
-                        }
-                        fieldType = "Integer"
-                    } else if (type.getJavaType().indexOf("Long") >= 0) {
-                        if (valueRelated != null) {
-                            fieldValue = UtilFormatOut.safeToString((Long)valueRelated.get(field.getName()))
-                        }
-                        fieldType = "Long"
-                    } else if (type.getJavaType().indexOf("Double") >= 0) {
-                        if (valueRelated != null) {
-                            fieldValue = UtilFormatOut.safeToString((Double)valueRelated.get(field.getName()))
-                        }
-                        fieldType = "Double"
-                    } else if (type.getJavaType().indexOf("Float") >= 0) {
-                        if (valueRelated != null) {
-                            fieldValue = UtilFormatOut.safeToString((Float)valueRelated.get(field.getName()))
-                        }
-                        fieldType = "Float"
-                    } else if (type.getJavaType().indexOf("String") >= 0) {
-                        if (valueRelated != null) {
-                            fieldValue = UtilFormatOut.checkNull((String)valueRelated.get(field.getName()))
-                        }
-                        fieldType = "String"
                     }
 
-                    mapRelatedFields.put("name", field.getName())
-                    mapRelatedFields.put("type", fieldType)
-                    mapRelatedFields.put("value", fieldValue)
-                    relatedFieldsList.add(mapRelatedFields)
+                    mapRelatedFields.name = fieldName
+                    mapRelatedFields.type = fieldType
+                    mapRelatedFields.value = fieldValue
+                    relatedFieldsList << mapRelatedFields
                 }
 
-                mapRelation.put("valueRelated", valueRelated)
-                if (valueRelated != null) {
-                    mapRelation.put("valueRelatedPk", valueRelated.getPrimaryKey().toString())
+                mapRelation.valueRelated = valueRelated
+                if (valueRelated) {
+                    mapRelation.valueRelatedPk = valueRelated.getPrimaryKey().toString()
                 }
-                mapRelation.put("relatedFieldsList", relatedFieldsList)
-                mapRelation.put("relType", "one")
+                mapRelation.relatedFieldsList = relatedFieldsList
+                mapRelation.relType = "one"
 
                 String findString = "entityName=" + relatedEntity.getEntityName()
                 for (ModelKeyMap keyMap : relation.getKeyMaps()) {
-                    if (value.get(keyMap.getFieldName()) != null) {
+                    if (value.get(keyMap.getFieldName())) {
                         findString += "&" + keyMap.getRelFieldName() + "=" + value.get(keyMap.getFieldName())
                     }
                 }
                 String encodeFindString = UtilFormatOut.encodeQuery(findString)
-                mapRelation.put("encodeRelatedEntityFindString", encodeFindString)
+                mapRelation.encodeRelatedEntityFindString = encodeFindString
 
-                relationFieldList.add(mapRelation)
+                relationFieldList << mapRelation
             }
         }
-    } else if (relation.getType().equalsIgnoreCase("many")) {
-        if (value != null) {
+    } else if (relation.getType() == "many") {
+        if (value) {
             if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), "_VIEW", session)) {
-                mapRelation.put("relType", "many")
+                mapRelation.relType = "many"
 
                 String findString = "entityName=" + relatedEntity.getEntityName()
                 for (ModelKeyMap keyMap : relation.getKeyMaps()) {
-                    if (value.get(keyMap.getFieldName()) != null) {
+                    if (value.get(keyMap.getFieldName())) {
                         findString += "&" + keyMap.getRelFieldName() + "=" + value.get(keyMap.getFieldName())
                     }
                 }
                 String encodeFindString = UtilFormatOut.encodeQuery(findString)
-                mapRelation.put("encodeRelatedEntityFindString", encodeFindString)
+                mapRelation.encodeRelatedEntityFindString = encodeFindString
 
-                relationFieldList.add(mapRelation)
+                relationFieldList << mapRelation
             }
         }
     }
 }
-context.put("relationFieldList", UtilMisc.sortMaps(relationFieldList, UtilMisc.toList("sortName")))
-context.put("relSize", relationFieldList.size() + 2)
+context.relationFieldList = UtilMisc.sortMaps(relationFieldList, ["sortName"])
+context.relSize = (relationFieldList.size() + 2)

@@ -2602,6 +2602,23 @@
         <value xml:lang="zh">佣金发票调整</value>
         <value xml:lang="zh-TW">佣金發票調整</value>
     </property>
+	<property key="InvoiceItemType.description.SINVOICE_ITM_ADJ">
+        <value xml:lang="ar">تعديل بند الفاتورة</value>
+        <value xml:lang="de">Rechnungspostenanpassung</value>
+        <value xml:lang="en">Invoice Item Adjustment (Sales)</value>
+        <value xml:lang="fr">Régularisation de ligne de facturation</value>
+        <value xml:lang="hi-IN">चालान मद समायोजन</value>
+        <value xml:lang="it">Fattura Riga Aggiustamento</value>
+        <value xml:lang="ja">請求 アイテム調整</value>
+        <value xml:lang="nl">Aanpassing factuurregel</value>
+        <value xml:lang="pt">Ajuste de Item de fatura</value>
+        <value xml:lang="ro">Factura Linie Actualizare</value>
+        <value xml:lang="ru">Поправка позиции накладной</value>
+        <value xml:lang="th">การปรับปรุงรายการใบกำกับสินค้า</value>
+        <value xml:lang="vi">Điều chỉnh hạng mục</value>
+        <value xml:lang="zh">发票明细调整</value>
+        <value xml:lang="zh-TW">發票細項調整</value>
+    </property>	
     <property key="InvoiceItemType.description.COMM_INV_ITEM">
         <value xml:lang="ar">بند السطر لفاتورة العمولة</value>
         <value xml:lang="de">Provisions-Rechnungsposten</value>

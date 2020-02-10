@@ -743,7 +743,7 @@ $\{pluginId}"
 [[further-reading]]
 === Further reading
 
-* https://cwiki.apache.org/confluence/display/OFBIZ/FAQ+-+Tips+-+Tricks+-+Cookbook+-+HowTo#FAQ-Tips-Tricks-Cookbook-HowTo-Knownissues[Known
+* https://cwiki.apache.org/confluence/display/OFBIZ/FAQ%2B-%2BTips%2B-%2BTricks%2B-%2BCookbook%2B-%2BHowTo#FAQ-Tips-Tricks-Cookbook-HowTo-Knownissues[Known
 issues]
 
 [[repository-and-directory-structure]]

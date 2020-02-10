@@ -697,6 +697,8 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
             [tempName:'SecurityGroupDemoData.xml', newName:"${pluginResourceName}SecurityGroupDemoData.xml", location:'data'],
             [tempName:'DemoData.xml', newName:"${pluginResourceName}DemoData.xml", location:'data'],
             [tempName:'HELP.xml', newName:"HELP_${pluginResourceName}.xml", location:'data/helpdata'],
+            [tempName:'HELP.adoc', newName:'HELP.adoc', location:''],
+            [tempName:'README.adoc', newName:'README.adoc', location:''],
             [tempName:'document.xml', newName:"${pluginResourceName}.xml", location:'documents'],
             [tempName:'entitymodel.xml', newName:'entitymodel.xml', location:'entitydef'],
             [tempName:'services.xml', newName:'services.xml', location:'servicedef'],

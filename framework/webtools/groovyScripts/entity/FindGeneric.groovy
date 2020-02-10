@@ -43,7 +43,7 @@ if (modelEntity) {
     String dynamicAutoEntityFieldSearchForm = """<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
         <form name="FindGeneric" type="single" target="entity/find/${entityName}">
            <auto-fields-entity entity-name="${entityName}" default-field-type="find" include-internal="true"/>
-            <field name="restMethod"><hidden value="GET"/></field>
+            <field name="_method"><hidden value="GET"/></field>
             <field name="noConditionFind"><hidden value="Y"/></field>
             <field name="searchOptions_collapsed" ><hidden value="true"/></field>
             <field name="searchButton"><submit/></field>"""
@@ -82,16 +82,9 @@ if (modelEntity) {
     dynamicAutoEntitySearchFormRenderer.render(writer, context)
     context.dynamicAutoEntitySearchForm = writer
 
-    // In case of composite pk
-    String pk = modelEntity.pkNameString()
-    String res = ""
-    for (w in pk.split(", ")) {
-        res = "${res}/\${${w}}"
-    }
-
     //prepare the result list from performFind
     String dynamicAutoEntityFieldListForm = """<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-            <form name="ListGeneric" type="list" method="post" target="entity/find/${entityName}" list-name="listIt" 
+            <form name="ListGeneric" type="list" target="entity/find/${entityName}" list-name="listIt" paginate-target="entity/find/${entityName}"
               odd-row-style="alternate-row" default-table-style="basic-table light-grid hover-bar" header-row-style="header-row-2">
             <actions>
                 <service service-name="performFind">
@@ -101,6 +94,7 @@ if (modelEntity) {
                 </service>
             </actions>
             <auto-fields-entity entity-name="${entityName}" default-field-type="display" include-internal="true"/>
+            <field name="_method"><hidden value="POST"/></field>
             <field name="entityName"><hidden value="${entityName}"/></field>"""
     modelEntity.getFieldsUnmodifiable().each {
         modelField ->
@@ -108,7 +102,7 @@ if (modelEntity) {
                     "<field name=\"${modelField.name}\" sort-field=\"true\"/>"
     }
     dynamicAutoEntityFieldListForm += """
-            <field name="viewGeneric" title=" "><hyperlink target="entity/find/${entityName}${res}" description="view"/></field>
+            <field name="viewGeneric" title=" "><hyperlink target="\${groovy: 'entity/find/' + org.apache.ofbiz.entity.util.EntityUtil.entityToPath(delegator, '${entityName}', context)}" description="view"/></field>
             <sort-order><sort-field name="viewGeneric"/></sort-order>
             </form></forms>"""
 
