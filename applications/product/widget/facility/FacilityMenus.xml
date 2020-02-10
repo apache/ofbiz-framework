@@ -24,6 +24,7 @@ under the License.
     <menu name="FacilityAppBar" title="${uiLabelMap.ProductFacilityManager}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="facility" title="${uiLabelMap.ProductFacilities}"><link target="FindFacility"/></menu-item>
         <menu-item name="facilityGroup" title="${uiLabelMap.ProductFacilityGroups}"><link target="FindFacilityGroup"/></menu-item>
+        <menu-item name="cycleCount" title="${uiLabelMap.ProductCycleCount}"><link target="FindCycleCount"/></menu-item>
         <menu-item name="inventoryItemLabel" title="${uiLabelMap.ProductInventoryItemLabels}"><link target="FindInventoryItemLabels"/></menu-item>
         <menu-item name="ShipmentGatewayConfig" title="${uiLabelMap.FacilityShipmentGatewayConfig}">
             <condition>
@@ -238,6 +239,22 @@ under the License.
         </menu-item>
     </menu>
     
+    <menu name="CycleCountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="CycleCount" default-selected-style="selected">
+        <menu-item name="FindCycleCount" title="${uiLabelMap.FindSession}">
+            <link target="FindCycleCount"/>
+        </menu-item>
+        <menu-item name="RecordCount" title="${uiLabelMap.FacilityRecordCount}">
+            <link target="RecordCount"/>
+        </menu-item>
+        <menu-item name="ReviewCountSession" title="${uiLabelMap.ReviewSession}">
+            <link target="ReviewCountSession"/>
+        </menu-item>
+        <menu-item name="CountReport" title="${uiLabelMap.ProductCountReport}">
+            <link target="CountReport"/>
+        </menu-item>
+    </menu>
+
     <menu name="ViewFacilityInventoryByProductTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         selected-menuitem-context-field-name="tabButtonItem2">
         <!--<menu-item name="ViewFacilityInventoryByProductSimpleTab" title="${uiLabelMap.CommonPrint}">

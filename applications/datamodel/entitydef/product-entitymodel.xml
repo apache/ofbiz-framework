@@ -1288,7 +1288,10 @@ under the License.
         <field name="sectionId" type="id"></field>
         <field name="levelId" type="id"></field>
         <field name="positionId" type="id"></field>
-        <field name="geoPointId" type="id"></field>      
+        <field name="geoPointId" type="id"></field>
+        <field name="locked" type="indicator"/>
+        <field name="lastCountDate" type="date"/>
+        <field name="nextCountDate" type="date"/>
         <prim-key field="facilityId"/>
         <prim-key field="locationSeqId"/>
         <relation type="one" fk-name="FACILITY_LOC_FAC" rel-entity-name="Facility">
@@ -1299,7 +1302,10 @@ under the License.
         </relation>
       <relation type="one" fk-name="FACILITY_LOC_GEOPT" rel-entity-name="GeoPoint">
         <key-map field-name="geoPointId"/>
-      </relation>      
+      </relation>
+      <index name="FAC_LOC_SEQ_IDX">
+          <index-field name="locationSeqId"/>
+      </index>
     </entity>
     <entity entity-name="FacilityLocationGeoPoint" package-name="org.apache.ofbiz.product.facility" title="Facility Location Geo Location with history">
         <field name="facilityId" type="id"></field>
@@ -4994,4 +5000,106 @@ under the License.
             <key-map field-name="telecomCustomMethodId" rel-field-name="customMethodId"/>
         </relation>
     </entity>
+    <entity entity-name="InventoryCount"
+            package-name="org.apache.ofbiz.scm.product.inventory"
+            title="Inventory Count" >
+        <field name="inventoryCountId" type="id"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <field name="facilityId" type="id"/>
+        <field name="linkedSessionId" type="id"/>
+        <field name="statusId" type="id"/>
+        <field name="createdDate" type="date-time"/>
+        <prim-key field="inventoryCountId"/>
+        <relation type="one" fk-name="INV_CNT_STTS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="INV_CNT_FAC" rel-entity-name="Facility">
+            <key-map field-name="facilityId"/>
+        </relation>
+    </entity>
+    <entity entity-name="InventoryCountItem"
+            package-name="org.apache.ofbiz.product.inventory"
+            title="Inventory Count Item" >
+        <field name="inventoryCountId" type="id"/>
+        <field name="inventoryCountItemSeqId" type="id"/>
+        <field name="inventoryItemId" type="id"/>
+        <field name="itemStatusId" type="id"/>
+        <field name="locationSeqId" type="id-long"/>
+        <field name="productId" type="id"/>
+        <field name="productIdentifier" type="id-long"/>
+        <field name="quantity" type="fixed-point"/>
+        <prim-key field="inventoryCountId"/>
+        <prim-key field="inventoryCountItemSeqId"/>
+        <relation type="one" fk-name="INV_ITM_CNT_IMP" rel-entity-name="InventoryCount">
+            <key-map field-name="inventoryCountId"/>
+        </relation>
+        <relation type="many" fk-name="INV_CNT_INV_ITM" rel-entity-name="InventoryItem">
+            <key-map field-name="inventoryItemId"/>
+        </relation>
+        <relation type="one" fk-name="INV_CNT_STTS_ITM" rel-entity-name="StatusItem">
+            <key-map field-name="itemStatusId" rel-field-name="statusId"/>
+        </relation>
+        <relation type="many" fk-name="INV_CNT_FAC_LOC" rel-entity-name="FacilityLocation">
+            <key-map field-name="locationSeqId"/>
+        </relation>
+    </entity>
+    <entity entity-name="InventoryCountVariance"
+            package-name="org.apache.ofbiz.product.inventory"
+            title="Inventory Count Variance" >
+        <field name="inventoryCountId" type="id"/>
+        <field name="inventoryCountItemSeqId" type="id"/>
+        <field name="inventoryItemId" type="id"/>
+        <field name="productId" type="id"/>
+        <field name="productIdentifier" type="id-long"/>
+        <field name="locationSeqId" type="id"/>
+        <field name="systemQuantityOnHand" type="fixed-point"/>
+        <field name="actualQuantityOnHand" type="fixed-point"/>
+        <field name="varianceQuantityOnHand" type="fixed-point"/>
+        <field name="unitCost" type="fixed-point"/>
+        <field name="totalCost" type="fixed-point"/>
+        <field name="actualCost" type="fixed-point"/>
+        <field name="costVariance" type="fixed-point"/>
+        <field name="actualValue" type="fixed-point"/>
+        <field name="totalValue" type="fixed-point"/>
+        <field name="valueVariance" type="fixed-point"/>
+        <prim-key field="inventoryCountId"/>
+        <prim-key field="inventoryCountItemSeqId"/>
+        <relation type="one" fk-name="INV_COUNT_IMP" rel-entity-name="InventoryCount">
+            <key-map field-name="inventoryCountId"/>
+        </relation>
+        <relation type="one" fk-name="INV_COUNT_IMP_ITM" rel-entity-name="InventoryCountItem">
+            <key-map field-name="inventoryCountId"/>
+            <key-map field-name="inventoryCountItemSeqId"/>
+        </relation>
+        <relation type="many" fk-name="INV_COUNT_INV_ITM" rel-entity-name="InventoryItem">
+            <key-map field-name="inventoryItemId"/>
+        </relation>
+        <relation type="many" fk-name="INV_COUNT_FAC_LOC" rel-entity-name="FacilityLocation">
+            <key-map field-name="locationSeqId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="InventoryCountAndItems" package-name="org.apache.ofbiz.product.inventory">
+        <member-entity entity-alias="IC" entity-name="InventoryCount"/>
+        <member-entity entity-alias="ICI" entity-name="InventoryCountItem"/>
+        <alias-all entity-alias="IC"/>
+        <alias-all entity-alias="ICI"/>
+        <view-link rel-entity-alias="ICI" entity-alias="IC" rel-optional="true">
+            <key-map field-name="inventoryCountId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="InventoryCountItemsAndVariance" package-name="org.apache.ofbiz.product.inventory">
+        <member-entity entity-alias="IC" entity-name="InventoryCount"/>
+        <member-entity entity-alias="ICI" entity-name="InventoryCountItem"/>
+        <member-entity entity-alias="ICV" entity-name="InventoryCountVariance"/>
+        <alias-all entity-alias="IC"/>
+        <alias-all entity-alias="ICI"/>
+        <alias-all entity-alias="ICV"/>
+        <view-link rel-entity-alias="IC" entity-alias="ICI" rel-optional="true">
+            <key-map field-name="inventoryCountId"/>
+        </view-link>
+        <view-link rel-entity-alias="ICV" entity-alias="ICI" rel-optional="true">
+            <key-map field-name="inventoryCountId"/>
+            <key-map field-name="inventoryCountItemSeqId"/>
+        </view-link>
+    </view-entity>
 </entitymodel>

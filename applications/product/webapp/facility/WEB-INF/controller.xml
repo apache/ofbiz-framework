@@ -1342,6 +1342,88 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="GetPartyGeoLocation"/>
     </request-map>
+    
+    <!--  Cycle Count -->
+    <request-map uri="RecordCount">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="RecordCount"/>
+    </request-map>
+    <request-map uri="FindCycleCount">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindCycleCount"/>
+    </request-map>
+    <request-map uri="ReviewCountSession">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ReviewCountSession"/>
+    </request-map>
+    <request-map uri="addLocationItemsToCycleCount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addLocationItemsToCycleCount"/>
+        <response name="success" type="request-redirect" value="RecordCount">
+            <redirect-parameter name="inventoryCountId"/>
+        </response>
+        <response name="error" type="view" value="RecordCount"/>
+    </request-map>
+    <request-map uri="addInventoryItemToCycleCount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addInventoryItemToCycleCount"/>
+        <response name="success" type="request-redirect" value="RecordCount">
+            <redirect-parameter name="inventoryCountId"/>
+        </response>
+        <response name="error" type="view" value="RecordCount"/>
+    </request-map>
+    <request-map uri="createInventoryCountAndAddBulkLocations">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.product.inventory.InventoryEvents" invoke="createInventoryCountAndAddBulkLocations"/>
+        <response name="success" type="request-redirect" value="RecordCount">
+            <redirect-parameter name="inventoryCountId"/>
+        </response>
+        <response name="error" type="view" value="RecordCount"/>
+    </request-map>
+    <request-map uri="acceptCountSessions">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateInventoryCountItemAndRecordVariance"/>
+        <response name="success" type="request-redirect" value="ReviewCountSession">
+            <redirect-parameter name="inventoryCountId"/>
+        </response>
+        <response name="error" type="view" value="ReviewCountSession"/>
+    </request-map>
+    <request-map uri="updateInventoryCountItemAndRecordVariance">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateInventoryCountItemAndRecordVariance"/>
+        <response name="success" type="request-redirect" value="ReviewCountSession">
+            <redirect-parameter name="inventoryCountId"/>
+        </response>
+        <response name="error" type="view" value="ReviewCountSession"/>
+    </request-map>
+    <request-map uri="updateCountItemAndCreateCountVariance">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateCountItemAndCreateCountVariance"/>
+        <response name="success" type="request-redirect" value="RecordCount">
+            <redirect-parameter name="inventoryCountId"/>
+        </response>
+        <response name="error" type="view" value="RecordCount"/>
+    </request-map>
+    <request-map uri="createCountSession">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createInventoryCount"/>
+        <response name="success" type="request-redirect" value="ReviewCountSession">
+            <redirect-parameter name="inventoryCountId"/>
+        </response>
+        <response name="error" type="view" value="FindCycleCount"/>
+    </request-map>
+    <request-map uri="approveInventoryCountAndItems">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="approveInventoryCountAndItems"/>
+        <response name="success" type="request-redirect" value="RecordCount">
+            <redirect-parameter name="inventoryCountId"/>
+        </response>
+        <response name="error" type="view" value="RecordCount"/>
+    </request-map>
+    <request-map uri="CountReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CountReport"/>
+    </request-map>
 
     <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeaderAndShipInfo"/></request-map>
@@ -1472,5 +1554,12 @@ under the License.
     <view-map name="EditShipmentGatewayConfigType" type="screen" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#EditShipmentGatewayConfigType"/>
 
     <view-map name="EditFacilityAgreements" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityAgreements"/>
+    
+    <!-- Cycle Count -->
+    <view-map name="RecordCount" type="screen" page="component://product/widget/facility/CycleCountScreens.xml#RecordCount"/>
+    <view-map name="FindCycleCount" type="screen" page="component://product/widget/facility/CycleCountScreens.xml#FindCycleCount"/>
+    <view-map name="RecordCount" type="screen" page="component://product/widget/facility/CycleCountScreens.xml#RecordCount"/>
+    <view-map name="ReviewCountSession" type="screen" page="component://product/widget/facility/CycleCountScreens.xml#ReviewCountSession"/>
+    <view-map name="CountReport" type="screen" page="component://product/widget/facility/CycleCountScreens.xml#CountReport"/>
     <!-- end of view mappings -->
 </site-conf>

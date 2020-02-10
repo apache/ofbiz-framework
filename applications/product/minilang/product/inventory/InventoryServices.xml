@@ -1005,6 +1005,27 @@ under the License.
     <!-- Inventory Transfer Services -->
     <simple-method method-name="createInventoryTransfer" short-description="Create an Inventory Transfer">
 
+        <entity-one value-field="inventoryItem" entity-name="InventoryItem">
+            <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
+        </entity-one>
+        <entity-and entity-name="FacilityLocation" list="facilityLocations">
+            <field-map field-name="facilityId" from-field="inventoryItem.facilityId"/>
+            <field-map field-name="locationSeqId" from-field="inventoryItem.locationSeqId"/>
+            <field-map field-name="locked" value="Y"/>
+        </entity-and>
+        <if-not-empty field="facilityLocations">
+            <add-error><fail-message message="The affected LTN belong to the locked locations under active counting session to prevent any inbound and outbound inventory movement. Please choose different LTN from any free location or wait till lock is released."/></add-error>
+            <check-errors/>
+        </if-not-empty>
+        <entity-and entity-name="FacilityLocation" list="destFacilityLocations">
+            <field-map field-name="facilityId" from-field="parameters.facilityIdTo"/>
+            <field-map field-name="locationSeqId" from-field="parameters.locationSeqIdTo"/>
+            <field-map field-name="locked" value="Y"/>
+        </entity-and>
+        <if-not-empty field="destFacilityLocations">
+            <add-error><fail-message message="The affected LTN belong to the locked locations under active counting session to prevent any inbound and outbound inventory movement. Please choose different LTN from any free location or wait till lock is released."/></add-error>
+            <check-errors/>
+        </if-not-empty>
         <make-value entity-name="InventoryTransfer" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="InventoryTransfer" field="newEntity.inventoryTransferId"/>
@@ -1271,5 +1292,24 @@ under the License.
         <set field="newEntity.inventoryItemLabelTypeId" from-field="inventoryItemLabel.inventoryItemLabelTypeId"/>
         <create-value value-field="newEntity"/>
     </simple-method>
+
+    <!-- Inventory Count methods -->
+    <simple-method method-name="updateInventoryCountItem" short-description="Update inventory count item record">
+        <make-value entity-name="InventoryCountItem" value-field="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
+        <field-to-result field="lookedUpValue.itemStatusId" result-name="oldItemStatusId"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+        <field-to-result field="lookedUpValue.itemStatusId" result-name="itemStatusId"/>
+    </simple-method>
+    <simple-method method-name="updateInventoryCountVariance" short-description="Update inventory count variance record">
+        <make-value entity-name="InventoryCountVariance" value-field="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+
 
 </simple-methods>
