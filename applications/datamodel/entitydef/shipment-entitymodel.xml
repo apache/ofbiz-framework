@@ -468,7 +468,40 @@ under the License.
         <key-map field-name="inventoryItemId"/>
       </view-link>
     </view-entity>
-
+    <entity entity-name="ShipmentNote"
+            package-name="org.apache.ofbiz.shipment.shipment"
+            never-cache="true"
+            title="Shipment Note">
+      <field name="shipmentId" type="id"/>
+      <field name="noteId" type="id"/>
+      <field name="internalNote" type="indicator"/>
+      <prim-key field="shipmentId"/>
+      <prim-key field="noteId"/>
+      <relation type="one" fk-name="SHIP_SHRNT_HDR" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHIP_SHRNT_NOTE" rel-entity-name="NoteData">
+        <key-map field-name="noteId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ShipmentNoteView"
+            package-name="org.apache.ofbiz.shipment.shipment"
+            never-cache="true"
+            title="Shipment Note View Entity">
+      <member-entity entity-alias="SN" entity-name="ShipmentNote"/>
+      <member-entity entity-alias="ND" entity-name="NoteData"/>
+      <alias entity-alias="SN" name="shipmentId"/>
+      <alias entity-alias="SN" name="internalNote"/>
+      <alias entity-alias="ND" name="noteId"/>
+      <alias entity-alias="ND" name="noteName"/>
+      <alias entity-alias="ND" name="noteInfo"/>
+      <alias entity-alias="ND" name="noteDateTime"/>
+      <alias entity-alias="ND" name="noteParty"/>
+      <view-link entity-alias="SN" rel-entity-alias="ND">
+        <key-map field-name="noteId"/>
+      </view-link>
+    </view-entity>
+ 
   <!-- ========================================================= -->
   <!-- org.apache.ofbiz.shipment.shipment -->
   <!-- ========================================================= -->

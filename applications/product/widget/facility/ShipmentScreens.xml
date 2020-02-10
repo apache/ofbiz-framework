@@ -23,7 +23,6 @@ under the License.
     <screen name="CommonShipmentMainDecorator">
         <section>
             <actions>
-                <set field="titleProperty" value="ProductFindShipment"/>
                 <set field="headerItem" value="shipment"/>
             </actions>
             <widgets>
@@ -60,7 +59,7 @@ under the License.
                             <include-form name="FindShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductShipmentsFound}">
-                            <include-form name="ListShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
+                            <include-grid name="ListShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -71,6 +70,7 @@ under the License.
     <screen name="CommonShipmentDecorator">
         <section>
             <actions>
+                <set field="titleProperty" value="CommonShipment"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <entity-one entity-name="Shipment" value-field="shipment"/>
                 <set field="shipmentId" from-field="shipment.shipmentId" global="true"/>
@@ -84,60 +84,16 @@ under the License.
                                 <if-has-permission permission="FACILITY" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://product/template/shipment/ShipmentTabBar.ftl"/></html>
-                                </platform-specific>
                                 <section>
                                     <condition>
                                         <not><if-empty field="shipment"/></not>
                                     </condition>
                                     <widgets>
                                         <label style="h1" text="${uiLabelMap.ProductShipmentId}: ${shipment.shipmentId}"/>
-                                        <container>
-                                            <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf" target-window="_BLANK">
-                                                <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
-                                            </link>
-                                        </container>
+                                        <include-menu location="component://product/widget/facility/ShipmentMenus.xml" name="ShipmentTabBar"/>
+                                        <include-menu location="component://product/widget/facility/ShipmentMenus.xml" name="ShipmentActionBar"/>
                                     </widgets>
                                 </section>
-                                <section>
-                                    <condition>
-                                        <and>
-                                            <not><if-empty field="shipment"/></not>
-                                            <not><if-empty field="facility"/></not>
-                                            <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
-                                        </and>
-                                    </condition>
-                                    <widgets>
-                                        <container>
-                                            <link style="buttontext" text="${uiLabelMap.ProductReceiveInventory}" target="ReceiveInventory">
-                                                <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
-                                                <parameter param-name="facilityId" from-field="facility.facilityId"/>
-                                                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
-                                                <parameter param-name="initialSelected" value="Y"/>
-                                            </link>
-                                        </container>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <condition>
-                                        <and>
-                                            <not><if-empty field="shipment"/></not>
-                                            <not><if-empty field="facility"/></not>
-                                            <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
-                                            <not><if-empty field="shipment.primaryOrderId"/></not>
-                                        </and>
-                                    </condition>
-                                    <widgets>
-                                        <container>
-                                            <link style="buttontext" text="${uiLabelMap.ProductReceiveInventoryAgainstPO}" target="ReceiveInventoryAgainstPurchaseOrder">
-                                                <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
-                                                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
-                                            </link>
-                                        </container>
-                                    </widgets>
-                                </section>
-
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -189,10 +145,13 @@ under the License.
                                         <html><html-template location="component://product/template/shipment/ViewShipmentRouteInfo.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
-                                <screenlet id="shipmentReceiptPanel" title="${uiLabelMap.PageTitleViewShipmentReceipts}" initially-collapsed="true">
+                                <screenlet id="shipmentReceiptPanel" title="${uiLabelMap.ProductShipmentReceipts}" initially-collapsed="true">
                                     <platform-specific>
                                         <html><html-template location="component://product/template/shipment/ViewShipmentRouteInfo.ftl"/></html>
                                     </platform-specific>
+                                </screenlet>
+                                <screenlet id="shipmentNotesPanel" title="${uiLabelMap.CommonNotes}" initially-collapsed="true">
+                                    <include-grid location="component://product/widget/facility/ShipmentForms.xml" name="ListShipmentNotes"/>
                                 </screenlet>
                             </decorator-section>
                         </decorator-screen>
@@ -360,6 +319,21 @@ under the License.
                 <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="ShipmentReceipts" location="component://product/widget/facility/ShipmentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CreateShipmentNote">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CreateShipmentNote"/>
+                <set field="headerItem" value="shipment"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="CreateShipmentNote" location="component://product/widget/facility/ShipmentForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

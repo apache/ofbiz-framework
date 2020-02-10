@@ -1145,6 +1145,24 @@ under the License.
         <description>Delete a ShipmentItemBilling</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="createShipmentNoteData" engine="group">
+        <description>Create a note item and associate with a shipment</description>
+        <group>
+            <invoke name="createNote" result-to-context="true"/>
+            <invoke name="createShipmentNote"/>
+        </group>
+        <override name="noteId" optional="true"/>
+    </service>
+    <service name="createShipmentNote" engine="entity-auto" default-entity-name="ShipmentNote" invoke="create" auth="true">
+        <description>Associate note to shipment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShipmentNote" engine="entity-auto" default-entity-name="ShipmentNote" invoke="update" auth="true">
+        <description>Update shipment and note association</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
 
     <!-- Permission Services -->
     <service name="checkCanChangeShipmentStatusPacked" engine="simple"

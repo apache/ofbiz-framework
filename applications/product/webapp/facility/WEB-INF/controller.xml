@@ -1244,6 +1244,18 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewShipmentReceipts"/>
     </request-map>
+    <request-map uri="CreateShipmentNote">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateShipmentNote"/>
+    </request-map>
+    <request-map uri="AddShipmentNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createShipmentNoteData"/>
+        <response name="success" type="request-redirect" value="ViewShipment">
+            <redirect-parameter name="shipmentId"/>
+        </response>
+        <response name="error" type="view" value="ViewShipment"/>
+    </request-map>
 
     <!-- ================ Inventory Reports Requests ================= -->
     <request-map uri="InventoryReports">
@@ -1432,6 +1444,7 @@ under the License.
     <view-map name="EditShipmentItems" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentItems"/>
     <view-map name="EditShipmentPlan" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentPlan"/>
     <view-map name="ViewShipmentReceipts" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#ViewShipmentReceipts"/>
+    <view-map name="CreateShipmentNote" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#CreateShipmentNote"/>
     <view-map name="EditShipmentPackages" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentPackages"/>
     <view-map name="EditShipmentRouteSegments" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentRouteSegments"/>
     <view-map name="AddItemsFromOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#AddItemsFromOrder"/>

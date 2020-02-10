@@ -12367,6 +12367,12 @@
         <value xml:lang="zh">浏览运输明细信息</value>
         <value xml:lang="zh-TW">檢視運輸細項資訊</value>
     </property>
+    <property key="PageTitleViewShipmentNotes">
+        <value xml:lang="fr">Voir les notes</value>
+        <value xml:lang="de">Versandnotizen anzeigen</value>
+        <value xml:lang="en">View Shipment notes</value>
+        <value xml:lang="es">Ver notas de envío</value>
+    </property>
     <property key="PageTitleViewShipmentPackageInfo">
         <value xml:lang="de">Lieferung Paket Informationen anzeigen</value>
         <value xml:lang="en">View Shipment Package Info</value>
@@ -30288,6 +30294,22 @@
         <value xml:lang="vi">Không kiện hàng nào sẵn sàng để giao hàng !</value>
         <value xml:lang="zh">没有要送货的包裹！</value>
         <value xml:lang="zh-TW">沒有要送貨的包裹！</value>
+    </property>
+    <property key="ProductShipmentNote">
+        <value xml:lang="en">Note</value>
+        <value xml:lang="fr">Note</value>
+    </property>
+    <property key="ProductShipmentNoteInternalNote">
+        <value xml:lang="en">Internal Note</value>
+        <value xml:lang="fr">Note interne</value>
+    </property>
+    <property key="ProductShipmentNoteInternalNoteMessage">
+        <value xml:lang="en">If yes is selected, this note doesn't appear on the print documents</value>
+        <value xml:lang="fr">Si oui est sélectionné, cette note ne sera pas imprimée sur les documents</value>
+    </property>
+     <property key="ProductShipmentNotes">
+        <value xml:lang="en">Notes</value>
+        <value xml:lang="fr">Notes</value>
     </property>
     <property key="ProductShipmentNotFoundId">
         <value xml:lang="de">Lieferung nicht gefunden mit der ID </value>
