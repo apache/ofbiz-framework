@@ -20,14 +20,9 @@ package org.apache.ofbiz.product.inventory;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -47,9 +42,12 @@ import org.apache.ofbiz.entity.model.ModelKeyMap;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityTypeUtil;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.product.product.ProductWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 
 import com.ibm.icu.util.Calendar;
@@ -1012,6 +1010,707 @@ public class InventoryServices {
             }
         }
         return result;
+    }
+    
+    public static Map<String, ? extends Object> updateInventoryCountItemAndRecordVariance(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String inventoryCountId = (String) context.get("inventoryCountId");
+        String nextCountDayStr = (String) context.get("nextCountDay");
+        String inventoryCountItemSeqId = (String) context.get("inventoryCountItemSeqId");
+        String statusId = (String) context.get("statusId");
+        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        String successMessage = null;
+        int nextCountDay;
+        if (UtilValidate.isNotEmpty(nextCountDayStr) && UtilValidate.isInteger(nextCountDayStr)) {
+            nextCountDay = Integer.parseInt(nextCountDayStr);
+        } else {
+            return ServiceUtil.returnError("You have selected invalid count session.");
+        }
+
+        try {
+            GenericValue inventoryCount = EntityQuery.use(delegator).from("InventoryCount").where("inventoryCountId",inventoryCountId).queryOne();
+            GenericValue inventoryCountItem = EntityQuery.use(delegator).from("InventoryCountItem").where("inventoryCountId", inventoryCountId, "inventoryCountItemSeqId", inventoryCountItemSeqId).queryOne();
+
+            if (UtilValidate.isNotEmpty(inventoryCountItem)) {
+                GenericValue inventoryCountVariance = EntityQuery.use(delegator).from("InventoryCountVariance").where("inventoryCountId", inventoryCountId, "inventoryCountItemSeqId", inventoryCountItemSeqId).queryOne();
+                if ("INV_COUNT_COMPLETED".equals(statusId) && UtilValidate.isNotEmpty(inventoryCountVariance)) {
+                    Map<String, Object> recordProductVarianceCtx = new HashMap<String, Object>();
+                    recordProductVarianceCtx.put("userLogin", userLogin);
+                    recordProductVarianceCtx.put("inventoryCountId", inventoryCountItem.getString("inventoryCountId"));
+                    recordProductVarianceCtx.put("inventoryCountItemSeqId", inventoryCountItem.getString("inventoryCountItemSeqId"));
+                    serviceResult = dispatcher.runSync("recordProductVariance", recordProductVarianceCtx);
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+
+                Map<String, Object> updateInventoryCountItemCtx = new HashMap<String, Object>();
+                updateInventoryCountItemCtx.put("userLogin", userLogin);
+                updateInventoryCountItemCtx.put("inventoryCountId", inventoryCountId);
+                updateInventoryCountItemCtx.put("inventoryCountItemSeqId", inventoryCountItemSeqId);
+                updateInventoryCountItemCtx.put("itemStatusId", statusId);
+                serviceResult.clear();
+                serviceResult = dispatcher.runSync("updateInventoryCountItem", updateInventoryCountItemCtx);
+                if (!ServiceUtil.isSuccess(serviceResult)) {
+                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
+
+                if (UtilValidate.isNotEmpty(inventoryCount) && UtilValidate.isNotEmpty(inventoryCountItem)) {
+                    List<GenericValue> invCountItems = EntityQuery.use(delegator).from("InventoryCountItem").where("inventoryCountId", inventoryCountId, "itemStatusId", "INV_COUNT_APPROVED", "locationSeqId", inventoryCountItem.getString("locationSeqId")).queryList();
+                    if (UtilValidate.isEmpty(invCountItems)) {
+                        GenericValue facilityLocation = EntityQuery.use(delegator).from("FacilityLocation").where("facilityId", inventoryCount.getString("facilityId"), "locationSeqId", inventoryCountItem.getString("locationSeqId")).queryOne();
+                        if (UtilValidate.isNotEmpty(facilityLocation)) {
+                            Timestamp lastCountDate = UtilDateTime.nowTimestamp();
+                            Calendar cal = Calendar.getInstance();
+                            cal.add(Calendar.DAY_OF_YEAR, nextCountDay);
+                            Timestamp nextCountDate = new Timestamp(cal.getTimeInMillis());
+                            Map<String, Object> facilityLocationCtx = dctx.getModelService("updateFacilityLocation").makeValid(facilityLocation, "IN");
+                            facilityLocationCtx.put("userLogin", userLogin);
+                            facilityLocationCtx.put("locked", null);
+                            if ("INV_COUNT_COMPLETED".equals(statusId)) {
+                                facilityLocationCtx.put("lastCountDate", new Date(lastCountDate.getTime()));
+                                facilityLocationCtx.put("nextCountDate", new Date(nextCountDate.getTime()));
+                            }
+                            serviceResult.clear();
+                            serviceResult = dispatcher.runSync("updateFacilityLocation", facilityLocationCtx);
+                            if (!ServiceUtil.isSuccess(serviceResult)) {
+                                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
+                        }
+                    }
+                }
+                if ("INV_COUNT_REJECTED".equals(statusId)) {
+                    successMessage = "Inventory count item(s) rejected successfully.";
+                } else {
+                    successMessage = "Inventory count item(s) accepted and variance recorded successfully.";
+                }
+            } else {
+                return ServiceUtil.returnError("Inventory count variance record not found.");
+            }
+
+            boolean allRejected = true;
+            boolean allCompleted = true;
+            List<GenericValue> inventoryCountItems = EntityQuery.use(delegator).from("InventoryCountItem").where("inventoryCountId", inventoryCountId).queryList();
+            for (GenericValue inventoryCountItemValue: inventoryCountItems) {
+                String itmStatusId = inventoryCountItemValue.getString("itemStatusId");
+                if (!"INV_COUNT_REJECTED".equals(itmStatusId)) {
+                    allRejected = false;
+                    if (!"INV_COUNT_COMPLETED".equals(itmStatusId)) {
+                        allCompleted = false;
+                        if (!"INV_COUNT_APPROVED".equals(itmStatusId)) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            String newStatus = null;
+            if (allRejected) {
+                newStatus = "INV_COUNT_REJECTED";
+            } else if (allCompleted) {
+                newStatus = "INV_COUNT_COMPLETED";
+            }
+            if (UtilValidate.isNotEmpty(newStatus)) {
+                Map<String, Object> updateInventoryCountCtx = new HashMap<String, Object>();
+                updateInventoryCountCtx.put("userLogin", userLogin);
+                updateInventoryCountCtx.put("inventoryCountId", inventoryCountId);
+                updateInventoryCountCtx.put("statusId", newStatus);
+                serviceResult = dispatcher.runSync("updateInventoryCount", updateInventoryCountCtx);
+                if (!ServiceUtil.isSuccess(serviceResult)) {
+                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+        } catch (GenericServiceException e) {
+            Debug.logError(e.getMessage(), module);
+        }
+        Map<String, Object> result = ServiceUtil.returnSuccess(successMessage);
+        result.put("inventoryCountId", inventoryCountId);
+        return result;
+    }
+    
+    public static Map<String, ? extends Object> recordProductVariance(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String inventoryCountId = (String) context.get("inventoryCountId");
+        String inventoryCountItemSeqId = (String) context.get("inventoryCountItemSeqId");
+        Map<String, Object> serviceResult = new HashMap<String, Object>();
+
+        try {
+            
+            GenericValue inventoryCountVariance = EntityQuery.use(delegator).from("InventoryCountVariance").where("inventoryCountId", inventoryCountId, "inventoryCountItemSeqId", inventoryCountItemSeqId).queryOne();
+            if (UtilValidate.isNotEmpty(inventoryCountVariance)) {
+                BigDecimal varianceQuantityOnHand = inventoryCountVariance.getBigDecimal("varianceQuantityOnHand");
+                String varianceReasonId = "VAR_FOUND";
+                if (varianceQuantityOnHand.compareTo(BigDecimal.ZERO) < 0) {
+                    varianceReasonId = "VAR_LOST";
+                }
+                if (varianceQuantityOnHand.compareTo(BigDecimal.ZERO) != 0) {
+                    Map<String, Object> createPhysicalInventoryAndVarianceCtx = new HashMap<String, Object>();
+                    createPhysicalInventoryAndVarianceCtx.put("userLogin", userLogin);
+                    createPhysicalInventoryAndVarianceCtx.put("quantityOnHandVar", varianceQuantityOnHand);
+                    createPhysicalInventoryAndVarianceCtx.put("availableToPromiseVar", varianceQuantityOnHand);
+                    createPhysicalInventoryAndVarianceCtx.put("inventoryItemId", inventoryCountVariance.getString("inventoryItemId"));
+                    createPhysicalInventoryAndVarianceCtx.put("varianceReasonId", varianceReasonId);
+                    createPhysicalInventoryAndVarianceCtx.put("comments", "Cycle Count Session # " + inventoryCountId);
+                    serviceResult = dispatcher.runSync("createPhysicalInventoryAndVariance", createPhysicalInventoryAndVarianceCtx);
+
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+                GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem").where("inventoryItemId", inventoryCountVariance.getString("inventoryItemId")).queryOne();
+                String varianceLocationSeqId = inventoryCountVariance.getString("locationSeqId");
+                String inventoryLocationSeqId = inventoryItem.getString("locationSeqId");
+                if (UtilValidate.isNotEmpty(varianceLocationSeqId) && UtilValidate.isNotEmpty(inventoryLocationSeqId) && !varianceLocationSeqId.equals(inventoryLocationSeqId)) {
+                    ModelService createAccountService = dctx.getModelService("updateInventoryItem");
+                    Map<String, Object> updateInventoryItemCtx = createAccountService.makeValid(context, ModelService.IN_PARAM);
+                    updateInventoryItemCtx.put("locationSeqId", varianceLocationSeqId);
+                    updateInventoryItemCtx.put("userLogin", userLogin);
+                    
+                    serviceResult.clear();
+                    serviceResult = dispatcher.runSync("updateInventoryItem", updateInventoryItemCtx);
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+        } catch (GenericServiceException e) {
+            Debug.logError(e.getMessage(), module);
+        }
+        return ServiceUtil.returnSuccess("Variance recorded successfully.");
+    }
+    public static Map<String, ? extends Object> addLocationItemsToCycleCount(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String inventoryCountId = (String) context.get("inventoryCountId");
+        String locationSeqId = (String) context.get("locationSeqId");
+        String facilityId = (String) context.get("facilityId");
+        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        String successMessage;
+        String customerOwnedMessage = "";
+        boolean itemAdded = false;
+
+        try {
+            GenericValue inventoryCount = EntityQuery.use(delegator).from("InventoryCount").where("inventoryCountId", inventoryCountId).queryOne();
+            if (inventoryCount != null) {
+                String currentStatusId = inventoryCount.getString("statusId");
+                if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_APPROVED".equals(currentStatusId)) {
+                    Debug.logError("Session already in review status, You can not add more items in this session.", module);
+                    return ServiceUtil.returnError("Session already in review status, You can not add more items in this session.");
+                } else if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_COMPLETED".equals(currentStatusId)) {
+                    Debug.logError("Session already completed, Please create new session or use created session.", module);
+                    return ServiceUtil.returnError("Session already completed, Please create new session or use created session.");
+                } else if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_REJECTED".equals(currentStatusId)) {
+                    Debug.logError("Session already rejected, Please create new session or use created session.", module);
+                    return ServiceUtil.returnError("Session already rejected, Please create new session or use created session.");
+                }
+            }
+
+            GenericValue facilityLocation = EntityQuery.use(delegator).from("FacilityLocation").where("facilityId", facilityId, "locationSeqId", locationSeqId).queryOne();
+            if (UtilValidate.isEmpty(facilityLocation)) {
+                Debug.logError("Facility location does not exist for facility " + facilityId + " and location " + locationSeqId, module);
+                return ServiceUtil.returnError("Facility location does not exist for facility " + facilityId + " and location " + locationSeqId);
+            } else {
+                String facilityIdString = facilityLocation.getString("facilityId");
+                if (inventoryCount != null && UtilValidate.isNotEmpty(facilityIdString)) {
+                    facilityId = inventoryCount.getString("facilityId");
+                    if (!facilityIdString.equals(facilityId)) {
+                        return ServiceUtil.returnError("Location does not belong to existing session facility, Please scan another location.");
+                    }
+                }
+                String locked = facilityLocation.getString("locked");
+                if (UtilValidate.isNotEmpty(locked) && "Y".equals(locked)) {
+                    Debug.logError("Location #" + locationSeqId + " is currently locked under active counting session. Please choose another location or wait till lock is released.", module);
+                    return ServiceUtil.returnError("Location #" + locationSeqId + " is currently locked under active counting session. Please choose another location or wait till lock is released.");
+                }
+
+
+                EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("facilityId", facilityId),
+                        EntityCondition.makeCondition("locationSeqId", locationSeqId)
+                ));
+                List<GenericValue> inventoryItems = EntityQuery.use(delegator).from("InventoryItem").where(cond).orderBy("quantityOnHandTotal DESC").queryList();
+                for (GenericValue inventoryItem : inventoryItems) {
+                    List<GenericValue> inventoryCountItems = EntityQuery.use(delegator).from("InventoryCountItem").where("inventoryCountId", inventoryCountId, "inventoryItemId", inventoryItem.getString("inventoryItemId"), "locationSeqId", locationSeqId).queryList();
+                    if (UtilValidate.isNotEmpty(inventoryCountItems)) {
+                        continue;
+                    }
+                    Map<String, Object> createInventoryCountItemCtx = new HashMap<String, Object>();
+                    createInventoryCountItemCtx.put("userLogin", userLogin);
+                    createInventoryCountItemCtx.put("inventoryCountId", inventoryCountId);
+                    createInventoryCountItemCtx.put("locationSeqId", locationSeqId);
+                    createInventoryCountItemCtx.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
+                    createInventoryCountItemCtx.put("productId", inventoryItem.getString("productId"));
+                    createInventoryCountItemCtx.put("itemStatusId", "INV_COUNT_CREATED");
+                    serviceResult = dispatcher.runSync("createInventoryCountItem", createInventoryCountItemCtx);
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                    itemAdded = true;
+                }
+
+                if (itemAdded) {
+                    Map<String, Object> facilityLocationCtx = dctx.getModelService("updateFacilityLocation").makeValid(facilityLocation, "IN");
+                    facilityLocationCtx.put("userLogin", userLogin);
+                    facilityLocationCtx.put("locked", "Y");
+                    serviceResult.clear();
+                    serviceResult = dispatcher.runSync("updateFacilityLocation", facilityLocationCtx);
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+        } catch (GenericServiceException e) {
+            Debug.logError(e.getMessage(), module);
+        }
+        if (itemAdded) {
+            successMessage = "Items added successfully for location # " + locationSeqId + customerOwnedMessage;
+        } else if (UtilValidate.isNotEmpty(customerOwnedMessage)) {
+            successMessage = customerOwnedMessage;
+        } else {
+            successMessage = "Item not found for given location # " + locationSeqId;
+        }
+        Map<String, Object> result = ServiceUtil.returnSuccess(successMessage);
+        result.put("inventoryCountId", inventoryCountId);
+
+        return result;
+    }
+
+    public static Map<String, ? extends Object> createInventoryCountItem(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        String inventoryCountId = (String) context.get("inventoryCountId");
+        String inventoryItemId = (String) context.get("inventoryItemId");
+        String itemStatusId = (String) context.get("itemStatusId");
+        String locationSeqId = (String) context.get("locationSeqId");
+        String productIdentifier = (String) context.get("productIdentifier");
+        String productId = (String) context.get("productId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        List<GenericValue> productList = new ArrayList<GenericValue>();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        try {
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
+            if(UtilValidate.isEmpty(product)) {
+                productIdentifier = productId;
+                productId = null;
+            }
+            if (UtilValidate.isEmpty(product) && UtilValidate.isNotEmpty(productIdentifier)) {
+                productList = ProductWorker.findProductsById(delegator, productIdentifier, null, true, true);
+                if(UtilValidate.isNotEmpty(productList) && UtilValidate.isEmpty(productId)) {
+                    product = EntityUtil.getFirst(productList);
+                    productId = product.getString("productId");
+                }
+            }
+            GenericValue inventoryCountItem = delegator.makeValue("InventoryCountItem", UtilMisc.toMap("inventoryCountId", inventoryCountId, "inventoryItemId", inventoryItemId, "productId", productId, "itemStatusId", itemStatusId, "productIdentifier", productIdentifier, "locationSeqId", locationSeqId));
+            if (UtilValidate.isNotEmpty(quantity)) {
+                inventoryCountItem.set("quantity", quantity);
+            }
+            String inventoryCountItemSeqId = delegator.getNextSeqId("InventoryCountItem");
+            inventoryCountItem.set("inventoryCountItemSeqId", inventoryCountItemSeqId);
+            delegator.create(inventoryCountItem);
+            result.put("inventoryCountItemSeqId", inventoryCountItemSeqId);
+        } catch (GenericEntityException e) {
+            Debug.log(module, e.getMessage());
+        }
+        return result;
+    }
+
+    public static Map<String, ? extends Object> addInventoryItemToCycleCount(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String inventoryCountId = (String) context.get("inventoryCountId");
+        String inventoryItemId = (String) context.get("inventoryItemId");
+
+        if (UtilValidate.isEmpty(inventoryItemId)) {
+            Debug.logError("Please enter inventoryItemId.", module);
+            return ServiceUtil.returnError("Please enter inventoryItemId.");
+        }
+
+        Map<String, Object> result = ServiceUtil.returnSuccess("Inventory Item " + inventoryItemId + " added successfully.");
+        result.put("inventoryCountId", inventoryCountId);
+        Map<String, Object> serviceResult = new HashMap<String, Object>();
+
+        try {
+            GenericValue inventoryCount = EntityQuery.use(delegator).from("InventoryCount").where("inventoryCountId", inventoryCountId).queryOne();
+            if (inventoryCount != null) {
+                String currentStatusId = inventoryCount.getString("statusId");
+                if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_APPROVED".equals(currentStatusId)) {
+                    Debug.logError("Session already in review status, You can not add more items in this session.", module);
+                    return ServiceUtil.returnError("Session already in review status, You can not add more items in this session.");
+                } else if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_COMPLETED".equals(currentStatusId)) {
+                    Debug.logError("Session already completed, Please create new session or use created session.", module);
+                    return ServiceUtil.returnError("Session already completed, Please create new session or use created session.");
+                } else if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_REJECTED".equals(currentStatusId)) {
+                    Debug.logError("Session already rejected, Please create new session or use created session.", module);
+                    return ServiceUtil.returnError("Session already rejected, Please create new session or use created session.");
+                }
+            }
+
+            GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem").where("inventoryItemId", inventoryItemId).queryOne();
+            if (inventoryCount != null && inventoryItem != null) {
+                String existingFacilityId = inventoryCount.getString("facilityId");
+                String inventoryItemFacilityId = inventoryItem.getString("facilityId");
+                if (UtilValidate.isNotEmpty(existingFacilityId) && UtilValidate.isNotEmpty(inventoryItemFacilityId) && !existingFacilityId.equals(inventoryItemFacilityId)) {
+                    Debug.logError("Inventory Item belongs to a different facility  " + inventoryItemFacilityId, module);
+                    return ServiceUtil.returnError("Inventory Item belongs to a different facility " + inventoryItemFacilityId);
+                }
+            } else {
+                Debug.logError("Inventory Item doesn't exist.", module);
+                return ServiceUtil.returnError("Inventory Item doesn't exist");
+            }
+
+            GenericValue facilityLocation = EntityQuery.use(delegator).from("FacilityLocation").where("facilityId", inventoryItem.getString("facilityId"), "locationSeqId", inventoryItem.getString("locationSeqId")).queryOne();
+
+            List<EntityExpr> exprList = new ArrayList<EntityExpr>();
+            exprList.add(EntityCondition.makeCondition("locationSeqId", EntityOperator.EQUALS, inventoryItem.getString("locationSeqId")));
+            exprList.add(EntityCondition.makeCondition("inventoryItemId", EntityOperator.EQUALS, inventoryItemId));
+            exprList.add(EntityCondition.makeCondition("itemStatusId", EntityOperator.IN, UtilMisc.toList("INV_COUNT_CREATED", "INV_COUNT_APPROVED")));
+            GenericValue inventoryCountItem = EntityQuery.use(delegator).from("InventoryCountItem").where(EntityCondition.makeCondition(exprList)).queryFirst();
+
+            if (UtilValidate.isNotEmpty(inventoryCountItem)) {
+                Debug.logError("Inventory item already exist in session #" + inventoryCountItem.getString("inventoryCountId"), module);
+                return ServiceUtil.returnError("Inventory item already exist in session #" + inventoryCountItem.getString("inventoryCountId"));
+            }
+            Map<String, Object> createInventoryCountItemCtx = new HashMap<String, Object>();
+            createInventoryCountItemCtx.put("userLogin", userLogin);
+            createInventoryCountItemCtx.put("inventoryCountId", inventoryCountId);
+            createInventoryCountItemCtx.put("locationSeqId", inventoryItem.getString("locationSeqId"));
+            createInventoryCountItemCtx.put("inventoryItemId", inventoryItemId);
+            createInventoryCountItemCtx.put("productId", inventoryItem.getString("productId"));
+            createInventoryCountItemCtx.put("itemStatusId", "INV_COUNT_CREATED");
+            serviceResult = dispatcher.runSync("createInventoryCountItem", createInventoryCountItemCtx);
+            if (!ServiceUtil.isSuccess(serviceResult)) {
+                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+            }
+            Map<String, Object> facilityLocationCtx = dctx.getModelService("updateFacilityLocation").makeValid(facilityLocation, "IN");
+            facilityLocationCtx.put("userLogin", userLogin);
+            facilityLocationCtx.put("locked", "Y");
+            serviceResult.clear();
+            serviceResult = dispatcher.runSync("updateFacilityLocation", facilityLocationCtx);
+            if (!ServiceUtil.isSuccess(serviceResult)) {
+                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
+            Debug.logError(e.getMessage(), module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
+
+    public static Map<String, Object> approveInventoryCountAndItems(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String inventoryCountId = (String) context.get("inventoryCountId");
+        String statusId = (String) context.get("statusId");
+        String successMessage = "Session submitted successfully.";
+        if (UtilValidate.isNotEmpty(statusId) && "INV_COUNT_REJECTED".equals(statusId)) {
+            successMessage = "Session rejected successfully.";
+        }
+        Map<String, Object> result = ServiceUtil.returnSuccess(successMessage);
+        result.put("inventoryCountId", inventoryCountId);
+        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        List<Map<String, Object>> facilityAndLocations = new ArrayList<Map<String, Object>>();
+
+        try {
+            GenericValue inventoryCount = EntityQuery.use(delegator).from("InventoryCount").where("inventoryCountId", inventoryCountId).queryOne();
+            if (UtilValidate.isNotEmpty(inventoryCount)) {
+                List<GenericValue> inventoryCountItems = EntityQuery.use(delegator).from("InventoryCountItem").where("inventoryCountId", inventoryCountId).queryList();
+                for (GenericValue inventoryCountItem : inventoryCountItems) {
+                    Map<String, Object> facilityAndLocationMap = new HashMap<String, Object>();
+                    facilityAndLocationMap.put("facilityId", inventoryCount.getString("facilityId"));
+                    facilityAndLocationMap.put("locationSeqId", inventoryCountItem.getString("locationSeqId"));
+                    facilityAndLocations.add(facilityAndLocationMap);
+                    Map<String, Object> updateInventoryCountItemCtx = new HashMap<String, Object>();
+                    updateInventoryCountItemCtx.put("userLogin", userLogin);
+                    updateInventoryCountItemCtx.put("inventoryCountId", inventoryCountId);
+                    updateInventoryCountItemCtx.put("inventoryCountItemSeqId", inventoryCountItem.getString("inventoryCountItemSeqId"));
+                    if (UtilValidate.isNotEmpty(statusId)) {
+                        updateInventoryCountItemCtx.put("itemStatusId", statusId);
+                    } else {
+                        updateInventoryCountItemCtx.put("itemStatusId", "INV_COUNT_APPROVED");
+                    }
+
+                    serviceResult = dispatcher.runSync("updateInventoryCountItem", updateInventoryCountItemCtx);
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+
+                Map<String, Object> updateInventoryCountCtx = new HashMap<String, Object>();
+                updateInventoryCountCtx.put("userLogin", userLogin);
+                updateInventoryCountCtx.put("inventoryCountId", inventoryCountId);
+                if (UtilValidate.isNotEmpty(statusId)) {
+                    updateInventoryCountCtx.put("statusId", statusId);
+                } else {
+                    updateInventoryCountCtx.put("statusId", "INV_COUNT_APPROVED");
+                }
+                serviceResult = dispatcher.runSync("updateInventoryCount", updateInventoryCountCtx);
+                if (!ServiceUtil.isSuccess(serviceResult)) {
+                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
+
+                for (Map<String, Object> facilityAndLocation : facilityAndLocations) {
+                    String facilityId = (String) facilityAndLocation.get("facilityId");
+                    String locationSeqId = (String) facilityAndLocation.get("locationSeqId");
+
+                    List<EntityExpr> exprList = new ArrayList<EntityExpr>();
+                    exprList.add(EntityCondition.makeCondition("inventoryCountId", EntityOperator.EQUALS, inventoryCountId));
+                    exprList.add(EntityCondition.makeCondition("locationSeqId", EntityOperator.EQUALS, locationSeqId));
+                    exprList.add(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId));
+                    exprList.add(EntityCondition.makeCondition("itemStatusId", EntityOperator.IN, UtilMisc.toList("INV_COUNT_APPROVED")));
+                    List<GenericValue> invCountItems = EntityQuery.use(delegator).from("InventoryCountAndItems").where(EntityCondition.makeCondition(exprList)).queryList();
+
+                    if (UtilValidate.isEmpty(invCountItems) && UtilValidate.isNotEmpty(facilityId) && UtilValidate.isNotEmpty(locationSeqId)) {
+                        GenericValue facilityLocation = EntityQuery.use(delegator).from("FacilityLocation").where("facilityId", facilityId, "locationSeqId", locationSeqId).queryOne();
+                        Map<String, Object> facilityLocationCtx = dctx.getModelService("updateFacilityLocation").makeValid(facilityLocation, "IN");
+                        facilityLocationCtx.put("userLogin", userLogin);
+                        facilityLocationCtx.put("locked", "");
+                        serviceResult.clear();
+                        serviceResult = dispatcher.runSync("updateFacilityLocation", facilityLocationCtx);
+                        if (!ServiceUtil.isSuccess(serviceResult)) {
+                            Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
+                    }
+                }
+            } else {
+                Debug.logError("Inventory count does not exist into system.", module);
+                return ServiceUtil.returnError("Inventory count does not exist into system.");
+            }
+
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
+            Debug.logError(e.getMessage(), module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
+
+    public static Map<String, ? extends Object> updateCountItemAndCreateCountVariance(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String inventoryCountId = (String) context.get("inventoryCountId");
+        String inventoryCountItemSeqId = (String) context.get("inventoryCountItemSeqId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("inventoryCountId", inventoryCountId);
+        Map<String, Object> serviceResult = new HashMap<String, Object>();
+
+        if (UtilValidate.isNotEmpty(quantity)) {
+            try {
+                GenericValue inventoryCountItem = EntityQuery.use(delegator).from("InventoryCountItem").where("inventoryCountId", inventoryCountId, "inventoryCountItemSeqId", inventoryCountItemSeqId).queryOne();
+                if (UtilValidate.isEmpty(inventoryCountItem)) {
+                    Debug.logError("Item doesn't exist", module);
+                    return ServiceUtil.returnError("Item doesn't exist");
+                } else {
+                    Map<String, Object> updateInventoryCountItemCtx = dctx.getModelService("updateInventoryCountItem").makeValid(inventoryCountItem, "IN");
+                    updateInventoryCountItemCtx.put("userLogin", userLogin);
+                    updateInventoryCountItemCtx.put("quantity", quantity);
+                    serviceResult = dispatcher.runSync("updateInventoryCountItem", updateInventoryCountItemCtx);
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+
+                    GenericValue inventoryCountVariance = EntityQuery.use(delegator).from("InventoryCountVariance").where("inventoryCountId", inventoryCountId, "inventoryCountItemSeqId", inventoryCountItemSeqId).queryOne();
+                    String productId = inventoryCountItem.getString("productId");
+                    String inventoryItemId = inventoryCountItem.getString("inventoryItemId");
+                    String locationSeqId = inventoryCountItem.getString("locationSeqId");
+                    BigDecimal actualQOH = quantity;
+                    if (UtilValidate.isEmpty(quantity)) {
+                        actualQOH = inventoryCountItem.getBigDecimal("quantity");
+                    }
+                    if (UtilValidate.isNotEmpty(inventoryCountVariance) && UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(inventoryItemId) && UtilValidate.isNotEmpty(locationSeqId)) {
+                        GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem").where("inventoryItemId", inventoryItemId).queryOne();
+                        BigDecimal systemicQOH = BigDecimal.ZERO;
+                        BigDecimal totalCost = BigDecimal.ZERO;
+                        BigDecimal unitCost = BigDecimal.ZERO;
+                        if (UtilValidate.isNotEmpty(inventoryItem)) {
+                            if (UtilValidate.isNotEmpty(inventoryItem.getBigDecimal("unitCost"))) {
+                                unitCost = inventoryItem.getBigDecimal("unitCost");
+                            }
+                            if (UtilValidate.isNotEmpty(inventoryItem.getBigDecimal("quantityOnHandTotal"))) {
+                                systemicQOH = inventoryItem.getBigDecimal("quantityOnHandTotal");
+                            }
+                            totalCost = systemicQOH.multiply(unitCost);
+                        }
+
+                        Map<String, Object> updateInventoryCountVarianceCtx = new HashMap<String, Object>();
+                        updateInventoryCountVarianceCtx.put("inventoryCountId", inventoryCountId);
+                        updateInventoryCountVarianceCtx.put("inventoryCountItemSeqId", inventoryCountItemSeqId);
+                        updateInventoryCountVarianceCtx.put("inventoryItemId", inventoryItemId);
+                        updateInventoryCountVarianceCtx.put("productId", productId);
+                        updateInventoryCountVarianceCtx.put("locationSeqId", locationSeqId);
+                        updateInventoryCountVarianceCtx.put("systemQuantityOnHand", systemicQOH);
+                        updateInventoryCountVarianceCtx.put("actualQuantityOnHand", actualQOH);
+                        BigDecimal varianceQOH = actualQOH.subtract(systemicQOH);
+                        updateInventoryCountVarianceCtx.put("varianceQuantityOnHand", varianceQOH);
+                        BigDecimal actualCost = actualQOH.multiply(unitCost);
+                        BigDecimal costVariance = varianceQOH.multiply(unitCost);
+                        updateInventoryCountVarianceCtx.put("unitCost", unitCost);
+                        updateInventoryCountVarianceCtx.put("totalCost", totalCost);
+                        updateInventoryCountVarianceCtx.put("actualCost", actualCost);
+                        updateInventoryCountVarianceCtx.put("costVariance", costVariance);
+
+                        GenericValue productPrice = EntityQuery.use(delegator).from("ProductPrice").where("productId", productId, "productPriceTypeId", "DEFAULT_PRICE").filterByDate().queryFirst();
+                        if (UtilValidate.isEmpty(productPrice)) {
+                            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
+                            if ("Y".equals(product.getString("isVariant"))) {
+                                String virtualProductId = ProductWorker.getVariantVirtualId(product);
+                                productPrice = EntityQuery.use(delegator).from("ProductPrice").where("productId", virtualProductId, "productPriceTypeId", "DEFAULT_PRICE").filterByDate().queryFirst();
+                            }
+                        }
+
+                        BigDecimal actualValue = BigDecimal.ZERO;
+                        BigDecimal totalValue = BigDecimal.ZERO;
+                        BigDecimal valueVariance = BigDecimal.ZERO;
+                        if (UtilValidate.isNotEmpty(productPrice)) {
+                            actualValue = actualQOH.multiply(productPrice.getBigDecimal("price"));
+                            totalValue = systemicQOH.multiply(productPrice.getBigDecimal("price"));
+                            valueVariance = varianceQOH.multiply(productPrice.getBigDecimal("price"));
+                        }
+
+                        updateInventoryCountVarianceCtx.put("totalValue", totalValue);
+                        updateInventoryCountVarianceCtx.put("actualValue", actualValue);
+                        updateInventoryCountVarianceCtx.put("valueVariance", valueVariance);
+
+                        updateInventoryCountVarianceCtx.put("userLogin", userLogin);
+                        serviceResult = dispatcher.runSync("updateInventoryCountVariance", updateInventoryCountVarianceCtx);
+                        if (!ServiceUtil.isSuccess(serviceResult)) {
+                            Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
+                    } else if(UtilValidate.isEmpty(inventoryCountVariance) && UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(inventoryItemId) && UtilValidate.isNotEmpty(locationSeqId)) {
+                        Map<String, Object> createInventoryCountVarianceCtx = dctx.getModelService("createInventoryCountVariance").makeValid(inventoryCountItem, "IN");
+                        createInventoryCountVarianceCtx.put("userLogin", userLogin);
+                        createInventoryCountVarianceCtx.put("actualQuantityOnHand", quantity);
+                        serviceResult.clear();
+                        serviceResult = dispatcher.runSync("createInventoryCountVariance", createInventoryCountVarianceCtx);
+                        if (!ServiceUtil.isSuccess(serviceResult)) {
+                            Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e.getMessage(), module);
+            } catch (GenericServiceException e) {
+                Debug.logError(e.getMessage(), module);
+            }
+        }
+
+        return result;
+    }
+
+    public static Map<String, ? extends Object> createInventoryCountVariance(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+
+        String inventoryCountId = (String) context.get("inventoryCountId");
+        String inventoryCountItemSeqId = (String) context.get("inventoryCountItemSeqId");
+        String inventoryItemId = (String) context.get("inventoryItemId");
+        String productId = (String) context.get("productId");
+
+        String productIdentifier = (String) context.get("productIdentifier");
+        String locationSeqId = (String) context.get("locationSeqId");
+        BigDecimal actualQOH = (BigDecimal) context.get("actualQuantityOnHand");
+
+        try {
+            GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem").where("inventoryItemId", inventoryItemId).queryOne();
+            BigDecimal systemicQOH = BigDecimal.ZERO;
+            BigDecimal totalCost = BigDecimal.ZERO;
+            BigDecimal unitCost = BigDecimal.ZERO;
+            if (UtilValidate.isNotEmpty(inventoryItem)) {
+                if (UtilValidate.isNotEmpty(inventoryItem.getBigDecimal("unitCost"))) {
+                    unitCost = inventoryItem.getBigDecimal("unitCost");
+                }
+                if (UtilValidate.isNotEmpty(inventoryItem.getBigDecimal("quantityOnHandTotal"))) {
+                    systemicQOH = inventoryItem.getBigDecimal("quantityOnHandTotal");
+                }
+                totalCost = systemicQOH.multiply(unitCost);
+            }
+
+            Map<String, Object> inventoryCountVarianceCtx = new HashMap<String, Object>();
+            inventoryCountVarianceCtx.put("inventoryCountId", inventoryCountId);
+            inventoryCountVarianceCtx.put("inventoryItemId", inventoryItemId);
+            inventoryCountVarianceCtx.put("inventoryCountItemSeqId", inventoryCountItemSeqId);
+            inventoryCountVarianceCtx.put("productId", productId);
+            inventoryCountVarianceCtx.put("productIdentifier", productIdentifier);
+            inventoryCountVarianceCtx.put("locationSeqId", locationSeqId);
+            inventoryCountVarianceCtx.put("systemQuantityOnHand", systemicQOH);
+            inventoryCountVarianceCtx.put("actualQuantityOnHand", actualQOH);
+            BigDecimal varianceQOH = actualQOH.subtract(systemicQOH);
+            inventoryCountVarianceCtx.put("varianceQuantityOnHand", varianceQOH);
+            BigDecimal actualCost = actualQOH.multiply(unitCost);
+            BigDecimal costVariance = varianceQOH.multiply(unitCost);
+            inventoryCountVarianceCtx.put("unitCost", unitCost);
+            inventoryCountVarianceCtx.put("totalCost", totalCost);
+            inventoryCountVarianceCtx.put("actualCost", actualCost);
+            inventoryCountVarianceCtx.put("costVariance", costVariance);
+
+            GenericValue productPrice = EntityQuery.use(delegator).from("ProductPrice").where("productId", productId, "productPriceTypeId", "DEFAULT_PRICE").filterByDate().queryFirst();
+            if (UtilValidate.isEmpty(productPrice)) {
+                GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
+                if ("Y".equals(product.getString("isVariant"))) {
+                    String virtualProductId = ProductWorker.getVariantVirtualId(product);
+                    productPrice = EntityQuery.use(delegator).from("ProductPrice").where("productId", virtualProductId, "productPriceTypeId", "DEFAULT_PRICE").filterByDate().queryFirst();
+                }
+            }
+
+            BigDecimal actualValue = BigDecimal.ZERO;
+            BigDecimal totalValue = BigDecimal.ZERO;
+            BigDecimal valueVariance = BigDecimal.ZERO;
+            if (UtilValidate.isNotEmpty(productPrice)) {
+                actualValue = actualQOH.multiply(productPrice.getBigDecimal("price"));
+                totalValue = systemicQOH.multiply(productPrice.getBigDecimal("price"));
+                valueVariance = varianceQOH.multiply(productPrice.getBigDecimal("price"));
+            }
+
+            inventoryCountVarianceCtx.put("totalValue", totalValue);
+            inventoryCountVarianceCtx.put("actualValue", actualValue);
+            inventoryCountVarianceCtx.put("valueVariance", valueVariance);
+
+            GenericValue inventoryCountVariance = delegator.makeValue("InventoryCountVariance", inventoryCountVarianceCtx);
+            delegator.create(inventoryCountVariance);
+        } catch (GenericEntityException e) {
+            Debug.log(e.getMessage(), module);
+        }
+        return ServiceUtil.returnSuccess("Inventory Count Variance record created successfully.");
     }
 
 }

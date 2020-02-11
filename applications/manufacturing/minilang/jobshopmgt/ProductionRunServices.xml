@@ -335,6 +335,15 @@ under the License.
     </simple-method>
     <simple-method method-name="issueProductionRunTaskComponentInline" short-description="Does a issuance for one InventoryItem, meant to be called in-line">
         <!-- only do something with this inventoryItem if there is more inventory to issue -->
+        <entity-and entity-name="FacilityLocation" list="facilityLocations">
+            <field-map field-name="facilityId" from-field="inventoryItem.facilityId"/>
+            <field-map field-name="locationSeqId" from-field="inventoryItem.locationSeqId"/>
+            <field-map field-name="locked" value="Y"/>
+        </entity-and>
+        <if-not-empty field="facilityLocations">
+            <add-error><fail-message message="The affected LTN# ${inventoryItem.inventoryItemId} belong to the locked locations under active counting session to prevent any inbound and outbound inventory movement. Please choose different LTN from any free location or wait till lock is released."/></add-error>
+            <check-errors/>
+        </if-not-empty>
         <if-compare field="parameters.quantityNotIssued" operator="greater" value="0" type="BigDecimal">
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
                 <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">

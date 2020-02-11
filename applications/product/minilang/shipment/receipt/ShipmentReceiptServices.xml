@@ -84,6 +84,16 @@ under the License.
             - if the type is SERIALIZED_INV_ITEM but there is not serial number (which is weird...) we'll create a bunch of individual InventoryItems
             - DEJ20070822: something to consider for the future: maybe instead of this funny looping maybe for serialized items we should only allow a quantity of 1, ie return an error if it is not 1
         -->
+        <entity-and entity-name="FacilityLocation" list="facilityLocations">
+            <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+            <field-map field-name="locationSeqId" from-field="parameters.locationSeqId"/>
+            <field-map field-name="locked" value="Y"/>
+        </entity-and>
+        <if-not-empty field="facilityLocations">
+            <add-error><fail-message message="The location ${parameters.locationSeqId} is locked under active counting session to prevent any inbound and outbound inventory movement. Please choose different location or wait till lock is released."/></add-error>
+            <check-errors/>
+        </if-not-empty>
+        <check-errors/>
         <set field="loops" value="1" type="Double"/>
         <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="parameters.inventoryItemTypeId">
             <!-- if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain -->
