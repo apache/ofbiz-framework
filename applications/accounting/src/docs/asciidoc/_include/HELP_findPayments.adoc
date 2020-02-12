@@ -1,0 +1,49 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Find Payments
+The default screen is 'Find Payment' which allows the user to search for and view the details related to a payment transaction.
+Specific search criteria can be entered as a filter to locate the payment quickly.
+
+Payments can be incoming or outgoing and the demo data contains a list of payment type descriptions that describe the reason
+for the payment in more detail (eg Customer Deposit, Tax Payment, Commission Payment etc).
+
+This screen is used to locate existing payments that have been created automatically by the system or manually by the user.
+There are links from this page that can be used to do the following:
+
+* Create a new incoming or outgoing payment
+* Find Sales Invoices by due date
+* Find Purchase Invoices by due date
+
+== How do I view all payments?
+. Press the 'Search' button to view all payments
+
+
+== How do I locate an existing payment?
+. Enter the 'Payment ID' if known
+. Enter a word from the payments 'Comment'field if known
+. Enter the 'Payment Type Id' if known
+. Enter the 'From Party Id' if known +
+  (NOTE: In most cases for an incoming payment this will be the customer party id)
+. Enter the payment amount in the 'Amount' field if known
+. Enter some details from the payment reference number in the 'Reference No' field if known
+. Enter the status of the payment in the 'Status Id' field if known
+. Enter the 'To Party Id' if known +
+  (NOTE: In most cases for an incoming payment this will the the customer party id. For outgoing payments this will be the supplier id, or customer id for a refund)
+. Press the 'Search' button to view all payments
+. All payments that meet the search criteria will be displayed.

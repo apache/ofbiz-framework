@@ -1,0 +1,34 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Payment Header
+The Header screen displays the header details for the payment transaction and allows all fields to be updated if required.
+
+The following options are currently available from this screen:
+
+* Create New (Create a new payment)
+* Status to 'Received' (Change the status of the current payment to 'Received. +
+  NOTE: This will create the relevant accounting transactions and post them to the general ledger)
+* Status to 'Cancelled' (Change the status of the current payment to 'Cancelled')
+* Status to 'Confirmed' (Change the status of the current invoice to 'Confirmed'. +
+  NOTE: This status option will not appear until the status has been changed to 'Received')
+
+== How do I update the header details for a Payment?
+. Select the 'Header' sub menu and the header details of the payment will be displayed
+. Update the fields required
+. Press the 'Update' button
