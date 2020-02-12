@@ -34,6 +34,8 @@ include::_include/acc-payments.adoc[leveloffset=+1]
 
 include::_include/acc-payments-gateway.adoc[leveloffset=+1]
 
+include::_include/acc-billing-accounts.adoc[leveloffset=+1]
+
 include::_include/acc-agreements.adoc[leveloffset=+1]
 
 include::_include/acc-financial-accounts.adoc[leveloffset=+1]
