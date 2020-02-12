@@ -1,0 +1,67 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for The Authorize Transaction
+An authorization is a temporary transaction that shows a commitment to take money from an account.
+
+The 'Authorize' process is the first step in allowing a sales transaction payment to be accepted. +
+In OFBiz a service would be defined to carry out the authorisation process each time for example, a credit card is used.
+It will perform specific validation tests before the payment can be classes as 'authorised'.
+
+When a payment is authorised it means that it has been validated and that the credit card or bank account has been checked
+to ensure that it has sufficient funds available to cover the proposed transaction. +
+A number or code may be issued as evidence of the authorisation.
+
+NOTE: In the 'Payment' settings for a store as part of the Product Payment setup the user can specify various services that
+      will process a payment transactions through to completion.
+
+This includes the following:
+
+* Payment Authorisation
+* Payment Capture
+* Payment Credit
+* Payment Authentication Verification
+* Payment Re-Authorisation
+* Payment Refund
+* Payment Release Authorisation
+
+This is used to provide verification and approval for the first step of the sales transaction payment process.
+
+An 'Authorize' button is also displayed on Sales Order detail screen if a Credit Card payment was specified for a sales order.
+This is probably a more natural place for a payment transaction to be authorised.
+
+NOTE: Using OFBiz demo data if DemoCustomer uses their credit card for payment then an transaction is created that is
+      automatically authorised and can be viewed using the Gateway Responses.
+
+== How do I create and authorise a transaction?
+. Enter the 'Order Id' of the sales order for which payment is being made
+. Enter the 'Order Payment Preference Id' +
+  (NOTE: This is automatically generated at sales order creation and may be difficult to find out... +
+  I found it by initially doing an order and then paying by DemoCustomer's credit card and checking Gateway Responses for what
+  was displayed in that field for the order)
+. Select the 'Payment Method Type' +
+  (NOTE TO CHECK: What happens if you use other selections not just credit card?)
+. Enter the 'Amount'
+. Press the 'Authorize' button
+. A new transaction should be displayed with the status of authorised
+
+NOTE: The demo data payment settings for the Payment authorisation Service is set to always approve so no transactions
+      will display here because of this. +
+      TO CHECK: Need to test and maybe try removing the 'always approve' to see if the transaction will be created
+               as 'unauthorised'
+       
