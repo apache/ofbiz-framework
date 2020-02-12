@@ -1,0 +1,37 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Payment Overview
+The Payments Overview screen displays the summary details of the payment.
+
+On one side it shows information related to the payment transaction header (eg Payment Type, Status, Amount, Effective Date etc)
+and the other it shows if the payment has been applied (or matched) to an invoice or billing account etc.
+
+The following options are currently available from this screen:
+
+* Create New (Create a new payment)
+* Status to 'Received' (Change the status of the current payment to 'Received. +
+  NOTE: This will create the relevant accounting transactions and post them to the general ledger)
+* Status to 'Cancelled' (Change the status of the current payment to 'Cancelled')
+* Status to 'Confirmed' (Change the status of the current invoice to 'Confirmed'. +
+  NOTE: This status option will not appear until the status has been changed to 'Received')
+
+NOTE: The general ledger transactions generated as a result of the payment are based on the GL Account Type defaults for Company
+      as follows: +
+     1) Debit Entry (GL Account Type defaults) +
+     2) Credit Entry (Payment Method Id / GL Account Id)

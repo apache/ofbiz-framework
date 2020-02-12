@@ -30,6 +30,8 @@ include::_include/acc-intro.adoc[leveloffset=+1]
 
 include::_include/acc-invoices.adoc[leveloffset=+1]
 
+include::_include/acc-payments.adoc[leveloffset=+1]
+
 include::_include/acc-agreements.adoc[leveloffset=+1]
 
 include::_include/acc-financial-accounts.adoc[leveloffset=+1]
