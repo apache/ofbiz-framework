@@ -1,0 +1,58 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Billing Account Terms
+This sub menu allows terms to be associated with a billing account.
+
+Currently these can be the following:
+
+* payment terms (discounted if paid within specified days)
+* payment terms (due on a specified day per month)
+* payment terms (net days)
+* penalty terms (late fee)
+* penalty terms (collection agency fee)
+* miscellaneous (non returnable sales item)
+
+NOTE: TO CHECK: There is an overlap here with the terms that can be specified in an agreement.
+      Would a billing account party also have an agreement for payment terms...? .
+
+== How do I add terms to a billing account?
+
+. Select the 'Terms' sub menu
+. Select a 'Term Type' from the drop down box (eg. Payment net days)
+. Leave the 'UOM' field blank
+. Enter a number in the 'Term Value' field +
+  (eg. 30 which would mean '30 days' when related to 'Payment net days')
+. Press the 'Save' button
+
+The term is displayed in the top part of the screen
+
+== How do I update terms for a billing account?
+Select the 'Terms' sub menu
+
+. Press the 'Edit' button next to the entry that needs to be amended
+. The details are displayed in the 'Edit Billing Account Terms' box
+. Update the 'Term Type', 'UOM' or 'Term Value' as required
+. Press the 'Save' button
+
+The updated term is displayed in the top part of the screen
+
+== How do I remove terms from a billing account?
+. Select the 'Terms' sub menu
+. Press the 'Delete' button next to the entry that needs to be removed
