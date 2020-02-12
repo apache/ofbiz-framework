@@ -1,0 +1,30 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Edit Payment Gateway Config
+This screen allows the user to update the payment gateway configuration.
+
+A range of parameters need to be set before the payment gateway will work This includes details of the username and password
+required for the validation of the external account that will be using the gateway.
+
+== How do I update a Payment Gateway Configuration?
+. Select the gateway Find Payment Gateway Config screen
+. Enter the details required for the configuration type selected +
+  (NOTE: This will be different for each individual configuration selected)
+. Press the 'Update' button
