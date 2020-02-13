@@ -40,4 +40,6 @@ include::_include/acc-agreements.adoc[leveloffset=+1]
 
 include::_include/acc-financial-accounts.adoc[leveloffset=+1]
 
+include::_include/acc-tax-authorities.adoc[leveloffset=+1]
+
 include::_include/acc-global-settings.adoc[leveloffset=+1]

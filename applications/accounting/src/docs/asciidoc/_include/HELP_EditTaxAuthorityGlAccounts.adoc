@@ -1,0 +1,51 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Edit Tax Authority GL Accounts
+The GL Accounts sub menu screen allows you specify which general ledger account any tax calculated for this tax authority
+ will be posted.
+This is done at at organisation level so the minimum requirement is that 'Company' is setup.
+
+It is used to consolidate taxes for a specific tax authority into one general ledger account.
+It can be very useful if you need to track taxes for several tax authorities (eg different states or countries).
+
+== How do I add a new general ledger account for a Tax Authority?
+. Enter or use the lookup to select the 'Organisation Party Id' +
+  (NOTE: Normally this would be 'Company')
+. Enter or use the lookup to select the 'GL Account'
+. Press the 'Add' button
+
+NOTE: The GL account used must have already been created in the Global GL Settings and linked to the chart of accounts
+      for 'Company'
+
+== How do I update a general ledger account for a Tax Authority?
+. The general ledger account can be updated by simply adding a new account to replace the existing entry.
+. Enter or use the lookup to select the 'Organisation Party Id' +
+  (NOTE: Normally this would be 'Company')
+. Enter or use the lookup to select the updated 'GL Account'
+. Press the 'Add' button
+. The existing entry will be replaced by the updated GL Account
+
+NOTE: Be careful when updating a general ledger account because some transactions may have already been posted
+     to the existing account.
+
+== How do I delete a general ledger account for a Tax Authority?
+. Locate the entry required
+. Press the 'Delete' button next to the entry that needs to be deleted
+. The entry is removed
