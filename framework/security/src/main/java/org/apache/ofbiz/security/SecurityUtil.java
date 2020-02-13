@@ -124,14 +124,14 @@ public final class SecurityUtil {
     }
 
     /**
-     * Return if an admin permission is valid for the given list of permissions.
+     * Return {@code true} if an admin permission is valid for the given list of permissions.
      *
      * @param permissionIds List of admin permission value without "_ADMIN" suffix
      * @param permission permission to be checked with its suffix
      *
      */
-    public static boolean checkMultiLevelAdminPermissionValidity(List<String> permissionIds, String permission) {
-        while (permission.lastIndexOf("_") != -1) {
+    static boolean checkMultiLevelAdminPermissionValidity(List<String> permissionIds, String permission) {
+        while (permission.contains("_")) {
             permission = permission.substring(0, permission.lastIndexOf("_"));
             if (permissionIds.contains(permission)) return true;
         }

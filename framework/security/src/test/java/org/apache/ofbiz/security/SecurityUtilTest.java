@@ -44,4 +44,12 @@ public class SecurityUtilTest {
                     adminPermissions, "EXAMPLE_WITH_MULTI_LEVEL_ADMIN"));
         assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "ACCTG_ADMIN"));
     }
+
+    @Test
+    public void multiLevelBadHierarchyPermissionTesting() {
+        List<String> adminPermissions = Arrays.asList("PARTYMGR", "EXAMPLE", "ACCTG_PREF");
+        assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(
+                    adminPermissions, "SPECIFIC_MULTI_LEVEL_EXAMPLE_VIEW"));
+        assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "HOTDEP_PARTYMGR_ADMIN"));
+    }
 }
