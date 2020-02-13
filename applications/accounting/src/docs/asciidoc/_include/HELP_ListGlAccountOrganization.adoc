@@ -1,0 +1,94 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Chart of Accounts
+OFBiz comes with a master template for a very comprehensive chart of accounts.
+This can be found in 'Global GL Defaults' under the 'Accounting' tab.
+
+A couple of points to note
+
+* you do not need to use all the accounts defined in this master template
+  (but it may be simpler to look for the accounts that you can use or rename)
+* you can create your own additional accounts if you dont want to use the ones in the master template
+
+The chart of accounts for the default organisation (Company) is built up by selecting the accounts that you want to use
+ from the global chart of accounts master template.
+
+This means that if you want to create a new account then you need to create it first in the Global Chart of Accounts and
+ then link (or assign) it to the chart of accounts for Company.
+
+Details of the Chart of Accounts can be exported as a CSV file or PDF using the buttons displayed.
+
+IMPORTANT: You need to be careful if you do decide to create your own accounts that they contain all the details required and
+           that they are linked into the relevant configuation for the setup of the GL defaults. +
+           This means that if you change an account (eg Inventory) to one of your own, you need to check the GL defaults setup
+            and replace any reference to the Inventory account to the one you have created.
+
+This Chart of Accounts screen is used to define the list of accounts (or chart) that will be actively used by the company.
+For example the Global chart of accounts may contain 100 different accounts but only 20 need to be used for your specific business.
+This means you need only to create assignments to the accounts that you actively want to use.
+
+The Chart of Accounts is a mixture of business needs (ie being able to track the information you need for your business) and
+ tax requirements (i.e. legal or government requirements necessary for operating a business).
+ The type of Chart that you setup will be dependent of your business type.
+
+== How do I create a Chart of Accounts?
+As mentioned above the chart of accounts for the default organisation (Company) is built up by selecting the accounts that
+ you want to use from the global chart of accounts master template. +
+This means that if you want to create a new account then you need to create it first in the Global Chart of Accounts and
+ then link (or assign) it to the chart of accounts for Company.
+
+By creating an assignment to an account it is then added to the Chart of Accounts.
+
+. Select the account Gl Account Id that you need from the drop down box
+. Press the 'Create Assignment' button
+. The account is added to the Chart of Account
+
+== How do I update a Chart of Accounts?
+Updating the Chart of Accounts will involve either creating a new assignment or removing an existing one. +
+A new assignment is created using the instructions above.
+
+The added complication may be that the account that you need does not exist in the Global Chart of Accounts.
+As mentioned above it will need to be created and then linked.
+
+See the instructions below to remove an existing account assignment.
+
+NOTE: If a completely new account is required that does not already exist as part of the Global Chart of Accounts template
+ then it will need to be created as part of the Global template first before it can be used as an assignment in
+ the Organisation Chart of Accounts.
+
+== How do I delete a Chart of Accounts?
+Accounts are not deleted from the Chart of Accounts - they are simply no longer selected to be used.
+
+It is important that you do not remove accounts that are active and have already been used for transactions.
+Even if the net balance of the account is zero then from an audit perspective then you should not be removing accounts.
+
+You should only be looking to remove accounts that have not been used.
+To un-link or un-assign accounts from the default company then use the Entity Data Maintenance from the Webtools menu.
+Look for the entity 'GlAccountOrganization' and delete the record to remove the link.
+
+== How do I update the details for an account in the Chart ofAccounts?
+Details of the accounts that make up the Chart of Accounts can be accessed from this screen.
+
+. Click on the 'GL Account Id' of the account required
+. The 'Edit GL Account' screen is displayed showing the details of the account selected +
+   (NOTE:This screen is also accessible via 'Global GL Settings / Chart of Account / Navigate Accounts '
+. Amend the fields required +
+   (NOTE: The GL Account Id and Posted Balance fields cannot be amended)
+. Press the 'Update' button
