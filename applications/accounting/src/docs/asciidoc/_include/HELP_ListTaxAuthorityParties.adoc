@@ -1,0 +1,49 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for List Tax Authority Parties
+This screen list any parties that have been associated with a tax authority and tax rate.
+To have any tax calculated for Sales Orders or Purchase Orders then an entry must exist for 'Company'.
+
+Entries can also be created, updated or deleted.
+
+== How do I add a new Tax Authority Party Info?
+. Press the 'New Tax Authority Party Info' button
+. Enter or use the lookup to select the 'Party Id'
+. Leave the 'From Date' blank +
+  (NOTE: Default will be current date and time)
+. Leave the 'Thru Date' blank
+. Enter the 'Party Tax Id' if required +
+  (NOTE: This can be VAT or GST number)
+. Use the drop down box to select whether the party select is 'Tax Exempt'
+. Use the drop down box to select whether the party selected is 'Nexus' (See note below)
+. Press the 'Create' button
+
+NOTE: 'Nexus' is a term that refers to an agreement for between the tax authority and potential tax payer that
+      the tax authority can impose the tax. This is usually for Sales Tax. +
+      If you have a Sales Tax that is uniformly applied to a product or range of products then
+      the 'Nexus' field can be set to 'Y'
+
+== How do I update a Tax Authority Party Info?
+. Press the 'Edit' button next to the entry that needs to be amended
+. Update the fields as required
+. Press the 'Update' button
+
+== How do I delete a Tax Authority Party Info?
+. Press the 'Delete' button next to the entry that needs to be deleted

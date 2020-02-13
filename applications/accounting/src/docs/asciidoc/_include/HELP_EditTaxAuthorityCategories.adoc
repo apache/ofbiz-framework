@@ -1,0 +1,40 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Edit Tax Authority Categories
+The Tax Authority Categories sub menu screen allows you link a tax authority to a specific catalog or product category.
+
+It can be used to add product categories to a tax authority.
+This means that all products in this category will be taxed at the rate specified for the tax authority.
+
+An example of this could be separating products into categories for export to different countries.
+A separate tax authority will be associated with each category so that the specific tax rate for each of them will be applied.
+
+== How do I add a new Tax Authority / Category mapping?
+. Enter or Lookup the 'Category Id' to be mapped
+. Press the 'Add' button
+. The new mapping will be displayed at the bottom of the screen
+
+== How do I update a Tax Authority / Category mapping?
+A Tax Authority / Category mapping cannot be updated.
+If it needs to be changed then the entry must be deleted and then re-entered.
+
+== How do I remove a Tax Authority / Category mapping?
+. Locate the entry that needs to be removed
+. Press the 'Delete' button next to the entry
