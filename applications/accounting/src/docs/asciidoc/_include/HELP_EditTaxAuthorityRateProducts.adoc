@@ -1,0 +1,57 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Edit Tax Authority Product Rates
+This screen allows the setup of tax rates and types.
+The rates or type can be assigned globally to a store (ie tax will be applied to all products at the same rate)
+ or category (ie limited to products in a specific category).
+
+Other parameters are available to allow the user to limit whether the tax is to be applied to all purchases / sales or
+ only those which are above a certain threshold.
+
+Tax associated with shipping charges or promotions can also be configured here.
+
+== How do I add a new product tax rate?
+. Use the drop down box to select the tax 'Type' (eg Sales Tax)
+. Use the lookup to select a 'Store Id' (or leave blank for all Stores)
+. If a category has been setup it will be available for selection in 'Category' field otherwise leave this blank
+. Leave 'Title Transfer' blank
+. Enter a value for the 'Minimum Price' for a product where the tax is to be applied +
+  (NOTE: The Demo Data sets this as zero)
+. Enter a value for the 'Minimun Purchase' where the tax is to be applied +
+  (NOTE: The Demo Data sets this as zero)
+. Use the drop down box to select whether 'Shipping Charges' will be taxable
+. Enter the tax rate in the 'Tax Percentage' field (eg 12.5)
+. Use the drop down box to select whether products on 'Promotion' will be taxable
+. Leave the 'From Date' and 'Thru Date' blank
+. Enter the name of the tax in the 'Description' field (eg VAT) as this will be displayed and printed on documents
+   when the tax is applied
+. Press the 'Add' button
+
+== How do I update an existing product tax rate
+. Select the entry that needs to be updated
+. Make the changes required
+. Press the 'Update' button next to the entry that needs to be updated
+
+== How do I delete a product tax rate?
+. Press the 'Delete' button next to the entry that needs to be removed
+
+WARNING: The deletion of tax rates may cause audit problems particularly if the rate has already been used as part of
+      a transaction. +
+      In this case it would be better to expire the old rate using the 'Thru Date' field and then enter the new rate.
