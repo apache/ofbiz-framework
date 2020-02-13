@@ -43,3 +43,5 @@ include::_include/acc-financial-accounts.adoc[leveloffset=+1]
 include::_include/acc-tax-authorities.adoc[leveloffset=+1]
 
 include::_include/acc-global-settings.adoc[leveloffset=+1]
+
+include::_include/acc-organization-gl-settings.adoc[leveloffset=+1]

@@ -1,0 +1,49 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Journals
+A journal is a detailed accounting transaction that is recorded (or posted) to the General Ledger.
+It is made up of a debit and a credit component.
+
+NOTE: TO CHECK: Is this screen really about Journals or is it about Suspense Accounts.....??????)
+
+NOTE: By default in OFBIZ a journal called 'ERROR_JOURNAL' is created as part of the demo data installation. +
+      This 'ERROR_JOURNAL' is referenced in the Accounting Preferences setup for 'Company'. +
+      The 'ERROR_JOURNAL' is used to store details of any transaction that fails and cannot be posted to a general ledger account. +
+      Transactions falling into error can be as the result of incomplete setup or an invalid transaction
+      (eg a transaction that should never occur).
+
+== How do I create a journal?
+. Enter a journal name in the Gl Journal Name field (eg MY_JOURNAL)
+. Press the 'Submit' button
+. The journal is created and will appear in the journal list at the bottom of the screen +
+   (Note that the Journal ID is automatically generated)
+
+== How do I update a journal?
+. Select the journal to be updated from the list of journals at the bottom of the screen
+. The journal details will be displayed on the screen
+. Update the Gl Journal Name (as this is currently the only field that can be updated)
+. Press the 'Submit' button
+. The updated journal will appear in the journal list at the bottom of the screen
+
+== How do I delete a journal?
+Be careful if you need to remove an existing journal as it may have transactions associated with it.
+
+. Press the 'Remove' button next to the journal that you want to delete
+. The journal is deleted and the screen is redisplayed

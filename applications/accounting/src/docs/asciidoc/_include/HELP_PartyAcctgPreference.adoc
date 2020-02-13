@@ -1,0 +1,81 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Accounting Preferences
+Accounting Preferences are a set of configuration details that are related to a party.
+To appear on this screen the party must be setup with the role of 'Internal Organisation'.
+This means that you can add the internal organisation role to a party and they will be added to this screen and
+ then can be configured.
+
+The master default party is 'Company' but preferences can also be setup for internal departments.
+The demo data shows some examples of this (eg Marketing, Accounting, Sales, Development etc).
+Unless overridden then then all other parties appearing on this screen will take their default setup from 'Company'
+
+NOTE: The majority of the configuration information displayed in Accounting Preferences are taken from the Enumeration entity.
+
+It is used for setting specifying information related to the accounting setup for a specific organisation or parties that
+ exist within an organisation such as business units, cost centres, departments ,subsidiaries etc.
+
+Information that can be setup include the following:
+
+* The start date of the Time Periods and Fiscal or Accounting Year (eg 1st April, 1st January, 1st June etc)
+* Tax Return Form +
+  (NOTE: Need TO CHECK how important this is and where it is used.......possibly some kind of reporting???)
+* The method to be used for calculating Cost of Goods Sold (COGS)
+* Base Currency - eg USD, GBP, EUR etc +
+  (NOTE: May have main company in USD but a subsidiary in EUR etc)
+* Invoice prefix, numbering and sequencing
+  (eg you may want each business unit / subsidiary to have its own invoice numbering or sequence etc)
+* Quote prefix, number and sequencing
+* Method to be used for refunds (eg cheque, direct bank credit, voucher credit etc...)
+* Specify which journal will be used to store error transactions
+
+NOTE: Key things that are usually need to be amended include the base currency for the company, fiscal year information and
+      invoice numbering prefix or sequencing.
+
+== How do I create or setup a new Accounting Preference?
+IMPORTANT: A party must be setup with the role of 'Internal Organisation' before it will appear on
+           the Accounting Preferences screen so that it can be setup.
+
+. Select the 'Setup' button next to the party to be setup
+. The Accounting Preferences screen is displayed. +
+  (IMPORTANT: The first time this screen is displayed all of the fields will be modifiable.
+   Once this has been saved only certain fields will be modifiable!!)
+. The default entries will be based on (or inherited from) 'Company'
+. Enter any changes that are required (eg Invoice Prefix, Error Journal name;
+   as you may want error transactions from separate departments to be handled differently...)
+. Press the 'Add' button
+
+== How do I update an Accounting Preference?
+. Select the 'Setup' button next to the party to be setup
+. The Accounting Preferences screen is displayed but only certain fields will be modifiable
+. Enter any changes required
+. Press the 'Update' button
+
+NOTE: If you need to change any of the fields that are not modifiable then it can be done
+      via the Entity Data Maintenance on Webtools menu using the PartyAcctgPreference entity. +
+      You will need to be careful in editing an existing preference especially if the configuration already been used
+       for transactions.
+
+== How to I delete an Accounting Preference?
+There is currently no delete option via the user interface but an Accounting Preference can be removed by deleting the role of
+ 'Internal Organisation' from the party record.
+
+NOTE: TO CHECK: Need to investigate the impact of using an accounting preference then removing it. +
+      What happens to the transactions in process etc......???
