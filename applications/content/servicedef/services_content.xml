@@ -28,6 +28,9 @@
         <description>Create a Content</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contentAssocTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contentIdFrom" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contentIdTo" type="String" mode="INOUT" optional="true"/>
         <!-- TODO: the following fields are deprecated; but will not be removed until all services and callers are updated -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
