@@ -54,15 +54,14 @@ under the License.
                 </#if>
                 <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
                   <td>
-                    <form method="post" action="<@ofbizUrl>createKeywordThesaurus</@ofbizUrl>">
                       <div>
                         ${keyword.enteredKeyword}
                         <form method="post" action="<@ofbizUrl>deleteKeywordThesaurus</@ofbizUrl>" name="deleteKeywordThesaurus">
                           <input type="hidden" name="enteredKeyword" value="${keyword.enteredKeyword}" />
-                          <input type="hidden" name="alternateKeyword" value="${keyword.alternateKeyword}" />
                           <input type="submit" value="${uiLabelMap.CommonDeleteAll}" />
                         </form>
                       </div>
+                    <form method="post" action="<@ofbizUrl>createKeywordThesaurus</@ofbizUrl>">
                       <div>
                         <input type="hidden" name="enteredKeyword" value="${keyword.enteredKeyword}" />
                         <span class="label">${uiLabelMap.ProductAlternate}</span><input type="text" name="alternateKeyword" size="10" />
