@@ -42,16 +42,19 @@ under the License.
         <response name="success" type="view-last"/>
     </request-map>
     
-<!--  A vulnerability has been reported to the OFBiz security team. 
-      To be able to release the 17.12.01 version with this vulnerability fixed we need to temporarily
-      comment out the "stream" request-map in this controller. We will later fix the specific issue to put back the 
-      functionalities allowed by the "stream" request-map in this controller, see OFBIZ-11353
-      This will be later be put back with OFBIZ-11349 -->
-<!--     <request-map uri="stream">
+<!-- A vulnerability has been reported to the OFBiz security team. To be able to
+release the 17.12.01 version with this vulnerability fixed we need to require 
+(maybe only temporarily) the "stream" request-map in commonext controller 
+to need authentication.
+We will later check that this has no impact and if necessary remove the 
+mandatory authentication, see OFBIZ-11349
+ -->    
+<request-map uri="stream">
+    <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="serveObjectData"/>
         <response name="success" type="none"/>
         <response name="error" type="view" value="error"/>
         <response name="io-error" type="none"/>
-    </request-map> -->
+    </request-map>
     
 </site-conf>
