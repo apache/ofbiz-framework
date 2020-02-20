@@ -57,6 +57,7 @@ import org.apache.ofbiz.widget.model.FormFactory;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelScreen;
 import org.apache.ofbiz.widget.model.ScreenFactory;
+import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
 
 public class ArtifactInfoFactory {
@@ -185,7 +186,8 @@ public class ArtifactInfoFactory {
         return getModelForm(formNameAndLocation.substring(formNameAndLocation.indexOf("#") + 1), formNameAndLocation.substring(0, formNameAndLocation.indexOf("#")));
     }
     public ModelForm getModelForm(String formName, String formLocation) throws ParserConfigurationException, SAXException, IOException {
-        return FormFactory.getFormFromLocation(formLocation, formName, this.entityModelReader, this.dispatchContext);
+        return FormFactory.getFormFromLocation(formLocation, formName, this.entityModelReader,
+                ThemeFactory.getVisualThemeFromId("COMMON"), this.dispatchContext);
     }
 
     public ModelScreen getModelScreen(String screenName, String screenLocation) throws ParserConfigurationException, SAXException, IOException {
@@ -436,7 +438,8 @@ public class ArtifactInfoFactory {
                 String formLocation = "component://" + componentName + "/" + formFileRelativePath;
                 Map<String, ModelForm> modelFormMap = null;
                 try {
-                    modelFormMap = FormFactory.getFormsFromLocation(formLocation, getEntityModelReader(), getDispatchContext());
+                    modelFormMap = FormFactory.getFormsFromLocation(formLocation, getEntityModelReader(),
+                            ThemeFactory.getVisualThemeFromId("COMMON"), getDispatchContext());
                 } catch (Exception exc) {
                     Debug.logWarning(exc.getMessage(), module);
                 }

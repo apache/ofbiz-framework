@@ -35,6 +35,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -48,17 +49,19 @@ public class FormFactory {
     private static final UtilCache<String, ModelForm> formLocationCache = UtilCache.createUtilCache("widget.form.locationResource", 0, 0, false);
     private static final UtilCache<String, ModelForm> formWebappCache = UtilCache.createUtilCache("widget.form.webappResource", 0, 0, false);
 
-    public static Map<String, ModelForm> getFormsFromLocation(String resourceName, ModelReader entityModelReader, DispatchContext dispatchContext)
+    public static Map<String, ModelForm> getFormsFromLocation(String resourceName, ModelReader entityModelReader,
+                                                VisualTheme visualTheme, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
         URL formFileUrl = FlexibleLocation.resolveLocation(resourceName);
         Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
-        return readFormDocument(formFileDoc, entityModelReader, dispatchContext, resourceName);
+        return readFormDocument(formFileDoc, entityModelReader, visualTheme, dispatchContext, resourceName);
     }
 
-    public static ModelForm getFormFromLocation(String resourceName, String formName, ModelReader entityModelReader, DispatchContext dispatchContext)
+    public static ModelForm getFormFromLocation(String resourceName, String formName, ModelReader entityModelReader,
+                                                VisualTheme visualTheme, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
         StringBuilder sb = new StringBuilder(dispatchContext.getDelegator().getDelegatorName());
-        sb.append(":").append(resourceName).append("#").append(formName);
+        sb.append(":").append(resourceName).append("#").append(formName).append(visualTheme.getVisualThemeId());
         String cacheKey = sb.toString();
         ModelForm modelForm = formLocationCache.get(cacheKey);
         if (modelForm == null) {
@@ -67,7 +70,7 @@ public class FormFactory {
             if (formFileDoc == null) {
                 throw new IllegalArgumentException("Could not find resource [" + resourceName + "]");
             }
-            modelForm = createModelForm(formFileDoc, entityModelReader, dispatchContext, resourceName, formName);
+            modelForm = createModelForm(formFileDoc, entityModelReader, visualTheme, dispatchContext, resourceName, formName);
             modelForm = formLocationCache.putIfAbsentAndGet(cacheKey, modelForm);
         }
         if (modelForm == null) {
@@ -79,7 +82,15 @@ public class FormFactory {
     public static ModelForm getFormFromWebappContext(String resourceName, String formName, HttpServletRequest request)
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);
-        String cacheKey = webappName + "::" + resourceName + "::" + formName;
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+        String cacheKey = new StringBuilder().append(webappName)
+                .append("::")
+                .append(resourceName)
+                .append("::")
+                .append(formName)
+                .append("::")
+                .append(visualTheme.getVisualThemeId())
+                .toString();
         ModelForm modelForm = formWebappCache.get(cacheKey);
         if (modelForm == null) {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -87,7 +98,7 @@ public class FormFactory {
             URL formFileUrl = request.getServletContext().getResource(resourceName);
             Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
             Element formElement = UtilXml.firstChildElement(formFileDoc.getDocumentElement(), "form", "name", formName);
-            modelForm = createModelForm(formElement, delegator.getModelReader(), dispatcher.getDispatchContext(), resourceName, formName);
+            modelForm = createModelForm(formElement, delegator.getModelReader(), visualTheme, dispatcher.getDispatchContext(), resourceName, formName);
             modelForm = formWebappCache.putIfAbsentAndGet(cacheKey, modelForm);
         }
         if (modelForm == null) {
@@ -96,7 +107,8 @@ public class FormFactory {
         return modelForm;
     }
 
-    public static Map<String, ModelForm> readFormDocument(Document formFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation) {
+    public static Map<String, ModelForm> readFormDocument(Document formFileDoc, ModelReader entityModelReader,
+                                                VisualTheme visualTheme, DispatchContext dispatchContext, String formLocation) {
         Map<String, ModelForm> modelFormMap = new HashMap<>();
         if (formFileDoc != null) {
             // read document and construct ModelForm for each form element
@@ -107,10 +119,14 @@ public class FormFactory {
             List<? extends Element> formElements = UtilXml.childElementList(rootElement, "form");
             for (Element formElement : formElements) {
                 String formName = formElement.getAttribute("name");
-                String cacheKey = formLocation + "#" + formName;
+                String cacheKey = new StringBuilder().append(formLocation)
+                        .append("#")
+                        .append(formName)
+                        .append(visualTheme.getVisualThemeId())
+                        .toString();
                 ModelForm modelForm = formLocationCache.get(cacheKey);
                 if (modelForm == null) {
-                    modelForm = createModelForm(formElement, entityModelReader, dispatchContext, formLocation, formName);
+                    modelForm = createModelForm(formElement, entityModelReader, visualTheme, dispatchContext, formLocation, formName);
                     modelForm = formLocationCache.putIfAbsentAndGet(cacheKey, modelForm);
                 }
                 modelFormMap.put(formName, modelForm);
@@ -119,20 +135,22 @@ public class FormFactory {
         return modelFormMap;
     }
 
-    public static ModelForm createModelForm(Document formFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation, String formName) {
+    public static ModelForm createModelForm(Document formFileDoc, ModelReader entityModelReader, VisualTheme visualTheme,
+                                            DispatchContext dispatchContext, String formLocation, String formName) {
         Element rootElement = formFileDoc.getDocumentElement();
         if (!"forms".equalsIgnoreCase(rootElement.getTagName())) {
             rootElement = UtilXml.firstChildElement(rootElement, "forms");
         }
         Element formElement = UtilXml.firstChildElement(rootElement, "form", "name", formName);
-        return createModelForm(formElement, entityModelReader, dispatchContext, formLocation, formName);
+        return createModelForm(formElement, entityModelReader, visualTheme, dispatchContext, formLocation, formName);
     }
 
-    public static ModelForm createModelForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation, String formName) {
+    public static ModelForm createModelForm(Element formElement, ModelReader entityModelReader, VisualTheme visualTheme,
+                                            DispatchContext dispatchContext, String formLocation, String formName) {
         String formType = formElement.getAttribute("type");
         if (formType.isEmpty() || "single".equals(formType) || "upload".equals(formType)) {
-            return new ModelSingleForm(formElement, formLocation, entityModelReader, dispatchContext);
+            return new ModelSingleForm(formElement, formLocation, entityModelReader, visualTheme, dispatchContext);
         }
-        return new ModelGrid(formElement, formLocation, entityModelReader, dispatchContext);
+        return new ModelGrid(formElement, formLocation, entityModelReader, visualTheme, dispatchContext);
     }
 }
