@@ -53,7 +53,8 @@ public class ModelTheme implements Serializable {
     private final Integer autocompleterDefaultViewSize;
     // Default minimum number of characters an user has to type before the ajax autocompleter activates (jQuery default is 1)
     private final Integer autocompleterDefaultMinLength;
-    // Default delay in milliseconds the Autocomplete waits after a keystroke to activate itself. A zero-delay makes sense for local data (more responsive), but can produce a lot of load for remote data, while being less responsive.
+    // Default delay in milliseconds the Autocomplete waits after a keystroke to activate itself. A zero-delay makes
+    // sense for local data (more responsive), but can produce a lot of load for remote data, while being less responsive.
     private final Integer autocompleterDefaultDelay;
     // Show/hide the ID field that is returned from ajax autocompleter
     private final Boolean autocompleterDisplayReturnField;
@@ -329,7 +330,8 @@ public class ModelTheme implements Serializable {
             try {
                 name.put(initThemePropertiesMap, ObjectType.simpleTypeOrObjectConvert(value, type, null, null));
             } catch (GeneralException e) {
-                Debug.logError("Impossible to parse the value " + value + " to type " + type + " for the property " + name + " on theme " + this.name, module);
+                Debug.logError("Impossible to parse the value " + value + " to type " + type +
+                        " for the property " + name + " on theme " + this.name, module);
             }
         }
     }
@@ -499,20 +501,40 @@ public class ModelTheme implements Serializable {
             boolean exist = currentModelTemplate != null;
             this.name = exist ? currentModelTemplate.name : originModelTemplate.name;
             this.type = exist ? currentModelTemplate.type : originModelTemplate.type;
-            this.compress = exist && currentModelTemplate.compress != null ? currentModelTemplate.compress : originModelTemplate.compress;
-            this.encoder = exist && currentModelTemplate.encoder != null ? currentModelTemplate.encoder : originModelTemplate.encoder;
-            this.contentType = exist && currentModelTemplate.contentType != null ? currentModelTemplate.contentType : originModelTemplate.contentType;
-            this.encoding = exist && currentModelTemplate.encoding != null ? currentModelTemplate.encoding : originModelTemplate.encoding;
-            this.screenRendererLocation = exist && currentModelTemplate.screenRendererLocation != null ? currentModelTemplate.screenRendererLocation : originModelTemplate.screenRendererLocation;
-            this.formRendererLocation = exist && currentModelTemplate.formRendererLocation != null ? currentModelTemplate.formRendererLocation : originModelTemplate.formRendererLocation;
-            this.treeRendererLocation = exist && currentModelTemplate.treeRendererLocation != null ? currentModelTemplate.treeRendererLocation : originModelTemplate.treeRendererLocation;
-            this.menuRendererLocation = exist && currentModelTemplate.menuRendererLocation != null ? currentModelTemplate.menuRendererLocation : originModelTemplate.menuRendererLocation;
-            this.errorTemplateLocation = exist && currentModelTemplate.errorTemplateLocation != null ? currentModelTemplate.errorTemplateLocation : originModelTemplate.errorTemplateLocation;
+            this.compress = exist && currentModelTemplate.compress != null
+                    ? currentModelTemplate.compress
+                    : originModelTemplate.compress;
+            this.encoder = exist && currentModelTemplate.encoder != null
+                    ? currentModelTemplate.encoder
+                    : originModelTemplate.encoder;
+            this.contentType = exist && currentModelTemplate.contentType != null
+                    ? currentModelTemplate.contentType
+                    : originModelTemplate.contentType;
+            this.encoding = exist && currentModelTemplate.encoding != null
+                    ? currentModelTemplate.encoding
+                    : originModelTemplate.encoding;
+            this.screenRendererLocation = exist && currentModelTemplate.screenRendererLocation != null
+                    ? currentModelTemplate.screenRendererLocation
+                    : originModelTemplate.screenRendererLocation;
+            this.formRendererLocation = exist && currentModelTemplate.formRendererLocation != null
+                    ? currentModelTemplate.formRendererLocation
+                    : originModelTemplate.formRendererLocation;
+            this.treeRendererLocation = exist && currentModelTemplate.treeRendererLocation != null
+                    ? currentModelTemplate.treeRendererLocation
+                    : originModelTemplate.treeRendererLocation;
+            this.menuRendererLocation = exist && currentModelTemplate.menuRendererLocation != null
+                    ? currentModelTemplate.menuRendererLocation
+                    : originModelTemplate.menuRendererLocation;
+            this.errorTemplateLocation = exist && currentModelTemplate.errorTemplateLocation != null
+                    ? currentModelTemplate.errorTemplateLocation
+                    : originModelTemplate.errorTemplateLocation;
         }
         public String getEncoder() {
             return encoder;
         }
-        public String getType() { return type; }
+        public String getType() {
+            return type;
+        }
         public String getCompress() {
             return compress;
         }
