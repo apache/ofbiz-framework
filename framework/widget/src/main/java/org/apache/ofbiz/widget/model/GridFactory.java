@@ -36,6 +36,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -50,17 +51,19 @@ public class GridFactory {
     private static final UtilCache<String, ModelGrid> gridLocationCache = UtilCache.createUtilCache("widget.grid.locationResource", 0, 0, false);
     private static final UtilCache<String, ModelGrid> gridWebappCache = UtilCache.createUtilCache("widget.grid.webappResource", 0, 0, false);
 
-    public static Map<String, ModelGrid> getGridsFromLocation(String resourceName, ModelReader entityModelReader, DispatchContext dispatchContext)
+    public static Map<String, ModelGrid> getGridsFromLocation(String resourceName, ModelReader entityModelReader,
+                                                              VisualTheme visualTheme, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
         URL gridFileUrl = FlexibleLocation.resolveLocation(resourceName);
         Document gridFileDoc = UtilXml.readXmlDocument(gridFileUrl, true, true);
-        return readGridDocument(gridFileDoc, entityModelReader, dispatchContext, resourceName);
+        return readGridDocument(gridFileDoc, entityModelReader, visualTheme, dispatchContext, resourceName);
     }
 
-    public static ModelGrid getGridFromLocation(String resourceName, String gridName, ModelReader entityModelReader, DispatchContext dispatchContext)
+    public static ModelGrid getGridFromLocation(String resourceName, String gridName, ModelReader entityModelReader,
+                                                VisualTheme visualTheme, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
         StringBuilder sb = new StringBuilder(dispatchContext.getDelegator().getDelegatorName());
-        sb.append(":").append(resourceName).append("#").append(gridName);
+        sb.append(":").append(resourceName).append("#").append(gridName).append(visualTheme.getVisualThemeId());
         String cacheKey = sb.toString();
         ModelGrid modelGrid = gridLocationCache.get(cacheKey);
         if (modelGrid == null) {
@@ -69,7 +72,8 @@ public class GridFactory {
             if (gridFileDoc == null) {
                 throw new IllegalArgumentException("Could not find resource [" + resourceName + "]");
             }
-            modelGrid = createModelGrid(gridFileDoc, entityModelReader, dispatchContext, resourceName, gridName);
+            modelGrid = createModelGrid(gridFileDoc, entityModelReader, visualTheme,
+                    dispatchContext, resourceName, gridName);
             modelGrid = gridLocationCache.putIfAbsentAndGet(cacheKey, modelGrid);
         }
         if (modelGrid == null) {
@@ -81,7 +85,15 @@ public class GridFactory {
     public static ModelGrid getGridFromWebappContext(String resourceName, String gridName, HttpServletRequest request)
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);
-        String cacheKey = webappName + "::" + resourceName + "::" + gridName;
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+        String cacheKey = new StringBuilder().append(webappName)
+                .append("::")
+                .append(resourceName)
+                .append("::")
+                .append(gridName)
+                .append("::")
+                .append(visualTheme.getVisualThemeId())
+                .toString();
         ModelGrid modelGrid = gridWebappCache.get(cacheKey);
         if (modelGrid == null) {
             ServletContext servletContext = request.getServletContext();
@@ -90,7 +102,8 @@ public class GridFactory {
             URL gridFileUrl = servletContext.getResource(resourceName);
             Document gridFileDoc = UtilXml.readXmlDocument(gridFileUrl, true, true);
             Element gridElement = UtilXml.firstChildElement(gridFileDoc.getDocumentElement(), "grid", "name", gridName);
-            modelGrid = createModelGrid(gridElement, delegator.getModelReader(), dispatcher.getDispatchContext(), resourceName, gridName);
+            modelGrid = createModelGrid(gridElement, delegator.getModelReader(), visualTheme,
+                    dispatcher.getDispatchContext(), resourceName, gridName);
             modelGrid = gridWebappCache.putIfAbsentAndGet(cacheKey, modelGrid);
         }
         if (modelGrid == null) {
@@ -99,7 +112,8 @@ public class GridFactory {
         return modelGrid;
     }
 
-    public static Map<String, ModelGrid> readGridDocument(Document gridFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String gridLocation) {
+    public static Map<String, ModelGrid> readGridDocument(Document gridFileDoc, ModelReader entityModelReader,
+                                                VisualTheme visualTheme, DispatchContext dispatchContext, String gridLocation) {
         Map<String, ModelGrid> modelGridMap = new HashMap<>();
         if (gridFileDoc != null) {
             // read document and construct ModelGrid for each grid element
@@ -107,10 +121,15 @@ public class GridFactory {
             List<? extends Element> gridElements = UtilXml.childElementList(rootElement, "grid");
             for (Element gridElement : gridElements) {
                 String gridName = gridElement.getAttribute("name");
-                String cacheKey = gridLocation + "#" + gridName;
+                String cacheKey = new StringBuilder().append(gridLocation)
+                        .append("#")
+                        .append(gridName)
+                        .append(visualTheme.getVisualThemeId())
+                        .toString();
                 ModelGrid modelGrid = gridLocationCache.get(cacheKey);
                 if (modelGrid == null) {
-                    modelGrid = createModelGrid(gridElement, entityModelReader, dispatchContext, gridLocation, gridName);
+                    modelGrid = createModelGrid(gridElement, entityModelReader, visualTheme,
+                            dispatchContext, gridLocation, gridName);
                     modelGrid = gridLocationCache.putIfAbsentAndGet(cacheKey, modelGrid);
                 }
                 modelGridMap.put(gridName, modelGrid);
@@ -119,16 +138,18 @@ public class GridFactory {
         return modelGridMap;
     }
 
-    public static ModelGrid createModelGrid(Document gridFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String gridLocation, String gridName) {
+    public static ModelGrid createModelGrid(Document gridFileDoc, ModelReader entityModelReader, VisualTheme visualTheme,
+                                            DispatchContext dispatchContext, String gridLocation, String gridName) {
         Element gridElement = UtilXml.firstChildElement(gridFileDoc.getDocumentElement(), "grid", "name", gridName);
         if (gridElement == null) {
             // Backwards compatibility - look for form definition
             gridElement = UtilXml.firstChildElement(gridFileDoc.getDocumentElement(), "form", "name", gridName);
         }
-        return createModelGrid(gridElement, entityModelReader, dispatchContext, gridLocation, gridName);
+        return createModelGrid(gridElement, entityModelReader, visualTheme, dispatchContext, gridLocation, gridName);
     }
 
-    public static ModelGrid createModelGrid(Element gridElement, ModelReader entityModelReader, DispatchContext dispatchContext, String gridLocation, String gridName) {
-        return new ModelGrid(gridElement, gridLocation, entityModelReader, dispatchContext);
+    public static ModelGrid createModelGrid(Element gridElement, ModelReader entityModelReader, VisualTheme visualTheme,
+                                            DispatchContext dispatchContext, String gridLocation, String gridName) {
+        return new ModelGrid(gridElement, gridLocation, entityModelReader, visualTheme, dispatchContext);
     }
 }
