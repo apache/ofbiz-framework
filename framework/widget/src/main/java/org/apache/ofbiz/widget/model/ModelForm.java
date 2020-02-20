@@ -1330,7 +1330,7 @@ public abstract class ModelForm extends ModelWidget {
     }
 
     public String getTarget() {
-        return target.getOriginal();
+        return target != null ? target.getOriginal() : null;
     }
 
     /** iterate through altTargets list to see if any should be used, if not return original target

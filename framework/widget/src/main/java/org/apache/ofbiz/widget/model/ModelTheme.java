@@ -74,6 +74,7 @@ public class ModelTheme implements Serializable {
     //template rendering
     private final Map<String, ModelTemplate> modelTemplateMap;
     private final Map<String, String> modelCommonScreensMap;
+    private final Map<String, String> modelCommonFormsMap;
     private final Map<String, String> modelCommonMenusMap;
 
     /**
@@ -87,6 +88,7 @@ public class ModelTheme implements Serializable {
         Map<String, Object> initThemePropertiesMap = new HashMap<>();
         Map<String, ModelTemplate> initModelTemplateMap = new HashMap<>();
         Map<String, String> initModelCommonScreensMap = new HashMap<>();
+        Map<String, String> initModelCommonFormsMap = new HashMap<>();
         Map<String, String> initModelCommonMenusMap = new HashMap<>();
 
         // first resolve value from the origin theme
@@ -122,6 +124,9 @@ public class ModelTheme implements Serializable {
             }
             if (originTheme.modelCommonScreensMap != null) {
                 initModelCommonScreensMap = UtilMisc.makeMapWritable(originTheme.modelCommonScreensMap);
+            }
+            if (originTheme.modelCommonFormsMap != null) {
+                initModelCommonFormsMap = UtilMisc.makeMapWritable(originTheme.modelCommonFormsMap);
             }
             if (originTheme.modelCommonMenusMap != null) {
                 initModelCommonMenusMap = UtilMisc.makeMapWritable(originTheme.modelCommonMenusMap);
@@ -173,6 +178,23 @@ public class ModelTheme implements Serializable {
                         }
                     }
                     break;
+                case "common-forms":
+                    for (Element formPurpose : UtilXml.childElementList(childElement)) {
+                        String defaultLocation = formPurpose.getAttribute("default-location");
+                        for (Element form : UtilXml.childElementList(formPurpose)) {
+                            String name = form.getAttribute("name");
+                            String location = form.getAttribute("location");
+                            if (UtilValidate.isEmpty(location)) {
+                                location = defaultLocation;
+                            }
+                            if (UtilValidate.isEmpty(location)) {
+                                Debug.logWarning("We can resolve the form location " + name + " in the theme " + this.name + " so no added it", module);
+                                continue;
+                            }
+                            initModelCommonFormsMap.put(name, location);
+                        }
+                    }
+                    break;
                 case "common-menus":
                     for (Element menuPurpose : UtilXml.childElementList(childElement)) {
                         String defaultLocation = menuPurpose.getAttribute("default-location");
@@ -209,6 +231,7 @@ public class ModelTheme implements Serializable {
         this.themePropertiesMap = Collections.unmodifiableMap(initThemePropertiesMap);
         this.modelTemplateMap = Collections.unmodifiableMap(initModelTemplateMap);
         this.modelCommonScreensMap = Collections.unmodifiableMap(initModelCommonScreensMap);
+        this.modelCommonFormsMap = Collections.unmodifiableMap(initModelCommonFormsMap);
         this.modelCommonMenusMap = Collections.unmodifiableMap(initModelCommonMenusMap);
     }
 
@@ -401,7 +424,12 @@ public class ModelTheme implements Serializable {
     public Map<String,String> getModelCommonScreens() {
         return modelCommonScreensMap;
     }
-    public Map<String,String> getModelCommonMenus() { return modelCommonMenusMap; }
+    public Map<String,String> getModelCommonForms() {
+        return modelCommonFormsMap;
+    }
+    public Map<String,String> getModelCommonMenus() {
+        return modelCommonMenusMap;
+    }
 
     /**
      * the ModelTemplate class, manage the complexity of macro library definition and the rendering technology
@@ -467,7 +495,7 @@ public class ModelTheme implements Serializable {
          * @param currentModelTemplate
          * @param originModelTemplate
          */
-        public ModelTemplate (ModelTemplate currentModelTemplate, ModelTemplate originModelTemplate) {
+        public ModelTemplate(ModelTemplate currentModelTemplate, ModelTemplate originModelTemplate) {
             boolean exist = currentModelTemplate != null;
             this.name = exist ? currentModelTemplate.name : originModelTemplate.name;
             this.type = exist ? currentModelTemplate.type : originModelTemplate.type;

@@ -165,6 +165,16 @@ under the License.
             <screen name="ShowHelp" location="component://common-theme/widget/HelpScreens.xml"/>
         </generic-screen>
     </common-screens>
+    <common-forms><!--list all common form to each application that each theme can be surcharge or not and use the form present on common theme-->
+        <root-decorator default-location="component://common-theme/widget/CommonForms.xml">
+            <form name="CommonSimpleGrid"/>
+            <form name="CommonBasicGrid"/>
+            <form name="CommonSimpleList"/>
+            <form name="CommonBasicList"/>
+            <form name="CommonInLineEditList"/>
+            <form name="CommonBasicSingle"/>
+        </root-decorator>
+    </common-forms>
     <common-menus><!--list all common menu to each application that each theme can be surcharge or not and use the menu present on common theme-->
         <root-decorator default-location="component://common-theme/widget/CommonMenus.xml">
             <menu name="CommonAppBarMenu"/>
