@@ -20,14 +20,16 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ProgramExport" type="single" target="ProgramExport" default-map-name="parameters">
+    <form name="ProgramExport" extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml"
+          target="ProgramExport" default-map-name="parameters">
         <field name="groovyProgram" required-field="true">
             <textarea cols="120" rows="20" />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
 
-    <form name="LayoutDemoForm" type="single" target="${demoTargetUrl}" default-map-name="demoMap">
+    <form name="LayoutDemoForm" extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml"
+          target="${demoTargetUrl}" default-map-name="demoMap">
         <actions>
             <set field="numberValue" value="-9.958"/>
         </actions>
@@ -62,8 +64,30 @@ under the License.
         </field>
     </form>
 
-    <form name="LayoutDemoList" type="list" list-name="demoList" paginate-target="${demoTargetUrl}" separate-columns="true"
-        odd-row-style="${altRowStyle}" header-row-style="${headerStyle}" default-table-style="${tableStyle}">
+    <form name="LayoutDemoList" extends="CommonBasicList" extends-resource="component://common/widget/CommonForms.xml"
+          list-name="demoList" paginate-target="${demoTargetUrl}">
+        <field name="name" title="${uiLabelMap.CommonName}"><display/></field>
+<!--        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>-->
+        <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}" />
+                <option key="N" description="${uiLabelMap.CommonNo}" />
+            </drop-down>
+        </field>
+<!--        <field name="checkBox" title="${uiLabelMap.CommonEnabled}">-->
+<!--            <check/>-->
+<!--        </field>-->
+<!--        <field name="radioButton" title="${uiLabelMap.CommonEnabled}">-->
+<!--            <radio>-->
+<!--                <option key="Y" description="${uiLabelMap.CommonYes}" />-->
+<!--                <option key="N" description="${uiLabelMap.CommonNo}" />-->
+<!--            </radio>-->
+<!--        </field>-->
+<!--        <field name="updateButton" widget-style="button-col"><submit/></field>-->
+    </form>
+
+    <form name="LayoutDemoInLineList" extends="CommonInLineEditList" extends-resource="component://common/widget/CommonForms.xml"
+          list-name="demoList" paginate-target="${demoTargetUrl}">
         <field name="name" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
@@ -86,4 +110,32 @@ under the License.
         </field>
     </form>
 
+    <grid name="LayoutDemoSimpleGrid" extends="CommonSimpleGrid" extends-resource="component://common/widget/CommonForms.xml"
+          list-name="demoList" paginate-target="${demoTargetUrl}">
+        <actions>
+            <set field="numberValue" value="876.543"/>
+        </actions>
+        <field name="name" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="default"><display type="number" description="${numberValue}"/></field>
+        <field name="quantity"><display type="number" format="quantity" description="${numberValue}"/></field>
+        <field name="amount"><display type="number" format="amount" description="${numberValue}"/></field>
+        <field name="spelled"><display type="number" format="spelled-out" description="${numberValue}"/></field>
+        <field name="percentage"><display type="number" format="percentage" description="${numberValue}"/></field>
+        <field name="accounting"><display type="number" format="accounting" description="${numberValue}"/></field>
+    </grid>
+    <grid name="LayoutDemoBasicGrid" extends="CommonBasicGrid" extends-resource="component://common/widget/CommonForms.xml"
+          list-name="demoList" paginate-target="${demoTargetUrl}">
+        <actions>
+            <set field="numberValue" value="789.1230"/>
+        </actions>
+        <field name="name" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="default"><display type="number" description="${numberValue}"/></field>
+        <field name="quantity"><display type="number" format="quantity" description="${numberValue}"/></field>
+        <field name="amount"><display type="number" format="amount" description="${numberValue}"/></field>
+        <field name="spelled"><display type="number" format="spelled-out" description="${numberValue}"/></field>
+        <field name="percentage"><display type="number" format="percentage" description="${numberValue}"/></field>
+        <field name="accounting"><display type="number" format="accounting" description="${numberValue}"/></field>
+    </grid>
 </forms>
