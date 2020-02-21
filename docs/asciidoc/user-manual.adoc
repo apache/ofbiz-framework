@@ -155,4 +155,6 @@ of how to achieve common tasks.
 
 include::../../applications/accounting/src/docs/asciidoc/accounting.adoc[leveloffset=+2]
 
+include::../../applications/content/src/docs/asciidoc/content.adoc[leveloffset=+2]
+
 include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+2]
