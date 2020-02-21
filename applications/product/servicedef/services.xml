@@ -37,22 +37,22 @@ under the License.
         <override name="description" allow-html="safe"/>
         <override name="longDescription" allow-html="safe"/>
     </service>
-    <service name="createProduct" default-entity-name="Product" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="createProduct" auth="true">
+    <service name="createProduct" default-entity-name="Product" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createProduct" auth="true">
         <description>Create a Product</description>
         <implements service="interfaceProduct"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <override name="productTypeId" optional="false"/>
         <override name="internalName" optional="false"/>
     </service>
-    <service name="updateProduct" default-entity-name="Product" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="updateProduct" auth="true">
+    <service name="updateProduct" default-entity-name="Product" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProduct" auth="true">
         <description>Update a Product</description>
         <implements service="interfaceProduct"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="updateProductQuickAdminName" default-entity-name="Product" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="updateProductQuickAdminName" auth="true">
+    <service name="updateProductQuickAdminName" default-entity-name="Product" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProductQuickAdminName" auth="true">
         <description>Update a Product from Quick Admin</description>
         <implements service="interfaceProduct"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -63,8 +63,8 @@ under the License.
         <implements service="interfaceProduct"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="duplicateProduct" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="duplicateProduct" auth="true">
+    <service name="duplicateProduct" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="duplicateProduct" auth="true">
         <description>Duplicate a Product using a new productId</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="oldProductId" type="String" mode="IN" optional="false"/>
@@ -89,8 +89,8 @@ under the License.
         <attribute name="removeFeatureAppls" type="String" mode="IN" optional="true"/>
         <attribute name="removeInventoryItems" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="copyToProductVariants" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="copyToProductVariants" auth="true">
+    <service name="copyToProductVariants" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="copyToProductVariants" auth="true">
         <description>Copy Virtual Product's data to the Variant Products</description>
         <attribute name="virtualProductId" type="String" mode="IN" optional="false"/>
         <attribute name="removeBefore" type="String" mode="IN" optional="true"/>
@@ -151,40 +151,40 @@ under the License.
         <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteProductKeywords" engine="simple"
-            location="component://product/minilang/product/product/ProductServices.xml" invoke="deleteProductKeywords" auth="true">
+    <service name="deleteProductKeywords" engine="groovy"
+            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="deleteProductKeywords" auth="true">
         <description>Delete all the keywords of a product</description>
         <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="indexProductKeywords" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="indexProductKeywords" auth="false">
+    <service name="indexProductKeywords" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="indexProductKeywords" auth="false">
         <description>Index the Keywords for a Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="productInstance" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
-    <service name="forceIndexProductKeywords" engine="simple"
-            location="component://product/minilang/product/product/ProductServices.xml" invoke="forceIndexProductKeywords" auth="true">
+    <service name="forceIndexProductKeywords" engine="groovy"
+            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="forceIndexProductKeywords" auth="true">
         <description>Induce all the keywords of a product, ignoring the flag in the Product.autoCreateKeywords flag</description>
         <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="discontinueProductSales" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="discontinueProductSales" auth="false">
+    <service name="discontinueProductSales" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="discontinueProductSales" auth="false">
         <description>Discontinue Product Sales</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="countProductView" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="countProductView" auth="false">
+    <service name="countProductView" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="countProductView" auth="false">
         <description>count Product View</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="weight" type="Long" mode="IN" optional="true"/>
     </service>
 
-    <service name="createProductReview" engine="simple"
-            location="component://product/minilang/product/product/ProductServices.xml" invoke="createProductReview" auth="true">
+    <service name="createProductReview" engine="groovy"
+            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createProductReview" auth="true">
         <description>Create a product review entity</description>
         <auto-attributes entity-name="ProductReview" mode="IN" include="nonpk" optional="true"/>
         <attribute name="productReviewId" type="String" mode="OUT" optional="false"/>
@@ -192,8 +192,8 @@ under the License.
         <override name="productId" optional="false"/>
         <override name="productRating" optional="false"/>
     </service>
-    <service name="updateProductReview" engine="simple" default-entity-name="ProductReview"
-            location="component://product/minilang/product/product/ProductServices.xml" invoke="updateProductReview" auth="true">
+    <service name="updateProductReview" engine="groovy" default-entity-name="ProductReview"
+            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProductReview" auth="true">
         <description>Updates a product review record</description>
         <required-permissions join-type="OR">
             <check-permission permission="CATALOG_UPDATE"/>
@@ -202,8 +202,8 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="setProductReviewStatus" engine="simple"
-            location="component://product/minilang/product/product/ProductServices.xml" invoke="setProductReviewStatus" auth="true">
+    <service name="setProductReviewStatus" engine="groovy"
+            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="setProductReviewStatus" auth="true">
         <description>Updates a product review record</description>
         <required-permissions join-type="OR">
             <check-permission permission="CATALOG_UPDATE"/>
@@ -784,8 +784,8 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
 
-    <service name="addPartyToProduct" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="addPartyToProduct" auth="true">
+    <service name="addPartyToProduct" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="addPartyToProduct" auth="true">
         <description>Add Party To Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -795,8 +795,8 @@ under the License.
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="updatePartyToProduct" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="updatePartyToProduct" auth="true">
+    <service name="updatePartyToProduct" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updatePartyToProduct" auth="true">
         <description>Update Party To Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -806,8 +806,8 @@ under the License.
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="removePartyFromProduct" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="removePartyFromProduct" auth="true">
+    <service name="removePartyFromProduct" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="removePartyFromProduct" auth="true">
         <description>Remove Party From Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -1240,16 +1240,16 @@ under the License.
     </service>
 
     <!-- Permission Services -->
-    <service name="productGenericPermission" engine="simple"
-        location="component://product/minilang/product/product/ProductServices.xml" invoke="productGenericPermission">
+    <service name="productGenericPermission" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="productGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="productCategoryGenericPermission" engine="groovy"
         location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="productCategoryGenericPermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="productPriceGenericPermission" engine="simple"
-        location="component://product/minilang/product/product/ProductServices.xml" invoke="productPriceGenericPermission">
+    <service name="productPriceGenericPermission" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="productPriceGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="checkCategoryPermissionWithViewPurchaseAllow" engine="groovy"
@@ -1285,20 +1285,20 @@ under the License.
     </service>
 
     <!-- ProductCategoryGlAccount Services -->
-    <service name="createProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="createProductCategoryGlAccount" auth="true">
+    <service name="createProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createProductCategoryGlAccount" auth="true">
         <description>Create a ProductCategoryGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="updateProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="updateProductCategoryGlAccount" auth="true">
+    <service name="updateProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProductCategoryGlAccount" auth="true">
         <description>Update a ProductCategoryGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="simple"
-                location="component://product/minilang/product/product/ProductServices.xml" invoke="deleteProductCategoryGlAccount" auth="true">
+    <service name="deleteProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="groovy"
+                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="deleteProductCategoryGlAccount" auth="true">
         <description>Delete a ProductCategoryGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -1608,48 +1608,48 @@ under the License.
     </service>
 
     <!-- Product GroupOrder Services -->
-    <service name="createProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
-        location="component://product/minilang/product/product/ProductServices.xml" invoke="createProductGroupOrder" auth="true">
+    <service name="createProductGroupOrder" default-entity-name="ProductGroupOrder" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createProductGroupOrder" auth="true">
         <description>Create ProductGroupOrder</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="updateProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
-        location="component://product/minilang/product/product/ProductServices.xml" invoke="updateProductGroupOrder" auth="true">
+    <service name="updateProductGroupOrder" default-entity-name="ProductGroupOrder" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProductGroupOrder" auth="true">
         <description>Update ProductGroupOrder</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="deleteProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
-        location="component://product/minilang/product/product/ProductServices.xml" invoke="deleteProductGroupOrder" auth="true">
+    <service name="deleteProductGroupOrder" default-entity-name="ProductGroupOrder" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="deleteProductGroupOrder" auth="true">
         <description>Delete ProductGroupOrder</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createJobForProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
-        location="component://product/minilang/product/product/ProductServices.xml" invoke="createJobForProductGroupOrder" auth="true">
+    <service name="createJobForProductGroupOrder" default-entity-name="ProductGroupOrder" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createJobForProductGroupOrder" auth="true">
         <description>Create Job For ProductGroupOrder</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="checkOrderItemForProductGroupOrder" engine="simple"
-        location="component://product/minilang/product/product/ProductServices.xml" invoke="checkOrderItemForProductGroupOrder" auth="true">
+    <service name="checkOrderItemForProductGroupOrder" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="checkOrderItemForProductGroupOrder" auth="true">
         <description>Check OrderItem For ProductGroupOrder</description>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
 
-    <service name="cancleOrderItemGroupOrder" engine="simple"
-        location="component://product/minilang/product/product/ProductServices.xml" invoke="cancleOrderItemGroupOrder" auth="true">
+    <service name="cancleOrderItemGroupOrder" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="cancleOrderItemGroupOrder" auth="true">
         <description>Cancle OrderItemGroupOrder</description>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="checkProductGroupOrderExpired" engine="simple"
-        location="component://product/minilang/product/product/ProductServices.xml" invoke="checkProductGroupOrderExpired" auth="true">
+    <service name="checkProductGroupOrderExpired" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="checkProductGroupOrderExpired" auth="true">
         <description>Check ProductGroupOrder Expired</description>
         <attribute name="groupOrderId" mode="IN" type="String" optional="false"/>
     </service>
