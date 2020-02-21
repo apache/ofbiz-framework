@@ -427,57 +427,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="getNextOrderId" short-description="Get Next orderId">
-        <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special order number sequencing -->
-        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
-        <log level="info" message="In getNextOrderId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
- 
-        <if-not-empty field="partyAcctgPreference">
-           <get-related-one relation-name="OrderCustomMethod" value-field="partyAcctgPreference" to-value-field="customMethod"/>
-           <else>
-               <log level="warning" message="Acctg preference not defined for partyId [${parameters.partyId}]"/>
-           </else>
-        </if-not-empty>
-
-        <if-not-empty field="customMethod">
-            <set field="customMethodName" from-field="customMethod.customMethodName"/>
-            <else><!-- retreive service from deprecated enumeration -->
-                <if-compare operator="equals" value="ODRSQ_ENF_SEQ" field="partyAcctgPreference.oldOrderSequenceEnumId">
-                    <set field="customMethodName" value="orderSequence_enforced"/>
-                </if-compare>
-            </else>
-        </if-not-empty>
-
-        <if-not-empty field="customMethodName">
-            <set-service-fields service-name="${customMethodName}" map="parameters" to-map="customMethodMap"/>
-            <set field="customMethodMap.partyAcctgPreference" from-field="partyAcctgPreference"/>
-            <call-service service-name="${customMethodName}" in-map-name="customMethodMap">
-               <result-to-field result-name="orderId" field="orderIdTemp"/>
-            </call-service>
-            <else>
-                <!-- <log level="info" message="In getNextOrderId sequence by Standard"/> -->
-                <!-- default to the default sequencing: ODRSQ_STANDARD -->
-                <set from-field="parameters.orderId" field="orderIdTemp"/>
-                <if-empty field="orderIdTemp">
-                    <sequenced-id sequence-name="OrderHeader" field="orderIdTemp"/>
-                    <else>
-                        <!-- check the provided ID -->
-                        <check-id field="orderIdTemp"/>
-                        <check-errors/>
-                    </else>
-                </if-empty>
-            </else>
-        </if-not-empty>
-        
-        <if-not-empty field="parameters.productStoreId">
-            <entity-one entity-name="ProductStore" value-field="productStore"/>
-        </if-not-empty>
-
-        <!-- use orderIdTemp along with the orderIdPrefix to create the real ID -->
-        <set field="orderId" value="${productStore.orderNumberPrefix}${partyAcctgPreference.orderIdPrefix}${str:toString(orderIdTemp)}"/>
-        <field-to-result field="orderId" result-name="orderId"/>
-    </simple-method>
-
     <simple-method method-name="orderSequence_enforced" short-description="Enforced Sequence (no gaps, per organization)">
         <log level="info" message="In getNextOrderId sequence enum Enforced"/> 
         <set field="partyAcctgPreference" from-field="parameters.partyAcctgPreference"/>
