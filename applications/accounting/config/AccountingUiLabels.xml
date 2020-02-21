@@ -1972,24 +1972,6 @@
         <value xml:lang="zh">寄账单地址2</value>
         <value xml:lang="zh-TW">帳單位址2</value>
     </property>
-    <property key="AccountingBillUpTo">
-        <value xml:lang="ar">وضع المستحقات حتى</value>
-        <value xml:lang="de">Teilbetrag bis</value>
-        <value xml:lang="en">Bill Up To</value>
-        <value xml:lang="es">Facturar hasta</value>
-        <value xml:lang="fr">Facturer jusqu'à</value>
-        <value xml:lang="hi-IN">बिल के पर्यत</value>
-        <value xml:lang="it">Fatturare A</value>
-        <value xml:lang="ja">請求(先)</value>
-        <value xml:lang="nl">factuurmaximum</value>
-        <value xml:lang="pt">Cobrar até</value>
-        <value xml:lang="ro">Faturare -Up To</value>
-        <value xml:lang="ru">Оплата на</value>
-        <value xml:lang="th">Bill-Up To</value>
-        <value xml:lang="vi">Bill-Up tới</value>
-        <value xml:lang="zh">账单增加为</value>
-        <value xml:lang="zh-TW">帳單增加為</value>
-    </property>
     <property key="AccountingBilling">
         <value xml:lang="ar">الفوترة</value>
         <value xml:lang="cs">Zúčtování</value>
@@ -2030,44 +2012,6 @@
         <value xml:lang="zh">账单账户</value>
         <value xml:lang="zh-TW">帳單帳戶</value>
     </property>
-    <property key="AccountingBillingAccountBalanceNotFound">
-        <value xml:lang="ar">حساب الفوترة [${billingAccountId}] ميزانية غير موجودة...(</value>
-        <value xml:lang="de">Saldo für Rechnungskonto [${billingAccountId}] nicht gefunden...(</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] balance not found...(</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] balance no encontrado...(</value>
-        <value xml:lang="es-CL">Cuenta de Facturación [${billingAccountId}] balance no encontrado...(</value>
-        <value xml:lang="fr">Pas trouvé le solde du compte de facturation [${billingAccountId}]...</value>
-        <value xml:lang="hi-IN">देयकांकन खाता [${billingAccountId}] में शेष नहीं मिला...</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] bilancio non trovato...(</value>
-        <value xml:lang="ja">請求先アカウント [${billingAccountId}] の貸借が見つかりません...(</value>
-        <value xml:lang="nl">Saldo van factuurrekening [${billingAccountId}] niet gevonden...(</value>
-        <value xml:lang="pt">Conta de cobrança [${billingAccountId}] não foi encontrada... (</value>
-        <value xml:lang="ro">Cont Facturare [${billingAccountId}] Nu Gaseste Bilantul...(</value>
-        <value xml:lang="ru">Кредитный счет [${billingAccountId}] не найден баланс...(</value>
-        <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] ไม่พบยอดเงินคงเหลือ...(</value>
-        <value xml:lang="vi">Tài khoản Thanh toán [${billingAccountId}] cân đối không tìm thấy...</value>
-        <value xml:lang="zh">没有找到账单账户[${billingAccountId}]余额...(</value>
-        <value xml:lang="zh-TW">沒有找到帳單帳戶[${billingAccountId}]餘額...(</value>
-    </property>
-    <property key="AccountingBillingAccountBalanceProblem">
-        <value xml:lang="ar">حساب الفوترة [${billingAccountId}] لا يعتد بميزانية إيجابية: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="de">Rechnungskonto [${billingAccountId}] hat kein positives Saldo: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] doesn't have a positive balance: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no tiene un balance positivo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="es-CL">Cuenta de Facturación [${billingAccountId}] no tiene un balance positivo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="fr">Le compte de facturation [${billingAccountId}] n'a pas un solde positif: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="hi-IN">देयकांकन खाता [${billingAccountId}] में सकारात्मक संतुलन नहीं है: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] non ha un bilancio positivo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="ja">請求先アカウント [${billingAccountId}] がプラス残高ではありません: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
-        <value xml:lang="nl">factuurrekening [${billingAccountId}] heeft geen positief saldo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="pt">Cobrança de conta [${billingAccountId}] não possui saldo positivo: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
-        <value xml:lang="ro">Cont Facturare [${billingAccountId}] nu are un bilant pozitiv: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="ru">Кредитный счет [${billingAccountId}] не имеет положительного баланса: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] ไม่มียอดเงินคงเหลือ: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
-        <value xml:lang="vi">Tài khoản Thanh toán [${billingAccountId}] không có cân đối dương tiền: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
-        <value xml:lang="zh">账单账户[${billingAccountId}]没有正的余额：${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="zh-TW">帳單帳戶[${billingAccountId}]沒有正的餘額:${billingAccountApplyAvailable?currency(${isoCode})}</value>
-    </property>
     <property key="AccountingBillingAccountCurrencyProblem">
         <value xml:lang="ar">العملات لا تتطابق, حساب الفوترة [${billingAccountId}] عملته: ${accountCurrencyUomId} و التسديد [${paymentId}] عملته: ${paymentCurrencyUomId}</value>
         <value xml:lang="de">Währungen sind unterschiedlich, Rechnungskonto [${billingAccountId}] hat Währung: ${accountCurrencyUomId} und die Zahlung [${paymentId}] hat Währung: ${paymentCurrencyUomId}</value>
@@ -2105,25 +2049,6 @@
         <value xml:lang="vi">Id tài khoản thanh toán</value>
         <value xml:lang="zh">账单账户编号</value>
         <value xml:lang="zh-TW">帳單帳戶識別</value>
-    </property>
-    <property key="AccountingBillingAccountInvoices">
-        <value xml:lang="ar">فواتير حساب الفوترة</value>
-        <value xml:lang="de">Rechnungen zu Rechnungskonto</value>
-        <value xml:lang="en">Billing Account Invoices</value>
-        <value xml:lang="es">Facturas de cuenta de facturación</value>
-        <value xml:lang="es-CL">Facturas de Cuenta de Facturación</value>
-        <value xml:lang="fr">Factures du compte de facturation</value>
-        <value xml:lang="hi-IN">देयकांकन खाता चालान</value>
-        <value xml:lang="it">Conto Fatturazione Fatture</value>
-        <value xml:lang="ja">請求先アカウント請求書</value>
-        <value xml:lang="nl">facturen voor factuurrekening</value>
-        <value xml:lang="pt">Faturas da conta de cobrança</value>
-        <value xml:lang="ro">Cont Facturare Facturi</value>
-        <value xml:lang="ru">Накладные кредитного счета</value>
-        <value xml:lang="th">ยอดรวมของบัญชีในใบกำกับสินค้า</value>
-        <value xml:lang="vi">Hóa đơn tài khoản thanh toán</value>
-        <value xml:lang="zh">账单账户发票</value>
-        <value xml:lang="zh-TW">帳單帳戶發票</value>
     </property>
     <property key="AccountingBillingAccountLessRequested">
         <value xml:lang="ar">حساب الفوترة  [${billingAccountId}]لديه ${billingAccountApplyAvailable?currency(${isoCode})} للتطبيق لكن ${amountApplied?currency(${isoCode})}مطلوبة</value>
