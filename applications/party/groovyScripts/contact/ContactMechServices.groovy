@@ -37,7 +37,7 @@ def updateContactMech() {
             default: 'ContactMechanism'
     ]
     String successMessage = "Party" +
-            successMessageMap."${parameters.contactMechTypeId}" ?: successMessageMap.default +
+            (successMessageMap."${parameters.contactMechTypeId}" ?: successMessageMap.default) +
             "SuccessfullyUpdated"
     GenericValue lookedValue = from('ContactMech').where(parameters).queryOne()
     if (! lookedValue) {
