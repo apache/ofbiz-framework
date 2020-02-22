@@ -337,9 +337,7 @@ under the License.
             </call-class-method>
             <if-compare-field field="autoPasswordChangeEnabled" operator="equals" to-field="true">
                 <call-class-method method-name="createUserLoginPasswordHistory" class-name="org.apache.ofbiz.common.login.LoginServices">
-                    <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
-                    <string value="${newUserLogin.userLoginId}"/>
-                    <string value="${newUserLogin.currentPassword}"/>
+                    <field field="newUserLogin" type="org.apache.ofbiz.entity.GenericValue"/>
                 </call-class-method>
             </if-compare-field>
         </if-not-empty>
