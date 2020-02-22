@@ -1227,7 +1227,7 @@ public class PriceServices {
 
         // b) If no price can be found, get the lastPrice from the SupplierProduct entity
         if (!validPriceFound) {
-            Map<String, Object> priceContext = UtilMisc.toMap("currencyUomId", currencyUomId, "partyId", partyId, "productId", productId, "quantity", quantity);
+            Map<String, Object> priceContext = UtilMisc.toMap("currencyUomId", currencyUomId, "partyId", partyId, "productId", productId, "quantity", quantity, "agreementId", agreementId);
             List<GenericValue> productSuppliers = null;
             try {
                 Map<String, Object> priceResult = dispatcher.runSync("getSuppliersForProduct", priceContext);

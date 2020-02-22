@@ -478,10 +478,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         Map<String, Object> params = UtilMisc.<String, Object>toMap("productId", productId,
                                     "partyId", this.getPartyId(),
                                     "currencyUomId", this.getCurrency(),
-                                    "quantity", quantity);
+                                    "quantity", quantity,
+                                    "agreementId", this.agreementId);
         try {
             Map<String, Object> result = dispatcher.runSync("getSuppliersForProduct", params);
             List<GenericValue> productSuppliers = UtilGenerics.checkList(result.get("supplierProducts"));
+
             if ((productSuppliers != null) && (productSuppliers.size() > 0)) {
                 supplierProduct = productSuppliers.get(0);
             }
