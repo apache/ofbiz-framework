@@ -68,7 +68,8 @@ if (modelEntity) {
     dynamicAutoEntityFieldSearchForm = dynamicAutoEntityFieldSearchForm + '</form></forms>'
     logVerbose(dynamicAutoEntityFieldSearchForm)
     Document dynamicAutoEntityFieldSearchFormXml = UtilXml.readXmlDocument(dynamicAutoEntityFieldSearchForm, true, true)
-    Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldSearchFormXml, entityModelReader, dispatcher.getDispatchContext(), entityName)
+    Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldSearchFormXml,
+            entityModelReader, context.visualTheme, dispatcher.getDispatchContext(), entityName)
     ModelForm modelForm
     if (modelFormMap) {
         Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next()
@@ -107,7 +108,8 @@ if (modelEntity) {
             </form></forms>"""
 
     Document dynamicAutoEntityFieldListFormXml = UtilXml.readXmlDocument(dynamicAutoEntityFieldListForm, true, true)
-    modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldListFormXml, entityModelReader, dispatcher.getDispatchContext(), entityName)
+    modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldListFormXml, entityModelReader,
+            context.visualTheme, dispatcher.getDispatchContext(), entityName)
     if (modelFormMap) {
         Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next()
         modelForm = entry.getValue()

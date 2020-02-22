@@ -20,10 +20,14 @@ package org.apache.ofbiz.widget.model;
 
 import java.util.List;
 
+import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.w3c.dom.Element;
 
 /**
@@ -51,8 +55,9 @@ public class ModelGrid extends ModelForm {
     public static final String module = ModelGrid.class.getName();
 
     /** XML Constructor */
-    public ModelGrid(Element formElement, String formLocation, ModelReader entityModelReader, DispatchContext dispatchContext) {
-        super(formElement, formLocation, entityModelReader, dispatchContext, "list");
+    public ModelGrid(Element formElement, String formLocation, ModelReader entityModelReader,
+                     VisualTheme visualTheme, DispatchContext dispatchContext) {
+        super(formElement, formLocation, entityModelReader, visualTheme, dispatchContext, "list");
     }
 
     @Override
@@ -61,7 +66,8 @@ public class ModelGrid extends ModelForm {
     }
 
     @Override
-    protected ModelForm getParentModel(Element gridElement, ModelReader entityModelReader, DispatchContext dispatchContext) {
+    protected ModelForm getParentModel(Element gridElement, ModelReader entityModelReader,
+                                       VisualTheme visualTheme, DispatchContext dispatchContext) {
         ModelForm parentModel = null;
         String parentResource = gridElement.getAttribute("extends-resource");
         String parentGrid = gridElement.getAttribute("extends");
@@ -69,10 +75,15 @@ public class ModelGrid extends ModelForm {
             // check if we have a resource name
             if (!parentResource.isEmpty()) {
                 try {
-                    parentModel = GridFactory.getGridFromLocation(parentResource, parentGrid, entityModelReader, dispatchContext);
+                    FlexibleStringExpander parentResourceExp = FlexibleStringExpander.getInstance(parentResource);
+                    Map<String, String> visualRessources = UtilMisc.toMap(
+                            "commonFormLocations", visualTheme.getModelTheme().getModelCommonForms());
+                    parentResource = parentResourceExp.expandString(visualRessources);
+                    parentModel = GridFactory.getGridFromLocation(parentResource, parentGrid, entityModelReader,
+                            visualTheme, dispatchContext);
                 } catch (Exception e) {
-                    Debug.logError(e, "Failed to load parent grid definition '" + parentGrid + "' at resource '" + parentResource
-                            + "'", module);
+                    Debug.logError(e, "Failed to load parent grid definition '" + parentGrid
+                            + "' at resource '" + parentResource + "'", module);
                 }
             } else if (!parentGrid.equals(gridElement.getAttribute("name"))) {
                 // try to find a grid definition in the same file
@@ -84,8 +95,8 @@ public class ModelGrid extends ModelForm {
                 }
                 for (Element parentElement : gridElements) {
                     if (parentElement.getAttribute("name").equals(parentGrid)) {
-                        parentModel = GridFactory.createModelGrid(parentElement, entityModelReader, dispatchContext,
-                                parentResource, parentGrid);
+                        parentModel = GridFactory.createModelGrid(parentElement, entityModelReader, visualTheme,
+                                dispatchContext, parentResource, parentGrid);
                         break;
                     }
                 }

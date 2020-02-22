@@ -2318,7 +2318,8 @@ public class ModelFormField {
             try {
                 org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
                 org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
-                modelForm = FormFactory.getFormFromLocation(location, name, entityModelReader, dispatchContext);
+                VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
+                modelForm = FormFactory.getFormFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
                 throw e;
             } catch (Exception e) {
@@ -2399,7 +2400,8 @@ public class ModelFormField {
             try {
                 org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
                 org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
-                modelForm = GridFactory.getGridFromLocation(location, name, entityModelReader, dispatchContext);
+                VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
+                modelForm = GridFactory.getGridFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
                 throw e;
             } catch (Exception e) {

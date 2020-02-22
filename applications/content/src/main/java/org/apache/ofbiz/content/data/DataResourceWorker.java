@@ -803,7 +803,8 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                     ModelReader entityModelReader = delegator.getModelReader();
                     String formText = getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache);
                     Document formXml = UtilXml.readXmlDocument(formText, true, true);
-                    Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(formXml, entityModelReader, dispatcher.getDispatchContext(), null);
+                    Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(formXml, entityModelReader,
+                            UtilHttp.getVisualTheme(request), dispatcher.getDispatchContext(), null);
 
                     if (UtilValidate.isNotEmpty(modelFormMap)) {
                         Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next(); // get first entry, only one form allowed per file

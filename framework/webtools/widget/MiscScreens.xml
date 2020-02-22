@@ -164,24 +164,9 @@ under the License.
                                 <section name="Form/List Styles">
                                     <widgets>
                                         <horizontal-separator/>
-                                        <include-form name="LayoutDemoForm" location="component://webtools/widget/MiscForms.xml"/>
+                                        <include-grid name="LayoutDemoSimpleGrid" location="component://webtools/widget/MiscForms.xml"/>
                                         <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
-                                        <section>
-                                            <actions>
-                                                <set field="tableStyle" value="basic-table dark-grid"/>
-                                            </actions>
-                                            <widgets/>
-                                        </section>
-                                        <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
-                                        <section>
-                                            <actions>
-                                                <set field="altRowStyle" value="alternate-row"/>
-                                                <set field="headerStyle" value="header-row-2"/>
-                                                <set field="tableStyle" value="basic-table hover-bar"/>
-                                            </actions>
-                                            <widgets/>
-                                        </section>
-                                        <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
+                                        <include-form name="LayoutDemoInLineList" location="component://webtools/widget/MiscForms.xml"/>
                                     </widgets>
                                 </section>
                                 <section name="Screenlet Styles">
@@ -195,25 +180,14 @@ under the License.
                                             <label style="h3" text="${demoText}"/>
                                         </screenlet>
                                         <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" id="screenlet-demo" collapsible="true">
-                                            <include-form name="LayoutDemoForm" location="component://webtools/widget/MiscForms.xml"/>
+                                            <include-grid name="LayoutDemoSimpleGrid" location="component://webtools/widget/MiscForms.xml"/>
+                                        </screenlet>
+                                        <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" padded="false">
+                                            <include-grid name="LayoutDemoBasicGrid" location="component://webtools/widget/MiscForms.xml"/>
                                         </screenlet>
                                         <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" padded="false">
                                             <section>
                                                 <actions>
-                                                    <set field="altRowStyle" value="alternate-row"/>
-                                                    <set field="headerStyle" value="header-row-1"/>
-                                                    <set field="tableStyle" value="basic-table light-grid hover-bar"/>
-                                                </actions>
-                                                <widgets/>
-                                            </section>
-                                            <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
-                                        </screenlet>
-                                        <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" padded="false">
-                                            <section>
-                                                <actions>
-                                                    <set field="altRowStyle" value="alternate-row"/>
-                                                    <set field="headerStyle" value="header-row-2"/>
-                                                    <set field="tableStyle" value="basic-table hover-bar"/>
                                                     <set field="viewSize" value="1" type="Integer"/>
                                                 </actions>
                                                 <widgets/>
