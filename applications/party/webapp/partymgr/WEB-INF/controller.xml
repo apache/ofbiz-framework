@@ -791,6 +791,14 @@ under the License.
         <response name="success" type="view-home"/>
         <response name="error" type="view-last"/>
     </request-map>
+    <request-map uri="ViewRequest">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ViewRequest"/>
+    </request-map>
+    <request-map uri="EditRequest">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditRequest"/>
+    </request-map>
 
     <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
