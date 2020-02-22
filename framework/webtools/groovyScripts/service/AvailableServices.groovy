@@ -19,6 +19,8 @@
 
 import java.util.*
 import javax.wsdl.WSDLException
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.base.util.UtilProperties
@@ -376,7 +378,7 @@ if (selectedService) {
         curServiceMap.defaultEntityName = defaultEntityName
         curServiceMap.invoke = invoke
         curServiceMap.location = location
-        curServiceMap.definitionLocation = curServiceModel.definitionLocation.replaceFirst("file:/" + System.getProperty("ofbiz.home") + "/", "")
+        curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.definitionLocation, "file:/" + System.getProperty("ofbiz.home") + "/", "")
         curServiceMap.requireNewTransaction = requireNewTransaction
         curServiceMap.export = export
         curServiceMap.exportBool = exportBool
@@ -564,7 +566,7 @@ if (!selectedService) {
             curServiceMap.defaultEntityName = defaultEntityName
             curServiceMap.invoke = invoke
             curServiceMap.location = location
-            curServiceMap.definitionLocation = curServiceModel.definitionLocation.replaceFirst("file:/" + System.getProperty("ofbiz.home") + "/", "")
+            curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.definitionLocation, "file:/" + System.getProperty("ofbiz.home") + "/", "")
             curServiceMap.requireNewTransaction = requireNewTransaction
             curServiceMap.deprecated = curServiceModel.deprecatedUseInstead
 
