@@ -280,20 +280,21 @@ under the License.
 
 
     <!-- Keyword Thesaurus services -->
-    <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="createKeywordThesaurus" auth="true">
+    <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="groovy"
+            location="component://common/groovyScripts/CommonServices.groovy" invoke="createKeywordThesaurus" auth="true">
         <description>Create a Keyword Thesaurus</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="updateKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="updateKeywordThesaurus" auth="true">
+    <service name="updateKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="entity-auto"
+            invoke="update" auth="true">
         <description>Update a Keyword Thesaurus</description>
+        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="deleteKeywordThesaurus" auth="true">
+    <service name="deleteKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="groovy"
+            location="component://common/groovyScripts/CommonServices.groovy" invoke="deleteKeywordThesaurus" auth="true">
         <description>Delete a Keyword Thesaurus</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <override name="alternateKeyword" optional="true"/>

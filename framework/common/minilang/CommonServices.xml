@@ -25,38 +25,6 @@ under the License.
         <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
     </simple-method>
 
-    <simple-method method-name="createKeywordThesaurus" short-description="Create a KeywordThesaurus">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <call-object-method obj-field="newEntity.enteredKeyword" method-name="toLowerCase" ret-field="newEntity.enteredKeyword"/>
-        <call-object-method obj-field="newEntity.alternateKeyword" method-name="toLowerCase" ret-field="newEntity.alternateKeyword"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateKeywordThesaurus" short-description="Update a KeywordThesaurus">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <store-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="deleteKeywordThesaurus" short-description="Delete a KeywordThesaurus">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <remove-by-and entity-name="KeywordThesaurus" map="newEntity"/>
-    </simple-method>
-
     <!-- Uom Conversion service -->
     <simple-method method-name="createUomConversionDated" short-description="Create a new dated UOM conversion entity">
         <make-value entity-name="UomConversionDated" value-field="newEntity"/>
