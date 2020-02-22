@@ -75,6 +75,7 @@ under the License.
     <GeoAssoc geoId="IND" geoIdTo="IN-JH" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-KA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-KL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IND" geoIdTo="IN-LA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-LD" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-MP" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-MH" geoAssocTypeId="REGIONS"/>
