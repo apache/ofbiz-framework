@@ -372,13 +372,6 @@ under the License.
     </service>
 
     <!-- ContactMech services -->
-    <service name="createContactMech" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="createContactMech" auth="true">
-        <description>Create a ContactMech</description>
-        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="ContactMech" include="pk" mode="INOUT" optional="true"/>
-        <override name="infoString" optional="true"/>
-    </service>
     <service name="createPartyContactMech" engine="simple"
             location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="createPartyContactMech" auth="true">
         <description>Create a PartyContactMech</description>
@@ -392,13 +385,6 @@ under the License.
                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechTypeId"/>
             </type-validate>
         </attribute>
-    </service>
-    <service name="updateContactMech" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="updateContactMech" auth="true">
-        <description>Update a ContactMech</description>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="contactMechTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="infoString" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updatePartyContactMech" engine="simple"
             location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="updatePartyContactMech" auth="true">
@@ -416,15 +402,6 @@ under the License.
         <permission-service service-name="partyContactMechPermissionCheck" main-action="DELETE"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
-    </service>
-    <service name="createPostalAddress" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="createPostalAddress" auth="true">
-        <description>Create a Postal Address</description>
-        <auto-attributes entity-name="PostalAddress" include="all" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
-        <override name="address1" optional="false"/>
-        <override name="city" optional="false"/>
-        <override name="postalCode" optional="false"/>
     </service>
     <!-- Party ContachMech reverse find -->
     <service name="findPartyFromEmailAddress" engine="simple"
@@ -469,20 +446,6 @@ under the License.
         <override name="city" optional="false"/>
         <override name="postalCode" optional="false"/>
     </service>
-    <service name="updatePostalAddress" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="updatePostalAddress" auth="true">
-        <description>Update a Postal Address</description>
-        <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/> <!-- the out paramater is the id of the new address -->
-        <attribute name="directions" type="String" mode="IN" optional="true"/> <!-- ?? -->
-        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="latitude" type="String" mode="IN" optional="true"/>
-        <attribute name="longitude" type="String" mode="IN" optional="true"/>
-        <override name="address1" optional="false"/>
-        <override name="city" optional="false"/>
-        <override name="postalCode" optional="false"/>
-    </service>
     <service name="updatePartyPostalAddress" engine="simple"
             location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="updatePartyPostalAddress" auth="true">
         <description>Update a Postal Address</description>
@@ -495,12 +458,6 @@ under the License.
         <override name="city" optional="false"/>
         <override name="postalCode" optional="false"/>
     </service>
-    <service name="createTelecomNumber" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="createTelecomNumber" auth="true">
-        <description>Create a Telecommunications Number</description>
-        <auto-attributes entity-name="TelecomNumber" include="all" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
-    </service>
     <service name="createPartyTelecomNumber" engine="simple"
             location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="createPartyTelecomNumber" auth="true">
         <description>Create a Telecommunications Number</description>
@@ -510,13 +467,6 @@ under the License.
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="updateTelecomNumber" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="updateTelecomNumber" auth="true">
-        <description>Update a Telecommunications Number</description>
-        <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/>
-    </service>
     <service name="updatePartyTelecomNumber" engine="simple"
             location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="updatePartyTelecomNumber" auth="true">
         <description>Update a Telecommunications Number</description>
@@ -524,14 +474,6 @@ under the License.
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
-    </service>
-    <service name="createEmailAddress" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="createEmailAddress" auth="true">
-        <description>Create an Email Address</description>
-        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes entity-name="ContactMech" include="pk" mode="OUT" optional="false"/>
-        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
-        <override name="infoString" optional="true"/>
     </service>
     <service name="createPartyEmailAddress" engine="simple"
             location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="createPartyEmailAddress" auth="true">
@@ -541,12 +483,6 @@ under the License.
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
-    </service>
-    <service name="updateEmailAddress" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="updateEmailAddress" auth="true">
-        <description>Update an Email Address</description>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updatePartyEmailAddress" engine="simple"
@@ -581,22 +517,6 @@ under the License.
         <auto-attributes entity-name="PartyContactMech" mode="IN" optional="true"/>
         <auto-attributes entity-name="FtpAddress" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT"/>
-    </service>
-    <service name="createFtpAddress" default-entity-name="FtpAddress" engine="groovy" invoke="createFtpAddress"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy">
-        <description>create FtpAddress</description>
-        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
-        <auto-attributes mode="OUT" include="pk"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-    <service name="updateFtpAddressWithHistory" default-entity-name="FtpAddress" engine="groovy" invoke="updateFtpAddressWithHistory"
-        location="component://party/groovyScripts/party/ContactMechServices.groovy">
-        <description>update FtpAddress</description>
-        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
-        <auto-attributes mode="IN" include="pk"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT"/> <!-- the out paramater is the id of the new address -->
-        <attribute name="oldContactMechId" type="String" mode="OUT"/> <!-- this is the id of the old address -->
     </service>
     <!-- contact mech attribute services -->
     <service name="createContactMechAttribute" engine="entity-auto" default-entity-name="ContactMechAttribute" invoke="create" auth="true">
@@ -1110,12 +1030,12 @@ under the License.
         <attribute name="verifyHash" type="String" mode="OUT" optional="false"/>
         <attribute name="expireDate" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="sendVerifyEmailAddressNotification" engine="simple"
-        location="component://party/minilang/contact/ContactMechServices.xml" invoke="sendVerifyEmailAddressNotification">
+    <service name="sendVerifyEmailAddressNotification" engine="groovy"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="sendVerifyEmailAddressNotification">
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="verifyEmailAddress" engine="simple"
-             location="component://party/minilang/contact/ContactMechServices.xml" invoke="verifyEmailAddress">
+    <service name="verifyEmailAddress" engine="groovy"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="verifyEmailAddress">
         <attribute name="verifyHash" type="String" mode="IN" optional="false"/>
     </service>
 
