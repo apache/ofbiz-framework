@@ -41,6 +41,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
@@ -358,7 +359,7 @@ public class UelFunctions {
 
     public static String replaceFirst(String str1, String str2, String str3) {
         if (null == str1) return null;
-        return str1.replaceFirst(str2, str3);
+        return StringUtils.replaceOnce(str1, str2, str3);
     }
 
     public static boolean startsWith(String str1, String str2) {
