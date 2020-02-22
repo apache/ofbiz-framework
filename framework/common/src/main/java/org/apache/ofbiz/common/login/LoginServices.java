@@ -568,8 +568,11 @@ public class LoginServices {
         return null;
     }
 
-    public static void createUserLoginPasswordHistory(Delegator delegator,String userLoginId, String currentPassword) throws GenericEntityException{
+    public static void createUserLoginPasswordHistory(GenericValue userLogin) throws GenericEntityException{
         int passwordChangeHistoryLimit = 0;
+        Delegator delegator = userLogin.getDelegator();
+        String userLoginId = userLogin.getString("userLoginId");
+        String currentPassword = userLogin.getString("currentPassword");
         try {
             passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0);
         } catch (NumberFormatException nfe) {
@@ -606,8 +609,7 @@ public class LoginServices {
 
         // save this password in history
         GenericValue userLoginPwdHistToCreate = delegator.makeValue("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userLoginId,"fromDate", nowTimestamp));
-        boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
-        userLoginPwdHistToCreate.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(getHashType(), null, currentPassword) : currentPassword);
+        userLoginPwdHistToCreate.set("currentPassword", currentPassword);
         userLoginPwdHistToCreate.create();
     }
 
@@ -702,7 +704,7 @@ public class LoginServices {
 
         try {
             userLoginToCreate.create();
-            createUserLoginPasswordHistory(delegator,userLoginId, currentPassword);
+            createUserLoginPasswordHistory(userLoginToCreate);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "", module);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
@@ -849,7 +851,7 @@ public class LoginServices {
 
             try {
                 userLoginToUpdate.store();
-                createUserLoginPasswordHistory(delegator,userLoginId, newPassword);
+                createUserLoginPasswordHistory(userLoginToUpdate);
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                 errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_write_failure", messageMap, locale);
