@@ -55,8 +55,8 @@ under the License.
                             <label style="h1" text="${uiLabelMap.ProductInventoryByProduct} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
                         </container>
                         <container>
-                            <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
-                            <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext" target-window="_blank"/>
+                            <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext" target-window="_blank"/>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleFindFacilityInventoryItemsByProduct}">
                             <include-form name="FindFacilityInventoryByProduct" location="component://product/widget/facility/FacilityForms.xml"/>
