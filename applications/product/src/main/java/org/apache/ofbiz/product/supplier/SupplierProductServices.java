@@ -63,6 +63,8 @@ public class SupplierProductServices {
         String currencyUomId = (String) context.get("currencyUomId");
         BigDecimal quantity =(BigDecimal) context.get("quantity");
         String canDropShip = (String) context.get("canDropShip");
+        String agreementId = (String) context.get("agreementId");
+
         try {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             if (product == null) {
@@ -80,7 +82,10 @@ public class SupplierProductServices {
                     supplierProducts = virtualProduct.getRelated("SupplierProduct", null, null, true);
                 }
             }
+            if(agreementId != null) {
+                supplierProducts = EntityUtil.filterByAnd(supplierProducts, UtilMisc.toMap("agreementId", agreementId));
 
+            }
             // filter the list by date
             supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
 
