@@ -74,6 +74,7 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <property name="secretRequired" value="false"/>
             <!-- AJP/13 connector attributes -->
             <!-- commented out because the values match the Tomcat defaults:
             <property name="tomcatAuthentication" value="true"/>
@@ -92,6 +93,7 @@ under the License.
             <property name="socketBuffer" value="9000"/>
             <property name="tcpNoDelay" value="true"/>
             <property name="threadPriority" value="5"/>
+            <property name="secret" value=""/>
             -->
         </property>
         <property name="http-connector" value="connector">
@@ -180,6 +182,7 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <property name="secretRequired" value="false"/>
         </property>
         <property name="http-connector" value="connector">
             <!--<property name="address" value=""/>-->
