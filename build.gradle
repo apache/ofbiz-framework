@@ -181,8 +181,8 @@ dependencies {
     implementation 'org.apache.shiro:shiro-core:1.4.1'
     implementation 'org.apache.sshd:sshd-core:1.7.0'
     implementation 'org.apache.tika:tika-parsers:1.22'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.29' // Remember to change the version number in javadoc.options block
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.29'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.31' // Remember to change the version number in javadoc.options block
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.31'
     implementation 'org.apache.axis2:axis2-kernel:1.7.9'
     implementation 'org.apache.xmlgraphics:fop:2.3'
     implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
