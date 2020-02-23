@@ -755,7 +755,18 @@ under the License.
                     <xs:documentation>Used to specify a javascript action that should be run based on an existing specified event.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="id-name" />
+            <xs:attribute type="xs:string" name="id-name">
+                <xs:annotation>
+                    <xs:documentation>Define the string to be used as the identifier (like a DOM id attribute) for this
+                        field.
+
+                        Accepts ${} notation to allow use of expressions.
+
+                        If undefined then defaults to [form-name]_[name] where form-name is set using the form-name
+                        attribute or taken from the containing form element's name attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute name="separate-column" type="xs:boolean" default="false"/>
             <xs:attribute name="required-field" type="xs:boolean"/>
             <xs:attribute type="xs:string" name="required-field-style">
