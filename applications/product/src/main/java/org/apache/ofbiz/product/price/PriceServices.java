@@ -1217,6 +1217,7 @@ public class PriceServices {
 
         GenericValue product = (GenericValue)context.get("product");
         String productId = product.getString("productId");
+        String agreementId = (String)context.get("agreementId");
         String currencyUomId = (String)context.get("currencyUomId");
         String partyId = (String)context.get("partyId");
         BigDecimal quantity = (BigDecimal)context.get("quantity");

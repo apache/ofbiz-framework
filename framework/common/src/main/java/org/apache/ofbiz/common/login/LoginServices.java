@@ -437,6 +437,9 @@ public class LoginServices {
 
     public static void createUserLoginPasswordHistory(GenericValue userLogin) throws GenericEntityException{
         int passwordChangeHistoryLimit = 0;
+        Delegator delegator = userLogin.getDelegator();
+        String userLoginId = userLogin.getString("userLoginId");
+        String currentPassword = userLogin.getString("currentPassword");
         try {
             passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0).intValue();
         } catch (NumberFormatException nfe) {
@@ -942,9 +945,6 @@ public class LoginServices {
         }
 
         int passwordChangeHistoryLimit = 0;
-        Delegator delegator = userLogin.getDelegator();
-        String userLoginId = userLogin.getString("userLoginId");
-        String currentPassword = userLogin.getString("currentPassword");
         try {
             passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0).intValue();
         } catch (NumberFormatException nfe) {
