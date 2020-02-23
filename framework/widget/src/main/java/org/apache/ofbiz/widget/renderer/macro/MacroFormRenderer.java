@@ -3407,7 +3407,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
-        String id = containerField.getModelFormField().getIdName();
+        final String id = containerField.getModelFormField().getCurrentContainerId(context);
         String className = UtilFormatOut.checkNull(containerField.getModelFormField().getWidgetStyle());
         StringWriter sr = new StringWriter();
         sr.append("<@renderContainerField ");
