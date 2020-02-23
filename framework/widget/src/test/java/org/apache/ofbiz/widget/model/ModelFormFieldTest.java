@@ -98,4 +98,11 @@ public class ModelFormFieldTest {
         assertThat(dropDownField.getParameterNameOther(ImmutableMap.of("prefix", "P1")), equalTo("P1Param_OTHER"));
         assertThat(dropDownField.getParameterNameOther(ImmutableMap.of("prefix", "P2")), equalTo("P2Param_OTHER"));
     }
+
+    @Test
+    public void fieldUsesFlexibleContainerId() {
+        ModelFormField field = from(b -> b.setIdName("${prefix}IdValue"));
+        assertThat(field.getCurrentContainerId(ImmutableMap.of("prefix", "P1")), equalTo("P1IdValue"));
+        assertThat(field.getCurrentContainerId(ImmutableMap.of("prefix", "P2")), equalTo("P2IdValue"));
+    }
 }
