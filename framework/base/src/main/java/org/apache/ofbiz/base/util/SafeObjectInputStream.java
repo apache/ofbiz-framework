@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,77 +15,62 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.apache.ofbiz.base.util;
+
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.joining;
+import static org.apache.ofbiz.base.util.UtilProperties.getPropertyValue;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
-import java.lang.reflect.Proxy;
-import java.util.List;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 /**
- * ObjectInputStream
+ * SafeObjectInputStream
  *
+ * <p> An implementation of {@link java.io.ObjectInputStream} that ensure that
+ * only authorized class can be read from it.
  */
-public class SafeObjectInputStream extends java.io.ObjectInputStream {
+public final class SafeObjectInputStream extends ObjectInputStream {
+    private static final String[] DEFAULT_WHITELIST_PATTERN = {
+            "byte\\[\\]", "foo", "SerializationInjector",
+            "\\[Z", "\\[B", "\\[S", "\\[I", "\\[J", "\\[F", "\\[D", "\\[C",
+            "java..*", "sun.util.calendar..*", "org.apache.ofbiz..*",
+            "org.codehaus.groovy.runtime.GStringImpl", "groovy.lang.GString"};
 
-    private ClassLoader classloader;
-    private Pattern WHITELIST_PATTERN = null;
-
-    public SafeObjectInputStream(InputStream in, ClassLoader loader) throws IOException {
-        super(in);
-        this.classloader = loader;
-    }
-
-    public SafeObjectInputStream(InputStream in, ClassLoader loader, List<String> whitelist) throws IOException {
-        super(in);
-        this.classloader = loader;
-        StringBuilder bld = new StringBuilder("(");
-        for (int i = 0; i < whitelist.size(); i++) {
-            bld.append(whitelist.get(i));
-            if (i != whitelist.size() - 1) {
-                bld.append("|");
-            }
-        }
-        bld.append(")");
-        WHITELIST_PATTERN = Pattern.compile(bld.toString());
-    }
-
+    /** The regular expression used to match serialized types. */
+    private final Pattern whitelistPattern;
 
     /**
-     * @see java.io.ObjectInputStream#resolveClass(java.io.ObjectStreamClass)
+     * Instantiates a safe object input stream.
+     *
+     * @param in  the input stream to read
+     * @throws IOException when reading is not possible.
      */
+    public SafeObjectInputStream(InputStream in) throws IOException {
+        super(in);
+        String safeObjectsProp = getPropertyValue("SafeObjectInputStream", "ListOfSafeObjectsForInputStream", "");
+        String[] whitelist = safeObjectsProp.isEmpty() ? DEFAULT_WHITELIST_PATTERN : safeObjectsProp.split(",");
+        whitelistPattern = Arrays.stream(whitelist)
+                .map(String::trim)
+                .filter(str -> !str.isEmpty())
+                .collect(collectingAndThen(joining("|", "(", ")"), Pattern::compile));
+    }
+
     @Override
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
-        if (!WHITELIST_PATTERN.matcher(classDesc.getName()).find()) {
-            Debug.logWarning("***Incompatible class***: " + classDesc.getName() + 
-                    ". Please see OFBIZ-10837.  Report to dev ML if you use OFBiz without changes. "
-                    + "Else follow https://s.apache.org/45war"
-                    , "SafeObjectInputStream");
+        if (!whitelistPattern.matcher(classDesc.getName()).find()) {
+            Debug.logWarning("***Incompatible class***: "
+                    + classDesc.getName()
+                    + ". Please see OFBIZ-10837.  Report to dev ML if you use OFBiz without changes. "
+                    + "Else follow https://s.apache.org/45war",
+                    "SafeObjectInputStream");
             throw new ClassCastException("Incompatible class: " + classDesc.getName());
         }
-        
-        return ObjectType.loadClass(classDesc.getName(), classloader);
-    }
-
-    /**
-     * @see java.io.ObjectInputStream#resolveProxyClass(java.lang.String[])
-     */
-    @Override
-    protected Class<?> resolveProxyClass(String[] interfaces) throws IOException, ClassNotFoundException {
-        Class<?>[] cinterfaces = new Class<?>[interfaces.length];
-        for (int i = 0; i < interfaces.length; i++) {
-            cinterfaces[i] = classloader.loadClass(interfaces[i]);
-        }
-        //Proxy.getInvocationHandler(proxy)
-        
-        try {
-            return Proxy.getProxyClass(classloader, cinterfaces);
-        } catch (IllegalArgumentException e) {
-            throw new ClassNotFoundException(null, e);
-        }
-
+        return ObjectType.loadClass(classDesc.getName(), Thread.currentThread().getContextClassLoader());
     }
 }
