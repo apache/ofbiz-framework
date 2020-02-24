@@ -73,8 +73,7 @@ under the License.
     <service name="removeAgreementItem" default-entity-name="AgreementItem" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove an AgreementItem</description>
         <permission-service service-name="acctgAgreementPermissionCheck" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- AgreementItemAttribute -->
