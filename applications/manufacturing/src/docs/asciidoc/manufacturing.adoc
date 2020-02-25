@@ -31,3 +31,5 @@ include::_include/mfg-intro.adoc[leveloffset=+1]
 include::_include/mfg-production-run.adoc[leveloffset=+1]
 
 include::_include/mfg-routing.adoc[leveloffset=+1]
+
+include::_include/mfg-routing-task.adoc[leveloffset=+1]
