@@ -1,0 +1,68 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Create or Edit Employee Position
+This screen is used to create or edit and update an employee position.
+
+In the main search screen it is opened in create mode by clicking the New Employee Position button or
+ in update mode by clicking on the EmployeePosition Id column in Search Results.
+
+An Employee Position is the authorization, typically from the budget of an  internal organization,
+for the Company to engage someone to do a job.
+
+This means that you can fill a position in a number of different ways.
+
+You can fill a position with one full time person, change the assignment of a position from one person
+ to another over time, or split a position across more then one person at the same a time.
+
+Positions have a status.
+They can be one of:
+
+* Planned For,
+* Active/Open,
+* Inactive/Closed.
+
+Positions have a type, defined in Global HR Settings, which describes the job and its pay rates. +
+Some examples of job types could be secretary, production worker, sales manager, executive vice president or OFBiz programmer.
+
+If more then one person is needed for a type of job then a position must be created for each required person i.e. +
+If 10 secretaries are authorized for the Human Resource department then 10 positions are created with type secretary.
+
+Positions have a reporting structure and report to other positions (and not the people who hold the position).
+
+You can identify the position a position reports to and/or the positions(s) a position manages.
+
+NOTE: Be careful because it is possible to create circular reporting structures.
+
+== Fields
+* Employee Position Id - Unique Id for the position. May be user entered or if empty the system will generate sequence number.
+* Status ID - One of Active/Open, Inactive/Closed or Planned For.
+* Party Id - The party id of the internal organization authorized to fill the position.
+* Budget Id - A user entered identifier for the budget authorizing the position.
+* Budget Item Seq Id - A user entered identifier for the budget item authorizing the position.
+* Empl Position Type Id - Select a name for the position type. Position types are defined in Global HR Settings .
+* Estimated From Date - Enter date the position is expected to be filled.
+* Estimated Thru Date - Enter date on which the positions budget authorization is expected to end.
+* Salary Flag - Enter Y if this is a salaried position else N.
+* Exempt Flag - Enter Y if this position exempt from a requirement else N
+* Fulltime Flag - Enter Y if this is a fulltime position else N
+* Temporary Flag - Enter Y if this is a temporary position else N
+* Actual From Date - Enter the date the position is filled.
+* Actual Thru Date - Enter the date the position is no longer authorized.
+
+Click Create - to create the position.
