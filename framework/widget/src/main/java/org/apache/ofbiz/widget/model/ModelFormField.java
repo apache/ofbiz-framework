@@ -122,7 +122,7 @@ public class ModelFormField {
     protected final String name;
     private final List<UpdateArea> onChangeUpdateAreas;
     private final List<UpdateArea> onClickUpdateAreas;
-    protected final String parameterName;
+    protected final FlexibleStringExpander parameterName;
     private final Integer position;
     private final String redWhen;
     private final Boolean requiredField;
@@ -522,7 +522,7 @@ public class ModelFormField {
         return onClickUpdateAreas;
     }
 
-    public String getParameterName() {
+    public FlexibleStringExpander getParameterName() {
         return parameterName;
     }
 
@@ -535,7 +535,7 @@ public class ModelFormField {
     public String getParameterName(Map<String, ? extends Object> context) {
         String baseName;
         if (UtilValidate.isNotEmpty(this.parameterName)) {
-            baseName = this.parameterName;
+            baseName = this.parameterName.expandString(context);
         } else {
             baseName = this.name;
         }
@@ -1853,7 +1853,7 @@ public class ModelFormField {
         public String getParameterNameOther(Map<String, Object> context) {
             String baseName;
             if (UtilValidate.isNotEmpty(getModelFormField().parameterName)) {
-                baseName = getModelFormField().parameterName;
+                baseName = getModelFormField().parameterName.expandString(context);
             } else {
                 baseName = getModelFormField().name;
             }
