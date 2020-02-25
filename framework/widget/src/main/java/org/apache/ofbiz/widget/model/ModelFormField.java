@@ -24,6 +24,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -33,10 +34,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.Optional;
 import java.util.TimeZone;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.DateTimeConverters;
@@ -3152,7 +3155,7 @@ public class ModelFormField {
         private final String lookupPresentation;
         private final String lookupWidth;
         private final String showDescription;
-        private final String targetParameter;
+        private final FlexibleStringExpander targetParameter;
 
         public LookupField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
@@ -3165,7 +3168,7 @@ public class ModelFormField {
             this.lookupPresentation = element.getAttribute("presentation");
             this.lookupWidth = element.getAttribute("width");
             this.showDescription = element.getAttribute("show-description");
-            this.targetParameter = element.getAttribute("target-parameter");
+            this.targetParameter = FlexibleStringExpander.getInstance(element.getAttribute("target-parameter"));
         }
 
         public LookupField(int fieldSource, ModelFormField modelFormField) {
@@ -3179,7 +3182,7 @@ public class ModelFormField {
             this.lookupPresentation = "";
             this.lookupWidth = "";
             this.showDescription = "";
-            this.targetParameter = "";
+            this.targetParameter = FlexibleStringExpander.getInstance("");
         }
 
         public LookupField(LookupField original, ModelFormField modelFormField) {
@@ -3247,19 +3250,32 @@ public class ModelFormField {
             return UtilValidate.isEmpty(this.showDescription) ? null : "true".equals(this.showDescription);
         }
 
-        public String getTargetParameter() {
+        public FlexibleStringExpander getTargetParameter() {
             return targetParameter;
         }
 
+        public String getTargetParameter(final Map<String, Object> context) {
+            return targetParameter.expandString(context);
+        }
+
+        /**
+         * @deprecated Target Parameter is potentially a FlexibleStringExpander expression and should therefore be
+         * evaluated within a given context.
+         * <p> Use {@link #getTargetParameter(Map)} instead.</p>
+         */
+        @Deprecated
         public List<String> getTargetParameterList() {
-            List<String> paramList = new LinkedList<>();
-            if (UtilValidate.isNotEmpty(this.targetParameter)) {
-                StringTokenizer stk = new StringTokenizer(this.targetParameter, ", ");
-                while (stk.hasMoreTokens()) {
-                    paramList.add(stk.nextToken());
-                }
-            }
-            return paramList;
+            // Evaluate target-parameter with a null context, treating it as a plain string.
+            return getTargetParameterList(null);
+        }
+
+        public List<String> getTargetParameterList(final Map<String, Object> context) {
+            return Optional.ofNullable(getTargetParameter(context))
+                    .map(x -> x.split(","))
+                    .map(Arrays::stream)
+                    .orElse(Stream.empty())
+                    .map(String::trim)
+                    .collect(Collectors.toList());
         }
 
         @Override
