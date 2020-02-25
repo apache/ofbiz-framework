@@ -283,19 +283,21 @@ under the License.
     <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="groovy"
             location="component://common/groovyScripts/CommonServices.groovy" invoke="createKeywordThesaurus" auth="true">
         <description>Create a Keyword Thesaurus</description>
+        <permission-service service-name="catalogPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="updateKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="entity-auto"
             invoke="update" auth="true">
         <description>Update a Keyword Thesaurus</description>
-        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="catalogPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="deleteKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="groovy"
             location="component://common/groovyScripts/CommonServices.groovy" invoke="deleteKeywordThesaurus" auth="true">
         <description>Delete a Keyword Thesaurus</description>
+        <permission-service service-name="catalogPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <override name="alternateKeyword" optional="true"/>
     </service>

@@ -28,9 +28,6 @@ import org.apache.ofbiz.entity.GenericValue
  */
 
 def createKeywordThesaurus() {
-    if(!(security.hasEntityPermission("CATALOG", "_CREATE", parameters.userLogin))) {
-        return error(UtilProperties.getMessage("CommonUiLabels", "CommonGenericPermissionError", parameters.locale))
-    }
 
     GenericValue newEntity = makeValue("KeywordThesaurus", parameters)
     newEntity.enteredKeyword = newEntity.enteredKeyword.toLowerCase()
@@ -45,10 +42,6 @@ def createKeywordThesaurus() {
  */
 
 def deleteKeywordThesaurus() {
-
-    if(!(security.hasEntityPermission("CATALOG", "_DELETE", parameters.userLogin))) {
-        return error(UtilProperties.getMessage("CommonUiLabels", "CommonGenericPermissionError", parameters.locale))
-    }
 
     GenericValue newEntity = makeValue("KeywordThesaurus")
     newEntity.enteredKeyword = parameters.enteredKeyword
