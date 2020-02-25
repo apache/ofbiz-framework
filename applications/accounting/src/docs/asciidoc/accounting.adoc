@@ -32,7 +32,7 @@ include::_include/acc-invoices.adoc[leveloffset=+1]
 
 include::_include/acc-payments.adoc[leveloffset=+1]
 
-include::_include/acc-payments-gateway.adoc[leveloffset=+1]
+include::_include/acc-payment-gateway.adoc[leveloffset=+1]
 
 include::_include/acc-billing-accounts.adoc[leveloffset=+1]
 
