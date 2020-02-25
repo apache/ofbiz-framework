@@ -914,8 +914,8 @@ under the License.
 
 
     <!-- Category content services -->
-    <service name="createCategoryContent" default-entity-name="ProductCategoryContent" engine="simple"
-            location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="createCategoryContent" auth="true">
+    <service name="createCategoryContent" default-entity-name="ProductCategoryContent" engine="groovy"
+            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="createCategoryContent" auth="true">
         <description>Add Content To Category</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -923,8 +923,8 @@ under the License.
         <override name="fromDate" optional="true"/>
         <!--<override name="contentId" optional="true" mode="INOUT"/>-->
     </service>
-    <service name="updateCategoryContent" default-entity-name="ProductCategoryContent" engine="simple"
-            location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="updateCategoryContent" auth="true">
+    <service name="updateCategoryContent" default-entity-name="ProductCategoryContent" engine="groovy"
+            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="updateCategoryContent" auth="true">
         <description>Update Content To Category</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -935,8 +935,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createSimpleTextContentForCategory" default-entity-name="ProductCategoryContent" engine="simple"
-            location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="createSimpleTextContentForCategory" auth="true">
+    <service name="createSimpleTextContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
+            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="createSimpleTextContentForCategory" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
@@ -944,13 +944,12 @@ under the License.
         <override name="contentId" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateSimpleTextContentForCategory" default-entity-name="ProductCategoryContent" engine="simple"
-            location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="updateSimpleTextContentForCategory" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
+    <service name="updateSimpleTextContentForCategory" engine="group" auth="true">
+        <description>Update Simple Text Content For Product Category</description>
+        <group>
+            <invoke name="updateCategoryContent"/>
+            <invoke name="updateSimpleTextContent"/>
+        </group>
     </service>
 
     <service name="updateContentSEOForCategory" engine="simple"
@@ -962,8 +961,8 @@ under the License.
         <attribute name="metaDescription" mode="IN" type="String" optional="true"/>
     </service>
 
-    <service name="createRelatedUrlContentForCategory" engine="simple" default-entity-name="ProductCategoryContent"
-            location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="createRelatedUrlContentForCategory" auth="true">
+    <service name="createRelatedUrlContentForCategory" engine="groovy" default-entity-name="ProductCategoryContent"
+            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="createRelatedUrlContentForCategory" auth="true">
         <description>Create Related URL Content For Product Category</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -974,8 +973,8 @@ under the License.
         <override name="contentId" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateRelatedUrlContentForCategory" engine="simple" default-entity-name="ProductCategoryContent"
-            location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="updateRelatedUrlContentForCategory" auth="true">
+    <service name="updateRelatedUrlContentForCategory" engine="groovy" default-entity-name="ProductCategoryContent"
+            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="updateRelatedUrlContentForCategory" auth="true">
         <description>Update Related URL Content For Product Category</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -987,25 +986,21 @@ under the License.
         <attribute name="localeString" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="simple"
-        location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="createDownloadContentForCategory" auth="true">
+    <service name="createDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
+        location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="createDownloadContentForCategory" auth="true">
+        <implements service="uploadFileInterface"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" entity-name="Content" optional="true"/>
-        <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
-        <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
-        <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
         <attribute name="dataResourceTypeId" type="String" mode="IN" optional="true"/>
         <override name="prodCatContentTypeId" optional="false"/>
     </service>
-    <service name="updateDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="simple"
-        location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="updateDownloadContentForCategory" auth="true">
+    <service name="updateDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
+        location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="updateDownloadContentForCategory" auth="true">
+        <implements service="uploadFileInterface"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
-        <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
-        <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
         <attribute name="fileDataResourceId" type="String" mode="IN" optional="true"/>
     </service>
 
