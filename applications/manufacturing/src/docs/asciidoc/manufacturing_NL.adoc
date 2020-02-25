@@ -30,3 +30,5 @@ include::_include/hr-intro.adoc[leveloffset=+1]
 
 include::_include/mfg-production-run_NL.adoc[leveloffset=+1]
 
+include::_include/mfg-routing_NL.adoc[leveloffset=+1]
+

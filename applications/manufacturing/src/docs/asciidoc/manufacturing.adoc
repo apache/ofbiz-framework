@@ -29,3 +29,5 @@ Catalog to manage product definition, whatever its stage of manufacture (raw mat
 include::_include/mfg-intro.adoc[leveloffset=+1]
 
 include::_include/mfg-production-run.adoc[leveloffset=+1]
+
+include::_include/mfg-routing.adoc[leveloffset=+1]
