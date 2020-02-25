@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +63,7 @@ public class EntityQuery {
     private Integer resultSetType = EntityFindOptions.TYPE_FORWARD_ONLY;
     private Integer fetchSize = null;
     private Integer maxRows = null;
-    private Boolean distinct = null;
+    private boolean distinct = false;
     private EntityCondition havingEntityCondition = null;
     private boolean filterByDate = false;
     private Timestamp filterByDateMoment;
@@ -471,9 +471,7 @@ public class EntityQuery {
         if (maxRows != null) {
             findOptions.setMaxRows(maxRows);
         }
-        if (distinct != null) {
-            findOptions.setDistinct(distinct);
-        }
+        findOptions.setDistinct(distinct);
         return findOptions;
     }
 
@@ -520,10 +518,12 @@ public class EntityQuery {
         return EntityCondition.makeCondition(conditions);
     }
 
-    public <T> List<T> getFieldList(final String fieldName) throws GenericEntityException {select(fieldName);
+    public <T> List<T> getFieldList(final String fieldName) throws GenericEntityException {
+        select(fieldName);
+        cache(false);
         try (EntityListIterator genericValueEli = queryIterator()) {
-            if (Boolean.TRUE.equals(this.distinct)) {
-                Set<T> distinctSet = new HashSet<T>();
+            if (this.distinct) {
+                Set<T> distinctSet = new LinkedHashSet<T>();
                 GenericValue value = null;
                 while ((value = genericValueEli.next()) != null) {
                     T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));
