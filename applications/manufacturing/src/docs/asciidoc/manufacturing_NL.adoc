@@ -27,3 +27,6 @@ Catalog to manage product definition, whatever its stage of manufacture (raw mat
   and Workeffort to manage all means of production.
 
 include::_include/hr-intro.adoc[leveloffset=+1]
+
+include::_include/mfg-production-run_NL.adoc[leveloffset=+1]
+
