@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The OFBiz Setup Edit WebSite help screen.</title>
+    <para> The WebSite screen is used to manage the details of a WebSite. The WebSite record is used to configure which Product Store to use for your
+        site that references it. </para>
+    <section>
+        <title>How do I create a Web Site?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Web Site' sub menu and the screen will be displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the 'Web Site Id' field (NOTE: If you do not enter the 'Web Site Id' field it will be used the default as
+                        'Organization Party Id')</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the 'Site Name' field </para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Visual Theme Set' field</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Save' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </section>
+    <section>
+        <title>How do I update a Web Site?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Not all the fields on the web site can be updated. For example Web Site Id cannot be updated. If these fields need to be
+                        amended then the web site will need to be removed and then re-created.</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Web Site' sub menu and the screen will be displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Any existing line items will be displayed in the 'Items' box</para>
+                </listitem>
+                <listitem>
+                    <para>Amend the details in the line item that needs to be updated (eg Site Name, Visual Theme Set)</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button displayed at the end of the line item that has been updated </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </section>
+</section>
