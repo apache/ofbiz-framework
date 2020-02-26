@@ -191,6 +191,17 @@ under the License.
         <key-map field-name="picklistBinId"/>
       </view-link>
     </view-entity>
+    <view-entity entity-name="PicklistAndBin"
+                 package-name="org.apache.ofbiz.shipment.picklist"
+                 title="Picklist and PicklistBin View">
+      <member-entity entity-alias="PL" entity-name="Picklist"/>
+      <member-entity entity-alias="PLB" entity-name="PicklistBin"/>
+      <alias-all entity-alias="PL"/>
+      <alias-all entity-alias="PLB"/>
+      <view-link entity-alias="PL" rel-entity-alias="PLB">
+        <key-map field-name="picklistId"/>
+      </view-link>
+    </view-entity>
     <entity entity-name="PicklistBin"
             package-name="org.apache.ofbiz.shipment.picklist"
             title="Picklist">

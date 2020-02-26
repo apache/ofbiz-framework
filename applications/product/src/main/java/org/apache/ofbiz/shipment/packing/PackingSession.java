@@ -674,6 +674,8 @@ public class PackingSession implements java.io.Serializable {
         this.setShipmentToPacked();
         // set role on picklist
         this.setPickerOnPicklist();
+        // set picklist to picked
+        this.setPicklistToPicked();
         // run the complete events
         this.runEvents(PackingEvent.EVENT_CODE_COMPLETE);
 
@@ -862,6 +864,33 @@ public class PackingSession implements java.io.Serializable {
         Map<String, Object> packedResp = this.getDispatcher().runSync("updateShipment", packedCtx);
         if (packedResp != null && ServiceUtil.isError(packedResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(packedResp));
+        }
+    }
+
+    protected void setPicklistToPicked() throws GeneralException {
+        Delegator delegator = this.getDelegator();
+        if (picklistBinId != null) {
+            GenericValue picklist = EntityQuery.use(delegator).from("PicklistAndBin").where("picklistBinId", picklistBinId).queryFirst();
+            if (picklist == null) {
+                if (!"PICKLIST_PICKED".equals(picklist.getString("statusId")) && !"PICKLIST_COMPLETED".equals(picklist.getString("statusId")) && !"PICKLIST_CANCELLED".equals(picklist.getString("statusId"))) {
+                    Map<String, Object> serviceResult = this.getDispatcher().runSync("updatePicklist", UtilMisc.toMap("picklistId", picklist.getString("picklistId"), "statusId", "PICKLIST_PICKED", "userLogin", userLogin));
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        throw new GeneralException(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+            }
+        } else {
+            List<GenericValue> picklistBins = EntityQuery.use(delegator).from("PicklistAndBin").where("primaryOrderId", primaryOrderId).queryList();
+            if (UtilValidate.isNotEmpty(picklistBins)) {
+                for (GenericValue picklistBin : picklistBins) {
+                    if (!"PICKLIST_PICKED".equals(picklistBin.getString("statusId")) && !"PICKLIST_COMPLETED".equals(picklistBin.getString("statusId")) && !"PICKLIST_CANCELLED".equals(picklistBin.getString("statusId"))) {
+                        Map<String, Object> serviceResult = this.getDispatcher().runSync("updatePicklist", UtilMisc.toMap("picklistId", picklistBin.getString("picklistId"), "statusId", "PICKLIST_PICKED", "userLogin", userLogin));
+                        if (!ServiceUtil.isSuccess(serviceResult)) {
+                            throw new GeneralException(ServiceUtil.getErrorMessage(serviceResult));
+                        }
+                    }
+                }
+            }
         }
     }
 
