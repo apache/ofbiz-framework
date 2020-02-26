@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements. See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to you under the Apache License, Version
+  2.0 (the "License"); you may not use this file except in compliance
+  with the License. You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+  applicable law or agreed to in writing, software distributed under the
+  License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for
+  the specific language governing permissions and limitations under the
+  License.
+ -->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Time Periods help screen</title>
+ <para>Time periods are a defined period of time (usually a month,
+  quarter or year) that is used to group business transactions. It is a
+  key part of any general accounting setup.</para>
+ <para>Time periods can be used for the definition of :</para>
+ <itemizedlist>
+  <listitem>
+   <para>Company Financial Year</para>
+  </listitem>
+  <listitem>
+   <para>Fiscal / Tax Periods (weeks, months, quarters)</para>
+  </listitem>
+  <listitem>
+   <para>VAT / GST Periods</para>
+  </listitem>
+  <listitem>
+   <para>Sales Periods</para>
+  </listitem>
+ </itemizedlist>
+ <para>The screen is divided into 3 main areas. The first two show lists
+  of the open and closed time periods. The area at the bottom allows you
+  to define and enter a new time period.</para>
+ <section>
+  <title>How do I add a new Financial Year time period?</title>
+  <orderedlist>
+   <listitem>
+    <para>Using the area at the bottom of the screen labelled 'New'
+    </para>
+   </listitem>
+   <listitem>
+    <para>Leave the Parent Period Id field blank (NOTE: The financial
+     year will be the parent of other time periods eg fiscal months or
+     GST / VAT periods)</para>
+   </listitem>
+   <listitem>
+    <para>Select 'Fiscal Year' from the 'Period Type Id' drop down box
+    </para>
+   </listitem>
+   <listitem>
+    <para>Enter '13' in the Period Num field (NOTE: You can use any
+     number that does not conflict with the other time periods you want
+     to use. We plan to define 12 fiscal or tax months so will use 13
+     for the year)</para>
+   </listitem>
+   <listitem>
+    <para>Enter 'FY 2010-2011' in the Period Name field (NOTE: You can
+     use any name you want but make sure it makes sense. This example is
+     an abbreviation for Fiscal Year 2010-2011)</para>
+   </listitem>
+   <listitem>
+    <para>Select '1st April 2010' using the calendar lookup in the 'From
+     Date' field</para>
+   </listitem>
+   <listitem>
+    <para>Select '1st April 2011' using the calendar lookup in the 'Thru
+     Date' field (NOTE: Even though we want our financial year to end on
+     31st March 2011 the test used is based on less than not an equal
+     to)</para>
+   </listitem>
+   <listitem>
+    <para>Leave the 'Is Closed' field at its default of 'No'</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Create' button</para>
+   </listitem>
+   <listitem>
+    <para>The new time period will now be displayed in the list of open
+     time periods.</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I add a new GST/ VAT time period?</title>
+  <orderedlist>
+   <listitem>
+    <para>Using the area at the bottom of the screen labelled 'New'
+    </para>
+   </listitem>
+   <listitem>
+    <para>Select the previously created financial year 'FY 2010-2011' in
+     the Parent Period Id field</para>
+   </listitem>
+   <listitem>
+    <para>Select 'Fiscal Month' from the 'Period Type Id' drop down box
+    </para>
+   </listitem>
+   <listitem>
+    <para>Enter '1' in the Period Num field (NOTE: This is the first of
+     12 periods that we want to define.) </para>
+   </listitem>
+   <listitem>
+    <para>Enter 'FM April 2010' in the Period Name field (NOTE: You can
+     use any name you want but make sure it makes sense. This example is
+     an abbreviation for Fiscal Month April 2010)</para>
+   </listitem>
+   <listitem>
+    <para>Select '1st April 2010' using the calendar lookup in the 'From
+     Date' field</para>
+   </listitem>
+   <listitem>
+    <para>Select '1st May 2010' using the calendar lookup in the 'Thru
+     Date' field (NOTE: Even though we want our fiscal month to end on
+     30th April 2010 the test is used is based on less than not an equal
+     to)</para>
+   </listitem>
+   <listitem>
+    <para>Leave the Is Closed field at its default of 'No'</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Create' button</para>
+   </listitem>
+   <listitem>
+    <para>The new time period will now be displayed in the list of open
+     time periods.</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I update a time period?</title>
+  <para>NOTE: Time periods cannot be updated via the current time
+   periods screen. If you need to amend time period details then it can
+   be done via Entity Data Maintenance in the Webtools menu.</para>
+ </section>
+ <section>
+  <title>How do I close a time period?</title>
+  <orderedlist>
+   <listitem>
+    <para>To close a time period select the 'Close' button next to the
+     time period.</para>
+   </listitem>
+   <listitem>
+    <para>The time period will be removed from the current open time
+     periods area and re-displayed in the closed time periods section of
+     the screen.</para>
+   </listitem>
+  </orderedlist>
+  <para>NOTE: Closing a time period is a trigger for an automatic
+   accounting transaction as follows:</para>
+  <itemizedlist>
+   <listitem>
+    <para>Transaction Type: Period Closing</para>
+   </listitem>
+   <listitem>
+    <para>DR ?????? (based on the GL account type mapping for Profit
+     Loss) </para>
+   </listitem>
+   <listitem>
+    <para>CR 336000 Retained Earnings (based on GL account type mapping
+     for Retained Earnings)</para>
+   </listitem>
+  </itemizedlist>
+  <para>NOTE: Both sides of this accounting transaction uses the same GL
+   account type default mapping. The account mapping for 'Profit Loss'
+   is not setup as part of the demo data so this transaction will not
+   automatically post to the general ledger but will instead be put in
+   the ERROR_JOURNAL as an unposted transaction. The transaction value
+   is zero for both sides of journal...Even if it does have a value do
+   we want to move it from P and L to Equity during the financial year?
+   Normally this is done once at the end of the financial year.</para>
+ </section>
+</section>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Send Per Email screen.</title>
+    <para>This is used to send a copy of the invoice details to one or more
+        email addresses. The invoice is included as an attachment and the user
+        can add a simple accompanying email message.</para>
+    <section>
+        <title>How do I send a copy of an invoice via email?</title>
+        <orderedlist>
+        <listitem><para>Select the 'Send per Email' sub menu</para></listitem>
+        <listitem><para>The 'Send per Email' default screen will be displayed</para></listitem>
+        <listitem><para>Enter the 'From Email Address' (NOTE TO CHECK: Shouldnt this be
+            defaulted from the user login.....????)</para></listitem>
+        <listitem><para>Leave the 'To Email Address' as it is as this will be defaulted
+            using the customer details from the invoice</para></listitem>
+        <listitem><para>If required enter the 'Copy Email address' for anyone that needs
+            to be copied on the email</para></listitem>
+        <listitem><para>Leave the 'Subject' as the default of 'Please find attached
+            invoice'</para></listitem>
+        <listitem><para>Leave the 'Other Currency' box blank (NOTE TO CHECK: Investigate
+            what effect this has on the email.....)</para></listitem>
+        <listitem><para>Enter a short email message in the 'Email Body' </para></listitem>
+        <listitem><para>Press the 'Submit' button </para></listitem>
+        </orderedlist>
+    </section>
+</section>
+

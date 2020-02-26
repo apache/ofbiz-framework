@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Find Tax Authorities screen.</title>
+    <para>The default screen displays a list of Tax Authorities that have been setup.</para>
+    <para>IMPORTANT: You will need to create a party in Party Manager for the tax authority before
+        you can add a new tax authority in the accounting / tax authorities screen.</para>
+    <para>Steps to create the party to be used for the tax authority are as follows:</para>
+    <para>
+        <orderedlist>
+            <listitem>
+                <para>Create New Party Group</para>
+            </listitem>
+            <listitem>
+                <para>Fill in basic details (eg name, address etc)</para>
+            </listitem>
+            <listitem>
+                <para>Once the party record is created then add the role of 'Tax Authority' to the
+                    party</para>
+            </listitem>
+        </orderedlist>
+    </para>
+    <para>Only when the tax authority party record is created can you continue.</para>
+    <section>
+        <title>How do I create a new tax authority?</title>
+        <para>Press the 'New Tax Authority' button</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select or enter the code for the country, state or region that is
+                        applicable for the 'Geo' field</para>
+                </listitem>
+                <listitem>
+                    <para>Select or enter the party id of the Tax Authority party that has been
+                        created in Party Manager</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Require Tax Id for Exemption' field at its default of 'Y'(NOTE:
+                        This triggers tax not to be charged if a valid Tax Id is found!)</para>
+                </listitem>
+                <listitem>
+                    <para>Leave 'Tax Id Format Pattern' blank (NOTE: This specifies the format of
+                        the Tax Id so that it can be validated)</para>
+                </listitem>
+                <listitem>
+                    <para>Fill in the 'Include Tax in the price' - the default is 'N'. (NOTE: If
+                        prices need to include tax such as GST or VAT in the price then change this
+                        to 'Y')</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>NOTE: The above process creates the basic tax authority detail but there are further
+            details that can be added via the other tax authority sub menus</para>
+    </section>
+    <section>
+        <title>How do I update a tax authority?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Edit' button next to the tax authority that you wish to
+                        update</para>
+                </listitem>
+                <listitem>
+                    <para>The 'Edit Tax Authority' screen is displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Update the details of the tax authority as required including any
+                        submenus</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </section>
+    <section>
+        <title>How do I delete / remove a tax authority?</title>
+        <para>Tax authorities cannot be deleted via the Tax Authority screens. If they need to be
+            removed then it can be done via the Webtools and Entity Data maintenance.</para>
+        <para>NOTE: Be very careful removing tax authorities records unless you are completely
+            certain that they have not been already used for transaction calculations. </para>
+    </section>
+</section>

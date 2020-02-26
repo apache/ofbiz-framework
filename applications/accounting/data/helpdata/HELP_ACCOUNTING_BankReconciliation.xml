@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements. See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to you under the Apache License, Version
+  2.0 (the "License"); you may not use this file except in compliance
+  with the License. You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+  applicable law or agreed to in writing, software distributed under the
+  License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for
+  the specific language governing permissions and limitations under the
+  License.
+ -->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Financial Account Bank Reconciliation screen.</title>
+ <para>Bank Reconciliation is a regular task where transactions from the
+  company bank statement are matched against transactions that have
+  occurred in the General Ledger. This is done based on a specific
+  date(NOTE: This can be done daily, weekly but is usually an end of
+  month).</para>
+ <para> A specific GL account is normally used to represent the company
+  bank account and any accounting transaction that involves the bank
+  account will automatically record and entry in
+  the GL. </para>
+ <para>The bank reconciliation process ensures that the GL account and
+  the
+  bank statement reconcile to the same amounts. </para>
+ <para>Differences can occur between the GL and the bank statement for a
+  variety of valid reasons including the following:</para>
+ <itemizedlist>
+  <listitem>
+   <para>Payments or Deposits in process (especially cheques)</para>
+  </listitem>
+  <listitem>
+   <para>Interest or Bank Charges that are not known in advance but are
+    applied to the bank account</para>
+  </listitem>
+  <listitem>
+   <para>Currency or Exchange Rate variations / charges</para>
+  </listitem>
+  <listitem>
+   <para>Any outstanding </para>
+  </listitem>
+ </itemizedlist>
+ <para>NOTE: The differences will occur because of timing differences of
+  when and how transactions are recorded. Examples are as follows:
+ </para>
+ <orderedlist>
+  <listitem>
+   <para>Bank charges are known to the bank first and only once they
+    have applied the charge to the bank account can the company
+    duplicate the transaction in the GL to make the balance reconcile.
+   </para>
+  </listitem>
+  <listitem>
+   <para>A customer cheque payment may be recorded in the GL first
+    before it is paid into the bank account</para>
+  </listitem>
+ </orderedlist>
+ <section>
+  <title>How do I create a Bank Reconciliation?</title>
+  <para>The bank reconciliation process is made up of 3 steps.</para>
+  <orderedlist>
+   <listitem>
+    <para>Creating an account reconciliation group</para>
+   </listitem>
+   <listitem>
+    <para>Assigning transactions to the reconciliation</para>
+   </listitem>
+   <listitem>
+    <para>Validating the figures and confirming the reconciliation
+    </para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I create an account reconciliation group for Bank
+   Reconciliation?</title>
+  <orderedlist>
+   <listitem>
+    <para>Go to the Financial Account 'Reconciliation' sub menu for the
+     bank account to be reconciled</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Create New Financial Account Reconciliations'
+     button</para>
+   </listitem>
+   <listitem>
+    <para>Complete the details (eg name, description, organisation and
+     opening balance) required on the 'Add New Financial Account
+     Reconciliations' screen and press the 'Create' button</para>
+   </listitem>
+   <listitem>
+    <para>The new account reconciliation group is created and may be
+     used to assign transactions to</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I locate transactions that have not been assigned to a
+   Bank Reconciliation?</title>
+  <orderedlist>
+   <listitem>
+    <para>Go to the Financial Account 'Transactions' sub menu of the
+     bank account to be reconciled</para>
+   </listitem>
+   <listitem>
+    <para>The 'Find Transactions For Financial Account: XXXX' is
+     displayed </para>
+   </listitem>
+   <listitem>
+    <para>Use the dropdown box for 'GL Reconciliation Id' field to
+     select 'Not Assigned' and then press the 'Search' button</para>
+   </listitem>
+   <listitem>
+    <para>A list of transactions (deposits, withdrawals or adjustments)
+     that have not been reconciled will be displayed (NOTE: If no
+     transactions are displayed then there are no transactions to
+     reconcile)</para>
+   </listitem>
+   <listitem>
+    <para>Click on the 'check box' at the end of the transaction line
+     that corresponds to the entry that needs to be assigned (NOTE:More
+     than one transaction can be selected at a time)</para>
+   </listitem>
+   <listitem>
+    <para>Above the 'check box' is the 'Assign to Reconciliation' button
+     and to the left of this is a dropdown box to select the
+     reconciliation that the transaction is to be assigned to.</para>
+   </listitem>
+   <listitem>
+    <para>Using the drop down box select the reconciliation required and
+     press the 'Assign to Reconciliation' button</para>
+   </listitem>
+   <listitem>
+    <para>The transaction is removed from the 'Not Assigned' status and
+     added to the specified reconciliation group</para>
+   </listitem>
+  </orderedlist>
+  <para></para>
+ </section>
+ <section>
+  <title>How do I validate and confirm the Bank Reconciliation?</title>
+  <para>Validation can be done for individual transactions or for the complete account reconciliation group. The user controls this by the search criteria entered on this screen.</para>
+  <orderedlist>
+   <listitem>
+    <para>Go to the 'Transactions' sub menu for the bank account and press the 'Bank Reconciliation' button</para>
+   </listitem>
+   <listitem>
+    <para>Select the 'GL Reconciliation Id' that is to be reconciled</para>
+   </listitem>
+   <listitem>
+    <para>Click on the 'Select All' check box on the right hand side of the screen. (NOTE: All transactions in this group will be reconciled)</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Reconcile' button above the 'Select All' check box</para>
+   </listitem>
+     </orderedlist>
+     </section>
+      <section>
+  <title>How do I view a Bank Reconciliation?</title>
+  <para>Once all the transactions in a reconciliation group have been reconciled then the status of the group is changed to 'Reconciled'. This means that no new transactions can be added to the is group and the reconciled balance is fixed.</para>
+  <orderedlist>
+   <listitem>
+    <para>Go to the 'Reconciliation' sub menu for the bank account</para>
+   </listitem>
+   <listitem>
+    <para>A list of all the bank reconciliation groups are displayed with details of the status (eg Created or Reconciled)</para>
+   </listitem>
+   <listitem>
+    <para>Click on the 'GL Reconciliation Id' of the group and the details are displayed</para>
+   </listitem>
+  </orderedlist>
+     </section>
+      <section>
+  <title>How do I cancel a Bank Reconciliation?</title>
+  <para>If a bank reconciliation needs to be cancelled due to a mistake or error then the bank reconciliation can be cancelled as long as it has not been fully reconciled (i.e. the status of the reconciliation has not been changed to 'Reconciled'. This will allow you to start the bank reconcilation again.</para>
+  <orderedlist>
+   <listitem>
+    <para>Go to the 'Reconciliation' sub menu for the bank account</para>
+   </listitem>
+   <listitem>
+    <para>A list of all the bank reconciliation groups are displayed (NOTE: If no transactions are associated with a reconciliation group then it will not be displayed here)</para>
+   </listitem>
+   <listitem>
+    <para>Click on the 'Cancel' button associated with the 'GL Reconciliation Id' of the group that needs to be cancelled</para>
+   </listitem>
+   <listitem>
+    <para>All transactions will be removed from the reconciliation group and their status will be changed back to 'Not Assigned' so that they can be re-assigned to this or any other reconciliation.</para>
+   </listitem>
+   </orderedlist>
+     </section>
+ </section>

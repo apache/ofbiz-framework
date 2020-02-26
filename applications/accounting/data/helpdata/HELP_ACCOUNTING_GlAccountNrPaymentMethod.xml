@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Payment Method GL Account Type help screen</title>
+ <para>The Payment Method GL Account Type Id is used to map the
+  different payment methods (eg Cash, Cheque etc) to a specific GL
+  Account Type Id. This will translate to one side of a GL entry only.
+ </para>
+ <para>A Payment Method is just a way to define the ways in which
+  payments can be made. Each payment method can be linked to a different
+  account in the general ledger. A main GL account used would be the one
+  that represents the Company bank account. In the demo data mappings
+  Electronic Funds Transfer, Company Account, Financial Account are all
+  linked to the Company bank account GL account.</para>
+ <para>OFBiz demo data defines 15 different payment methods as follows:
+ </para>
+ <itemizedlist>
+  <listitem>
+   <para>Cash</para>
+  </listitem>
+  <listitem>
+   <para>Certified Cheque</para>
+  </listitem>
+  <listitem>
+   <para>Company Account</para>
+  </listitem>
+  <listitem>
+   <para>Company Cheque</para>
+  </listitem>
+  <listitem>
+   <para>Electronic Funds Transfer (NOTE TO CHECK: Problem with
+    definition or terminology - is this a Direct Debit.... ?? A direct
+    debit is controlled by the payee and an automatic payment via bank
+    account is controlled by the payer)</para>
+  </listitem>
+  <listitem>
+   <para>Billing Account</para>
+  </listitem>
+  <listitem>
+   <para>Cash on Delivery (COD)</para>
+  </listitem>
+  <listitem>
+   <para>eBay</para>
+  </listitem>
+  <listitem>
+   <para>Offline Payment (NOTE: Is this ambiguous - since COD is an
+    offline payment...)</para>
+  </listitem>
+  <listitem>
+   <para>PayPal</para>
+  </listitem>
+  <listitem>
+   <para>WorldPay</para>
+  </listitem>
+  <listitem>
+   <para>Financial Account</para>
+  </listitem>
+  <listitem>
+   <para>Gift Certificate</para>
+  </listitem>
+  <listitem>
+   <para>Money Order</para>
+  </listitem>
+  <listitem>
+   <para>Personal Cheque</para>
+  </listitem>
+ </itemizedlist>
+ <para>NOTE: A point to note is that these payment methods dont include
+  Credit Cards....(which I think is on purpose...). The majority of
+  these payment methods are linked to 'Undeposited Receipts' but an
+  additional accounting transaction may be needed once the funds have
+  cleared and are available in the Company bank account.</para>
+ <section>
+  <title>How do I add a new Payment Method Id / GL Account Id mapping?
+  </title>
+  <orderedlist>
+   <listitem>
+    <para>Select the 'Payment Method Type' from the drop down list
+    </para>
+   </listitem>
+   <listitem>
+    <para>Select the 'GL Account Id' to map it to from the drop down
+     list</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Save' button</para>
+   </listitem>
+   <listitem>
+    <para>The new Payment Method Type / GL Account Type mapping is
+     displayed in the list at the bottom of the screen</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I update a Payment Method Id / GL Account Id mapping?
+  </title>
+  <para>A Payment Method Type / GL Account Type mapping cannot be
+   updated directly but needs to be removed then re-created. If you try
+   to update an existing entry you will get an 'duplicate key' error
+   message</para>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Remove' button next to the entry that you want to
+     update</para>
+   </listitem>
+   <listitem>
+    <para>The entry is removed from the list of entries displayed</para>
+   </listitem>
+   <listitem>
+    <para>Select the 'Payment Method Type' from the drop down list
+    </para>
+   </listitem>
+   <listitem>
+    <para>Select the updated 'GL Account Type' to map it to from the
+     drop down list</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Save' button</para>
+   </listitem>
+   <listitem>
+    <para>The new Payment Method Type / GL Account Type mapping is
+     displayed in the list at the bottom of the screen</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I remove a Payment Method Id / Gl Account Id mapping?
+  </title>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Remove' button next to the entry that you want to
+     delete</para>
+   </listitem>
+   <listitem>
+    <para>The entry is removed from the list of entries displayed</para>
+   </listitem>
+  </orderedlist>
+ </section>
+</section>

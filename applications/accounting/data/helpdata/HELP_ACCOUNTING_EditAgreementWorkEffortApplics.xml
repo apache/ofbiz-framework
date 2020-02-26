@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Agreement Work Effort Applications help screen</title>
+    <para>This screen is used to link a work effort to the whole agreement or an individual agreement item.</para>
+    <section>
+    <title>How do I add a work effort to an agreement?</title>
+    <orderedlist>
+    <listitem><para>Use the drop down box to select the 'Agreement Item Seq Id'</para></listitem>
+    <listitem><para>Use the lookup to select the 'Workeffort Id'</para></listitem>
+    <listitem><para>Press the 'Add' button</para></listitem>
+    <listitem><para>The new entry is displayed in the lower part of the screen</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I update a work effort for an agreement?</title>
+    <para>Work efforts can only be added or deleted. They cannot be updated</para>
+    </section>
+    <section>
+    <title>How do I delete a work effort from an agreement?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Delete' button for the entry that needs to be deleted</para></listitem>
+    </orderedlist>
+    </section>
+</section>

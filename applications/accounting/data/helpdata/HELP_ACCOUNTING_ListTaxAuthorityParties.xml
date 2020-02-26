@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The List Tax Authority Parties screen.</title>
+ <para>This screen list any parties that have been associated with a tax
+  authority and tax rate. To have any tax calculated for Sales Orders or
+  Purchase Orders then an entry must exist for 'Company'.</para>
+ <para>Entries can also be created, updated or deleted.</para>
+ <section>
+  <title>How do I add a new Tax Authority Party Info?</title>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'New Tax Authority Party Info' button</para>
+   </listitem>
+   <listitem>
+    <para>Enter or use the lookup to select the 'Party Id'</para>
+   </listitem>
+   <listitem>
+    <para>Leave the 'From Date' blank (NOTE: Default will be current
+     date and time)</para>
+   </listitem>
+   <listitem>
+    <para>Leave the 'Thru Date' blank</para>
+   </listitem>
+   <listitem>
+    <para>Enter the 'Party Tax Id' if required (NOTE: This can be VAT or
+     GST number)</para>
+   </listitem>
+   <listitem>
+    <para>Use the drop down box to select whether the party select is
+     'Tax Exempt'</para>
+   </listitem>
+   <listitem>
+    <para>Use the drop down box to select whether the party selected is
+     'Nexus' (See note below)</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Create' button</para>
+   </listitem>
+  </orderedlist>
+  <para>NOTE: 'Nexus' is a term that refers to an agreement for between
+   the tax authority and potential tax payer that the tax authority can
+   impose the tax. This is usually for Sales Tax. If you have a Sales
+   Tax that is uniformly applied to a product or range of products then
+   the 'Nexus' field can be set to 'Y'</para>
+ </section>
+ <section>
+  <title>How do I update a Tax Authority Party Info?</title>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Edit' button next to the entry that needs to be
+     amended</para>
+   </listitem>
+   <listitem>
+    <para>Update the fields as required</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Update' button</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I delete a Tax Authority Party Info?</title>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Delete' button next to the entry that needs to be
+     deleted</para>
+   </listitem>
+  </orderedlist>
+ </section>
+</section>

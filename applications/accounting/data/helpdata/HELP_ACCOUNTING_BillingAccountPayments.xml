@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Billing Account Payments help screen</title>
+    <para>This sub menu allows the creation of a payment that is automatically applied to the
+        billing account.</para>
+    <para>It is used when a payment has been received from a customer that is used to pay off the
+        balance (or part balance) of a billing account. </para>
+    <para>An example of how this works is similar to a credit card statement where a list of
+        transactions have been incurred over the previous month and one payment is used to settle
+        the outstanding balance.</para>
+    <section>
+        <title>How do I add a payment to a billing account?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Payments' sub menu</para>
+                </listitem>
+                <listitem>
+                    <para>The 'Create Payment' screen is displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Enter or use the lookup to enter the 'From Party Id' (NOTE: By default
+                        this will be the Bill To Party of the Billing Account)</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Organisation Party Id' from the drop down box</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Payment Type Id' from the drop down box (NOTE: By default this
+                        will be set to 'Customer Deposit')</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Payment Method Type' as 'Billing Account' (NOTE TO CHECK: What
+                        happens if you do change this....)</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the 'Amount' of the payment</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Create' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>The new entry is displayed at the bottom of the screen. </para>
+        <para>NOTE: The total amount of the payment will be applied to the Billing Account. This can
+            be verified by going to Accounting / Payments menu and locating the newly created
+            payment. The 'Amount to Apply' column will be zero.</para>
+    </section>
+    <section>
+        <title>How do I update a payment for a billing account?</title>
+        <para>A payment can be updated for a billing account by amending the amount of the payment
+            that has been applied to the billing account. For example if a payment of $100 has been
+            applied to a billing account it can be amended so that only $75 will be applied and $25
+            will be available to be applied elsewhere.</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Click on the 'Payment Id' of the payment that needs to be removed</para>
+                </listitem>
+                <listitem>
+                    <para>The 'Payment Overview' screen is displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button in the 'Payments Applied' box</para>
+                </listitem>
+                <listitem>
+                    <para>The 'Payment Applications' screen is displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Locate the 'Billing Account Id' and 'Amount Applied'</para>
+                </listitem>
+                <listitem>
+                    <para>Amend the 'Amount Applied' for the billing account</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button next to the entry that refers to the 'Billing
+                        Account Id'</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>A message will be displayed saying that the payment has been removed from the billing
+            account</para>
+    </section>
+    <section>
+        <title>How do I delete a payment from a billing account?</title>
+        <para>A payment can be removed from billing account by removing the link that has applied
+            the payment to the billing account.</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Click on the 'Payment Id' of the payment that needs to be removed</para>
+                </listitem>
+                <listitem>
+                    <para>The 'Payment Overview' screen is displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button in the 'Payments Applied' box</para>
+                </listitem>
+                <listitem>
+                    <para>The 'Payment Applications' screen is displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Remove' button next to the entry that refers to the 'Billing
+                        Account Id'</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>A message will be displayed saying that the payment has been removed from the billing
+            account</para>
+        <para>NOTE : The above example was done when the payment status was at 'Not Paid' - need to
+            test if it still works if the payment status is at 'Received' or 'Confirmed' too.
+        </para>
+    </section>
+</section>
