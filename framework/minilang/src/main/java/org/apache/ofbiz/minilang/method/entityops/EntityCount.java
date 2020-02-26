@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityCount extends EntityOperation {
 
-    public static final String module = EntityCount.class.getName();
+    private static final String MODULE = EntityCount.class.getName();
 
     private final FlexibleMapAccessor<Long> countFma;
     private final FlexibleStringExpander entityNameFse;
@@ -108,7 +108,7 @@ public final class EntityCount extends EntityOperation {
             this.countFma.put(methodContext.getEnvMap(), count);
         } catch (GeneralException e) {
             String errMsg = "Exception thrown while performing entity count: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
