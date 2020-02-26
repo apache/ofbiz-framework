@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Manual Transaction help screen</title>
+    <para>The Manual Electronic Transaction screen allows the user to manually input and process
+        payment related transactions.</para>
+    <para>Options available include the following:</para>
+    <para>
+        <itemizedlist>
+            <listitem>
+                <para>Authorising payment transactions</para>
+            </listitem>
+            <listitem>
+                <para>Refunding payments</para>
+            </listitem>
+            <listitem>
+                <para>Payment Re-Authorisation</para>
+            </listitem>
+            <listitem>
+                <para>Payment Capture</para>
+            </listitem>
+        </itemizedlist>
+    </para>
+    <section>
+        <title>How do I create a manual electronic transaction?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Payment Method Type' (eg Credit Card)</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Product Store'</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Transaction Type' (NOTE: This is the type of transaction that
+                        needs to be created, eg authorisation, capture,refund etc)</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>Additional fields will be displayed </para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Enter the required details (eg name, credit card, billing address, amount
+                        etc)</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Submit' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>A transsaction will be created that can be viewed via the Gateway Transactions
+            screen</para>
+        <para>NOTE TO CHECK: Possible bug as could not get this to work using 'Payment Authorisation
+            Service' and error message appeared regarding a missing parameter missing for Order
+            Preference Id but the Order Preference Id was not displayed on the screen</para>
+    </section>
+</section>

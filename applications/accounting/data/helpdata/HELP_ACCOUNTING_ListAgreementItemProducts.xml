@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Agreement Item Products help screen</title>
+    <para>This screen is used to link a specific product or products to an agreement. This can be useful for restricting a discount or product pricing to a particular product (or range of products) for a specific customer.</para>
+    <section>
+    <title>How do I add a product to an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Press the 'New Product' button</para></listitem>
+    <listitem><para>The 'Edit Agreement Item Product' screen is displayed</para></listitem>
+    <listitem><para>Manually enter or use the lookup to select the 'Product Id'</para></listitem>
+    <listitem><para>Enter the 'Price' to be associated to the product for this agreement item</para></listitem>
+    <listitem><para>Press the 'Submit' button</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I update a product linked to an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Select the product required by clicking on the 'Product Id'</para></listitem>
+    <listitem><para>The 'Edit Agreement Item Product' screen is displayed</para></listitem>
+    <listitem><para>Update the 'Price' for the product (NOTE: Only product price is available for update)</para></listitem>
+    <listitem><para>Press the 'Submit' button</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I delete a product from an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Remove' button on the entry that needs to be deleted</para></listitem>
+    </orderedlist>
+    </section>
+ </section>

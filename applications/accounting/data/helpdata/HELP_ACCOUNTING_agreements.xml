@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Agreements.</title>
+    <para>An agreement is a way of recording a business arrangements or contract that your business makes with other companies or individuals. Common examples include Payment Terms (where you allow a customer up to 30 days to pay you) or Prompt Payment Discounts (where you offer a reduction on the amount owing if your customer pays you before a certain date)</para>
+    <para>It can be used for the following:</para>
+    <itemizedlist>
+    <listitem><para>Defining Payment Terms for Customers or Suppliers</para></listitem>
+    <listitem><para>Defining Sales Commissions</para></listitem>
+    <listitem><para>Setting up Prompt Payment Discounts</para></listitem>
+    <listitem><para>Setting up Price Lists (NOTE TO DO: Need to investigate how this logic overlaps with PRICE RULES in Catalog Manager)</para></listitem>
+   <listitem><para>Defining Late Fee Penalties</para></listitem>
+   <listitem><para>Defining preferred freight carriers or specific codes to be used</para></listitem>
+    </itemizedlist>
+    <xi:include href="HELP_ACCOUNTING_FindAgreement.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreement.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreementTerms.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreementItem.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ListAgreementPromoAppls.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ListAgreementItemTerms.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreementItemTerm.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ListAgreementItemProducts.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreementItemProduct.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ListAgreementItemSupplierProducts.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreementItemSupplierProduct.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ListAgreementItemParties.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreementItemParty.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ListAgreementGeographicalApplic.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreementGeographicalApplic.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreementWorkEffortApplics.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditAgreementRoles.xml"/>
+</section>
