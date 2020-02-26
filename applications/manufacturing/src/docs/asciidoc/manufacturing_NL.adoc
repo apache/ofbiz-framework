@@ -36,3 +36,15 @@ include::_include/mfg-routing-task_NL.adoc[leveloffset=+1]
 
 include::_include/mfg-calendar_NL.adoc[leveloffset=+1]
 
+== kostencalculatie beheren
+Dit scherm biedt de mogelijkheid om nieuwe kostencalculaties aan te maken en te wijzigen.
+
+=== Cost Component Calc management in UI
+==== Kostencalculatie wijzigen
+Vul het eerste deel van het scherm in om de kostencalculatie aan te maken. +
+Klik vervolgens op 'Opslaan' om de gegevens vast te leggen.
+
+Het scherm wordt ververst en de ingevoerde gegevens worden in het onderste deel getoond
+
+Klik op de ID van de kostencalculatie (in de eerste kolom) om deze te wijzigen. +
+Klik op de knop 'Verwijderen' om een kostencalculatie te verwijderen.

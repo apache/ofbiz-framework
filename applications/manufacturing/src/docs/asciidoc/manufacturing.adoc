@@ -35,3 +35,19 @@ include::_include/mfg-routing.adoc[leveloffset=+1]
 include::_include/mfg-routing-task.adoc[leveloffset=+1]
 
 include::_include/mfg-calendar.adoc[leveloffset=+1]
+
+== Manage Cost Component Calc Entries
+Cost component calc is used to be able to calculate routing task cost. +
+In routing task cost, it's possible to associate it to a Cost Component Calc.
+
+In this screen you can create new cost calculations and modify existing calculations.
+
+=== Cost Component Calc management in UI
+==== Modify cost calculation
+The first part of the screen is to create a new cost calculation, or to modify an existing calculation. +
+Click the  'Submit'-button to save the changes.
+
+Subsequently, the screen will be refreshed and the the modified details are shown in the lower part of the screen.
+
+Click the ID of cost calculation to modify it. +
+Click the 'Delete'-button to remove a cost calculation.
