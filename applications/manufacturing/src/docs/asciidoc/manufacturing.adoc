@@ -51,3 +51,5 @@ Subsequently, the screen will be refreshed and the the modified details are show
 
 Click the ID of cost calculation to modify it. +
 Click the 'Delete'-button to remove a cost calculation.
+
+include::_include/mfg-bom.adoc[leveloffset=+1]
