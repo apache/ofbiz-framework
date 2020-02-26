@@ -48,3 +48,5 @@ Het scherm wordt ververst en de ingevoerde gegevens worden in het onderste deel 
 
 Klik op de ID van de kostencalculatie (in de eerste kolom) om deze te wijzigen. +
 Klik op de knop 'Verwijderen' om een kostencalculatie te verwijderen.
+
+include::_include/mfg-bom_NL.adoc[leveloffset=+1]
