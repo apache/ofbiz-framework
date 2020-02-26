@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Edit Financial Account screen.</title>
+    <para>This screen allows the user to create a new financial account or to edit an existing
+        one.</para>
+    <para>The 'Financial Account' submenu is the first of four submenus used in the creation or
+        update of a Financial Account. On the creation or update of a Financial Account it is the
+        default screen that is displayed.</para>
+    <para>It can be used for updating the basic details of a Financial account such as:</para>
+    <para>
+        <itemizedlist>
+            <listitem>
+                <para>Type of Account (eg Deposit, Investment, Gift Certificate)</para>
+            </listitem>
+            <listitem>
+                <para>Account Status (Active, Frozen, Cancel, etc)</para>
+            </listitem>
+            <listitem>
+                <para>Account Name and Code</para>
+            </listitem>
+            <listitem>
+                <para>Currency </para>
+            </listitem>
+            <listitem>
+                <para>Owner Party ID</para>
+            </listitem>
+            <listitem>
+                <para>Default GL Account for Posting</para>
+            </listitem>
+            <listitem>
+                <para>Replenishment Level </para>
+            </listitem>
+        </itemizedlist>
+    </para>
+    <section>
+        <title>How do I create a new Financial Account?</title>
+        <para>Select the 'Create New Financial Account' button from the 'Find Financial Accounts'
+            screen</para>
+        <orderedlist>
+            <listitem>
+                <para>The 'Create/Update Financial Account' screen is displayed.</para>
+            </listitem>
+            <listitem>
+                <para>Keep the default entry of 'Deposit Account' for the Fin Account Type
+                    field</para>
+            </listitem>
+            <listitem>
+                <para>Keep the default entry of 'Active' for the status field</para>
+            </listitem>
+            <listitem>
+                <para>Enter a description (eg ABC Customer Prepaid Account) for the 'Fin Account
+                    Name' field</para>
+            </listitem>
+            <listitem>
+                <para>Leave the Fin Account Pin field blank (NOTE TO CHECK: I think this is only
+                    used in creation of Gift Cards and Certificates..)</para>
+            </listitem>
+            <listitem>
+                <para>Leave the Fin Account Code field blank (NOTE TO CHECK: I think this is only
+                    used in the creation of Gift Cards and Certificates...)</para>
+            </listitem>
+            <listitem>
+                <para>The currency field will be the default currency of Company (eg USD). If this
+                    account is to be in another currency (eg EUR) then select it from the drop down
+                    list.</para>
+            </listitem>
+            <listitem>
+                <para>Set the Organization Party ID field to be 'Company'</para>
+            </listitem>
+            <listitem>
+                <para>Fill in the Owner Party Id field with the party id of the customer who has the
+                    Financial Account (eg DemoCustomer or DemoCustCompany)</para>
+            </listitem>
+            <listitem>
+                <para>Fill in the 'Post to Gl Account field' to post the transactions for this
+                    financial account to post to a specific GL Account</para>
+            </listitem>
+            <listitem>
+                <para>Select the current date from the calendar to fill in the 'From date' field
+                    (NOTE: It can be left blank and still appears to work)</para>
+            </listitem>
+            <listitem>
+                <para>Leave the 'Thru date' field blank (NOTE TO CHECK: I think this could be used
+                    to close or stop the use of an account ..)</para>
+            </listitem>
+            <listitem>
+                <para>Leave the default of 'Is Refundable' as 'Y' (NOTE TO CHECK: I think this will
+                    allow money to be refunded to this account - eg if you have a return or credit
+                    for the customer)</para>
+            </listitem>
+            <listitem>
+                <para>Leave the 'Replenish Payment ID' blank (NOTE TO CHECK: Not sure what this is -
+                    maybe to automatically replenish account if it gets to a certain limit???)Leave
+                    the 'Replenish Level' blank (NOTE TO CHECK: Not sure what this is but probably
+                    linked to Replenish Payment ID where you set the limit - eg $100)</para>
+            </listitem>
+        </orderedlist>
+        <para>Press the 'Create' button and message appears saying that the account was successfully
+            created </para>
+    </section>
+    <section>
+        <title>How do I update an existing Financial Account?</title>
+        <orderedlist>
+            <listitem>
+                <para>Press the 'Search' button on the Financial Account main screen</para>
+            </listitem>
+            <listitem>
+                <para>A list of all existing Financial Accounts will be displayed</para>
+            </listitem>
+            <listitem>
+                <para>The 'Create/Update Financial' screen is displayed</para>
+            </listitem>
+            <listitem>
+                <para>Update the details of the financial account </para>
+            </listitem>
+            <listitem>
+                <para>Press the 'Update' button</para>
+            </listitem>
+        </orderedlist>
+    </section>
+</section>

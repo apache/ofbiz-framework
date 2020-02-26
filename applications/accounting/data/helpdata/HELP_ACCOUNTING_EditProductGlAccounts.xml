@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+ -->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Product GL Accounts help screen</title>
+ <para>The Product GL Account is used to specify the default account to
+  be used for a specific Product' and 'Account Type' combination. This
+  setup will translate to one side of the journal entry only.</para>
+ <para>NOTE: Duplicate functionality .... This setup for the Product GL
+  Account can also be setup using the 'Accounts' sub menu for the
+  Product in Catalog Manager. Need to confirm whether this default work
+  like a hierarchy....eg Product GL Defaults will override General
+  Account defaults. </para>
+ <para>It is used for tracking product transactions at a more detailed
+  level. Examples could be as follows:</para>
+ <itemizedlist>
+  <listitem>
+   <para>Tracking Accounts Receivable by Product in the General Ledger
+   </para>
+  </listitem>
+  <listitem>
+   <para>Tracking Cost of Goods by product (or product variation) in the
+    General Ledger</para>
+  </listitem>
+  <listitem>
+   <para>Tracking Commissions paid by Product in the General Ledger
+   </para>
+  </listitem>
+ </itemizedlist>
+ <section>
+  <title>How do I add a new Product / GL Account Type mapping?</title>
+  <para>By default there are no Product / GL Account Type mappings that
+   are configured as part of the OFBiz demo data.</para>
+  <orderedlist>
+   <listitem>
+    <para>Select the 'Account Type' from the drop down list (NOTE: In
+     other screens this field is call the 'GL Account Type Id'.....)
+    </para>
+   </listitem>
+   <listitem>
+    <para>Select the ' GL Account' to map it to from the drop down list
+    </para>
+   </listitem>
+   <listitem>
+    <para>Enter or look up the 'Product Id' to be used</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Add' button</para>
+   </listitem>
+   <listitem>
+    <para>The new mapping will be displayed in the list at the bottom of
+     the screen</para>
+   </listitem>
+  </orderedlist>
+  <para>NOTE: This mapping can also be also be done via the 'Accounts'
+   sub menu for the Product. Any mapping created here will be displayed
+   under the Product 'Accounts' sub menu. Alternatively any mapping
+   created in the Product 'Accounts' sub menu will also be displayed
+   here.</para>
+ </section>
+ <section>
+  <title>How do I update a Product / GL Account Type mapping?</title>
+  <para>A Product / GL Account Type mapping can be updated by modifying
+   the GL Account only. If the product needs to be updated then the
+   mapping will need to be deleted and then re-entered using the new
+   product.</para>
+  <orderedlist>
+   <listitem>
+    <para>Locate the entry that needs to be updated in the list of
+     Product / GL Account Type mappings</para>
+   </listitem>
+   <listitem>
+    <para>Modify the 'GL Account 'by using the drop down list next to
+     the 'GL Account' field</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Update' button</para>
+   </listitem>
+   <listitem>
+    <para>The updated mapping will be displayed </para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I delete a Product / GL Account Type mapping?</title>
+  <orderedlist>
+   <listitem>
+    <para>Locate the entry that needs to be deleted in the list of
+     Product / GL Account Type mappings</para>
+   </listitem>
+   <listitem>
+    <para> 2. Press the 'Remove' button next to the entry</para>
+   </listitem>
+  </orderedlist>
+  <para>NOTE: This can also be done via the 'Accounts' sub menu for the
+   Product using the 'Delete Link' button.</para>
+ </section>
+</section>

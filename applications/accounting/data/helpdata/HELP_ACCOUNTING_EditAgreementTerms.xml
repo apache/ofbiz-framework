@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+ -->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Edit Agreement Terms help screen</title>
+ <para>Agreement Terms are the rules that make up the agreement.
+  Agreements may have a one or more terms.</para>
+ <para>Examples of agreement terms from a sales and purchase viewpoint
+  include the following:</para>
+ <itemizedlist>
+  <listitem>
+   <para>Payment due within a certain timeframe (eg 30 days)</para>
+  </listitem>
+  <listitem>
+   <para>Discounts for early payment</para>
+  </listitem>
+  <listitem>
+   <para>Specifying Late fee penalties</para>
+  </listitem>
+  <listitem>
+   <para>Purchasing agreements</para>
+  </listitem>
+  <listitem>
+   <para>Specifying commission rates</para>
+  </listitem>
+  <listitem>
+   <para>Exclusive Relationship</para>
+  </listitem>
+ </itemizedlist>
+ <para>NOTE: Agreements can also be specified for Employment, Legal, Non
+  Compete etc.</para>
+ <para>Agreement terms are configured by linking them to the Invoice
+  Item Type.</para>
+ <para>IMPORTANT NOTE: The drop down box for 'Invoice Item Type'
+  contains what appears to be duplicates for items such as 'Invoice
+  Fee', 'Invoice Discount', 'Invoice Finished Good Item' etc. These are
+  NOT duplicates one of these entries refers to the Sales Invoice and
+  the other refers to the Purchase Invoice. As the descriptions are
+  exactly the same it is impossible to know which refers to which so
+  needs to be done using trial and error!</para>
+ <section>
+  <title>How do I add a payment term for 30 days?</title>
+  <orderedlist>
+   <listitem>
+    <para>Select 'Payment Net Days' from the 'Term Type Id' drop down
+     box</para>
+   </listitem>
+   <listitem>
+    <para>Enter '30' in the 'Term Days' field</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Submit' button</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I add a discount term of 2% if paid within 10 days?
+  </title>
+  <orderedlist>
+   <listitem>
+    <para>Select 'Payment Discounted if paid with Specified Days' from
+     the 'Term Type Id' drop down box</para>
+   </listitem>
+   <listitem>
+    <para>Enter '2' in the 'Term Value' field</para>
+   </listitem>
+   <listitem>
+    <para>Enter '10' in the 'Term Days' field</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Submit' button</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I specify pricing in a specific currency only for this
+   customer or supplier?</title>
+  <para>This is done using the 'Agreement Items' sub menu</para>
+ </section>
+ <section>
+  <title>How do I delete a payment term?</title>
+  <orderedlist>
+   <listitem>
+    <para>Locate the payment term required</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Remove'on the entry that needs to be removed</para>
+   </listitem>
+  </orderedlist>
+ </section>
+</section>

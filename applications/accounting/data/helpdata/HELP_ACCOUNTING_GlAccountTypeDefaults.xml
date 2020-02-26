@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+ -->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The GL Account Type Defaults help screen</title>
+ <para>The GL Account Defaults screens are are method to setup rules
+  that are used to translate business transactions into accounting
+  transactions. It currently is made up of 12 sub menus that can be used
+  to map various transaction type codes to a specific general ledger
+  account</para>
+ <para>Accounting transactions are made up of a Debit Entry and a Credit
+  Entry. The GL Account defaults screens help map which accounts are to
+  be used to generate a each part of the transaction. This means that
+  certain mappings will be used to generate the Debit (or DR) entry part
+  of the transaction and others used to generate the Credit (or CR)
+  entry part of the transaction.</para>
+ <para>NOTE: Many of the accounting transactions are generated
+  'automatically' (or in the background) using the the accounting
+  services SECAS / EECAS. </para>
+ <para>The GL Account Type is used to specify the default account that
+  certain transactions (eg Accounts Payable, Accounts Receivable, etc)
+  are posted to. An accounting transaction (or journal entry) is made up
+  of two parts - a Debit Entry and a Credit Entry that balance each
+  other. The GL Account Type is used to translate one side of the
+  journal entry. </para>
+ <para>GL Account Types are stored in Entity GLAccountType which can be
+  viewed via Entity Data Maintenance in the Webtools menu. There are
+  currently 57 different GL Account Types that are part of the OFBiz
+  demo data but only 19 of these are setup as mappings</para>
+ <para>How the GL Account Type is used is best shown by an example. A
+  very simple description of an online Sales Order Process could be as
+  follows:</para>
+ <orderedlist>
+  <listitem>
+   <para>Customer Orders a Product (and Creates a Sales Order)</para>
+  </listitem>
+  <listitem>
+   <para>Customer Pays for Product (via Credit Card, Internet Banking
+    etc)</para>
+  </listitem>
+  <listitem>
+   <para>Vendor confirms Payment and Dispatches the Product to the
+    Customer</para>
+  </listitem>
+ </orderedlist>
+ <para>Let's focus on the first part step of 3 in more detail.</para>
+ <itemizedlist>
+  <listitem>
+   <para>The vendor has checked their bank statement and seen that the
+    customer has paid</para>
+  </listitem>
+  <listitem>
+   <para>In OFBiz Order Manager they will then look up the relevant
+    Sales Order and then click the 'Receive Payment' button to log the
+    payment in the system</para>
+  </listitem>
+  <listitem>
+   <para>The 'Receive Payment' button is a trigger for an 'automatic'
+    accounting transaction</para>
+  </listitem>
+  <listitem>
+   <para>The transaction type that is triggered is called 'Incoming
+    Payment'</para>
+  </listitem>
+  <listitem>
+   <para>The accounting entries generated are: DR 112000 Undeposited
+    Funds , CR 120000 Accounts Receivable </para>
+  </listitem>
+ </itemizedlist>
+ <para>The CR (or Credit) entry for the transaction is created by the GL
+  Acccount Type mapping for 'Accounts Receivable' (which by using the
+  demo data default will go the 120000 Accounts Receivable)</para>
+ <para>The DR (or Debit) entry for the transaction is created by a
+  different GL Account default, the Payment Method Id / GL Account Id
+  mapping (eg Cash is setup as 112000 Undeposited Receipts)</para>
+ <section>
+  <title>How do I create a new GL Account Type default mapping?</title>
+  <para>There are currently 57 different GL Account Types that come as
+   part of the demo data with OFBiz. This should be enough to manage the
+   vast majority of business transactions. These instructions show how
+   to add a mapping using the default data</para>
+  <orderedlist>
+   <listitem>
+    <para>Select the 'GL Account Type Id' from the drop down list</para>
+   </listitem>
+   <listitem>
+    <para>Select the 'GL Account' to map it to from the drop down list
+    </para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Save' button</para>
+   </listitem>
+   <listitem>
+    <para>The new GL Account Type mapping is displayed in the list at
+     the bottom of the screen </para>
+   </listitem>
+  </orderedlist>
+  <para>NOTE: If none of the demo data GL Account Types are sufficient
+   then new ones can be added using Entity Data Maintenance and the
+   entity 'GLAccountType' in the Webtools menu.</para>
+ </section>
+ <section>
+  <title>How do I update a GL Account Type default mapping?</title>
+  <para>A GL Account Type mapping cannot be updated directly but needs
+   to be removed then re-created. If you try to update an existing entry
+   you will get an 'duplicate key' error message.</para>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Remove' button next to the entry that you want to
+     update</para>
+   </listitem>
+   <listitem>
+    <para>The entry is removed from the list of entries displayed</para>
+   </listitem>
+   <listitem>
+    <para>Select the 'GL Account Type Id' from the drop down list</para>
+   </listitem>
+   <listitem>
+    <para>Select the updated 'GL Account' to map it to from the drop
+     down list</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Save' button</para>
+   </listitem>
+   <listitem>
+    <para>The new GL Account mapping is displayed in the list at the
+     bottom of the screen</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I delete a GL Account Type default mapping?</title>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Remove' button next to the entry that you want to
+     delete</para>
+   </listitem>
+   <listitem>
+    <para>The entry is removed from the list of entries displayed</para>
+   </listitem>
+  </orderedlist>
+ </section>
+</section>

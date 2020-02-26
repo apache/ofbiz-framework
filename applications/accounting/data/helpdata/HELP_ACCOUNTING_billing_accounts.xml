@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Billing Accounts.</title>
+    <para>A billing account is a way of allowing customers to consolidate several invoices into an
+        account that is paid off at a later date.Customers can be allocated a credit limit and
+        orders can be taken up to the value of the credit limit without any payment being made.
+        Statements to the customer can then be generated (eg monthly) and payment is made based on
+        the outstanding amount.</para>
+    <para>NOTE: A billing account does not change the flow of the normal Invoice and Payment
+        processes. It simply allows for a more structured organisation of Invoices and
+        Payments..</para>
+    <para>Billing Accounts can be used for the following:</para>
+    <para>
+        <itemizedlist>
+            <listitem>
+                <para>Setting credit limits for customers</para>
+            </listitem>
+            <listitem>
+                <para>Keeping track of credit available to customer for purchase on account</para>
+            </listitem>
+            <listitem>
+                <para>Keeping track of payments made in advance (NOTE TO CHECK: Could also use
+                    Financial Account for advance payments but need to understand the differences in
+                    functionality and process) </para>
+            </listitem>
+            <listitem>
+                <para>Keeping track of a subset of payments and invoices for a specific client, i.e.
+                    allowing them to have multiple billing accounts (NOTE TO CHECK: This is from
+                    David - does this mean having multiple accounts for one customer or does it mean
+                    one billing account can track a hierarchy of invoices and payments.....)</para>
+            </listitem>
+            <listitem>
+                <para>Allow multiple authorised parties to bill against the same account which one
+                    party is responsible for paying (e.g. different offices of the same organisation
+                    may have one single account with a supplier to make use of order volume
+                    discounts)</para>
+            </listitem>
+            <listitem>
+                <para>Managing and generating customer statements ??</para>
+            </listitem>
+            <listitem>
+                <para>Customer specific order tracking</para>
+            </listitem>
+            <listitem>
+                <para>Accounts Receivable / Debt Management</para>
+            </listitem>
+            <listitem>
+                <para>Analysis and monitoring customer spending (creditworthiness / discounts /
+                    product popularity ???)</para>
+            </listitem>
+        </itemizedlist>
+    </para>
+    <para>NOTE: A payment that is applied (or matched) to a Billing Account it should still be
+        applied to an invoice. In the case where the payment arrives before the invoice has been
+        generated then once the invoice is generated it should be applied to the payment or
+        payments. </para>
+    <xi:include href="HELP_ACCOUNTING_FindBillingAccount.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditBillingAccount.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditBillingAccountRoles.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditBillingAccountTerms.xml"/>
+    <xi:include href="HELP_ACCOUNTING_BillingAccountInvoices.xml"/>
+    <xi:include href="HELP_ACCOUNTING_BillingAccountPayments.xml"/>
+    <xi:include href="HELP_ACCOUNTING_BillingAccountOrders.xml"/>
+</section>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Invoice Overview screen.</title>
+    <para>The Invoice Overview screen is used to display the summary of an invoice in a single view. The screen is divided into sections that show various information related to the invoice (eg Roles, Status, Terms, Items, Payments Applied, etc).</para>
+   <para>The following options are currently available from this screen:</para>
+   <itemizedlist>
+   <listitem><para>Create New (Create a new invoice)</para></listitem>
+   <listitem><para>Copy (Create a copy of the current invoice)</para></listitem>
+   <listitem><para>PDF (View a PDF of the current invoice)</para></listitem>
+   <listitem><para>PDF default currency (NOTE TO CHECK: Need to see how this is different from just the PDF view......)</para></listitem>
+   <listitem><para>Status to 'Approved' (Change the status of the current invoice to 'Approved)</para></listitem>
+   <listitem><para>Status to 'Sent' (Change the status of the current invoice to 'Sent')</para></listitem>
+   <listitem><para>Status to 'Ready' (Change the status of the current invoice to 'Ready'. NOTE: This will create the relevant accounting transactions and post them to the general ledger)</para></listitem>
+   <listitem><para>Status to 'Cancelled' (Change the status of the current invoice to 'Cancelled')</para></listitem>
+   <listitem><para>Save as Template (NOTE TO CHECK: Save the current invoice format as a template)</para></listitem>
+   </itemizedlist>
+</section>
+

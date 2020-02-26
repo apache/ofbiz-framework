@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Edit Financial Account Roles screen.</title>
+    <para>The Financial Account Roles sub menu screen allows you specify a party and link them to a
+        role for a particular financial account.</para>
+    <para>It can be used to add party roles eg 'Approver' or 'Administrator' for credit limits or
+        updates to the account. If an account belongs to a company then you may want to add a person
+        as a 'Contact' for dealing with the account.</para>
+    <para>The roles can also be time bound. This means that you can specify a start and end date for
+        the party role.</para>
+    <section>
+        <title>How do I add a Party Role to a Financial Account?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Roles' sub menu for the Financial Account</para>
+                </listitem>
+                <listitem>
+                    <para>Fill in the Party Id field by using the field lookup tool or by directly
+                        entering the party id (eg flexadmin)</para>
+                </listitem>
+                <listitem>
+                    <para>Select the role from the drop down list for the Role Type Id field (eg
+                        administrator)</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the From Date field </para>
+                </listitem>
+                <listitem>
+                    <para>Enter if the Thru Date field (optional)</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Add' button </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </section>
+</section>

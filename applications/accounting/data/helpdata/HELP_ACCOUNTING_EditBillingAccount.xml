@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Edit Billing Account help screen</title>
+    <para>The 'Account' sub menu is used to enter the basic details required for setting up a new
+        billing account or editing an existing one.</para>
+    <para>It can be used to create or update the following details for a Billing Account:</para>
+    <para>
+        <itemizedlist>
+            <listitem>
+                <para>Billing Account Identification</para>
+            </listitem>
+            <listitem>
+                <para>Party to be Billed</para>
+            </listitem>
+            <listitem>
+                <para>Billing Account Limit (NOTE: This is how much credit the customer will be
+                    given eg $5000)</para>
+            </listitem>
+            <listitem>
+                <para>Currency to be used for Billing Account</para>
+            </listitem>
+            <listitem>
+                <para>Start and End Dates </para>
+            </listitem>
+        </itemizedlist>
+    </para>
+    <para>NOTE: There are currently two ways to add a party to a billing account.</para>
+    <para>
+        <orderedlist>
+            <listitem>
+                <para>Enter a party id in the 'Party Billed To' field</para>
+            </listitem>
+            <listitem>
+                <para>Use the 'Roles' sub menu to add a party id with the role of 'Bill To
+                    Customer'</para>
+            </listitem>
+            <listitem>
+                <para>If using the first method then when you press the update button this removes
+                    the party id from this field and automatically creates the party under the Roles
+                    sub menu with the role of 'Bill To Customer' </para>
+            </listitem>
+        </orderedlist>
+    </para>
+    <section>
+        <title>How do I create a new Billing Account?</title>
+        <para>NOTE TO CHECK: If the party doesnt have the role 'Bill To Customer' is it
+            automatically added when the billing account is created or will the creation
+            fail?..</para>
+        <para>Example: To create a new Billing Account</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Press the 'New' button and the 'Edit Billing Account' screen is
+                        displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Enter a code or number for the 'Billing Account Id' (NOTE: If this is left
+                        blank a number will be automatically generated)</para>
+                </listitem>
+                <listitem>
+                    <para>Enter a number for the 'Billing Account Limit' (eg 5000)</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Account Currency UOM Id' as it is (NOTE: This should be the
+                        default currency for Company...)</para>
+                </listitem>
+                <listitem>
+                    <para>Enter a description that can be used to identify the Billing Account (eg
+                        Joe Bloggs Builders Billing Account)</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Contact Mech' field as it is (NOTE: This field cannot be filled
+                        in until either the 'Party Billed To' has been filled in or a party with the
+                        role of 'Bill To Customer' has been added under the 'Roles' sub menu</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the Billing Account start date in the 'From Date' field. (NOTE: If
+                        left blank then this will default to the current date and time. NOTE TO
+                        CHECK: Can this date be in the future.....?)</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Thru date' field blank</para>
+                </listitem>
+                <listitem>
+                    <para>Enter or use the lookup to select the 'Party Billed To'</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>After the 'Update' button has been pressed then the 'Contact Mech Id' field will
+            either be automatically filled in or will allow you to select a contact mech from a drop
+            down list </para>
+    </section>
+    <section>
+        <title>How do I update an existing Billing Account?</title>
+        <para>Billing Account details can be updated. A key field that may need to be updated is the
+            actual Billing Account Limit if a customer reduces or improves their credit
+            rating</para>
+        <para>Example: To Update a Billing Account</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Click on the 'Billing Account Id' of the Billing Account to updated</para>
+                </listitem>
+                <listitem>
+                    <para>The 'Edit Billing Account' screen is displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the changes required</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </section>
+    <section>
+        <title>How do I delete a Billing Account?</title>
+        <para>Billing Accounts cannot be deleted. They can only be expired. This means that they
+            will no longer be able to be used to associate invoices or payments against.</para>
+        <para>Example: To Expire a Billing Account</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para> Click on the 'Billing Account Id' of the Billing Account to be
+                        expired</para>
+                </listitem>
+                <listitem>
+                    <para>The 'Edit Billing Account' screen is displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the current date in the 'Thru date' field</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </section>
+</section>

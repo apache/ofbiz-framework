@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Capture Transaction help screen. </title>
+    <para>This screen is used to input or 'capture' a payment against a Sales Order. Unlike the
+        authorise, this function will actually deduct the amount from eg a credit card and apply the
+        payment to a specific order.</para>
+    <para>It is likely that the before the payment is 'captured' in this screen, it would have been
+        through an authorisation first.</para>
+    <para>NOTE TO CHECK: Investigate how this links in with the Payment Gateway Configurations
+        screens</para>
+    <section>
+        <title>How do I capture a transaction?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Enter the Order Id for the payment (eg Sales Order Id)</para>
+                </listitem>
+                <listitem>
+                    <para>Enter Order Payment Preference Id (Unsure of what this is...a type of
+                        unique identifier perhaps?)</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Payment Method Type'</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Payment Type'</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the 'Amount'</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Capture' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>A transaction will be created and can be viewed via the 'Gateway Responses' tab</para>
+    </section>
+</section>
