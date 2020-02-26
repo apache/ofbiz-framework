@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Global GL Settings.</title>
+    <para>The Global GL Settings tab is where a limited global or 'master' accounting configuration can be done.</para>
+    <para>These include:</para>
+    <itemizedlist>
+    <listitem><para>Reviewing the chart of account structure or hierarchy (Navigate Accounts)</para></listitem>
+    <listitem><para>Adding new accounts</para></listitem>
+    <listitem><para>Updating an existing account (eg. change the description, change the type of account, change the parent account or hierarchy)</para></listitem>
+    <listitem><para>Linking an account from the master chart to 'Company' or any other of your company departments, subsidiaries or business units</para></listitem>
+    <listitem><para>Creating new component costs for products</para></listitem>
+    <listitem><para>Setting default accounts for different types of payments</para></listitem>
+    <listitem><para>Setting default accounts for invoice line items (Note: This includes all types eg: payroll, commission, purchase, return, sales etc)</para></listitem>
+    </itemizedlist>
+    <para>NOTE: Some of the configuration specified here can be over-ridden using the 'Organization GL Settings' tab</para>
+    <xi:include href="HELP_ACCOUNTING_FindGlobalGlAccount.xml"/>
+    <xi:include href="HELP_ACCOUNTING_GlAccountNavigate.xml"/>
+    <xi:include href="HELP_ACCOUNTING_AssignGlAccount.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditCustomTimePeriod.xml"/>   
+    <xi:include href="HELP_ACCOUNTING_EditCostCalcs.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditPaymentMethodType.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditInvoiceItemType.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ViewRateAmounts.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ViewFXConversions.xml"/>
+    <xi:include href="HELP_ACCOUNTING_FindGlAccountCategory.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditGlAccountCategory.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditGlAccountCategoryMember.xml"/>
+    <xi:include href="HELP_ACCOUNTING_CostCenters.xml"/>
+</section>

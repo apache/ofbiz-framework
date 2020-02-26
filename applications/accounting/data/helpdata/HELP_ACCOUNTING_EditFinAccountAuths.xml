@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Edit Financial Account Authorizations screen.</title>
+    <para>An authorization is a temporary transaction showing a commitment to take money from a
+        financial account. It is like a 'transaction in progress' where there can be delay between
+        when you buy something and the time it actually appears on your statement.</para>
+    <para>Authorizations can be time limit specific meaning that they can be controlled by entering
+        a start and end date so that they are only valid for a certain length of time. They can also
+        be expired. When an authorization is expired it removes the commitment from the financial
+        account. The history of expired authorizations are shown on the financial account.</para>
+    <para>NOTE:This could be very useful in ensuring that customers are not overcommitted and
+        keeping within their approved credit limits.</para>
+    <section>
+        <title>How do I add an authorization?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Enter an amount in the 'Amount' field (Eg 1000)</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Currency' field blank as the default currency will be
+                        used</para>
+                </listitem>
+                <listitem>
+                    <para>Enter a date in the 'Authorisation Date' field</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'From Date' field blank</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Thru Date' field blank</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Add' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>NOTE: When you now view the Financial Account detail the 'Actual Balance' and
+            'Available Balance' fields will be different.</para>
+    </section>
+    <section>
+        <title>How do I update an authorization?</title>
+        <para>An authorization cannot be updated. It can only be expired. If you have made a mistake
+            and need to change an authorization then it needs to expired and then re-created
+            correctly.</para>
+    </section>
+    <section>
+        <title>How do I delete an authorization?</title>
+        <para>Authorizations are not deleted they are instead expired. This means that the history
+            of the authorizations will remain on the account as an audit trail.</para>
+        <para>Example: To expire an authorisation</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Authorizations' tab for the Financial Account</para>
+                </listitem>
+                <listitem>
+                    <para>Any authorizations will be displayed at the bottom of the screen</para>
+                </listitem>
+                <listitem>
+                    <para>If the authorization is still current the 'Thru Date' field will be blank
+                        (NOTE TO CHECK: May not always be true as you can specify a future date for
+                        it to expire......!!!)</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Expire' button next to the authorisation to be expired</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>The authorization is removed from the financial account and the screen is redisplayed
+            with the 'Thru Date' field completed </para>
+    </section>
+</section>

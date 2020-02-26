@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+  xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+  xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+  xmlns="http://docbook.org/ns/docbook">
+  <title>Human Resources Introduction</title>
+    
+   <para>The people who work for your company, are its most important asset.
+    They are human capital. Selecting a software platform that increases the
+    value of your company's human capital and delivers benefits, services and
+    opportunities to your workforce, is critical to your company's success
+    .</para>
+  
+  <para>The platform must be able to accurately and reliability process
+    worker transactions, collect decision support information, and communicate
+    between management, workers and outside resources.</para> 
+    
+   <para> The OFBiz Human Resource Application (HR App) can provide a backbone for 
+   building that platform.</para>
+    
+     <para>In this section we introduce you to the organization of this
+    guide and to the key business objects that are the core to Human Resources.</para>
+
+        <para>In the Human Resources Application you can:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Create positions</para>
+          </listitem>
+
+          <listitem>
+            <para>Fulfill positions</para>
+          </listitem>
+
+          <listitem>
+            <para>Define the responsibilities of a position</para>
+          </listitem>
+
+          <listitem>
+            <para>Define a tree reporting structure between positions</para>
+          </listitem>
+
+          <listitem>
+            <para>Track the positions fulfillments over time</para>
+          </listitem>
+        </itemizedlist>
+</section>

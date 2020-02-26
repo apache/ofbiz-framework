@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Invoice Roles screen.</title>
+    <para>The Invoice Roles screen allows parties with specific roles to be associated with and invoice. If the e-commerce or Sales Order entry route has already been used then the invoice generated will already contain the relevant roles from the various parties.</para>
+    <para>For a Sales Order examples of roles will include Bill From Customer, Bill To Customer, End User Customer,Ship To Customer etc.</para>
+    <section>
+        <title>How do I add a party role to an invoice?</title>
+        <para>Party roles will automatically be added to an invoices that have been generated as a result of E-Commerce order entry or Sales Order entry. They can also be added be added manually.</para>
+        <orderedlist>
+        <listitem><para>Select the 'Roles' sub menu</para></listitem>
+        <listitem><para>Enter or use the lookup to enter the party to be added to the invoice in the 'Party Id' field</para></listitem>
+        <listitem><para>Use the drop down box to select the 'Role Type Id' </para></listitem>
+        <listitem><para>Leave the 'Date Time Performed' field blank (NOTE: This field is optional and can be entered if required. This field can be used to indicate the date and time this role was performed by the party for this invoice)</para></listitem>
+        <listitem><para>Leave the 'Percentage' field blank (NOTE: This field is optional and can be entered if required. If roles are shared then this field can be used to indicate the assigned percentage for this role) </para></listitem>
+        <listitem><para>Press the 'Submit' button</para></listitem>
+        <listitem><para>The new role entry will be displayed on the bottom part of the screen</para></listitem>
+        <listitem><para>NOTE: If you select a role that is not associated with the party that has been entered an error message will be displayed. To fix it you will need to add the role to the party or choose another party that already has that role associated with it.</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+        <title>How do I update a party role on an invoice?</title>
+        <para>A party role cannot be updated via the current user interface. It can only be removed. If a party role needs to be updated then the entry must be deleted and then re-created. </para>
+    </section>
+    <section>
+        <title>How do I remove a party role from an invoice?</title>
+        <orderedlist>
+        <listitem><para>Locate the entry that needs to be removed</para></listitem>
+        <listitem><para>Press the 'Remove' button next to the entry that needs to be deleted</para></listitem>
+        <listitem><para>The entry is now removed from the list of invoice roles </para></listitem>
+        </orderedlist>
+    </section>
+</section>

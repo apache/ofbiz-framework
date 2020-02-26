@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Financial Account New Deposit Payment screen.</title>
+    <para>This screen allows the user to create an incoming payment to a financial account that has
+        been linked to the company bank account.</para>
+    <para/>
+    <section>
+        <title>How do I create a New Deposit Payment?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Press the 'Create New Deposit Payment' button</para>
+                </listitem>
+                <listitem>
+                    <para>The 'Create New Deposit for Financial Account' screen is displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Payment Type' from the drop down menu (NOTE: Only incoming
+                        transaction payment types are shown)</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Payment Method Type' from the drop down menu (eg Cash)</para>
+                </listitem>
+                <listitem>
+                    <para>Enter or use the lookup to select the 'From Party Id' (eg
+                        DemoCustomer)</para>
+                </listitem>
+                <listitem>
+                    <para>Enter or use the lookup to select the 'To Party Id' (eg Company)</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the date of the deposit in the 'Effective Date' field</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the amount in the 'Amount' field for the deposit</para>
+                </listitem>
+                <listitem>
+                    <para>If required then tick the box next to 'Deposit Payment in:....' (NOTE: If
+                        this is ticked then the transaction will not be displayed and so will not
+                        have a deposit slip associated with it)</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Create' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>The new transaction will be created.</para>
+        <para>NOTE: The default status of the payment will be 'Received'.A new payment transaction
+            will be created and it will be linked to the specified bank account but the status of
+            the transaction will be 'Created'.</para>
+    </section>
+    <section>
+        <title>How do I view a newly created Deposit Payment transaction?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Go to the 'Transactions' submenu</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Search' button</para>
+                </listitem>
+                <listitem>
+                    <para>The newly created transaction should be displayed in the search results at
+                        the bottom of the screen.</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>NOTE: If when the transaction was created the 'Deposit Payment in:....' was ticked
+            then the transaction will not be displayed on this screen. It will still show up under
+            the 'Transactions' tab and linked to the bank account.</para>
+    </section>
+</section>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements. See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to you under the Apache License, Version
+  2.0 (the "License"); you may not use this file except in compliance
+  with the License. You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+  applicable law or agreed to in writing, software distributed under the
+  License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for
+  the specific language governing permissions and limitations under the
+  License.
+ -->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The View Financial Account Reconciliations screen.</title>
+ <para>This screen gives an overview of a reconciliation group / bank
+  reconciliation. Note that a reconciliation must have at least one
+  transaction associated with it for this screen to be displayed. It is
+  used as follows:</para>
+ <itemizedlist>
+  <listitem>
+   <para>to view transactions associated with a reconciliation group /
+    bank reconciliation</para>
+  </listitem>
+  <listitem>
+   <para>to remove transactions from a reconciliation group / bank
+    reconciliation</para>
+  </listitem>
+  <listitem>
+   <para>to reconcile the reconciliation group / bank reconciliation
+   </para>
+  </listitem>
+ </itemizedlist>
+ <para>The screen displays the current reconciliation details plus
+  details of the previous reconciliation if one exists. This ensures the
+  closing balance of the previous reconciliation is the same as the
+  opening balance for the current one.</para>
+ <section>
+  <title>How do I edit reconciliation?</title>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Edit' button in the 'Current Bank Reconciliation'part of the screen</para>
+   </listitem>
+   <listitem>
+    <para>The 'Edit Financial Account Reconciliations' screen isdisplayed</para>
+   </listitem>
+   <listitem>
+    <para>Update the details required</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Update' button</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I remove a transaction from a bank reconciliation?</title>
+  <para>On the lower part of the screen a list of all transactions associated with the reconciliation is displayed.</para>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Remove' button next to the entry that needs to be removed</para>
+   </listitem>
+   <listitem>
+    <para>The transaction is removed</para>
+   </listitem>
+   </orderedlist>
+ </section>
+ <section>
+ <title>How do I reconcile a bank reconciliation?</title>
+ <orderedlist>
+ <listitem><para>A total of all transactions associated with the reconciliation is shown in the lower part of the screen</para></listitem>
+ <listitem><para>Press the 'Reconcile' button next to the total</para></listitem>
+ <listitem><para>Each transaction status will be changed to 'Approved' and the reconciliation / bank reconciliation status will be changed to 'Reconciled' (NOTE: This means that no new transactions can be added to this reconciliation and it will no longer be available to assign transactions to)</para></listitem>
+ </orderedlist>
+ </section>
+</section>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Main OFBiz Setup Overview</title>
+    <para>The main page on OFBiz Setup application including 2 sections, following this:</para>
+    <section>
+        <title>1. Available Internal Organizations Section</title>
+        <para>
+            This section shows list of organizations which store in the system. You be able to edit an information of your orgainzation via click setup then it will go to 
+            view profile screen, you will see other tab button including Facility, Product Store, Web Site, First Customer, and First Product where you would like to
+            edit an information.
+        </para>
+        <para>
+            When you created an information of your orgainzation and also created product. And the last step is click "Set to complete" button.
+        </para>
+    </section>
+    <section>
+        <title>2. Create New Organization Section</title>
+        <para>
+            This section provides a form for create a new an organization(the first step of setup organization) and also setup the "Billing (AP) Address"
+            , "Payment (AR) Address", "General Correspondence Address", any telephone numbers, and email addresses you want for your Company.
+        </para>
+    </section>
+</section>

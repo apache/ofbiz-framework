@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The OFBiz Setup application Overview</title>
+    <para> 
+        The OFBiz Setup application is supporting for immediate setup your organization. For example, Product Store, WebSite , Facility , product catalog, category 
+        , product, and etc. and then be able to create orders from data that is created.
+    </para>
+    <section>
+        <title>Why we have OFBiz Setup Application?</title>
+        <warning>
+            <para>
+                For manual setup instructions, please see the <ulink url="https://cwiki.apache.org/confluence/display/OFBENDUSER/Apache+OFBiz+Business+Setup+Guide">Business Setup Guide</ulink> on the wiki.
+           </para>
+        </warning>
+        <para>
+            If you are the company and also want to use OFBiz for running your business then you easily be able to setting your information for start running 
+        the system quickly via The OFBiz Setup Application.
+        </para>
+    </section>
+    <section>
+        <title>How to get started.</title>
+        <para>1. Open a new terminal.</para>
+        <para>2. Go to your ofbiz directory.</para>
+        <para>3. Clean out all built classes with : ./ant clean-all </para>
+        <para>4. Load the seed data with : ./ant load-extseed </para>
+        <para>5. Create the admin user with : ./ant create-admin-user-login , then enter a user login id that will be created for you (the initial temporary password is "ofbiz")</para>
+        <para>6. Start ofbiz with : ./startofbiz.sh </para>
+        <para>7. Connect to the OFBiz Setup application with your browser at https://localhost:8443/ofbizsetup.</para>
+    </section>
+    <xi:include href="HELP_SETUP_initialsetup.xml" />
+    <xi:include href="HELP_SETUP_editFacility.xml" />
+    <xi:include href="HELP_SETUP_editProductStore.xml" />
+    <xi:include href="HELP_SETUP_editWebSite.xml" />
+    <xi:include href="HELP_SETUP_firstcustomer.xml"/>
+    <xi:include href="HELP_SETUP_firstProdCatalog.xml"/>
+    <xi:include href="HELP_SETUP_firstProductCategory.xml" />
+    <xi:include href="HELP_SETUP_firstproduct.xml" />
+    <xi:include href="HELP_SETUP_profileCompany.xml" />
+</section>
