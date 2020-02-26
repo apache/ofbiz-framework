@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+  xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+  xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+  xmlns="http://docbook.org/ns/docbook">
+  <title>The Human Resources Main screen.</title>
+  
+  
+    <para>The Main window is the entry point into the Human Resources Application and displays the
+    Company tree view for navigating to the main menu items.</para>
+    
+  <para> This screen will display the organizational setup of your Company. The top level Company is defined in a system setup file: general.properties.</para>
+  <para>
+        The system will also list any divisions or departments that have been setup with the role &quot;Internal organization&quot; as defined in the party relationships 
+        as a &quot;Group member&quot;. </para>
+        
+  <para>The number of organizational levels can be as many as required.</para>
+  
+  <section>
+     <title> Nodes In the Company Tree</title>
+
+    <para>There are three node types in the tree, each identified by a
+    different icon. The top of the tree represents your Company, the highest
+    level in the organization. The Company and departments under the
+    Company can have sub departments or positions. Under positions are
+    the people who fulfill the position.</para>
+  </section>
+  
+  <section>
+    <title>Usage</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>Navigate the organization to view departments, positions and
+        people</para>
+      </listitem>
+
+      <listitem>
+        <para>Add or remove a department</para>
+      </listitem>
+
+      <listitem>
+        <para>Add a person</para>
+      </listitem>
+
+      <listitem>
+        <para>Quickly open the profile of any item in the tree</para>
+      </listitem>
+
+      <listitem>
+        <para>If the item is a position you can add a person to fulfill the
+        position</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  
+</section>
