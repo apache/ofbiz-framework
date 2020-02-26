@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<!--from https://cwiki.apache.org/confluence/display/OFBENDUSER/Content+Management+Overview-->
+
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Content Management Overview</title>
+    <para>The Document Content Management System (DMS/CMS) is designed to store data once and then allow it to be reused in multiple arrangements.</para>
+
+    <section>
+        <title>Overview</title>
+        <para>
+            The term 'content management' generally refers to a system for acquiring, storing and retrieving electronic data in varying formats - such as text, images or proprietary formats. Content management systems (CMS) usually incorporate a rendering system to let the developer display the content in various formats. While some CMSs are rigid in the manner in which content is entered and rendered, the content management module of OFBiz is more of a set of tools which can be used in a variety of situations. In addition to HTML, the content can be rendered in non-Web modes, such as PDF or email newsletters.
+            The OFBiz CMS is designed to store data once and then allow it to be reused in multiple arrangements. Hence, there are basically two aspects - the back-end storage subsystem, which is oriented around the DataResource entity, and the front-end association subsystem, which revolves around the Content entity. Note that the Content entity has a foreign key pointing to one and only one DataResource entity, but the same DataResource entity can be referenced by multiple Content entities. It is a general rule that data can only be accessed via a Content entity, but one common exception is that images are typically served up using the DataResource primary key.
+            Content entities are related to other content via ContentAssoc entities. The ContentAssoc entity has a four part primary key and other fields that are used to relate content. The key specifies the 'to' Content and the 'from' Content, as well as the type of association and its effective date. See the discussion of the ContentAssoc entity for more information on how content is related.
+        </para>
+    </section>
+    <section>
+        <title>Major CMS entities</title>
+        <section>
+            <title>DataResource</title>
+            <para>
+                The DataResource entity acts as the gateway to actual content retrieval. There are two important fields for determining the format and storage of a resource. These are the 'mimeTypeId' and the 'dataResourceTypeId'.
+            </para>
+        </section>
+        <section>
+            <title>mimeTypeId</title>
+            <para>
+                The mime type is the standard Multipurpose Internet Mail Extension, of which, 'text/html' and 'image/gif' will be two of the more common examples. The mimeTypeId indicates the format of the content as it is stored. This must be compared to the desired output format to see if the rendering system can handle the request. For example, if the DataResource.mimeTypeId equals, 'image/png', and the target output format is 'text/html', the rendering system could make the logical supposition that it should return an HTML "img.../" tag. If the output format were 'application/pdf' then it will need to determine if it can convert the image to a PDF format.
+            </para>
+        </section>
+        <section>
+            <title>dataResourceTypeId</title>
+            <para>
+                The dataResourceTypeId field indicates the storage mechanism for the resource. It could be of type ELECTRONIC_TEXT, which indicates that there is an entry in the ElectronicText table that is related to the DataResource by its primary key.
+                If the mimeTypeId is of type image, then the dataResourceId could be IMAGE_OBJECT (stored in the database ImageDataResource table), OFBIZ_FILE (stored in a file the path of which is relative to the OFBiz home directory) or URL_RESOURCE (could be accessed via HTTP protocol).
+            </para>
+        </section>
+        <section>
+            <title>dataTemplateTypeId</title>
+            <para>
+                One of the powerful concepts of the OFBiz CMS is that it can store templates that can be used to control the formatting of data. In this case, the resource pointed to by the DataResource entity will not be rendered, itself; instead, it will be used as a template to format data that is associated with it. The currently supported templating types are FreeMarker (FTL) and the OFBiz Screen Widget (SCREEN_COMBINED) format.
+                If the value of dataTemplateTypeId is empty or equal to NONE, then the data pointed to by the dataResource entity is rendered directly.
+            </para>
+        </section>
+        <section>
+            <title>objectInfo</title>
+            <para>
+                If dataResourceTypeId is ELECTRONIC_TEXT or IMAGE_OBJECT, then objectInfo is not used, but for other types, it will contain the resource storage information. If dataResourceTypeId is one of OFBIZ_FILE, CONTEXT_FILE, LOCAL_FILE or URL_RESOURCE; then objectInfo contains path info. If dataResourceTypeId equals SHORT_TEXT, then objectInfo will contain the actual resource (short text) value.
+            </para>
+        </section>
+    </section>
+    <section>
+        <title>ElectronicText</title>
+        <para>
+            ElectronicText contains ASCII text data. An ElectronicText entity can be associated with only one DataResource entity and vice-versa. The mimeTypeId field of the DataResource entity must be checked to determine the format of the ElectronicText data.
+        </para>
+    </section>
+    <section>
+        <title>ImageDataResource</title>
+        <para>
+            ImageDataResource is the equivalent of ElectronicText for binary image data. The DataResource.mimeTypeId must be checked to determine the format of the data.
+        </para>
+    </section>
+    <section>
+        <title>Content</title>
+        <para>
+            The Content entity determines how DataResources are rendered. It does this on a 'local' level, in that it has a mimeTypeId, localeString and other fields that indicate to the rendering system how the DataResource should look, but it can also control the larger picture because it can act as a placeholder and head for other content. The Content.dataResourceId does not need to point to anything, instead a Content entity can be related to other Content via ContentAssoc entities. At some point, some of the child Content entities must point to DataResources, else nothing will ever be displayed.
+        </para>
+        <section>
+            <title>dataResourceId</title>
+            <para>
+                The dataResourceId points to a DataResource entity that represents content associated with the parent Content entity. The related DataResource could be data that is rendered or it could be a template that indicates how child Content of the parent Content are rendered.
+            </para>
+        </section>
+        <section>
+            <title>contentName</title>
+            <para>
+                contentName is the field that is used to represent the Content entity in lists. The contentName field value must be less than 100 characters.
+            </para>
+        </section>
+        <section>
+            <title>description</title>
+            <para>
+                description is used in cases where a short summary or description of the Content is desired. The description field value must be less than 255 characters.
+            </para>
+        </section>
+        <section>
+            <title>templateDateResourceId</title>
+            <para>
+                The templateDataResourceId field points to a DataResource entity that is used to transform the data contained in the DataResource pointed to by the Content.dataResourceId field. The dataTemplateTypeId of the DataResource pointed to by templateDataResourceId will be checked to determine what sort of transform will be applied.
+            </para>
+        </section>
+    </section>
+    <section>
+        <title>ContentRole</title>
+        <para>
+            The ContentRole entity is used to assign permission authority to a piece of content. The ContentRole entity identifies the Content to which the authority is being attached and the Party that has that authority and what sort of authority (role) that party has. The ContentRole also establishes the time frame (from/thruDate) for which that authority is valid.
+        </para>
+    </section>
+    <section>
+        <title>ContentPurpose</title>
+        <para>
+            The ContentPurpose entity adds extra information to a Content entity that is used to determine what permissions are required to access that Content.
+        </para>
+    </section>
+    <section>
+        <title>ContentPurposeOperation</title>
+        <para>
+            ContentPurposeOperation is used to setup permission validation rules.
+        </para>
+    </section>
+    <section>
+        <title>ContentAssoc</title>
+        <para>
+            ContentAssoc relates one Content entity to another. A sense of direction is conveyed in the fact that one field is named contentIdTo (the from field is contentId).
+        </para>
+        <section>
+            <title>contentId</title>
+            <para>
+                This is the 'parent' Content in a Content-to-Content relationship.
+            </para>
+        </section>
+        <section>
+            <title>contentIdTo</title>
+            <para>
+                This field is the 'from' or 'child' field in a Content-to-Content relationship.
+            </para>
+        </section>
+        <section>
+            <title>contentAssocTypeId</title>
+            <para>
+                The contentAssocTypeId field is used to add information about the type of a Content-to-Content relationship. It is part of the primary key. Two Content entities can be related by multiple ContentAssoc entities if the contentAssocTypeId field varies (or the fromDate is different).
+            </para>
+        </section>
+        <section>
+            <title>fromDate</title>
+            <para>
+                the fromDate field is part of the primary key.
+            </para>
+        </section>
+    </section>
+</section>
+
