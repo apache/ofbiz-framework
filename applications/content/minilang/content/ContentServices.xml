@@ -334,20 +334,6 @@
             <call-service service-name="updateElectronicText" in-map-name="updateSimpleText"/>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="createTopic" short-description="Create TOPIC type Content">
-        <make-value entity-name="Content" value-field="content"/>
-        <set from-field="parameters.newTopicId" field="content.contentId"/>
-        <set from-field="parameters.newTopicId" field="content.contentName"/>
-        <set from-field="parameters.newTopicDescription" field="content.description"/>
-        <set value="TOPIC" field="content.contentTypeId"/>
-
-        <now-timestamp field="content.lastModifiedDate"/>
-        <now-timestamp field="content.createdDate"/>
-        <set from-field="parameters.userLogin.userLoginId" field="content.lastModifiedByUserLogin"/>
-        <set from-field="parameters.userLogin.userLoginId" field="content.createdByUserLogin"/>
-
-        <create-value value-field="content"/>
-    </simple-method>
 
     <!-- This method will create a skeleton content record from a data resource -->
     <simple-method method-name="createContentFromDataResource" short-description="Create Content from DataResource Object">

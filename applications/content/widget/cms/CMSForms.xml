@@ -126,19 +126,6 @@ under the License.
                 <list-options list-name="topicList" key-name="contentId"/>
             </drop-down>
         </field>
-        <!--
-        <field name="newTopicId" position="2">
-            <text size="12"/>
-        </field>
-        <field name="newTopicDescription" title="Description"  position="3">
-            <text size="24"/>
-        </field>
-        <field name="createTopic" title=" "  position="4">
-            <hyperlink also-hidden="false" target="createTopic${pageName}" description="Create Topic">
-                <parameter param-name="mode" value="restore"/>
-            </hyperlink>
-        </field>
-        -->
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
