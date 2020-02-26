@@ -1157,13 +1157,13 @@ public class DatabaseUtil {
                     }
                     if (pkCount == 0) {
                         Debug.logInfo("Searching in " + tableNames.size() + " tables for primary key fields ...", module);
-                        List<Future<AbstractCountingCallable>> pkFetcherFutures = new LinkedList<>();
                         for (String curTable: tableNames) {
                             curTable = curTable.substring(curTable.indexOf('.') + 1); //cut off schema name
-                            pkFetcherFutures.add(executor.submit(createPrimaryKeyFetcher(dbData, lookupSchemaName, needsUpperCase, colInfo, messages, curTable)));
-                        }
-                        for (AbstractCountingCallable pkFetcherCallable: ExecutionPool.getAllFutures(pkFetcherFutures)) {
-                            pkCount += pkFetcherCallable.updateData(messages);
+                            try (ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, curTable)) {
+                                pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
+                            } catch (Exception e1) {
+                                Debug.logInfo("Error getting primary key info from database with % tableName." + e1.toString(), module);
+                            }
                         }
                     }
 
