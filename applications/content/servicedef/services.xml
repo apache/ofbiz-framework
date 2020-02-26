@@ -554,17 +554,6 @@
         <attribute mode="IN" name="subContentDataResourceView" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
         <attribute mode="OUT" name="textData" optional="true" type="String"/>
     </service>
-    <service name="createTopic"
-        auth="true" engine="simple" invoke="createTopic"
-        location="component://content/minilang/content/ContentServices.xml" >
-        <description>Create a TOPIC type Content </description>
-        <attribute mode="IN" name="newTopicId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingNewTopicId"/>
-            </type-validate>
-        </attribute>
-        <attribute mode="IN" name="newTopicDescription" optional="true" type="String"/>
-    </service>
 
     <service name="updateSiteRoles" auth="true" engine="java"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateSiteRoles">
