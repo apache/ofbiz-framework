@@ -1,0 +1,48 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= MRP
+MRP stands for “Material Requirement Planning”. It’s a computer program that,
+when run regularly, helps a business to plan what to manufacture and when to
+manufacture it.
+
+It also has the added benefit of letting you know when to buy raw materials to meet
+your manufacturing commitments.
+
+Running MRP is multiple step :
+
+. “MRP” tab and run the MRP report
+. view the MRP results
+. use the requirement generated to buy order or run productionRun
+
+== MRP management in UI
+=== MRP uitvoeren
+Met dit scherm kunnen MRP's opgestart worden.
+
+==== Nieuwe MRP opstarten
+Geef de MRP naam op, selecteer de magazijngroep en het warehouse om de MRP te starten.
+
+
+=== Rapporten
+Dit scherm toont de fabricage rapporten.
+
+=== Materials resource plans
+Dit scherm toont de uitgevoerde MRP's en de MRP's die nog uitgevoerd moeten worden.
+
+=== Zendingen
+Dit scherm toont de plannen voor de zendingen inzake gefabriceerde goederen

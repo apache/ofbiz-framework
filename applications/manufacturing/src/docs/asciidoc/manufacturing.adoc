@@ -53,3 +53,5 @@ Click the ID of cost calculation to modify it. +
 Click the 'Delete'-button to remove a cost calculation.
 
 include::_include/mfg-bom.adoc[leveloffset=+1]
+
+include::_include/mfg-mrp.adoc[leveloffset=+1]
