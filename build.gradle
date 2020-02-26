@@ -497,7 +497,7 @@ tasks.withType(AsciidoctorTask) { task ->
         'icons': 'font',
         'sectnums': '',
         'chapter-label': '',
-        'toc': '',
+        'toc': 'left@',
         'toclevels': '3'
 }
 
