@@ -53,8 +53,8 @@ import org.w3c.dom.Element;
  */
 public final class CallService extends MethodOperation {
 
-    public static final String module = CallService.class.getName();
-    public static final String resource = "MiniLangErrorUiLabels";
+    private static final String MODULE = CallService.class.getName();
+    public static final String RESOURCE = "MiniLangErrorUiLabels";
 
     private final boolean breakOnError;
     private final FlexibleMessage defaultMessage;
@@ -220,7 +220,7 @@ public final class CallService extends MethodOperation {
                 outputTraceMessage(methodContext, "Service engine threw an exception: " + e.getMessage());
             }
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the [" + serviceName + "] service with the map named [" + inMapFma + "] containing [" + inMap + "]: " + e.getMessage() + "]";
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             if (breakOnError) {
                 if (methodContext.getMethodType() == MethodContext.EVENT) {
                     methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
@@ -300,18 +300,18 @@ public final class CallService extends MethodOperation {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 if (UtilValidate.isNotEmpty(errorMessage)) {
                     if (Debug.verboseOn()) {
-                        errorMessage += UtilProperties.getMessage(resource, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
+                        errorMessage += UtilProperties.getMessage(RESOURCE, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
                     }
                     methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage);
                 } else {
                     if (Debug.verboseOn()) {
-                        errorMessageList.add(UtilProperties.getMessage(resource, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale));
+                        errorMessageList.add(UtilProperties.getMessage(RESOURCE, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale));
                     }
                     methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), errorMessageList);
                 }
             } else {
                 ServiceUtil.addErrors(UtilMisc.<String, String> getListFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageListName()), UtilMisc.<String, String, Object> getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()), result);
-                Debug.logError(new Exception(errorMessage), module);
+                Debug.logError(new Exception(errorMessage), MODULE);
             }
         }
         String successMessage = ServiceUtil.makeSuccessMessage(result, messagePrefixStr, messageSuffixStr, successPrefixStr, successSuffixStr);
@@ -395,7 +395,7 @@ public final class CallService extends MethodOperation {
         }
     }
 
-    private final class ResultToField {
+    private static final class ResultToField {
         private final FlexibleMapAccessor<Object> fieldFma;
         private final FlexibleMapAccessor<Object> resultFma;
 
@@ -414,7 +414,7 @@ public final class CallService extends MethodOperation {
         }
     }
 
-    private final class ResultToRequest {
+    private static final class ResultToRequest {
         private final FlexibleMapAccessor<Object> resultFma;
         private final FlexibleServletAccessor<Object> requestFsa;
 
@@ -428,7 +428,7 @@ public final class CallService extends MethodOperation {
         }
     }
 
-    private final class ResultToResult {
+    private static final class ResultToResult {
         private final FlexibleMapAccessor<Object> resultFma;
         private final FlexibleMapAccessor<Object> serviceResultFma;
 
@@ -447,7 +447,7 @@ public final class CallService extends MethodOperation {
         }
     }
 
-    private final class ResultToSession {
+    private static final class ResultToSession {
         private final FlexibleMapAccessor<Object> resultFma;
         private final FlexibleServletAccessor<Object> requestFsa;
 
