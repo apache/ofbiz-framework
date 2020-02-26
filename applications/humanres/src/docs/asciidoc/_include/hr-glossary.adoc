@@ -18,11 +18,6 @@ under the License.
 ////
 = Glossary
 
-[#ANNUAL_REVENUE]
-Annual Revenue::
-Annual revenue is the amount of revenue for a group that is reported in the Party
-Group Information screenlet of the groups profile (visit Party Profile screen).
-
 [#BUDGET]
 Budget::
 A budget is used to track spending in the company for a future period of time.
