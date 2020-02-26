@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Payment Applications help screen.</title>
+    <para>The Payments Applications sub menu is where payments that have
+        been made (or received) can be linked or allocated to an invoice,
+        another payment, a billing account or a tax authority.</para>
+    <para>NOTE: General Ledger accounting transactions are generated during
+        the payment application process but unless your GL is setup with
+        Unapplied Cash and Applied Cash accounts - I'm not sure that there will
+        be any true accounting impact. In the Sales Order process the
+        accounting transaction generated the following GL Accounting
+        transaction is generated for 'Payment Applied'</para>
+    <para>The following options are currently available from this screen:    
+    </para><itemizedlist>
+    <listitem><para>Create New (Create a new payment)</para></listitem>
+    <listitem><para>Status to 'Received' (Change the status of the current payment
+        to 'Received. NOTE: This will create the relevant accounting
+        transactions and post them to the general ledger)</para></listitem>
+    <listitem><para>Status to 'Cancelled' (Change the status of the current payment
+        to 'Cancelled')</para></listitem>
+    <listitem><para>Status to 'Confirmed' (Change the status of the current
+        invoice to 'Confirmed'. NOTE: This status option will not appear until
+        the status has been changed to 'Received')
+    </para></listitem>
+    </itemizedlist>
+    <section>
+        <title>How do I apply a payment to an invoice?</title>
+        <orderedlist>
+        <listitem><para>Select the 'Applications' sub menu for the payment</para></listitem>
+        <listitem><para>A list of invoices will be displayed in the 'Possible Invoices
+            to Apply' box (NOTE: If no open invoices exist for the party that is
+            sending the payment then this may not list any invoices)</para></listitem>
+        <listitem><para>Press the 'Apply' button next to the invoice (or invoices) that
+            this payment is for</para></listitem>
+        </orderedlist>    
+        <para>NOTE: Although it can be overriden the 'Amount to Apply' field
+            will default to the lesser of the invoice total or the payment
+            amount. This can be shown by examples as follows:</para>
+        <para>* If a payment of $150 is received but the invoice total is $120
+            then the 'Amount to Apply' will default to $120</para>
+        <para>* If a payment of $150 is received but the invoice total is $170
+            then the 'Amount to Apply' will default to $150
+        </para>
+    </section>
+    <section>
+        <title>How do I apply a payment to an invoice, tax authority, billing
+            account or another payment?</title>
+        <orderedlist>
+        <listitem><para>Select the 'Applications' sub menu for the payment</para></listitem>
+        <listitem><para>Using the 'Apply this payment to' box at the bottom of the
+            screen</para></listitem>
+        <listitem><para>Enter or use the lookup to enter the 'Invoice Id' to apply the
+            payment to (NOTE: This can be used if the invoice is to another party
+            eg ordered by a subsidiary but paid for by another company of the
+            same group)</para></listitem>
+        <listitem><para>Enter or use the lookup to enter the 'To Payment Id' to apply
+            the payment to if required (NOTE TO CHECK: How does this work....?)
+        </para></listitem>
+        <listitem><para>Enter or use the lookup to enter the 'Billing Account Id' to
+            apply the payment to if required</para></listitem>
+        <listitem><para>Enter or use the drop down box to select the 'Tax Auth Geo Id'
+            to apply the payment to if required (NOTE TO CHECK: This is a country
+            so need to test how this actually works......)</para></listitem>
+        <listitem><para>Enter an amount in the 'Amount to Apply' (NOTE: This must be
+            less than or equal to the payment amount)</para></listitem>
+        <listitem><para>Press the 'Apply' button
+        </para></listitem>
+        </orderedlist>
+    </section>
+</section>

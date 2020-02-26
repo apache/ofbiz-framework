@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Edit Tax Authority GL Accounts screen.</title>
+ <para>The GL Accounts sub menu screen allows you specify which general
+  ledger account any tax calculated for this tax authority will be
+  posted. This is done at at organisation level so the minimum
+  requirement is that 'Company' is setup.</para>
+ <para>It is used to consolidate taxes for a specific tax authority into
+  one general ledger account. It can be very useful if you need to track
+  taxes for several tax authorities (eg different states or countries).
+ </para>
+ <section>
+  <title>How do I add a new general ledger account for a Tax Authority?
+  </title>
+  <orderedlist>
+   <listitem>
+    <para>Enter or use the lookup to select the 'Organisation Party Id'
+     (NOTE: Normally this would be 'Company')</para>
+   </listitem>
+   <listitem>
+    <para>Enter or use the lookup to select the 'GL Account'</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Add' button</para>
+   </listitem>
+  </orderedlist>
+  <para>NOTE: The GL account used must have already been created in the
+   Global GL Settings and linked to the chart of accounts for 'Company'
+  </para>
+ </section>
+ <section>
+  <title>How do I update a general ledger account for a Tax Authority?
+  </title>
+  <orderedlist>
+   <listitem>
+    <para>The general ledger account can be updated by simply adding a
+     new account to replace the existing entry.</para>
+   </listitem>
+   <listitem>
+    <para>Enter or use the lookup to select the 'Organisation Party Id'
+     (NOTE: Normally this would be 'Company')</para>
+   </listitem>
+   <listitem>
+    <para>Enter or use the lookup to select the updated 'GL Account'
+    </para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Add' button</para>
+   </listitem>
+   <listitem>
+    <para>The existing entry will be replaced by the updated GL Account
+    </para>
+   </listitem>
+  </orderedlist>
+  <para>NOTE: Be careful when updating a general ledger account because
+   some transactions may have already been posted to the existing
+   account.</para>
+ </section>
+ <section>
+  <title>How do I delete a general ledger account for a Tax Authority?
+  </title>
+  <orderedlist>
+   <listitem>
+    <para>Locate the entry required</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Delete' button next to the entry that needs to be
+     deleted</para>
+   </listitem>
+   <listitem>
+    <para>The entry is removed </para>
+   </listitem>
+  </orderedlist>
+ </section>
+</section>

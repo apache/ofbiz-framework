@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Edit Tax Authority Product Rates screen.</title>
+ <para>This screen allows the setup of tax rates and types. The rates or
+  type can be assigned globally to a store (ie tax will be applied to
+  all products at the same rate) or category (ie limited to products in
+  a specific category).</para>
+ <para>Other parameters are available to allow the user to limit whether
+  the tax is to be applied to all purchases / sales or only those which
+  are above a certain threshold. </para>
+ <para>Tax associated with shipping charges or promotions can also be
+  configured here.</para>
+ <section>
+  <title>How do I add a new product tax rate?</title>
+  <orderedlist>
+   <listitem>
+    <para>Use the drop down box to select the tax 'Type' (eg Sales Tax)
+    </para>
+   </listitem>
+   <listitem>
+    <para>Use the lookup to select a 'Store Id' (or leave blank for all
+     Stores)</para>
+   </listitem>
+   <listitem>
+    <para>If a category has been setup it will be available for
+     selection in 'Category' field otherwise leave this blank</para>
+   </listitem>
+   <listitem>
+    <para>Leave 'Title Transfer' blank</para>
+   </listitem>
+   <listitem>
+    <para>Enter a value for the 'Minimum Price' for a product where the
+     tax is to be applied (NOTE: The Demo Data sets this as zero)</para>
+   </listitem>
+   <listitem>
+    <para>Enter a value for the 'Minimun Purchase' where the tax is to
+     be applied (NOTE: The Demo Data sets this as zero)</para>
+   </listitem>
+   <listitem>
+    <para>Use the drop down box to select whether 'Shipping Charges'
+     will be taxable</para>
+   </listitem>
+   <listitem>
+    <para>Enter the tax rate in the 'Tax Percentage' field (eg 12.5)
+    </para>
+   </listitem>
+   <listitem>
+    <para>Use the drop down box to select whether products on
+     'Promotion' will be taxable</para>
+   </listitem>
+   <listitem>
+    <para>Leave the 'From Date' and 'Thru Date' blank</para>
+   </listitem>
+   <listitem>
+    <para>Enter the name of the tax in the 'Description' field (eg VAT)
+     as this will be displayed and printed on documents when the tax is
+     applied</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Add' button</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I update an existing product tax rate</title>
+  <orderedlist>
+   <listitem>
+    <para>Select the entry that needs to be updated</para>
+   </listitem>
+   <listitem>
+    <para>Make the changes required</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Update' button next to the entry that needs to be
+     updated</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I delete a product tax rate?</title>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Delete' button next to the entry that needs to be
+     removed</para>
+   </listitem>
+  </orderedlist>
+  <para>NOTE: The deletion of tax rates may cause audit problems
+   particularly if the rate has already been used as part of a
+   transaction. In this case it would be better to expire the old rate
+   using the 'Thru Date' field and then enter the new rate.</para>
+ </section>
+</section>

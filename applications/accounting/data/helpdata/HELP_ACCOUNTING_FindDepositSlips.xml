@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Find Deposit Slips screen.</title>
+    <para>This screen is used to locate payment groups and their associated deposit slips that have
+        been created. Deposit slips are created by grouping transactions together into a Payment
+        Group. This can be done using the 'Accounting / Payment Group' tab, the 'Financial Account /
+        Deposit Withdraw' tab or the 'Create New Deposit Slip' button. </para>
+    <para>Currently Deposit Slips are created for AR Batch Payments only.</para>
+    <para>The deposit slips are available in PDF format and there is an option to cancel the batch
+        that generated the deposit slip if required.</para>
+    <section>
+        <title>How do I locate an existing Deposit Slip?</title>
+        <para>Enter some characters from the 'Payment Group Id' or 'Payment Group Name' if
+            known</para>
+        <para>Press the 'Search' button</para>
+    </section>
+    <section>
+        <title>How do I update an existing Deposit Slip?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Locate the Payment Group required</para>
+                </listitem>
+                <listitem>
+                    <para>Select the Payment Group by clicking on the Payment Group Id</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>The 'Edit Payment Group' screen is displayed</para>
+        <para>Add any new payment deposits or update existing deposits for the Payment Group</para>
+        <para>All changes in the Payment Group will automatically be updated to the Deposit
+            Slip</para>
+    </section>
+    <section>
+        <title>How do I delete an existing Deposit Slip?</title>
+        <para>A deposit slip can not be directly deleted but it is removed when a Payment Group is
+            cancelled</para>
+        <para>Press the 'Cancel' button next to the Payment Group required to cancel a payment
+            group</para>
+        <para>The Payment Group is removed from the 'Find Deposits' screen and no deposit slips can
+            be viewed or printed.</para>
+    </section>
+</section>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Financial Account Edit Deposit Slip screen.</title>
+    <para>This screen displays the details of a Payment Group and its transactions. The Deposit Slip
+        for the Payment Group can be printed if required and the Payment Group itself can be
+        updated.</para>
+    <para>Details that can be updated include the name of the Payment Group itself and the addition,
+        removal or update of transactions.</para>
+    <para>NOTE: Any changes to the Payment Group will be automatically updated to the Deposit
+        Slip.</para>
+    <section>
+        <title>How do I update a Deposit Slip?</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the Payment Group required</para>
+                </listitem>
+                <listitem>
+                    <para>Update the 'Payment Group Name' if required</para>
+                </listitem>
+                <listitem>
+                    <para>Use the lookup for 'Payment Id' to add new transactions to the Payment
+                        Group if required</para>
+                </listitem>
+                <listitem>
+                    <para>Use the 'Cancel' button next to a particular transaction to remove it from
+                        the Payment Group</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' or 'Add' buttons as required</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Print Deposit Slip' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>The Deposit Slip will be displayed with the latest details of the transactions for the
+            Payment Group</para>
+    </section>
+</section>
