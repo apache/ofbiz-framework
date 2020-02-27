@@ -77,7 +77,8 @@ public class CommonEvents {
         "thisRequestUri",
         "org.apache.tomcat.util.net.secure_protocol_version",
         "userLogin",
-        "impersonateLogin"
+        "impersonateLogin",
+        "requestMapMap" // requestMapMap is used by CSRFUtil
     };
 
     /** Simple event to set the users per-session locale setting. The user's locale

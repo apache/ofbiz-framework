@@ -45,6 +45,7 @@ import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.cxf.jaxrs.model.URITemplate;
 import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.SSLUtil;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -428,6 +429,13 @@ public class RequestHandler {
         if (Debug.verboseOn()) Debug.logVerbose("[Processing Request]: " + requestMap.uri + showSessionId(request), module);
         request.setAttribute("thisRequestUri", requestMap.uri); // store the actual request URI
 
+        // Store current requestMap map to be referred later when generating csrf token
+        request.setAttribute("requestMapMap", getControllerConfig().getRequestMapMap());
+
+        // Perform CSRF token check when request not on chain
+        if (chain==null && originalRequestMap.securityCsrfToken) {
+                CsrfUtil.checkToken(request, path);
+        }
 
         // Perform security check.
         if (requestMap.securityAuth) {
@@ -578,8 +586,13 @@ public class RequestHandler {
                 if (UtilValidate.isNotEmpty(queryString)) {
                     redirectTarget += "?" + queryString;
                 }
-                
-                callRedirect(makeLink(request, response, redirectTarget), response, request, ccfg.getStatusCode());
+                String link = makeLink(request, response, redirectTarget);
+
+                // add / update csrf token to link when required
+                String tokenValue = CsrfUtil.generateTokenForNonAjax(request,redirectTarget);
+                link = CsrfUtil.addOrUpdateTokenInUrl(link, tokenValue);
+
+                callRedirect(link, response, request, ccfg.getStatusCode());
                 return;
             }
         }
@@ -659,10 +672,22 @@ public class RequestHandler {
                 callRedirect(url + this.makeQueryString(request, nextRequestResponse), response, request, redirectSC);
             } else if ("request-redirect".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect." + showSessionId(request), module);
-                callRedirect(makeLinkWithQueryString(request, response, "/" + nextRequestResponse.value, nextRequestResponse), response, request, redirectSC);
+                String link = makeLinkWithQueryString(request, response, "/" + nextRequestResponse.value, nextRequestResponse);
+
+                // add / update csrf token to link when required
+                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, nextRequestResponse.value);
+                link = CsrfUtil.addOrUpdateTokenInUrl(link, tokenValue);
+
+                callRedirect(link, response, request, redirectSC);
             } else if ("request-redirect-noparam".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect with no parameters." + showSessionId(request), module);
-                callRedirect(makeLink(request, response, nextRequestResponse.value), response, request, redirectSC);
+                String link = makeLink(request, response, nextRequestResponse.value);
+
+                // add token to link when required
+                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, nextRequestResponse.value);
+                link = CsrfUtil.addOrUpdateTokenInUrl(link, tokenValue);
+
+                callRedirect(link, response, request, redirectSC);
             } else if ("view".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + showSessionId(request), module);
 

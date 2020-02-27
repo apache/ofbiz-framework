@@ -16,10 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator
-import org.apache.ofbiz.security.Security
+
+
 import org.apache.ofbiz.entity.jdbc.DatabaseUtil
-import org.apache.ofbiz.entity.model.ModelEntity
 
 controlPath = parameters._CONTROL_PATH_
 
@@ -114,7 +113,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
         miter = messages.iterator()
         context.miters = miter
     }
-    context.encodeURLCheckDb = response.encodeURL(controlPath + "/view/checkdb")
+    context.checkDbURL = "view/checkdb"
     context.groupName = groupName ?: "org.apache.ofbiz"
     context.entityName = entityName ?: ""
 }
