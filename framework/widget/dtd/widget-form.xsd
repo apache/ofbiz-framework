@@ -647,7 +647,13 @@ under the License.
             </xs:attribute>
             <xs:attribute type="xs:string" name="parameter-name">
                 <xs:annotation>
-                    <xs:documentation>Defaults to the value of the name attribute; is the name of the parameter to use for this field (the request parameter in a web application).</xs:documentation>
+                    <xs:documentation>Specifies the parameter name to use for this field - i.e. the name attribute of an
+                        HTML input field in a web application.
+
+                        Accepts Unified Expression Language (JSR 245) notation, i.e. ${}, to allow use of expressions.
+
+                        Defaults to the value of the name attribute.
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="title">
@@ -656,7 +662,7 @@ under the License.
                         The name of this field that will be shown to the user. 
                         It can use the ${} and foo.bar (dot) syntax to insert values from the context for parameterization or internationalization.
                         
-                        Be sure a "FormFieldTitle_" labels does not already exist, else it will be overriden.
+                        Be sure a "FormFieldTitle_" labels does not already exist, else it will be overridden.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -1210,10 +1216,21 @@ under the License.
             </xs:attribute>
             <xs:attribute type="xs:string" name="target-parameter">
                 <xs:annotation>
-                    <xs:documentation>The name of a field whose value is passed in as a parameter to the lookup target form. 
-                        Can be a comma separated list. You need to affect it the value using parameters.parmI 
-                        (where I is the position number in the list, I must begin at 0) in the related lookup screen. 
-                        See LookupPreferredContactMech as example
+                    <xs:documentation>Comma separated list of the parameter-names of the fields whose values are passed
+                        as parameters to the lookup target form.
+
+                        Accepts Unified Expression Language (JSR 245) notation, i.e. ${}, to allow use of expressions.
+                        Expressions are evaluated before splitting at any commas. After splitting, whitespace is trimmed
+                        from the beginning and end of the resulting elements.
+
+                        The position of a field name in the list corresponds to the parameter name that will be passed
+                        to the lookup form. Parameter names follow the naming convention parmN where N is the list
+                        position of the field name, starting with 0.
+
+                        Example: A form has a text input field with parameter-name alpha and value 42; and text input
+                        field with parameter-name bravo and value 107. A lookup field has been created for that form
+                        with target-parameter="bravo,alpha". When the lookup is performed the resulting request will
+                        include parm0=107 and parm1=42.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
