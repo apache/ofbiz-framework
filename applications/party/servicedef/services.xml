@@ -1040,59 +1040,61 @@ under the License.
     </service>
 
     <!-- Party Invitation Services -->
-    <service name="createPartyInvitation" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="createPartyInvitation">
+    <service name="createPartyInvitation" engine="groovy" default-entity-name="PartyInvitation"
+            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="createPartyInvitation">
         <description>Create Party Invitation</description>
-        <auto-attributes entity-name="PartyInvitation" include="pk" mode="IN" optional="true"/>
-        <auto-attributes entity-name="PartyInvitation" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="partyInvitationId" mode="OUT" optional="false"/>
     </service>
-    <service name="updatePartyInvitation" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="updatePartyInvitation">
+    <service name="updatePartyInvitation" engine="groovy" default-entity-name="PartyInvitation"
+            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
         <description>Update Party Invitation</description>
-        <auto-attributes entity-name="PartyInvitation" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="PartyInvitation" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deletePartyInvitation" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="deletePartyInvitation">
+    <service name="deletePartyInvitation" default-entity-name="PartyInvitation"
+             engine="entity-auto" invoke="delete">
         <description>Remove Party Invitation</description>
-        <auto-attributes entity-name="PartyInvitation" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
-    <service name="createPartyInvitationGroupAssoc" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="createPartyInvitationGroupAssoc">
+    <service name="createPartyInvitationGroupAssoc" default-entity-name="PartyInvitationGroupAssoc"
+             engine="entity-auto" invoke="create">
         <description>Create PartyInvitationGroupAssoc</description>
-        <auto-attributes entity-name="PartyInvitationGroupAssoc" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
-    <service name="deletePartyInvitationGroupAssoc" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="deletePartyInvitationGroupAssoc">
+    <service name="deletePartyInvitationGroupAssoc" default-entity-name="PartyInvitationGroupAssoc"
+             engine="entity-auto" invoke="delete">
         <description>Remove PartyInvitationGroupAssoc</description>
-        <auto-attributes entity-name="PartyInvitationGroupAssoc" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
-    <service name="createPartyInvitationRoleAssoc" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="createPartyInvitationRoleAssoc">
+    <service name="createPartyInvitationRoleAssoc" default-entity-name="PartyInvitationRoleAssoc"
+             engine="entity-auto" invoke="create">
         <description>Create PartyInvitationRoleAssoc</description>
-        <auto-attributes entity-name="PartyInvitationRoleAssoc" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
-    <service name="deletePartyInvitationRoleAssoc" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="deletePartyInvitationRoleAssoc">
+    <service name="deletePartyInvitationRoleAssoc" default-entity-name="PartyInvitationRoleAssoc"
+             engine="entity-auto" invoke="delete">
         <description>Remove PartyInvitationRoleAssoc</description>
-        <auto-attributes entity-name="PartyInvitationRoleAssoc" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
-    <service name="acceptPartyInvitation" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="acceptPartyInvitation">
+    <service name="acceptPartyInvitation" engine="groovy"
+            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="acceptPartyInvitation">
         <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
-        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyInvitationId" type="String" mode="IN"/>
+        <attribute name="partyId" type="String" mode="IN"/>
     </service>
-    <service name="declinePartyInvitation" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="declinePartyInvitation">
+    <service name="declinePartyInvitation" engine="groovy"
+            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
         <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
-        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyInvitationId" type="String" mode="IN"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true" default-value="PARTYINV_DECLINED"/>
     </service>
-    <service name="cancelPartyInvitation" engine="simple"
-            location="component://party/minilang/party/PartyInvitationServices.xml" invoke="cancelPartyInvitation">
+    <service name="cancelPartyInvitation" engine="groovy"
+            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
         <permission-service service-name="cancelPartyInvitationPermissionCheck"/>
-        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyInvitationId" type="String" mode="IN"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true" default-value="PARTYINV_CANCELLED"/>
     </service>
 
     <!-- Permission checking services-->
