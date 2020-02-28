@@ -139,7 +139,8 @@ public class ModelFormFieldTest {
         ModelFormField field = from(b -> b.setName("lookup-field"));
         ModelFormField.LookupField lookupField = new ModelFormField.LookupField(element, field);
 
-        assertThat(lookupField.getTargetParameterList(ImmutableMap.of("prefix", "P1")), Matchers.contains("P1TargetParam"));
+        assertThat(lookupField.getTargetParameterList(ImmutableMap.of("prefix", "P1")),
+                Matchers.contains("P1TargetParam"));
     }
 
     @Test
@@ -153,6 +154,8 @@ public class ModelFormFieldTest {
         ModelFormField field = from(b -> b.setName("lookup-field"));
         ModelFormField.LookupField lookupField = new ModelFormField.LookupField(element, field);
 
-        assertThat(lookupField.getTargetParameterList(ImmutableMap.of("prefix", "P1", "key1", "AA,BB , CC")), Matchers.contains("P1TargetParam", "AA", "BB", "CC"));
+        final List<String> targetParameterList = lookupField.getTargetParameterList(
+                ImmutableMap.of("prefix", "P1", "key1", "AA,BB , CC"));
+        assertThat(targetParameterList, Matchers.contains("P1TargetParam", "AA", "BB", "CC"));
     }
 }
