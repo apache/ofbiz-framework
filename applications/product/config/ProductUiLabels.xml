@@ -19,17 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="AddNewProductFeatureToProduct">
-        <value xml:lang="de">Neues Merkmal für dieses Produkt erstellen</value>
-        <value xml:lang="en">Add new Product Feature to current product</value>
-        <value xml:lang="es">Añadir nueva característica del producto al producto actual</value>
-        <value xml:lang="es-CL">Añadir nueva característica al producto actual</value>
-        <value xml:lang="ja">現在の製品に新規製品機能を追加</value>
-        <value xml:lang="nl">Nieuw kenmerk toevoegen</value>
-        <value xml:lang="vi">Thêm Đặc tính SP gia tăng này</value>
-        <value xml:lang="zh">为当前产品添加新的产品特征</value>
-        <value xml:lang="zh-TW">為當前產品增加新的產品特色</value>
-    </property>
     <property key="AddProductComponent">
         <value xml:lang="de">Produktkomponente hinzufügen</value>
         <value xml:lang="en">Add Product Component</value>
@@ -52,17 +41,6 @@
         <value xml:lang="zh">网站分析</value>
         <value xml:lang="zh-TW">網站分析</value>
     </property>
-    <property key="CatalogWebAnalyticsConfigs">
-        <value xml:lang="de">Web Analytik Konfiguration</value>
-        <value xml:lang="en">Web Analytics Configuration</value>
-        <value xml:lang="es">Configuración de la Analítica Web</value>
-        <value xml:lang="it">Configurazione analisi Web</value>
-        <value xml:lang="ja">Web分析設定</value>
-        <value xml:lang="nl">Configuratie webanalyse</value>
-        <value xml:lang="vi">Cấu hình trang web phân tích</value>
-        <value xml:lang="zh">网站分析设置</value>
-        <value xml:lang="zh-TW">網站分析配置</value>
-    </property>
     <property key="CatalogWebAnalyticsTypes">
         <value xml:lang="de">Web Analytik Typen</value>
         <value xml:lang="en">Web Analytics Types</value>
@@ -73,16 +51,6 @@
         <value xml:lang="vi">Kiểu trang web phân tích</value>
         <value xml:lang="zh">网站分析类型</value>
         <value xml:lang="zh-TW">網站分析型態</value>
-    </property>
-    <property key="CreateNewProductFeatureType">
-        <value xml:lang="de">Neuen Merkmaltyp erstellen</value>
-        <value xml:lang="en">Create New Product Feature Type</value>
-        <value xml:lang="es">Crear nuevo tipo de característica de producto</value>
-        <value xml:lang="ja">新規製品機能種類を作成</value>
-        <value xml:lang="nl">Aanmaken Soort productfeature</value>
-        <value xml:lang="vi">Tạo mới kiểu Đặc tính SP gia tăng</value>
-        <value xml:lang="zh">新建产品特征类型</value>
-        <value xml:lang="zh-TW">新建產品特色類型</value>
     </property>
     <property key="CreateSalesAgreement">
         <value xml:lang="en">Create Sales Agreement</value>
@@ -115,13 +83,6 @@
         <value xml:lang="zh">账单地址和送货地址相同</value>
         <value xml:lang="zh-CN">帐单地址和运货地址相同</value>
         <value xml:lang="zh-TW">帳單位址和送貨位址相同</value>
-    </property>
-    <property key="FacilityCat">
-        <value xml:lang="de">Kat.</value>
-        <value xml:lang="en">CAT</value>
-        <value xml:lang="es">Cat.</value>
-        <value xml:lang="nl">Cat.</value>
-        <value xml:lang="zh">分类</value>
     </property>
     <property key="FacilityCompanyName">
         <value xml:lang="de">OFBiz: Anlagen Verwaltung</value>
@@ -327,23 +288,6 @@
         <value xml:lang="zh">多个地点</value>
         <value xml:lang="zh-TW">多個地點</value>
     </property>
-    <property key="FacilityNoFacility">
-        <value xml:lang="de">Kein Lager</value>
-        <value xml:lang="en">No Facility</value>
-        <value xml:lang="es">Ningún almacén</value>
-        <value xml:lang="es-CL">Ningúna Bodega</value>
-        <value xml:lang="fr">Aucun lieu de stockage</value>
-        <value xml:lang="it">Nessun stabilimento</value>
-        <value xml:lang="ja">拠点はありません</value>
-        <value xml:lang="nl">Geen faciliteit</value>
-        <value xml:lang="ro">Nici-un Compartiment </value>
-        <value xml:lang="ru">Нет оборудования</value>
-        <value xml:lang="th">ไม่มีคลังสินค้า</value>
-        <value xml:lang="vi">Không có Chi nhánh / Cơ sở thỏa mãn</value>
-        <value xml:lang="zh">没有场所</value>
-        <value xml:lang="zh-CN">仓储设施</value>
-        <value xml:lang="zh-TW">沒有場所</value>
-    </property>
     <property key="FacilityNoItemsAvailableToShip">
         <value xml:lang="de">Keine Artikel zum Versand verfügbar</value>
         <value xml:lang="en">No items available to ship</value>
@@ -364,17 +308,6 @@
         <value xml:lang="vi">Chi nhánh / Cơ sở ${parameters.facilityId} được liên kết với kho hàng  ${parameters.productStoreId}, không phải là kho chứa hàng dự trữ</value>
         <value xml:lang="zh">标识为 ${parameters.facilityId} 的场所没有关联到标识为 ${parameters.productStoreId} 的产品店铺（ProductStore），没有保留库存。</value>
         <value xml:lang="zh-TW">標識為 ${parameters.facilityId} 的場所沒有結合到標識為 ${parameters.productStoreId} 的產品商店(ProductStore),沒有保留庫存.</value>
-    </property>
-    <property key="FacilityNoGrouping">
-        <value xml:lang="de">Keine Gruppierung</value>
-        <value xml:lang="en">No Grouping</value>
-        <value xml:lang="es">Sin agrupación</value>
-        <value xml:lang="it">Nessun raggruppamento</value>
-        <value xml:lang="ja">グループはありません</value>
-        <value xml:lang="nl">Geen groupering</value>
-        <value xml:lang="vi">Không phân nhóm</value>
-        <value xml:lang="zh">没有分组</value>
-        <value xml:lang="zh-TW">沒有分群組</value>
     </property>
     <property key="FacilityNoOrdersReadyToPick">
         <value xml:lang="de">Keine Aufträge zum komissionieren bereit, Picklist nicht erzeugt.</value>
@@ -562,17 +495,6 @@
         <value xml:lang="vi">Cấu hình thuộc tính</value>
         <value xml:lang="zh">配置属性（已经被弃用）</value>
         <value xml:lang="zh-TW">配置屬性(已經被棄用)</value>
-    </property>
-    <property key="FacilityShipmentCreatedAndMarkedAsPacked">
-        <value xml:lang="de">Lieferung #${shipmentId} erzeugt und als gepackt gekennzeichnet</value>
-        <value xml:lang="en">Shipment #${shipmentId} created and marked as packed</value>
-        <value xml:lang="es">Envío #${shipmentId} creado y marcado como empaquetado</value>
-        <value xml:lang="it">Spedizione #${shipmentId} creata e marcata come imballata</value>
-        <value xml:lang="ja">発送 #${shipmentId} が作成および梱包済にマークされました</value>
-        <value xml:lang="nl">Levering #${shipmentId} aangemaakt en als gepakt aangemerkt.</value>
-        <value xml:lang="vi">Vận chuyển cho mã #${shipmentId} đã được tạo và đánh dấu là đã đóng gói</value>
-        <value xml:lang="zh">送货 #${shipmentId} 已被创建并被标志为已打包</value>
-        <value xml:lang="zh-TW">出貨 #${shipmentId} 已被新建並被標誌為已打包</value>
     </property>
     <property key="FacilityShipmentCustomMethod">
         <value xml:lang="de">Spezielle Liefermethode</value>
@@ -878,16 +800,6 @@
         <value xml:lang="vi">Lỗi xảy ra khi đọc hoặc ghi dữ liệu Chuyển vận tới Xác nhận chuyển vận từ DHL: ${errorString}</value>
         <value xml:lang="zh">为敦豪快递送货确认读或写送货数据时出错：${errorString}</value>
         <value xml:lang="zh-TW">為DHL出貨確認讀或寫出貨資料時出錯:${errorString}</value>
-    </property>
-    <property key="FacilityShipmentFedexShipmentConfirmResponse">
-        <value xml:lang="de">Eine Lieferbestätigung wurde empfangen: ${shipmentConfirmResponseString}</value>
-        <value xml:lang="en">A ShipmentConfirmRespose was received: ${shipmentConfirmResponseString}</value>
-        <value xml:lang="es">Se recibió un ShipmentConfirmRespose : ${shipmentConfirmResponseString}</value>
-        <value xml:lang="it">A ShipmentConfirmRespose was received: ${shipmentConfirmResponseString}</value>
-        <value xml:lang="ja">発送確認レスポンスを受け取りました: ${shipmentConfirmResponseString}</value>
-        <value xml:lang="vi">Phản hồi xác nhận chuyển vận đã nhận được: ${shipmentConfirmResponseString}</value>
-        <value xml:lang="zh">收到了一个送货确认响应（ShipmentConfirmRespose）：${shipmentConfirmResponseString}</value>
-        <value xml:lang="zh-TW">收到了一個出貨確認回應(ShipmentConfirmRespose):${shipmentConfirmResponseString}</value>
     </property>
     <property key="FacilityShipmentFedexRateTemplateRenderingError">
         <value xml:lang="de">Kann DHL Lieferung nicht bestätigen: Fehler beim Rendern des DHL XML Request.</value>
@@ -2766,16 +2678,6 @@
         <value xml:lang="zh">建议零售费率</value>
         <value xml:lang="zh-TW">建議零售費率</value>
     </property>
-    <property key="FacilityShipmentUpsShipmentAlternateRatesInquiryResponse">
-        <value xml:lang="de">Eine ShipmentAlternateRatesInquiryResponse wurde empfangen: ${rateResponseString}</value>
-        <value xml:lang="en">A ShipmentAlternateRatesInquiryResponse was received: ${rateResponseString}</value>
-        <value xml:lang="es">Se recibió una respuesta de consulta de tarifas alternativas de envío: ${rateResponseString}</value>
-        <value xml:lang="it">Una ShipmentAlternateRatesInquiryResponse è stata ricevuta: ${rateResponseString}</value>
-        <value xml:lang="ja">発送代替レート照会レスポンスを受け取りました: ${rateResponseString}</value>
-        <value xml:lang="vi">ShipmentAlternateRatesInquiryResponse đã nhận: ${rateResponseString}</value>
-        <value xml:lang="zh">接收到了一个送货选择费率查询响应（ShipmentAlternateRatesInquiryResponse）：${rateResponseString}</value>
-        <value xml:lang="zh-TW">接收到了一個出貨選擇費率查詢回應(ShipmentAlternateRatesInquiryResponse):${rateResponseString}</value>
-    </property>
     <property key="FacilityShipmentUpsRouteSegmentStatusNotConfirmed">
         <value xml:lang="de">FEHLER: Der Zusteller Service Status für ShipmentRouteSegment ${shipmentRouteSegmentId} von Lieferung ${shipmentId}, ist ${shipmentRouteSegmentStatus}, aber muss nicht gesetzt oder [SHRSCS_CONFIRMED] sein um die UPS Lieferannahme durchzuführen.</value>
         <value xml:lang="en">ERROR: The Carrier Service Status for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is ${shipmentRouteSegmentStatus}, but must be not-set or [SHRSCS_CONFIRMED] to perform the UPS Shipment Accept operation.</value>
@@ -3049,15 +2951,6 @@
         <value xml:lang="zh">没有配置附加费币种</value>
         <value xml:lang="zh-TW">沒有配置附加費幣種</value>
     </property>
-    <property key="FacilityShipmentUpsSurchargeIsNotConfigurated">
-        <value xml:lang="de">Aufpreiswert ist nicht konfiguriert</value>
-        <value xml:lang="en">Surcharge amount is not configured</value>
-        <value xml:lang="es">El importe del recargo no está configurado</value>
-        <value xml:lang="it">Importo supplementare non è configurato</value>
-        <value xml:lang="ja">追加料金が設定されていません</value>
-        <value xml:lang="zh">没有配置附加费金额</value>
-        <value xml:lang="zh-TW">沒有配置附加費金額</value>
-    </property>
     <property key="FacilityShipmentUpsSurchargeAmount">
         <value xml:lang="de">Aufpreis für Zahlung bei Lieferung/Nachnahme</value>
         <value xml:lang="en">Surcharge Amount for Cash On Delivery</value>
@@ -3166,15 +3059,6 @@
         <value xml:lang="zh">无法确定交货地的地址</value>
         <value xml:lang="zh-TW">無法確定送貨位址</value>
     </property>
-    <property key="FacilityShipmentUpsUnableFoundShipToAddresssForDropShipping">
-        <value xml:lang="de">Kann Absendeadresse für Streckenlieferung nicht ermitteln</value>
-        <value xml:lang="en">Unable to determine ship-from address for drop shipping</value>
-        <value xml:lang="es">No se puede determinar la dirección de envío para el envío directo</value>
-        <value xml:lang="it">Non è possibile determinare l'indirizzo di spedizione per la spedizione conto terzi</value>
-        <value xml:lang="ja">直送で配送元住所を決定できません</value>
-        <value xml:lang="zh">对于直接送货，无法确定发货地的地址</value>
-        <value xml:lang="zh-TW">對於直接送貨,無法確定發貨地的位址</value>
-    </property>
     <property key="FacilityShipmentUpsWeightValueNotFound">
         <value xml:lang="de">Gewicht nicht gefunden für ShipmentRouteSegment mit shipmentId ${shipmentId}, shipmentRouteSegmentId ${shipmentRouteSegmentId}, und shipmentPackageSeqId ${shipmentPackageSeqId}</value>
         <value xml:lang="en">Weight value not found for ShipmentRouteSegment with shipmentId ${shipmentId}, shipmentRouteSegmentId ${shipmentRouteSegmentId}, and shipmentPackageSeqId ${shipmentPackageSeqId}</value>
@@ -3210,15 +3094,6 @@
         <value xml:lang="ja">USPS住所確認サービスから不完全なレスポンス: 住所要素がありません</value>
         <value xml:lang="zh">来自美国邮政地址验证服务的响应不完整：没有找到地址（Address）元素</value>
         <value xml:lang="zh-TW">來自美國郵政位址驗證服務的回應不完整:沒有找到位址(Address)元素</value>
-    </property>
-    <property key="FacilityShipmentUspsAddressValidationResponseError">
-        <value xml:lang="de">Der folgende Fehler wurde vom USPS Adressvalidierungs Service zurückgegeben: ${errorString}</value>
-        <value xml:lang="en">The following error was returned by the USPS Address Validation service: ${errorString}</value>
-        <value xml:lang="es">El siguiente error fue devuelto por el servicio de validación de direcciones de USPS: ${errorString}</value>
-        <value xml:lang="it">Il seguente errore è stato restituito da USPS servizio di validazione indirizzo: ${errorString}</value>
-        <value xml:lang="ja">USPS住所確認サービスで次のエラーが戻されました: ${errorString}</value>
-        <value xml:lang="zh">美国邮政地址验证服务返回了下列错误：${errorString}</value>
-        <value xml:lang="zh-TW">美國郵政位址驗證服務返回了下列錯誤:${errorString}</value>
     </property>
     <property key="FacilityShipmentUspsAddressValidationSendingError">
         <value xml:lang="de">Fehler beim Senden der Anfrage an den USPS Adressvalidierungs Service: ${errorString}</value>
@@ -8973,14 +8848,6 @@
         <value xml:lang="zh">选择替换图片</value>
         <value xml:lang="zh-TW">選擇替換圖片</value>
     </property>
-    <property key="ImageManagementCreateNewThumbnailSize">
-        <value xml:lang="de">Erzeuge neue Miniaturbild Größe</value>
-        <value xml:lang="en">Create New Thumbnail Size</value>
-        <value xml:lang="es">Crear nuevo tamaño de miniatura</value>
-        <value xml:lang="ja">新規サムネイルサイズを作成</value>
-        <value xml:lang="zh">新建缩略图大小</value>
-        <value xml:lang="zh-TW">新建縮略圖大小</value>
-    </property>
     <property key="ImageManagementCrop">
         <value xml:lang="de">Zuschneiden</value>
         <value xml:lang="en">Crop</value>
@@ -9146,16 +9013,6 @@
         <value xml:lang="zh">图片宽度</value>
         <value xml:lang="zh-TW">圖片寬度</value>
     </property>
-    <property key="ImageManagementOpacity">
-        <value xml:lang="de">Transparenz</value>
-        <value xml:lang="en">Opacity</value>
-        <value xml:lang="es">Opacidad</value>
-        <value xml:lang="ja">不透明</value>
-        <value xml:lang="th">ความทึบแสง</value>
-        <value xml:lang="vi">Tính mờ đục</value>
-        <value xml:lang="zh">透明度</value>
-        <value xml:lang="zh-TW">透明度</value>
-    </property>
     <property key="ImageManagementPublic">
         <value xml:lang="de">Öffentlich</value>
         <value xml:lang="en">Public</value>
@@ -9226,15 +9083,6 @@
         <value xml:lang="zh">调整大小</value>
         <value xml:lang="zh-TW">調整大小</value>
     </property>
-    <property key="ImageManagementResizeAllImages">
-        <value xml:lang="de">Alle Bildgrößen ändern</value>
-        <value xml:lang="en">Resize All Images</value>
-        <value xml:lang="es">Cambiar el tamaño de todas las imágenes</value>
-        <value xml:lang="ja">画像をすべてサイズ変更</value>
-        <value xml:lang="th">เปลี่ยนขนาดรูปภาพทั้งหมด</value>
-        <value xml:lang="zh">调整全部图片的大小</value>
-        <value xml:lang="zh-TW">調整全部圖片的大小</value>
-    </property>
     <property key="ImageManagementRotate">
         <value xml:lang="de">Drehen</value>
         <value xml:lang="en">Rotate</value>
@@ -9283,26 +9131,6 @@
         <value xml:lang="vi">Sắp xếp</value>
         <value xml:lang="zh">排序</value>
         <value xml:lang="zh-TW">排序</value>
-    </property>
-    <property key="ImageManagementTextColor">
-        <value xml:lang="de">Textfarbe</value>
-        <value xml:lang="en">Text Color</value>
-        <value xml:lang="es">Color del texto</value>
-        <value xml:lang="ja">文字色</value>
-        <value xml:lang="th">สีตัวอักษร</value>
-        <value xml:lang="vi">Màu chữ</value>
-        <value xml:lang="zh">文本颜色</value>
-        <value xml:lang="zh-TW">文本顏色</value>
-    </property>
-    <property key="ImageManagementTextSize">
-        <value xml:lang="de">Textgröße</value>
-        <value xml:lang="en">Text Size</value>
-        <value xml:lang="es">Tamaño del texto</value>
-        <value xml:lang="ja">文字サイズ</value>
-        <value xml:lang="th">ขนาดตัวอักษร</value>
-        <value xml:lang="vi">Cỡ chữ</value>
-        <value xml:lang="zh">本文大小</value>
-        <value xml:lang="zh-TW">本文大小</value>
     </property>
     <property key="ImageManagementThumbnailSizeExistingInProduct">
         <value xml:lang="de">Miniaturbild Größe in Produkt vorhanden</value>
@@ -9386,20 +9214,6 @@
         <value xml:lang="vi">Từ khóa Thuộc tính</value>
         <value xml:lang="zh">META关键字（Keywords）标签</value>
         <value xml:lang="zh-TW">META關鍵字(Keywords)標籤</value>
-    </property>
-    <property key="Manufacturer">
-        <value xml:lang="de">Hersteller</value>
-        <value xml:lang="en">Manufacturer</value>
-        <value xml:lang="es">Fabricante</value>
-        <value xml:lang="nl">Producent</value>
-        <value xml:lang="zh">制造商</value>
-    </property>
-    <property key="ManufacturerRef">
-        <value xml:lang="de">Los Ref.</value>
-        <value xml:lang="en">Lot Ref.</value>
-        <value xml:lang="es">Lote Ref.</value>
-        <value xml:lang="nl">Batch ref.</value>
-        <value xml:lang="zh">批次参考</value>
     </property>
     <property key="PageTitle">
         <value xml:lang="de">Seitentitel</value>
@@ -12548,34 +12362,6 @@
         <value xml:lang="zh">操作类型金额</value>
         <value xml:lang="zh-TW">操作類型金額</value>
     </property>
-    <property key="ProductActionTypeOrderAdjustmentTypeQuantityItemPartyLimit">
-        <value xml:lang="de">Aktionstyp, Auftragsanpassung Typ, Menge, Position ID, Akteur ID Limit</value>
-        <value xml:lang="en">ActionType, Order Adjustment Type, Quantity, Item ID, Party ID Limit</value>
-        <value xml:lang="es">Tipo de Acción, Tipo de Ajuste de Órden, Cantidad, Código de Artículo, Código de participante Límite</value>
-        <value xml:lang="fr">Type d'actions, type d'ajustements de commande, quantité, article, ref. d'acteur limite</value>
-        <value xml:lang="it">Tipo Azione, Tipo Aggiustamento Ordine, Quantità, Numero Riga, Codice Soggetto e Limite</value>
-        <value xml:lang="ja">アクション種類、注文調整種類、数量、アイテムID、取引先ID限度</value>
-        <value xml:lang="ro">Tip Actiune, Tip modificare Comanda, Cantitate, Numar Linie, Cod Subiect si Limita</value>
-        <value xml:lang="ru">ТипДействия, Тип настроек цны заказа, Количество, Код позиции, Код участника и Лимит</value>
-        <value xml:lang="th">ประเภทการทำงาน , ประเภทสัญญารายการสั่งซื้อ , จำนวน , รหัสรายการ , กลุ่มผู้ใช้ และ ขอบเขต</value>
-        <value xml:lang="vi">Kiểu tác động, Cách điều chỉnh đơn hàng, Giá trị, Id hàng hóa, ID tác nhân giới hạn</value>
-        <value xml:lang="zh">操作类型，订单调整类型， 数量，明细标识，会员标识和限制</value>
-        <value xml:lang="zh-TW">操作類型,訂單調整類型, 數量,細項識別,團體識別和限制</value>
-    </property>
-    <property key="ProductActionUpdateFields">
-        <value xml:lang="de">Aktionstyp, Menge, Betrag, Position ID, Akteur ID</value>
-        <value xml:lang="en">ActionType, Quantity, Amount, Item ID, Party ID</value>
-        <value xml:lang="es">Tipo de Acción, Cantidad, Monto, Código de Artículo, Código de Participante</value>
-        <value xml:lang="fr">Type d'actions, quantité, amount, article, acteur</value>
-        <value xml:lang="it">Tipo Azione, Quantità, Importo, Numero Riga, Codice Soggetto</value>
-        <value xml:lang="ja">アクション種類、数量、金額、アイテムID、取引先ID</value>
-        <value xml:lang="ro">Tip Actiune, Cantitate, Valoare, Numar Linie, Cod Subiect</value>
-        <value xml:lang="ru">ТипДействия, Количество, Сумма, Код позиции, Код участника</value>
-        <value xml:lang="th">ประเภทการทำงาน , ประเภทสัญญารายการสั่งซื้อ , จำนวน , รหัสรายการ , กลุ่มผู้ใช้</value>
-        <value xml:lang="vi">Kiểu tác động, Số lượng, Giá trị, Id hàng hóa, ID tác nhân</value>
-        <value xml:lang="zh">操作类型， 数量，金额，明细标识， 会员标识</value>
-        <value xml:lang="zh-TW">操作類型, 數量,金額,細項識別, 團體識別</value>
-    </property>
     <property key="ProductActions">
         <value xml:lang="de">Aktionen</value>
         <value xml:lang="en">Actions</value>
@@ -13125,20 +12911,6 @@
         <value xml:lang="zh">把明细添加到送货</value>
         <value xml:lang="zh-TW">把細項增加到出貨</value>
     </property>
-    <property key="ProductAddPackageInfo">
-        <value xml:lang="de">Paketinformationen hinzufügen</value>
-        <value xml:lang="en">Add Package Info</value>
-        <value xml:lang="es">Añadir Información al Paquete</value>
-        <value xml:lang="fr">Ajouter une information au paquet</value>
-        <value xml:lang="it">Aggiungi informazioni al pacco</value>
-        <value xml:lang="ja">梱包情報を追加</value>
-        <value xml:lang="ro">Adauga Informatii in Pachet</value>
-        <value xml:lang="ru">Добавить информацию о месте</value>
-        <value xml:lang="th">เพิ่มข้อมูลภานชะบรรจุ</value>
-        <value xml:lang="vi">Thêm thông tin kiện hàng</value>
-        <value xml:lang="zh">添加包装信息</value>
-        <value xml:lang="zh-TW">增加包裝資訊</value>
-    </property>
     <property key="ProductAddPartyId">
         <value xml:lang="de">Akteur ID hinzufügen</value>
         <value xml:lang="en">Add Party ID</value>
@@ -13152,20 +12924,6 @@
         <value xml:lang="vi">Thêm Id Người/Đơn vị</value>
         <value xml:lang="zh">添加会员标识</value>
         <value xml:lang="zh-TW">增加團體識別</value>
-    </property>
-    <property key="ProductAddPrice">
-        <value xml:lang="de">Preis hinzufügen</value>
-        <value xml:lang="en">Add Price</value>
-        <value xml:lang="es">Añadir Precio</value>
-        <value xml:lang="fr">Ajouter un prix</value>
-        <value xml:lang="it">Aggiungi Prezzo</value>
-        <value xml:lang="ja">価格を追加</value>
-        <value xml:lang="ro">Adauga Pret</value>
-        <value xml:lang="ru">Добавить цену</value>
-        <value xml:lang="th">เพิ่มราคา</value>
-        <value xml:lang="vi">Thêm Giá</value>
-        <value xml:lang="zh">添加价格</value>
-        <value xml:lang="zh-TW">增加價格</value>
     </property>
     <property key="ProductAddPriceRule">
         <value xml:lang="de">Preisregel hinzufügen</value>
@@ -13285,20 +13043,6 @@
         <value xml:lang="zh">从分类或组添加产品特征</value>
         <value xml:lang="zh-TW">從分類或群組增加產品特性</value>
     </property>
-    <property key="ProductAddProductFeatureFromGroup">
-        <value xml:lang="de">Produktmerkmal von Gruppe hinzufügen</value>
-        <value xml:lang="en">Add Product Feature From Group</value>
-        <value xml:lang="es">Añadir Característica de Producto de un grupo</value>
-        <value xml:lang="fr">Ajouter les cactéristiques d'un groupe de caractéristiques à l'article</value>
-        <value xml:lang="it">Aggiungi Caratteristica Prodotto Dal Gruppo</value>
-        <value xml:lang="ja">グループから製品機能を追加</value>
-        <value xml:lang="ro">Adauga Caracteristica Produs Din Grup</value>
-        <value xml:lang="ru">Добавить особенность продукта из группы</value>
-        <value xml:lang="th">เพิ่มลักษณะสินค้าจากกลุ่ม</value>
-        <value xml:lang="vi">Thêm Tính năng sản phẩm từ Nhóm</value>
-        <value xml:lang="zh">从组添加产品特征</value>
-        <value xml:lang="zh-TW">從群組增加產品特性</value>
-    </property>
     <property key="ProductAddProductFeatureID">
         <value xml:lang="de">Produktmerkmal hinzufügen mit der ID</value>
         <value xml:lang="en">Add Product Feature with ID</value>
@@ -13402,20 +13146,6 @@
         <value xml:lang="zh">添加结果到</value>
         <value xml:lang="zh-TW">增加結果到</value>
     </property>
-    <property key="ProductAddRouteSegmentInfo">
-        <value xml:lang="de">Weg Abschnitt Informationen hinzufügen</value>
-        <value xml:lang="en">Add Route Segment Info</value>
-        <value xml:lang="es">Añadir Información de Segmento de Ruta</value>
-        <value xml:lang="fr">Ajouter une information sur l'itinéraire</value>
-        <value xml:lang="it">Aggiungi Informazioni Segmento Percorso</value>
-        <value xml:lang="ja">経路セグメント情報を追加</value>
-        <value xml:lang="ro">Adauga Informatii Segment Parcurs</value>
-        <value xml:lang="ru">Добавить информацию о сегменте маршрута</value>
-        <value xml:lang="th">เพิ่มข้อมูลกลุ่มเส้นทาง</value>
-        <value xml:lang="vi">Thêm thông tin Chặng trung chuyển</value>
-        <value xml:lang="zh">添加路线分区信息</value>
-        <value xml:lang="zh-TW">增加路線分區資訊</value>
-    </property>
     <property key="ProductAddSelectableFeature">
         <value xml:lang="de">Auswählbares Merkmal hinzufügen</value>
         <value xml:lang="en">Add Selectable Feature</value>
@@ -13443,20 +13173,6 @@
         <value xml:lang="vi">Thêm Cửa hàng khuyến mãi</value>
         <value xml:lang="zh">添加店铺促销(选择店铺，输入可选的开始日期)</value>
         <value xml:lang="zh-TW">增加商店促銷(選擇商店,輸入可選的開始日期)</value>
-    </property>
-    <property key="ProductAddStorePromoOptionalDate">
-        <value xml:lang="de">Laden Aktion hinzufügen (Aktion wählen, optionales Von Datum angeben)</value>
-        <value xml:lang="en">Add Store Promo (select Promo, enter optional From Date)</value>
-        <value xml:lang="es">Añadir Promoción a Tienda (seleccione Promoción, ingrese fecha de Inicio opcional)</value>
-        <value xml:lang="fr">Ajouter une promotion (sélectionner une promotion, entrer l'option jusqu'à la date)</value>
-        <value xml:lang="it">Aggiungi Promozione Negozio (seleziona Promozione, inserire opzionalmente Da Data)</value>
-        <value xml:lang="ja">店舗プロモーションを追加 (プロモーションを選択、オプションで開始日を入力)</value>
-        <value xml:lang="ro">Adauga Promovare Magazin (selectioneaza Promotie, introduceti in mod optional de la Data)</value>
-        <value xml:lang="ru">Добавить условия акции к торговой точке (выберите акцию, можно ввести дату начала)</value>
-        <value xml:lang="th">เพิ่มคลังโปรโมชัน (เลือกโปรโมชัน , กรอกตัวเลือกจากวันที่)</value>
-        <value xml:lang="vi">Thêm Cửa hàng khuyến mãi ( bạn chọn Khuyến mãi, có thể nhập hoặc không nhập Từ ngày)</value>
-        <value xml:lang="zh">添加店铺促销(选择促销，输入可选的开始日期)</value>
-        <value xml:lang="zh-TW">增加商店促銷(選擇促銷,輸入可選的開始日期)</value>
     </property>
     <property key="ProductAddToCategory">
         <value xml:lang="de">Zur Kategorie hinzufügen</value>
@@ -13516,22 +13232,6 @@
         <value xml:lang="fr">Ajout au groupe de centre de profit</value>
         <value xml:lang="zh">添加到产品店铺组</value>
         <value xml:lang="zh-TW">增加到產品商店群組</value>
-    </property>
-    <property key="ProductAddToShoppingList">
-        <value xml:lang="de">Zu Einkaufsliste hinzufügen</value>
-        <value xml:lang="en">Add to shopping list</value>
-        <value xml:lang="es">Añadir a la lista de compras</value>
-        <value xml:lang="fr">Ajouter à la liste d'achat</value>
-        <value xml:lang="hi-IN">खरीदारी सूची मे जोडिये</value>
-        <value xml:lang="it">Aggiungi alla lista di acquisto</value>
-        <value xml:lang="ja">買い物リストに追加</value>
-        <value xml:lang="nl">Voeg aan de winkelwagen toe</value>
-        <value xml:lang="ro">Adauga la lista de cumparare </value>
-        <value xml:lang="ru">Добавить с список покупок</value>
-        <value xml:lang="th">เพิ่มรายการซื้อสินค้า</value>
-        <value xml:lang="vi">Thêm vào 'Danh sách mua hàng'</value>
-        <value xml:lang="zh">放入购物列表</value>
-        <value xml:lang="zh-TW">放入購物清單</value>
     </property>
     <property key="ProductAdditionalShippingCharge">
         <value xml:lang="de">Zusätzliche Lieferkosten</value>
@@ -13670,36 +13370,6 @@
         <value xml:lang="zh">巷道</value>
         <value xml:lang="zh-TW">巷道</value>
     </property>
-    <property key="ProductAllowCo">
-        <value xml:lang="de">Unternehmung zulassen</value>
-        <value xml:lang="en">Allow Co</value>
-        <value xml:lang="es">Autorizar empresa</value>
-        <value xml:lang="fr">Autoriser l'entreprise</value>
-        <value xml:lang="it">Permetti Az</value>
-        <value xml:lang="ja">会社を許可</value>
-        <value xml:lang="nl">Onderneming toestaan</value>
-        <value xml:lang="ro">Permiti Az</value>
-        <value xml:lang="ru">Разрешить Со</value>
-        <value xml:lang="th">ยอมรับบริษัท</value>
-        <value xml:lang="vi">Cho phép Doanh nghiệp</value>
-        <value xml:lang="zh">允许公司</value>
-        <value xml:lang="zh-TW">允許公司</value>
-    </property>
-    <property key="ProductAllowCoAddr">
-        <value xml:lang="de">Unternehmensadresse zulassen</value>
-        <value xml:lang="en">Allow Company Addr</value>
-        <value xml:lang="es">Autorizar dirección de empresa</value>
-        <value xml:lang="fr">Autoriser l'adresse de l'entreprise</value>
-        <value xml:lang="it">Permetti Indirizzo Azienda</value>
-        <value xml:lang="ja">会社住所を許可</value>
-        <value xml:lang="nl">Ondernemingsadres toestaan</value>
-        <value xml:lang="ro">Permiti Adresa Firma</value>
-        <value xml:lang="ru">Разрешить адрес компании</value>
-        <value xml:lang="th">ยอมรับที่อยู่บริษัท</value>
-        <value xml:lang="vi">Cho phép địa chỉ công ty</value>
-        <value xml:lang="zh">允许公司地址</value>
-        <value xml:lang="zh-TW">允許公司位址</value>
-    </property>
     <property key="ProductAllowMessage">
         <value xml:lang="de">Verwendet mit zugelassener Unternehmensadresse</value>
         <value xml:lang="en">Used with allow company address</value>
@@ -13803,13 +13473,6 @@
         <value xml:lang="vi">Số tiền</value>
         <value xml:lang="zh">金额</value>
         <value xml:lang="zh-TW">金額</value>
-    </property>
-    <property key="ProductAmountSection">
-        <value xml:lang="de">Mengen</value>
-        <value xml:lang="en">Amounts</value>
-        <value xml:lang="es">Montos</value>
-        <value xml:lang="nl">Sectie 7: Bedragen</value>
-        <value xml:lang="zh">数量</value>
     </property>
     <property key="ProductAmountUomTypeId">
         <value xml:lang="de">Betrag Währungseinheit Typ ID</value>
@@ -28968,15 +28631,6 @@
         <value xml:lang="vi">Đánh giá sản phẩm</value>
         <value xml:lang="zh">评价</value>
         <value xml:lang="zh-TW">評論</value>
-    </property>
-    <property key="NoProductReviewsAvailable">
-        <value xml:lang="de">Keine Produtkbewertungen vorhanden</value>
-        <value xml:lang="en">No Reviews available</value>
-        <value xml:lang="es">No hay opiniones disponibles</value>
-        <value xml:lang="fr">Aucun avis de client</value>
-        <value xml:lang="ja">レビューはありません</value>
-        <value xml:lang="zh">没有可用的评价</value>
-        <value xml:lang="zh-TW">沒有可用的評價</value>
     </property>
     <property key="ProductReviewsNoPendingApproval">
         <value xml:lang="de">Keine Bewertungen zur Genehmigung vorhanden</value>
