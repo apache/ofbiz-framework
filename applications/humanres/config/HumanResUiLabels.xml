@@ -1154,18 +1154,6 @@
         <value xml:lang="zh">新建绩效评定项</value>
         <value xml:lang="zh-TW">新建績效評定細項</value>
     </property>
-    <property key="HumanResAddPersonTraining">
-        <value xml:lang="de">Personenschulung hinzufügen</value>
-        <value xml:lang="en">Add Person Training</value>
-        <value xml:lang="es">Agregar capacitación de persona</value>
-        <value xml:lang="fr">Ajouter une formation</value>
-        <value xml:lang="it">Aggiungi corsi persona</value>
-        <value xml:lang="ja">個人トレーニングを追加</value>
-        <value xml:lang="pt-BR">Adicionar treinamento para pessoa</value>
-        <value xml:lang="vi">Thêm đào tạo</value>
-        <value xml:lang="zh">新建个人培训</value>
-        <value xml:lang="zh-TW">新建個人教育訓練</value>
-    </property>
     <property key="HumanResAddReportedToEmplPositionReportingStruct">
     	<value xml:lang="de">einfügen einer Arbeitspositionsreportstruktur [erstattet Bericht an ${parameters.emplPositionId}]</value>
         <value xml:lang="en">Add Empl Position Reporting Struct [Reported To ${parameters.emplPositionId}]</value>
@@ -1422,19 +1410,6 @@
         <value xml:lang="zh">编辑雇佣关系</value>
         <value xml:lang="zh-TW">編輯雇佣</value>
     </property>
-    <property key="HumanResEditEmploymentApp">
-        <value xml:lang="de">bearbeite Beschäftigungsanwendung</value>
-        <value xml:lang="en">Edit Employment Application</value>
-        <value xml:lang="es">Editar solicitud de empleo</value>
-        <value xml:lang="fr">Modifier la demande d'emploi</value>
-        <value xml:lang="it">Aggiorna la candidatura d'impiego</value>
-        <value xml:lang="ja">雇用申請を編集</value>
-        <value xml:lang="pt-BR">Alterar candidatura ao emprego</value>
-        <value xml:lang="th">แก้ไขโปรแกรมประยุกต์ใช้การจ้างงาน</value>
-        <value xml:lang="vi">Cập nhật Xin việc làm</value>
-        <value xml:lang="zh">编辑雇佣关系申请</value>
-        <value xml:lang="zh-TW">編輯雇佣申請</value>
-    </property>
     <property key="HumanResEditEmplPosition">
         <value xml:lang="de">bearbeite Position des Arbeitnehmers</value>
         <value xml:lang="en">Edit Employee Position</value>
@@ -1541,18 +1516,6 @@
         <value xml:lang="vi">Chỉnh sửa Sơ yếu lý lịch</value>
         <value xml:lang="zh">编辑会员履历</value>
         <value xml:lang="zh-TW">編輯團體履歷</value>
-    </property>
-    <property key="HumanResEditPartyReview">
-        <value xml:lang="de">bearbeite Rezension des Akteurs</value>
-        <value xml:lang="en">Party Reviews</value>
-        <value xml:lang="es">Opinieones del participante</value>
-        <value xml:lang="fr">Evaluations</value>
-        <value xml:lang="it">Verifica soggetto</value>
-        <value xml:lang="ja">取引先評価を編集</value>
-        <value xml:lang="pt-BR">Avaliações de participante</value>
-        <value xml:lang="vi">Xem xét</value>
-        <value xml:lang="zh">会员评定</value>
-        <value xml:lang="zh-TW">團體評定</value>
     </property>
     <property key="HumanResEditPartySkill">
         <value xml:lang="de">bearbeite die Fähigkeiten des Akteurs</value>
@@ -1845,32 +1808,6 @@
         <value xml:lang="vi">Vị trí nhân sự</value>
         <value xml:lang="zh">雇员职位编号</value>
         <value xml:lang="zh-TW">員工職位識別</value>
-    </property>
-    <property key="HumanResEmplPositionIdManagedBy">
-        <value xml:lang="de">Stellennummer geleitet durch</value>
-        <value xml:lang="en">EmplPosition ID ManagedBy</value>
-        <value xml:lang="es">Cargo gestionado Por</value>
-        <value xml:lang="fr">Position "dirigée par"</value>
-        <value xml:lang="it">Codice Posizione Impiegato Gestita Da</value>
-        <value xml:lang="ja">従業員職位ID(管理される人)</value>
-        <value xml:lang="pt-BR">Id de posição de empregado administrada por</value>
-        <value xml:lang="th">การจัดการโดยรหัสตำแหน่งพนักงาน</value>
-        <value xml:lang="vi">Quản lý bởi</value>
-        <value xml:lang="zh">职位管理人</value>
-        <value xml:lang="zh-TW">職位管理人</value>
-    </property>
-    <property key="HumanResEmplPositionIdReportingFrom">
-        <value xml:lang="de">Stellennummer informiert von</value>
-        <value xml:lang="en">EmplPosition ID ReportingFrom</value>
-        <value xml:lang="es">Id del cargo del empleado desde</value>
-        <value xml:lang="fr">Position "rapportant depuis"</value>
-        <value xml:lang="it">Codice Posizione Impiegato Stampato A</value>
-        <value xml:lang="ja">従業員職位ID(報告される人)</value>
-        <value xml:lang="pt-BR">Id de Posição de empregado se reportando de</value>
-        <value xml:lang="th">รายงานจากรหัสตำแหน่งพนักงาน</value>
-        <value xml:lang="vi">Báo cáo Từ</value>
-        <value xml:lang="zh">职位下级</value>
-        <value xml:lang="zh-TW">職位下級</value>
     </property>
     <property key="HumanResEmplPositionReportingStruct">
         <value xml:lang="de">Reportstruktur der Stelle</value>
