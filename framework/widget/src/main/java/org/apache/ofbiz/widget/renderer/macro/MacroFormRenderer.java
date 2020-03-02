@@ -2190,7 +2190,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         StringBuilder targetParameterIter = new StringBuilder();
         StringBuilder imgSrc = new StringBuilder();
         // FIXME: refactor using the StringUtils methods
-        List<String> targetParameterList = lookupField.getTargetParameterList();
+        List<String> targetParameterList = lookupField.getTargetParameterList(context);
         targetParameterIter.append("[");
         for (String targetParameter : targetParameterList) {
             if (targetParameterIter.length() > 1) {
