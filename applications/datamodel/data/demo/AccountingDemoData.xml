@@ -2748,15 +2748,15 @@ under the License.
     <Payment paymentId="demo10010" paymentTypeId="CUSTOMER_REFUND" paymentMethodTypeId="EXT_BILLACT" partyIdFrom="Company" partyIdTo="AcctBuyer" statusId="PMNT_SENT" effectiveDate="2006-04-25 13:11:05.94" amount="20.0" currencyUomId="USD" />
 
     <Invoice invoiceId="demo10000" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="AcctBuyer" statusId="INVOICE_IN_PROCESS" invoiceDate="2006-04-25 12:46:27.122" dueDate="2006-05-25 12:46:27.122" description="This is the first invoice number to AcctBuyer" currencyUomId="USD"/>
-    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" uomId="USD" taxableFlag="Y" amount="20.0" description="this was e service for a product"/>
-    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00002" invoiceItemTypeId="INV_PROD_ITEM" uomId="USD" taxableFlag="Y" amount="269.99" description="Big Gizmo w/ Legs"/>
-    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00003" invoiceItemTypeId="INV_SALES_TAX" uomId="USD" taxableFlag="Y" amount="33.55" description="sales tax"/>
+    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" quantityUomId="" taxableFlag="Y" amount="20.0" description="this was e service for a product"/>
+    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00002" invoiceItemTypeId="INV_PROD_ITEM" productId="GZ-8544" quantityUomId="OTH_ea" taxableFlag="Y" amount="269.99" description="Big Gizmo w/ Legs"/>
+    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00003" invoiceItemTypeId="INV_SALES_TAX" taxableFlag="Y" amount="33.55" description="sales tax"/>
     <Invoice invoiceId="demo10001" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="AcctBigSupplier" partyId="Company" statusId="INVOICE_IN_PROCESS" invoiceDate="2006-04-25 12:50:50.655" dueDate="2006-05-25 12:50:50.655" description="Another invoice" currencyUomId="USD"/>
-    <InvoiceItem invoiceId="demo10001" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" uomId="USD" taxableFlag="Y" amount="33.99" description="Service received"/>
-    <InvoiceItem invoiceId="demo10001" invoiceItemSeqId="00002" invoiceItemTypeId="PINV_SURCHARGE_ADJ" uomId="USD" taxableFlag="Y" amount="2.44" description="Service received"/>
+    <InvoiceItem invoiceId="demo10001" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" taxableFlag="Y" amount="33.99" description="Service received"/>
+    <InvoiceItem invoiceId="demo10001" invoiceItemSeqId="00002" invoiceItemTypeId="PINV_SURCHARGE_ADJ" taxableFlag="Y" amount="2.44" description="Service received"/>
     <Invoice invoiceId="demo10002" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="AcctBuyer" statusId="INVOICE_SENT" invoiceDate="2006-04-25 12:54:07.011" dueDate="2006-05-25 12:54:07.011" description="Another sales invoice" currencyUomId="USD"/>
-    <InvoiceItem invoiceId="demo10002" invoiceItemSeqId="00001" invoiceItemTypeId="INV_DPROD_ITEM" uomId="USD" taxableFlag="Y" amount="1.0" description="Add more money to your card!" />
-    <InvoiceItem invoiceId="demo10002" invoiceItemSeqId="00002" invoiceItemTypeId="INV_DPROD_ITEM" uomId="USD" taxableFlag="Y" amount="55.99" description="A digital gizmo: can be downloaded immediately after purchase."/>
+    <InvoiceItem invoiceId="demo10002" invoiceItemSeqId="00001" invoiceItemTypeId="INV_DPROD_ITEM" taxableFlag="Y" amount="1.0" description="Add more money to your card!" />
+    <InvoiceItem invoiceId="demo10002" invoiceItemSeqId="00002" invoiceItemTypeId="INV_DPROD_ITEM" taxableFlag="Y" amount="55.99" description="A digital gizmo: can be downloaded immediately after purchase."/>
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="demo10000" statusDate="2006-04-25 12:46:27.122"/>
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="demo10001" statusDate="2006-04-25 12:50:50.655"/>
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="demo10002" statusDate="2006-04-25 12:54:07.011"/>
@@ -2764,11 +2764,11 @@ under the License.
 
     <Party partyId="EuroCustomer"/><!-- more data added in party component -->
     <Invoice invoiceId="demo11000" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="EuroCustomer" statusId="INVOICE_APPROVED" invoiceDate="2006-04-25 12:46:27.122" dueDate="2006-05-25 12:46:27.122" description="This is the first invoice number to Eurocustomer with currency in euro" currencyUomId="EUR"/>
-    <InvoiceItem invoiceId="demo11000" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" uomId="USD" taxableFlag="Y" amount="20.0" description="this was e service for a product"/>
+    <InvoiceItem invoiceId="demo11000" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" taxableFlag="Y" amount="20.0" description="this was e service for a product"/>
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="demo11000" statusDate="2006-04-25 12:46:27.122"/>
     <InvoiceStatus statusId="INVOICE_APPROVED" invoiceId="demo11000" statusDate="2006-04-25 12:46:27.122"/>
     <Invoice invoiceId="demo11001" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="EuroCustomer" statusId="INVOICE_APPROVED" invoiceDate="2006-04-25 12:46:27.122" dueDate="2006-05-25 12:46:27.122" description="This is the first invoice number to Eurocustomer with currency in euro" currencyUomId="EUR"/>
-    <InvoiceItem invoiceId="demo11001" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" uomId="USD" taxableFlag="Y" amount="543.23" description="this was e service for a product"/>
+    <InvoiceItem invoiceId="demo11001" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" taxableFlag="Y" amount="543.23" description="this was e service for a product"/>
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="demo11001" statusDate="2006-04-25 12:46:27.122"/>
     <InvoiceStatus statusId="INVOICE_APPROVED" invoiceId="demo11001" statusDate="2006-04-25 12:46:27.122"/>
     <Payment paymentId="demo10001" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="EuroCustomer" partyIdTo="Company" statusId="PMNT_RECEIVED" effectiveDate="2006-04-25 12:56:54.292" amount="820.97" currencyUomId="USD" actualCurrencyAmount="543.23" actualCurrencyUomId="EUR"/>
@@ -2777,13 +2777,13 @@ under the License.
     <!-- show on customer invoice list when DemoCustomer logs on to myportal -->
     <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP"/>
     <Invoice invoiceId="demo1200" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="DemoCustCompany" statusId="INVOICE_APPROVED" invoiceDate="2006-04-25 12:46:27.122" dueDate="2010-05-25 12:46:27.122" description="This is an invoice to DemoCustomer" currencyUomId="USD"/>
-    <InvoiceItem invoiceId="demo1200" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" uomId="USD" taxableFlag="Y" amount="511.23" description="this was e service for a product"/>
+    <InvoiceItem invoiceId="demo1200" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" taxableFlag="Y" amount="511.23" description="this was e service for a product"/>
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="demo1200" statusDate="2006-04-25 12:46:27.122"/>
     <InvoiceStatus statusId="INVOICE_APPROVED" invoiceId="demo1200" statusDate="2006-04-25 12:46:27.122"/>
 
     <!--data for voiding/canceling payments/invoices-->
     <Invoice invoiceId="8000" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="AcctBigSupplier" partyId="Company" statusId="INVOICE_READY" invoiceDate="2009-07-06 16:48:40.952" paidDate="2009-07-06 16:52:52.901" dueDate="2009-08-05 16:48:40.952" currencyUomId="USD"/>
-    <InvoiceItem invoiceId="8000" invoiceItemSeqId="1" invoiceItemTypeId="PINV_WE_ITEM" taxableFlag="Y" quantity="3.000000" amount="20.000"/>
+    <InvoiceItem invoiceId="8000" invoiceItemSeqId="1" invoiceItemTypeId="PINV_WE_ITEM" taxableFlag="Y" quantity="3.000000" quantityUomId="OTH_ea" amount="20.000"/>
     <Payment paymentId="8000" paymentTypeId="VENDOR_PAYMENT" paymentMethodTypeId="EXT_BILLACT" partyIdFrom="Company" partyIdTo="AcctBigSupplier" statusId="PMNT_SENT" effectiveDate="2009-07-06 16:52:52.901" amount="70.00" currencyUomId="USD" actualCurrencyAmount="70.00" actualCurrencyUomId="USD"/>
     <PaymentApplication paymentApplicationId="8010" paymentId="8000" invoiceId="8000" amountApplied="60.00"/>
 
@@ -2795,12 +2795,12 @@ under the License.
     <Invoice invoiceId="8003" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="AcctBigSupplier" partyId="Company" statusId="INVOICE_PAID" invoiceDate="2009-07-11 12:25:26.085" paidDate="2009-07-11 12:28:44.034" dueDate="2009-08-10 12:25:26.085" currencyUomId="USD"/>
     <Invoice invoiceId="8004" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="DemoSupplier" partyId="Company" statusId="INVOICE_PAID" invoiceDate="2009-07-11 12:26:29.758" paidDate="2009-07-11 12:28:44.95" dueDate="2009-08-10 12:26:29.758" currencyUomId="USD"/>
 
-    <InvoiceItem invoiceId="8002" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" uomId="USD" taxableFlag="Y" amount="33.990"/>
-    <InvoiceItem invoiceId="8002" invoiceItemSeqId="00002" invoiceItemTypeId="PINV_SURCHARGE_ADJ" uomId="USD" taxableFlag="Y" amount="2.440"/>
-    <InvoiceItem invoiceId="8003" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" uomId="USD" taxableFlag="Y" amount="33.990"/>
+    <InvoiceItem invoiceId="8002" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" taxableFlag="Y" amount="33.990"/>
+    <InvoiceItem invoiceId="8002" invoiceItemSeqId="00002" invoiceItemTypeId="PINV_SURCHARGE_ADJ" taxableFlag="Y" amount="2.440"/>
+    <InvoiceItem invoiceId="8003" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" taxableFlag="Y" amount="33.990"/>
     <InvoiceItem invoiceId="8003" invoiceItemSeqId="00002" invoiceItemTypeId="PINV_SURCHARGE_ADJ" uomId="USD" taxableFlag="Y" amount="2.440"/>
     <InvoiceItem invoiceId="8003" invoiceItemSeqId="00003" invoiceItemTypeId="PITM_FEE" taxableFlag="Y" amount="10.000"/>
-    <InvoiceItem invoiceId="8004" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" uomId="USD" taxableFlag="Y" amount="33.990"/>
+    <InvoiceItem invoiceId="8004" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" taxableFlag="Y" amount="33.990"/>
 
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="8002" statusDate="2009-07-11 12:24:31.854"/>
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="8003" statusDate="2009-07-11 12:25:26.088"/>
@@ -2881,7 +2881,7 @@ under the License.
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="8100" statusDate="2009-07-08 11:54:00.845"/>
     <InvoiceStatus statusId="INVOICE_PAID" invoiceId="8100" statusDate="2009-07-08 11:54:03.8"/>
     <InvoiceStatus statusId="INVOICE_READY" invoiceId="8100" statusDate="2009-07-08 11:54:01.863"/>
-    <InvoiceItem invoiceId="8100" invoiceItemSeqId="00002" invoiceItemTypeId="INV_FPROD_ITEM" productId="WG-9943-B3" quantity="3.000000" amount="440.000" description="Giant Widget B3"/>
+    <InvoiceItem invoiceId="8100" invoiceItemSeqId="00002" invoiceItemTypeId="INV_FPROD_ITEM" productId="WG-9943-B3" quantity="3.000000" quantityUomId="OTH_ea" amount="440.000" description="Giant Widget B3"/>
     <InvoiceRole invoiceId="8100" partyId="Company" roleTypeId="BILL_FROM_VENDOR" datetimePerformed="2009-07-08 11:54:00.979"/>
     <InvoiceRole invoiceId="8100" partyId="DemoCustAgent" roleTypeId="SALES_REP" datetimePerformed="2009-07-08 11:54:00.979"/>
 
