@@ -3975,35 +3975,35 @@
         <value xml:lang="zh-TW">合約終止</value>
     </property>
     <property key="TermType.description.CFR">
-        <value xml:lang="de">Incoterm Kosten und Fracht</value>
-        <value xml:lang="en">Incoterm Cost and Freight</value>
-        <value xml:lang="fr">Incoterm : chargé dans le bateau, livraison au port de départ, sans assurance</value>
-        <value xml:lang="it">Costi e spese di trasporto incoterm</value>
+        <value xml:lang="de">Incoterm 2010 Kosten und Fracht</value>
+        <value xml:lang="en">Incoterm 2010 Cost and Freight</value>
+        <value xml:lang="fr">Incoterm 2010 : chargé dans le bateau, livraison au port de départ, sans assurance</value>
+        <value xml:lang="it">Costi e spese di trasporto incoterm 2010</value>
         <value xml:lang="ja">CFR運賃込み渡し/インコタームズ</value>
-        <value xml:lang="nl">INCOTERM: CRF</value>
-        <value xml:lang="pt-BR">Incoterm CFR</value>
+        <value xml:lang="nl">INCOTERM 2010: CRF</value>
+        <value xml:lang="pt-BR">Incoterm 2010 CFR</value>
         <value xml:lang="vi">Điều khoản: Giá và Chuyên chở</value>
         <value xml:lang="zh">国际贸易成本加运费价格</value>
         <value xml:lang="zh-TW">國際貿易成本加運費價格</value>
     </property>
     <property key="TermType.description.CIF">
-        <value xml:lang="de">Incoterm Kosten, Versicherung und Fracht</value>
-        <value xml:lang="en">Incoterm Cost, Insurance and Freight</value>
-        <value xml:lang="fr">Incoterm : chargé sur le bateau, frais jusqu'au port d'arrivée, avec assurance</value>
-        <value xml:lang="it">Costi, assicurazione e spese di trasporto incoterm</value>
+        <value xml:lang="de">Incoterm 2010 Kosten, Versicherung und Fracht</value>
+        <value xml:lang="en">Incoterm 2010 Cost, Insurance and Freight</value>
+        <value xml:lang="fr">Incoterm 2010 : chargé sur le bateau, frais jusqu'au port d'arrivée, avec assurance</value>
+        <value xml:lang="it">Costi, assicurazione e spese di trasporto incoterm 2010</value>
         <value xml:lang="ja">CIF運賃保険料込み渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm CIF</value>
+        <value xml:lang="pt-BR">Incoterm 2010 CIF</value>
         <value xml:lang="vi">Điều khoản: Giá , Bảo hiểm và Chuyên chở</value>
         <value xml:lang="zh">国际贸易到岸价格（成本、保险费加运费）</value>
         <value xml:lang="zh-TW">國際貿易到岸價格(成本、保險費加運費)</value>
     </property>
     <property key="TermType.description.CIP">
-        <value xml:lang="de">Incoterm Transport und Versicherung bezahlt an</value>
-        <value xml:lang="en">Incoterm Carriage and Insurance Paid to</value>
-        <value xml:lang="fr">Incoterm : livraison au premier transporteur, frais jusqu'au déchargement du mode de transport, avec assurance</value>
-        <value xml:lang="it">Trasporto e assicurazione pagata incoterm</value>
+        <value xml:lang="de">Incoterm 2010 Transport und Versicherung bezahlt an</value>
+        <value xml:lang="en">Incoterm 2010 Carriage and Insurance Paid to</value>
+        <value xml:lang="fr">Incoterm 2010 : livraison au premier transporteur, frais jusqu'au déchargement du mode de transport, avec assurance</value>
+        <value xml:lang="it">Trasporto e assicurazione pagata incoterm 2010</value>
         <value xml:lang="ja">CIP運送費保険料込み渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm CIP</value>
+        <value xml:lang="pt-BR">Incoterm 2010 CIP</value>
         <value xml:lang="vi">Điều khoản: Giá , Bảo hiểm trả tới</value>
         <value xml:lang="zh">国际贸易运费、保险费付至</value>
         <value xml:lang="zh-TW">國際貿易運費、保險費付至</value>
@@ -4044,62 +4044,62 @@
         <value xml:lang="zh-TW">佣金</value>
     </property>
     <property key="TermType.description.CPT">
-        <value xml:lang="de">Incoterm Transport bezahlt an</value>
-        <value xml:lang="en">Incoterm Carriage Paid To</value>
-        <value xml:lang="it">Trasporto pagata incoterm</value>
+        <value xml:lang="de">Incoterm 2010 Transport bezahlt an</value>
+        <value xml:lang="en">Incoterm 2010 Carriage Paid To</value>
+        <value xml:lang="it">Trasporto pagata incoterm 2010</value>
         <value xml:lang="ja">CPT運送費込み渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm CPT</value>
+        <value xml:lang="pt-BR">Incoterm 2010 CPT</value>
         <value xml:lang="vi">Điều khoản phí chuyển thanh toán tới</value>
         <value xml:lang="zh">国际贸易运费付至</value>
         <value xml:lang="zh-TW">國際貿易運費付至</value>
     </property>
     <property key="TermType.description.DAF">
-        <value xml:lang="de">Incoterm Geliefert an Grenze</value>
-        <value xml:lang="en">Incoterm Delivered At Frontier</value>
-        <value xml:lang="it">Consegnato alla frontiera incoterm</value>
+        <value xml:lang="de">Incoterm 2000 Geliefert an Grenze</value>
+        <value xml:lang="en">Incoterm 2000 Delivered At Frontier</value>
+        <value xml:lang="it">Consegnato alla frontiera incoterm 2000</value>
         <value xml:lang="ja">DAF国境持込渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm DAF</value>
+        <value xml:lang="pt-BR">Incoterm 2000 DAF</value>
         <value xml:lang="vi">Điều khoản nhận tại biên giới (Delivered At Frontier)</value>
         <value xml:lang="zh">国际贸易边境交货</value>
         <value xml:lang="zh-TW">國際貿易邊境交貨</value>
     </property>
     <property key="TermType.description.DDP">
-        <value xml:lang="de">Incoterm Geliefert Zoll bezahlt</value>
-        <value xml:lang="en">Incoterm Delivered Duty Paid</value>
-        <value xml:lang="it">Dazio pagato alla consegna incoterm</value>
+        <value xml:lang="de">Incoterm 2010 Geliefert Zoll bezahlt</value>
+        <value xml:lang="en">Incoterm 2010 Delivered Duty Paid</value>
+        <value xml:lang="it">Dazio pagato alla consegna incoterm 2010</value>
         <value xml:lang="ja">DDP仕向地持込渡し（関税込み）/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm DDP</value>
+        <value xml:lang="pt-BR">Incoterm 2010 DDP</value>
         <value xml:lang="vi">Điều khoản nhận thanh toán thuế</value>
         <value xml:lang="zh">国际贸易完税后交货价</value>
         <value xml:lang="zh-TW">國際貿易完稅後交貨價</value>
     </property>
     <property key="TermType.description.DDU">
-        <value xml:lang="de">Incoterm Geliefert Zoll nicht bezahlt</value>
-        <value xml:lang="en">Incoterm Delivered Duty Unpaid</value>
-        <value xml:lang="it">Dazio non pagato alla consegna incoterm</value>
+        <value xml:lang="de">Incoterm 2000 Geliefert Zoll nicht bezahlt</value>
+        <value xml:lang="en">Incoterm 2000 Delivered Duty Unpaid</value>
+        <value xml:lang="it">Dazio non pagato alla consegna incoterm 2000</value>
         <value xml:lang="ja">DDU仕向地持込渡し（関税抜き）/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm DDU</value>
+        <value xml:lang="pt-BR">Incoterm 2000 DDU</value>
         <value xml:lang="vi">Điều khoản nhận miễn thuế</value>
         <value xml:lang="zh">国际贸易未完税交货价</value>
         <value xml:lang="zh-TW">國際貿易未完稅交貨價</value>
     </property>
     <property key="TermType.description.DEQ">
-        <value xml:lang="de">Incoterm Geliefert ab Kai</value>
-        <value xml:lang="en">Incoterm Delivered Ex Quay</value>
-        <value xml:lang="it">Consegnato ex banchina incoterm</value>
+        <value xml:lang="de">Incoterm 2000 Geliefert ab Kai</value>
+        <value xml:lang="en">Incoterm 2000 Delivered Ex Quay</value>
+        <value xml:lang="it">Consegnato ex banchina incoterm 2000</value>
         <value xml:lang="ja">DEQ埠頭持込渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm DEQ</value>
+        <value xml:lang="pt-BR">Incoterm 2000 DEQ</value>
         <value xml:lang="vi">Điều khoản nhận tại cảng</value>
         <value xml:lang="zh">国际贸易目的港码头交货价</value>
         <value xml:lang="zh-TW">國際貿易目的港碼頭交貨價</value>
     </property>
     <property key="TermType.description.DES">
-        <value xml:lang="de">Incoterm Geliefert ab Schiff</value>
-        <value xml:lang="en">Incoterm Delivered Ex Ship</value>
+        <value xml:lang="de">Incoterm 2000 Geliefert ab Schiff</value>
+        <value xml:lang="en">Incoterm 2000 Delivered Ex Ship</value>
         <value xml:lang="fr">Incoterm : livré sur quai</value>
-        <value xml:lang="it">Consegnato ex spedizione incoterm</value>
+        <value xml:lang="it">Consegnato ex spedizione incoterm 2000</value>
         <value xml:lang="ja">DES本船持込渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm DES</value>
+        <value xml:lang="pt-BR">Incoterm 2000 DES</value>
         <value xml:lang="vi">Điều khoản nhận tại tàu</value>
         <value xml:lang="zh">国际贸易目的港船上交货</value>
         <value xml:lang="zh-TW">國際貿易目的港船上交貨</value>
@@ -4123,34 +4123,34 @@
         <value xml:lang="zh-TW">排他關連</value>
     </property>
     <property key="TermType.description.EXW">
-        <value xml:lang="de">Incoterm ab Werk</value>
-        <value xml:lang="en">Incoterm Ex Works</value>
-        <value xml:lang="fr">Incoterm : au départ non chargé, non dédouané</value>
-        <value xml:lang="it">Ex fabbrica incoterm</value>
+        <value xml:lang="de">Incoterm 2010 ab Werk</value>
+        <value xml:lang="en">Incoterm 2010 Ex Works</value>
+        <value xml:lang="fr">Incoterm 2010 : au départ non chargé, non dédouané</value>
+        <value xml:lang="it">Ex fabbrica incoterm 2010</value>
         <value xml:lang="ja">EXW工場渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm EXW</value>
+        <value xml:lang="pt-BR">Incoterm 2010 EXW</value>
         <value xml:lang="vi">Điều khoản Ex Works</value>
         <value xml:lang="zh">国际贸易工厂交货价</value>
         <value xml:lang="zh-TW">國際貿易工廠交貨價</value>
     </property>
     <property key="TermType.description.FAS">
-        <value xml:lang="de">Incoterm Frei längsseits Schiff</value>
-        <value xml:lang="en">Incoterm Free Alongside Ship</value>
-        <value xml:lang="fr">Incoterm : sur le quai du port de départ</value>
-        <value xml:lang="it">Gratis accanto alla spedizione incoterm</value>
+        <value xml:lang="de">Incoterm 2010 Frei längsseits Schiff</value>
+        <value xml:lang="en">Incoterm 2010 Free Alongside Ship</value>
+        <value xml:lang="fr">Incoterm 2010 : sur le quai du port de départ</value>
+        <value xml:lang="it">Gratis accanto alla spedizione incoterm 2010</value>
         <value xml:lang="ja">FAS船側渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm FAS</value>
+        <value xml:lang="pt-BR">Incoterm 2010 FAS</value>
         <value xml:lang="vi">Điều khoản chuyển miễn phí theo dọc thân tàu</value>
         <value xml:lang="zh">国际贸易(启运地)船边交货价格</value>
         <value xml:lang="zh-TW">國際貿易(啟運地)船邊交貨價格</value>
     </property>
     <property key="TermType.description.FCA">
-        <value xml:lang="de">Incoterm Freier Transport</value>
-        <value xml:lang="en">Incoterm Free Carrier</value>
-        <value xml:lang="fr">Incoterm : marchandises dédouanées et chargées dans le pays de départ</value>
-        <value xml:lang="it">Gratis spedizioniere incoterm</value>
+        <value xml:lang="de">Incoterm 2010 Freier Transport</value>
+        <value xml:lang="en">Incoterm 2010 Free Carrier</value>
+        <value xml:lang="fr">Incoterm 2010 : marchandises dédouanées et chargées dans le pays de départ</value>
+        <value xml:lang="it">Gratis spedizioniere incoterm 2010</value>
         <value xml:lang="ja">FCA運送人渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm FCA</value>
+        <value xml:lang="pt-BR">Incoterm 2010 FCA</value>
         <value xml:lang="vi">Điều khoản miễn phí chuyên chở</value>
         <value xml:lang="zh">国际贸易离岸价</value>
         <value xml:lang="zh-TW">國際貿易離岸價</value>
@@ -4383,12 +4383,12 @@
         <value xml:lang="zh-TW">付款淨天數,第三部分</value>
     </property>
     <property key="TermType.description.FOB">
-        <value xml:lang="de">Incoterm Frei Schiff</value>
-        <value xml:lang="en">Incoterm Free On Board</value>
-        <value xml:lang="fr">Incoterm chargé sur le bateau</value>
-        <value xml:lang="it">Gratis a bordo incoterm</value>
+        <value xml:lang="de">Incoterm 2010 Frei Schiff</value>
+        <value xml:lang="en">Incoterm 2010 Free On Board</value>
+        <value xml:lang="fr">Incoterm 2010 chargé sur le bateau</value>
+        <value xml:lang="it">Gratis a bordo incoterm 2010</value>
         <value xml:lang="ja">FOB本船甲板渡し/インコタームズ</value>
-        <value xml:lang="pt-BR">Incoterm FOB</value>
+        <value xml:lang="pt-BR">Incoterm 2010 FOB</value>
         <value xml:lang="vi">Điều khoản miễn phí trên tàu</value>
         <value xml:lang="zh">国际贸易离岸价格</value>
         <value xml:lang="zh-TW">國際貿易離岸價格</value>
@@ -4549,5 +4549,110 @@
         <value xml:lang="vi">Ngưỡng</value>
         <value xml:lang="zh">阈值</value>
         <value xml:lang="zh-TW">門檻值</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_EXW">
+        <value xml:lang="de">Incoterm 2020 ab Werk</value>
+        <value xml:lang="en">Incoterm 2020 Ex Works</value>
+        <value xml:lang="fr">Incoterm 2020 : au départ non chargé, non dédouané</value>
+        <value xml:lang="it">Ex fabbrica incoterm 2020</value>
+        <value xml:lang="ja">EXW工場渡し/インコタームズ</value>
+        <value xml:lang="pt-BR">Incoterm 2020 EXW</value>
+        <value xml:lang="vi">Điều khoản Ex Works</value>
+        <value xml:lang="zh">国际贸易工厂交货价</value>
+        <value xml:lang="zh-TW">國際貿易工廠交貨價</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_FCA">
+        <value xml:lang="de">Incoterm 2020 Freier Transport</value>
+        <value xml:lang="en">Incoterm 2020 Free Carrier</value>
+        <value xml:lang="fr">Incoterm 2020 : marchandises dédouanées et chargées dans le pays de départ</value>
+        <value xml:lang="it">Gratis spedizioniere incoterm 2020</value>
+        <value xml:lang="ja">FCA運送人渡し/インコタームズ</value>
+        <value xml:lang="pt-BR">Incoterm 2020 FCA</value>
+        <value xml:lang="vi">Điều khoản miễn phí chuyên chở</value>
+        <value xml:lang="zh">国际贸易离岸价</value>
+        <value xml:lang="zh-TW">國際貿易離岸價</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_FAS">
+        <value xml:lang="de">Incoterm 2020 Frei längsseits Schiff</value>
+        <value xml:lang="en">Incoterm 2020 Free Alongside Ship</value>
+        <value xml:lang="fr">Incoterm 2020 : sur le quai du port de départ</value>
+        <value xml:lang="it">Gratis accanto alla spedizione incoterm 2020</value>
+        <value xml:lang="ja">FAS船側渡し/インコタームズ</value>
+        <value xml:lang="pt-BR">Incoterm 2020 FAS</value>
+        <value xml:lang="vi">Điều khoản chuyển miễn phí theo dọc thân tàu</value>
+        <value xml:lang="zh">国际贸易(启运地)船边交货价格</value>
+        <value xml:lang="zh-TW">國際貿易(啟運地)船邊交貨價格</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_FOB">
+        <value xml:lang="de">Incoterm 2020 Frei Schiff</value>
+        <value xml:lang="en">Incoterm 2020 Free On Board</value>
+        <value xml:lang="fr">Incoterm 2020 chargé sur le bateau</value>
+        <value xml:lang="it">Gratis a bordo incoterm 2020</value>
+        <value xml:lang="ja">FOB本船甲板渡し/インコタームズ</value>
+        <value xml:lang="pt-BR">Incoterm 2020 FOB</value>
+        <value xml:lang="vi">Điều khoản miễn phí trên tàu</value>
+        <value xml:lang="zh">国际贸易离岸价格</value>
+        <value xml:lang="zh-TW">國際貿易離岸價格</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_CPT">
+        <value xml:lang="de">Incoterm 2020 Transport bezahlt an</value>
+        <value xml:lang="en">Incoterm 2020 Carriage Paid To</value>
+        <value xml:lang="it">Trasporto pagata incoterm 2020</value>
+        <value xml:lang="ja">CPT運送費込み渡し/インコタームズ</value>
+        <value xml:lang="pt-BR">Incoterm 2020 CPT</value>
+        <value xml:lang="vi">Điều khoản phí chuyển thanh toán tới</value>
+        <value xml:lang="zh">国际贸易运费付至</value>
+        <value xml:lang="zh-TW">國際貿易運費付至</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_CFR">
+        <value xml:lang="de">Incoterm 2020 Kosten und Fracht</value>
+        <value xml:lang="en">Incoterm 2020 Cost and Freight</value>
+        <value xml:lang="fr">Incoterm 2020 : chargé dans le bateau, livraison au port de départ, sans assurance</value>
+        <value xml:lang="it">Costi e spese di trasporto incoterm 2020</value>
+        <value xml:lang="ja">CFR運賃込み渡し/インコタームズ</value>
+        <value xml:lang="nl">INCOTERM 2020: CRF</value>
+        <value xml:lang="pt-BR">Incoterm 2020 CFR</value>
+        <value xml:lang="vi">Điều khoản: Giá và Chuyên chở</value>
+        <value xml:lang="zh">国际贸易成本加运费价格</value>
+        <value xml:lang="zh-TW">國際貿易成本加運費價格</value>
+
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_CIF">
+        <value xml:lang="de">Incoterm 2020 Kosten, Versicherung und Fracht</value>
+        <value xml:lang="en">Incoterm 2020 Cost, Insurance and Freight</value>
+        <value xml:lang="fr">Incoterm 2020 : chargé sur le bateau, frais jusqu'au port d'arrivée, avec assurance</value>
+        <value xml:lang="it">Costi, assicurazione e spese di trasporto incoterm 2020</value>
+        <value xml:lang="ja">CIF運賃保険料込み渡し/インコタームズ</value>
+        <value xml:lang="pt-BR">Incoterm 2020 CIF</value>
+        <value xml:lang="vi">Điều khoản: Giá , Bảo hiểm và Chuyên chở</value>
+        <value xml:lang="zh">国际贸易到岸价格（成本、保险费加运费）</value>
+        <value xml:lang="zh-TW">國際貿易到岸價格(成本、保險費加運費)</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_CIP">
+        <value xml:lang="de">Incoterm 2020 Transport und Versicherung bezahlt an</value>
+        <value xml:lang="en">Incoterm 2020 Carriage and Insurance Paid to</value>
+        <value xml:lang="fr">Incoterm 2020 : livraison au premier transporteur, frais jusqu'au déchargement du mode de transport, avec assurance</value>
+        <value xml:lang="it">Trasporto e assicurazione pagata incoterm 2020</value>
+        <value xml:lang="ja">CIP運送費保険料込み渡し/インコタームズ</value>
+        <value xml:lang="pt-BR">Incoterm 2020 CIP</value>
+        <value xml:lang="vi">Điều khoản: Giá , Bảo hiểm trả tới</value>
+        <value xml:lang="zh">国际贸易运费、保险费付至</value>
+        <value xml:lang="zh-TW">國際貿易運費、保險費付至</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_DPU">
+        <value xml:lang="en">Incoterm 2020 Delivered at Place Unloaded</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_DAP">
+        <value xml:lang="en">Incoterm 2020 Delivered at Place</value>
+    </property>
+    <property key="TermType.description.INCO_TERM_2020_DDP">
+        <value xml:lang="de">Incoterm 2020 Geliefert Zoll bezahlt</value>
+        <value xml:lang="en">Incoterm 2020 Delivered Duty Paid</value>
+        <value xml:lang="it">Dazio pagato alla consegna incoterm 2020</value>
+        <value xml:lang="ja">DDP仕向地持込渡し（関税込み）/インコタームズ</value>
+        <value xml:lang="pt-BR">Incoterm 2020 DDP</value>
+        <value xml:lang="vi">Điều khoản nhận thanh toán thuế</value>
+        <value xml:lang="zh">国际贸易完税后交货价</value>
+        <value xml:lang="zh-TW">國際貿易完稅後交貨價</value>
     </property>
 </resource>
