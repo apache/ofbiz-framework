@@ -44,22 +44,10 @@ under the License.
     </service>
 
     <!-- MarketingCampaignPrice Services -->
-    <service name="addPriceRuleToMarketingCampaign" default-entity-name="MarketingCampaignPrice" engine="entity-auto" invoke="create" auth="true">
-        <deprecated since="Release 18.12" use-instead="createMarketingCampaignPrice">
-            Renaming service to respect service name best practice
-        </deprecated>
-        <implements service="createMarketingCampaignPrice"/>
-    </service>
     <service name="createMarketingCampaignPrice" default-entity-name="MarketingCampaignPrice" engine="entity-auto" invoke="create" auth="true">
         <description>Add PriceRule to MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="removePriceRuleFromMarketingCampaign" default-entity-name="MarketingCampaignPrice" engine="entity-auto" invoke="delete" auth="true">
-            <deprecated since="Release 18.12" use-instead="deleteMarketingCampaignPrice">
-                Renaming service to respect service name best practice
-            </deprecated>
-        <implements service="deleteMarketingCampaignPrice"/>
     </service>
     <service name="updateMarketingCampaignPrice" default-entity-name="MarketingCampaignPrice" engine="entity-auto" invoke="update" auth="true">
         <description>Update PriceRule to MarketingCampaign</description>
