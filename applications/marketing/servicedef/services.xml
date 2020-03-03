@@ -77,12 +77,6 @@ under the License.
     </service>
 
     <!-- MarketingCampaignPromo Services -->
-    <service name="addPromoToMarketingCampaign" default-entity-name="MarketingCampaignPromo" engine="entity-auto" invoke="create" auth="true">
-        <deprecated since="Release 18.12" use-instead="createMarketingCampaignPromo">
-            Renaming service to respect service name best practice
-        </deprecated>
-        <implements service="createMarketingCampaignPromo"/>
-    </service>
     <service name="createMarketingCampaignPromo" default-entity-name="MarketingCampaignPromo" engine="entity-auto" invoke="create" auth="true">
         <description>Add Promo to MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
