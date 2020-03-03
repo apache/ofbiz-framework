@@ -77,13 +77,6 @@ def expireRateAmount() {
     }
     return success()
 }
-/**
- * Information to update the specific customer code after change service deleteRateAmount to expireRateAmount
- * @return
- */
-def deleteRateAmount() {
-    return error('delete rate amount isn\'t possible, please update your code with service name "expireRateAmount" instead "deleteRateAmount"')
-}
 
 def updatePartyRate() {
     List<GenericValue> partyRates = from('PartyRate').where([partyId: partyId, rateTypeId: rateTypeId]).queryList()

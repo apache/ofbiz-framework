@@ -48,14 +48,6 @@ under the License.
         <override name="periodTypeId" default-value="RATE_HOUR"/>
         <override name="partyId" default-value="_NA_"/>
     </service>
-    <service name="deleteRateAmount" default-entity-name="RateAmount" engine="groovy" auth="true"
-        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="deleteRateAmount">
-        <deprecated use-instead="expireRateAmount" since="Release 18.12"/>
-        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
-        <override name="rateTypeId" optional="false"/>
-        <override name="fromDate" optional="false"/>
-    </service>
     <service name="getRateAmount" default-entity-name="RateAmount" engine="groovy" auth="true"
         location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="getRateAmount">
         <description>Get Rate Amount</description>

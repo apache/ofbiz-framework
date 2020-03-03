@@ -148,9 +148,9 @@
         <now-timestamp field="lookedUpValue.thruDate"/>
         <store-value value-field="lookedUpValue"/>
 
-        <set-service-fields service-name="deleteRateAmount" map="parameters" to-map="delRateAmount"/>
+        <set-service-fields service-name="expireRateAmount" map="parameters" to-map="delRateAmount"/>
         <set field="delRateAmount.fromDate" from-field="parameters.rateAmountFromDate"/>
-        <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>
+        <call-service service-name="expireRateAmount" in-map-name="delRateAmount"/>
     </simple-method>
 
     <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
