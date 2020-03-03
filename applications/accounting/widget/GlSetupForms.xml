@@ -71,7 +71,7 @@ under the License.
         <field name="glAccountClassId"><display-entity entity-name="GlAccountClass"/></field>
         <field name="glResourceTypeId"><display-entity entity-name="GlResourceType"/></field>
         <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass"/></field>
-
+        <field name="parentGlXbrlClassId"><display-entity entity-name="GlXbrlClass" key-field-name="glXbrlClassId"/></field>
         <field name="description"><display/></field>
         <field name="productId"><display-entity entity-name="Product"/></field>
         <field name="externalId"><display/></field>
