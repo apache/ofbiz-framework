@@ -225,13 +225,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="true"/>
     </service>
 
-    <!--Duplicate the service createQuoteWorkEffort, the first inform the deprecation, the second override and work normally-->
-    <service name="createQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="entity-auto" invoke="create" auth="true">
-        <deprecated use-instead="ensureWorkEffortAndCreateQuoteWorkEffort" since="Release 18.12">
-            use createQuoteWorkEffort to create a workeffort has been deprecated for best pratice naming reason, use ensureWorkEffortAndCreateQuoteWorkEffort instead.
-            Now createQuoteWorkEffort work as a crud service on QuoteWorkEffort
-        </deprecated>
-    </service>
     <service name="createQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="entity-auto" invoke="create" auth="true">
         <description>Create a new QuoteWorkEffort</description>
         <required-permissions join-type="AND">
