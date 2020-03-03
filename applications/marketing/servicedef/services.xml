@@ -82,12 +82,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removePromoFromMarketingCampaign" default-entity-name="MarketingCampaignPromo" engine="entity-auto" invoke="delete" auth="true">
-        <deprecated since="Release 18.12" use-instead="deleteMarketingCampaignPromo">
-            Renaming service to respect service name best practice
-        </deprecated>
-        <implements service="deleteMarketingCampaignPromo"/>
-    </service>
     <service name="updateMarketingCampaignPromo" default-entity-name="MarketingCampaignPromo" engine="entity-auto" invoke="update" auth="true">
         <description>Update Promo to MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
