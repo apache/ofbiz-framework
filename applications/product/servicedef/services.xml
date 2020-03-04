@@ -255,6 +255,7 @@ under the License.
 
             If taxAuthGeoId or taxAuthPartyId empty then the taxInPrice field will be ignored.
         </description>
+        <permission-service service-name="checkProductRelatedPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="priceWithoutTax"/>
@@ -271,6 +272,7 @@ under the License.
     <service name="updateProductPrice" default-entity-name="ProductPrice" engine="simple"
                 location="component://product/minilang/product/price/PriceServices.xml" invoke="updateProductPrice" auth="true">
         <description>Update an ProductPrice</description>
+        <permission-service service-name="checkProductRelatedPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="priceWithoutTax"/>
@@ -287,6 +289,7 @@ under the License.
     <service name="deleteProductPrice" default-entity-name="ProductPrice" engine="simple"
                 location="component://product/minilang/product/price/PriceServices.xml" invoke="deleteProductPrice" auth="true">
         <description>Delete an ProductPrice</description>
+        <permission-service service-name="checkProductRelatedPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="oldPrice" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
@@ -1833,5 +1836,14 @@ under the License.
     <service name="expireProdCatalogInvFacility" default-entity-name="ProdCatalogInvFacility" engine="entity-auto" invoke="expire" auth="true">
         <description>Expire a ProdCatalogInvFacility Record</description>
         <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!--Permission services -->
+
+    <service name="checkProductRelatedPermission" engine="groovy"
+             location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="checkProductRelatedPermissionService">
+        <description>Check Product Related Permission, a service to centralize product security code</description>
+        <implements service="permissionInterface"/>
+        <attribute name="productId" mode="IN" type="String" optional="true"/>
     </service>
 </services>

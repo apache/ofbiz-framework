@@ -80,6 +80,7 @@ under the License.
     <service name="applyFeatureToProductFromTypeAndCode" engine="simple"
                 location="component://product/minilang/product/feature/ProductFeatureServices.xml" invoke="applyFeatureToProductFromTypeAndCode" auth="true">
         <description>Apply a ProductFeature to a Product</description>
+        <permission-service service-name="checkProductRelatedPermission" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="productFeatureTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="idCode" type="String" mode="IN" optional="false"/>
