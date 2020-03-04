@@ -233,9 +233,13 @@ under the License.
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="lookupParty" engine="simple"
-        location="component://party/minilang/LookupServices.xml" invoke="lookupParty" auth="true">
+    <service name="lookupParty" engine="groovy"
+        location="component://party/groovyScripts/party/LookupServices.groovy" invoke="lookupParty" auth="true">
         <description>Performs a lookup for parties</description>
+        <deprecated use-instead="performFindParty" since="Upcoming Branch">
+            use performFindParty to realize your search, the service lookupParty is inconsistent
+            and need to replace by appropriate service
+        </deprecated>
         <attribute name="firstName" type="String" form-display="true" form-label="First name" mode="IN" optional="true"/>
         <attribute name="lastName" type="String" form-display="true" form-label="Last name" mode="IN" optional="true"/>
         <attribute name="lookupResult" type="List" mode="OUT" optional="false"/>
