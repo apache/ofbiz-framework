@@ -598,11 +598,11 @@ def productPriceGenericPermission() {
     }
 
     Map result = success()
-    if (!security.hasEntityPermission("CATALOG_PRICE_MAINT", null, parameters.userLogin)) {
+    if (!security.hasPermission("CATALOG_PRICE_MAINT", parameters.userLogin)) {
         result = error(UtilProperties.getMessage("ProductUiLabels",
                 "ProductPriceMaintPermissionError", parameters.locale))
     }
-    result.hasPermission = ServiceUtil.isSuccess(result) && checkProductRelatedPermission(null, null)
+    result.hasPermission = ServiceUtil.isSuccess(result) && checkProductRelatedPermission(parameters.resourceDescription, mainAction)
     if (!result.hasPermission) {
         result = fail(UtilProperties.getMessage("ProductUiLabels", "ProductPermissionError", parameters.locale))
     }
