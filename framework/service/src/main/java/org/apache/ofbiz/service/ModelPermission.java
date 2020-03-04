@@ -133,8 +133,8 @@ public class ModelPermission implements Serializable {
 
         permission.auth = true;
         Map<String, Object> ctx = permission.makeValid(context, ModelService.IN_PARAM);
-        if (UtilValidate.isNotEmpty(action)) {
-            ctx.put("mainAction", action);
+        if (UtilValidate.isNotEmpty(permissionMainAction)) {
+            ctx.put("mainAction", permissionMainAction);
         }
         if (UtilValidate.isNotEmpty(permissionResourceDesc)) {
             ctx.put("resourceDescription", permissionResourceDesc);
@@ -154,7 +154,7 @@ public class ModelPermission implements Serializable {
             Debug.logError(failMessage + e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServicePermissionErrorDefinitionProblem", locale));
         }
-        if (Debug.verboseOn()) Debug.logVerbose("Service permision result : hasPermission " + resp.get("hasPermission") + ", failMessage " + failMessage , module);
+        if (Debug.verboseOn()) Debug.logVerbose("Service permission result : hasPermission " + resp.get("hasPermission") + ", failMessage " + failMessage , module);
         if (permissionReturnErrorOnFailure &&
                 (UtilValidate.isNotEmpty(failMessage) || ! ((Boolean) resp.get("hasPermission")).booleanValue())) {
             if (UtilValidate.isEmpty(failMessage)) failMessage = UtilProperties.getMessage(resource, "ServicePermissionErrorRefused", locale);
