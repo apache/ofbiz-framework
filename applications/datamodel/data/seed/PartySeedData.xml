@@ -407,19 +407,36 @@ under the License.
     <TermType description="Commission Term Maximum Per Unit" hasTable="N" parentTypeId="COMMISSION_TERM" termTypeId="FIN_COMM_MAX"/>
 
     <TermType description="Incoterm" hasTable="N" termTypeId="INCO_TERM"/>
-    <TermType description="Incoterm Ex Works" parentTypeId="INCO_TERM" termTypeId="EXW"/>
-    <TermType description="Incoterm Free Carrier" parentTypeId="INCO_TERM" termTypeId="FCA"/>
-    <TermType description="Incoterm Free Alongside Ship" parentTypeId="INCO_TERM" termTypeId="FAS"/>
-    <TermType description="Incoterm Free On Board" parentTypeId="INCO_TERM" termTypeId="FOB"/>
-    <TermType description="Incoterm Cost and Freight" parentTypeId="INCO_TERM" termTypeId="CFR"/>
-    <TermType description="Incoterm Cost, Insurance and Freight" parentTypeId="INCO_TERM" termTypeId="CIF"/>
-    <TermType description="Incoterm Carriage Paid To" parentTypeId="INCO_TERM" termTypeId="CPT"/>
-    <TermType description="Incoterm Carriage and Insurance Paid to" parentTypeId="INCO_TERM" termTypeId="CIP"/>
-    <TermType description="Incoterm Delivered At Frontier" parentTypeId="INCO_TERM" termTypeId="DAF"/>
-    <TermType description="Incoterm Delivered Ex Ship" parentTypeId="INCO_TERM" termTypeId="DES"/>
-    <TermType description="Incoterm Delivered Ex Quay" parentTypeId="INCO_TERM" termTypeId="DEQ"/>
-    <TermType description="Incoterm Delivered Duty Unpaid" parentTypeId="INCO_TERM" termTypeId="DDU"/>
-    <TermType description="Incoterm Delivered Duty Paid" parentTypeId="INCO_TERM" termTypeId="DDP"/>
+
+    <TermType description="Incoterm 2020" parentTypeId="INCO_TERM" termTypeId="INCO_TERM_2020"/>
+    <TermType description="Incoterm 2020 Ex Works" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_EXW"/>
+    <TermType description="Incoterm 2020 Free Carrier" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_FCA"/>
+    <TermType description="Incoterm 2020 Free Alongside Ship" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_FAS"/>
+    <TermType description="Incoterm 2020 Free On Board" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_FOB"/>
+    <TermType description="Incoterm 2020 Carriage Paid To" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_CPT"/>
+    <TermType description="Incoterm 2020 Cost and Freight" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_CFR"/>
+    <TermType description="Incoterm 2020 Cost, Insurance and Freight" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_CIF"/>
+    <TermType description="Incoterm 2020 Carriage and Insurance Paid to" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_CIP"/>
+    <TermType description="Incoterm 2020 Delivered at Place Unloaded" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_DPU"/>
+    <TermType description="Incoterm 2020 Delivered at Place" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_DAP"/>
+    <TermType description="Incoterm 2020 Delivered Duty Paid" parentTypeId="INCO_TERM_2020" termTypeId="INCO_TERM_2020_DDP"/>
+
+    <TermType description="Incoterm 2010" parentTypeId="INCO_TERM" termTypeId="INCO_TERM_2010"/>
+    <TermType description="Incoterm 2010 Ex Works" parentTypeId="INCO_TERM_2010" termTypeId="EXW"/>
+    <TermType description="Incoterm 2010 Free Carrier" parentTypeId="INCO_TERM_2010" termTypeId="FCA"/>
+    <TermType description="Incoterm 2010 Free Alongside Ship" parentTypeId="INCO_TERM_2010" termTypeId="FAS"/>
+    <TermType description="Incoterm 2010 Free On Board" parentTypeId="INCO_TERM_2010" termTypeId="FOB"/>
+    <TermType description="Incoterm 2010 Cost and Freight" parentTypeId="INCO_TERM_2010" termTypeId="CFR"/>
+    <TermType description="Incoterm 2010 Cost, Insurance and Freight" parentTypeId="INCO_TERM_2010" termTypeId="CIF"/>
+    <TermType description="Incoterm 2010 Carriage Paid To" parentTypeId="INCO_TERM_2010" termTypeId="CPT"/>
+    <TermType description="Incoterm 2010 Carriage and Insurance Paid to" parentTypeId="INCO_TERM_2010" termTypeId="CIP"/>
+    <TermType description="Incoterm 2010 Delivered Duty Paid" parentTypeId="INCO_TERM_2010" termTypeId="DDP"/>
+
+    <TermType description="Incoterm 2000" parentTypeId="INCO_TERM" termTypeId="INCO_TERM_2000"/>
+    <TermType description="Incoterm 2000 Delivered At Frontier" parentTypeId="INCO_TERM_2000" termTypeId="DAF"/>
+    <TermType description="Incoterm 2000 Delivered Ex Ship" parentTypeId="INCO_TERM_2000" termTypeId="DES"/>
+    <TermType description="Incoterm 2000 Delivered Ex Quay" parentTypeId="INCO_TERM_2000" termTypeId="DEQ"/>
+    <TermType description="Incoterm 2000 Delivered Duty Unpaid" parentTypeId="INCO_TERM_2000" termTypeId="DDU"/>
 
     <TermType description="Purchasing" termTypeId="PURCHASING"/>
     <TermType description="Vendor Customer ID" parentTypeId="PURCHASING" termTypeId="PURCH_VENDOR_ID"/>
