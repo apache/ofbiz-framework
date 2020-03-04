@@ -22,11 +22,6 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="applyFeatureToProductFromTypeAndCode" short-description="Apply Feature to Product using Feature Type and ID Code">
-        <set field="callingMethodName" value="applyFeatureToProductFromTypeAndCode"/>
-        <set field="checkAction" value="CREATE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/minilang/product/product/ProductServices.xml"/>
-        <check-errors/>
-
         <!-- find the ProductFeatures by type and id code -->
         <entity-and entity-name="ProductFeature" list="productFeatures">
             <field-map field-name="productFeatureTypeId" from-field="parameters.productFeatureTypeId"/>
