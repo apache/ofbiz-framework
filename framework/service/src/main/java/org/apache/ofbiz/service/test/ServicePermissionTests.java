@@ -43,6 +43,16 @@ public class ServicePermissionTests extends OFBizTestCase {
         assertTrue(ServiceUtil.isSuccess(results));
     }
 
+    public void testServicePermissionError() throws Exception {
+        Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "N");
+        try {
+            Map<String, Object> results = dispatcher.runSync("testSimpleServicePermission", testingPermMap);
+            assertFalse("The testGroupPermission don't raise service exception", ServiceUtil.isError(results));
+        } catch (ServiceAuthException e) {
+            assertNotNull(e);
+        }
+    }
+
     public void testGroupPermissionSuccess() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "Y");
         Map<String, Object> results = dispatcher.runSync("testSimpleGroupAndPermission", testingPermMap);

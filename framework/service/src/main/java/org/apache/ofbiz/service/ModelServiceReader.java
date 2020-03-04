@@ -243,7 +243,7 @@ public class ModelServiceReader implements Serializable {
         // construct the context
         service.contextInfo = new HashMap<>();
         createNotification(serviceElement, service);
-        createPermission(serviceElement, service);
+        createAloneServicePermission(serviceElement, service);
         createPermGroups(serviceElement, service);
         createGroupDefs(serviceElement, service);
         createImplDefs(serviceElement, service);
@@ -305,15 +305,25 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    private static void createPermission(Element baseElement, ModelService model) {
+    private static ModelPermission createServicePermission(Element e, ModelService model) {
+        ModelPermission modelPermission = new ModelPermission();
+        modelPermission.permissionType = ModelPermission.PERMISSION_SERVICE;
+        modelPermission.permissionServiceName = e.getAttribute("service-name");
+        modelPermission.permissionMainAction = e.getAttribute("main-action");
+        modelPermission.permissionResourceDesc = e.getAttribute("resource-description");
+        modelPermission.permissionRequireNewTransaction = !"false".equalsIgnoreCase(e.getAttribute("require-new-transaction"));
+        modelPermission.serviceModel = model;
+        return modelPermission;
+    }
+
+    private static void createAloneServicePermission(Element baseElement, ModelService model) {
         Element e = UtilXml.firstChildElement(baseElement, "permission-service");
         if (e != null) {
-            ModelPermission modelPermission = new ModelPermission();
-            modelPermission.permissionServiceName = e.getAttribute("service-name");
-            modelPermission.permissionMainAction = e.getAttribute("main-action");
-            modelPermission.permissionResourceDesc = e.getAttribute("resource-description");
-            modelPermission.permissionRequireNewTransaction = !"false".equalsIgnoreCase(e.getAttribute("require-new-transaction"));
-            model.auth = true; // auth is always required when permissions are set
+            ModelPermission modelPermission = createServicePermission(e, model);
+            model.modelPermission = modelPermission;
+
+            // auth is always required when permissions are set
+            model.auth = true;
         }
     }
 
@@ -343,17 +353,11 @@ public class ModelServiceReader implements Serializable {
 
         // Create the permissions based on permission services
         for (Element element : UtilXml.childElementList(baseElement, "permission-service")) {
-            ModelPermission perm = new ModelPermission();
-            if (baseElement != null) {
-                perm.permissionType = ModelPermission.PERMISSION_SERVICE;
-                perm.permissionServiceName = element.getAttribute("service-name");
-                perm.action = element.getAttribute("main-action");
-                perm.permissionResourceDesc = element.getAttribute("resource-description");
-                perm.permissionRequireNewTransaction = !"false".equalsIgnoreCase(element.getAttribute("require-new-transaction"));
-                perm.auth = true; // auth is always required when permissions are set
-                perm.serviceModel = service;
-                group.permissions.add(perm);
-            }
+            group.permissions.add(createServicePermission(element, service));
+        }
+        if (UtilValidate.isNotEmpty(group.permissions)) {
+            // auth is always required when permissions are set
+            service.auth = true;
         }
     }
 
