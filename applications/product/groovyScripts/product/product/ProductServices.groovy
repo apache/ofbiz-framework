@@ -527,7 +527,6 @@ def copyToProductVariants() {
 /**
  * Check Product Related Permission
  * a method to centralize product security code, meant to be called in-line with
- * call-simple-method, and the checkAction and callingMethodName attributes should be in the method context
  */
 def checkProductRelatedPermission(String callingMethodName, String checkAction) {
     if (!callingMethodName) {
@@ -538,7 +537,7 @@ def checkProductRelatedPermission(String callingMethodName, String checkAction) 
     }
     List roleCategories = []
     // find all role-categories that this product is a member of
-    if (!security.hasEntityPermission("CATALOG", "_${checkAction}", parameters.userLogin)) {
+    if (parameters.productId && !security.hasEntityPermission("CATALOG", "_${checkAction}", parameters.userLogin)) {
         Map lookupRoleCategoriesMap = [productId : parameters.productId,
                                        partyId   : userLogin.partyId,
                                        roleTypeId: "LTD_ADMIN"]
@@ -557,6 +556,16 @@ def checkProductRelatedPermission(String callingMethodName, String checkAction) 
                 [resourceDescription: callingMethodName, mainAction: checkAction], parameters.locale))
     }
     return success()
+}
+
+/**
+ * call checkProductRelatedPermission function with support permission service interface
+ */
+def checkProductRelatedPermissionService() {
+    parameters.alternatePermissionRoot = parameters.altPermission
+    Map result = checkProductRelatedPermission(parameters.resourceDescription, parameters.mainAction)
+    result.hasPermission = ServiceUtil.isSuccess(result)
+    return result
 }
 
 /**
