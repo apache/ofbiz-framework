@@ -1574,7 +1574,7 @@ under the License.
 
     <!-- Alternative URLs -->
     <service name="createMissingCategoryAndProductAltUrls" engine="groovy"
-                location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="createMissingCategoryAndProductAltUrls" auth="true" use-transaction="false">
+                location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="createMissingCategoryAndProductAltUrls" auth="true" use-transaction="true">
         <description>Create missing Category and Product Alternative URLs</description>
         <attribute name="prodCatalogId" mode="INOUT" type="String" optional="false"/>
         <attribute name="category" mode="IN" type="String" optional="true"/>
