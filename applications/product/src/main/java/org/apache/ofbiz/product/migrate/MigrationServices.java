@@ -9,6 +9,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -19,11 +20,11 @@ public class MigrationServices {
     public static Map<String, Object> migrateProductPromoCodeEmail(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         List<Object> errors = new LinkedList<>();
-        try {
-            List<GenericValue> productPromoCodeEmails = EntityQuery.use(delegator).from("OldProductPromoCodeEmail")
-                                                            .queryList();
-            for (GenericValue productPromoCodeEmail : productPromoCodeEmails) {
-                GenericValue contactMech;
+        EntityQuery eq = EntityQuery.use(delegator).from("OldProductPromoCodeEmail");
+
+        try (EntityListIterator eli = eq.queryIterator()) {
+            GenericValue productPromoCodeEmail;
+            while ((productPromoCodeEmail = eli.next()) != null) {
                 String contactMechId;
 
                 String emailAddress = productPromoCodeEmail.getString("emailAddress");
@@ -42,7 +43,7 @@ public class MigrationServices {
                     continue;
                 }
 
-                contactMech = EntityQuery.use(delegator)
+                GenericValue contactMech = EntityQuery.use(delegator)
                                     .from("ContactMech")
                                     .where("infoString", emailAddress)
                                     .queryOne();
@@ -58,7 +59,7 @@ public class MigrationServices {
                     contactMechId = contactMech.getString("contactMechId");
                 }
 
-                GenericValue prodPromoCodeContMech = delegator.makeValue("ProductPromoCodeContMech");
+                GenericValue prodPromoCodeContMech = delegator.makeValue("ProdPromoCodeContactMech");
                 prodPromoCodeContMech.set("productPromoCodeId", productPromoCodeEmail.getString("productPromoCodeId"));
                 prodPromoCodeContMech.set("contactMechId", contactMechId);
                 //createOrStore to avoid duplicate data for same email.

@@ -38,7 +38,7 @@ if (productPromoId) {
 productPromoCodeEmails = null
 productPromoCodeParties = null
 if (productPromoCode) {
-    productPromoCodeEmails = productPromoCode.getRelated("ProductPromoCodeContMech", null, null, false)
+    productPromoCodeEmails = productPromoCode.getRelated("ProdPromoCodeContactMech", null, null, false)
     productPromoCodeParties = productPromoCode.getRelated("ProductPromoCodeParty", null, null, false)
 }
 

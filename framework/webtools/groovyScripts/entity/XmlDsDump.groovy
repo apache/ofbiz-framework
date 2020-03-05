@@ -86,7 +86,7 @@ if ("Product1".equals(preConfiguredSetName)) {
     passedEntityNames.add("ProductFeatureGroup")
     passedEntityNames.add("ProductPriceChange")
     passedEntityNames.add("ProductPromoAction")
-    passedEntityNames.add("ProductPromoCodeContMech")
+    passedEntityNames.add("ProdPromoCodeContactMech")
     passedEntityNames.add("ProductPromoCodeParty")
     passedEntityNames.add("ProductPromoCond")
 } else if ("Product4".equals(preConfiguredSetName)) {
@@ -128,7 +128,7 @@ if ("Product1".equals(preConfiguredSetName)) {
     passedEntityNames.add("ProductPromoProduct")
     passedEntityNames.add("ProductPromoRule")
     passedEntityNames.add("ProductPromoAction")
-    passedEntityNames.add("ProductPromoCodeContMech")
+    passedEntityNames.add("ProdPromoCodeContactMech")
     passedEntityNames.add("ProductPromoCodeParty")
     passedEntityNames.add("ProductPromoCond")
 

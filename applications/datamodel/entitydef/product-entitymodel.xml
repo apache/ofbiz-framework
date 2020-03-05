@@ -3651,7 +3651,7 @@ under the License.
         <key-map field-name="productPromoCodeId"/>
       </relation>
     </entity>
-    <entity entity-name="ProductPromoCodeContMech"
+    <entity entity-name="ProdPromoCodeContactMech"
             package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion ContactMech">
         <field name="productPromoCodeId" type="id"></field>
@@ -3668,7 +3668,7 @@ under the License.
     <view-entity entity-name="ProductPromoCodeEmailParty"
             package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Email and Party View">
-      <member-entity entity-alias="PPCCM" entity-name="ProductPromoCodeContMech"/>
+      <member-entity entity-alias="PPCCM" entity-name="ProdPromoCodeContactMech"/>
       <member-entity entity-alias="CM" entity-name="ContactMech"/>
       <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
       <alias entity-alias="PPCCM" name="productPromoCodeId"/>
