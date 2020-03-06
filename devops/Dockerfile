@@ -80,4 +80,4 @@ RUN git clone -q -o asf https://github.com/apache/ofbiz-plugins.git ofbiz/plugin
 
 WORKDIR /opt/ofbiz
 RUN ./gradlew cleanAll loadAll
-
+ENTRYPOINT ./gradlew ofbiz
