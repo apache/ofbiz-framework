@@ -183,28 +183,6 @@
         <call-service service-name="createContentPurpose" in-map-name="parameters"/>
     </simple-method>
 
-    <!-- combined text + uploaded file service -->
-    <simple-method method-name="createTextAndUploadedContent" short-description="Creates Text and Optionally Uploaded (sub) Content records">
-        <set-service-fields service-name="createTextContent" map="parameters" to-map="textContext"/>
-        <call-service service-name="createTextContent" in-map-name="textContext">
-            <result-to-field result-name="contentId" field="parameters.parentContentId"/>
-        </call-service>
-
-        <log level="info" message="${parameters}"/>
-
-        <if-not-empty field="parameters.uploadedFile">
-            <log level="info" message="Uploaded file found; processing sub-content"/>
-            <set-service-fields service-name="createContentFromUploadedFile" map="parameters" to-map="uploadContext"/>
-            <set field="uploadContext.ownerContentId" from-field="parameters.parentContentId"/>
-            <set field="uploadContext.contentIdFrom" from-field="parameters.parentContentId"/>
-            <set field="uploadContext.contentAssocTypeId" value="SUB_CONTENT"/>
-            <set field="uploadContext.contentPurposeTypeId" value="SECTION"/>
-            <call-service service-name="createContentFromUploadedFile" in-map-name="uploadContext"/>
-        </if-not-empty>
-
-        <field-to-result field="parameters.parentContentId" result-name="contentId"/>
-    </simple-method>
-
     <!-- Util -->
     <simple-method method-name="findAssocContent" short-description="Find associated content">
         <set from-field="parameters.contentId" field="queryMap.contentId"/>
