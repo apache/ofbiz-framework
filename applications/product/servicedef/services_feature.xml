@@ -77,8 +77,8 @@ under the License.
         <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="applyFeatureToProductFromTypeAndCode" engine="simple"
-                location="component://product/minilang/product/feature/ProductFeatureServices.xml" invoke="applyFeatureToProductFromTypeAndCode" auth="true">
+    <service name="applyFeatureToProductFromTypeAndCode" engine="groovy"
+                location="component://product/groovyScripts/product/feature/ProductFeatureServices.groovy" invoke="applyFeatureToProductFromTypeAndCode" auth="true">
         <description>Apply a ProductFeature to a Product</description>
         <permission-service service-name="checkProductRelatedPermission" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
@@ -177,8 +177,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- ProductFeatureType Services -->
-    <service name="createProductFeatureType" default-entity-name="ProductFeatureType" engine="simple"
-                location="component://product/minilang/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureType" auth="true">
+    <service name="createProductFeatureType" default-entity-name="ProductFeatureType" engine="groovy"
+                location="component://product/groovyScripts/product/feature/ProductFeatureServices.groovy" invoke="createProductFeatureType" auth="true">
         <description>Create a ProductFeatureType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -196,8 +196,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- ProductFeatureApplAttr  -->
-    <service name="createProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="simple"
-                location="component://product/minilang/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureApplAttr" auth="true">
+    <service name="createProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="groovy"
+                location="component://product/groovyScripts/product/feature/ProductFeatureServices.groovy" invoke="createProductFeatureApplAttr" auth="true">
         <description>Create a ProductFeatureApplAttr</description>
         <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
