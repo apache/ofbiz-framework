@@ -43,7 +43,7 @@ def getNextOrderId() {
 
     if (customMethod) {
         customMethodName = customMethod.customMethodName
-    } else if (partyAcctgPreference.oldOrderSequenceEnumId == 'ODRSQ_ENF_SEQ') {
+    } else if (partyAcctgPreference && partyAcctgPreference.oldOrderSequenceEnumId == 'ODRSQ_ENF_SEQ') {
         customMethodName = 'orderSequence_enforced'
     }
 
