@@ -475,8 +475,8 @@ under the License.
         <attribute name="orderId" type="String" mode="IN"/>
     </service>
     <!-- Order View Services -->
-    <service name="getOrderedSummaryInformation" engine="simple"
-            location="component://order/minilang/order/OrderServices.xml" invoke="getOrderedSummaryInformation">
+    <service name="getOrderedSummaryInformation" engine="groovy"
+            location="component://order/groovyScripts/order/OrderServices.groovy" invoke="getOrderedSummaryInformation">
         <description>Get Ordered Summary Information</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/> <!-- defaults to PLACING_CUSTOMER -->
