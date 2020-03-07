@@ -16,7 +16,7 @@
 # docker file for OFBiz (framework + plugins)
 # for evaluation and testing purposes
 
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
 
 WORKDIR /root
@@ -26,10 +26,11 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_TERSE true
 
 ######
-# Install some basic Apache Yetus requirements
+# Install some basic Apache OFBiz requirements
 # some git repos need ssh-client so do it too
 # Adding libffi-dev for all the programming languages
 # that take advantage of it.
+# Plus some application to use with the cli
 ######
 RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
     apt-transport-https \
