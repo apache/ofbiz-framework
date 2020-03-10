@@ -169,8 +169,8 @@ under the License.
         <attribute name="parties" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     
-    <service name="getPartiesByRelationship" engine="simple"
-        location="component://party/minilang/party/PartyServices.xml" invoke="getPartiesByRelationship">
+    <service name="getPartiesByRelationship" engine="groovy"
+        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartiesByRelationship">
         <description>Gets all parties related to partyIdFrom through the PartyRelationship entity</description>
         <auto-attributes mode="IN" include="all" optional="true" entity-name="PartyRelationship"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
@@ -196,8 +196,8 @@ under the License.
         <attribute name="relatedPartyIdList" type="List" mode="OUT" optional="false"/>
     </service>
 
-    <service name="getParentOrganizations" engine="simple"
-            location="component://party/minilang/party/PartyServices.xml" invoke="getParentOrganizations">
+    <service name="getParentOrganizations" engine="groovy"
+            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getParentOrganizations">
         <description>
             Gets Parent Organizations for an Organization Party.
             This uses the PartyRelationship table with partyRelationshipTypeId="GROUP_ROLLUP".
@@ -211,8 +211,8 @@ under the License.
         <attribute name="parentOrganizationPartyIdList" type="List" mode="OUT" optional="false"/>
     </service>
 
-    <service name="getChildRoleTypes" engine="simple"
-            location="component://party/minilang/party/PartyServices.xml" invoke="getChildRoleTypes">
+    <service name="getChildRoleTypes" engine="groovy"
+            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getChildRoleTypes">
         <description>
             Get Child RoleTypes.
             The childRoleTypeIdList coming out will contain the original roleTypeId.
@@ -222,16 +222,16 @@ under the License.
     </service>
 
     <!-- PostalAddressBoundary -->
-    <service name="getPostalAddressBoundary" engine="simple"
-            location="component://party/minilang/party/PartyServices.xml" invoke="getPostalAddressBoundary">
+    <service name="getPostalAddressBoundary" engine="groovy"
+            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPostalAddressBoundary">
         <description>Get all Postal Address Boundaries</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="VIEW"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="geos" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     
-    <service name="getRelatedParties" engine="simple"
-        location="component://party/minilang/party/PartyServices.xml" invoke="getRelatedParties">
+    <service name="getRelatedParties" engine="groovy"
+        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getRelatedParties">
         <description>
             Get Parties Related to a Party
             - The relatedPartyIdList coming out will include the original partyIdFrom
