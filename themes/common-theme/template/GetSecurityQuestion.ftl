@@ -20,37 +20,16 @@ under the License.
 <center>
   <div class="screenlet login-screenlet">
     <div class="screenlet-title-bar">
-      <#if securityQuestion?has_content>
-        <h3>${uiLabelMap.AnswerSecurityQuestion}</h3>
-      <#else>
-        <h3>${uiLabelMap.CommonForgotYourPassword}</h3>
-      </#if>
+      <h3>${uiLabelMap.CommonForgotYourPassword}</h3>
     </div>
     <div class="screenlet-body">
       <form method="post" action="<@ofbizUrl>forgotPassword_step3${previousParams?if_exists}</@ofbizUrl>" name="forgotpassword">
         <table class="basic-table" cellspacing="0">
           <#if userLoginId?has_content>
-            <#if securityQuestion?has_content>
-              <tr>
-                <td class="label">${uiLabelMap.SecurityQuestion}</td>
-                <td>
-                  ${securityQuestion.description!}
-                  <input type="hidden" name="securityQuestion" value="${securityQuestion.enumId!}" />
-                  <input type="hidden" name="USERNAME" value="${userLoginId!}" />
-                </td>
-              </tr>
-              <tr>
-                <td class="label">${uiLabelMap.SecurityAnswer}</td>
-                <td>
-                  <input type="text" name="securityAnswer" class="" value="" />&nbsp;
-                </td>
-              </tr>
-            <#else>
-              <tr>
-                <td class="label">${uiLabelMap.CommonUsername}</td>
-                <td><input type="text" size="20" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>" /></td>
-              </tr>
-            </#if>
+            <tr>
+              <td class="label">${uiLabelMap.CommonUsername}</td>
+              <td><input type="text" size="20" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>" /></td>
+            </tr>
             <tr>
               <td colspan="2" align="center">
                 <input type="submit" name="GET_PASSWORD_HINT" class="smallSubmit" value="${uiLabelMap.CommonGetPasswordHint}" />&nbsp;

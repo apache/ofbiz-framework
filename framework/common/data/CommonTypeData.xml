@@ -112,7 +112,6 @@ under the License.
     <Enumeration enumId="VT_LOGIN_TMPLT_LOC" description="Login Template Location" enumTypeId="VT_RES_TYPE" sequenceId="21"/>
     <Enumeration enumId="VT_CHPWD_TMPLT_LOC" description="Change Password Template Location" enumTypeId="VT_RES_TYPE" sequenceId="22"/>
     <Enumeration enumId="VT_FGPWD_TMPLT_LOC" description="Forget Password Template Location" enumTypeId="VT_RES_TYPE" sequenceId="23"/>
-    <Enumeration enumId="VT_GSQUE_TMPLT_LOC" description="Security Question Template Location" enumTypeId="VT_RES_TYPE" sequenceId="24"/>
     <Enumeration enumId="VT_IMPERSO_TMPLT_LOC" description="Impersonated Template Location" enumTypeId="VT_RES_TYPE" sequenceId="25"/>
     <Enumeration enumId="VT_STYLESHEET_LESS" description="Style Sheet Less URL" enumTypeId="VT_RES_TYPE" sequenceId="25"/>
 

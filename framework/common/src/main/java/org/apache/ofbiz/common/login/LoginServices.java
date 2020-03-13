@@ -57,7 +57,6 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -621,7 +620,6 @@ public class LoginServices {
     public static Map<String, Object> createUserLogin(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result =  new LinkedHashMap<>();
         Delegator delegator = ctx.getDelegator();
-        LocalDispatcher dispatcher = ctx.getDispatcher();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
         List<String> errorMessageList = new LinkedList<>();
@@ -639,9 +637,6 @@ public class LoginServices {
         String externalAuthId = (String) context.get("externalAuthId");
         String errMsg = null;
 
-        String questionEnumId = (String) context.get("securityQuestion");
-        String securityAnswer = (String) context.get("securityAnswer");
-        
         // security: don't create a user login if the specified partyId (if not empty) already exists
         // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
         if (UtilValidate.isNotEmpty(partyId)) {
@@ -712,20 +707,6 @@ public class LoginServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        try {
-            if (UtilValidate.isNotEmpty(securityAnswer)) {
-                Map<String, Object> resultMap = dispatcher.runSync("createUserLoginSecurityQuestion",
-                        UtilMisc.toMap("userLogin", loggedInUserLogin, "userLoginId", userLoginId, "questionEnumId", questionEnumId, "securityAnswer", securityAnswer));
-                if (ServiceUtil.isError(resultMap)) {
-                    errMsg = ServiceUtil.getErrorMessage(resultMap);
-                    errorMessageList.add(errMsg);
-                    Debug.logError(errMsg, module);
-                }
-            }
-        } catch (GenericServiceException e1) {
-            errMsg = UtilProperties.getMessage(resource,"loginservices.error_setting_security_question", locale);
-            Debug.logError(e1, errMsg, module);
-        }
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }

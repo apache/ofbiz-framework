@@ -57,19 +57,6 @@ under the License.
           <td class="label">${uiLabelMap.CommonNewPasswordVerify}</td>
           <td><input type="password" name="newPasswordVerify" autocomplete="off" value="" size="20"/></td>
         </tr>
-        <#if securityQuestion?has_content>
-          <tr>
-            <td class="label">${uiLabelMap.SecurityQuestiom}</td>
-            <td>
-              <input type="hidden" name="securityQuestion" value="${securityQuestion.enumId!}" />
-                ${securityQuestion.description!}
-            </td>
-          </tr>
-          <tr>
-            <td class="label">${uiLabelMap.SecurityAnswer}</td>
-            <td><input type="text" class='inputBox' name="securityAnswer" id="SECURITY_ANSWER" value="" maxlength="100" /></td>
-          </tr>
-        </#if>
         <tr>
           <td colspan="2" align="center">
             <input type="submit" value="${uiLabelMap.CommonSubmit}"/>
