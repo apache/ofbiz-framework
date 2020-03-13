@@ -1,0 +1,85 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Edit Invoice Applications
+The Invoice Applications sub menu is where payments that have been made (or received) can be linked or allocated to an invoice. +
+The phrase 'applying' an amount to an invoice is often used to describe this.
+
+The screen is divided into 3 main areas as follows.
+
+* Payments Applied (which shows details of the total amount 'Applied' and the total amount 'Open'. +
+  Note that 'Open' here means outstanding)
+* Possible Payments to Apply (which shows all the payments that have been sent from the same party id as the invoice,
+  for a sales invoice this would be the customer party id)
+* Assign Payment to Invoice (which allows you to manually assign a specific payment id to this invoice)
+
+NOTE: General Ledger accounting transactions are generated during the payment application process but unless your GL is setup
+      with Unapplied Cash and Applied Cash accounts +
+      - I'm not sure that there will be any true accounting impact. +
+      In the Sales Order process the accounting transaction generated the following GL Accounting transaction is generated
+      for 'Payment Applied' o add some text here.
+
+DR 120000 Accounts Receivable / CR 120000 Accounts Receivable - This transaction doesnt really do anything!
+
+It is used to link payments to invoices.
+It is also used to allocate which part of a payment is allocated or applied to a specific invoice.
+This is extremely useful if your customers pay multiple invoices with a single payment.
+
+Example:
+
+* A customer could send a single payment of $1000 that can be used to pay for two invoices (eg $400 and $600)
+* Using this applications sub menu allows you to allocate part of the $400 to one invoice and the balance ($600) to the other
+  invoice
+
+By default all 'unapplied' payments that have been entered into OFBiz from the customer will be available for selection even
+if they have not yet been flagged as formally 'Received'. This means that these are payments that have not already been linked
+to another invoice.
+
+If only part of a payment amount has been linked to an invoice then the remaining amount is left available to be allocated
+to another invoice. +
+Also note that a single invoice could be paid by multiple payments being applied to it.
+
+== How do I apply a payment (or payments) to an invoice?
+. Select the 'Applications' sub menu for the invoice
+. A list of unapplied payments for the party id will be displayed
+. Press the 'Apply' button next to the entry that needs to be applied to the invoice +
+  (NOTE: More than one entry may be used. Also only part of a larger amount may be used) +
+  The Payments Applied total at the top of the screen will be updated with
+  the amount selected. Also the Amount Open will be reduced by the amount selected.
+. Once the total invoice amount has been selected a message will be displayed and only the first part of the screen will be
+  displayed
+. The top part of the screen will now be updated to show the 'Payments Applied' total is equal to the invoice total and
+  the 'Amount Open' is zero.
+
+== How do I update an applied payment for an invoice?
+. Payments that have been applied to an invoice can be updated. This means that you can change the details of the payment
+  transaction or adjust the amount that was applied to the invoice.
+. Select the 'Applications' sub menu for the invoice
+. A list of payments already applied to the invoice will be displayed in the top part of the screen
+. Enter or use the lookup to change the 'Payment Id' if required
+. Enter the updated amount in the 'Amount to Apply' field if required
+. Press the 'Update' button
+
+== How do I remove an applied payment (or payments) from an invoice?
+WARNING: TO CHECK: It can be done before transaction has been posted to GL but also need to check if its can be done if
+      the transaction has been posted.
+
+. Select the 'Applications' sub menu for the invoice
+. A list of payments already applied to the invoice will be displayed in the top part of the screen
+. Press the 'Remove' button next to the payment entry that needs to be removed
+. The entry will be removed and the top part of the screen will be update the 'Payments Applied' total and 'Amount Open'

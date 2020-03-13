@@ -1,0 +1,60 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Payment Gateway
+
+The Payment Gateway is made up of a configurable interface that processes payments.
+
+Before using using them, it's needed to config them. +
+*Payment Gateway Configuration* is used to setup the parameters required for the system to accept payments via different or
+ external applications
+
+Examples of these include:
+
+* Paypal
+* PayFlow
+* Authorise.net
+* Clear Commerce
+
+When config is done, *Payment transactions* can be authorised, captured and processed or refunded via the selected mechanism,
+(eg Paypal, Authorise.net, etc) more details are explained in <<_payment_transaction_management_in_user_interface>>
+
+== Payment Gateway Config management in User Interface
+include::HELP_EditPaymentGatewayConfig.adoc[leveloffset=+2]
+
+=== Help for Find Payment Gateway Config Types
+This screen lists some of the most common payment gateway configuration types that have been created as part of
+ the seed or demo data.
+
+Press the 'Lookup' button to see a list of existing payment gateway configuration types.
+
+=== Help for Edit Payment Gateway Config Type
+This screen allows the update of an existing payment gateway configuration type.
+
+NOTE: New Payment Gateway Configuration Types cannot be created via this screen.
+
+== Payment Transaction management in User Interface
+include::HELP_FindGatewayResponses.adoc[leveloffset=+2]
+
+include::HELP_AuthorizeTransaction.adoc[leveloffset=+2]
+
+include::HELP_CaptureTransaction.adoc[leveloffset=+2]
+
+include::HELP_ViewGatewayResponse.adoc[leveloffset=+2]
+
+include::HELP_ManualTransaction.adoc[leveloffset=+2]

@@ -129,7 +129,7 @@ public final class Calculate extends MethodOperation {
         String decimalScaleString = decimalScaleFse.expandString(methodContext.getEnvMap());
         int decimalScale = 2;
         if (!decimalScaleString.isEmpty()) {
-            decimalScale = Integer.valueOf(decimalScaleString);
+            decimalScale = Integer.parseInt(decimalScaleString);
         }
         BigDecimal resultValue = BigDecimal.ZERO.setScale(decimalScale, roundingMode);
         for (Calculate.SubCalc calcop : calcops) {

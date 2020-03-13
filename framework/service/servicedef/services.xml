@@ -26,16 +26,18 @@ under the License.
 
     <!-- Service Engine Services -->
     <service name="purgeOldJobs" engine="java"
-            location="org.apache.ofbiz.service.ServiceUtil" invoke="purgeOldJobs" auth="true" use-transaction="false" semaphore="wait">
+            location="org.apache.ofbiz.service.job.JobServices" invoke="purgeOldJobs" auth="true" use-transaction="false" semaphore="wait">
         <description>Cleans out old jobs which have been around longer then what is defined in serviceengine.xml</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
         </required-permissions>
-        <!-- this service has no attributes -->
+        <attribute name="poolId" type="String" mode="IN" optional="true"/>
+        <attribute name="daysToKeep" type="Integer" mode="IN" optional="true"/>
+        <attribute name="limit" type="Integer" mode="IN" optional="true"/>
     </service>
 
     <service name="cancelScheduledJob" engine="java"
-            location="org.apache.ofbiz.service.ServiceUtil" invoke="cancelJob" auth="true">
+            location="org.apache.ofbiz.service.job.JobServices" invoke="cancelJob" auth="true">
         <description>Cancels a schedule job</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
@@ -46,7 +48,7 @@ under the License.
     </service>
 
     <service name="cancelJobRetries" engine="java"
-            location="org.apache.ofbiz.service.ServiceUtil" invoke="cancelJobRetries" auth="true">
+            location="org.apache.ofbiz.service.job.JobServices" invoke="cancelJobRetries" auth="true">
         <description>Cancels a job retry flag</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
@@ -55,7 +57,7 @@ under the License.
     </service>
 
     <service name="resetScheduledJob" engine="java"
-            location="org.apache.ofbiz.service.ServiceUtil" invoke="resetJob" auth="true">
+            location="org.apache.ofbiz.service.job.JobServices" invoke="resetJob" auth="true">
         <description>Resets a stale job so it can be re-run</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>

@@ -66,7 +66,7 @@ under the License.
             <property name="enable-cross-subdomain-sessions" value="false"/>
         </property>
         <property name="ajp-connector" value="connector">
-            <!-- see http://tomcat.apache.org/tomcat-8.0-doc/config/ajp.html for reference -->
+            <!-- see https://tomcat.apache.org/tomcat-9.0-doc/config/ajp.html for reference -->
             <!--<property name="address" value=""/>-->
             <property name="port" value="8009"/>
             <property name="protocol" value="AJP/1.3"/>
@@ -74,6 +74,7 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <property name="secretRequired" value="false"/>
             <!-- AJP/13 connector attributes -->
             <!-- commented out because the values match the Tomcat defaults:
             <property name="tomcatAuthentication" value="true"/>
@@ -92,10 +93,11 @@ under the License.
             <property name="socketBuffer" value="9000"/>
             <property name="tcpNoDelay" value="true"/>
             <property name="threadPriority" value="5"/>
+            <property name="secret" value=""/>
             -->
         </property>
         <property name="http-connector" value="connector">
-            <!-- see http://tomcat.apache.org/tomcat-8.0-doc/config/http.html for reference -->
+            <!-- see https://tomcat.apache.org/tomcat-9.0-doc/config/http.html for reference -->
             <!--<property name="address" value=""/>-->
             <property name="port" value="8080"/>
             <property name="protocol" value="HTTP/1.1"/>
@@ -125,7 +127,7 @@ under the License.
             -->
         </property>
         <property name="https-connector" value="connector">
-            <!-- see http://tomcat.apache.org/tomcat-8.0-doc/config/http.html for reference -->
+            <!-- see https://tomcat.apache.org/tomcat-9.0-doc/config/http.html for reference -->
             <!--<property name="address" value=""/>-->
             <property name="port" value="8443"/>
             <property name="protocol" value="HTTP/1.1"/>
@@ -180,6 +182,7 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <property name="secretRequired" value="false"/>
         </property>
         <property name="http-connector" value="connector">
             <!--<property name="address" value=""/>-->

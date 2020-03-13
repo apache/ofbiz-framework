@@ -98,6 +98,7 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="canDropShip" type="String" mode="IN" optional="true"/>
         <attribute name="supplierProducts" type="java.util.List" mode="OUT" optional="false"/>
+        <attribute name="agreementId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="convertFeaturesForSupplier" engine="java"
         location = "org.apache.ofbiz.product.supplier.SupplierProductServices" invoke="convertFeaturesForSupplier">

@@ -1,0 +1,88 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Edit Billing Account
+The 'Account' sub menu is used to enter the basic details required for setting up a new billing account or editing an existing one.
+
+It can be used to create or update the following details for a Billing Account:
+
+* Billing Account Identification
+* Party to be Billed
+* Billing Account Limit +
+  (NOTE: This is how much credit the customer will be given eg $5000)
+* Currency to be used for Billing Account
+* Start and End Dates
+
+NOTE: There are currently two ways to add a party to a billing account.
+
+. Enter a party id in the 'Party Billed To' field
+. Use the 'Roles' sub menu to add a party id with the role of 'Bill To Customer'
+. If using the first method then when you press the update button this removes the party id from this field and
+  automatically creates the party under the Roles sub menu with the role of 'Bill To Customer'
+
+
+== How do I create a new Billing Account?
+
+NOTE: TO CHECK: If the party doesnt have the role 'Bill To Customer' is it automatically added when the billing account
+      is created or will the creation fail?..
+
+Example: To create a new Billing Account
+
+. Press the 'New' button and the 'Edit Billing Account' screen is displayed
+. Enter a code or number for the 'Billing Account Id' +
+  (NOTE: If this is left blank a number will be automatically generated)
+. Enter a number for the 'Billing Account Limit' (eg 5000)
+. Leave the 'Account Currency UOM Id' as it is +
+  (NOTE: This should be the default currency for Company...)
+. Enter a description that can be used to identify the Billing Account (eg Joe Bloggs Builders Billing Account)
+. Leave the 'Contact Mech' field as it is +
+  (NOTE: This field cannot be filled in until either the 'Party Billed To' has been filled in or a party with
+   the role of 'Bill To Customer' has been added under the 'Roles' sub menu)
+. Enter the Billing Account start date in the 'From Date' field. +
+  (NOTE: If left blank then this will default to the current date and time. +
+   TO CHECK: Can this date be in the future.....?)
+. Leave the 'Thru date' field blank
+. Enter or use the lookup to select the 'Party Billed To'
+. Press the 'Update' button
+
+After the 'Update' button has been pressed then the 'Contact Mech Id' field will either be automatically filled in
+ or will allow you to select a contact mech from a drop down list
+
+== How do I update an existing Billing Account?
+Billing Account details can be updated. +
+A key field that may need to be updated is the actual Billing Account Limit if a customer reduces or improves their credit rating
+
+Example: To Update a Billing Account
+
+. Click on the 'Billing Account Id' of the Billing Account to updated
+. The 'Edit Billing Account' screen is displayed
+. Enter the changes required
+. Press the 'Update' button
+
+
+== How do I delete a Billing Account?
+Billing Accounts cannot be deleted. +
+They can only be expired. +
+This means that they will no longer be able to be used to associate invoices or payments against.
+
+Example: To Expire a Billing Account
+
+. Click on the 'Billing Account Id' of the Billing Account to be expired
+. The 'Edit Billing Account' screen is displayed
+. Enter the current date in the 'Thru date' field
+. Press the 'Update' button

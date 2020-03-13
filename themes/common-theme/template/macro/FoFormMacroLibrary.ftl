@@ -98,16 +98,16 @@ under the License.
 <#macro renderFormatHeaderRowCellOpen style="" positionSpan=""><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle "${style}"/><#else><@getFoStyle "listtitlestyle"/></#if>><fo:block></#macro>
 <#macro renderFormatHeaderRowCellClose></fo:block></fo:table-cell></#macro>
 
-<#macro renderFormatHeaderRowFormCellOpen style></#macro>
-<#macro renderFormatHeaderRowFormCellClose></#macro>
+<#macro renderFormatHeaderRowFormCellOpen style><fo:table-cell></#macro>
+<#macro renderFormatHeaderRowFormCellClose></fo:table-cell></#macro>
 <#macro renderFormatHeaderRowFormCellTitleSeparator style isLast></#macro>
 
 <#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle><fo:table-row <@getFoStyle "${altRowStyles}"/>></#macro>
 <#macro renderFormatItemRowClose formName></fo:table-row></#macro>
 <#macro renderFormatItemRowCellOpen fieldName style="" positionSpan=""><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle style/><#else><@getFoStyle "tabletext"/></#if>><fo:block></#macro>
 <#macro renderFormatItemRowCellClose fieldName></fo:block></fo:table-cell></#macro>
-<#macro renderFormatItemRowFormCellOpen style></#macro>
-<#macro renderFormatItemRowFormCellClose></#macro>
+<#macro renderFormatItemRowFormCellOpen style><fo:table-cell></#macro>
+<#macro renderFormatItemRowFormCellClose></fo:table-cell></#macro>
 
 <#macro renderFormatSingleWrapperOpen formName style><fo:table><fo:table-column column-width="1.75in"/><fo:table-column column-width="1.75in"/><fo:table-column column-width="1.75in"/><fo:table-column column-width="1.75in"/><fo:table-body></#macro>
 <#macro renderFormatSingleWrapperClose formName></fo:table-body></fo:table></#macro>

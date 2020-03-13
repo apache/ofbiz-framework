@@ -1,0 +1,39 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Setup Edit First Product
+The Edit First Product screen is used to manage the first product with related the first catalog and the first category.
+
+== How do I create a Product?
+. Select the 'Product' sub menu and the screen will be displayed
+. Enter the 'Product Id' field +
+  (NOTE: If you do not enter the 'Product Id' field it will be used the default as 'Organization Party Id')
+. Enter the 'Internal Name' field
+. Enter the 'Product Name' field
+. Enter a description describing what the category is
+. Enter a number in the 'Default Price' field
+. Enter a number in the 'Average Cost ' field
+. Press the 'Update' button
+
+== How do I update a Product?
+. Not all the fields on the Product can be updated. +
+  For example Product Id cannot be updated. +
+  If these fields need to be amended then the Product will need to be removed and then re-created.
+. Select the 'Product' sub menu and the screen will be displayed: Any existing Product will be displayed in the box
+. Amend the details in the line item that needs to be updated (eg Internal Name, Product Name, Short Description, Default Price, Average Cost)
+. Press the 'Update' button displayed at the end of the line item that has been updated

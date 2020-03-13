@@ -25,8 +25,8 @@ under the License.
     <version>1.0</version>
 
     <!-- Common Permission Service -->
-    <service name="commonGenericPermission" engine="simple"
-        location="component://common/minilang/CommonServices.xml" invoke="commonGenericPermission">
+    <service name="commonGenericPermission" engine="groovy"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="commonGenericPermission">
         <implements service="permissionInterface"/>
     </service>
 
@@ -280,34 +280,36 @@ under the License.
 
 
     <!-- Keyword Thesaurus services -->
-    <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="createKeywordThesaurus" auth="true">
+    <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="groovy"
+            location="component://common/groovyScripts/CommonServices.groovy" invoke="createKeywordThesaurus" auth="true">
         <description>Create a Keyword Thesaurus</description>
+        <permission-service service-name="catalogPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="updateKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="updateKeywordThesaurus" auth="true">
+    <service name="updateKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="entity-auto"
+            invoke="update" auth="true">
         <description>Update a Keyword Thesaurus</description>
+        <permission-service service-name="catalogPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="deleteKeywordThesaurus" auth="true">
+    <service name="deleteKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="groovy"
+            location="component://common/groovyScripts/CommonServices.groovy" invoke="deleteKeywordThesaurus" auth="true">
         <description>Delete a Keyword Thesaurus</description>
+        <permission-service service-name="catalogPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <override name="alternateKeyword" optional="true"/>
     </service>
 
     <!-- Uom conversion service -->
-    <service name="createUomConversionDated" default-entity-name="UomConversionDated" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="createUomConversionDated" auth="true">
+    <service name="createUomConversionDated" default-entity-name="UomConversionDated" engine="entity-auto" invoke="create" auth="true">
         <description>Create a new dated UOM converesion entity</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="convertUom" default-entity-name="UomConversion" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="convertUom" auth="false">
+    <service name="convertUom" default-entity-name="UomConversion" engine="groovy"
+            location="component://common/groovyScripts/CommonServices.groovy" invoke="convertUom" auth="false">
         <description>Make a unit of measure conversion, first using UomConversionDated, then with UomConversion</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="asOfDate" mode="IN" type="Timestamp" optional="true"/>
@@ -318,8 +320,8 @@ under the License.
         <attribute name="defaultDecimalScale" mode="IN" type="Long" optional="true"/>
         <attribute name="defaultRoundingMode" mode="IN" type="String" optional="true"/>
     </service>
-    <service name="convertUomCustom" default-entity-name="UomConversion" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="convertUomCustom" auth="false">
+    <service name="convertUomCustom" default-entity-name="UomConversion" engine="groovy"
+            location="component://common/groovyScripts/CommonServices.groovy" invoke="convertUomCustom" auth="false">
         <description>Make a unit of measure conversion, using CustomMethod entity</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="originalValue" mode="IN" type="BigDecimal" optional="false"/>
@@ -328,16 +330,16 @@ under the License.
         <attribute name="convertedValue" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
     
-    <service name="checkUomConversion" engine="simple" default-entity-name="UomConversion"
-        location="component://common/minilang/CommonServices.xml" invoke="checkUomConversion">
+    <service name="checkUomConversion" engine="groovy" default-entity-name="UomConversion"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="checkUomConversion">
         <description>Returns true if an UomConversion record exists</description>
         <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN"/>
         <attribute name="exist" mode="OUT" type="Boolean"/>
     </service>
     
-    <service name="checkUomConversionDated" engine="simple" default-entity-name="UomConversionDated"
-        location="component://common/minilang/CommonServices.xml" invoke="checkUomConversionDated">
+    <service name="checkUomConversionDated" engine="groovy" default-entity-name="UomConversionDated"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="checkUomConversionDated">
         <description>Returns true if an UomConversionDated record exists</description>
         <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN"/>
@@ -345,7 +347,7 @@ under the License.
     </service>
     
     
-    <service name="getFileUploadProgressStatus" engine="simple" location="component://common/minilang/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
+    <service name="getFileUploadProgressStatus" engine="groovy" location="component://common/groovyScripts/CommonServices.groovy" invoke="getFileUploadProgressStatus" auth="false">
         <description>Look up progress made in File Upload process</description>
         <attribute name="uploadProgressListener" mode="IN" type="org.apache.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
         <attribute name="contentLength" mode="OUT" type="Long" optional="true"/>
@@ -526,8 +528,8 @@ under the License.
     </service>
 
     <!-- Visual theme services -->
-    <service name="getVisualThemeResources" engine="simple"
-            location="component://common/minilang/CommonServices.xml" invoke="getVisualThemeResources">
+    <service name="getVisualThemeResources" engine="groovy"
+            location="component://common/groovyScripts/CommonServices.groovy" invoke="getVisualThemeResources">
         <description>Get a visual theme resources Map. Call with visualThemeId String,
             and optional themeResources Map. Returns themeResources Map - a
             Map of Lists, where the resourceTypeEnumId is the key and the value
@@ -749,27 +751,27 @@ under the License.
         <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="linkGeos" engine="simple" auth="true"
-        location="component://common/minilang/CommonServices.xml" invoke="linkGeos">
+    <service name="linkGeos" engine="groovy" auth="true"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="linkGeos">
         <description>Link Geos to another Geo</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
         <attribute name="geoIds" type="List" mode="IN" optional="true"/>
         <attribute name="geoId" type="String" mode="IN"/>
         <attribute name="geoAssocTypeId" type="String" mode="IN"/>
     </service>
-    <service name="getRelatedGeos" engine="simple" auth="false"
-        location="component://common/minilang/CommonServices.xml" invoke="getRelatedGeos">
+    <service name="getRelatedGeos" engine="groovy" auth="false"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="getRelatedGeos">
         <attribute name="geoId" mode="IN" type="String"/>
         <attribute name="geoAssocTypeId" mode="IN" type="String"/>
         <attribute name="geoList" mode="OUT" type="java.util.List"/>
     </service>
-    <service name="getCountryList" engine="simple" auth="false"
-        location="component://common/minilang/CommonServices.xml" invoke="getCountryList">
+    <service name="getCountryList" engine="groovy" auth="false"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="getCountryList">
         <description>Get a list of country and associated states from Geo</description>
         <attribute name="countryList" mode="OUT" type="java.util.List"/>
     </service>
-    <service name="getAssociatedStateList" engine="simple" auth="false"
-        location="component://common/minilang/CommonServices.xml" invoke="getAssociatedStateList">
+    <service name="getAssociatedStateList" engine="groovy" auth="false"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="getAssociatedStateList">
         <attribute name="countryGeoId" mode="IN" type="String" optional="false"/>
         <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
         <attribute name="stateList" mode="OUT" type="java.util.List"/>
@@ -800,18 +802,18 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
-    <service name="getServerTimestamp" engine="simple" auth="false"
-        location="component://common/minilang/CommonServices.xml" invoke="getServerTimestamp">
+    <service name="getServerTimestamp" engine="groovy" auth="false"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="getServerTimestamp">
         <attribute name="serverTimestamp" mode="OUT" type="Timestamp"/>
     </service>
     
-    <service name="getServerTimeZone" engine="simple" auth="false"
-        location="component://common/minilang/CommonServices.xml" invoke="getServerTimeZone">
+    <service name="getServerTimeZone" engine="groovy" auth="false"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="getServerTimeZone">
         <attribute name="serverTimeZone" mode="OUT" type="String"/>
     </service>
     
-    <service name="getServerTimestampAsLong" engine="simple" auth="false"
-        location="component://common/minilang/CommonServices.xml" invoke="getServerTimestampAsLong">
+    <service name="getServerTimestampAsLong" engine="groovy" auth="false"
+        location="component://common/groovyScripts/CommonServices.groovy" invoke="getServerTimestampAsLong">
         <attribute name="serverTimestamp" mode="OUT" type="Long"/>
     </service>
     

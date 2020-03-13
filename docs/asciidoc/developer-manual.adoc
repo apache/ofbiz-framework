@@ -243,6 +243,8 @@ include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
 
 === Platform Specific Code
 
+include::../../themes/docs/themes.adoc[leveloffset=+2]
+
 == Core APIs
 
 == Development environment

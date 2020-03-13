@@ -28,6 +28,9 @@
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contentAssocTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contentIdFrom" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contentIdTo" type="String" mode="INOUT" optional="true"/>
         <!-- TODO: the following fields are deprecated; but will not be removed until all services and callers are updated -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
@@ -43,8 +46,8 @@
         <override name="description" allow-html="safe"/>
     </service>
 
-    <service name="createTextAndUploadedContent" engine="simple" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="createTextAndUploadedContent">
+    <service name="createTextAndUploadedContent" engine="groovy" auth="true"
+            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createTextAndUploadedContent">
         <description>Creates text content and optional uploaded sub-content</description>
         <implements service="createTextContent"/>
         <implements service="uploadFileInterface" optional="true"/>

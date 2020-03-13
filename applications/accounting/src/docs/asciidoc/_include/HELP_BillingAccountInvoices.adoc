@@ -1,0 +1,63 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Billing Account Invoices
+The Billing Account Find Invoices screen displays by default a list of invoices that have been charged to the billing account.
+
+Any invoice displayed here means that its invoice amount has been deducted from the billing account credit limit.
+For example: If the Billing Account Credit Limit is $100 and the there are 2 invoices displayed with amounts $10 and $25 then
+ the available credit for the billing account will be $75.
+
+The invoice can be at various statues and there is an option to locate an invoice by status.
+
+It is also used to apply any payments that have been made into the Billing Account to an invoice.
+A 'Capture' button is displayed next to each invoice displayed that has an amount outstanding.
+
+Example:
+
+* Two invoices are charged to a Billing Account (Invoice A $10 and Invoice B $25)
+* A payment of $17 has been paid into the Billing Account
+* If the Capture button is pressed for the invoice A then $10 of the $17 payment will be applied to this invoice and
+  a new payment transaction of $7 will be created and available to apply to a different invoice
+
+
+== How do I locate an invoice by status?
+. Select the 'Invoices' sub menu
+. Use the drop down box to select the 'Status Id' for the invoice required
+. Press the 'Submit' button
+
+A list of invoices with the required status will be displayed
+
+== How do I capture a payment for an invoice?
+IMPORTANT: In order for this to work a payment needs to have been made to the billing account that has not been completely applied
+           to any other invoices.
+
+Payments to a billing account can be done via the 'Payments' sub menu for the billing account or by using Accounting / Payments menu.
+
+. Select the 'Invoices' sub menu
+. Locate the invoice required +
+  (NOTE: The 'Amount to Apply' is the same as the 'Total' column)
+. Press the 'Capture' button +
+  (NOTE: The 'Amount to Apply' is different to the 'Total' column)
+
+The 'Capture' button is no longer displayed next to the invoice and an additional payments transaction will be created for
+ any difference between the invoice total and the amount paid (Eg Invoice Total $100, Payment Amount $125,
+ the new payment transaction amount will be $25)
+
+NOTE: The above example assumes that the payment available will cover the total amount outstanding for the invoice

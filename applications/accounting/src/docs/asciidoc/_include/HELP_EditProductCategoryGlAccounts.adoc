@@ -1,0 +1,59 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Product Category GL Accounts
+The Product Category GL Account is used to specify the default account to be used for a specific 'Product Category' and
+ 'Account Type' combination.
+This setup will translate to one side of the journal entry only.
+
+It is used for tracking product category transactions at a more detailed level.
+
+Examples could be as follows:
+
+* Tracking Accounts Receivable by Product Category in the General Ledger
+* Tracking Cost of Goods by Product Category in the General Ledger
+* Tracking Commissions paid by Product Category in the General Ledger
+
+The demo data gives an idea of the use of product categories to classify or separate different products streams.
+If specific accounting or management reporting is required at this level then the General Ledger can be setup
+ to provide this detail.
+
+== How do I add a new Product Category / GL Account Type mapping?
+By default there are no Product Category / GL Account Type mappings that are configured as part of the OFBiz demo data.
+
+. Select the 'Account Type' from the drop down list +
+   (NOTE: In other screens this field is call the 'GL Account Type Id'.....)
+. Select the ' GL Account' to map it to from the drop down list
+. Enter or look up the 'Product Category Id' to be used
+. Press the 'Add' button
+. The new mapping will be displayed in the list at the bottom of the screen
+
+== How do I update a Product Category / GL Account type mapping?
+A Product Category / GL Account Type mapping can be updated by modifying the GL Account only.
+If the product category or the Account Type needs to be updated then the mapping will need to be deleted and
+ then re-entered using the new product category or Account Type.
+
+. Locate the entry that needs to be updated in the list of Product Category / GL Account Type mappings
+. Modify the 'GL Account 'by using the drop down list next to the 'GL Account' field
+. Press the 'Update' button
+. The updated mapping will be displayed
+
+== How do I remove a Product Category / GL Account Type mapping?
+. Locate the entry that needs to be deleted in the list of Product Category / GL Account Type mappings
+. Press the 'Remove' button next to the entry

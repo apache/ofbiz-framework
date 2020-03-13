@@ -1,0 +1,43 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Edit Agreement Item
+This screen allows specific items to be added to agreement.
+Currently these are limited to the following:
+
+* Pricing
+* Commission Rate
+* Sub-Agreement
+* Exhibit
+* Section
+
+== How do I create an agreement item?
+. Press the 'Create Agreement Item' button
+. The 'Edit Agreement Item' screen is displayed
+. Select the 'Agreement Item Type Id' from the drop down box
+. Use the drop down box to select the 'Currency' for the Agreement Item
+. Enter any 'Agreement Text' if required
+. Enter path for 'Agreement Image' if required
+. Press the 'Submit' button
+. A new sub menu will be displayed containing 'Promotions','Terms','Products','Party' and 'Geo' for additional details that can be setup for the agreement item
+
+== How do I edit an agreement item?
+. Select the agreement item to be updated by clicking on the Agreement Item Id
+. The 'Edit Agreement Item' screen is displayed <<true_a_id_howdo_a_how_do_i_edit_an_agreement, How do it?>>
+. Update the fields required (NOTE: Additional details can be updated by selecting the Promotions, Terms, Product, Party or Geo sub menus)

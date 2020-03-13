@@ -1,0 +1,44 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Financial Account Deposit / Withdraw
+By default this screen will display all payment transactions both incoming and outgoing that have not already been associated
+with a financial account that represents one of the company's bank accounts.
+
+This screen also gives the option to create new deposit or withdrawal payments.
+
+The user can select a number of incoming deposit payments (eg Customer Payments etc) and group them together into a payment
+group (i.e AR Batch of Payments) that will create a 'deposit slip'.
+
+If you select a number of incoming payments and dont group them then no payment group is created (and therefore not deposit slip
+either) but the individual transactions will be created for the 'bank account' financial account.
+
+NOTE: Outgoing payments cannot be grouped together and will not create a 'deposit slip'.
+
+== How do I list Deposit or Withdrawal Payments not linked to a Bank Account?
+. Press the 'Find' button on the 'Deposit/Withdraw' screen.
+
+All deposit and withdrawal transactions not associated with a bank 'financial account' will be displayed.
+
+== How do I group payments and create a deposit slip?
+. Press 'Find' to list all Deposit or Withdrawal payments
+. Use the 'Select All' or click on the check box associated with the transactions required
+. Enter a name for the Payment Party Group Name (eg XYZ Deposits) to group the transactions together
+. Press the 'Deposit/Withdraw' button
+
+A deposit will be created that can be viewed under the 'Deposit Slip' tab and grouped transaction will be created under the 'Transactions' tab with a link to the deposit slip breakdown

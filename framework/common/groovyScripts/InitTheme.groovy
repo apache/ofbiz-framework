@@ -31,6 +31,7 @@ else visualTheme = ThemeFactory.resolveVisualTheme(context.request?:null)
 if (visualTheme) {
     ModelTheme modelTheme = visualTheme.getModelTheme()
     globalContext.commonScreenLocations = modelTheme.getModelCommonScreens()
+    globalContext.commonFormLocations = modelTheme.getModelCommonForms()
     globalContext.visualTheme = visualTheme
     globalContext.modelTheme = modelTheme
 

@@ -33,10 +33,11 @@ under the License.
     <Geo abbreviation="GJ" geoCode="GJ" geoId="IN-GJ" geoName="Gujarat" geoTypeId="STATE"/>
     <Geo abbreviation="HR" geoCode="HR" geoId="IN-HR" geoName="Haryana" geoTypeId="STATE"/>
     <Geo abbreviation="HP" geoCode="HP" geoId="IN-HP" geoName="Himachal Pradesh" geoTypeId="STATE"/>
-    <Geo abbreviation="JK" geoCode="JK" geoId="IN-JK" geoName="Jammu and Kashmir" geoTypeId="STATE"/>
+    <Geo abbreviation="JK" geoCode="JK" geoId="IN-JK" geoName="Jammu and Kashmir" geoTypeId="TERRITORY"/>
     <Geo abbreviation="JH" geoCode="JH" geoId="IN-JH" geoName="Jharkhand" geoTypeId="STATE"/>
     <Geo abbreviation="KA" geoCode="KA" geoId="IN-KA" geoName="Karnataka" geoTypeId="STATE"/>
     <Geo abbreviation="KL" geoCode="KL" geoId="IN-KL" geoName="Kerala" geoTypeId="STATE"/>
+    <Geo abbreviation="LA" geoCode="LA" geoId="IN-LA" geoName="Ladakh" geoTypeId="TERRITORY"/>
     <Geo abbreviation="LD" geoCode="LD" geoId="IN-LD" geoName="Lakshadweep" geoTypeId="TERRITORY"/>
     <Geo abbreviation="MP" geoCode="MP" geoId="IN-MP" geoName="Madhya Pradesh" geoTypeId="STATE"/>
     <Geo abbreviation="MH" geoCode="MH" geoId="IN-MH" geoName="Maharashtra" geoTypeId="STATE"/>
@@ -74,6 +75,7 @@ under the License.
     <GeoAssoc geoId="IND" geoIdTo="IN-JH" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-KA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-KL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IND" geoIdTo="IN-LA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-LD" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-MP" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-MH" geoAssocTypeId="REGIONS"/>

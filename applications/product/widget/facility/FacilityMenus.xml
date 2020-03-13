@@ -263,10 +263,10 @@ under the License.
             </link>
         </menu-item> -->
         <menu-item name="ViewFacilityInventoryByProductReportTab" title="${uiLabelMap.CommonPrint}">
-            <link target="ViewFacilityInventoryByProductReport?${searchParameterString}"/>
+            <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" target-window="_blank"/>
         </menu-item>
         <menu-item name="ViewFacilityInventoryByProductExportTab" title="${uiLabelMap.CommonExport}">
-            <link target="ViewFacilityInventoryByProductExport?${searchParameterString}"/>
+            <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" target-window="_blank"/>
         </menu-item>
         <menu-item name="InventoryItemTotalsTab" title="${uiLabelMap.ProductInventoryItemTotals}">
             <link target="InventoryItemTotals">

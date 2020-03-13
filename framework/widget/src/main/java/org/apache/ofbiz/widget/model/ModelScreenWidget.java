@@ -1082,8 +1082,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public ModelForm getModelForm(Map<String, Object> context) throws IOException, SAXException, ParserConfigurationException {
             String name = this.getName(context);
             String location = this.getLocation(context);
+            VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
             return FormFactory.getFormFromLocation(location, name, getModelScreen().getDelegator(context).getModelReader(),
-                    getModelScreen().getDispatcher(context).getDispatchContext());
+                    visualTheme, getModelScreen().getDispatcher(context).getDispatchContext());
         }
 
         public String getName(Map<String, Object> context) {
@@ -1169,7 +1170,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
             String name = this.getName(context);
             String location = this.getLocation(context);
             try {
-                modelForm = GridFactory.getGridFromLocation(location, name, getModelScreen().getDelegator(context).getModelReader(), getModelScreen().getDispatcher(context).getDispatchContext());
+                VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
+                modelForm = GridFactory.getGridFromLocation(location, name, getModelScreen().getDelegator(context).getModelReader(),
+                        visualTheme, getModelScreen().getDispatcher(context).getDispatchContext());
             } catch (RuntimeException e) {
                 throw e;
             } catch (Exception e) {

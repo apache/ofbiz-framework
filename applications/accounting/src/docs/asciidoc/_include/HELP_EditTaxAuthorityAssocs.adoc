@@ -1,0 +1,42 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Edit Tax Authority Associations
+An association is a way of specifying how tax authorities can be linked to each other.
+
+It can be used in the situation where the tax structure is hierarchical (eg city tax, plus county tax plus state tax).
+
+Using associations allows tax rates from multiple authorities to be applied to a particular order at once.
+
+== How do I add a new association for a Tax Authority?
+. Enter or use the lookup to find the 'To Tax Auth Geo Id'
+. Enter of use the lookup to find the 'To Tax Auth Party Id'
+. Leave the 'From Date' blank (NOTE: It will default to the current date and time)
+. Leave the 'Thru Date' blank
+. Select the 'Type' from the dropdown or leave blank
+. Press the 'Add' button
+. The new tax authority association is displayed at the bottom of the screen.
+
+== How do I update an association for a Tax Authority?
+. Only two fields are available for update, these are the 'Thru Date' and 'Type'
+. Enter the changes required
+. Press the 'Update' button next to the entry updated
+
+== How do I remove an association for a Tax Authority?
+. Press the 'Delete' button next to the entry that needs to be deleted

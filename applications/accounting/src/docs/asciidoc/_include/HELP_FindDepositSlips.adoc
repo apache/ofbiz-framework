@@ -1,0 +1,48 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Find Deposit Slips.
+This screen is used to locate payment groups and their associated deposit slips that have been created. +
+Deposit slips are created by grouping transactions together into a Payment Group. +
+This can be done using the 'Accounting / Payment Group' tab, the 'Financial Account / Deposit Withdraw' tab
+or the 'Create New Deposit Slip' button.
+
+Currently Deposit Slips are created for AR Batch Payments only.
+
+The deposit slips are available in PDF format and there is an option to cancel the batch that generated the deposit slip if required.
+
+== How do I locate an existing Deposit Slip?
+. Enter some characters from the 'Payment Group Id' or 'Payment Group Name' if known
+. Press the 'Search' button
+
+== How do I update an existing Deposit Slip?
+. Locate the Payment Group required
+. Select the Payment Group by clicking on the Payment Group Id
+
+The 'Edit Payment Group' screen is displayed
+
+Add any new payment deposits or update existing deposits for the Payment Group
+
+All changes in the Payment Group will automatically be updated to the Deposit Slip
+
+== How do I delete an existing Deposit Slip?
+A deposit slip can not be directly deleted but it is removed when a Payment Group is cancelled
+
+Press the 'Cancel' button next to the Payment Group required to cancel a payment group
+
+The Payment Group is removed from the 'Find Deposits' screen and no deposit slips can be viewed or printed.

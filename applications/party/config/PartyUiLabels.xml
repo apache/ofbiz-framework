@@ -9869,6 +9869,24 @@
         <value xml:lang="zh">无法创建便笺：${errorString}</value>
         <value xml:lang="zh-TW">無法新建便箋:${errorString}</value>
     </property>
+    <property key="PartyNothingToDoHere">
+        <value xml:lang="ar">لا يوجد شئ تفعله هنا</value>
+        <value xml:lang="de">Nichts zu tun hier.</value>
+        <value xml:lang="en">Nothing To Do Here</value>
+        <value xml:lang="es">Nada que hacer aqui</value>
+        <value xml:lang="fr">Rien à faire ici</value>
+        <value xml:lang="hi-IN">कुछ करने योग्य नहीं.</value>
+        <value xml:lang="it">Niente da fare qui.</value>
+        <value xml:lang="ja">ここにはなにもありません</value>
+        <value xml:lang="nl">Niets te doen hier.</value>
+        <value xml:lang="pt-BR">Nada a ser feito aqui.</value>
+        <value xml:lang="ro">Nu este nimic de facut aici.</value>
+        <value xml:lang="ru">Нет никаких действий.</value>
+        <value xml:lang="th">ไม่มีการทำที่นี่</value>
+        <value xml:lang="vi">Không có việc gì để thực hiện</value>
+        <value xml:lang="zh">这里没有可操作的</value>
+        <value xml:lang="zh-TW">這裡沒有可操作的.</value>
+    </property>
     <property key="PartyNotificationMailActivated">
         <value xml:lang="de">Akteur Kontoaktivierung Mailbenachrichtigung</value>
         <value xml:lang="en">Party Account Activated Notification Mail</value>

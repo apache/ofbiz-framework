@@ -90,10 +90,11 @@ under the License.
         <if-empty field="resourceDescription">
             <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
         </if-empty>
-        <set field="callingMethodName" from-field="resourceDescription"/>
-        <set field="checkAction" from-field="mainAction"/>
-        <set field="alternatePermissionRoot" value="FACILITY"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/minilang/product/product/ProductServices.xml"/>
+        <set field="parameters.altPermission" value="FACILITY"/>
+        <call-service service-name="checkProductRelatedPermission" in-map-name="parameters">
+            <result-to-result result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
         <if-empty field="error_list">
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field="hasPermission"/>
