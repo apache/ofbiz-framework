@@ -142,32 +142,6 @@ public class LoginEvents {
             return "error";
         }
 
-        String questionEnumId = request.getParameter("securityQuestion");
-        String securityAnswer = request.getParameter("securityAnswer");
-        if (UtilValidate.isEmpty(questionEnumId) && UtilValidate.isEmpty(securityAnswer)) {
-            return "success";
-        }
-
-        try {
-            GenericValue userLoginSecurityQuestion = EntityQuery.use(delegator).from("UserLoginSecurityQuestion").where("questionEnumId", questionEnumId, "userLoginId", userLoginId).cache().queryOne();
-            if (userLoginSecurityQuestion != null) {
-                if (UtilValidate.isEmpty(securityAnswer)) {
-                    errMsg = UtilProperties.getMessage(resource, "loginservices.security_answer_empty", UtilHttp.getLocale(request));
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
-                }
-                String ulSecurityAnswer = userLoginSecurityQuestion.getString("securityAnswer");
-                if (UtilValidate.isNotEmpty(ulSecurityAnswer) && ! securityAnswer.equalsIgnoreCase(ulSecurityAnswer)) {
-                    errMsg = UtilProperties.getMessage(resource, "loginservices.security_answer_not_match", UtilHttp.getLocale(request));
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
-                }
-            }
-        } catch (GenericEntityException e) {
-            errMsg = UtilProperties.getMessage(resource, "loginevents.problem_getting_security_question_record", UtilHttp.getLocale(request));
-            Debug.logError(e, errMsg, module);
-        }
-
         GenericValue supposedUserLogin = null;
         String passwordHint = null; 
         
