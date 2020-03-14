@@ -39,7 +39,7 @@ under the License.
 
     <!-- Request Mappings -->
     <request-map uri="view">
-        <security https="false" auth="false"/>
+        <security https="true" auth="true"/>
         <response name="success" type="request" value="main"/>
     </request-map>
 

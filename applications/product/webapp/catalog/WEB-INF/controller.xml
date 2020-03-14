@@ -1922,7 +1922,7 @@ under the License.
     
     <!-- Get Values options associated with a Price Rule Condition Input -->
     <request-map uri="getAssociatedPriceRulesConds">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="service" invoke="getAssociatedPriceRulesConds"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
@@ -2836,7 +2836,7 @@ under the License.
         </response>
     </request-map>
     <request-map uri="viewImage">
-        <security https="false" auth="false"/>
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="viewImage"/>
         <response name="error" type="view" value="viewImage"/>
     </request-map>
@@ -3031,7 +3031,7 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="listMiniproduct">
-        <security auth="false" https="true"/>
+        <security auth="true" https="true"/>
         <response name="success" type="view" value="listMiniproduct"/>
     </request-map>
 
