@@ -1029,7 +1029,7 @@ under the License.
     </request-map>
     <request-map uri="UploadImage"><security auth="true" https="true"/><response name="success" type="view" value="UploadImage"/></request-map>
     <request-map uri="img">
-        <security auth="false" https="false"/>
+        <security auth="true" https="true"/>
         <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="serveImage"/>
         <response name="success" type="none"/>
         <response name="error" type="request" value="main"/>
@@ -1756,7 +1756,7 @@ under the License.
     <!-- ================ SimpleContent Requests ================= -->
 
     <request-map uri="ViewSimpleContent">
-        <security auth="false" https="false"/>
+        <security auth="true" https="true"/>
         <response name="success" type="view" value="ViewSimpleContent"/>
     </request-map>
 
