@@ -186,24 +186,19 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright 2001-2008 The Apache Software Foundation
+   Copyright [yyyy] [name of copyright owner]
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+       http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 
 =========================================================================
 
@@ -225,42 +220,5 @@ For details, see themes/common/webapp/common/js/plugins/date/timezones.
 =========================================================================
 
 This product bundles "Date Format 1.2.3", which is available
-under the "MIT" license. 
+under the "MIT" license.
 For details, see themes/common/webapp/common/js/plugins/date/date.format-1.2.3*
-
-=========================================================================
-
-This product bundles "jQuery" and "jQuery" plugins and extensions, which are available
-under the "MIT" license. For details, see:
-themes/common/webapp/common/js/jquery
-plugins/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
-plugins/webpos/webapp/webpos/images/js/WebPosHotkeys.js
-
-=========================================================================
-
-This product bundles files from the "Birt" technology platform (www.eclipse.org/birt/)
-which are available under the "Eclipse Public License - v 1.0".
-For details, see plugins/birt/webapp/birt/webcontent/birt/
-
-=========================================================================
-
-This product bundles "Webhelp for DocBook", which is available
-under the "MIT" License. For details, see plugins/cmssite/template/docbook/webhelp/
-
-=========================================================================
-
-This product bundles "DocBook XSL Stylesheets 1.77.1", which is available
-under the "MIT" license.
-For details, see plugins/cmssite/template/docbook/
-=========================================================================
-
-This product bundles "Openlayers", which is available
-under the "FreeBSD" license.
-For details, see themes/common/webapp/images/OpenLayers-2.13.1-modified-for-CSP-.js
-=========================================================================
-
-This product bundles "Bootstrap", which is available
-under the "MIT" license.
-For details, see:
-plugins/ecommerce/webapp/ecommerce/js 
-plugins/ecommerce/webapp/ecommerce/css
