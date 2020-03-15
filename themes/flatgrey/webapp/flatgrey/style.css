@@ -223,22 +223,36 @@ th, th a {
     /*background: url("images/big-fade.png") repeat-x 0 90px transparent;*/
 }
 
+/* ================================== */
+/* ===== Used to align elements ===== */
+/* ================================== */
+.align-bottom {
+    vertical-align: bottom;;
+}
+.align-center {
+    text-align: center;
+}
 .align-float {
     float: right;
 }
-
+.align-justify {
+    text-align: justify;
+}
+.align-left {
+    text-align: left;
+}
+.align-middle {
+    vertical-align: bottom;;
+}
+.align-right {
+    text-align: right;
+}
 .align-text {
     text-align: right;
 }
-
 .align-top {
     vertical-align: top;
 }
-
-.centered {
-    text-align: center;
-}
-
 .page-title {
     color: #557996;
     margin-bottom: 0.5em;
