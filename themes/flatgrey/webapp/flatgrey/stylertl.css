@@ -169,15 +169,33 @@ DIV.column-left-wide {
 /* ================================== */
 /* ===== Used to align elements ===== */
 /* ================================== */
-
+.align-bottom {
+    vertical-align: bottom;;
+}
+.align-center {
+    text-align: center;
+}
 .align-float {
     float: left;
 }
-
+.align-justify {
+    text-align: justify;
+}
+.align-left {
+    text-align: left;
+}
+.align-middle {
+    vertical-align: bottom;;
+}
+.align-right {
+    text-align: right;
+}
 .align-text {
     text-align: left;
 }
-
+.align-top {
+    vertical-align: top;
+}
 /* ==================================== */
 /* ===== Masthead (Header) Styles ===== */
 /* ==================================== */
