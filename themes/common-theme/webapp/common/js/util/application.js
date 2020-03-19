@@ -26,20 +26,18 @@ var j = 1;
 (function(jQuery) {
     jQuery.fn.columns = function(options) {
     
-    var defaults = {            
+    var defaults = {
         colNumber: 2,
         direction: 'vertical'
     };
             
     this.each(function() {
-        
-        var obj = jQuery(this);
         var settings = jQuery.extend(defaults, options);
         var totalListElements = jQuery(this).children('li').size();
         var baseColItems = Math.ceil(totalListElements / settings.colNumber);
         var listClass = jQuery(this).attr('class');
         
-        for (i=1;i<=settings.colNumber;i++) {    
+        for (let i=1;i<=settings.colNumber;i++) {
             if(i==1){
                 jQuery(this).addClass('listCol1').wrap('<div class="listContainer'+j+'"></div>');
             } 
@@ -56,7 +54,7 @@ var j = 1;
         var k = 1;
         var l = 0;    
         
-        if(settings.direction == 'vertical') {            
+        if(settings.direction == 'vertical') {
             jQuery(this).children('li').each(function() {
                 listItem = listItem+1;
                 if (listItem > baseColItems*(settings.colNumber-1) ) {
@@ -171,7 +169,7 @@ var FORMALIZE = (function($, window, document, undefined) {
                     add_placeholder();
                     el.focus(function() {
                         if (el.val() === text) {
-                            el.val('').removeClass('placeholder_text');;
+                            el.val('').removeClass('placeholder_text');
                         }
                     }).blur(function() {
                         add_placeholder();
@@ -193,7 +191,7 @@ var FORMALIZE = (function($, window, document, undefined) {
             }
         }
     };
-})(jQuery, this, this.document);
+})(jQuery, this);
 
 jQuery(document).ready(function() {
     FORMALIZE.go();
