@@ -484,17 +484,12 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 }
             } else if (value != null && !(value instanceof NULL)) {
                 // make sure the type matches the field Java type
-                if (value instanceof TimeDuration) {
+                if (value instanceof String && "byte[]".equals(type.getJavaType())) {
+                    value = ((String) value).getBytes(StandardCharsets.UTF_8);
+                } else if (!ObjectType.instanceOf(value, type.getJavaType())) {
                     try {
                         value = ObjectType.simpleTypeOrObjectConvert(value, type.getJavaType(), null, null);
                     } catch (GeneralException e) {
-                        Debug.logError(e, module);
-                    }
-                } else if ((value instanceof String) && "byte[]".equals(type.getJavaType())) {
-                    value = ((String) value).getBytes(StandardCharsets.UTF_8);
-                }
-                if (!ObjectType.instanceOf(value, type.getJavaType())) {
-                    if (!("java.sql.Blob".equals(type.getJavaType()) && (value instanceof byte[] || value == null || ByteBuffer.class.isInstance(value)))) {
                         String errMsg = "In entity field [" + this.getEntityName() + "." + name + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";
                         // eventually we should do this, but for now we'll do a "soft" failure: throw new IllegalArgumentException(errMsg);
                         Debug.logWarning(new Exception("Location of database type warning"), "=-=-=-=-=-=-=-=-= Database type warning GenericEntity.set =-=-=-=-=-=-=-=-= " + errMsg, module);
