@@ -19,6 +19,7 @@ under the License.
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html>
 <head>
+    <meta http-equiv="Content-Security-Policy" frame-ancestors="self">
     <title>500 Internal error</title>
     <style>
         body{
