@@ -66,6 +66,7 @@ import org.apache.http.ssl.SSLContexts;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
+import org.apache.ofbiz.webapp.control.SameSiteFilter;
 import org.apache.ofbiz.webapp.event.FileUploadProgressListener;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.oro.text.regex.MalformedPatternException;
@@ -1151,6 +1152,8 @@ public final class UtilHttp {
         resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
         
         resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
+        
+        SameSiteFilter.addSameSiteCookieAttribute(resp);
         
         // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate is renewed every 3 months)
     }
