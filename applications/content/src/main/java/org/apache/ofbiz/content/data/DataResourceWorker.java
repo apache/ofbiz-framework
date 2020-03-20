@@ -659,7 +659,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             locale = Locale.getDefault();
         }
 
-        //FIXME correctly propagate the theme, then fixes also the related FIXME below
         VisualTheme visualTheme = ThemeFactory.getVisualThemeFromId("COMMON");
         ModelTheme modelTheme = visualTheme.getModelTheme();
 
@@ -726,7 +725,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
             } else if ("XSLT".equals(dataTemplateTypeId)) {
                 File targetFileLocation = new File(System.getProperty("ofbiz.home")+"/runtime/tempfiles/docbook.css");
-                // This is related with the other FIXME above: we need to correctly propagate the theme.
                 String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
                 visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);
                 modelTheme = visualTheme.getModelTheme();
