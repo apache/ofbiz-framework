@@ -98,17 +98,17 @@ public class MacroFormRendererTest {
                 httpSession.getAttribute("delegatorName");
                 result = "delegator";
 
-            textField.getModelFormField();
-            result = modelFormField;
+                textField.getModelFormField();
+                result = modelFormField;
 
-            modelFormField.getTooltip(withNotNull());
-            result = "";
+                modelFormField.getTooltip(withNotNull());
+                result = "";
 
-            modelFormField.getCurrentContainerId(withNotNull());
-            result = "CurrentTextId";
+                modelFormField.getCurrentContainerId(withNotNull());
+                result = "CurrentTextId";
 
-            new StringReader(withSubstring("id=\"CurrentTextId\""));
-        }};
+                new StringReader(withSubstring("id=\"CurrentTextId\""));
+            }};
 
         final MacroFormRenderer macroFormRenderer = new MacroFormRenderer(null, request, response);
         macroFormRenderer.renderTextField(appendable, ImmutableMap.of("session", httpSession), textField);
@@ -117,11 +117,11 @@ public class MacroFormRendererTest {
     @Test
     public void containerRendererUsesContainerId() throws IOException, TemplateException {
         new Expectations() {{
-            modelFormField.getCurrentContainerId(withNotNull());
-            result = "CurrentContainerId";
+                modelFormField.getCurrentContainerId(withNotNull());
+                result = "CurrentContainerId";
 
-            new StringReader(withSubstring("id=\"CurrentContainerId\""));
-        }};
+                new StringReader(withSubstring("id=\"CurrentContainerId\""));
+            }};
 
         final MacroFormRenderer macroFormRenderer = new MacroFormRenderer(null, request, response);
         macroFormRenderer.renderContainerFindField(appendable, ImmutableMap.of(), containerField);
