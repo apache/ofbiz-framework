@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
-import com.google.common.collect.ImmutableMap;
-import freemarker.core.Environment;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import mockit.Expectations;
-import mockit.Mock;
-import mockit.MockUp;
-import mockit.Mocked;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilCodec.SimpleEncoder;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -34,15 +34,18 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.hibernate.jdbc.Expectations;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
+
+import freemarker.core.Environment;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import mockit.MockUp;
+import mockit.Mocked;
 
 public class MacroFormRendererTest {
 
@@ -92,7 +95,8 @@ public class MacroFormRendererTest {
     }
 
     @Test
-    public void textRendererUsesContainerId(@Mocked ModelFormField.TextField textField) throws IOException, TemplateException {
+    public void textRendererUsesContainerId(@Mocked ModelFormField.TextField textField) 
+            throws IOException, TemplateException {
         new Expectations() {{
             httpSession.getAttribute("delegatorName");
             result = "delegator";
