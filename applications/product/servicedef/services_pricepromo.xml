@@ -212,14 +212,14 @@ under the License.
         <auto-attributes mode="IN" entity-name="ProductPromoCode" include="nonpk" optional="true"/>
     </service>
 
-    <service name="createProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="entity-auto" invoke="create" auth="true">
-        <description>Create a ProductPromoCodeEmail</description>
+    <service name="createProductPromoCodeContactMech" default-entity-name="ProdPromoCodeContactMech" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProdPromoCodeContactMech</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete a ProductPromoCodeEmail</description>
+    <service name="deleteProductPromoCodeContactMech" default-entity-name="ProdPromoCodeContactMech" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProdPromoCodeContactMech</description>
         <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
