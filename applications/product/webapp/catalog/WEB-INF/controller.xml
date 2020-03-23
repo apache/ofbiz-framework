@@ -1965,7 +1965,7 @@ under the License.
     </request-map>
     <request-map uri="deleteProductPromoCodeEmail">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteProductPromoCodeEmail"/>
+        <event type="service" path="" invoke="deleteProductPromoCodeContactMech"/>
         <response name="success" type="view" value="EditProductPromoCode"/>
         <response name="error" type="view" value="EditProductPromoCode"/>
     </request-map>
