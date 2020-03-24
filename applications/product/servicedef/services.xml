@@ -1134,8 +1134,8 @@ under the License.
     </service>
 
     <!-- Product Config Item content services -->
-    <service name="createProductConfigItemContent" default-entity-name="ProdConfItemContent" engine="simple"
-                location="component://product/minilang/product/config/ProductConfigItemContentServices.xml" invoke="createProductConfigItemContent" auth="true">
+    <service name="createProductConfigItemContent" default-entity-name="ProdConfItemContent" engine="groovy"
+                location="component://product/groovyScripts/product/config/ProductConfigItemContentServices.groovy" invoke="createProductConfigItemContent" auth="true">
         <description>Add Content To ProductConfigItem</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1143,8 +1143,8 @@ under the License.
         <override name="fromDate" optional="true"/>
         <!--<override name="contentId" optional="true" mode="INOUT"/>-->
     </service>
-    <service name="updateProductConfigItemContent" default-entity-name="ProdConfItemContent" engine="simple"
-                location="component://product/minilang/product/config/ProductConfigItemContentServices.xml" invoke="updateProductConfigItemContent" auth="true">
+    <service name="updateProductConfigItemContent" default-entity-name="ProdConfItemContent" engine="groovy"
+                location="component://product/groovyScripts/product/config/ProductConfigItemContentServices.groovy" invoke="updateProductConfigItemContent" auth="true">
         <description>Update Content To ProductConfigItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1155,8 +1155,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createSimpleTextContentForProductConfigItem" default-entity-name="ProdConfItemContent" engine="simple"
-            location="component://product/minilang/product/config/ProductConfigItemContentServices.xml" invoke="createSimpleTextContentForProductConfigItem" auth="true">
+    <service name="createSimpleTextContentForProductConfigItem" default-entity-name="ProdConfItemContent" engine="groovy"
+            location="component://product/groovyScripts/product/config/ProductConfigItemContentServices.groovy" invoke="createSimpleTextContentForProductConfigItem" auth="true">
         <attribute name="configItemId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="contentId" type="String" mode="IN" optional="true"></attribute>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -1165,13 +1165,12 @@ under the License.
         <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
         <override name="contentId" optional="true"/>
     </service>
-    <service name="updateSimpleTextContentForProductConfigItem" default-entity-name="ProdConfItemContent" engine="simple"
-            location="component://product/minilang/product/config/ProductConfigItemContentServices.xml" invoke="updateSimpleTextContentForProductConfigItem" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
+    <service name="updateSimpleTextContentForProductConfigItem" default-entity-name="ProdConfItemContent" engine="group" auth="true">
+        <description>Update Simple Text Content For Product</description>
+        <group>
+            <invoke name="updateProductConfigItemContent"/>
+            <invoke name="updateSimpleTextContent"/>
+        </group>
     </service>
     <service name="getProductFeaturesByType" engine="java"
             location="org.apache.ofbiz.product.feature.ProductFeatureServices" invoke="getProductFeaturesByType">
