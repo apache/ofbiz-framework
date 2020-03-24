@@ -3647,7 +3647,7 @@ under the License.
       <field name="emailAddress" type="email"></field>
       <prim-key field="productPromoCodeId"/>
       <prim-key field="emailAddress"/>
-      <relation type="one" fk-name="PROD_PRCDE_PCD" rel-entity-name="ProductPromoCode">
+      <relation type="one" fk-name="PROD_PRCDE_OPCD" rel-entity-name="ProductPromoCode">
         <key-map field-name="productPromoCodeId"/>
       </relation>
     </entity>
