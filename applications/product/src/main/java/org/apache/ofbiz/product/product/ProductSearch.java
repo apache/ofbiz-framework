@@ -1662,12 +1662,9 @@ public class ProductSearch {
             return true;
         }
 
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
+            return this.keywordsString;
         }
 
     }
