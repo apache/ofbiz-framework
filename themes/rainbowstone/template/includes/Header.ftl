@@ -42,7 +42,7 @@ under the License.
         <link rel="stylesheet/less" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
     </#list>
 </#if>
-        <link rel="stylesheet/less" href="<@ofbizContentUrl>/rainbowstone/${visualTheme.visualThemeId?replace("_","-")?lower_case}.less</@ofbizContentUrl>"/>
+        <link rel="stylesheet/less" href="<@ofbizContentUrl>/rainbowstone/${visualTheme.visualThemeId?replace("_","-")?lower_case}.less</@ofbizContentUrl>" type="text/css"/>
 <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
     <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
         <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
