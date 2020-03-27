@@ -237,7 +237,6 @@ under the License.
     <!--========================== AJAX events =====================-->
     <!-- Get states related to a country -->
     <request-map uri="getAssociatedStateList">
-        <!-- depended on by ecommerce during checkout, so set the csrf-token to false -->
         <security https="true" auth="false"/>
         <event type="service" invoke="getAssociatedStateList"/>
         <response name="success" type="request" value="json"/>
