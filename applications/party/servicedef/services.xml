@@ -505,7 +505,7 @@ under the License.
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createPartyFtpAddress" engine="groovy"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy" invoke="createPartyFtpAddress" auth="true">
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="createPartyFtpAddress" auth="true">
         <description>Create an Ftp Address associated to a party</description>
         <permission-service service-name="partyContactMechPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
@@ -515,7 +515,7 @@ under the License.
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updatePartyFtpAddress" engine="groovy"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy" invoke="updatePartyFtpAddress" auth="true">
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="updatePartyFtpAddress" auth="true">
         <description>Update an Ftp Address associated to a party</description>
         <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="PartyContactMech" mode="IN" optional="true"/>
