@@ -66,6 +66,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -225,6 +226,7 @@ public final class UtilHttp {
                 Debug.logError("File upload error" + e, module);
             }
             if (uploadedItems != null) {
+                request.setAttribute("fileItems", uploadedItems);
                 for (FileItem item: uploadedItems) {
                     String fieldName = item.getFieldName();
                     //byte[] itemBytes = item.get();
