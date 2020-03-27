@@ -991,6 +991,8 @@ public class RequestHandler {
         if (viewNoCache) {
            UtilHttp.setResponseBrowserProxyNoCache(resp);
            if (Debug.verboseOn()) Debug.logVerbose("Sending no-cache headers for view [" + nextPage + "]", module);
+        } else {
+            resp.setHeader("Cache-Control", "Set-Cookie");
         }
         
         //Security Headers
