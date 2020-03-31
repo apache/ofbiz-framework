@@ -1,0 +1,411 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Data Model Changes
+The Apache OFBiz® Project
+Release 18.12
+
+Apache OFBiz follows *The Universal Data Model* by **Len Silverston**, with a grain of salt.
+
+The following file contains information about the data model changes in the Apache OFBiz.
+ The detailed description of migration scripts specified here can be found at
+ https://cwiki.apache.org/confluence/x/LoBr[Revisions Requiring Data Migration - upgrade ofbiz] page.
+
+== Changes with OFBiz Trunk (Upcoming Branch)
+
+=== Entity Changes
+*Added 1 new entity*
+
+1. ProdPromoCodeContactMech
+
+*Removed/Deprecate 1 entity*
+
+1. ProductPromoCodeEmail
+
+=== Field Changes
+No changes
+
+=== Migration Scripts
+1.  Migration service migrateProductPromoCodeEmail is implemented to migrate the
+    ProductPromoCodeEmail entity to ProductPromoCodeContactMech. +
+    (More detail at https://issues.apache.org/jira/browse/OFBIZ-5426[OFBIZ-5426])
+
+== Changes with OFBiz 17
+Field types `id-ne`, `id-long-ne` & `id-vlong-ne` has been removed. Use `id`, `id-long` and `id-vlong`
+instead (detailed description at https://issues.apache.org/jira/browse/OFBIZ-9351[OFBIZ-9351]).
+
+
+=== Entity Changes
+No changes
+
+=== Field Changes
+[cols="<,^,^,^,>",options="header",]
+|=======================================================
+|Entity                 |Field   |Action |IsPK |Revision
+|MarketingCampaignPrice |fromDate |Added |Yes |R1805961
+|MarketingCampaignPrice |thruDate |Added |No |R1805961
+|MarketingCampaignPromo |fromDate |Added |Yes |R1805961
+|MarketingCampaignPromo |thruDate |Added |No |R1805961
+|MarketingCampaignRole |fromDate |Added |Yes |R1805961
+|MarketingCampaignRole |thruDate |Added |No |R1805961
+|Product |manufacturerPartyId |Removed |No |R1804408
+|SecurityGroupPermission |fromDate |Added |Yes |R1812383
+|SecurityGroupPermission |thruDate |Added |No |R1812383
+|=======================================================
+
+=== Migration Scripts
+1.  Updated sql-type for date-time and time field in fieldtypemysql.xml file at commit R1793300 +
+    __Update msyql sql-type for datetime field-type to support Fractional Seconds in Time Values
+    Please upgrade mysql to at least 5.6.4 or higher.__ +
+    After upgrade run `generateMySqlFileWithAlterTableForTimestamps` service, groupName is required field for
+    this service. +
+    It will generate sql file with alter query statement for date-time and time field
+    at location `$\{ofbiz.home}/runtime/tempfiles/.sql` +
+    You can use execute sql statement from any of the mysql batch command.
+
+
+== Changes between OFBiz 9 to OFBiz 16
+
+=== Entity Changes
+*Added 77 new entities*
+
+1.  JobRequisition
+2.  ProductAverageCostType
+3.  WorkEffortSurveyAppl
+4.  WorkEffortIcalData
+5.  WebSiteContactList
+6.  WebAnalyticsType
+7.  WebAnalyticsConfig
+8.  UserLoginSecurityQuestion
+9.  UomGroup
+10. TrainingRequest
+11. ThirdPartyLogin
+12. TestFieldType
+13. TestingSubtype
+14. TestingStatus
+15. TestingRemoveAll
+16. TestingItem
+17. TestingCrypto
+18. SystemProperty
+19. ShipmentGatewayUsps
+20. ShipmentGatewayUps
+21. ShipmentGatewayFedex
+22. ShipmentGatewayDhl
+23. ShipmentGatewayConfig
+24. ShipmentGatewayConfigType
+25. ReturnContactMech
+26. QuoteNote
+27. ProductPromoContent
+28. ProductPromoContentType
+29. ProductGroupOrder
+30. ProductCostComponentCalc
+31. CostComponentCalc
+32. PayPalPaymentMethod
+33. PaymentGroupType
+34. PaymentGroup
+35. PaymentGroupMember
+36. PaymentGatewayConfig
+37. PaymentGatewayConfigType
+38. PaymentGatewayWorldPay
+39. PaymentGatewaySecurePay
+40. PaymentGatewaySagePay
+41. PaymentGatewayOrbital
+42. PaymentGatewayEway
+43. PaymentGatewayCyberSource
+44. PaymentGatewayAuthorizeNet
+45. PaymentGatewayIDEAL
+46. PaymentContentType
+47. PaymentContent
+48. OAuth2LinkedIn
+49. OAuth2GitHub
+50. JobManagerLock
+51. JobInterviewType
+52. JobInterview
+53. JavaResource
+54. InvoiceNote
+55. InvoiceItemAssocType
+56. InvoiceItemAssoc
+57. InvoiceContentType
+58. InvoiceContent
+59. GlAccountCategoryType
+60. GlAccountCategoryMember
+61. GlAccountCategory
+62. GitHubUser
+63. FixedAssetTypeGlAccount
+64. FacilityContent
+65. ExcelImportHistory
+66. EmplLeaveReasonType
+67. EbayShippingMethod
+68. EbayConfig
+69. CountryAddressFormat
+70. ContentSearchResult
+71. ContentSearchConstraint
+72. ContentKeyword
+73. CheckAccount
+74. AgreementFacilityAppl
+75. AgreementContentType
+76. AgreementContent
+
+*Removed 8 entities*
+
+1.  DepreciationMethod
+2.  FixedAssetMaintMeter
+3.  OagisMessageErrorInfo
+4.  OagisMessageInfo
+5.  SalesOpportunityTrackingCode
+6.  SimpleSalesTaxLookup
+7.  TestBlob
+8.  WorkEffortAssignmentRate
+
+
+=== Field Changes
+[cols="<,^,^,^,^",options="header",]
+|=================================================================
+|Entity              |Field           |Action |IsPK |Revision
+|AcctgTransAttribute |attrDescription |Added  |No   |NA
+|AcctgTransEntry |inventoryItemId |Added |No |NA
+|AcctgTransTypeAttr |description |Added |No |NA
+|BenefitType |parentTypeId |Added |No |NA
+|BenefitType |hasTable |Added |No |NA
+|BudgetAttribute |attrDescription |Added |No |NA
+|BudgetItemAttribute |attrDescription |Added |No |NA
+|BudgetItemTypeAttr |description |Added |No |NA
+|BudgetStatus |changeByUserLoginId |Added |No |NA
+|BudgetTypeAttr |description |Added |No |NA
+|CommunicationEventRole |statusId |Added |No |NA
+|CommunicationEventType |contactMechTypeId |Added |No |NA
+|ContactListCommStatus |partyId |Added |No |NA
+|ContactListCommStatus |messageId |Added |No |NA
+|ContactListCommStatus |changeByUserLoginId |Added |No |NA
+|ContactMechAttribute |attrDescription |Added |No |NA
+|ContactMechTypeAttr |description |Added |No |NA
+|DeductionType |parentTypeId |Added |No |NA
+|DeductionType |hasTable |Added |No |NA
+|DocumentAttribute |attrDescription |Added |No |NA
+|DocumentTypeAttr |description |Added |No |NA
+|EmploymentApp |approverPartyId |Added |No |NA
+|EmploymentApp |jobRequisitionId |Added |No |NA
+|EmploymentAppSourceType |parentTypeId |Added |No |NA
+|EmploymentAppSourceType |hasTable |Added |No |NA
+|EmplPositionClassType |parentTypeId |Added |No |NA
+|EmplPositionClassType |hasTable |Added |No |NA
+|EmplPositionType |parentTypeId |Added |No |NA
+|EmplPositionType |hasTable |Added |No |NA
+|EmplPositionType |partyId |Removed |No |NA
+|EmplPositionType |roleTypeId |Removed |No |NA
+|FinAccountAttribute |attrDescription |Added |No |NA
+|FinAccountTransAttribute |attrDescription |Added |No |NA
+|FinAccountTrans |glReconciliationId |Added |No |NA
+|FinAccountTrans |statusId |Added |No |NA
+|FinAccountTransTypeAttr |description |Added |No |NA
+|FinAccountTypeAttr |description |Added |No |NA
+|FinAccountStatus |changeByUserLoginId |Added |No |NA
+|FixedAsset |acquireOrderId |Added |No |NA
+|FixedAsset |acquireOrderItemSeqId |Added |No |NA
+|FixedAssetAttribute |attrDescription |Added |No |NA
+|FixedAssetTypeAttr |description |Added |No |NA
+|GlAccount |externalId |Added |No |NA
+|GlAccount |openingBalance |Added |No |NA
+|GlReconciliation |createdDate |Added |No |NA
+|GlReconciliation |lastModifiedDate |Added |No |NA
+|GlReconciliation |statusId |Added |No |NA
+|GlReconciliation |openingBalance |Added |No |NA
+|InventoryItemAttribute |attrDescription |Added |No |NA
+|InventoryItemStatus |changeByUserLoginId |Added |No |NA
+|InventoryItemTypeAttr |description |Added |No |NA
+|InvoiceAttribute |attrDescription |Added |No |NA
+|InvoiceItemAttribute |attrDescription |Added |No |NA
+|InvoiceItemTypeAttr |description |Added |No |NA
+|InvoiceStatus |changeByUserLoginId |Added |No |NA
+|InvoiceTypeAttr |description |Added |No |NA
+|InvoiceTermAttribute |attrDescription |Added |No |NA
+|JobSandbox |currentRetryCount |Added |No |NA
+|JobSandbox |tempExprId |Added |No |NA
+|JobSandbox |currentRecurrenceCount |Added |No |NA
+|JobSandbox |maxRecurrenceCount |Added |No |NA
+|JobSandbox |jobResult |Added |No |NA
+|OrderAdjustment |amountAlreadyIncluded |Added |No |NA
+|OrderAdjustment |isManual |Added |No |NA
+|OrderAdjustment |oldPercentage |Added |No |NA
+|OrderAdjustment |oldAmountPerQuantity |Added |No |NA
+|OrderAdjustment |lastModifiedDate |Added |No |NA
+|OrderAdjustment |lastModifiedByUserLogin |Added |No |NA
+|OrderAdjustmentAttribute |attrDescription |Added |No |NA
+|OrderAdjustmentTypeAttr |description |Added |No |NA
+|OrderAttribute |attrDescription |Added |No |NA
+|OrderItem |supplierProductId |Added |No |NA
+|OrderItem |cancelBackOrderDate |Added |No |NA
+|OrderItem |changeByUserLoginId |Added |No |NA
+|OrderItemAttribute |attrDescription |Added |No |NA
+|OrderItemShipGroup |facilityId |Added |No |NA
+|OrderItemShipGroup |estimatedShipDate |Added |No |NA
+|OrderItemShipGroup |estimatedDeliveryDate |Added |No |NA
+|OrderItemShipGrpInvRes |priority |Added |No |NA
+|OrderItemShipGrpInvRes |oldPickStartDate |Added |No |NA
+|OrderItemTypeAttr |description |Added |No |NA
+|OrderTermAttribute |attrDescription |Added |No |NA
+|OrderPaymentPreference |track2 |Added |No |NA
+|OrderPaymentPreference |swipedFlag |Added |No |NA
+|OrderPaymentPreference |lastModifiedDate |Added |No |NA
+|OrderPaymentPreference |lastModifiedByUserLogin |Added |No |NA
+|OrderShipment |shipGroupSeqId |Added |No |NA
+|OrderTypeAttr |description |Added |No |NA
+|PartyAcctgPreference |orderSequenceEnumId |Removed |No |NA
+|PartyAcctgPreference |quoteSequenceEnumId |Removed |No |NA
+|PartyAcctgPreference |invoiceSequenceEnumId |Removed |No |NA
+|PartyAcctgPreference |oldOrderSequenceEnumId |Added |No |NA
+|PartyAcctgPreference |oldQuoteSequenceEnumId |Added |No |NA
+|PartyAcctgPreference |oldInvoiceSequenceEnumId |Added |No |NA
+|PartyAcctgPreference |orderSeqCustMethId |Added |No |NA
+|PartyQual |infoString |Removed |No |NA
+|PartyQual |institutionInternalId |Removed |No |NA
+|PartyQual |institutionPartyId |Removed |No |NA
+|PartyQual |partyQualId |Removed |No |NA
+|PartyRate |percentageUsed |Added |No |NA
+|PartyRate |rate |Removed |No |NA
+|PartyResume |contentId |Added |No |NA
+|PaymentAttribute |attrDescription |Added |No |NA
+|PaymentGatewayResponse |gatewayCvResult |Added |No |NA
+|PaymentMethod |finAccountId |Added |No |NA
+|PaymentTypeAttr |description |Added |No |NA
+|PerfRatingType |parentTypeId |Added |No |NA
+|PerfRatingType |hasTable |Added |No |NA
+|PerfReview |payHistoryRoleTypeIdTo |Removed |No |NA
+|PerfReview |payHistoryRoleTypeIdFrom |Removed |No |NA
+|PerfReview |payHistoryPartyIdTo |Removed |No |NA
+|PerfReview |payHistoryPartyIdFrom |Removed |No |NA
+|PerfReview |payHistoryFromDate |Removed |No |NA
+|PerfReviewItemType |parentTypeId |Added |No |NA
+|PerfReviewItemType |hasTable |Added |No |NA
+|PersonTraining |trainingRequestId |Added |No |NA
+|PersonTraining |workEffortId |Added |No |NA
+|PersonTraining |approverId |Added |No |NA
+|PersonTraining |approvalStatus |Added |No |NA
+|PersonTraining |reason |Added |No |NA
+|PostalAddress |houseNumber |Added |No |NA
+|PostalAddress |houseNumberExt |Added |No |NA
+|PostalAddress |cityGeoId |Added |No |NA
+|PostalAddress |municipalityGeoId |Added |No |NA
+|PostalAddress |geoPointId |Added |No |NA
+|PosTerminal |terminalName |Added |No |NA
+|PosTerminalInternTx |reasonEnumId |Added |No |NA
+|Product |releaseDate |Added |No |NA
+|Product |originalImageUrl |Added |No |NA
+|Product |inventoryItemTypeId |Added |No |NA
+|Product |shippingWeight |Added |No |NA
+|Product |productWeight |Added |No |NA
+|Product |diameterUomId |Added |No |NA
+|Product |productDiameter |Added |No |NA
+|Product |virtualVariantMethodEnum |Added |No |NA
+|Product |defaultShipmentBoxTypeId |Added |No |NA
+|Product |lotIdFilledIn |Added |No |NA
+|Product |orderDecimalQuantity |Added |No |NA
+|Product |weight |Removed |No |NA
+|Product |taxCategory |Removed |No |NA
+|Product |taxVatCode |Removed |No |NA
+|Product |taxDutyCode |Removed |No |NA
+|ProductAttribute |attrDescription |Added |No |NA
+|ProductAverageCost |productAverageCostTypeId |Added |No |NA
+|ProductAverageCost |facilityId |Added |No |NA
+|ProductContent |sequenceNum |Added |No |NA
+|ProductKeyword |keywordTypeId |Added |No |NA
+|ProductKeyword |statusId |Added |No |NA
+|ProductRole |sequenceNum |Added |No |NA
+|ProductStore |balanceResOnOrderCreation |Added |No |NA
+|ProductStore |defaultTimeZoneString |Added |No |NA
+|ProductStore |oldStyleSheet |Added |No |NA
+|ProductStore |oldHeaderLogo |Added |No |NA
+|ProductStore |oldHeaderRightBackground |Added |No |NA
+|ProductStore |oldHeaderMiddleBackground |Added |No |NA
+|ProductStore |styleSheet |Removed |No |NA
+|ProductStore |headerLogo |Removed |No |NA
+|ProductStore |headerRightBackground |Removed |No |NA
+|ProductStore |headerMiddleBackground |Removed |No |NA
+|ProductStorePaymentSetting |paymentCustomMethodId |Added |No |NA
+|ProductStorePaymentSetting |paymentGatewayConfigId |Added |No |NA
+|ProductStoreShipmentMeth |shipmentCustomMethodId |Added |No |NA
+|ProductStoreShipmentMeth |shipmentGatewayConfigId |Added |No |NA
+|ProductStoreShipmentMeth |allowancePercent |Added |No |NA
+|ProductStoreShipmentMeth |minimumPrice |Added |No |NA
+|ProductTypeAttribute |attrDescription |Added |No |NA
+|QuoteAdjustment |lastModifiedDate |Added |No |NA
+|QuoteAdjustment |lastModifiedByUserLogin |Added |No |NA
+|QuoteAttribute |attrDescription |Added |No |NA
+|QuoteItem |leadTimeDays |Added |No |NA
+|QuoteRole |fromDate |Added |Yes |NA
+|QuoteRole |thruDate |Added |No |NA
+|QuoteTerm |termDays |Added |No |NA
+|QuoteTerm |textValue |Added |No |NA
+|QuoteTerm |description |Added |No |NA
+|QuoteTermAttribute |attrDescription |Added |No |NA
+|QuoteTypeAttr |description |Added |No |NA
+|RequirementAttribute |changeByUserLoginId |Added |No |NA
+|RequirementStatus |changeByUserLoginId |Added |No |NA
+|ResponsibilityType |parentTypeId |Added |No |NA
+|ResponsibilityType |hasTable |Added |No |NA
+|ReturnAdjustment |createdByUserLoginId |Added |No |NA
+|ReturnAdjustment |lastModifiedDate |Added |No |NA
+|ReturnAdjustment |lastModifiedByUserLogin |Added |No |NA
+|ReturnHeader |supplierRmaId |Added |No |NA
+|ReturnItemResponse |finAccountTransId |Added |No |NA
+|ReturnStatus |changeByUserLoginId |Added |No |NA
+|SalaryStep |fromDate |Added |Yes |NA
+|SalaryStep |thruDate |Added |No |NA
+|SalaryStep |createdByUserLoginId |Added |No |NA
+|SalaryStep |lastModifiedByUserLogin |Added |No |NA
+|SalesOpportunity |nextStepDate |Added |No |NA
+|ServiceSemaphore |lockedByInstanceId |Added |No |NA
+|ShoppingListItem |modifiedPrice |Added |No |NA
+|SkillType |parentTypeId |Added |No |NA
+|SkillType |hasTable |Added |No |NA
+|SupplierProduct |shippingPrice |Added |No |NA
+|SupplierProduct |supplierCommissionPerc |Removed |No |NA
+|TaxAuthorityRateProduct |isTaxInShippingPrice |Added |No |NA
+|TerminationType |parentTypeId |Added |No |NA
+|TerminationType |hasTable |Added |No |NA
+|TestingNodeMember |extendFromDate |Added |No |NA
+|TestingNodeMember |extendThruDate |Added |No |NA
+|TimeEntry |planHour |Added |No |NA
+|Timesheet |approvedByUserLoginId |Added |No |NA
+|TrainingClassType |parentTypeId |Added |No |NA
+|TrainingClassType |hasTable |Added |No |NA
+|UnemploymentClaim |thruDate |Added |No |NA
+|UserLogin |externalAuthId |Added |No |NA
+|UserLogin |userLdapDn |Added |No |NA
+|UserLogin |disabledBy |Added |No |NA
+|ValueLinkKey |createdByUserLogin |Added |No |NA
+|WebSite |visualThemeSetId |Added |No |NA
+|WebSite |hostedPathAlias |Added |No |NA
+|WebSite |isDefault |Added |No |NA
+|WebSite |displayMaintenancePage |Added |No |NA
+|WebSitePathAlias |fromDate |Added |Yes |R1738588
+|WebSitePathAlias |thruDate |Added |No |R1738588
+|WorkEffort |tempExprId |Added |No |NA
+|WorkEffort |sequenceNum |Added |No |NA
+|WorkEffortAttribute |attrDescription |Added |No |NA
+|WorkEffortAssocAttribute |attrDescription |Added |No |NA
+|WorkEffortAssocTypeAttr |description |Added |No |NA
+|WorkEffortContactMech |fromDate |Added |Yes |NA
+|WorkEffortContactMech |thruDate |Added |No |NA
+|WorkEffortFixedAssetAssign |availabilityStatusId |Added |No |NA
+|WorkEffortPartyAssignment |assignedByUserLoginId |Added |No |NA
+|WorkEffortPurposeType |parentTypeId |Added |No |NA
+|WorkEffortStatus |reason |Added |No |NA
+|WorkEffortTypeAttr |description |Added |No |NA
+|WorkOrderItemFulfillment |shipGroupSeqId |Added |No |NA
+|=================================================================
