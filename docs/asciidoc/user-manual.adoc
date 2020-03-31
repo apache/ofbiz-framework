@@ -162,3 +162,5 @@ include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset
 include::../../applications/manufacturing/src/docs/asciidoc/manufacturing.adoc[leveloffset=+2]
 
 include::../../applications/marketing/src/docs/asciidoc/marketing.adoc[leveloffset=+2]
+
+include::../../applications/marketing/src/docs/asciidoc/sfa.adoc[leveloffset=+2]
