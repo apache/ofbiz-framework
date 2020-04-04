@@ -598,6 +598,19 @@ public final class UtilMisc {
         return LocaleHolder.availableLocaleList;
     }
 
+    /** List of domains or IP addresses to be checked to prevent Host Header Injection, 
+     * no spaces after commas,no wildcard, can be extended of course... 
+     * @return List of domains or IP addresses to be checked to prevent Host Header Injection,
+     */
+    public static List<String> getHostHeadersAllowed() {
+        String hostHeadersAllowedString = UtilProperties.getPropertyValue("security", "host-headers-allowed", "localhost");
+        List<String> hostHeadersAllowed = null;
+        if (UtilValidate.isNotEmpty(hostHeadersAllowedString)) {
+            hostHeadersAllowed = StringUtil.split(hostHeadersAllowedString, ",");
+        }
+        return Collections.unmodifiableList(hostHeadersAllowed);
+    }
+
     /** @deprecated use Thread.sleep() */
     @Deprecated
     public static void staticWait(long timeout) throws InterruptedException {
