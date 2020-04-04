@@ -139,7 +139,7 @@ public class CsrfUtil {
             // e.g. "/viewprofile?partyId=Company" to "/viewprofile"
             requestUri = requestUri.substring(0, requestUri.indexOf("?"));
         }
-        String controlServletPart = "/control/";
+        String controlServletPart = "/control/"; // TODO remove with OFBIZ-11229
         if (requestUri.contains(controlServletPart)) {
             // e.g. "/partymgr/control/viewprofile" to "viewprofile"
             requestUri = requestUri.substring(requestUri.indexOf(controlServletPart) + controlServletPart.length());
