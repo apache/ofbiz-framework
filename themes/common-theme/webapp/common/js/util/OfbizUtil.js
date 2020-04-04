@@ -25,6 +25,16 @@ var AJAX_REQUEST_TIMEOUT = 5000;
 
 // Add observers on DOM ready.
 $(document).ready(function() {
+    // add CSRF token to jQuery AJAX calls to the same domain
+    jQuery.ajaxPrefilter(function(options, _, jqXHR) {
+      var token;
+      if (!options.crossDomain) {
+        token = jQuery("meta[name='csrf-token']").attr("content")
+        if (token) {
+          return jqXHR.setRequestHeader("X-CSRF-Token", token);
+        }
+      }
+    });
     //initializing UI combobox dropdown by overriding its methods.
     ajaxAutoCompleteDropDown();
     // bindObservers will add observer on passed html section when DOM is ready.
@@ -1218,7 +1228,7 @@ function getJSONuiLabels(requiredLabels, callback) {
     }
 }
 /**
- * Read the requiered uiLabel from the uiLabelXml Resource
+ * Read the required uiLabel from the uiLabelXml Resource
  * @param uiResource String
  * @param errUiLabel String
  * @returns String with Label

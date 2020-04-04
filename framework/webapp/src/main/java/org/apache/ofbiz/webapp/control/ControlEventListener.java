@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -68,6 +69,8 @@ public class ControlEventListener implements HttpSessionListener {
 
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession session = event.getSession();
+
+        CsrfUtil.cleanupTokenMap(session);
 
         // Finalize the Visit
         boolean beganTransaction = false;

@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
@@ -1409,6 +1410,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         }
         String focusFieldName = modelForm.getFocusFieldName();
+
+        // Generate CSRF name & value for form
+        String csrfNameValue = CsrfUtil.tokenNameNonAjax + " " +CsrfUtil.generateTokenForNonAjax(request, targ);
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormOpen ");
         sr.append(" linkUrl=\"");
@@ -1439,7 +1444,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(Integer.toString(viewSize));
         sr.append("\" useRowSubmit=");
         sr.append(Boolean.toString(useRowSubmit));
-        sr.append(" />");
+        sr.append(" csrfNameValue=\"");
+        sr.append(csrfNameValue);
+        sr.append("\" />");
         executeMacro(writer, sr.toString());
     }
 
@@ -2362,6 +2369,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
             viewSizeParam = "VIEW_SIZE" + "_" + paginatorNumber;
         }
         String str = (String) context.get("_QBESTRING_");
+
+        // refresh any csrf token in the query string for pagination
+        String tokenValue = CsrfUtil.generateTokenForNonAjax(request, targetService);
+        str = CsrfUtil.addOrUpdateTokenInQueryString(str, tokenValue);
+
         // strip legacy viewIndex/viewSize params from the query string
         String queryString = UtilHttp.stripViewParamsFromQueryString(str, "" + paginatorNumber);
         // strip parameterized index/size params from the query string
