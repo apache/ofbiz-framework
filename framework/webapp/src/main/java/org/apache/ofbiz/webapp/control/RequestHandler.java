@@ -82,6 +82,7 @@ public class RequestHandler {
     private final URL controllerConfigURL;
     private final boolean trackServerHit;
     private final boolean trackVisit;
+    private final List hostHeadersAllowed;
     private ControllerConfig ccfg;
 
     static class ControllerConfig {
@@ -167,6 +168,9 @@ public class RequestHandler {
 
         this.trackServerHit = !"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"));
         this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
+        
+        hostHeadersAllowed = UtilMisc.getHostHeadersAllowed();
+
     }
 
     public ConfigXMLReader.ControllerConfig getControllerConfig() {
@@ -235,6 +239,11 @@ public class RequestHandler {
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
             GenericValue userLogin, Delegator delegator) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
 
+        if (!hostHeadersAllowed.contains(request.getServerName())) {
+            Debug.logError("Domain " + request.getServerName() + " not accepted to prevent host header injection ", module);
+            throw new RequestHandlerException("Domain " + request.getServerName() + " not accepted to prevent host header injection ");
+        }
+                
         final boolean throwRequestHandlerExceptionOnMissingLocalRequest = EntityUtilProperties.propertyValueEqualsIgnoreCase(
                 "requestHandler", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y", delegator);
         long startTime = System.currentTimeMillis();
