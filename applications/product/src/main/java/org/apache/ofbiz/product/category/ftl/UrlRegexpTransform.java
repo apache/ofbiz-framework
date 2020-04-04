@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -134,8 +135,16 @@ public class UrlRegexpTransform implements TemplateTransformModel {
                         }
 
                         RequestHandler rh = RequestHandler.from(request);
-                        String link = rh.makeLink(request, response, buf.toString(), fullPath, secure || request.isSecure() , encode, controlPath);
-                        out.write(seoUrl(link, userLogin == null));
+                        String seoUrl = seoUrl(rh.makeLink(request, response, buf.toString(), fullPath,
+                                secure || request.isSecure(), encode, controlPath), userLogin == null);
+                        String requestURI = buf.toString();
+
+                        // add / update csrf token to link when required
+                        String tokenValue = CsrfUtil.generateTokenForNonAjax(request,
+                                controlPath + (requestURI.startsWith("/") ? requestURI : "/"+requestURI));
+                        seoUrl = CsrfUtil.addOrUpdateTokenInUrl(seoUrl, tokenValue);
+
+                        out.write(seoUrl);
                     } else if (!webSiteId.isEmpty()) {
                         Delegator delegator = FreeMarkerWorker.unwrap(env.getVariable("delegator"));
                         if (delegator == null) {

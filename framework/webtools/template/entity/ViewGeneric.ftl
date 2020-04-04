@@ -38,6 +38,7 @@ function ShowTab(lname) {
 }
 </script>
 
+<#assign currentFindString = currentFindString?replace("&#x2f;", "/")!>
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
@@ -53,13 +54,13 @@ function ShowTab(lname) {
       <a href='<@ofbizUrl>entity/find/${entityName}</@ofbizUrl>' class="buttontext">${uiLabelMap.WebtoolsBackToFindScreen}</a>
       <#if enableEdit = "false">
         <#if hasCreatePermission>
-          <form action="<@ofbizUrl>entity/edit/${currentFindString}</@ofbizUrl>" method="get">
+          <form action="<@ofbizUrl>entity/edit/${currentFindString}</@ofbizUrl>" method="post">
             <input type="submit" value="${uiLabelMap.CommonEdit}" />
           </form>
         </#if>
         <#if value?has_content>
           <#if hasDeletePermission>
-            <form action='<@ofbizUrl>entity/change/${currentFindString}</@ofbizUrl>' method="delete" name="updateForm">
+            <form action='<@ofbizUrl>entity/change/${currentFindString}</@ofbizUrl>' method="post" name="updateForm">
               <input type="hidden" value="DELETE" name="_method"/>
               <#list pkNamesValuesMap.keySet() as pkName>
                 <input type="hidden" value="${pkNamesValuesMap.get(pkName)}" name="${pkName}"/>
