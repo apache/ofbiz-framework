@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -32,6 +33,7 @@ import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.product.category.CatalogUrlFilter;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
@@ -49,7 +51,6 @@ import freemarker.template.SimpleNumber;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
-import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
     public final static String module = CatalogUrlSeoTransform.class.getName();
@@ -127,6 +128,11 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                                 url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                             }
                         }
+
+                        // add / update csrf token to link when required
+                        String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "product");
+                        url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
+
                         // make the link
                         if (fullPath) {
                             try {

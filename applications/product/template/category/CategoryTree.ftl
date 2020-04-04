@@ -65,7 +65,7 @@ var rawdata = [
             "plugins" : [ "themes", "json_data","ui" ,"cookies", "types"],
             "json_data" : {
                 "data" : rawdata,
-                "ajax" : { "url" : "<@ofbizUrl>getChild</@ofbizUrl>",
+                "ajax" : { "url" : "getChild",
                            "type" : "POST",
                            "data" : function (n) {
                                         return {
