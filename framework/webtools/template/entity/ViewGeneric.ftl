@@ -38,7 +38,6 @@ function ShowTab(lname) {
 }
 </script>
 
-<#assign currentFindString = currentFindString?replace("&#x2f;", "/")!>
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>

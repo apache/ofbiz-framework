@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <h3>${uiLabelMap.WebtoolsCheckUpdateDatabase}</h3>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -61,7 +61,7 @@ under the License.
    }
 </script>
 <h3>${uiLabelMap.WebtoolsRemoveAllTables}</h3>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>" name="TablesRemoveForm">
+<form class="basic-form" class="basic-form" method="post" action="${encodeURLCheckDb}" name="TablesRemoveForm">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -80,7 +80,7 @@ under the License.
       </tbody>
    </table>
 </form>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>" name="TableRemoveForm">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}" name="TableRemoveForm">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -107,7 +107,7 @@ under the License.
    </table>
 </form>
 <h3>${uiLabelMap.WebtoolsCreateRemoveAllPrimaryKeys}</h3>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -125,7 +125,7 @@ under the License.
       </tbody>
    </table>
 </form>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -143,7 +143,7 @@ under the License.
    </table>
 </form>
 <h3>${uiLabelMap.WebtoolsCreateRemovePrimaryKey}</h3>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -168,7 +168,7 @@ under the License.
       </tbody>
    </table>
 </form>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -197,7 +197,7 @@ under the License.
    </table>
 </form>
 <h3>${uiLabelMap.WebtoolsCreateRemoveAllDeclaredIndices}</h3>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -214,7 +214,7 @@ under the License.
       </tbody>
    </table>
 </form>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -232,7 +232,7 @@ under the License.
    </table>
 </form>
 <h3>${uiLabelMap.WebtoolsCreateRemoveAllForeignKeyIndices}</h3>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -249,7 +249,7 @@ under the License.
       </tbody>
    </table>
 </form>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -268,7 +268,7 @@ under the License.
 </form>
 <h3>${uiLabelMap.WebtoolsCreateRemoveAllForeignKeys}</h3>
 <p>${uiLabelMap.WebtoolsNoteForeighKeysMayAlsoBeCreated}</p>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -285,7 +285,7 @@ under the License.
       </tbody>
    </table>
 </form>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>
@@ -303,7 +303,7 @@ under the License.
    </table>
 </form>
 <h3>${uiLabelMap.WebtoolsUpdateCharacterSetAndCollate}</h3>
-<form class="basic-form" method="post" action="<@ofbizUrl>${checkDbURL}</@ofbizUrl>">
+<form class="basic-form" method="post" action="${encodeURLCheckDb}">
    <table class="basic-table" cellspacing="0">
       <tbody>
          <tr>

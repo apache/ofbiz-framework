@@ -51,7 +51,6 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapContext;
 import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
 import org.apache.ofbiz.base.util.collections.MultivaluedMapContextAdapter;
-import org.apache.ofbiz.security.CsrfUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -466,7 +465,6 @@ public class ConfigXMLReader {
         public Event event;
         public boolean securityHttps = true;
         public boolean securityAuth = false;
-        public boolean securityCsrfToken = true;
         public boolean securityCert = false;
         public boolean securityExternalView = true;
         public boolean securityDirectRequest = true;
@@ -498,7 +496,6 @@ public class ConfigXMLReader {
                 this.securityCert = "true".equals(securityElement.getAttribute("cert"));
                 this.securityExternalView = !"false".equals(securityElement.getAttribute("external-view"));
                 this.securityDirectRequest = !"false".equals(securityElement.getAttribute("direct-request"));
-                this.securityCsrfToken = CsrfUtil.strategy.modifySecurityCsrfToken(this.uri, this.method, securityElement.getAttribute("csrf-token"));
             }
             // Check for event
             Element eventElement = UtilXml.firstChildElement(requestMapElement, "event");

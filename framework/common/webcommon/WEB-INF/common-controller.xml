@@ -75,7 +75,7 @@ under the License.
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="logout">
-        <security https="true" auth="true" csrf-token="false"/>
+        <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
         <response name="success" type="request-redirect" value="main"/>
         <response name="error" type="view" value="main"/>
@@ -317,7 +317,7 @@ under the License.
 
     <!-- Set TimeZone from user's browser -->
     <!-- XXX The auth setting is inconsistent with the one in the service for a good reason, see OFBIZ-10471 for an explanation -->
-    <request-map uri="SetTimeZoneFromBrowser" method="post">
+    <request-map uri="SetTimeZoneFromBrowser">
         <security https="false" auth="false"/>
         <event type="service" invoke="SetTimeZoneFromBrowser"/>
         <response name="success" type="request" value="json"/>

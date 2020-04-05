@@ -1,4 +1,3 @@
-
 <#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -55,9 +54,9 @@ under the License.
                 <div class="section-header">${uiLabelMap.WebtoolsEntityPackages}</div>
                 <#list packageNames as packageName>
                     <#if forstatic>
-                        <a href="<@ofbizUrl>view/entityref_main?forstatic=true</@ofbizUrl>#${packageName}" target="entityFrame">${packageName}</a><br />
+                        <a href="<@ofbizUrl>view/entityref_main?forstatic=true#${packageName}</@ofbizUrl>" target="entityFrame">${packageName}</a><br />
                     <#else>
-                        <a href="<@ofbizUrl>view/entityref_main</@ofbizUrl>#${packageName}" target="entityFrame">${packageName}</a><br />
+                        <a href="<@ofbizUrl>view/entityref_main#${packageName}</@ofbizUrl>" target="entityFrame">${packageName}</a><br />
                     </#if>
                 </#list>
             </#if>
@@ -66,9 +65,9 @@ under the License.
                 <div class="section-header">${uiLabelMap.WebtoolsEntitiesAlpha}</div>
                 <#list entitiesList as entity>
                     <#if forstatic>
-                        <a href="<@ofbizUrl>view/entityref_main?forstatic=true</@ofbizUrl>#${entity.entityName}" target="entityFrame">${entity.entityName}</a>
+                        <a href="<@ofbizUrl>view/entityref_main?forstatic=true#${entity.entityName}</@ofbizUrl>" target="entityFrame">${entity.entityName}</a>
                     <#else>
-                        <a href="<@ofbizUrl>view/entityref_main</@ofbizUrl>#${entity.entityName}${entity.url!}" target="entityFrame">${entity.entityName}</a>
+                        <a href="<@ofbizUrl>view/entityref_main#${entity.entityName}${entity.url!}</@ofbizUrl>" target="entityFrame">${entity.entityName}</a>
                     </#if>
                     <br />
                 </#list>

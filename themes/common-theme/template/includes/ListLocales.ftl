@@ -36,7 +36,7 @@ under the License.
       </#if>
       <tr <#if altRow>class="alternate-row"</#if>>
         <td lang="${langAttr}" dir="${langDir}">
-          <a href="<@ofbizUrl>setSessionLocale?newLocale=${availableLocale.toString()}</@ofbizUrl>">
+          <a href="<@ofbizUrl>setSessionLocale</@ofbizUrl>?newLocale=${availableLocale.toString()}">
               ${availableLocale.getDisplayName(availableLocale)}
               &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; [${langAttr}]</a>
         </td>
