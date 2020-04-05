@@ -54,7 +54,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class IterateSectionWidget extends ModelScreenWidget {
 
-    public static final String module = IterateSectionWidget.class.getName();
+    public static final String MODULE = IterateSectionWidget.class.getName();
     public static final int DEFAULT_PAGE_SIZE = 5;
     public static final int MAX_PAGE_SIZE = 10000;
 
@@ -125,7 +125,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         String keyName = this.keyNameExdr.expandString(context);
         Object obj = listNameExdr.get(context);
         if (obj == null) {
-            Debug.logError("No object found for listName:" + listNameExdr.toString(), module);
+            Debug.logError("No object found for listName:" + listNameExdr.toString(), MODULE);
             return;
         }
         List<?> theList = null;
@@ -137,7 +137,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         } else if (obj instanceof List<?>) {
             theList = (List<?>)obj;
         } else {
-            Debug.logError("Object not list or map type", module);
+            Debug.logError("Object not list or map type", MODULE);
             return;
         }
         listSize = theList.size();
@@ -214,7 +214,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
                     globalCtx.put("PAGINATOR_NUMBER", lastPageNumber);
                 }
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new RuntimeException(e.getMessage());
             }
         }
@@ -259,7 +259,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
 
         if (UtilValidate.isEmpty(targetService)) {
-            Debug.logWarning("TargetService is empty.", module);
+            Debug.logWarning("TargetService is empty.", MODULE);
             return;
         }
 

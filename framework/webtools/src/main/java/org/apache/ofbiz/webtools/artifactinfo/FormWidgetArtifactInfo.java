@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class FormWidgetArtifactInfo extends ArtifactInfoBase {
-    public static final String module = FormWidgetArtifactInfo.class.getName();
+    public static final String MODULE = FormWidgetArtifactInfo.class.getName();
 
     protected ModelForm modelForm;
 
@@ -101,7 +101,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             try {
                 aif.getModelForm(formName);
             } catch (Exception e) {
-                Debug.logWarning("Form [" + formName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
+                Debug.logWarning("Form [" + formName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", MODULE);
                 return;
             }
 
@@ -118,7 +118,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 continue;
             }
             if (!aif.getEntityModelReader().getEntityNames().contains(entityName)) {
-                Debug.logWarning("Entity [" + entityName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
+                Debug.logWarning("Entity [" + entityName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", MODULE);
                 continue;
             }
 
@@ -136,7 +136,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             try {
                 aif.getModelService(serviceName);
             } catch (GeneralException e) {
-                Debug.logWarning("Service [" + serviceName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
+                Debug.logWarning("Service [" + serviceName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", MODULE);
                 continue;
             }
 

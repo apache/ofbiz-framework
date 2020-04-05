@@ -47,7 +47,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public final class ProductConfigWorker {
 
-    public static final String module = ProductConfigWorker.class.getName();
+    public static final String MODULE = ProductConfigWorker.class.getName();
     private static final String SEPARATOR = "::";    // cache key separator
 
     private ProductConfigWorker () {}
@@ -78,7 +78,7 @@ public final class ProductConfigWorker {
                 configWrapper = new ProductConfigWrapper(configWrapper);
             }
         } catch (Exception e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             configWrapper = null;
         }
         return configWrapper;
@@ -108,7 +108,7 @@ public final class ProductConfigWorker {
                             try {
                                 configWrapper.setSelected(k, i, comments);
                             } catch (Exception e) {
-                                Debug.logWarning(e.getMessage(), module);
+                                Debug.logWarning(e.getMessage(), MODULE);
                             }
                         }
                         i++;
@@ -141,7 +141,7 @@ public final class ProductConfigWorker {
                                 String productParamName = "add_product_id" + k + "_" + cnt + "_" + variantIndex;
                                 String selectedProductId = (String) combinedMap.get(productParamName);
                                 if (UtilValidate.isEmpty(selectedProductId)) {
-                                    Debug.logWarning("ERROR: Request param [" + productParamName + "] not found!", module);
+                                    Debug.logWarning("ERROR: Request param [" + productParamName + "] not found!", MODULE);
                                 } else {
 
                                     //  handle also feature tree virtual variant methods
@@ -158,14 +158,14 @@ public final class ProductConfigWorker {
 
                                             // check if features are selected
                                             if (UtilValidate.isEmpty(selectedFeatures)) {
-                                                Debug.logWarning("ERROR: No features selected for productId [" + selectedProductId+ "]", module);
+                                                Debug.logWarning("ERROR: No features selected for productId [" + selectedProductId+ "]", MODULE);
                                             }
 
                                             String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProductId, selectedFeatures, (Delegator)request.getAttribute("delegator"));
                                             if (UtilValidate.isNotEmpty(variantProductId)) {
                                                 selectedProductId = variantProductId;
                                             } else {
-                                                Debug.logWarning("ERROR: Variant product not found!", module);
+                                                Debug.logWarning("ERROR: Variant product not found!", MODULE);
                                                 request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "cart.addToCart.incompatibilityVariantFeature", UtilHttp.getLocale(request)));
                                            }
                                         }
@@ -177,7 +177,7 @@ public final class ProductConfigWorker {
                         }
                     }
                 } catch (Exception e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
         }
@@ -232,7 +232,7 @@ public final class ProductConfigWorker {
                     }
 
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
 
             }
@@ -296,19 +296,19 @@ public final class ProductConfigWorker {
 
                                 if (match && (UtilValidate.isEmpty(configOptionProductOptions))) {
                                     configWrapper.configId = tempConfigId;
-                                    Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  module);
+                                    Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  MODULE);
                                     return;
                                 }
                             }
 
                         } else {
                             configWrapper.configId = tempConfigId;
-                            Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  module);
+                            Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  MODULE);
                             return;
                         }
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
 
             }
@@ -372,7 +372,7 @@ public final class ProductConfigWorker {
                         delegator.storeAll(toBeStored);
                     } catch (GenericEntityException e) {
                         configId = null;
-                        Debug.logWarning(e.getMessage(), module);
+                        Debug.logWarning(e.getMessage(), MODULE);
                     }
                 }
             }
@@ -380,7 +380,7 @@ public final class ProductConfigWorker {
 
         //save  configId to configWrapper, so we can use it in shopping cart operations
         configWrapper.configId = configId;
-        Debug.logInfo("New configId created:"+ configId,  module);
+        Debug.logInfo("New configId created:"+ configId,  MODULE);
         return;
     }
 
@@ -407,7 +407,7 @@ public final class ProductConfigWorker {
                 configWrapper.loadConfig(delegator, configId);
             }
         } catch (Exception e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             configWrapper = null;
         }
         return configWrapper;

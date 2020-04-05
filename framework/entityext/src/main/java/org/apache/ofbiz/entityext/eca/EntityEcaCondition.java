@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class EntityEcaCondition implements java.io.Serializable {
 
-    public static final String module = EntityEcaCondition.class.getName();
+    public static final String MODULE = EntityEcaCondition.class.getName();
 
     protected String lhsValueName = null;
     protected String rhsValueName = null;
@@ -76,7 +76,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
             throw new GenericEntityException("Cannot have null Value or DispatchContext!");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose(this.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose(this.toString(), MODULE);
 
         // condition-service; run the service and return the reply result
         if (isService) {
@@ -88,7 +88,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
                 Boolean conditionReply = Boolean.FALSE;
                 if (ServiceUtil.isError(conditionServiceResult)) {
                     Debug.logError("Error in condition-service : " +
-                            ServiceUtil.getErrorMessage(conditionServiceResult), module);
+                            ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
                 } else {
                     conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
                 }
@@ -107,7 +107,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
             rhsValue = value.get(rhsValueName);
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
 
         // evaluate the condition & invoke the action(s)
         List<Object> messages = new LinkedList<>();
@@ -116,7 +116,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
         // if any messages were returned send them out
         if (messages.size() > 0) {
             for (Object message: messages) {
-                Debug.logWarning((String) message, module);
+                Debug.logWarning((String) message, MODULE);
             }
         }
         return cond;

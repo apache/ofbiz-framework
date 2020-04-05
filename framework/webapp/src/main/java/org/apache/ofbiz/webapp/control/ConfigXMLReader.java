@@ -63,7 +63,7 @@ import org.w3c.dom.Element;
  */
 public class ConfigXMLReader {
 
-    public static final String module = ConfigXMLReader.class.getName();
+    public static final String MODULE = ConfigXMLReader.class.getName();
     public static final Path controllerXmlFileName = Paths.get("WEB-INF", "controller.xml");
     private static final UtilCache<URL, ControllerConfig> controllerCache = UtilCache.createUtilCache("webapp.ControllerConfig");
     private static final UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = UtilCache.createUtilCache("webapp.ControllerSearchResults");
@@ -102,7 +102,7 @@ public class ConfigXMLReader {
                 if (cc.requestMapMap.get(requestUri) != null) {
                     String requestUniqueId = cc.url.toExternalForm() + "#" + requestUri;
                     allControllerRequestSet.add(requestUniqueId);
-                    // Debug.logInfo("========== In findControllerFilesWithRequest found controller with request here [" + requestUniqueId + "]", module);
+                    // Debug.logInfo("========== In findControllerFilesWithRequest found controller with request here [" + requestUniqueId + "]", MODULE);
                 }
             }
         }
@@ -123,7 +123,7 @@ public class ConfigXMLReader {
             // look through all controller.xml files and find those with the request-uri referred to by the target
             String requestUri = UtilHttp.getRequestUriFromTarget(target);
             Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, null);
-            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
+            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, MODULE);
             return controllerLocAndRequestSet;
         } else if ("inter-app".equals(urlMode)) {
             String webappMountPoint = UtilHttp.getWebappMountPointFromTarget(target);
@@ -132,7 +132,7 @@ public class ConfigXMLReader {
             String requestUri = UtilHttp.getRequestUriFromTarget(target);
 
             Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, webappMountPoint);
-            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
+            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, MODULE);
             return controllerLocAndRequestSet;
         } else {
             return new HashSet<>();
@@ -158,7 +158,7 @@ public class ConfigXMLReader {
         try {
             return context.getResource("/" + controllerXmlFileName);
         } catch (MalformedURLException e) {
-            Debug.logError(e, "Error Finding XML Config File: " + controllerXmlFileName, module);
+            Debug.logError(e, "Error Finding XML Config File: " + controllerXmlFileName, MODULE);
             return null;
         }
     }
@@ -173,11 +173,11 @@ public class ConfigXMLReader {
                 rootElement = UtilXml.firstChildElement(rootElement, "site-conf");
             }
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Loaded XML Config - " + location, module);
+                 Debug.logVerbose("Loaded XML Config - " + location, MODULE);
             }
             return rootElement;
         } catch (Exception e) {
-            Debug.logError("When read " + (location != null? location.toString(): "empty location (!)") + " threw " + e.toString(), module);
+            Debug.logError("When read " + (location != null? location.toString(): "empty location (!)") + " threw " + e.toString(), MODULE);
             throw new WebAppConfigurationException(e);
         }
     }
@@ -217,7 +217,7 @@ public class ConfigXMLReader {
                 if (Debug.infoOn()) {
                     double totalSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
                     String locString = this.url.toExternalForm();
-                    Debug.logInfo("controller loaded: " + totalSeconds + "s, " + this.requestMapMap.size() + " requests, " + this.viewMapMap.size() + " views in " + locString, module);
+                    Debug.logInfo("controller loaded: " + totalSeconds + "s, " + this.requestMapMap.size() + " requests, " + this.viewMapMap.size() + " views in " + locString, MODULE);
                 }
             }
         }
@@ -387,7 +387,7 @@ public class ConfigXMLReader {
                         ControllerConfig includedController = getControllerConfig(urlLocation);
                         includes.add(includedController);
                     } catch (MalformedURLException mue) {
-                        Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
+                        Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), MODULE);
                     }
                 }
             }

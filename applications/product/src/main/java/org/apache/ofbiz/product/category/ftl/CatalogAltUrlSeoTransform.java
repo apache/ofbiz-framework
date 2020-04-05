@@ -52,7 +52,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
-    public final static String module = CatalogUrlSeoTransform.class.getName();
+    public final static String MODULE = CatalogUrlSeoTransform.class.getName();
 
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
@@ -141,7 +141,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                                 OfbizUrlBuilder builder = OfbizUrlBuilder.from(request);
                                 builder.buildHostPart(newURL, "", secure);
                             } catch (WebAppConfigurationException e) {
-                                Debug.logError(e.getMessage(), module);
+                                Debug.logError(e.getMessage(), MODULE);
                             }
                         }
                         newURL.append(url);

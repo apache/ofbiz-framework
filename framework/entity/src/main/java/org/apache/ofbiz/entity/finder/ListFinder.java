@@ -55,7 +55,7 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("serial")
 public abstract class ListFinder extends Finder {
-    public static final String module = ListFinder.class.getName();
+    public static final String MODULE = ListFinder.class.getName();
 
     protected String label;
 
@@ -145,7 +145,7 @@ public abstract class ListFinder extends Finder {
         if (useCache) {
             // if useCache == true && outputHandler instanceof UseIterator, throw exception; not a valid combination
             if (outputHandler instanceof UseIterator) {
-                Debug.logWarning("In find entity by " + label + " cannot have use-cache set to true " + label + " select use-iterator for the output type. Using cache and ignoring use-iterator setting.", module);
+                Debug.logWarning("In find entity by " + label + " cannot have use-cache set to true " + label + " select use-iterator for the output type. Using cache and ignoring use-iterator setting.", MODULE);
                 outputHandler = new GetAll();
             }
             if (distinct) {
@@ -189,7 +189,7 @@ public abstract class ListFinder extends Finder {
                 boolean useTransaction = true;
                 if (this.outputHandler instanceof UseIterator && !TransactionUtil.isTransactionInPlace()) {
                     Exception newE = new Exception("Stack Trace");
-                    Debug.logError(newE, "ERROR: Cannot do a by " + label + " find that returns an EntityListIterator with no transaction in place. Wrap this call in a transaction.", module);
+                    Debug.logError(newE, "ERROR: Cannot do a by " + label + " find that returns an EntityListIterator with no transaction in place. Wrap this call in a transaction.", MODULE);
                     useTransaction = false;
                 }
 
@@ -217,12 +217,12 @@ public abstract class ListFinder extends Finder {
                     // NOTE: the eli EntityListIterator is not closed here. It SHOULD be closed later after the returned list will be used (eg see EntityAnd.getChildren() in ModelTree.java)
                 } catch (GenericEntityException e) {
                     String errMsg = "Failure in by " + label + " find operation, rolling back transaction";
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     try {
                         // only rollback the transaction if we started one...
                         TransactionUtil.rollback(beganTransaction, errMsg, e);
                     } catch (GenericEntityException e2) {
-                        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+                        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), MODULE);
                     }
                     // after rolling back, rethrow the exception
                     throw e;
@@ -233,7 +233,7 @@ public abstract class ListFinder extends Finder {
             }
         } catch (GenericEntityException e) {
             String errMsg = "Error doing find by " + label + ": " + e.toString();
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new GeneralException(errMsg, e);
         }
     }

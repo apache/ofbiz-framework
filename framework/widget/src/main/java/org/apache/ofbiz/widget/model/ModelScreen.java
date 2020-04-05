@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelScreen extends ModelWidget {
 
-    public static final String module = ModelScreen.class.getName();
+    public static final String MODULE = ModelScreen.class.getName();
 
     private final String sourceLocation;
     private final FlexibleStringExpander transactionTimeoutExdr;
@@ -136,15 +136,15 @@ public class ModelScreen extends ModelWidget {
             throw e;
         } catch (Exception e) {
             String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + getName() + "]: " + e.toString();
-            Debug.logError(errMsg + ". Rolling back transaction.", module);
+            Debug.logError(errMsg + ". Rolling back transaction.", MODULE);
             try {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, errMsg, e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), MODULE);
             }
 
-            // throw nested exception, don't need to log details here: Debug.logError(e, errMsg, module);
+            // throw nested exception, don't need to log details here: Debug.logError(e, errMsg, MODULE);
 
             // after rolling back, rethrow the exception
             throw new ScreenRenderException(errMsg, e);
@@ -180,7 +180,7 @@ public class ModelScreen extends ModelWidget {
                     transactionTimeout = Integer.parseInt(transactionTimeoutPar);
                 } catch (NumberFormatException nfe) {
                     String msg = "TRANSACTION_TIMEOUT parameter for screen [" + this.sourceLocation + "#" + getName() + "] is invalid and it will be ignored: " + nfe.toString();
-                    Debug.logWarning(msg, module);
+                    Debug.logWarning(msg, MODULE);
                 }
             }
         }
@@ -192,7 +192,7 @@ public class ModelScreen extends ModelWidget {
                 try {
                     transactionTimeout = Integer.parseInt(transactionTimeoutStr);
                 } catch (NumberFormatException e) {
-                    Debug.logWarning(e, "Could not parse transaction-timeout value, original=[" + transactionTimeoutExdr + "], expanded=[" + transactionTimeoutStr + "]", module);
+                    Debug.logWarning(e, "Could not parse transaction-timeout value, original=[" + transactionTimeoutExdr + "], expanded=[" + transactionTimeoutStr + "]", MODULE);
                 }
             }
         }

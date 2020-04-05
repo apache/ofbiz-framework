@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
  */
 public class RegexpCondition extends MethodOperation implements Conditional {
 
-    public static final String module = RegexpCondition.class.getName();
+    public static final String MODULE = RegexpCondition.class.getName();
 
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleStringExpander exprFse;
@@ -96,16 +96,16 @@ public class RegexpCondition extends MethodOperation implements Conditional {
         try {
             pattern = PatternFactory.createOrGetPerl5CompiledPattern(regExp, true);
         } catch (MalformedPatternException e) {
-            Debug.logError(e, "Regular Expression [" + regExp + "] is mal-formed: " + e.toString(), module);
+            Debug.logError(e, "Regular Expression [" + regExp + "] is mal-formed: " + e.toString(), MODULE);
             throw new MiniLangRuntimeException(e, this);
         }
 
         PatternMatcher matcher = new Perl5Matcher();
         if (matcher.matches((String) fieldVal, pattern)) {
-            //Debug.logInfo("The string [" + fieldVal + "] matched the pattern expr [" + pattern.getPattern() + "]", module);
+            //Debug.logInfo("The string [" + fieldVal + "] matched the pattern expr [" + pattern.getPattern() + "]", MODULE);
             return true;
         } else {
-            //Debug.logInfo("The string [" + fieldVal + "] did NOT match the pattern expr [" + pattern.getPattern() + "]", module);
+            //Debug.logInfo("The string [" + fieldVal + "] did NOT match the pattern expr [" + pattern.getPattern() + "]", MODULE);
             return false;
         }
     }

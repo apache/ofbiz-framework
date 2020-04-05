@@ -52,7 +52,7 @@ import org.w3c.dom.Node;
 @SuppressWarnings("serial")
 public class ModelGroupReader implements Serializable {
 
-    public static final String module = ModelGroupReader.class.getName();
+    public static final String MODULE = ModelGroupReader.class.getName();
     private static final UtilCache<String, ModelGroupReader> readers = UtilCache.createUtilCache("entity.ModelGroupReader", 0, 0);
 
     private volatile Map<String, String> groupCache = null;
@@ -118,7 +118,7 @@ public class ModelGroupReader implements Serializable {
                         try {
                             document = entityGroupResourceHandler.getDocument();
                         } catch (GenericConfigException e) {
-                            Debug.logError(e, "Error loading entity group model", module);
+                            Debug.logError(e, "Error loading entity group model", MODULE);
                         }
                         if (document == null) {
                             this.groupCache = null;
@@ -143,10 +143,10 @@ public class ModelGroupReader implements Serializable {
 
                                     try {
                                         if (null == EntityConfig.getInstance().getDelegator(delegatorName).getGroupDataSource(groupName)) {
-                                            Debug.logError("The declared group name " + groupName + " has no corresponding group-map in entityengine.xml: ", module);
+                                            Debug.logError("The declared group name " + groupName + " has no corresponding group-map in entityengine.xml: ", MODULE);
                                         }
                                     } catch (GenericEntityConfException e) {
-                                        Debug.logWarning(e, "Exception thrown while getting group name: ", module);
+                                        Debug.logWarning(e, "Exception thrown while getting group name: ", MODULE);
                                     }
                                     this.groupNames.add(groupName);
                                     this.groupCache.put(entityName, groupName);
@@ -155,7 +155,7 @@ public class ModelGroupReader implements Serializable {
                                 }
                             } while ((curChild = curChild.getNextSibling()) != null);
                         } else {
-                            Debug.logWarning("[ModelGroupReader.getGroupCache] No child nodes found.", module);
+                            Debug.logWarning("[ModelGroupReader.getGroupCache] No child nodes found.", MODULE);
                         }
                     }
                     utilTimer.timerString("[ModelGroupReader.getGroupCache] FINISHED - Total Entity-Groups: " + i + " FINISHED");
@@ -179,7 +179,7 @@ public class ModelGroupReader implements Serializable {
                 try {
                     delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorBaseName);
                 } catch (GenericEntityConfException e) {
-                    Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
+                    Debug.logWarning(e, "Exception thrown while getting delegator config: ", MODULE);
                 }
                 if (delegatorInfo == null) {
                     throw new RuntimeException("Could not find DelegatorInfo for delegatorBaseName [" + delegatorBaseName + "]");
@@ -205,7 +205,7 @@ public class ModelGroupReader implements Serializable {
         try {
             newSet.add(EntityConfig.getInstance().getDelegator(delegatorBaseName).getDefaultGroupName());
         } catch (GenericEntityConfException e) {
-            Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
+            Debug.logWarning(e, "Exception thrown while getting delegator config: ", MODULE);
         }
         newSet.addAll(this.groupNames);
         return newSet;

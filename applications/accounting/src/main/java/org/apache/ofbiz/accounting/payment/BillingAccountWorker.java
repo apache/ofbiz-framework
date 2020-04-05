@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class BillingAccountWorker {
 
-    public static final String module = BillingAccountWorker.class.getName();
+    public static final String MODULE = BillingAccountWorker.class.getName();
     public static final String resourceError = "AccountingUiLabels";
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
     public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
@@ -126,7 +126,7 @@ public class BillingAccountWorker {
             BigDecimal availableBalance = accountLimit.subtract(OrderReadHelper.getBillingAccountBalance(billingAccount)).setScale(decimals, rounding);
             return availableBalance;
         }
-        Debug.logWarning("Available balance requested for null billing account, returning zero", module);
+        Debug.logWarning("Available balance requested for null billing account, returning zero", MODULE);
         return ZERO;
     }
 
@@ -200,7 +200,7 @@ public class BillingAccountWorker {
 
             return result;
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingBillingAccountNotFound",
                     UtilMisc.toMap("billingAccountId", billingAccountId), locale));

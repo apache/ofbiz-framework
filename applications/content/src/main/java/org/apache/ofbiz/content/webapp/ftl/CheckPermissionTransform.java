@@ -51,7 +51,7 @@ import freemarker.template.TransformControl;
  */
 public class CheckPermissionTransform implements TemplateTransformModel {
 
-    public static final String module = CheckPermissionTransform.class.getName();
+    public static final String MODULE = CheckPermissionTransform.class.getName();
 
     static final String [] saveKeyNames = {"globalNodeTrail", "nodeTrail", "mode", "purposeTypeId", "statusId", "entityOperation", "targetOperation" };
     public static final String [] removeKeyNames = {};

@@ -31,7 +31,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public final class ImportProductHelper {
 
-    public static final String module = ImportProductHelper.class.getName();
+    public static final String MODULE = ImportProductHelper.class.getName();
     private ImportProductHelper() {}
 
     // prepare the product map
@@ -71,7 +71,7 @@ public final class ImportProductHelper {
                 productExists = true;
             }
         } catch (GenericEntityException e) {
-            Debug.logError("Problem in reading data of product", module);
+            Debug.logError("Problem in reading data of product", MODULE);
         }
         return productExists;
     }

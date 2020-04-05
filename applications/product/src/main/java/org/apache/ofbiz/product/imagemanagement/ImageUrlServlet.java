@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 @SuppressWarnings("serial")
 public class ImageUrlServlet extends HttpServlet {
 
-    public static final String module = ImageUrlServlet.class.getName();
+    public static final String MODULE = ImageUrlServlet.class.getName();
 
     public ImageUrlServlet() {
         super();
@@ -86,7 +86,7 @@ public class ImageUrlServlet extends HttpServlet {
                 content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (content != null) {
@@ -94,7 +94,7 @@ public class ImageUrlServlet extends HttpServlet {
             try {
                 dataResource = content.getRelatedOne("DataResource", false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             String imageUrl = dataResource.getString("objectInfo");
             RequestDispatcher rd = request.getRequestDispatcher("/control/viewImage?drObjectInfo=" + imageUrl);

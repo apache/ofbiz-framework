@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 /** TemporalExpression persistence worker. */
 public final class TemporalExpressionWorker {
 
-    public final static String module = TemporalExpressionWorker.class.getName();
+    public final static String MODULE = TemporalExpressionWorker.class.getName();
 
     // Temporal expression type constants
     private final static String DateRange = "DATE_RANGE";
@@ -74,7 +74,7 @@ public final class TemporalExpressionWorker {
         TemporalExpression result = makeTemporalExpression(delegator, exprValue);
         if (Debug.verboseOn()) {
             TemporalExpressionPrinter printer = new TemporalExpressionPrinter(result);
-            Debug.logVerbose(printer.toString(), module);
+            Debug.logVerbose(printer.toString(), MODULE);
         }
         return result;
     }

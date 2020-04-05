@@ -56,7 +56,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ShipmentServices {
 
-    public static final String module = ShipmentServices.class.getName();
+    public static final String MODULE = ShipmentServices.class.getName();
 
     public static final String resource = "ProductUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
@@ -150,7 +150,7 @@ public class ShipmentServices {
             estimate = EntityQuery.use(delegator).from("ShipmentCostEstimate").where("shipmentCostEstimateId", shipmentCostEstimateId).queryOne();
             estimate.remove();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "ProductShipmentCostEstimateRemoveError", 
                     UtilMisc.toMap("errorString", e.toString()), locale));
@@ -179,7 +179,7 @@ public class ShipmentServices {
                         }
                         storeAll.add(0, weightBreak);
                     } catch (Exception e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
                 else {
@@ -250,13 +250,13 @@ public class ShipmentServices {
                             .cache(true)
                             .queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "ProductShipmentCostEstimateCannotRetrieve", locale));
         }
         if (estimates == null || estimates.size() < 1) {
             if (initialEstimateAmt.compareTo(BigDecimal.ZERO) == 0) {
-                Debug.logWarning("No shipping estimates found; the shipping amount returned is 0! Condition used was: " + estFieldsCond + "; Using the passed context: " + context, module);
+                Debug.logWarning("No shipping estimates found; the shipping amount returned is 0! Condition used was: " + estFieldsCond + "; Using the passed context: " + context, MODULE);
             }
 
             Map<String, Object> respNow = ServiceUtil.returnSuccess();
@@ -270,7 +270,7 @@ public class ShipmentServices {
             try {
                 shipAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", shippingContactMechId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductShipmentCostEstimateCannotGetShippingAddress", locale));
             }
@@ -285,7 +285,7 @@ public class ShipmentServices {
                     countryGeoId = countryGeo.getString("geoId");
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             shipAddress = delegator.makeValue("PostalAddress");
             shipAddress.set("countryGeoId", countryGeoId);
@@ -358,7 +358,7 @@ public class ShipmentServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, e.getLocalizedMessage(), module);
+                Debug.logError(e, e.getLocalizedMessage(), MODULE);
             }
         }
 
@@ -517,7 +517,7 @@ public class ShipmentServices {
                             .filterByDate()
                             .queryFirst();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to lookup feature/group" + fields, module);
+                    Debug.logError(e, "Unable to lookup feature/group" + fields, MODULE);
                 }
                 if (appl != null) {
                     featureSurcharge = featureSurcharge.add(shippableTotal.multiply(featurePercent.movePointLeft(2)).multiply(quantity));
@@ -569,7 +569,7 @@ public class ShipmentServices {
             try {
                 shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -584,7 +584,7 @@ public class ShipmentServices {
             try {
                 address = shipment.getRelatedOne("DestinationPostalAddress", false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (address == null) {
@@ -596,7 +596,7 @@ public class ShipmentServices {
             try {
                 packages = shipment.getRelated("ShipmentPackage", null, null, false) ;
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
 
@@ -609,7 +609,7 @@ public class ShipmentServices {
             try {
                 routeSegs = shipment.getRelated("ShipmentRouteSegment", null, null, false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
             GenericValue routeSeg = EntityUtil.getFirst(routeSegs);
@@ -652,11 +652,11 @@ public class ShipmentServices {
             try {
                 delegator.storeAll(toStore);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         } else {
-            Debug.logWarning("Shipment #" + shipmentId + " is not available for shipment; not setting in staging tables.", module);
+            Debug.logWarning("Shipment #" + shipmentId + " is not available for shipment; not setting in staging tables.", MODULE);
         }
 
         return ServiceUtil.returnSuccess();
@@ -692,7 +692,7 @@ public class ShipmentServices {
                             try {
                                 delegator.create(rtSeg);
                             } catch (GenericEntityException e) {
-                                Debug.logError(e, module);
+                                Debug.logError(e, MODULE);
                                 return ServiceUtil.returnError(e.getMessage());
                             }
                         }
@@ -734,7 +734,7 @@ public class ShipmentServices {
                         try {
                             delegator.create(pkgRtSeg);
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                             return ServiceUtil.returnError(e.getMessage());
                         }
                     }
@@ -747,7 +747,7 @@ public class ShipmentServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -767,7 +767,7 @@ public class ShipmentServices {
             try {
                 shipResp = dispatcher.runSync("updateShipment", shipCtx);
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (ServiceUtil.isError(shipResp)) {
@@ -779,7 +779,7 @@ public class ShipmentServices {
             try {
                 clearResp = dispatcher.runSync("clearShipmentStaging", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "userLogin", userLogin));
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (ServiceUtil.isError(clearResp)) {
@@ -798,7 +798,7 @@ public class ShipmentServices {
             delegator.removeByAnd("OdbcPackageOut", UtilMisc.toMap("shipmentId", shipmentId));
             delegator.removeByAnd("OdbcShipmentOut", UtilMisc.toMap("shipmentId", shipmentId));
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         return ServiceUtil.returnSuccess();
@@ -864,10 +864,10 @@ public class ShipmentServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         } catch (GenericServiceException se) {
-            Debug.logError(se, module);
+            Debug.logError(se, MODULE);
             return ServiceUtil.returnError(se.getMessage());
         }
         return ServiceUtil.returnSuccess();
@@ -935,7 +935,7 @@ public class ShipmentServices {
                     .queryOne();
             carrierPartyId = shipmentRouteSegment.getString("carrierPartyId");
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -948,10 +948,10 @@ public class ShipmentServices {
             if ("DHL".equals(carrierPartyId)) {
                 dispatcher.runAsync("dhlShipmentConfirm", input);
             } else {
-                Debug.logError(carrierPartyId + " is not supported at this time.  Sorry.", module);
+                Debug.logError(carrierPartyId + " is not supported at this time.  Sorry.", MODULE);
             }
         } catch (GenericServiceException se) {
-            Debug.logError(se, se.getMessage(), module);
+            Debug.logError(se, se.getMessage(), MODULE);
         }
 
         // don't return an error
@@ -985,14 +985,14 @@ public class ShipmentServices {
             shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             if (UtilValidate.isEmpty(shipment)) {
                 String errorMessage = UtilProperties.getMessage(resource, "ProductShipmentNotFoundId", locale);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(errorMessage);
             }
 
             shipmentPackage = EntityQuery.use(delegator).from("ShipmentPackage").where("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId).queryOne();
             if (UtilValidate.isEmpty(shipmentPackage)) {
                 String errorMessage = UtilProperties.getMessage(resource, "ProductShipmentPackageNotFound", context, locale);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(errorMessage);
             }
 
@@ -1031,10 +1031,10 @@ public class ShipmentServices {
             }
 
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -1059,13 +1059,13 @@ public class ShipmentServices {
             shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", shipment.getString("primaryOrderId")).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting info from database", module);
+            Debug.logError(e, "Problem getting info from database", MODULE);
         }
         GenericValue productStoreEmail = null;
         try {
             productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", orderHeader.get("productStoreId"), "emailType", "PRDS_ODR_SHIP_COMPLT").queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId =" + orderHeader.get("productStoreId") + " and emailType = PRDS_ODR_SHIP_COMPLT", module);
+            Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId =" + orderHeader.get("productStoreId") + " and emailType = PRDS_ODR_SHIP_COMPLT", MODULE);
         }
         if (productStoreEmail == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, 
@@ -1119,10 +1119,10 @@ public class ShipmentServices {
         try {
             sendResp = dispatcher.runSync("sendMailFromScreen", sendMap);
         } catch (GenericServiceException gse) {
-            Debug.logError(gse, "Problem sending mail", module);
+            Debug.logError(gse, "Problem sending mail", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderProblemSendingEmail", localePar));
         } catch (Exception e) {
-            Debug.logError(e, "Problem sending mail", module);
+            Debug.logError(e, "Problem sending mail", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderProblemSendingEmail", localePar));
         }
         // check for errors

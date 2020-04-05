@@ -49,7 +49,7 @@ import freemarker.template.utility.StandardCompress;
 
 public class MacroScreenViewHandler extends AbstractViewHandler {
 
-    public static final String module = MacroScreenViewHandler.class.getName();
+    public static final String MODULE = MacroScreenViewHandler.class.getName();
 
     protected ServletContext servletContext = null;
 
@@ -116,7 +116,7 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
             screenStringRenderer.renderScreenEnd(writer, context);
             writer.flush();
         } catch (TemplateException e) {
-            Debug.logError(e, "Error initializing screen renderer", module);
+            Debug.logError(e, "Error initializing screen renderer", MODULE);
             throw new ViewHandlerException(e.getMessage());
         } catch (IOException e) {
             throw new ViewHandlerException("Error in the response writer/output stream: " + e.toString(), e);

@@ -64,7 +64,7 @@ import freemarker.template.TemplateTransformModel;
 import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class CatalogUrlSeoTransform implements TemplateTransformModel {
-    public final static String module = CatalogUrlSeoTransform.class.getName();
+    public final static String MODULE = CatalogUrlSeoTransform.class.getName();
 
     private static Map<String, String> categoryNameIdMap = null;
     private static Map<String, String> categoryIdNameMap = null;
@@ -81,7 +81,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
             Perl5Compiler perlCompiler = new Perl5Compiler();
             asciiPattern = perlCompiler.compile(asciiRegexp, Perl5Compiler.READ_ONLY_MASK);
         } catch (MalformedPatternException e1) {
-            Debug.logWarning(e1, module);
+            Debug.logWarning(e1, MODULE);
         }
     }
 
@@ -231,7 +231,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                     categoryIdNameMap.put(categoryId, categoryIdName);
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         categoryMapInitialed = true;
@@ -259,7 +259,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
             try {
                 product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error looking up product info for productId [" + productId + "]: " + e.toString(), module);
+                Debug.logError(e, "Error looking up product info for productId [" + productId + "]: " + e.toString(), MODULE);
             }
         }
         if (product != null) {
@@ -555,7 +555,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                             productId = lastPathElement;
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Error looking up product info for ProductUrl with path info [" + pathInfo + "]: " + e.toString(), module);
+                        Debug.logError(e, "Error looking up product info for ProductUrl with path info [" + pathInfo + "]: " + e.toString(), MODULE);
                     }
                 } else {
                     int i = urlElements.size() - 1;
@@ -578,7 +578,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                                 tempProductId = urlElements.get(i - 1) + URL_HYPHEN + tempProductId;
                             }
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, "Error looking up product info for ProductUrl with path info [" + pathInfo + "]: " + e.toString(), module);
+                            Debug.logError(e, "Error looking up product info for ProductUrl with path info [" + pathInfo + "]: " + e.toString(), MODULE);
                         }
                         i--;
                     }
@@ -602,7 +602,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
             }
             urlBuilder.append("/" + (productId != null ? CatalogUrlServlet.PRODUCT_REQUEST : CatalogUrlServlet.CATEGORY_REQUEST));
             UrlServletHelper.setViewQueryParameters(request, urlBuilder);
-            Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
+            Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", MODULE);
             RequestDispatcher rd = request.getRequestDispatcher(urlBuilder.toString());
             rd.forward(request, response);
             return true;
@@ -662,7 +662,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
             }
             urlBuilder.append("/" + CatalogUrlServlet.CATEGORY_REQUEST);
             UrlServletHelper.setViewQueryParameters(request, urlBuilder);
-            Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
+            Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", MODULE);
             RequestDispatcher rd = request.getRequestDispatcher(urlBuilder.toString());
             rd.forward(request, response);
             return true;
@@ -694,7 +694,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
             try {
                 product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error looking up product info for productId [" + productId + "]: " + e.toString(), module);
+                Debug.logError(e, "Error looking up product info for productId [" + productId + "]: " + e.toString(), MODULE);
             }
         }
         if (product != null) {

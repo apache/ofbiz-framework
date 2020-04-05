@@ -50,7 +50,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class ContextFilter implements Filter {
 
-    private static final String module = ContextFilter.class.getName();
+    private static final String MODULE = ContextFilter.class.getName();
 
     protected FilterConfig config = null;
 
@@ -179,7 +179,7 @@ public class ContextFilter implements Filter {
                 // tenant specified on login 
                 // httpRequest.getSession().setAttribute("delegatorName", delegator.getDelegatorName());
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Unable to get Tenant", module);
+                Debug.logWarning(e, "Unable to get Tenant", MODULE);
             }
         }
 
@@ -198,7 +198,7 @@ public class ContextFilter implements Filter {
         while (initParamEnum.hasMoreElements()) {
             String initParamName = initParamEnum.nextElement();
             String initParamValue = config.getServletContext().getInitParameter(initParamName);
-            if (Debug.verboseOn()) Debug.logVerbose("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value [" + initParamValue + "]", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value [" + initParamValue + "]", MODULE);
             config.getServletContext().setAttribute(initParamName, initParamValue);
         }
     }

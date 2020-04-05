@@ -35,7 +35,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public class ComponentLocationResolver implements LocationResolver {
 
-    public static final String module = ComponentLocationResolver.class.getName();
+    public static final String MODULE = ComponentLocationResolver.class.getName();
 
     @Override
     public URL resolveLocation(String location) throws MalformedURLException {
@@ -75,7 +75,7 @@ public class ComponentLocationResolver implements LocationResolver {
             return baseLocation;
         } catch (ComponentException e) {
             String errMsg = "Could not get root location for component with name [" + componentName + "], error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             throw new MalformedURLException(errMsg);
         }
     }

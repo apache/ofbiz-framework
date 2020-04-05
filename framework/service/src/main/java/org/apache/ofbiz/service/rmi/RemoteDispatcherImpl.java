@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ModelService;
 @SuppressWarnings("serial")
 public class RemoteDispatcherImpl extends UnicastRemoteObject implements RemoteDispatcher {
 
-    public static final String module = RemoteDispatcherImpl.class.getName();
+    public static final String MODULE = RemoteDispatcherImpl.class.getName();
     private static boolean exportAll = false;
 
     protected LocalDispatcher dispatcher = null;
@@ -150,7 +150,7 @@ public class RemoteDispatcherImpl extends UnicastRemoteObject implements RemoteD
         ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
         if (!model.export && !exportAll) {
             // TODO: make this log on the server rather than the client
-            //Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, module);
+            //Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, MODULE);
             throw new GenericServiceException("Cannot find requested service");
         }
     }

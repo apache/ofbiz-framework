@@ -37,7 +37,7 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class HumanResEvents {
-    public static final String module = HumanResEvents.class.getName();
+    public static final String MODULE = HumanResEvents.class.getName();
     public static final String resourceError = "HumanResErrorUiLabels";
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
@@ -63,7 +63,7 @@ public class HumanResEvents {
         try {
             categoryList.addAll(getCurrentEmployeeDetails(paramMap));
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return "error";
         }
 
@@ -78,7 +78,7 @@ public class HumanResEvents {
                 categoryList.addAll(getEmployeeInComp(paramMap));
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return "error";
         }
         request.setAttribute("hrTree", categoryList);
@@ -153,7 +153,7 @@ public class HumanResEvents {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new GenericEntityException(e);
         }
 
@@ -246,7 +246,7 @@ public class HumanResEvents {
                 }  
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new GenericEntityException(e);
         }
 
@@ -310,7 +310,7 @@ public class HumanResEvents {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new GenericEntityException(e);
         }
 

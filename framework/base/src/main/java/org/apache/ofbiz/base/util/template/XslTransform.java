@@ -53,7 +53,7 @@ import org.xml.sax.XMLReader;
 
 public final class XslTransform {
 
-    public static final String module = XslTransform.class.getName();
+    public static final String MODULE = XslTransform.class.getName();
     private static final UtilCache<String, Templates> xslTemplatesCache = UtilCache.createUtilCache("XsltTemplates", 0, 0);
 
     /**
@@ -87,10 +87,10 @@ public final class XslTransform {
             transformer.transform(source, sr);
             result = sw.toString();
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else {
-            Debug.logError("tfactory does not support SAX features!", module);
+            Debug.logError("tfactory does not support SAX features!", MODULE);
         }
         return result;
     }

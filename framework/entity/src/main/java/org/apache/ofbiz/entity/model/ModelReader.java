@@ -57,7 +57,7 @@ import org.w3c.dom.Node;
 @SuppressWarnings("serial")
 public class ModelReader implements Serializable {
 
-    public static final String module = ModelReader.class.getName();
+    public static final String MODULE = ModelReader.class.getName();
     private static final UtilCache<String, ModelReader> readers = UtilCache.createUtilCache("entity.ModelReader", 0, 0);
 
     protected volatile Map<String, ModelEntity> entityCache = null;
@@ -148,10 +148,10 @@ public class ModelReader implements Serializable {
         if (entityCache.containsKey(entityName) && !redefinedEntity) {
             Debug.logWarning("Entity " + entityName +
                     " is defined more than once, most recent will over-write " +
-                    "previous definition(s)", module);
+                    "previous definition(s)", MODULE);
             Debug.logWarning("Entity " + entityName + " was found in " +
                     entityResourceHandler + ", but was already defined in " +
-                    entityResourceHandlerMap.get(entityName).toString(), module);
+                    entityResourceHandlerMap.get(entityName).toString(), MODULE);
         }
 
         // add entityName, entityFileName pair to entityResourceHandlerMap map
@@ -171,7 +171,7 @@ public class ModelReader implements Serializable {
         try {
             resourceLocation = entityResourceHandler.getURL().toExternalForm();
         } catch (GenericConfigException e) {
-            Debug.logError(e, "Could not get resource URL", module);
+            Debug.logError(e, "Could not get resource URL", MODULE);
         }
 
         // utilTimer.timerString(" After createModelEntity -- " + i + " --");
@@ -180,16 +180,16 @@ public class ModelReader implements Serializable {
             // utilTimer.timerString(" After entityCache.put -- " + i + " --");
             if (isEntity) {
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("-- [Entity]: #" + i + ": " + entityName, module);
+                     Debug.logVerbose("-- [Entity]: #" + i + ": " + entityName, MODULE);
                 }
             } else {
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("-- [ViewEntity]: #" + i + ": " + entityName, module);
+                     Debug.logVerbose("-- [ViewEntity]: #" + i + ": " + entityName, MODULE);
                 }
             }
         } else {
             Debug.logWarning("-- -- ENTITYGEN ERROR:getModelEntity: Could not create " +
-                    "entity for entityName: " + entityName, module);
+                    "entity for entityName: " + entityName, MODULE);
         }
         return modelEntity;
     }
@@ -259,7 +259,7 @@ public class ModelReader implements Serializable {
                                 }
                             } while ((curChild = curChild.getNextSibling()) != null);
                         } else {
-                            Debug.logWarning("No child nodes found.", module);
+                            Debug.logWarning("No child nodes found.", MODULE);
                         }
                         utilTimer.timerString("Finished " + entityResourceHandler.toString() + " - Total Entities: " + i + " FINISHED");
                     }
@@ -419,7 +419,7 @@ public class ModelReader implements Serializable {
                                             String message = "Existing relationship with the same name, but different specs found from what would be auto-created for Entity ["
                                                     + relatedEnt.getEntityName() + "] and relationship to entity [" + curModelEntity.getEntityName() + "] title [" + title
                                                     + "]; would auto-create: type [" + newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
-                                            if (Debug.verboseOn()) Debug.logVerbose(message, module);
+                                            if (Debug.verboseOn()) Debug.logVerbose(message, MODULE);
                                         }
                                     }
                                 }
@@ -434,11 +434,11 @@ public class ModelReader implements Serializable {
                     }
                     if (Debug.infoOn()) {
                         for (String message : orderedMessages) {
-                            Debug.logInfo(message, module);
+                            Debug.logInfo(message, MODULE);
                         }
                         Debug.logInfo("Finished loading entities; #Entities=" + numEntities + " #ViewEntities="
                                 + numViewEntities + " #Fields=" + numFields + " #Relationships=" + numRelations
-                                + " #AutoRelationships=" + numAutoRelations, module);
+                                + " #AutoRelationships=" + numAutoRelations, MODULE);
                     }
                 }
             }
@@ -507,7 +507,7 @@ public class ModelReader implements Serializable {
         ModelEntity modelEntity = ec.get(entityName);
         if (modelEntity == null) {
             String errMsg = "Could not find definition for entity name " + entityName;
-            // Debug.logError(new Exception("Placeholder"), errMsg, module);
+            // Debug.logError(new Exception("Placeholder"), errMsg, MODULE);
             throw new GenericModelException(errMsg);
         }
         return modelEntity;
@@ -518,7 +518,7 @@ public class ModelReader implements Serializable {
         try {
             ec = getEntityCache();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting entity cache", module);
+            Debug.logError(e, "Error getting entity cache", MODULE);
         }
         if (ec == null) {
             return null;
@@ -576,13 +576,13 @@ public class ModelReader implements Serializable {
                 }
                 if (!foundMatch) {
                     // Debug.logInfo("Not including entity " + entityName + " becuase it is not in
-                    // the package set: " + packageFilterSet, module);
+                    // the package set: " + packageFilterSet, MODULE);
                     continue;
                 }
             }
             if (UtilValidate.isNotEmpty(entityFilterSet) && !entityFilterSet.contains(entityName)) {
                 // Debug.logInfo("Not including entity " + entityName + " because it is not in
-                // the entity set: " + entityFilterSet, module);
+                // the entity set: " + entityFilterSet, MODULE);
                 continue;
             }
 

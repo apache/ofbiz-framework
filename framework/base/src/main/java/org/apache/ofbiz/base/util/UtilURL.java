@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class UtilURL {
 
-    public static final String module = UtilURL.class.getName();
+    public static final String MODULE = UtilURL.class.getName();
     private static final Map<String, URL> urlMap = new ConcurrentHashMap<>();
 
     private UtilURL() {}
@@ -85,7 +85,7 @@ public final class UtilURL {
             try {
                 return new URL(url.toString());
             } catch (MalformedURLException e) {
-                Debug.logWarning(e, "Exception thrown while copying URL: ", module);
+                Debug.logWarning(e, "Exception thrown while copying URL: ", MODULE);
             }
         }
         if (loader == null) {
@@ -135,7 +135,7 @@ public final class UtilURL {
                 url = file.toURI().toURL();
             }
         } catch (java.net.MalformedURLException e) {
-            Debug.logError(e, "unable to retrieve URL for file: " + filename, module);
+            Debug.logError(e, "unable to retrieve URL for file: " + filename, MODULE);
         }
         return url;
     }
@@ -153,7 +153,7 @@ public final class UtilURL {
     public static URL fromOfbizHomePath(String filename) {
         String ofbizHome = System.getProperty("ofbiz.home");
         if (ofbizHome == null) {
-            Debug.logWarning("No ofbiz.home property set in environment", module);
+            Debug.logWarning("No ofbiz.home property set in environment", MODULE);
             return null;
         }
         String newFilename = ofbizHome;

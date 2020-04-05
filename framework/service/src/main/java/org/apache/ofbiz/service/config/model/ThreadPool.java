@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class ThreadPool {
 
-    private static final String module = ThreadPool.class.getName();
+    private static final String MODULE = ThreadPool.class.getName();
 
     public static final int FAILED_RETRY_MIN = 30;
     public static final int MIN_THREADS = 1; // Must be no less than one or the executor will shut down.
@@ -84,7 +84,7 @@ public final class ThreadPool {
                     throw new ServiceConfigException("<thread-pool> element failed-retry-min attribute value is invalid");
                 }
             } catch (NumberFormatException | ServiceConfigException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new ServiceConfigException("<thread-pool> element failed-retry-min attribute value is invalid");
             }
         }
@@ -98,7 +98,7 @@ public final class ThreadPool {
                     throw new ServiceConfigException("<thread-pool> element ttl attribute value is invalid");
                 }
             } catch (NumberFormatException | ServiceConfigException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new ServiceConfigException("<thread-pool> element ttl attribute value is invalid");
             }
         }
@@ -112,7 +112,7 @@ public final class ThreadPool {
                     throw new ServiceConfigException("<thread-pool> element jobs attribute value is invalid");
                 }
             } catch (NumberFormatException | ServiceConfigException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new ServiceConfigException("<thread-pool> element jobs attribute value is invalid");
             }
         }
@@ -126,7 +126,7 @@ public final class ThreadPool {
                     throw new ServiceConfigException("<thread-pool> element min-threads attribute value is invalid");
                 }
             } catch (NumberFormatException | ServiceConfigException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new ServiceConfigException("<thread-pool> element min-threads attribute value is invalid");
             }
         }
@@ -140,7 +140,7 @@ public final class ThreadPool {
                     throw new ServiceConfigException("<thread-pool> element max-threads attribute value is invalid");
                 }
             } catch (NumberFormatException | ServiceConfigException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new ServiceConfigException("<thread-pool> element max-threads attribute value is invalid");
             }
         }
@@ -155,7 +155,7 @@ public final class ThreadPool {
                     throw new ServiceConfigException("<thread-pool> element poll-db-millis attribute value is invalid");
                 }
             } catch (NumberFormatException | ServiceConfigException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new ServiceConfigException("<thread-pool> element poll-db-millis attribute value is invalid");
             }
         }

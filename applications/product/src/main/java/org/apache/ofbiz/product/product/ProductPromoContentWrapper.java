@@ -56,7 +56,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class ProductPromoContentWrapper implements ContentWrapper {
 
-    public static final String module = ProductPromoContentWrapper.class.getName();
+    public static final String MODULE = ProductPromoContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
 
     private static final UtilCache<String, String> productPromoContentCache = UtilCache.createUtilCache("product.promo.content.rendered", true);
@@ -87,7 +87,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
     @Override
     public StringUtil.StringWrapper get(String productPromoContentTypeId, String encoderType) {
         if (UtilValidate.isEmpty(this.productPromo)) {
-            Debug.logWarning("Tried to get ProductPromoContent for type [" + productPromoContentTypeId + "] but the productPromo field in the ProductPromoContentWrapper is null", module);
+            Debug.logWarning("Tried to get ProductPromoContent for type [" + productPromoContentTypeId + "] but the productPromo field in the ProductPromoContentWrapper is null", MODULE);
             return null;
         }
         return StringUtil.makeStringWrapper(getProductPromoContentAsText(this.productPromo, productPromoContentTypeId, locale, mimeTypeId, null, null, this.productPromo.getDelegator(), dispatcher, encoderType));
@@ -133,7 +133,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             productPromoContentCache.put(cacheKey, outString);
             return outString;
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering ProductPromoContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering ProductPromoContent, inserting empty String", MODULE);
             String candidateOut = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
         }

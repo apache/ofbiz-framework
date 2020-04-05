@@ -40,7 +40,7 @@ import org.apache.ofbiz.security.Security;
 public final class UtilCacheEvents {
 
     private static final String err_resource = "WebtoolsErrorUiLabels";
-    private static final String module = UtilCacheEvents.class.getName();
+    private static final String MODULE = UtilCacheEvents.class.getName();
 
 
     private UtilCacheEvents() {}
@@ -259,13 +259,13 @@ public final class UtilCacheEvents {
         try {
             maxInMemory = Integer.valueOf(maxInMemoryStr);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         try {
             expireTime = Long.valueOf(expireTimeStr);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
 

@@ -27,8 +27,8 @@ import javax.servlet.http.HttpSessionListener;
  * HttpSessionListener that finalizes login information
  */
 public class LoginEventListener implements HttpSessionListener {
-    // Debug module name
-    public static final String module = LoginEventListener.class.getName();
+    // Debug MODULE name
+    public static final String MODULE = LoginEventListener.class.getName();
 
     public LoginEventListener() {}
 

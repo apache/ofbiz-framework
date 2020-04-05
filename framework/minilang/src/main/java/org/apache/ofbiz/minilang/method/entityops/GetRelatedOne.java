@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  */
 public final class GetRelatedOne extends MethodOperation {
 
-    public static final String module = GetRelatedOne.class.getName();
+    public static final String MODULE = GetRelatedOne.class.getName();
 
     private final FlexibleStringExpander relationNameFse;
     private final FlexibleMapAccessor<GenericValue> toValueFma;
@@ -72,7 +72,7 @@ public final class GetRelatedOne extends MethodOperation {
             toValueFma.put(methodContext.getEnvMap(), value.getRelatedOne(relationName, useCache));
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while finding related value: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

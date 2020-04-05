@@ -35,7 +35,7 @@ import junit.framework.TestResult;
 
 public class EntityXmlAssertTest extends OFBizTestCase {
 
-    public static final String module = ServiceTest.class.getName();
+    public static final String MODULE = ServiceTest.class.getName();
 
     protected String entityXmlUrlString;
     protected String action;
@@ -60,7 +60,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
             EntitySaxReader reader = new EntitySaxReader(delegator);
             testCaseCount += reader.parse(entityXmlURL);
         } catch (Exception e) {
-            Debug.logError(e, "Error getting test case count", module);
+            Debug.logError(e, "Error getting test case count", MODULE);
         }
         return testCaseCount;
     }

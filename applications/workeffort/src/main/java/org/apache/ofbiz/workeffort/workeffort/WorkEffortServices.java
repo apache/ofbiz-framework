@@ -66,7 +66,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class WorkEffortServices {
 
-    public static final String module = WorkEffortServices.class.getName();
+    public static final String MODULE = WorkEffortServices.class.getName();
     public static final String resourceError = "WorkEffortUiLabels";
 
     public static Map<String, Object> getWorkEffortAssignedEventsForRole(DispatchContext ctx, Map<String, ? extends Object> context) {
@@ -91,7 +91,7 @@ public class WorkEffortServices {
                );
                 validWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(ecl).orderBy("estimatedStartDate", "priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
@@ -124,7 +124,7 @@ public class WorkEffortServices {
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
             validWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(ecl).orderBy("estimatedStartDate", "priority").filterByDate().queryList();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
         }
@@ -165,7 +165,7 @@ public class WorkEffortServices {
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
                 validWorkEfforts.addAll(EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(ecl).orderBy("createdDate DESC").filterByDate().queryList());
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
@@ -204,7 +204,7 @@ public class WorkEffortServices {
 
                 validWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(constraints).orderBy("priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
@@ -242,7 +242,7 @@ public class WorkEffortServices {
 
                 roleWorkEfforts = EntityQuery.use(delegator).from("WorkEffortPartyAssignByRole").where(constraints).orderBy("priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
@@ -280,7 +280,7 @@ public class WorkEffortServices {
 
                 groupWorkEfforts = EntityQuery.use(delegator).from("WorkEffortPartyAssignByGroup").where(constraints).orderBy("priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
@@ -306,7 +306,7 @@ public class WorkEffortServices {
         try {
             workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
 
         Boolean canView = null;
@@ -324,7 +324,7 @@ public class WorkEffortServices {
                 try {
                     currentStatus = EntityQuery.use(delegator).from("StatusItem").where("statusId", statusId).cache().queryOne();
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
         } else {
@@ -333,7 +333,7 @@ public class WorkEffortServices {
                 try {
                     workEffortPartyAssignments = EntityQuery.use(delegator).from("WorkEffortPartyAssignment").where("workEffortId", workEffortId, "partyId", userLogin.get("partyId")).queryList();
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
             canView = (UtilValidate.isNotEmpty(workEffortPartyAssignments)) ? Boolean.TRUE : Boolean.FALSE;
@@ -347,7 +347,7 @@ public class WorkEffortServices {
                 try {
                     currentStatus = EntityQuery.use(delegator).from("StatusItem").where("statusId", workEffort.get("currentStatusId")).cache().queryOne();
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
         }
@@ -643,7 +643,7 @@ public class WorkEffortServices {
             }
             validWorkEfforts = WorkEffortWorker.removeDuplicateWorkEfforts(tempWorkEfforts);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
 
         // Split the WorkEffort list into a map with entries for each period, period start is the key
@@ -702,7 +702,7 @@ public class WorkEffortServices {
                 validWorkEfforts.removeAll(exclusions);
                 validWorkEfforts.addAll(inclusions);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
 
             // For each period in the set we check all work efforts to see if they fall within range
@@ -925,13 +925,13 @@ public class WorkEffortServices {
             try {
                 workEffort = reminder.getRelatedOne("WorkEffort", false);
             } catch (GenericEntityException e) {
-                Debug.logWarning("Error while getting work effort: " + e, module);
+                Debug.logWarning("Error while getting work effort: " + e, MODULE);
             }
             if (workEffort == null) {
                 try {
                     reminder.remove();
                 } catch (GenericEntityException e) {
-                    Debug.logWarning("Error while removing work effort event reminder: " + e, module);
+                    Debug.logWarning("Error while removing work effort event reminder: " + e, MODULE);
                 }
                 continue;
             }
@@ -950,7 +950,7 @@ public class WorkEffortServices {
                 try {
                     temporalExpression = TemporalExpressionWorker.getTemporalExpression(delegator, tempExprId);
                 } catch (GenericEntityException e) {
-                    Debug.logWarning("Error while getting temporal expression, id = " + tempExprId + ": " + e, module);
+                    Debug.logWarning("Error while getting temporal expression, id = " + tempExprId + ": " + e, MODULE);
                 }
                 if (temporalExpression != null) {
                     eventDateTime = temporalExpression.first(cal).getTime();
@@ -996,16 +996,16 @@ public class WorkEffortServices {
                                 reminder.store();
                             }
                         } catch (GenericEntityException e) {
-                            Debug.logWarning("Error while processing temporal expression reminder, id = " + tempExprId + ": " + e, module);
+                            Debug.logWarning("Error while processing temporal expression reminder, id = " + tempExprId + ": " + e, MODULE);
                         } catch (GenericServiceException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                         }
                     } else if (reminderStamp == null) {
                         try {
                             reminder.set("reminderDateTime", new Timestamp(reminderDateTime.getTime()));
                             reminder.store();
                         } catch (GenericEntityException e) {
-                            Debug.logWarning("Error while processing temporal expression reminder, id = " + tempExprId + ": " + e, module);
+                            Debug.logWarning("Error while processing temporal expression reminder, id = " + tempExprId + ": " + e, MODULE);
                         }
                     }
                 }
@@ -1032,9 +1032,9 @@ public class WorkEffortServices {
                             reminder.store();
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logWarning("Error while processing event reminder: " + e, module);
+                        Debug.logWarning("Error while processing event reminder: " + e, MODULE);
                     } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
             }
@@ -1051,7 +1051,7 @@ public class WorkEffortServices {
         try {
             contactMech = reminder.getRelatedOne("ContactMech", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (contactMech != null && "EMAIL_ADDRESS".equals(contactMech.get("contactMechTypeId"))) {
             String toAddress = contactMech.getString("infoString");
@@ -1060,22 +1060,22 @@ public class WorkEffortServices {
             try {
                 emailTemplateSetting = EntityQuery.use(delegator).from("EmailTemplateSetting").where("emailTemplateSettingId", "WEFF_EVENT_REMINDER").cache().queryOne();
             } catch (GenericEntityException e1) {
-                Debug.logError(e1, module);
+                Debug.logError(e1, MODULE);
             }
             if (emailTemplateSetting != null) {
                 Map<String, Object> emailCtx = UtilMisc.toMap("emailTemplateSettingId", "WEFF_EVENT_REMINDER", "sendTo", toAddress, "bodyParameters", parameters);
                 try {
                     dispatcher.runAsync("sendMailFromTemplateSetting", emailCtx);
                 } catch (GenericServiceException e) {
-                    Debug.logWarning("Error while emailing event reminder - workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId") + ": " + e, module);
+                    Debug.logWarning("Error while emailing event reminder - workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId") + ": " + e, MODULE);
                 }
             } else {
-                Debug.logError("No email template (WEFF_EVENT_REMINDER) has been configured, reminder cannot be send.", module);
+                Debug.logError("No email template (WEFF_EVENT_REMINDER) has been configured, reminder cannot be send.", MODULE);
             }
             return ServiceUtil.returnSuccess();
         }
         // TODO: Other contact mechanism types
-        Debug.logWarning("Invalid event reminder contact mech, workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId"), module);
+        Debug.logWarning("Invalid event reminder contact mech, workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId"), MODULE);
         return ServiceUtil.returnSuccess();
     }
 
@@ -1101,7 +1101,7 @@ public class WorkEffortServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("workEfforts", resultList);

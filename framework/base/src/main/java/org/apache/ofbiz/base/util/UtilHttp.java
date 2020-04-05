@@ -86,7 +86,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
  */
 public final class UtilHttp {
 
-    public static final String module = UtilHttp.class.getName();
+    public static final String MODULE = UtilHttp.class.getName();
 
     private static final String MULTI_ROW_DELIMITER = "_o_";
     private static final String ROW_SUBMIT_PREFIX = "_rowSubmit_o_";
@@ -159,7 +159,7 @@ public final class UtilHttp {
         req.setAttribute("multiPartMap", multiPartMap);
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Made Request Parameter Map with [" + params.size() + "] Entries", module);
+            Debug.logVerbose("Made Request Parameter Map with [" + params.size() + "] Entries", MODULE);
         }
         return canonicalizeParameterMap(params);
     }
@@ -189,7 +189,7 @@ public final class UtilHttp {
             try {
                 maxUploadSize = Long.parseLong(maxSizeStr);
             } catch (NumberFormatException e) {
-                Debug.logError(e, "Unable to obtain the max upload size from general.properties; using default -1", module);
+                Debug.logError(e, "Unable to obtain the max upload size from general.properties; using default -1", MODULE);
                 maxUploadSize = -1;
             }
             // get the http size threshold configuration - files bigger than this will be
@@ -199,7 +199,7 @@ public final class UtilHttp {
             try {
                 sizeThreshold = Integer.parseInt(sizeThresholdStr);
             } catch (NumberFormatException e) {
-                Debug.logError(e, "Unable to obtain the threshold size from general.properties; using default 10K", module);
+                Debug.logError(e, "Unable to obtain the threshold size from general.properties; using default 10K", MODULE);
                 sizeThreshold = -1;
             }
             // directory used to temporarily store files that are larger than the configured size threshold
@@ -223,7 +223,7 @@ public final class UtilHttp {
             try {
                 uploadedItems = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e) {
-                Debug.logError("File upload error" + e, module);
+                Debug.logError("File upload error" + e, MODULE);
             }
             if (uploadedItems != null) {
                 request.setAttribute("fileItems", uploadedItems);
@@ -232,7 +232,7 @@ public final class UtilHttp {
                     //byte[] itemBytes = item.get();
                     /*
                     Debug.logInfo("Item Info [" + fieldName + "] : " + item.getName() + " / " + item.getSize() + " / " +
-                            item.getContentType() + " FF: " + item.isFormField(), module);
+                            item.getContentType() + " FF: " + item.isFormField(), MODULE);
                     */
                     if (item.isFormField() || item.getName() == null) {
                         if (multiPartMap.containsKey(fieldName)) {
@@ -245,14 +245,14 @@ public final class UtilHttp {
                                 newList.add(item.getString());
                                 multiPartMap.put(fieldName, newList);
                             } else {
-                                Debug.logWarning("Form field found [" + fieldName + "] which was not handled!", module);
+                                Debug.logWarning("Form field found [" + fieldName + "] which was not handled!", MODULE);
                             }
                         } else {
                             if (encoding != null) {
                                 try {
                                     multiPartMap.put(fieldName, item.getString(encoding));
                                 } catch (java.io.UnsupportedEncodingException uee) {
-                                    Debug.logError(uee, "Unsupported Encoding, using deafault", module);
+                                    Debug.logError(uee, "Unsupported Encoding, using deafault", MODULE);
                                     multiPartMap.put(fieldName, item.getString());
                                 }
                             } else {
@@ -360,11 +360,11 @@ public final class UtilHttp {
             /** calling canonicalize with strict flag set to false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
             String cannedStr = UtilCodec.canonicalize(paramValue, false);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Canonicalized parameter with " + (cannedStr.equals(paramValue) ? "no " : "") + "change: original [" + paramValue + "] canned [" + cannedStr + "]", module);
+                Debug.logVerbose("Canonicalized parameter with " + (cannedStr.equals(paramValue) ? "no " : "") + "change: original [" + paramValue + "] canned [" + cannedStr + "]", MODULE);
             }
             return cannedStr;
         } catch (Exception e) {
-            Debug.logError(e, "Error in canonicalize parameter value [" + paramValue + "]: " + e.toString(), module);
+            Debug.logError(e, "Error in canonicalize parameter value [" + paramValue + "]: " + e.toString(), MODULE);
             return paramValue;
         }
     }
@@ -384,7 +384,7 @@ public final class UtilHttp {
             }
             if (val instanceof String || val instanceof Number || val instanceof Map<?, ?> || val instanceof List<?> || val instanceof Boolean) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Adding attribute to JSON output: " + key, module);
+                    Debug.logVerbose("Adding attribute to JSON output: " + key, MODULE);
                 }
                 returnMap.put(key, val);
             }
@@ -421,8 +421,8 @@ public final class UtilHttp {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Made Request Attribute Map with [" + attributeMap.size() + "] Entries", module);
-            Debug.logVerbose("Request Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(attributeMap), module);
+            Debug.logVerbose("Made Request Attribute Map with [" + attributeMap.size() + "] Entries", MODULE);
+            Debug.logVerbose("Request Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(attributeMap), MODULE);
         }
 
         return attributeMap;
@@ -457,8 +457,8 @@ public final class UtilHttp {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Made Session Attribute Map with [" + sessionMap.size() + "] Entries", module);
-            Debug.logVerbose("Session Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(sessionMap), module);
+            Debug.logVerbose("Made Session Attribute Map with [" + sessionMap.size() + "] Entries", MODULE);
+            Debug.logVerbose("Session Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(sessionMap), MODULE);
         }
 
         return sessionMap;
@@ -492,8 +492,8 @@ public final class UtilHttp {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Made ServletContext Attribute Map with [" + servletCtxMap.size() + "] Entries", module);
-            Debug.logVerbose("ServletContext Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(servletCtxMap), module);
+            Debug.logVerbose("Made ServletContext Attribute Map with [" + servletCtxMap.size() + "] Entries", MODULE);
+            Debug.logVerbose("ServletContext Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(servletCtxMap), MODULE);
         }
 
         return servletCtxMap;
@@ -884,7 +884,7 @@ public final class UtilHttp {
             try {
                 iso = UtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD");
             } catch (Exception e) {
-                Debug.logWarning("Error getting the general:currency.uom.id.default value: " + e.toString(), module);
+                Debug.logWarning("Error getting the general:currency.uom.id.default value: " + e.toString(), MODULE);
             }
         }
 
@@ -1256,7 +1256,7 @@ public final class UtilHttp {
                 bos.write(buffer, 0, read);
             }
         } catch (IOException e) {
-            Debug.logError(e, "Problem reading/writing buffers", module);
+            Debug.logError(e, "Problem reading/writing buffers", MODULE);
             throw e;
         }
     }
@@ -1434,7 +1434,7 @@ public final class UtilHttp {
                         e -> e.getValue()[0]));
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Creating composite type with parameter data: " + data.toString(), module);
+            Debug.logVerbose("Creating composite type with parameter data: " + data.toString(), MODULE);
         }
 
         // Assemble the composite data from the components
@@ -1460,7 +1460,7 @@ public final class UtilHttp {
                 LocalDateTime ldt = ts.toLocalDateTime().withHour(h).withMinute(Integer.parseInt(minutes));
                 return Timestamp.valueOf(ldt);
             } catch (IllegalArgumentException e) {
-                Debug.logWarning("User input for composite timestamp was invalid: " + e.getMessage(), module);
+                Debug.logWarning("User input for composite timestamp was invalid: " + e.getMessage(), MODULE);
                 return null;
             }
         }
@@ -1516,7 +1516,7 @@ public final class UtilHttp {
                 rowCount = Integer.parseInt(maxRowIndex);
                 rowCount++; // row indexes are zero based
             } catch (NumberFormatException e) {
-                Debug.logWarning("Invalid value for row index found: " + maxRowIndex, module);
+                Debug.logWarning("Invalid value for row index found: " + maxRowIndex, MODULE);
             }
         }
         return rowCount;
@@ -1544,7 +1544,7 @@ public final class UtilHttp {
                 paramMapStore.remove(paramMapId);
                 for (Map.Entry<String, Object> paramEntry : paramMap.entrySet()) {
                     if (request.getAttribute(paramEntry.getKey()) != null) {
-                        Debug.logWarning("Skipped loading parameter [" + paramEntry.getKey() + "] because it would have overwritten a request attribute" , module);
+                        Debug.logWarning("Skipped loading parameter [" + paramEntry.getKey() + "] because it would have overwritten a request attribute" , MODULE);
                         continue;
                     }
                     request.setAttribute(paramEntry.getKey(), paramEntry.getValue());

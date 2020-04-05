@@ -46,7 +46,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
-    public final static String module = OfbizContentAltUrlTransforms.class.getName();
+    public final static String MODULE = OfbizContentAltUrlTransforms.class.getName();
     private static final String defaultViewRequest = "contentViewInfo";
 
     public String getStringArg(Map<String, Object> args, String key) {
@@ -131,7 +131,7 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
                 }
             }
         } catch (GenericEntityException gee) {
-            Debug.logWarning("[Exception] : " + gee.getMessage(), module);
+            Debug.logWarning("[Exception] : " + gee.getMessage(), MODULE);
         }
 
         if (UtilValidate.isEmpty(url)) {

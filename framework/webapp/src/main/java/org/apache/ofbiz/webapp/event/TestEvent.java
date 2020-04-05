@@ -29,11 +29,11 @@ import org.apache.ofbiz.base.util.HttpClient;
  */
 public class TestEvent {
 
-    public static final String module = TestEvent.class.getName();
+    public static final String MODULE = TestEvent.class.getName();
 
     public static String test(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("MESSAGE", "Test Event Ran Fine.");
-        Debug.logInfo("Test Event Ran Fine.", module);
+        Debug.logInfo("Test Event Ran Fine.", MODULE);
         return "success";
     }
 
@@ -44,9 +44,9 @@ public class TestEvent {
             http.setHeader("Cookie", "name=value,value=name");
             http.setHeader("User-Agent", "Mozilla/4.0");
             http.setParameter("testId", "testing");
-            Debug.logInfo(http.post(), module);
+            Debug.logInfo(http.post(), MODULE);
         } catch (Exception e) {
-            Debug.logInfo(e, "HttpClientException Caught.", module);
+            Debug.logInfo(e, "HttpClientException Caught.", MODULE);
         }
         return "success";
     }

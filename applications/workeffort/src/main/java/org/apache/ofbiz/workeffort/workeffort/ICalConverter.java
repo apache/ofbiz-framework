@@ -104,7 +104,7 @@ import net.fortuna.ical4j.model.property.XProperty;
  */
 public class ICalConverter {
 
-    protected static final String module = ICalConverter.class.getName();
+    protected static final String MODULE = ICalConverter.class.getName();
     protected static final String partyIdXParamName = "X-ORG-APACHE-OFBIZ-PARTY-ID";
     protected static final ProdId prodId = new ProdId("-//Apache OFBiz//Work Effort Calendar//EN");
     protected static final String uidPrefix = "ORG-APACHE-OFBIZ-WE-";
@@ -368,9 +368,9 @@ public class ICalConverter {
             if (Debug.verboseOn()) {
                 try {
                     alarm.validate(true);
-                    Debug.logVerbose("iCalendar alarm passes validation", module);
+                    Debug.logVerbose("iCalendar alarm passes validation", MODULE);
                 } catch (ValidationException e) {
-                    if (Debug.verboseOn()) Debug.logVerbose("iCalendar alarm fails validation: " + e, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("iCalendar alarm fails validation: " + e, MODULE);
                 }
             }
         }
@@ -388,7 +388,7 @@ public class ICalConverter {
         Delegator delegator = (Delegator) context.get("delegator");
         GenericValue publishProperties = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
         if (!isCalendarPublished(publishProperties)) {
-            Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
+            Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, MODULE);
             return ICalWorker.createNotFoundResponse(null);
         }
         if (!"WES_PUBLIC".equals(publishProperties.get("scopeEnumId"))) {
@@ -413,9 +413,9 @@ public class ICalConverter {
         if (Debug.verboseOn()) {
             try {
                 calendar.validate(true);
-                Debug.logVerbose("iCalendar passes validation", module);
+                Debug.logVerbose("iCalendar passes validation", MODULE);
             } catch (ValidationException e) {
-                if (Debug.verboseOn()) Debug.logVerbose("iCalendar fails validation: " + e, module);
+                if (Debug.verboseOn()) Debug.logVerbose("iCalendar fails validation: " + e, MODULE);
             }
         }
         return ICalWorker.createOkResponse(calendar.toString());
@@ -432,7 +432,7 @@ public class ICalConverter {
             try {
                 property.setValue(iCalUrl);
             } catch (Exception e) {
-                Debug.logError(e, "Error while setting party URI: ", module);
+                Debug.logError(e, "Error while setting party URI: ", MODULE);
             }
         }
     }
@@ -478,7 +478,7 @@ public class ICalConverter {
             }
         } catch (GeneralException e) {
             String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileCreatingServiceMapForService", UtilMisc.toMap("serviceName", serviceName), locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg + e);
         }
         if (context.get("userLogin") != null) {
@@ -493,7 +493,7 @@ public class ICalConverter {
             return result;
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileInvokingService", UtilMisc.toMap("serviceName", serviceName), locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg + e);
         }
     }
@@ -513,7 +513,7 @@ public class ICalConverter {
                 // RFC 2445 4.8.4.1 and 4.8.4.3 Value must be a URL
                 property.setValue("MAILTO:ofbiz-test@example.com");
             } catch (Exception e) {
-                Debug.logError(e, "Error while setting Property value: ", module);
+                Debug.logError(e, "Error while setting Property value: ", MODULE);
             }
         }
         ParameterList parameterList = property.getParameters();
@@ -578,16 +578,16 @@ public class ICalConverter {
         boolean newCalendar = true;
         Calendar calendar = null;
         if (iCalData == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data not found, creating new Calendar", module);
+            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data not found, creating new Calendar", MODULE);
             calendar = new Calendar();
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data found, using saved Calendar", module);
+            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data found, using saved Calendar", MODULE);
             try (StringReader reader = new StringReader(iCalData)) {
             CalendarBuilder builder = new CalendarBuilder();
                 calendar = builder.build(reader);
                 newCalendar = false;
             } catch (Exception e) {
-                Debug.logError(e, "Error while parsing saved iCalendar, creating new iCalendar: ", module);
+                Debug.logError(e, "Error while parsing saved iCalendar, creating new iCalendar: ", MODULE);
                 calendar = new Calendar();
             }
         }
@@ -703,7 +703,7 @@ public class ICalConverter {
             }
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Processing calendar:\r\n" + calendar, module);
+            Debug.logVerbose("Processing calendar:\r\n" + calendar, MODULE);
         }
         String workEffortId = fromXProperty(calendar.getProperties(), workEffortIdXPropName);
         if (workEffortId == null) {
@@ -711,13 +711,13 @@ public class ICalConverter {
         }
         if (!workEffortId.equals(context.get("workEffortId"))) {
             Debug.logWarning("Spoof attempt: received calendar workEffortId " + workEffortId +
-                    " on URL workEffortId " + context.get("workEffortId"), module);
+                    " on URL workEffortId " + context.get("workEffortId"), MODULE);
             return ICalWorker.createForbiddenResponse(null);
         }
         Delegator delegator = (Delegator) context.get("delegator");
         GenericValue publishProperties = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
         if (!isCalendarPublished(publishProperties)) {
-            Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
+            Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, MODULE);
             return ICalWorker.createNotFoundResponse(null);
         }
         if (context.get("userLogin") == null) {
@@ -755,7 +755,7 @@ public class ICalConverter {
                         responseProps = storeWorkEffort(component, context);
                     } else {
                         Debug.logWarning("Spoof attempt: unrelated workEffortId " + workEffortId +
-                                " on URL workEffortId " + context.get("workEffortId"), module);
+                                " on URL workEffortId " + context.get("workEffortId"), MODULE);
                         responseProps = ICalWorker.createForbiddenResponse(null);
                     }
                 } else if (hasCreatePermission) {
@@ -928,9 +928,9 @@ public class ICalConverter {
         if (Debug.verboseOn()) {
             try {
                 result.validate(true);
-                Debug.logVerbose("iCalendar component passes validation", module);
+                Debug.logVerbose("iCalendar component passes validation", MODULE);
             } catch (ValidationException e) {
-                Debug.logVerbose(e, "iCalendar component fails validation: ", module);
+                Debug.logVerbose(e, "iCalendar component fails validation: ", MODULE);
             }
         }
         return null;

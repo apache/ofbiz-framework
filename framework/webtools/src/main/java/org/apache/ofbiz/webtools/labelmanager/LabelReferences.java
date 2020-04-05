@@ -55,7 +55,7 @@ import org.xml.sax.SAXException;
 
 public class LabelReferences {
 
-    public static final String module = LabelReferences.class.getName();
+    public static final String MODULE = LabelReferences.class.getName();
     private static final String bracketedUiLabelMap = "${uiLabelMap.";
     private static final String uiLabelMap = "uiLabelMap.";
     private static final String formFieldTitle = "FormFieldTitle_";
@@ -77,7 +77,7 @@ public class LabelReferences {
         try {
             delegatorInfo = EntityConfig.getInstance().getDelegator(delegator.getDelegatorBaseName());
         } catch (GenericEntityConfException e) {
-            Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
+            Debug.logWarning(e, "Exception thrown while getting delegator config: ", MODULE);
         }
         String modelName;
         if (delegatorInfo != null) {

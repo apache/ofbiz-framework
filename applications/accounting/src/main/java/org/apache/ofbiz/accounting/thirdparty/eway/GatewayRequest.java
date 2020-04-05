@@ -33,7 +33,7 @@ import org.apache.ofbiz.base.util.Debug;
  */
 public class GatewayRequest {
 
-    private static final String module = GatewayRequest.class.getName();
+    private static final String MODULE = GatewayRequest.class.getName();
 
     // request urls
     public static final String REQUEST_URL_REFUND_TEST = "";
@@ -392,7 +392,7 @@ public class GatewayRequest {
 
         // log the request for test mode
         if (isTestMode()) {
-            Debug.logInfo("[eWay Request] : " + xml.toString(), module);
+            Debug.logInfo("[eWay Request] : " + xml.toString(), MODULE);
         }
 
         return xml.toString();

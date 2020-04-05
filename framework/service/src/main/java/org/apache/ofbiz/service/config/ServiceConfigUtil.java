@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public final class ServiceConfigUtil {
 
-    public static final String module = ServiceConfigUtil.class.getName();
+    public static final String MODULE = ServiceConfigUtil.class.getName();
     private static final String engine = "default";
     private static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
     // Keep the ServiceConfig instance in a cache - so the configuration can be reloaded at run-time. There will be only one ServiceConfig instance in the cache.
@@ -86,7 +86,7 @@ public final class ServiceConfigUtil {
                 try {
                     listener.onServiceConfigChange(instance);
                 } catch (Exception e) {
-                    Debug.logError(e, "Exception thrown while notifying listener " + listener + ": ", module);
+                    Debug.logError(e, "Exception thrown while notifying listener " + listener + ": ", MODULE);
                 }
             }
         }

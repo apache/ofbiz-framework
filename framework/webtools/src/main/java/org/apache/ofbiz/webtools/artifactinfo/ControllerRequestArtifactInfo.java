@@ -36,7 +36,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
  *
  */
 public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
-    public static final String module = ControllerRequestArtifactInfo.class.getName();
+    public static final String MODULE = ControllerRequestArtifactInfo.class.getName();
 
     protected URL controllerXmlUrl;
     protected String requestUri;
@@ -85,7 +85,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                     // add the reverse association
                     UtilMisc.addToSortedSetInMap(this, this.aif.allRequestInfosReferringToView, artInfo.getUniqueId());
                 } catch (GeneralException e) {
-                    Debug.logWarning(e.toString(), module);
+                    Debug.logWarning(e.toString(), MODULE);
                 }
             } else if ("request".equals(response.type)) {
                 String otherRequestUri = response.value;
@@ -97,7 +97,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                     this.requestsThatAreResponsesToThisRequest.add(artInfo);
                     UtilMisc.addToSortedSetInMap(this, this.aif.allRequestInfosReferringToRequest, artInfo.getUniqueId());
                 } catch (GeneralException e) {
-                    Debug.logWarning(e.toString(), module);
+                    Debug.logWarning(e.toString(), MODULE);
                 }
             } else if ("request-redirect".equals(response.type)) {
                 String otherRequestUri = response.value;

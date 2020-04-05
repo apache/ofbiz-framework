@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class DataServices {
 
-    public static final String module = DataServices.class.getName();
+    public static final String MODULE = DataServices.class.getName();
     public static final String resource = "ContentUiLabels";
 
     public static Map<String, Object> clearAssociatedRenderCache(DispatchContext dctx, Map<String, Object> context) {
@@ -65,7 +65,7 @@ public class DataServices {
         try {
             DataResourceWorker.clearAssociatedRenderCache(delegator, dataResourceId);
         } catch (GeneralException e) {
-            Debug.logError(e, "Unable to clear associated render cache with dataResourceId=" + dataResourceId, module);
+            Debug.logError(e, "Unable to clear associated render cache with dataResourceId=" + dataResourceId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentClearAssociatedRenderCacheError", UtilMisc.toMap("dataResourceId", dataResourceId), locale));
         }
         return ServiceUtil.returnSuccess();
@@ -127,7 +127,7 @@ public class DataServices {
             dataResourceId = delegator.getNextSeqId("DataResource");
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("in createDataResourceMethod, dataResourceId:" + dataResourceId, module);
+            Debug.logInfo("in createDataResourceMethod, dataResourceId:" + dataResourceId, MODULE);
         }
         GenericValue dataResource = delegator.makeValue("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
         dataResource.setNonPKFields(context);
@@ -248,7 +248,7 @@ public class DataServices {
             ) {
                 out.write(textData);
             } catch (IOException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableWriteCharacterDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
         } else if (binData != null) {
@@ -257,10 +257,10 @@ public class DataServices {
                 out.write(binData.array());
                 out.close();
             } catch (FileNotFoundException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableWriteBinaryDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
         } else {
@@ -312,7 +312,7 @@ public class DataServices {
         try {
             dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentDataResourceNotFound", UtilMisc.toMap("parameters.dataResourceId", dataResourceId), locale));
         }
 
@@ -323,7 +323,7 @@ public class DataServices {
         try {
             dataResource.store();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -356,12 +356,12 @@ public class DataServices {
         String contentId = (String) context.get("contentId");
         result.put("contentId", contentId);
         if (UtilValidate.isEmpty(dataResourceId)) {
-            Debug.logError("dataResourceId is null.", module);
+            Debug.logError("dataResourceId is null.", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentDataResourceIsNull", locale));
         }
         String textData = (String) context.get("textData");
         if (Debug.verboseOn()) {
-            Debug.logVerbose("in updateElectronicText, textData:" + textData, module);
+            Debug.logVerbose("in updateElectronicText, textData:" + textData, MODULE);
         }
         try {
             electronicText = EntityQuery.use(delegator).from("ElectronicText").where("dataResourceId", dataResourceId).queryOne();
@@ -375,7 +375,7 @@ public class DataServices {
                 electronicText.create();
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentElectronicTextNotFound", locale) + " " + e.getMessage());
         }
 
@@ -437,7 +437,7 @@ public class DataServices {
                 ) {
                     out.write(textData);
                 } catch (IOException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableWriteCharacterDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else if (binData != null) {
@@ -447,10 +447,10 @@ public class DataServices {
                     out.write(binData.array());
                     out.close();
                 } catch (FileNotFoundException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableWriteBinaryDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else {
@@ -458,7 +458,7 @@ public class DataServices {
             }
 
         } catch (IOException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
             throw new GenericServiceException(e.getMessage());
         }
 
@@ -492,7 +492,7 @@ public class DataServices {
             out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
         } catch (IOException e) {
-            Debug.logError(e, "Error rendering sub-content text", module);
+            Debug.logError(e, "Error rendering sub-content text", MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return results;
@@ -517,8 +517,8 @@ public class DataServices {
             try {
                 GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).queryOne();
                 if (Debug.infoOn()) {
-                    Debug.logInfo("imageDataResource(U):" + imageDataResource, module);
-                    Debug.logInfo("imageBytes(U):" + Arrays.toString(imageBytes), module);
+                    Debug.logInfo("imageDataResource(U):" + imageDataResource, MODULE);
+                    Debug.logInfo("imageBytes(U):" + Arrays.toString(imageBytes), MODULE);
                 }
                 if (imageDataResource == null) {
                     return createImageMethod(dctx, context);
@@ -551,7 +551,7 @@ public class DataServices {
                 GenericValue imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
                 imageDataResource.setBytes("imageData", imageBytes);
                 if (Debug.infoOn()) {
-                    Debug.logInfo("imageDataResource(C):" + imageDataResource, module);
+                    Debug.logInfo("imageDataResource(C):" + imageDataResource, MODULE);
                 }
                 imageDataResource.create();
             } catch (GenericEntityException e) {
@@ -584,19 +584,19 @@ public class DataServices {
         String rootDir = (String)context.get("rootDir");
         File file = null;
         if (Debug.infoOn()) {
-            Debug.logInfo("in createBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, module);
-            Debug.logInfo("in createBinaryFileMethod, objectInfo:" + objectInfo, module);
-            Debug.logInfo("in createBinaryFileMethod, rootDir:" + rootDir, module);
+            Debug.logInfo("in createBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, MODULE);
+            Debug.logInfo("in createBinaryFileMethod, objectInfo:" + objectInfo, MODULE);
+            Debug.logInfo("in createBinaryFileMethod, rootDir:" + rootDir, MODULE);
         }
         try {
             file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, rootDir);
         } catch (FileNotFoundException | GeneralException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
             throw new GenericServiceException(e.getMessage());
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("in createBinaryFileMethod, file:" + file, module);
-            Debug.logInfo("in createBinaryFileMethod, imageData:" + imageData.length, module);
+            Debug.logInfo("in createBinaryFileMethod, file:" + file, MODULE);
+            Debug.logInfo("in createBinaryFileMethod, imageData:" + imageData.length, MODULE);
         }
         if (imageData != null && imageData.length > 0) {
             try (
@@ -604,10 +604,10 @@ public class DataServices {
             ) {
                 out.write(imageData);
                 if (Debug.infoOn()) {
-                    Debug.logInfo("in createBinaryFileMethod, length:" + file.length(), module);
+                    Debug.logInfo("in createBinaryFileMethod, length:" + file.length(), MODULE);
                 }
             } catch (IOException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 throw new GenericServiceException(e.getMessage());
             }
         }
@@ -637,22 +637,22 @@ public class DataServices {
         String rootDir = (String)context.get("rootDir");
         File file = null;
         if (Debug.infoOn()) {
-            Debug.logInfo("in updateBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, module);
-            Debug.logInfo("in updateBinaryFileMethod, objectInfo:" + objectInfo, module);
-            Debug.logInfo("in updateBinaryFileMethod, rootDir:" + rootDir, module);
+            Debug.logInfo("in updateBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, MODULE);
+            Debug.logInfo("in updateBinaryFileMethod, objectInfo:" + objectInfo, MODULE);
+            Debug.logInfo("in updateBinaryFileMethod, rootDir:" + rootDir, MODULE);
         }
         try {
             file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, rootDir);
         } catch (FileNotFoundException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
             throw new GenericServiceException(e.getMessage());
         } catch (GeneralException e2) {
-            Debug.logWarning(e2, module);
+            Debug.logWarning(e2, MODULE);
             throw new GenericServiceException(e2.getMessage());
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("in updateBinaryFileMethod, file:" + file, module);
-            Debug.logInfo("in updateBinaryFileMethod, imageData:" + Arrays.toString(imageData), module);
+            Debug.logInfo("in updateBinaryFileMethod, file:" + file, MODULE);
+            Debug.logInfo("in updateBinaryFileMethod, imageData:" + Arrays.toString(imageData), MODULE);
         }
         if (imageData != null && imageData.length > 0) {
             try (
@@ -660,10 +660,10 @@ public class DataServices {
                     ){
                 out.write(imageData);
                 if (Debug.infoOn()) {
-                    Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), module);
+                    Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), MODULE);
                 }
             } catch (IOException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 throw new GenericServiceException(e.getMessage());
             }
         }

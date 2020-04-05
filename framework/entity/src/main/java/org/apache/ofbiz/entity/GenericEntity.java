@@ -77,7 +77,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable {
 
-    public static final String module = GenericEntity.class.getName();
+    public static final String MODULE = GenericEntity.class.getName();
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
     public static final NullField NULL_FIELD = new NullField();
 
@@ -158,7 +158,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         if (!this.mutable) {
             String msg = "This object has been flagged as immutable (unchangeable), probably because it came from an Entity Engine cache. Cannot modify an immutable entity object. Use the clone method to create a mutable copy of this object.";
             IllegalStateException toBeThrown = new IllegalStateException(msg);
-            Debug.logError(toBeThrown, module);
+            Debug.logError(toBeThrown, MODULE);
             throw toBeThrown;
         }
     }
@@ -466,7 +466,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             try {
                 type = getDelegator().getEntityFieldType(getModelEntity(), modelField.getType());
             } catch (IllegalStateException | GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
             if (type == null) {
                 throw new IllegalArgumentException("Type " + modelField.getType() + " not found for entity [" + this.getEntityName() + "]; probably because there is no datasource (helper) setup for the entity group that this entity is in: [" + this.getDelegator().getEntityGroupName(this.getEntityName()) + "]");
@@ -492,7 +492,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                     } catch (GeneralException e) {
                         String errMsg = "In entity field [" + this.getEntityName() + "." + name + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";
                         // eventually we should do this, but for now we'll do a "soft" failure: throw new IllegalArgumentException(errMsg);
-                        Debug.logWarning(new Exception("Location of database type warning"), "=-=-=-=-=-=-=-=-= Database type warning GenericEntity.set =-=-=-=-=-=-=-=-= " + errMsg, module);
+                        Debug.logWarning(new Exception("Location of database type warning"), "=-=-=-=-=-=-=-=-= Database type warning GenericEntity.set =-=-=-=-=-=-=-=-= " + errMsg, MODULE);
                     }
                 }
             }
@@ -552,7 +552,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 type = getDelegator().getEntityFieldType(getModelEntity(), field.getType());
             }
         } catch (IllegalStateException | GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
         if (type == null) {
             throw new IllegalArgumentException("Type " + field.getType() + " not found");
@@ -692,14 +692,14 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             Number number = (Number) obj;
             return TimeDuration.fromNumber(number);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         try {
             String duration = (String) obj;
             return TimeDuration.parseDuration(duration);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         throw new IllegalArgumentException("getDuration could not map the object '" + obj.toString() + "' to TimeDuration type, incompatible object type: " + obj.getClass().getName());
@@ -765,7 +765,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 return valueBlob.getBytes(1, (int) valueBlob.length());
             } catch (SQLException e) {
                 String errMsg = "Error getting byte[] from Blob: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 return null;
             }
         }
@@ -774,7 +774,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         }
         if (value instanceof org.apache.ofbiz.entity.util.ByteWrapper) {
             // NOTE DEJ20071022: the use of ByteWrapper is not recommended and is deprecated, only old data should be stored that way
-            Debug.logWarning("Found a ByteWrapper object in the database for field [" + this.getEntityName() + "." + name + "]; converting to byte[] and returning, but note that you need to update your database to unwrap these objects for future compatibility", module);
+            Debug.logWarning("Found a ByteWrapper object in the database for field [" + this.getEntityName() + "." + name + "]; converting to byte[] and returning, but note that you need to update your database to unwrap these objects for future compatibility", MODULE);
             org.apache.ofbiz.entity.util.ByteWrapper wrapper = (org.apache.ofbiz.entity.util.ByteWrapper) value;
             return wrapper.getBytes();
         }
@@ -1198,7 +1198,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                     String strData = new String(Base64.getMimeEncoder().encode(binData), StandardCharsets.UTF_8);
                     cdataMap.put(name, strData);
                 } else {
-                    Debug.logWarning("Field:" + name + " is not of type 'byte[]'. obj: " + obj, module);
+                    Debug.logWarning("Field:" + name + " is not of type 'byte[]'. obj: " + obj, MODULE);
                 }
             } else {
                 String valueStr = this.getString(name);
@@ -1264,13 +1264,13 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                         default:
                             if (curChar < 0x20) {
                                 // if it is less that 0x20 at this point it is invalid because the only valid values < 0x20 are 0x9, 0xA, 0xD as caught above
-                                Debug.logInfo("Removing invalid character [" + curChar + "] numeric value [" + (int) curChar + "] for field " + name + " of entity with PK: " + this.getPrimaryKey().toString(), module);
+                                Debug.logInfo("Removing invalid character [" + curChar + "] numeric value [" + (int) curChar + "] for field " + name + " of entity with PK: " + this.getPrimaryKey().toString(), MODULE);
                                 value.deleteCharAt(i);
                             } else if (curChar > 0x7F) {
                                 // Replace each char which is out of the ASCII range with a XML entity
                                 String replacement = "&#" + (int) curChar + ";";
                                 if (Debug.verboseOn()) {
-                                    Debug.logVerbose("Entity: " + this.getEntityName() + ", PK: " + this.getPrimaryKey().toString() + " -> char [" + curChar + "] replaced with [" + replacement + "]", module);
+                                    Debug.logVerbose("Entity: " + this.getEntityName() + ", PK: " + this.getPrimaryKey().toString() + " -> char [" + curChar + "] replaced with [" + replacement + "]", MODULE);
                                 }
                                 value.replace(i, i+1, replacement);
                             }
@@ -1626,7 +1626,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                             if (this.get(mkm.getFieldName()) != null) {
                                 newValue.set(mkm.getRelFieldName(), this.get(mkm.getFieldName()));
                                 if (Debug.infoOn()) {
-                                    Debug.logInfo("Set [" + mkm.getRelFieldName() + "] to - " + this.get(mkm.getFieldName()), module);
+                                    Debug.logInfo("Set [" + mkm.getRelFieldName() + "] to - " + this.get(mkm.getFieldName()), MODULE);
                                 }
                             } else {
                                 allFieldsSet = false;
@@ -1634,7 +1634,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                         }
                         if (allFieldsSet) {
                             if (Debug.infoOn()) {
-                                Debug.logInfo("Creating place holder value : " + newValue, module);
+                                Debug.logInfo("Creating place holder value : " + newValue, MODULE);
                             }
 
                             // inherit create and update times from this value in order to make this not seem like new/fresh data

@@ -57,21 +57,21 @@ import freemarker.template.TemplateTransformModel;
  */
 public class UrlRegexpTransform implements TemplateTransformModel {
 
-    private static final String module = UrlRegexpTransform.class.getName();
+    private static final String MODULE = UrlRegexpTransform.class.getName();
 
 
     private static String convertToString(Object o) {
         String result = "";
         if (o != null) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
+                 Debug.logVerbose("Arg Object : " + o.getClass().getName(), MODULE);
             }
             if (o instanceof TemplateScalarModel) {
                 TemplateScalarModel s = (TemplateScalarModel) o;
                 try {
                     result = s.getAsString();
                 } catch (TemplateModelException e) {
-                    Debug.logError(e, "Template Exception", module);
+                    Debug.logError(e, "Template Exception", MODULE);
                 }
             } else {
                 result = o.toString();
@@ -237,7 +237,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
             }
             if (!foundMatch) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Can NOT find a seo transform pattern for this url: " + url, module);
+                    Debug.logVerbose("Can NOT find a seo transform pattern for this url: " + url, MODULE);
                 }
             }
         }
@@ -284,7 +284,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
             }
             response.setHeader("Location", uri);
         } else {
-            Debug.logInfo("Can NOT forward this url: " + uri, module);
+            Debug.logInfo("Can NOT forward this url: " + uri, MODULE);
         }
         return foundMatch;
     }

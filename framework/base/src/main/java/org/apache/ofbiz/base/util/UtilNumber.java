@@ -28,7 +28,7 @@ import com.ibm.icu.text.RuleBasedNumberFormat;
 
 public final class UtilNumber {
 
-    public static final String module = UtilNumber.class.getName();
+    public static final String MODULE = UtilNumber.class.getName();
 
     // properties file name for arithmetic configuration
     private static final String arithmeticPropertiesFile = "arithmetic.properties";
@@ -193,10 +193,10 @@ public final class UtilNumber {
             try {
                 scale = Integer.parseInt(value);
             } catch (NumberFormatException e) {
-                Debug.logWarning(e, e.getMessage(), module);
+                Debug.logWarning(e, e.getMessage(), MODULE);
             }
         if (scale == -1) {
-            Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of " + DEFAULT_BD_SCALE + ".", module);
+            Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of " + DEFAULT_BD_SCALE + ".", MODULE);
             scale = DEFAULT_BD_SCALE;
         }
         return scale;
@@ -248,7 +248,7 @@ public final class UtilNumber {
         String value = UtilProperties.getPropertyValue(file, property);
         RoundingMode mode = roundingModeFromString(value);
         if (mode == null) {
-            Debug.logWarning("Could not set decimal rounding mode from " + property + "=" + value + ". Using default mode of " + DEFAULT_BD_SCALE + ".", module);
+            Debug.logWarning("Could not set decimal rounding mode from " + property + "=" + value + ". Using default mode of " + DEFAULT_BD_SCALE + ".", MODULE);
             return DEFAULT_BD_ROUNDING_MODE;
         }
         return mode;
@@ -303,7 +303,7 @@ public final class UtilNumber {
     public static String formatRuleBasedAmount(double amount, Locale locale) {
         String ruleSet = rbnfRuleSets.get(locale);
         if (ruleSet == null) {
-            Debug.logWarning("Cannot format rule based amount for locale " + locale.toString() + " because rule set for that locale does not exist", module);
+            Debug.logWarning("Cannot format rule based amount for locale " + locale.toString() + " because rule set for that locale does not exist", MODULE);
             return "";
         }
         return formatRuleBasedAmount(amount, ruleSet, null, locale);
@@ -329,7 +329,7 @@ public final class UtilNumber {
         try {
             result = formatter.format(amount, rule != null ? rule : formatter.getDefaultRuleSetName());
         } catch (Exception e) {
-            Debug.logError(e, "Failed to format amount " + amount + " using rule " + rule, module);
+            Debug.logError(e, "Failed to format amount " + amount + " using rule " + rule, MODULE);
         }
         return result;
     }

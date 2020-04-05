@@ -59,7 +59,7 @@ import org.xml.sax.SAXException;
  */
 public final class ICalWorker {
 
-    public static final String module = ICalWorker.class.getName();
+    public static final String MODULE = ICalWorker.class.getName();
 
     private ICalWorker() {}
 
@@ -145,12 +145,12 @@ public final class ICalWorker {
             return;
         }
         String workEffortId = (String) request.getAttribute("workEffortId");
-        Debug.logInfo("[handleGetRequest] workEffortId = " + workEffortId, module);
+        Debug.logInfo("[handleGetRequest] workEffortId = " + workEffortId, MODULE);
         ResponseProperties responseProps = null;
         try {
             responseProps = ICalConverter.getICalendar(workEffortId, createConversionContext(request));
         } catch (Exception e) {
-            Debug.logError(e, "[handleGetRequest] Error while sending calendar: ", module);
+            Debug.logError(e, "[handleGetRequest] Error while sending calendar: ", MODULE);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
@@ -165,11 +165,11 @@ public final class ICalWorker {
             return;
         }
         String workEffortId = (String) request.getAttribute("workEffortId");
-        Debug.logInfo("[handlePropFindRequest] workEffortId = " + workEffortId, module);
+        Debug.logInfo("[handlePropFindRequest] workEffortId = " + workEffortId, MODULE);
         try {
             Document requestDocument = WebDavUtil.getDocumentFromRequest(request);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("[handlePropFindRequest] PROPFIND body:\r\n" + UtilXml.writeXmlDocument(requestDocument), module);
+                Debug.logVerbose("[handlePropFindRequest] PROPFIND body:\r\n" + UtilXml.writeXmlDocument(requestDocument), MODULE);
             }
             PropFindHelper helper = new PropFindHelper(requestDocument);
             if (!helper.isAllProp() && !helper.isPropName()) {
@@ -205,7 +205,7 @@ public final class ICalWorker {
                 rootElement.appendChild(responseElement);
                 responseDocument.appendChild(rootElement);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + UtilXml.writeXmlDocument(responseDocument), module);
+                    Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + UtilXml.writeXmlDocument(responseDocument), MODULE);
                 }
                 ResponseHelper.prepareResponse(response, 207, "Multi-Status");
                 try (Writer writer = response.getWriter()) {
@@ -214,7 +214,7 @@ public final class ICalWorker {
                 return;
             }
         } catch (RuntimeException | GenericEntityException | SAXException | ParserConfigurationException e) {
-            Debug.logError(e, "PROPFIND error: ", module);
+            Debug.logError(e, "PROPFIND error: ", MODULE);
         }
         response.setStatus(HttpServletResponse.SC_OK);
         response.flushBuffer();
@@ -226,17 +226,17 @@ public final class ICalWorker {
         }
         String contentType = request.getContentType();
         if (contentType != null && !"text/calendar".equals(contentType)) {
-            Debug.logInfo("[handlePutRequest] invalid content type", module);
+            Debug.logInfo("[handlePutRequest] invalid content type", MODULE);
             response.sendError(HttpServletResponse.SC_CONFLICT);
             return;
         }
         String workEffortId = (String) request.getAttribute("workEffortId");
-        Debug.logInfo("[handlePutRequest] workEffortId = " + workEffortId, module);
+        Debug.logInfo("[handlePutRequest] workEffortId = " + workEffortId, MODULE);
         ResponseProperties responseProps = null;
         try {
             responseProps = ICalConverter.storeCalendar(request.getInputStream(), createConversionContext(request));
         } catch (Exception e) {
-            Debug.logError(e, "[handlePutRequest] Error while updating calendar: ", module);
+            Debug.logError(e, "[handlePutRequest] Error while updating calendar: ", MODULE);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
@@ -270,7 +270,7 @@ public final class ICalWorker {
         if (ServiceUtil.isError(result) || ServiceUtil.isFailure(result)) {
             String errorMessage = ServiceUtil.getErrorMessage(result);
             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-            Debug.logError(errorMessage, module);
+            Debug.logError(errorMessage, MODULE);
             throw new GenericServiceException(errorMessage);
         }
         userLogin = (GenericValue) result.get("userLogin");
@@ -304,14 +304,14 @@ public final class ICalWorker {
         try {
             logInUser(request, response);
         } catch (Exception e) {
-            Debug.logError(e, "Error while logging in user: ", module);
+            Debug.logError(e, "Error while logging in user: ", MODULE);
         }
     }
 
     private static void writeResponse(ResponseProperties responseProps, HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Returning response: code = " + responseProps.statusCode +
-                    ", message = " + responseProps.statusMessage, module);
+                    ", message = " + responseProps.statusMessage, MODULE);
         }
         response.setStatus(responseProps.statusCode);
         if (responseProps.statusCode == HttpServletResponse.SC_UNAUTHORIZED) {

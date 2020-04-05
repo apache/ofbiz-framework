@@ -35,7 +35,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class VisualTheme implements Serializable {
 
-    public static final String module = VisualTheme.class.getName();
+    public static final String MODULE = VisualTheme.class.getName();
     private ModelTheme modelTheme;
     private final String visualThemeId;
     private final List<String> screenshots;

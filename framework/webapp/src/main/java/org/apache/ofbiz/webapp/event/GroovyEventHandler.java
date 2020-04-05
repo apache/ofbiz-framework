@@ -48,7 +48,7 @@ import groovy.lang.Script;
 
 public class GroovyEventHandler implements EventHandler {
 
-    public static final String module = GroovyEventHandler.class.getName();
+    public static final String MODULE = GroovyEventHandler.class.getName();
     protected static final Object[] EMPTY_ARGS = {};
     private static final Set<String> protectedKeys = createProtectedKeys();
 
@@ -108,7 +108,7 @@ public class GroovyEventHandler implements EventHandler {
                     result = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
                 }
             } catch (Exception e) {
-                Debug.logWarning(e, "Error running event " + event.path + ": ", module);
+                Debug.logWarning(e, "Error running event " + event.path + ": ", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -135,7 +135,7 @@ public class GroovyEventHandler implements EventHandler {
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
     }

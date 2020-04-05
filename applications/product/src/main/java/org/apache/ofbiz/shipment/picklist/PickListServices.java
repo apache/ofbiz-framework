@@ -37,7 +37,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class PickListServices {
 
-    public static final String module = PickListServices.class.getName();
+    public static final String MODULE = PickListServices.class.getName();
 
     public static Map<String, Object> convertOrderIdListToHeaders(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -72,11 +72,11 @@ public class PickListServices {
                             .orderBy("orderDate")
                             .queryList();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
-                Debug.logInfo("Recieved orderIdList  - " + orderIdList, module);
-                Debug.logInfo("Found orderHeaderList - " + orderHeaderList, module);
+                Debug.logInfo("Recieved orderIdList  - " + orderIdList, MODULE);
+                Debug.logInfo("Found orderHeaderList - " + orderHeaderList, MODULE);
             }
         }
 
@@ -91,7 +91,7 @@ public class PickListServices {
         try {
             items = EntityQuery.use(delegator).from("PicklistItem").where("picklistBinId", picklistBinId).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw e;
         }
 

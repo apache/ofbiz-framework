@@ -36,7 +36,7 @@ import junit.framework.TestSuite;
  */
 public class JunitSuiteWrapper {
 
-    public static final String module = JunitSuiteWrapper.class.getName();
+    public static final String MODULE = JunitSuiteWrapper.class.getName();
 
     protected List<ModelTestSuite> modelTestSuiteList = new LinkedList<>();
 
@@ -60,7 +60,7 @@ public class JunitSuiteWrapper {
                 }
             } catch (GenericConfigException e) {
                 String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]";
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
             }
         }
     }

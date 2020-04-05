@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class ProductContentWrapper implements ContentWrapper {
 
-    public static final String module = ProductContentWrapper.class.getName();
+    public static final String MODULE = ProductContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
 
     private static final UtilCache<String, String> productContentCache = UtilCache.createUtilCache("product.content.rendered", true);
@@ -83,7 +83,7 @@ public class ProductContentWrapper implements ContentWrapper {
     @Override
     public StringUtil.StringWrapper get(String productContentTypeId, String encoderType) {
         if (this.product == null) {
-            Debug.logWarning("Tried to get ProductContent for type [" + productContentTypeId + "] but the product field in the ProductContentWrapper is null", module);
+            Debug.logWarning("Tried to get ProductContent for type [" + productContentTypeId + "] but the product field in the ProductContentWrapper is null", MODULE);
             return null;
         }
         return StringUtil.makeStringWrapper(getProductContentAsText(this.product, productContentTypeId, locale, mimeTypeId, null, null, this.product.getDelegator(), dispatcher, encoderType));
@@ -128,7 +128,7 @@ public class ProductContentWrapper implements ContentWrapper {
             productContentCache.put(cacheKey, outString);
             return outString;
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering ProductContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering ProductContent, inserting empty String", MODULE);
             String candidateOut = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
         }
@@ -178,7 +178,7 @@ public class ProductContentWrapper implements ContentWrapper {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
         }
         if (UtilValidate.isEmpty(product)) {
-            Debug.logWarning("No Product entity found for productId: " + productId, module);
+            Debug.logWarning("No Product entity found for productId: " + productId, MODULE);
             return;
         }
 

@@ -105,7 +105,7 @@ import freemarker.template.TemplateException;
  */
 public class DataResourceWorker  implements org.apache.ofbiz.widget.content.DataResourceWorkerInterface {
 
-    public static final String module = DataResourceWorker.class.getName();
+    public static final String MODULE = DataResourceWorker.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     /**
@@ -220,7 +220,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         if (lst.size() == 0) {
             String errMsg = UtilProperties.getMessage(DataResourceWorker.err_resource, "dataResourceWorker.no_files_uploaded", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            Debug.logWarning("[DataEvents.uploadImage] No files uploaded", module);
+            Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
             return "error";
         }
 
@@ -246,7 +246,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 imageFileName = imageFi.getName();
                 passedParams.put("drObjectInfo", imageFileName);
                 if (Debug.infoOn()) {
-                    Debug.logInfo("[UploadContentAndImage]imageData: " + imageBytes.length, module);
+                    Debug.logInfo("[UploadContentAndImage]imageData: " + imageBytes.length, MODULE);
                 }
             }
         }
@@ -389,7 +389,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                             ext = dataResource.getDelegator().findOne("FileExtension",
                                     UtilMisc.toMap("fileExtensionId", fileExtension), false);
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                         }
                         if (ext != null) {
                             mimeTypeId = ext.getString("mimeTypeId");
@@ -562,7 +562,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             // if the parent doesn't exist; create it now
             boolean created = parent.mkdir();
             if (!created) {
-                Debug.logWarning("Unable to create top level upload directory [" + parentDir + "].", module);
+                Debug.logWarning("Unable to create top level upload directory [" + parentDir + "].", MODULE);
             }
         }
 
@@ -587,7 +587,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             name = latestDir.getName();
         }
 
-        Debug.logInfo("Directory Name : " + name, module);
+        Debug.logInfo("Directory Name : " + name, MODULE);
         if (absolute) {
             return latestDir.getAbsolutePath().replace('\\', '/');
         }
@@ -601,7 +601,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             latestDir = new File(parent, "" + System.currentTimeMillis());
             if (!latestDir.exists()) {
                 if (!latestDir.mkdir()) {
-                    Debug.logError("Directory: " + latestDir.getName() + ", couldn't be created", module);
+                    Debug.logError("Directory: " + latestDir.getName() + ", couldn't be created", MODULE);
                 }
                 newDir = true;
             }
@@ -738,7 +738,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 try {
                     outDoc = XslTransform.renderTemplate(templateLocation, (String) templateContext.get("docFile"));
                 } catch (TransformerException c) {
-                    Debug.logError("XSL TransformerException: " + c.getMessage(), module);
+                    Debug.logError("XSL TransformerException: " + c.getMessage(), MODULE);
                 }
                 out.append(outDoc);
 
@@ -1010,14 +1010,14 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 if (Debug.infoOn()) {
                     String enc = in.getEncoding();
-                    Debug.logInfo("in serveImage, encoding:" + enc, module);
+                    Debug.logInfo("in serveImage, encoding:" + enc, MODULE);
                 }
                 UtilIO.copy(in, out);
             } catch (FileNotFoundException e) {
-                Debug.logError(e, " in renderDataResourceAsHtml(CONTEXT_FILE), in FNFexception:", module);
+                Debug.logError(e, " in renderDataResourceAsHtml(CONTEXT_FILE), in FNFexception:", MODULE);
                 throw new GeneralException("Could not find context file to render", e);
             } catch (Exception e) {
-                Debug.logError(" in renderDataResourceAsHtml(CONTEXT_FILE), got exception:" + e.getMessage(), module);
+                Debug.logError(" in renderDataResourceAsHtml(CONTEXT_FILE), got exception:" + e.getMessage(), MODULE);
             }
         }
     }

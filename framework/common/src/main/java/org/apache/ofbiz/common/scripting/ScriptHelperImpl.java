@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class ScriptHelperImpl implements ScriptHelper {
 
-    public static final String module = ScriptHelperImpl.class.getName();
+    public static final String MODULE = ScriptHelperImpl.class.getName();
     private static final Map<String, ? extends Object> EMPTY_ARGS = Collections.unmodifiableMap(new HashMap<String, Object>());
 
     private static GenericValue runFindByPrimaryKey(ModelEntity modelEntity, ContextHelper ctxHelper, boolean useCache, boolean autoFieldMap,
@@ -79,7 +79,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
         }
         if (fieldsToSelect != null && useCache) {
             String errMsg = "Error running script " + ctxHelper.getScriptName() + ": Problem invoking the findOne method: Cannot specify selectFieldList argument when useCache is set to true ";
-            Debug.logWarning(errMsg, module);
+            Debug.logWarning(errMsg, MODULE);
             throw new ScriptException(errMsg);
         }
         GenericValue valueOut = null;
@@ -97,12 +97,12 @@ public final class ScriptHelperImpl implements ScriptHelper {
                 }
             } catch (GenericEntityException e) {
                 String errMsg = "Error running script " + ctxHelper.getScriptName() + ": Problem invoking the findOne method: " + e.getMessage();
-                Debug.logWarning(e, errMsg, module);
+                Debug.logWarning(e, errMsg, MODULE);
                 throw new ScriptException(errMsg);
             }
         } else {
             if (Debug.warningOn()) {
-                Debug.logWarning("Error running script " + ctxHelper.getScriptName() + ": Returning null because found incomplete primary key in find: " + entityPK, module);
+                Debug.logWarning("Error running script " + ctxHelper.getScriptName() + ": Returning null because found incomplete primary key in find: " + entityPK, MODULE);
             }
         }
         return valueOut;
@@ -123,7 +123,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
             modelService = ctxHelper.getDispatcher().getDispatchContext().getModelService(serviceName);
         } catch (GenericServiceException e) {
             String errMsg = "Error running script " + ctxHelper.getScriptName() + ": Problem invoking the createServiceMap method: get service definition for service name [" + serviceName + "]: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             throw new ScriptException(errMsg);
         }
         toMap.putAll(modelService.makeValid(inputMap, ModelService.IN_PARAM, true, UtilGenerics.cast(ctxHelper.getErrorMessages()), ctxHelper.getTimeZone(), ctxHelper.getLocale()));
@@ -161,7 +161,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
             return UtilGenerics.cast(ctxHelper.getDelegator().findByAnd(entityName, fields, null, false));
         } catch (GenericEntityException e) {
             String errMsg = "Error running script " + ctxHelper.getScriptName() + ": Problem invoking the findList method: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             throw new ScriptException(errMsg);
         }
     }
@@ -190,19 +190,19 @@ public final class ScriptHelperImpl implements ScriptHelper {
     @Override
     public void logError(String message) {
         String expandedMessage = ctxHelper.expandString(message);
-        Debug.logError("[".concat(ctxHelper.getScriptName()).concat("] ").concat(expandedMessage), module);
+        Debug.logError("[".concat(ctxHelper.getScriptName()).concat("] ").concat(expandedMessage), MODULE);
     }
 
     @Override
     public void logInfo(String message) {
         String expandedMessage = ctxHelper.expandString(message);
-        Debug.logInfo("[".concat(ctxHelper.getScriptName()).concat("] ").concat(expandedMessage), module);
+        Debug.logInfo("[".concat(ctxHelper.getScriptName()).concat("] ").concat(expandedMessage), MODULE);
     }
 
     @Override
     public void logWarning(String message) {
         String expandedMessage = ctxHelper.expandString(message);
-        Debug.logWarning("[".concat(ctxHelper.getScriptName()).concat("] ").concat(expandedMessage), module);
+        Debug.logWarning("[".concat(ctxHelper.getScriptName()).concat("] ").concat(expandedMessage), MODULE);
     }
 
     @Override
@@ -232,7 +232,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
                 try {
                     transactionTimeout = Integer.parseInt(timeoutStr);
                 } catch (NumberFormatException e) {
-                    Debug.logWarning(e, "Setting timeout to 0 (default)", module);
+                    Debug.logWarning(e, "Setting timeout to 0 (default)", MODULE);
                     transactionTimeout = 0;
                 }
             }
@@ -268,7 +268,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
             }
         } catch (GenericServiceException e) {
             String errMsg = "Error running script " + ctxHelper.getScriptName() + " [problem invoking the [" + serviceName + "] service: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             throw new ScriptException(errMsg);
         }
         return result;

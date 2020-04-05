@@ -44,7 +44,7 @@ import org.apache.ofbiz.base.util.Debug;
  *
  */
 public abstract class JdbcValueHandler<T> {
-    public static final String module = JdbcValueHandler.class.getName();
+    public static final String MODULE = JdbcValueHandler.class.getName();
     private static final Map<String, JdbcValueHandler<?>> JdbcValueHandlerMap = createJdbcValueHandlerMap();
     private static final Map<String, Integer> SqlTypeMap = createSqlTypeMap();
 
@@ -425,11 +425,11 @@ public abstract class JdbcValueHandler<T> {
                 // that uses a Clob java-type for a java.lang.String should use a
                 // java.lang.String java-type instead.
                 String str = (String) obj;
-                Debug.logWarning("Clob java-type used for java.lang.String. Use java.lang.String java-type instead.", module);
+                Debug.logWarning("Clob java-type used for java.lang.String. Use java.lang.String java-type instead.", MODULE);
                 ps.setString(parameterIndex, str);
                 return;
             } catch (ClassCastException e) {
-                Debug.logInfo(e.getMessage(), module);
+                Debug.logInfo(e.getMessage(), MODULE);
             }
             ps.setClob(parameterIndex, (java.sql.Clob) obj);
             return;
@@ -625,7 +625,7 @@ public abstract class JdbcValueHandler<T> {
                     try {
                         in.close();
                     } catch (IOException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
             }

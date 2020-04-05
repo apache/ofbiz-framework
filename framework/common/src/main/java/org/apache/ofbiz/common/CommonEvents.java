@@ -61,7 +61,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
  */
 public class CommonEvents {
 
-    public static final String module = CommonEvents.class.getName();
+    public static final String MODULE = CommonEvents.class.getName();
 
     private static final String[] ignoreAttrs = new String[] { // Attributes removed for security reason; _ERROR_MESSAGE_ and _ERROR_MESSAGE_LIST are kept
         "javax.servlet.request.key_size",
@@ -101,7 +101,7 @@ public class CommonEvents {
                     ulUpdate.store();
                     userLogin.refreshFromCache();
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
         }
@@ -127,7 +127,7 @@ public class CommonEvents {
                     ulUpdate.store();
                     userLogin.refreshFromCache();
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
         }
@@ -166,7 +166,7 @@ public class CommonEvents {
                     ulUpdate.store();
                     userLogin.refreshFromCache();
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
         }
@@ -203,7 +203,7 @@ public class CommonEvents {
                     + "Normally you simply have to access the data you want, so should not be annoyed by the '//' prefix."
                     + "You might need to remove it if you use Ajax GET responses (not recommended)."
                     + "In case, the util.js scrpt is there to help you."
-                    + "This can be customized in general.properties with the http.json.xssi.prefix property", module);
+                    + "This can be customized in general.properties with the http.json.xssi.prefix property", MODULE);
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             String xssiPrefix =EntityUtilProperties.getPropertyValue("general", "http.json.xssi.prefix", delegator);
             jsonStr = xssiPrefix + jsonStr;
@@ -221,7 +221,7 @@ public class CommonEvents {
             out.write(jsonStr);
             out.flush();
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -235,7 +235,7 @@ public class CommonEvents {
             uiLabelObject = UtilGenerics.<Map<String, List<String>>> cast(json.toObject(Map.class));
         }
         if (UtilValidate.isEmpty(uiLabelObject)) {
-            Debug.logError("No resource and labels found in JSON string: " + jsonString, module);
+            Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
             return "error";
         }
         Locale locale = UtilHttp.getLocale(request);
@@ -266,10 +266,10 @@ public class CommonEvents {
             uiLabelObject = UtilGenerics.<Map<String, String>>cast(json.toObject(Map.class));
         }
         if (UtilValidate.isEmpty(uiLabelObject)) {
-            Debug.logError("No resource and labels found in JSON string: " + jsonString, module);
+            Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
             return "error";
         } else if (uiLabelObject.size() > 1) {
-            Debug.logError("More than one resource found, please use the method: getJSONuiLabelArray", module);
+            Debug.logError("More than one resource found, please use the method: getJSONuiLabelArray", MODULE);
             return "error";
         }
         Locale locale = UtilHttp.getLocale(request);
@@ -379,7 +379,7 @@ public class CommonEvents {
             }
             captchaCodeMap.put(captchaCodeId, captchaCode);
         } catch (IOException | IllegalArgumentException | IllegalStateException ioe) {
-            Debug.logError(ioe.getMessage(), module);
+            Debug.logError(ioe.getMessage(), MODULE);
         }
         return "success";
     }
@@ -394,7 +394,7 @@ public class CommonEvents {
             String token = JWTManager.createJwt(delegator, types, ttlSeconds);
             writeJSONtoResponse(JSON.from(token), request, response);
         } else {
-            Debug.logWarning("No securedUserLoginId cookie was found for this application", module);
+            Debug.logWarning("No securedUserLoginId cookie was found for this application", MODULE);
         }
         return "success";
     }

@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class FinAccountProductServices {
 
-    public static final String module = FinAccountProductServices.class.getName();
+    public static final String MODULE = FinAccountProductServices.class.getName();
     public static final String resourceOrderError = "OrderErrorUiLabels";
     public static final String resourceError = "AccountingErrorUiLabels";
 
@@ -71,7 +71,7 @@ public class FinAccountProductServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem", module);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError,
                     "OrderCannotGetOrderHeader", UtilMisc.toMap("orderId", orderId), locale));
         }
@@ -85,7 +85,7 @@ public class FinAccountProductServices {
             featureAndAppls = EntityUtil.filterByDate(featureAndAppls);
             featureAndAppl = EntityUtil.getFirst(featureAndAppls);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -106,7 +106,7 @@ public class FinAccountProductServices {
         try {
             finAccountType = EntityQuery.use(delegator).from("FinAccountType").where("finAccountTypeId", finAccountTypeId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         String replenishEnumId = finAccountType.getString("replenishEnumId");
@@ -128,7 +128,7 @@ public class FinAccountProductServices {
             productStoreId = orh.getProductStoreId();
         }
         if (productStoreId == null) {
-            Debug.logFatal("Unable to create financial accout; no productStoreId on OrderHeader : " + orderId, module);
+            Debug.logFatal("Unable to create financial accout; no productStoreId on OrderHeader : " + orderId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountCannotCreate",
                     UtilMisc.toMap("orderId", orderId), locale));
@@ -162,7 +162,7 @@ public class FinAccountProductServices {
             try {
                 party = billToParty.getRelatedOne("Party", false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             if (party != null) {
                 String partyTypeId = party.getString("partyTypeId");
@@ -213,11 +213,11 @@ public class FinAccountProductServices {
         try {
             createResp = dispatcher.runSync("createFinAccountForStore", createCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(createResp)) {
-            Debug.logFatal(ServiceUtil.getErrorMessage(createResp), module);
+            Debug.logFatal(ServiceUtil.getErrorMessage(createResp), MODULE);
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createResp));
         }
 
@@ -234,11 +234,11 @@ public class FinAccountProductServices {
         try {
             roleResp = dispatcher.runSync("createFinAccountRole", roleCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(roleResp)) {
-            Debug.logFatal(ServiceUtil.getErrorMessage(roleResp), module);
+            Debug.logFatal(ServiceUtil.getErrorMessage(roleResp), MODULE);
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(roleResp));
         }
 
@@ -258,11 +258,11 @@ public class FinAccountProductServices {
         try {
             depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(depositResp)) {
-            Debug.logFatal(ServiceUtil.getErrorMessage(depositResp), module);
+            Debug.logFatal(ServiceUtil.getErrorMessage(depositResp), MODULE);
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depositResp));
         }
 

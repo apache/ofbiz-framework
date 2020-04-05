@@ -102,7 +102,7 @@ import org.xml.sax.SAXException;
 
 public class WebToolsServices {
 
-    public static final String module = WebToolsServices.class.getName();
+    public static final String MODULE = WebToolsServices.class.getName();
     public static final String resource = "WebtoolsUiLabels";
 
     public static Map<String, Object> entityImport(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -280,18 +280,18 @@ public class WebToolsServices {
                         }
                         // pause in between files
                         if (pauseLong > 0) {
-                            Debug.logInfo("Pausing for [" + pauseLong + "] seconds - " + UtilDateTime.nowTimestamp(), module);
+                            Debug.logInfo("Pausing for [" + pauseLong + "] seconds - " + UtilDateTime.nowTimestamp(), MODULE);
                             try {
                                 Thread.sleep((pauseLong * 1000));
                             } catch (InterruptedException ie) {
-                                Debug.logInfo("Pause finished - " + UtilDateTime.nowTimestamp(), module);
+                                Debug.logInfo("Pause finished - " + UtilDateTime.nowTimestamp(), MODULE);
                             }
                         }
                     }
                     files = unprocessedFiles;
                     passes++;
                     messages.add(UtilProperties.getMessage(resource, "EntityImportPassedFile", UtilMisc.toMap("passes", passes), locale));
-                    Debug.logInfo("Pass " + passes + " complete", module);
+                    Debug.logInfo("Pass " + passes + " complete", MODULE);
                 }
                 lastUnprocessedFilesCount=unprocessedFiles.size();
                 messages.add("---------------------------------------");
@@ -400,7 +400,7 @@ public class WebToolsServices {
                     totalRowsChanged += rowsChanged;
                     infoMessages.add(changedFormat.format(rowsChanged) + " of " + changedFormat.format(totalRowsChanged) + " from " + dataUrl.toExternalForm());
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error loading data file: " + dataUrl.toExternalForm(), module);
+                    Debug.logError(e, "Error loading data file: " + dataUrl.toExternalForm(), MODULE);
                 }
             }
         } else {
@@ -538,7 +538,7 @@ public class WebToolsServices {
                         }
                         fileNumber++;
                     } catch (GenericTransactionException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         results.add(e.getLocalizedMessage());
                     }
                 }
@@ -656,7 +656,7 @@ public class WebToolsServices {
                             try {
                                 bundle = UtilResourceBundle.getBundle(entity.getDefaultResourceName(), locale, loader);
                             } catch (Exception exception) {
-                                Debug.logInfo(exception.getMessage(), module);
+                                Debug.logInfo(exception.getMessage(), MODULE);
                             }
                         }
                         String entityDescription = null;
@@ -664,7 +664,7 @@ public class WebToolsServices {
                             try {
                                 entityDescription = bundle.getString("EntityDescription." + entity.getEntityName());
                             } catch (Exception exception) {
-                                Debug.logError(exception, module);
+                                Debug.logError(exception, MODULE);
                             }
                         }
                         if (UtilValidate.isEmpty(entityDescription)) {
@@ -685,7 +685,7 @@ public class WebToolsServices {
                                 try {
                                     fieldDescription = bundle.getString("FieldDescription." + entity.getEntityName() + "." + field.getName());
                                 } catch (Exception exception) {
-                                    Debug.logError(exception, module);
+                                    Debug.logError(exception, MODULE);
                                 }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
@@ -695,7 +695,7 @@ public class WebToolsServices {
                                 try {
                                 fieldDescription = bundle.getString("FieldDescription." + field.getName());
                                 } catch (Exception exception) {
-                                    Debug.logError(exception, module);
+                                    Debug.logError(exception, MODULE);
                                 }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
@@ -820,19 +820,19 @@ public class WebToolsServices {
                 Set<String> entityPackageNameSet = new HashSet<>();
                 entityPackageNameSet.addAll(StringUtil.split(entityPackageNameOrig, ","));
 
-                Debug.logInfo("Exporting with entityPackageNameSet: " + entityPackageNameSet, module);
+                Debug.logInfo("Exporting with entityPackageNameSet: " + entityPackageNameSet, MODULE);
 
                 Map<String, TreeSet<String>> entitiesByPackage = reader.getEntitiesByPackage(entityPackageNameSet, null);
                 for (Map.Entry<String, TreeSet<String>> entitiesByPackageMapEntry: entitiesByPackage.entrySet()) {
                     entityNames.addAll(entitiesByPackageMapEntry.getValue());
                 }
             } else if (UtilValidate.isNotEmpty(entityGroupId)) {
-                Debug.logInfo("Exporting entites from the Group: " + entityGroupId, module);
+                Debug.logInfo("Exporting entites from the Group: " + entityGroupId, MODULE);
                 entityNames.addAll(EntityGroupUtil.getEntityNamesByGroup(entityGroupId, dctx.getDelegator(), false));
             } else {
                 entityNames.addAll(reader.getEntityNames());
             }
-            Debug.logInfo("Exporting the following entities: " + entityNames, module);
+            Debug.logInfo("Exporting the following entities: " + entityNames, MODULE);
 
             // remove all view-entity
             Iterator<String> filterEntityNameIter = entityNames.iterator();
@@ -924,7 +924,7 @@ public class WebToolsServices {
             ServiceArtifactInfo serviceInfo = aif.getServiceArtifactInfo(serviceName);
             serviceInfo.writeServiceCallGraphEoModel(eomodeldFullPath);
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelErrorGettingEntityNames", UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (UnsupportedEncodingException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelSavingFileError", UtilMisc.toMap("errorString", e.toString()), locale));

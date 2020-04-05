@@ -29,7 +29,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
  */
 public class PatternFactory {
 
-    public static final String module = PatternFactory.class.getName();
+    public static final String MODULE = PatternFactory.class.getName();
     private static final UtilCache<String, Pattern> compiledPerl5Patterns = UtilCache.createUtilCache("regularExpression.compiledPerl5Patterns", false);
 
     /**
@@ -52,7 +52,7 @@ public class PatternFactory {
             }
             pattern = compiledPerl5Patterns.putIfAbsentAndGet(stringPattern, pattern);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Compiled and cached the pattern: '" + stringPattern, module);
+                Debug.logVerbose("Compiled and cached the pattern: '" + stringPattern, MODULE);
             }
         }
         return pattern;

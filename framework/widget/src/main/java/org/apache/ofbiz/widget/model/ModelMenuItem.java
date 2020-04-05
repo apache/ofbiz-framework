@@ -62,7 +62,7 @@ public class ModelMenuItem extends ModelWidget {
      *
      */
 
-    public static final String module = ModelMenuItem.class.getName();
+    public static final String MODULE = ModelMenuItem.class.getName();
 
     private final List<ModelAction> actions;
     private final String align;
@@ -128,7 +128,7 @@ public class ModelMenuItem extends ModelWidget {
                 position = Integer.valueOf(positionStr);
             } catch (Exception e) {
                 Debug.logError(e, "Could not convert position attribute of the field element to an integer: [" + positionStr
-                        + "], using the default of the menu renderer", module);
+                        + "], using the default of the menu renderer", MODULE);
                 position = null;
             }
         }

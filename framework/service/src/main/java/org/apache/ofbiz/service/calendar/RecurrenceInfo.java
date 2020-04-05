@@ -38,7 +38,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class RecurrenceInfo {
 
-    public static final String module = RecurrenceInfo.class.getName();
+    public static final String MODULE = RecurrenceInfo.class.getName();
 
     protected GenericValue info;
     protected Date startDate;
@@ -207,8 +207,8 @@ public class RecurrenceInfo {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Date List Size: " + (rDateList == null ? 0 : rDateList.size()), module);
-            Debug.logVerbose("Rule List Size: " + (rRulesList == null ? 0 : rRulesList.size()), module);
+            Debug.logVerbose("Date List Size: " + (rDateList == null ? 0 : rDateList.size()), MODULE);
+            Debug.logVerbose("Rule List Size: " + (rRulesList == null ? 0 : rRulesList.size()), MODULE);
         }
 
         // Check the rules and date list
@@ -265,7 +265,7 @@ public class RecurrenceInfo {
     private long getNextTime(RecurrenceRule rule, long fromTime) {
         long nextTime = rule.next(getStartTime(), fromTime, getCurrentCount());
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Next Time Before Date Check: " + nextTime, module);
+            Debug.logVerbose("Next Time Before Date Check: " + nextTime, MODULE);
         }
         return checkDateList(rDateList, nextTime, fromTime);
     }

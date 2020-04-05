@@ -51,7 +51,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderSubContentCacheTransform implements TemplateTransformModel {
 
-    public static final String module = RenderSubContentCacheTransform.class.getName();
+    public static final String MODULE = RenderSubContentCacheTransform.class.getName();
     static final String[] upSaveKeyNames = { "globalNodeTrail" };
 
     @Override
@@ -142,7 +142,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 } else if (passedGlobalNodeTrail.size() > 0) {
                     Map<String, ? extends Object> map = UtilGenerics.cast(passedGlobalNodeTrail.get(passedGlobalNodeTrail.size() - 1));
                     if (Debug.infoOn()) {
-                        Debug.logInfo("in Render(3), map ." + map , module);
+                        Debug.logInfo("in Render(3), map ." + map , MODULE);
                     }
                     if (map != null) {
                         thisView = (GenericValue)map.get("value");
@@ -165,7 +165,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                         try {
                             ContentWorker.renderContentAsText(dispatcher, contentId, out, templateRoot, locale, mimeTypeId, null, null, true);
                         } catch (GeneralException e) {
-                            Debug.logError(e, "Error rendering content", module);
+                            Debug.logError(e, "Error rendering content", MODULE);
                             throw new IOException("Error rendering thisView:" + thisView + " msg:" + e.toString());
                         }
                     }
@@ -194,7 +194,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     contentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
                     mapKey = (String)templateRoot.get("mapKey");
                     fromDate = (String)templateRoot.get("fromDate");
-                    if (Debug.infoOn()) Debug.logInfo("in Render(0), view ." + view , module);
+                    if (Debug.infoOn()) Debug.logInfo("in Render(0), view ." + view , MODULE);
                     if (view != null) {
                         ModelEntity modelEntity = view.getModelEntity();
                         if (UtilValidate.isEmpty(contentId) && modelEntity.getField("caContentId") != null)
@@ -221,7 +221,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 } else {
                     contentId = (String)templateRoot.get("subContentId");
                 }
-                if (Debug.infoOn()) Debug.logInfo("in Render(0), contentIdTo ." + contentIdTo , module);
+                if (Debug.infoOn()) Debug.logInfo("in Render(0), contentIdTo ." + contentIdTo , MODULE);
                 String delim = "?";
                 if (UtilValidate.isNotEmpty(contentId)) {
                     fullRequest += delim + "contentId=" + contentId;
@@ -244,7 +244,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     delim = "&";
                 }
 
-                if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo , module);
+                if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo , MODULE);
                 out.write("<a href=\"");
                 ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");

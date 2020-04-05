@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public final class CreateObject extends MethodOperation {
 
-    public static final String module = CreateObject.class.getName();
+    public static final String MODULE = CreateObject.class.getName();
 
     private final String className;
     private final Class<?> targetClass;
@@ -102,7 +102,7 @@ public final class CreateObject extends MethodOperation {
                     typeClass = methodObjectDef.getTypeClass(methodContext);
                 } catch (ClassNotFoundException e) {
                     String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Parameter type not found with name " + methodObjectDef.getTypeName() + "]";
-                    Debug.logWarning(e, errMsg, module);
+                    Debug.logWarning(e, errMsg, MODULE);
                     simpleMethod.addErrorMessage(methodContext, errMsg);
                     return false;
                 }

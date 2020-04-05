@@ -33,7 +33,7 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
 public class MigrationServices {
-    public static final String module = MigrationServices.class.getName();
+    public static final String MODULE = MigrationServices.class.getName();
 
     public static Map<String, Object> migrateProductPromoCodeEmail(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -47,7 +47,7 @@ public class MigrationServices {
 
                 String emailAddress = productPromoCodeEmail.getString("emailAddress");
                 if (!UtilValidate.isEmail(emailAddress)) {
-                    Debug.logError(emailAddress + ": is not a valid email address", module);
+                    Debug.logError(emailAddress + ": is not a valid email address", MODULE);
                     errors.add(emailAddress + ": is not a valid email address ");
                     continue;
                 }
@@ -85,7 +85,7 @@ public class MigrationServices {
             }
 
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess("Data has been migrated with following errors: " + errors);
     }

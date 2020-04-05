@@ -57,7 +57,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityFinderUtil {
 
-    public static final String module = EntityFinderUtil.class.getName();
+    public static final String MODULE = EntityFinderUtil.class.getName();
 
     private EntityFinderUtil () {}
 
@@ -227,7 +227,7 @@ public final class EntityFinderUtil {
             }
 
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Got value for fieldName [" + fieldName + "]: " + value, module);
+                Debug.logVerbose("Got value for fieldName [" + fieldName + "]: " + value, MODULE);
             }
 
             if (this.ignoreIfEmpty && ObjectType.isEmpty(value)) {
@@ -349,7 +349,7 @@ public final class EntityFinderUtil {
                 return Integer.parseInt(startStr);
             } catch (NumberFormatException e) {
                 String errMsg = "The limit-range start number \"" + startStr + "\" was not valid: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -360,7 +360,7 @@ public final class EntityFinderUtil {
                 return Integer.parseInt(sizeStr);
             } catch (NumberFormatException e) {
                 String errMsg = "The limit-range size number \"" + sizeStr + "\" was not valid: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -374,7 +374,7 @@ public final class EntityFinderUtil {
                 eli.close();
             } catch (GenericEntityException e) {
                 String errMsg = "Error getting partial list in limit-range with start=" + start + " and size=" + size + ": " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -413,7 +413,7 @@ public final class EntityFinderUtil {
                 return Integer.parseInt(viewIndexStr);
             } catch (NumberFormatException e) {
                 String errMsg = "The limit-view view-index number \"" + viewIndexStr + "\" was not valid: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -424,7 +424,7 @@ public final class EntityFinderUtil {
                 return Integer.parseInt(viewSizeStr);
             } catch (NumberFormatException e) {
                 String errMsg = "The limit-view view-size number \"" + viewSizeStr + "\" was not valid: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -438,7 +438,7 @@ public final class EntityFinderUtil {
                 eli.close();
             } catch (GenericEntityException e) {
                 String errMsg = "Error getting partial list in limit-view with index=" + index + " and size=" + size + ": " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -491,7 +491,7 @@ public final class EntityFinderUtil {
                 eli.close();
             } catch (GenericEntityException e) {
                 String errorMsg = "Error getting list from EntityListIterator: " + e.toString();
-                Debug.logError(e, errorMsg, module);
+                Debug.logError(e, errorMsg, MODULE);
                 throw new IllegalArgumentException(errorMsg);
             }
         }

@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class BOMServices {
 
-    public static final String module = BOMServices.class.getName();
+    public static final String MODULE = BOMServices.class.getName();
     public static final String resource = "ManufacturingUiLabels";
 
     /** Returns the product's low level code (llc) i.e. the maximum depth
@@ -229,7 +229,7 @@ public class BOMServices {
                 allProducts.add(product);
             }
             delegator.storeAll(allProducts);
-            Debug.logInfo("Low Level Code set to 0 for all the products", module);
+            Debug.logInfo("Low Level Code set to 0 for all the products", MODULE);
 
             for (GenericValue product : products) {
                 try {
@@ -237,9 +237,9 @@ public class BOMServices {
                     if (ServiceUtil.isError(depthResult)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depthResult));
                     }
-                    Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", module);
+                    Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", MODULE);
                 } catch (Exception exc) {
-                    Debug.logWarning(exc.getMessage(), module);
+                    Debug.logWarning(exc.getMessage(), MODULE);
                 }
             }
             // FIXME: also all the variants llc should be updated?
@@ -414,7 +414,7 @@ public class BOMServices {
                 workEffortId = routing.getString("workEffortId");
             }
         } catch (GenericServiceException gse) {
-            Debug.logWarning(gse.getMessage(), module);
+            Debug.logWarning(gse.getMessage(), MODULE);
         }
         if (workEffortId != null) {
             result.put("workEffortId", workEffortId);

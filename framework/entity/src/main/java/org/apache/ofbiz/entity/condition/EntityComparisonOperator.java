@@ -45,7 +45,7 @@ import org.apache.oro.text.regex.Perl5Matcher;
 @SuppressWarnings("serial")
 public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R> {
 
-    public static final String module = EntityComparisonOperator.class.getName();
+    public static final String MODULE = EntityComparisonOperator.class.getName();
 
     public static Pattern makeOroPattern(String sqlLike) {
         Perl5Util perl5Util = new Perl5Util();
@@ -55,13 +55,13 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
             sqlLike = perl5Util.substitute("s/_/./g", sqlLike);
         } catch (Throwable t) {
             String errMsg = "Error in ORO pattern substitution for SQL like clause [" + sqlLike + "]: " + t.toString();
-            Debug.logError(t, errMsg, module);
+            Debug.logError(t, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
         try {
             return PatternFactory.createOrGetPerl5CompiledPattern(sqlLike, true);
         } catch (MalformedPatternException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return null;
     }

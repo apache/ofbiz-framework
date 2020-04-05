@@ -60,7 +60,7 @@ import org.apache.ofbiz.security.Security;
  */
 public final class ContentManagementWorker {
 
-    public static final String module = ContentManagementWorker.class.getName();
+    public static final String MODULE = ContentManagementWorker.class.getName();
     private static Map<String, GenericValue> cachedWebSitePublishPoints = new HashMap<>();
     private static Map<String, Map<String, Object>> cachedStaticValues = new HashMap<>();
 
@@ -106,7 +106,7 @@ public final class ContentManagementWorker {
             lookupCaches.put(cacheEntityName, lkupCache);
         }
         lkupCache.add(pk.getPrimaryKey());
-        if (Debug.infoOn()) Debug.logInfo("in mruAddByEntityName, entityName:" + entityName + " lifoSet.size()" + lkupCache.size(), module);
+        if (Debug.infoOn()) Debug.logInfo("in mruAddByEntityName, entityName:" + entityName + " lifoSet.size()" + lkupCache.size(), MODULE);
     }
 
     public static Iterator<Object> mostRecentlyViewedIterator(String entityName, Map<String, LifoSet<Object>> lookupCaches) {
@@ -270,7 +270,7 @@ public final class ContentManagementWorker {
             try {
                 currentValue = EntityQuery.use(delegator).from(currentPK.getEntityName()).where(currentPK).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
             request.setAttribute("currentValue", currentValue);
         }
@@ -545,7 +545,7 @@ public final class ContentManagementWorker {
                 authorContent.setNonPKFields(value);
             }
         } catch (GenericEntityException | MiniLangException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         }
 
         return authorContent;

@@ -63,7 +63,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class UtilProperties implements Serializable {
 
-    public static final String module = UtilProperties.class.getName();
+    public static final String MODULE = UtilProperties.class.getName();
 
     private UtilProperties() {}
 
@@ -140,13 +140,13 @@ public final class UtilProperties implements Serializable {
     private static Number getPropertyNumber(String resource, String name, Number defaultNumber, String type) {
         String str = getPropertyValue(resource, name);
         if (UtilValidate.isEmpty(str)) {
-            if (Debug.verboseOn()) Debug.logVerbose("The property " + resource + ":" + name + " is empty, using defaultNumber " + defaultNumber + ".", module);
+            if (Debug.verboseOn()) Debug.logVerbose("The property " + resource + ":" + name + " is empty, using defaultNumber " + defaultNumber + ".", MODULE);
             return defaultNumber;
         }
         try {
             return (Number)(ObjectType.simpleTypeOrObjectConvert(str, type, null, null));
         } catch (GeneralException e) {
-            Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", module);
+            Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", MODULE);
         }
             return defaultNumber;
     }
@@ -232,7 +232,7 @@ public final class UtilProperties implements Serializable {
         try {
             result = new BigInteger(strValue);
         } catch (NumberFormatException nfe) {
-            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigInteger; using defaultNumber " + defaultNumber.toString() + ".", module);
+            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigInteger; using defaultNumber " + defaultNumber.toString() + ".", MODULE);
         }
         return result;
     }
@@ -251,7 +251,7 @@ public final class UtilProperties implements Serializable {
         try {
             result = new BigDecimal(strValue);
         } catch (NumberFormatException nfe) {
-            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigDecimal; using defaultNumber " + defaultNumber.toString() + ".", module);
+            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigDecimal; using defaultNumber " + defaultNumber.toString() + ".", MODULE);
         }
         return result;
     }
@@ -279,7 +279,7 @@ public final class UtilProperties implements Serializable {
         try {
             value = properties.getProperty(name);
         } catch (Exception e) {
-            Debug.logInfo(e, module);
+            Debug.logInfo(e, MODULE);
         }
         return value == null ? "" : value.trim();
     }
@@ -314,7 +314,7 @@ public final class UtilProperties implements Serializable {
                 try {
                     inStream.close();
                 } catch (IOException e) {
-                    Debug.logError(e, "Exception thrown while closing InputStream", module);
+                    Debug.logError(e, "Exception thrown while closing InputStream", MODULE);
                 }
             }
         }
@@ -347,11 +347,11 @@ public final class UtilProperties implements Serializable {
                 properties = new ExtendedProperties(url, null);
                 urlCache.put(cacheKey, properties);
             } catch (Exception e) {
-                Debug.logInfo(e, module);
+                Debug.logInfo(e, MODULE);
             }
         }
         if (properties == null) {
-            Debug.logInfo("[UtilProperties.getProperties] could not find resource: " + url, module);
+            Debug.logInfo("[UtilProperties.getProperties] could not find resource: " + url, MODULE);
             return null;
         }
         return properties;
@@ -438,7 +438,7 @@ public final class UtilProperties implements Serializable {
         try {
             value = properties.getProperty(name);
         } catch (Exception e) {
-            Debug.logInfo(e, module);
+            Debug.logInfo(e, MODULE);
         }
         return value == null ? "" : value.trim();
     }
@@ -479,7 +479,7 @@ public final class UtilProperties implements Serializable {
                 curIdx++;
             }
         } catch (Exception e) {
-            Debug.logInfo(e, module);
+            Debug.logInfo(e, MODULE);
         }
         return value == null ? "" : value.trim();
     }
@@ -531,7 +531,7 @@ public final class UtilProperties implements Serializable {
             value = bundle.getString(name);
         } else {
             if (Debug.warningOn()) { 
-                Debug.logWarning(name + " is missing in " + resource + " for locale " + locale, module);
+                Debug.logWarning(name + " is missing in " + resource + " for locale " + locale, MODULE);
             }
             return name;
         }
@@ -626,7 +626,7 @@ public final class UtilProperties implements Serializable {
             String resourceCacheKey = createResourceName(resource, locale, false);
             if (!resourceNotFoundMessagesShown.contains(resourceCacheKey)) {
                 resourceNotFoundMessagesShown.add(resourceCacheKey);
-                Debug.logInfo("[UtilProperties.getPropertyValue] could not find resource: " + resource + " for locale " + locale, module);
+                Debug.logInfo("[UtilProperties.getPropertyValue] could not find resource: " + resource + " for locale " + locale, MODULE);
             }
             throw new IllegalArgumentException("Could not find resource bundle [" + resource + "] in the locale [" + locale + "]");
         }
@@ -678,16 +678,16 @@ public final class UtilProperties implements Serializable {
                 properties = new ExtendedProperties(url, locale);
             } catch (Exception e) {
                 if (UtilValidate.isNotEmpty(e.getMessage())) {
-                    Debug.logInfo(e.getMessage(), module);
+                    Debug.logInfo(e.getMessage(), MODULE);
                 } else {
-                    Debug.logInfo("Exception thrown: " + e.getClass().getName(), module);
+                    Debug.logInfo("Exception thrown: " + e.getClass().getName(), MODULE);
                 }
                 properties = null;
             }
         }
         if (UtilValidate.isNotEmpty(properties)) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Loaded " + properties.size() + " properties for: " + resource + " (" + locale + ")", module);
+                Debug.logVerbose("Loaded " + properties.size() + " properties for: " + resource + " (" + locale + ")", MODULE);
             }
         }
         return properties;
@@ -894,7 +894,7 @@ public final class UtilProperties implements Serializable {
                 return url;
             }
         } catch (Exception e) {
-            Debug.logInfo("Properties resolver: invalid URL - " + e.getMessage(), module);
+            Debug.logInfo("Properties resolver: invalid URL - " + e.getMessage(), MODULE);
         }
         if (propertiesNotFound.size() <= 300) {
             // Sanity check - list could get quite large
@@ -937,7 +937,7 @@ public final class UtilProperties implements Serializable {
             doc = UtilXml.readXmlDocument(in, true, "XML Properties file");
             in.close();
         } catch (Exception e) {
-            Debug.logWarning(e, "XML file for locale " + locale + " could not be loaded.", module);
+            Debug.logWarning(e, "XML file for locale " + locale + " could not be loaded.", MODULE);
             in.close();
             return null;
         }
@@ -1045,7 +1045,7 @@ public final class UtilProperties implements Serializable {
                 double totalTime = System.currentTimeMillis() - startTime;
                 if (Debug.infoOn()) {
                     Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime / 1000.0 + "s with "
-                            + numProperties + " properties", module);
+                            + numProperties + " properties", MODULE);
                 }
                 bundleCache.putIfAbsent(resourceName, bundle);
             }

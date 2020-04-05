@@ -53,7 +53,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class OrderManagerEvents {
 
-    public static final String module = OrderManagerEvents.class.getName();
+    public static final String MODULE = OrderManagerEvents.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
     // FIXME: this event doesn't seem to be used; we may want to remove it
@@ -73,7 +73,7 @@ public class OrderManagerEvents {
                 paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId).queryList();
                 placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER").queryFirst();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Problems looking up order payment preferences", module);
+                Debug.logError(e, "Problems looking up order payment preferences", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderErrorProcessingOfflinePayments", locale));
                 return "error";
             }
@@ -93,11 +93,11 @@ public class OrderManagerEvents {
                         if (ServiceUtil.isError(results)) {
                             String errorMessage = ServiceUtil.getErrorMessage(results);
                             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                             return "error";
                         }
                     } catch (GenericServiceException e) {
-                        Debug.logError(e, "Failed to execute service createPaymentFromPreference", module);
+                        Debug.logError(e, "Failed to execute service createPaymentFromPreference", MODULE);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         return "error";
                     }
@@ -106,7 +106,7 @@ public class OrderManagerEvents {
                 try {
                     delegator.storeAll(toBeStored);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Problems storing payment information", module);
+                    Debug.logError(e, "Problems storing payment information", MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemStoringReceivedPaymentInformation", locale));
                     return "error";
                 }
@@ -133,7 +133,7 @@ public class OrderManagerEvents {
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems reading order header from datasource.", module);
+            Debug.logError(e, "Problems reading order header from datasource.", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsReadingOrderHeaderInformation", locale));
             return "error";
         }
@@ -149,7 +149,7 @@ public class OrderManagerEvents {
         try {
             paymentMethodTypes = EntityQuery.use(delegator).from("PaymentMethodType").where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE")).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems getting payment types", module);
+            Debug.logError(e, "Problems getting payment types", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsWithPaymentTypeLookup", locale));
             return "error";
         }
@@ -164,7 +164,7 @@ public class OrderManagerEvents {
         try {
             paymentMethods = EntityQuery.use(delegator).from("PaymentMethod").where("partyId", partyId).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems getting payment methods", module);
+            Debug.logError(e, "Problems getting payment methods", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsWithPaymentMethodLookup", locale));
             return "error";
         }
@@ -173,7 +173,7 @@ public class OrderManagerEvents {
         try {
             placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER").queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems looking up order payment preferences", module);
+            Debug.logError(e, "Problems looking up order payment preferences", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderErrorProcessingOfflinePayments", locale));
             return "error";
         }
@@ -203,11 +203,11 @@ public class OrderManagerEvents {
                         if (ServiceUtil.isError(results)) {
                             String errorMessage = ServiceUtil.getErrorMessage(results);
                             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                             return "error";
                         }
                     } catch (GenericServiceException e) {
-                        Debug.logError(e, "Failed to execute service createPaymentFromOrder", module);
+                        Debug.logError(e, "Failed to execute service createPaymentFromOrder", MODULE);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         return "error";
                     }
@@ -247,7 +247,7 @@ public class OrderManagerEvents {
                     try {
                         delegator.create(paymentPreference);
                     } catch (GenericEntityException ex) {
-                        Debug.logError(ex, "Cannot create a new OrderPaymentPreference", module);
+                        Debug.logError(ex, "Cannot create a new OrderPaymentPreference", MODULE);
                         request.setAttribute("_ERROR_MESSAGE_", ex.getMessage());
                         return "error";
                     }
@@ -261,11 +261,11 @@ public class OrderManagerEvents {
                         if (ServiceUtil.isError(results)) {
                             String errorMessage = ServiceUtil.getErrorMessage(results);
                             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                             return "error";
                         }
                     } catch (GenericServiceException e) {
-                        Debug.logError(e, "Failed to execute service createPaymentFromPreference", module);
+                        Debug.logError(e, "Failed to execute service createPaymentFromPreference", MODULE);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         return "error";
                     }
@@ -284,7 +284,7 @@ public class OrderManagerEvents {
                     EntityOperator.AND);
             currentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where(ecl).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "ERROR: Unable to get existing payment preferences from order", module);
+            Debug.logError(e, "ERROR: Unable to get existing payment preferences from order", MODULE);
         }
         if (UtilValidate.isNotEmpty(currentPrefs)) {
             for (GenericValue cp : currentPrefs) {
@@ -316,7 +316,7 @@ public class OrderManagerEvents {
         try {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems storing payment information", module);
+            Debug.logError(e, "Problems storing payment information", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemStoringReceivedPaymentInformation", locale));
             return "error";
         }

@@ -43,7 +43,7 @@ import groovy.lang.Script;
  */
 public class GroovyUtil {
 
-    public static final String module = GroovyUtil.class.getName();
+    public static final String MODULE = GroovyUtil.class.getName();
 
     private static final UtilCache<String, Class<?>> parsedScripts = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
 
@@ -71,24 +71,24 @@ public class GroovyUtil {
     public static Object eval(String expression, Map<String, Object> context) throws CompilationFailedException {
         Object o;
         if (expression == null || expression.equals("")) {
-            Debug.logError("Groovy Evaluation error. Empty expression", module);
+            Debug.logError("Groovy Evaluation error. Empty expression", MODULE);
             return null;
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Evaluating -- " + expression, module);
-            Debug.logVerbose("Using Context -- " + context, module);
+            Debug.logVerbose("Evaluating -- " + expression, MODULE);
+            Debug.logVerbose("Using Context -- " + context, MODULE);
         }
         try {
             GroovyShell shell = new GroovyShell(getBinding(context, expression));
             o = shell.evaluate(StringUtil.convertOperatorSubstitutions(expression));
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Evaluated to -- " + o, module);
+                Debug.logVerbose("Evaluated to -- " + o, MODULE);
             }
             // read back the context info
             Binding binding = shell.getContext();
             context.putAll(binding.getVariables());
         } catch (CompilationFailedException e) {
-            Debug.logError(e, "Groovy Evaluation error.", module);
+            Debug.logError(e, "Groovy Evaluation error.", MODULE);
             throw e;
         }
         return o;
@@ -149,7 +149,7 @@ public class GroovyUtil {
                 Class<?> scriptClassCached = parsedScripts.putIfAbsent(location, scriptClass);
                 if (scriptClassCached == null) { // putIfAbsent returns null if the class is added to the cache
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Cached Groovy script at: " + location, module);
+                        Debug.logVerbose("Cached Groovy script at: " + location, MODULE);
                     }
                 } else {
                     // the newly parsed script is discarded and the one found in the cache (that has been created by a concurrent thread in the meantime) is used

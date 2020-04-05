@@ -36,7 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * This class manages the single sign-on authentication through external login keys between OFBiz applications.
  */
 public class ExternalLoginKeysManager {
-    private static final String module = ExternalLoginKeysManager.class.getName();
+    private static final String MODULE = ExternalLoginKeysManager.class.getName();
     private static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
     // This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object
     private static final Map<String, GenericValue> externalLoginKeys = new ConcurrentHashMap<>();
@@ -147,7 +147,7 @@ public class ExternalLoginKeysManager {
             LoginWorker.createSecuredLoginIdCookie(request, response);
 
         } else {
-            Debug.logWarning("Could not find userLogin for external login key: " + externalKey, module);
+            Debug.logWarning("Could not find userLogin for external login key: " + externalKey, MODULE);
         }
 
         // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId

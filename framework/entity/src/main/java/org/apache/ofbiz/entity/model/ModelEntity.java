@@ -61,7 +61,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
-    public static final String module = ModelEntity.class.getName();
+    public static final String MODULE = ModelEntity.class.getName();
 
     /** The name of the time stamp field for locking/synchronization */
     public static final String STAMP_FIELD = "lastUpdatedStamp";
@@ -213,7 +213,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         for (String pkFieldName : pkFieldNames) {
             ModelField pkField = fieldsMap.get(pkFieldName);
             if (pkField == null) {
-                Debug.logWarning("Error in entity definition - primary key is invalid for entity " + this.getEntityName(), module);
+                Debug.logWarning("Error in entity definition - primary key is invalid for entity " + this.getEntityName(), MODULE);
             } else {
                 pks.add(pkField);
             }
@@ -261,7 +261,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             try {
                 this.sequenceBankSize = Integer.valueOf(sequenceBankSizeStr);
             } catch (NumberFormatException e) {
-                Debug.logError("Error parsing sequence-bank-size value [" + sequenceBankSizeStr + "] for entity [" + this.entityName + "]", module);
+                Debug.logError("Error parsing sequence-bank-size value [" + sequenceBankSizeStr + "] for entity [" + this.entityName + "]", MODULE);
             }
         }
     }
@@ -330,7 +330,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 try {
                     this.sequenceBankSize = Integer.valueOf(sequenceBankSizeStr);
                 } catch (NumberFormatException e) {
-                    Debug.logError("Error parsing sequence-bank-size value [" + sequenceBankSizeStr + "] for entity [" + this.entityName + "]", module);
+                    Debug.logError("Error parsing sequence-bank-size value [" + sequenceBankSizeStr + "] for entity [" + this.entityName + "]", MODULE);
                 }
             }
         }
@@ -1204,7 +1204,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 returnString.append(ModelUtil.upperFirstChar(keyMap.getFieldName()));
                 returnString.append("() + \"&\" + ");
             } else {
-                Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + flds.get(i).getName() + " related entity: " + relation.getRelEntityName() + " main entity: " + relation.getModelEntity().entityName + " type: " + relation.getType(), module);
+                Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + flds.get(i).getName() + " related entity: " + relation.getRelEntityName() + " main entity: " + relation.getModelEntity().entityName + " type: " + relation.getType(), MODULE);
             }
         }
         ModelKeyMap keyMap = relation.findKeyMapByRelated(flds.get(i).getName());
@@ -1220,7 +1220,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             returnString.append(ModelUtil.upperFirstChar(keyMap.getFieldName()));
             returnString.append("()");
         } else {
-            Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + flds.get(i).getName() + " related entity: " + relation.getRelEntityName() + " main entity: " + relation.getModelEntity().entityName + " type: " + relation.getType(), module);
+            Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + flds.get(i).getName() + " related entity: " + relation.getRelEntityName() + " main entity: " + relation.getModelEntity().entityName + " type: " + relation.getType(), MODULE);
         }
         return returnString.toString();
     }
@@ -1373,14 +1373,14 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             fieldJavaType = delegator.getEntityFieldType(this, modelField.getType()).getJavaType();
         } catch (GenericEntityException e) {
             String errMsg = "Could not convert field value: could not find Java type for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
         try {
             return ObjectType.simpleTypeOrObjectConvert(value, fieldJavaType, null, null, false);
         } catch (GeneralException e) {
             String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
     }
@@ -1408,7 +1408,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             return ObjectType.simpleTypeOrObjectConvert(value, fieldJavaType, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
         } catch (GeneralException e) {
             String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
     }
@@ -1434,7 +1434,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public Element toXmlElement(Document document, String packageName) {
         if (UtilValidate.isNotEmpty(this.getPackageName()) && !packageName.equals(this.getPackageName())) {
-            Debug.logWarning("Export EntityModel XML Element [" + this.getEntityName() + "] with a NEW package - " + packageName, module);
+            Debug.logWarning("Export EntityModel XML Element [" + this.getEntityName() + "] with a NEW package - " + packageName, MODULE);
         }
 
         Element root = document.createElement("entity");

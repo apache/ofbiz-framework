@@ -49,7 +49,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderContentTransform implements TemplateTransformModel {
 
-    public static final String module = RenderContentTransform.class.getName();
+    public static final String MODULE = RenderContentTransform.class.getName();
 
     @Override
     @SuppressWarnings("unchecked")
@@ -114,7 +114,7 @@ public class RenderContentTransform implements TemplateTransformModel {
 
                 } catch (GeneralException e) {
                     String errMsg = "Error rendering thisContentId:" + thisContentId + " msg:" + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     // just log a message and don't return anything: throw new IOException();
                 }
                 if (UtilValidate.isNotEmpty(editRequestName)) {

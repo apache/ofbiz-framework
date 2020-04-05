@@ -39,7 +39,7 @@ import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchC
 
 public class WorkEffortSearchSession {
 
-    public static final String module = WorkEffortSearchSession.class.getName();
+    public static final String MODULE = WorkEffortSearchSession.class.getName();
 
     @SuppressWarnings("serial")
     public static class WorkEffortSearchOptions implements java.io.Serializable {
@@ -180,7 +180,7 @@ public class WorkEffortSearchSession {
                     searchRemoveConstraint(Integer.parseInt(removeConstraint), session);
                     constraintsChanged = true;
                 } catch (Exception e) {
-                    Debug.logError(e, "Error removing constraint [" + removeConstraint + "]", module);
+                    Debug.logError(e, "Error removing constraint [" + removeConstraint + "]", MODULE);
                 }
             }
         }
@@ -266,7 +266,7 @@ public class WorkEffortSearchSession {
             try {
                 workEffortSearchOptions.setViewIndex(Integer.valueOf(viewIndexStr));
             } catch (Exception e) {
-                Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", module);
+                Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", MODULE);
                 // we could just do nothing here, but we know something was specified so we don't want to use the previous value from the session
                 workEffortSearchOptions.setViewIndex(0);
             }
@@ -277,7 +277,7 @@ public class WorkEffortSearchSession {
             try {
                 workEffortSearchOptions.setViewSize(Integer.valueOf(viewSizeStr));
             } catch (Exception e) {
-                Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", module);
+                Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", MODULE);
                 workEffortSearchOptions.setViewSize(20);
             }
         }

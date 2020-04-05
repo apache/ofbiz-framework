@@ -54,7 +54,7 @@ import org.apache.ofbiz.service.group.ServiceGroupReader;
  *
  */
 public class ServiceArtifactInfo extends ArtifactInfoBase {
-    public static final String module = ServiceArtifactInfo.class.getName();
+    public static final String MODULE = ServiceArtifactInfo.class.getName();
 
     protected ModelService modelService;
     protected String displayPrefix = null;
@@ -87,10 +87,10 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             try {
                 simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.location, this.modelService.invoke,null);
             } catch (MiniLangException e) {
-                Debug.logWarning("Error getting Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "]: " + e.toString(), module);
+                Debug.logWarning("Error getting Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "]: " + e.toString(), MODULE);
             }
             if (simpleMethodToCall == null) {
-                Debug.logWarning("Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "] not found", module);
+                Debug.logWarning("Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "] not found", MODULE);
                 return;
             }
 
@@ -105,10 +105,10 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 try {
                     javaFile = FileUtil.readTextFile(fullClassPathAndFile, true).toString();
                 } catch (FileNotFoundException e) {
-                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
+                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), MODULE);
                     return;
                 } catch (IOException e) {
-                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
+                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), MODULE);
                     return;
                 }
 
@@ -130,7 +130,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             // attempt to convert relation names to entity names
             String validEntityName = aif.getEntityModelReader().validateEntityName(entityName);
             if (validEntityName == null) {
-                Debug.logWarning("Entity [" + entityName + "] reference in service [" + this.modelService.name + "] does not exist!", module);
+                Debug.logWarning("Entity [" + entityName + "] reference in service [" + this.modelService.name + "] does not exist!", MODULE);
                 continue;
             }
 
@@ -149,10 +149,10 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             try {
                 simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.location, this.modelService.invoke,null);
             } catch (MiniLangException e) {
-                Debug.logWarning("Error getting Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "]: " + e.toString(), module);
+                Debug.logWarning("Error getting Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "]: " + e.toString(), MODULE);
             }
             if (simpleMethodToCall == null) {
-                Debug.logWarning("Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "] not found", module);
+                Debug.logWarning("Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "] not found", MODULE);
                 return;
             }
 
@@ -167,10 +167,10 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 try {
                     javaFile = FileUtil.readTextFile(fullClassPathAndFile, true).toString();
                 } catch (FileNotFoundException e) {
-                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
+                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), MODULE);
                     return;
                 } catch (IOException e) {
-                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
+                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), MODULE);
                     return;
                 }
 
@@ -205,7 +205,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 continue;
             }
             if (!aif.getDispatchContext().getAllServiceNames().contains(serviceName)) {
-                Debug.logWarning("Service [" + serviceName + "] reference in service [" + this.modelService.name + "] does not exist!", module);
+                Debug.logWarning("Service [" + serviceName + "] reference in service [" + this.modelService.name + "] does not exist!", MODULE);
                 continue;
             }
 
@@ -318,7 +318,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     public void writeServiceCallGraphEoModel(String eomodeldFullPath) throws GeneralException, FileNotFoundException, UnsupportedEncodingException {
         boolean useMoreDetailedNames = true;
 
-        Debug.logInfo("Writing Service Call Graph EO Model for service [" + this.modelService.name + "] to [" + eomodeldFullPath + "]", module);
+        Debug.logInfo("Writing Service Call Graph EO Model for service [" + this.modelService.name + "] to [" + eomodeldFullPath + "]", MODULE);
 
         Set<String> allDiagramEntitiesWithPrefixes = new HashSet<>();
         List<ServiceArtifactInfo> allServiceList = new LinkedList<>();

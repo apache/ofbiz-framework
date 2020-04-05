@@ -60,8 +60,8 @@ import org.apache.ofbiz.entity.jdbc.CursorConnection;
  * <p>Provides a wrapper around the transaction objects to allow for changes in underlying implementations in the future.
  */
 public final class TransactionUtil implements Status {
-    // Debug module name
-    public static final String module = TransactionUtil.class.getName();
+    // Debug MODULE name
+    public static final String MODULE = TransactionUtil.class.getName();
 
     private static ThreadLocal<List<Transaction>> suspendedTxStack = new ThreadLocal<>();
     private static ThreadLocal<List<Exception>> suspendedTxLocationStack = new ThreadLocal<>();
@@ -115,19 +115,19 @@ public final class TransactionUtil implements Status {
             try {
                 int currentStatus = ut.getStatus();
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Current status : " + getTransactionStateString(currentStatus), module);
+                    Debug.logVerbose("Current status : " + getTransactionStateString(currentStatus), MODULE);
                 }
                 if (currentStatus == Status.STATUS_ACTIVE) {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Active transaction in place, so no transaction begun", module);
+                        Debug.logVerbose("Active transaction in place, so no transaction begun", MODULE);
                     }
                     return false;
                 } else if (currentStatus == Status.STATUS_MARKED_ROLLBACK) {
                     Exception e = getTransactionBeginStack();
                     if (e != null) {
-                        Debug.logWarning(e, "Active transaction marked for rollback in place, so no transaction begun; this stack trace shows when the exception began: ", module);
+                        Debug.logWarning(e, "Active transaction marked for rollback in place, so no transaction begun; this stack trace shows when the exception began: ", MODULE);
                     } else {
-                        Debug.logWarning("Active transaction marked for rollback in place, so no transaction begun", module);
+                        Debug.logWarning("Active transaction marked for rollback in place, so no transaction begun", MODULE);
                     }
 
                     RollbackOnlyCause roc = getSetRollbackOnlyCause();
@@ -153,7 +153,7 @@ public final class TransactionUtil implements Status {
                     try {
                         dxa.enlist();
                     } catch (XAException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
 
@@ -165,7 +165,7 @@ public final class TransactionUtil implements Status {
             }
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("No user transaction, so no transaction begun", module);
+            Debug.logInfo("No user transaction, so no transaction begun", MODULE);
         }
         return false;
     }
@@ -175,14 +175,14 @@ public final class TransactionUtil implements Status {
         if (timeout > 0) {
             ut.setTransactionTimeout(timeout);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Set transaction timeout to : " + timeout + " seconds", module);
+                Debug.logVerbose("Set transaction timeout to : " + timeout + " seconds", MODULE);
             }
         }
 
         // begin the transaction
         ut.begin();
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Transaction begun", module);
+            Debug.logVerbose("Transaction begun", MODULE);
         }
 
         // reset the timeout to the default
@@ -234,7 +234,7 @@ public final class TransactionUtil implements Status {
         if (ut != null) {
             try {
                 int status = ut.getStatus();
-                if (Debug.verboseOn()) Debug.logVerbose("Current status : " + getTransactionStateString(status), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Current status : " + getTransactionStateString(status), MODULE);
 
                 if (status != STATUS_NO_TRANSACTION && status != STATUS_COMMITTING && status != STATUS_COMMITTED && status != STATUS_ROLLING_BACK && status != STATUS_ROLLEDBACK) {
                     ut.commit();
@@ -245,9 +245,9 @@ public final class TransactionUtil implements Status {
                     clearTransactionBeginStack();
                     clearSetRollbackOnlyCause();
 
-                    if (Debug.verboseOn()) Debug.logVerbose("Transaction committed", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Transaction committed", MODULE);
                 } else {
-                    Debug.logWarning("Not committing transaction, status is " + getStatusString(), module);
+                    Debug.logWarning("Not committing transaction, status is " + getStatusString(), MODULE);
                 }
             } catch (RollbackException e) {
                 RollbackOnlyCause rollbackOnlyCause = getSetRollbackOnlyCause();
@@ -258,7 +258,7 @@ public final class TransactionUtil implements Status {
                     clearTransactionBeginStack();
                     clearSetRollbackOnlyCause();
 
-                    Debug.logError(e, "Rollback Only was set when trying to commit transaction here; throwing rollbackOnly cause exception", module);
+                    Debug.logError(e, "Rollback Only was set when trying to commit transaction here; throwing rollbackOnly cause exception", MODULE);
                     throw new GenericTransactionException("Roll back error, could not commit transaction, was rolled back instead because of: " + rollbackOnlyCause.getCauseMessage(), rollbackOnlyCause.getCauseThrowable());
                 }
                 Throwable t = e.getCause() == null ? e : e.getCause();
@@ -277,7 +277,7 @@ public final class TransactionUtil implements Status {
                 throw new GenericTransactionException("System error, could not commit transaction: " + t.toString(), t);
             }
         } else {
-            Debug.logInfo("UserTransaction is null, not committing", module);
+            Debug.logInfo("UserTransaction is null, not committing", MODULE);
         }
     }
 
@@ -306,13 +306,13 @@ public final class TransactionUtil implements Status {
             try {
                 int status = ut.getStatus();
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Current status : " + getTransactionStateString(status), module);
+                    Debug.logVerbose("Current status : " + getTransactionStateString(status), MODULE);
                 }
 
                 if (status != STATUS_NO_TRANSACTION) {
                     if (causeThrowable == null && Debug.infoOn()) {
                         Exception newE = new Exception("Stack Trace");
-                        Debug.logError(newE, "[TransactionUtil.rollback]", module);
+                        Debug.logError(newE, "[TransactionUtil.rollback]", MODULE);
                     }
 
                     // clear out the stamps to keep it clean
@@ -323,10 +323,10 @@ public final class TransactionUtil implements Status {
 
                     ut.rollback();
                     if (Debug.infoOn()) {
-                        Debug.logInfo("Transaction rolled back", module);
+                        Debug.logInfo("Transaction rolled back", MODULE);
                     }
                 } else {
-                    Debug.logWarning("Transaction not rolled back, status is STATUS_NO_TRANSACTION", module);
+                    Debug.logWarning("Transaction not rolled back, status is STATUS_NO_TRANSACTION", MODULE);
                 }
             } catch (IllegalStateException e) {
                 Throwable t = e.getCause() == null ? e : e.getCause();
@@ -337,7 +337,7 @@ public final class TransactionUtil implements Status {
             }
         } else {
             if (Debug.infoOn()) {
-                Debug.logInfo("No UserTransaction, transaction not rolled back", module);
+                Debug.logInfo("No UserTransaction, transaction not rolled back", MODULE);
             }
         }
     }
@@ -349,24 +349,24 @@ public final class TransactionUtil implements Status {
             try {
                 int status = ut.getStatus();
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Current code : " + getTransactionStateString(status), module);
+                    Debug.logVerbose("Current code : " + getTransactionStateString(status), MODULE);
                 }
 
                 if (status != STATUS_NO_TRANSACTION) {
                     if (status != STATUS_MARKED_ROLLBACK) {
                         if (Debug.warningOn()) {
-                            Debug.logWarning(new Exception(causeMessage), "Calling transaction setRollbackOnly; this stack trace shows where this is happening:", module);
+                            Debug.logWarning(new Exception(causeMessage), "Calling transaction setRollbackOnly; this stack trace shows where this is happening:", MODULE);
                         }
                         ut.setRollbackOnly();
                         setSetRollbackOnlyCause(causeMessage, causeThrowable);
                     } else {
                         if (Debug.infoOn()) {
-                            Debug.logInfo("Transaction rollback only not set, rollback only is already set.", module);
+                            Debug.logInfo("Transaction rollback only not set, rollback only is already set.", MODULE);
                         }
                     }
                 } else {
                     if (Debug.warningOn()) {
-                        Debug.logWarning("Transaction rollback only not set, status is STATUS_NO_TRANSACTION", module);
+                        Debug.logWarning("Transaction rollback only not set, status is STATUS_NO_TRANSACTION", MODULE);
                     }
                 }
             } catch (IllegalStateException e) {
@@ -378,7 +378,7 @@ public final class TransactionUtil implements Status {
             }
         } else {
             if (Debug.infoOn()) {
-                Debug.logInfo("No UserTransaction, transaction rollback only not set", module);
+                Debug.logInfo("No UserTransaction, transaction rollback only not set", MODULE);
             }
         }
     }
@@ -397,7 +397,7 @@ public final class TransactionUtil implements Status {
                 return null;
             }
             if (Debug.warningOn()) {
-                Debug.logWarning("No transaction in place, so not suspending.", module);
+                Debug.logWarning("No transaction in place, so not suspending.", MODULE);
             }
             return null;
         } catch (SystemException e) {
@@ -514,7 +514,7 @@ public final class TransactionUtil implements Status {
         try {
             return EntityConfig.getInstance().getDebugXaResources().getValue();
         } catch (GenericEntityConfException gece) {
-            Debug.logWarning(gece, module);
+            Debug.logWarning(gece, MODULE);
         }
         return false;
     }
@@ -700,16 +700,16 @@ public final class TransactionUtil implements Status {
             Exception transactionBeginStack = attbsMapEntry.getValue();
             List<Exception> txBeginStackList = allThreadsTransactionBeginStackSave.get(curThreadId);
 
-            Debug.logInfo(transactionBeginStack, "===================================================\n===================================================\n Current tx begin stack for thread [" + curThreadId + "]:", module);
+            Debug.logInfo(transactionBeginStack, "===================================================\n===================================================\n Current tx begin stack for thread [" + curThreadId + "]:", MODULE);
 
             if (UtilValidate.isNotEmpty(txBeginStackList)) {
                 int stackLevel = 0;
                 for (Exception stack : txBeginStackList) {
-                    Debug.logInfo(stack, "===================================================\n===================================================\n Tx begin stack history for thread [" + curThreadId + "] history number [" + stackLevel + "]:", module);
+                    Debug.logInfo(stack, "===================================================\n===================================================\n Tx begin stack history for thread [" + curThreadId + "] history number [" + stackLevel + "]:", MODULE);
                     stackLevel++;
                 }
             } else {
-                Debug.logInfo("========================================== No tx begin stack history found for thread [" + curThreadId + "]", module);
+                Debug.logInfo("========================================== No tx begin stack history found for thread [" + curThreadId + "]", MODULE);
             }
         }
     }
@@ -722,9 +722,9 @@ public final class TransactionUtil implements Status {
     private static void setTransactionBeginStack(Exception newExc) {
         if (transactionBeginStack.get() != null) {
             Exception e = transactionBeginStack.get();
-            Debug.logWarning(e, "In setTransactionBeginStack a stack placeholder was already in place, here is where the transaction began: ", module);
+            Debug.logWarning(e, "In setTransactionBeginStack a stack placeholder was already in place, here is where the transaction began: ", MODULE);
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning(e2, "In setTransactionBeginStack a stack placeholder was already in place, here is the current location: ", module);
+            Debug.logWarning(e2, "In setTransactionBeginStack a stack placeholder was already in place, here is the current location: ", MODULE);
         }
         transactionBeginStack.set(newExc);
         if (Debug.infoOn()) {
@@ -741,7 +741,7 @@ public final class TransactionUtil implements Status {
         Exception e = transactionBeginStack.get();
         if (e == null) {
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning(e2, "In clearTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
+            Debug.logWarning(e2, "In clearTransactionBeginStack no stack placeholder was in place, here is the current location: ", MODULE);
             return null;
         }
         transactionBeginStack.set(null);
@@ -752,7 +752,7 @@ public final class TransactionUtil implements Status {
         Exception e = transactionBeginStack.get();
         if (e == null) {
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning(e2, "In getTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
+            Debug.logWarning(e2, "In getTransactionBeginStack no stack placeholder was in place, here is the current location: ", MODULE);
         }
         return e;
     }
@@ -777,7 +777,7 @@ public final class TransactionUtil implements Status {
         }
 
         public void logError(String message) {
-            Debug.logError(this.getCauseThrowable(), (message == null ? "" : message) + this.getCauseMessage(), module);
+            Debug.logError(this.getCauseThrowable(), (message == null ? "" : message) + this.getCauseMessage(), MODULE);
         }
     }
 
@@ -808,7 +808,7 @@ public final class TransactionUtil implements Status {
             RollbackOnlyCause roc = setRollbackOnlyCause.get();
             roc.logError("In setSetRollbackOnlyCause a stack placeholder was already in place, here is the original rollbackOnly cause: ");
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning(e2, "In setSetRollbackOnlyCause a stack placeholder was already in place, here is the current location: ", module);
+            Debug.logWarning(e2, "In setSetRollbackOnlyCause a stack placeholder was already in place, here is the current location: ", MODULE);
         }
         setRollbackOnlyCause.set(newRoc);
     }
@@ -824,7 +824,7 @@ public final class TransactionUtil implements Status {
     public static RollbackOnlyCause getSetRollbackOnlyCause() {
         if (setRollbackOnlyCause.get() == null) {
             Exception e = new Exception("Current Stack Trace");
-            Debug.logWarning(e, "In getSetRollbackOnlyCause no stack placeholder was in place, here is the current location: ", module);
+            Debug.logWarning(e, "In getSetRollbackOnlyCause no stack placeholder was in place, here is the current location: ", MODULE);
         }
         return setRollbackOnlyCause.get();
     }
@@ -849,7 +849,7 @@ public final class TransactionUtil implements Status {
         if (stamp != null) {
             map.put(t, stamp);
         } else {
-            Debug.logError("Error in transaction handling - no start stamp to push.", module);
+            Debug.logError("Error in transaction handling - no start stamp to push.", MODULE);
         }
     }
 
@@ -872,7 +872,7 @@ public final class TransactionUtil implements Status {
             if (stamp != null) {
                 transactionStartStamp.set(stamp);
             } else {
-                Debug.logError("Error in transaction handling - no saved start stamp found - using NOW.", module);
+                Debug.logError("Error in transaction handling - no saved start stamp found - using NOW.", MODULE);
                 transactionStartStamp.set(UtilDateTime.nowTimestamp());
             }
         }
@@ -886,7 +886,7 @@ public final class TransactionUtil implements Status {
         if (map.size() > 0) {
             transactionStartStamp.set(map.remove(map.lastKey()));
         } else {
-            Debug.logError("Error in transaction handling - no saved start stamp found - using NOW.", module);
+            Debug.logError("Error in transaction handling - no saved start stamp found - using NOW.", MODULE);
             transactionStartStamp.set(UtilDateTime.nowTimestamp());
         }
     }
@@ -901,7 +901,7 @@ public final class TransactionUtil implements Status {
             try {
                 registerSynchronization(new StampClearSync());
             } catch (GenericTransactionException e) {
-                Debug.logError(e, "Error registering StampClearSync synchronization, stamps will still be reset if begin/commit/rollback are call through TransactionUtil, but not if otherwise", module);
+                Debug.logError(e, "Error registering StampClearSync synchronization, stamps will still be reset if begin/commit/rollback are call through TransactionUtil, but not if otherwise", MODULE);
             }
         }
         return curStamp;
@@ -1002,7 +1002,7 @@ public final class TransactionUtil implements Status {
                     TransactionUtil.commit(tx);
                 } else {
                     if (printException) {
-                        Debug.logError(transactionAbortCause, module);
+                        Debug.logError(transactionAbortCause, MODULE);
                     }
                     TransactionUtil.rollback(tx, ifErrorMessage, transactionAbortCause);
                 }
@@ -1013,7 +1013,7 @@ public final class TransactionUtil implements Status {
     public static Connection getCursorConnection(GenericHelperInfo helperInfo, Connection con) {
         Datasource datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
         if (datasourceInfo == null) {
-            Debug.logWarning("Could not find configuration for " + helperInfo.getHelperBaseName() + " datasource.", module);
+            Debug.logWarning("Could not find configuration for " + helperInfo.getHelperBaseName() + " datasource.", MODULE);
             return con;
         } else if (datasourceInfo.getUseProxyCursor()) {
             try {
@@ -1021,7 +1021,7 @@ public final class TransactionUtil implements Status {
                     con = CursorConnection.newCursorConnection(con, datasourceInfo.getProxyCursorName(), datasourceInfo.getResultFetchSize());
                 }
             } catch (Exception ex) {
-                Debug.logWarning(ex, "Error creating the cursor connection proxy " + helperInfo.getHelperBaseName() + " datasource.", module);
+                Debug.logWarning(ex, "Error creating the cursor connection proxy " + helperInfo.getHelperBaseName() + " datasource.", MODULE);
             }
         }
         return con;

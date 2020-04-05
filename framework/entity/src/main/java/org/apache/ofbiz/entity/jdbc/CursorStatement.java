@@ -31,7 +31,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 
 public class CursorStatement extends AbstractCursorHandler {
 
-    public static final String module = CursorStatement.class.getName();
+    public static final String MODULE = CursorStatement.class.getName();
     protected ResultSet currentResultSet;
     protected Statement stmt;
     protected boolean beganTransaction;
@@ -43,7 +43,7 @@ public class CursorStatement extends AbstractCursorHandler {
         beganTransaction = TransactionUtil.begin();
         autoCommit = stmt.getConnection().getAutoCommit();
         stmt.getConnection().setAutoCommit(false);
-        Debug.logInfo("beganTransaction=" + beganTransaction + ", autoCommit=" + autoCommit, module);
+        Debug.logInfo("beganTransaction=" + beganTransaction + ", autoCommit=" + autoCommit, MODULE);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class CursorStatement extends AbstractCursorHandler {
             return currentResultSet;
         } else if ("executeQuery".equals(method.getName()) && args != null) {
             args[0] = "DECLARE " + cursorName + " CURSOR FOR " + args[0];
-            Debug.logInfo("query=" + args[0], module);
+            Debug.logInfo("query=" + args[0], MODULE);
             if (stmt.execute((String) args[0])) {
                 throw new SQLException("DECLARE returned a ResultSet");
             }

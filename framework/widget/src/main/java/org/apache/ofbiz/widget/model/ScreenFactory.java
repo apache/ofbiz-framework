@@ -46,7 +46,7 @@ import org.xml.sax.SAXException;
  */
 public class ScreenFactory {
 
-    public static final String module = ScreenFactory.class.getName();
+    public static final String MODULE = ScreenFactory.class.getName();
 
     public static final UtilCache<String, Map<String, ModelScreen>> screenLocationCache = UtilCache.createUtilCache("widget.screen.locationResource", 0, 0, false);
     public static final UtilCache<String, Map<String, ModelScreen>> screenWebappCache = UtilCache.createUtilCache("widget.screen.webappResource", 0, 0, false);
@@ -122,7 +122,7 @@ public class ScreenFactory {
                     modelScreenMap = readScreenDocument(screenFileDoc, resourceName);
                     screenLocationCache.put(resourceName, modelScreenMap);
                     double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
-                    Debug.logInfo("Got " + modelScreenMap.size() + " screens in " + totalSeconds + "s from: " + screenFileUrl.toExternalForm(), module);
+                    Debug.logInfo("Got " + modelScreenMap.size() + " screens in " + totalSeconds + "s from: " + screenFileUrl.toExternalForm(), MODULE);
                 }
             }
         }
@@ -192,7 +192,7 @@ public class ScreenFactory {
                 modelScreen = ScreenFactory.getScreenFromLocation(location, name);
             } catch (IOException | SAXException | ParserConfigurationException e) {
                 String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg);
             }
         } else {

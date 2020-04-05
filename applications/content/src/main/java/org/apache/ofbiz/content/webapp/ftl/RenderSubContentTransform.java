@@ -49,7 +49,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderSubContentTransform implements TemplateTransformModel {
 
-    public static final String module = RenderSubContentTransform.class.getName();
+    public static final String MODULE = RenderSubContentTransform.class.getName();
 
     /**
      * @deprecated use FreeMarkerWorker.getArg()
@@ -148,7 +148,7 @@ public class RenderSubContentTransform implements TemplateTransformModel {
                         ContentWorker.renderSubContentAsText(dispatcher, contentId, out, mapKey, templateRoot, locale, mimeTypeId, false);
                     }
                 } catch (GeneralException e) {
-                    Debug.logError(e, "Error rendering content", module);
+                    Debug.logError(e, "Error rendering content", MODULE);
                     throw new IOException("Error rendering content" + e.toString());
                 }
                 templateContext.put("mapKey", null);

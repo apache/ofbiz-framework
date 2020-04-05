@@ -45,13 +45,13 @@ import org.w3c.dom.Node;
 public class SaveLabelsToXmlFile {
 
     private static final String resource = "WebtoolsUiLabels";
-    private static final String module = SaveLabelsToXmlFile.class.getName();
+    private static final String MODULE = SaveLabelsToXmlFile.class.getName();
 
     public static Map<String, Object> saveLabelsToXmlFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
         String fileName = (String) context.get("fileName");
         if (UtilValidate.isEmpty(fileName)) {
-            Debug.logError("labelFileName cannot be empty", module);
+            Debug.logError("labelFileName cannot be empty", MODULE);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
         }
         String key = (String) context.get("key");
@@ -67,13 +67,13 @@ public class SaveLabelsToXmlFile {
         try {
             apacheLicenseText = FileUtil.readString("UTF-8", FileUtil.getFile(apache2Header.getPath()));
         } catch (IOException e) {
-            Debug.logWarning(e, "Unable to read Apache License text file", module);
+            Debug.logWarning(e, "Unable to read Apache License text file", MODULE);
         }
         try {
             LabelManagerFactory factory = LabelManagerFactory.getInstance();
             LabelFile labelFile = factory.getLabelFile(fileName);
             if (labelFile == null) {
-                Debug.logError("Invalid file name: " + fileName, module);
+                Debug.logError("Invalid file name: " + fileName, MODULE);
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
             }
             synchronized(SaveLabelsToXmlFile.class) {
@@ -158,7 +158,7 @@ public class SaveLabelsToXmlFile {
                 }
             }
         } catch (Exception e) {
-            Debug.logError(e, "Exception during save labels to xml file:", module);
+            Debug.logError(e, "Exception during save labels to xml file:", MODULE);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
         }
         return ServiceUtil.returnSuccess();

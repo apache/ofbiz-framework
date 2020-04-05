@@ -71,7 +71,7 @@ import freemarker.template.TemplateException;
 
 public class MacroScreenRenderer implements ScreenStringRenderer {
 
-    public static final String module = MacroScreenRenderer.class.getName();
+    public static final String MODULE = MacroScreenRenderer.class.getName();
     private Template macroLibrary;
     private WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private String rendererName;
@@ -107,7 +107,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             templateReader.close();
             environment.include(template);
         } catch (TemplateException |IOException e) {
-            Debug.logError(e, "Error rendering screen macro [" + macro + "] thru ftl", module);
+            Debug.logError(e, "Error rendering screen macro [" + macro + "] thru ftl", MODULE);
         }
     }
 
@@ -381,7 +381,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          String enableEditValue = (String)context.get(enableEditName);
 
          if (Debug.verboseOn()) {
-            Debug.logVerbose("directEditRequest:" + editRequest, module);
+            Debug.logVerbose("directEditRequest:" + editRequest, MODULE);
         }
 
          Map<String, Object> parameters = new HashMap<>();
@@ -406,7 +406,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         contentContext.putAll(context);
         String dataResourceId = (String)contentContext.get("dataResourceId");
         if (Debug.verboseOn()) {
-            Debug.logVerbose("expandedContentId:" + expandedContentId, module);
+            Debug.logVerbose("expandedContentId:" + expandedContentId, MODULE);
         }
 
         try {
@@ -414,19 +414,19 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 if (WidgetDataResourceWorker.getDataresourceWorker() != null) {
                     renderedContent = WidgetDataResourceWorker.getDataresourceWorker().renderDataResourceAsTextExt(delegator, dataResourceId, contentContext, locale, mimeTypeId, false);
                 } else {
-                    Debug.logError("Not rendering content, WidgetDataResourceWorker.dataresourceWorker not found.", module);
+                    Debug.logError("Not rendering content, WidgetDataResourceWorker.dataresourceWorker not found.", MODULE);
                 }
             } else if (UtilValidate.isNotEmpty(expandedContentId)) {
                 if (WidgetContentWorker.getContentWorker() != null) {
                     renderedContent = WidgetContentWorker.getContentWorker().renderContentAsTextExt(dispatcher, expandedContentId, contentContext, locale, mimeTypeId, true);
                 } else {
-                    Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", module);
+                    Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
                 }
             } else if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
                 if (WidgetDataResourceWorker.getDataresourceWorker() != null) {
                     renderedContent = WidgetDataResourceWorker.getDataresourceWorker().renderDataResourceAsTextExt(delegator, expandedDataResourceId, contentContext, locale, mimeTypeId, false);
                 } else {
-                    Debug.logError("Not rendering content, WidgetDataResourceWorker.dataresourceWorker not found.", module);
+                    Debug.logError("Not rendering content, WidgetDataResourceWorker.dataresourceWorker not found.", MODULE);
                 }
             }
             if (UtilValidate.isEmpty(renderedContent)) {
@@ -435,7 +435,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     if (WidgetContentWorker.getContentWorker() != null) {
                         WidgetContentWorker.getContentWorker().renderContentAsTextExt(dispatcher, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
                     } else {
-                        Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", module);
+                        Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
                     }
                 }
             } else {
@@ -448,7 +448,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
         } catch (GeneralException |IOException e) {
             String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
         }
     }
 
@@ -537,7 +537,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
              if (WidgetContentWorker.getContentWorker() != null) {
                  renderedContent = WidgetContentWorker.getContentWorker().renderSubContentAsTextExt(dispatcher, expandedContentId, expandedMapKey, contentContext, locale, mimeTypeId, true);
              } else {
-                 Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", module);
+                 Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
              }
              if (UtilValidate.isEmpty(renderedContent)) {
                  String editRequest = content.getEditRequest(context);
@@ -545,7 +545,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                      if (WidgetContentWorker.getContentWorker() != null) {
                          WidgetContentWorker.getContentWorker().renderContentAsTextExt(dispatcher, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
                      } else {
-                         Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", module);
+                         Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
                      }
                  }
              } else {
@@ -558,7 +558,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
          } catch (GeneralException | IOException e) {
              String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e.toString();
-             Debug.logError(e, errMsg, module);
+             Debug.logError(e, errMsg, MODULE);
          }
     }
 
@@ -650,7 +650,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     navMenu.renderWidgetString(sb, context, this);
                     context.put("menuStringRenderer", savedRenderer);
                 } catch (TemplateException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             } else if (navForm != null) {
                 renderScreenletPaginateMenu(sb, context, navForm);
@@ -696,7 +696,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 try {
                     renderer = new MacroFormRenderer(modelTheme.getFormRendererLocation("screen"), request, response);
                 } catch (TemplateException e) {
-                    Debug.logError("Not rendering content, error on MacroFormRenderer creation.", module);
+                    Debug.logError("Not rendering content, error on MacroFormRenderer creation.", MODULE);
                 }
                 renderer.setRenderPagination(false);
                 context.put("formStringRenderer", renderer);
@@ -749,7 +749,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         String ofLabel = "";
         if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", module);
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         } else {
             ofLabel = uiLabelMap.get("CommonOf");
             ofLabel = ofLabel.toLowerCase(Locale.getDefault());
@@ -858,7 +858,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String addColumnLabel = "";
         String addColumnHint = "";
         if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", module);
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         } else {
             addColumnLabel = uiLabelMap.get("CommonAddColumn");
             addColumnHint = uiLabelMap.get("CommonAddAColumnToThisPortalPage");
@@ -905,7 +905,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String setColumnSizeHint = "";
 
         if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", module);
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         } else {
             delColumnLabel = uiLabelMap.get("CommonDeleteColumn");
             delColumnHint = uiLabelMap.get("CommonDeleteThisColumn");
@@ -981,7 +981,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String delPortletHint = "";
         String editAttributeHint = "";
         if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", module);
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         } else {
             delPortletHint = uiLabelMap.get("CommonDeleteThisPortlet");
             editAttributeHint = uiLabelMap.get("CommonEditPortletAttributes");
@@ -1049,14 +1049,14 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 modelScreen = ScreenFactory.getScreenFromLocation(screenLocation, screenName);
             } catch (IOException | SAXException | ParserConfigurationException e) {
                 String errMsg = "Error rendering portlet ID [" + portalPortletId + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg);
             }
         }
         if (writer != null && context != null) {
             modelScreen.renderScreenString(writer, context, this);
         } else {
-            Debug.logError("Null on some Path: writer" + writer + ", context: " + context, module);
+            Debug.logError("Null on some Path: writer" + writer + ", context: " + context, MODULE);
         }
     }
 

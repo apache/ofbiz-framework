@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class DataEvents {
 
-    public static final String module = DataEvents.class.getName();
+    public static final String MODULE = DataEvents.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     public static String uploadImage(HttpServletRequest request, HttpServletResponse response) {
@@ -74,7 +74,7 @@ public class DataEvents {
         String contentId = (String) httpParams.get("contentId");
         if (UtilValidate.isEmpty(contentId)) {
             String errorMsg = "Required parameter contentId not found!";
-            Debug.logError(errorMsg, module);
+            Debug.logError(errorMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             return "error";
         }
@@ -87,7 +87,7 @@ public class DataEvents {
         try {
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
@@ -95,7 +95,7 @@ public class DataEvents {
         // make sure content exists
         if (content == null) {
             String errorMsg = "No content found for Content ID: " + contentId;
-            Debug.logError(errorMsg, module);
+            Debug.logError(errorMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             return "error";
         }
@@ -104,7 +104,7 @@ public class DataEvents {
         String dataResourceId = content.getString("dataResourceId");
         if (UtilValidate.isEmpty(dataResourceId)) {
             String errorMsg = "No Data Resource found for Content ID: " + contentId;
-            Debug.logError(errorMsg, module);
+            Debug.logError(errorMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             return "error";
         }
@@ -114,7 +114,7 @@ public class DataEvents {
         try {
             dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
@@ -122,7 +122,7 @@ public class DataEvents {
         // make sure the data resource exists
         if (dataResource == null) {
             String errorMsg = "No Data Resource found for ID: " + dataResourceId;
-            Debug.logError(errorMsg, module);
+            Debug.logError(errorMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             return "error";
         }
@@ -141,13 +141,13 @@ public class DataEvents {
             try {
                 permSvcResp = dispatcher.runSync(permissionService, permSvcCtx);
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
             if (ServiceUtil.isError(permSvcResp)) {
                 String errorMsg = ServiceUtil.getErrorMessage(permSvcResp);
-                Debug.logError(errorMsg, module);
+                Debug.logError(errorMsg, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                 return "error";
             }
@@ -156,7 +156,7 @@ public class DataEvents {
             Boolean hasPermission = (Boolean) permSvcResp.get("hasPermission");
             if (!hasPermission) {
                 String errorMsg = (String) permSvcResp.get("failMessage");
-                Debug.logError(errorMsg, module);
+                Debug.logError(errorMsg, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                 return "error";
             }
@@ -172,7 +172,7 @@ public class DataEvents {
 
         // hack for IE and mime types
         if (UtilValidate.isNotEmpty(userAgent) && userAgent.indexOf("MSIE") > -1) {
-            Debug.logInfo("Found MSIE changing mime type from - " + mimeType, module);
+            Debug.logInfo("Found MSIE changing mime type from - " + mimeType, MODULE);
             mimeType = "application/octet-stream";
         }
 
@@ -188,7 +188,7 @@ public class DataEvents {
         try {
             resourceData = DataResourceWorker.getDataResourceStream(dataResource, https, webSiteId, locale, contextRoot, false);
         } catch (IOException | GeneralException e) {
-            Debug.logError(e, "Error getting DataResource stream", module);
+            Debug.logError(e, "Error getting DataResource stream", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
@@ -201,14 +201,14 @@ public class DataEvents {
             stream = (InputStream) resourceData.get("stream");
             length = (Long) resourceData.get("length");
         }
-        Debug.logInfo("Got resource data stream: " + length + " bytes", module);
+        Debug.logInfo("Got resource data stream: " + length + " bytes", MODULE);
 
         // stream the content to the browser
         if (stream != null && length != null) {
             try {
                 UtilHttp.streamContentToBrowser(response, stream, length.intValue(), mimeType, dataName);
             } catch (IOException e) {
-                Debug.logError(e, "Unable to write content to browser", module);
+                Debug.logError(e, "Unable to write content to browser", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 // this must be handled with a special error string because the output stream has been already used and we will not be able to return the error page;
                 // the "io-error" should be associated to a response of type "none"
@@ -216,7 +216,7 @@ public class DataEvents {
             }
         } else {
             String errorMsg = "No data is available.";
-            Debug.logError(errorMsg, module);
+            Debug.logError(errorMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             return "error";
         }
@@ -236,12 +236,12 @@ public class DataEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, Object> parameters = UtilHttp.getParameterMap(request);
 
-        Debug.logInfo("Img UserAgent - " + request.getHeader("User-Agent"), module);
+        Debug.logInfo("Img UserAgent - " + request.getHeader("User-Agent"), MODULE);
 
         String dataResourceId = (String) parameters.get("imgId");
         if (UtilValidate.isEmpty(dataResourceId)) {
             String errorMsg = "Error getting image record from db: " + " dataResourceId is empty";
-            Debug.logError(errorMsg, module);
+            Debug.logError(errorMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             return "error";
         }
@@ -253,7 +253,7 @@ public class DataEvents {
                 GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
                 if (userLogin == null) {
                     String errorMsg = "You must be logged in to download the Data Resource with ID [" + dataResourceId + "]";
-                    Debug.logError(errorMsg, module);
+                    Debug.logError(errorMsg, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                     return "error";
                 }
@@ -266,7 +266,7 @@ public class DataEvents {
                         .queryCount();
                 if (contentAndRoleCount == 0) {
                     String errorMsg = "You do not have permission to download the Data Resource with ID [" + dataResourceId + "], ie you are not associated with it.";
-                    Debug.logError(errorMsg, module);
+                    Debug.logError(errorMsg, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                     return "error";
                 }
@@ -277,7 +277,7 @@ public class DataEvents {
             // hack for IE and mime types
             String userAgent = request.getHeader("User-Agent");
             if (userAgent != null && userAgent.indexOf("MSIE") > -1) {
-                Debug.logInfo("Found MSIE changing mime type from - " + mimeType, module);
+                Debug.logInfo("Found MSIE changing mime type from - " + mimeType, MODULE);
                 mimeType = "application/octet-stream";
             }
 
@@ -290,7 +290,7 @@ public class DataEvents {
             os.flush();
         } catch (GeneralException | IOException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -323,7 +323,7 @@ public class DataEvents {
                 if (ServiceUtil.isError(result)) {
                     String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_update_service", locale);
                     String errorMsg = ServiceUtil.getErrorMessage(result);
-                    Debug.logError(errorMsg, module);
+                    Debug.logError(errorMsg, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
                 }
@@ -333,7 +333,7 @@ public class DataEvents {
                 if (ServiceUtil.isError(result)) {
                     String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_create_service", locale);
                     String errorMsg = ServiceUtil.getErrorMessage(result);
-                    Debug.logError(errorMsg, module);
+                    Debug.logError(errorMsg, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
                 }
@@ -341,7 +341,7 @@ public class DataEvents {
                 dataResource.set("dataResourceId", dataResourceId);
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }

@@ -39,7 +39,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
  */
 public class SimpleEventHandler implements EventHandler {
 
-    public static final String module = SimpleEventHandler.class.getName();
+    public static final String MODULE = SimpleEventHandler.class.getName();
     /** Contains the property file name for translation of error messages. */
     public static final String err_resource = "WebappUiLabels";
 
@@ -55,7 +55,7 @@ public class SimpleEventHandler implements EventHandler {
         String eventName = event.invoke;
         Locale locale = UtilHttp.getLocale(request);
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Set path/method]: " + xmlResource + " / " + eventName, module);
+        if (Debug.verboseOn()) Debug.logVerbose("[Set path/method]: " + xmlResource + " / " + eventName, MODULE);
 
         if (xmlResource == null) {
             throw new EventHandlerException("XML Resource (eventPath) cannot be null");
@@ -64,25 +64,25 @@ public class SimpleEventHandler implements EventHandler {
             throw new EventHandlerException("Event Name (eventMethod) cannot be null");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SIMPLE Event", module);
+        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SIMPLE Event", MODULE);
         try {
             beganTransaction = TransactionUtil.begin();
             String eventReturn = SimpleMethod.runSimpleEvent(xmlResource, eventName, request, response);
-            if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + eventReturn, module);
+            if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + eventReturn, MODULE);
             return eventReturn;
         } catch (MiniLangException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             String errMsg = UtilProperties.getMessage(SimpleEventHandler.err_resource, "simpleEventHandler.event_not_completed", (locale != null ? locale : Locale.getDefault())) + ": ";
             request.setAttribute("_ERROR_MESSAGE_", errMsg + e.getMessage());
             return "error";
         } catch (GenericTransactionException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return "error";
         } finally {
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
     }

@@ -35,7 +35,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 /** WorkEffortWorker - Work Effort worker class. */
 public final class WorkEffortWorker {
 
-    public static final String module = WorkEffortWorker.class.getName();
+    public static final String MODULE = WorkEffortWorker.class.getName();
 
     private WorkEffortWorker() {}
 
@@ -70,7 +70,7 @@ public final class WorkEffortWorker {
                 workEfforts.add(childWEAssocLevelFirst);
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
         return workEfforts;
     }

@@ -42,7 +42,7 @@ import securepay.jxa.api.Txn;
 
 public class SecurePayPaymentServices {
 
-    public static final String module = SecurePayPaymentServices.class.getName();
+    public static final String MODULE = SecurePayPaymentServices.class.getName();
     public final static String resource = "AccountingUiLabels";
 
     public static Map<String, Object> doAuth(DispatchContext dctx, Map<String, Object> context) {
@@ -308,7 +308,7 @@ public class SecurePayPaymentServices {
                     .queryFirst();
             referenceNum = paymentGatewayResponse != null ? paymentGatewayResponse.get("referenceNum") : authTransaction.getString("referenceNum");
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         Properties props = buildScProperties(context, delegator);
@@ -489,7 +489,7 @@ public class SecurePayPaymentServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else {
             String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);

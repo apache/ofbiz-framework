@@ -44,7 +44,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderContentAndSubContent implements TemplateTransformModel {
 
-    public static final String module = RenderContentAndSubContent.class.getName();
+    public static final String MODULE = RenderContentAndSubContent.class.getName();
 
     @Override
     @SuppressWarnings("unchecked")
@@ -56,7 +56,7 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
         final MapStack<String> templateRoot = MapStack.create();
         templateRoot.push(envMap);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("in RenderContentAndSubContent, contentId(0):" + templateRoot.get("contentId"), module);
+            Debug.logVerbose("in RenderContentAndSubContent, contentId(0):" + templateRoot.get("contentId"), MODULE);
         }
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
@@ -88,10 +88,10 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
                 }
 
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("in RenderContentAndSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+                    Debug.logVerbose("in RenderContentAndSubContent, contentId(2):" + templateRoot.get("contentId"), MODULE);
                 }
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("in RenderContentAndSubContent, subContentId(2):" + templateRoot.get("subContentId"), module);
+                    Debug.logVerbose("in RenderContentAndSubContent, subContentId(2):" + templateRoot.get("subContentId"), MODULE);
                 }
                     try {
                         String contentId = (String)templateRoot.get("contentId");
@@ -105,7 +105,7 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
                         }
                     } catch (GeneralException e) {
                         String errMsg = "Error rendering thisContentId:" + (String)templateRoot.get("contentId") + " msg:" + e.toString();
-                        Debug.logError(e, errMsg, module);
+                        Debug.logError(e, errMsg, MODULE);
                         // just log a message and don't return anything: throw new IOException();
                     }
             }

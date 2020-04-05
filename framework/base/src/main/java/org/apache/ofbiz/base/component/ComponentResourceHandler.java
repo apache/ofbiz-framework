@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("serial")
 public class ComponentResourceHandler implements ResourceHandler {
 
-    public static final String module = ComponentResourceHandler.class.getName();
+    public static final String MODULE = ComponentResourceHandler.class.getName();
     protected String componentName;
     protected String loaderName;
     protected String location;
@@ -55,7 +55,7 @@ public class ComponentResourceHandler implements ResourceHandler {
         this.loaderName = loaderName;
         this.location = location;
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Created " + this.toString(), module);
+            Debug.logVerbose("Created " + this.toString(), MODULE);
         }
     }
 

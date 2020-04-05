@@ -47,7 +47,7 @@ import com.ibm.icu.util.Calendar;
  */
 public final class SetCalendar extends MethodOperation {
 
-    public static final String module = SetCalendar.class.getName();
+    public static final String MODULE = SetCalendar.class.getName();
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {
@@ -155,7 +155,7 @@ public final class SetCalendar extends MethodOperation {
             try {
                 newValue = this.scriptlet.executeScript(methodContext.getEnvMap());
             } catch (Exception exc) {
-                Debug.logWarning(exc, "Error evaluating scriptlet [" + this.scriptlet + "]: " + exc, module);
+                Debug.logWarning(exc, "Error evaluating scriptlet [" + this.scriptlet + "]: " + exc, MODULE);
             }
         } else if (!this.fromFma.isEmpty()) {
             newValue = this.fromFma.get(methodContext.getEnvMap());

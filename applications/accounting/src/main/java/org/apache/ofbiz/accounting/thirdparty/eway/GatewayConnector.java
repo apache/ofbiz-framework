@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.Debug;
  */
 public class GatewayConnector {
 
-    private static final String module = GatewayConnector.class.getName();
+    private static final String MODULE = GatewayConnector.class.getName();
 
     private int timeout = 0;
 
@@ -107,7 +107,7 @@ public class GatewayConnector {
         } 
         catch (Exception e) {
             // re-throws exception so that the caller knows what went wrong
-            Debug.logError(e, e.getMessage(), module);
+            Debug.logError(e, e.getMessage(), MODULE);
             throw e;
         } finally {
             // close resources

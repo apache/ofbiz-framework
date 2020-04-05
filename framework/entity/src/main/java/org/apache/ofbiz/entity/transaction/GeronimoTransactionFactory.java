@@ -38,7 +38,7 @@ import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
 
 public class GeronimoTransactionFactory implements TransactionFactory {
 
-    public static final String module = GeronimoTransactionFactory.class.getName();
+    public static final String MODULE = GeronimoTransactionFactory.class.getName();
 
     private static int defaultTransactionTimeoutSeconds = 60;
     private static TransactionLog transactionLog;
@@ -50,7 +50,7 @@ public class GeronimoTransactionFactory implements TransactionFactory {
             transactionLog = new UnrecoverableLog();
             geronimoTransactionManager = new GeronimoTransactionManager(defaultTransactionTimeoutSeconds, new XidFactoryImpl(), transactionLog);
         } catch (XAException e) {
-            Debug.logError(e, "Error initializing Geronimo transaction manager: " + e.toString(), module);
+            Debug.logError(e, "Error initializing Geronimo transaction manager: " + e.toString(), MODULE);
         }
     }
 
@@ -76,7 +76,7 @@ public class GeronimoTransactionFactory implements TransactionFactory {
         if (datasourceInfo != null && datasourceInfo.getInlineJdbc() != null) {
             return ConnectionFactoryLoader.getInstance().getConnection(helperInfo, datasourceInfo.getInlineJdbc());
         }
-        Debug.logError("Geronimo is the configured transaction manager but no inline-jdbc element was specified in the " + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", module);
+        Debug.logError("Geronimo is the configured transaction manager but no inline-jdbc element was specified in the " + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", MODULE);
         return null;
     }
 

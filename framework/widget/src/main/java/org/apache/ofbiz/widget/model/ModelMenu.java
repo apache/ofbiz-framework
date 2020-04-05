@@ -56,7 +56,7 @@ public class ModelMenu extends ModelWidget {
      *
      */
 
-    public static final String module = ModelMenu.class.getName();
+    public static final String MODULE = ModelMenu.class.getName();
 
     private final List<ModelAction> actions;
     private final String defaultAlign;
@@ -145,7 +145,7 @@ public class ModelMenu extends ModelWidget {
                     parentResource = parentResourceExp.expandString(visualRessources);
                     parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu, visualTheme);
                 } catch (Exception e) {
-                    Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource, module);
+                    Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource, MODULE);
                 }
             } else {
                 parentResource = menuLocation;
@@ -161,7 +161,7 @@ public class ModelMenu extends ModelWidget {
                 }
 
                 if (parent == null) {
-                    Debug.logError("Failed to find parent menu definition '" + parentMenu + "' in same document.", module);
+                    Debug.logError("Failed to find parent menu definition '" + parentMenu + "' in same document.", MODULE);
                 }
             }
             if (parent != null) {

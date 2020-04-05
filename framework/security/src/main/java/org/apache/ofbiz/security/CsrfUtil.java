@@ -45,7 +45,7 @@ import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 
 public class CsrfUtil {
 
-    public static final String module = CsrfUtil.class.getName();
+    public static final String MODULE = CsrfUtil.class.getName();
     public static String tokenNameNonAjax = UtilProperties.getPropertyValue("security", "csrf.tokenName.nonAjax", "csrf");
     public static ICsrfDefenseStrategy strategy;
     private static int cacheSize =  (int) Long.parseLong(UtilProperties.getPropertyValue("security", "csrf.cache.size", "5000"));
@@ -65,7 +65,7 @@ public class CsrfUtil {
             Class<?> c = Class.forName(className);
             strategy = (ICsrfDefenseStrategy)c.newInstance();
         } catch (Exception e){
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             strategy = new CsrfDefenseStrategy();
         }
     }
@@ -192,7 +192,7 @@ public class CsrfUtil {
             requestMap = findRequestMap(requestMapMap, pathOrRequestUri);
         }
         if (requestMap == null) {
-            Debug.logError("Cannot find the corresponding request map for path: " + pathOrRequestUri, module);
+            Debug.logError("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
         }
         String tokenValue = "";
         if (requestMap != null && requestMap.securityCsrfToken) {
@@ -225,7 +225,7 @@ public class CsrfUtil {
                             .get(requestUri);
                 }
             } catch (WebAppConfigurationException | MalformedURLException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         return requestMap;

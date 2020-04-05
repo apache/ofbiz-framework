@@ -52,7 +52,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  * CompDocEvents Class
  */
 public class CompDocEvents {
-    public static final String module = CompDocEvents.class.getName();
+    public static final String MODULE = CompDocEvents.class.getName();
 
     /**
      *
@@ -80,7 +80,7 @@ public class CompDocEvents {
             try {
                 EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error running serviceName persistContentAndAssoc", module);
+                Debug.logError(e, "Error running serviceName persistContentAndAssoc", MODULE);
                 String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);
                 request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + " [" + "persistContentAndAssoc" + "]: " + e.toString());
                 return "error";
@@ -92,7 +92,7 @@ public class CompDocEvents {
             modelService = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
         } catch (GenericServiceException e) {
             String errMsg = "Error getting model service for serviceName, 'persistContentAndAssoc'. " + e.toString();
-            Debug.logError(errMsg, module);
+            Debug.logError(errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + "</li>");
             return "error";
         }
@@ -103,7 +103,7 @@ public class CompDocEvents {
             if (ServiceUtil.isError(persistResult)) {
                 String errMsg = "Error running serviceName, 'persistContentAndAssoc'. " + ServiceUtil.getErrorMessage(persistResult);
                 request.setAttribute("_ERROR_MESSAGE_",  "<li>" + errMsg + "</li>");
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
                 return "error";
             }
             contentId = (String)persistResult.get("contentId");
@@ -122,7 +122,7 @@ public class CompDocEvents {
             if (ServiceUtil.isError(result)) {
                 String errMsg = "Error running serviceName, 'persistContentRevisionAndItem'. " + ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_",  "<li>" + errMsg + "</li>");
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
                 return "error";
             }
             for (Entry<String, Object> entry : result.entrySet()) {
@@ -132,7 +132,7 @@ public class CompDocEvents {
             }
         } catch (GenericServiceException e) {
             String errMsg = "Error running serviceName, 'persistContentAndAssoc'. " + e.toString();
-            Debug.logError(errMsg, module);
+            Debug.logError(errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + "</li>");
             return "error";
         }
@@ -172,7 +172,7 @@ public class CompDocEvents {
             if (ServiceUtil.isError(results)) {
                 String errorMessage = ServiceUtil.getErrorMessage(results);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
         } catch (GenericServiceException e) {
@@ -221,7 +221,7 @@ public class CompDocEvents {
             if (ServiceUtil.isError(results)) {
                 String errorMessage = ServiceUtil.getErrorMessage(results);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
         } catch (GenericServiceException e) {

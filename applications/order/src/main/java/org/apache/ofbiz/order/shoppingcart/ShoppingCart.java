@@ -85,7 +85,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
-    public static final String module = ShoppingCart.class.getName();
+    public static final String MODULE = ShoppingCart.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
     // modes for getting OrderItemAttributes
@@ -487,7 +487,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         try {
             Map<String, Object> result = dispatcher.runSync("getSuppliersForProduct", params);
             if (ServiceUtil.isError(result)) {
-                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                 return null;
             }
             List<GenericValue> productSuppliers = UtilGenerics.cast(result.get("supplierProducts"));
@@ -495,7 +495,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 supplierProduct = productSuppliers.get(0);
             }
         } catch (GenericServiceException  e) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), module);
+            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), MODULE);
         }
         return supplierProduct;
     }
@@ -561,7 +561,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         newQuantity = minQuantity;
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
                 if ("RENTAL_ORDER_ITEM".equals(sci.getItemType())) {
                     // check to see if the related fixed asset is available for the new quantity
@@ -569,13 +569,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     if (isAvailable.compareTo("OK") != 0) {
                         Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId, "availableMessage", isAvailable);
                         String excMsg = UtilProperties.getMessage(ShoppingCartItem.resource, "item.product_not_available", messageMap, this.getLocale());
-                        Debug.logInfo(excMsg, module);
+                        Debug.logInfo(excMsg, MODULE);
                         throw new CartItemModifyException(isAvailable);
                     }
                 }
 
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Found a match for id " + productId + " on line " + i + ", updating quantity to " + newQuantity, module);
+                    Debug.logVerbose("Found a match for id " + productId + " on line " + i + ", updating quantity to " + newQuantity, MODULE);
                 }
                 sci.setQuantity(newQuantity, dispatcher, this);
 
@@ -608,7 +608,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     quantity = minQuantity;
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             item = ShoppingCartItem.makeItem(0, productId, selectedAmount, quantity, null,
                     reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, reserveAfterDate,
@@ -766,7 +766,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting cart items that are in a category: " + e.toString(), module);
+            Debug.logError(e, "Error getting cart items that are in a category: " + e.toString(), MODULE);
         }
         return itemsToReturn;
     }
@@ -891,7 +891,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     return false;
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error looking up ProductType: " + e.toString(), module);
+                Debug.logError(e, "Error looking up ProductType: " + e.toString(), MODULE);
                 // consider this not a digital good if we don't have "proof"
                 return false;
             }
@@ -913,7 +913,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     return false;
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error looking up ProductType: " + e.toString(), module);
+                Debug.logError(e, "Error looking up ProductType: " + e.toString(), MODULE);
                 // consider this not a digital good if we don't have "proof"
                 return false;
             }
@@ -1133,7 +1133,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 String checkResult = ProductPromoWorker.checkCanUsePromoCode(promoCode, partyId, this.getDelegator(), locale);
                 if (checkResult != null) {
                     promoCodeIter.remove();
-                    Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderOnUserChangePromoCodeWasRemovedBecause", UtilMisc.toMap("checkResult",checkResult), locale), module);
+                    Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderOnUserChangePromoCodeWasRemovedBecause", UtilMisc.toMap("checkResult",checkResult), locale), MODULE);
                 }
             }
 
@@ -1402,7 +1402,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             // millis per day: 1000.0 * 60.0 * 60.0 * 24.0 = 86400000.0
             return (diffMillis).divide(new BigDecimal("86400000"), generalRounding);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up party when getting createdDate", module);
+            Debug.logError(e, "Error looking up party when getting createdDate", MODULE);
             return null;
         }
     }
@@ -1473,7 +1473,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 try {
                     autoSaveListId = ShoppingListEvents.getAutoSaveListId(this.getDelegator(), null, null, ul, this.getProductStoreId());
                 } catch (GeneralException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
 
@@ -1482,7 +1482,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 try {
                     org.apache.ofbiz.order.shoppinglist.ShoppingListEvents.clearListInfo(this.getDelegator(), autoSaveListId);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
             this.lastListRestore = null;
@@ -1569,7 +1569,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 return pm.getString("paymentMethodTypeId");
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return null;
     }
@@ -1654,12 +1654,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     inf.refNum[1] = authCode;
                     inf.amount = amount;
                 }
-                Debug.logInfo("Returned existing PaymentInfo - " + inf.toString(), module);
+                Debug.logInfo("Returned existing PaymentInfo - " + inf.toString(), MODULE);
                 return inf;
             }
         }
 
-        Debug.logInfo("Returned new PaymentInfo - " + thisInf.toString(), module);
+        Debug.logInfo("Returned new PaymentInfo - " + thisInf.toString(), MODULE);
         return thisInf;
     }
 
@@ -1797,7 +1797,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     clearPaymentMethodsById(paymentMethodIdsToRemove);
                 }
             } catch (GenericEntityException ex) {
-                Debug.logError("Unable to remove declined payment methods from cart due to " + ex.getMessage(), module);
+                Debug.logError("Unable to remove declined payment methods from cart due to " + ex.getMessage(), MODULE);
                 return;
             }
         }
@@ -1814,17 +1814,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             try {
                 paymentMethod = this.getDelegator().findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", inf.paymentMethodId), false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "ERROR: Unable to get payment method record to expire : " + inf.paymentMethodId, module);
+                Debug.logError(e, "ERROR: Unable to get payment method record to expire : " + inf.paymentMethodId, MODULE);
             }
             if (paymentMethod != null) {
                 paymentMethod.set("thruDate", now);
                 try {
                     paymentMethod.store();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to store single use PaymentMethod record : " + paymentMethod, module);
+                    Debug.logError(e, "Unable to store single use PaymentMethod record : " + paymentMethod, MODULE);
                 }
             } else {
-                Debug.logError("ERROR: Received back a null payment method record for expired ID : " + inf.paymentMethodId, module);
+                Debug.logError("ERROR: Received back a null payment method record for expired ID : " + inf.paymentMethodId, MODULE);
             }
         }
     }
@@ -1861,10 +1861,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     if (paymentMethod != null) {
                         methods.add(paymentMethod);
                     } else {
-                        Debug.logError("Error getting cart payment methods, the paymentMethodId [" + paymentMethodId +"] is not valid", module);
+                        Debug.logError("Error getting cart payment methods, the paymentMethodId [" + paymentMethodId +"] is not valid", MODULE);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to get payment method from the database", module);
+                    Debug.logError(e, "Unable to get payment method from the database", MODULE);
                 }
             }
         }
@@ -1880,7 +1880,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 try {
                     types.add(this.getDelegator().findOne("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", id), true));
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to get payment method type from the database", module);
+                    Debug.logError(e, "Unable to get payment method type from the database", MODULE);
                 }
             }
         }
@@ -1897,7 +1897,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     GenericValue cc = pm.getRelatedOne("CreditCard", false);
                     creditCards.add(cc);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to get credit card record from payment method : " + pm, module);
+                    Debug.logError(e, "Unable to get credit card record from payment method : " + pm, MODULE);
                 }
             }
         }
@@ -1914,7 +1914,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     GenericValue gc = pm.getRelatedOne("GiftCard", false);
                     giftCards.add(gc);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to get gift card record from payment method : " + pm, module);
+                    Debug.logError(e, "Unable to get gift card record from payment method : " + pm, MODULE);
                 }
             }
         }
@@ -1928,7 +1928,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         try {
             paymentMethodType = this.getDelegator().findOne("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", id), true);
         } catch (GenericEntityException e) {
-            Debug.logInfo(e, "Problems getting PaymentMethodType", module);
+            Debug.logInfo(e, "Problems getting PaymentMethodType", MODULE);
         }
         return paymentMethodType != null;
     }
@@ -1966,10 +1966,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 return "Y".equals(giftCertSettings.getString("requirePinCode"));
             }
             Debug.logWarning("No product store gift certificate settings found for store [" + getProductStoreId() + "]",
-                    module);
+                    MODULE);
             return true;
         } catch (GenericEntityException ex) {
-            Debug.logError("Error checking if store requires pin number for GC: " + ex.getMessage(), module);
+            Debug.logError("Error checking if store requires pin number for GC: " + ex.getMessage(), MODULE);
             return true;
         }
     }
@@ -1986,10 +1986,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 return "Y".equals(giftCertSettings.getString("validateGCFinAcct"));
             }
             Debug.logWarning("No product store gift certificate settings found for store [" + getProductStoreId() + "]",
-                    module);
+                    MODULE);
             return false;
         } catch (GenericEntityException ex) {
-            Debug.logError("Error checking if store requires pin number for GC: " + ex.getMessage(), module);
+            Debug.logError("Error checking if store requires pin number for GC: " + ex.getMessage(), MODULE);
             return false;
         }
     }
@@ -2290,7 +2290,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             try {
                 shippingAddress = this.getDelegator().findOne("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId), false);
             } catch (GenericEntityException gee) {
-                Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + shippingContactMechId + "].", module);
+                Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + shippingContactMechId + "].", MODULE);
             }
             if (shippingAddress != null) {
                 Set<ShoppingCartItem> shipItems = csi.getShipItems();
@@ -2367,7 +2367,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 return this.getDelegator().findOne("ShipmentMethodType",
                         UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId), false);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
         }
         return null;
@@ -2606,7 +2606,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             try {
                 return getDelegator().findOne("PostalAddress", UtilMisc.toMap("contactMechId", this.getShippingContactMechId(idx)), false);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.toString(), module);
+                Debug.logWarning(e.toString(), MODULE);
                 return null;
             }
         }
@@ -2666,7 +2666,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         this.setAllShippingContactMechId(shippingContactMech.getString("contactMechId"));
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error setting shippingContactMechId in setDefaultCheckoutOptions() method.", module);
+                    Debug.logError(e, "Error setting shippingContactMechId in setDefaultCheckoutOptions() method.", MODULE);
                 }
             }
             // set the default shipment method
@@ -2842,7 +2842,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         thisPaymentMethodTypeId = paymentMethod.getString("paymentMethodTypeId");
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, e.getMessage(), module);
+                    Debug.logError(e, e.getMessage(), MODULE);
                 }
             } else {
                 thisPaymentMethodTypeId = payment.paymentMethodTypeId;
@@ -3268,7 +3268,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             throw new IllegalStateException("Cannot add a use to a promo code use for a code that has not been entered.");
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Used promotion [" + productPromoId + "] with code [" + productPromoCodeId + "] for total discount [" + totalDiscountAmount + "] and quantity left in actions [" + quantityLeftInActions + "]", module);
+            Debug.logVerbose("Used promotion [" + productPromoId + "] with code [" + productPromoCodeId + "] for total discount [" + totalDiscountAmount + "] and quantity left in actions [" + quantityLeftInActions + "]", MODULE);
         }
         this.productPromoUseInfoList.add(new ProductPromoUseInfo(productPromoId, productPromoCodeId, totalDiscountAmount, quantityLeftInActions, usageInfoMap));
     }
@@ -3577,7 +3577,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             Map<String, Object> result = dispatcher.runSync("createProduct", serviceContext);
             if (ServiceUtil.isError(result)) {
-                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                 return null;
             }
 
@@ -3591,7 +3591,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             result = dispatcher.runSync("createProductAssoc", serviceContext);
             if (ServiceUtil.isError(result)) {
-                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                 return null;
             }
 
@@ -3608,12 +3608,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
                 result = dispatcher.runSync("createWorkEffortGoodStandard", serviceContext);
                 if (ServiceUtil.isError(result)) {
-                    Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                    Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                     return null;
                 }
             }
         } catch (GenericEntityException | GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return newProductId;
     }
@@ -3646,7 +3646,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         nextItemSeq++;
                     }
                 } catch (CartItemModifyException e) {
-                    Debug.logError(e, "Problem exploding item! Item not exploded.", module);
+                    Debug.logError(e, "Problem exploding item! Item not exploded.", MODULE);
                 }
             }
         }
@@ -3678,7 +3678,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         nextItemSeq++;
                     }
                 } catch (CartItemModifyException e) {
-                    Debug.logError(e, "Problem exploding (unitizing) item! Item not exploded.", module);
+                    Debug.logError(e, "Problem exploding (unitizing) item! Item not exploded.", MODULE);
                 }
             }
         }
@@ -3710,7 +3710,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                             nextItemSeq = thisSeqId + 1;
                         }
                     } catch (NumberFormatException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
 
@@ -3956,7 +3956,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         }
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to obtain SurveyResponse record", module);
+                    Debug.logError(e, "Unable to obtain SurveyResponse record", MODULE);
                 }
             }
         }
@@ -4130,7 +4130,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                             allOrderItemAssociations.add(orderItemAssociation);
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Unable to load OrderRequirementCommitment records for requirement ID : " + requirementId, module);
+                        Debug.logError(e, "Unable to load OrderRequirementCommitment records for requirement ID : " + requirementId, MODULE);
                     }
                 }
                 if (item.getAssociatedOrderId() != null && item.getAssociatedOrderItemSeqId() != null) {
@@ -4243,7 +4243,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 facilityId = productStore.getString("inventoryFacilityId");
                 storeRequirementMethodEnumId = productStore.getString("requirementMethodEnumId");
             } catch (GenericEntityException gee) {
-                Debug.logError(UtilProperties.getMessage(resource_error,"OrderProblemGettingProductStoreRecords", locale) + gee.getMessage(), module);
+                Debug.logError(UtilProperties.getMessage(resource_error,"OrderProblemGettingProductStoreRecords", locale) + gee.getMessage(), MODULE);
                 return;
             }
         }
@@ -4286,7 +4286,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 try {
                     productFacility = EntityQuery.use(delegator).from("ProductFacility").where("productId", productId, "facilityId", shipInfo.getFacilityId()).queryOne();
                 } catch(GenericEntityException e) {
-                    Debug.logError("Error :" +e.getMessage(), module);
+                    Debug.logError("Error :" +e.getMessage(), MODULE);
                     e.printStackTrace();
                 }
 
@@ -4314,7 +4314,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         Map<String, Object> getProductInventoryAvailableResult = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
                         if (ServiceUtil.isError(getProductInventoryAvailableResult)) {
                             String errorMessage = ServiceUtil.getErrorMessage(getProductInventoryAvailableResult);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                             return;
                         }
                         BigDecimal availableToPromise = (BigDecimal) getProductInventoryAvailableResult.get("availableToPromiseTotal");
@@ -4326,7 +4326,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         }
 
                     } catch (GenericServiceException gee) {
-                        Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetInventoryAvailableByFacilityError", locale) + gee.getMessage(), module);
+                        Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetInventoryAvailableByFacilityError", locale) + gee.getMessage(), MODULE);
                     }
                 } else {
 
@@ -4344,7 +4344,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     Map<String, Object> getSuppliersForProductResult = dispatcher.runSync("getSuppliersForProduct", UtilMisc.<String, Object>toMap("productId", productId, "quantity", dropShipQuantity, "canDropShip", "Y", "currencyUomId", getCurrency()));
                     if (ServiceUtil.isError(getSuppliersForProductResult)) {
                         String errorMessage = ServiceUtil.getErrorMessage(getSuppliersForProductResult);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         return;
                     }
                     List<GenericValue> supplierProducts = UtilGenerics.cast(getSuppliersForProductResult.get("supplierProducts"));
@@ -4356,7 +4356,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         supplierPartyId = supplierProduct.getString("partyId");
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), module);
+                    Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), MODULE);
                 }
 
                 // Leave the items untouched if we couldn't find a supplier
@@ -4734,7 +4734,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     }
                 }
             } catch (GeneralException e) {
-                Debug.logError("Impossible to resolve an originAddress " + e.toString(), module);
+                Debug.logError("Impossible to resolve an originAddress " + e.toString(), MODULE);
             }
             return originAddress;
         }
@@ -4830,7 +4830,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                             .filterByDate()
                             .queryCount();
                 } catch (GenericEntityException e) {
-                    Debug.logError("Error to resolve ShipmentTimeEstimate quantity", module);
+                    Debug.logError("Error to resolve ShipmentTimeEstimate quantity", MODULE);
                 }
                 if (shipTimeEstimateSize != 0) {
                     try {
@@ -4848,7 +4848,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                             estimatedDeliveryDate = UtilDateTime.addDaysToTimestamp(referenceDate, estimatedDays);
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError("Error to resolve ShipmentTimeEstimate days", module);
+                        Debug.logError("Error to resolve ShipmentTimeEstimate days", MODULE);
                     }
                 }
             }
@@ -4940,7 +4940,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 try {
                     shippingAddress = item.getDelegator().findOne("PostalAddress", UtilMisc.toMap("contactMechId", this.internalContactMechId), false);
                 } catch (GenericEntityException gee) {
-                    Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + this.internalContactMechId + "].", module);
+                    Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + this.internalContactMechId + "].", MODULE);
                 }
                 if (shippingAddress != null) {
                     GenericValue product = item.getProduct();
@@ -5056,7 +5056,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             try {
                 return EntityQuery.use(delegator).from(entityName).where(lookupFields).cache(true).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
 
             return null;
@@ -5087,10 +5087,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     if (pmObj != null) {
                         postalAddress = pmObj.getRelatedOne("PostalAddress", false);
                     } else {
-                        Debug.logInfo("No PaymentMethod Object Found - " + paymentMethodId, module);
+                        Debug.logInfo("No PaymentMethod Object Found - " + paymentMethodId, MODULE);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
 
@@ -5124,7 +5124,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 try {
                     productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", cart.getProductStoreId()).queryOne();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e.toString(), module);
+                    Debug.logError(e.toString(), MODULE);
                 }
                 if (productStore != null) {
                     splitPayPrefPerShpGrp = productStore.getString("splitPayPrefPerShpGrp");
@@ -5172,8 +5172,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                                 opp.set("statusId", "PAYMENT_RECEIVED");
                             }
                         }
-                        Debug.logInfo("ShipGroup [" + csi.getShipGroupSeqId() +"]", module);
-                        Debug.logInfo("Creating OrderPaymentPreference - " + opp, module);
+                        Debug.logInfo("ShipGroup [" + csi.getShipGroupSeqId() +"]", MODULE);
+                        Debug.logInfo("Creating OrderPaymentPreference - " + opp, MODULE);
                         values.add(opp);
                     }
                 } else if ("N".equals(splitPayPrefPerShpGrp)) {
@@ -5211,7 +5211,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                             opp.set("statusId", "PAYMENT_RECEIVED");
                         }
                     }
-                    Debug.logInfo("Creating OrderPaymentPreference - " + opp, module);
+                    Debug.logInfo("Creating OrderPaymentPreference - " + opp, MODULE);
                     values.add(opp);
                 }
             }
@@ -5222,7 +5222,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         @Override
         public int compareTo(Object o) {
             CartPaymentInfo that = (CartPaymentInfo) o;
-            Debug.logInfo("Compare [" + this.toString() + "] to [" + that.toString() + "]", module);
+            Debug.logInfo("Compare [" + this.toString() + "] to [" + that.toString() + "]", MODULE);
 
             if (this.finAccountId == null) {
                 if (that.finAccountId != null) {
