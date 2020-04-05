@@ -76,8 +76,7 @@ public class CommonEvents {
         "thisRequestUri",
         "org.apache.tomcat.util.net.secure_protocol_version",
         "userLogin",
-        "impersonateLogin",
-        "requestMapMap" // requestMapMap is used by CSRFUtil
+        "impersonateLogin"
     };
 
     public static String setFollowerPage(HttpServletRequest request, HttpServletResponse response) {

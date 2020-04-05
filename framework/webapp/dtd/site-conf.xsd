@@ -348,20 +348,6 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="csrf-token" use="optional" default="">
-            <xs:annotation>
-                <xs:documentation>
-                    If true csrf token is expected. If false no csrf token check. Default to "".
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value=""/>
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="metric">
         <xs:annotation>
