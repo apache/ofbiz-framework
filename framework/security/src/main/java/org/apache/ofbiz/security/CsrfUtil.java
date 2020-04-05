@@ -61,7 +61,7 @@ public class CsrfUtil {
 
     static {
         try {
-            String className = UtilProperties.getPropertyValue("security", "csrf.defense.strategy", CsrfDefenseStrategy.class.getCanonicalName());
+            String className = UtilProperties.getPropertyValue("security", "csrf.defense.strategy", NoCsrfDefenseStrategy.class.getCanonicalName());
             Class<?> c = Class.forName(className);
             strategy = (ICsrfDefenseStrategy)c.newInstance();
         } catch (Exception e){
