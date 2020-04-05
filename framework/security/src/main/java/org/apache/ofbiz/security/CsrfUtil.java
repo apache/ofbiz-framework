@@ -158,7 +158,7 @@ public class CsrfUtil {
     /**
      * Generate CSRF token for non-ajax request if required and add it as key to token map in session When token map
      * size limit is reached, the eldest entry will be deleted each time a new entry is added.
-     * Token only generated for up to 3 subfolders in the path so 'entity/find/Budget/0001' & 'entity/find/Budget/0002'
+     * Token only generated for up to 3 subfolders in the path so 'entity/find/Budget/0001' and 'entity/find/Budget/0002'
      * should share the same CSRF token.
      * 
      * @param request
