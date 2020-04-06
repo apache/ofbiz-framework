@@ -43,14 +43,14 @@ import org.w3c.dom.Element;
 public class CsrfUtilTests {
 
     @Test
-    public void testGetTokenMap(){
+    public void testGetTokenMap() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpSession session = mock(HttpSession.class);
         when(request.getSession()).thenReturn(session);
 
         // prepare the token map to be retrieved from session
-        Map<String,String> tokenMap = new LinkedHashMap<String, String>();
-        tokenMap.put("uri_1","abcd");
+        Map<String, String> tokenMap = new LinkedHashMap<String, String>();
+        tokenMap.put("uri_1", "abcd");
         when(session.getAttribute("CSRF-Token")).thenReturn(tokenMap);
 
         // without userLogin in session, test token map is retrieved from session
@@ -70,7 +70,7 @@ public class CsrfUtilTests {
     }
 
     @Test
-    public void testGetRequestUriWithSubFolderLimit(){
+    public void testGetRequestUriWithSubFolderLimit() {
         CsrfUtil.setStrategy(new CsrfDefenseStrategy());
 
         // limit only when request uri starts with 'entity'
@@ -82,7 +82,7 @@ public class CsrfUtilTests {
     }
 
     @Test
-    public void testGetRequestUriFromPath(){
+    public void testGetRequestUriFromPath() {
         String requestUri = CsrfUtil.getRequestUriFromPath("/viewprofile?partyId=Company");
         assertEquals("viewprofile", requestUri);
 
@@ -92,7 +92,6 @@ public class CsrfUtilTests {
         requestUri = CsrfUtil.getRequestUriFromPath("view/entityref_main#org.apache.ofbiz.accounting.budget");
         assertEquals("view/entityref_main", requestUri);
     }
-
 
     @Test
     public void testGenerateTokenForNonAjax() throws ParserConfigurationException {
@@ -117,18 +116,16 @@ public class CsrfUtilTests {
         Document doc = builder.newDocument();
 
         Map<String, ConfigXMLReader.RequestMap> requestMapMap = new HashMap<>();
-        {
-            Element requestMapElement = doc.createElement("request-map");
-            requestMapElement.setAttribute("uri", "checkLogin");
-            ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-            requestMapMap.put(requestMap.uri, requestMap);
-        }
-        {
-            Element requestMapElement = doc.createElement("request-map");
-            requestMapElement.setAttribute("uri", "entity/find/{entityName}/{pkValues: .*}");
-            ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-            requestMapMap.put(requestMap.uri, requestMap);
-        }
+        Element requestMapElement = doc.createElement("request-map");
+        requestMapElement.setAttribute("uri", "checkLogin");
+        ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
+        requestMapMap.put(requestMap.uri, requestMap);
+
+        requestMapElement = doc.createElement("request-map");
+        requestMapElement.setAttribute("uri", "entity/find/{entityName}/{pkValues: .*}");
+        requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
+        requestMapMap.put(requestMap.uri, requestMap);
+
         when(request.getAttribute("requestMapMap")).thenReturn(requestMapMap);
 
         token = CsrfUtil.generateTokenForNonAjax(request, "checkLogin");
@@ -156,35 +153,29 @@ public class CsrfUtilTests {
         Document doc = builder.newDocument();
 
         Map<String, ConfigXMLReader.RequestMap> requestMapMap = new HashMap<>();
-        {
-            Element requestMapElement = doc.createElement("request-map");
-            requestMapElement.setAttribute("uri", "checkLogin");
-            ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-            requestMapMap.put(requestMap.uri, requestMap);
-        }
+        Element requestMapElement = doc.createElement("request-map");
+        requestMapElement.setAttribute("uri", "checkLogin");
+        ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
+        requestMapMap.put(requestMap.uri, requestMap);
         // REST request like /entity/find/AccommodationClass
-        {
-            Element requestMapElement = doc.createElement("request-map");
-            requestMapElement.setAttribute("uri", "entity/find/{entityName}");
-            ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-            requestMapMap.put(requestMap.uri, requestMap);
-        }
+        requestMapElement = doc.createElement("request-map");
+        requestMapElement.setAttribute("uri", "entity/find/{entityName}");
+        requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
+        requestMapMap.put(requestMap.uri, requestMap);
+
         // View override like /view/ModelInduceFromDb
-        {
-            Element requestMapElement = doc.createElement("request-map");
-            requestMapElement.setAttribute("uri", "view");
-            ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-            requestMapMap.put(requestMap.uri, requestMap);
-        }
-        {
-            Element requestMapElement = doc.createElement("request-map");
-            requestMapElement.setAttribute("uri", "ModelInduceFromDb");
-            ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-            requestMapMap.put(requestMap.uri, requestMap);
-        }
+        requestMapElement = doc.createElement("request-map");
+        requestMapElement.setAttribute("uri", "view");
+        requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
+        requestMapMap.put(requestMap.uri, requestMap);
+
+        requestMapElement = doc.createElement("request-map");
+        requestMapElement.setAttribute("uri", "ModelInduceFromDb");
+        requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
+        requestMapMap.put(requestMap.uri, requestMap);
 
         // test usual request
-        ConfigXMLReader.RequestMap requestMap = CsrfUtil.findRequestMap(requestMapMap, "/checkLogin");
+        requestMap = CsrfUtil.findRequestMap(requestMapMap, "/checkLogin");
         assertEquals(requestMap.uri, "checkLogin");
 
         // test usual request
@@ -213,7 +204,7 @@ public class CsrfUtilTests {
     }
 
     @Test
-    public void testGetTokenForAjax(){
+    public void testGetTokenForAjax() {
         HttpSession session = mock(HttpSession.class);
         when(session.getAttribute("X-CSRF-Token")).thenReturn("abcd");
 
@@ -222,7 +213,7 @@ public class CsrfUtilTests {
     }
 
     @Test
-    public void testAddOrUpdateTokenInUrl(){
+    public void testAddOrUpdateTokenInUrl() {
         CsrfUtil.setTokenNameNonAjax("csrfToken");
 
         // test link without csrfToken
@@ -230,8 +221,11 @@ public class CsrfUtilTests {
         assertEquals("https://localhost:8443/catalog/control/login?csrfToken=abcd", url);
 
         // test link with query string and without csrfToken
-        url = CsrfUtil.addOrUpdateTokenInUrl("https://localhost:8443/partymgr/control/EditCommunicationEvent?communicationEventId=10000", "abcd");
-        assertEquals("https://localhost:8443/partymgr/control/EditCommunicationEvent?communicationEventId=10000&csrfToken=abcd", url);
+        url = CsrfUtil.addOrUpdateTokenInUrl(
+                "https://localhost:8443/partymgr/control/visitdetail?visitId=10301", "abcd");
+        assertEquals(
+                "https://localhost:8443/partymgr/control/visitdetail?visitId=10301&csrfToken=abcd",
+                url);
 
         // test link with csrfToken
         url = CsrfUtil.addOrUpdateTokenInUrl("https://localhost:8443/catalog/control/login?csrfToken=abcd", "efgh");
@@ -243,7 +237,7 @@ public class CsrfUtilTests {
     }
 
     @Test
-    public void testAddOrUpdateTokenInQueryString(){
+    public void testAddOrUpdateTokenInQueryString() {
         CsrfUtil.setTokenNameNonAjax("csrfToken");
 
         String queryString = CsrfUtil.addOrUpdateTokenInQueryString("", "abcd");
