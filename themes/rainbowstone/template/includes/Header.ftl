@@ -24,7 +24,7 @@ under the License.
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <#assign csrfDefenseStrategy = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("security", "csrf.defense.strategy", delegator)>
+    <#assign csrfDefenseStrategy = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("security", "csrf.defense.strategy", "org.apache.ofbiz.security.NoCsrfDefenseStrategy", delegator)>
     <#if csrfDefenseStrategy != "org.apache.ofbiz.security.NoCsrfDefenseStrategy">
         <meta name="csrf-token" content="<@csrfTokenAjax/>"/>
     </#if>
