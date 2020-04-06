@@ -29,13 +29,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.product.category.SeoConfigUtil;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.webapp.OfbizUrlBuilder;
 import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
@@ -59,12 +59,11 @@ public class UrlRegexpTransform implements TemplateTransformModel {
 
     private static final String MODULE = UrlRegexpTransform.class.getName();
 
-
     private static String convertToString(Object o) {
         String result = "";
         if (o != null) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Arg Object : " + o.getClass().getName(), MODULE);
+                Debug.logVerbose("Arg Object : " + o.getClass().getName(), MODULE);
             }
             if (o instanceof TemplateScalarModel) {
                 TemplateScalarModel s = (TemplateScalarModel) o;
@@ -141,7 +140,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
 
                         // add / update csrf token to link when required
                         String tokenValue = CsrfUtil.generateTokenForNonAjax(request,
-                                controlPath + (requestURI.startsWith("/") ? requestURI : "/"+requestURI));
+                                controlPath + (requestURI.startsWith("/") ? requestURI : "/" + requestURI));
                         seoUrl = CsrfUtil.addOrUpdateTokenInUrl(seoUrl, tokenValue);
 
                         out.write(seoUrl);
@@ -176,11 +175,8 @@ public class UrlRegexpTransform implements TemplateTransformModel {
                     } else {
                         out.write(buf.toString());
                     }
-                } catch (IOException |
-                        SAXException |
-                        TemplateModelException |
-                        GenericEntityException |
-                        WebAppConfigurationException e) {
+                } catch (IOException | SAXException | TemplateModelException | GenericEntityException
+                        | WebAppConfigurationException e) {
                     throw new IOException(e.getMessage());
                 }
             }
@@ -190,8 +186,10 @@ public class UrlRegexpTransform implements TemplateTransformModel {
     /**
      * Transform a url according to seo pattern regular expressions.
      *
-     * @param url String to do the seo transform
-     * @param isAnon boolean to indicate whether it's an anonymous visit.
+     * @param url
+     *            String to do the seo transform
+     * @param isAnon
+     *            boolean to indicate whether it's an anonymous visit.
      *
      * @return String the transformed url.
      */
@@ -251,14 +249,16 @@ public class UrlRegexpTransform implements TemplateTransformModel {
     /**
      * Forward a uri according to forward pattern regular expressions. Note: this is developed for Filter usage.
      *
-     * @param uri String to reverse transform
+     * @param uri
+     *            String to reverse transform
      * @return String
      */
     public static boolean forwardUri(HttpServletResponse response, String uri) {
         Perl5Matcher matcher = new Perl5Matcher();
         boolean foundMatch = false;
         Integer responseCodeInt = null;
-        if (SeoConfigUtil.checkUseUrlRegexp() && SeoConfigUtil.getSeoPatterns() != null && SeoConfigUtil.getForwardReplacements() != null) {
+        if (SeoConfigUtil.checkUseUrlRegexp() && SeoConfigUtil.getSeoPatterns() != null
+                && SeoConfigUtil.getForwardReplacements() != null) {
             Iterator<String> keys = SeoConfigUtil.getSeoPatterns().keySet().iterator();
             while (keys.hasNext()) {
                 String key = keys.next();

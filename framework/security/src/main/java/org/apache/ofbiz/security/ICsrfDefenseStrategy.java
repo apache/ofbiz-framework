@@ -50,6 +50,7 @@ public interface ICsrfDefenseStrategy {
      */
     boolean keepTokenAfterUse(String requestUri, String requestMethod);
 
-    void invalidTokenResponse(String requestUri, HttpServletRequest request) throws RequestHandlerExceptionAllowExternalRequests;
+    void invalidTokenResponse(String requestUri, HttpServletRequest request)
+            throws RequestHandlerExceptionAllowExternalRequests;
 
 }

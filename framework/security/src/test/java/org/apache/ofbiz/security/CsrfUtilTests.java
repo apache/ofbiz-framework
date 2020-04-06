@@ -71,7 +71,7 @@ public class CsrfUtilTests {
 
     @Test
     public void testGetRequestUriWithSubFolderLimit(){
-        CsrfUtil.strategy = new CsrfDefenseStrategy();
+        CsrfUtil.setStrategy(new CsrfDefenseStrategy());
 
         // limit only when request uri starts with 'entity'
         String limitRequestUri = CsrfUtil.getRequestUriWithSubFolderLimit("entity/find/Budget/0002");
@@ -134,7 +134,7 @@ public class CsrfUtilTests {
         token = CsrfUtil.generateTokenForNonAjax(request, "checkLogin");
         assertNotEquals("", token);
 
-        CsrfUtil.strategy = new CsrfDefenseStrategy();
+        CsrfUtil.setStrategy(new CsrfDefenseStrategy());
 
         token = CsrfUtil.generateTokenForNonAjax(request, "entity/find/Budget/0001");
         assertNotEquals("", token);
@@ -223,7 +223,7 @@ public class CsrfUtilTests {
 
     @Test
     public void testAddOrUpdateTokenInUrl(){
-        CsrfUtil.tokenNameNonAjax = "csrfToken";
+        CsrfUtil.setTokenNameNonAjax("csrfToken");
 
         // test link without csrfToken
         String url = CsrfUtil.addOrUpdateTokenInUrl("https://localhost:8443/catalog/control/login", "abcd");
@@ -244,7 +244,7 @@ public class CsrfUtilTests {
 
     @Test
     public void testAddOrUpdateTokenInQueryString(){
-        CsrfUtil.tokenNameNonAjax = "csrfToken";
+        CsrfUtil.setTokenNameNonAjax("csrfToken");
 
         String queryString = CsrfUtil.addOrUpdateTokenInQueryString("", "abcd");
         assertEquals(queryString, "csrfToken=abcd");

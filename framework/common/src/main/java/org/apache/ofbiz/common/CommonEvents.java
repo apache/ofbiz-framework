@@ -63,7 +63,8 @@ public class CommonEvents {
 
     public static final String MODULE = CommonEvents.class.getName();
 
-    private static final String[] ignoreAttrs = new String[] { // Attributes removed for security reason; _ERROR_MESSAGE_ and _ERROR_MESSAGE_LIST are kept
+    // Attributes removed for security reason; _ERROR_MESSAGE_ and _ERROR_MESSAGE_LIST are kept
+    private static final String[] IGNOREATTRS = new String[] {
         "javax.servlet.request.key_size",
         "_CONTEXT_ROOT_",
         "_FORWARDED_FROM_SERVLET_",
@@ -81,8 +82,10 @@ public class CommonEvents {
         "requestMapMap" // requestMapMap is used by CSRFUtil
     };
 
-    /** Simple event to set the users per-session locale setting. The user's locale
-     * setting should be passed as a "newLocale" request parameter. */
+    /**
+     * Simple event to set the users per-session locale setting. The user's locale setting should be passed as a
+     * "newLocale" request parameter.
+     */
     public static String setSessionLocale(HttpServletRequest request, HttpServletResponse response) {
         String localeString = request.getParameter("newLocale");
         if (UtilValidate.isNotEmpty(localeString)) {
@@ -178,7 +181,7 @@ public class CommonEvents {
 
         Map<String, Object> attrMap = UtilHttp.getJSONAttributeMap(request);
 
-        for (String ignoreAttr : ignoreAttrs) {
+        for (String ignoreAttr : IGNOREATTRS) {
             if (attrMap.containsKey(ignoreAttr)) {
                 attrMap.remove(ignoreAttr);
             }
@@ -192,11 +195,13 @@ public class CommonEvents {
         return "success";
     }
 
-    private static void writeJSONtoResponse(JSON json, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    private static void writeJSONtoResponse(JSON json, HttpServletRequest request, HttpServletResponse response)
+            throws UnsupportedEncodingException {
         String jsonStr = json.toString();
         String httpMethod = request.getMethod();
 
-        // This was added for security reason (OFBIZ-5409), you might need to remove the "//" prefix when handling the JSON response
+        // This was added for security reason (OFBIZ-5409), you might need to remove the "//" prefix when handling the
+        // JSON response
         // Though normally you simply have to access the data you want, so should not be annoyed by the "//" prefix
         if ("GET".equalsIgnoreCase(httpMethod)) {
             Debug.logWarning("for security reason (OFBIZ-5409) the '//' prefix was added handling the JSON response.  "
@@ -205,7 +210,7 @@ public class CommonEvents {
                     + "In case, the util.js scrpt is there to help you."
                     + "This can be customized in general.properties with the http.json.xssi.prefix property", MODULE);
             Delegator delegator = (Delegator) request.getAttribute("delegator");
-            String xssiPrefix =EntityUtilProperties.getPropertyValue("general", "http.json.xssi.prefix", delegator);
+            String xssiPrefix = EntityUtilProperties.getPropertyValue("general", "http.json.xssi.prefix", delegator);
             jsonStr = xssiPrefix + jsonStr;
         }
 
@@ -257,13 +262,14 @@ public class CommonEvents {
         return "success";
     }
 
-    public static String getJSONuiLabel(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+    public static String getJSONuiLabel(HttpServletRequest request, HttpServletResponse response)
+            throws UnsupportedEncodingException, IOException {
         // Format - {resource : key}
         String jsonString = request.getParameter("requiredLabel");
         Map<String, String> uiLabelObject = null;
         if (UtilValidate.isNotEmpty(jsonString)) {
             JSON json = JSON.from(jsonString);
-            uiLabelObject = UtilGenerics.<Map<String, String>>cast(json.toObject(Map.class));
+            uiLabelObject = UtilGenerics.<Map<String, String>> cast(json.toObject(Map.class));
         }
         if (UtilValidate.isEmpty(uiLabelObject)) {
             Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
@@ -290,18 +296,23 @@ public class CommonEvents {
     public static String getCaptcha(HttpServletRequest request, HttpServletResponse response) {
         try {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
-            final String captchaSizeConfigName = StringUtils.defaultIfEmpty(request.getParameter("captchaSize"), "default");
-            final String captchaSizeConfig = EntityUtilProperties.getPropertyValue("captcha", "captcha." + captchaSizeConfigName, delegator);
+            final String captchaSizeConfigName = StringUtils.defaultIfEmpty(request.getParameter("captchaSize"),
+                    "default");
+            final String captchaSizeConfig = EntityUtilProperties.getPropertyValue("captcha",
+                    "captcha." + captchaSizeConfigName, delegator);
             final String[] captchaSizeConfigs = captchaSizeConfig.split("\\|");
-            final String captchaCodeId = StringUtils.defaultIfEmpty(request.getParameter("captchaCodeId"), ""); // this is used to uniquely identify in the user session the attribute where the captcha code for the last captcha for the form is stored
+            // this is used to uniquely identify in the user session the attribute where the captcha code
+            // for the last captcha for the form is stored
+            final String captchaCodeId = StringUtils.defaultIfEmpty(request.getParameter("captchaCodeId"), "");
 
             final int fontSize = Integer.parseInt(captchaSizeConfigs[0]);
             final int height = Integer.parseInt(captchaSizeConfigs[1]);
             final int width = Integer.parseInt(captchaSizeConfigs[2]);
             final int charsToPrint = UtilProperties.getPropertyAsInteger("captcha", "captcha.code_length", 6);
-            final char[] availableChars = EntityUtilProperties.getPropertyValue("captcha", "captcha.characters", delegator).toCharArray();
+            final char[] availableChars = EntityUtilProperties
+                    .getPropertyValue("captcha", "captcha.characters", delegator).toCharArray();
 
-            //It is possible to pass the font size, image width and height with the request as well
+            // It is possible to pass the font size, image width and height with the request as well
             Color backgroundColor = Color.gray;
             Color borderColor = Color.DARK_GRAY;
             Color textColor = Color.ORANGE;
@@ -317,7 +328,7 @@ public class CommonEvents {
             g.setColor(backgroundColor);
             g.fillRect(0, 0, width, height);
 
-            //Generating some circles for background noise
+            // Generating some circles for background noise
             g.setColor(circleColor);
             for (int i = 0; i < circlesToDraw; i++) {
                 int circleRadius = (int) (Math.random() * height / 2.0);
@@ -384,13 +395,15 @@ public class CommonEvents {
         return "success";
     }
 
-    public static String loadJWT(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    public static String loadJWT(HttpServletRequest request, HttpServletResponse response)
+            throws UnsupportedEncodingException {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, String> types = new HashMap<>();
         String securedUserLoginId = LoginWorker.getSecuredUserLoginId(request);
         if (securedUserLoginId != null) {
             types.put("userLoginId", securedUserLoginId);
-            int ttlSeconds =  (int) Long.parseLong(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "10", delegator));
+            int ttlSeconds = (int) Long.parseLong(EntityUtilProperties.getPropertyValue("security",
+                    "security.jwt.token.expireTime", "10", delegator));
             String token = JWTManager.createJwt(delegator, types, ttlSeconds);
             writeJSONtoResponse(JSON.from(token), request, response);
         } else {
@@ -398,5 +411,5 @@ public class CommonEvents {
         }
         return "success";
     }
-    
+
 }

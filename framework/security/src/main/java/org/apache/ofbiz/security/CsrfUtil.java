@@ -43,14 +43,18 @@ import org.apache.ofbiz.webapp.control.RequestHandlerException;
 import org.apache.ofbiz.webapp.control.RequestHandlerExceptionAllowExternalRequests;
 import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 
-public class CsrfUtil {
+public final class CsrfUtil {
 
     public static final String MODULE = CsrfUtil.class.getName();
-    public static String tokenNameNonAjax = UtilProperties.getPropertyValue("security", "csrf.tokenName.nonAjax", "csrf");
-    public static ICsrfDefenseStrategy strategy;
-    private static int cacheSize =  (int) Long.parseLong(UtilProperties.getPropertyValue("security", "csrf.cache.size", "5000"));
-    private static LinkedHashMap<String, Map<String, Map<String, String>>> csrfTokenCache = new LinkedHashMap<String, Map<String, Map<String, String>>>() {
+    private static String tokenNameNonAjax = UtilProperties.getPropertyValue("security", "csrf.tokenName.nonAjax",
+            "csrf");
+    private static ICsrfDefenseStrategy strategy;
+    private static int cacheSize = (int) Long
+            .parseLong(UtilProperties.getPropertyValue("security", "csrf.cache.size", "5000"));
+    private static LinkedHashMap<String, Map<String, Map<String, String>>> csrfTokenCache =
+            new LinkedHashMap<String, Map<String, Map<String, String>>>() {
         private static final long serialVersionUID = 1L;
+
         protected boolean removeEldestEntry(Map.Entry<String, Map<String, Map<String, String>>> eldest) {
             return size() > cacheSize; // TODO use also csrf.cache.size here?
         }
@@ -61,17 +65,18 @@ public class CsrfUtil {
 
     static {
         try {
-            String className = UtilProperties.getPropertyValue("security", "csrf.defense.strategy", NoCsrfDefenseStrategy.class.getCanonicalName());
+            String className = UtilProperties.getPropertyValue("security", "csrf.defense.strategy",
+                    NoCsrfDefenseStrategy.class.getCanonicalName());
             Class<?> c = Class.forName(className);
-            strategy = (ICsrfDefenseStrategy)c.newInstance();
-        } catch (Exception e){
+            setStrategy((ICsrfDefenseStrategy) c.newInstance());
+        } catch (Exception e) {
             Debug.logError(e, MODULE);
-            strategy = new CsrfDefenseStrategy();
+            setStrategy(new CsrfDefenseStrategy());
         }
     }
 
     public static Map<String, String> getTokenMap(HttpServletRequest request, String targetContextPath) {
-        
+
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String partyId = null;
@@ -91,6 +96,7 @@ public class CsrfUtil {
             if (tokenMap == null) {
                 tokenMap = new LinkedHashMap<String, String>() {
                     private static final long serialVersionUID = 1L;
+
                     protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
                         return size() > cacheSize;
                     }
@@ -102,6 +108,7 @@ public class CsrfUtil {
             if (tokenMap == null) {
                 tokenMap = new LinkedHashMap<String, String>() {
                     private static final long serialVersionUID = 1L;
+
                     protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
                         return size() > cacheSize;
                     }
@@ -113,26 +120,27 @@ public class CsrfUtil {
     }
 
     private static String generateToken() {
-        return strategy.generateToken();
+        return getStrategy().generateToken();
     }
 
     /**
      * Reduce number of subfolder from request uri, if needed, before using it to generate CSRF token.
+     *
      * @param requestUri
      * @return
      */
-    static String getRequestUriWithSubFolderLimit(String requestUri){
-        int limit = CsrfUtil.strategy.maxSubFolderInRequestUrlForTokenMapLookup(requestUri);
-        if (limit<1){
+    static String getRequestUriWithSubFolderLimit(String requestUri) {
+        int limit = CsrfUtil.getStrategy().maxSubFolderInRequestUrlForTokenMapLookup(requestUri);
+        if (limit < 1) {
             return requestUri;
         }
-        while(StringUtils.countMatches(requestUri, "/")+1>limit){
+        while (StringUtils.countMatches(requestUri, "/") + 1 > limit) {
             requestUri = requestUri.substring(0, requestUri.lastIndexOf("/"));
         }
         return requestUri;
     }
 
-    static String getRequestUriFromPath(String pathOrRequestUri){
+    static String getRequestUriFromPath(String pathOrRequestUri) {
         String requestUri = pathOrRequestUri;
         // remove any query string
         if (requestUri.contains("?")) {
@@ -148,7 +156,7 @@ public class CsrfUtil {
             // e.g. "/viewprofile" to "viewprofile"
             requestUri = requestUri.substring(1);
         }
-        if (requestUri.contains("#")){
+        if (requestUri.contains("#")) {
             // e.g. "view/entityref_main#org.apache.ofbiz.accounting.budget" to "view/entityref_main"
             requestUri = requestUri.substring(0, requestUri.indexOf("#"));
         }
@@ -157,32 +165,31 @@ public class CsrfUtil {
 
     /**
      * Generate CSRF token for non-ajax request if required and add it as key to token map in session When token map
-     * size limit is reached, the eldest entry will be deleted each time a new entry is added.
-     * Token only generated for up to 3 subfolders in the path so 'entity/find/Budget/0001' and 'entity/find/Budget/0002'
-     * should share the same CSRF token.
-     * 
+     * size limit is reached, the eldest entry will be deleted each time a new entry is added. Token only generated for
+     * up to 3 subfolders in the path so 'entity/find/Budget/0001' and 'entity/find/Budget/0002' should share the same
+     * CSRF token.
+     *
      * @param request
      * @param pathOrRequestUri
      * @return csrf token
      */
     public static String generateTokenForNonAjax(HttpServletRequest request, String pathOrRequestUri) {
-        if (UtilValidate.isEmpty(pathOrRequestUri)
-                || pathOrRequestUri.startsWith("javascript")
-                || pathOrRequestUri.startsWith("#") ) {
+        if (UtilValidate.isEmpty(pathOrRequestUri) || pathOrRequestUri.startsWith("javascript")
+                || pathOrRequestUri.startsWith("#")) {
             return "";
         }
-        
+
         if (pathOrRequestUri.contains("&#x2f;")) {
             pathOrRequestUri = pathOrRequestUri.replaceAll("&#x2f;", "/");
         }
 
         String requestUri = getRequestUriWithSubFolderLimit(getRequestUriFromPath(pathOrRequestUri));
-        
+
         Map<String, String> tokenMap = null;
 
         ConfigXMLReader.RequestMap requestMap = null;
-        // TODO when  OFBIZ-11354 will be done this will need to be removed even if it should be OK as is
-        if (pathOrRequestUri.contains("/control/")) { 
+        // TODO when OFBIZ-11354 will be done this will need to be removed even if it should be OK as is
+        if (pathOrRequestUri.contains("/control/")) {
             tokenMap = getTokenMap(request, "/" + RequestHandler.getRequestUri(pathOrRequestUri));
             requestMap = findRequestMap(pathOrRequestUri);
         } else {
@@ -206,18 +213,18 @@ public class CsrfUtil {
         return tokenValue;
     }
 
-    static ConfigXMLReader.RequestMap findRequestMap(String _urlWithControlPath){
+    static ConfigXMLReader.RequestMap findRequestMap(String urlWithControlPath) {
 
-        String requestUri = getRequestUriFromPath(_urlWithControlPath);
+        String requestUri = getRequestUriFromPath(urlWithControlPath);
 
         List<ComponentConfig.WebappInfo> webappInfos = ComponentConfig.getAllWebappResourceInfos().stream()
-                .filter(line -> line.contextRoot.contains(RequestHandler.getRequestUri(_urlWithControlPath)))
+                .filter(line -> line.contextRoot.contains(RequestHandler.getRequestUri(urlWithControlPath)))
                 .collect(Collectors.toList());
 
         ConfigXMLReader.RequestMap requestMap = null;
         if (UtilValidate.isNotEmpty(webappInfos)) {
             try {
-                if (StringUtils.countMatches(requestUri, "/")==1){
+                if (StringUtils.countMatches(requestUri, "/") == 1) {
                     requestMap = ConfigXMLReader.getControllerConfig(webappInfos.get(0)).getRequestMapMap()
                             .get(requestUri.substring(0, requestUri.indexOf("/")));
                 } else {
@@ -232,10 +239,10 @@ public class CsrfUtil {
     }
 
     static ConfigXMLReader.RequestMap findRequestMap(Map<String, ConfigXMLReader.RequestMap> requestMapMap,
-            String _urlWithoutControlPath) {
-        String path = _urlWithoutControlPath;
-        if (_urlWithoutControlPath.startsWith("/")) {
-            path = _urlWithoutControlPath.substring(1);
+            String urlWithoutControlPath) {
+        String path = urlWithoutControlPath;
+        if (urlWithoutControlPath.startsWith("/")) {
+            path = urlWithoutControlPath.substring(1);
         }
         int charPos = path.indexOf("?");
         if (charPos != -1) {
@@ -258,7 +265,7 @@ public class CsrfUtil {
 
     /**
      * generate csrf token for AJAX and add it as value to token cache
-     * 
+     *
      * @param request
      * @return csrf token
      */
@@ -274,7 +281,7 @@ public class CsrfUtil {
 
     /**
      * get csrf token for AJAX
-     * 
+     *
      * @param session
      * @return csrf token
      */
@@ -283,13 +290,14 @@ public class CsrfUtil {
     }
 
     public static String addOrUpdateTokenInUrl(String link, String csrfToken) {
-        if (link.contains(CsrfUtil.tokenNameNonAjax)) {
-            return link.replaceFirst("\\b"+CsrfUtil.tokenNameNonAjax+"=.*?(&|$)", CsrfUtil.tokenNameNonAjax+"=" + csrfToken + "$1");
+        if (link.contains(CsrfUtil.getTokenNameNonAjax())) {
+            return link.replaceFirst("\\b" + CsrfUtil.getTokenNameNonAjax() + "=.*?(&|$)",
+                    CsrfUtil.getTokenNameNonAjax() + "=" + csrfToken + "$1");
         } else if (!"".equals(csrfToken)) {
             if (link.contains("?")) {
-                return link + "&"+CsrfUtil.tokenNameNonAjax+"=" + csrfToken;
+                return link + "&" + CsrfUtil.getTokenNameNonAjax() + "=" + csrfToken;
             } else {
-                return link + "?"+CsrfUtil.tokenNameNonAjax+"=" + csrfToken;
+                return link + "?" + CsrfUtil.getTokenNameNonAjax() + "=" + csrfToken;
             }
         }
         return link;
@@ -297,25 +305,26 @@ public class CsrfUtil {
 
     public static String addOrUpdateTokenInQueryString(String link, String csrfToken) {
         if (UtilValidate.isNotEmpty(link)) {
-            if (link.contains(CsrfUtil.tokenNameNonAjax)) {
-                return link.replaceFirst("\\b"+CsrfUtil.tokenNameNonAjax+"=.*?(&|$)", CsrfUtil.tokenNameNonAjax+"=" + csrfToken + "$1");
+            if (link.contains(CsrfUtil.getTokenNameNonAjax())) {
+                return link.replaceFirst("\\b" + CsrfUtil.getTokenNameNonAjax() + "=.*?(&|$)",
+                        CsrfUtil.getTokenNameNonAjax() + "=" + csrfToken + "$1");
             } else {
                 if (UtilValidate.isNotEmpty(csrfToken)) {
-                    return link + "&"+CsrfUtil.tokenNameNonAjax+"=" + csrfToken;
+                    return link + "&" + CsrfUtil.getTokenNameNonAjax() + "=" + csrfToken;
                 } else {
                     return link;
                 }
             }
         } else {
-            return CsrfUtil.tokenNameNonAjax+"=" + csrfToken;
+            return CsrfUtil.getTokenNameNonAjax() + "=" + csrfToken;
         }
     }
 
-    public static void checkToken(HttpServletRequest request, String _path)
+    public static void checkToken(HttpServletRequest request, String path)
             throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
-        String path = _path;
-        if (_path.startsWith("/")) {
-            path = _path.substring(1);
+        String csrfUtilPath = path;
+        if (path.startsWith("/")) {
+            csrfUtilPath = path.substring(1);
         }
         if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With")) && !"GET".equals(request.getMethod())) {
             String csrfToken = request.getHeader("X-CSRF-Token");
@@ -327,15 +336,15 @@ public class CsrfUtil {
             }
         } else {
             Map<String, String> tokenMap = CsrfUtil.getTokenMap(request, request.getContextPath());
-            String csrfToken = request.getParameter(CsrfUtil.tokenNameNonAjax);
-            String limitPath = getRequestUriWithSubFolderLimit(path);
+            String csrfToken = request.getParameter(CsrfUtil.getTokenNameNonAjax());
+            String limitPath = getRequestUriWithSubFolderLimit(csrfUtilPath);
             if (UtilValidate.isNotEmpty(csrfToken) && tokenMap.containsKey(limitPath)
                     && csrfToken.equals(tokenMap.get(limitPath))) {
-                if (!CsrfUtil.strategy.keepTokenAfterUse(path,request.getMethod())) {
+                if (!CsrfUtil.getStrategy().keepTokenAfterUse(csrfUtilPath, request.getMethod())) {
                     tokenMap.remove(limitPath);
                 }
             } else {
-                CsrfUtil.strategy.invalidTokenResponse(path, request);
+                CsrfUtil.getStrategy().invalidTokenResponse(csrfUtilPath, request);
             }
         }
     }
@@ -354,5 +363,33 @@ public class CsrfUtil {
                 }
             }
         }
+    }
+
+    /**
+     * @return the tokenNameNonAjax
+     */
+    public static String getTokenNameNonAjax() {
+        return tokenNameNonAjax;
+    }
+
+    /**
+     * @param tokenNameNonAjax the tokenNameNonAjax to set
+     */
+    public static void setTokenNameNonAjax(String tokenNameNonAjax) {
+        CsrfUtil.tokenNameNonAjax = tokenNameNonAjax;
+    }
+
+    /**
+     * @return the strategy
+     */
+    public static ICsrfDefenseStrategy getStrategy() {
+        return strategy;
+    }
+
+    /**
+     * @param strategy the strategy to set
+     */
+    public static void setStrategy(ICsrfDefenseStrategy strategy) {
+        CsrfUtil.strategy = strategy;
     }
 }

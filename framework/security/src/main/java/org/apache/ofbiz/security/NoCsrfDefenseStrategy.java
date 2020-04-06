@@ -28,7 +28,7 @@ public class NoCsrfDefenseStrategy implements ICsrfDefenseStrategy {
     }
 
     @Override
-    public int maxSubFolderInRequestUrlForTokenMapLookup(String requestUri){
+    public int maxSubFolderInRequestUrlForTokenMapLookup(String requestUri) {
         return 0;
     }
 

@@ -36,7 +36,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class CsrfTokenPairNonAjaxTransform implements TemplateTransformModel {
 
-    public final static String MODULE = CsrfTokenPairNonAjaxTransform.class.getName();
+    public static final String MODULE = CsrfTokenPairNonAjaxTransform.class.getName();
 
     @Override
     public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)
@@ -54,7 +54,7 @@ public class CsrfTokenPairNonAjaxTransform implements TemplateTransformModel {
                     if (req != null) {
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
                         String tokenValue = CsrfUtil.generateTokenForNonAjax(request, buf.toString());
-                        out.write(CsrfUtil.tokenNameNonAjax +"="+tokenValue);
+                        out.write(CsrfUtil.getTokenNameNonAjax() + "=" + tokenValue);
                     }
                     return;
                 } catch (Exception e) {

@@ -124,9 +124,9 @@ public final class WidgetWorker {
                 currentString = currentString.substring(currentString.lastIndexOf("\"")+1);
             }
             if (currentString.indexOf('?') == -1) {
-                externalWriter.append("?" + CsrfUtil.tokenNameNonAjax + "=" + tokenValue);
+                externalWriter.append("?" + CsrfUtil.getTokenNameNonAjax() + "=" + tokenValue);
             } else {
-                externalWriter.append("&amp;" + CsrfUtil.tokenNameNonAjax + "=" + tokenValue);
+                externalWriter.append("&amp;" + CsrfUtil.getTokenNameNonAjax() + "=" + tokenValue);
             }
         }
     }

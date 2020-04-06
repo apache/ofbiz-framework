@@ -29,17 +29,18 @@ import org.apache.ofbiz.webapp.control.RequestHandlerExceptionAllowExternalReque
 
 public class CsrfDefenseStrategy implements ICsrfDefenseStrategy {
 
-    public static final String module = CsrfDefenseStrategy.class.getName();
+    public static final String MODULE = CsrfDefenseStrategy.class.getName();
     private static SecureRandom secureRandom = null;
-    private static final String prng = "SHA1PRNG";
+    private static final String PRNG = "SHA1PRNG";
     private static final String CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    private static int csrfEntityErequestLimit =  (int) Long.parseLong(UtilProperties.getPropertyValue("security", "csrf.entity.request.limit", "3"));
+    private static int requestlimit = (int) Long.parseLong(
+            UtilProperties.getPropertyValue("security", "csrf.entity.request.limit", "3"));
 
-    static{
+    static {
         try {
-            secureRandom = SecureRandom.getInstance(prng);
+            secureRandom = SecureRandom.getInstance(PRNG);
         } catch (NoSuchAlgorithmException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -55,9 +56,9 @@ public class CsrfDefenseStrategy implements ICsrfDefenseStrategy {
     }
 
     @Override
-    public int maxSubFolderInRequestUrlForTokenMapLookup(String requestUri){
-        if (requestUri.startsWith("entity/")){
-            return csrfEntityErequestLimit;
+    public int maxSubFolderInRequestUrlForTokenMapLookup(String requestUri) {
+        if (requestUri.startsWith("entity/")) {
+            return requestlimit;
         }
         return 0;
     }
@@ -84,7 +85,8 @@ public class CsrfDefenseStrategy implements ICsrfDefenseStrategy {
     }
 
     @Override
-    public void invalidTokenResponse(String requestUri, HttpServletRequest request) throws RequestHandlerExceptionAllowExternalRequests {
+    public void invalidTokenResponse(String requestUri, HttpServletRequest request)
+            throws RequestHandlerExceptionAllowExternalRequests {
         request.setAttribute("_ERROR_MESSAGE_",
                 "Invalid or missing CSRF token to path '" + request.getPathInfo() + "'. Click <a href='"
                         + request.getContextPath() + "'>here</a> to continue.");
