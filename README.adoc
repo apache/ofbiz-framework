@@ -69,6 +69,13 @@ https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244[To know 
 To quickly install and fire-up OFBiz, please follow the below instructions from
 the command line at the OFBiz top level directory (folder).
 
+[[download-the-gradle-wrapper]]
+=== Download the Gradle wrapper:
+
+MS Windows: `init-gradle-wrapper`
+
+Unix-like OS: `./gradle/init-gradle-wrapper`
+
 [[prepare-ofbiz]]
 === Prepare OFBiz:
 
