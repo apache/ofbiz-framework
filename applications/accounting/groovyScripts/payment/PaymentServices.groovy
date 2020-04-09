@@ -19,7 +19,6 @@
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 
 MODULE = "PaymentServices.groovy"
@@ -27,25 +26,30 @@ def createPayment() {
     if (!security.hasEntityPermission("ACCOUNTING", "_CREATE", parameters.userLogin) && (!security.hasEntityPermission("PAY_INFO", "_CREATE", parameters.userLogin) && userLogin.partyId != parameters.partyIdFrom && userLogin.partyId != parameters.partyIdTo)) {
         return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingCreatePaymentPermissionError)
     }
+
     GenericValue payment = delegator.makeValue("Payment")
     payment.paymentId = parameters.paymentId ?: delegator.getNextSeqId("Payment")
     paymentId = payment.paymentId
     parameters.statusId = parameters.statusId ?: "PMNT_NOT_PAID"
-    if (UtilValidate.isNotEmpty(parameters.paymentMethodId)) {
+
+    if (parameters.paymentMethodId) {
         GenericValue paymentMethod = from("PaymentMethod").where("paymentMethodId", parameters.paymentMethodId).queryOne()
         if (parameters.paymentMethodTypeId != paymentMethod.paymentMethodTypeId) {
             Debug.logInfo("Replacing passed payment method type [" + parameters.paymentMethodTypeId + "] with payment method type [" + paymentMethod.paymentMethodTypeId + "] for payment method [" + parameters.paymentMethodId +"]", MODULE)
             parameters.paymentMethodTypeId = paymentMethod.paymentMethodTypeId
         }
     }
-    if (UtilValidate.isNotEmpty(parameters.paymentPreferenceId)) {
+
+    if (parameters.paymentPreferenceId) {
         GenericValue orderPaymentPreference = from("OrderPaymentPreference").where("orderPaymentPreferenceId", parameters.paymentPreferenceId).queryOne()
         parameters.paymentId = parameters.paymentId ?: orderPaymentPreference.paymentMethodId
         parameters.paymentMethodTypeId = parameters.paymentMethodTypeId ?: orderPaymentPreference.paymentMethodTypeId
     }
-    if (UtilValidate.isEmpty(parameters.paymentMethodTypeId)) {
+
+    if (!parameters.paymentMethodTypeId) {
         return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingPaymentMethodIdPaymentMethodTypeIdNullError)
     }
+
     payment.setNonPKFields(parameters)
     payment.effectiveDate = payment.effectiveDate ?: UtilDateTime.nowTimestamp()
     delegator.create(payment)
