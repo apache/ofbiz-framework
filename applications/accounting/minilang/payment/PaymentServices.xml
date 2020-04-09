@@ -20,69 +20,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="createPayment" short-description="Create a Payment">
-        <if>
-            <condition>
-                <and>
-                    <not><if-has-permission permission="ACCOUNTING" action="_CREATE"/></not>
-                    <not><if-has-permission permission="PAY_INFO" action="_CREATE"/></not>
-                    <not><if-compare-field field="userLogin.partyId" to-field="parameters.partyIdFrom" operator="equals"/></not>
-                    <not><if-compare-field field="userLogin.partyId" to-field="parameters.partyIdTo" operator="equals"/></not>
-                </and>
-            </condition>
-            <then>
-                <add-error>
-                    <fail-property resource="AccountingUiLabels" property="AccountingCreatePaymentPermissionError"/>
-                </add-error>
-            </then>
-        </if>
-        <check-errors/>
-
-        <make-value entity-name="Payment" value-field="payment"/>
-        <if-empty field="parameters.paymentId">
-            <sequenced-id sequence-name="Payment" field="payment.paymentId"/>
-            <else>
-                <set field="payment.paymentId" from-field="parameters.paymentId"/>
-            </else>
-        </if-empty>
-        <field-to-result field="payment.paymentId" result-name="paymentId"/>
-
-        <if-empty field="parameters.statusId">
-            <set field="parameters.statusId" value="PMNT_NOT_PAID"/>
-        </if-empty>
-
-        <if-not-empty field="parameters.paymentMethodId">
-            <entity-one entity-name="PaymentMethod" value-field="paymentMethod">
-                <field-map field-name="paymentMethodId" from-field="parameters.paymentMethodId"/>
-            </entity-one>
-            <if-compare-field field="parameters.paymentMethodTypeId" operator="not-equals" to-field="paymentMethod.paymentMethodTypeId">
-                <log level="info" message="Replacing passed payment method type [${parameters.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${parameters.paymentMethodId}]"/>
-                <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
-            </if-compare-field>
-        </if-not-empty>
-        <if-not-empty field="parameters.paymentPreferenceId">
-            <entity-one entity-name="OrderPaymentPreference" value-field="orderPaymentPreference">
-                <field-map field-name="orderPaymentPreferenceId" from-field="parameters.paymentPreferenceId"/>
-            </entity-one>
-            <if-empty field="parameters.paymentMethodId">
-                <set field="parameters.paymentMethodId" from-field="orderPaymentPreference.paymentMethodId"/>
-            </if-empty>
-            <if-empty field="parameters.paymentMethodTypeId">
-                <set field="parameters.paymentMethodTypeId" from-field="orderPaymentPreference.paymentMethodTypeId"/>
-            </if-empty>
-        </if-not-empty>
-        <if-empty field="parameters.paymentMethodTypeId">
-            <add-error>
-                <fail-property resource="AccountingUiLabels" property="AccountingPaymentMethodIdPaymentMethodTypeIdNullError"/>
-            </add-error>
-        </if-empty>
-
-        <set-nonpk-fields map="parameters" value-field="payment"/>
-        <if-empty field="payment.effectiveDate">
-            <now-timestamp field="payment.effectiveDate"/>
-        </if-empty>
-        <create-value value-field="payment"/>
-    </simple-method>
     <simple-method method-name="updatePayment" short-description="Update a Payment">
         <make-value entity-name="Payment" value-field="lookupPayment"/>
         <set-pk-fields value-field="lookupPayment" map="parameters"/>

@@ -25,8 +25,8 @@ under the License.
     <version>1.0</version>
 
     <!-- Payment services -->
-    <service name="createPayment" engine="simple" default-entity-name="Payment"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPayment" auth="true">
+    <service name="createPayment" engine="groovy" default-entity-name="Payment"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPayment" auth="true">
         <description>Create a Payment.  If a paymentMethodId is supplied, paymentMethodTypeId is gotten from paymentMethod.  Otherwise, it must be supplied.  If no
         paymentMethodTypeId and no paymentMethodId is supplied, then an error will be returned. </description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
