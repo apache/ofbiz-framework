@@ -22,6 +22,9 @@ The overall purpose of the Marketing application is the support to select leads 
 or marketing segment to convert to opportunities by contacting these parties via a contact-list related to a marketing campaign. +
 (contact-list generation support not yet implemented)
 
+The marketing application is supporting you to create, select and follow sales opportunities in order to create sales orders
+for the company.
+
 The first option of the marketing application is the definition of a datasource [DataSource], and connecting or
 loading party information to it [PartyDataSource]. In the party application a data source Id can be added to the party.
 
