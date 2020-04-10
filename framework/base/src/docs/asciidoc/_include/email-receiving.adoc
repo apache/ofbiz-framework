@@ -1,0 +1,39 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Receiving Email.
+
+OFBiz can receive email for multiple email addresses and via an MCA can create Communication events for the involved parties
+of the email. +
+Email attachments, via again the MCA are stored in the content component and can be accessed via the content Id. +
+Examples of an MCA can be found in the Party and Content Component.
+
+To receive email a single POP/IMAP mailbox is polled at regular intervals. +
+This is configured in the ${ofbiz install dir}/framework/service/ofbiz-component.xml file in the commented section
+JavaMail Listener Container.
+
+Any email address you want to be handled  by OFBiz need to be forwarded to this single mailbox by an external mail server. +
+OFBiz then will try to match the  email addresses to existing parties and will create a single communication event referring
+to the found parties.
+
+If an incoming email address cannot be matched against a party, the communication event will get a special status and
+the receiving party can either delete the communication event or can ask the system to automatically create a party
+from the incoming email address.
+
+By default the configuaration file has the email poller commented out. +
+The parameters to this function are pretty self explanatory.

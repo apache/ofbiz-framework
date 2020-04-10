@@ -273,6 +273,8 @@ include::../../themes/docs/themes.adoc[leveloffset=+2]
 
 == Deployment
 
+include::../../framework/base/src/docs/asciidoc/email.adoc[leveloffset=+2]
+
 include::../../framework/security/src/docs/asciidoc/security.adoc[leveloffset=+1]
 
 == Appendices
