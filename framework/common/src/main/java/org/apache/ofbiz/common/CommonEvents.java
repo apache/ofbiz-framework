@@ -402,6 +402,7 @@ public class CommonEvents {
         String securedUserLoginId = LoginWorker.getSecuredUserLoginId(request);
         if (securedUserLoginId != null) {
             types.put("userLoginId", securedUserLoginId);
+            // 10 seconds seems plenty enough OOTB. Custom projects might want set a lower value.
             int ttlSeconds = (int) Long.parseLong(EntityUtilProperties.getPropertyValue("security",
                     "security.jwt.token.expireTime", "10", delegator));
             String token = JWTManager.createJwt(delegator, types, ttlSeconds);
