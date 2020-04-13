@@ -28,12 +28,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.HttpHeaders;
 
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 
 public class SameSiteFilter implements javax.servlet.Filter {
     
-    private static final String SameSiteCookieAttribute = UtilProperties.getPropertyValue("security.properties", "SameSiteCookieAttribute", "strict");
+    private static final String SameSiteCookieAttribute = EntityUtilProperties.getPropertyValueFromDelegatorName("security.properties", "SameSiteCookieAttribute", "strict", "default");
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
