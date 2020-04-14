@@ -21,11 +21,14 @@ under the License.
 
 This is a small guide for everybody involved in converting the Mini Language into Groovy.
 
-NOTE: *Why is this important?* +
+IMPORTANT: *Why is this important?* +
 This tutorial is directly linked to the efforts of converting all scripts in Mini Language to newer Groovy Scripts.
 All of this is done, because Groovy is much more readable and easier to review, more up to date and many other reasons, which can be found here: https://lists.apache.org/thread.html/253b41060a295b8ab68bc78763cc129fc74b712cf776f8716022097f@%3Cdev.ofbiz.apache.org%3E[Proposal for deprecating Mini Language] +
  +
 To contribute, or just be up to date with the current process, you can look at the existing https://issues.apache.org/jira/browse/OFBIZ-9350[JIRA issue OFBIZ-9350 - Deprecate Mini Lang]
+
+[NOTE]
+For memory, a description of the Mini Language guide can be found at the https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference[OFBiz wiki - Mini Language Reference]
 
 == Groovy DSL (dynamic scripting library)
 
@@ -63,7 +66,7 @@ Normal instance of the LocalDispatcher, which is used to call services and other
 type: 'org.apache.ofbiz.security.Security'*` +
 Normal instance of the Security-Interface with which permission checks are done.
 
-== Known Methods
+=== Known Methods
 `*method name: 'runService' +
 type: 'java.util.Map' +
 params: [serviceName: 'String', inputMap: 'java.util.Map']*` +
@@ -507,7 +510,7 @@ a|[source,xml]
         </condition-list>
     </condition-list>
 </entity-condition>
--- 
+--
 
 a|[source,groovy]
 --
