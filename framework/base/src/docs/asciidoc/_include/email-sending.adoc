@@ -16,10 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= email
+= Sending Email in OFBiz
+Various parts in the OFBiz application are sending out email for various reasons.
 
-== HowTo use email in OFBiz
+Sending out email is controlled in the  ${ofbiz install dir}/framework/common/config/general.properties file with
+ the following parameters:
 
-include::_include/email-receiving.adoc[leveloffset=+2]
-
-include::_include/email-sending.adoc[leveloffset=+2]
+* SMTP Server (relay host): mail.smtp.relay.host
+* SMTP Username (if needed): mail.smtp.auth.user
+* SMTP Password (if needed): mail.smtp.auth.password
+* Turn on email notifications by setting the mail.notifications.enabled property to "Y".

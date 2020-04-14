@@ -16,10 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= email
+= The Entity Engine.
 
-== HowTo use email in OFBiz
+== Entity Engine guide.
+https://cwiki.apache.org/confluence/display/OFBIZ/Entity+Engine+Guide[Entity engine Guide]
 
-include::_include/email-receiving.adoc[leveloffset=+2]
+== Entity Engine Configuration Guide.
+https://cwiki.apache.org/confluence/display/OFBIZ/Entity+Engine+Configuration+Guide[entity engine configuration guide]
 
-include::_include/email-sending.adoc[leveloffset=+2]
+== Entity overview.
+https://cwiki.apache.org/confluence/display/OFBIZ/General+Entity+Overview[Entity overview]
