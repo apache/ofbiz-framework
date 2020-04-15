@@ -1,0 +1,47 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= CSRF defense
+== How is done the CSRF defense in Apache OFBiz and how to adapt it if needed
+The Apache OFBiz Project
+Release 17.12
+
+:imagesdir: ../../themes/common-theme/webapp/images/img/
+ifdef::backend-pdf[]
+:title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
+:source-highlighter: rouge
+endif::[]
+
+=== The same-Site attribute
+
+[quote,According to OWASP ZAP]
+____
+The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.
+____
+
+By default OOTB the SameSiteFilter property sets the same-site attribute value to 'strict. SameSiteFilter allows to change to 'lax' if needed
+
+
+===== Properties
+
+The _security.properties_ file contains related properties:
+
+    # -- By default the SameSite value in SameSiteFilter is 'strict'.
+    # -- This property allows to change to 'lax' if needed.
+    SameSiteCookieAttribute=
