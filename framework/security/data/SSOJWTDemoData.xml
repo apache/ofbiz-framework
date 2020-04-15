@@ -21,4 +21,5 @@ under the License.
 <entity-engine-xml>
     <SystemProperty systemResourceId="security" systemPropertyId="security.internal.sso.enabled" systemPropertyValue="false"/>
     <SystemProperty systemResourceId="security" systemPropertyId="security.token.key" systemPropertyValue="security.token.key"/>
+    <SystemProperty systemResourceId="security" systemPropertyId="SameSiteCookieAttribute" systemPropertyValue="strict"/>
 </entity-engine-xml>
