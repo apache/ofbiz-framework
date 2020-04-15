@@ -402,9 +402,11 @@ public class CommonEvents {
         String securedUserLoginId = LoginWorker.getSecuredUserLoginId(request);
         if (securedUserLoginId != null) {
             types.put("userLoginId", securedUserLoginId);
-            // 10 seconds seems plenty enough OOTB. Custom projects might want set a lower value.
+            // 30 seconds seems plenty enough OOTB to compensate for possible time difference
+            // If you cross issue with this value you should use the same NTP server for both sides
+            // Custom projects might want set a lower value for security reason
             int ttlSeconds = (int) Long.parseLong(EntityUtilProperties.getPropertyValue("security",
-                    "security.jwt.token.expireTime", "10", delegator));
+                    "security.jwt.token.expireTime", "30", delegator));
             String token = JWTManager.createJwt(delegator, types, ttlSeconds);
             writeJSONtoResponse(JSON.from(token), request, response);
         } else {
