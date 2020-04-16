@@ -255,7 +255,7 @@ public class RequestHandler {
         Collection<RequestMap> rmaps = resolveURI(ccfg, request);
         if (rmaps.isEmpty()) {
             if (throwRequestHandlerExceptionOnMissingLocalRequest) {
-                if (path.contains("/checkLogin/") || path.contains("/viewprofile")) {
+                if (path.contains("/checkLogin/")) {
                     // Nested requests related with checkLogin uselessly clutter the log. There is nothing to worry about, better remove this wrong error message.
                     return;
                 } else if (path.contains("/images/") || path.contains("d.png")) {
