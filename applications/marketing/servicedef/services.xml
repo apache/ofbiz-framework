@@ -554,8 +554,8 @@ under the License.
         <attribute name="useEmail2" type="String" mode="IN" optional="true"/>
     </service>
     <!-- Account services  -->
-    <service name="createAccount" engine="simple"
-        location="component://marketing/minilang/sfa/account/AccountServices.xml" invoke="createAccount">
+    <service name="createAccount" engine="groovy"
+        location="component://marketing/groovyScripts/sfa/account/AccountServices.groovy" invoke="createAccount">
         <description>Create an Account Group</description>
         <auto-attributes entity-name="PartyGroup" mode="IN" optional="true">
             <exclude field-name="partyId"/>
