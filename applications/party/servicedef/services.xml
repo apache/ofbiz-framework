@@ -91,6 +91,43 @@ under the License.
             </type-validate>
         </attribute>
     </service>
+
+    <service name="createPartyGroupRoleAndContactMechs" engine="groovy" default-entity-name="PartyGroupRoleAndContactMechs"
+            location="component://party/groovyScripts/party/PartySimpleMethods.groovy" invoke="createPartyGroupRoleAndContactMechs">
+        <description>Create Party Group Role and Contact Mechs</description>
+        <auto-attributes entity-name="PartyGroup" mode="IN" optional="true">
+            <exclude field-name="partyId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="PostalAddress" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <attribute name="groupName" type="String" mode="IN" optional="false"/>
+        <attribute name="address1" type="String" mode="IN" optional="true"/>
+        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="phoneContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="emailContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="createPartyContactMechs" engine="simple" default-entity-name="createPartyContactMechs"
+            location="component://party/minilang/party/PartySimpleMethods.xml" invoke="createPartyContactMechs">
+        <description>Create Party Group Role and Contact Mechs</description>
+        <attribute name="partyGroupContext" type="Map" mode="IN" optional="true"/>
+        <attribute name="postalAddressContext" type="Map" mode="IN" optional="true"/>
+        <attribute name="telecomNumberContext" type="Map" mode="IN" optional="true"/>
+        <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="phoneContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="emailContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+    </service>
+
     <service name="updatePerson" engine="java" default-entity-name="Person"
             location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true">
         <description>Update a Person</description>
