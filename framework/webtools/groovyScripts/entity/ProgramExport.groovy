@@ -18,6 +18,8 @@
  */
 import org.apache.ofbiz.entity.Delegator
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.base.util.*
 import org.w3c.dom.Document
@@ -35,7 +37,8 @@ if (!parameters.groovyProgram) {
     
     groovyProgram = '''
 // Use the List variable recordValues to fill it with GenericValue maps.
-// full groovy syntaxt is available
+// full groovy syntax is available
+// Use full EntityQuery syntax instead of just the from method
 
 import org.apache.ofbiz.entity.util.EntityFindOptions
 
@@ -50,6 +53,12 @@ if (products != null) {
     recordValues.addAll(products)
 }
 
+// Get the last record created from the Product entity
+condition = EntityCondition.makeCondition("productId", EntityOperator.NOT_EQUAL, null)
+product = EntityQuery.use(delegator).from("Product").where(condition).orderBy("-productId").queryFirst()
+if (product) {
+    recordValues << product
+}
 
 '''
     parameters.groovyProgram = groovyProgram
@@ -61,6 +70,9 @@ if (products != null) {
 def importCustomizer = new ImportCustomizer()
 importCustomizer.addImport("org.apache.ofbiz.entity.GenericValue")
 importCustomizer.addImport("org.apache.ofbiz.entity.model.ModelEntity")
+importCustomizer.addImport("org.apache.ofbiz.entity.condition.EntityCondition")
+importCustomizer.addImport("org.apache.ofbiz.entity.condition.EntityOperator")
+importCustomizer.addImport("org.apache.ofbiz.entity.util.EntityQuery")
 def configuration = new CompilerConfiguration()
 configuration.addCompilationCustomizers(importCustomizer)
 

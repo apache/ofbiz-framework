@@ -169,13 +169,29 @@ DIV.column-left-wide {
 /* ================================== */
 /* ===== Used to align elements ===== */
 /* ================================== */
-
-.align-float {
-    float: left;
+.align-bottom {
+    vertical-align: bottom;;
 }
-
+.align-center {
+    text-align: center;
+}
+.align-justify {
+    text-align: justify;
+}
+.align-left {
+    text-align: left;
+}
+.align-middle {
+    vertical-align: bottom;;
+}
+.align-right {
+    text-align: right;
+}
 .align-text {
     text-align: left;
+}
+.align-top {
+    vertical-align: top;
 }
 
 /* ==================================== */

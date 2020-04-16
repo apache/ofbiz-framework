@@ -67,3 +67,45 @@ payments into one large payment that is paid monthly.
 
 If you have installed OFBiz with the demo data then there are already two example
 Commission Agreements created for you.
+
+== Agreement management in User Interface
+include::HELP_FindAgreement.adoc[leveloffset=+2]
+
+include::HELP_EditAgreement.adoc[leveloffset=+2]
+
+=== Help Agreement Items List
+This screen is used to display a list of items that have been created for an agreement.
+
+include::HELP_EditAgreementItem.adoc[leveloffset=+2]
+
+include::HELP_ListAgreementItemParties.adoc[leveloffset=+2]
+
+=== Help Edit Agreement Item Party
+This screen is used to add or update a party linked to an agreement item.
+This could be useful for storing specific contact names associated with an agreement item.
+
+==== How do I update a party for an agreement item?
+Parties for an agreement item cannot be updated.
+They can only be added or removed.
+
+include::HELP_ListAgreementItemTerms.adoc[leveloffset=+2]
+
+=== Help Edit Agreement Item Term
+This screen is used to create or update the terms for an agreement item. +
+For more information about Agreement Term look at <<_help_edit_agreement_terms>>
+
+include::HELP_ListAgreementItemProducts.adoc[leveloffset=+2]
+
+include::HELP_ListAgreementItemSupplierProducts.adoc[leveloffset=+2]
+
+include::HELP_ListAgreementGeographicalApplic.adoc[leveloffset=+2]
+
+include::HELP_ListAgreementPromoAppls.adoc[leveloffset=+2]
+
+include::HELP_EditAgreementRoles.adoc[leveloffset=+2]
+
+include::HELP_EditAgreementTerms.adoc[leveloffset=+2]
+
+include::HELP_EditAgreementWorkEffortApplics.adoc[leveloffset=+2]
+
+include::HELP_EditAgreementContents.adoc[leveloffset=+2]

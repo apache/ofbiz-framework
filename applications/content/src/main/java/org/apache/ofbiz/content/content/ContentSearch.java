@@ -54,7 +54,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 
 public class ContentSearch {
 
-    public static final String module = ContentSearch.class.getName();
+    public static final String MODULE = ContentSearch.class.getName();
     public static final String resource = "ContentUiLabels";
 
     public static ArrayList<String> searchContents(List<? extends ContentSearchConstraint> contentSearchConstraintList, ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
@@ -107,7 +107,7 @@ public class ContentSearch {
                 getAllSubContentIds(subContentId, contentIdSet, delegator, nowTimestamp);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error finding sub-categories for content search", module);
+            Debug.logError(e, "Error finding sub-categories for content search", MODULE);
         }
     }
 
@@ -213,7 +213,7 @@ public class ContentSearch {
 
             boolean doingBothAndOr = (keywordFixedOrSetAndList.size() > 1) || (keywordFixedOrSetAndList.size() > 0 && andKeywordFixedSet.size() > 0);
 
-            Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet=" + andKeywordFixedSet + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, module);
+            Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet=" + andKeywordFixedSet + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, MODULE);
 
             ComplexAlias relevancyComplexAlias = new ComplexAlias("+");
             if (andKeywordFixedSet.size() > 0) {
@@ -297,7 +297,7 @@ public class ContentSearch {
                         .maxRows(maxResults)
                         .queryIterator();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error in content search", module);
+                Debug.logError(e, "Error in content search", MODULE);
                 return null;
             }
 
@@ -307,7 +307,7 @@ public class ContentSearch {
         public ArrayList<String> makeContentIdList(EntityListIterator eli) {
             ArrayList<String> contentIds = new ArrayList<>(maxResults == null ? 100 : maxResults);
             if (eli == null) {
-                Debug.logWarning("The eli is null, returning zero results", module);
+                Debug.logWarning("The eli is null, returning zero results", MODULE);
                 return contentIds;
             }
 
@@ -319,7 +319,7 @@ public class ContentSearch {
                     hasResults = true;
                 }
                 if (resultOffset != null && resultOffset > 1) {
-                    if (Debug.infoOn()) Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
+                    if (Debug.infoOn()) Debug.logInfo("Before relative, current index=" + eli.currentIndex(), MODULE);
                     hasResults = eli.relative(resultOffset - 1);
                     initialResult = null;
                 }
@@ -376,10 +376,10 @@ public class ContentSearch {
                     this.totalResults = total;
                 }
 
-                Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, module);
+                Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, MODULE);
 
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting results from the content search query", module);
+                Debug.logError(e, "Error getting results from the content search query", MODULE);
             }
             return contentIds;
         }
@@ -418,11 +418,11 @@ public class ContentSearch {
                     TransactionUtil.commit(beganTransaction);
                 } catch (GenericEntityException e1) {
                     String errMsg = "Error saving content search result info/stats";
-                    Debug.logError(e1, errMsg, module);
+                    Debug.logError(e1, errMsg, MODULE);
                     TransactionUtil.rollback(beganTransaction, errMsg, e1);
                 }
             } catch (GenericTransactionException e) {
-                Debug.logError(e, "Error saving content search result info/stats", module);
+                Debug.logError(e, "Error saving content search result info/stats", MODULE);
             }
         }
     }
@@ -530,7 +530,7 @@ public class ContentSearch {
                 content = EntityQuery.use(delegator).from("Content").where("contentId", this.contentId).cache().queryOne();
                 contentAssocType = EntityQuery.use(delegator).from("ContentAssocType").where("contentAssocTypeId", this.contentAssocTypeId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error looking up ContentAssocConstraint pretty print info: " + e.toString(), module);
+                Debug.logError(e, "Error looking up ContentAssocConstraint pretty print info: " + e.toString(), MODULE);
             }
 
             StringBuilder ppBuf = new StringBuilder();

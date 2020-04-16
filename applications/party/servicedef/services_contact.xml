@@ -24,7 +24,89 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-    <!-- Party contact services -->
+    <!-- contact mech services -->
+    <service name="createContactMech" default-entity-name="ContactMech" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new ContactMech Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="false"/>
+        <override name="infoString" optional="true"/>
+    </service>
+    <service name="updateContactMech" default-entity-name="ContactMech" engine="groovy"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="updateContactMech" auth="true">
+        <description>Update a ContactMech</description>
+        <auto-attributes mode="INOUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
+    <service name="createPostalAddress" engine="groovy"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="createPostalAddress" auth="true">
+        <description>Create a Postal Address</description>
+        <auto-attributes entity-name="PostalAddress" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+        <override name="address1" optional="false"/>
+        <override name="city" optional="false"/>
+        <override name="postalCode" optional="false"/>
+    </service>
+    <service name="updatePostalAddress" engine="groovy"
+            location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="updatePostalAddress" auth="true">
+        <description>Update a Postal Address</description>
+        <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/> <!-- the out parameter is the id of the new address -->
+        <attribute name="directions" type="String" mode="IN" optional="true"/> <!-- ?? -->
+        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->
+        <attribute name="partyId" type="String" mode="IN" optional="true"/><!-- ?? -->
+        <attribute name="latitude" type="String" mode="IN" optional="true"/><!-- ?? -->
+        <attribute name="longitude" type="String" mode="IN" optional="true"/><!-- ?? -->
+        <override name="address1" optional="false"/>
+        <override name="city" optional="false"/>
+        <override name="postalCode" optional="false"/>
+    </service>
+
+    <service name="createTelecomNumber" engine="groovy"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="createTelecomNumber" auth="true">
+        <description>Create a Telecommunications Number</description>
+        <auto-attributes entity-name="TelecomNumber" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateTelecomNumber" engine="groovy"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="updateTelecomNumber" auth="true">
+        <description>Update a Telecommunications Number</description>
+        <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="createEmailAddress" engine="groovy"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="createEmailAddress" auth="true">
+        <description>Create an Email Address</description>
+        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="ContactMech" include="pk" mode="OUT" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+        <override name="infoString" optional="true"/>
+    </service>
+    <service name="updateEmailAddress" engine="groovy"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="updateEmailAddress" auth="true">
+        <description>Update an Email Address</description>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="createFtpAddress" default-entity-name="FtpAddress" engine="groovy" invoke="createFtpAddress"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy">
+        <description>create FtpAddress</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
+        <auto-attributes mode="OUT" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateFtpAddressWithHistory" default-entity-name="FtpAddress" engine="groovy" invoke="updateFtpAddressWithHistory"
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy">
+        <description>update FtpAddress</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT"/> <!-- the out paramater is the id of the new address -->
+        <attribute name="oldContactMechId" type="String" mode="OUT"/> <!-- this is the id of the old address -->
+    </service>
+
     <service name="createContactMechType" default-entity-name="ContactMechType" engine="entity-auto" invoke="create" auth="true">
         <description>Create a new ContactMech Type Record</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>

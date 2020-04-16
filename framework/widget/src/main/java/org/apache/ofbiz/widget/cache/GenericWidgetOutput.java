@@ -20,7 +20,7 @@ package org.apache.ofbiz.widget.cache;
 
 public class GenericWidgetOutput {
 
-    public static final String module = GenericWidgetOutput.class.getName();
+    public static final String MODULE = GenericWidgetOutput.class.getName();
 
     protected String output;
 

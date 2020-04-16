@@ -37,7 +37,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class EwayServices {
 
-    public static final String module = EwayServices.class.getName();
+    public static final String MODULE = EwayServices.class.getName();
     public final static String resource = "AccountingUiLabels";
 
     // eway charge (auth w/ capture)
@@ -130,7 +130,7 @@ public class EwayServices {
         try {
             cc = delegator.getRelatedOne("CreditCard", paymentPref, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
@@ -195,7 +195,7 @@ public class EwayServices {
         try {
             cc = delegator.getRelatedOne("CreditCard", paymentPref, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
@@ -278,7 +278,7 @@ public class EwayServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else {
             String value = EntityUtilProperties.getPropertyValue(resource, resParamName, delegator);

@@ -43,7 +43,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class MarketingServices {
 
-    public static final String module = MarketingServices.class.getName();
+    public static final String MODULE = MarketingServices.class.getName();
     public static final String resourceMarketing = "MarketingUiLabels";
     public static final String resourceOrder = "OrderUiLabels";
 
@@ -104,11 +104,11 @@ public class MarketingServices {
             }
         } catch (GenericEntityException e) {
             String error = UtilProperties.getMessage(resourceOrder, "checkhelper.problems_reading_database", locale);
-            Debug.logInfo(e, error + e.getMessage(), module);
+            Debug.logInfo(e, error + e.getMessage(), MODULE);
             return ServiceUtil.returnError(error);
         } catch (GenericServiceException e) {
             String error = UtilProperties.getMessage(resourceMarketing, "MarketingServiceError", locale);
-            Debug.logInfo(e, error + e.getMessage(), module);
+            Debug.logInfo(e, error + e.getMessage(), MODULE);
             return ServiceUtil.returnError(error);
         }
         return ServiceUtil.returnSuccess();

@@ -54,7 +54,7 @@ import de.odysseus.el.tree.impl.ast.AstNode;
  * auto-vivify.</p>
  */
 public class JuelConnector {
-    protected static final String module = JuelConnector.class.getName();
+    protected static final String MODULE = JuelConnector.class.getName();
 
     /** Returns an <code>ExpressionFactory</code> instance.
      * @return A customized <code>ExpressionFactory</code> instance
@@ -80,7 +80,7 @@ public class JuelConnector {
                 base = prefix.eval(bindings, context);
             } catch (Exception e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose(e, module);
+                    Debug.logVerbose(e, MODULE);
                 }
             }
             Object property = getProperty(bindings, context);
@@ -90,7 +90,7 @@ public class JuelConnector {
             if (base == null) {
                 base = UelUtil.autoVivifyListOrMap(property);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("ExtendedAstBracket.setValue auto-vivify base: " + base + ", property = " + property, module);
+                    Debug.logVerbose("ExtendedAstBracket.setValue auto-vivify base: " + base + ", property = " + property, MODULE);
                 }
                 prefix.setValue(bindings, context, base);
             }
@@ -118,7 +118,7 @@ public class JuelConnector {
                 base = prefix.eval(bindings, context);
             } catch (Exception e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose(e, module);
+                    Debug.logVerbose(e, MODULE);
                 }
             }
             Object property = getProperty(bindings, context);
@@ -128,7 +128,7 @@ public class JuelConnector {
             if (base == null) {
                 base = UelUtil.autoVivifyListOrMap(property);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("ExtendedAstDot.setValue auto-vivify base: " + base + ", property = " + property, module);
+                    Debug.logVerbose("ExtendedAstDot.setValue auto-vivify base: " + base + ", property = " + property, MODULE);
                 }
                 prefix.setValue(bindings, context, base);
             }

@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
  */
 public class CdyneServices {
 
-    public final static String module = CdyneServices.class.getName();
+    public final static String MODULE = CdyneServices.class.getName();
     public static final String resource = "CommonUiLabels";
     public final static String licenseKey = UtilProperties.getPropertyValue("cdyne", "LicenseKey", "0");
 
@@ -73,10 +73,10 @@ public class CdyneServices {
 
             return response;
         } catch (HttpClientException e) {
-            Debug.logError(e, "Error calling CDyne service at URL [" + serviceUrl + "]: " + e.toString(), module);
+            Debug.logError(e, "Error calling CDyne service at URL [" + serviceUrl + "]: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonCDyneCallingError", UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
         } catch (SAXException | ParserConfigurationException | IOException e) {
-            Debug.logError(e, "Error parsing XML result from CDyne service at URL [" + serviceUrl + "]: " + e.toString(), module);
+            Debug.logError(e, "Error parsing XML result from CDyne service at URL [" + serviceUrl + "]: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonCDyneParsingError", UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
         }
     }

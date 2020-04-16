@@ -47,7 +47,7 @@ import org.xml.sax.SAXException;
  */
 public class GridFactory {
 
-    public static final String module = GridFactory.class.getName();
+    public static final String MODULE = GridFactory.class.getName();
     private static final UtilCache<String, ModelGrid> gridLocationCache = UtilCache.createUtilCache("widget.grid.locationResource", 0, 0, false);
     private static final UtilCache<String, ModelGrid> gridWebappCache = UtilCache.createUtilCache("widget.grid.webappResource", 0, 0, false);
 

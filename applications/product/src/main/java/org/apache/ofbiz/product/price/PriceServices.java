@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class PriceServices {
 
-    public static final String module = PriceServices.class.getName();
+    public static final String MODULE = PriceServices.class.getName();
     public static final String resource = "ProductUiLabels";
     public static final BigDecimal ONE_BASE = BigDecimal.ONE;
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
@@ -108,7 +108,7 @@ public class PriceServices {
             // we have a productStoreId, if the corresponding ProductStore.primaryStoreGroupId is not empty, use that
             productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), module);
+            Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()) , locale));
         }
@@ -127,7 +127,7 @@ public class PriceServices {
                         }
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), module);
+                    Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()) , locale));
                 }
@@ -166,7 +166,7 @@ public class PriceServices {
             try {
                 virtualProductId = ProductWorker.getVariantVirtualId(product);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting virtual product id from the database while calculating price" + e.toString(), module);
+                Debug.logError(e, "Error getting virtual product id from the database while calculating price" + e.toString(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductPriceCannotRetrieveVirtualProductId", UtilMisc.toMap("errorString", e.toString()) , locale));
             }
@@ -178,7 +178,7 @@ public class PriceServices {
             try {
                 virtualProductPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId", virtualProductId, "currencyUomId", currencyDefaultUomId, "productStoreGroupId", productStoreGroupId).orderBy("-fromDate").cache(true).queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "An error occurred while getting the product prices", module);
+                Debug.logError(e, "An error occurred while getting the product prices", MODULE);
             }
             virtualProductPrices = EntityUtil.filterByDate(virtualProductPrices, true);
         }
@@ -224,7 +224,7 @@ public class PriceServices {
         try {
             productPrices = EntityQuery.use(delegator).from("ProductPrice").where(productPriceEc).orderBy("-fromDate").cache(true).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "An error occurred while getting the product prices", module);
+            Debug.logError(e, "An error occurred while getting the product prices", MODULE);
         }
         productPrices = EntityUtil.filterByDate(productPrices, true);
 
@@ -243,7 +243,7 @@ public class PriceServices {
                     defaultPriceValue = agreementPriceValue;
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting agreement info from the database while calculating price" + e.toString(), module);
+                Debug.logError(e, "Error getting agreement info from the database while calculating price" + e.toString(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductPriceCannotRetrieveAgreementInfo", UtilMisc.toMap("errorString", e.toString()) , locale));
             }
@@ -316,7 +316,7 @@ public class PriceServices {
                         defaultPriceValue = getPriceValueForType("DEFAULT_PRICE", variantProductPrices, null);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "An error occurred while getting the product prices", module);
+                    Debug.logError(e, "An error occurred while getting the product prices", MODULE);
                 }
             }
         }
@@ -341,7 +341,7 @@ public class PriceServices {
                 try {
                     customMethod = defaultPriceValue.getRelatedOne("CustomMethod", false);
                 } catch (GenericEntityException gee) {
-                    Debug.logError(gee, "An error occurred while getting the customPriceCalcService", module);
+                    Debug.logError(gee, "An error occurred while getting the customPriceCalcService", MODULE);
                 }
                 if (customMethod != null && UtilValidate.isNotEmpty(customMethod.getString("customMethodName"))) {
                     Map<String, Object> inMap = UtilMisc.toMap("userLogin", context.get("userLogin"), "product", product);
@@ -366,7 +366,7 @@ public class PriceServices {
                             }
                         }
                     } catch (GenericServiceException gse) {
-                        Debug.logError(gse, "An error occurred while running the customPriceCalcService [" + customMethod.getString("customMethodName") + "]", module);
+                        Debug.logError(gse, "An error occurred while running the customPriceCalcService [" + customMethod.getString("customMethodName") + "]", MODULE);
                     }
                 }
             }
@@ -506,7 +506,7 @@ public class PriceServices {
                     if (errorResult != null) return errorResult;
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting rules from the database while calculating price", module);
+                Debug.logError(e, "Error getting rules from the database while calculating price", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductPriceCannotRetrievePriceRules", UtilMisc.toMap("errorString", e.toString()) , locale));
             }
@@ -540,10 +540,10 @@ public class PriceServices {
                                 priceResults = dispatcher.runSync("convertUom", UtilMisc.<String, Object> toMap("uomId", currencyDefaultUomId, "uomIdTo", currencyUomIdTo,
                                         "originalValue", tempPrice, "defaultDecimalScale", 2L, "defaultRoundingMode", "HalfUp"));
                                 if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
-                                    Debug.logWarning("Unable to convert " + entry.getKey() + " for product  " + productId, module);
+                                    Debug.logWarning("Unable to convert " + entry.getKey() + " for product  " + productId, MODULE);
                                 }
                             } catch (GenericServiceException e) {
-                                Debug.logError(e, module);
+                                Debug.logError(e, MODULE);
                             }
                             convertPriceMap.put(entry.getKey(), priceResults.get("convertedValue"));
                         } else {
@@ -565,7 +565,7 @@ public class PriceServices {
         List<GenericValue> filteredPrices = EntityUtil.filterByAnd(productPriceList, UtilMisc.toMap("productPriceTypeId", productPriceTypeId));
         GenericValue priceValue = EntityUtil.getFirst(filteredPrices);
         if (filteredPrices != null && filteredPrices.size() > 1) {
-            if (Debug.infoOn()) Debug.logInfo("There is more than one " + productPriceTypeId + " with the currencyUomId " + priceValue.getString("currencyUomId") + " and productId " + priceValue.getString("productId") + ", using the latest found with price: " + priceValue.getBigDecimal("price"), module);
+            if (Debug.infoOn()) Debug.logInfo("There is more than one " + productPriceTypeId + " with the currencyUomId " + priceValue.getString("currencyUomId") + " and productId " + priceValue.getString("productId") + ", using the latest found with price: " + priceValue.getBigDecimal("price"), MODULE);
         }
         if (priceValue == null && secondaryPriceList != null) {
             return getPriceValueForType(productPriceTypeId, secondaryPriceList, null);
@@ -616,7 +616,7 @@ public class PriceServices {
                     result.put("competitivePrice", ((BigDecimal) result.get("competitivePrice")).multiply(taxMultiplier).setScale(taxFinalScale, taxRounding));
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Error calculating VAT tax (with calcTaxForDisplay service): " + e.toString(), module);
+                Debug.logError(e, "Error calculating VAT tax (with calcTaxForDisplay service): " + e.toString(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductPriceCannotCalculateVatTax", locale));
             }
@@ -891,7 +891,7 @@ public class PriceServices {
                         if (productPriceAction.get("amount") != null) {
                             price = productPriceAction.getBigDecimal("amount");
                         } else {
-                            Debug.logInfo("ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, module);
+                            Debug.logInfo("ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, MODULE);
                             price = defaultPrice;
                             isSale = false;                // reverse isSale flag, as this sale rule was actually not applied
                         }
@@ -904,13 +904,13 @@ public class PriceServices {
                         }
                         if (price.compareTo(BigDecimal.ZERO) == 0) {
                             if (defaultPrice.compareTo(BigDecimal.ZERO) != 0) {
-                                Debug.logInfo("PromoPrice and ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, module);
+                                Debug.logInfo("PromoPrice and ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, MODULE);
                                 price = defaultPrice;
                             } else if (listPrice.compareTo(BigDecimal.ZERO) != 0) {
-                                Debug.logInfo("PromoPrice and ProductPriceAction had null amount and no default price was available, using list price: " + listPrice + " for product with id " + productId, module);
+                                Debug.logInfo("PromoPrice and ProductPriceAction had null amount and no default price was available, using list price: " + listPrice + " for product with id " + productId, MODULE);
                                 price = listPrice;
                             } else {
-                                Debug.logError("PromoPrice and ProductPriceAction had null amount and no default or list price was available, so price is set to zero for product with id " + productId, module);
+                                Debug.logError("PromoPrice and ProductPriceAction had null amount and no default or list price was available, so price is set to zero for product with id " + productId, MODULE);
                                 price = BigDecimal.ZERO;
                             }
                             isSale = false;                // reverse isSale flag, as this sale rule was actually not applied
@@ -924,13 +924,13 @@ public class PriceServices {
                         }
                         if (price.compareTo(BigDecimal.ZERO) == 0) {
                             if (defaultPrice.compareTo(BigDecimal.ZERO) != 0) {
-                                Debug.logInfo("WholesalePrice and ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, module);
+                                Debug.logInfo("WholesalePrice and ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, MODULE);
                                 price = defaultPrice;
                             } else if (listPrice.compareTo(BigDecimal.ZERO) != 0) {
-                                Debug.logInfo("WholesalePrice and ProductPriceAction had null amount and no default price was available, using list price: " + listPrice + " for product with id " + productId, module);
+                                Debug.logInfo("WholesalePrice and ProductPriceAction had null amount and no default price was available, using list price: " + listPrice + " for product with id " + productId, MODULE);
                                 price = listPrice;
                             } else {
-                                Debug.logError("WholesalePrice and ProductPriceAction had null amount and no default or list price was available, so price is set to zero for product with id " + productId, module);
+                                Debug.logError("WholesalePrice and ProductPriceAction had null amount and no default or list price was available, so price is set to zero for product with id " + productId, MODULE);
                                 price = BigDecimal.ZERO;
                             }
                             isSale = false; // reverse isSale flag, as this sale rule was actually not applied
@@ -978,10 +978,10 @@ public class PriceServices {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Unchecked Calculated price: " + price, module);
-            Debug.logVerbose("PriceInfo:", module);
+            Debug.logVerbose("Unchecked Calculated price: " + price, MODULE);
+            Debug.logVerbose("PriceInfo:", MODULE);
             for (GenericValue orderItemPriceInfo: orderItemPriceInfos) {
-                if (Debug.verboseOn()) Debug.logVerbose(" --- " + orderItemPriceInfo, module);
+                if (Debug.verboseOn()) Debug.logVerbose(" --- " + orderItemPriceInfo, MODULE);
             }
         }
 
@@ -1007,7 +1007,7 @@ public class PriceServices {
             validPriceFound = true;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Final Calculated price: " + price + ", rules: " + totalRules + ", conds: " + totalConds + ", actions: " + totalActions, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Final Calculated price: " + price + ", rules: " + totalRules + ", conds: " + totalConds + ", actions: " + totalActions, MODULE);
 
         calcResults.put("basePrice", price);
         calcResults.put("price", price);
@@ -1024,7 +1024,7 @@ public class PriceServices {
     public static boolean checkPriceCondition(GenericValue productPriceCond, String productId, String virtualProductId, String prodCatalogId,
             String productStoreGroupId, String webSiteId, String partyId, BigDecimal quantity, BigDecimal listPrice,
             String currencyUomId, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
-        if (Debug.verboseOn()) Debug.logVerbose("Checking price condition: " + productPriceCond, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Checking price condition: " + productPriceCond, MODULE);
         int compare = 0;
 
         if ("PRIP_PRODUCT_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
@@ -1159,11 +1159,11 @@ public class PriceServices {
         } else if ("PRIP_CURRENCY_UOMID".equals(productPriceCond.getString("inputParamEnumId"))) {
             compare = currencyUomId.compareTo(productPriceCond.getString("condValue"));
         } else {
-            Debug.logWarning("An un-supported productPriceCond input parameter (lhs) was used: " + productPriceCond.getString("inputParamEnumId") + ", returning false, ie check failed", module);
+            Debug.logWarning("An un-supported productPriceCond input parameter (lhs) was used: " + productPriceCond.getString("inputParamEnumId") + ", returning false, ie check failed", MODULE);
             return false;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Price Condition compare done, compare=" + compare, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Price Condition compare done, compare=" + compare, MODULE);
 
         if ("PRC_EQ".equals(productPriceCond.getString("operatorEnumId"))) {
             if (compare == 0) return true;
@@ -1178,7 +1178,7 @@ public class PriceServices {
         } else if ("PRC_GTE".equals(productPriceCond.getString("operatorEnumId"))) {
             if (compare >= 0) return true;
         } else {
-            Debug.logWarning("An un-supported productPriceCond condition was used: " + productPriceCond.getString("operatorEnumId") + ", returning false, ie check failed", module);
+            Debug.logWarning("An un-supported productPriceCond condition was used: " + productPriceCond.getString("operatorEnumId") + ", returning false, ie check failed", MODULE);
             return false;
         }
         return false;
@@ -1220,7 +1220,7 @@ public class PriceServices {
         Locale locale = (Locale)context.get("locale");
 
         // a) Get the Price from the Agreement* data model
-        if (Debug.infoOn()) Debug.logInfo("Try to resolve purchase price from agreement " + agreementId, module);
+        if (Debug.infoOn()) Debug.logInfo("Try to resolve purchase price from agreement " + agreementId, MODULE);
         if (UtilValidate.isNotEmpty(agreementId)) {
             //TODO Search before if agreement is associate to SupplierProduct.
             //confirm that agreement is price application on purchase type and contains a value for the product
@@ -1236,9 +1236,9 @@ public class PriceServices {
                     //resolve price on given currency. If not define, try to convert a present price
                     priceFound = EntityUtil.getFirst(EntityUtil.filterByAnd(agreementPrices, UtilMisc.toMap("currencyUomId", currencyUomId)));
                     if (Debug.infoOn()) {
-                        Debug.logInfo("             AgreementItem " + agreementPrices, module);
-                        Debug.logInfo("             currencyUomId " + currencyUomId, module);
-                        Debug.logInfo("             priceFound " + priceFound, module);
+                        Debug.logInfo("             AgreementItem " + agreementPrices, MODULE);
+                        Debug.logInfo("             currencyUomId " + currencyUomId, MODULE);
+                        Debug.logInfo("             priceFound " + priceFound, MODULE);
                     }
                     if (priceFound == null) {
                         priceFound = EntityUtil.getFirst(agreementPrices);
@@ -1247,13 +1247,13 @@ public class PriceServices {
                                     "originalValue", priceFound.getBigDecimal("price"), "defaultDecimalScale" , 2L, "defaultRoundingMode" , "HalfUp");
                             Map<String, Object> priceResults = dispatcher.runSync("convertUom", priceConvertMap);
                             if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
-                                Debug.logWarning("Unable to convert " + priceFound + " for product  " + productId , module);
+                                Debug.logWarning("Unable to convert " + priceFound + " for product  " + productId , MODULE);
                             } else {
                                 price = (BigDecimal) priceResults.get("convertedValue");
                                 validPriceFound = true;
                             }
                         } catch (GenericServiceException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                         }
                     } else {
                         price = priceFound.getBigDecimal("price");
@@ -1278,25 +1278,25 @@ public class PriceServices {
                     orderItemPriceInfos.add(orderItemPriceInfo);
                 }
             } catch (GenericEntityException gee) {
-                Debug.logError(gee, module);
+                Debug.logError(gee, MODULE);
                 return ServiceUtil.returnError(gee.getMessage());
             }
         }
 
         // b) If no price can be found, get the lastPrice from the SupplierProduct entity
         if (!validPriceFound) {
-            Map<String, Object> priceContext = UtilMisc.toMap("currencyUomId", currencyUomId, "partyId", partyId, "productId", productId, "quantity", quantity);
+            Map<String, Object> priceContext = UtilMisc.toMap("currencyUomId", currencyUomId, "partyId", partyId, "productId", productId, "quantity", quantity, "agreementId", agreementId);
             List<GenericValue> productSuppliers = null;
             try {
                 Map<String, Object> priceResult = dispatcher.runSync("getSuppliersForProduct", priceContext);
                 if (ServiceUtil.isError(priceResult)) {
                     String errMsg = ServiceUtil.getErrorMessage(priceResult);
-                    Debug.logError(errMsg, module);
+                    Debug.logError(errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
                 productSuppliers = UtilGenerics.cast(priceResult.get("supplierProducts"));
             } catch (GenericServiceException gse) {
-                Debug.logError(gse, module);
+                Debug.logError(gse, MODULE);
                 return ServiceUtil.returnError(gse.getMessage());
             }
             if (productSuppliers != null) {
@@ -1341,7 +1341,7 @@ public class PriceServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
 

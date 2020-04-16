@@ -28,7 +28,7 @@ import org.apache.commons.fileupload.ProgressListener;
 @SuppressWarnings("serial")
 public class FileUploadProgressListener implements ProgressListener, Serializable {
 
-    public static final String module = FileUploadProgressListener.class.getName();
+    public static final String MODULE = FileUploadProgressListener.class.getName();
 
     protected long contentLength = -1;
     protected long bytesRead = -1;

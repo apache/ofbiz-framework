@@ -50,7 +50,7 @@ import freemarker.template.TemplateException;
 public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRenderer {
 
     ScreenStringRenderer screenStringRenderer = null;
-    public static final String module = HtmlTreeRenderer.class.getName();
+    public static final String MODULE = HtmlTreeRenderer.class.getName();
 
     public HtmlTreeRenderer() {}
 
@@ -350,7 +350,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 try {
                     screenStringRenderer = new MacroScreenRenderer(modelTheme.getType("screen"), modelTheme.getScreenRendererLocation("screen"));
                 } catch (TemplateException | IOException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
         }

@@ -45,17 +45,17 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class FtpServices {
 
-    public final static String module = FtpServices.class.getName();
+    public final static String MODULE = FtpServices.class.getName();
     public static final String resource = "CommonUiLabels";
 
     public static Map<String, Object> putFile(DispatchContext dctx, Map<String, ?> context) {
         Locale locale = (Locale) context.get("locale");
-        Debug.logInfo("[putFile] starting...", module);
+        Debug.logInfo("[putFile] starting...", MODULE);
         InputStream localFile = null;
         try {
             localFile = new FileInputStream((String) context.get("localFilename"));
         } catch (IOException ioe) {
-            Debug.logError(ioe, "[putFile] Problem opening local file", module);
+            Debug.logError(ioe, "[putFile] Problem opening local file", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
         List<String> errorList = new LinkedList<>();
@@ -63,20 +63,20 @@ public class FtpServices {
         try {
             Integer defaultTimeout = (Integer) context.get("defaultTimeout");
             if (UtilValidate.isNotEmpty(defaultTimeout)) {
-                Debug.logInfo("[putFile] set default timeout to: " + defaultTimeout + " milliseconds", module);
+                Debug.logInfo("[putFile] set default timeout to: " + defaultTimeout + " milliseconds", MODULE);
                 ftp.setDefaultTimeout(defaultTimeout);
             }
-            Debug.logInfo("[putFile] connecting to: " + (String) context.get("hostname"), module);
+            Debug.logInfo("[putFile] connecting to: " + (String) context.get("hostname"), MODULE);
             ftp.connect((String) context.get("hostname"));
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
-                Debug.logInfo("[putFile] Server refused connection", module);
+                Debug.logInfo("[putFile] Server refused connection", MODULE);
                 errorList.add(UtilProperties.getMessage(resource, "CommonFtpConnectionRefused", locale));
             } else {
                 String username = (String) context.get("username");
                 String password = (String) context.get("password");
-                Debug.logInfo("[putFile] logging in: username=" + username + ", password=" + password, module);
+                Debug.logInfo("[putFile] logging in: username=" + username + ", password=" + password, MODULE);
                 if (!ftp.login(username, password)) {
-                    Debug.logInfo("[putFile] login failed", module);
+                    Debug.logInfo("[putFile] login failed", MODULE);
                     errorList.add(UtilProperties.getMessage(resource, "CommonFtpLoginFailure", UtilMisc.toMap("username", username, "password", password), locale));
                 } else {
                     Boolean binaryTransfer = (Boolean) context.get("binaryTransfer");
@@ -89,16 +89,16 @@ public class FtpServices {
                     if (passive) {
                         ftp.enterLocalPassiveMode();
                     }
-                    Debug.logInfo("[putFile] storing local file remotely as: " + context.get("remoteFilename"), module);
+                    Debug.logInfo("[putFile] storing local file remotely as: " + context.get("remoteFilename"), MODULE);
                     if (!ftp.storeFile((String) context.get("remoteFilename"), localFile)) {
-                        Debug.logInfo("[putFile] store was unsuccessful", module);
+                        Debug.logInfo("[putFile] store was unsuccessful", MODULE);
                         errorList.add(UtilProperties.getMessage(resource, "CommonFtpFileNotSentSuccesfully", UtilMisc.toMap("replyString", ftp.getReplyString()), locale));
                     } else {
-                        Debug.logInfo("[putFile] store was successful", module);
+                        Debug.logInfo("[putFile] store was successful", MODULE);
                         List<String> siteCommands = checkCollection(context.get("siteCommands"), String.class);
                         if (siteCommands != null) {
                             for (String command : siteCommands) {
-                                Debug.logInfo("[putFile] sending SITE command: " + command, module);
+                                Debug.logInfo("[putFile] sending SITE command: " + command, MODULE);
                                 if (!ftp.sendSiteCommand(command)) {
                                     errorList.add(UtilProperties.getMessage(resource, "CommonFtpSiteCommandFailed", UtilMisc.toMap("command", command, "replyString", ftp.getReplyString()), locale));
                                 }
@@ -109,7 +109,7 @@ public class FtpServices {
                 ftp.logout();
             }
         } catch (IOException ioe) {
-            Debug.logWarning(ioe, "[putFile] caught exception: " + ioe.getMessage(), module);
+            Debug.logWarning(ioe, "[putFile] caught exception: " + ioe.getMessage(), MODULE);
             errorList.add(UtilProperties.getMessage(resource, "CommonFtpProblemWithTransfer", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         } finally {
             try {
@@ -117,14 +117,14 @@ public class FtpServices {
                     ftp.disconnect();
                 }
             } catch (Exception e) {
-                Debug.logWarning(e, "[putFile] Problem with FTP disconnect: ", module);
+                Debug.logWarning(e, "[putFile] Problem with FTP disconnect: ", MODULE);
             }
         }
         if (errorList.size() > 0) {
-            Debug.logError("[putFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, module);
+            Debug.logError("[putFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, MODULE);
             return ServiceUtil.returnError(errorList);
         }
-        Debug.logInfo("[putFile] finished successfully", module);
+        Debug.logInfo("[putFile] finished successfully", MODULE);
         return ServiceUtil.returnSuccess();
     }
 
@@ -135,7 +135,7 @@ public class FtpServices {
         try {
             localFile = new FileOutputStream(localFilename);
         } catch (IOException ioe) {
-            Debug.logError(ioe, "[getFile] Problem opening local file", module);
+            Debug.logError(ioe, "[getFile] Problem opening local file", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
         List<String> errorList = new LinkedList<>();
@@ -143,7 +143,7 @@ public class FtpServices {
         try {
             Integer defaultTimeout = (Integer) context.get("defaultTimeout");
             if (UtilValidate.isNotEmpty(defaultTimeout)) {
-                Debug.logInfo("[getFile] Set default timeout to: " + defaultTimeout + " milliseconds", module);
+                Debug.logInfo("[getFile] Set default timeout to: " + defaultTimeout + " milliseconds", MODULE);
                 ftp.setDefaultTimeout(defaultTimeout);
             }
             ftp.connect((String) context.get("hostname"));
@@ -172,7 +172,7 @@ public class FtpServices {
                 ftp.logout();
             }
         } catch (IOException ioe) {
-            Debug.logWarning(ioe, "[getFile] caught exception: " + ioe.getMessage(), module);
+            Debug.logWarning(ioe, "[getFile] caught exception: " + ioe.getMessage(), MODULE);
             errorList.add(UtilProperties.getMessage(resource, "CommonFtpProblemWithTransfer", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         } finally {
             try {
@@ -180,11 +180,11 @@ public class FtpServices {
                     ftp.disconnect();
                 }
             } catch (Exception e) {
-                Debug.logWarning(e, "[getFile] Problem with FTP disconnect: ", module);
+                Debug.logWarning(e, "[getFile] Problem with FTP disconnect: ", MODULE);
             }
         }
         if (errorList.size() > 0) {
-            Debug.logError("[getFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, module);
+            Debug.logError("[getFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, MODULE);
             return ServiceUtil.returnError(errorList);
         }
         return ServiceUtil.returnSuccess();

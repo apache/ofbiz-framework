@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  */
 public class SequenceUtil {
 
-    public static final String module = SequenceUtil.class.getName();
+    public static final String MODULE = SequenceUtil.class.getName();
 
     private final ConcurrentMap<String, SequenceBank> sequences = new ConcurrentHashMap<>();
     private final GenericHelperInfo helperInfo;
@@ -143,7 +143,7 @@ public class SequenceUtil {
                         curSeqId += stagger;
                         return retSeqId;
                     } else {
-                        Debug.logError("Fill bank failed, returning null", module);
+                        Debug.logError("Fill bank failed, returning null", MODULE);
                         return null;
                     }
                 }
@@ -194,10 +194,10 @@ public class SequenceUtil {
                     try {
                         connection = TransactionFactoryLoader.getInstance().getConnection(SequenceUtil.this.helperInfo);
                     } catch (SQLException sqle) {
-                        Debug.logWarning("Unable to establish a connection with the database. Error was:" + sqle.toString(), module);
+                        Debug.logWarning("Unable to establish a connection with the database. Error was:" + sqle.toString(), MODULE);
                         throw sqle;
                     } catch (GenericEntityException e) {
-                        Debug.logWarning("Unable to establish a connection with the database. Error was: " + e.toString(), module);
+                        Debug.logWarning("Unable to establish a connection with the database. Error was: " + e.toString(), MODULE);
                         throw e;
                     }
                     if (connection == null) {
@@ -209,7 +209,7 @@ public class SequenceUtil {
                         String sql = null;
                         // 1 - run an update with no changes to get a lock on the record
                         if (stmt.executeUpdate(updateForLockStatement) <= 0) {
-                            Debug.logWarning("Lock failed; no sequence row was found, will try to add a new one for sequence: " + seqName, module);
+                            Debug.logWarning("Lock failed; no sequence row was found, will try to add a new one for sequence: " + seqName, MODULE);
                             sql = "INSERT INTO " + SequenceUtil.this.tableName + " (" + SequenceUtil.this.nameColName + ", " + SequenceUtil.this.idColName + ") VALUES ('" + this.seqName + "', " + startSeqId + ")";
                             try {
                                 stmt.executeUpdate(sql);
@@ -241,18 +241,18 @@ public class SequenceUtil {
                         TransactionUtil.commit(beganTransaction);
 
                     } catch (SQLException sqle) {
-                        Debug.logWarning(sqle, "SQL Exception:" + sqle.getMessage(), module);
+                        Debug.logWarning(sqle, "SQL Exception:" + sqle.getMessage(), MODULE);
                         throw sqle;
                     } finally {
                         try {
                             if (stmt != null) stmt.close();
                         } catch (SQLException sqle) {
-                            Debug.logWarning(sqle, "Error closing statement in sequence util", module);
+                            Debug.logWarning(sqle, "Error closing statement in sequence util", MODULE);
                         }
                         try {
                             connection.close();
                         } catch (SQLException sqle) {
-                            Debug.logWarning(sqle, "Error closing connection in sequence util", module);
+                            Debug.logWarning(sqle, "Error closing connection in sequence util", MODULE);
                         }
                     }
                 } catch (SQLException | GenericEntityException  e) {
@@ -260,16 +260,16 @@ public class SequenceUtil {
                     curSeqId = 0;
                     maxSeqId = 0;
                     String errMsg = "General error in getting a sequenced ID";
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     try {
                         TransactionUtil.rollback(beganTransaction, errMsg, e);
                     } catch (GenericTransactionException gte2) {
-                        Debug.logError(gte2, "Unable to rollback transaction", module);
+                        Debug.logError(gte2, "Unable to rollback transaction", MODULE);
                     }
                     return;
                 }
             } catch (GenericTransactionException e) {
-                Debug.logError(e, "System Error suspending transaction in sequence util", module);
+                Debug.logError(e, "System Error suspending transaction in sequence util", MODULE);
                 // reset the sequence fields and return (note: it would be better to throw an exception)
                 curSeqId = 0;
                 maxSeqId = 0;
@@ -279,7 +279,7 @@ public class SequenceUtil {
                     try {
                         TransactionUtil.resume(suspendedTransaction);
                     } catch (GenericTransactionException e) {
-                        Debug.logError(e, "Error resuming suspended transaction in sequence util", module);
+                        Debug.logError(e, "Error resuming suspended transaction in sequence util", MODULE);
                         // reset the sequence fields and return (note: it would be better to throw an exception)
                         curSeqId = 0;
                         maxSeqId = 0;
@@ -289,7 +289,7 @@ public class SequenceUtil {
             }
 
             maxSeqId = curSeqId + bankSize;
-            if (Debug.infoOn()) Debug.logInfo("Got bank of sequenced IDs for [" + this.seqName + "]; curSeqId=" + curSeqId + ", maxSeqId=" + maxSeqId + ", bankSize=" + bankSize, module);
+            if (Debug.infoOn()) Debug.logInfo("Got bank of sequenced IDs for [" + this.seqName + "]; curSeqId=" + curSeqId + ", maxSeqId=" + maxSeqId + ", bankSize=" + bankSize, MODULE);
         }
     }
 }

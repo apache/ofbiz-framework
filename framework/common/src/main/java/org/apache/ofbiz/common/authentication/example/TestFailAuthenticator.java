@@ -30,7 +30,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class TestFailAuthenticator implements Authenticator {
 
-    private static final String module = TestFailAuthenticator.class.getName();
+    private static final String MODULE = TestFailAuthenticator.class.getName();
     protected Delegator delegator;
     protected LocalDispatcher dispatcher;
     protected float weight = 1;
@@ -45,7 +45,7 @@ public class TestFailAuthenticator implements Authenticator {
     public void initialize(LocalDispatcher dispatcher) {
         this.dispatcher = dispatcher;
         this.delegator = dispatcher.getDelegator();
-        Debug.logInfo(this.getClass().getName() + " Authenticator initialized", module);
+        Debug.logInfo(this.getClass().getName() + " Authenticator initialized", MODULE);
     }
 
     /**
@@ -60,7 +60,7 @@ public class TestFailAuthenticator implements Authenticator {
      */
     @Override
     public boolean authenticate(String username, String password, boolean isServiceAuth) throws AuthenticatorException {
-        Debug.logInfo(this.getClass().getName() + " Authenticator authenticate() -- returning false", module);
+        Debug.logInfo(this.getClass().getName() + " Authenticator authenticate() -- returning false", MODULE);
         return false;
     }
 
@@ -73,7 +73,7 @@ public class TestFailAuthenticator implements Authenticator {
      */
     @Override
     public void logout(String username) throws AuthenticatorException {
-        Debug.logInfo(this.getClass().getName() + " Authenticator logout()", module);
+        Debug.logInfo(this.getClass().getName() + " Authenticator logout()", MODULE);
     }
 
     /**
@@ -85,7 +85,7 @@ public class TestFailAuthenticator implements Authenticator {
      */
     @Override
     public void syncUser(String username) throws AuthenticatorException {
-        Debug.logInfo(this.getClass().getName() + " Authenticator syncUser()", module);
+        Debug.logInfo(this.getClass().getName() + " Authenticator syncUser()", MODULE);
         // no user info to sync
     }
 
@@ -100,7 +100,7 @@ public class TestFailAuthenticator implements Authenticator {
      */
     @Override
     public void updatePassword(String username, String password, String newPassword) throws AuthenticatorException {
-        Debug.logInfo(this.getClass().getName() + " Authenticator updatePassword()", module);
+        Debug.logInfo(this.getClass().getName() + " Authenticator updatePassword()", MODULE);
     }
 
     /**
@@ -120,7 +120,7 @@ public class TestFailAuthenticator implements Authenticator {
      */
     @Override
     public boolean isUserSynchronized() {
-        Debug.logInfo(this.getClass().getName() + " Authenticator isUserSynchronized()", module);
+        Debug.logInfo(this.getClass().getName() + " Authenticator isUserSynchronized()", MODULE);
         return true;
     }
 
@@ -131,7 +131,7 @@ public class TestFailAuthenticator implements Authenticator {
      */
     @Override
     public boolean isSingleAuthenticator() {
-        Debug.logInfo(this.getClass().getName() + " Authenticator isSingleAuthenticator()", module);
+        Debug.logInfo(this.getClass().getName() + " Authenticator isSingleAuthenticator()", MODULE);
         return false;
     }
 

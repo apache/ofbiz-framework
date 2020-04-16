@@ -46,7 +46,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public final class CatalogWorker {
 
-    public static final String module = CatalogWorker.class.getName();
+    public static final String MODULE = CatalogWorker.class.getName();
 
     private CatalogWorker () {}
 
@@ -74,7 +74,7 @@ public final class CatalogWorker {
         try {
             catalogs = EntityQuery.use(delegator).from("ProdCatalog").orderBy("catalogName").queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up all catalogs", module);
+            Debug.logError(e, "Error looking up all catalogs", MODULE);
         }
         if (catalogs != null) {
             for (GenericValue c: catalogs) {
@@ -94,7 +94,7 @@ public final class CatalogWorker {
         try {
             return EntityQuery.use(delegator).from("ProductStoreCatalog").where("productStoreId", productStoreId).orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up store catalogs for store with id " + productStoreId, module);
+            Debug.logError(e, "Error looking up store catalogs for store with id " + productStoreId, MODULE);
         }
         return null;
     }
@@ -118,7 +118,7 @@ public final class CatalogWorker {
         try {
             return EntityQuery.use(delegator).from("ProdCatalogRole").where("partyId", partyId, "roleTypeId", "CUSTOMER").orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up ProdCatalog Roles for party with id " + partyId, module);
+            Debug.logError(e, "Error looking up ProdCatalog Roles for party with id " + partyId, MODULE);
         }
         return null;
     }
@@ -143,7 +143,7 @@ public final class CatalogWorker {
             }
             return prodCatalogCategories;
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up ProdCatalogCategories for prodCatalog with id " + prodCatalogId, module);
+            Debug.logError(e, "Error looking up ProdCatalogCategories for prodCatalog with id " + prodCatalogId, MODULE);
         }
         return null;
     }
@@ -174,7 +174,7 @@ public final class CatalogWorker {
         }
 
         if (!fromSession) {
-            if (Debug.verboseOn()) Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, module);
+            if (Debug.verboseOn()) Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, MODULE);
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
             CategoryWorker.setTrail(request, new LinkedList<String>());
         }
@@ -222,7 +222,7 @@ public final class CatalogWorker {
                 return prodCatalog.getString("catalogName");
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up name for prodCatalog with id " + prodCatalogId, module);
+            Debug.logError(e, "Error looking up name for prodCatalog with id " + prodCatalogId, MODULE);
         }
 
         return null;
@@ -257,7 +257,7 @@ public final class CatalogWorker {
         try {
             return EntityQuery.use(delegator).from("ProdCatalog").where("prodCatalogId", prodCatalogId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up name for prodCatalog with id " + prodCatalogId, module);
+            Debug.logError(e, "Error looking up name for prodCatalog with id " + prodCatalogId, MODULE);
             return null;
         }
     }
@@ -356,7 +356,7 @@ public final class CatalogWorker {
                 return "Y".equals(prodCatalog.getString("useQuickAdd"));
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up name for prodCatalog with id " + prodCatalogId, module);
+            Debug.logError(e, "Error looking up name for prodCatalog with id " + prodCatalogId, MODULE);
         }
         return false;
     }

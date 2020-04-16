@@ -47,7 +47,7 @@ public final class ModelScreenCondition {
      *
      */
 
-    public static final String module = ModelScreenCondition.class.getName();
+    public static final String MODULE = ModelScreenCondition.class.getName();
     public static final ModelConditionFactory SCREEN_CONDITION_FACTORY = new ScreenConditionFactory();
 
     public static class IfEmptySection extends AbstractModelCondition {

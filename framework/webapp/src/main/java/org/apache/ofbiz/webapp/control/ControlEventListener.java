@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -42,8 +43,8 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  * HttpSessionListener that gathers and tracks various information and statistics
  */
 public class ControlEventListener implements HttpSessionListener {
-    // Debug module name
-    public static final String module = ControlEventListener.class.getName();
+    // Debug MODULE name
+    public static final String MODULE = ControlEventListener.class.getName();
 
     protected static long totalActiveSessions = 0;
     protected static long totalPassiveSessions = 0;
@@ -64,12 +65,14 @@ public class ControlEventListener implements HttpSessionListener {
             session.setAttribute("org.apache.ofbiz.log.session.stats", "Y");
         }
 
-        Debug.logInfo("Creating session: " + ControlActivationEventListener.showSessionId(session), module);
+        Debug.logInfo("Creating session: " + ControlActivationEventListener.showSessionId(session), MODULE);
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession session = event.getSession();
+
+        CsrfUtil.cleanupTokenMap(session);
 
         // Finalize the Visit
         boolean beganTransaction = false;
@@ -86,7 +89,7 @@ public class ControlEventListener implements HttpSessionListener {
                     visit.store();
                 }
             } else {
-                Debug.logInfo("Could not find visit value object in session [" + ControlActivationEventListener.showSessionId(session) + "] that is being destroyed", module);
+                Debug.logInfo("Could not find visit value object in session [" + ControlActivationEventListener.showSessionId(session) + "] that is being destroyed", MODULE);
             }
 
             // Store the UserLoginSession
@@ -107,68 +110,68 @@ public class ControlEventListener implements HttpSessionListener {
             }
 
             countDestroySession();
-            Debug.logInfo("Destroying session: " + ControlActivationEventListener.showSessionId(session), module);
+            Debug.logInfo("Destroying session: " + ControlActivationEventListener.showSessionId(session), MODULE);
             this.logStats(session, visit);
         } catch (GenericEntityException e) {
             try {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error saving information about closed HttpSession", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), MODULE);
             }
 
-            Debug.logError(e, "Error in session destuction information persistence", module);
+            Debug.logError(e, "Error in session destuction information persistence", MODULE);
         } finally {
             // only commit the transaction if we started one... this will throw an exception if it fails
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Could not commit transaction for update visit for session destuction", module);
+                Debug.logError(e, "Could not commit transaction for update visit for session destuction", MODULE);
             }
         }
     }
 
     public void logStats(HttpSession session, GenericValue visit) {
         if (Debug.verboseOn() || session.getAttribute("org.apache.ofbiz.log.session.stats") != null) {
-            Debug.logInfo("<===================================================================>", module);
-            Debug.logInfo("Session ID     : " + ControlActivationEventListener.showSessionId(session), module);
-            Debug.logInfo("Created Time   : " + session.getCreationTime(), module);
-            Debug.logInfo("Last Access    : " + session.getLastAccessedTime(), module);
-            Debug.logInfo("Max Inactive   : " + session.getMaxInactiveInterval(), module);
-            Debug.logInfo("--------------------------------------------------------------------", module);
-            Debug.logInfo("Total Sessions : " + ControlEventListener.getTotalActiveSessions(), module);
-            Debug.logInfo("Total Active   : " + ControlEventListener.getTotalActiveSessions(), module);
-            Debug.logInfo("Total Passive  : " + ControlEventListener.getTotalPassiveSessions(),  module);
-            Debug.logInfo("** note : this session has been counted as destroyed.", module);
-            Debug.logInfo("--------------------------------------------------------------------", module);
+            Debug.logInfo("<===================================================================>", MODULE);
+            Debug.logInfo("Session ID     : " + ControlActivationEventListener.showSessionId(session), MODULE);
+            Debug.logInfo("Created Time   : " + session.getCreationTime(), MODULE);
+            Debug.logInfo("Last Access    : " + session.getLastAccessedTime(), MODULE);
+            Debug.logInfo("Max Inactive   : " + session.getMaxInactiveInterval(), MODULE);
+            Debug.logInfo("--------------------------------------------------------------------", MODULE);
+            Debug.logInfo("Total Sessions : " + ControlEventListener.getTotalActiveSessions(), MODULE);
+            Debug.logInfo("Total Active   : " + ControlEventListener.getTotalActiveSessions(), MODULE);
+            Debug.logInfo("Total Passive  : " + ControlEventListener.getTotalPassiveSessions(),  MODULE);
+            Debug.logInfo("** note : this session has been counted as destroyed.", MODULE);
+            Debug.logInfo("--------------------------------------------------------------------", MODULE);
             if (visit != null) {
-                Debug.logInfo("Visit ID       : " + visit.getString("visitId"), module);
-                Debug.logInfo("Party ID       : " + visit.getString("partyId"), module);
-                Debug.logInfo("Client IP      : " + visit.getString("clientIpAddress"), module);
-                Debug.logInfo("Client Host    : " + visit.getString("clientHostName"), module);
-                Debug.logInfo("Client User    : " + visit.getString("clientUser"), module);
-                Debug.logInfo("WebApp         : " + visit.getString("webappName"), module);
-                Debug.logInfo("Locale         : " + visit.getString("initialLocale"), module);
-                Debug.logInfo("UserAgent      : " + visit.getString("initialUserAgent"), module);
-                Debug.logInfo("Referrer       : " + visit.getString("initialReferrer"), module);
-                Debug.logInfo("Initial Req    : " + visit.getString("initialRequest"), module);
-                Debug.logInfo("Visit From     : " + visit.getString("fromDate"), module);
-                Debug.logInfo("Visit Thru     : " + visit.getString("thruDate"), module);
+                Debug.logInfo("Visit ID       : " + visit.getString("visitId"), MODULE);
+                Debug.logInfo("Party ID       : " + visit.getString("partyId"), MODULE);
+                Debug.logInfo("Client IP      : " + visit.getString("clientIpAddress"), MODULE);
+                Debug.logInfo("Client Host    : " + visit.getString("clientHostName"), MODULE);
+                Debug.logInfo("Client User    : " + visit.getString("clientUser"), MODULE);
+                Debug.logInfo("WebApp         : " + visit.getString("webappName"), MODULE);
+                Debug.logInfo("Locale         : " + visit.getString("initialLocale"), MODULE);
+                Debug.logInfo("UserAgent      : " + visit.getString("initialUserAgent"), MODULE);
+                Debug.logInfo("Referrer       : " + visit.getString("initialReferrer"), MODULE);
+                Debug.logInfo("Initial Req    : " + visit.getString("initialRequest"), MODULE);
+                Debug.logInfo("Visit From     : " + visit.getString("fromDate"), MODULE);
+                Debug.logInfo("Visit Thru     : " + visit.getString("thruDate"), MODULE);
             }
-            Debug.logInfo("--------------------------------------------------------------------", module);
-            Debug.logInfo("--- Start Session Attributes: ---", module);
+            Debug.logInfo("--------------------------------------------------------------------", MODULE);
+            Debug.logInfo("--- Start Session Attributes: ---", MODULE);
             Enumeration<String> sesNames = null;
             try {
                 sesNames = UtilGenerics.cast(session.getAttributeNames());
             } catch (IllegalStateException e) {
-                Debug.logInfo("Cannot get session attributes : " + e.getMessage(), module);
+                Debug.logInfo("Cannot get session attributes : " + e.getMessage(), MODULE);
             }
             while (sesNames != null && sesNames.hasMoreElements()) {
                 String attName = sesNames.nextElement();
-                Debug.logInfo(attName + ":" + session.getAttribute(attName), module);
+                Debug.logInfo(attName + ":" + session.getAttribute(attName), MODULE);
             }
-            Debug.logInfo("--- End Session Attributes ---", module);
-            Debug.logInfo("<===================================================================>", module);
+            Debug.logInfo("--- End Session Attributes ---", MODULE);
+            Debug.logInfo("<===================================================================>", MODULE);
         }
     }
 
@@ -210,7 +213,7 @@ public class ControlEventListener implements HttpSessionListener {
             try {
                 sessionData = XmlSerializer.serialize(userLoginSession);
             } catch (Exception e) {
-                Debug.logWarning(e, "Problems serializing UserLoginSession", module);
+                Debug.logWarning(e, "Problems serializing UserLoginSession", MODULE);
             }
         }
         return sessionData;

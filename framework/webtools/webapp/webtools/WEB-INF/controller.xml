@@ -51,7 +51,7 @@ under the License.
     <request-map uri="entity/create/{entityName}" method="get"><security https="true" auth="true"/><response name="success" type="view" value="EditGeneric"/></request-map>
 
     <!-- form for modifying a record  -->
-    <request-map uri="entity/edit/{entityName}/{pkValues: .*}" method="get"><security https="true" auth="true"/><response name="success" type="view" value="EditGeneric" /></request-map>
+    <request-map uri="entity/edit/{entityName}/{pkValues: .*}" method="post"><security https="true" auth="true"/><response name="success" type="view" value="EditGeneric" /></request-map>
 
     <!--view relations for a given entity -->
     <request-map uri="entity/relations/{entityName}" method="get"><security https="true" auth="true"/><response name="success" type="view" value="ViewRelations" /></request-map>

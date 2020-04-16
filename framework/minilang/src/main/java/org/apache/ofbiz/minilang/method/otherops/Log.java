@@ -35,8 +35,8 @@ import org.w3c.dom.Element;
  */
 public final class Log extends MethodOperation {
 
-    public static final String module = Log.class.getName();
-    public static final String[] LEVEL_ARRAY = {"always", "verbose", "timing", "info", "important", "warning", "error", "fatal", "notify"};
+    private static final String MODULE = Log.class.getName();
+    protected static final String[] LEVEL_ARRAY = {"always", "verbose", "timing", "info", "important", "warning", "error", "fatal", "notify"};
 
     private final int level;
     private final FlexibleStringExpander messageFse;
@@ -81,7 +81,7 @@ public final class Log extends MethodOperation {
             buf.append(getLineNumber());
             buf.append("] ");
             buf.append(message);
-            Debug.log(this.level, null, buf.toString(), module);
+            Debug.log(this.level, null, buf.toString(), MODULE);
         }
         return true;
     }

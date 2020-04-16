@@ -56,7 +56,7 @@ import org.w3c.dom.Node;
  */
 public final class MiniLangUtil {
 
-    public static final String module = MiniLangUtil.class.getName();
+    public static final String MODULE = MiniLangUtil.class.getName();
 
     private static final Set<String> SCRIPT_PREFIXES;
 
@@ -290,14 +290,14 @@ public final class MiniLangUtil {
             transformer = transformerFactory.newTransformer(new StreamSource(styleSheetInStream));
             }
         } catch (Exception e) {
-            Debug.logWarning(e, "Error reading minilang/config/MiniLang.xslt: ", module);
+            Debug.logWarning(e, "Error reading minilang/config/MiniLang.xslt: ", MODULE);
             return;
         }
         try (FileOutputStream fos = new FileOutputStream(xmlURL.getFile())) {
             UtilXml.transformDomDocument(transformer, document, fos);
-            Debug.logInfo("Saved Mini-language file " + xmlURL, module);
+            Debug.logInfo("Saved Mini-language file " + xmlURL, MODULE);
         } catch (Exception e) {
-            Debug.logWarning(e, "Error writing mini-language file " + xmlURL + ": ", module);
+            Debug.logWarning(e, "Error writing mini-language file " + xmlURL + ": ", MODULE);
         }
     }
 

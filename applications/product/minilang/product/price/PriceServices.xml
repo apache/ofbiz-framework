@@ -22,9 +22,6 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductPrice methods -->
     <simple-method method-name="createProductPrice" short-description="Create a Product Price">
-        <set field="callingMethodName" value="createProductPrice"/>
-        <set field="checkAction" value="CREATE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/minilang/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT">
             <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
         </check-permission>
@@ -51,9 +48,6 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPrice" short-description="Update an ProductPrice">
-        <set field="callingMethodName" value="updateProductPrice"/>
-        <set field="checkAction" value="UPDATE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/minilang/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT">
             <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
         </check-permission>
@@ -75,9 +69,6 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPrice" short-description="Delete an ProductPrice">
-        <set field="callingMethodName" value="deleteProductPrice"/>
-        <set field="checkAction" value="DELETE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/minilang/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT">
             <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
         </check-permission>

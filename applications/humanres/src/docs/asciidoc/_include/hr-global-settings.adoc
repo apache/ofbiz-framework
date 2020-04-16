@@ -18,20 +18,20 @@ under the License.
 ////
 = Global HR Settings
 
-Global HR Settings are used to setup the basic reference data that is used 
+Global HR Settings are used to setup the basic reference data that is used
 throughout the Human Resources application. Many of the screens contain fields
-that have drop-down lists for selection and these drop-down list can be setup 
+that have drop-down lists for selection and these drop-down list can be setup
 here.
 
-TIP: You need to have 'administrator' or 'create privileges' to update any of 
+TIP: You need to have 'administrator' or 'create privileges' to update any of
 the Global HR Settings
 
 
 == Skills Types
 
 A skill type is used to define a skill group. Your employees, contractors and
-partners may have hundreds of different of skills so skill types allows you to 
-organise these skills so they are manageable. 
+partners may have hundreds of different of skills so skill types allows you to
+organise these skills so they are manageable.
 
 This is helpful for reporting on your companies skill inventory or searching for
  resources with the skill types needed for a job. You can search for skills types

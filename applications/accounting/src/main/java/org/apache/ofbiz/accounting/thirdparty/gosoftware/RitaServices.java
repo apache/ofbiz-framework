@@ -47,7 +47,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class RitaServices {
 
-    public static final String module = RitaServices.class.getName();
+    public static final String MODULE = RitaServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
     public final static String resource = "AccountingUiLabels";
@@ -85,10 +85,10 @@ public class RitaServices {
         // send the transaction
         RitaApi out = null;
         try {
-            Debug.logInfo("Sending request to RiTA", module);
+            Debug.logInfo("Sending request to RiTA", MODULE);
             out = api.send();
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -165,7 +165,7 @@ public class RitaServices {
         try {
             out = api.send();
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -233,7 +233,7 @@ public class RitaServices {
         try {
             out = api.send();
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -296,7 +296,7 @@ public class RitaServices {
         try {
             out = api.send();
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -325,7 +325,7 @@ public class RitaServices {
         try {
             orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderPaymentPreference.getString("orderId")), locale));
         }
@@ -340,7 +340,7 @@ public class RitaServices {
                     terminalState = EntityQuery.use(delegator).from("PosTerminalState")
                             .where("posTerminalId", terminalId).filterByDate("openedDate", "closedDate").queryFirst();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
 
                 // this is the current opened terminal
@@ -362,7 +362,7 @@ public class RitaServices {
                     refundResp = dispatcher.runSync("ritaCCCreditRefund", context);
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder,
                         "AccountingRitaErrorServiceException", locale));
             }
@@ -442,7 +442,7 @@ public class RitaServices {
 
     private static RitaApi getApi(Properties props) {
         if (props == null) {
-            Debug.logError("Cannot load API w/ null properties", module);
+            Debug.logError("Cannot load API w/ null properties", MODULE);
             return null;
         }
         String host = props.getProperty("host");
@@ -450,7 +450,7 @@ public class RitaServices {
         try {
             port = Integer.parseInt(props.getProperty("port"));
         } catch (RuntimeException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         boolean ssl = "Y".equals(props.getProperty("ssl", "N")) ? true : false;
 
@@ -493,15 +493,15 @@ public class RitaServices {
 
         // some property checking
         if (UtilValidate.isEmpty(clientId)) {
-            Debug.logWarning("The clientID property in [" + configString + "] is not configured", module);
+            Debug.logWarning("The clientID property in [" + configString + "] is not configured", MODULE);
             return null;
         }
         if (UtilValidate.isEmpty(userId)) {
-            Debug.logWarning("The userID property in [" + configString + "] is not configured", module);
+            Debug.logWarning("The userID property in [" + configString + "] is not configured", MODULE);
             return null;
         }
         if (UtilValidate.isEmpty(userPw)) {
-            Debug.logWarning("The userPW property in [" + configString + "] is not configured", module);
+            Debug.logWarning("The userPW property in [" + configString + "] is not configured", MODULE);
             return null;
         }
 
@@ -515,7 +515,7 @@ public class RitaServices {
         props.put("ssl", ssl);
         props.put("autoBill", autoBill);
         props.put("forceTx", forceTx);
-        Debug.logInfo("Returning properties - " + props, module);
+        Debug.logInfo("Returning properties - " + props, MODULE);
 
         return props;
     }

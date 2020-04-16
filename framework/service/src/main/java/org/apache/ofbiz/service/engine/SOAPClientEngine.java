@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
  */
 public final class SOAPClientEngine extends GenericAsyncEngine {
 
-    public static final String module = SOAPClientEngine.class.getName();
+    public static final String MODULE = SOAPClientEngine.class.getName();
 
     public SOAPClientEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -107,7 +107,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         List<ModelParam> inModelParamList = modelService.getInModelParamList();
 
         if (Debug.infoOn()) {
-            Debug.logInfo("[SOAPClientEngine.invoke] : Parameter length - " + inModelParamList.size(), module);
+            Debug.logInfo("[SOAPClientEngine.invoke] : Parameter length - " + inModelParamList.size(), MODULE);
         }
 
         if (UtilValidate.isNotEmpty(modelService.nameSpace)) {
@@ -121,7 +121,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         Map<String, Object> parameterMap = new HashMap<>();
         for (ModelParam p: inModelParamList) {
             if (Debug.infoOn()) {
-                Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ") - " + i, module);
+                Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ") - " + i, MODULE);
             }
 
             // exclude params that ModelServiceReader insert into (internal params)
@@ -139,7 +139,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
             OMXMLParserWrapper builder = OMXMLBuilderFactory.createStAXOMBuilder(reader);
             parameterSer = builder.getDocumentElement();
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         Map<String, Object> results = null;
@@ -151,7 +151,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
             client.cleanupTransport();
             results = UtilGenerics.cast(SoapSerializer.deserialize(respOMElement.toString(), delegator));
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return results;
     }

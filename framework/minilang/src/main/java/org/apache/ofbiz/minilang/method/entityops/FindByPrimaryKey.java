@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public final class FindByPrimaryKey extends EntityOperation {
 
-    public static final String module = FindByPrimaryKey.class.getName();
+    public static final String MODULE = FindByPrimaryKey.class.getName();
 
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Collection<String>> fieldsToSelectListFma;
@@ -93,7 +93,7 @@ public final class FindByPrimaryKey extends EntityOperation {
             }
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

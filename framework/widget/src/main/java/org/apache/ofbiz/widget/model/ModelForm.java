@@ -81,7 +81,7 @@ public abstract class ModelForm extends ModelWidget {
      *
      */
 
-    public static final String module = ModelForm.class.getName();
+    public static final String MODULE = ModelForm.class.getName();
     public static final String DEFAULT_FORM_RESULT_LIST_NAME = "defaultFormResultList";
     /** Pagination settings and defaults. */
     public static final int DEFAULT_PAGE_SIZE = 10;
@@ -751,7 +751,7 @@ public abstract class ModelForm extends ModelWidget {
         try {
             modelEntity = entityModelReader.getModelEntity(autoFieldsEntity.entityName);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (modelEntity == null) {
             throw new IllegalArgumentException("Error finding Entity with name " + autoFieldsEntity.entityName
@@ -789,7 +789,7 @@ public abstract class ModelForm extends ModelWidget {
         } catch (GenericServiceException e) {
             String errmsg = "Error finding Service with name " + autoFieldsService.serviceName
                     + " for auto-fields-service in a form widget";
-            Debug.logError(e, errmsg, module);
+            Debug.logError(e, errmsg, MODULE);
             throw new IllegalArgumentException(errmsg);
         }
         for (ModelParam modelParam : modelService.getInModelParamList()) {
@@ -820,7 +820,7 @@ public abstract class ModelForm extends ModelWidget {
                             continue;
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
                 ModelFormFieldBuilder builder = new ModelFormFieldBuilder();
@@ -1092,7 +1092,7 @@ public abstract class ModelForm extends ModelWidget {
                     listSize = Integer.parseInt(size);
                 }
             } catch (NumberFormatException e) {
-                Debug.logError(e, "Error getting override list size from value " + size, module);
+                Debug.logError(e, "Error getting override list size from value " + size, MODULE);
             }
         }
         return listSize;
@@ -1288,7 +1288,7 @@ public abstract class ModelForm extends ModelWidget {
                 }
             }
         } catch (Exception e) {
-            Debug.logWarning(e, "Error getting sortField: " + e.toString(), module);
+            Debug.logWarning(e, "Error getting sortField: " + e.toString(), MODULE);
         }
         return value;
     }
@@ -1323,7 +1323,7 @@ public abstract class ModelForm extends ModelWidget {
             }
         } catch (CompilationFailedException e) {
             String errmsg = "Error evaluating groovy style conditions on form " + getName();
-            Debug.logError(e, errmsg, module);
+            Debug.logError(e, errmsg, MODULE);
             throw new IllegalArgumentException(errmsg);
         }
         return styles;
@@ -1362,7 +1362,7 @@ public abstract class ModelForm extends ModelWidget {
             }
         } catch (CompilationFailedException e) {
             String errmsg = "Error evaluating Groovy target conditions on form " + getName();
-            Debug.logError(e, errmsg, module);
+            Debug.logError(e, errmsg, MODULE);
             throw new IllegalArgumentException(errmsg);
         }
         return target.expandString(expanderContext);
@@ -1465,7 +1465,7 @@ public abstract class ModelForm extends ModelWidget {
                 }
             } catch (Exception e) {
                 Debug.logError(e, "Could not convert position attribute of the field element to an integer: [" + positionStr
-                        + "], using the default of the form renderer", module);
+                        + "], using the default of the form renderer", MODULE);
             }
             this.defaultPosition = position;
         }
@@ -1489,7 +1489,7 @@ public abstract class ModelForm extends ModelWidget {
                 }
             } catch (Exception e) {
                 Debug.logError(e, "Could not convert position attribute of the field element to an integer: [" + positionStr
-                        + "], using the default of the form renderer", module);
+                        + "], using the default of the form renderer", MODULE);
             }
             this.defaultPosition = position;
         }
@@ -1671,7 +1671,7 @@ public abstract class ModelForm extends ModelWidget {
                 try {
                     posParam = Integer.valueOf(position);
                 } catch (Exception e) {
-                    Debug.logInfo("The class SortField caused an exception", module);
+                    Debug.logInfo("The class SortField caused an exception", MODULE);
                 }
                 this.position = posParam;
             } else {

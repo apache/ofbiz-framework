@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
  */
 public class GroupServiceModel {
 
-    public static final String module = GroupServiceModel.class.getName();
+    public static final String MODULE = GroupServiceModel.class.getName();
 
     private String serviceName, serviceMode;
     private boolean resultToContext = false;
@@ -106,11 +106,11 @@ public class GroupServiceModel {
         ModelService model = dctx.getModelService(getName());
 
         Map<String, Object> thisContext = model.makeValid(context, ModelService.IN_PARAM);
-        Debug.logInfo("Running grouped service [" + serviceName + "]", module);
+        Debug.logInfo("Running grouped service [" + serviceName + "]", MODULE);
         if ("async".equals(getMode())) {
             List<String> requiredOut = model.getParameterNames(ModelService.OUT_PARAM, false);
             if (requiredOut.size() > 0) {
-                Debug.logWarning("Grouped service (" + getName() + ") requested 'async' invocation; running sync because of required OUT parameters.", module);
+                Debug.logWarning("Grouped service (" + getName() + ") requested 'async' invocation; running sync because of required OUT parameters.", MODULE);
                 return dispatcher.runSync(localName, model, thisContext);
             }
             dispatcher.runAsync(localName, model, thisContext, false);

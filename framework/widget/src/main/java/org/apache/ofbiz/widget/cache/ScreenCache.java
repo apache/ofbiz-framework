@@ -22,7 +22,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 
 public class ScreenCache extends AbstractCache {
-    public static final String module = ScreenCache.class.getName();
+    public static final String MODULE = ScreenCache.class.getName();
 
     public ScreenCache() {
         super("screen");
@@ -44,14 +44,14 @@ public class ScreenCache extends AbstractCache {
     public GenericWidgetOutput remove(String screenName, WidgetContextCacheKey wcck) {
         UtilCache<WidgetContextCacheKey,GenericWidgetOutput> screenCache = getCache(screenName);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Removing from ScreenCache with key [" + wcck + "], will remove from this cache: " + (screenCache == null ? "[No cache found to remove from]" : screenCache.getName()), module);
+            Debug.logVerbose("Removing from ScreenCache with key [" + wcck + "], will remove from this cache: " + (screenCache == null ? "[No cache found to remove from]" : screenCache.getName()), MODULE);
         }
         if (screenCache == null) {
             return null;
         }
         GenericWidgetOutput retVal = screenCache.remove(wcck);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Removing from ScreenCache with key [" + wcck + "], found this in the cache: " + retVal, module);
+            Debug.logVerbose("Removing from ScreenCache with key [" + wcck + "], found this in the cache: " + retVal, MODULE);
         }
         return retVal;
     }

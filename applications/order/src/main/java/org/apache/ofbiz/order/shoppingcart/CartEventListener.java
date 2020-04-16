@@ -36,7 +36,7 @@ import org.apache.ofbiz.webapp.stats.VisitHandler;
  */
 public class CartEventListener implements HttpSessionListener {
 
-    public static final String module = CartEventListener.class.getName();
+    public static final String MODULE = CartEventListener.class.getName();
 
     public CartEventListener() {}
 
@@ -50,7 +50,7 @@ public class CartEventListener implements HttpSessionListener {
         HttpSession session = event.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         if (cart == null) {
-            Debug.logInfo("No cart to save, doing nothing.", module);
+            Debug.logInfo("No cart to save, doing nothing.", MODULE);
             return;
         }
 
@@ -60,7 +60,7 @@ public class CartEventListener implements HttpSessionListener {
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
         if (delegator == null) {
-            Debug.logError("Could not find delegator with delegatorName in session, not saving abandoned cart info.", module);
+            Debug.logError("Could not find delegator with delegatorName in session, not saving abandoned cart info.", MODULE);
             return;
         }
 
@@ -70,11 +70,11 @@ public class CartEventListener implements HttpSessionListener {
 
             GenericValue visit = VisitHandler.getVisit(session);
             if (visit == null) {
-                Debug.logInfo("Could not get the current visit, not saving abandoned cart info.", module);
+                Debug.logInfo("Could not get the current visit, not saving abandoned cart info.", MODULE);
                 return;
             }
 
-            Debug.logInfo("Saving abandoned cart", module);
+            Debug.logInfo("Saving abandoned cart", MODULE);
             int seqId = 1;
             for (ShoppingCartItem cartItem : cart) {
                 GenericValue cartAbandonedLine = delegator.makeValue("CartAbandonedLine");
@@ -105,16 +105,16 @@ public class CartEventListener implements HttpSessionListener {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error saving abandoned cart info", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), MODULE);
             }
 
-            Debug.logError(e, "An entity engine error occurred while saving abandoned cart information", module);
+            Debug.logError(e, "An entity engine error occurred while saving abandoned cart information", MODULE);
         } finally {
             // only commit the transaction if we started one... this will throw an exception if it fails
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Could not commit transaction for entity engine error occurred while saving abandoned cart information", module);
+                Debug.logError(e, "Could not commit transaction for entity engine error occurred while saving abandoned cart information", MODULE);
             }
         }
     }

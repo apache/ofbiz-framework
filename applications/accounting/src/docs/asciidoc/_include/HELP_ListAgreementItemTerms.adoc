@@ -1,0 +1,37 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Agreements Item Terms
+This screen is used to enter or maintain terms that are specific to an agreement item.
+The terms available are the same as those found under the 'Agreement Terms' tab and any related terms will be displayed both here and under the 'Agreement Items' tab .
+
+== How do I create a term for an agreement item?
+. Press the 'Create Term' button
+. The 'Edit Agreement Item Term' screen is displayed
+. Enter the term details required
+. Press the 'Submit' button
+
+== How do I update a term for an agreement item?
+. Select the term for the agreement item by clicking on the term id
+. The 'Edit Agreement Item Term' screen is displayed
+. Update the details required
+. Press the 'Submit' button
+
+== How do I delete a term for an agreement item?
+. Press the 'Remove' button on the term entry that needs to be deleted.

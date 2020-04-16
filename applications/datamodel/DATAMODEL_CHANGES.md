@@ -24,6 +24,21 @@ Apache OFBiz follows **The Universal Data Model** by **Len Silverston**, with a 
 The following file contains information about the data model changes in the Apache OFBiz.
 The detailed description of migration scripts specified here can be found at [Revisions Requiring Data Migration - upgrade ofbiz](https://cwiki.apache.org/confluence/x/LoBr) page.
 
+# Changes with OFBiz Trunk (Upcoming Branch)
+
+## Entity Changes
+**Added 1 new entity**
+1. ProdPromoCodeContactMech
+
+**Removed/Deprecate 1 entity**
+1. ProductPromoCodeEmail
+
+## Field Changes
+No changes
+
+## Migration Scripts
+1. Migration service migrateProductPromoCodeEmail is implemented to migrate the ProductPromoCodeEmail entity to ProductPromoCodeContactMech. (More detail at [OFBIZ-5426](https://issues.apache.org/jira/browse/OFBIZ-5426))
+
 # Changes with OFBiz 17
 Field types "id-ne", "id-long-ne" & "id-vlong-ne" has been removed. Use "id", "id-long" and "id-vlong" instead (detailed description at [OFBIZ-9351](https://issues.apache.org/jira/browse/OFBIZ-9351)).
 

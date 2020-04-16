@@ -100,7 +100,7 @@ import freemarker.template.TemplateException;
  */
 public class NotificationServices {
 
-    public static final String module = NotificationServices.class.getName();
+    public static final String MODULE = NotificationServices.class.getName();
     public static final String resource = "CommonUiLabels";
 
     /**
@@ -138,7 +138,7 @@ public class NotificationServices {
                     body = (String) bodyResult.get("body");
                 } else {
                     // otherwise just report the error
-                    Debug.logError("prepareNotification failed: " + bodyResult.get(ModelService.ERROR_MESSAGE), module);
+                    Debug.logError("prepareNotification failed: " + bodyResult.get(ModelService.ERROR_MESSAGE), MODULE);
                 }
             }
 
@@ -159,11 +159,11 @@ public class NotificationServices {
                 // pass on to the sendMail service
                 result = dispatcher.runSync("sendMail", emailContext);
             } else {
-                Debug.logError("Invalid email body; null is not allowed", module);
+                Debug.logError("Invalid email body; null is not allowed", MODULE);
                 result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailInvalidBody", locale));
             }
         } catch (GenericServiceException serviceException) {
-            Debug.logError(serviceException, "Error sending email", module);
+            Debug.logError(serviceException, "Error sending email", MODULE);
             result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailDeliveryError", locale));
         }
 
@@ -204,7 +204,7 @@ public class NotificationServices {
             URL templateUrl = FlexibleLocation.resolveLocation(templateName);
 
             if (templateUrl == null) {
-                Debug.logError("Problem getting the template URL: " + templateName + " not found", module);
+                Debug.logError("Problem getting the template URL: " + templateName + " not found", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailProblemFindingTemplate", locale));
             }
 
@@ -220,10 +220,10 @@ public class NotificationServices {
             result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "CommonNotifyEmailMessageBodyGeneratedSuccessfully", locale));
             result.put("body", notificationBody);
         } catch (IOException ie) {
-            Debug.logError(ie, "Problems reading template", module);
+            Debug.logError(ie, "Problems reading template", MODULE);
             result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailProblemReadingTemplate", locale));
         } catch (TemplateException te) {
-            Debug.logError(te, "Problems processing template", module);
+            Debug.logError(te, "Problems processing template", MODULE);
             result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailProblemProcessingTemplate", locale));
         }
 
@@ -267,7 +267,7 @@ public class NotificationServices {
                 builder.buildHostPart(newURL, "", true);
                 context.put("baseSecureUrl", newURL.toString());
             } catch (Exception e) {
-                Debug.logWarning(e, "Exception thrown while adding baseUrl to context: ", module);
+                Debug.logWarning(e, "Exception thrown while adding baseUrl to context: ", MODULE);
             }
         }
     }

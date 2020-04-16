@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ServiceEcaAction implements java.io.Serializable {
 
-    public static final String module = ServiceEcaAction.class.getName();
+    public static final String MODULE = ServiceEcaAction.class.getName();
 
     protected String eventName = null;
     protected String serviceName = null;
@@ -108,7 +108,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         // if SECAs have been turned off, then just return true which has same effect as if secas ran successfully
         if (dispatcher.isEcasDisabled()) {
-            Debug.logWarning("SECAs have been disabled on purpose and will not be run for [" + serviceName + "]", module);
+            Debug.logWarning("SECAs have been disabled on purpose and will not be run for [" + serviceName + "]", MODULE);
             return true;
         }
 

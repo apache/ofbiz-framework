@@ -51,7 +51,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class ContentManagementEvents {
 
-    public static final String module = ContentManagementEvents.class.getName();
+    public static final String MODULE = ContentManagementEvents.class.getName();
 
     public static String updateStaticValues(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -75,7 +75,7 @@ public class ContentManagementEvents {
             permittedPublishPointList = ContentManagementWorker.getPermittedPublishPoints(delegator, allPublishPointList, userLogin, security, "_ADMIN", null, null);
             valueList = ContentManagementWorker.getStaticValues(delegator, parentPlaceholderId, permittedPublishPointList);
         } catch (GeneralException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
@@ -102,7 +102,7 @@ public class ContentManagementEvents {
                                 if (ServiceUtil.isError(result)) {
                                     String errorMessage = ServiceUtil.getErrorMessage(result);
                                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                                    Debug.logError(errorMessage, module);
+                                    Debug.logError(errorMessage, MODULE);
                                     return "error";
                                 }
                             } else if ("N".equalsIgnoreCase(paramValue) && "Y".equalsIgnoreCase(pubValue)) {
@@ -113,7 +113,7 @@ public class ContentManagementEvents {
                                 if (ServiceUtil.isError(result)) {
                                     String errorMessage = ServiceUtil.getErrorMessage(result);
                                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                                    Debug.logError(errorMessage, module);
+                                    Debug.logError(errorMessage, MODULE);
                                     return "error";
                                 }
                             }
@@ -127,13 +127,13 @@ public class ContentManagementEvents {
                                 if (ServiceUtil.isError(result)) {
                                     String errorMessage = ServiceUtil.getErrorMessage(result);
                                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                                    Debug.logError(errorMessage, module);
+                                    Debug.logError(errorMessage, MODULE);
                                     return "error";
                                 }
                         }
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e.getMessage(), module);
+                    Debug.logError(e.getMessage(), MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                     return "error";
                 }
@@ -261,7 +261,7 @@ public class ContentManagementEvents {
                         if (ServiceUtil.isError(result)) {
                             String errorMessage = ServiceUtil.getErrorMessage(result);
                             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                             return "error";
                         }
 
@@ -279,7 +279,7 @@ public class ContentManagementEvents {
                         if (ServiceUtil.isError(result)) {
                             String errorMessage = ServiceUtil.getErrorMessage(result);
                             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                             return "error";
                         }
                         if (!statusIdUpdated) {
@@ -289,7 +289,7 @@ public class ContentManagementEvents {
                                 targContent.store();
                                 statusIdUpdated = true;
                             } catch (GenericEntityException e) {
-                                Debug.logError(e.getMessage(), module);
+                                Debug.logError(e.getMessage(), MODULE);
                                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                                 return "error";
                             }
@@ -309,11 +309,11 @@ public class ContentManagementEvents {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             } catch (GenericServiceException e2) {
-                Debug.logError(e2, module);
+                Debug.logError(e2, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e2.getMessage());
                 return "error";
             }

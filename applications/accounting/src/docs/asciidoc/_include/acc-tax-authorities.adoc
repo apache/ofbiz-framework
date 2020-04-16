@@ -1,0 +1,55 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Tax Authorities.
+
+A tax authority is legal body usually the state (country) that imposes a financial levy on business transactions.
+
+In OFBiz tax authorities are used to calculate where business or related taxes are due.
+
+Tax setup is very important as it links into the calculated price that you can charge your customers and also flows
+ through into any related legal documents that are generated (eg Sales Order, Sales Invoice, Purchase Order etc).
+
+Each country or region will have specific rules regarding what should or should not be taxed.
+There will also be very strict regulations on how taxable transactions should be recorded and tracked in the general ledger
+ or chart of accounts.
+
+Tax authority setup allows configuration of the following :
+
+* Income tax
+* Value Added Tax (VAT) / Goods and Services Tax (GST)
+* Import / Export tax /Custom and Excise Duty
+* State, City or County taxes
+
+== Tax Authorities management in User Interface
+include::HELP_FindTaxAuthority.adoc[leveloffset=+2]
+
+include::HELP_EditTaxAuthority.adoc[leveloffset=+2]
+
+include::HELP_EditTaxAuthorityCategories.adoc[leveloffset=+2]
+
+include::HELP_EditTaxAuthorityAssocs.adoc[leveloffset=+2]
+
+include::HELP_EditTaxAuthorityGlAccounts.adoc[leveloffset=+2]
+
+include::HELP_EditTaxAuthorityRateProducts.adoc[leveloffset=+2]
+
+include::HELP_ListTaxAuthorityParties.adoc[leveloffset=+2]
+
+include::HELP_EditTaxAuthorityPartyInfo.adoc[leveloffset=+2]

@@ -76,9 +76,9 @@ public final class Debug {
         }
     }
 
-    public static Logger getLogger(String module) {
-        if (UtilValidate.isNotEmpty(module)) {
-            return LogManager.getLogger(module);
+    public static Logger getLogger(String MODULE) {
+        if (UtilValidate.isNotEmpty(MODULE)) {
+            return LogManager.getLogger(MODULE);
         }
         return root;
     }
@@ -91,19 +91,19 @@ public final class Debug {
         return levelStringMap.get(levelName.toLowerCase(Locale.getDefault()));
     }
 
-    public static void log(int level, Throwable t, String msg, String module) {
-        log(level, t, msg, module, "org.apache.ofbiz.base.util.Debug", emptyParams);
+    public static void log(int level, Throwable t, String msg, String MODULE) {
+        log(level, t, msg, MODULE, "org.apache.ofbiz.base.util.Debug", emptyParams);
     }
 
-    public static void log(int level, Throwable t, String msg, String module, Object... params) {
-        log(level, t, msg, module, "org.apache.ofbiz.base.util.Debug", params);
+    public static void log(int level, Throwable t, String msg, String MODULE, Object... params) {
+        log(level, t, msg, MODULE, "org.apache.ofbiz.base.util.Debug", params);
     }
 
-    public static void log(int level, Throwable t, String msg, String module, String callingClass) {
-        log(level, t, msg, module, callingClass, new Object[0]);
+    public static void log(int level, Throwable t, String msg, String MODULE, String callingClass) {
+        log(level, t, msg, MODULE, callingClass, new Object[0]);
     }
 
-    public static void log(int level, Throwable t, String msg, String module, String callingClass, Object... params) {
+    public static void log(int level, Throwable t, String msg, String MODULE, String callingClass, Object... params) {
         if (isOn(level)) {
             if (msg != null && params.length > 0) {
                 StringBuilder sb = new StringBuilder();
@@ -114,7 +114,7 @@ public final class Debug {
             }
 
             // log
-            Logger logger = getLogger(module);
+            Logger logger = getLogger(MODULE);
             logger.log(levelObjs[level], msg, t);
         }
     }
@@ -136,192 +136,192 @@ public final class Debug {
         log(Debug.ALWAYS, t, null, noModuleModule, emptyParams);
     }
 
-    public static void log(String msg, String module) {
-        log(Debug.ALWAYS, null, msg, module, emptyParams);
+    public static void log(String msg, String MODULE) {
+        log(Debug.ALWAYS, null, msg, MODULE, emptyParams);
     }
 
-    public static void log(String msg, String module, Object... params) {
-        log(Debug.ALWAYS, null, msg, module, params);
+    public static void log(String msg, String MODULE, Object... params) {
+        log(Debug.ALWAYS, null, msg, MODULE, params);
     }
 
-    public static void log(Throwable t, String module) {
-        log(Debug.ALWAYS, t, null, module, emptyParams);
+    public static void log(Throwable t, String MODULE) {
+        log(Debug.ALWAYS, t, null, MODULE, emptyParams);
     }
 
-    public static void log(Throwable t, String msg, String module) {
-        log(Debug.ALWAYS, t, msg, module, emptyParams);
+    public static void log(Throwable t, String msg, String MODULE) {
+        log(Debug.ALWAYS, t, msg, MODULE, emptyParams);
     }
 
-    public static void log(Throwable t, String msg, String module, Object... params) {
-        log(Debug.ALWAYS, t, msg, module, params);
+    public static void log(Throwable t, String msg, String MODULE, Object... params) {
+        log(Debug.ALWAYS, t, msg, MODULE, params);
     }
 
     public static boolean verboseOn() {
         return isOn(Debug.VERBOSE);
     }
 
-    public static void logVerbose(String msg, String module) {
-        log(Debug.VERBOSE, null, msg, module, emptyParams);
+    public static void logVerbose(String msg, String MODULE) {
+        log(Debug.VERBOSE, null, msg, MODULE, emptyParams);
     }
 
-    public static void logVerbose(String msg, String module, Object... params) {
-        log(Debug.VERBOSE, null, msg, module, params);
+    public static void logVerbose(String msg, String MODULE, Object... params) {
+        log(Debug.VERBOSE, null, msg, MODULE, params);
     }
 
-    public static void logVerbose(Throwable t, String module) {
-        log(Debug.VERBOSE, t, null, module, emptyParams);
+    public static void logVerbose(Throwable t, String MODULE) {
+        log(Debug.VERBOSE, t, null, MODULE, emptyParams);
     }
 
-    public static void logVerbose(Throwable t, String msg, String module) {
-        log(Debug.VERBOSE, t, msg, module, emptyParams);
+    public static void logVerbose(Throwable t, String msg, String MODULE) {
+        log(Debug.VERBOSE, t, msg, MODULE, emptyParams);
     }
 
-    public static void logVerbose(Throwable t, String msg, String module, Object... params) {
-        log(Debug.VERBOSE, t, msg, module, params);
+    public static void logVerbose(Throwable t, String msg, String MODULE, Object... params) {
+        log(Debug.VERBOSE, t, msg, MODULE, params);
     }
 
     public static boolean timingOn() {
         return isOn(Debug.TIMING);
     }
 
-    public static void logTiming(String msg, String module) {
-        log(Debug.TIMING, null, msg, module, emptyParams);
+    public static void logTiming(String msg, String MODULE) {
+        log(Debug.TIMING, null, msg, MODULE, emptyParams);
     }
 
-    public static void logTiming(String msg, String module, Object... params) {
-        log(Debug.TIMING, null, msg, module, params);
+    public static void logTiming(String msg, String MODULE, Object... params) {
+        log(Debug.TIMING, null, msg, MODULE, params);
     }
 
-    public static void logTiming(Throwable t, String module) {
-        log(Debug.TIMING, t, null, module, emptyParams);
+    public static void logTiming(Throwable t, String MODULE) {
+        log(Debug.TIMING, t, null, MODULE, emptyParams);
     }
 
-    public static void logTiming(Throwable t, String msg, String module) {
-        log(Debug.TIMING, t, msg, module, emptyParams);
+    public static void logTiming(Throwable t, String msg, String MODULE) {
+        log(Debug.TIMING, t, msg, MODULE, emptyParams);
     }
 
-    public static void logTiming(Throwable t, String msg, String module, Object... params) {
-        log(Debug.TIMING, t, msg, module, params);
+    public static void logTiming(Throwable t, String msg, String MODULE, Object... params) {
+        log(Debug.TIMING, t, msg, MODULE, params);
     }
 
     public static boolean infoOn() {
         return isOn(Debug.INFO);
     }
 
-    public static void logInfo(String msg, String module) {
-        log(Debug.INFO, null, msg, module, emptyParams);
+    public static void logInfo(String msg, String MODULE) {
+        log(Debug.INFO, null, msg, MODULE, emptyParams);
     }
 
-    public static void logInfo(String msg, String module, Object... params) {
-        log(Debug.INFO, null, msg, module, params);
+    public static void logInfo(String msg, String MODULE, Object... params) {
+        log(Debug.INFO, null, msg, MODULE, params);
     }
 
-    public static void logInfo(Throwable t, String module) {
-        log(Debug.INFO, t, null, module, emptyParams);
+    public static void logInfo(Throwable t, String MODULE) {
+        log(Debug.INFO, t, null, MODULE, emptyParams);
     }
 
-    public static void logInfo(Throwable t, String msg, String module) {
-        log(Debug.INFO, t, msg, module, emptyParams);
+    public static void logInfo(Throwable t, String msg, String MODULE) {
+        log(Debug.INFO, t, msg, MODULE, emptyParams);
     }
 
-    public static void logInfo(Throwable t, String msg, String module, Object... params) {
-        log(Debug.INFO, t, msg, module, params);
+    public static void logInfo(Throwable t, String msg, String MODULE, Object... params) {
+        log(Debug.INFO, t, msg, MODULE, params);
     }
 
     public static boolean importantOn() {
         return isOn(Debug.IMPORTANT);
     }
 
-    public static void logImportant(String msg, String module) {
-        log(Debug.IMPORTANT, null, msg, module, emptyParams);
+    public static void logImportant(String msg, String MODULE) {
+        log(Debug.IMPORTANT, null, msg, MODULE, emptyParams);
     }
 
-    public static void logImportant(String msg, String module, Object... params) {
-        log(Debug.IMPORTANT, null, msg, module, params);
+    public static void logImportant(String msg, String MODULE, Object... params) {
+        log(Debug.IMPORTANT, null, msg, MODULE, params);
     }
 
-    public static void logImportant(Throwable t, String module) {
-        log(Debug.IMPORTANT, t, null, module, emptyParams);
+    public static void logImportant(Throwable t, String MODULE) {
+        log(Debug.IMPORTANT, t, null, MODULE, emptyParams);
     }
 
-    public static void logImportant(Throwable t, String msg, String module) {
-        log(Debug.IMPORTANT, t, msg, module, emptyParams);
+    public static void logImportant(Throwable t, String msg, String MODULE) {
+        log(Debug.IMPORTANT, t, msg, MODULE, emptyParams);
     }
 
-    public static void logImportant(Throwable t, String msg, String module, Object... params) {
-        log(Debug.IMPORTANT, t, msg, module, params);
+    public static void logImportant(Throwable t, String msg, String MODULE, Object... params) {
+        log(Debug.IMPORTANT, t, msg, MODULE, params);
     }
 
     public static boolean warningOn() {
         return isOn(Debug.WARNING);
     }
 
-    public static void logWarning(String msg, String module) {
-        log(Debug.WARNING, null, msg, module, emptyParams);
+    public static void logWarning(String msg, String MODULE) {
+        log(Debug.WARNING, null, msg, MODULE, emptyParams);
     }
 
-    public static void logWarning(String msg, String module, Object... params) {
-        log(Debug.WARNING, null, msg, module, params);
+    public static void logWarning(String msg, String MODULE, Object... params) {
+        log(Debug.WARNING, null, msg, MODULE, params);
     }
 
-    public static void logWarning(Throwable t, String module) {
-        log(Debug.WARNING, t, null, module, emptyParams);
+    public static void logWarning(Throwable t, String MODULE) {
+        log(Debug.WARNING, t, null, MODULE, emptyParams);
     }
 
-    public static void logWarning(Throwable t, String msg, String module) {
-        log(Debug.WARNING, t, msg, module, emptyParams);
+    public static void logWarning(Throwable t, String msg, String MODULE) {
+        log(Debug.WARNING, t, msg, MODULE, emptyParams);
     }
 
-    public static void logWarning(Throwable t, String msg, String module, Object... params) {
-        log(Debug.WARNING, t, msg, module, params);
+    public static void logWarning(Throwable t, String msg, String MODULE, Object... params) {
+        log(Debug.WARNING, t, msg, MODULE, params);
     }
 
     public static boolean errorOn() {
         return isOn(Debug.ERROR);
     }
 
-    public static void logError(String msg, String module) {
-        log(Debug.ERROR, null, msg, module, emptyParams);
+    public static void logError(String msg, String MODULE) {
+        log(Debug.ERROR, null, msg, MODULE, emptyParams);
     }
 
-    public static void logError(String msg, String module, Object... params) {
-        log(Debug.ERROR, null, msg, module, params);
+    public static void logError(String msg, String MODULE, Object... params) {
+        log(Debug.ERROR, null, msg, MODULE, params);
     }
 
-    public static void logError(Throwable t, String module) {
-        log(Debug.ERROR, t, null, module, emptyParams);
+    public static void logError(Throwable t, String MODULE) {
+        log(Debug.ERROR, t, null, MODULE, emptyParams);
     }
 
-    public static void logError(Throwable t, String msg, String module) {
-        log(Debug.ERROR, t, msg, module, emptyParams);
+    public static void logError(Throwable t, String msg, String MODULE) {
+        log(Debug.ERROR, t, msg, MODULE, emptyParams);
     }
 
-    public static void logError(Throwable t, String msg, String module, Object... params) {
-        log(Debug.ERROR, t, msg, module, params);
+    public static void logError(Throwable t, String msg, String MODULE, Object... params) {
+        log(Debug.ERROR, t, msg, MODULE, params);
     }
 
     public static boolean fatalOn() {
         return isOn(Debug.FATAL);
     }
 
-    public static void logFatal(String msg, String module) {
-        log(Debug.FATAL, null, msg, module, emptyParams);
+    public static void logFatal(String msg, String MODULE) {
+        log(Debug.FATAL, null, msg, MODULE, emptyParams);
     }
 
-    public static void logFatal(String msg, String module, Object... params) {
-        log(Debug.FATAL, null, msg, module, params);
+    public static void logFatal(String msg, String MODULE, Object... params) {
+        log(Debug.FATAL, null, msg, MODULE, params);
     }
 
-    public static void logFatal(Throwable t, String module) {
-        log(Debug.FATAL, t, null, module, emptyParams);
+    public static void logFatal(Throwable t, String MODULE) {
+        log(Debug.FATAL, t, null, MODULE, emptyParams);
     }
 
-    public static void logFatal(Throwable t, String msg, String module) {
-        log(Debug.FATAL, t, msg, module, emptyParams);
+    public static void logFatal(Throwable t, String msg, String MODULE) {
+        log(Debug.FATAL, t, msg, MODULE, emptyParams);
     }
 
-    public static void logFatal(Throwable t, String msg, String module, Object... params) {
-        log(Debug.FATAL, t, msg, module, params);
+    public static void logFatal(Throwable t, String msg, String MODULE, Object... params) {
+        log(Debug.FATAL, t, msg, MODULE, params);
     }
 
     public static void set(int level, boolean on) {

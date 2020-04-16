@@ -41,7 +41,7 @@ under the License.
     -->
 
     <!-- Request Mappings -->
-    <request-map uri="view"><security https="true" auth="false"/><response name="success" type="request" value="main"/></request-map>
+    <request-map uri="view"><security https="true" auth="true"/><response name="success" type="request" value="main"/></request-map>
     
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
 
@@ -791,6 +791,14 @@ under the License.
         <response name="success" type="view-home"/>
         <response name="error" type="view-last"/>
     </request-map>
+    <request-map uri="ViewRequest">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ViewRequest"/>
+    </request-map>
+    <request-map uri="EditRequest">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditRequest"/>
+    </request-map>
 
     <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
@@ -987,7 +995,7 @@ under the License.
    <!-- ================ SimpleContent Requests ================= -->
 
     <request-map uri="ViewSimpleContent">
-        <security auth="false" https="false"/>
+        <security auth="true" https="true"/>
         <response name="success" type="view" value="ViewSimpleContent"/>
     </request-map>
 
@@ -1042,7 +1050,7 @@ under the License.
     </request-map>
 
     <request-map uri="img">
-        <security auth="false" https="false"/>
+        <security auth="true" https="true"/>
         <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="serveImage"/>
         <response name="success" type="none"/>
         <response name="error" type="request" value="main"/>
@@ -1334,7 +1342,7 @@ under the License.
 
     <!--  external communication event; mark as read using 1px image request -->
     <request-map uri="ceimages" track-serverhit="false" track-visit="false">
-        <security https="false" auth="false"/>
+        <security https="false" auth="true"/>
         <event type="java" path="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="markCommunicationAsRead"/>
         <response name="success" type="none"/>
     </request-map>

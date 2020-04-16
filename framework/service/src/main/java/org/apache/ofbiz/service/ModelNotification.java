@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.config.model.Notify;
  */
 public class ModelNotification {
 
-    public static final String module = ModelNotification.class.getName();
+    public static final String MODULE = ModelNotification.class.getName();
 
     public String notificationGroupName;
     public String notificationEvent;
@@ -53,7 +53,7 @@ public class ModelNotification {
                     Map<String, Object> notifyContext = this.buildContext(context, result, model);
                     dctx.getDispatcher().runSync(getService(), notifyContext, 90, true);
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
         }
@@ -123,7 +123,7 @@ public class ModelNotification {
             NotificationGroup group = getNotificationGroup(notificationGroupName);
             return getCommaSeparatedAddressList(group, notifyType);
         } catch (GenericConfigException e) {
-            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", MODULE);
             return null;
         }
     }
@@ -155,7 +155,7 @@ public class ModelNotification {
                 return group.getNotification().getSubject();
             }
         } catch (GenericConfigException e) {
-            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", MODULE);
         }
         return null;
     }
@@ -167,7 +167,7 @@ public class ModelNotification {
                 return group.getNotification().getScreen();
             }
         } catch (GenericConfigException e) {
-            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", MODULE);
         }
         return null;
     }
@@ -180,7 +180,7 @@ public class ModelNotification {
                 return "sendMailFromScreen";
             }
         } catch (GenericConfigException e) {
-            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", MODULE);
         }
         return null;
     }

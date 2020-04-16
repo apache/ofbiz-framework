@@ -56,7 +56,7 @@ under the License.
             <set field="reviewBy" value="${userLoginAndPartyDetails[0].firstName} ${userLoginAndPartyDetails[0].middleName} ${userLoginAndPartyDetails[0].lastName}"/>
         </row-actions>
         <field name="productReviewId"><hidden/></field>
-        <field name="productId">
+        <field name="productId" widget-style="buttontext">
             <hyperlink description="${productId}" target="EditProduct" also-hidden="false">
                 <parameter param-name="productId"/>
             </hyperlink>

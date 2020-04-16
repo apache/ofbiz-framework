@@ -32,7 +32,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 /** A <code>Converter</code> factory and repository. */
 @SourceMonitored
 public class Converters {
-    protected static final String module = Converters.class.getName();
+    protected static final String MODULE = Converters.class.getName();
     protected static final String DELIMITER = "->";
     protected static final ConcurrentHashMap<String, Converter<?, ?>> converterMap = new ConcurrentHashMap<>();
     private static final Set<ConverterCreator> creators = new HashSet<>();
@@ -47,7 +47,7 @@ public class Converters {
                 ConverterLoader converterLoader = converterLoaders.next();
                 converterLoader.loadConverters();
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
     }
@@ -72,7 +72,7 @@ public class Converters {
     public static <S, T> Converter<S, T> getConverter(Class<S> sourceClass, Class<T> targetClass) throws ClassNotFoundException {
         String key = sourceClass.getName().concat(DELIMITER).concat(targetClass.getName());
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Getting converter: " + key, module);
+            Debug.logVerbose("Getting converter: " + key, MODULE);
         }
 OUTER:
         do {
@@ -116,7 +116,7 @@ OUTER:
                 Debug.logWarning("*** No converter found, converting from " +
                         sourceClass.getName() + " to " + targetClass.getName() +
                         ". Please report this message to the developer community so " +
-                        "a suitable converter can be created. ***", module);
+                        "a suitable converter can be created. ***", MODULE);
             }
             throw new ClassNotFoundException("No converter found for " + key);
         } while (true);
@@ -151,7 +151,7 @@ OUTER:
                     }
                 }
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
     }
@@ -193,7 +193,7 @@ OUTER:
         sb.append(targetClass.getName());
         String key = sb.toString();
         if (converterMap.putIfAbsent(key, converter) == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Registered converter " + converter.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Registered converter " + converter.getClass().getName(), MODULE);
         }
     }
 

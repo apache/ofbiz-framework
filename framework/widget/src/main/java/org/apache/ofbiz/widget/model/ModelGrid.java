@@ -52,7 +52,7 @@ public class ModelGrid extends ModelForm {
      *
      */
 
-    public static final String module = ModelGrid.class.getName();
+    public static final String MODULE = ModelGrid.class.getName();
 
     /** XML Constructor */
     public ModelGrid(Element formElement, String formLocation, ModelReader entityModelReader,
@@ -83,7 +83,7 @@ public class ModelGrid extends ModelForm {
                             visualTheme, dispatchContext);
                 } catch (Exception e) {
                     Debug.logError(e, "Failed to load parent grid definition '" + parentGrid
-                            + "' at resource '" + parentResource + "'", module);
+                            + "' at resource '" + parentResource + "'", MODULE);
                 }
             } else if (!parentGrid.equals(gridElement.getAttribute("name"))) {
                 // try to find a grid definition in the same file
@@ -101,10 +101,10 @@ public class ModelGrid extends ModelForm {
                     }
                 }
                 if (parentModel == null) {
-                    Debug.logError("Failed to find parent grid definition '" + parentGrid + "' in same document.", module);
+                    Debug.logError("Failed to find parent grid definition '" + parentGrid + "' in same document.", MODULE);
                 }
             } else {
-                Debug.logError("Recursive grid definition found for '" + gridElement.getAttribute("name") + ".'", module);
+                Debug.logError("Recursive grid definition found for '" + gridElement.getAttribute("name") + ".'", MODULE);
             }
         }
         return parentModel;

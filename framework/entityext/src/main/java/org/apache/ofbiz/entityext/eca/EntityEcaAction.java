@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("serial")
 public final class EntityEcaAction implements java.io.Serializable {
-    public static final String module = EntityEcaAction.class.getName();
+    public static final String MODULE = EntityEcaAction.class.getName();
 
     private final String serviceName;
     private final String serviceMode;
@@ -77,8 +77,8 @@ public final class EntityEcaAction implements java.io.Serializable {
                 actionContext.put(valueAttr, newValue);
             }
 
-            //Debug.logInfo("Running Entity ECA action service " + this.serviceName + " triggered by entity: " + value.getEntityName(), module);
-            //Debug.logInfo("Running Entity ECA action service " + this.serviceName + "; value=" + value + "; actionContext=" + actionContext, module);
+            //Debug.logInfo("Running Entity ECA action service " + this.serviceName + " triggered by entity: " + value.getEntityName(), MODULE);
+            //Debug.logInfo("Running Entity ECA action service " + this.serviceName + "; value=" + value + "; actionContext=" + actionContext, MODULE);
 
             // setup the run-as-user
             GenericValue userLoginToRunAs = null;
@@ -106,14 +106,14 @@ public final class EntityEcaAction implements java.io.Serializable {
             // check abortOnError and rollbackOnError
             if (rollbackOnError) {
                 String errMsg = "Entity ECA action service failed and rollback-on-error is true, so setting rollback only.";
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
                 TransactionUtil.setRollbackOnly(errMsg, e);
             }
 
             if (this.abortOnError) {
                 throw new EntityEcaException("Error running Entity ECA action service: " + e.toString(), e);
             } else {
-                Debug.logError(e, "Error running Entity ECA action service", module);
+                Debug.logError(e, "Error running Entity ECA action service", MODULE);
             }
         }
     }

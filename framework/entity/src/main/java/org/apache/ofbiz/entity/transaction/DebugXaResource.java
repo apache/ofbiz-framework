@@ -25,7 +25,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public class DebugXaResource extends GenericXaResource {
 
-    public static final String module = DebugXaResource.class.getName();
+    public static final String MODULE = DebugXaResource.class.getName();
     public Exception ex = null;
 
     public DebugXaResource(String info) {
@@ -40,7 +40,7 @@ public class DebugXaResource extends GenericXaResource {
     public void commit(Xid xid, boolean onePhase) throws XAException {
         TransactionUtil.debugResMap.remove(xid);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Xid : " + xid.toString() + " cleared [commit]", module);
+            Debug.logVerbose("Xid : " + xid.toString() + " cleared [commit]", MODULE);
         }
     }
 
@@ -48,7 +48,7 @@ public class DebugXaResource extends GenericXaResource {
     public void rollback(Xid xid) throws XAException {
         TransactionUtil.debugResMap.remove(xid);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Xid : " + xid.toString() + " cleared [rollback]", module);
+            Debug.logVerbose("Xid : " + xid.toString() + " cleared [rollback]", MODULE);
         }
     }
 
@@ -59,7 +59,7 @@ public class DebugXaResource extends GenericXaResource {
     }
 
     public void log() {
-        Debug.logInfo("Xid : " + xid, module);
-        Debug.logInfo(ex, module);
+        Debug.logInfo("Xid : " + xid, MODULE);
+        Debug.logInfo(ex, MODULE);
     }
 }

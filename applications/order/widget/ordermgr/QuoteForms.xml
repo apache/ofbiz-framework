@@ -227,7 +227,7 @@ under the License.
         <field name="leadTimeDays"></field>
         <field name="uomId"><hidden/></field>
         <!--<field name="custRequestId"><display description="${custRequestId} - ${custRequestItemSeqId}"/></field>-->
-        <field name="custRequestId" title="${uiLabelMap.CommonViewRequest}" widget-style="buttontext">
+        <field name="custRequestId" use-when="custRequestId!=null" title="${uiLabelMap.CommonViewRequest}" widget-style="buttontext">
             <hyperlink description="${custRequestId}-${custRequestItemSeqId}" target="requestitem" also-hidden="false">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="custRequestItemSeqId"/>

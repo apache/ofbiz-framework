@@ -47,7 +47,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class SeoTransform implements TemplateTransformModel {
 
-    private static final String module = SeoTransform.class.getName();
+    private static final String MODULE = SeoTransform.class.getName();
 
     public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
@@ -177,7 +177,7 @@ public class SeoTransform implements TemplateTransformModel {
             }
             if (!foundMatch) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Can NOT find a seo transform pattern for this url: " + url, module);
+                    Debug.logVerbose("Can NOT find a seo transform pattern for this url: " + url, MODULE);
                 }
             }
         }

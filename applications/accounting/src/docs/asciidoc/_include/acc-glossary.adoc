@@ -1,0 +1,193 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Accounting Glossary
+
+[#ANNUAL_REVENUE]
+Annual Revenue::
+Annual revenue is the amount of revenue for a group that is reported in the Party
+Group Information screenlet of the groups profile (visit Party Profile screen).
+
+[#ACCOUNTS PAYABLE]
+Accounts Payable::
+The debts owed by a business, usually in relation to goods or services, inventory, or supplies.
+It is also called 'A/P' for short or 'Creditors'.
+
+[#ACCOUNT PAYABLE INVOICE]
+Accounts Payable Invoice::
+AP invoice is a document raised by the customer and sent to the company with the details of the items sent, qty sent, price and other details.
+The company will enter this invoice details in the Payable module and then pay the customer according to the credit terms.
+This invoice may come along with the consignment or may be sent to the company separately.
+
+[#ACCOUNTS RECEIVABLE]
+Accounts Receivable::
+The money owed to a business by its customers for products and services delivered to a customer.
+It is also called 'A/R' for short or Debtors.
+
+[#ACCOUNT RECEIVABLE INVOICE]
+Accounts Receivable Invoice::
+AR Invoice is a document raised by the company and sent to the customer with the details of items sold, qty sold, price, tax and other details.
+Based on this invoice, the customer will send the payment in case of credit sales.
+
+[#ACCOUNT TYPE]
+Account Type::
+A key that specifies the accounting area to which an account belongs.
+The account type is required in addition to the account number to identify an account, because the same account number can be used for each account type.
+
+[#ACQUISITION]
+Acquisition::
+The process of identifying the requirement for a certain good or material item, ordering it, and paying for it.
+
+[ACCURAL BASED ACCOUNTING]
+Accrual Based Accounting::
+This is a method where you record the income when the sale occurs and not necessarily when you receive the payment.
+Also you record an expense when you receive goods or services, even though you may not pay for them until later.
+
+[#BALANCE SHEET]
+Balance Sheet::
+This is like a financial snapshot of your business at a certain point in time.
+It lists your assets, liabilities and the difference between the two which is the net worth (or equity) of the business.
+The balance sheet is also called the 'Statement of Financial Position'
+
+[#CASH BASED ACCOUNTING]
+Cash Based Accounting::
+This method is when you record income only when you receive the cash from your customers.
+You also only record an expense when you actually pay your suppliers
+
+[#CHART OF ACCOUNTS]
+Chart of Account::
+This is a list or hierarchy of account descriptions that you use to keep the accounting records for your business
+
+[#CLOSING BALANCE]
+Closing balance::
+At the end of a financial period, the balance on all entries posted to an account.
+
+[#CREDIT ACCOUNT]
+Credit account::
+An account that allows buyers to obtain goods or services without paying for them until a later date.
+
+[#CREDITOR]
+Creditor::
+This is a company or an individual that you owe money to.
+
+[#CREDITS]
+Credits::
+One component of every accounting transaction (journal entry) is a credit.
+Credits increase liabilities and equity but decrease assets
+
+[#COST OF GOODS SOLD]
+Cost of Goods Sold::
+This is the amount it costs you to provide your product or services sold to your customers.
+It is often called and abbreviated to 'COGS'
+
+[#CREDIT AMOUNT]
+Credit amount::
+An amount of money in someone's favor.
+
+[#DOUBLE ENTRY ACCOUNTING]
+Double Entry Accounting::
+In this method every transaction has two entries: a debit and a credit (also called a journal entry).
+Debits must always equal credits. Most if not all accounting software use double entry accounting.
+
+[#DEPRECIATION]
+Depreciation::
+This is a write-off of a portion of the cost of fixed assets, such as vehicles and equipment.
+It is usually done annually but can be done more frequently.
+Depreciation is also listed as part of the expenses on the 'Profit & Loss' or 'Income Statement'
+
+[DEBITS]
+Debits::
+One component of every accounting transaction (journal entry) is a debit.
+Debits increase assets but decrease liabilities and equity.
+
+[#DEBTOR]
+Debtor::
+This is a company or an individual that owes you money.
+
+[#GENERAL LEDGER]
+General Ledger::
+This is a collection of different types of accounts (balance sheet, income, expense) that are used to keep the accounting records of a business.
+A general ledger works with double entry accounting and journal entries for each transaction.
+
+[#GROSS PRICE]
+Gross price::
+The price of one unit of an item, or a service, including tax.
+
+[#GROSS PROFIT]
+Gross Profit::
+The positive difference between sales revenues and the costs of goods sold.
+
+[#INCOME ACCOUNTS]
+Income Accounts::
+These are the accounts that are used to keep track of your sources of income.
+Examaple: Sales, Consulting Income or Interest.
+
+[#INCOME STATEMENT]
+Income Statement::
+This is also called a Profit and Loss Statement' or a 'P&L'.
+It lists the income, expenses, and net profit (or loss) for the business.
+The net profit (or loss) is equal to the total income minus the total expenses.
+
+[#INTANGIBLE ASSET]
+Intangible Asset::
+This is something of value that is owned by the business that cannot be touched physically.
+
+[#INVENTORY AUDIT REPORT]
+Inventory Audit Report::
+An audit trail for the posted inventory transactions in the Chart of Accounts. This report compares the accounting view (inventory balance accounts) and the logistics view (inventory value displayed by the audit report).
+
+[#OUTSTANDING AMOUNT]
+Outstanding Amount::
+The amount of money that is owed by a debtor and has not yet been paid.
+
+[#OUTSTANDING PAYMENT]
+Outstanding Payment::
+The remaining amount of money that is due for goods or services.
+
+[#PASSIVE ACCOUNT]
+Passive Account::
+A bank account in which no transactions have taken place, neither deposits nor withdrawals, for a specified period of time (normally six months).
+
+[#PAYABLES]
+Payables::
+The total amount due to creditors. This information includes the type, the amount, and the due date of the debts. Payables may include amounts payable to banks and suppliers, as well as customer down payments.
+
+[#PAYMENT METHOD]
+Payment Method::
+A set of parameters and other details that determine how invoices are cleared when the Payment Wizard is used. It is possible to create as many payment methods as required. In addition, you can link specific payment methods to relevant business partners.
+
+[#PAYMENT PERIOD]
+Payment Period::
+The period of time in which an outstanding debt has to be paid, for example a range of days or a certain month.
+
+[#PAYMENT RUN]
+Payment Run::
+A process that clears A/R and A/P invoices, by generating the payments, posting the transactions and updating the system (by creating the bank transfer files).
+
+[#PAYMENT TERMS]
+Payment Terms::
+The conditions of payment agreed to between business partners with respect to goods supplied or services provided.
+
+[#PROFIT AND LOSS STATEMENT]
+Profit and Loss Statement::
+A comparison of revenue and expense within a certain period. The purpose of the profit and loss statement is the establishing of profit made by an organization and the sources thereof. It is a compulsory part of year-end closing.
+
+[#TRIAL BALANCE]
+Trial Balance::
+This is a list of the general ledger accounts showing the debits in one column and the credits in another. The main objective of a trial balance is to ensure that the total credits and total debits balance (eg. total debits = total credits).
+It also validates that the double entry accounting is working correctly.

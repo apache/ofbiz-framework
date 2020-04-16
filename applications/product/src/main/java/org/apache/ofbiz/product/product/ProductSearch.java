@@ -67,7 +67,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class ProductSearch {
 
-    public static final String module = ProductSearch.class.getName();
+    public static final String MODULE = ProductSearch.class.getName();
     public static final String resource = "ProductUiLabels";
     public static final String resourceCommon = "CommonUiLabels";
 
@@ -136,7 +136,7 @@ public class ProductSearch {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error finding sub-categories for product search", module);
+            Debug.logError(e, "Error finding sub-categories for product search", MODULE);
         }
     }
 
@@ -228,7 +228,7 @@ public class ProductSearch {
             try (EntityListIterator eli = this.doQuery(delegator)) {
                 productIds = this.makeProductIdList(eli);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
 
@@ -270,7 +270,7 @@ public class ProductSearch {
 
             boolean doingBothAndOr = (keywordFixedOrSetAndList.size() > 1) || (keywordFixedOrSetAndList.size() > 0 && andKeywordFixedSet.size() > 0);
 
-            Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet=" + andKeywordFixedSet + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, module);
+            Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet=" + andKeywordFixedSet + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, MODULE);
 
             ComplexAlias relevancyComplexAlias = new ComplexAlias("+");
             if (andKeywordFixedSet.size() > 0) {
@@ -647,7 +647,7 @@ public class ProductSearch {
             this.entityConditionList.add(topCond);
 
             if (Debug.infoOn()) {
-                Debug.logInfo("topCond=" + topCond.makeWhereString(null, new LinkedList<EntityConditionParam>(), EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), module);
+                Debug.logInfo("topCond=" + topCond.makeWhereString(null, new LinkedList<EntityConditionParam>(), EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), MODULE);
             }
         }
 
@@ -686,7 +686,7 @@ public class ProductSearch {
                         .cursorScrollInsensitive()
                         .queryIterator();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error in product search", module);
+                Debug.logError(e, "Error in product search", MODULE);
                 return null;
             }
 
@@ -696,7 +696,7 @@ public class ProductSearch {
         public ArrayList<String> makeProductIdList(EntityListIterator eli) {
             ArrayList<String> productIds = new ArrayList<>(maxResults == null ? 100 : maxResults);
             if (eli == null) {
-                Debug.logWarning("The eli is null, returning zero results", module);
+                Debug.logWarning("The eli is null, returning zero results", MODULE);
                 return productIds;
             }
 
@@ -709,7 +709,7 @@ public class ProductSearch {
                 }
                 if (resultOffset != null && resultOffset > 1) {
                     if (Debug.infoOn()) {
-                        Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
+                        Debug.logInfo("Before relative, current index=" + eli.currentIndex(), MODULE);
                     }
                     hasResults = eli.relative(resultOffset - 1);
                     initialResult = null;
@@ -767,10 +767,10 @@ public class ProductSearch {
                     this.totalResults = total;
                 }
 
-                Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, module);
+                Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, MODULE);
 
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting results from the product search query", module);
+                Debug.logError(e, "Error getting results from the product search query", MODULE);
             }
             return productIds;
         }
@@ -809,11 +809,11 @@ public class ProductSearch {
                     TransactionUtil.commit(beganTransaction);
                 } catch (GenericEntityException e1) {
                     String errMsg = "Error saving product search result info/stats";
-                    Debug.logError(e1, errMsg, module);
+                    Debug.logError(e1, errMsg, MODULE);
                     TransactionUtil.rollback(beganTransaction, errMsg, e1);
                 }
             } catch (GenericTransactionException e) {
-                Debug.logError(e, "Error saving product search result info/stats", module);
+                Debug.logError(e, "Error saving product search result info/stats", MODULE);
             }
         }
     }
@@ -876,7 +876,7 @@ public class ProductSearch {
             try {
                 prodCatalog = EntityQuery.use(delegator).from("ProdCatalog").where("prodCatalogId", prodCatalogId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error finding ProdCatalog information for constraint pretty print", module);
+                Debug.logError(e, "Error finding ProdCatalog information for constraint pretty print", MODULE);
             }
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "ProductCatalog", locale)).append(": ");
@@ -985,7 +985,7 @@ public class ProductSearch {
             try {
                 productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", module);
+                Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", MODULE);
             }
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "ProductCategory", locale)).append(": ");
@@ -1015,7 +1015,7 @@ public class ProductSearch {
             try {
                 productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", module);
+                Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", MODULE);
             }
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "ProductCategory", locale)).append(": ");
@@ -1121,7 +1121,7 @@ public class ProductSearch {
                 productFeature = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureId", productFeatureId).cache().queryOne();
                 productFeatureType = productFeature == null ? null : productFeature.getRelatedOne("ProductFeatureType", false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error finding ProductFeature and Type information for constraint pretty print", module);
+                Debug.logError(e, "Error finding ProductFeature and Type information for constraint pretty print", MODULE);
             }
             StringBuilder ppBuf = new StringBuilder();
             if (productFeatureType == null) {
@@ -1229,7 +1229,7 @@ public class ProductSearch {
             try {
                 productFeatureCategory = EntityQuery.use(delegator).from("ProductFeatureCategory").where("productFeatureCategoryId", productFeatureCategoryId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error finding ProductFeatureCategory and Type information for constraint pretty print", module);
+                Debug.logError(e, "Error finding ProductFeatureCategory and Type information for constraint pretty print", MODULE);
             }
             StringBuilder ppBuf = new StringBuilder();
             if (productFeatureCategory != null) {
@@ -1337,7 +1337,7 @@ public class ProductSearch {
             try {
                 productFeatureGroup = EntityQuery.use(delegator).from("ProductFeatureGroup").where("productFeatureGroupId", productFeatureGroupId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error finding ProductFeatureGroup and Type information for constraint pretty print", module);
+                Debug.logError(e, "Error finding ProductFeatureGroup and Type information for constraint pretty print", MODULE);
             }
             StringBuilder ppBuf = new StringBuilder();
             if (productFeatureGroup != null) {
@@ -1474,7 +1474,7 @@ public class ProductSearch {
 
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error finding ProductFeature and Type information for constraint pretty print", module);
+                Debug.logError(e, "Error finding ProductFeature and Type information for constraint pretty print", MODULE);
             }
 
             return infoOut.toString();
@@ -1662,12 +1662,9 @@ public class ProductSearch {
             return true;
         }
 
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
+            return this.keywordsString;
         }
 
     }

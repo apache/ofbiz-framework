@@ -35,7 +35,7 @@ import javax.net.ssl.X509TrustManager;
  */
 public class MultiTrustManager implements X509TrustManager {
 
-    public static final String module = MultiTrustManager.class.getName();
+    public static final String MODULE = MultiTrustManager.class.getName();
 
     protected List<KeyStore> keystores;
 
@@ -91,7 +91,7 @@ public class MultiTrustManager implements X509TrustManager {
                         for (Certificate cert: chain) {
                             if (cert instanceof X509Certificate) {
                                 if (Debug.verboseOn()) {
-                                    Debug.logVerbose("Read certificate (chain) : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                                    Debug.logVerbose("Read certificate (chain) : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), MODULE);
                                 }
                                 issuers.add((X509Certificate) cert);
                             }
@@ -100,14 +100,14 @@ public class MultiTrustManager implements X509TrustManager {
                         Certificate cert = store.getCertificate(alias);
                         if (cert != null && cert instanceof X509Certificate) {
                             if (Debug.verboseOn()) {
-                                Debug.logVerbose("Read certificate : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                                Debug.logVerbose("Read certificate : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), MODULE);
                             }
                             issuers.add((X509Certificate) cert);
                         }
                     }
                 }
             } catch (KeyStoreException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 
@@ -120,11 +120,11 @@ public class MultiTrustManager implements X509TrustManager {
                 for (X509Certificate issuer: issuers) {
                     for (X509Certificate c: cert) {
                         if (Debug.verboseOn()) {
-                            Debug.logVerbose("--- Checking cert: " + issuer.getSubjectX500Principal() + " vs " + c.getSubjectX500Principal(), module);
+                            Debug.logVerbose("--- Checking cert: " + issuer.getSubjectX500Principal() + " vs " + c.getSubjectX500Principal(), MODULE);
                         }
                         if (issuer.equals(c)) {
                             if (Debug.verboseOn()) {
-                                Debug.logVerbose("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : " + issuer.getSubjectX500Principal(), module);
+                                Debug.logVerbose("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : " + issuer.getSubjectX500Principal(), MODULE);
                             }
                             return true;
                     }

@@ -51,7 +51,7 @@ import freemarker.template.TransformControl;
  */
 public class TraverseSubContentTransform implements TemplateTransformModel {
 
-    public static final String module = TraverseSubContentTransform.class.getName();
+    public static final String MODULE = TraverseSubContentTransform.class.getName();
     public static final String [] saveKeyNames = {"contentId", "subContentId", "mimeType", "subContentDataResourceView", "wrapTemplateId", "templateContentId", "pickWhen", "followWhen", "returnAfterPickWhen", "returnBeforePickWhen", "indent"};
     public static final String [] removeKeyNames = {"templateContentId", "subDataResourceTypeId", "mapKey", "wrappedFTL", "nodeTrail"};
 
@@ -104,7 +104,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 try {
                     view = EntityQuery.use(delegator).from("Content").where("contentId", thisContentId).queryOne();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error getting sub-content", module);
+                    Debug.logError(e, "Error getting sub-content", MODULE);
                     throw new RuntimeException(e.getMessage());
                 }
             }
@@ -212,7 +212,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (GeneralException e) {
-                        Debug.logError(e, "Error rendering content", module);
+                        Debug.logError(e, "Error rendering content", MODULE);
                         throw new IOException("Error rendering content" + e.toString());
                     }
                 } else {

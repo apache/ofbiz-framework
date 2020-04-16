@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
  */
 public final class CallSimpleMethod extends MethodOperation {
 
-    public static final String module = CallSimpleMethod.class.getName();
+    public static final String MODULE = CallSimpleMethod.class.getName();
 
     private final String methodName;
     private final String xmlResource;
@@ -111,7 +111,7 @@ public final class CallSimpleMethod extends MethodOperation {
         }
         String returnVal = simpleMethodToCall.exec(localContext);
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is [" + returnVal + "]", module);
+             Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is [" + returnVal + "]", MODULE);
         }
         if (simpleMethodToCall.getDefaultErrorCode().equals(returnVal)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -126,7 +126,7 @@ public final class CallSimpleMethod extends MethodOperation {
             // response code. Since response codes are configurable per method, this code will fail.
             String responseCode = (String) localContext.getEnv(this.simpleMethod.getEventResponseCodeName());
             if (this.simpleMethod.getDefaultErrorCode().equals(responseCode)) {
-                Debug.logWarning("Got error [" + responseCode + "] calling inline simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getEventErrorMessageName()), module);
+                Debug.logWarning("Got error [" + responseCode + "] calling inline simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getEventErrorMessageName()), MODULE);
                 return false;
             }
         } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
@@ -135,7 +135,7 @@ public final class CallSimpleMethod extends MethodOperation {
             String responseMessage = (String) localContext.getEnv(this.simpleMethod.getServiceResponseMessageName());
             if (this.simpleMethod.getDefaultErrorCode().equals(responseMessage)) {
                 Debug.logWarning("Got error [" + responseMessage + "] calling inline simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageName()) + ", and the error message list is: "
-                        + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageListName()), module);
+                        + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageListName()), MODULE);
                 return false;
             }
         }
@@ -162,7 +162,7 @@ public final class CallSimpleMethod extends MethodOperation {
                 }
             }
         } catch (MiniLangException e) {
-            Debug.logWarning("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource + ": " + e.toString(), module);
+            Debug.logWarning("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource + ": " + e.toString(), MODULE);
         }
     }
 

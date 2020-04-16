@@ -1,0 +1,64 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Billing Accounts.
+
+A billing account is a way of allowing customers to consolidate several invoices into an account that is paid off
+at a later date. Customers can be allocated a credit limit and orders can be taken up to the value of the credit limit without
+any payment being made.
+Statements to the customer can then be generated (eg monthly) and payment is made based on the outstanding amount.
+
+NOTE: A billing account does not change the flow of the normal Invoice and Payment processes.
+      It simply allows for a more structured organisation of Invoices and Payments..
+
+Billing Accounts can be used for the following:
+
+* Setting credit limits for customers
+* Keeping track of credit available to customer for purchase on account
+* Keeping track of payments made in advance +
+  (NOTE TO CHECK: Could also use Financial Account for advance payments but need to understand the differences
+   in functionality and process)
+* Keeping track of a subset of payments and invoices for a specific client, i.e. allowing them to have multiple billing accounts +
+ (NOTE TO CHECK: This is from David - does this mean having multiple accounts for one customer or does it mean one
+  billing account can track a hierarchy of invoices and payments.....)
+* Allow multiple authorised parties to bill against the same account which one party is responsible for paying +
+  (e.g. different offices of the same organisation may have one single account with a supplier to make use of order volume discounts)
+* Managing and generating customer statements ??
+* Customer specific order tracking
+* Accounts Receivable / Debt Management
+* Analysis and monitoring customer spending (creditworthiness / discounts / product popularity ???)
+
+NOTE: A payment that is applied (or matched) to a Billing Account it should still be applied to an invoice.
+      In the case where the payment arrives before the invoice has been generated then once the invoice is generated
+      it should be applied to the payment or payments.
+
+== Billing Account management in User Interface
+include::HELP_FindBillingAccount.adoc[leveloffset=+2]
+
+include::HELP_EditBillingAccount.adoc[leveloffset=+2]
+
+include::HELP_EditBillingAccountRoles.adoc[leveloffset=+2]
+
+include::HELP_EditBillingAccountTerms.adoc[leveloffset=+2]
+
+include::HELP_BillingAccountInvoices.adoc[leveloffset=+2]
+
+include::HELP_BillingAccountPayments.adoc[leveloffset=+2]
+
+include::HELP_BillingAccountOrders.adoc[leveloffset=+2]

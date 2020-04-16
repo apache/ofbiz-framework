@@ -36,8 +36,6 @@ under the License.
         <property name="VT_HDR_TMPLT_LOC" value="component://flatgrey/template/Header.ftl"/>
         <property name="VT_FTR_TMPLT_LOC" value="component://flatgrey/template/Footer.ftl"/>
         <property name="VT_NAV_TMPLT_LOC" value="component://flatgrey/template/AppBar.ftl"/>
-        <!--javascript lib-->
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/flatgrey/js/application.js"/>
         <!--Css style-->
         <property name="VT_STYLESHEET['add']" value="/flatgrey/style.css"/>
         <property name="VT_STYLESHEET['add']" value="/flatgrey/javascript.css"/>

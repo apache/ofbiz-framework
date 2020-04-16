@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
  */
 public abstract class ResourceLoader {
 
-    public static final String module = ResourceLoader.class.getName();
+    public static final String MODULE = ResourceLoader.class.getName();
     private static final UtilCache<String, ResourceLoader> loaderCache = UtilCache.createUtilCache("resource.ResourceLoaders", 0, 0);
     // This cache is temporary - we will use it until the framework has been refactored to eliminate DOM tree caching, then it can be removed.
     private static final UtilCache<String, Document> domCache = UtilCache.createUtilCache("resource.DomTrees", 0, 0);
@@ -184,7 +184,7 @@ public abstract class ResourceLoader {
             String propValue = System.getProperty(envName);
             if (propValue == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + envName + " is not set, cannot load resource.";
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
             buf.append(propValue);

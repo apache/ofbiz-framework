@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
  */
 public final class ValidateMethodCondition extends MethodOperation implements Conditional {
 
-    public static final String module = ValidateMethodCondition.class.getName();
+    public static final String MODULE = ValidateMethodCondition.class.getName();
     private static final Class<?>[] paramTypes = new Class<?>[] { String.class };
 
     private final String className;

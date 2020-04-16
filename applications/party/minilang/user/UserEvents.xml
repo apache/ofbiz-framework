@@ -337,9 +337,7 @@ under the License.
             </call-class-method>
             <if-compare-field field="autoPasswordChangeEnabled" operator="equals" to-field="true">
                 <call-class-method method-name="createUserLoginPasswordHistory" class-name="org.apache.ofbiz.common.login.LoginServices">
-                    <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
-                    <string value="${newUserLogin.userLoginId}"/>
-                    <string value="${newUserLogin.currentPassword}"/>
+                    <field field="newUserLogin" type="org.apache.ofbiz.entity.GenericValue"/>
                 </call-class-method>
             </if-compare-field>
         </if-not-empty>
@@ -425,13 +423,6 @@ under the License.
         <set field="createProductStoreRoleMap.roleTypeId" from-field="parameters.roleTypeId"/>
         <set field="createProductStoreRoleMap.productStoreId" from-field="parameters.PRODUCT_STORE_ID"/>
         <call-service service-name="createProductStoreRole" in-map-name="createProductStoreRoleMap"/>
-
-        <if-not-empty field="parameters.securityAnswer">
-            <set field="createULSQContext.userLoginId" from-field="parameters.USERNAME"/>
-            <set field="createULSQContext.questionEnumId" from-field="parameters.securityQuestion"/>
-            <set field="createULSQContext.securityAnswer" from-field="parameters.securityAnswer"/>
-            <call-service service-name="createUserLoginSecurityQuestion" in-map-name="createULSQContext" />
-        </if-not-empty>
 
         <!--send New User Email Notification-->
         <set field="emailContext.partyId" from-field="partyId"/>

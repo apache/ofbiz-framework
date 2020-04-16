@@ -53,7 +53,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class WorkEffortContentWrapper implements ContentWrapper {
 
-    public static final String module = WorkEffortContentWrapper.class.getName();
+    public static final String MODULE = WorkEffortContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
 
     private static final UtilCache<String, String> workEffortContentCache = UtilCache.createUtilCache("workeffort.content.rendered", true);
@@ -117,7 +117,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             try {
                 content = workEffortContent.getRelatedOne("Content", false);
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
 
@@ -150,7 +150,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             try {
                 content = workEffortContent.getRelatedOne("Content", false);
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
             if (content != null) {
@@ -158,7 +158,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
                 try {
                     dataResource = content.getRelatedOne("DataResource", false);
                 } catch (GeneralException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return null;
                 }
                 if (dataResource != null) {
@@ -174,7 +174,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         try {
             return getWorkEffortContentTextList(workEffort, contentTypeId, locale, mimeTypeId, workEffort.getDelegator(), dispatcher);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -190,7 +190,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             try {
                 contentType = EntityQuery.use(delegator).from("WorkEffortContentType").where("workEffortContentTypeId", contentTypeId).cache().queryOne();
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
 
             if (contentType != null) {
@@ -263,11 +263,11 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             }
             return outString;
         } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", MODULE);
             String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
         } catch (IOException e) {
-            Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", MODULE);
             String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
         }
@@ -372,7 +372,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
                                     .cache(cache)
                                     .queryFirst();
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return workEffortContent;
     }

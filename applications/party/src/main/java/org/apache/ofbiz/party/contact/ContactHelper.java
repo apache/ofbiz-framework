@@ -34,7 +34,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class ContactHelper {
 
-    public static final String module = ContactHelper.class.getName();
+    public static final String MODULE = ContactHelper.class.getName();
 
     private ContactHelper() {}
 
@@ -77,7 +77,7 @@ public class ContactHelper {
             }
             return EntityUtil.getRelated("ContactMech", UtilMisc.toMap("contactMechTypeId", contactMechTypeId), partyContactMechList, false);
         } catch (GenericEntityException gee) {
-            Debug.logWarning(gee, module);
+            Debug.logWarning(gee, MODULE);
             return Collections.emptyList();
         }
     }

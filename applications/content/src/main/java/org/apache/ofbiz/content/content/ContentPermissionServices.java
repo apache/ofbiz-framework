@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ContentPermissionServices {
 
-    public static final String module = ContentPermissionServices.class.getName();
+    public static final String MODULE = ContentPermissionServices.class.getName();
     public static final String resource = "ContentUiLabels";
 
     public ContentPermissionServices() {}
@@ -93,7 +93,7 @@ public class ContentPermissionServices {
      * associated with the ownerContent entity.
      */
     public static Map<String, Object> checkContentPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Debug.logWarning(new Exception(), "This service has been depricated in favor of [genericContentPermission]", module);
+        Debug.logWarning(new Exception(), "This service has been depricated in favor of [genericContentPermission]", MODULE);
 
         Security security = dctx.getSecurity();
         Delegator delegator = dctx.getDelegator();

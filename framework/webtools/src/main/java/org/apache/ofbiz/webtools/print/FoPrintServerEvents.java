@@ -48,7 +48,7 @@ import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
 public class FoPrintServerEvents {
 
-    public static final String module = FoPrintServerEvents.class.getName();
+    public static final String MODULE = FoPrintServerEvents.class.getName();
 
     public static String getXslFo(HttpServletRequest req, HttpServletResponse resp) {
         LocalDispatcher dispatcher = (LocalDispatcher) req.getAttribute("dispatcher");
@@ -62,11 +62,11 @@ public class FoPrintServerEvents {
                 byte[] bytes = FoPrintServerEvents.getXslFo(dispatcher.getDispatchContext(), screenUri, reqParams);
                 base64String = new String(Base64.encodeBase64(bytes));
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 try {
                     resp.sendError(500);
                 } catch (IOException e1) {
-                    Debug.logError(e1, module);
+                    Debug.logError(e1, MODULE);
                 }
             }
             if (base64String != null) {
@@ -77,7 +77,7 @@ public class FoPrintServerEvents {
                     try {
                         resp.sendError(500);
                     } catch (IOException e1) {
-                        Debug.logError(e1, module);
+                        Debug.logError(e1, MODULE);
                     }
                 }
             }

@@ -65,7 +65,7 @@ import org.apache.ofbiz.entity.util.SequenceUtil;
 
 public class EntityTestSuite extends EntityTestCase {
 
-    public static final String module = EntityTestSuite.class.getName();
+    public static final String MODULE = EntityTestSuite.class.getName();
     /*
      * This sets how many values to insert when trying to create a large number of values.  10,000 causes HSQL to crash but is ok
      * with Derby.  Going up to 100,000 causes problems all around because Java List seems to be capped at about 65,000 values.
@@ -452,12 +452,12 @@ public class EntityTestSuite extends EntityTestCase {
 
         for (GenericValue v: nodeWithMembers) {
             Map<String, Object> fields = v.getAllFields();
-            Debug.logInfo("--------------------------", module);
+            Debug.logInfo("--------------------------", MODULE);
             //      For values of a map
             for (Map.Entry<String, Object> entry: fields.entrySet()) {
                 String field = entry.getKey();
                 Object value = entry.getValue();
-                Debug.logInfo(field + " = " + ((value == null) ? "[null]" : value), module);
+                Debug.logInfo(field + " = " + ((value == null) ? "[null]" : value), MODULE);
             }
         }
         long testingcount = EntityQuery.use(delegator).from("Testing").where("testingTypeId", "TEST-COUNT-VIEW").queryCount();
@@ -494,7 +494,7 @@ public class EntityTestSuite extends EntityTestCase {
                                                       .distinct()
                                                       .cache()
                                                       .queryList();
-        Debug.logInfo("testingSize10 is " + testingSize10.size(), module);
+        Debug.logInfo("testingSize10 is " + testingSize10.size(), MODULE);
 
         assertEquals("There should only be 1 result found by findDistinct()", 1, testingSize10.size());
     }
@@ -511,7 +511,7 @@ public class EntityTestSuite extends EntityTestCase {
 
         for (GenericValue product: nodes) {
             String nodeId = product.getString("description");
-            Debug.logInfo("Testing name - " + nodeId, module);
+            Debug.logInfo("Testing name - " + nodeId, MODULE);
             assertFalse("No nodes starting w/ root", nodeId.startsWith("root"));
         }
     }
@@ -524,11 +524,11 @@ public class EntityTestSuite extends EntityTestCase {
             String helperName = delegator.getEntityHelper("Testing").getHelperName();
             Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
             if (!datasourceInfo.getUseForeignKeys()) {
-                Debug.logInfo("Datasource " + datasourceInfo.getName() + " use-foreign-keys set to false, skipping testForeignKeyCreate", module);
+                Debug.logInfo("Datasource " + datasourceInfo.getName() + " use-foreign-keys set to false, skipping testForeignKeyCreate", MODULE);
                 return;
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         GenericEntityException caught = null;
         try {
@@ -537,7 +537,7 @@ public class EntityTestSuite extends EntityTestCase {
             caught = e;
         }
         assertNotNull("Foreign key referential integrity is not observed for create (INSERT)", caught);
-        Debug.logInfo(caught.toString(), module);
+        Debug.logInfo(caught.toString(), MODULE);
     }
 
     /*
@@ -548,11 +548,11 @@ public class EntityTestSuite extends EntityTestCase {
             String helperName = delegator.getEntityHelper("TestingNode").getHelperName();
             Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
             if (!datasourceInfo.getUseForeignKeys()) {
-                Debug.logInfo("Datasource " + datasourceInfo.getName() + " use-foreign-keys set to false, skipping testForeignKeyRemove", module);
+                Debug.logInfo("Datasource " + datasourceInfo.getName() + " use-foreign-keys set to false, skipping testForeignKeyRemove", MODULE);
                 return;
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         delegator.removeByCondition("TestingNode", EntityCondition.makeCondition("description", EntityOperator.LIKE, "foreign-key-remove #%"));
         delegator.create("TestingNode", "testingNodeId", "TEST-FK-REMOVE-0", "description", "foreign-key-remove #0");
@@ -567,7 +567,7 @@ public class EntityTestSuite extends EntityTestCase {
             caught = e;
         }
         assertNotNull("Foreign key referential integrity is not observed for remove (DELETE)", caught);
-        Debug.logInfo(caught.toString(), module);
+        Debug.logInfo(caught.toString(), MODULE);
     }
 
     /*
@@ -952,15 +952,15 @@ public class EntityTestSuite extends EntityTestCase {
         String entityName = "Content";
         Datasource datasourceInfo = EntityConfig.getDatasource(delegator.getEntityHelper(entityName).getHelperName());
         if (UtilValidate.isEmpty(datasourceInfo.offsetStyle) || "none".equals(datasourceInfo.offsetStyle)) {
-            Debug.logInfo("The offset-stype configured in datasource is " + datasourceInfo.offsetStyle +  ", this test is skipped.", module);
+            Debug.logInfo("The offset-stype configured in datasource is " + datasourceInfo.offsetStyle +  ", this test is skipped.", MODULE);
             return;
         } else {
-            Debug.logInfo("The offset-stype configured in datasource is " + datasourceInfo.offsetStyle +  ".", module);
+            Debug.logInfo("The offset-stype configured in datasource is " + datasourceInfo.offsetStyle +  ".", MODULE);
         }
         try {
             EntityFindOptions findOptions = new EntityFindOptions();
             long count = delegator.findCountByCondition("Content", null, null, null);
-            Debug.logInfo("Content entity has " + count + " rows", module);
+            Debug.logInfo("Content entity has " + count + " rows", MODULE);
             int rowsPerPage = 10;
             // use rows/page as limit option
             findOptions.setLimit(rowsPerPage);
@@ -968,12 +968,12 @@ public class EntityTestSuite extends EntityTestCase {
             if (count > pages * rowsPerPage) {
                 pages += 1;
             }
-            Debug.logInfo("These rows will be displayed in " + pages + " pages, each page has " + rowsPerPage + " rows.", module);
+            Debug.logInfo("These rows will be displayed in " + pages + " pages, each page has " + rowsPerPage + " rows.", MODULE);
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
 
             long start = UtilDateTime.nowTimestamp().getTime();
             for (int page = 1; page <= pages; page++) {
-                Debug.logInfo("Page " + page + ":", module);
+                Debug.logInfo("Page " + page + ":", MODULE);
                 // set offset option
                 findOptions.setOffset((page - 1) * rowsPerPage);
                 EntityListIterator iterator = null;
@@ -984,10 +984,10 @@ public class EntityTestSuite extends EntityTestCase {
                         if (gv == null) {
                             break;
                         }
-                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "       (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", module);
+                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "       (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", MODULE);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 } finally {
                     if (iterator != null) {
                         iterator.close();
@@ -996,11 +996,11 @@ public class EntityTestSuite extends EntityTestCase {
             }
             long end = UtilDateTime.nowTimestamp().getTime();
             long time1 = end - start;
-            Debug.logInfo("Time consumed WITH limit and offset option (ms): " + time1, module);
+            Debug.logInfo("Time consumed WITH limit and offset option (ms): " + time1, MODULE);
 
             start = UtilDateTime.nowTimestamp().getTime();
             for (int page = 1; page <= pages; page++) {
-                Debug.logInfo("Page " + page + ":", module);
+                Debug.logInfo("Page " + page + ":", MODULE);
                 EntityListIterator iterator = null;
                 try {
                     iterator = ((GenericHelperDAO) delegator.getEntityHelper(entityName)).findListIteratorByCondition(modelEntity, null, null, null, UtilMisc.toList("lastUpdatedStamp DESC"), null);
@@ -1016,10 +1016,10 @@ public class EntityTestSuite extends EntityTestCase {
                     }
                     gvs = gvs.subList(fromIndex, toIndex);
                     for (GenericValue gv : gvs) {
-                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "       (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", module);
+                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "       (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", MODULE);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 } finally {
                     if (iterator != null) {
                         iterator.close();
@@ -1028,10 +1028,10 @@ public class EntityTestSuite extends EntityTestCase {
             }
             end = UtilDateTime.nowTimestamp().getTime();
             long time2 = end - start;
-            Debug.logInfo("Time consumed WITHOUT limit and offset option (ms): " + time2, module);
-            Debug.logInfo("Time saved (ms): " + (time2 - time1), module);
+            Debug.logInfo("Time consumed WITHOUT limit and offset option (ms): " + time2, MODULE);
+            Debug.logInfo("Time saved (ms): " + (time2 - time1), MODULE);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }*/
 
@@ -1221,7 +1221,7 @@ public class EntityTestSuite extends EntityTestCase {
         ExecutionPool.getAllFutures(futures);
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
-        Debug.logInfo("testSequenceValueItemWithConcurrentThreads total time (ms): " + totalTime, module);
+        Debug.logInfo("testSequenceValueItemWithConcurrentThreads total time (ms): " + totalTime, MODULE);
         assertFalse("Null sequence id returned", nullSeqIdReturned.get());
         assertFalse("Duplicate sequence id returned", duplicateFound.get());
     }
@@ -1260,7 +1260,7 @@ public class EntityTestSuite extends EntityTestCase {
         }
         long endTime = System.currentTimeMillis();
         long totalTimeOneTransaction = endTime - startTime;
-        Debug.logInfo("Selected " + totalNumberOfRows + " rows with " + numberOfQueries + " queries (all contained in one big transaction) in " + totalTimeOneTransaction + " ms", module);
+        Debug.logInfo("Selected " + totalNumberOfRows + " rows with " + numberOfQueries + " queries (all contained in one big transaction) in " + totalTimeOneTransaction + " ms", MODULE);
         assertTrue("Errors detected executing the big transaction", noErrors);
 
         totalNumberOfRows = 0;
@@ -1276,13 +1276,13 @@ public class EntityTestSuite extends EntityTestCase {
             try {
                 TransactionUtil.rollback(transactionStarted, "", e);
             } catch (Exception e2) {
-                Debug.logError(e2, module);
+                Debug.logError(e2, MODULE);
             }
             noErrors = false;
         }
         endTime = System.currentTimeMillis();
         long totalTimeSeveralSmallTransactions = endTime - startTime;
-        Debug.logInfo("Selected " + totalNumberOfRows + " rows with " + numberOfQueries + " queries (each in its own transaction) in " + totalTimeSeveralSmallTransactions + " ms", module);
+        Debug.logInfo("Selected " + totalNumberOfRows + " rows with " + numberOfQueries + " queries (each in its own transaction) in " + totalTimeSeveralSmallTransactions + " ms", MODULE);
         assertTrue("Errors detected executing the small transactions", noErrors);
         assertTrue("One big transaction was not faster than several small ones", totalTimeOneTransaction < totalTimeSeveralSmallTransactions);
     }

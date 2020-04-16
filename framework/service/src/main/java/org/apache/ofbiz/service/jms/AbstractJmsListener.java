@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceContainer;
  */
 public abstract class AbstractJmsListener implements GenericMessageListener, ExceptionListener {
 
-    public static final String module = AbstractJmsListener.class.getName();
+    public static final String MODULE = AbstractJmsListener.class.getName();
 
     protected LocalDispatcher dispatcher;
     protected boolean isConnected = false;
@@ -67,39 +67,39 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
             serviceName = message.getString("serviceName");
             xmlContext = message.getString("serviceContext");
             if (serviceName == null || xmlContext == null) {
-                Debug.logError("Message received is not an OFB service message. Ignored!", module);
+                Debug.logError("Message received is not an OFB service message. Ignored!", MODULE);
                 return null;
             }
 
             Object o = XmlSerializer.deserialize(xmlContext, dispatcher.getDelegator());
 
-            if (Debug.verboseOn()) Debug.logVerbose("De-Serialized Context --> " + o, module);
+            if (Debug.verboseOn()) Debug.logVerbose("De-Serialized Context --> " + o, MODULE);
             if (ObjectType.instanceOf(o, "java.util.Map"))
                 context = UtilGenerics.cast(o);
         } catch (JMSException je) {
-            Debug.logError(je, "Problems reading message.", module);
+            Debug.logError(je, "Problems reading message.", MODULE);
         } catch (Exception e) {
-            Debug.logError(e, "Problems deserializing the service context.", module);
+            Debug.logError(e, "Problems deserializing the service context.", MODULE);
         }
 
         try {
             ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
             if (!model.export) {
-                Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, module);
+                Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, MODULE);
                 return null;
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Unable to get ModelService for service : " + serviceName, module);
+            Debug.logError(e, "Unable to get ModelService for service : " + serviceName, MODULE);
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Running service: " + serviceName, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Running service: " + serviceName, MODULE);
 
         Map<String, Object> result = null;
         if (context != null) {
             try {
                 result = dispatcher.runSync(serviceName, context);
             } catch (GenericServiceException gse) {
-                Debug.logError(gse, "Problems with service invocation.", module);
+                Debug.logError(gse, "Problems with service invocation.", MODULE);
             }
         }
         return result;
@@ -113,12 +113,12 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
     public void onMessage(Message message) {
         MapMessage mapMessage = null;
 
-        if (Debug.verboseOn()) Debug.logVerbose("JMS Message Received --> " + message, module);
+        if (Debug.verboseOn()) Debug.logVerbose("JMS Message Received --> " + message, MODULE);
 
         if (message instanceof MapMessage) {
             mapMessage = (MapMessage) message;
         } else {
-            Debug.logError("Received message is not a MapMessage!", module);
+            Debug.logError("Received message is not a MapMessage!", MODULE);
             return;
         }
         runService(mapMessage);
@@ -131,7 +131,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
     @Override
     public void onException(JMSException je) {
         this.setConnected(false);
-        Debug.logError(je, "JMS connection exception", module);
+        Debug.logError(je, "JMS connection exception", MODULE);
         while (!isConnected()) {
             try {
                 this.refresh();
@@ -139,7 +139,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException ie) {
-                    Debug.logError(ie, module);
+                    Debug.logError(ie, MODULE);
                 }
                 continue;
             }

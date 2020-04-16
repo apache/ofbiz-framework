@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class TelecomServices {
 
-    public final static String module = TelecomServices.class.getName();
+    public final static String MODULE = TelecomServices.class.getName();
 
     public static Map<String, Object> sendTelecomMessage(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
@@ -55,7 +55,7 @@ public class TelecomServices {
         
         String telecomEnabled = EntityUtilProperties.getPropertyValue("general", "telecom.notifications.enabled", delegator);
         if (!"Y".equals(telecomEnabled)) {
-            Debug.logImportant("Telecom message not sent to " + numbers.toString() +" because telecom.notifications.enabled property is set to N or empty", module);
+            Debug.logImportant("Telecom message not sent to " + numbers.toString() +" because telecom.notifications.enabled property is set to N or empty", MODULE);
             return ServiceUtil.returnSuccess("Telecom message not sent to " + numbers.toString() +" because sms.notifications.enabled property is set to N or empty");
         }
 
@@ -76,7 +76,7 @@ public class TelecomServices {
             createCommEventCtx.put("toString", numbers.toString());
             Map<String, Object> createCommEventResult = dispatcher.runSync("createCommunicationEvent", createCommEventCtx);
             if (!ServiceUtil.isSuccess(createCommEventResult)) {
-                Debug.logError(ServiceUtil.getErrorMessage(createCommEventResult), module);
+                Debug.logError(ServiceUtil.getErrorMessage(createCommEventResult), MODULE);
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createCommEventResult));
             }
             String communicationEventId = (String) createCommEventResult.get("communicationEventId");
@@ -99,7 +99,7 @@ public class TelecomServices {
                     Map<String, Object> customMethodResult = dispatcher.runSync(customMethod.getString("customMethodName"), serviceCtx);
                     if (ServiceUtil.isError(customMethodResult) || ServiceUtil.isFailure(customMethodResult)) {
                         String errorMessage = ServiceUtil.getErrorMessage(customMethodResult);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         return ServiceUtil.returnError(errorMessage);
                     }
 
@@ -115,7 +115,7 @@ public class TelecomServices {
                 return ServiceUtil.returnError("Not sending SMS as no ProductStoreEmailSetting found for the passed inputs.");
             }
         } catch (GenericEntityException | GenericServiceException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 

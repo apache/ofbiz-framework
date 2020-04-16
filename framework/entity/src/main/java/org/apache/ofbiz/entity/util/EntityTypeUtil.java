@@ -33,7 +33,7 @@ import org.apache.ofbiz.entity.GenericValue;
  */
 public final class EntityTypeUtil {
 
-    public static final String module = EntityTypeUtil.class.getName();
+    public static final String MODULE = EntityTypeUtil.class.getName();
 
     private EntityTypeUtil() {}
 
@@ -75,7 +75,7 @@ public final class EntityTypeUtil {
         try {
             return typeValue.getRelatedOne("Parent" + typeValue.getEntityName(), true);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
             return null;
         }
     }
@@ -89,7 +89,7 @@ public final class EntityTypeUtil {
         try {
             childrenTypes = typeValue.getRelated("Child" + typeValue.getEntityName(), null, null, true);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
             return null;
         }
         if (childrenTypes == null)
@@ -136,7 +136,7 @@ public final class EntityTypeUtil {
         try {
             childTypeValue = EntityQuery.use(delegator).from(entityName).where(primaryKey, childType).cache(true).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError("Error finding "+entityName+" record for type "+childType, module);
+            Debug.logError("Error finding "+entityName+" record for type "+childType, MODULE);
         }
         if (childTypeValue != null) {
             if (parentType.equals(childTypeValue.getString(primaryKey))) return true;

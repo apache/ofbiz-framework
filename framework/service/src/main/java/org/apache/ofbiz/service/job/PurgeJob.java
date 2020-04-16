@@ -19,10 +19,7 @@
 package org.apache.ofbiz.service.job;
 
 import java.io.Serializable;
-import java.util.List;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 
 /**
@@ -31,7 +28,7 @@ import org.apache.ofbiz.entity.GenericValue;
 @SuppressWarnings("serial")
 public class PurgeJob extends AbstractJob implements Serializable {
 
-    public static final String module = PurgeJob.class.getName();
+    public static final String MODULE = PurgeJob.class.getName();
 
     private final GenericValue jobValue;
 
@@ -46,29 +43,7 @@ public class PurgeJob extends AbstractJob implements Serializable {
             throw new InvalidJobException("Illegal state change");
         }
         currentState = State.RUNNING;
-        try {
-            // TODO: This might need to be in a transaction - to avoid the possibility of
-            // leaving orphaned related values.
-            jobValue.remove();
-            GenericValue relatedValue = jobValue.getRelatedOne("RecurrenceInfo", false);
-            if (relatedValue != null) {
-                List<GenericValue> valueList = relatedValue.getRelated("JobSandbox", null, null, false);
-                if (valueList.isEmpty()) {
-                    relatedValue.remove();
-                    relatedValue.removeRelated("RecurrenceRule");
-                }
-            }
-            relatedValue = jobValue.getRelatedOne("RuntimeData", false);
-            if (relatedValue != null) {
-                List<GenericValue> valueList = relatedValue.getRelated("JobSandbox", null, null, false);
-                if (valueList.isEmpty()) {
-                    relatedValue.remove();
-                }
-            }
-            Debug.logInfo("Purged job " + getJobId(), module);
-        } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Exception thrown while purging job: ", module);
-        }
+        JobUtil.removeJob(jobValue);
     }
 
     @Override

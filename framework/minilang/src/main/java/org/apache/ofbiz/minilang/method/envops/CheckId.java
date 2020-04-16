@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
  */
 public final class CheckId extends MethodOperation {
 
-    public static final String module = CheckId.class.getName();
+    public static final String MODULE = CheckId.class.getName();
 
     private final FlexibleMapAccessor<List<String>> errorListFma;
     private final FlexibleMapAccessor<Object> fieldFma;

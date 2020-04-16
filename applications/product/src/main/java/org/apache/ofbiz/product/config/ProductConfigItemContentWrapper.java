@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceContainer;
  */
 public class ProductConfigItemContentWrapper implements ContentWrapper {
 
-    public static final String module = ProductConfigItemContentWrapper.class.getName();
+    public static final String MODULE = ProductConfigItemContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
     private static final UtilCache<String, String> configItemContentCache = UtilCache.createUtilCache("configItem.content", true); // use soft reference to free up memory if needed
 
@@ -138,7 +138,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
             configItemContentCache.put(cacheKey, outString);
             return outString;
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", MODULE);
             String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
         }

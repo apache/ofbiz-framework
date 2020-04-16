@@ -54,7 +54,7 @@ import org.w3c.dom.NodeList;
  */
 @SuppressWarnings("serial")
 public class ModelViewEntity extends ModelEntity {
-    public static final String module = ModelViewEntity.class.getName();
+    public static final String MODULE = ModelViewEntity.class.getName();
 
     private static final Map<String, String> functionPrefixMap = new HashMap<>();
     private static final Set<String> numericFunctionsSet = new HashSet<>(); // names of functions that return a numeric type
@@ -116,7 +116,7 @@ public class ModelViewEntity extends ModelEntity {
             String alias = UtilXml.checkEmpty(memberEntityElement.getAttribute("entity-alias")).intern();
             String name = UtilXml.checkEmpty(memberEntityElement.getAttribute("entity-name")).intern();
             if (name.length() <= 0 || alias.length() <= 0) {
-                Debug.logError("[new ModelViewEntity]: entity-alias or entity-name missing on member-entity element of the view-entity " + this.entityName, module);
+                Debug.logError("[new ModelViewEntity]: entity-alias or entity-name missing on member-entity element of the view-entity " + this.entityName, MODULE);
             } else {
                 ModelMemberEntity modelMemberEntity = new ModelMemberEntity(alias, name);
                 this.addMemberModelMemberEntity(modelMemberEntity);
@@ -378,14 +378,14 @@ public class ModelViewEntity extends ModelEntity {
     public ModelEntity getAliasedEntity(String entityAlias, ModelReader modelReader) {
         ModelMemberEntity modelMemberEntity = this.memberModelMemberEntities.get(entityAlias);
         if (modelMemberEntity == null) {
-            Debug.logError("[" + this.getEntityName() + "]: No member entity with alias " + entityAlias + " found; this view-entity will NOT be usable...", module);
+            Debug.logError("[" + this.getEntityName() + "]: No member entity with alias " + entityAlias + " found; this view-entity will NOT be usable...", MODULE);
             return null;
         }
 
         String aliasedEntityName = modelMemberEntity.getEntityName();
         ModelEntity aliasedEntity = modelReader.getModelEntityNoCheck(aliasedEntityName);
         if (aliasedEntity == null) {
-            Debug.logError("[" + this.getEntityName() + "]: [ModelViewEntity.populateFields] ERROR: could not find ModelEntity for entity name: " + aliasedEntityName, module);
+            Debug.logError("[" + this.getEntityName() + "]: [ModelViewEntity.populateFields] ERROR: could not find ModelEntity for entity name: " + aliasedEntityName, MODULE);
             return null;
         }
 
@@ -395,7 +395,7 @@ public class ModelViewEntity extends ModelEntity {
     public ModelField getAliasedField(ModelEntity aliasedEntity, String field, ModelReader modelReader) {
         ModelField aliasedField = aliasedEntity.getField(field);
         if (aliasedField == null) {
-            Debug.logError("[" + this.getEntityName() + "]: [ModelViewEntity.populateFields] ERROR: could not find ModelField for entity name: " + aliasedEntity.getEntityName() + " and field: " + field, module);
+            Debug.logError("[" + this.getEntityName() + "]: [ModelViewEntity.populateFields] ERROR: could not find ModelField for entity name: " + aliasedEntity.getEntityName() + " and field: " + field, MODULE);
             return null;
         }
         return aliasedField;
@@ -431,7 +431,7 @@ public class ModelViewEntity extends ModelEntity {
         for (ModelAlias alias: aliases) {
             // show a warning if function is specified and groupBy is true
             if (UtilValidate.isNotEmpty(alias.function) && alias.groupBy) {
-                Debug.logWarning("[" + this.getEntityName() + "]: The view-entity alias with name=" + alias.name + " has a function value and is specified as a group-by field; this may be an error, but is not necessarily.", module);
+                Debug.logWarning("[" + this.getEntityName() + "]: The view-entity alias with name=" + alias.name + " has a function value and is specified as a group-by field; this may be an error, but is not necessarily.", MODULE);
             }
             String description = alias.description;
             String name = alias.name;
@@ -460,7 +460,7 @@ public class ModelViewEntity extends ModelEntity {
                 ModelField aliasedField = getAliasedField(aliasedEntity, alias.field, modelReader);
                 if (aliasedField == null) {
                     Debug.logError("[" + this.getEntityName() + "]: [populateFields] ERROR: could not find ModelField for field name \"" +
-                        alias.field + "\" on entity with name: " + aliasedEntity.getEntityName(), module);
+                        alias.field + "\" on entity with name: " + aliasedEntity.getEntityName(), MODULE);
                     continue;
                 }
                 if (alias.isPk != null) {
@@ -484,7 +484,7 @@ public class ModelViewEntity extends ModelEntity {
                         fieldSetBuffer.append(Character.toUpperCase(aliasedFieldSet.charAt(0)));
                         fieldSetBuffer.append(aliasedFieldSet.substring(1));
                         fieldSet = fieldSetBuffer.toString().intern();
-                        Debug.logInfo("[" + this.getEntityName() + "]: copied field set on [" + name + "]: " + fieldSet, module);
+                        Debug.logInfo("[" + this.getEntityName() + "]: copied field set on [" + name + "]: " + fieldSet, MODULE);
                     }
                 } else {
                     fieldSet = alias.getFieldSet();
@@ -497,7 +497,7 @@ public class ModelViewEntity extends ModelEntity {
             if (UtilValidate.isNotEmpty(alias.function)) {
                 String prefix = functionPrefixMap.get(alias.function);
                 if (prefix == null) {
-                    Debug.logWarning("[" + this.getEntityName() + "]: Specified alias function [" + alias.function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", module);
+                    Debug.logWarning("[" + this.getEntityName() + "]: Specified alias function [" + alias.function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", MODULE);
                 } else {
                     colValue = prefix + colValue + ")";
                 }
@@ -515,7 +515,7 @@ public class ModelViewEntity extends ModelEntity {
         ModelEntity member = getMemberModelEntity(aliasName);
         if (member == null) {
             String errMsg = "No member found for aliasName - " + aliasName;
-            Debug.logWarning("[" + this.getEntityName() + "]: " + errMsg, module);
+            Debug.logWarning("[" + this.getEntityName() + "]: " + errMsg, MODULE);
             throw new RuntimeException("[" + this.getEntityName() + "]: Cannot create View Entity: " + errMsg);
         }
 
@@ -545,7 +545,7 @@ public class ModelViewEntity extends ModelEntity {
             ModelViewEntity.ModelAlias alias = it.next();
             if (alias.isComplexAlias()) {
                 // TODO: conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly
-                Debug.logWarning("[" + this.getEntityName() + "]: Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: " + alias.getName(), module);
+                Debug.logWarning("[" + this.getEntityName() + "]: Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: " + alias.getName(), MODULE);
             } else {
                 ModelConversion conversion = getOrCreateModelConversion(alias.getEntityAlias());
                 conversion.addConversion(alias.getField(), alias.getName());
@@ -568,7 +568,7 @@ public class ModelViewEntity extends ModelEntity {
             ModelConversion leftConversion = getOrCreateModelConversion(leftAlias);
             ModelConversion rightConversion = getOrCreateModelConversion(rightAlias);
             Iterator<ModelKeyMap> it3 = link.getKeyMapsIterator();
-            Debug.logVerbose(leftAlias + "<->" + rightAlias, module);
+            Debug.logVerbose(leftAlias + "<->" + rightAlias, MODULE);
             while (it3.hasNext()) {
                 ModelKeyMap mkm = it3.next();
                 String leftFieldName = mkm.getFieldName();
@@ -597,7 +597,7 @@ public class ModelViewEntity extends ModelEntity {
                         if (i == j && currentIndex[i] == l) continue;
                         currentConversions[k++] = allConversions[i][currentIndex[i]];
                     }
-                    Debug.logVerbose(j + "," + l + ":" + Arrays.asList(currentConversions), module);
+                    Debug.logVerbose(j + "," + l + ":" + Arrays.asList(currentConversions), MODULE);
                     while (ptr < currentIndex.length && ++currentIndex[ptr] == maxIndex[ptr]) {
                         currentIndex[ptr] = 0;
                         ptr++;
@@ -607,7 +607,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
         }
-        Debug.logVerbose(this + ":" + conversions, module);
+        Debug.logVerbose(this + ":" + conversions, MODULE);
     }
 
     public List<Map<String, Object>> convert(String fromEntityName, Map<String, ? extends Object> data) {
@@ -633,20 +633,20 @@ public class ModelViewEntity extends ModelEntity {
 
             ModelMemberEntity modelMemberEntity = memberModelMemberEntities.get(entityAlias);
             if (modelMemberEntity == null) {
-                Debug.logError("[" + this.getEntityName() + "]: Member entity referred to in alias-all not found, ignoring: " + entityAlias, module);
+                Debug.logError("[" + this.getEntityName() + "]: Member entity referred to in alias-all not found, ignoring: " + entityAlias, MODULE);
                 continue;
             }
 
             String aliasedEntityName = modelMemberEntity.getEntityName();
             ModelEntity aliasedEntity = modelReader.getModelEntityNoCheck(aliasedEntityName);
             if (aliasedEntity == null) {
-                Debug.logError("[" + this.getEntityName() + "]: Entity referred to in member-entity " + entityAlias + " not found, ignoring: " + aliasedEntityName, module);
+                Debug.logError("[" + this.getEntityName() + "]: Entity referred to in member-entity " + entityAlias + " not found, ignoring: " + aliasedEntityName, MODULE);
                 continue;
             }
 
             List<String> entFieldList = aliasedEntity.getAllFieldNames();
             if (entFieldList == null) {
-                Debug.logError("[" + this.getEntityName() + "]: Entity referred to in member-entity " + entityAlias + " has no fields, ignoring: " + aliasedEntityName, module);
+                Debug.logError("[" + this.getEntityName() + "]: Entity referred to in member-entity " + entityAlias + " has no fields, ignoring: " + aliasedEntityName, MODULE);
                 continue;
             }
 
@@ -689,7 +689,7 @@ public class ModelViewEntity extends ModelEntity {
                     fieldSet = aliasAllFieldSet;
                 }
                 if (UtilValidate.isNotEmpty(fieldSet)) {
-                    Debug.logInfo("[" + this.getEntityName() + "]: set field-set on [" + aliasName + "]: " + fieldSet, module);
+                    Debug.logInfo("[" + this.getEntityName() + "]: set field-set on [" + aliasName + "]: " + fieldSet, MODULE);
                 }
 
                 ModelAlias existingAlias = this.getAlias(aliasName);
@@ -720,9 +720,9 @@ public class ModelViewEntity extends ModelEntity {
                     //already exists, oh well... probably an override, but log just in case
                     String warnMsg = "[" + this.getEntityName() + "]: Throwing out field alias in view entity because one already exists with the alias name [" + aliasName + "] and field name [" + modelMemberEntity.getEntityAlias() + "(" + aliasedEntity.getEntityName() + ")." + fieldName + "], existing field name is [" + existingAlias.getEntityAlias() + "." + existingAlias.getField() + "]";
                     if (isInViewLink) {
-                        Debug.logVerbose(warnMsg, module);
+                        Debug.logVerbose(warnMsg, MODULE);
                     } else {
-                        Debug.logInfo(warnMsg, module);
+                        Debug.logInfo(warnMsg, MODULE);
                     }
                     continue;
                 }
@@ -1081,7 +1081,7 @@ public class ModelViewEntity extends ModelEntity {
                 if (UtilValidate.isNotEmpty(function)) {
                     String prefix = functionPrefixMap.get(function);
                     if (prefix == null) {
-                        Debug.logWarning("[" + modelViewEntity.getEntityName() + "]: Specified alias function [" + function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", module);
+                        Debug.logWarning("[" + modelViewEntity.getEntityName() + "]: Specified alias function [" + function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", MODULE);
                     } else {
                         colName = prefix + colName + ")";
                     }
@@ -1408,7 +1408,7 @@ public class ModelViewEntity extends ModelEntity {
                 value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value,modelFieldTypeReader, new HashMap<>());
             }
 
-            if (Debug.verboseOn()) Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, module);
+            if (Debug.verboseOn()) Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, MODULE);
 
             Object rhs = null;
             if (value != null) {

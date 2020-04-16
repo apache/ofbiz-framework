@@ -54,7 +54,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public final class ProductStoreWorker {
 
-    public static final String module = ProductStoreWorker.class.getName();
+    public static final String MODULE = ProductStoreWorker.class.getName();
     private static Map<String, String> defaultProductStoreEmailScreenLocation = new HashMap<>();
 
     static {
@@ -91,7 +91,7 @@ public final class ProductStoreWorker {
         try {
             productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting ProductStore entity", module);
+            Debug.logError(e, "Problem getting ProductStore entity", MODULE);
         }
         return productStore;
     }
@@ -122,7 +122,7 @@ public final class ProductStoreWorker {
         GenericValue productStore = getProductStore(request);
         if (UtilValidate.isEmpty(productStore)) {
             Debug.logError(
-                    "No product store found in request, cannot set CurrencyUomId!", module);
+                    "No product store found in request, cannot set CurrencyUomId!", MODULE);
             return null;
         } else {
             return UtilHttp.getCurrencyUom(request.getSession(), productStore.getString("defaultCurrencyUomId"));
@@ -133,7 +133,7 @@ public final class ProductStoreWorker {
         GenericValue productStore = getProductStore(request);
         if (UtilValidate.isEmpty(productStore)) {
             Debug.logError(
-                    "No product store found in request, cannot set locale!", module);
+                    "No product store found in request, cannot set locale!", MODULE);
             return null;
         } else {
             return UtilHttp.getLocale(request, request.getSession(), productStore.getString("defaultLocaleString"));
@@ -143,7 +143,7 @@ public final class ProductStoreWorker {
     public static TimeZone getStoreTimeZone(HttpServletRequest request) {
         GenericValue productStore = getProductStore(request);
         if (UtilValidate.isEmpty(productStore)) {
-            Debug.logError("No product store found in request, cannot set timezone!", module);
+            Debug.logError("No product store found in request, cannot set timezone!", MODULE);
             return null;
         } else {
             return UtilHttp.getTimeZone(request, request.getSession(), productStore.getString("defaultTimeZoneString"));
@@ -155,7 +155,7 @@ public final class ProductStoreWorker {
         try {
             productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (productStore != null) {
             if ("Y".equalsIgnoreCase(productStore.getString("oneInventoryFacility"))) {
@@ -206,7 +206,7 @@ public final class ProductStoreWorker {
         try {
             storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId, "paymentServiceTypeEnumId", paymentServiceTypeEnumId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems looking up store payment settings", module);
+            Debug.logError(e, "Problems looking up store payment settings", MODULE);
         }
 
         if (anyServiceType) {
@@ -214,7 +214,7 @@ public final class ProductStoreWorker {
                 try {
                     storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId).queryFirst();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Problems looking up store payment settings", module);
+                    Debug.logError(e, "Problems looking up store payment settings", MODULE);
                 }
             }
 
@@ -222,7 +222,7 @@ public final class ProductStoreWorker {
                 try {
                     storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId).queryFirst();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Problems looking up store payment settings", module);
+                    Debug.logError(e, "Problems looking up store payment settings", MODULE);
                 }
             }
         }
@@ -242,7 +242,7 @@ public final class ProductStoreWorker {
                                    .cache(true)
                                    .queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return storeShipMethods;
@@ -263,7 +263,7 @@ public final class ProductStoreWorker {
         try {
             shippingMethods = EntityQuery.use(delegator).from("ProductStoreShipmentMethView").where("productStoreId", productStoreId).orderBy("sequenceNumber").cache(true).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get ProductStore shipping methods", module);
+            Debug.logError(e, "Unable to get ProductStore shipping methods", MODULE);
             return null;
         }
 
@@ -405,7 +405,7 @@ public final class ProductStoreWorker {
                     try {
                         includedFeatures = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId", includeFeatures).cache(true).queryList();
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + includeFeatures, module);
+                        Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + includeFeatures, MODULE);
                     }
                     if (includedFeatures != null) {
                         boolean foundOne = false;
@@ -426,7 +426,7 @@ public final class ProductStoreWorker {
                     try {
                         excludedFeatures = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId", excludeFeatures).cache(true).queryList();
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + excludeFeatures, module);
+                        Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + excludeFeatures, MODULE);
                     }
                     if (excludedFeatures != null) {
                         for (GenericValue appl: excludedFeatures) {
@@ -488,7 +488,7 @@ public final class ProductStoreWorker {
         try {
             storeSurveys = EntityQuery.use(delegator).from("ProductStoreSurveyAppl").where("productStoreId", productStoreId, "surveyApplTypeId", surveyApplTypeId).orderBy("sequenceNum").cache(true).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get ProductStoreSurveyAppl for store : " + productStoreId, module);
+            Debug.logError(e, "Unable to get ProductStoreSurveyAppl for store : " + productStoreId, MODULE);
             return surveys;
         }
 
@@ -500,7 +500,7 @@ public final class ProductStoreWorker {
             storeSurveys = EntityUtil.filterByAnd(storeSurveys, UtilMisc.toMap("groupName", groupName));
         }
 
-         Debug.logInfo("getSurvey for product " + productId,module);
+         Debug.logInfo("getSurvey for product " + productId,MODULE);
         // limit by product
         if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(storeSurveys)) {
             for (GenericValue surveyAppl: storeSurveys) {
@@ -517,10 +517,10 @@ public final class ProductStoreWorker {
                         else {
                             virtualProductId = ProductWorker.getVariantVirtualId(product);
                         }
-                        Debug.logInfo("getSurvey for virtual product " + virtualProductId,module);
+                        Debug.logInfo("getSurvey for virtual product " + virtualProductId,MODULE);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Problem finding product from productId " + productId, module);
+                    Debug.logError(e, "Problem finding product from productId " + productId, MODULE);
                 }
 
                 // use survey if productId or virtualProductId of the variant product is in the ProductStoreSurveyAppl
@@ -535,7 +535,7 @@ public final class ProductStoreWorker {
                     try {
                         categoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", surveyAppl.get("productCategoryId")).cache(true).queryList();
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Unable to get ProductCategoryMember records for survey application : " + surveyAppl, module);
+                        Debug.logError(e, "Unable to get ProductCategoryMember records for survey application : " + surveyAppl, MODULE);
                     }
                     if (categoryMembers != null) {
                         for (GenericValue member: categoryMembers) {
@@ -579,7 +579,7 @@ public final class ProductStoreWorker {
         try {
             surveyResponse = EntityQuery.use(delegator).from("SurveyResponse").where("surveyId", surveyId, "partyId", partyId).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return -1;
         }
 
@@ -611,11 +611,11 @@ public final class ProductStoreWorker {
     public static boolean isStoreInventoryRequiredAndAvailable(ServletRequest request, GenericValue product, BigDecimal quantity, Boolean wantRequired, Boolean wantAvailable) {
         GenericValue productStore = getProductStore(request);
         if (productStore == null) {
-            Debug.logWarning("No ProductStore found, return false for inventory check", module);
+            Debug.logWarning("No ProductStore found, return false for inventory check", MODULE);
             return false;
         }
         if (product == null) {
-            Debug.logWarning("No Product passed, return false for inventory check", module);
+            Debug.logWarning("No Product passed, return false for inventory check", MODULE);
             return false;
         }
 
@@ -629,7 +629,7 @@ public final class ProductStoreWorker {
             if (wantRequired != null) {
                 Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryRequired", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "productStore", productStore));
                 if (ServiceUtil.isError(invReqResult)) {
-                    Debug.logError("Error calling isStoreInventoryRequired service, result is: " + invReqResult, module);
+                    Debug.logError("Error calling isStoreInventoryRequired service, result is: " + invReqResult, MODULE);
                     return false;
                 }
                 requiredOkay = wantRequired == "Y".equals(invReqResult.get("requireInventory"));
@@ -639,7 +639,7 @@ public final class ProductStoreWorker {
             if (wantAvailable != null) {
                 Map<String, Object> invAvailResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "productStore", productStore, "quantity", quantity));
                 if (ServiceUtil.isError(invAvailResult)) {
-                    Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invAvailResult, module);
+                    Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invAvailResult, MODULE);
                     return false;
                 }
                 availableOkay = wantAvailable == "Y".equals(invAvailResult.get("available"));
@@ -648,7 +648,7 @@ public final class ProductStoreWorker {
             return (requiredOkay == null || requiredOkay) && (availableOkay == null || availableOkay);
         } catch (GenericServiceException e) {
             String errMsg = "Fatal error calling inventory checking services: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return false;
         }
     }
@@ -657,7 +657,7 @@ public final class ProductStoreWorker {
         GenericValue productStore = getProductStore(request);
 
         if (productStore == null) {
-            Debug.logWarning("No ProductStore found, return false for inventory check", module);
+            Debug.logWarning("No ProductStore found, return false for inventory check", MODULE);
             return false;
         }
 
@@ -672,14 +672,14 @@ public final class ProductStoreWorker {
         GenericValue productStore = getProductStore(productStoreId, delegator);
 
         if (productStore == null) {
-            Debug.logWarning("No ProductStore found with id " + productStoreId + ", returning false for inventory available check", module);
+            Debug.logWarning("No ProductStore found with id " + productStoreId + ", returning false for inventory available check", MODULE);
             return false;
         }
 
         // if prodCatalog is set to not check inventory break here
         if ("N".equals(productStore.getString("checkInventory"))) {
             // note: if not set, defaults to yes, check inventory
-            if (Debug.verboseOn()) Debug.logVerbose("ProductStore with id " + productStoreId + ", is set to NOT check inventory, returning true for inventory available check", module);
+            if (Debug.verboseOn()) Debug.logVerbose("ProductStore with id " + productStoreId + ", is set to NOT check inventory, returning true for inventory available check", MODULE);
             return true;
         }
         boolean isInventoryAvailable = false;
@@ -688,7 +688,7 @@ public final class ProductStoreWorker {
             String inventoryFacilityId = productStore.getString("inventoryFacilityId");
 
             if (UtilValidate.isEmpty(inventoryFacilityId)) {
-                Debug.logWarning("ProductStore with id " + productStoreId + " has Y for oneInventoryFacility but inventoryFacilityId is empty, returning false for inventory check", module);
+                Debug.logWarning("ProductStore with id " + productStoreId + " has Y for oneInventoryFacility but inventoryFacilityId is empty, returning false for inventory check", MODULE);
                 return false;
             }
 
@@ -701,7 +701,7 @@ public final class ProductStoreWorker {
             try {
                 productFacilities = product.getRelated("ProductFacility", null, null, true);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Error invoking getRelated in isCatalogInventoryAvailable", module);
+                Debug.logWarning(e, "Error invoking getRelated in isCatalogInventoryAvailable", MODULE);
                 return false;
             }
 

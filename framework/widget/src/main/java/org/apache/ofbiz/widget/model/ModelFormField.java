@@ -24,6 +24,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -33,10 +34,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.Optional;
 import java.util.TimeZone;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.DateTimeConverters;
@@ -102,7 +105,7 @@ public class ModelFormField {
      *
      */
 
-    public static final String module = ModelFormField.class.getName();
+    public static final String MODULE = ModelFormField.class.getName();
 
     /**
      * Constructs a form field model from a builder specification.
@@ -317,7 +320,7 @@ public class ModelFormField {
                 } else {
                     // we might want to do something else here in the future, but for now this is probably best
                     Debug.logWarning("Found a non-String parameter value for field [" + this.getModelForm().getName() + "."
-                            + this.getFieldName() + "]", module);
+                            + this.getFieldName() + "]", MODULE);
                     returnValue = defaultValue;
                 }
             } else {
@@ -495,7 +498,7 @@ public class ModelFormField {
         } catch (ClassCastException e) {
             String errMsg = "Got an unexpected object type (not a Map) for map-name [" + mapAcsr.getOriginalName()
                     + "] in field with name [" + this.getName() + "]: " + e.getMessage();
-            Debug.logError(errMsg, module);
+            Debug.logError(errMsg, MODULE);
             throw new ClassCastException(errMsg);
         }
         return result;
@@ -658,7 +661,7 @@ public class ModelFormField {
                 return localizedName;
             }
         } else {
-            Debug.logWarning("Could not find uiLabelMap in context while rendering form " + this.modelForm.getName(), module);
+            Debug.logWarning("Could not find uiLabelMap in context while rendering form " + this.modelForm.getName(), MODULE);
         }
 
         // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
@@ -938,7 +941,7 @@ public class ModelFormField {
         } catch (CompilationFailedException e) {
             String errMsg = "Error evaluating groovy use-when condition [" + useWhenStr + "] on the field " + this.name
                     + " of form " + this.modelForm.getName() + ": " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
     }
@@ -1429,7 +1432,7 @@ public class ModelFormField {
             } catch (GenericEntityException e) {
                 String errMsg = "Error getting value from the database for display of field [" + getModelFormField().getName()
                         + "] on form [" + getModelFormField().modelForm.getName() + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
 
@@ -1629,7 +1632,7 @@ public class ModelFormField {
                     retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10); // we set the max to 10 digits as an hack to not round numbers in the ui
                 } catch (GeneralException e) {
                     String errMsg = "Error formatting currency value [" + retVal + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     throw new IllegalArgumentException(errMsg);
                 }
             } else if ("date".equals(this.type) && retVal.length() > 9) {
@@ -1648,7 +1651,7 @@ public class ModelFormField {
                     retVal = dateFormatter.format(date);
                 } catch (ConversionException e) {
                     String errMsg = "Error formatting date using default instead [" + retVal + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     // create default date value from timestamp string
                     retVal = retVal.substring(0, 10);
                 }
@@ -1673,7 +1676,7 @@ public class ModelFormField {
                     retVal = dateFormatter.format(date);
                 } catch (ConversionException e) {
                     String errMsg = "Error formatting date/time using default instead [" + retVal + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     // create default date/time value from timestamp string
                     retVal = retVal.substring(0, 16);
                 }
@@ -1697,7 +1700,7 @@ public class ModelFormField {
                     retVal = UtilFormatOut.formatNumber(parsedRetVal, formatVal, delegator, locale);
                 } catch (GeneralException e) {
                     String errMsg = "Error formatting number [" + retVal + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     throw new IllegalArgumentException(errMsg);
                 }
             }
@@ -1792,7 +1795,7 @@ public class ModelFormField {
                     otherFieldSize = Integer.parseInt(sizeStr);
                 } catch (NumberFormatException e) {
                     Debug.logError("Could not parse the size value of the text element: [" + sizeStr
-                            + "], setting to the default of 0", module);
+                            + "], setting to the default of 0", MODULE);
                 }
             }
             this.otherFieldSize = otherFieldSize;
@@ -2076,7 +2079,7 @@ public class ModelFormField {
                     optionValues.add(new OptionValue(keyFieldValue, optionDesc));
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting entity options in form", module);
+                Debug.logError(e, "Error getting entity options in form", MODULE);
             }
         }
 
@@ -2306,7 +2309,7 @@ public class ModelFormField {
                 renderer.render(writer, context);
             } catch (Exception e) {
                 String errMsg = "Error rendering included form named [" + modelForm.getName() + "] at location [" + modelForm.getFormLocation() + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg + e);
             }
         }
@@ -2324,7 +2327,7 @@ public class ModelFormField {
                 throw e;
             } catch (Exception e) {
                 String errMsg = "Error rendering form named [" + name + "] at location [" + location + "]: ";
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg + e);
             }
             return modelForm;
@@ -2388,7 +2391,7 @@ public class ModelFormField {
                 renderer.render(writer, context);
             } catch (Exception e) {
                 String errMsg = "Error rendering included grid named [" + modelGrid.getName() + "] at location [" + modelGrid.getFormLocation() + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg + e);
             }
         }
@@ -2406,7 +2409,7 @@ public class ModelFormField {
                 throw e;
             } catch (Exception e) {
                 String errMsg = "Error rendering grid named [" + name + "] at location [" + location + "]: ";
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg + e);
             }
             return modelForm;
@@ -3107,7 +3110,7 @@ public class ModelFormField {
                         } catch (GeneralException e) {
                             String errMsg = "Could not convert field value for the field: [" + this.keyAcsr.toString()
                                     + "] to String for the value [" + keyObj + "]: " + e.toString();
-                            Debug.logError(e, errMsg, module);
+                            Debug.logError(e, errMsg, MODULE);
                         }
                     }
                     optionValues.add(new OptionValue(key, description.expandString(localContext)));
@@ -3152,7 +3155,7 @@ public class ModelFormField {
         private final String lookupPresentation;
         private final String lookupWidth;
         private final String showDescription;
-        private final String targetParameter;
+        private final FlexibleStringExpander targetParameter;
 
         public LookupField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
@@ -3165,7 +3168,7 @@ public class ModelFormField {
             this.lookupPresentation = element.getAttribute("presentation");
             this.lookupWidth = element.getAttribute("width");
             this.showDescription = element.getAttribute("show-description");
-            this.targetParameter = element.getAttribute("target-parameter");
+            this.targetParameter = FlexibleStringExpander.getInstance(element.getAttribute("target-parameter"));
         }
 
         public LookupField(int fieldSource, ModelFormField modelFormField) {
@@ -3179,7 +3182,7 @@ public class ModelFormField {
             this.lookupPresentation = "";
             this.lookupWidth = "";
             this.showDescription = "";
-            this.targetParameter = "";
+            this.targetParameter = FlexibleStringExpander.getInstance("");
         }
 
         public LookupField(LookupField original, ModelFormField modelFormField) {
@@ -3247,19 +3250,32 @@ public class ModelFormField {
             return UtilValidate.isEmpty(this.showDescription) ? null : "true".equals(this.showDescription);
         }
 
-        public String getTargetParameter() {
+        public FlexibleStringExpander getTargetParameter() {
             return targetParameter;
         }
 
+        public String getTargetParameter(final Map<String, Object> context) {
+            return targetParameter.expandString(context);
+        }
+
+        /**
+         * @deprecated Target Parameter is potentially a FlexibleStringExpander expression and should therefore be
+         * evaluated within a given context.
+         * <p> Use {@link #getTargetParameter(Map)} instead.</p>
+         */
+        @Deprecated
         public List<String> getTargetParameterList() {
-            List<String> paramList = new LinkedList<>();
-            if (UtilValidate.isNotEmpty(this.targetParameter)) {
-                StringTokenizer stk = new StringTokenizer(this.targetParameter, ", ");
-                while (stk.hasMoreTokens()) {
-                    paramList.add(stk.nextToken());
-                }
-            }
-            return paramList;
+            // Evaluate target-parameter with a null context, treating it as a plain string.
+            return getTargetParameterList(null);
+        }
+
+        public List<String> getTargetParameterList(final Map<String, Object> context) {
+            return Optional.ofNullable(getTargetParameter(context))
+                    .map(x -> x.split(","))
+                    .map(Arrays::stream)
+                    .orElse(Stream.empty())
+                    .map(String::trim)
+                    .collect(Collectors.toList());
         }
 
         @Override
@@ -3322,7 +3338,7 @@ public class ModelFormField {
             // Output format might not support menus, so make menu rendering optional.
             MenuStringRenderer menuStringRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
             if (menuStringRenderer == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("MenuStringRenderer instance not found in rendering context, menu not rendered.", module);
+                if (Debug.verboseOn()) Debug.logVerbose("MenuStringRenderer instance not found in rendering context, menu not rendered.", MODULE);
                 return;
             }
             ModelMenu modelMenu = getModelMenu(context);
@@ -3337,7 +3353,7 @@ public class ModelFormField {
                 modelMenu = MenuFactory.getMenuFromLocation(location, name, (VisualTheme) context.get("visualTheme"));
             } catch (Exception e) {
                 String errMsg = "Error rendering menu named [" + name + "] at location [" + location + "]: ";
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg + e);
             }
             return modelMenu;
@@ -3610,7 +3626,7 @@ public class ModelFormField {
                 throw e;
             } catch (Exception e) {
                 String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg + e);
             }
         }
@@ -3848,7 +3864,7 @@ public class ModelFormField {
                     }
                 } catch (CompilationFailedException e) {
                     String errmsg = "Error evaluating Groovy target conditions";
-                    Debug.logError(e, errmsg, module);
+                    Debug.logError(e, errmsg, MODULE);
                     throw new IllegalArgumentException(errmsg);
                 }
             }
@@ -3874,7 +3890,7 @@ public class ModelFormField {
 
         } catch (CompilationFailedException e) {
             String errMsg = "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form " + this.modelForm.getName() + ": " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
 
@@ -4010,7 +4026,7 @@ public class ModelFormField {
                     cols = Integer.parseInt(colsStr);
                 } catch (NumberFormatException e) {
                     Debug.logError("Could not parse the size value of the text element: [" + colsStr
-                            + "], setting to default of " + cols, module);
+                            + "], setting to default of " + cols, MODULE);
                 }
             }
             this.cols = cols;
@@ -4023,7 +4039,7 @@ public class ModelFormField {
                     rows = Integer.parseInt(rowsStr);
                 } catch (NumberFormatException e) {
                     Debug.logError("Could not parse the size value of the text element: [" + rowsStr
-                            + "], setting to default of " + rows, module);
+                            + "], setting to default of " + rows, MODULE);
                 }
             }
             this.rows = rows;
@@ -4034,7 +4050,7 @@ public class ModelFormField {
                     maxlength = Integer.valueOf(maxlengthStr);
                 } catch (NumberFormatException e) {
                     Debug.logError("Could not parse the max-length value of the text element: [" + maxlengthStr
-                            + "], setting to null; default of no maxlength will be used", module);
+                            + "], setting to null; default of no maxlength will be used", MODULE);
                 }
             }
             this.maxlength = maxlength;
@@ -4151,7 +4167,7 @@ public class ModelFormField {
                     maxlength = Integer.valueOf(maxlengthStr);
                 } catch (NumberFormatException e) {
                     Debug.logError("Could not parse the maxlength value of the text element: [" + maxlengthStr
-                            + "], setting to null; default of no maxlength will be used", module);
+                            + "], setting to null; default of no maxlength will be used", MODULE);
                 }
             }
             this.maxlength = maxlength;
@@ -4164,7 +4180,7 @@ public class ModelFormField {
                     size = Integer.parseInt(sizeStr);
                 } catch (NumberFormatException e) {
                     Debug.logError("Could not parse the size value of the text element: [" + sizeStr
-                            + "], setting to the default of " + size, module);
+                            + "], setting to the default of " + size, MODULE);
                 }
             }
             this.size = size;

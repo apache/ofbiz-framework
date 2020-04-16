@@ -42,7 +42,7 @@ import org.w3c.dom.Text;
  */
 public class GatewayResponse {
 
-    private static final String module = GatewayResponse.class.getName();
+    private static final String MODULE = GatewayResponse.class.getName();
 
     // private field definitions, values are set to default
 
@@ -197,7 +197,7 @@ public class GatewayResponse {
         }
             
         if (req.isTestMode()) {
-            Debug.logInfo("[eWay Reply]\n" + this.toString(), module);
+            Debug.logInfo("[eWay Reply]\n" + this.toString(), MODULE);
         }
     }
     

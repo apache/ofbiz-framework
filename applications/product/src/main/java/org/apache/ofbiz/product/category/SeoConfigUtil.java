@@ -49,7 +49,7 @@ import org.xml.sax.SAXException;
  * 
  */
 public final class SeoConfigUtil {
-    private static final String module = SeoConfigUtil.class.getName();
+    private static final String MODULE = SeoConfigUtil.class.getName();
     private static Perl5Compiler perlCompiler = new Perl5Compiler();
     private static boolean isInitialed = false;
     private static boolean categoryUrlEnabled = true;
@@ -114,17 +114,17 @@ public final class SeoConfigUtil {
             Element rootElement = configDoc.getDocumentElement();
 
             String regexIfMatch = UtilXml.childElementValue(rootElement, ELEMENT_REGEXPIFMATCH, DEFAULT_REGEXP);
-            Debug.logInfo("Parsing " + regexIfMatch, module);
+            Debug.logInfo("Parsing " + regexIfMatch, MODULE);
             try {
                 regexpIfMatch = perlCompiler.compile(regexIfMatch, Perl5Compiler.READ_ONLY_MASK);
             } catch (MalformedPatternException e1) {
-                Debug.logWarning(e1, "Error while parsing " + regexIfMatch, module);
+                Debug.logWarning(e1, "Error while parsing " + regexIfMatch, MODULE);
             }
 
             // parse category-url element
             try {
                 Element categoryUrlElement = UtilXml.firstChildElement(rootElement, ELEMENT_CATEGORY_URL);
-                Debug.logInfo("Parsing " + ELEMENT_CATEGORY_URL + " [" + (categoryUrlElement != null) + "]:", module);
+                Debug.logInfo("Parsing " + ELEMENT_CATEGORY_URL + " [" + (categoryUrlElement != null) + "]:", MODULE);
                 if (categoryUrlElement != null) {
                     String enableCategoryUrlValue = UtilXml.childElementValue(categoryUrlElement, ELEMENT_VALUE, DEFAULT_CATEGORY_URL_VALUE);
                     if (DEFAULT_CATEGORY_URL_VALUE.equalsIgnoreCase(enableCategoryUrlValue)) {
@@ -143,7 +143,7 @@ public final class SeoConfigUtil {
                                     path = path.trim();
                                     if (!allowedContextPaths.contains(path)) {
                                         allowedContextPaths.add(path);
-                                        Debug.logInfo("  " + ELEMENT_ALLOWED_CONTEXT_PATHS + ": " + path, module);
+                                        Debug.logInfo("  " + ELEMENT_ALLOWED_CONTEXT_PATHS + ": " + path, MODULE);
                                     }
                                 }
                             }
@@ -155,7 +155,7 @@ public final class SeoConfigUtil {
                         } else {
                             categoryNameEnabled = true;
                         }
-                        Debug.logInfo("  " + ELEMENT_CATEGORY_NAME + ": " + categoryNameEnabled, module);
+                        Debug.logInfo("  " + ELEMENT_CATEGORY_NAME + ": " + categoryNameEnabled, MODULE);
 
                         categoryUrlSuffix = UtilXml.childElementValue(categoryUrlElement, ELEMENT_CATEGORY_URL_SUFFIX, null);
                         if (UtilValidate.isNotEmpty(categoryUrlSuffix)) {
@@ -164,18 +164,18 @@ public final class SeoConfigUtil {
                                 categoryUrlSuffix = null;
                             }
                         }
-                        Debug.logInfo("  " + ELEMENT_CATEGORY_URL_SUFFIX + ": " + categoryUrlSuffix, module);
+                        Debug.logInfo("  " + ELEMENT_CATEGORY_URL_SUFFIX + ": " + categoryUrlSuffix, MODULE);
                     }
                 }
             } catch (NullPointerException e) {
                 // no "category-url" element
-                Debug.logWarning("No category-url element found in " + seoConfigFilename.toString(), module);
+                Debug.logWarning("No category-url element found in " + seoConfigFilename.toString(), MODULE);
             }
 
             // parse jsessionid element
             try {
                 Element jSessionId = UtilXml.firstChildElement(rootElement, ELEMENT_JSESSIONID);
-                Debug.logInfo("Parsing " + ELEMENT_JSESSIONID + " [" + (jSessionId != null) + "]:", module);
+                Debug.logInfo("Parsing " + ELEMENT_JSESSIONID + " [" + (jSessionId != null) + "]:", MODULE);
                 if (jSessionId != null) {
                     Element anonymous = UtilXml.firstChildElement(jSessionId, ELEMENT_ANONYMOUS);
                     if (anonymous != null) {
@@ -188,7 +188,7 @@ public final class SeoConfigUtil {
                     } else {
                         jSessionIdAnonEnabled = Boolean.valueOf(DEFAULT_ANONYMOUS_VALUE);
                     }
-                    Debug.logInfo("  " + ELEMENT_ANONYMOUS + ": " + jSessionIdAnonEnabled, module);
+                    Debug.logInfo("  " + ELEMENT_ANONYMOUS + ": " + jSessionIdAnonEnabled, MODULE);
                     
                     Element user = UtilXml.firstChildElement(jSessionId, ELEMENT_USER);
                     if (user != null) {
@@ -201,7 +201,7 @@ public final class SeoConfigUtil {
 
                         Element exceptions = UtilXml.firstChildElement(user, ELEMENT_EXCEPTIONS);
                         if (exceptions != null) {
-                            Debug.logInfo("  " + ELEMENT_EXCEPTIONS + ": ", module);
+                            Debug.logInfo("  " + ELEMENT_EXCEPTIONS + ": ", MODULE);
                             List<? extends Element> exceptionUrlPatterns = UtilXml.childElementList(exceptions, ELEMENT_URLPATTERN);
                             for (int i = 0; i < exceptionUrlPatterns.size(); i++) {
                                 Element element = exceptionUrlPatterns.get(i);
@@ -210,9 +210,9 @@ public final class SeoConfigUtil {
                                     try {
                                         Pattern pattern = perlCompiler.compile(urlpattern, Perl5Compiler.READ_ONLY_MASK);
                                         userExceptionPatterns.add(pattern);
-                                        Debug.logInfo("    " + ELEMENT_URLPATTERN + ": " + urlpattern, module);
+                                        Debug.logInfo("    " + ELEMENT_URLPATTERN + ": " + urlpattern, MODULE);
                                     } catch (MalformedPatternException e) {
-                                        Debug.logWarning("Can NOT parse " + urlpattern + " in element " + ELEMENT_URLPATTERN + " of " + ELEMENT_EXCEPTIONS + ". Error: " + e.getMessage(), module);
+                                        Debug.logWarning("Can NOT parse " + urlpattern + " in element " + ELEMENT_URLPATTERN + " of " + ELEMENT_EXCEPTIONS + ". Error: " + e.getMessage(), MODULE);
                                     }
                                 }
                             }
@@ -220,16 +220,16 @@ public final class SeoConfigUtil {
                     } else {
                         jSessionIdUserEnabled = Boolean.valueOf(DEFAULT_USER_VALUE);
                     }
-                    Debug.logInfo("  " + ELEMENT_USER + ": " + jSessionIdUserEnabled, module);
+                    Debug.logInfo("  " + ELEMENT_USER + ": " + jSessionIdUserEnabled, MODULE);
                 }
             } catch (NullPointerException e) {
-                Debug.logWarning("No jsessionid element found in " + seoConfigFilename.toString(), module);
+                Debug.logWarning("No jsessionid element found in " + seoConfigFilename.toString(), MODULE);
             }
             
             // parse url-config elements
             try {
                 NodeList configs = rootElement.getElementsByTagName(ELEMENT_URL_CONFIG);
-                Debug.logInfo("Parsing " + ELEMENT_URL_CONFIG, module);
+                Debug.logInfo("Parsing " + ELEMENT_URL_CONFIG, MODULE);
                 int length = configs.getLength();
                 for (int j = 0; j < length; j++) {
                     Element config = (Element) configs.item(j);
@@ -237,13 +237,13 @@ public final class SeoConfigUtil {
                     if (UtilValidate.isEmpty(urlpattern)) {
                         continue;
                     }
-                    Debug.logInfo("  " + ELEMENT_URLPATTERN + ": " + urlpattern, module);
+                    Debug.logInfo("  " + ELEMENT_URLPATTERN + ": " + urlpattern, MODULE);
                     Pattern pattern;
                     try {
                         pattern = perlCompiler.compile(urlpattern, Perl5Compiler.READ_ONLY_MASK);
                         seoPatterns.put(urlpattern, pattern);
                     } catch (MalformedPatternException e) {
-                        Debug.logWarning("Error while creating parttern for seo url-pattern: " + urlpattern, module);
+                        Debug.logWarning("Error while creating parttern for seo url-pattern: " + urlpattern, MODULE);
                         continue;
                     }
                     
@@ -253,7 +253,7 @@ public final class SeoConfigUtil {
                         String replacement = UtilXml.childElementValue(seo, ELEMENT_REPLACEMENT, null);
                         if (UtilValidate.isNotEmpty(replacement)) {
                             seoReplacements.put(urlpattern, replacement);
-                            Debug.logInfo("    " + ELEMENT_SEO + " " + ELEMENT_REPLACEMENT + ": " + replacement, module);
+                            Debug.logInfo("    " + ELEMENT_SEO + " " + ELEMENT_REPLACEMENT + ": " + replacement, MODULE);
                         }
                     }
 
@@ -265,30 +265,30 @@ public final class SeoConfigUtil {
                                 ELEMENT_RESPONSECODE, String.valueOf(DEFAULT_RESPONSECODE));
                         if (UtilValidate.isNotEmpty(replacement)) {
                             forwardReplacements.put(urlpattern, replacement);
-                            Debug.logInfo("    " + ELEMENT_FORWARD + " " + ELEMENT_REPLACEMENT + ": " + replacement, module);
+                            Debug.logInfo("    " + ELEMENT_FORWARD + " " + ELEMENT_REPLACEMENT + ": " + replacement, MODULE);
                             if (UtilValidate.isNotEmpty(responseCode)) {
                                 Integer responseCodeInt = DEFAULT_RESPONSECODE;
                                 try {
                                     responseCodeInt = Integer.valueOf(responseCode);
                                 } catch (NumberFormatException nfe) {
-                                    Debug.logWarning(nfe, "Error while parsing response code number: " + responseCode, module);
+                                    Debug.logWarning(nfe, "Error while parsing response code number: " + responseCode, MODULE);
                                 }
                                 forwardResponseCodes.put(urlpattern, responseCodeInt);
-                                Debug.logInfo("    " + ELEMENT_FORWARD + " " + ELEMENT_RESPONSECODE + ": " + responseCodeInt, module);
+                                Debug.logInfo("    " + ELEMENT_FORWARD + " " + ELEMENT_RESPONSECODE + ": " + responseCodeInt, MODULE);
                             }
                         }
                     }
                 }
             } catch (NullPointerException e) {
                 // no "url-config" element
-                Debug.logWarning("No " + ELEMENT_URL_CONFIG + " element found in " + seoConfigFilename.toString(), module);
+                Debug.logWarning("No " + ELEMENT_URL_CONFIG + " element found in " + seoConfigFilename.toString(), MODULE);
             }
 
             // parse char-filters elements
             try {
                 NodeList nameFilterNodes = rootElement
                         .getElementsByTagName(ELEMENT_CHAR_FILTER);
-                Debug.logInfo("Parsing " + ELEMENT_CHAR_FILTER + ": ", module);
+                Debug.logInfo("Parsing " + ELEMENT_CHAR_FILTER + ": ", MODULE);
                 int length = nameFilterNodes.getLength();
                 for (int i = 0; i < length; i++) {
                     Element element = (Element) nameFilterNodes.item(i);
@@ -299,27 +299,27 @@ public final class SeoConfigUtil {
                         try {
                             perlCompiler.compile(charaterPattern, Perl5Compiler.READ_ONLY_MASK);
                             charFilters.put(charaterPattern, replacement);
-                            Debug.logInfo("  " + ELEMENT_CHARACTER_PATTERN + ": " + charaterPattern, module);
-                            Debug.logInfo("  " + ELEMENT_REPLACEMENT + ": " + replacement, module);
+                            Debug.logInfo("  " + ELEMENT_CHARACTER_PATTERN + ": " + charaterPattern, MODULE);
+                            Debug.logInfo("  " + ELEMENT_REPLACEMENT + ": " + replacement, MODULE);
                         } catch (MalformedPatternException e) {
                             // skip this filter (character-pattern replacement) if any error happened
-                            Debug.logWarning(e, "Error while parsing " + ELEMENT_CHARACTER_PATTERN + ": " + charaterPattern, module);
+                            Debug.logWarning(e, "Error while parsing " + ELEMENT_CHARACTER_PATTERN + ": " + charaterPattern, MODULE);
                         }
                     }
                 }
             } catch (NullPointerException e) {
                 // no "char-filters" element
-                Debug.logWarning("No " + ELEMENT_CHAR_FILTER + " element found in " + seoConfigFilename.toString(), module);
+                Debug.logWarning("No " + ELEMENT_CHAR_FILTER + " element found in " + seoConfigFilename.toString(), MODULE);
             }
         } catch (SAXException e) {
             result = "error";
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         } catch (ParserConfigurationException e) {
             result = "error";
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         } catch (IOException e) {
             result = "error";
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (seoReplacements.keySet().isEmpty()) {
             useUrlRegexp = false;

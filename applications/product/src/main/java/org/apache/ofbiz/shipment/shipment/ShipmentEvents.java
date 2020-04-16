@@ -41,7 +41,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ShipmentEvents {
 
-    public static final String module = ShipmentEvents.class.getName();
+    public static final String MODULE = ShipmentEvents.class.getName();
 
     public static String viewShipmentPackageRouteSegLabelImage(HttpServletRequest request, HttpServletResponse response) {
 
@@ -56,7 +56,7 @@ public class ShipmentEvents {
             shipmentPackageRouteSeg = EntityQuery.use(delegator).from("ShipmentPackageRouteSeg").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentPackageSeqId", shipmentPackageSeqId).queryOne();
         } catch (GenericEntityException e) {
             String errorMsg = "Error looking up ShipmentPackageRouteSeg: " + e.toString();
-            Debug.logError(e, errorMsg, module);
+            Debug.logError(e, errorMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             return "error";
         }
@@ -81,7 +81,7 @@ public class ShipmentEvents {
                 UtilHttp.streamContentToBrowser(response, bytes, "image/png");
             } catch (IOException e2) {
                 String errorMsg = "Error writing labelImage to OutputStream: " + e2.toString();
-                Debug.logError(e2, errorMsg, module);
+                Debug.logError(e2, errorMsg, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                 return "error";
             }
@@ -104,7 +104,7 @@ public class ShipmentEvents {
                 if (ServiceUtil.isError(resultMap)) {
                     String errorMessage = ServiceUtil.getErrorMessage(resultMap);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     return "error";
                 }
             } catch (GenericServiceException gse) {

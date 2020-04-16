@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.job.JobPriority;
  */
 public abstract class GenericAsyncEngine extends AbstractEngine {
 
-    public static final String module = GenericAsyncEngine.class.getName();
+    public static final String MODULE = GenericAsyncEngine.class.getName();
 
     protected GenericAsyncEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -124,7 +124,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 throw new GenericServiceException("Problem serializing service attributes", e);
             }
 
-            Debug.logInfo("Persisted job queued : " + jobV.getString("jobName"), module);
+            Debug.logInfo("Persisted job queued : " + jobV.getString("jobName"), MODULE);
         } else {
             JobManager jMgr = dispatcher.getJobManager();
             if (jMgr != null) {

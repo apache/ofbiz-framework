@@ -86,7 +86,7 @@ if ("Product1".equals(preConfiguredSetName)) {
     passedEntityNames.add("ProductFeatureGroup")
     passedEntityNames.add("ProductPriceChange")
     passedEntityNames.add("ProductPromoAction")
-    passedEntityNames.add("ProductPromoCodeEmail")
+    passedEntityNames.add("ProdPromoCodeContactMech")
     passedEntityNames.add("ProductPromoCodeParty")
     passedEntityNames.add("ProductPromoCond")
 } else if ("Product4".equals(preConfiguredSetName)) {
@@ -128,7 +128,7 @@ if ("Product1".equals(preConfiguredSetName)) {
     passedEntityNames.add("ProductPromoProduct")
     passedEntityNames.add("ProductPromoRule")
     passedEntityNames.add("ProductPromoAction")
-    passedEntityNames.add("ProductPromoCodeEmail")
+    passedEntityNames.add("ProdPromoCodeContactMech")
     passedEntityNames.add("ProductPromoCodeParty")
     passedEntityNames.add("ProductPromoCond")
 
@@ -180,7 +180,7 @@ if (passedEntityNames) {
         session.setAttribute("xmlrawdump_entitylist", passedEntityNames)
         session.setAttribute("entityDateCond", entityDateCond)
     } else {
-        efo = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true)
+        efo = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false)
         numberOfEntities = passedEntityNames?.size() ?: 0
         context.numberOfEntities = numberOfEntities
         numberWritten = 0
@@ -206,9 +206,9 @@ if (passedEntityNames) {
                 try {
                     me = reader.getModelEntity(curEntityName)
                     if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
-                        values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), efo)
+                        values = delegator.find(curEntityName, null, null, null, null, efo)
                     } else {
-                        values = delegator.find(curEntityName, entityDateCond, null, null, UtilMisc.toList("-createdTxStamp"), efo)
+                        values = delegator.find(curEntityName, entityDateCond, null, null, null, efo)
                     }
     
                     curNumberWritten = 0
@@ -261,9 +261,9 @@ if (passedEntityNames) {
                             return
                         }
                         if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
-                            values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), efo)
+                            values = delegator.find(curEntityName, null, null, null, null, efo)
                         } else {
-                            values = delegator.find(curEntityName, entityDateCond, null, null, me.getPkFieldNames(), efo)
+                            values = delegator.find(curEntityName, entityDateCond, null, null, null, efo)
                         }
                         isFirst = true
                         writer = null

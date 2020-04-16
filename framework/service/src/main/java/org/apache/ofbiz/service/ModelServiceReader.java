@@ -56,7 +56,7 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("serial")
 public class ModelServiceReader implements Serializable {
 
-    public static final String module = ModelServiceReader.class.getName();
+    public static final String MODULE = ModelServiceReader.class.getName();
 
     /** is either from a URL or from a ResourceLoader (through the ResourceHandler) */
     protected boolean isFromURL;
@@ -66,7 +66,7 @@ public class ModelServiceReader implements Serializable {
 
     public static Map<String, ModelService> getModelServiceMap(URL readerURL, Delegator delegator) {
         if (readerURL == null) {
-            Debug.logError("Cannot add reader with a null reader URL", module);
+            Debug.logError("Cannot add reader with a null reader URL", MODULE);
             return null;
         }
 
@@ -99,7 +99,7 @@ public class ModelServiceReader implements Serializable {
             try {
                 document = handler.getDocument();
             } catch (GenericConfigException e) {
-                Debug.logError(e, "Error getting XML document from resource", module);
+                Debug.logError(e, "Error getting XML document from resource", MODULE);
                 return null;
             }
         }
@@ -117,7 +117,7 @@ public class ModelServiceReader implements Serializable {
         try {
             resourceLocation = handler.getURL().toExternalForm();
         } catch (GenericConfigException e) {
-            Debug.logError(e, "Could not get resource URL", module);
+            Debug.logError(e, "Could not get resource URL", MODULE);
         }
 
         int i = 0;
@@ -138,7 +138,7 @@ public class ModelServiceReader implements Serializable {
                     // check to see if service with same name has already been read
                     if (modelServices.containsKey(serviceName)) {
                         Debug.logWarning("Service " + serviceName + " is defined more than once, " +
-                            "most recent will over-write previous definition(s)", module);
+                            "most recent will over-write previous definition(s)", MODULE);
                     }
                     ModelService service = createModelService(curServiceElement, resourceLocation);
 
@@ -146,14 +146,14 @@ public class ModelServiceReader implements Serializable {
                     }
             } while ((curChild = curChild.getNextSibling()) != null);
         } else {
-            Debug.logWarning("No child nodes found.", module);
+            Debug.logWarning("No child nodes found.", MODULE);
         }
         if (this.isFromURL) {
             utilTimer.timerString("Finished file " + readerURL + " - Total Services: " + i + " FINISHED");
-            Debug.logInfo("Loaded [" + i + "] Services from " + readerURL, module);
+            Debug.logInfo("Loaded [" + i + "] Services from " + readerURL, MODULE);
         } else {
             utilTimer.timerString("Finished document in " + handler + " - Total Services: " + i + " FINISHED");
-            Debug.logInfo("Loaded [" + i + "] Services from " + resourceLocation, module);
+            Debug.logInfo("Loaded [" + i + "] Services from " + resourceLocation, MODULE);
         }
         return modelServices;
     }
@@ -182,7 +182,7 @@ public class ModelServiceReader implements Serializable {
         if (service.requireNewTransaction && !service.useTransaction) {
             // requireNewTransaction implies that a transaction is used
             service.useTransaction = true;
-            Debug.logWarning("In service definition [" + service.name + "] the value use-transaction has been changed from false to true as required when require-new-transaction is set to true", module);
+            Debug.logWarning("In service definition [" + service.name + "] the value use-transaction has been changed from false to true as required when require-new-transaction is set to true", MODULE);
         }
         service.hideResultInLog = !"false".equalsIgnoreCase(serviceElement.getAttribute("hideResultInLog"));
 
@@ -193,7 +193,7 @@ public class ModelServiceReader implements Serializable {
             try {
                 semaphoreWait = Integer.parseInt(semaphoreWaitStr);
             } catch (NumberFormatException e) {
-                Debug.logWarning(e, "Setting semaphore-wait to 5 minutes (default)", module);
+                Debug.logWarning(e, "Setting semaphore-wait to 5 minutes (default)", MODULE);
                 semaphoreWait = 300;
             }
         }
@@ -205,7 +205,7 @@ public class ModelServiceReader implements Serializable {
             try {
                 semaphoreSleep = Integer.parseInt(semaphoreSleepStr);
             } catch (NumberFormatException e) {
-                Debug.logWarning(e, "Setting semaphore-sleep to 1/2 second (default)", module);
+                Debug.logWarning(e, "Setting semaphore-sleep to 1/2 second (default)", MODULE);
                 semaphoreSleep = 500;
             }
         }
@@ -218,7 +218,7 @@ public class ModelServiceReader implements Serializable {
             try {
                 maxRetry = Integer.parseInt(maxRetryStr);
             } catch (NumberFormatException e) {
-                Debug.logWarning(e, "Setting maxRetry to 0 (default)", module);
+                Debug.logWarning(e, "Setting maxRetry to 0 (default)", MODULE);
                 maxRetry = 0;
             }
         }
@@ -231,7 +231,7 @@ public class ModelServiceReader implements Serializable {
             try {
                 timeout = Integer.parseInt(timeoutStr);
             } catch (NumberFormatException e) {
-                Debug.logWarning(e, "Setting timeout to 0 (default)", module);
+                Debug.logWarning(e, "Setting timeout to 0 (default)", MODULE);
                 timeout = 0;
             }
         }
@@ -243,7 +243,7 @@ public class ModelServiceReader implements Serializable {
         // construct the context
         service.contextInfo = new HashMap<>();
         createNotification(serviceElement, service);
-        createPermission(serviceElement, service);
+        createAloneServicePermission(serviceElement, service);
         createPermGroups(serviceElement, service);
         createGroupDefs(serviceElement, service);
         createImplDefs(serviceElement, service);
@@ -305,15 +305,25 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    private static void createPermission(Element baseElement, ModelService model) {
+    private static ModelPermission createServicePermission(Element e, ModelService model) {
+        ModelPermission modelPermission = new ModelPermission();
+        modelPermission.permissionType = ModelPermission.PERMISSION_SERVICE;
+        modelPermission.permissionServiceName = e.getAttribute("service-name");
+        modelPermission.permissionMainAction = e.getAttribute("main-action");
+        modelPermission.permissionResourceDesc = e.getAttribute("resource-description");
+        modelPermission.permissionRequireNewTransaction = !"false".equalsIgnoreCase(e.getAttribute("require-new-transaction"));
+        modelPermission.serviceModel = model;
+        return modelPermission;
+    }
+
+    private static void createAloneServicePermission(Element baseElement, ModelService model) {
         Element e = UtilXml.firstChildElement(baseElement, "permission-service");
         if (e != null) {
-            ModelPermission modelPermission = new ModelPermission();
-            modelPermission.permissionServiceName = e.getAttribute("service-name");
-            modelPermission.permissionMainAction = e.getAttribute("main-action");
-            modelPermission.permissionResourceDesc = e.getAttribute("resource-description");
-            modelPermission.permissionRequireNewTransaction = !"false".equalsIgnoreCase(e.getAttribute("require-new-transaction"));
-            model.auth = true; // auth is always required when permissions are set
+            ModelPermission modelPermission = createServicePermission(e, model);
+            model.modelPermission = modelPermission;
+
+            // auth is always required when permissions are set
+            model.auth = true;
         }
     }
 
@@ -343,17 +353,11 @@ public class ModelServiceReader implements Serializable {
 
         // Create the permissions based on permission services
         for (Element element : UtilXml.childElementList(baseElement, "permission-service")) {
-            ModelPermission perm = new ModelPermission();
-            if (baseElement != null) {
-                perm.permissionType = ModelPermission.PERMISSION_SERVICE;
-                perm.permissionServiceName = element.getAttribute("service-name");
-                perm.action = element.getAttribute("main-action");
-                perm.permissionResourceDesc = element.getAttribute("resource-description");
-                perm.permissionRequireNewTransaction = !"false".equalsIgnoreCase(element.getAttribute("require-new-transaction"));
-                perm.auth = true; // auth is always required when permissions are set
-                perm.serviceModel = service;
-                group.permissions.add(perm);
-            }
+            group.permissions.add(createServicePermission(element, service));
+        }
+        if (UtilValidate.isNotEmpty(group.permissions)) {
+            // auth is always required when permissions are set
+            service.auth = true;
         }
     }
 
@@ -365,7 +369,7 @@ public class ModelServiceReader implements Serializable {
             service.internalGroup = new GroupModel(groupElement);
             service.invoke = service.internalGroup.getGroupName();
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Created INTERNAL GROUP model [" + service.internalGroup + "]", module);
+                Debug.logVerbose("Created INTERNAL GROUP model [" + service.internalGroup + "]", MODULE);
             }
         }
     }
@@ -392,7 +396,7 @@ public class ModelServiceReader implements Serializable {
         if (UtilValidate.isEmpty(entityName)) {
             entityName = service.defaultEntityName;
             if (UtilValidate.isEmpty(entityName)) {
-                Debug.logWarning("Auto-Attribute does not specify an entity-name; not default-entity on service definition", module);
+                Debug.logWarning("Auto-Attribute does not specify an entity-name; not default-entity on service definition", MODULE);
             }
         }
 
@@ -402,7 +406,7 @@ public class ModelServiceReader implements Serializable {
         boolean includeNonPk = "nonpk".equals(includeType) || "all".equals(includeType);
 
         if (delegator == null) {
-            Debug.logWarning("Cannot use auto-attribute fields with a null delegator", module);
+            Debug.logWarning("Cannot use auto-attribute fields with a null delegator", MODULE);
         }
 
         if (delegator != null && entityName != null) {
@@ -450,9 +454,9 @@ public class ModelServiceReader implements Serializable {
                     service.addParam(thisParam);
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Problem loading auto-attributes [" + entityName + "] for " + service.name, module);
+                Debug.logError(e, "Problem loading auto-attributes [" + entityName + "] for " + service.name, MODULE);
             } catch (GeneralException e) {
-                Debug.logError(e, "Cannot load auto-attributes : " + e.getMessage() + " for " + service.name, module);
+                Debug.logError(e, "Cannot load auto-attributes : " + e.getMessage() + " for " + service.name, MODULE);
             }
         }
     }
@@ -481,7 +485,7 @@ public class ModelServiceReader implements Serializable {
             String defValue = attribute.getAttribute("default-value");
             if (UtilValidate.isNotEmpty(defValue)) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
+                    Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", MODULE);
                 }
                 param.setDefaultValue(defValue.intern());
             }
@@ -607,7 +611,7 @@ public class ModelServiceReader implements Serializable {
                     param = new ModelParam();
                     param.name = name;
                 } else {
-                    Debug.logWarning("No parameter found for override parameter named: " + name + " in service " + service.name, module);
+                    Debug.logWarning("No parameter found for override parameter named: " + name + " in service " + service.name, MODULE);
                 }
             }
 
@@ -712,7 +716,7 @@ public class ModelServiceReader implements Serializable {
             x.printStackTrace();
         } catch (ParserConfigurationException | IOException e) {
             // Parser with specified options can't be built
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return document;

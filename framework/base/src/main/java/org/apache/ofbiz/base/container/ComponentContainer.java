@@ -47,7 +47,7 @@ import org.apache.ofbiz.base.util.Debug;
  */
 public class ComponentContainer implements Container {
 
-    public static final String module = ComponentContainer.class.getName();
+    public static final String MODULE = ComponentContainer.class.getName();
 
     private String name;
     private final AtomicBoolean loaded = new AtomicBoolean(false);
@@ -79,7 +79,7 @@ public class ComponentContainer implements Container {
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
         }
-        Debug.logInfo("All components loaded", module);
+        Debug.logInfo("All components loaded", MODULE);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class ComponentContainer implements Container {
      * @throws IOException
      */
     private void loadComponentDirectory(Path directoryName) throws IOException {
-        Debug.logInfo("Auto-Loading component directory : [" + directoryName + "]", module);
+        Debug.logInfo("Auto-Loading component directory : [" + directoryName + "]", MODULE);
         if (Files.exists(directoryName) && Files.isDirectory(directoryName)) {
             Path componentLoad = directoryName.resolve(ComponentLoaderConfig.COMPONENT_LOAD_XML_FILENAME);
 
@@ -124,7 +124,7 @@ public class ComponentContainer implements Container {
                 loadComponentsInDirectory(directoryName);
             }
         } else {
-            Debug.logError("Auto-Load Component directory not found : " + directoryName, module);
+            Debug.logError("Auto-Load Component directory not found : " + directoryName, MODULE);
         }
 
     }
@@ -147,9 +147,9 @@ public class ComponentContainer implements Container {
                 loadComponent(directoryPath, def);
             }
         } catch (MalformedURLException e) {
-            Debug.logError(e, "Unable to locate URL for component loading file: " + componentLoadFile.toAbsolutePath(), module);
+            Debug.logError(e, "Unable to locate URL for component loading file: " + componentLoadFile.toAbsolutePath(), MODULE);
         } catch (ComponentException e) {
-            Debug.logError(e, "Unable to load components from URL: " + configUrl.toExternalForm(), module);
+            Debug.logError(e, "Unable to load components from URL: " + configUrl.toExternalForm(), MODULE);
         }
     }
 
@@ -182,10 +182,10 @@ public class ComponentContainer implements Container {
         try {
             config = ComponentConfig.getComponentConfig(null, location.toString());
         } catch (ComponentException e) {
-            Debug.logError("Cannot load component: " + location + " : " + e.getMessage(), module);
+            Debug.logError("Cannot load component: " + location + " : " + e.getMessage(), MODULE);
         }
         if (config == null) {
-            Debug.logError("Cannot load component: " + location, module);
+            Debug.logError("Cannot load component: " + location, MODULE);
         }
         return config;
     }

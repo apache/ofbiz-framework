@@ -1,0 +1,39 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Setup Edit WebSite
+The WebSite screen is used to manage the details of a WebSite.
+
+The WebSite record is used to configure which Product Store to use for your site that references it.
+
+== How do I create a Web Site?
+. Select the 'Web Site' sub menu and the screen will be displayed
+. Enter the 'Web Site Id' field +
+  (NOTE: If you do not enter the 'Web Site Id' field it will be used the default as 'Organization Party Id')
+. Enter the 'Site Name' field
+. Select the 'Visual Theme Set' field
+. Press the 'Save' button
+
+== How do I update a Web Site?
+. Not all the fields on the web site can be updated. +
+  For example Web Site Id cannot be updated. +
+  If these fields need to be amended then the web site will need to be removed and then re-created.
+. Select the 'Web Site' sub menu and the screen will be displayed
+. Any existing line items will be displayed in the 'Items' box
+. Amend the details in the line item that needs to be updated (eg Site Name, Visual Theme Set)
+. Press the 'Update' button displayed at the end of the line item that has been updated

@@ -45,7 +45,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class SupplierProductServices {
 
-    public static final String module = SupplierProductServices.class.getName();
+    public static final String MODULE = SupplierProductServices.class.getName();
     public static final String resource = "ProductUiLabels";
 
     /*
@@ -63,6 +63,8 @@ public class SupplierProductServices {
         String currencyUomId = (String) context.get("currencyUomId");
         BigDecimal quantity =(BigDecimal) context.get("quantity");
         String canDropShip = (String) context.get("canDropShip");
+        String agreementId = (String) context.get("agreementId");
+
         try {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             if (product == null) {
@@ -80,7 +82,10 @@ public class SupplierProductServices {
                     supplierProducts = virtualProduct.getRelated("SupplierProduct", null, null, true);
                 }
             }
+            if(agreementId != null) {
+                supplierProducts = EntityUtil.filterByAnd(supplierProducts, UtilMisc.toMap("agreementId", agreementId));
 
+            }
             // filter the list by date
             supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
 
@@ -111,7 +116,7 @@ public class SupplierProductServices {
             results = ServiceUtil.returnSuccess();
             results.put("supplierProducts", supplierProducts);
         } catch (GenericEntityException ex) {
-            Debug.logError(ex, ex.getMessage(), module);
+            Debug.logError(ex, ex.getMessage(), MODULE);
             return ServiceUtil.returnError(ex.getMessage());
         }
         return results;
@@ -151,7 +156,7 @@ public class SupplierProductServices {
             results = ServiceUtil.returnSuccess();
             results.put("convertedProductFeatures", features);
         } catch (GenericEntityException ex) {
-            Debug.logError(ex, ex.getMessage(), module);
+            Debug.logError(ex, ex.getMessage(), MODULE);
             return ServiceUtil.returnError(ex.getMessage());
         }
         return results;

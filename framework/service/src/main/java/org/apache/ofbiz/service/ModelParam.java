@@ -40,7 +40,7 @@ import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 @SuppressWarnings("serial")
 public class ModelParam implements Serializable {
 
-    public static final String module = ModelParam.class.getName();
+    public static final String MODULE = ModelParam.class.getName();
 
     /** Parameter name */
     public String name;
@@ -190,7 +190,7 @@ public class ModelParam implements Serializable {
             try {
                 defaultValueObj = ObjectType.simpleTypeOrObjectConvert(this.defaultValue.expandString(context), this.type, null, null, false);
             } catch (Exception e) {
-                Debug.logWarning(e, "Service attribute [" + name + "] default value could not be converted to type [" + type + "]: " + e.toString(), module);
+                Debug.logWarning(e, "Service attribute [" + name + "] default value could not be converted to type [" + type + "]: " + e.toString(), MODULE);
             }
             if (defaultValueObj == null) {
                 // uh-oh, conversion failed, set the String and see what happens
@@ -206,7 +206,7 @@ public class ModelParam implements Serializable {
         if (this.defaultValue != null) {
             this.optional = true;
         }
-        if (Debug.verboseOn()) Debug.logVerbose("Default value for attribute [" + this.name + "] set to [" + this.defaultValue + "]", module);
+        if (Debug.verboseOn()) Debug.logVerbose("Default value for attribute [" + this.name + "] set to [" + this.defaultValue + "]", MODULE);
     }
     public void copyDefaultValue(ModelParam param) {
         this.setDefaultValue(param.defaultValue.getOriginal());

@@ -69,7 +69,7 @@ import com.lowagie.text.pdf.PdfWriter;
 
 public class PdfSurveyServices {
 
-    public static final String module = PdfSurveyServices.class.getName();
+    public static final String MODULE = PdfSurveyServices.class.getName();
     public static final String resource = "ContentUiLabels";
 
     /**
@@ -115,7 +115,7 @@ public class PdfSurveyServices {
                 AcroFields.Item item = acroFields.getFieldItem(fieldName);
                 int type = acroFields.getFieldType(fieldName);
                 String value = acroFields.getField(fieldName);
-                Debug.logInfo("fieldName:" + fieldName + "; item: " + item + "; value: " + value, module);
+                Debug.logInfo("fieldName:" + fieldName + "; item: " + item + "; value: " + value, MODULE);
 
                 GenericValue surveyQuestion = delegator.makeValue("SurveyQuestion", UtilMisc.toMap("question", fieldName));
                 String surveyQuestionId = delegator.getNextSeqId("SurveyQuestion");
@@ -131,14 +131,14 @@ public class PdfSurveyServices {
                     // TODO: handle these specially with the acroFields.getListOptionDisplay (and getListOptionExport?)
                 } else {
                     surveyQuestion.set("surveyQuestionTypeId", "TEXT_SHORT");
-                    Debug.logWarning("Building Survey from PDF, fieldName=[" + fieldName + "]: don't know how to handle field type: " + type + "; defaulting to short text", module);
+                    Debug.logWarning("Building Survey from PDF, fieldName=[" + fieldName + "]: don't know how to handle field type: " + type + "; defaulting to short text", MODULE);
                 }
 
                 // ==== create a good sequenceNum based on tab order or if no tab order then the page location
 
                 Integer tabPage = item.getPage(0);
                 Integer tabOrder = item.getTabOrder(0);
-                Debug.logInfo("tabPage=" + tabPage + ", tabOrder=" + tabOrder, module);
+                Debug.logInfo("tabPage=" + tabPage + ", tabOrder=" + tabOrder, MODULE);
 
                 //array of float  multiple of 5. For each of this groups the values are: [page, llx, lly, urx, ury]
                 float[] fieldPositions = acroFields.getFieldPositions(fieldName);
@@ -147,15 +147,15 @@ public class PdfSurveyServices {
                 float fieldLly = fieldPositions[2];
                 float fieldUrx = fieldPositions[3];
                 float fieldUry = fieldPositions[4];
-                Debug.logInfo("fieldPage=" + fieldPage + ", fieldLlx=" + fieldLlx + ", fieldLly=" + fieldLly + ", fieldUrx=" + fieldUrx + ", fieldUry=" + fieldUry, module);
+                Debug.logInfo("fieldPage=" + fieldPage + ", fieldLlx=" + fieldLlx + ", fieldLly=" + fieldLly + ", fieldUrx=" + fieldUrx + ", fieldUry=" + fieldUry, MODULE);
 
                 Long sequenceNum = null;
                 if (tabPage != null && tabOrder != null) {
                     sequenceNum = (long) (tabPage * 1000 + tabOrder);
-                    Debug.logInfo("tabPage=" + tabPage + ", tabOrder=" + tabOrder + ", sequenceNum=" + sequenceNum, module);
+                    Debug.logInfo("tabPage=" + tabPage + ", tabOrder=" + tabOrder + ", sequenceNum=" + sequenceNum, MODULE);
                 } else if (fieldPositions.length > 0) {
                     sequenceNum = (long) fieldPage * 10000 + (long) fieldLly * 1000 + (long) fieldLlx;
-                    Debug.logInfo("fieldPage=" + fieldPage + ", fieldLlx=" + fieldLlx + ", fieldLly=" + fieldLly + ", fieldUrx=" + fieldUrx + ", fieldUry=" + fieldUry + ", sequenceNum=" + sequenceNum, module);
+                    Debug.logInfo("fieldPage=" + fieldPage + ", fieldLlx=" + fieldLlx + ", fieldLly=" + fieldLly + ", fieldUrx=" + fieldUrx + ", fieldUry=" + fieldUry + ", sequenceNum=" + sequenceNum, MODULE);
                 }
 
                 // TODO: need to find something better to put into these fields...
@@ -208,7 +208,7 @@ public class PdfSurveyServices {
                 survey.store();
             }
         } catch (GeneralException | DocumentException | IOException e) {
-            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -256,7 +256,7 @@ public class PdfSurveyServices {
                                 "externalFieldRef", fieldName)
                         .queryFirst();
                 if (surveyQuestionAndAppl == null) {
-                    Debug.logInfo("No question found for surveyId:" + surveyId + " and externalFieldRef:" + fieldName, module);
+                    Debug.logInfo("No question found for surveyId:" + surveyId + " and externalFieldRef:" + fieldName, MODULE);
                     continue;
                 }
 
@@ -271,7 +271,7 @@ public class PdfSurveyServices {
             }
             s.close();
         } catch (GeneralException | DocumentException | IOException e) {
-            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -300,7 +300,7 @@ public class PdfSurveyServices {
             }
 
         } catch (DocumentException | GeneralException | IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -350,7 +350,7 @@ public class PdfSurveyServices {
             ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
             results.put("outByteBuffer", outByteBuffer);
         } catch (DocumentException | IOException | GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             results = ServiceUtil.returnError(e.getMessage());
         }
         return results;
@@ -416,7 +416,7 @@ public class PdfSurveyServices {
             ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
             results.put("outByteBuffer", outByteBuffer);
         } catch (GenericEntityException | DocumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             results = ServiceUtil.returnError(e.getMessage());
         }
 
@@ -441,7 +441,7 @@ public class PdfSurveyServices {
             }
             results.put("questionsAndAnswers", qAndA);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             results = ServiceUtil.returnError(e.getMessage());
         }
 
@@ -507,7 +507,7 @@ public class PdfSurveyServices {
                 acroFieldMap.put(fieldName, value);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -529,7 +529,7 @@ public class PdfSurveyServices {
                 fos.close();
             }
         } catch (IOException | GenericServiceException e) {
-            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 

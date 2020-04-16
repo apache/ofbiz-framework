@@ -53,7 +53,7 @@ import org.apache.ofbiz.base.config.GenericConfigException;
  */
 public final class SSLUtil {
 
-    public static final String module = SSLUtil.class.getName();
+    public static final String MODULE = SSLUtil.class.getName();
 
     private static final int HOSTCERT_NO_CHECK = 0;
     private static final int HOSTCERT_MIN_CHECK = 1;
@@ -71,18 +71,18 @@ public final class SSLUtil {
 
         @Override
         public void checkClientTrusted(X509Certificate[] certs, String string) throws CertificateException {
-            Debug.logImportant("Trusting (un-trusted) client certificate chain:", module);
+            Debug.logImportant("Trusting (un-trusted) client certificate chain:", MODULE);
             for (X509Certificate cert: certs) {
-                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), module);
+                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), MODULE);
 
             }
         }
 
         @Override
         public void checkServerTrusted(X509Certificate[] certs, String string) throws CertificateException {
-            Debug.logImportant("Trusting (un-trusted) server certificate chain:", module);
+            Debug.logImportant("Trusting (un-trusted) server certificate chain:", MODULE);
             for (X509Certificate cert: certs) {
-                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), module);
+                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), MODULE);
             }
         }
 
@@ -110,7 +110,7 @@ public final class SSLUtil {
         try {
             mgrs = SSLUtil.getTrustManagers();
         } catch (IOException | GeneralSecurityException | GenericConfigException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         for (TrustManager mgr : mgrs) {
@@ -119,7 +119,7 @@ public final class SSLUtil {
                     ((X509TrustManager) mgr).checkClientTrusted(chain, authType);
                     return true;
                 } catch (CertificateException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
         }
@@ -137,7 +137,7 @@ public final class SSLUtil {
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("Loaded another cert store, adding [" + newKeyManagers.size()
                                 + "] KeyManagers for alias [" + alias + "] and keystore: " + ksi.createResourceHandler()
-                                        .getFullLocation(), module);
+                                        .getFullLocation(), MODULE);
                     }
                 } else {
                     throw new IOException("Unable to load keystore: " + ksi.createResourceHandler().getFullLocation());
@@ -156,7 +156,7 @@ public final class SSLUtil {
         MultiTrustManager tm = new MultiTrustManager();
         tm.add(KeyStoreUtil.getSystemTrustStore());
         if (tm.getNumberOfKeyStores() < 1) {
-            Debug.logWarning("System truststore not found!", module);
+            Debug.logWarning("System truststore not found!", MODULE);
         }
 
         for (ComponentConfig.KeystoreInfo ksi: ComponentConfig.getAllKeystoreInfos()) {
@@ -258,7 +258,7 @@ public final class SSLUtil {
                             peerCerts = session.getPeerCertificates();
                         } catch (SSLPeerUnverifiedException e) {
                             // cert not verified
-                            Debug.logWarning(e.getMessage(), module);
+                            Debug.logWarning(e.getMessage(), MODULE);
                             return false;
                         }
                         for (Certificate peerCert : peerCerts) {
@@ -268,14 +268,14 @@ public final class SSLUtil {
                                 if (Debug.infoOn()) {
                                     byte[] encodedCert = peerCert.getEncoded();
                                     Debug.logInfo(new BigInteger(encodedCert).toString(16)
-                                            + " :: " + subjectMap.get("CN"), module);
+                                            + " :: " + subjectMap.get("CN"), MODULE);
                                 }
                                 peerCert.verify(peerCert.getPublicKey());
                             } catch (RuntimeException e) {
                                 throw e;
                             } catch (Exception e) {
                                 // certificate not valid
-                                Debug.logWarning("Certificate is not valid!", module);
+                                Debug.logWarning("Certificate is not valid!", MODULE);
                                 return false;
                             }
                         }

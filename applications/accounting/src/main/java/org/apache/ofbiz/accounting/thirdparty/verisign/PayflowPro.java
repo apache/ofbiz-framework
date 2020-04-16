@@ -57,7 +57,7 @@ import paypal.payflow.SDKProperties;
  */
 public class PayflowPro {
 
-    public static final String module = PayflowPro.class.getName();
+    public static final String MODULE = PayflowPro.class.getName();
     public final static String resource = "AccountingUiLabels";
 
     /**
@@ -164,7 +164,7 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        //if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        //if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         String resp;
         if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
@@ -173,7 +173,7 @@ public class PayflowPro {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Response from Verisign: " + resp, module);
+            Debug.logVerbose("Response from Verisign: " + resp, MODULE);
         }
         if (isPayPal) {
             // Attach the avs info returned in doExpressCheckout and stored in PayPalPaymentMethod
@@ -247,7 +247,7 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         String resp;
         if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
@@ -255,7 +255,7 @@ public class PayflowPro {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, MODULE);
 
         // check the response
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -325,7 +325,7 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         String resp;
         if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
@@ -333,7 +333,7 @@ public class PayflowPro {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, MODULE);
 
         // check the response
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -402,7 +402,7 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         String resp;
         if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
@@ -410,7 +410,7 @@ public class PayflowPro {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, MODULE);
 
         // check the response
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -448,7 +448,7 @@ public class PayflowPro {
         try {
             addCartDetails(data, cart);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPayflowErrorRetreivingCartDetails", locale));
         }
@@ -462,7 +462,7 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         String resp;
         if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
@@ -470,13 +470,13 @@ public class PayflowPro {
             resp = "RESULT=0&TOKEN=" + (new Date()).getTime() + "&RESPMSG=Testing";
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, MODULE);
 
         Map<String, String> responseMap = parseResponse(resp);
         String result = responseMap.get("RESULT");
         if (!"0".equals(result)) {
             String respMsg = responseMap.get("RESPMSG");
-            Debug.logError("A problem occurred while requesting an express checkout token from paypal: Result = " + result + ", Message = " + respMsg, module);
+            Debug.logError("A problem occurred while requesting an express checkout token from paypal: Result = " + result + ", Message = " + respMsg, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", 
                     "AccountingPayPalCommunicationError", locale));
         }
@@ -561,7 +561,7 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         String resp;
         if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
@@ -571,7 +571,7 @@ public class PayflowPro {
 
         Map<String, String> responseMap = parseResponse(resp);
         if (!"0".equals(responseMap.get("RESULT"))) {
-            Debug.logError("A problem occurred while requesting the checkout details from paypal: Result = " + responseMap.get("RESULT") + ", Message = " + responseMap.get("RESPMSG"), module);
+            Debug.logError("A problem occurred while requesting the checkout details from paypal: Result = " + responseMap.get("RESULT") + ", Message = " + responseMap.get("RESPMSG"), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", 
                     "AccountingPayPalCommunicationError", locale));
         }
@@ -591,7 +591,7 @@ public class PayflowPro {
         try {
             outMap = dispatcher.runSync("createPayPalPaymentMethod", inMap);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         String paymentMethodId = (String) outMap.get("paymentMethodId");
@@ -617,7 +617,7 @@ public class PayflowPro {
             payPalPaymentMethod = paymentPref.getRelatedOne("PaymentMethod", false);
             payPalPaymentMethod = payPalPaymentMethod.getRelatedOne("PayPalPaymentMethod", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         BigDecimal processAmount = paymentPref.getBigDecimal("maxAmount");
@@ -640,7 +640,7 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         String resp;
         if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
@@ -658,18 +658,18 @@ public class PayflowPro {
         try {
             outMap = dispatcher.runSync("updatePayPalPaymentMethod", inMap);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(outMap)) {
-            Debug.logError(ServiceUtil.getErrorMessage(outMap), module);
+            Debug.logError(ServiceUtil.getErrorMessage(outMap), MODULE);
             return outMap;
         }
         return ServiceUtil.returnSuccess();
     }
 
     private static Map<String, String> parseResponse(String resp) {
-        Debug.logInfo("Verisign response string: " + resp, module);
+        Debug.logInfo("Verisign response string: " + resp, MODULE);
         Map<String, String> parameters = new HashMap<String, String>();
         List<String> params = StringUtil.split(resp, "&");
         for (String str : params) {
@@ -723,7 +723,7 @@ public class PayflowPro {
         try {
             codeInt = Integer.parseInt(respCode);
         } catch (NumberFormatException e) {
-            Debug.logError(e, "Unable to parse response code; not a number!", module);
+            Debug.logError(e, "Unable to parse response code; not a number!", MODULE);
         }
 
 
@@ -734,16 +734,16 @@ public class PayflowPro {
             result.put("authCode", parameters.get("AUTHCODE"));
         } else if (codeInt < 0) {
             // communications error
-            Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), MODULE);
             result.put("authResult", Boolean.FALSE);
             result.put("authRefNum", respCode);
         } else if (codeInt == 0) {
-            Debug.logWarning("In PayflowPro approved, but invalid flags; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            Debug.logWarning("In PayflowPro approved, but invalid flags; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), MODULE);
             result.put("authResult", Boolean.TRUE);
             result.put("authCode", parameters.get("AUTHCODE"));
         } else {
             // other error
-            Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), MODULE);
             result.put("authResult", Boolean.FALSE);
 
             // now check certain special conditions and report back through the generic params
@@ -771,7 +771,7 @@ public class PayflowPro {
         try {
             codeInt = Integer.parseInt(respCode);
         } catch (NumberFormatException e) {
-            Debug.logError(e, "Unable to parse response code; not a number!", module);
+            Debug.logError(e, "Unable to parse response code; not a number!", MODULE);
         }
 
         if (codeInt == 0) {
@@ -779,11 +779,11 @@ public class PayflowPro {
             result.put("captureCode", parameters.get("AUTHCODE"));
         } else if (codeInt < 0) {
             // communications error
-            Debug.logWarning("In PayflowPro failing capture; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            Debug.logWarning("In PayflowPro failing capture; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), MODULE);
             result.put("captureResult", Boolean.FALSE);
             result.put("captureRefNum", respCode);
         } else {
-            Debug.logWarning("In PayflowPro failing capture; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            Debug.logWarning("In PayflowPro failing capture; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), MODULE);
             result.put("captureResult", Boolean.FALSE);
         }
         result.put("captureRefNum", parameters.get("PNREF"));
@@ -799,7 +799,7 @@ public class PayflowPro {
         try {
             codeInt = Integer.parseInt(respCode);
         } catch (NumberFormatException e) {
-            Debug.logError(e, "Unable to parse response code; not a number!", module);
+            Debug.logError(e, "Unable to parse response code; not a number!", MODULE);
         }
 
         if (codeInt == 0) {
@@ -807,11 +807,11 @@ public class PayflowPro {
             result.put("releaseCode", parameters.get("AUTHCODE"));
         } else if (codeInt < 0) {
             // communications error
-            Debug.logWarning("In PayflowPro failing void; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            Debug.logWarning("In PayflowPro failing void; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), MODULE);
             result.put("releaseResult", Boolean.FALSE);
             result.put("releaseRefNum", respCode);
         } else {
-            Debug.logWarning("In PayflowPro failing void; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            Debug.logWarning("In PayflowPro failing void; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), MODULE);
             result.put("releaseResult", Boolean.FALSE);
         }
         result.put("releaseRefNum", parameters.get("PNREF"));
@@ -827,7 +827,7 @@ public class PayflowPro {
         try {
             codeInt = Integer.parseInt(respCode);
         } catch (NumberFormatException e) {
-            Debug.logError(e, "Unable to parse response code; not a number!", module);
+            Debug.logError(e, "Unable to parse response code; not a number!", MODULE);
         }
 
         if (codeInt == 0) {
@@ -835,11 +835,11 @@ public class PayflowPro {
             result.put("refundCode", parameters.get("AUTHCODE"));
         } else if (codeInt < 0) {
             // communications error
-            Debug.logWarning("In PayflowPro failing refund; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            Debug.logWarning("In PayflowPro failing refund; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), MODULE);
             result.put("refundResult", Boolean.FALSE);
             result.put("refundRefNum", respCode);
         } else {
-            Debug.logWarning("In PayflowPro failing refund; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            Debug.logWarning("In PayflowPro failing refund; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), MODULE);
             result.put("refundResult", Boolean.FALSE);
         }
         result.put("refundRefNum", parameters.get("PNREF"));
@@ -887,7 +887,7 @@ public class PayflowPro {
             buf.append("PWD=");
             buf.append(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "pwd", resource, "payment.verisign.pwd", "password"));
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
         return buf;
@@ -930,7 +930,7 @@ public class PayflowPro {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else {
             String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);

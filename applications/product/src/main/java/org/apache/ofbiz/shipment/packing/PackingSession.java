@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class PackingSession implements java.io.Serializable {
 
-    public static final String module = PackingSession.class.getName();
+    public static final String MODULE = PackingSession.class.getName();
 
     protected GenericValue userLogin = null;
     protected String pickerPartyId = null;
@@ -180,19 +180,19 @@ public class PackingSession implements java.io.Serializable {
                     int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
                     switch (thisCheck) {
                         case 2:
-                            Debug.logInfo("Packing check returned '2' - new pack line will be created!", module);
+                            Debug.logInfo("Packing check returned '2' - new pack line will be created!", MODULE);
                             toCreateMap.put(res, thisQty);
                             qtyRemain = qtyRemain.subtract(thisQty);
                             break;
                         case 1:
-                            Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", module);
+                            Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", MODULE);
                             qtyRemain = qtyRemain.subtract(thisQty);
                             break;
                         case 0:
-                            Debug.logInfo("Packing check returned '0' - doing nothing.", module);
+                            Debug.logInfo("Packing check returned '0' - doing nothing.", MODULE);
                             break;
                         default:
-                            Debug.logInfo("Packing check returned '> 2' or '< 0'", module);
+                            Debug.logInfo("Packing check returned '> 2' or '< 0'", MODULE);
                             break;
                     }
                 }
@@ -321,10 +321,10 @@ public class PackingSession implements java.io.Serializable {
         PackingSessionLine line = this.findLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, packageSeqId);
         BigDecimal packedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId);
 
-        Debug.logInfo("Packed quantity [" + packedQty + "] + [" + quantity + "]", module);
+        Debug.logInfo("Packed quantity [" + packedQty + "] + [" + quantity + "]", MODULE);
 
         if (line == null) {
-            Debug.logInfo("No current line found testing [" + invItemId + "] R: " + resQty + " / Q: " + quantity, module);
+            Debug.logInfo("No current line found testing [" + invItemId + "] R: " + resQty + " / Q: " + quantity, MODULE);
             if (resQty.compareTo(quantity) < 0) {
                 return 0;
             } else {
@@ -332,7 +332,7 @@ public class PackingSession implements java.io.Serializable {
             }
         } else {
             BigDecimal newQty = update ? quantity : (line.getQuantity().add(quantity));
-            Debug.logInfo("Existing line found testing [" + invItemId + "] R: " + resQty + " / Q: " + newQty, module);
+            Debug.logInfo("Existing line found testing [" + invItemId + "] R: " + resQty + " / Q: " + newQty, MODULE);
             if (resQty.compareTo(newQty) < 0) {
                 return 0;
             } else {
@@ -442,7 +442,7 @@ public class PackingSession implements java.io.Serializable {
             try {
                 productId = ProductWorker.findProductId(this.getDelegator(), productId);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 
@@ -483,7 +483,7 @@ public class PackingSession implements java.io.Serializable {
                 reserved = BigDecimal.ONE.negate();
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return reserved;
     }
@@ -674,6 +674,8 @@ public class PackingSession implements java.io.Serializable {
         this.setShipmentToPacked();
         // set role on picklist
         this.setPickerOnPicklist();
+        // set picklist to picked
+        this.setPicklistToPicked();
         // run the complete events
         this.runEvents(PackingEvent.EVENT_CODE_COMPLETE);
 
@@ -695,7 +697,7 @@ public class PackingSession implements java.io.Serializable {
             if (!ignore) {
                 throw new GeneralException("Attempt to pack order failed.", errors);
             } else {
-                Debug.logWarning("Packing warnings: " + errors, module);
+                Debug.logWarning("Packing warnings: " + errors, MODULE);
             }
         }
     }
@@ -735,7 +737,7 @@ public class PackingSession implements java.io.Serializable {
         try {
             issues = this.getDelegator().findByAnd("ItemIssuance",  lookupMap, null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return issues;
@@ -786,7 +788,7 @@ public class PackingSession implements java.io.Serializable {
         }
 
         newShipment.put("partyIdFrom", partyIdFrom);
-        Debug.logInfo("Creating new shipment with context: " + newShipment, module);
+        Debug.logInfo("Creating new shipment with context: " + newShipment, MODULE);
         Map<String, Object> newShipResp = this.getDispatcher().runSync("createShipment", newShipment);
 
         if (ServiceUtil.isError(newShipResp)) {
@@ -862,6 +864,33 @@ public class PackingSession implements java.io.Serializable {
         Map<String, Object> packedResp = this.getDispatcher().runSync("updateShipment", packedCtx);
         if (packedResp != null && ServiceUtil.isError(packedResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(packedResp));
+        }
+    }
+
+    protected void setPicklistToPicked() throws GeneralException {
+        Delegator delegator = this.getDelegator();
+        if (picklistBinId != null) {
+            GenericValue picklist = EntityQuery.use(delegator).from("PicklistAndBin").where("picklistBinId", picklistBinId).queryFirst();
+            if (picklist == null) {
+                if (!"PICKLIST_PICKED".equals(picklist.getString("statusId")) && !"PICKLIST_COMPLETED".equals(picklist.getString("statusId")) && !"PICKLIST_CANCELLED".equals(picklist.getString("statusId"))) {
+                    Map<String, Object> serviceResult = this.getDispatcher().runSync("updatePicklist", UtilMisc.toMap("picklistId", picklist.getString("picklistId"), "statusId", "PICKLIST_PICKED", "userLogin", userLogin));
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        throw new GeneralException(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+            }
+        } else {
+            List<GenericValue> picklistBins = EntityQuery.use(delegator).from("PicklistAndBin").where("primaryOrderId", primaryOrderId).queryList();
+            if (UtilValidate.isNotEmpty(picklistBins)) {
+                for (GenericValue picklistBin : picklistBins) {
+                    if (!"PICKLIST_PICKED".equals(picklistBin.getString("statusId")) && !"PICKLIST_COMPLETED".equals(picklistBin.getString("statusId")) && !"PICKLIST_CANCELLED".equals(picklistBin.getString("statusId"))) {
+                        Map<String, Object> serviceResult = this.getDispatcher().runSync("updatePicklist", UtilMisc.toMap("picklistId", picklistBin.getString("picklistId"), "statusId", "PICKLIST_PICKED", "userLogin", userLogin));
+                        if (!ServiceUtil.isSuccess(serviceResult)) {
+                            throw new GeneralException(ServiceUtil.getErrorMessage(serviceResult));
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -961,14 +990,14 @@ public class PackingSession implements java.io.Serializable {
             serviceResult = getDispatcher().runSync("calcShipmentCostEstimate", serviceContext);
 
             if (ServiceUtil.isError(serviceResult)) {
-                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                 return shipmentCostEstimate;
             }
 
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (UtilValidate.isNotEmpty(serviceResult)) {
@@ -1058,7 +1087,7 @@ public class PackingSession implements java.io.Serializable {
                     orderItem = v.getRelatedOne("OrderItem", false);
                     productId = v.getRelatedOne("InventoryItem", false).getString("productId");
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             } else {
                 // this is an OrderItemAndShipGrpInvResAndItemSum
@@ -1066,7 +1095,7 @@ public class PackingSession implements java.io.Serializable {
                 productId = v.getString("inventoryProductId");
                 quantity = v.getBigDecimal("totQuantityReserved").setScale(2, RoundingMode.HALF_UP);
             }
-            Debug.logInfo("created item display object quantity: " + quantity + " (" + productId + ")", module);
+            Debug.logInfo("created item display object quantity: " + quantity + " (" + productId + ")", MODULE);
         }
 
         public GenericValue getOrderItem() {

@@ -49,7 +49,7 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 
 public class CatalogUrlFilter implements Filter {
 
-    public final static String module = CatalogUrlFilter.class.getName();
+    public final static String MODULE = CatalogUrlFilter.class.getName();
     
     public static final String PRODUCT_REQUEST = "product";
     public static final String CATEGORY_REQUEST = "category";
@@ -199,7 +199,7 @@ public class CatalogUrlFilter implements Filter {
                 }
 
             } catch (GenericEntityException e) {
-                Debug.logWarning("Cannot look for product and product category", module);
+                Debug.logWarning("Cannot look for product and product category", MODULE);
             }
             
             // generate forward URL
@@ -217,7 +217,7 @@ public class CatalogUrlFilter implements Filter {
                         productCategoryId = productCategoryMember.getString("productCategoryId");
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Cannot find product category for product: " + productId, module);
+                    Debug.logError(e, "Cannot find product category for product: " + productId, MODULE);
                 }
                 urlBuilder.append("/" + PRODUCT_REQUEST);
                 
@@ -245,7 +245,7 @@ public class CatalogUrlFilter implements Filter {
                         }
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Cannot generate trail from product category", module);
+                    Debug.logError(e, "Cannot generate trail from product category", MODULE);
                 }
             }
 
@@ -275,7 +275,7 @@ public class CatalogUrlFilter implements Filter {
                             parentProductCategoryId = null;
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Cannot generate trail from product category", module);
+                        Debug.logError(e, "Cannot generate trail from product category", MODULE);
                     }
                 }
                 Collections.reverse(trailElements);
@@ -323,7 +323,7 @@ public class CatalogUrlFilter implements Filter {
             //Set view query parameters
             UrlServletHelper.setViewQueryParameters(request, urlBuilder);
             if (UtilValidate.isNotEmpty(productId) || UtilValidate.isNotEmpty(productCategoryId) || UtilValidate.isNotEmpty(urlContentId)) {
-                Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
+                Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", MODULE);
                 RequestDispatcher dispatch = request.getRequestDispatcher(urlBuilder.toString());
                 dispatch.forward(request, response);
                 return;
@@ -352,7 +352,7 @@ public class CatalogUrlFilter implements Filter {
             List<String> trail = CategoryWorker.getTrail(request);
             return makeCategoryUrl(delegator, wrapper, trail, request.getContextPath(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Cannot create category's URL for: " + productCategoryId, module);
+            Debug.logWarning(e, "Cannot create category's URL for: " + productCategoryId, MODULE);
             return redirectUrl;
         }
     }
@@ -427,7 +427,7 @@ public class CatalogUrlFilter implements Filter {
             List<String> trail = CategoryWorker.getTrail(request);
             url = makeProductUrl(wrapper, trail, request.getContextPath(), previousCategoryId, productCategoryId, productId);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Cannot create product's URL for: " + productId, module);
+            Debug.logWarning(e, "Cannot create product's URL for: " + productId, MODULE);
             return redirectUrl;
         }
         return url;

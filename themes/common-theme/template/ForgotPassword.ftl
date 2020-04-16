@@ -16,11 +16,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if securityQuestion??>
-    <#assign messageTitle = uiLabelMap.AnswerSecurityQuestion>
-<#else>
-    <#assign messageTitle = uiLabelMap.CommonForgotYourPassword>
-</#if>
+
+<#assign messageTitle = uiLabelMap.CommonForgotYourPassword>
 <#if ! userLoginId??>
     <#assign userLoginId = requestParameters.USERNAME!>
     <#if ! userLoginId?? && autoUserLogin??>
@@ -39,26 +36,7 @@ under the License.
                         <td class="label">${uiLabelMap.CommonUsername}</td>
                         <td><input type="text" size="20" name="USERNAME" value="${userLoginId!}"/></td>
                     </tr>
-                  <#if securityQuestion?has_content>
-                      <tr>
-                          <td class="label">${uiLabelMap.SecurityQuestion}</td>
-                          <td>
-                              ${securityQuestion.description!}
-                              <input type="hidden" name="securityQuestion" value="${securityQuestion.enumId!}" />
-                          </td>
-                      </tr>
-                      <tr>
-                          <td class="label">${uiLabelMap.SecurityAnswer}</td>
-                          <td>
-                              <input type="text" name="securityAnswer" class="" value="" />&nbsp;
-                          </td>
-                      </tr>
-                      <tr>
-                          <td colspan="2" align="center">
-                              <input type="submit" name="GET_PASSWORD_HINT" class="smallSubmit" value="${uiLabelMap.CommonGetPasswordHint}"/>
-                          </td>
-                      </tr>
-                  <#elseif requestParameters.token??>
+                  <#if requestParameters.token??>
                       <input type="hidden" name="token" value="${requestParameters.token}"/>
                       <tr>
                           <td class="label">${uiLabelMap.CommonNewPassword}</td>

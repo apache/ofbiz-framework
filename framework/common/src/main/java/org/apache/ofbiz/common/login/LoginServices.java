@@ -57,7 +57,6 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -69,7 +68,7 @@ import org.apache.tomcat.util.res.StringManager;
  */
 public class LoginServices {
 
-    public static final String module = LoginServices.class.getName();
+    public static final String MODULE = LoginServices.class.getName();
     public static final String resource = "SecurityextUiLabels";
 
     /** Login service to authenticate username and password
@@ -93,7 +92,7 @@ public class LoginServices {
                 if ("true".equals(EntityUtilProperties.getPropertyValue("security", "security.ldap.fail.login", delegator))) {
                     return ServiceUtil.returnError(errMsg);
                 }
-                Debug.logInfo(errMsg, module);
+                Debug.logInfo(errMsg, MODULE);
             }
         }
 
@@ -148,7 +147,7 @@ public class LoginServices {
                     // only get userLogin from cache for service calls; for web and other manual logins there is less time sensitivity
                     userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).cache(isServiceAuth).queryOne();
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, "", module);
+                    Debug.logWarning(e, "", MODULE);
                 }
 
 
@@ -157,14 +156,14 @@ public class LoginServices {
                     try {
                         AuthHelper.syncUser(username);
                     } catch (AuthenticatorException e) {
-                        Debug.logWarning(e, module);
+                        Debug.logWarning(e, MODULE);
                     }
 
                     // check the user login object again
                     try {
                         userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).cache(isServiceAuth).queryOne();
                     } catch (GenericEntityException e) {
-                        Debug.logWarning(e, "", module);
+                        Debug.logWarning(e, "", MODULE);
                     }
                 }
 
@@ -176,7 +175,7 @@ public class LoginServices {
                         loginDisableMinutes = Long.parseLong(ldmStr);
                     } catch (Exception e) {
                         loginDisableMinutes = 30;
-                        Debug.logWarning("Could not parse login.disable.minutes from security.properties, using default of 30", module);
+                        Debug.logWarning("Could not parse login.disable.minutes from security.properties, using default of 30", MODULE);
                     }
 
                     Timestamp disabledDateTime = userLogin.getTimestamp("disabledDateTime");
@@ -214,7 +213,7 @@ public class LoginServices {
                             externalAuth = AuthHelper.authenticate(username, password, isServiceAuth);
                         } catch (AuthenticatorException e) {
                             // fatal error -- or single authenticator found -- fail now
-                            Debug.logWarning(e, module);
+                            Debug.logWarning(e, MODULE);
                             authFatalError = true;
 
                         }
@@ -236,7 +235,7 @@ public class LoginServices {
                                 || (useTomcatSSO && TomcatSSOLogin(request, username, password))
                                 || (jwtToken != null && jwtTokenValid)
                                 || (password != null && checkPassword(userLogin.getString("currentPassword"), useEncryption, password))) {
-                            Debug.logVerbose("[LoginServices.userLogin] : Password Matched or Token Validated", module);
+                            Debug.logVerbose("[LoginServices.userLogin] : Password Matched or Token Validated", MODULE);
 
                             // update the hasLoggedOut flag
                             if (hasLoggedOut == null || hasLoggedOut) {
@@ -276,7 +275,7 @@ public class LoginServices {
                                 continue;
                             }
 
-                            Debug.logInfo("[LoginServices.userLogin] : Password Incorrect", module);
+                            Debug.logInfo("[LoginServices.userLogin] : Password Incorrect", MODULE);
                             // password invalid...
                             if (password != null) errMsg = UtilProperties.getMessage(resource,"loginservices.password_incorrect", locale);
                             else if (jwtToken != null) errMsg = UtilProperties.getMessage(resource,"loginservices.token_incorrect", locale);
@@ -298,7 +297,7 @@ public class LoginServices {
                                 maxFailedLogins = Long.parseLong(mflStr);
                             } catch (Exception e) {
                                 maxFailedLogins = 3;
-                                Debug.logWarning("Could not parse max.failed.logins from security.properties, using default of 3", module);
+                                Debug.logWarning("Could not parse max.failed.logins from security.properties, using default of 3", MODULE);
                             }
 
                             if (maxFailedLogins > 0 && currentFailedLogins >= maxFailedLogins) {
@@ -319,7 +318,7 @@ public class LoginServices {
                             try {
                                 parentTx = TransactionUtil.suspend();
                             } catch (GenericTransactionException e) {
-                                Debug.logError(e, "Could not suspend transaction: " + e.getMessage(), module);
+                                Debug.logError(e, "Could not suspend transaction: " + e.getMessage(), MODULE);
                             }
 
                             try {
@@ -363,7 +362,7 @@ public class LoginServices {
                                 try {
                                     TransactionUtil.rollback(beganTransaction, geeErrMsg, e);
                                 } catch (GenericTransactionException e2) {
-                                    Debug.logError(e2, "Could not rollback nested transaction: " + e2.getMessage(), module);
+                                    Debug.logError(e2, "Could not rollback nested transaction: " + e2.getMessage(), MODULE);
                                 }
 
                                 // if doStore is true then this error should not be ignored and we shouldn't consider it a successful login if this happens as there is something very wrong lower down that will bite us again later
@@ -374,7 +373,7 @@ public class LoginServices {
                                 try {
                                     TransactionUtil.commit(beganTransaction);
                                 } catch (GenericTransactionException e) {
-                                    Debug.logError(e, "Could not commit nested transaction: " + e.getMessage(), module);
+                                    Debug.logError(e, "Could not commit nested transaction: " + e.getMessage(), MODULE);
                                 }
                             }
                         } finally {
@@ -382,9 +381,9 @@ public class LoginServices {
                             if (parentTx != null) {
                                 try {
                                     TransactionUtil.resume(parentTx);
-                                    Debug.logVerbose("Resumed the parent transaction.", module);
+                                    Debug.logVerbose("Resumed the parent transaction.", MODULE);
                                 } catch (GenericTransactionException e) {
-                                    Debug.logError(e, "Could not resume parent nested transaction: " + e.getMessage(), module);
+                                    Debug.logError(e, "Could not resume parent nested transaction: " + e.getMessage(), MODULE);
                                 }
                             }
                         }
@@ -420,7 +419,7 @@ public class LoginServices {
                         externalAuth = AuthHelper.authenticate(username, password, isServiceAuth);
                     } catch (AuthenticatorException e) {
                         errMsg = e.getMessage();
-                        Debug.logError(e, "External Authenticator had fatal exception : " + e.getMessage(), module);
+                        Debug.logError(e, "External Authenticator had fatal exception : " + e.getMessage(), MODULE);
                     }
                     if (externalAuth) {
                         // external auth passed - create a placeholder object for session
@@ -435,7 +434,7 @@ public class LoginServices {
                     } else {
                         // userLogin record not found, user does not exist
                         errMsg = UtilProperties.getMessage(resource, "loginservices.user_not_found", locale);
-                        Debug.logInfo("[LoginServices.userLogin] Invalid User : '" + username + "'; " + errMsg, module);
+                        Debug.logInfo("[LoginServices.userLogin] Invalid User : '" + username + "'; " + errMsg, MODULE);
                     }
                 }
             }
@@ -471,7 +470,7 @@ public class LoginServices {
         try {
             userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginIdToImpersonate).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -494,7 +493,7 @@ public class LoginServices {
             try {
                 userLogin.store();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -511,7 +510,7 @@ public class LoginServices {
         try {
             delegator.create("UserLoginHistory", historyCreateMap);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -568,8 +567,11 @@ public class LoginServices {
         return null;
     }
 
-    public static void createUserLoginPasswordHistory(Delegator delegator,String userLoginId, String currentPassword) throws GenericEntityException{
+    public static void createUserLoginPasswordHistory(GenericValue userLogin) throws GenericEntityException{
         int passwordChangeHistoryLimit = 0;
+        Delegator delegator = userLogin.getDelegator();
+        String userLoginId = userLogin.getString("userLoginId");
+        String currentPassword = userLogin.getString("currentPassword");
         try {
             passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0);
         } catch (NumberFormatException nfe) {
@@ -606,8 +608,7 @@ public class LoginServices {
 
         // save this password in history
         GenericValue userLoginPwdHistToCreate = delegator.makeValue("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userLoginId,"fromDate", nowTimestamp));
-        boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
-        userLoginPwdHistToCreate.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(getHashType(), null, currentPassword) : currentPassword);
+        userLoginPwdHistToCreate.set("currentPassword", currentPassword);
         userLoginPwdHistToCreate.create();
     }
 
@@ -619,7 +620,6 @@ public class LoginServices {
     public static Map<String, Object> createUserLogin(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result =  new LinkedHashMap<>();
         Delegator delegator = ctx.getDelegator();
-        LocalDispatcher dispatcher = ctx.getDispatcher();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
         List<String> errorMessageList = new LinkedList<>();
@@ -637,9 +637,6 @@ public class LoginServices {
         String externalAuthId = (String) context.get("externalAuthId");
         String errMsg = null;
 
-        String questionEnumId = (String) context.get("securityQuestion");
-        String securityAnswer = (String) context.get("securityAnswer");
-        
         // security: don't create a user login if the specified partyId (if not empty) already exists
         // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
         if (UtilValidate.isNotEmpty(partyId)) {
@@ -648,7 +645,7 @@ public class LoginServices {
             try {
                 party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "", module);
+                Debug.logWarning(e, "", MODULE);
             }
 
             if (party != null) {
@@ -679,7 +676,7 @@ public class LoginServices {
             userLoginToCreate.set("partyId", partyId);
         } catch (Exception e) {
             // Will get thrown in framework-only installation
-            Debug.logInfo(e, "Exception thrown while setting UserLogin partyId field: ", module);
+            Debug.logInfo(e, "Exception thrown while setting UserLogin partyId field: ", MODULE);
         }
 
         try {
@@ -690,7 +687,7 @@ public class LoginServices {
                 errorMessageList.add(errMsg);
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "", module);
+            Debug.logWarning(e, "", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_create_login_user_read_failure", messageMap, locale);
             errorMessageList.add(errMsg);
@@ -702,28 +699,14 @@ public class LoginServices {
 
         try {
             userLoginToCreate.create();
-            createUserLoginPasswordHistory(delegator,userLoginId, currentPassword);
+            createUserLoginPasswordHistory(userLoginToCreate);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "", module);
+            Debug.logWarning(e, "", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_create_login_user_write_failure", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
 
-        try {
-            if (UtilValidate.isNotEmpty(securityAnswer)) {
-                Map<String, Object> resultMap = dispatcher.runSync("createUserLoginSecurityQuestion",
-                        UtilMisc.toMap("userLogin", loggedInUserLogin, "userLoginId", userLoginId, "questionEnumId", questionEnumId, "securityAnswer", securityAnswer));
-                if (ServiceUtil.isError(resultMap)) {
-                    errMsg = ServiceUtil.getErrorMessage(resultMap);
-                    errorMessageList.add(errMsg);
-                    Debug.logError(errMsg, module);
-                }
-            }
-        } catch (GenericServiceException e1) {
-            errMsg = UtilProperties.getMessage(resource,"loginservices.error_setting_security_question", locale);
-            Debug.logError(e1, errMsg, module);
-        }
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
@@ -792,7 +775,7 @@ public class LoginServices {
                 authenticated = AuthHelper.authenticate(userLoginId, currentPassword, true);
             } catch (AuthenticatorException e) {
                 // safe to ignore this; but we'll log it just in case
-                Debug.logWarning(e, e.getMessage(), module);
+                Debug.logWarning(e, e.getMessage(), MODULE);
             }
 
             // call update password if auth passed
@@ -800,7 +783,7 @@ public class LoginServices {
                 try {
                     AuthHelper.updatePassword(userLoginId, currentPassword, newPassword);
                 } catch (AuthenticatorException e) {
-                    Debug.logError(e, e.getMessage(), module);
+                    Debug.logError(e, e.getMessage(), MODULE);
                     Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
                     errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_userlogin_with_id_not_exist", messageMap, locale);
                     return ServiceUtil.returnError(errMsg);
@@ -836,7 +819,7 @@ public class LoginServices {
             try {
                 AuthHelper.updatePassword(externalAuthId, currentPassword, newPassword);
             } catch (AuthenticatorException e) {
-                Debug.logError(e, e.getMessage(), module);
+                Debug.logError(e, e.getMessage(), MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                 errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_write_failure", messageMap, locale);
                 return ServiceUtil.returnError(errMsg);
@@ -849,7 +832,7 @@ public class LoginServices {
 
             try {
                 userLoginToUpdate.store();
-                createUserLoginPasswordHistory(delegator,userLoginId, newPassword);
+                createUserLoginPasswordHistory(userLoginToUpdate);
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                 errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_write_failure", messageMap, locale);
@@ -907,7 +890,7 @@ public class LoginServices {
         try {
             newUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "", module);
+            Debug.logWarning(e, "", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_create_login_user_read_failure", messageMap, locale);
             errorMessageList.add(errMsg);
@@ -942,7 +925,7 @@ public class LoginServices {
                 newUserLogin.store();
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "", module);
+            Debug.logWarning(e, "", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_create_login_user_write_failure", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
@@ -955,7 +938,7 @@ public class LoginServices {
         try {
             loggedInUserLogin.store();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "", module);
+            Debug.logWarning(e, "", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_disable_old_login_user_write_failure", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
@@ -1086,9 +1069,9 @@ public class LoginServices {
             //No valid value is found so don't bother to save any password history
             passwordChangeHistoryLimit = 0;
         }
-        Debug.logInfo(" password.change.history.limit is set to " + passwordChangeHistoryLimit, module);
+        Debug.logInfo(" password.change.history.limit is set to " + passwordChangeHistoryLimit, MODULE);
         if (passwordChangeHistoryLimit > 0) {
-            Debug.logInfo(" checkNewPassword Checking if user is tyring to use old password " + passwordChangeHistoryLimit, module);
+            Debug.logInfo(" checkNewPassword Checking if user is tyring to use old password " + passwordChangeHistoryLimit, MODULE);
             try {
                 List<GenericValue> pwdHistList = EntityQuery.use(delegator)
                                                             .from("UserLoginPasswordHistory")
@@ -1104,7 +1087,7 @@ public class LoginServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "", module);
+                Debug.logWarning(e, "", MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                 errMsg = UtilProperties.getMessage(resource,"loginevents.error_accessing_password_change_history", messageMap, locale);
             }
@@ -1157,7 +1140,7 @@ public class LoginServices {
         String hashType = UtilProperties.getPropertyValue("security", "password.encrypt.hash.type");
 
         if (UtilValidate.isEmpty(hashType)) {
-            Debug.logWarning("Password encrypt hash type is not specified in security.properties, use SHA", module);
+            Debug.logWarning("Password encrypt hash type is not specified in security.properties, use SHA", MODULE);
             hashType = "SHA";
         }
 
@@ -1188,7 +1171,7 @@ public class LoginServices {
             if (sm.getString("coyoteRequest.alreadyAuthenticated").equals(e.getMessage())){
                 return true;
             } else {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return false;
             }
         }

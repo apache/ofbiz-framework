@@ -1,0 +1,66 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Help for Party GL Account mapping
+The Party / GL Account mapping allows the translation of different account types (eg Accounts Receivable, Accounts Payable etc)
+ for a party to be mapped to a separate general ledger account.
+
+The party role (eg Bill To Customer) is also used to define the mapping even further.
+
+OFBiz demo data setup comes with no entries here.
+
+It is used as a way of implementing subledger functionality in OFBiz.
+Subledger functionality is where a higher level account can be split into lower levels.
+In this case these lower levels can be by party.
+
+An example could be that a business may want to use the general ledger to track the Accounts Receivable (AR) by customer
+ so the chart of account would be setup something like as follows:
+
+120000 Accounts Receivable
+
+* 120010 Accounts Receivable - Customer A
+* 120020 Accounts Receiviable - Customer B
+* 120030 Accounts Receivalbe - Customer C
+
+This has the main AR account is at the top of the hierarchy and 3 sub accounts below it.
+
+Entries for Customers A, B and C would be setup with a role of 'Bill From Customer' as this is a role associated
+ with the customer when the Sales Invoice is generated.When a transaction matching the criteria is processed in the system
+ then these mappings will control where it is posted to.In the case of Customer A any AR transactions with
+ role 'Bill To Customer' are posted to '120010' instead of the standard '120000
+
+== How do I add a new Party / GL Account mapping?
+. Enter or Lookup the party for the 'Party Id' field
+. Select the 'Role Type Id' from the drop down list +
+   (NOTE: Be careful that you select the correct role for the transactions you want to track......)
+. Select the 'GL Account Type Id' from the drop down list
+. Select the 'GL Account Id' from the drop down list
+. Press the 'Add' button
+. The new entry will be displayed at the bottom of the screen
+
+== How do I update a Party / GL Account mapping?
+Only the GL Account Id linked to the mapping can be updated.
+
+. Locate the Party / GL Account entry that needs to be updated
+. Select the new 'GL Account Id' from the drop down list next to the entry
+. Press the 'Update' button next to the entry
+
+== How do I remove a Party / GL Account mapping?
+. Locate the Party / GL Account entry that needs to be removed
+. Press the 'Delete' button next to the entry

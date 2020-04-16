@@ -44,7 +44,7 @@ import org.w3c.dom.Element;
  */
 public final class Calculate extends MethodOperation {
 
-    public static final String module = Calculate.class.getName();
+    public static final String MODULE = Calculate.class.getName();
 
     public static final int TYPE_DOUBLE = 1;
     public static final int TYPE_FLOAT = 2;
@@ -129,7 +129,7 @@ public final class Calculate extends MethodOperation {
         String decimalScaleString = decimalScaleFse.expandString(methodContext.getEnvMap());
         int decimalScale = 2;
         if (!decimalScaleString.isEmpty()) {
-            decimalScale = Integer.valueOf(decimalScaleString);
+            decimalScale = Integer.parseInt(decimalScaleString);
         }
         BigDecimal resultValue = BigDecimal.ZERO.setScale(decimalScale, roundingMode);
         for (Calculate.SubCalc calcop : calcops) {

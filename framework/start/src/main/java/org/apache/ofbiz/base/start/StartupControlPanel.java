@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.start.Start.ServerState;
  */
 final class StartupControlPanel {
 
-    public static final String module = StartupControlPanel.class.getName();
+    public static final String MODULE = StartupControlPanel.class.getName();
 
     /**
      * Initialize OFBiz by:

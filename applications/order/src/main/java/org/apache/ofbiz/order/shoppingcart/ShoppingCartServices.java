@@ -62,7 +62,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ShoppingCartServices {
 
-    public static final String module = ShoppingCartServices.class.getName();
+    public static final String MODULE = ShoppingCartServices.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static final MathContext generalRounding = new MathContext(10);
@@ -78,7 +78,7 @@ public class ShoppingCartServices {
             clearEmptyGroups = Boolean.TRUE;
         }
 
-        Debug.logInfo("From Group - " + fromGroupIndex + " To Group - " + toGroupIndex + "Item - " + itemIndex + "(" + quantity + ")", module);
+        Debug.logInfo("From Group - " + fromGroupIndex + " To Group - " + toGroupIndex + "Item - " + itemIndex + "(" + quantity + ")", MODULE);
         if (fromGroupIndex.equals(toGroupIndex)) {
             // nothing to do
             return ServiceUtil.returnSuccess();
@@ -86,7 +86,7 @@ public class ShoppingCartServices {
 
         cart.positionItemToGroup(itemIndex, quantity,
                 fromGroupIndex, toGroupIndex, clearEmptyGroups);
-        Debug.logInfo("Called cart.positionItemToGroup()", module);
+        Debug.logInfo("Called cart.positionItemToGroup()", MODULE);
 
         return ServiceUtil.returnSuccess();
     }
@@ -186,7 +186,7 @@ public class ShoppingCartServices {
             orderTerms = orderHeader.getRelated("OrderTerm", null, null, false);
             orderContactMechs = EntityQuery.use(delegator).select("orderId", "contactMechId", "contactMechPurposeTypeId").from("OrderAndPartyContactMech").where("orderId", orderId).filterByDate("contactFromDate", "contactThruDate").distinct().queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -219,7 +219,7 @@ public class ShoppingCartServices {
         try {
             cart.setUserLogin(userLogin, dispatcher);
         } catch (CartItemModifyException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -262,7 +262,7 @@ public class ShoppingCartServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -276,7 +276,7 @@ public class ShoppingCartServices {
             exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_SETTLED"));
             orderPaymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where(exprs).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (UtilValidate.isNotEmpty(orderPaymentPrefs)) {
@@ -294,10 +294,10 @@ public class ShoppingCartServices {
 
                 if ((overflow == null || !"Y".equals(overflow)) && oppi.hasNext()) {
                     cpi = cart.addPaymentAmount(paymentId, maxAmount);
-                    Debug.logInfo("Added Payment: " + paymentId + " / " + maxAmount, module);
+                    Debug.logInfo("Added Payment: " + paymentId + " / " + maxAmount, MODULE);
                 } else {
                     cpi = cart.addPayment(paymentId);
-                    Debug.logInfo("Added Payment: " + paymentId + " / [no max]", module);
+                    Debug.logInfo("Added Payment: " + paymentId + " / [no max]", MODULE);
                 }
                 // for finance account the finAccountId needs to be set
                 if ("FIN_ACCOUNT".equals(paymentId)) {
@@ -307,7 +307,7 @@ public class ShoppingCartServices {
                 cart.setBillingAccount(orderHeader.getString("billingAccountId"), orh.getBillingAccountMaxAmount());
             }
         } else {
-            Debug.logInfo("No payment preferences found for order #" + orderId, module);
+            Debug.logInfo("No payment preferences found for order #" + orderId, MODULE);
         }
         // set the order term
         if (UtilValidate.isNotEmpty(orderTerms)) {
@@ -372,7 +372,7 @@ public class ShoppingCartServices {
                         nextItemSeq = seq;
                     }
                 } catch (NumberFormatException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 if ("ITEM_REJECTED".equals(item.getString("statusId")) || "ITEM_CANCELLED".equals(item.getString("statusId"))) {
@@ -398,7 +398,7 @@ public class ShoppingCartServices {
                         }
                     }
                 } catch (GenericEntityException | GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
 
@@ -437,7 +437,7 @@ public class ShoppingCartServices {
                         // TODO: passing in null now for itemGroupNumber, but should reproduce from OrderItemGroup records
                         itemIndex = cart.addNonProductItem(itemType, desc, null, unitPrice, quantity, null, null, null, dispatcher);
                     } catch (CartItemModifyException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
                 } else {
@@ -457,7 +457,7 @@ public class ShoppingCartServices {
                         try {
                             workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                         }
                     }
                     if (workEffort != null && "ASSET_USAGE".equals(workEffort.getString("workEffortTypeId"))) {
@@ -485,7 +485,7 @@ public class ShoppingCartServices {
                             }
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
 
                     if (UtilValidate.isNotEmpty(configId)) {
@@ -494,7 +494,7 @@ public class ShoppingCartServices {
                     try {
                         itemIndex = cart.addItemToEnd(productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, unitPrice == null ? null : false, skipInventoryChecks, skipProductChecks);
                     } catch (ItemNotFoundException | CartItemModifyException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
                 }
@@ -507,7 +507,7 @@ public class ShoppingCartServices {
                 try {
                     cartItem.setItemGroup(cart.addItemGroup(item.getRelatedOne("OrderItemGroup", true)));
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 // attach surveyResponseId for each item
@@ -544,7 +544,7 @@ public class ShoppingCartServices {
                         }
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
 
@@ -560,7 +560,7 @@ public class ShoppingCartServices {
                         }
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
 
@@ -620,18 +620,18 @@ public class ShoppingCartServices {
                                     "] to ship group with index [" + itemIndex + "]; group quantity is [" + shipGroupQty +
                                     "] item quantity is [" + (cartItem != null ? cartItem.getQuantity() : "no cart item") +
                                     "] cartShipGroupIndex is [" + cartShipGroupIndex + "], csi.shipItemInfo.size(): " +
-                                    (cartShipGroupIndex < 0 ? 0 : csi.shipItemInfo.size()), module);
+                                    (cartShipGroupIndex < 0 ? 0 : csi.shipItemInfo.size()), MODULE);
                         } else {
                             cart.setItemShipGroupQty(itemIndex, shipGroupQty, cartShipGroupIndex);
                         }
 
                         List<GenericValue> shipGroupItemAdjustments = EntityUtil.filterByAnd(orderItemAdjustments, UtilMisc.toMap("shipGroupSeqId", cartShipGroupIndexStr));
                         if (cartItem == null || cartShipGroupIndex < 0) {
-                            Debug.logWarning("In loadCartFromOrder could not find cart item for itemIndex=" + itemIndex + ", for orderId=" + orderId, module);
+                            Debug.logWarning("In loadCartFromOrder could not find cart item for itemIndex=" + itemIndex + ", for orderId=" + orderId, MODULE);
                         } else {
                             CartShipItemInfo cartShipItemInfo = csi.getShipItemInfo(cartItem);
                             if (cartShipItemInfo == null) {
-                                Debug.logWarning("In loadCartFromOrder could not find CartShipItemInfo for itemIndex=" + itemIndex + ", for orderId=" + orderId, module);
+                                Debug.logWarning("In loadCartFromOrder could not find CartShipItemInfo for itemIndex=" + itemIndex + ", for orderId=" + orderId, MODULE);
                             } else {
                                 List<GenericValue> itemTaxAdj = cartShipItemInfo.itemTaxAdj;
                                 for (GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
@@ -651,7 +651,7 @@ public class ShoppingCartServices {
                 try {
                     cart.setNextItemSeq(nextItemSeq+1);
                 } catch (GeneralException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
@@ -694,7 +694,7 @@ public class ShoppingCartServices {
         try {
             quote = EntityQuery.use(delegator).from("Quote").where("quoteId", quoteId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -712,7 +712,7 @@ public class ShoppingCartServices {
         try {
             cart.setUserLogin(userLogin, dispatcher);
         } catch (CartItemModifyException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -732,7 +732,7 @@ public class ShoppingCartServices {
             quoteAttributes = quote.getRelated("QuoteAttribute", null, null, false);
             quoteTerms = quote.getRelated("QuoteTerm", null, null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         // set the role information
@@ -833,7 +833,7 @@ public class ShoppingCartServices {
                         nextItemSeq = seq;
                     }
                 } catch (NumberFormatException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
 
@@ -874,7 +874,7 @@ public class ShoppingCartServices {
                         // note that passing in null for itemGroupNumber as there is no real grouping concept in the quotes right now
                         itemIndex = cart.addNonProductItem(null, desc, null, null, quantity, null, null, null, dispatcher);
                     } catch (CartItemModifyException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
                 } else {
@@ -888,7 +888,7 @@ public class ShoppingCartServices {
                             itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, !applyQuoteAdjustments, quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0, Boolean.FALSE, Boolean.FALSE);
 
                     } catch (ItemNotFoundException | CartItemModifyException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
                 }
@@ -962,7 +962,7 @@ public class ShoppingCartServices {
             try {
                 cart.setNextItemSeq(nextItemSeq+1);
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -995,7 +995,7 @@ public class ShoppingCartServices {
         try {
             shoppingList = EntityQuery.use(delegator).from("ShoppingList").where("shoppingListId", shoppingListId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -1010,7 +1010,7 @@ public class ShoppingCartServices {
                     currency = productStore.getString("defaultCurrencyUomId");
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -1025,7 +1025,7 @@ public class ShoppingCartServices {
         try {
             cart.setUserLogin(userLogin, dispatcher);
         } catch (CartItemModifyException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -1040,7 +1040,7 @@ public class ShoppingCartServices {
         try {
             shoppingListItems = shoppingList.getRelated("ShoppingListItem", null, null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -1058,7 +1058,7 @@ public class ShoppingCartServices {
                         nextItemSeq = seq;
                     }
                 } catch (NumberFormatException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 BigDecimal modifiedPrice = shoppingListItem.getBigDecimal("modifiedPrice");
@@ -1077,7 +1077,7 @@ public class ShoppingCartServices {
                     try {
                         itemIndex = cart.addItemToEnd(productId, null, quantity, null, null, null, null, null, configWrapper, dispatcher, Boolean.TRUE, Boolean.TRUE);
                     } catch (ItemNotFoundException | CartItemModifyException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
 
@@ -1105,7 +1105,7 @@ public class ShoppingCartServices {
             try {
                 cart.setNextItemSeq(nextItemSeq+1);
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -1183,7 +1183,7 @@ public class ShoppingCartServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e.toString(), module);
+            Debug.logError(e.toString(), MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         Map<String, Object> vendorMap = new HashMap<>();
@@ -1197,7 +1197,7 @@ public class ShoppingCartServices {
             try {
                 vendorProduct = EntityQuery.use(delegator).from("VendorProduct").where("productId", productId, "productStoreGroupId", "_NA_").queryFirst();
             } catch (GenericEntityException e) {
-                Debug.logError(e.toString(), module);
+                Debug.logError(e.toString(), MODULE);
             }
 
             if (UtilValidate.isEmpty(vendorProduct)) {

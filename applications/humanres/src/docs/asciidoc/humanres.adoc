@@ -19,8 +19,8 @@ under the License.
 = Human Resources
 
 The OFBiz Human Resources system is one of the core application components and has
-all of the functionality you need to manage your business employees as well as the 
-recruitment process. It is well integrated with other components especially 
+all of the functionality you need to manage your business employees as well as the
+recruitment process. It is well integrated with other components especially
 Accounting to manage Payroll and any specific  employee agreements.
 
 include::_include/hr-intro.adoc[leveloffset=+1]

@@ -53,7 +53,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 
 public final class ApacheFopWorker {
 
-    public static final String module = ApacheFopWorker.class.getName();
+    public static final String MODULE = ApacheFopWorker.class.getName();
     /** File name prefix used for temporary files. Currently set to
      * <code>org.apache.ofbiz.webapp.view.ApacheFopWorker-</code>.
      */
@@ -110,7 +110,7 @@ public final class ApacheFopWorker {
                     if (userConfigFile.exists()) {
                         fopFactory = FopFactory.newInstance(userConfigFile);
                     } else {
-                        Debug.logWarning("FOP configuration file not found: " + userConfigFile, module);
+                        Debug.logWarning("FOP configuration file not found: " + userConfigFile, MODULE);
                     }
                     URL fontBaseFileUrl = FlexibleLocation.resolveLocation(fopFontBaseProperty);
                     File fontBaseFile = FileUtil.getFile(fontBaseFileUrl.getFile());
@@ -118,11 +118,11 @@ public final class ApacheFopWorker {
                     if (fontBaseFile.isDirectory()) {
                         fopFactory.getFontManager().setResourceResolver(ResourceResolverFactory.createDefaultInternalResourceResolver(fontBaseFile.toURI()));
                     } else {
-                        Debug.logWarning("FOP font base URL not found: " + fontBaseFile, module);
+                        Debug.logWarning("FOP font base URL not found: " + fontBaseFile, MODULE);
                     }
-                    Debug.logInfo("FOP FontBaseURL: " + fopFactory.getFontManager().getResourceResolver().getBaseURI(), module);
+                    Debug.logInfo("FOP FontBaseURL: " + fopFactory.getFontManager().getResourceResolver().getBaseURI(), MODULE);
                 } catch (Exception e) {
-                    Debug.logWarning(e, "Error reading FOP configuration: ", module);
+                    Debug.logWarning(e, "Error reading FOP configuration: ", MODULE);
                 }
             }
         }

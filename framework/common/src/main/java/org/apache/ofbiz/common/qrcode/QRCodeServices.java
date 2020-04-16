@@ -61,7 +61,7 @@ import freemarker.template.utility.StringUtil;
  */
 public class QRCodeServices {
 
-    public static final String module = QRCodeServices.class.getName();
+    public static final String MODULE = QRCodeServices.class.getName();
 
     public static final int MIN_SIZE = 20;
 
@@ -126,7 +126,7 @@ public class QRCodeServices {
                     logoImageResult = ImageTransform.getBufferedImage(FileUtil.getFile(logoImage).getAbsolutePath(), locale);
                     logoBufferedImage = (BufferedImage) logoImageResult.get("bufferedImage");
                 } catch (IllegalArgumentException | IOException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
             if (UtilValidate.isEmpty(logoBufferedImage)) {
@@ -137,7 +137,7 @@ public class QRCodeServices {
                         Map<String, Object> logoImageResult = ImageTransform.getBufferedImage(FileUtil.getFile(qrCodeDefaultLogoImage).getAbsolutePath(), locale);
                         defaultLogoImage = (BufferedImage) logoImageResult.get("bufferedImage");
                         if (UtilValidate.isEmpty(defaultLogoImage)) {
-                            Debug.logError("Your logo image file(" + qrCodeDefaultLogoImage + ") cannot be read by javax.imageio.ImageIO. Please use png, jpeg formats instead of ico and etc.", module);
+                            Debug.logError("Your logo image file(" + qrCodeDefaultLogoImage + ") cannot be read by javax.imageio.ImageIO. Please use png, jpeg formats instead of ico and etc.", MODULE);
                         }
                     } catch (IllegalArgumentException | IOException e) {
                         defaultLogoImage = null;
@@ -181,7 +181,7 @@ public class QRCodeServices {
                         detectorResult = new Detector(newBitMatrix).detect(decodeHints);
                         result = decoder.decode(detectorResult.getBits(), decodeHints);
                     } catch (ChecksumException | FormatException | NotFoundException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                     if (UtilValidate.isNotEmpty(result) && !result.getText().equals(message)) {
                         detectorResult = new Detector(bitMatrix).detect(decodeHints);

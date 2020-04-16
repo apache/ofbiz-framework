@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ValueLinkServices {
 
-    public static final String module = ValueLinkServices.class.getName();
+    public static final String MODULE = ValueLinkServices.class.getName();
     public final static String resource = "AccountingUiLabels";
     public final static String resourceError = "AccountingErrorUiLabels";
     public final static String resourceOrder = "OrderUiLabels";
@@ -64,11 +64,11 @@ public class ValueLinkServices {
 
         Boolean kekOnly = context.get("kekOnly") != null ? (Boolean) context.get("kekOnly") : Boolean.FALSE;
         String kekTest = (String) context.get("kekTest");
-        Debug.logInfo("KEK Only : " + kekOnly, module);
+        Debug.logInfo("KEK Only : " + kekOnly, MODULE);
 
         StringBuffer buf = vl.outputKeyCreation(kekOnly, kekTest);
         String output = buf.toString();
-        Debug.logInfo(":: Key Generation Output ::\n\n" + output, module);
+        Debug.logInfo(":: Key Generation Output ::\n\n" + output, MODULE);
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("output", output);
@@ -118,7 +118,7 @@ public class ValueLinkServices {
         buf.append("======== End Test Bytes ").append(desc).append(" ========\n\n");
 
         String output = buf.toString();
-        Debug.logInfo(":: KEK Test Output ::\n\n" + output, module);
+        Debug.logInfo(":: KEK Test Output ::\n\n" + output, MODULE);
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("output", output);
@@ -165,7 +165,7 @@ public class ValueLinkServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingValueLinkCannotUpdateWorkingKey", locale));
         }
-        Debug.logInfo("Response : " + response, module);
+        Debug.logInfo("Response : " + response, MODULE);
 
         // on success update the database / reload the cached api
         String responseCode = (String) response.get("responsecode");
@@ -183,7 +183,7 @@ public class ValueLinkServices {
         try {
             vlKeys.store();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to store updated keys; the keys were changed with ValueLink : " + vlKeys, module);
+            Debug.logError(e, "Unable to store updated keys; the keys were changed with ValueLink : " + vlKeys, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "AccountingValueLinkCannotStoreWorkingKey", locale));
         }
@@ -262,7 +262,7 @@ public class ValueLinkServices {
         result.put("expireDate", response.get("expiredate"));
         result.put("cardClass", response.get("cardclass"));
         result.put("referenceNum", response.get("traceno"));
-        Debug.logInfo("Activate Result : " + result, module);
+        Debug.logInfo("Activate Result : " + result, MODULE);
         return result;
 
     }
@@ -312,7 +312,7 @@ public class ValueLinkServices {
         result.put("expireDate", response.get("expiredate"));
         result.put("cardClass", response.get("cardclass"));
         result.put("referenceNum", response.get("traceno"));
-        Debug.logInfo("Link Result : " + result, module);
+        Debug.logInfo("Link Result : " + result, MODULE);
         return result;
     }
 
@@ -364,7 +364,7 @@ public class ValueLinkServices {
         result.put("expireDate", response.get("expiredate"));
         result.put("cardClass", response.get("cardclass"));
         result.put("referenceNum", response.get("traceno"));
-        Debug.logInfo("Disable Result : " + result, module);
+        Debug.logInfo("Disable Result : " + result, MODULE);
         return result;
     }
 
@@ -426,7 +426,7 @@ public class ValueLinkServices {
         result.put("cardClass", response.get("cardclass"));
         result.put("cashBack", vl.getAmount((String) response.get("cashback")));
         result.put("referenceNum", response.get("traceno"));
-        Debug.logInfo("Redeem Result : " + result, module);
+        Debug.logInfo("Redeem Result : " + result, MODULE);
         return result;
 
     }
@@ -488,7 +488,7 @@ public class ValueLinkServices {
         result.put("expireDate", response.get("expiredate"));
         result.put("cardClass", response.get("cardclass"));
         result.put("referenceNum", response.get("traceno"));
-        Debug.logInfo("Reload Result : " + result, module);
+        Debug.logInfo("Reload Result : " + result, MODULE);
         return result;
 
     }
@@ -540,7 +540,7 @@ public class ValueLinkServices {
         result.put("expireDate", response.get("expiredate"));
         result.put("cardClass", response.get("cardclass"));
         result.put("referenceNum", response.get("traceno"));
-        Debug.logInfo("Balance Result : " + result, module);
+        Debug.logInfo("Balance Result : " + result, MODULE);
         return result;
 
     }
@@ -591,7 +591,7 @@ public class ValueLinkServices {
         result.put("expireDate", response.get("expiredate"));
         result.put("cardClass", response.get("cardclass"));
         result.put("referenceNum", response.get("traceno"));
-        Debug.logInfo("History Result : " + result, module);
+        Debug.logInfo("History Result : " + result, MODULE);
         return result;
 
     }
@@ -653,7 +653,7 @@ public class ValueLinkServices {
         result.put("expireDate", response.get("expiredate"));
         result.put("cardClass", response.get("cardclass"));
         result.put("referenceNum", response.get("traceno"));
-        Debug.logInfo("Refund Result : " + result, module);
+        Debug.logInfo("Refund Result : " + result, MODULE);
         return result;
 
     }
@@ -681,7 +681,7 @@ public class ValueLinkServices {
     public static Map<String, Object> timeOutReversal(DispatchContext dctx, Map<String, Object> context) {
         String vlInterface = (String) context.get("Interface");
         Locale locale = (Locale) context.get("locale");
-        Debug.logInfo("704 Interface : " + vlInterface, module);
+        Debug.logInfo("704 Interface : " + vlInterface, MODULE);
         if (vlInterface != null) {
             if (vlInterface.startsWith("Activate")) {
                 if ("Activate/Rollback".equals(vlInterface)) {
@@ -724,12 +724,12 @@ public class ValueLinkServices {
         // Activate/Rollback is not supported by valuelink
         if (!"Activate".equals(vlInterface)) {
             // create the listener
-            Debug.logInfo("Set 704 context : " + context, module);
+            Debug.logInfo("Set 704 context : " + context, MODULE);
             try {
                 dctx.getDispatcher().addRollbackService("vlTimeOutReversal", context, false);
                 //dctx.getDispatcher().addCommitService("vlTimeOutReversal", context, false);
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Unable to setup 0704 Timeout Reversal", module);
+                Debug.logError(e, "Unable to setup 0704 Timeout Reversal", MODULE);
             }
         }
     }
@@ -777,7 +777,7 @@ public class ValueLinkServices {
         try {
             redeemResult = dispatcher.runSync("redeemGiftCard", redeemCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Problem calling the redeem service", module);
+            Debug.logError(e, "Problem calling the redeem service", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingValueLinkUnableToRedeemGiftCardFailure", locale));
         }
@@ -792,14 +792,14 @@ public class ValueLinkServices {
                 BigDecimal current = (BigDecimal) redeemResult.get("amount");
                 if (current == null) current = BigDecimal.ZERO;
                 BigDecimal redeemed = previous.subtract(current);
-                Debug.logInfo("Redeemed (" + amount + "): " + redeemed + " / " + previous + " : " + current, module);
+                Debug.logInfo("Redeemed (" + amount + "): " + redeemed + " / " + previous + " : " + current, MODULE);
                 if (redeemed.compareTo(amount) < 0) {
                     // we didn't redeem enough void the transaction and return false
                     Map<String, Object> voidResult = null;
                     try {
                         voidResult = dispatcher.runSync("voidRedeemGiftCard", redeemCtx);
                     } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                     if (ServiceUtil.isError(voidResult)) {
                         return voidResult;
@@ -840,7 +840,7 @@ public class ValueLinkServices {
         try {
             giftCard = paymentPref.getRelatedOne("GiftCard", false);
         } catch (GenericEntityException e) {
-            Debug.logError("Unable to get GiftCard from OrderPaymentPreference", module);
+            Debug.logError("Unable to get GiftCard from OrderPaymentPreference", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingGiftCertificateNumberCannotLocateItFromOrderPaymentPreference", locale));
         }
@@ -869,7 +869,7 @@ public class ValueLinkServices {
         try {
             redeemResult = dispatcher.runSync("voidRedeemGiftCard", redeemCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Problem calling the redeem service", module);
+            Debug.logError(e, "Problem calling the redeem service", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingValueLinkUnableToRedeemGiftCardFailure", locale));
         }
@@ -905,7 +905,7 @@ public class ValueLinkServices {
         try {
             giftCard = paymentPref.getRelatedOne("GiftCard", false);
         } catch (GenericEntityException e) {
-            Debug.logError("Unable to get GiftCard from OrderPaymentPreference", module);
+            Debug.logError("Unable to get GiftCard from OrderPaymentPreference", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingGiftCertificateNumberCannotLocateItFromOrderPaymentPreference", locale));
         }
@@ -934,7 +934,7 @@ public class ValueLinkServices {
         try {
             redeemResult = dispatcher.runSync("refundGiftCard", refundCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Problem calling the refund service", module);
+            Debug.logError(e, "Problem calling the refund service", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingValueLinkUnableToRefundGiftCardFailure", locale));
         }
@@ -970,7 +970,7 @@ public class ValueLinkServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem",module);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem",MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
         }
@@ -1024,7 +1024,7 @@ public class ValueLinkServices {
         try {
             product = orderItem.getRelatedOne("Product", false);
         } catch (GenericEntityException e) {
-            Debug.logError("Unable to get Product from OrderItem", module);
+            Debug.logError("Unable to get Product from OrderItem", MODULE);
         }
         if (product == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -1040,7 +1040,7 @@ public class ValueLinkServices {
                             "productFeatureTypeId", "TYPE")
                     .orderBy("-fromDate").filterByDate().queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingValueLinkUnableToGetFeatureType", locale));
         }
@@ -1069,7 +1069,7 @@ public class ValueLinkServices {
                             "surveyId", surveyId)
                     .queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingGiftCertificateNumberCannotFulfillFromSurvey", locale));
         }
@@ -1079,7 +1079,7 @@ public class ValueLinkServices {
         try {
             responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer", null, null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingGiftCertificateNumberCannotFulfillFromSurveyAnswers", locale));
         }
@@ -1092,7 +1092,7 @@ public class ValueLinkServices {
                 try {
                     question = answer.getRelatedOne("SurveyQuestion", false);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                             "AccountingGiftCertificateNumberCannotFulfillFromSurveyAnswers", locale));
                 }
@@ -1131,7 +1131,7 @@ public class ValueLinkServices {
             try {
                 activateResult = dispatcher.runSync("activateGiftCard", activateCtx);
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Unable to activate gift card(s)", module);
+                Debug.logError(e, "Unable to activate gift card(s)", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "AccountingValueLinkUnableToActivateGiftCard", locale));
             }
@@ -1146,7 +1146,7 @@ public class ValueLinkServices {
                 try {
                     dispatcher.addRollbackService("voidActivateGiftCard", activateCtx, false);
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, "Unable to setup Activate/Void on error", module);
+                    Debug.logError(e, "Unable to setup Activate/Void on error", MODULE);
                 }
             }
 
@@ -1168,7 +1168,7 @@ public class ValueLinkServices {
             try {
                 dispatcher.runAsync("createGcFulFillmentRecord", vlFulFill, true);
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "AccountingGiftCertificateNumberCannotStoreFulfillmentInfo",
                         UtilMisc.toMap("errorString", e.toString() ), locale));
@@ -1190,10 +1190,10 @@ public class ValueLinkServices {
             try {
                 productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Unable to get product store email setting for gift card purchase", module);
+                Debug.logError(e, "Unable to get product store email setting for gift card purchase", MODULE);
             }
             if (productStoreEmail == null) {
-                Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
+                Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", MODULE);
             } else {
                 answerMap.put("locale", locale);
 
@@ -1226,7 +1226,7 @@ public class ValueLinkServices {
                 try {
                     dispatcher.runAsync("sendMailFromScreen", emailCtx);
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, "Problem sending mail", module);
+                    Debug.logError(e, "Problem sending mail", MODULE);
                     // this is fatal; we will rollback and try again later
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                             "AccountingGiftCertificateNumberCannotSendEmailNotice",
@@ -1254,7 +1254,7 @@ public class ValueLinkServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem",module);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem",MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
         }
@@ -1314,7 +1314,7 @@ public class ValueLinkServices {
                             "surveyId", surveyId).orderBy("-responseDate")
                     .queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingGiftCertificateNumberCannotFulfillFromSurvey", locale));
         }
@@ -1324,7 +1324,7 @@ public class ValueLinkServices {
         try {
             responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer", null, null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingGiftCertificateNumberCannotFulfillFromSurveyAnswers", locale));
         }
@@ -1337,7 +1337,7 @@ public class ValueLinkServices {
                 try {
                     question = answer.getRelatedOne("SurveyQuestion", false);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                             "AccountingGiftCertificateNumberCannotFulfillFromSurveyAnswers", locale));
                 }
@@ -1369,7 +1369,7 @@ public class ValueLinkServices {
         try {
             reloadResult = dispatcher.runSync("reloadGiftCard", reloadCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Unable to reload gift card", module);
+            Debug.logError(e, "Unable to reload gift card", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "AccountingValueLinkUnableToReloadGiftCard", locale));
         }
@@ -1392,14 +1392,14 @@ public class ValueLinkServices {
         try {
             dispatcher.runAsync("createGcFulFillmentRecord", vlFulFill, true);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingGiftCertificateNumberCannotStoreFulfillmentInfo", locale));
         }
 
         Boolean processResult = (Boolean) reloadResult.get("processResult");
         if (reloadResult.containsKey(ModelService.ERROR_MESSAGE) || !processResult) {
-            Debug.logError("Reload Failed Need to Refund : " + reloadResult, module);
+            Debug.logError("Reload Failed Need to Refund : " + reloadResult, MODULE);
 
             // process the return
             try {
@@ -1407,7 +1407,7 @@ public class ValueLinkServices {
                         "partyId", partyId, "userLogin", userLogin);
                 dispatcher.runAsync("refundGcPurchase", refundCtx, null, true, 300, true);
             } catch (GenericServiceException e) {
-                Debug.logError(e, "ERROR! Unable to call create refund service; this failed reload will NOT be refunded", module);
+                Debug.logError(e, "ERROR! Unable to call create refund service; this failed reload will NOT be refunded", MODULE);
             }
 
             String responseCode = "-1";
@@ -1415,11 +1415,11 @@ public class ValueLinkServices {
                 responseCode = (String) reloadResult.get("responseCode");
             }
             if ("17".equals(responseCode)) {
-                Debug.logError("Error code : " + responseCode + " : Max Balance Exceeded", module);
+                Debug.logError("Error code : " + responseCode + " : Max Balance Exceeded", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "AccountingValueLinkUnableToRefundGiftCardMaxBalanceExceeded", locale));
             } else {
-                Debug.logError("Error code : " + responseCode + " : Processing Error", module);
+                Debug.logError("Error code : " + responseCode + " : Processing Error", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "AccountingValueLinkUnableToReloadGiftCardFailed", locale));
             }
@@ -1437,10 +1437,10 @@ public class ValueLinkServices {
         try {
             productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get product store email setting for gift card purchase", module);
+            Debug.logError(e, "Unable to get product store email setting for gift card purchase", MODULE);
         }
         if (productStoreEmail == null) {
-            Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
+            Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", MODULE);
         } else {
             Map<String, Object> emailCtx = new HashMap<>();
             answerMap.put("locale", locale);
@@ -1463,7 +1463,7 @@ public class ValueLinkServices {
             try {
                 dispatcher.runAsync("sendMailFromScreen", emailCtx);
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Problem sending mail", module);
+                Debug.logError(e, "Problem sending mail", MODULE);
                 // this is fatal; we will rollback and try again later
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "AccountingGiftCertificateNumberCannotSendEmailNotice",

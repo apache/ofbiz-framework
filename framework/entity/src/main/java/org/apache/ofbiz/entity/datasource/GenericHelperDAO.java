@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
  */
 public class GenericHelperDAO implements GenericHelper {
 
-    public static final String module = GenericHelperDAO.class.getName();
+    public static final String MODULE = GenericHelperDAO.class.getName();
 
     protected GenericDAO genericDAO;
     protected GenericHelperInfo helperInfo;
@@ -65,7 +65,7 @@ public class GenericHelperDAO implements GenericHelper {
             return null;
         }
         int retVal = genericDAO.insert(value);
-        if (Debug.verboseOn()) Debug.logVerbose("Insert Return Value : " + retVal, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Insert Return Value : " + retVal, MODULE);
         return value;
     }
 
@@ -126,7 +126,7 @@ public class GenericHelperDAO implements GenericHelper {
     @Override
     public int removeByPrimaryKey(GenericPK primaryKey) throws GenericEntityException {
         if (primaryKey == null) return 0;
-        if (Debug.verboseOn()) Debug.logVerbose("Removing GenericPK: " + primaryKey.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Removing GenericPK: " + primaryKey.toString(), MODULE);
         return genericDAO.delete(primaryKey);
     }
 

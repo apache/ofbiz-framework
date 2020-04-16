@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public final class TransactionRollback extends MethodOperation {
 
-    public static final String module = TransactionRollback.class.getName();
+    public static final String MODULE = TransactionRollback.class.getName();
 
     private final FlexibleMapAccessor<Boolean> beganTransactionFma;
 
@@ -61,7 +61,7 @@ public final class TransactionRollback extends MethodOperation {
             TransactionUtil.rollback(beganTransaction, "Explicit rollback in simple-method [" + this.simpleMethod.getShortDescription() + "]", null);
         } catch (GenericTransactionException e) {
             String errMsg = "Exception thrown while rolling back transaction: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

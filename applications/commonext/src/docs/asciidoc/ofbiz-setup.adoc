@@ -1,0 +1,72 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= The OFBiz Setup application Overview
+
+The OFBiz Setup application is supporting for immediate setup your organization.
+For example, Product Store, WebSite , Facility , product catalog, category  , product, and etc.
+and then be able to create orders from data that is created.
+
+== Why we have OFBiz Setup Application?
+IMPORTANT: For manual setup instructions, please see the
+https://cwiki.apache.org/confluence/display/OFBENDUSER/Apache+OFBiz+Business+Setup+Guide[Business Setup Guide] on the wiki.
+
+If you are the company and also want to use OFBiz for running your business then you easily be able to setting your information for start running  the system quickly via The OFBiz Setup Application.
+
+== How to get started.
+NOTE: TO CHECK add link to Readme and better information between demo data and seed
+
+For instructions to run and load data to have OFBiz ready to be used, please read the README documentation.
+
+For having OFBiz ready to be setup, it's needed to load data from reader seed and seed-initial
+
+. Open a new terminal.
+. Go to your ofbiz directory.
+. Clean out all built classes with : ./ant clean-all
+. start with a database clean and empty
+. Load the seed data with gradlew "ofbiz --load-data readers=seed,seed-initial"
+. Create the admin user with login name MyUserName and default password with value "ofbiz":
+  gradlew loadAdminUserLogin -PuserLoginId=MyUserName
+. start ofbiz with : gradlew ofbiz
+. Connect to the OFBiz Setup application with your browser at https://localhost:8443/ofbizsetup.
+. follow each step of the next chapter "Steps for setup"
+
+== Steps for setup
+include::_include/HELP_initialsetup.adoc[leveloffset=+2]
+
+include::_include/HELP_setup_editFacility.adoc[leveloffset=+2]
+
+include::_include/HELP_setup_editProductStore.adoc[leveloffset=+2]
+
+include::_include/HELP_setup_editWebSite.adoc[leveloffset=+2]
+
+include::_include/HELP_setup_firstcustomer.adoc[leveloffset=+2]
+
+include::_include/HELP_setup_firstProdCatalog.adoc[leveloffset=+2]
+
+include::_include/HELP_setup_firstProductCategory.adoc[leveloffset=+2]
+
+include::_include/HELP_setup_firstproduct.adoc[leveloffset=+2]
+
+=== Help for View Organization Profile
+This screen shows details of an individual profile.
+
+It displays specific information regarding the contact and profile information.
+The lower part of the screen shows the contact information details indicating the address, telephone number,
+ or email used to communicate with your organization.

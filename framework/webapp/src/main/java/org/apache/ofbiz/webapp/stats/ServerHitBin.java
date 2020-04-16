@@ -46,8 +46,8 @@ import com.ibm.icu.util.Calendar;
  *  stats according to settings in the serverstats.properties file.
  */
 public class ServerHitBin {
-    // Debug module name
-    public static final String module = ServerHitBin.class.getName();
+    // Debug MODULE name
+    public static final String MODULE = ServerHitBin.class.getName();
 
     public static final int REQUEST = 1;
     public static final int EVENT = 2;
@@ -231,7 +231,7 @@ public class ServerHitBin {
                     try {
                         delegator.createSetNextSeqId(serverHitBin);
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Could not save ServerHitBin:", module);
+                        Debug.logError(e, "Could not save ServerHitBin:", MODULE);
                     }
                 }
             } else {
@@ -246,7 +246,7 @@ public class ServerHitBin {
             try {
                 bin.saveHit(request, startTime, runningTime, userLogin);
             } catch (GenericEntityException e) {
-                Debug.logWarning("Error saving ServerHit: " + e.toString(), module);
+                Debug.logWarning("Error saving ServerHit: " + e.toString(), MODULE);
             }
         }
 
@@ -479,25 +479,25 @@ public class ServerHitBin {
             serverHitType = EntityQuery.use(delegator).from("ServerHitType").where("hitTypeId", ServerHitBin.typeIds[this.type]).cache().queryOne();
             if (serverHitType == null) {
                 // datamodel data not loaded; not storing hit.
-                Debug.logWarning("The datamodel data has not been loaded; cannot find hitTypeId '" + ServerHitBin.typeIds[this.type] + " not storing ServerHit.", module);
+                Debug.logWarning("The datamodel data has not been loaded; cannot find hitTypeId '" + ServerHitBin.typeIds[this.type] + " not storing ServerHit.", MODULE);
                 return;
             }
 
             GenericValue visit = VisitHandler.getVisit(request.getSession());
             if (visit == null) {
                 // no visit info stored, so don't store the ServerHit
-                Debug.logWarning("Could not find a visitId, so not storing ServerHit. This is probably a configuration error. If you turn off persistance of visits you should also turn off persistence of hits.", module);
+                Debug.logWarning("Could not find a visitId, so not storing ServerHit. This is probably a configuration error. If you turn off persistance of visits you should also turn off persistence of hits.", MODULE);
                 return;
             }
             String visitId = visit.getString("visitId");
             visit = EntityQuery.use(delegator).from("Visit").where("visitId", visitId).queryOne();
             if (visit == null) {
                 // GenericValue stored in client session does not exist in database.
-                Debug.logInfo("The Visit GenericValue stored in the client session does not exist in the database, not storing server hit.", module);
+                Debug.logInfo("The Visit GenericValue stored in the client session does not exist in the database, not storing server hit.", MODULE);
                 return;
             }
             
-            Debug.logInfo("Visit delegatorName=" + visit.getDelegator().getDelegatorName() + ", ServerHitBin delegatorName=" + this.delegator.getDelegatorName(), module);
+            Debug.logInfo("Visit delegatorName=" + visit.getDelegator().getDelegatorName() + ", ServerHitBin delegatorName=" + this.delegator.getDelegatorName(), MODULE);
             
             GenericValue serverHit = delegator.makeValue("ServerHit");
 

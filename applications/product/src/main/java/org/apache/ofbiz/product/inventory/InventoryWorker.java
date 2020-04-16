@@ -39,7 +39,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public final class InventoryWorker {
 
-    public final static String module = InventoryWorker.class.getName();
+    public final static String MODULE = InventoryWorker.class.getName();
 
     private InventoryWorker () {}
 
@@ -65,7 +65,7 @@ public final class InventoryWorker {
                     .queryList();
             return purchaseOrders;
         } catch (GenericEntityException ex) {
-            Debug.logError("Unable to find outstanding purchase orders for product [" + productId + "] due to " + ex.getMessage() + " - returning null", module);
+            Debug.logError("Unable to find outstanding purchase orders for product [" + productId + "] due to " + ex.getMessage() + " - returning null", MODULE);
             return null;
         }
     }
@@ -131,7 +131,7 @@ public final class InventoryWorker {
                 results.put(value.getString("productId"), value.getBigDecimal("quantityOpen"));
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return results;
     }

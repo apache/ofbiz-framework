@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
  */
 public class ValidateMethod extends SimpleMapOperation {
 
-    public static final String module = ValidateMethod.class.getName();
+    public static final String MODULE = ValidateMethod.class.getName();
 
     String className;
     String methodName;
@@ -66,7 +66,7 @@ public class ValidateMethod extends SimpleMapOperation {
         } catch (ClassNotFoundException cnfe) {
             String msg = "Could not find validation class: " + className;
             messages.add(msg);
-            Debug.logError("[ValidateMethod.exec] " + msg, module);
+            Debug.logError("[ValidateMethod.exec] " + msg, MODULE);
             return;
         }
         Method valMethod;
@@ -75,7 +75,7 @@ public class ValidateMethod extends SimpleMapOperation {
         } catch (NoSuchMethodException cnfe) {
             String msg = "Could not find validation method: " + methodName + " of class " + className;
             messages.add(msg);
-            Debug.logError("[ValidateMethod.exec] " + msg, module);
+            Debug.logError("[ValidateMethod.exec] " + msg, MODULE);
             return;
         }
         Boolean resultBool = Boolean.FALSE;
@@ -85,7 +85,7 @@ public class ValidateMethod extends SimpleMapOperation {
             String msg = "Error in validation method " + methodName + " of class " + className + ": " + e.getMessage();
 
             messages.add(msg);
-            Debug.logError("[ValidateMethod.exec] " + msg, module);
+            Debug.logError("[ValidateMethod.exec] " + msg, MODULE);
             return;
         }
         if (!resultBool) {

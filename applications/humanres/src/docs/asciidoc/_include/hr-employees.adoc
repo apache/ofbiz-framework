@@ -19,7 +19,7 @@ under the License.
 = Employees
 
 An employee is an individual that works for a company either full-time or
-part-time under a formal employment contract. The company pays the employee 
+part-time under a formal employment contract. The company pays the employee
 wages or salary.
 
 NOTE: Wages tend to be related to an hourly rate and can vary based on the hours
@@ -36,4 +36,53 @@ In OFBiz Human Resources you can
 * Create a new employee
 * Search for an existing employee
 * View the full list of existing employees
+
+== Employees management in UI
+This includes an employee profile, a display of all employee related information in a single screen and facilities
+ for managing employee skills, qualifications, training, leave and payroll history
+
+include::HELP-hr-NewEmployee.adoc[leveloffset=+2]
+
+include::HELP-hr-FindEmployees.adoc[leveloffset=+2]
+
+include::HELP-hr-EmployeeProfile.adoc[leveloffset=+2]
+
+=== Employee Skills
+In this screen you can assign a skill to an employee.
+
+Enter numeric values in 'Years Experience', 'Rating' and 'Skill Level' to provide objective criteria for managing resources
+ with the same skill.
+
+These attributes can be used to locate resources with a needed skill.
+
+NOTE:Skills are managed in 'Global HR Settings' where new skill groups and skills can be created
+     or existing ones can be amended.
+
+=== Employee Qualifications
+In this screen you can enter details of any qualifications an employee has, to a person which could help track
+ their ability to perform a particular job.
+
+Existing qualifications can also be updated and status codes can be used to help manage the process of verifying
+ the validity of any qualifications entered.
+
+=== Employee Training
+This screen lists any training for an employee. +
+Details such as the type of training, date, time and also the person who needs to approve the training are displayed
+
+NOTE: You cannot enter any training details in this screen.
+      If you need to enter training for an employee it can be done under the 'Training'  menu option.
+
+=== Employee Leave
+This screen is displays any leave requested by an employee.
+
+Any user with Human Resource Employee permission can view and request leave for any other employee.
+
+NOTE: Only users with Human Resource Approver permission can update or approve a leave request.
+
+Leave requests are managed in the 'Leave' menu option where in addition to requesting leave,
+an approver may review and approve any requests assigned to them.
+
+NOTE: Leave types and reasons are managed by the administrator in the Global HR Settings.
+
+include::HELP-hr-PayrollHistory.adoc[leveloffset=+2]
 

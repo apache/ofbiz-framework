@@ -59,7 +59,7 @@ import org.apache.ofbiz.widget.renderer.Paginator;
  */
 public class OrderLookupServices {
 
-    public static final String module = OrderLookupServices.class.getName();
+    public static final String MODULE = OrderLookupServices.class.getName();
 
     public static Map<String, Object> findOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -230,7 +230,7 @@ public class OrderLookupServices {
                     conditions.add(EntityCondition.makeCondition(dateField, EntityOperator.GREATER_THAN_EQUAL_TO, converted));
                 }
             } catch (GeneralException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
             }
         }
 
@@ -248,7 +248,7 @@ public class OrderLookupServices {
                     conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, converted));
                 }
             } catch (GeneralException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
             }
         }
 
@@ -262,7 +262,7 @@ public class OrderLookupServices {
             try {
                 ul = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
             }
             if (ul != null) {
                 partyId = ul.getString("partyId");
@@ -393,7 +393,7 @@ public class OrderLookupServices {
                 try {
                     product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                 }
                 if (product != null) {
                     String isVirtual = product.getString("isVirtual");
@@ -411,7 +411,7 @@ public class OrderLookupServices {
                             variants = UtilGenerics.cast(varLookup.get("assocProducts"));
 
                         } catch (GenericServiceException e) {
-                            Debug.logWarning(e.getMessage(), module);
+                            Debug.logWarning(e.getMessage(), MODULE);
                         }
                         if (variants != null) {
                             for (GenericValue v : variants) {
@@ -584,7 +584,7 @@ public class OrderLookupServices {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logInfo("Find order query: " + cond.toString(), module);
+            Debug.logInfo("Find order query: " + cond.toString(), MODULE);
         }
 
         List<GenericValue> orderList = new LinkedList<>();
@@ -612,7 +612,7 @@ public class OrderLookupServices {
                 highIndex = pagedOrderList.getEndIndex();
                 orderList = pagedOrderList.getData();
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }

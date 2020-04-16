@@ -31,7 +31,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class SalesOrderTest extends OFBizTestCase {
-    public static final String module = OFBizTestCase.class.getName();
+    public static final String MODULE = OFBizTestCase.class.getName();
 
     protected GenericValue userLogin = null;
 
@@ -144,7 +144,7 @@ public class SalesOrderTest extends OFBizTestCase {
         ctx.put("userLogin", userLogin);
         Map<String, Object> resp = dispatcher.runSync("storeOrder", ctx);
         if (ServiceUtil.isError(resp)) {
-            Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+            Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;
         }
         String orderId = (String) resp.get("orderId");

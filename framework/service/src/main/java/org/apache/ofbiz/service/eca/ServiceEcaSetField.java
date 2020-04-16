@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public class ServiceEcaSetField {
 
-    public static final String module = ServiceEcaSetField.class.getName();
+    public static final String MODULE = ServiceEcaSetField.class.getName();
 
     protected String fieldName = null;
     protected String mapName = null;
@@ -64,7 +64,7 @@ public class ServiceEcaSetField {
                 if (UtilValidate.isNotEmpty(s)) {
                     value = s;
                 }
-                Debug.logInfo("Expanded String: " + s, module);
+                Debug.logInfo("Expanded String: " + s, MODULE);
             }
             // TODO: rewrite using the ContextAccessor.java see hack below to be able to use maps for email notifications
             // check if target is a map and create/get from contaxt
@@ -137,7 +137,7 @@ public class ServiceEcaSetField {
             return ModelUtil.javaNameToDbName(s);
         }
 
-        Debug.logWarning("Format function not found [" + format + "] return string unchanged - " + s, module);
+        Debug.logWarning("Format function not found [" + format + "] return string unchanged - " + s, MODULE);
         return s;
     }
 

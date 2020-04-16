@@ -37,7 +37,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class GeoWorker {
 
-    public static final String module = GeoWorker.class.getName();
+    public static final String MODULE = GeoWorker.class.getName();
 
     private GeoWorker() {}
 
@@ -46,7 +46,7 @@ public final class GeoWorker {
         try {
             geo = EntityQuery.use(delegator).from("Geo").where("geoId", geoId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to look up Geo from geoId : " + geoId, module);
+            Debug.logError(e, "Unable to look up Geo from geoId : " + geoId, MODULE);
         }
         return expandGeoGroup(geo);
     }
@@ -64,7 +64,7 @@ public final class GeoWorker {
         try {
             thisGeoAssoc = geo.getRelated("AssocGeoAssoc", UtilMisc.toMap("geoAssocTypeId", "GROUP_MEMBER"), null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get associated Geo GROUP_MEMBER relationship(s)", module);
+            Debug.logError(e, "Unable to get associated Geo GROUP_MEMBER relationship(s)", MODULE);
         }
         if (UtilValidate.isNotEmpty(thisGeoAssoc)) {
             for (GenericValue nextGeoAssoc: thisGeoAssoc) {
@@ -72,7 +72,7 @@ public final class GeoWorker {
                 try {
                     nextGeo = nextGeoAssoc.getRelatedOne("MainGeo", false);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to get related Geo", module);
+                    Debug.logError(e, "Unable to get related Geo", MODULE);
                 }
                 geoList.addAll(expandGeoGroup(nextGeo));
             }
@@ -109,7 +109,7 @@ public final class GeoWorker {
         try {
             geo = EntityQuery.use(delegator).from("Geo").where("geoId", geoId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to look up Geo from geoId : " + geoId, module);
+            Debug.logError(e, "Unable to look up Geo from geoId : " + geoId, MODULE);
         }
         return containsGeo(geoList, geo);
     }
@@ -131,13 +131,13 @@ public final class GeoWorker {
                                      .orderBy("-fromDate")
                                      .queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] and " + secondId + " Id [" + secondValueId + "] " + e.toString(), module);
+                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] and " + secondId + " Id [" + secondValueId + "] " + e.toString(), MODULE);
             }
         } else {
             try {
                 gptList = EntityQuery.use(delegator).from(entityName).where(mainId, mainValueId).orderBy("-fromDate").queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] " + e.toString(), module);
+                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] " + e.toString(), MODULE);
             }
         }
         if (UtilValidate.isNotEmpty(gptList)) {

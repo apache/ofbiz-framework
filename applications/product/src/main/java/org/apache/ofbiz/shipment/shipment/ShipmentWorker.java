@@ -44,7 +44,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class ShipmentWorker {
 
-    public static final String module = ShipmentWorker.class.getName();
+    public static final String MODULE = ShipmentWorker.class.getName();
     private static final MathContext generalRounding = new MathContext(10);
 
     private ShipmentWorker() {}
@@ -66,7 +66,7 @@ public final class ShipmentWorker {
             GenericValue shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem", false);
             issuances = shipmentItem.getRelated("ItemIssuance", null, null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         BigDecimal totalIssued = BigDecimal.ZERO;
@@ -84,7 +84,7 @@ public final class ShipmentWorker {
                 try {
                     orderItem = issuance.getRelatedOne("OrderItem", false);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
 
                 if (orderItem != null) {
@@ -179,7 +179,7 @@ public final class ShipmentWorker {
 
             String weightUomId = (String) productInfo.get("weightUomId");
 
-            Debug.logInfo("Product Id : " + productId + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), module);
+            Debug.logInfo("Product Id : " + productId + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), MODULE);
 
             if (UtilValidate.isEmpty(weightUomId)) {
                 weightUomId = defaultWeightUomId;
@@ -190,22 +190,22 @@ public final class ShipmentWorker {
                 try {
                     result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", productWeight));
                     if (ServiceUtil.isError(result)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                         return totalWeight;
                     }
                 } catch (GenericServiceException ex) {
-                    Debug.logError(ex, module);
+                    Debug.logError(ex, MODULE);
                 }
                 if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && UtilValidate.isNotEmpty(result.get("convertedValue"))) {
                     productWeight = (BigDecimal) result.get("convertedValue");
                 } else {
-                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",module);
+                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",MODULE);
                 }
             }
 
             totalWeight = totalWeight.add(productWeight.multiply(quantity));
         }
-        Debug.logInfo("Package Weight : " + String.valueOf(totalWeight) + " lbs.", module);
+        Debug.logInfo("Package Weight : " + String.valueOf(totalWeight) + " lbs.", MODULE);
         return totalWeight.add(additionalWeight);
     }
 

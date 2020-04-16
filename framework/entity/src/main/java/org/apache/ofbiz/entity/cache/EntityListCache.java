@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 
 public class EntityListCache extends AbstractEntityConditionCache<Object, List<GenericValue>> {
 
-    public static final String module = EntityListCache.class.getName();
+    public static final String MODULE = EntityListCache.class.getName();
 
     public EntityListCache(String delegatorName) {
         super(delegatorName, "entity-list");
@@ -74,7 +74,7 @@ public class EntityListCache extends AbstractEntityConditionCache<Object, List<G
     public List<GenericValue> put(String entityName, EntityCondition condition, List<String> orderBy, List<GenericValue> entities) {
         ModelEntity entity = this.getDelegator().getModelEntity(entityName);
         if (entity.getNeverCache()) {
-            Debug.logWarning("Tried to put a value of the " + entityName + " entity in the cache but this entity has never-cache set to true, not caching.", module);
+            Debug.logWarning("Tried to put a value of the " + entityName + " entity in the cache but this entity has never-cache set to true, not caching.", MODULE);
             return null;
         }
         for (GenericValue memberValue : entities) {

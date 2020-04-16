@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class VariantEvents {
 
-    public static final String module = VariantEvents.class.getName();
+    public static final String MODULE = VariantEvents.class.getName();
     public static final String resource = "ProductErrorUiLabels";
 
     /** Creates variant products from a virtual product and a combination of selectable features
@@ -150,12 +150,12 @@ public class VariantEvents {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
                 errMsg = UtilProperties.getMessage(resource,"variantevents.entity_error_quick_add_variant_data", messageMap, UtilHttp.getLocale(request));
                 TransactionUtil.rollback(beganTransacton, errMsg, null);
-                Debug.logError(e, "Entity error creating quick add variant data", module);
+                Debug.logError(e, "Entity error creating quick add variant data", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
         } catch (GenericTransactionException e) {
-            Debug.logError(e, "Transaction error creating quick add variant data", module);
+            Debug.logError(e, "Transaction error creating quick add variant data", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resource,"variantevents.transaction_error_quick_add_variant_data", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);

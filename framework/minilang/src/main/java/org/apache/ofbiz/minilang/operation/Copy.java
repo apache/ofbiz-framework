@@ -61,11 +61,11 @@ public class Copy extends SimpleMapOperation {
         }
         if (replace) {
             results.put(toField, fieldValue);
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Copy.exec] Copied \"" + fieldValue + "\" to field \"" + toField + "\"", module);
+            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Copy.exec] Copied \"" + fieldValue + "\" to field \"" + toField + "\"", MODULE);
         } else {
             if (!results.containsKey(toField)) {
                 results.put(toField, fieldValue);
-                // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Copy.exec] Copied \"" + fieldValue + "\" to field \"" + toField + "\"", module);
+                // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Copy.exec] Copied \"" + fieldValue + "\" to field \"" + toField + "\"", MODULE);
             }
         }
     }

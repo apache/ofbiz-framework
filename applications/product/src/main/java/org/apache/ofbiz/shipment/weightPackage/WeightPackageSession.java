@@ -46,7 +46,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class WeightPackageSession implements Serializable {
 
-    public static final String module = WeightPackageSession.class.getName();
+    public static final String MODULE = WeightPackageSession.class.getName();
 
     protected GenericValue userLogin = null;
     protected String dispatcherName = null;
@@ -515,10 +515,10 @@ public class WeightPackageSession implements Serializable {
             shipCostEstimateMap.put("shippableTotal", shippableTotal);
             shipCostEstimateResult = getDispatcher().runSync("calcShipmentCostEstimate", shipCostEstimateMap);
             if (ServiceUtil.isError(shipCostEstimateResult)) {
-                Debug.logError(ServiceUtil.getErrorMessage(shipCostEstimateResult), module);
+                Debug.logError(ServiceUtil.getErrorMessage(shipCostEstimateResult), MODULE);
             }
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (UtilValidate.isNotEmpty(shipCostEstimateResult.get("shippingEstimateAmount"))) {
             shipmentCostEstimate = (BigDecimal) shipCostEstimateResult.get("shippingEstimateAmount");
@@ -544,7 +544,7 @@ public class WeightPackageSession implements Serializable {
                 orderedQuantity = orderedQuantity.add(orderItem.getBigDecimal("quantity"));
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return orderedQuantity.intValue();
     }

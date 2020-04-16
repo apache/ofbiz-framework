@@ -56,7 +56,7 @@ import freemarker.template.Version;
  */
 @SuppressWarnings("serial")
 public class HtmlWidget extends ModelScreenWidget {
-    public static final String module = HtmlWidget.class.getName();
+    public static final String MODULE = HtmlWidget.class.getName();
 
     private static final UtilCache<String, Template> specialTemplateCache = UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
     protected static final Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
@@ -167,7 +167,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
             } catch (IllegalArgumentException | TemplateException | IOException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 writeError(writer, errMsg);
             }
         } else {

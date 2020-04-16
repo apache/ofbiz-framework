@@ -45,7 +45,7 @@ import org.xml.sax.SAXException;
  */
 public class HtmlMenuWrapper {
 
-    public static final String module = HtmlMenuWrapper.class.getName();
+    public static final String MODULE = HtmlMenuWrapper.class.getName();
 
     protected String resourceName;
     protected String menuName;

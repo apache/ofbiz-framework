@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class UpgradeServices {
 
-    public static final String module = UpgradeServices.class.getName();
+    public static final String MODULE = UpgradeServices.class.getName();
 
     public static Map<String, Object> migrateMaritalStatusFromIndicatorToEnum(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -46,7 +46,7 @@ public class UpgradeServices {
                 person.store();
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 

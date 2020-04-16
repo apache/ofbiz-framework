@@ -41,7 +41,7 @@ import org.apache.ofbiz.service.config.model.Server;
  */
 public class JmsListenerFactory implements Runnable {
 
-    public static final String module = JmsListenerFactory.class.getName();
+    public static final String MODULE = JmsListenerFactory.class.getName();
 
     public static final String TOPIC_LISTENER_CLASS = "org.apache.ofbiz.service.jms.JmsTopicListener";
     public static final String QUEUE_LISTENER_CLASS = "org.apache.ofbiz.service.jms.JmsQueueListener";
@@ -78,9 +78,9 @@ public class JmsListenerFactory implements Runnable {
 
     @Override
     public void run() {
-        Debug.logInfo("Starting JMS Listener Factory Thread", module);
+        Debug.logInfo("Starting JMS Listener Factory Thread", MODULE);
         while (firstPass || connected < loadable) {
-            if (Debug.verboseOn()) Debug.logVerbose("First Pass: " + firstPass + " Connected: " + connected + " Available: " + loadable, module);
+            if (Debug.verboseOn()) Debug.logVerbose("First Pass: " + firstPass + " Connected: " + connected + " Available: " + loadable, MODULE);
             this.loadListeners();
             if (loadable == 0) {
                 // if there is nothing to do then we can break without sleeping
@@ -90,11 +90,11 @@ public class JmsListenerFactory implements Runnable {
             try {
                 Thread.sleep(20000);
             } catch (InterruptedException ie) {
-                Debug.logError(ie, module);
+                Debug.logError(ie, MODULE);
             }
             continue;
         }
-        Debug.logInfo("JMS Listener Factory Thread Finished; All listeners connected.", module);
+        Debug.logInfo("JMS Listener Factory Thread Finished; All listeners connected.", MODULE);
     }
 
     // Load the JMS listeners
@@ -102,7 +102,7 @@ public class JmsListenerFactory implements Runnable {
         try {
             List<JmsService> jmsServices = ServiceConfigUtil.getServiceEngine().getJmsServices();
 
-            if (Debug.verboseOn()) Debug.logVerbose("Loading JMS Listeners.", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Loading JMS Listeners.", MODULE);
             for (JmsService service: jmsServices) {
                 StringBuilder serverKey = new StringBuilder();
                 for (Server server: service.getServers()) {
@@ -122,14 +122,14 @@ public class JmsListenerFactory implements Runnable {
                                 listeners.put(serverKey.toString(), listener);
                         }
                     } catch (GenericServiceException gse) {
-                        Debug.logInfo("Cannot load message listener " + serverKey + " error: (" + gse.toString() + ").", module);
+                        Debug.logInfo("Cannot load message listener " + serverKey + " error: (" + gse.toString() + ").", MODULE);
                     } catch (Exception e) {
-                        Debug.logError(e, "Uncaught exception.", module);
+                        Debug.logError(e, "Uncaught exception.", MODULE);
                     }
                 }
             }
         } catch (GenericConfigException e) {
-            Debug.logError(e, "Exception thrown while loading JMS listeners: ", module);
+            Debug.logError(e, "Exception thrown while loading JMS listeners: ", MODULE);
         }
     }
 

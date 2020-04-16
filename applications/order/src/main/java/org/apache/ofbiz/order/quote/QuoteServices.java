@@ -41,7 +41,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class QuoteServices {
 
-    public static final String module = QuoteServices.class.getName();
+    public static final String MODULE = QuoteServices.class.getName();
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
     public static final String resourceProduct = "ProductUiLabels";
@@ -65,7 +65,7 @@ public class QuoteServices {
         try {
             quote = EntityQuery.use(delegator).from("Quote").where("quoteId", quoteId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting Quote", module);
+            Debug.logError(e, "Problem getting Quote", MODULE);
         }
 
         if (quote == null) {
@@ -78,7 +78,7 @@ public class QuoteServices {
         try {
             productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", quote.get("productStoreId"), "emailType", emailType).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId=" + quote.get("productStoreId") + " and emailType=" + emailType, module);
+            Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId=" + quote.get("productStoreId") + " and emailType=" + emailType, MODULE);
         }
         if (productStoreEmail == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceProduct, 
@@ -130,10 +130,10 @@ public class QuoteServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(sendResp));
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderServiceExceptionSeeLogs",locale));
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderServiceExceptionSeeLogs",locale));
         }
 
@@ -282,7 +282,7 @@ public class QuoteServices {
                         "OrderOrderQuoteCannotBeStored", locale));
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Problem storing Quote", module);
+            Debug.logError(e, "Problem storing Quote", MODULE);
         }
 
         return result;

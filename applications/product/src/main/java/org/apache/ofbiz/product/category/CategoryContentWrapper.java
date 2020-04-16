@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class CategoryContentWrapper implements ContentWrapper {
 
-    public static final String module = CategoryContentWrapper.class.getName();
+    public static final String MODULE = CategoryContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
     private static final UtilCache<String, String> categoryContentCache = UtilCache.createUtilCache("category.content", true); // use soft reference to free up memory if needed
 
@@ -114,10 +114,10 @@ public class CategoryContentWrapper implements ContentWrapper {
             categoryContentCache.put(cacheKey, outString);
             return outString;
         } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering CategoryContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering CategoryContent, inserting empty String", MODULE);
             return productCategory.getString(candidateFieldName);
         } catch (IOException e) {
-            Debug.logError(e, "Error rendering CategoryContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering CategoryContent, inserting empty String", MODULE);
             return productCategory.getString(candidateFieldName);
         }
     }

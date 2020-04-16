@@ -58,10 +58,10 @@ if (project.hasProperty('enableOwasp')) {
  * Syntax: gradlew -PenableDependencyUpdates dependencyUpdates -Drevision=release
  *
  * You may want to use the use-latest-versions plugin to help you in your work
- * Syntax: 
+ * Syntax:
  *  Check only: gradlew -PenableDependencyUpdates useLatestVersions && gradlew -PenableDependencyUpdates useLatestVersionsCheck
  *  Automated update: gradlew -PenableDependencyUpdates useLatestVersions
- *  Beware that this is only a help. 
+ *  Beware that this is only a help.
  *  If you use it without check you will need to check things by yourself (can be as tedious as not using this plugin)
  */
 if (project.hasProperty('enableDependencyUpdates')) {
@@ -181,14 +181,14 @@ dependencies {
     implementation 'org.apache.shiro:shiro-core:1.4.1'
     implementation 'org.apache.sshd:sshd-core:1.7.0'
     implementation 'org.apache.tika:tika-parsers:1.22'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.29' // Remember to change the version number in javadoc.options block
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.29'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.31' // Remember to change the version number in javadoc block
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.31'
     implementation 'org.apache.axis2:axis2-kernel:1.7.9'
     implementation 'org.apache.xmlgraphics:fop:2.3'
     implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
-    implementation 'org.codehaus.groovy:groovy-all:2.5.8' // Remember to change the version number in javadoc.options block
-    implementation 'org.freemarker:freemarker:2.3.29' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+    implementation 'org.codehaus.groovy:groovy-all:2.5.8' // Remember to change the version number in javadoc block
+    implementation 'org.freemarker:freemarker:2.3.30' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
     implementation 'org.owasp.esapi:esapi:2.2.0.0'
     implementation 'org.springframework:spring-test:5.2.0.RELEASE'
     implementation 'org.zapodot:jackson-databind-java-optional:2.6.1'
@@ -197,6 +197,7 @@ dependencies {
     implementation 'com.auth0:java-jwt:3.8.3'
     testImplementation 'org.hamcrest:hamcrest-library:2.2' // Enable junit4 to not depend on hamcrest-1.3
     testImplementation 'org.mockito:mockito-core:3.2.0'
+    testImplementation 'org.jmockit:jmockit:1.49'
     testImplementation 'com.pholser:junit-quickcheck-generators:0.9'
     runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
@@ -282,10 +283,10 @@ jar.manifest.attributes(
 checkstyle {
     // Defining a maximum number of “tolerated” errors ensures that
     // this number cannot increase in the future. It corresponds to
-    // the sum of errors that were present before introducing the
+    // the sum of errors found last time it was changed after using the
     // ‘checkstyle’ tool present in the framework and in the official
     // plugins.
-    tasks.checkstyleMain.maxErrors = 37713
+    tasks.checkstyleMain.maxErrors = 36916
     // Currently there are a lot of errors so we need to temporarily
     // hide them to avoid polluting the terminal output.
     showViolations = false
@@ -317,6 +318,10 @@ eclipse.classpath.file.whenMerged { classpath ->
     }
 }
 tasks.eclipse.dependsOn(cleanEclipse)
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+}
 
 /* ========================================================
  * Tasks
@@ -497,7 +502,7 @@ tasks.withType(AsciidoctorTask) { task ->
         'icons': 'font',
         'sectnums': '',
         'chapter-label': '',
-        'toc': '',
+        'toc': 'left@',
         'toclevels': '3'
 }
 

@@ -162,18 +162,18 @@ under the License.
               <tr>
                 <td>${summary.salesChannel!}</td>
                 <td align="right">${summary.orderedQuantity!}</td>
-                <td align="right"><@ofbizCurrency amount=summary.orderedValue!?default(0.00) isoCode=currencyUomId/></td>
+                <td align="right"><@ofbizCurrency amount=summary.orderedValue?default(0.00) isoCode=currencyUomId/></td>
                 <td align="right">${summary.allocatedQuantity!}</td>
-                <td align="right"><@ofbizCurrency amount=summary.allocatedValue!?default(0.00) isoCode=currencyUomId/></td>
+                <td align="right"><@ofbizCurrency amount=summary.allocatedValue?default(0.00) isoCode=currencyUomId/></td>
                 <td align="right">${summary.allocationPercentage!?string("0.####")}</td>
               </tr>
             </#list>
             <tr>
               <td ><b>${uiLabelMap.CommonTotal}</b></td>
               <td align="right"><b>${allocationPlanInfo.orderedQuantityTotal!}</b></td>
-              <td align="right"><b><@ofbizCurrency amount=allocationPlanInfo.orderedValueTotal!?default(0.00) isoCode=currencyUomId/></td>
+              <td align="right"><b><@ofbizCurrency amount=allocationPlanInfo.orderedValueTotal?default(0.00) isoCode=currencyUomId/></td>
               <td align="right"><b>${allocationPlanInfo.allocatedQuantityTotal!}</b></td>
-              <td align="right"><b><@ofbizCurrency amount=allocationPlanInfo.allocatedValueTotal!?default(0.00) isoCode=currencyUomId/></b></td>
+              <td align="right"><b><@ofbizCurrency amount=allocationPlanInfo.allocatedValueTotal?default(0.00) isoCode=currencyUomId/></b></td>
               <td align="right"><b>${allocationPlanInfo.allocationPercentageTotal!?string("0.####")}</b></td>
             </tr>
           </table>
@@ -259,7 +259,7 @@ under the License.
               <td colspan="6"><b>${uiLabelMap.CommonTotal}</b></td>
               <td align="right"><b>${allocationPlanInfo.orderedQuantityTotal!}</b></td>
               <td align="right"><b>${allocationPlanInfo.reservedQuantityTotal!}</b></td>
-              <td align="right"><b><@ofbizCurrency amount=allocationPlanInfo.orderedValueTotal!?default(0.00) isoCode=currencyUomId/>
+              <td align="right"><b><@ofbizCurrency amount=allocationPlanInfo.orderedValueTotal?default(0.00) isoCode=currencyUomId/>
               <td align="right"><b>${allocationPlanInfo.allocatedQuantityTotal!}</b></td>
               <td align="right"><b>${allocationPlanInfo.allocationPercentageTotal!?string("0.####")}</b></td>
               <#if editMode>

@@ -1,0 +1,41 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Payroll History
+This screen displays a list of invoices for the employee. +
+Generally these are payroll or commission invoices.
+
+NOTE: An employee payslip is the same as an OFBiz payroll invoice
+
+The invoice life cycle from creation through payment is done in the Accounting application.
+
+Fields
+
+* Invoice ID - The distance identifier of the invoice. This number can be used to find the invoice in
+               the Accounting application.
+* Invoice Type - Identifies the type of invoice. This will typically be Payroll.
+* Invoice Date - Date the invoice was created.
+* Invoice Status - Status may be In-Processes (can be edited), Approved (has been reviewed,
+                   can not be edited), Ready (post to GL), Paid (post to GL)
+* Description - A user entered description of the invoice.
+* From Party - The employee identified by the party id . The invoice is in effect from the employee to the company.
+* To Party - The party the invoice is to. For payroll this will typically by your company identified by the party id.
+* Total - Amount paid. For a payroll invoice this will typically be less then the gross amount of the invoice due
+          to deductions for taxes and benefits etc
+* Outstanding Amount - Any unpaid amount due on the invoice.

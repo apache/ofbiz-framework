@@ -43,7 +43,7 @@ import org.apache.commons.codec.binary.Hex;
 public class StringUtil {
 
     public static final StringUtil INSTANCE = new StringUtil();
-    public static final String module = StringUtil.class.getName();
+    public static final String MODULE = StringUtil.class.getName();
     private static final Map<String, Pattern> substitutionPatternMap = createSubstitutionPatternMap();
 
     private static Map<String, Pattern> createSubstitutionPatternMap() {
@@ -187,7 +187,7 @@ public class StringUtil {
                     decodedMap.put(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(value, "UTF-8"));
                 }
             } catch (UnsupportedEncodingException e1) {
-                Debug.logError(e1, module);
+                Debug.logError(e1, MODULE);
             }
         }
         return decodedMap;
@@ -390,7 +390,7 @@ public class StringUtil {
                 result = pattern.matcher(result).replaceAll(entry.getKey());
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Converted " + expression + " to " + result, module);
+                Debug.logVerbose("Converted " + expression + " to " + result, MODULE);
             }
         }
         return result;

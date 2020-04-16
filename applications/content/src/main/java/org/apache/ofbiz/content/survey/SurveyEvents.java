@@ -32,7 +32,7 @@ import org.apache.ofbiz.service.*;
  */
 public class SurveyEvents {
 
-    public static final String module = SurveyEvents.class.getName();
+    public static final String MODULE = SurveyEvents.class.getName();
 
     public static String createSurveyResponseAndRestoreParameters(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -44,12 +44,12 @@ public class SurveyEvents {
             Map<String, Object> surveyResponseMap = dctx.makeValidContext("createSurveyResponse", ModelService.IN_PARAM, combinedMap);
             Map<String, Object> surveyResponseResult = dispatcher.runSync("createSurveyResponse", surveyResponseMap);
             if (ServiceUtil.isError(surveyResponseResult)) {
-                Debug.logError(ServiceUtil.getErrorMessage(surveyResponseResult), module);
+                Debug.logError(ServiceUtil.getErrorMessage(surveyResponseResult), MODULE);
                 return "error";
             }
             request.setAttribute("surveyResponseId", surveyResponseResult.get("surveyResponseId"));
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return "error";
         }
 

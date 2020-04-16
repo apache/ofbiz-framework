@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class PartyHelper {
 
-    public static final String module = PartyHelper.class.getName();
+    public static final String MODULE = PartyHelper.class.getName();
 
     private PartyHelper() {}
 
@@ -45,7 +45,7 @@ public class PartyHelper {
         try {
             partyObject = EntityQuery.use(delegator).from("PartyNameView").where("partyId", partyId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error finding PartyNameView in getPartyName", module);
+            Debug.logError(e, "Error finding PartyNameView in getPartyName", MODULE);
         }
         if (partyObject == null) {
             return partyId;
@@ -64,11 +64,11 @@ public class PartyHelper {
         try {
             partyId = partyObject.getString("partyId");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, "Party object does not contain a party ID", module);
+            Debug.logError(e, "Party object does not contain a party ID", MODULE);
         }
 
         if (partyId == null) {
-            Debug.logWarning("No party ID found; cannot get name based on entity: " + partyObject.getEntityName(), module);
+            Debug.logWarning("No party ID found; cannot get name based on entity: " + partyObject.getEntityName(), MODULE);
             return "";
         }
         return getPartyName(partyObject.getDelegator(), partyId, lastNameFirst);

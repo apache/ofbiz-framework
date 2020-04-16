@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class ProductionRunEvents {
 
-    public static final String module = ProductionRunEvents.class.getName();
+    public static final String MODULE = ProductionRunEvents.class.getName();
 
     public static String productionRunDeclareAndProduce(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -55,7 +55,7 @@ public class ProductionRunEvents {
             quantity = new BigDecimal((String)parameters.get("quantity"));
         } catch (NumberFormatException nfe) {
             String errMsg = "Invalid format for quantity field: " + nfe.toString();
-            Debug.logError(nfe, errMsg, module);
+            Debug.logError(nfe, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -68,7 +68,7 @@ public class ProductionRunEvents {
                 fromDate = Timestamp.valueOf((String)componentRow.get("fromDate"));
             } catch (IllegalArgumentException iae) {
                 String errMsg = "Invalid format for date field: " + iae.toString();
-                Debug.logError(iae, errMsg, module);
+                Debug.logError(iae, errMsg, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
@@ -94,12 +94,12 @@ public class ProductionRunEvents {
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
         } catch (GenericServiceException e) {
             String errMsg = "Error issuing materials: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }

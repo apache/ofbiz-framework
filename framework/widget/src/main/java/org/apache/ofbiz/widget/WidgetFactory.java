@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
  */
 public class WidgetFactory {
 
-    public static final String module = WidgetFactory.class.getName();
+    public static final String MODULE = WidgetFactory.class.getName();
     protected static final Map<String, Constructor<? extends ModelScreenWidget>> screenWidgets = new ConcurrentHashMap<>();
 
     static {
@@ -53,7 +53,7 @@ public class WidgetFactory {
                 WidgetLoader widgetLoader = widgetLoaders.next();
                 widgetLoader.loadWidgets();
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
     }
@@ -79,7 +79,7 @@ public class WidgetFactory {
             return widgetConst.newInstance(modelScreen, element);
         } catch (Exception e) {
             // log the original exception since the rethrown exception doesn't include much info about it and hides the cause
-            Debug.logError(e, "Error getting widget for element " + element.getTagName(), module);
+            Debug.logError(e, "Error getting widget for element " + element.getTagName(), MODULE);
             throw new IllegalArgumentException(e.getMessage() + " for element " + element.getTagName());
         }
     }
@@ -100,17 +100,17 @@ public class WidgetFactory {
                             registerScreenWidget(fieldObject.toString(), widgetClass);
                         }
                     } catch (Exception e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         try {
             registerScreenWidget("iterate-section", IterateSectionWidget.class);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -129,7 +129,7 @@ public class WidgetFactory {
         Assert.notNull("tagName", tagName, "widgetClass", widgetClass);
         screenWidgets.put(tagName, widgetClass.getConstructor(ModelScreen.class, Element.class));
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Registered " + widgetClass.getName() + " with tag name " + tagName, module);
+            Debug.logVerbose("Registered " + widgetClass.getName() + " with tag name " + tagName, MODULE);
         }
     }
 

@@ -74,7 +74,7 @@ public final class FreeMarkerWorker {
 
     private static final String MODULE = FreeMarkerWorker.class.getName();
 
-    public static final Version VERSION = Configuration.VERSION_2_3_29;
+    public static final Version VERSION = Configuration.VERSION_2_3_30;
 
     private FreeMarkerWorker() { }
 
