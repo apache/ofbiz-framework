@@ -255,7 +255,7 @@ public class RequestHandler {
         Collection<RequestMap> rmaps = resolveURI(ccfg, request);
         if (rmaps.isEmpty()) {
             if (throwRequestHandlerExceptionOnMissingLocalRequest) {
-                if (path.contains("/checkLogin/")) {
+                if (path.contains("/checkLogin/") || path.contains("/viewprofile")) {
                     // Nested requests related with checkLogin uselessly clutter the log. There is nothing to worry about, better remove this wrong error message.
                     return;
                 } else if (path.contains("/images/") || path.contains("d.png")) {
@@ -883,6 +883,10 @@ public class RequestHandler {
             }
         }
         if (reqAttrMap.size() > 0) {
+            // fileItems is not serializable.
+            // It contains a temporary DiskFileItem with a null value than can't be detected by UtilMisc::makeMapSerializable
+            // So it must be removed from reqAttrMap. See OFBIZ-11534
+            reqAttrMap.remove("fileItems");
             byte[] reqAttrMapBytes = UtilObject.getBytes(reqAttrMap);
             if (reqAttrMapBytes != null) {
                 req.getSession().setAttribute("_REQ_ATTR_MAP_", StringUtil.toHexString(reqAttrMapBytes));
