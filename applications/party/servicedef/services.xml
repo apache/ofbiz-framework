@@ -127,7 +127,17 @@ under the License.
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="emailContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
     </service>
-
+    <service name="createPersonRoleAndContactMechs" engine="simple"
+            location="component://party/minilang/party/PartySimpleMethods.xml" invoke="createPersonRoleAndContactMechs">
+        <description>Creates a person, role and contactMechs</description>
+        <auto-attributes entity-name="Person" mode="IN" include="nonpk" optional="true"/>
+        <auto-attributes entity-name="PartyRole" mode="IN" include="nonpk" optional="true"/>
+        <auto-attributes entity-name="PostalAddress" mode="IN" optional="true"/>
+        <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" mode="IN" type="String"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" mode="OUT" type="String" optional="false"/>
+    </service>
     <service name="updatePerson" engine="java" default-entity-name="Person"
             location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true">
         <description>Update a Person</description>
