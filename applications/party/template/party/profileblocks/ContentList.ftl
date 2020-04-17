@@ -38,7 +38,7 @@ under the License.
                 <#if (content.contentName?has_content)>
                   <a href="<@ofbizUrl>stream?contentId=${(content.contentId)!}</@ofbizUrl>" target="_blank">${uiLabelMap.CommonView}</a>
                 </#if>
-                <form name="removePartyContent_${pContent_index}" method="post" action="<@ofbizUrl>removePartyContent/viewprofile</@ofbizUrl>">
+                <form name="removePartyContent_${pContent_index}" method="post" action="<@ofbizUrl>removePartyContent</@ofbizUrl>">
                   <input type="hidden" name="contentId" value="${pContent.contentId}" />
                   <input type="hidden" name="partyId" value="${pContent.partyId}" />
                   <input type="hidden" name="partyContentTypeId" value="${pContent.partyContentTypeId}" />

@@ -192,7 +192,11 @@ under the License.
                   &nbsp;
               </#if>
               <#if security.hasEntityPermission("PAY_INFO", "_DELETE", session) || security.hasEntityPermission("ACCOUNTING", "_DELETE", session)>
-                <a href="<@ofbizUrl>deletePaymentMethod/viewprofile?partyId=${partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonExpire}</a>
+                <form name="deletePaymentMethod_${paymentMethod.paymentMethodId}" method="post" action="<@ofbizUrl>deletePaymentMethod</@ofbizUrl>">
+                  <input type="hidden" name="partyId" value="${partyId}" />
+                  <input type="hidden" name="paymentMethodId" value="${paymentMethod.paymentMethodId}" />
+                  <input type="submit" value="${uiLabelMap.CommonExpire}"/>
+                </form>
               <#else>
                 &nbsp;
               </#if>

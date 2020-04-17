@@ -1017,8 +1017,11 @@ under the License.
     <request-map uri="removePartyContent">
         <security auth="true" https="true"/>
         <event type="service" invoke="removePartyContent"/>
-        <response name="success" type="request-redirect" value="EditPartyContents">
-            <redirect-parameter name="partyId"></redirect-parameter>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
         </response>
     </request-map>
 
