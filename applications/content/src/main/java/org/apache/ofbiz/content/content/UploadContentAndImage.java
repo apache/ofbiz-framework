@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.content;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +34,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -76,10 +76,15 @@ public class UploadContentAndImage {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
-            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
+            long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
+            int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
+            File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
+            
+            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
+            upload.setSizeMax(maxUploadSize);
             List<FileItem> lst = null;
             try {
-                lst = UtilGenerics.cast(dfu.parseRequest(request));
+                lst = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e4) {
                 request.setAttribute("_ERROR_MESSAGE_", e4.getMessage());
                 Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), MODULE);
@@ -188,7 +193,7 @@ public class UploadContentAndImage {
 
             if (UtilValidate.isEmpty(ftlContentId)) {
                 ftlContentId = passedContentId;
-            }   
+            }
 
             String ftlDataResourceId = drid;
 
@@ -335,11 +340,18 @@ public class UploadContentAndImage {
         try {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+            Delegator delegator = (Delegator)request.getAttribute("delegator");
 
-            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
+            long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
+            int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
+            File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
+            
+            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
+            upload.setSizeMax(maxUploadSize);
+
             List<FileItem> lst = null;
             try {
-                lst = UtilGenerics.cast(dfu.parseRequest(request));
+                lst = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e4) {
                 request.setAttribute("_ERROR_MESSAGE_", e4.getMessage());
                 Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), MODULE);
