@@ -39,14 +39,14 @@ under the License.
         <description>Delete a CostComponent</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="recreateCostComponent" default-entity-name="CostComponent" engine="simple"
-                location="component://product/minilang/product/cost/CostServices.xml" invoke="recreateCostComponent" auth="true">
+    <service name="recreateCostComponent" default-entity-name="CostComponent" engine="groovy"
+                location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="recreateCostComponent" auth="true">
         <description>Create a CostComponent and cancel the existing ones</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
     </service>
-    <service name="cancelCostComponents" engine="simple"
-                location="component://product/minilang/product/cost/CostServices.xml" invoke="cancelCostComponents" auth="true">
+    <service name="cancelCostComponents" engine="groovy"
+                location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="cancelCostComponents" auth="true">
         <description>Cancels CostComponent</description>
         <attribute mode="IN" name="costComponentId" optional="true" type="String"/>
         <attribute mode="IN" name="productId" optional="true" type="String"/>
@@ -67,16 +67,16 @@ under the License.
         <description>Delete a Example</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="getProductCost" engine="simple" auth="true"
-                location="component://product/minilang/product/cost/CostServices.xml" invoke="getProductCost">
+    <service name="getProductCost" engine="groovy" auth="true"
+                location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="getProductCost">
         <description>Gets the product's costs from CostComponent entries</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="costComponentTypePrefix" optional="false" type="String"/>
         <attribute mode="OUT" name="productCost" type="BigDecimal" optional="false"/>
     </service>
-    <service name="getTaskCost" engine="simple" auth="true"
-                location="component://product/minilang/product/cost/CostServices.xml" invoke="getTaskCost">
+    <service name="getTaskCost" engine="groovy" auth="true"
+                location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="getTaskCost">
         <description>Gets the production run task's costs</description>
         <attribute mode="IN" name="workEffortId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
@@ -85,22 +85,22 @@ under the License.
         <attribute mode="OUT" name="taskCost" type="BigDecimal" optional="false"/>
         <attribute mode="OUT" name="costsByType" type="Map" optional="true"/>
     </service>
-    <service name="calculateProductCosts" engine="simple" auth="true"
-                location="component://product/minilang/product/cost/CostServices.xml" invoke="calculateProductCosts">
+    <service name="calculateProductCosts" engine="groovy" auth="true"
+                location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="calculateProductCosts">
         <description>Calculates the product's costs. If the product does not have cost component defined, will use the BOM to calculate the cost.</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="costComponentTypePrefix" optional="false" type="String"/>
         <attribute mode="OUT" name="totalCost" type="BigDecimal"/>
     </service>
-    <service name="calculateAllProductsCosts" engine="simple" auth="true" transaction-timeout="7200"
-                location="component://product/minilang/product/cost/CostServices.xml" invoke="calculateAllProductsCosts">
+    <service name="calculateAllProductsCosts" engine="groovy" auth="true" transaction-timeout="7200"
+                location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="calculateAllProductsCosts">
         <description>Calculates estimated costs for all the products</description>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="costComponentTypePrefix" optional="false" type="String"/>
     </service>
-    <service name="calculateProductAverageCost" engine="simple" auth="true"
-            location="component://product/minilang/product/cost/CostServices.xml" invoke="calculateProductAverageCost">
+    <service name="calculateProductAverageCost" engine="groovy" auth="true"
+            location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="calculateProductAverageCost">
         <description>Calculate inventory average cost for a product</description>
         <attribute name="productId" type="String" mode="IN"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
@@ -120,8 +120,8 @@ under the License.
         <attribute name="baseCost" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="productCostAdjustment" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
-    <service name="productCostPercentageFormula" engine="simple"
-                location="component://product/minilang/product/cost/CostServices.xml" invoke="productCostPercentageFormula" auth="true">
+    <service name="productCostPercentageFormula" engine="groovy"
+                location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="productCostPercentageFormula" auth="true">
         <description>Formula that creates a cost component equal to a percentage of total product cost</description>
         <implements service="productCostCalcInterface"/>
     </service>
