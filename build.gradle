@@ -28,7 +28,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:latest.release'
+        classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:2.2.1'
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.8.1' // Rather than using 1.5.9.2 see OFBIZ-10693
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     }
