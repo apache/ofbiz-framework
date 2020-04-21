@@ -50,7 +50,6 @@ import org.apache.catalina.filters.RequestDumperFilter;
 import org.apache.catalina.ha.ClusterManager;
 import org.apache.catalina.ha.tcp.ReplicationValve;
 import org.apache.catalina.ha.tcp.SimpleTcpCluster;
-import org.apache.catalina.loader.WebappLoader;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.tribes.group.GroupChannel;
@@ -520,7 +519,7 @@ public class CatalinaContainer implements Container {
         context.addLifecycleListener(new ContextConfig());
         context.setJ2EEApplication("OFBiz");
         context.setJ2EEServer("OFBiz Container");
-        context.setLoader(new WebappLoader(Thread.currentThread().getContextClassLoader()));
+        context.setParentClassLoader(Thread.currentThread().getContextClassLoader());
         context.setDocBase(location);
         context.setReloadable(ContainerConfig.getPropertyValue(configuration, "apps-context-reloadable", false));
         context.setDistributable(contextIsDistributable);

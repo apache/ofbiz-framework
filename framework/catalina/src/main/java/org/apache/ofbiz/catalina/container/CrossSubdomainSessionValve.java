@@ -115,7 +115,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
                 if (mimeHeaders.getName(i).equals("Set-Cookie")) {
                     MessageBytes value = mimeHeaders.getValue(i);
                     if (value.indexOf(cookie.getName()) >= 0) {
-                        String newCookieValue = request.getContext().getCookieProcessor().generateHeader(newCookie);
+                        String newCookieValue = request.getContext().getCookieProcessor().generateHeader(newCookie, request);
                         if (Debug.verboseOn()) Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(), MODULE);
                         if (Debug.verboseOn()) Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + newCookieValue, MODULE);
                         value.setString(newCookieValue);
