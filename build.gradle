@@ -178,7 +178,7 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.12'
     implementation 'org.apache.logging.log4j:log4j-api:2.13.1' // the API of log4j 2
     implementation 'org.apache.poi:poi:4.1.2'
-    implementation 'org.apache.shiro:shiro-core:1.5.2'
+    implementation 'org.apache.shiro:shiro-core:1.4.1' // So far we did not update from 1.4.1 because of a compile issue. You may try w/ a newer version than  1.5.2
     implementation 'org.apache.sshd:sshd-core:1.7.0' // So far we did not update from 1.7.0 because of a compile issue. You may try w/ a newer version than  2.4.0
     implementation 'org.apache.tika:tika-parsers:1.24'
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.34' // Remember to change the version number in javadoc block
