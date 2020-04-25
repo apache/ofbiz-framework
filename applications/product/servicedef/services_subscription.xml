@@ -134,8 +134,16 @@ under the License.
              location="component://product/minilang/product/subscription/SubscriptionServices.xml" invoke="updateSubscriptionAttribute">
         <description>Create (when not exist) or update (when exist) a Subscription attribute</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="UPDATE"/>
-        <attribute name="subscriptionId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="attrName" type="String" mode="IN" optional="false"/>
+        <attribute name="subscriptionId" type="String" mode="INOUT" optional="false">
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingSubscriptionId"/>
+         </type-validate>
+        </attribute>
+        <attribute name="attrName" type="String" mode="IN" optional="false">
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingAttrName"/>
+         </type-validate>    
+        </attribute>
         <attribute name="attrValue" type="String" mode="IN" optional="true"/>
     </service>
     <service name="deleteSubscriptionAttribute" default-entity-name="SubscriptionAttribute" engine="entity-auto" invoke="delete" auth="true">
