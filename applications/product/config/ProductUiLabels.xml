@@ -20105,6 +20105,9 @@
         <value xml:lang="zh">输入、操作符和数值</value>
         <value xml:lang="zh-TW">輸入、運算子作和數值</value>
     </property>
+    <property key="ProductInventoryATPNotAvailable">
+        <value xml:lang="en">Requested quantity [${xferQty}] could not be transferred because [${unavailableQuantity}] units of inventory is unavailable.</value>
+    </property>
     <property key="ProductOperator">
         <value xml:lang="de">Operator</value>
         <value xml:lang="en">Operator</value>
