@@ -77,8 +77,7 @@ public class GroovyEventHandler implements EventHandler {
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         boolean beganTransaction = false;
         try {
-            int timeout = Integer.max(event.transactionTimeout, 0);
-            beganTransaction = TransactionUtil.begin(timeout);
+            beganTransaction = TransactionUtil.begin();
 
             Map<String, Object> context = new HashMap<>();
             context.put("request", request);
