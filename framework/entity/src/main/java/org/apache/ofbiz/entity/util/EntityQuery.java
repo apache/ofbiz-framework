@@ -436,7 +436,7 @@ public class EntityQuery {
                 return iterator.getResultsSizeAfterPartialList();
             }
         }
-        return delegator.findCountByCondition(entityName, makeWhereCondition(false), havingEntityCondition, makeEntityFindOptions());
+        return delegator.findCountByCondition(entityName, makeWhereCondition(false), fieldsToSelect, havingEntityCondition, makeEntityFindOptions());
     }
 
     private List<GenericValue> query(EntityFindOptions efo) throws GenericEntityException {
