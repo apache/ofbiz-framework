@@ -200,8 +200,8 @@ public final class CsrfUtil {
         }
         if (requestMap == null) {
             if (!"org.apache.ofbiz.security.NoCsrfDefenseStrategy".equals(getStrategy().toString())) {
-            Debug.logWarning("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
-        }
+                Debug.logWarning("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
+            }
         }
         String tokenValue = "";
         if (requestMap != null && requestMap.securityCsrfToken) {
