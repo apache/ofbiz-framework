@@ -199,7 +199,9 @@ public final class CsrfUtil {
             requestMap = findRequestMap(requestMapMap, pathOrRequestUri);
         }
         if (requestMap == null) {
-            Debug.logError("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
+            if (!"org.apache.ofbiz.security.NoCsrfDefenseStrategy".equals(getStrategy().toString())) {
+            Debug.logWarning("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
+        }
         }
         String tokenValue = "";
         if (requestMap != null && requestMap.securityCsrfToken) {
