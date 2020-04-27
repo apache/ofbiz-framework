@@ -104,6 +104,9 @@ public class GridFactory {
         if (gridFileDoc != null) {
             // read document and construct ModelGrid for each grid element
             Element rootElement = gridFileDoc.getDocumentElement();
+            if (!"forms".equalsIgnoreCase(rootElement.getTagName())) {
+                rootElement = UtilXml.firstChildElement(rootElement, "forms");
+            }
             List<? extends Element> gridElements = UtilXml.childElementList(rootElement, "grid");
             for (Element gridElement : gridElements) {
                 String gridName = gridElement.getAttribute("name");
@@ -120,12 +123,19 @@ public class GridFactory {
     }
 
     public static ModelGrid createModelGrid(Document gridFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String gridLocation, String gridName) {
-        Element gridElement = UtilXml.firstChildElement(gridFileDoc.getDocumentElement(), "grid", "name", gridName);
+        Element rootElement = gridFileDoc.getDocumentElement();
+        if (!"forms".equalsIgnoreCase(rootElement.getTagName())) {
+            rootElement = UtilXml.firstChildElement(rootElement, "forms");
+        }
+        Element gridElement = UtilXml.firstChildElement(rootElement, "grid", "name", gridName);
         if (gridElement == null) {
             // Backwards compatibility - look for form definition
             gridElement = UtilXml.firstChildElement(gridFileDoc.getDocumentElement(), "form", "name", gridName);
         }
-        return createModelGrid(gridElement, entityModelReader, dispatchContext, gridLocation, gridName);
+        if (gridElement == null) {
+            throw new IllegalArgumentException("Could not find grid with name [" + gridName + "] in class resource [" + gridLocation + "]");
+        }
+        return createModelGrid(gridElement, entityModelReader, visualTheme, dispatchContext, gridLocation, gridName);
     }
 
     public static ModelGrid createModelGrid(Element gridElement, ModelReader entityModelReader, DispatchContext dispatchContext, String gridLocation, String gridName) {
