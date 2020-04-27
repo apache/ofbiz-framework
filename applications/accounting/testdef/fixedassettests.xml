@@ -23,7 +23,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="fixedasset-tests">
-        <simple-method-test location="component://accounting/minilang/test/FixedAssetTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.FixedAssetTests"/>
     </test-case>
 
 </test-suite>

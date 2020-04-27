@@ -66,7 +66,8 @@ public class SimpleEventHandler implements EventHandler {
 
         if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SIMPLE Event", MODULE);
         try {
-            beganTransaction = TransactionUtil.begin();
+            int timeout = Integer.max(event.transactionTimeout, 0);
+            beganTransaction = TransactionUtil.begin(timeout);
             String eventReturn = SimpleMethod.runSimpleEvent(xmlResource, eventName, request, response);
             if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + eventReturn, MODULE);
             return eventReturn;

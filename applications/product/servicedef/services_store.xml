@@ -46,44 +46,104 @@ under the License.
     <service name="reserveStoreInventory" engine="simple"
             location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="reserveStoreInventory">
         <description>Reserve Inventory in a Product Store</description>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
-        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductStoreId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductId"/>
+            </type-validate>
+        </attribute>
         <attribute name="facilityId" type="String" mode="IN" optional="true"></attribute>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+            </type-validate>
+        </attribute>
         <attribute name="orderId" type="String" mode="IN" optional="true"></attribute>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"></attribute>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"></attribute>
-        <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"></attribute>
+        <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantityNotReserved"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="isStoreInventoryRequired" engine="simple"
             location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryRequired" auth="false">
         <description>Checks if Store Inventory is Required</description>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductStoreId"/>
+            </type-validate>
+        </attribute>
         <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
-        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductId"/>
+            </type-validate>
+        </attribute>
         <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
-        <attribute name="requireInventory" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
+        <attribute name="requireInventory" type="String" mode="OUT" optional="false"><!-- Y/N -->
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingRequireInventory"/>
+         </type-validate>
+        </attribute>
     </service>
     <service name="isStoreInventoryAvailable" engine="simple"
             location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailable" auth="false">
         <description>Checks if Store Inventory is Required</description>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false">
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductStoreId"/>
+         </type-validate>
+        </attribute>
         <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
-        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false">
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductId"/>
+         </type-validate>
+        </attribute>
         <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>
-        <attribute name="available" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+         </type-validate>
+        </attribute>
+        <attribute name="available" type="String" mode="OUT" optional="false"><!-- Y/N -->
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingAvailable"/>
+         </type-validate>
+        </attribute>
     </service>
     <service name="isStoreInventoryAvailableOrNotRequired" engine="simple"
             location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailableOrNotRequired" auth="false">
         <description>Checks if Store Inventory is Required</description>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false">
+         <type-validate>
+             <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductStoreId"/>
+         </type-validate>
+        </attribute>
         <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
-        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false">
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductId"/>
+         </type-validate>
+        </attribute>
         <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>
-        <attribute name="availableOrNotRequired" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+         </type-validate>
+        </attribute>
+        <attribute name="availableOrNotRequired" type="String" mode="OUT" optional="false"><!-- Y/N -->
+         <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingAvailableOrNotRequired"/>
+         </type-validate>
+        </attribute>
     </service>
 
     <!-- Product Store Role Services -->

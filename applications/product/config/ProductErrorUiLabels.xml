@@ -1506,4 +1506,109 @@
         <value xml:lang="zh">缺少必须的变型产品标识， 请为新的变型产品输入一个标识。</value>
         <value xml:lang="zh-TW">缺少必須的變型產品識別, 請為新的變型產品輸入一個識別.</value>
     </property>
+    <property key="ProductRequiredFieldMissingAttrName">
+        <value xml:lang="en">Required Field Missing : Attr Name.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingAvailable">
+        <value xml:lang="en">Required Field Missing :Available.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingAvailableOrNotRequired">
+        <value xml:lang="en">Required Field Missing :Available Or Not Required.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingCanceledQuantity">
+        <value xml:lang="en">Required Field Missing :Canceled Quantity. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingCategoryId">
+        <value xml:lang="en">Required Field Missing : Category Id. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingFacilityId">
+        <value xml:lang="en">Required Field Missing :Facility Id.  </value>
+    </property>
+    <property key="ProductRequiredFieldMissingIdCode">
+        <value xml:lang="en">Required Field Missing : Id Code. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingImageUrl">
+        <value xml:lang="en">Required Field Missing : Image Url. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingInventoryItem">
+        <value xml:lang="en">Required Field Missing : Inventory Item. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingInventoryItemId">
+        <value xml:lang="en">Required Field Missing :Inventory Item Id. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingItemShipList">
+        <value xml:lang="en">Required Field Missing :Item Ship List. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingItemIssuanceId">
+        <value xml:lang="en">Required Field Missing :Item Issuance Id. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingNewItemQuantity">
+        <value xml:lang="en">Required Field Missing :New Item Quantity. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingOrderId">
+        <value xml:lang="en">Required Field Missing : Order Id.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingOrderItemSeqId">
+        <value xml:lang="en">Required Field Missing :Order Item Seq Id. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingProductCategoryId">
+        <value xml:lang="en">Required Field Missing : Product Category Id.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingProductCategoryIdTo">
+        <value xml:lang="en">Required Field Missing :Product Category Id To. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingProductCost">
+        <value xml:lang="en">Required Field Missing : Product Cost. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingProductFeatureApplTypeId">
+        <value xml:lang="en">Required Field Missing : Product Feature Appl TypeId. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingProductFeatureTypeId">
+        <value xml:lang="en">Required Field Missing : Product Feature TypeId. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingProductId">
+        <value xml:lang="en">Required Field Missing : Product Id. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingProductStoreId">
+        <value xml:lang="en">Required Field Missing : Product Store Id. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingPromisedDatetime">
+        <value xml:lang="en">Required Field Missing :Promised Date time. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingQuantity">
+        <value xml:lang="en">Required Field Missing : Quantity.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingQuantityAccepted">
+        <value xml:lang="en">Required Field Missing :Quantity Accepted. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingQuantityNotReserved">
+        <value xml:lang="en">Required Field Missing : Quantity Not Reserved.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingReceiptId">
+        <value xml:lang="en">Required Field Missing :Receipt Id. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingRequireInventory">
+        <value xml:lang="en">Required Field Missing :Require Inventory.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingShipGroupSeqId">
+        <value xml:lang="en">Required Field Missing :Ship Group Seq Id. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingShipmentId">
+        <value xml:lang="en">Required Field Missing :Shipment Id. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingShipmentItemSeqId">
+        <value xml:lang="en">Required Field Missing :Shipment Item SeqId. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingShipmentShipGroupFacilityList">
+        <value xml:lang="en">Required Field Missing : Shipment Ship Group Facility List.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingSubscriptionId">
+        <value xml:lang="en">Required Field Missing : Subscription Id.</value>
+    </property>
+    <property key="ProductRequiredFieldMissingTaskCost">
+        <value xml:lang="en">Required Field Missing : Task Cost. </value>
+    </property>
+    <property key="ProductRequiredFieldMissingTotalIssuedQty">
+        <value xml:lang="en">Required Field Missing :Total Issued Qty. </value>
+    </property>
 </resource>

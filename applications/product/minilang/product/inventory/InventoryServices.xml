@@ -1115,13 +1115,7 @@ under the License.
 	                            <set field="inputMap.xferQty" from-field="quantityNotTransferred"/>
 	                        </else>
 	                        </if-compare-field>
-	                        <add-error>
-	                           <fail-message message="inputMap = ${inputMap}"/>
-	                        </add-error>
 	                        <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
-	                        <add-error>
-	                           <fail-message message="quantityNotTransferred = ${quantityNotTransferred}"/>
-	                        </add-error>
 	                        <calculate field="quantityNotTransferred">
 	                            <calcop operator="subtract" field="quantityNotTransferred">
 	                                <calcop operator="get" field="inputMap.xferQty"/>
@@ -1142,10 +1136,7 @@ under the License.
         <field-to-result field="quantityNotTransferred"/>
         <if-compare operator="greater" value="0" field="quantityNotTransferred">
             <add-error>
-                <fail-property resource="ProductUiLabels" property="FormFieldTitle_quantityNotAvailable"/>
-            </add-error>
-            <add-error> 
-                <fail-message message="${quantityNotTransferred}"/>
+                <fail-message message="${groovy: import org.apache.ofbiz.base.util.UtilProperties; return (UtilProperties.getMessage('ProductUiLabels', 'ProductInventoryATPNotAvailable', ['unavailableQuantity' : quantityNotTransferred, 'xferQty': parameters.quantity], locale))}"/>
             </add-error>
             <check-errors/>
         </if-compare>
