@@ -164,32 +164,33 @@ public abstract class ModelWidgetCondition implements Serializable {
             if (conditionElement == null) {
                 return TRUE;
             }
-            if ("and".equals(conditionElement.getNodeName())) {
+            String nodeName = conditionElement.getLocalName();
+            if ("and".equals(nodeName)) {
                 return new And(this, modelWidget, conditionElement);
-            } else if ("xor".equals(conditionElement.getNodeName())) {
+            } else if ("xor".equals(nodeName)) {
                 return new Xor(this, modelWidget, conditionElement);
-            } else if ("or".equals(conditionElement.getNodeName())) {
+            } else if ("or".equals(nodeName)) {
                 return new Or(this, modelWidget, conditionElement);
-            } else if ("not".equals(conditionElement.getNodeName())) {
+            } else if ("not".equals(nodeName)) {
                 return new Not(this, modelWidget, conditionElement);
-            } else if ("if-service-permission".equals(conditionElement.getNodeName())) {
+            } else if ("if-service-permission".equals(nodeName)) {
                 return new IfServicePermission(this, modelWidget, conditionElement);
-            } else if ("if-has-permission".equals(conditionElement.getNodeName())) {
+            } else if ("if-has-permission".equals(nodeName)) {
                 return new IfHasPermission(this, modelWidget, conditionElement);
-            } else if ("if-validate-method".equals(conditionElement.getNodeName())) {
+            } else if ("if-validate-method".equals(nodeName)) {
                 return new IfValidateMethod(this, modelWidget, conditionElement);
-            } else if ("if-compare".equals(conditionElement.getNodeName())) {
+            } else if ("if-compare".equals(nodeName)) {
                 return new IfCompare(this, modelWidget, conditionElement);
-            } else if ("if-compare-field".equals(conditionElement.getNodeName())) {
+            } else if ("if-compare-field".equals(nodeName)) {
                 return new IfCompareField(this, modelWidget, conditionElement);
-            } else if ("if-regexp".equals(conditionElement.getNodeName())) {
+            } else if ("if-regexp".equals(nodeName)) {
                 return new IfRegexp(this, modelWidget, conditionElement);
-            } else if ("if-empty".equals(conditionElement.getNodeName())) {
+            } else if ("if-empty".equals(nodeName)) {
                 return new IfEmpty(this, modelWidget, conditionElement);
-            } else if ("if-entity-permission".equals(conditionElement.getNodeName())) {
+            } else if ("if-entity-permission".equals(nodeName)) {
                 return new IfEntityPermission(this, modelWidget, conditionElement);
             } else {
-                throw new IllegalArgumentException("Condition element not supported with name: " + conditionElement.getNodeName());
+                throw new IllegalArgumentException("Condition element not supported with name: " + nodeName);
             }
         }
     }
