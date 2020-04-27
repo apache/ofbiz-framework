@@ -22,6 +22,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
+    <test-case case-name="accounting-tests-data-load">
+        <entity-xml action="load" entity-xml-url="component://accounting/testdef/data/AccountingTestsData.xml"/>
+    </test-case>
+
     <test-case case-name="fixedasset-tests">
         <junit-test-suite class-name="org.apache.ofbiz.accounting.FixedAssetTests"/>
     </test-case>
