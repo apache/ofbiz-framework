@@ -84,6 +84,8 @@ under the License.
     <!-- For Testing service cancelFixedAssetStdCost -->
     <FixedAsset fixedAssetId="1000" fixedAssetTypeId="REAL_ESTATE" partyId="DEMO_COMPANY" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <FixedAssetStdCost fixedAssetId="1000" fixedAssetStdCostTypeId="SETUP_COST" fromDate="2016-11-03 00:00:00" amountUomId="USD" amount="1000.00"/>
+    <FixedAssetMeter fixedAssetId="DEMO_VEHICLE_01" meterValue="10.000000" productMeterTypeId="ODOMETER" readingDate="2020-04-01 00:00:00.0"/>
+    <FixedAssetRegistration fixedAssetId="DEMO_VEHICLE_01" fromDate="2020-04-01 00:00:00.0" registrationDate="2020-04-01 00:00:00.0" registrationNumber="abcde"/>
     <!-- For Testing service copyInvoice -->
     <Invoice invoiceId="1000" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
     <Invoice invoiceId="1001" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
