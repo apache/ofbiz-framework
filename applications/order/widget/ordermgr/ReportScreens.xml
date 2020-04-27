@@ -116,6 +116,7 @@ under the License.
                 <set field="productStoreIds" from-field="parameters.productStoreId" type="List"/>
                 <set field="originFacilityIds" from-field="parameters.originFacilityId" type="List"/>
                 <set field="statusIds" from-field="parameters.statusId" type="List"/>
+                <set field="orderTypeId" from-field="parameters.orderTypeId" type="String"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
@@ -127,6 +128,7 @@ under the License.
                         <condition-expr field-name="originFacilityId" operator="in" from-field="originFacilityIds" ignore-if-empty="true"/>
                         <condition-expr field-name="terminalId" operator="equals" from-field="parameters.terminalId" ignore-if-empty="true"/>
                         <condition-expr field-name="statusId" operator="in" from-field="statusIds" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderTypeId" operator="equals" from-field="orderTypeId"/>
                         <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-empty="true"/>
                         <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-empty="true"/>
                     </condition-list>
