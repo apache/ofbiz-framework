@@ -70,7 +70,7 @@ public final class CsrfUtil {
                     NoCsrfDefenseStrategy.class.getCanonicalName());
             Class<?> c = Class.forName(className);
             strategyCanonicalName = c.getCanonicalName();
-            setStrategy((ICsrfDefenseStrategy)c.newInstance());
+            setStrategy((ICsrfDefenseStrategy) c.newInstance());
         } catch (Exception e) {
             Debug.logError(e, MODULE);
             setStrategy(new NoCsrfDefenseStrategy());
