@@ -49,6 +49,7 @@ public final class CsrfUtil {
     private static String tokenNameNonAjax = UtilProperties.getPropertyValue("security", "csrf.tokenName.nonAjax",
             "csrf");
     private static ICsrfDefenseStrategy strategy;
+    private static String strategyCanonicalName;
     private static int cacheSize = (int) Long
             .parseLong(UtilProperties.getPropertyValue("security", "csrf.cache.size", "5000"));
     private static LinkedHashMap<String, Map<String, Map<String, String>>> csrfTokenCache =
@@ -68,10 +69,11 @@ public final class CsrfUtil {
             String className = UtilProperties.getPropertyValue("security", "csrf.defense.strategy",
                     NoCsrfDefenseStrategy.class.getCanonicalName());
             Class<?> c = Class.forName(className);
-            setStrategy((ICsrfDefenseStrategy) c.newInstance());
+            strategyCanonicalName = c.getCanonicalName();
+            setStrategy((ICsrfDefenseStrategy)c.newInstance());
         } catch (Exception e) {
             Debug.logError(e, MODULE);
-            setStrategy(new CsrfDefenseStrategy());
+            setStrategy(new NoCsrfDefenseStrategy());
         }
     }
 
@@ -199,7 +201,7 @@ public final class CsrfUtil {
             requestMap = findRequestMap(requestMapMap, pathOrRequestUri);
         }
         if (requestMap == null) {
-            if (!"org.apache.ofbiz.security.NoCsrfDefenseStrategy".equals(getStrategy().toString())) {
+            if (!"org.apache.ofbiz.security.NoCsrfDefenseStrategy".equals(strategyCanonicalName)) {
                 Debug.logWarning("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
             }
         }
