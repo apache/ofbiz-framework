@@ -135,7 +135,7 @@ public class GridFactory {
         if (gridElement == null) {
             throw new IllegalArgumentException("Could not find grid with name [" + gridName + "] in class resource [" + gridLocation + "]");
         }
-        return createModelGrid(gridElement, entityModelReader, visualTheme, dispatchContext, gridLocation, gridName);
+        return createModelGrid(gridElement, entityModelReader, dispatchContext, gridLocation, gridName);
     }
 
     public static ModelGrid createModelGrid(Element gridElement, ModelReader entityModelReader, DispatchContext dispatchContext, String gridLocation, String gridName) {
