@@ -167,8 +167,7 @@ under the License.
     </service>
 
     <!-- EntitySync Services -->
-    <service name="createEntitySync" default-entity-name="EntitySync" engine="simple"
-            location="component://entityext/minilang/EntitySyncServices.xml" invoke="createEntitySync" auth="true">
+    <service name="createEntitySync" default-entity-name="EntitySync" engine="entity-auto" invoke="create" auth="true">
         <description>Create EntitySync</description>
         <permission-service service-name="entitySyncPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -180,8 +179,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
-            location="component://entityext/minilang/EntitySyncServices.xml" invoke="createEntitySyncInclude" auth="true">
+    <service name="createEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="entity-auto" invoke="create" auth="true">
         <description>Create EntitySyncInclude</description>
         <permission-service service-name="entitySyncPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -194,8 +192,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
-            location="component://entityext/minilang/EntitySyncServices.xml" invoke="deleteEntitySyncInclude" auth="true">
+    <service name="deleteEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete EntitySyncInclude</description>
         <permission-service service-name="entitySyncPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
