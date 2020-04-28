@@ -164,6 +164,12 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="createMaintsFromMeterReading" default-entity-name="FixedAssetMeter" engine="simple"
+             location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createMaintsFromMeterReading" auth="true">
+        <description>Create Maints From Meter Reading</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="deleteFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a Fixed Asset Maintenance Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>

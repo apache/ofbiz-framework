@@ -143,8 +143,8 @@ under the License.
             </then>
         </if>
     </simple-method>
-
     <simple-method method-name="createMaintsFromMeterReading" short-description="Create Fixed Asset Maintenances From A Meter Reading">
+        <set field="meterValue" from-field="parameters"/>
         <if-not-empty field="meterValue.maintHistSeqId">
             <return/>
         </if-not-empty>
