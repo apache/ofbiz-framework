@@ -176,29 +176,6 @@ under the License.
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
         <override name="partyIdFrom" optional="false"/>
     </service>
-    <service name="getRelatedParties" engine="simple"
-            location="component://party/minilang/party/PartyServices.xml" invoke="getRelatedParties">
-        <description>
-            Get Parties Related to a Party
-            - The relatedPartyIdList coming out will include the original partyIdFrom
-            - The includeFromToSwitched and recurse attributes should by "Y" or "N" and default to N.
-            - The useCache attribute should be "true" or "false", defaults to "false"
-        </description>
-        <attribute name="partyIdFrom" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyIdFrom"/>
-            </type-validate>
-        </attribute>
-        <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdFrom" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdFromInclueAllChildTypes" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdToIncludeAllChildTypes" type="String" mode="IN" optional="true"/>
-        <attribute name="includeFromToSwitched" type="String" mode="IN" optional="true"/>
-        <attribute name="recurse" type="String" mode="IN" optional="true"/>
-        <attribute name="useCache" type="String" mode="IN" optional="true"/>
-        <attribute name="relatedPartyIdList" type="List" mode="OUT" optional="false"/>
-    </service>
 
     <service name="getParentOrganizations" engine="groovy"
             location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getParentOrganizations">
