@@ -558,17 +558,17 @@ under the License.
             <type-validate>
                     <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechId"/>
             </type-validate>
-+        </attribute>
-+        <attribute name="emailAddress" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
-+            </type-validate>
-+        </attribute>
-+        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingOldContactMechId"/>
-+            </type-validate>
-+        </attribute>
+         </attribute>
+         <attribute name="emailAddress" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
+             </type-validate>
+         </attribute>
+         <attribute name="oldContactMechId" type="String" mode="OUT" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingOldContactMechId"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="copyPartyContactMechs" engine="java"
         location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="copyPartyContactMechs" auth="true">
@@ -1039,15 +1039,15 @@ under the License.
         location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyEmail" auth="false">
         <description>Get the main party Email address</description>
         <attribute name="partyId" type="String" mode="IN" optional="false">
-+                <type-validate>
-+                    <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
-+                </type-validate>
-+            </attribute>
-+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false" default-value="PRIMARY_EMAIL">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechPurposeTypeId"/>
-+            </type-validate>
-+        </attribute>
+                 <type-validate>
+                     <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+                 </type-validate>
+             </attribute>
+         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false" default-value="PRIMARY_EMAIL">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechPurposeTypeId"/>
+             </type-validate>
+         </attribute>
         <attribute name="emailAddress" type="String" mode="OUT" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
@@ -1107,20 +1107,20 @@ under the License.
     <service name="sendCreatePartyEmailNotification" engine="groovy"
             location="component://party/groovyScripts/party/PartyServices.groovy" invoke="sendCreatePartyEmailNotification" auth="false">
         <attribute name="partyId" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
-+            </type-validate>
-+        </attribute>
-+        <attribute name="emailAddress" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
-+            </type-validate>
-+        </attribute>
-+        <attribute name="productStoreId" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingProductStoreId"/>
-+            </type-validate>
-+        </attribute>
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+             </type-validate>
+         </attribute>
+         <attribute name="emailAddress" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
+             </type-validate>
+         </attribute>
+         <attribute name="productStoreId" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingProductStoreId"/>
+             </type-validate>
+         </attribute>
     </service>
 
     <!-- Email address verification services-->
@@ -1133,18 +1133,18 @@ under the License.
     <service name="sendVerifyEmailAddressNotification" engine="groovy"
              location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="sendVerifyEmailAddressNotification">
         <attribute name="emailAddress" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
-+            </type-validate>
-+        </attribute>
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="verifyEmailAddress" engine="groovy"
              location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="verifyEmailAddress">
         <attribute name="verifyHash" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingVerifyHash"/>
-+            </type-validate>
-+        </attribute>
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingVerifyHash"/>
+             </type-validate>
+         </attribute>
     </service>
 
     <!-- Party Invitation Services -->
@@ -1190,15 +1190,15 @@ under the License.
             location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="acceptPartyInvitation">
         <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
         <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
-+            </type-validate>
-+        </attribute>
-+        <attribute name="partyId" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
-+            </type-validate>
-+        </attribute>
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
+             </type-validate>
+         </attribute>
+         <attribute name="partyId" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="declinePartyInvitation" engine="groovy"
             location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
@@ -1305,10 +1305,10 @@ under the License.
         </description>
         <implements service="permissionInterface"/>
         <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
-+            </type-validate>
-+        </attribute>
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="cancelPartyInvitationPermissionCheck" engine="groovy"
             location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="cancelPartyInvitationPermissionCheck">
@@ -1319,10 +1319,10 @@ under the License.
         </description>
         <implements service="permissionInterface"/>
         <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
-+            <type-validate>
-+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
-+            </type-validate>
-+        </attribute>
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="partyCommunicationEventPermissionCheck" engine="groovy"
             location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyCommunicationEventPermissionCheck">

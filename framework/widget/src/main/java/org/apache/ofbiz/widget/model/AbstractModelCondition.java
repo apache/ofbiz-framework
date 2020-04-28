@@ -180,7 +180,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
             if (conditionElement == null) {
                 return TRUE;
             }
-            String nodeName = conditionElement.getNodeName();
+            String nodeName = conditionElement.getLocalName();
             if ("and".equals(nodeName)) {
                 return new And(factory, modelWidget, conditionElement);
             } else if ("xor".equals(nodeName)) {

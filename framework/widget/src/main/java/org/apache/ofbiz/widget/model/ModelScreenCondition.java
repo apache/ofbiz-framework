@@ -82,7 +82,7 @@ public final class ModelScreenCondition {
             if (conditionElement == null) {
                 return DefaultConditionFactory.TRUE;
             }
-            if ("if-empty-section".equals(conditionElement.getNodeName())) {
+            if ("if-empty-section".equals(conditionElement.getLocalName())) {
                 return new IfEmptySection(this, modelWidget, conditionElement);
             }
             return super.newInstance(this, modelWidget,conditionElement);
