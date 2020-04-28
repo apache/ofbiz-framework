@@ -45,7 +45,7 @@ if (sqlCommand && selGroup) {
                 rsmd = rs.getMetaData()
                 numberOfColumns = rsmd.getColumnCount()
                 for (i = 1; i <= numberOfColumns; i++) {
-                    columns.add(rsmd.getColumnName(i))
+                    columns.add(rsmd.getColumnLabel(i))
                 }
                 rowLimitReached = false
                 while (rs.next()) {
