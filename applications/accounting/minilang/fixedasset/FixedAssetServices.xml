@@ -21,13 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <!-- cancel an existing Agreement -->
-    <simple-method method-name="cancelFixedAssetStdCost" short-description="Cancel an existing FixedAssetStdCost">
-        <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost"/>
-        <now-timestamp field="fixedAssetStdCost.thruDate"/>
-        <store-value value-field="fixedAssetStdCost"/>
-    </simple-method>
-
     <!--  create/update/delete FixedAssetMaint -->
     <simple-method method-name="createFixedAssetMaint" short-description="create a FixedAssetMaint">
         <make-value entity-name="FixedAssetMaint" value-field="newEntity"/>
