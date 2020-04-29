@@ -65,7 +65,7 @@ class OrderReturnTests extends OFBizTestCase {
         Map serviceCtx = [
             returnId       : '1009',
             returnItemSeqId: '00001',
-            userLogin      : EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin      : userLogin
         ]
         Map serviceResult = dispatcher.runSync('getReturnItemInitialCost', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -75,7 +75,7 @@ class OrderReturnTests extends OFBizTestCase {
         Map serviceCtx = [
             returnId    : '1009',
             returnTypeId: 'RTN_REFUND',
-            userLogin   : EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin   : userLogin
         ]
         Map serviceResult = dispatcher.runSync('processRefundReturn', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -84,7 +84,7 @@ class OrderReturnTests extends OFBizTestCase {
         Map serviceCtx = [
             returnId    : '1009',
             returnTypeId: 'RTN_REFUND',
-            userLogin   : EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin   : userLogin
         ]
         Map serviceResult = dispatcher.runSync('processReplacementReturn', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -93,7 +93,7 @@ class OrderReturnTests extends OFBizTestCase {
         Map serviceCtx = [
             returnId      : '1009',
             orderItemSeqId: '00001',
-            userLogin     : EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin     : userLogin
         ]
         Map serviceResult = dispatcher.runSync('processReplaceImmediatelyReturn', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -176,7 +176,7 @@ class OrderReturnTests extends OFBizTestCase {
             returnId         : '1009',
             returnItemSeqId  : '00001',
             quantity         : new BigDecimal('2.0000'),
-            userLogin        : EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin        : userLogin
         ]
         Map serviceResult = dispatcher.runSync('createReturnItemShipment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -201,7 +201,7 @@ class OrderReturnTests extends OFBizTestCase {
         Map serviceCtx = [
             toPartyId         : 'Company',
             returnHeaderTypeId: 'CUSTOMER_RETURN',
-            userLogin         : EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            userLogin         : userLogin
         ]
         Map serviceResult = dispatcher.runSync('createReturnHeader', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)

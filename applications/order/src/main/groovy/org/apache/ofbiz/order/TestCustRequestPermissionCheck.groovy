@@ -32,7 +32,7 @@ class TestCustRequestPermissionCheck extends OFBizTestCase {
         Map serviceCtx = [:]
         serviceCtx.fromPartyId = 'Company'
         serviceCtx.mainAction = 'TEST'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map result = dispatcher.runSync('custRequestPermissionCheck', serviceCtx)
         assert ServiceUtil.isSuccess(result)
     }

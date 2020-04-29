@@ -32,7 +32,7 @@ class AutoAcctgBudgetTests extends OFBizTestCase {
         Map serviceCtx = [:]
         serviceCtx.budgetTypeId = 'CAPITAL_BUDGET'
         serviceCtx.comments = 'Capital Budget'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+        serviceCtx.userLogin = userLogin
         Map result = dispatcher.runSync('createBudget', serviceCtx)
         assert ServiceUtil.isSuccess(result)
 
@@ -46,7 +46,7 @@ class AutoAcctgBudgetTests extends OFBizTestCase {
         Map serviceCtx = [:]
         serviceCtx.budgetId = '9999'
         serviceCtx.statusId = 'BG_APPROVED'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+        serviceCtx.userLogin = userLogin
         Map result = dispatcher.runSync('updateBudgetStatus', serviceCtx)
 
         List<GenericValue> budgetStatuses = EntityQuery.use(delegator).from('BudgetStatus').where('budgetId', '9999').orderBy('-statusDate').queryList()
