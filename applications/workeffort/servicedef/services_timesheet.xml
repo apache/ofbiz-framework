@@ -25,26 +25,30 @@ under the License.
     <version>1.0</version>
 
     <!-- Timesheet Services -->
-    <service name="createTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimesheet">
+    <service name="createTimesheet" default-entity-name="Timesheet" engine="entity-auto" auth="true" invoke="create">
         <description>Creates Timesheet</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="statusId" default-value="TIMESHEET_IN_PROCESS"/>
     </service>
-    <service name="updateTimesheetToInProcess" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="updateTimesheetToInProcess">
-        <description>Updates the Timesheet status back to in process to be able to correct errors</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-    <service name="updateTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="updateTimesheet">
+    <service name="updateTimesheet" default-entity-name="Timesheet" engine="entity-auto" auth="true" invoke="update">
         <description>Updates Timesheet</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="deleteTimesheet">
+    <service name="deleteTimesheet" default-entity-name="Timesheet" engine="entity-auto" auth="true" invoke="delete">
+        <description>Deletes Timesheet</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="checkAndUpdateTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
+             location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="checkAndUpdateTimesheet">
+        <description>Updates Timesheet</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="checkAndDeleteTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
+             location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="checkAndDeleteTimesheet">
         <description>Deletes Timesheet</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>

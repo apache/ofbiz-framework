@@ -22,30 +22,13 @@ under the License.
     xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- Timesheet Services -->
-    <simple-method method-name="createTimesheet" short-description="Create Timesheet">
-        <make-value entity-name="Timesheet" value-field="newEntity"/>
-        <sequenced-id sequence-name="Timesheet" field="newEntity.timesheetId"/>
-        <field-to-result field="newEntity.timesheetId" result-name="timesheetId"/>
-
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.statusId">
-            <set field="newEntity.statusId" value="TIMESHEET_IN_PROCESS"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateTimesheet" short-description="Update Timesheet">
+    <simple-method method-name="checkAndUpdateTimesheet" short-description="Update Timesheet">
         <call-simple-method method-name="checkTimesheetStatus"/>
-        <set-nonpk-fields map="parameters" value-field="timesheet"/>
-        <store-value value-field="timesheet"/>
+        <call-service service-name="updateTimesheet" in-map-name="parameters"/>
     </simple-method>
-    <simple-method method-name="updateTimesheetToInProcess" short-description="Updates the Timesheet status back to in process to be able to correct errors">
-        <entity-one entity-name="Timesheet" value-field="timesheet"/>
-        <set field="timesheet.statusId" value="TIMESHEET_IN_PROCESS"/>
-        <store-value value-field="timesheet"/>
-    </simple-method>
-    <simple-method method-name="deleteTimesheet" short-description="Delete Timesheet">
+    <simple-method method-name="checkAndDeleteTimesheet" short-description="Delete Timesheet">
         <call-simple-method method-name="checkTimesheetStatus"/>
-        <remove-value value-field="timesheet"/>
+        <call-service service-name="deleteTimesheet" in-map-name="parameters"/>
     </simple-method>
     <simple-method method-name="createTimesheetForThisWeek" short-description="Create Timesheet For This Week of no date provided, otherwise for a specific week">
         <if-empty field="parameters.requiredDate">

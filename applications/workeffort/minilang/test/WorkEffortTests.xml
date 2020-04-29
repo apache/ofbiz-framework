@@ -384,22 +384,6 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testUpdateTimesheetToInProcess" short-description="Test the service updateTimesheetToInProcess" login-required="false">
-        <set field="serviceCtx.timesheetId" value="TestTimesheet-1"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="updateTimesheetToInProcess" in-map-name="serviceCtx"/>
-        <entity-one entity-name="Timesheet" value-field="timesheet">
-            <field-map field-name="timesheetId" value="TestTimesheet-1"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="timesheet"/></not>
-            <if-compare operator="equals" field="timesheet.statusId" value="TIMESHEET_IN_PROCESS"/>
-        </assert>
-        <check-errors/>
-    </simple-method>
     <simple-method method-name="testUpdateTimesheet" short-description="Test the service updateTimesheet" login-required="false">
         <set field="serviceCtx.timesheetId" value="TestTimesheet-2"/>
         <set field="serviceCtx.clientPartyId" value="TestParty"/>
