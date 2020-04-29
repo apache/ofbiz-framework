@@ -35,8 +35,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import java.sql.Timestamp
 import java.util.Map
 
-class ProductPromoActionTest extends OFBizTestCase {
-    public ProductPromoActionTest(String name) {
+class ProductPromoActionTests extends OFBizTestCase {
+    public ProductPromoActionTests(String name) {
         super(name)
     }
 

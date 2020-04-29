@@ -340,7 +340,7 @@ def discontinueProductSales() {
     delegator.storeByCondition("ProductCategoryMember",
             [thruDate: nowTimestamp], condition)
     // expire product from all associations going to it
-    delegator.storeByCondition("ProducAssoc",
+    delegator.storeByCondition("ProductAssoc",
             [thruDate: nowTimestamp], condition)
     return success()
 }
