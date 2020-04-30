@@ -1016,7 +1016,7 @@ under the License.
         <description>Create ProductFeature-DataResource</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="removeProductFeatureDataResource" default-entity-name="ProductFeatureDataResource" engine="entity-auto" invoke="remove" auth="true">
+    <service name="removeProductFeatureDataResource" default-entity-name="ProductFeatureDataResource" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove ProductFeature-DataResource</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
