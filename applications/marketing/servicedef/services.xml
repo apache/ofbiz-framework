@@ -434,16 +434,14 @@ under the License.
         <attribute name="areRelated" type="String" mode="OUT" optional="false"><!-- will be Y or N --></attribute>
     </service>
 
-    <!-- Tracking Code Order return  -->
-    <service name="createTrackingCodeOrder" default-entity-name="TrackingCodeOrder" engine="simple"
-            location="component://marketing/minilang/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrder">
+    <!-- Tracking Code Order -->
+    <service name="createTrackingCodeOrder" default-entity-name="TrackingCodeOrder" engine="entity-auto" invoke="create">
         <description>Create a TrackingCodeOrder record</description>
         <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateTrackingCodeOrder" default-entity-name="TrackingCodeOrder" engine="simple"
-            location="component://marketing/minilang/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeOrder">
+    <service name="updateTrackingCodeOrder" default-entity-name="TrackingCodeOrder" engine="entity-auto" invoke="update">
         <description>Update a TrackingCode record</description>
         <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
