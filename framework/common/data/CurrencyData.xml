@@ -21,7 +21,7 @@ under the License.
 <entity-engine-xml>
     <Uom abbreviation="CRC" description="Costa Rica Colon" uomId="CRC" numericCode="188" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="COP" description="Colombian Peso" uomId="COP" numericCode="170" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="CNY" description="China" uomId="CNY" numericCode="156" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="CNY" description="Chinese Rrenminbi (Yuan)" uomId="CNY" numericCode="156" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CLP" description="Chilean Peso" uomId="CLP" numericCode="152" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CHF" description="Swiss Franc" uomId="CHF" numericCode="756" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CAD" description="Canadian Dollar" uomId="CAD" numericCode="124" uomTypeId="CURRENCY_MEASURE"/>
