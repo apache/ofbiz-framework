@@ -154,7 +154,7 @@ under the License.
     <!-- FixedAsset Maintenance Meter Create/Update/Delete-->
     <service name="createFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Fixed asset Meter</description>
-        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
