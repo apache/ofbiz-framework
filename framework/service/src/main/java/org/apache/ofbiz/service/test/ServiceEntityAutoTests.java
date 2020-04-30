@@ -200,7 +200,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         delegator.create("StatusType", "statusTypeId", "TESTINGSTATUS");
         delegator.create("StatusItem", "statusId", "TESTING_CREATE", "statusTypeId", "TESTINGSTATUS");
         delegator.create("StatusItem", "statusId", "TESTING_UPDATE", "statusTypeId", "TESTINGSTATUS");
-        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+        GenericValue userLogin = getUserLogin("system");
 
         //test create testingStatus with userlogin
         Map<String, Object> testingStatusCreateMap = UtilMisc.toMap("testingId", "TESTING_7", "statusId", "TESTING_CREATE", "userLogin", userLogin);
