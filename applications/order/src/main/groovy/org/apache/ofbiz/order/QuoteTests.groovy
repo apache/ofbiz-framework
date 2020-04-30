@@ -104,7 +104,7 @@ class QuoteTests extends OFBizTestCase {
     // Test case for calling createQuoteWorkEffort without a workEffortId which
     // triggers an ECA to create the WorkEffort first.
     void testCreateWorkEffortAndQuoteWorkEffort() {
-        GenericValue userLogin = getUserLogin('flexadmin')
+        GenericValue userLogin = getUserLogin('system')
 
         // Use the bare minimum inputs necessary to create the work effort as we
         // aren't testing that service, only that it plays well as an ECA.

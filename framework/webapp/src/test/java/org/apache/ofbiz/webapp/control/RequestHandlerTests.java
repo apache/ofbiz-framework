@@ -27,9 +27,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -185,14 +185,16 @@ public class RequestHandlerTests {
 
         @Test
         public void resolveURIBasicOverrideView() throws Exception {
-            RequestMap foobar = new RequestMap(dummyElement);
-            reqMaps.putSingle("foo/bar", foobar);
+            RequestMap foo = new RequestMap(dummyElement);
+            RequestMap bar = new RequestMap(dummyElement);
+            reqMaps.putSingle("foo", foo);
+            reqMaps.putSingle("bar", bar);
 
             viewMaps.put("baz", new ViewMap(dummyElement));
 
             when(req.getPathInfo()).thenReturn("/foo/baz");
-            when(ccfg.getDefaultRequest()).thenReturn("foo/bar");
-            assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(foobar));
+            when(ccfg.getDefaultRequest()).thenReturn("bar");
+            assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(foo));
         }
 
         @Test

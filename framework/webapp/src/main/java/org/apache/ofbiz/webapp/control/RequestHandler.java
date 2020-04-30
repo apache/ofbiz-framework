@@ -43,7 +43,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MultivaluedHashMap;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.model.URITemplate;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
@@ -833,11 +832,7 @@ public class RequestHandler {
         if (pathInfo.get(0).indexOf('?') > -1) {
             return pathInfo.get(0).substring(0, pathInfo.get(0).indexOf('?'));
         } else {
-            if (1 < StringUtils.countMatches(path, "/")) {
-                return pathInfo.get(0) + "/" + pathInfo.get(1);
-            } else {
-                return pathInfo.get(0);
-            }
+            return pathInfo.get(0);
         }
     }
 

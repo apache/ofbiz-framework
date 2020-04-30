@@ -35,7 +35,7 @@ class ProductTests extends OFBizTestCase {
         serviceCtx.longDescription = 'Updated Long Test Product Category Description'
         serviceCtx.productCategoryId = 'CATALOG1_BEST_SELL'
         serviceCtx.productCategoryTypeId = 'BEST_SELL_CATEGORY'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('updateProductCategory', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 

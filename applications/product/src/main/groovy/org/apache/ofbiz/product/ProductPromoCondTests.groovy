@@ -27,8 +27,8 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
 
-class ProductPromoCondTest extends OFBizTestCase {
-    public ProductPromoCondTest(String name) {
+class ProductPromoCondTests extends OFBizTestCase {
+    public ProductPromoCondTests(String name) {
         super(name)
     }
 
