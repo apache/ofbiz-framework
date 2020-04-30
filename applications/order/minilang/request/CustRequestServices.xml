@@ -556,33 +556,6 @@ under the License.
         <field-to-result field="parameters.custRequestId" result-name="custRequestId"/>
         <string-to-list string="Customer request ${parameters.custRequestId} created" list="successMessageList"/>
     </simple-method>
-
-    <!-- Create/Delete  CustRequest Content -->
-    <simple-method method-name="createCustRequestContent" short-description="Create Customer request Content">
-        <call-simple-method method-name="checkStatusCustRequest"/>        
-        <make-value entity-name="CustRequestContent" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
-    </simple-method>
-    <simple-method method-name="deleteCustRequestContent" short-description="Remove a Customer Request Content">
-        <call-simple-method method-name="checkStatusCustRequest"/>
-        <entity-one entity-name="CustRequestContent" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <if-empty field="lookedUpValue.thruDate">
-            <now-timestamp field="lookedUpValue.thruDate"/>
-        </if-empty>
-        <store-value value-field="lookedUpValue"/>
-        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
-    </simple-method>
-
     <simple-method method-name="updateCustRequestLastModifiedDate" short-description="update the modified date field in a customer request">
         <entity-one entity-name="CustRequest" value-field="custRequest"/>
         <now-timestamp field="custRequest.lastModifiedDate"/>

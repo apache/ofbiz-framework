@@ -72,7 +72,7 @@ under the License.
         <attribute name="attrValue" type="String" mode="IN" optional="false"/>
     </service>
 
-   <service name="updateCustRequestAttribute" engine="simple"
+    <service name="updateCustRequestAttribute" engine="simple"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestAttribute" auth="true">
         <description>Update CustRequestAttribute record</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
@@ -210,20 +210,18 @@ under the License.
     </service>
 
     <!-- custRequest content services -->
-    <service name="createCustRequestContent" engine="simple"
-        location="component://order/minilang/request/CustRequestServices.xml"
-        invoke="createCustRequestContent"
-        default-entity-name="CustRequestContent" auth="true">
+    <service name="createCustRequestContent" engine="entity-auto" invoke="create" default-entity-name="CustRequestContent" auth="true">
         <description>Create a Customer Request Content</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="deleteCustRequestContent" engine="simple"
-        location="component://order/minilang/request/CustRequestServices.xml"
-        invoke="deleteCustRequestContent"
-        default-entity-name="CustRequestContent" auth="true">
-        <description>Update a Customer Request Content</description>
+    <service name="deleteCustRequestContent" engine="entity-auto" invoke="delete" default-entity-name="CustRequestContent" auth="true">
+        <description>Delete a Customer Request Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="expireCustRequestContent" engine="entity-auto" invoke="expire" default-entity-name="CustRequestContent" auth="true">
+        <description>Expire a Customer Request Content</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>

@@ -641,7 +641,7 @@ under the License.
         <field name="mimeTypeId"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext" use-when="tabButtonItem!=void&amp;&amp;tabButtonItem.equals(&quot;custRequestContent&quot;)">
-           <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCustRequestContent" also-hidden="false">
+           <hyperlink description="${uiLabelMap.CommonDelete}" target="expireCustRequestContent" also-hidden="false">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="fromDate"/>
