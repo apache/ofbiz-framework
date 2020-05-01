@@ -310,22 +310,6 @@ under the License.
     </simple-method>
 
     <!-- TimeEntry Services -->
-    <simple-method method-name="createTimeEntry" short-description="Create TimeEntry">
-        <call-simple-method method-name="checkTimesheetStatus"/>
-        <now-timestamp field="nowTimestamp"/>
-
-        <make-value entity-name="TimeEntry" value-field="newEntity"/>
-        <sequenced-id sequence-name="TimeEntry" field="newEntity.timeEntryId"/>
-        <field-to-result field="newEntity.timeEntryId" result-name="timeEntryId"/>
-
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field="newEntity.fromDate">
-                <field field="nowTimestamp" type="java.sql.Timestamp"/>
-            </call-class-method>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
     <simple-method method-name="updateTimeEntry" short-description="Update TimeEntry">
         <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
         <call-simple-method method-name="checkTimesheetStatus"/>
@@ -364,17 +348,6 @@ under the License.
             </if-empty>
         </if-not-empty>
         
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteTimeEntry" short-description="Delete TimeEntry">
-        <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
-        <call-simple-method method-name="checkTimesheetStatus"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="unlinkInvoiceFromTimeEntry" short-description="Delete TimeEntry">
-        <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
-        <field-to-result field="lookedUpValue.invoiceId" result-name="invoiceId"/>
-        <clear-field field="lookedUpValue.invoiceId"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="getTimeEntryRate" short-description="Get TimeEntry Rate">
