@@ -20,26 +20,6 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <!-- TrackingCodeType methods -->
-    <simple-method method-name="createTrackingCodeType" short-description="Create an TrackingCodeType">
-        <now-timestamp field="nowStamp"/>
-
-        <make-value entity-name="TrackingCodeType" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-
-        <!-- set the history/audit info -->
-        <set from-field="nowStamp" field="newEntity.createdStamp"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="deleteTrackingCodeType" short-description="Delete an TrackingCodeType">
-        <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCodeType" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="createTrackingCodeOrder" short-description="Create an TrackingCodeOrder">
         <now-timestamp field="nowStamp"/>
         <make-value entity-name="TrackingCodeOrder" value-field="newEntity"/>
