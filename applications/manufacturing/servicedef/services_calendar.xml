@@ -41,7 +41,7 @@ under the License.
         <description>Remove a calendar</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-
+    <!-- TechDataCalendarWeek services -->
     <service name="createCalendarWeek" engine="simple" default-entity-name="TechDataCalendarWeek"
             location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarWeek">
         <description>Create a Calendar Week</description>
@@ -59,24 +59,32 @@ under the License.
         <description>Remove a Calendar Week</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-
-    <service name="createCalendarExceptionDay" engine="simple" default-entity-name="TechDataCalendarExcDay"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarExceptionDay">
+    <!-- manufacturing permission service -->
+    <service name="manufacturingPermissionService" engine="simple"
+             location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+        <implements service="permissionInterface"/>
+        <attribute name="primaryPermission" type="String" mode="IN" optional="true" default-value="MANUFACTURING"/>
+        <attribute name="altPermission" type="String" mode="IN" optional="true"/>
+    </service>
+    <!-- TechDataCalendarExcDay services -->
+    <service name="createCalendarExceptionDay" engine="entity-auto" default-entity-name="TechDataCalendarExcDay" invoke="create">
         <description>Create a calendar ExceptionDay</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateCalendarExceptionDay" engine="simple" default-entity-name="TechDataCalendarExcDay"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="updateCalendarExceptionDay">
+    <service name="updateCalendarExceptionDay" engine="entity-auto" default-entity-name="TechDataCalendarExcDay" invoke="update">
         <description>Update a calendar ExceptionDay</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeCalendarExceptionDay" engine="simple" default-entity-name="TechDataCalendarExcDay"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="removeCalendarExceptionDay">
+    <service name="removeCalendarExceptionDay" engine="entity-auto" default-entity-name="TechDataCalendarExcDay" invoke="delete">
         <description>Update a calendar ExceptionDay</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <!-- TechDataCalendarExcWeek services -->
     <service name="createCalendarExceptionWeek" engine="simple" default-entity-name="TechDataCalendarExcWeek"
             location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarExceptionWeek">
         <description>Create a Calendar Exception Week</description>
