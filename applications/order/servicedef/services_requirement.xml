@@ -85,9 +85,11 @@ under the License.
         <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="addRequirementTask" engine="simple"
-            location="component://order/minilang/requirement/RequirementServices.xml" invoke="addTaskToRequirement">
+    <service name="addRequirementTask" engine="entity-auto" invoke="create" default-entity-name="WorkRequirementFulfillment">
         <description>Associate an existing task w/ a requirement</description>
+        <deprecated use-instead="createWorkRequirementFulfillment" since="Upcoming Branch">
+            Use createWorkRequirementFulfillment to create a workeffort requirement fulfillment, that is an entity-auto service
+        </deprecated>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="workReqFulfTypeId" type="String" mode="IN" optional="true"/>
