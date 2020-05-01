@@ -915,13 +915,14 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createShipmentReceiptRole" engine="entity-auto" invoke="create" auth="true">
+    <!-- Shipment Receipt Role Services -->
+    <service name="createShipmentReceiptRole" default-entity-name="ShipmentReceiptRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ShipmentReceipt Role entry</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeShipmentReceiptRole" engine="entity-auto" invoke="delete" auth="true">
+    <service name="removeShipmentReceiptRole" default-entity-name="ShipmentReceiptRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ShipmentReceipt Role entry</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
