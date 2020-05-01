@@ -449,22 +449,19 @@ under the License.
     </service>
 
     <!-- Tracking Code Order return  -->
-    <service name="createTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
-            location="component://marketing/minilang/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrderReturn">
+    <service name="createTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="entity-auto" invoke="create">
         <description>Create a TrackingCodeOrderReturn  record</description>
         <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
-            location="component://marketing/minilang/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeOrderReturn">
+    <service name="updateTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="entity-auto" invoke="update">
         <description>Update a TrackingCode record</description>
         <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
-            location="component://marketing/minilang/marketing/tracking/TrackingCodeServices.xml" invoke="deleteTrackingCodeOrderReturn">
+    <service name="deleteTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="entity-auto" invoke="delete">
         <description>Update a TrackingCode record</description>
         <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

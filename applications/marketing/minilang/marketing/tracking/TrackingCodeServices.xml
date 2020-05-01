@@ -44,20 +44,6 @@ under the License.
         <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-
-    <!-- add service for tracking code return -->
-    <simple-method method-name="createTrackingCodeOrderReturn" short-description="Create an TrackingCodeOrderReturn">
-        <now-timestamp field="nowStamp"/>
-        <make-value entity-name="TrackingCodeOrderReturn" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-
-        <!-- set the history/audit info -->
-        <set from-field="nowStamp" field="newEntity.createdStamp"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
     <simple-method method-name="createTrackingCodeOrderReturns" short-description="Create TrackingCodeOrderReturn for all the Return Items with Orders that have trackingCodeOrder entry">
         <if-not-empty field="parameters.returnId">
             <set field="returnHeaderFindContext.returnId" from-field="parameters.returnId"/>
@@ -85,24 +71,4 @@ under the License.
             </iterate>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="updateTrackingCodeOrderReturn" short-description="update an TrackingCodeOrderReturn">
-        <now-timestamp field="nowStamp"/>
-
-        <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCodeOrderReturn" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-
-        <!-- set the history/audit info -->
-        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
-        <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteTrackingCodeOrderReturn" short-description="delete an TrackingCodeOrderReturn">
-        <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCodeOrderReturn" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
 </simple-methods>
