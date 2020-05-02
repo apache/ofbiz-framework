@@ -63,21 +63,6 @@ under the License.
         <field-to-result field="affectAccounting" result-name="affectAccounting"/>
     </simple-method>
 
-    <simple-method method-name="createShipmentReceiptRole" short-description="Create a ShipmentReceipt Role">
-        <make-value entity-name="ShipmentReceiptRole" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="removeShipmentReceiptRole" short-description="Remove a ShipmentReceipt Role">
-        <make-value entity-name="ShipmentReceiptRole" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentReceiptRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="receiveInventoryProduct" short-description="Receive Inventory in new Inventory Item(s)">
         <!-- NOTES
             - for serialized items with a serial number passed in: the quantityAccepted _should_ always be 1

@@ -33,15 +33,9 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
 public class SalesOrderTest extends OFBizTestCase {
     public static final String MODULE = OFBizTestCase.class.getName();
 
-    protected GenericValue userLogin = null;
 
     public SalesOrderTest(String name) {
         super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
     }
 
     @Override
@@ -141,7 +135,7 @@ public class SalesOrderTest extends OFBizTestCase {
         ctx.put("billToCustomerPartyId", "DemoCustomer");
         ctx.put("billFromVendorPartyId", "Company");
 
-        ctx.put("userLogin", userLogin);
+        ctx.put("userLogin", getUserLogin("system"));
         Map<String, Object> resp = dispatcher.runSync("storeOrder", ctx);
         if (ServiceUtil.isError(resp)) {
             Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);

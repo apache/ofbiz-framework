@@ -41,11 +41,10 @@ class ProductPromoActionTests extends OFBizTestCase {
     }
 
     ShoppingCart loadOrder(String orderId) {
-        GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne()
         Map<String, Object> serviceCtx = [orderId: orderId,
                 skipInventoryChecks: true, // the items are already reserved, no need to check again
                 skipProductChecks: true, // the products are already in the order, no need to check their validity now
-                userLogin: permUserLogin]
+                userLogin: getUserLogin("system")]
         Map<String, Object> loadCartResp = dispatcher.runSync("loadCartFromOrder", serviceCtx)
 
         return loadCartResp.shoppingCart
