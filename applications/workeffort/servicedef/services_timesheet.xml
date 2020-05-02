@@ -117,13 +117,6 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="ensureAndCreateTimesheetRole" default-entity-name="TimesheetRole" engine="simple" auth="true"
-             location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="ensureAndCreateTimesheetRole">
-        <description>Ensure party role creates TimesheetRole</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
 
     <!-- TimeEntry Services -->
     <service name="createTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"

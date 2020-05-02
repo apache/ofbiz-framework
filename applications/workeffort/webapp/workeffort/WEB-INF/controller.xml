@@ -415,7 +415,7 @@ under the License.
     <request-map uri="EditTimesheetRoles"><security https="true" auth="true"/><response name="success" type="view" value="EditTimesheetRoles"/></request-map>
     <request-map uri="createTimesheetRole">
         <security https="true" auth="true"/>
-        <event type="service" invoke="ensureAndCreateTimesheetRole"/>
+        <event type="service" invoke="createTimesheetRole"/>
         <response name="success" type="view" value="EditTimesheetRoles"/>
         <response name="error" type="view" value="EditTimesheetRoles"/>
     </request-map>
