@@ -93,6 +93,10 @@ public final class UtilObject {
         Object obj = null;
         try {
             obj = getObjectException(bytes);
+            // DiskFileItem, FileItemHeadersImpl are not serializable. So SafeObjectInputStream::resolveClass return null
+            if (obj == null) {
+                return null;
+            }
         } catch (ClassNotFoundException | IOException e) {
             Debug.logError(e, module);
         }

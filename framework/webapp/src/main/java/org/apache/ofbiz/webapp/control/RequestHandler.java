@@ -903,10 +903,6 @@ public class RequestHandler {
             }
         }
         if (reqAttrMap.size() > 0) {
-            // fileItems is not serializable.
-            // It contains a temporary DiskFileItem with a null value than can't be detected by UtilMisc::makeMapSerializable
-            // So it must be removed from reqAttrMap. See OFBIZ-11534
-            reqAttrMap.remove("fileItems");
             byte[] reqAttrMapBytes = UtilObject.getBytes(reqAttrMap);
             if (reqAttrMapBytes != null) {
                 req.getSession().setAttribute("_REQ_ATTR_MAP_", StringUtil.toHexString(reqAttrMapBytes));
