@@ -915,23 +915,18 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="interfaceShipmentReceiptRole" engine="interface" location="" invoke="">
-        <description>Interface for ShipmentReceiptRole</description>
-        <attribute name="receiptId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
-    </service>
-    <service name="createShipmentReceiptRole" engine="simple"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="createShipmentReceiptRole" auth="true">
+    <!-- Shipment Receipt Role Services -->
+    <service name="createShipmentReceiptRole" default-entity-name="ShipmentReceiptRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ShipmentReceipt Role entry</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <implements service="interfaceShipmentReceiptRole"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeShipmentReceiptRole" engine="simple"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="removeShipmentReceiptRole" auth="true">
+    <service name="removeShipmentReceiptRole" default-entity-name="ShipmentReceiptRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ShipmentReceipt Role entry</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
-        <implements service="interfaceShipmentReceiptRole"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- Shipment Estimate (Rate) Services -->

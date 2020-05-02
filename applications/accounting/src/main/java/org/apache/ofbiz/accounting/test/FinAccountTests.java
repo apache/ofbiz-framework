@@ -38,7 +38,7 @@ public class FinAccountTests extends OFBizTestCase {
     }
 
     public void testFinAccountOperations() throws Exception {
-        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
+        GenericValue userLogin = getUserLogin("system");
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("finAccountName", "Test Financial Account");
