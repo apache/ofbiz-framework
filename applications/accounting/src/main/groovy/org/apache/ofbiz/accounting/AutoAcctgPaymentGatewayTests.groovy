@@ -32,7 +32,7 @@ class AutoAcctgPaymentGatewayTests extends OFBizTestCase {
         Map serviceCtx = [:]
         serviceCtx.paymentGatewayConfigId = 'SAGEPAY_CONFIG'
         serviceCtx.description = 'Test Payment Gateway Config Id'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('updatePaymentGatewayConfig', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 

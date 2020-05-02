@@ -34,7 +34,7 @@ class AutoAcctgLedgerTests extends OFBizTestCase {
         serviceCtx.description = 'Test Credit Memo Transaction'
         serviceCtx.transactionDate = UtilDateTime.nowTimestamp()
         serviceCtx.glFiscalTypeId = 'BUDGET'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createAcctgTrans', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 

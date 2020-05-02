@@ -32,7 +32,7 @@ class ContentTests extends OFBizTestCase {
     void testGetDataResource() {
         Map serviceCtx = [:]
         serviceCtx.dataResourceId = 'TEST_RESOURCE'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('getDataResource', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.resultData.dataResource.dataResourceId == 'TEST_RESOURCE'

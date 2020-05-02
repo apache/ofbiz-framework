@@ -21,6 +21,7 @@
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.serialize.XmlSerializer
 import org.apache.ofbiz.product.product.KeywordIndex
@@ -296,7 +297,7 @@ def forceIndexProductKeywords() {
  */
 def deleteProductKeywords() {
     GenericValue product = from("Product").where(parameters).cache().queryOne()
-    product.removeRelated("ProductKeyword", product)
+    product.removeRelated("ProductKeyword")
     return success()
 }
 
@@ -329,15 +330,18 @@ def discontinueProductSales() {
     product.salesDiscontinuationDate = nowTimestamp
     product.store()
 
-    // expire product from all categories
-    delegator.storeByCondition("ProductCategoryMember",
-            [thruDate: nowTimestamp],
-            [productId: product.productId, thruDate: null])
 
+    // expire product from all categories
+    exprBldr = new EntityConditionBuilder()
+    condition = exprBldr.AND() {
+        EQUALS(productId: product.productId)
+        EQUALS(thruDate: null)
+    }
+    delegator.storeByCondition("ProductCategoryMember",
+            [thruDate: nowTimestamp], condition)
     // expire product from all associations going to it
-    delegator.storeByCondition("ProducAssoc",
-            [thruDate: nowTimestamp],
-            [productIdTo: product.productId, thruDate: null])
+    delegator.storeByCondition("ProductAssoc",
+            [thruDate: nowTimestamp], condition)
     return success()
 }
 

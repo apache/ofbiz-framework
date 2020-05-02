@@ -37,7 +37,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         serviceCtx.partyIdTo = 'DemoCustCompany'
         serviceCtx.amount = new BigDecimal('100.00')
         serviceCtx.paymentMethodTypeId = 'COMPANY_CHECK'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPayment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
@@ -49,7 +49,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         Map serviceCtx = [:]
         serviceCtx.paymentId = '1000'
         serviceCtx.statusId = 'PAYMENT_AUTHORIZED'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('setPaymentStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
@@ -60,7 +60,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
     void testQuickSendPayment() {
         Map serviceCtx = [:]
         serviceCtx.paymentId = '1001'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('quickSendPayment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 

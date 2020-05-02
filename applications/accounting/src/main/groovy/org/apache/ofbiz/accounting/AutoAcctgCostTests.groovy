@@ -34,7 +34,7 @@ class AutoAcctgCostTests extends OFBizTestCase {
         serviceCtx.quantityAccepted = new BigDecimal('10')
         serviceCtx.productId = 'TestProduct3'
         serviceCtx.inventoryItemId = '9999'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+        serviceCtx.userLogin = userLogin
         Map result = dispatcher.runSync('updateProductAverageCostOnReceiveInventory', serviceCtx)
         assert ServiceUtil.isSuccess(result)
 
