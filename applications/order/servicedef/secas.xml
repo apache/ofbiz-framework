@@ -524,4 +524,23 @@ under the License.
     <eca service="expireCustRequestParty" event="commit">
         <action service="updateCustRequestLastModifiedDate" mode="sync"/>
     </eca>
+    <!-- createCustRequestContent eca -->
+    <eca service="createCustRequestContent" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="deleteCustRequestContent" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="expireCustRequestContent" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="createCustRequestContent" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="deleteCustRequestContent" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="expireCustRequestContent" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
 </service-eca>
