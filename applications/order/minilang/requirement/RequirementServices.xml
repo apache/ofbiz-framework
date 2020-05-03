@@ -63,63 +63,6 @@ under the License.
             </if-not-empty>
         </if-compare>
     </simple-method>
-
-    <!-- create a new RequirementRole -->
-    <simple-method method-name="createRequirementRole" short-description="Create a RequirementRole">
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
-        </check-permission>
-        <check-errors/>
-        <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
-        <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
-        <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
-        <if-empty field="partyRole.partyId">
-            <check-permission permission="PARTYMGR" action="_CREATE">
-                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
-            </check-permission>
-            <check-permission permission="PARTYMGR" action="_UPDATE">
-                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
-            </check-permission>
-            <check-errors/>
-            <make-value entity-name="PartyRole" value-field="partyRole"/>
-            <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
-            <create-value value-field="partyRole"/>
-        </if-empty>
-        <!-- create new entity and create all the fields -->
-        <make-value entity-name="RequirementRole" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-        <check-errors/>
-    </simple-method>
-
-    <!-- update an existing RequirementRole -->
-    <simple-method method-name="updateRequirementRole" short-description="Update an existing RequirementRole">
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/></check-permission>
-        <check-errors/>
-        <entity-one entity-name="RequirementRole" value-field="requirementRole" auto-field-map="true"/>
-        <check-errors/>
-        <set-nonpk-fields map="parameters" value-field="requirementRole"/>
-        <store-value value-field="requirementRole"/>
-        <check-errors/>
-    </simple-method>
-
-    <!-- remove an existing RequirementRole -->
-    <simple-method method-name="removeRequirementRole" short-description="Remove an existing RequirementRole">
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="RequirementRole" value-field="requirementRole" auto-field-map="true"/>
-        <check-errors/>
-        <remove-value value-field="requirementRole"/>
-        <check-errors/>
-    </simple-method>
-
     <simple-method method-name="createTransferFromRequirement" short-description="Create the inventory transfers required to fulfill the requirement.">
         <check-permission permission="ORDERMGR" action="_CREATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
@@ -150,5 +93,4 @@ under the License.
         <set field="inputMap.statusId" value="REQ_ORDERED"/>
         <call-service service-name="updateRequirement" in-map-name="inputMap"/>
     </simple-method>
-
 </simple-methods>
