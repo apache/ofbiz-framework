@@ -172,5 +172,11 @@ under the License.
     <eca service="updateFixedAssetMeter" event="commit">
         <action service="createMaintsFromMeterReading" mode="sync"/>
     </eca>
-
+    <!-- Check AcctgTrans posted -->
+    <eca service="updateAcctgTrans" event="invoke">
+        <action service="checkAcctgTransPosted" mode="sync"/>
+    </eca>
+    <eca service="deleteAcctgTrans" event="invoke">
+        <action service="checkAcctgTransPosted" mode="sync"/>
+    </eca>
 </service-eca>
