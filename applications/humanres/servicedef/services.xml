@@ -296,29 +296,27 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
-    <service name="createSalaryStep" engine="simple" default-entity-name="SalaryStep"
-             location="component://humanres/minilang/HumanResServices.xml" invoke="createSalaryStep" auth="true">
+    <!-- SalaryStep services -->
+    <service name="createSalaryStep" engine="entity-auto" default-entity-name="SalaryStep" invoke="create" auth="true">
         <description>Create Salary Step</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override type="String" mode="IN" name="salaryStepSeqId" optional="true"/>
     </service>
-
-    <service name="updateSalaryStep" engine="simple" default-entity-name="SalaryStep"
-             location="component://humanres/minilang/HumanResServices.xml" invoke="updateSalaryStep" auth="true">
+    <service name="updateSalaryStep" engine="entity-auto" default-entity-name="SalaryStep" invoke="update" auth="true">
         <description>Update Salary Step</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-
     <service name="deleteSalaryStep" engine="entity-auto" default-entity-name="SalaryStep" invoke="delete" auth="true">
         <description>Delete Salary Step</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
+    <!-- TerminationReason services -->
     <service name="createTerminationReason" engine="entity-auto" default-entity-name="TerminationReason" invoke="create" auth="true">
         <description>Create an Termination Reason</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
@@ -326,7 +324,6 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="description" optional="false"/>
     </service>
-
     <service name="updateTerminationReason" engine="entity-auto" default-entity-name="TerminationReason" invoke="update" auth="true">
         <description>Update an Termination Reason</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
@@ -334,27 +331,25 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="description" optional="false"/>
     </service>
-
     <service name="deleteTerminationReason" engine="entity-auto" default-entity-name="TerminationReason" invoke="delete" auth="true">
         <description>Delete an Termination Reason</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
+    <!-- UnemploymentClaim services -->
     <service name="createUnemploymentClaim" engine="entity-auto" default-entity-name="UnemploymentClaim" invoke="create" auth="true">
         <description>Create an Unemployment Claim</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-
     <service name="updateUnemploymentClaim" engine="entity-auto" default-entity-name="UnemploymentClaim" invoke="update" auth="true">
         <description>Update an Unemployment Claim</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-
     <service name="deleteUnemploymentClaim" engine="entity-auto" default-entity-name="UnemploymentClaim" invoke="delete" auth="true">
         <description>Delete an Unemployment Claim</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
