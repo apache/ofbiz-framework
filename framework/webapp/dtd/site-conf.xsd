@@ -267,6 +267,13 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.security">
+        <xs:attribute type="xs:boolean" name="https" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    If https=true, redirect to/use/generate the secured HTTPS protocol if necessary and possible.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute type="xs:boolean" name="auth" default="false">
             <xs:annotation>
                 <xs:documentation>
