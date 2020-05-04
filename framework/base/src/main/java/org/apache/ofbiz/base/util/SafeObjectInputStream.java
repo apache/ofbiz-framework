@@ -64,6 +64,10 @@ public final class SafeObjectInputStream extends ObjectInputStream {
     @Override
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
         if (!whitelistPattern.matcher(classDesc.getName()).find()) {
+            // DiskFileItem, FileItemHeadersImpl are not serializable.
+            if (classDesc.getName().contains("org.apache.commons.fileupload")) {
+                return null;
+            }
             Debug.logWarning("***Incompatible class***: "
                     + classDesc.getName()
                     + ". Please see OFBIZ-10837.  Report to dev ML if you use OFBiz without changes. "

@@ -35,12 +35,6 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
 
-    <simple-method method-name="addTaskToRequirement" short-description="Add a task to a requirement">
-        <make-value entity-name="WorkRequirementFulfillment" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
     <simple-method method-name="autoAssignRequirementToSupplier" short-description="If the requirement is a product requirement (purchasing) try to assign it to the primary supplier">
         <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
         <check-errors/>

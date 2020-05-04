@@ -72,7 +72,7 @@ under the License.
         <attribute name="attrValue" type="String" mode="IN" optional="false"/>
     </service>
 
-   <service name="updateCustRequestAttribute" engine="simple"
+    <service name="updateCustRequestAttribute" engine="simple"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestAttribute" auth="true">
         <description>Update CustRequestAttribute record</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
@@ -106,28 +106,33 @@ under the License.
         <attribute name="custRequestItemSeqIdTo" type="String" mode="IN" optional="true"/>
         <attribute name="copyLinkedQuotes" type="String" mode="IN" optional="true"/>
     </service>
-
-    <service name="createCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
-            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestParty" auth="true">
+    <service name="createCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="create" auth="true">
         <description>Create a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="fromDate" mode="IN" type="Timestamp" optional="true"/>
     </service>
-    <service name="updateCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
-            location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestParty" auth="true">
+    <service name="updateCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="update" auth="true">
         <description>Update CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
-            location="component://order/minilang/request/CustRequestServices.xml" invoke="deleteCustRequestParty" auth="true">
+    <service name="deleteCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="delete" auth="true">
         <description>Delete a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="expireCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
-            location="component://order/minilang/request/CustRequestServices.xml" invoke="expireCustRequestParty" auth="true">
-        <description>Delete a CustRequestParty record</description>
+    <service name="expireCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="expire" auth="true">
+        <description>Expires a CustRequestParty record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    <service name="checkStatusCustRequest" engine="simple" default-entity-name="CustRequestParty"
+             location="component://order/minilang/request/CustRequestServices.xml" invoke="checkStatusCustRequest" auth="true">
+        <description>Check Status of Cust Request</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    <service name="updateCustRequestLastModifiedDate" engine="simple" default-entity-name="CustRequestParty"
+             location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestLastModifiedDate" auth="true">
+        <description>Update Cust Request Last Modified Date</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="createCustRequestNote" engine="simple"
@@ -210,20 +215,18 @@ under the License.
     </service>
 
     <!-- custRequest content services -->
-    <service name="createCustRequestContent" engine="simple"
-        location="component://order/minilang/request/CustRequestServices.xml"
-        invoke="createCustRequestContent"
-        default-entity-name="CustRequestContent" auth="true">
+    <service name="createCustRequestContent" engine="entity-auto" invoke="create" default-entity-name="CustRequestContent" auth="true">
         <description>Create a Customer Request Content</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="deleteCustRequestContent" engine="simple"
-        location="component://order/minilang/request/CustRequestServices.xml"
-        invoke="deleteCustRequestContent"
-        default-entity-name="CustRequestContent" auth="true">
-        <description>Update a Customer Request Content</description>
+    <service name="deleteCustRequestContent" engine="entity-auto" invoke="delete" default-entity-name="CustRequestContent" auth="true">
+        <description>Delete a Customer Request Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="expireCustRequestContent" engine="entity-auto" invoke="expire" default-entity-name="CustRequestContent" auth="true">
+        <description>Expire a Customer Request Content</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
