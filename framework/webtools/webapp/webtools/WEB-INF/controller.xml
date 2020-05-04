@@ -92,13 +92,11 @@ under the License.
         <response name="error" type="none"/>
     </request-map>
     <request-map uri="SOAPService">
-        <security https="false"/>
         <event type="soap"/>
         <response name="error" type="none"/>
         <response name="success" type="none"/>
     </request-map>
     <request-map uri="xmlrpc" track-serverhit="false" track-visit="false">
-        <security https="false"/>
         <event type="xmlrpc"/>
         <response name="error" type="none"/>
         <response name="success" type="none"/>
