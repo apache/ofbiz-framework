@@ -212,23 +212,6 @@ under the License.
             </then>
         </if>
     </simple-method>
-
-    <simple-method method-name="createCustRequestAttribute" short-description="Create Customer Request Attribute">
-        <make-value entity-name="CustRequestAttribute" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
-    </simple-method>
-    <simple-method method-name="updateCustRequestAttribute" short-description="Update Customer Request Attribute">
-        <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
-        <set from-field="parameters.attrName" field="lookupPKMap.attrName"/>
-        <find-by-primary-key entity-name="CustRequestAttribute" map="lookupPKMap" value-field="custRequestAttr"/>
-        <set-nonpk-fields map="parameters" value-field="custRequestAttr"/>
-        <store-value value-field="custRequestAttr"/>
-        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
-    </simple-method>
-
     <simple-method method-name="createCustRequestItem" short-description="Create Customer Request Item">
         <call-simple-method method-name="checkStatusCustRequest"/>
         <make-value entity-name="CustRequestItem" value-field="newEntity"/>
