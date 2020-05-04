@@ -152,17 +152,6 @@
         <set field="delRateAmount.fromDate" from-field="parameters.rateAmountFromDate"/>
         <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>
     </simple-method>
-
-    <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
-        <make-value entity-name="EmplLeave" value-field="newEntity"/>
-        <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <check-errors/>
-        <property-to-field resource="HumanResUiLabels" property="HumanResLeaveCreationSuccess" field="successMessage"/>
-        <field-to-result field="responseMessage" result-name="successMessage"/>
-    </simple-method>
-
     <simple-method method-name="getCurrentPartyEmploymentData" short-description="Get all current employment information for a certain partyId">
         <!-- party benefit -->
         <entity-and entity-name="BenefitTypeAndParty" list="partyBenefitTypes" filter-by-date="true">
