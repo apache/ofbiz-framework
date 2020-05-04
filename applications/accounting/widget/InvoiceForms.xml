@@ -628,7 +628,8 @@ under the License.
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="unlinkInvoiceFromTimeEntry" also-hidden="false">
                 <parameter param-name="timeEntryId"/>
-                <parameter param-name="invoiceId"/>
+                <parameter param-name="invoiceId" value="null"/>
+                <parameter param-name="invoiceItemSeqId" value="null"/>
                 <parameter param-name="viewIndex"/>
                 <parameter param-name="viewSize"/>
             </hyperlink>

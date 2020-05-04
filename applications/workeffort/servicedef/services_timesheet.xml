@@ -119,11 +119,11 @@ under the License.
     </service>
 
     <!-- TimeEntry Services -->
-    <service name="createTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
-        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimeEntry">
+    <service name="createTimeEntry" default-entity-name="TimeEntry" engine="entity-auto" auth="true" invoke="create">
         <description>Creates TimeEntry</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" default-value="${date:nowTimestamp()}"/>
     </service>
     <service name="updateTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="updateTimeEntry">
@@ -131,16 +131,9 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
-        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="deleteTimeEntry">
+    <service name="deleteTimeEntry" default-entity-name="TimeEntry" engine="entity-auto" auth="true" invoke="delete">
         <description>Deletes TimeEntry</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-    <service name="unlinkInvoiceFromTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
-        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="unlinkInvoiceFromTimeEntry">
-        <description>Deletes TimeEntry</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="invoiceId" type="String" mode="INOUT" optional="false"/>
     </service>
     <service name="getTimeEntryRate" default-entity-name="TimeEntry" engine="simple" auth="true"
         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="getTimeEntryRate">

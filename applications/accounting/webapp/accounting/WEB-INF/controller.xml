@@ -209,7 +209,7 @@ under the License.
     </request-map>
     <request-map uri="unlinkInvoiceFromTimeEntry">
         <security https="true" auth="true"/>
-        <event type="service" invoke="unlinkInvoiceFromTimeEntry"/>
+        <event type="service" invoke="updateTimeEntry"/>
         <response name="success" type="view" value="editInvoiceTimeEntries"/>
         <response name="error" type="view" value="editInvoiceTimeEntries"/>
     </request-map>
