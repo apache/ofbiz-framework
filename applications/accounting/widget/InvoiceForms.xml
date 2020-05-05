@@ -289,7 +289,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="2" name="partyIdFrom" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="2" name="partyIdFrom" required-field="true"><lookup target-form-name="LookupSupplier"/></field>
         <field position="1" name="createButton" widget-style="smallSubmit" title="${uiLabelMap.CommonCreate}">
             <submit button-type="button"/>
         </field>
