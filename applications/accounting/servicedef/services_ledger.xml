@@ -122,8 +122,7 @@ under the License.
     </service>
 
     <!-- GlReconciliation & Related -->
-    <service name="createGlReconciliation" default-entity-name="GlReconciliation" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createGlReconciliation" auth="true">
+    <service name="createGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="create" auth="true">
         <description>Create a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -132,9 +131,9 @@ under the License.
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
         <override name="glReconciliationName" optional="false"/>
+        <override name="statusId" default-value="GLREC_CREATED"/>
     </service>
-    <service name="updateGlReconciliation" default-entity-name="GlReconciliation" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="updateGlReconciliation" auth="true">
+    <service name="updateGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="update" auth="true">
         <description>Update a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
