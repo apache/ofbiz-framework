@@ -36,7 +36,7 @@ under the License.
         </field>
 
         <field use-when="&quot;ESR_RUNNING&quot;.equals(runStatusId)" name="resetStatus" title=" " widget-style="smallSubmit">
-            <hyperlink description="${uiLabelMap.WebtoolsSyncResetRunStatus}" target="resetEntitySyncStatusToNotStarted" also-hidden="false">
+            <hyperlink description="${uiLabelMap.WebtoolsSyncResetRunStatus}" target="resetEntitySyncStatus" also-hidden="false">
                 <parameter param-name="entitySyncId"/>
             </hyperlink>
         </field>

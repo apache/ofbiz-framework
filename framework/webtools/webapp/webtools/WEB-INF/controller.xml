@@ -487,9 +487,9 @@ under the License.
 
     <!-- EntitySync requests -->
     <request-map uri="EntitySyncStatus"><security https="true" auth="true"/><response name="success" type="view" value="EntitySyncStatus"/></request-map>
-    <request-map uri="resetEntitySyncStatusToNotStarted">
+    <request-map uri="resetEntitySyncStatus">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="resetEntitySyncStatusToNotStarted"/>
+        <event type="service" path="" invoke="resetEntitySyncStatus"/>
         <response name="success" type="view" value="EntitySyncStatus"/>
         <response name="error" type="view" value="EntitySyncStatus"/>
     </request-map>
