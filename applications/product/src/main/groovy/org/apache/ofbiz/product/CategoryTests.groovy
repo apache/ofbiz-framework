@@ -64,3 +64,4 @@ class CategoryTests extends OFBizTestCase {
     }
 
 }
+
