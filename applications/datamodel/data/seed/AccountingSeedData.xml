@@ -195,7 +195,8 @@ under the License.
     <RoleType description="Budget Roles Group (not to be assigned to parties)" roleTypeId="BUDGET" hasTable="Y" />
     <RoleType description="Budget Application" roleTypeId="BUDGET_APPL" parentTypeId="BUDGET" hasTable="N" />
     <RoleType description="Budget Manager" roleTypeId="BUDGET_MGR" parentTypeId="BUDGET" hasTable="N" />
-    <RoleType description="Budget Reviewer" roTeTypeId="BUDGET_RVR" parentTypeId="BUDGET" hasTable="N" />
+    <RoleType description="Budget Reviewer" roleTypeId="BUDGET_RVR" parentTypeId="BUDGET" hasTable="N" />
+    <RoleType description="Budget Approver" roleTypeId="BUDGET_APPRV" parentTypeId="BUDGET" hasTable="N" />
     
     <!-- Accounting component role types regarding Fixed Asset Maintenance party roles -->
     <RoleType description="Fixed Asset Maint Assignee" hasTable="N" roleTypeId="FAM_ASSIGNEE"/>
