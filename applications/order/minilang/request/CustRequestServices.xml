@@ -186,9 +186,7 @@ under the License.
                 </else>
             </if-not-empty>
         </if-not-empty>
-
     </simple-method>
-
     <simple-method method-name="checkStatusCustRequest" short-description="Check StatusId CustRequest">
         <entity-one entity-name="CustRequest" value-field="custRequest"></entity-one>
         <if-empty field="custRequest">

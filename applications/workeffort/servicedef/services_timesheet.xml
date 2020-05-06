@@ -117,7 +117,12 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-
+    <!-- checkTimeSheetStatus -->
+    <service name="checkTimesheetStatus" default-entity-name="TimeEntry" engine="simple"
+         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" auth="true" invoke="checkTimesheetStatus">
+        <description>Checks Timesheet status</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+    </service>
     <!-- TimeEntry Services -->
     <service name="createTimeEntry" default-entity-name="TimeEntry" engine="entity-auto" auth="true" invoke="create">
         <description>Creates TimeEntry</description>
