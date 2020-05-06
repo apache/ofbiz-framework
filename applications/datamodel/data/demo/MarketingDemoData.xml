@@ -61,9 +61,9 @@ under the License.
 
     <!-- demo contacts -->
     <Party partyId="DemoCustomer1" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoCustomer1" roleTypeId="CONTACT"/>
-    <PartyStatus partyId="DemoCustomer1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="sfa100" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer1" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRole partyId="DemoContact1" roleTypeId="CONTACT"/>
+    <PartyStatus partyId="DemoContact1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="sfa100" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoContact1" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     <Party partyId="DemoCustomer2" statusId="PARTY_ENABLED"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="CONTACT"/>
     <PartyStatus partyId="DemoCustomer2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>

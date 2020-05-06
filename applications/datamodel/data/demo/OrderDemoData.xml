@@ -139,21 +139,7 @@ under the License.
     <UserLogin userLoginId="supplier" partyId="externaluser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLoginSecurityGroup groupId="ORDERSUPPLIER_LTD" userLoginId="supplier" fromDate="2001-01-01 12:00:00.0"/>
 
-    <Party partyId="DemoCustomer"/>
-    <Party partyId="DemoCustAgent"/>
-    <Party partyId="DemoCustomer2"/>
-    <ProductStore productStoreId="9000"/>
-    <CustRequest custRequestId="9000" custRequestDate="2008-07-28 09:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer" priority="9" custRequestName="Customer Request Usage" description="Could you please advise us how to use the customer request facility within ofbiz?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
-    <CustRequestItem custRequestId="9000" custRequestItemSeqId="00001" story="This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request."/>
-    <CustRequest custRequestId="9001" custRequestDate="2008-07-21 11:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustAgent" priority="9" custRequestName="Hardware?" description="Please provide us with the hardware requirements of OFBiz" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
-    <CustRequest custRequestId="9002" custRequestDate="2008-07-19 18:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer2" priority="9" custRequestName="Customer Same company" description="This will contain a request from the same company?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
-    <!-- Employees assigned to handle these incoming customer requests-->
-    <CustRequestType custRequestTypeId="RF_SUPPORT" partyId="Company"/>
-    <PartyRole partyId="admin" roleTypeId="REQ_TAKER"/>
-    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="admin" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/><!-- so admin can hadle incoming cust request 'support' types -->
-    <PartyRole partyId="DemoEmployee" roleTypeId="REQ_TAKER"/>
-    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoEmployee" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/><!-- so DemoEmployee can hadle incoming cust request 'support' types -->
-
+    
     <!-- Order Quote Demo Data -->
     <Product productId="GZ-1000" productTypeId="FINISHED_GOOD" productName="Tiny Gizmo" internalName="Tiny Gizmo" description="The smallest gizmo in town." longDescription="This gizmo is very small and runs on solar power." isVirtual="N" isVariant="N"/>
     <ProductPrice currencyUomId="USD" fromDate="2000-01-01 00:00:00.0" price="8.900" productId="GZ-1000" productPricePurposeId="PURCHASE" productPriceTypeId="AVERAGE_COST" productStoreGroupId="_NA_" taxInPrice="Y"/>
@@ -2246,113 +2232,11 @@ under the License.
     <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.000" partyTaxId="12-3456789" isExempt="Y"/>
     <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.000" partyTaxId="98-7654321" isExempt="N"/>
 
-    <!-- DemoCustAgent -->
-    <Party partyId="DemoCustAgent" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="DemoCustAgent" firstName="Demo" lastName="Agent"/>
-    <UserLogin partyId="DemoCustAgent" userLoginId="DemoCustAgent"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
-    <PartyStatus partyId="DemoCustAgent" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <ContactMech contactMechId="9011" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9011" toName="Demo Customer Agent" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
-    <PartyContactMech partyId="DemoCustAgent" contactMechId="9011" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="9022" contactMechTypeId="TELECOM_NUMBER"/>
-    <TelecomNumber contactMechId="9022" areaCode="801" contactNumber="555-5555"/>
-    <PartyContactMech partyId="DemoCustAgent" contactMechId="9022" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9022" contactMechPurposeTypeId="PHONE_WORK" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="9023" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
-    <PartyContactMech partyId="DemoCustAgent" contactMechId="9023" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9023" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
-
-    <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="AGENT"
-                       fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="AGENT" comments="Allows the DemoCustAgent to purchase on behalf of DemoCustCompany, ie purchase against BillingAccount"/>
-    <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_"
-                       fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="GROUP_ROLLUP" comments="Specifies the DemoCustAgent is a member of the DemoCustCompany, for Price Rules, Promos, etc"/>
-
-    <!-- DemoCustomer -->
-    <Party partyId="DemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="DemoCustomer" firstName="Demo" lastName="Customer"/>
-    <UserLogin partyId="DemoCustomer" userLoginId="DemoCustomer"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyStatus partyId="DemoCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyGeoPoint partyId="DemoCustomer" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
-
-    <ContactMech contactMechId="9015" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
-    <PartyContactMech partyId="DemoCustomer" contactMechId="9015" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="9025" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMech contactMechId="9027" contactMechTypeId="TELECOM_NUMBER"/>
-    <TelecomNumber contactMechId="9025" countryCode="1" areaCode="801" contactNumber="555-5555"/>
-    <TelecomNumber contactMechId="9027" countryCode="1" areaCode="801" contactNumber="444-4444"/>
-    <PartyContactMech partyId="DemoCustomer" contactMechId="9025" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y" extension="222"/>
-    <PartyContactMech partyId="DemoCustomer" contactMechId="9027" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y" extension="212"/>
-    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9025" contactMechPurposeTypeId="PHONE_HOME" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9025" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9027" contactMechPurposeTypeId="PHONE_BILLING" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="9026" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
-    <PartyContactMech partyId="DemoCustomer" contactMechId="9026" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9026" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
-
     <PaymentMethod paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" partyId="DemoCustomer" fromDate="2001-05-13 00:00:00.000"/>
     <CreditCard paymentMethodId="9015" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" firstNameOnCard="DEMO" lastNameOnCard="CUSTOMER" contactMechId="9015"/>
 
-    <!-- EuroCustomer want invoices in euro and be located in Amsterdam -->
-    <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
-    <Person partyId="EuroCustomer" firstName="Euro" lastName="Customer"/>
-    <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer"/>
-    <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2009-01-09 00:00:00.000"/>
-
-    <ContactMech contactMechId="EUROCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="EUROCUSTOMER" toName="Euro Customer" address1="Prinsengracht 3" city="Amsterdam" postalCode="1000BD" countryGeoId="NLD" geoPointId="9001"/>
-    <PartyContactMech partyId="EuroCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMech partyId="EuroCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="EURO01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
-    <PartyContactMech partyId="EuroCustomer" contactMechId="EURO01" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EURO01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
-
     <PaymentMethod paymentMethodId="EUROCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="EuroCustomer" fromDate="2001-05-13 00:00:00.000"/>
     <CreditCard paymentMethodId="EUROCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" firstNameOnCard="EURO" lastNameOnCard="CUSTOMER" contactMechId="EUROCUSTOMER"/>
-
-    <!-- FrenchCustomer want invoices in euro and be located in Poussan -->
-    <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
-    <Person partyId="FrenchCustomer" firstName="French" lastName="Customer"/>
-    <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer"/>
-    <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyStatus partyId="FrenchCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyGeoPoint partyId="FrenchCustomer" geoPointId="9002" fromDate="2009-01-09 00:00:00.000"/>
-
-    <ContactMech contactMechId="FRENCHCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="FRENCHCUSTOMER" toName="French Customer" address1="400 E Chemin de la Mouline" city="Poussan" postalCode="34560" countryGeoId="FRA" geoPointId="9002"/>
-    <PartyContactMech partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
-    <PartyContactMech partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
-    <ContactMech contactMechId="FRA01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
-    <PartyContactMech partyId="FrenchCustomer" contactMechId="FRA01" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRA01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2009-01-09 00:00:00.000"/>
 
     <PaymentMethod paymentMethodId="FRENCHCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="FrenchCustomer" fromDate="2009-01-09 00:00:00.000"/>
     <CreditCard paymentMethodId="FRENCHCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2020" firstNameOnCard="FRENCH" lastNameOnCard="CUSTOMER" contactMechId="FRENCHCUSTOMER"/>

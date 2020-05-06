@@ -59,24 +59,537 @@ under the License.
     <SecurityGroup groupName="Security Admin" description="Security Admin group, has all permissions to modify security settings in party manager." groupId="SECURITYADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SECURITYADMIN" permissionId="SECURITY_ADMIN"/>
 
-    <!-- allow admin and demo employee to read company EMail -->
-    <Party partyId="admin" statusId="PARTY_ENABLED"/>
-    <Party partyId="Company" statusId="PARTY_ENABLED"/>
-    <Party partyId="DemoEmployee" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
+    <!-- Party partyId="Company" == The main Company Internal Organization -->
+    <Party partyId="Company" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="Company" groupName="Your Company Name Here" logoImageUrl="/images/ofbiz_logo.png"/>
+    <PartyRole partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
+    <PartyRole partyId="Company" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="Company" roleTypeId="ACCOUNT"/>
     <PartyRole partyId="Company" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoEmployee" roleTypeId="EMAIL_ADMIN"/>
-    <PartyStatus partyId="admin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyStatus partyId="Company" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
-    <PartyRelationship partyIdFrom="DemoEmployee" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
+    <ContactMech contactMechId="9000" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PartyContactMech partyId="Company" contactMechId="9000" fromDate="2000-01-01 00:00:00.000" allowSolicitation="Y"/>
+    <PostalAddress contactMechId="9000" toName="Company XYZ" address1="2003 Open Blvd" city="Open City" postalCode="999999" countryGeoId="USA" stateProvinceGeoId="CA" geoPointId="9000"/>
+    <ContactMech contactMechId="Company" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="Company" contactMechId="Company" fromDate="2000-01-01 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="Company" contactMechId="Company" fromDate="2003-01-01 00:00:00.000"/>
+    <ContactMech contactMechId="CompanySupport" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizsupport@example.com"/>
+    <PartyContactMech partyId="Company" contactMechId="CompanySupport" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="SUPPORT_EMAIL" partyId="Company" contactMechId="CompanySupport" fromDate="2003-01-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyGeoPoint partyId="Company" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
 
+    <!-- Party partyId="admin" is a special party.  -->
+    <Party partyId="admin" statusId="PARTY_ENABLED"/>
+    <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
+    <PartyStatus partyId="admin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <ContactMech contactMechId="admin" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
     <PartyContactMech partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
     <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0"/>
+    <!-- make admin an employee of Company -->
+    <PartyRole partyId="admin" roleTypeId="CONTACT"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="ACCOUNT" partyIdTo="admin" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    
+    <!-- Sub-Organizations -->
+    <Party partyId="MARKETING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="MARKETING" groupName="Marketing department"/>
+    <PartyRole partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="MARKETING" roleTypeId="_NA_"/>
+    <PartyStatus partyId="MARKETING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="MARKETING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
-    <!-- Party Identification numbers-->
+    <Party partyId="ACCOUNTING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="ACCOUNTING" groupName="Accounting department"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="_NA_"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="ACCOUNTING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="SALES" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="SALES" groupName="Sales department"/>
+    <PartyRole partyId="SALES" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="SALES" roleTypeId="_NA_"/>
+    <PartyStatus partyId="SALES" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="DEV" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="DEV" groupName="Development department"/>
+    <PartyRole partyId="DEV" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="DEV" roleTypeId="_NA_"/>
+    <PartyStatus partyId="DEV" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="DEV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="TESTING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="TESTING" groupName="Testing department"/>
+    <PartyRole partyId="TESTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="TESTING" roleTypeId="_NA_"/>
+    <PartyStatus partyId="TESTING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="TESTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Development Teams -->
+    <Party partyId="DevTeam1" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="DevTeam1" groupName="Development Team1"/>
+    <PartyRole partyId="DevTeam1" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="DevTeam1" roleTypeId="_NA_"/>
+    <PartyStatus partyId="DevTeam1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="DevTeam2" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="DevTeam2" groupName="Development Team2"/>
+    <PartyRole partyId="DevTeam2" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="DevTeam2" roleTypeId="_NA_"/>
+    <PartyStatus partyId="DevTeam2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="DevTeam3" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="DevTeam3" groupName="Development Team3"/>
+    <PartyRole partyId="DevTeam3" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="DevTeam3" roleTypeId="_NA_"/>
+    <PartyStatus partyId="DevTeam3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam3" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="DevTeam4" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="DevTeam4" groupName="Development Team4"/>
+    <PartyRole partyId="DevTeam4" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="DevTeam4" roleTypeId="_NA_"/>
+    <PartyStatus partyId="DevTeam4" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam4" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Testing Teams-->
+    <Party partyId="TestingTeam1" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="TestingTeam1" groupName="Testing Team1"/>
+    <PartyRole partyId="TestingTeam1" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="TestingTeam1" roleTypeId="_NA_"/>
+    <PartyStatus partyId="TestingTeam1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="TESTING" partyIdTo="TestingTeam1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="TestingTeam2" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="TestingTeam2" groupName="Testing Team2"/>
+    <PartyRole partyId="TestingTeam2" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="TestingTeam2" roleTypeId="_NA_"/>
+    <PartyStatus partyId="TestingTeam2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="TESTING" partyIdTo="TestingTeam2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!--Team Members -->
+    <Party partyId="Developer1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="Developer1" firstName="Developer1"/>
+    <PartyRole partyId="Developer1" roleTypeId="_NA_"/>
+    <PartyRole partyId="Developer1" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="Developer1" roleTypeId="MANAGER"/>
+    <PartyStatus partyId="Developer1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="Developer1" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
+                       fromDate="2001-05-02 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DevTeam1" partyIdTo="Developer1" partyRelationshipTypeId="MANAGER" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="MANAGER"
+                       fromDate="2001-05-02 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DevTeam1" partyIdTo="Developer1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="_NA_"
+                       fromDate="2001-05-02 00:00:00.000"/>
+
+    <Party partyId="Developer2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="Developer2" firstName="Developer2"/>
+    <PartyRole partyId="Developer2" roleTypeId="_NA_"/>
+    <PartyRole partyId="Developer2" roleTypeId="EMPLOYEE"/>
+    <PartyStatus partyId="Developer2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="Developer2" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
+                       fromDate="2001-05-02 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DevTeam1" partyIdTo="Developer2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="_NA_"
+                       fromDate="2001-05-02 00:00:00.000"/>
+
+    <Party partyId="Developer3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="Developer3" firstName="Developer3"/>
+    <PartyRole partyId="Developer3" roleTypeId="_NA_"/>
+    <PartyRole partyId="Developer3" roleTypeId="EMPLOYEE"/>
+    <PartyStatus partyId="Developer3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="Developer3" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
+                       fromDate="2001-05-02 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DevTeam1" partyIdTo="Developer3" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="_NA_"
+                       fromDate="2001-05-02 00:00:00.000"/>
+
+    <Party partyId="TestingTeamMember1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="TestingTeamMember1" firstName="TestingTeamMember1"/>
+    <PartyRole partyId="TestingTeamMember1" roleTypeId="_NA_"/>
+    <PartyRole partyId="TestingTeamMember1" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="TestingTeamMember1" roleTypeId="MANAGER"/>
+    <PartyStatus partyId="TestingTeamMember1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="TestingTeamMember1" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
+                       fromDate="2001-05-02 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="TestingTeam1" partyIdTo="TestingTeamMember1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="_NA_"
+                       fromDate="2001-05-02 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="TestingTeam1" partyIdTo="TestingTeamMember1" partyRelationshipTypeId="MANAGER" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="MANAGER"
+                       fromDate="2001-05-02 00:00:00.000"/>
+
+    <Party partyId="TestingTeamMember2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="TestingTeamMember2" firstName="TestingTeamMember2"/>
+    <PartyRole partyId="TestingTeamMember2" roleTypeId="_NA_"/>
+    <PartyRole partyId="TestingTeamMember2" roleTypeId="EMPLOYEE"/>
+    <PartyStatus partyId="TestingTeamMember2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="TestingTeamMember2" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
+                       fromDate="2001-05-02 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="TestingTeam1" partyIdTo="TestingTeamMember2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="_NA_"
+                       fromDate="2001-05-02 00:00:00.000"/>
+
+    <Party partyId="TestingTeamMember3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="TestingTeamMember3" firstName="TestingTeamMember3"/>
+    <PartyRole partyId="TestingTeamMember3" roleTypeId="_NA_"/>
+    <PartyRole partyId="TestingTeamMember3" roleTypeId="EMPLOYEE"/>
+    <PartyStatus partyId="TestingTeamMember3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="TestingTeamMember3" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
+                       fromDate="2001-05-02 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="TestingTeam1" partyIdTo="TestingTeamMember3" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="_NA_"
+                       fromDate="2001-05-02 00:00:00.000"/>
+
+    <Party partyId="DemoEmployee" statusId="PARTY_ENABLED"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="EMAIL_ADMIN"/>
+    <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="DemoEmployee" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
+
+    <!-- email from an unknown party -->
+    <CommunicationEvent communicationEventId="9000" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_UNKNOWN_PARTY" contactMechTypeId="EMAIL_ADDRESS" contactMechIdTo="admin" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" partyIdTo="admin" entryDate="2008-07-28 13:55:55.827" datetimeStarted="2008-07-28 13:55:19.0" subject="Why i would use the OFBiz system" contentMimeTypeId="text/plain" content="Every time i think of you, only you...you are always on my mind......." note="Sent from: my@email.com; Sent Name from: Jo Easy User; Sent to: ofbiztest@example.com; Delivered-To: ofbiztest@example.com; " fromString="mailinglist@example.com" toString="ofbiztest@example.com"/>
+    <PartyRole partyId="admin" roleTypeId="ADDRESSEE"/>
+    <CommunicationEventRole communicationEventId="9000" partyId="admin" roleTypeId="ADDRESSEE" contactMechId="admin" statusId="COM_ROLE_CREATED"/>
+
+    <!-- new registration notification -->
+    <EmailTemplateSetting emailTemplateSettingId="PARTY_REGISTER" bodyScreenLocation="component://party/widget/partymgr/PartyScreens.xml#CreateUserNotification" subject="New Account Created" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
+
+    <!-- Auditor demo data -->
+    <SecurityGroup groupName="Auditor" description="Auditors group, having only VIEW permissions." groupId="AUDITOR"/>
+    <Party partyId="DemoAuditor" statusId="PARTY_ENABLED" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="DemoAuditor" groupName="Demo Auditor"/>
+    <UserLogin userLoginId="auditor" partyId="DemoAuditor" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="auditor" fromDate="2001-01-01 12:00:00.0"/>
+
+    <!-- An Enterprise Internal Organization -->
+
+    <Party partyId="Enterprise" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="Enterprise" groupName="Large Enterprise, Inc." logoImageUrl="/images/ofbiz_logo.png"/>
+    <PartyRole partyId="Enterprise" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="Enterprise" roleTypeId="PARENT_ORGANIZATION"/>
+    <PartyStatus partyId="Enterprise" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <!-- Top tier divisions -->
+
+    <Party partyId="bu_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="bu_div" groupName="Business Unit Division"/>
+    <PartyRole partyId="bu_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="bu_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="bu_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Enterprise" partyIdTo="bu_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="md_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="md_div" groupName="Market Development Division"/>
+    <PartyRole partyId="md_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="md_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="md_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Enterprise" partyIdTo="md_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="cf_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="cf_div" groupName="Corporate Functions Division"/>
+    <PartyRole partyId="cf_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="cf_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="cf_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Enterprise" partyIdTo="cf_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Business unit divisions -->
+
+    <Party partyId="gizmo_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="gizmo_div" groupName="Gizmo Business Unit"/>
+    <PartyRole partyId="gizmo_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="gizmo_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="gizmo_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="bu_div" partyIdTo="gizmo_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="widget_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="widget_div" groupName="Widget Business Unit"/>
+    <PartyRole partyId="widget_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="widget_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="widget_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="bu_div" partyIdTo="widget_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Market development divisions -->
+
+    <Party partyId="na_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="na_div" groupName="North America"/>
+    <PartyRole partyId="na_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="na_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="na_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="md_div" partyIdTo="na_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="sa_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="sa_div" groupName="Central and South America"/>
+    <PartyRole partyId="sa_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="sa_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="sa_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="md_div" partyIdTo="sa_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="we_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="we_div" groupName="Western Europe"/>
+    <PartyRole partyId="we_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="we_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="we_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="md_div" partyIdTo="we_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="asia_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="asia_div" groupName="Asia"/>
+    <PartyRole partyId="asia_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="asia_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="asia_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="md_div" partyIdTo="asia_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="anz_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="anz_div" groupName="Australia and New Zealand"/>
+    <PartyRole partyId="anz_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="anz_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="anz_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="md_div" partyIdTo="anz_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="india_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="india_div" groupName="India"/>
+    <PartyRole partyId="india_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="india_div" roleTypeId="DIVISION"/>
+    <PartyStatus partyId="india_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="md_div" partyIdTo="india_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Business Unit departments -->
+
+    <Party partyId="RECEIVING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="RECEIVING" groupName="Receiving Department"/>
+    <PartyRole partyId="RECEIVING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="RECEIVING" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="RECEIVING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="RECEIVING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="widget_div" partyIdTo="RECEIVING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="PRODUCTION" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="PRODUCTION" groupName="Production Department"/>
+    <PartyRole partyId="PRODUCTION" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="PRODUCTION" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="PRODUCTION" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="PRODUCTION" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="widget_div" partyIdTo="PRODUCTION" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="SHIPPING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="SHIPPING" groupName="Shipping Department"/>
+    <PartyRole partyId="SHIPPING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="SHIPPING" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="SHIPPING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="SHIPPING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="widget_div" partyIdTo="SHIPPING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="MAINTENANCE" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="MAINTENANCE" groupName="Maintenance Department"/>
+    <PartyRole partyId="MAINTENANCE" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="MAINTENANCE" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="MAINTENANCE" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="MAINTENANCE" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="widget_div" partyIdTo="MAINTENANCE" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Corporate Functions departments -->
+
+    <Party partyId="LEGAL" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="LEGAL" groupName="Legal Department"/>
+    <PartyRole partyId="LEGAL" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="LEGAL" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="LEGAL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="cf_div" partyIdTo="LEGAL" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="PUBLIC_REL" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="PUBLIC_REL" groupName="Public Relations"/>
+    <PartyRole partyId="PUBLIC_REL" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="PUBLIC_REL" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="PUBLIC_REL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="cf_div" partyIdTo="PUBLIC_REL" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="HUMAN_RES" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="HUMAN_RES" groupName="Human Resources"/>
+    <PartyRole partyId="HUMAN_RES" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="HUMAN_RES" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="HUMAN_RES" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="cf_div" partyIdTo="HUMAN_RES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="INFO_TECH" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="INFO_TECH" groupName="Information Technology"/>
+    <PartyRole partyId="INFO_TECH" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="INFO_TECH" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="INFO_TECH" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="cf_div" partyIdTo="INFO_TECH" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="R_AND_D" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="R_AND_D" groupName="Research and Development"/>
+    <PartyRole partyId="R_AND_D" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="R_AND_D" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="R_AND_D" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="cf_div" partyIdTo="R_AND_D" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <Party partyId="LOGISTICS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="LOGISTICS" groupName="Logistics"/>
+    <PartyRole partyId="LOGISTICS" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="LOGISTICS" roleTypeId="DEPARTMENT"/>
+    <PartyStatus partyId="LOGISTICS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="cf_div" partyIdTo="LOGISTICS" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <PartyRelationship partyIdFrom="cf_div" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- demo data regarding external parties (external to the internal organisation -->
+    <!-- this set includes customers, and their representatives (contacts, leads, etc.) -->
+    <!-- this set includes suppliers, and their representatives (supplier agenst, supplier contacts, etc.)-->
+
+    <!-- Party partyId="EuroCustomer" -->
+    <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
+    <Person partyId="EuroCustomer" firstName="Demo " lastName="EuroCustomer"/>
+    <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2009-01-09 00:00:00.000"/>
+
+    <ContactMech contactMechId="EUROCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="EUROCUSTOMER" toName="Euro Customer" address1="Prinsengracht 3" city="Amsterdam" postalCode="1000BD" countryGeoId="NLD" geoPointId="9001"/>
+    <PartyContactMech partyId="EuroCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMech partyId="EuroCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <ContactMech contactMechId="EURO01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="EuroCustomer" contactMechId="EURO01" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EURO01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+
+
+    <!-- Party partyId="DemoCustCompany" -->
+    <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="DemoCustCompany" groupName="Demo Customer Company"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
+    <UserLogin partyId="DemoCustCompany" userLoginId="DemoCustCompany"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyStatus partyId="DemoCustCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <ContactMech contactMechId="9010" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
+    <PartyContactMech partyId="DemoCustCompany" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <ContactMech contactMechId="9014" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9014" toName="Demo Customer Company" address1="1234 Commerce Way" city="Los Angeles" stateProvinceGeoId="CA" postalCode="90010" countryGeoId="USA"/>
+    <PartyContactMech partyId="DemoCustCompany" contactMechId="9014" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+
+    <ContactMech contactMechId="9020" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9020" areaCode="801" contactNumber="555-5555"/>
+    <PartyContactMech partyId="DemoCustCompany" contactMechId="9020" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9020" contactMechPurposeTypeId="PHONE_WORK" fromDate="2001-05-13 00:00:00.000"/>
+    <ContactMech contactMechId="9021" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="DemoCustCompany" contactMechId="9021" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9021" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Party partyId="DemoCustAgent" -->
+    <Party partyId="DemoCustAgent" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoCustAgent" firstName="Demo" lastName="Customer Agent"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
+    <UserLogin partyId="DemoCustAgent" userLoginId="DemoCustAgent"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="SALES_REP"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="CONTACT"/>
+    <PartyStatus partyId="DemoCustAgent" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContactMech contactMechId="9011" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9011" toName="Demo Customer Agent" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
+    <PartyContactMech partyId="DemoCustAgent" contactMechId="9011" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <ContactMech contactMechId="9022" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9022" areaCode="801" contactNumber="555-5555"/>
+    <PartyContactMech partyId="DemoCustAgent" contactMechId="9022" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9022" contactMechPurposeTypeId="PHONE_WORK" fromDate="2001-05-13 00:00:00.000"/>
+    <ContactMech contactMechId="9023" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="DemoCustAgent" contactMechId="9023" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9023" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+
+    <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="AGENT"
+                       fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="AGENT" comments="Allows the DemoCustAgent to purchase on behalf of DemoCustCompany, ie purchase against BillingAccount"/>
+    <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_"
+                       fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="GROUP_ROLLUP" comments="Specifies the DemoCustAgent is a member of the DemoCustCompany, for Price Rules, Promos, etc"/>
+
+    <!-- Party partyId="DemoCustomer" -->
+    <Party partyId="DemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoCustomer" firstName="Demo" lastName="Customer"/>
+    <UserLogin partyId="DemoCustomer" userLoginId="DemoCustomer"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyStatus partyId="DemoCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyGeoPoint partyId="DemoCustomer" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+
+    <ContactMech contactMechId="9015" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
+    <PartyContactMech partyId="DemoCustomer" contactMechId="9015" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <ContactMech contactMechId="9025" contactMechTypeId="TELECOM_NUMBER"/>
+    <ContactMech contactMechId="9027" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9025" countryCode="1" areaCode="801" contactNumber="555-5555"/>
+    <TelecomNumber contactMechId="9027" countryCode="1" areaCode="801" contactNumber="444-4444"/>
+    <PartyContactMech partyId="DemoCustomer" contactMechId="9025" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y" extension="222"/>
+    <PartyContactMech partyId="DemoCustomer" contactMechId="9027" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y" extension="212"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9025" contactMechPurposeTypeId="PHONE_HOME" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9025" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9027" contactMechPurposeTypeId="PHONE_BILLING" fromDate="2001-05-13 00:00:00.000"/>
+    <ContactMech contactMechId="9026" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="DemoCustomer" contactMechId="9026" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9026" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+    
+    <PartyIdentification partyId="DemoCustomer" partyIdentificationTypeId="INVOICE_EXPORT" idValue="DemoCustomer2"/>
+
+    <!-- Party partyId="DemoCustomer2 -->
+    <Party partyId="DemoCustomer2"/>
+    <ProductStore productStoreId="9000"/>
+    <CustRequest custRequestId="9000" custRequestDate="2008-07-28 09:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer" priority="9" custRequestName="Customer Request Usage" description="Could you please advise us how to use the customer request facility within ofbiz?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
+    <CustRequestItem custRequestId="9000" custRequestItemSeqId="00001" story="This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request."/>
+    <CustRequest custRequestId="9001" custRequestDate="2008-07-21 11:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustAgent" priority="9" custRequestName="Hardware?" description="Please provide us with the hardware requirements of OFBiz" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
+    <CustRequest custRequestId="9002" custRequestDate="2008-07-19 18:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer2" priority="9" custRequestName="Customer Same company" description="This will contain a request from the same company?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
+    <!-- Employees assigned to handle these incoming customer requests-->
+    <CustRequestType custRequestTypeId="RF_SUPPORT" partyId="Company"/>
+    <PartyRole partyId="admin" roleTypeId="REQ_TAKER"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="admin" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/><!-- so admin can hadle incoming cust request 'support' types -->
+    <PartyRole partyId="DemoEmployee" roleTypeId="REQ_TAKER"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoEmployee" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/><!-- so DemoEmployee can hadle incoming cust request 'support' types -->
+
+    <!-- FrenchCustomer want invoices in euro and be located in Poussan -->
+    <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
+    <Person partyId="FrenchCustomer" firstName="French" lastName="Customer"/>
+    <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer"/>
+    <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyStatus partyId="FrenchCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyGeoPoint partyId="FrenchCustomer" geoPointId="9002" fromDate="2009-01-09 00:00:00.000"/>
+
+    <ContactMech contactMechId="FRENCHCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="FRENCHCUSTOMER" toName="French Customer" address1="400 E Chemin de la Mouline" city="Poussan" postalCode="34560" countryGeoId="FRA" geoPointId="9002"/>
+    <PartyContactMech partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+    <PartyContactMech partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+    <ContactMech contactMechId="FRA01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="FrenchCustomer" contactMechId="FRA01" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRA01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2009-01-09 00:00:00.000"/>
+
+    <!-- Party partyId="DemoSupplier"-->
     <Party partyId="DemoSupplier" statusId="PARTY_ENABLED" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="DemoSupplier" groupName="Demo Supplier"/>
     <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT"/>
@@ -96,26 +609,15 @@ under the License.
     <PartyIdentificationType partyIdentificationTypeId="SIRET" description="French company identification number (SIRET)"/>
     <PartyIdentification partyId="DemoSupplier" partyIdentificationTypeId="SIRET" idValue="1234 5678 90123"/>
 
-    <Party partyId="AcctBigSupplier"/>
+    <Party partyId="AcctBuyer" partyTypeId="PERSON"/>
+    <Person partyId="AcctBuyer" firstName="Acct" lastName="Buyer"/>
+    <PartyRole partyId="AcctBuyer" roleTypeId="BUYER"/>
+    <UserLogin partyId="AcctBuyer" userLoginId="AcctBuyer"/>
+    <SecurityGroup groupId="ORDERPURCH"/><!-- is needed because accounting is before order -->
+    <UserLoginSecurityGroup userLoginId="AcctBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
 
-    <!-- email from an unknown party -->
-    <CommunicationEvent communicationEventId="9000" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_UNKNOWN_PARTY" contactMechTypeId="EMAIL_ADDRESS" contactMechIdTo="admin" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" partyIdTo="admin" entryDate="2008-07-28 13:55:55.827" datetimeStarted="2008-07-28 13:55:19.0" subject="Why i would use the OFBiz system" contentMimeTypeId="text/plain" content="Every time i think of you, only you...you are always on my mind......." note="Sent from: my@email.com; Sent Name from: Jo Easy User; Sent to: ofbiztest@example.com; Delivered-To: ofbiztest@example.com; " fromString="mailinglist@example.com" toString="ofbiztest@example.com"/>
-    <PartyRole partyId="admin" roleTypeId="ADDRESSEE"/>
-    <CommunicationEventRole communicationEventId="9000" partyId="admin" roleTypeId="ADDRESSEE" contactMechId="admin" statusId="COM_ROLE_CREATED"/>
+    <Party partyId="AcctBigSupplier" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="AcctBigSupplier" groupName="Acct Big Supplier"/>
+    <PartyRole partyId="AcctBigSupplier" roleTypeId="SUPPLIER"/>
 
-    <!-- new registration notification -->
-    <EmailTemplateSetting emailTemplateSettingId="PARTY_REGISTER" bodyScreenLocation="component://party/widget/partymgr/PartyScreens.xml#CreateUserNotification" subject="New Account Created" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
-
-    <!-- make admin an employee of Company -->
-    <PartyRole partyId="admin" roleTypeId="CONTACT"/>
-    <PartyRole partyId="Company" roleTypeId="ACCOUNT"/>
-    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="ACCOUNT" partyIdTo="admin" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
-    
-    <!-- Auditor demo data -->
-    <SecurityGroup groupName="Auditor" description="Auditors group, having only VIEW permissions." groupId="AUDITOR"/>
-    <Party partyId="DemoAuditor" statusId="PARTY_ENABLED" partyTypeId="PARTY_GROUP"/>
-    <PartyGroup partyId="DemoAuditor" groupName="Demo Auditor"/>
-    <UserLogin userLoginId="auditor" partyId="DemoAuditor" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
-    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="auditor" fromDate="2001-01-01 12:00:00.0"/>
-    
 </entity-engine-xml>
