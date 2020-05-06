@@ -48,9 +48,9 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateCalendarWeek" engine="simple" default-entity-name="TechDataCalendarWeek"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="updateCalendarWeek">
+    <service name="updateCalendarWeek" engine="entity-auto" default-entity-name="TechDataCalendarWeek" invoke="update">
         <description>Update a Calendar Week</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
