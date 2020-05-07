@@ -497,7 +497,19 @@ under the License.
         <condition field-name="statusId" operator="equals" value="ALLOC_PLAN_CANCELLED"/>
         <action service="cancelAllocationPlanItems" mode="sync"/>
     </eca>
-
+    <!-- CustRequestItem eca -->
+    <eca service="createCustRequestItem" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="updateCustRequestItem" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="createCustRequestItem" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="updateCustRequestItem" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
     <!-- CustRequestParty eca -->
     <eca service="createCustRequestParty" event="invoke">
         <action service="checkStatusCustRequest" mode="sync"/>

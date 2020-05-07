@@ -210,31 +210,6 @@ under the License.
             </then>
         </if>
     </simple-method>
-    <simple-method method-name="createCustRequestItem" short-description="Create Customer Request Item">
-        <call-simple-method method-name="checkStatusCustRequest"/>
-        <make-value entity-name="CustRequestItem" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="parameters.custRequestItemSeqId">
-            <make-next-seq-id value-field="newEntity" seq-field-name="custRequestItemSeqId"/>
-        </if-empty>
-        <if-empty field="parameters.statusId">
-            <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-        <field-to-result field="newEntity.custRequestId" result-name="custRequestId"/>
-        <field-to-result field="newEntity.custRequestItemSeqId" result-name="custRequestItemSeqId"/>
-        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
-    </simple-method>
-    <simple-method method-name="updateCustRequestItem" short-description="Update Customer Request Item">
-        <call-simple-method method-name="checkStatusCustRequest"/>        
-        <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
-        <set from-field="parameters.custRequestItemSeqId" field="lookupPKMap.custRequestItemSeqId"/>
-        <find-by-primary-key entity-name="CustRequestItem" map="lookupPKMap" value-field="custRequestItem"/>
-        <set-nonpk-fields map="parameters" value-field="custRequestItem"/>
-        <store-value value-field="custRequestItem"/>
-        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
-    </simple-method>
     <simple-method method-name="createCustRequestNote" short-description="Create Customer Request Note">
         <make-value entity-name="CustRequestNote" value-field="newEntity"/>
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
