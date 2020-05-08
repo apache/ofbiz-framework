@@ -2005,18 +2005,18 @@ under the License.
                 currencyUomId="USD" organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="111100" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="SC_CHECKING" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
     <PaymentMethod paymentMethodId="SC_CHECKING" paymentMethodTypeId="COMPANY_CHECK"  partyId="Company" description="Checking Account at Standard Chartered Bank" glAccountId="111100" finAccountId="SC_CHECKING" fromDate="2009-04-01 00:00:00.000"/>
-    <EftAccount paymentMethodId="SC_CHECKING" nameOnAccount="Company" bankName="Standard Chartered Bank" routingNumber="307075259" accountType="Checking" accountNumber="316253011064226" contactMechId="9000" />
+    <EftAccount paymentMethodId="SC_CHECKING" nameOnAccount="Company" bankName="Standard Chartered Bank" routingNumber="307075259" accountType="Checking" accountNumber="316253011064226" contactMechId="COMPANY_POST" />
     <FinAccount finAccountId="ABN_CHECKING" finAccountTypeId="BANK_ACCOUNT" statusId="FNACT_ACTIVE" finAccountName="ABN AMRO" finAccountCode="6577852521447" finAccountPin="1234" currencyUomId="USD"
                 organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="111100" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="ABN_CHECKING" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
     <PaymentMethod paymentMethodId="ABN_CHECKING" paymentMethodTypeId="COMPANY_CHECK"  partyId="Company" description="Checking Account at ABN AMRO Bank" glAccountId="111100" finAccountId="ABN_CHECKING" fromDate="2009-04-01 00:00:00.000"/>
-    <EftAccount paymentMethodId="ABN_CHECKING" nameOnAccount="Company" bankName="ABN AMRO Bank" routingNumber="222371863" accountType="Checking" accountNumber="427253011064227" contactMechId="9000"/>
+    <EftAccount paymentMethodId="ABN_CHECKING" nameOnAccount="Company" bankName="ABN AMRO Bank" routingNumber="222371863" accountType="Checking" accountNumber="427253011064227" contactMechId="COMPANY_POST"/>
     <FinAccount finAccountId="AMEX_01" finAccountTypeId="CREDIT_CARD_ACCOUNT" statusId="FNACT_ACTIVE" finAccountName="Corporate AMEX " finAccountCode="378282246310005" finAccountPin="9876" currencyUomId="USD"
                 organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="231000" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="AMEX_01" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
     <PaymentMethod paymentMethodId="AMEX_01" paymentMethodTypeId="CREDIT_CARD" partyId="Company" description="AmEx 0005" glAccountId="231000" finAccountId="AMEX_01" fromDate="2009-04-01 00:00:00.000"/>
     <CreditCard paymentMethodId="AMEX_01" cardType="CCT_AMERICANEXPRESS" cardNumber="378282246310005" expireDate="02/2020" companyNameOnCard="Your Company Name"
-                firstNameOnCard="Smart" lastNameOnCard="Guy" contactMechId="9000"/>
+                firstNameOnCard="Smart" lastNameOnCard="Guy" contactMechId="COMPANY_POST"/>
     <PaymentMethod paymentMethodId="PETTY_CASH" paymentMethodTypeId="CASH" partyId="Company" description="Petty Cash" glAccountId="110000" fromDate="2009-04-01 00:00:00.000"/>
 
     <!-- Tax Authority Demo Data -->
@@ -2521,9 +2521,7 @@ under the License.
     <AcctgTransEntry acctgTransId="8010" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="33.99" currencyUomId="USD" origAmount="33.99" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
 
     <!-- Demo invoice data for sales invoice with INVOICE_PAID status -->
-    <Product productId="WG-9943" productTypeId="FINISHED_GOOD"/>
-    <Product productId="WG-9943-B3" productTypeId="FINISHED_GOOD"/>
-
+    
     <Agreement agreementId="8000" partyIdFrom="Company" partyIdTo="DemoCustAgent" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement with DemoCustAgent"/>
     <AgreementItem agreementId="8000" agreementItemSeqId="0001" agreementItemTypeId="AGREEMENT_COMMISSION" currencyUomId="USD" agreementText="Commission in USD"/>
     <AgreementTerm agreementTermId="8000" termTypeId="FIN_COMM_FIXED" agreementId="8000" agreementItemSeqId="0001" invoiceItemTypeId="INV_FPROD_ITEM" termValue="1.000" termDays="30"/>
@@ -2586,14 +2584,7 @@ under the License.
     <Payment paymentId="8002" finAccountTransId="9104"/>
 
     <!-- invoice export demo data for replacement id's -->
-    <Product productId="GZ-2644"/><!-- further data to be added in other components" -->
-    <GoodIdentification goodIdentificationTypeId="INVOICE_EXPORT" idValue="GZ-2644-replaced" productId="GZ-2644"/>
-    
     <!-- Asset Maintenance demo data -->
-    <Product productId="FORKLIFT_PROPANE" productTypeId="ASSET_USAGE" productName="Forklift - Propane" internalName="Forklift - Propane" description="Forklift - Propane Powered."/>
-    <Product productId="FORKLIFT_BATTERY" productTypeId="ASSET_USAGE" productName="Forklift - Battery" internalName="Forklift - Battery" description="Forklift - Battery Powered."/>
-    <Product productId="COMPANY_VEHICLE" productTypeId="ASSET_USAGE" productName="Company Vehicle" internalName="Company Vehicle" description="Company Vehicle."/>
-    <Product productId="HVAC_UNIT" productTypeId="ASSET_USAGE" productName="Heating/Cooling Unit" internalName="Heating/Cooling Unit" description="Heating/Cooling Unit."/>
     <FixedAsset fixedAssetId="DEMO_FORKLIFT_01" instanceOfProductId="FORKLIFT_PROPANE" fixedAssetName="Forklift #1" fixedAssetTypeId="EQUIPMENT" purchaseCost="1500" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_FORKLIFT_01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <FixedAsset fixedAssetId="DEMO_FORKLIFT_02" instanceOfProductId="FORKLIFT_BATTERY" fixedAssetName="Forklift #2" fixedAssetTypeId="EQUIPMENT" purchaseCost="2000" purchaseCostUomId="USD"/>
@@ -2623,9 +2614,12 @@ under the License.
     <BudgetStatus budgetId="DemoBudget002" statusId="BG_REVIEWED" statusDate="2009-01-10 00:00:00.000"/>
     <BudgetStatus budgetId="DemoBudget002" statusId="BG_APPROVED" statusDate="2009-01-11 00:00:00.000"/>
 
-    <BudgetRole budgetId="DemoBudget001" partyId="ACCOUNTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <BudgetRole budgetId="DemoBudget002" partyId="accountingadmin" roleTypeId="ACCOUNTANT"/>
-    <BudgetRole budgetId="DemoBudget002" partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <BudgetRole budgetId="DemoBudget001" partyId="ACCOUNTING" roleTypeId="DEPARTMENT"/>
+    <BudgetRole budgetId="DemoBudget001" partyId="employee1" roleTypeId="BUDGET_RVR"/>
+    <BudgetRole budgetId="DemoBudget001" partyId="employee1" roleTypeId="BUDGET_APPRV"/>
+    <BudgetRole budgetId="DemoBudget002" partyId="MARKETING" roleTypeId="DEPARTMENT"/>
+    <BudgetRole budgetId="DemoBudget002" partyId="employee1" roleTypeId="BUDGET_RVR"/>
+    <BudgetRole budgetId="DemoBudget002" partyId="employee1" roleTypeId="BUDGET_APPRV"/>
 
     <BudgetItem budgetId="DemoBudget001" budgetItemSeqId="00001" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="500" purpose="Demo item 1 for Demo budget 001" justification="For Demo budget 001"/>
     <BudgetItem budgetId="DemoBudget002" budgetItemSeqId="00001" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="1000" purpose="Demo item 1 for Demo budget 002" justification="For Demo budget 002"/>
@@ -2634,10 +2628,10 @@ under the License.
     <BudgetReview budgetId="DemoBudget001" budgetReviewId="00001" partyId="ACCOUNTING" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
     <BudgetReview budgetId="DemoBudget001" budgetReviewId="00002" partyId="ACCOUNTING" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
     <BudgetReview budgetId="DemoBudget001" budgetReviewId="00003" partyId="ACCOUNTING" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
-    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00001" partyId="accountingadmin" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
-    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00002" partyId="accountingadmin" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
-    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00003" partyId="accountingadmin" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
-    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00004" partyId="accountingadmin" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00001" partyId="employee1" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00002" partyId="employee1" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00003" partyId="employee1" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00004" partyId="employee1" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
 
     <!-- Standard Costing Demo Data -->
     <!-- This is an example of a fixed asset (a machine or a workcenter) with standard costing information -->
@@ -2649,27 +2643,12 @@ under the License.
     <!-- This is the standard cost per hour for the usage of the fixed asset to perform a given task -->
     <FixedAssetStdCost fixedAssetId="WORKCENTER_COST" fixedAssetStdCostTypeId="USAGE_COST" fromDate="2005-12-31 00:01:00.0" amountUomId="USD" amount="80"/>
 
-    <!-- ################################# -->
-    <!-- ################################# -->
-    <!-- This is a finished good, PROD_COST, manufactured using 2 units of the raw material MAT_A_COST and 3 units of raw material MAT_B_COST -->
-    <!-- Finished good and raw materials definitions: -->
-    <Product productId="PROD_MANUF" productTypeId="FINISHED_GOOD" internalName="Demo Product for Costing" productName="Demo Product for Costing" description="Demo Product for Standard Costing" isVirtual="N" isVariant="N" billOfMaterialLevel="0"/>
-    <Product productId="MAT_A_COST" productTypeId="RAW_MATERIAL" internalName="Demo Material A for Costing" description="Demo Material A for Standard Costing" isVirtual="N" isVariant="N" billOfMaterialLevel="1"/>
-    <Product productId="MAT_B_COST" productTypeId="RAW_MATERIAL" internalName="Demo Material B for Costing" description="Demo Material B for Standard Costing" isVirtual="N" isVariant="N" billOfMaterialLevel="1"/>
-    <ProductPrice productId="PROD_MANUF" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="455.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="MAT_A_COST" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="40.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="MAT_B_COST" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="50.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-
     <!-- Cost information for the raw materials only (the ones for the finished good will be automatically computed by the costing algorithm): -->
     <CostComponent costComponentId="6000" costComponentTypeId="EST_STD_MAT_COST" productId="MAT_A_COST" fromDate="2005-12-31 00:01:00.0" costUomId="USD" cost="9"/>
     <CostComponent costComponentId="6001" costComponentTypeId="EST_STD_MAT_COST" productId="MAT_B_COST" fromDate="2005-12-31 00:01:00.0" costUomId="USD" cost="7"/>
 
     <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_A_COST" lastPrice="9.0" supplierProductId="MAT_A" supplierProductName="Material A" availableFromDate="2005-01-01 00:00:00.000"/>
     <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_B_COST" lastPrice="7.0" supplierProductId="MAT_B" supplierProductName="Material B" availableFromDate="2005-01-01 00:00:00.000"/>
-
-    <ProductFacility productId="PROD_MANUF" facilityId="WebStoreWarehouse" minimumStock="0" reorderQuantity="1" daysToShip="1"/>
-    <ProductFacility productId="MAT_A_COST" facilityId="WebStoreWarehouse" minimumStock="0" reorderQuantity="5" daysToShip="1"/>
-    <ProductFacility productId="MAT_B_COST" facilityId="WebStoreWarehouse" minimumStock="0" reorderQuantity="5" daysToShip="1"/>
 
     <!-- Bill of materials definition: -->
     <ProductAssoc productId="PROD_MANUF" productIdTo="MAT_A_COST" productAssocTypeId="MANUF_COMPONENT" fromDate="2005-12-31 00:01:00.0" sequenceNum="10" quantity="2.0"/>
@@ -2696,5 +2675,10 @@ under the License.
     <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
                    inventoryItemId="9030" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="MAT_B_COST" ownerPartyId="Company" currencyUomId="USD" unitCost="7.0"/>
     <InventoryItemDetail inventoryItemId="9030" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="20" quantityOnHandDiff="20" accountingQuantityDiff="20"/>
+
+    <!-- Party component demo parties additions -->
+    <!-- Party partyId="employee1" -->
+    <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="employee1" fromDate="2001-01-01 12:00:00.0"/>
+    
 
 </entity-engine-xml>
