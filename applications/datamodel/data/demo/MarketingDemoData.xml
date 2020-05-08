@@ -61,9 +61,9 @@ under the License.
 
     <!-- demo contacts -->
     <Party partyId="DemoCustomer1" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoContact1" roleTypeId="CONTACT"/>
-    <PartyStatus partyId="DemoContact1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="sfa100" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoContact1" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRole partyId="DemoCustomer1" roleTypeId="CONTACT"/>
+    <PartyStatus partyId="DemoCustomer1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="sfa100" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer1" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     <Party partyId="DemoCustomer2" statusId="PARTY_ENABLED"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="CONTACT"/>
     <PartyStatus partyId="DemoCustomer2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
@@ -198,9 +198,9 @@ under the License.
         verifyEmailFrom="ofbiztest@example.com" verifyEmailScreen="component://ecommerce/widget/EmailContactListScreens.xml#ContactListVerifyEmail"
         verifyEmailSubject="Subscription Verify Email" verifyEmailWebSiteId="WebStore"/>
 
-    <ContactListParty contactListId="9000" partyId="DemoCustCompany" preferredContactMechId="9021" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
-    <ContactListParty contactListId="9000" partyId="DemoCustAgent" preferredContactMechId="9023" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
-    <ContactListParty contactListId="9000" partyId="DemoCustomer" preferredContactMechId="9026" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
+    <ContactListParty contactListId="9000" partyId="DemoCustCompany" preferredContactMechId="CUSTOMER_EMAIL" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
+    <ContactListParty contactListId="9000" partyId="DemoCustAgent" preferredContactMechId="CUSTOMER_EMAIL" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
+    <ContactListParty contactListId="9000" partyId="DemoCustomer" preferredContactMechId="CUSTOMER_EMAIL" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
 
     <!-- some sample affiliate and tracking codes for marketing campaigns -->
     <MarketingCampaign statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9001" campaignName="Pay Per Click Advertising"/>
