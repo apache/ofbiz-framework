@@ -19,30 +19,6 @@
 -->
 
 <entity-engine-xml>
-    <Party partyId="USPS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <Party partyId="UPS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <Party partyId="DHL" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <Party partyId="FEDEX" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <Party partyId="_NA_" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-
-    <Person partyId="_NA_"/>
-    <PartyGroup partyId="USPS" groupName="USPS"/>
-    <PartyGroup partyId="UPS" groupName="UPS"/>
-    <PartyGroup partyId="DHL" groupName="DHL"/>
-    <PartyGroup partyId="FEDEX" groupName="Federal Express"/>
-
-    <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="DHL" roleTypeId="CARRIER"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
-    <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
-
-    <PartyStatus partyId="USPS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyStatus partyId="UPS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyStatus partyId="DHL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyStatus partyId="FEDEX" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyStatus partyId="_NA_" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-
     <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
     <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
 
