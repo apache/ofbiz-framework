@@ -553,6 +553,11 @@ David won't like it. He will probably delete this seed data from the DB, but it 
             ]]></textData>
     </ElectronicText>
 
+    <!-- survey -->
+    <Survey surveyId="1100" description="Account Activation" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1100" description="Account Activation Questions"/>
+    <SurveyQuestion surveyQuestionId="1100" surveyQuestionCategoryId="1100" surveyQuestionTypeId="TEXT_LONG" description="activationSerialNumber" question="Activation Serial Number:"/>
+    <SurveyQuestionAppl surveyId="1100" surveyQuestionId="1100" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="1"/>
 
 
 </entity-engine-xml>
