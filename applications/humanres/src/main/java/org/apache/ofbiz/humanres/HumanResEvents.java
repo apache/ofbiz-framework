@@ -108,18 +108,22 @@ public class HumanResEvents {
                 if (UtilValidate.isNotEmpty(emlpfillCtxs)) {
                     for (GenericValue emlpfillCtx : emlpfillCtxs ) {
                         String memberId = emlpfillCtx.getString("partyId");
-                        GenericValue memCtx = EntityQuery.use(delegator).from("Person").where("partyId", partyId).queryOne();
+                        GenericValue memCtx = EntityQuery.use(delegator).from("Person").where("partyId", memberId).queryOne();
                         String title = null;
                         if (UtilValidate.isNotEmpty(memCtx)) {
-                            String firstname = memCtx.getString("firstName");
-                            String lastname = memCtx.getString("lastName");
-                            if (UtilValidate.isEmpty(lastname)) {
-                                lastname = "";
+                            String lastName = memCtx.getString("lastName");
+                            String firstName = memCtx.getString("firstName");
+                            String middleName = memCtx.getString("middleName");
+                            if (UtilValidate.isEmpty(lastName)) {
+                                lastName = "";
                             }
-                            if (UtilValidate.isEmpty(firstname)) {
-                                firstname = "";
+                            if (UtilValidate.isEmpty(firstName)) {
+                                firstName = "";
                             }
-                            title = firstname +" "+ lastname;
+                            if (UtilValidate.isEmpty(middleName)) {
+                                middleName = "";
+                            }
+                            title = lastName + ", " + firstName + " " + middleName;
                         }
                         GenericValue memGroupCtx = EntityQuery.use(delegator).from("PartyGroup").where("partyId", partyId).queryOne();
                         if (UtilValidate.isNotEmpty(memGroupCtx)) {
@@ -213,17 +217,17 @@ public class HumanResEvents {
                     //Employee
                     GenericValue emContext = EntityQuery.use(delegator).from("Person").where("partyId", catId).queryOne();
                     if (UtilValidate.isNotEmpty(emContext)) {
-                        String firstname = (String) emContext.get("firstName");
-                        String lastname = (String) emContext.get("lastName");
-                        if (UtilValidate.isEmpty(lastname)) {
-                            lastname = "";
+                        String lastName = (String) emContext.get("lastName");
+                        String firstName = (String) emContext.get("firstName");
+                        String middleName = (String) emContext.get("middleName");
+                        if (UtilValidate.isEmpty(lastName)) {
+                            lastName = "";
                         }
-                        if (UtilValidate.isEmpty(firstname)) {
-                            firstname = "";
+                        if (UtilValidate.isEmpty(firstName)) {
+                            firstName = "";
                         }
-                        title = firstname +" "+ lastname;
+                        title = lastName +", "+ firstName +" "+ middleName;
                     }
-
                     dataAttrMap.put("onClick", onclickFunction + "('" + catId + additionParam + "')");
 
                     String hrefStr = hrefString + catId;
@@ -294,6 +298,7 @@ public class HumanResEvents {
 
                     String hrefStr = "emplPositionView?emplPositionId=" + emplId;
                     emplAttrMap.put("href", hrefStr);
+                    emplAttrMap.put("title", title);
                     emplAttrMap.put("onClick", "callEmplDocument" + "('" + emplId + "')");
 
                     empldataMap.put("title", title);
