@@ -19,6 +19,7 @@ under the License.
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html>
 <head>
+    <meta http-equiv="Content-Security-Policy" frame-ancestors="self">
     <title>500 Internal error</title>
     <style>
         body{
@@ -112,7 +113,7 @@ under the License.
 <div class="container">
     <div class="content">
         <p class="error-500"><span>ERROR MESSAGE</span></p>
-        <p>${request.getAttribute("_ERROR_MESSAGE_")?replace("\n", "<br/>")}</p>
+        <p>${(request.getAttribute("_ERROR_MESSAGE_")!)?replace("\n", "<br/>")}</p>
         <div class="img">
             <svg
                     xmlns:dc="http://purl.org/dc/elements/1.1/"

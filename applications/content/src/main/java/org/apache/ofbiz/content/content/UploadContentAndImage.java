@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.content;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +34,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -63,7 +63,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class UploadContentAndImage {
 
-    public static final String module = UploadContentAndImage.class.getName();
+    public static final String MODULE = UploadContentAndImage.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     public UploadContentAndImage() {}
@@ -76,20 +76,25 @@ public class UploadContentAndImage {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
-            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
+            long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
+            int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
+            File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
+            
+            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
+            upload.setSizeMax(maxUploadSize);
             List<FileItem> lst = null;
             try {
-                lst = UtilGenerics.cast(dfu.parseRequest(request));
+                lst = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e4) {
                 request.setAttribute("_ERROR_MESSAGE_", e4.getMessage());
-                Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), module);
+                Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), MODULE);
                 return "error";
             }
 
             if (lst.size() == 0) {
                 String errMsg = UtilProperties.getMessage(UploadContentAndImage.err_resource, "uploadContentAndImage.no_files_uploaded", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                Debug.logWarning("[DataEvents.uploadImage] No files uploaded", module);
+                Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
                 return "error";
             }
 
@@ -109,7 +114,7 @@ public class UploadContentAndImage {
                 }
             }
             if (Debug.infoOn()) {
-                Debug.logInfo("[UploadContentAndImage]passedParams: " + passedParams, module);
+                Debug.logInfo("[UploadContentAndImage]passedParams: " + passedParams, MODULE);
             }
 
             TransactionUtil.begin();
@@ -146,7 +151,7 @@ public class UploadContentAndImage {
             if (ServiceUtil.isError(ftlResults)) {
                 String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 TransactionUtil.rollback();
                 return "error";
             }
@@ -179,7 +184,7 @@ public class UploadContentAndImage {
                     if (ServiceUtil.isError(ftlResults)) {
                         String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
                         request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         TransactionUtil.rollback();
                         return "error";
                     }
@@ -188,11 +193,11 @@ public class UploadContentAndImage {
 
             if (UtilValidate.isEmpty(ftlContentId)) {
                 ftlContentId = passedContentId;
-            }   
+            }
 
             String ftlDataResourceId = drid;
 
-            if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, module);
+            if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, MODULE);
             // Create or update summary text subContent
             if (passedParams.containsKey("summaryData")) {
                 Map<String, Object> sumContext = new HashMap<>();
@@ -217,7 +222,7 @@ public class UploadContentAndImage {
                 if (ServiceUtil.isError(sumResults)) {
                     String errorMessage = ServiceUtil.getErrorMessage(sumResults);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     TransactionUtil.rollback();
                     return "error";
                 }
@@ -247,7 +252,7 @@ public class UploadContentAndImage {
                 if (ServiceUtil.isError(txtResults)) {
                     String errorMessage = ServiceUtil.getErrorMessage(txtResults);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     TransactionUtil.rollback();
                     return "error";
                 }
@@ -275,12 +280,12 @@ public class UploadContentAndImage {
                 imgContext.put("mapKey", "IMAGE");
                 imgContext.put("dataTemplateTypeId", "NONE");
                 imgContext.put("rootDir", "rootDir");
-                if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]imgContext " + imgContext, module);
+                if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]imgContext " + imgContext, MODULE);
                 Map<String, Object> imgResults = dispatcher.runSync("persistContentAndAssoc", imgContext);
                 if (ServiceUtil.isError(imgResults)) {
                     String errorMessage = ServiceUtil.getErrorMessage(imgResults);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     TransactionUtil.rollback();
                     return "error";
                 }
@@ -318,7 +323,7 @@ public class UploadContentAndImage {
             request.setAttribute("passedParams", passedParams);
             TransactionUtil.commit();
         } catch (GenericEntityException | GenericServiceException e) {
-            Debug.logError(e, "[UploadContentAndImage] " , module);
+            Debug.logError(e, "[UploadContentAndImage] " , MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
                 TransactionUtil.rollback();
@@ -335,20 +340,27 @@ public class UploadContentAndImage {
         try {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+            Delegator delegator = (Delegator)request.getAttribute("delegator");
 
-            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
+            long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
+            int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
+            File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
+            
+            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
+            upload.setSizeMax(maxUploadSize);
+
             List<FileItem> lst = null;
             try {
-                lst = UtilGenerics.cast(dfu.parseRequest(request));
+                lst = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e4) {
                 request.setAttribute("_ERROR_MESSAGE_", e4.getMessage());
-                Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), module);
+                Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), MODULE);
                 return "error";
             }
 
             if (lst.size() == 0) {
                 request.setAttribute("_ERROR_MESSAGE_", "No files uploaded");
-                Debug.logWarning("[DataEvents.uploadImage] No files uploaded", module);
+                Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
                 return "error";
             }
 
@@ -372,12 +384,12 @@ public class UploadContentAndImage {
                     imageBytes = imageFi.get();
                     passedParams.put(fieldName, imageBytes);
                     if (Debug.infoOn()) {
-                        Debug.logInfo("[UploadContentAndImage]imageData: " + imageBytes.length, module);
+                        Debug.logInfo("[UploadContentAndImage]imageData: " + imageBytes.length, MODULE);
                     }
                 }
             }
             if (Debug.infoOn()) {
-                Debug.logInfo("[UploadContentAndImage]passedParams: " + passedParams, module);
+                Debug.logInfo("[UploadContentAndImage]passedParams: " + passedParams, MODULE);
             }
 
             // The number of multi form rows is retrieved
@@ -404,7 +416,7 @@ public class UploadContentAndImage {
             }
             TransactionUtil.commit();
         } catch (GenericTransactionException | GenericServiceException e) {
-            Debug.logError(e, "[UploadContentAndImage] " , module);
+            Debug.logError(e, "[UploadContentAndImage] " , MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
                 TransactionUtil.rollback();
@@ -470,7 +482,7 @@ public class UploadContentAndImage {
             ftlContext2.put(keyName, obj);
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("[UploadContentStuff]ftlContext2:" + ftlContext2, module);
+            Debug.logInfo("[UploadContentStuff]ftlContext2:" + ftlContext2, MODULE);
         }
         List<Object> errorMessages = new LinkedList<>();
         Locale loc = Locale.getDefault();
@@ -493,7 +505,7 @@ public class UploadContentAndImage {
         byte[] bytes = (byte[])passedParams.get("imageData" + suffix);
         ftlContext.put("imageData", bytes);
         if (Debug.infoOn()) {
-            Debug.logInfo("[UploadContentStuff]ftlContext:" + ftlContext, module);
+            Debug.logInfo("[UploadContentStuff]ftlContext:" + ftlContext, MODULE);
         }
         Map<String, Object> ftlResults = null;
         try {
@@ -503,10 +515,10 @@ public class UploadContentAndImage {
             request.setAttribute("_ERROR_MESSAGE_", msg);
             List<String> errorMsgList = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
             if (Debug.infoOn()) {
-                Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, module);
+                Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, MODULE);
             }
             if (Debug.infoOn()) {
-                Debug.logInfo("[UploadContentStuff]msg:" + msg, module);
+                Debug.logInfo("[UploadContentStuff]msg:" + msg, MODULE);
             }
             if (errorMsgList == null) {
                 errorMsgList = new LinkedList<>();
@@ -528,7 +540,7 @@ public class UploadContentAndImage {
         }
         String returnedContentId = (String)ftlResults.get("contentId");
         if (Debug.infoOn()) {
-            Debug.logInfo("returnedContentId:" + returnedContentId, module);
+            Debug.logInfo("returnedContentId:" + returnedContentId, MODULE);
         }
         request.setAttribute("contentId" + suffix, ftlResults.get("contentId"));
         request.setAttribute("caContentIdTo" + suffix, ftlResults.get("contentIdTo"));
@@ -548,7 +560,7 @@ public class UploadContentAndImage {
                 if (ServiceUtil.isError(ftlResults)) {
                     String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     return "error";
                 }
             } catch (ServiceAuthException e) {
@@ -556,10 +568,10 @@ public class UploadContentAndImage {
                 request.setAttribute("_ERROR_MESSAGE_", msg);
                 List<String> errorMsgList = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
                 if (Debug.infoOn()) {
-                    Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, module);
+                    Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, MODULE);
                 }
                 if (Debug.infoOn()) {
-                    Debug.logInfo("[UploadContentStuff]msg:" + msg, module);
+                    Debug.logInfo("[UploadContentStuff]msg:" + msg, MODULE);
                 }
                 if (errorMsgList == null) {
                     errorMsgList = new LinkedList<>();

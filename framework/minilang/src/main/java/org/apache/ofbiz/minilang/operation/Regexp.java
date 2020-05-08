@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  */
 public class Regexp extends SimpleMapOperation {
 
-    public static final String module = Regexp.class.getName();
+    public static final String MODULE = Regexp.class.getName();
     private Pattern pattern = null;
     String expr;
 
@@ -47,7 +47,7 @@ public class Regexp extends SimpleMapOperation {
         try {
             pattern = PatternFactory.createOrGetPerl5CompiledPattern(expr, true);
         } catch (MalformedPatternException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 

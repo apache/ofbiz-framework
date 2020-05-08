@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class ShippingEstimateWrapper {
 
-    public static final String module = ShippingEstimateWrapper.class.getName();
+    public static final String MODULE = ShippingEstimateWrapper.class.getName();
 
     protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;
@@ -89,7 +89,7 @@ public class ShippingEstimateWrapper {
                     }
                 }
             } catch (GenericEntityException gee) {
-                Debug.logError(gee.getMessage(), module);
+                Debug.logError(gee.getMessage(), MODULE);
             }
         }
         this.loadShippingMethods();
@@ -102,7 +102,7 @@ public class ShippingEstimateWrapper {
             this.shippingMethods = ProductStoreWorker.getAvailableStoreShippingMethods(delegator, productStoreId,
                     shippingAddress, shippableItemSizes, shippableItemFeatures, shippableWeight, shippableTotal);
         } catch (Throwable t) {
-            Debug.logError(t, module);
+            Debug.logError(t, MODULE);
         }
     }
 

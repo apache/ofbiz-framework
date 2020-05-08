@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.job.JobManagerException;
  */
 public abstract class GenericAbstractDispatcher implements LocalDispatcher {
 
-    public static final String module = GenericAbstractDispatcher.class.getName();
+    public static final String MODULE = GenericAbstractDispatcher.class.getName();
 
     protected DispatchContext ctx = null;
     protected ServiceDispatcher dispatcher = null;
@@ -68,13 +68,13 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
                     getJobManager().schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
 
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), module);
-                        Debug.logVerbose("[LocalDispatcher.schedule] : Runtime      : " + startTime, module);
-                        Debug.logVerbose("[LocalDispatcher.schedule] : Frequency    : " + frequency, module);
-                        Debug.logVerbose("[LocalDispatcher.schedule] : Interval     : " + interval, module);
-                        Debug.logVerbose("[LocalDispatcher.schedule] : Count        : " + count, module);
-                        Debug.logVerbose("[LocalDispatcher.schedule] : EndTime      : " + endTime, module);
-                        Debug.logVerbose("[LocalDispatcher.schedule] : MazRetry     : " + maxRetry, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), MODULE);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Runtime      : " + startTime, MODULE);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Frequency    : " + frequency, MODULE);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Interval     : " + interval, MODULE);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Count        : " + count, MODULE);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : EndTime      : " + endTime, MODULE);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : MazRetry     : " + maxRetry, MODULE);
                     }
 
                 } catch (JobManagerException jme) {
@@ -84,27 +84,27 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
                 throw e;
             } catch (Exception e) {
                 String errMsg = "General error while scheduling job";
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 try {
                     TransactionUtil.rollback(beganTransaction, errMsg, e);
                 } catch (GenericTransactionException gte1) {
-                    Debug.logError(gte1, "Unable to rollback transaction", module);
+                    Debug.logError(gte1, "Unable to rollback transaction", MODULE);
                 }
             } finally {
                 try {
                     TransactionUtil.commit(beganTransaction);
                 } catch (GenericTransactionException gte2) {
-                    Debug.logError(gte2, "Unable to commit scheduled job", module);
+                    Debug.logError(gte2, "Unable to commit scheduled job", MODULE);
                 }
             }
         } catch (GenericTransactionException gte) {
-            Debug.logError(gte, "Error suspending transaction while scheduling job", module);
+            Debug.logError(gte, "Error suspending transaction while scheduling job", MODULE);
         } finally {
             if (suspendedTransaction != null) {
                 try {
                     TransactionUtil.resume(suspendedTransaction);
                 } catch (GenericTransactionException gte3) {
-                    Debug.logError(gte3, "Error resuming suspended transaction after scheduling job", module);
+                    Debug.logError(gte3, "Error resuming suspended transaction after scheduling job", MODULE);
                 }
             }
         }

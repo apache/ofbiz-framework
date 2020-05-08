@@ -32,7 +32,7 @@ import org.apache.ofbiz.base.util.UtilObject;
 
 /** <code>Delegator</code> factory abstract class. */
 public abstract class DelegatorFactory implements Factory<Delegator, String> {
-    public static final String module = DelegatorFactory.class.getName();
+    public static final String MODULE = DelegatorFactory.class.getName();
     private static final ConcurrentHashMap<String, Future<Delegator>> delegators = new ConcurrentHashMap<>();
     private static final ThreadGroup DELEGATOR_THREAD_GROUP = new ThreadGroup("DelegatorFactory");
     private static final ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(DELEGATOR_THREAD_GROUP, "delegator-startup", Runtime.getRuntime().availableProcessors(), 10, true);
@@ -42,7 +42,7 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
         try {
             return future.get();
         } catch (ExecutionException | InterruptedException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -84,7 +84,7 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
 
                 return delegator;
             } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw e;
             }
         }

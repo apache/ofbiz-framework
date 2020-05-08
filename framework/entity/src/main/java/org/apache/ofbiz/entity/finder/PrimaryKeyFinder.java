@@ -44,7 +44,7 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("serial")
 public class PrimaryKeyFinder extends Finder {
-    public static final String module = PrimaryKeyFinder.class.getName();
+    public static final String MODULE = PrimaryKeyFinder.class.getName();
 
     protected FlexibleMapAccessor<Object> valueNameAcsr;
     protected FlexibleStringExpander autoFieldMapExdr;
@@ -154,14 +154,14 @@ public class PrimaryKeyFinder extends Finder {
                 }
             } else {
                 if (Debug.infoOn()) {
-                    Debug.logInfo("Returning null because found incomplete primary key in find: " + entityPK, module);
+                    Debug.logInfo("Returning null because found incomplete primary key in find: " + entityPK, MODULE);
                 }
             }
 
             return valueOut;
         } catch (GenericEntityException e) {
             String errMsg = "Error finding entity value by primary key with entity-one: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             throw new GeneralException(errMsg, e);
         }
     }

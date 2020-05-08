@@ -35,7 +35,7 @@ import org.w3c.dom.Element;
 
 public final class ServiceMcaUtil {
 
-    public static final String module = ServiceMcaUtil.class.getName();
+    public static final String MODULE = ServiceMcaUtil.class.getName();
     private static final UtilCache<String, ServiceMcaRule> mcaCache = UtilCache.createUtilCache("service.ServiceMCAs", 0, 0, false);
 
     private ServiceMcaUtil() {}
@@ -59,7 +59,7 @@ public final class ServiceMcaUtil {
         try {
             rootElement = handler.getDocument().getDocumentElement();
         } catch (GenericConfigException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return;
         }
 
@@ -75,9 +75,9 @@ public final class ServiceMcaUtil {
             try {
                 resourceLocation = handler.getURL().toExternalForm();
             } catch (GenericConfigException e) {
-                Debug.logError(e, "Could not get resource URL", module);
+                Debug.logError(e, "Could not get resource URL", MODULE);
             }
-            Debug.logImportant("Loaded " + numDefs + " Service MCA definitions from " + resourceLocation, module);
+            Debug.logImportant("Loaded " + numDefs + " Service MCA definitions from " + resourceLocation, MODULE);
         }
     }
 

@@ -33,7 +33,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public final class UtilFormatOut {
 
-    public static final String module = UtilFormatOut.class.getName();
+    public static final String MODULE = UtilFormatOut.class.getName();
     public static final String DEFAULT_FORMAT = "default";
     public static final String AMOUNT_FORMAT = "amount";
     public static final String QUANTITY_FORMAT = "quantity";
@@ -75,14 +75,14 @@ public final class UtilFormatOut {
                 UtilProperties.getPropertyValue("number", formatTypeKey);
         if (UtilValidate.isEmpty(template)) {
             Debug.logWarning("Number template not found for format " + formatType +
-                    ", please check your property on number for " + formatTypeKey, module);
+                    ", please check your property on number for " + formatTypeKey, MODULE);
             template = delegator != null ?
                     EntityUtilProperties.getPropertyValue("number", "default.displaying.format", delegator):
                     UtilProperties.getPropertyValue("number", "default.displaying.format");
         }
         if (UtilValidate.isEmpty(template)) {
             Debug.logWarning("Number template not found for default displaying.format" +
-                    ", please check your property on number for default.displaying.format", module);
+                    ", please check your property on number for default.displaying.format", MODULE);
             template = "##0.00";
         }
 
@@ -128,7 +128,7 @@ public final class UtilFormatOut {
             nf.setCurrency(com.ibm.icu.util.Currency.getInstance(isoCode));
         } else {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("No isoCode specified to format currency value:" + price, module);
+                Debug.logVerbose("No isoCode specified to format currency value:" + price, MODULE);
             }
         }
         if (maximumFractionDigits >= 0) {

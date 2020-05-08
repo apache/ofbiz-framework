@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
@@ -106,7 +107,7 @@ import freemarker.template.TemplateException;
  */
 public final class MacroFormRenderer implements FormStringRenderer {
 
-    public static final String module = MacroFormRenderer.class.getName();
+    public static final String MODULE = MacroFormRenderer.class.getName();
     private final Template macroLibrary;
     private final WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private final UtilCodec.SimpleEncoder internalEncoder;
@@ -151,7 +152,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             templateReader.close();
             environment.include(template);
         } catch (TemplateException | IOException e) {
-            Debug.logError(e, "Error rendering screen thru ftl, macro: " + macro, module);
+            Debug.logError(e, "Error rendering screen thru ftl, macro: " + macro, MODULE);
         }
     }
 
@@ -210,7 +211,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             try {
                 size = Integer.parseInt(displayField.getSize());
             } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Error reading size of a field fieldName=" + displayField.getModelFormField().getFieldName() + " FormName= " + displayField.getModelFormField().getModelForm().getName(), module);
+                Debug.logError(nfe, "Error reading size of a field fieldName=" + displayField.getModelFormField().getFieldName() + " FormName= " + displayField.getModelFormField().getModelForm().getName(), MODULE);
             }
         }
         ModelFormField.InPlaceEditor inPlaceEditor = displayField.getInPlaceEditor();
@@ -553,7 +554,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             try {
                 step = Integer.parseInt(stepString);
             } catch (IllegalArgumentException e) {
-                Debug.logWarning("Invalid value for step property for field[" + paramName + "] with input-method=\"time-dropdown\" " + " Found Value [" + stepString + "]  " + e.getMessage(), module);
+                Debug.logWarning("Invalid value for step property for field[" + paramName + "] with input-method=\"time-dropdown\" " + " Found Value [" + stepString + "]  " + e.getMessage(), MODULE);
             }
             timeValues.append("[");
             for (int i = 0; i <= 59;) {
@@ -567,7 +568,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", module);
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         }
         String localizedInputTitle = "", localizedIconTitle = "";
         // whether the date field is short form, yyyy-mm-dd
@@ -656,7 +657,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 cal = Calendar.getInstance();
                 cal.setTime(defaultTimestamp);
             } catch (IllegalArgumentException e) {
-                Debug.logWarning("Form widget field [" + paramName + "] with input-method=\"time-dropdown\" was not able to understand the default time [" + defaultDateTimeString + "]. The parsing error was: " + e.getMessage(), module);
+                Debug.logWarning("Form widget field [" + paramName + "] with input-method=\"time-dropdown\" was not able to understand the default time [" + defaultDateTimeString + "]. The parsing error was: " + e.getMessage(), MODULE);
             }
             timeHourName = UtilHttp.makeCompositeParam(paramName, "hour");
             if (cal != null) {
@@ -790,7 +791,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             try {
                 textSize = Integer.parseInt(dropDownField.getTextSize());
             } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Error reading size of a field fieldName=" + dropDownField.getModelFormField().getFieldName() + " FormName= " + dropDownField.getModelFormField().getModelForm().getName(), module);
+                Debug.logError(nfe, "Error reading size of a field fieldName=" + dropDownField.getModelFormField().getFieldName() + " FormName= " + dropDownField.getModelFormField().getModelForm().getName(), MODULE);
             }
             if (textSize > 0 && UtilValidate.isNotEmpty(currentValue) && currentValue.length() > textSize) {
                 currentValue = currentValue.substring(0, textSize - 8) + "..." + currentValue.substring(currentValue.length() - 5);
@@ -1425,6 +1426,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         }
         String focusFieldName = modelForm.getFocusFieldName();
+
+        // Generate CSRF name & value for form
+        String csrfNameValue = CsrfUtil.getTokenNameNonAjax() + " " +CsrfUtil.generateTokenForNonAjax(request, targ);
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormOpen ");
         sr.append(" linkUrl=\"");
@@ -1455,7 +1460,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(Integer.toString(viewSize));
         sr.append("\" useRowSubmit=");
         sr.append(Boolean.toString(useRowSubmit));
-        sr.append(" />");
+        sr.append(" csrfNameValue=\"");
+        sr.append(csrfNameValue);
+        sr.append("\" />");
         executeMacro(writer, sr.toString());
     }
 
@@ -2043,7 +2050,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String conditionGroup = modelFormField.getConditionGroup();
         Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", module);
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         }
         String localizedInputTitle = "", localizedIconTitle = "";
         String className = "";
@@ -2274,7 +2281,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (uiLabelMap != null) {
             clearText = (String) uiLabelMap.get("CommonClear");
         } else {
-            Debug.logWarning("Could not find uiLabelMap in context", module);
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         }
         Boolean showDescription = lookupField.getShowDescription();
         if (showDescription == null) {
@@ -2381,7 +2388,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             targetService = "${targetService}";
         }
         if (UtilValidate.isEmpty(targetService) && updateAreas == null) {
-            Debug.logWarning("Cannot paginate because TargetService is empty for the form: " + modelForm.getName(), module);
+            Debug.logWarning("Cannot paginate because TargetService is empty for the form: " + modelForm.getName(), MODULE);
             return;
         }
         // get the parameterized pagination index and size fields
@@ -2399,7 +2406,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String pageLabel = "";
         String commonDisplaying = "";
         if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", module);
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         } else {
             pageLabel = uiLabelMap.get("CommonPage");
             Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", lowIndex + 1, "highCount", lowIndex + actualPageSize, "total", listSize);
@@ -2413,6 +2420,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
             viewSizeParam = "VIEW_SIZE" + "_" + paginatorNumber;
         }
         String str = (String) context.get("_QBESTRING_");
+
+        // refresh any csrf token in the query string for pagination
+        String tokenValue = CsrfUtil.generateTokenForNonAjax(request, targetService);
+        str = CsrfUtil.addOrUpdateTokenInQueryString(str, tokenValue);
+
         // strip legacy viewIndex/viewSize params from the query string
         String queryString = UtilHttp.stripViewParamsFromQueryString(str, "" + paginatorNumber);
         // strip parameterized index/size params from the query string
@@ -2932,7 +2944,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         String paginateTarget = modelForm.getPaginateTarget(context);
         if (paginateTarget.isEmpty() && updateAreas == null) {
-            Debug.logWarning("Cannot sort because the paginate target URL is empty for the form: " + modelForm.getName(), module);
+            Debug.logWarning("Cannot sort because the paginate target URL is empty for the form: " + modelForm.getName(), MODULE);
             return;
         }
         String oldSortField = modelForm.getSortField(context);
@@ -3395,7 +3407,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
-        String id = containerField.getModelFormField().getIdName();
+        final String id = containerField.getModelFormField().getCurrentContainerId(context);
         String className = UtilFormatOut.checkNull(containerField.getModelFormField().getWidgetStyle());
         StringWriter sr = new StringWriter();
         sr.append("<@renderContainerField ");

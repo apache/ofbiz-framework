@@ -39,7 +39,7 @@ under the License.
 
     <!-- Request Mappings -->
     <request-map uri="view">
-        <security https="false" auth="false"/>
+        <security https="true" auth="true"/>
         <response name="success" type="request" value="main"/>
     </request-map>
 
@@ -229,7 +229,7 @@ under the License.
     </request-map>
 
     <request-map uri="getConfigDetailsEvent">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="getConfigDetailsEvent"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
@@ -596,7 +596,7 @@ under the License.
         <response name="success" type="view" value="AddGiftCertificate"/>
     </request-map>
     <request-map uri="addGiftCertificateSurvey">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.apache.ofbiz.content.survey.SurveyEvents"/>
         <response name="success" type="request" value="additem"/>
         <response name="error" type="view" value="AddGiftCertificate"/>
@@ -1345,9 +1345,9 @@ under the License.
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
 
-    <request-map uri="deleteCustRequestContent">
+    <request-map uri="expireCustRequestContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteCustRequestContent"/>
+        <event type="service" invoke="expireCustRequestContent"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
@@ -1794,7 +1794,7 @@ under the License.
     </request-map>
 
     <request-map uri="crosssell">
-        <security https="false" auth="false"/>
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="product"/>
     </request-map>
 

@@ -27,8 +27,8 @@ import org.apache.ofbiz.entity.connection.ConnectionFactory;
  *
  */
 public class ConnectionFactoryLoader {
-    // Debug module name
-    public static final String module = ConnectionFactoryLoader.class.getName();
+    // Debug MODULE name
+    public static final String MODULE = ConnectionFactoryLoader.class.getName();
     private static final ConnectionFactory connFactory = createConnectionFactory();
 
     private static ConnectionFactory createConnectionFactory() {
@@ -45,9 +45,9 @@ public class ConnectionFactoryLoader {
             Class<?> tfClass = loader.loadClass(className);
             instance = (ConnectionFactory) tfClass.getDeclaredConstructor().newInstance();
         } catch (ClassNotFoundException cnfe) {
-            Debug.logError(cnfe, "Could not find connection factory class", module);
+            Debug.logError(cnfe, "Could not find connection factory class", MODULE);
         } catch (Exception e) {
-            Debug.logError(e, "Unable to instantiate the connection factory", module);
+            Debug.logError(e, "Unable to instantiate the connection factory", MODULE);
         }
         return instance;
     }

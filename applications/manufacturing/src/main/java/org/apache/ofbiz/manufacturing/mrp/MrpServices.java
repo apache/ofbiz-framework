@@ -57,7 +57,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class MrpServices {
 
-    public static final String module = MrpServices.class.getName();
+    public static final String MODULE = MrpServices.class.getName();
     public static final String resource = "ManufacturingUiLabels";
 
     public static Map<String, Object> initMrpEvents(DispatchContext ctx, Map<String, ? extends Object> context) {
@@ -76,14 +76,14 @@ public class MrpServices {
         try {
             listResult = EntityQuery.use(delegator).from("MrpEvent").queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e,"Error : findList(\"MrpEvent\", null, null, null, null, false)", module);
+            Debug.logError(e,"Error : findList(\"MrpEvent\", null, null, null, null, false)", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
         }
         if (listResult != null) {
             try {
                 delegator.removeAll(listResult);
             } catch (GenericEntityException e) {
-                Debug.logError(e,"Error : removeAll(listResult), listResult ="+listResult, module);
+                Debug.logError(e,"Error : removeAll(listResult), listResult ="+listResult, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventRemoveError", locale));
             }
         }
@@ -284,7 +284,7 @@ public class MrpServices {
                         shipGroupQuantity = shipGroupQuantity.subtract(shipmentReceipt.getBigDecimal("quantityRejected"));
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
     
                 GenericValue orderItemDeliverySchedule = null;
@@ -396,7 +396,7 @@ public class MrpServices {
                     .where("facilityId", facilityId)
                     .queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to retrieve ProductFacility records.", module);
+            Debug.logError(e, "Unable to retrieve ProductFacility records.", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindProductFacility", locale));
         }
         for (GenericValue genericResult : resultList) {
@@ -413,7 +413,7 @@ public class MrpServices {
                     continue;
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Unable to count MrpEvent records.", module);
+                Debug.logError(e, "Unable to count MrpEvent records.", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotCountRecords", locale));
             }
             BigDecimal qoh = findProductMrpQoh(mrpId, productId, facilityId, dispatcher, delegator);
@@ -484,7 +484,7 @@ public class MrpServices {
         }
         Map<String, Object> result = new HashMap<>();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-        Debug.logInfo("return from initMrpEvent", module);
+        Debug.logInfo("return from initMrpEvent", MODULE);
         return result;
     }
 
@@ -511,10 +511,10 @@ public class MrpServices {
             }
             if (ServiceUtil.isError(resultMap)) {
                 String errorMessage = ServiceUtil.getErrorMessage(resultMap);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", module);
+            Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", MODULE);
             logMrpError(mrpId, productId, "Unable to count inventory", delegator);
             return BigDecimal.ZERO;
         }
@@ -535,7 +535,7 @@ public class MrpServices {
                 delegator.createOrStore(inventoryEventError);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error calling logMrpError for productId [" + productId + "] and errorMessage [" + errorMessage + "]", module);
+            Debug.logError(e, "Error calling logMrpError for productId [" + productId + "] and errorMessage [" + errorMessage + "]", MODULE);
         }
     }
 
@@ -570,7 +570,7 @@ public class MrpServices {
                     try {
                         InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, componentEventQuantity.negate(), null, product.get("productId") + ": " + eventDate, false, delegator);
                     } catch (GenericEntityException e) {
-                        Debug.logError("Error : findOne(\"MrpEvent\", parameters) ="+parameters+"--"+e.getMessage(), module);
+                        Debug.logError("Error : findOne(\"MrpEvent\", parameters) ="+parameters+"--"+e.getMessage(), MODULE);
                         logMrpError(mrpId, node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
                     }
                 }
@@ -592,7 +592,7 @@ public class MrpServices {
      * @return Map with the result of the service, the output parameters.
      */
     public static Map<String, Object> executeMrp(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Debug.logInfo("executeMrp called", module);
+        Debug.logInfo("executeMrp called", MODULE);
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -846,7 +846,7 @@ public class MrpServices {
         List<Object> msgResult = new LinkedList<>();
         result.put("msgResult", msgResult);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-        Debug.logInfo("return from executeMrp", module);
+        Debug.logInfo("return from executeMrp", MODULE);
         return result;
     }
 }

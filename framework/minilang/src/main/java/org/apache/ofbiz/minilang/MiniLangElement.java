@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
 public class MiniLangElement {
 
     // This must be private so subclasses cannot reference it.
-    private static final String module = MiniLangElement.class.getName();
+    private static final String MODULE = MiniLangElement.class.getName();
 
     private final Object lineNumber;
     protected final SimpleMethod simpleMethod;
@@ -87,7 +87,7 @@ public class MiniLangElement {
                 buf.append(lineSep);
             }
         }
-        Debug.log(methodContext.getTraceLogLevel(), null, buf.toString(), module);
+        Debug.log(methodContext.getTraceLogLevel(), null, buf.toString(), MODULE);
     }
 
     @Override

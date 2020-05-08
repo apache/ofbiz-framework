@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
  */
 public abstract class ConditionalFactory<C extends Conditional> {
 
-    public static final String module = ConditionalFactory.class.getName();
+    public static final String MODULE = ConditionalFactory.class.getName();
     private static final Map<String, ConditionalFactory<?>> conditionalFactories;
 
     static {
@@ -57,7 +57,7 @@ public abstract class ConditionalFactory<C extends Conditional> {
         if (factory != null) {
             return factory.createCondition(element, simpleMethod);
         } else {
-            Debug.logWarning("Found an unknown if condition: " + tagName, module);
+            Debug.logWarning("Found an unknown if condition: " + tagName, MODULE);
             return null;
         }
     }

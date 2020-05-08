@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
  */
 public class UspsServicesTests extends OFBizTestCase {
 
-    public static final String module = UspsServicesTests.class.getName();
+    public static final String MODULE = UspsServicesTests.class.getName();
 
     public UspsServicesTests(String name) {
         super(name);
@@ -63,26 +63,26 @@ public class UspsServicesTests extends OFBizTestCase {
 
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-        Debug.logInfo("[testUspsTrackConfirm] responseMessage: " + responseMessage, module);
+        Debug.logInfo("[testUspsTrackConfirm] responseMessage: " + responseMessage, MODULE);
         assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
         String trackingSummary = (String) result.get("trackingSummary");
-        Debug.logInfo("[testUspsTrackConfirm] trackingSummary: " + trackingSummary, module);
+        Debug.logInfo("[testUspsTrackConfirm] trackingSummary: " + trackingSummary, MODULE);
         assertEquals("trackingSummary is correct",
                 "Your item was delivered at 8:10 am on June 1 in Wilmington DE 19801.", trackingSummary);
 
         List<String> trackingDetailList = UtilGenerics.cast(result.get("trackingDetailList"));
         assertEquals("trackingDetailList has 3 elements", 3, trackingDetailList.size());
 
-        Debug.logInfo("[testUspsTrackConfirm] trackingDetailList[0]: " + trackingDetailList.get(0), module);
+        Debug.logInfo("[testUspsTrackConfirm] trackingDetailList[0]: " + trackingDetailList.get(0), MODULE);
         assertEquals("trackingDetailList element 0 is correct",
                 "May 30 11:07 am NOTICE LEFT WILMINGTON DE 19801.", trackingDetailList.get(0));
 
-        Debug.logInfo("[testUspsTrackConfirm] trackingDetailList[1]: " + trackingDetailList.get(1), module);
+        Debug.logInfo("[testUspsTrackConfirm] trackingDetailList[1]: " + trackingDetailList.get(1), MODULE);
         assertEquals("trackingDetailList element 0 is correct",
                 "May 30 10:08 am ARRIVAL AT UNIT WILMINGTON DE 19850.", trackingDetailList.get(1));
 
-        Debug.logInfo("[testUspsTrackConfirm] trackingDetailList[2]: " + trackingDetailList.get(2), module);
+        Debug.logInfo("[testUspsTrackConfirm] trackingDetailList[2]: " + trackingDetailList.get(2), MODULE);
         assertEquals("trackingDetailList element 0 is correct",
                 "May 29 9:55 am ACCEPT OR PICKUP EDGEWATER NJ 07020.", trackingDetailList.get(2));
     }
@@ -101,27 +101,27 @@ public class UspsServicesTests extends OFBizTestCase {
 
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-        Debug.logInfo("[testUspsAddressValidation] responseMessage: " + responseMessage, module);
+        Debug.logInfo("[testUspsAddressValidation] responseMessage: " + responseMessage, MODULE);
         assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
         String address1 = (String) result.get("address1");
-        Debug.logInfo("[testUspsAddressValidation] address1: " + address1, module);
+        Debug.logInfo("[testUspsAddressValidation] address1: " + address1, MODULE);
         assertEquals("address1 is correct", "6406 IVY LN", address1);
 
         String city = (String) result.get("city");
-        Debug.logInfo("[testUspsAddressValidation] city: " + city, module);
+        Debug.logInfo("[testUspsAddressValidation] city: " + city, MODULE);
         assertEquals("city is correct", "GREENBELT", city);
 
         String state = (String) result.get("state");
-        Debug.logInfo("[testUspsAddressValidation] state: " + state, module);
+        Debug.logInfo("[testUspsAddressValidation] state: " + state, MODULE);
         assertEquals("state is correct", "MD", state);
 
         String zip5 = (String) result.get("zip5");
-        Debug.logInfo("[testUspsAddressValidation] zip5: " + zip5, module);
+        Debug.logInfo("[testUspsAddressValidation] zip5: " + zip5, MODULE);
         assertEquals("zip5 is correct", "20770", zip5);
 
         String zip4 = (String) result.get("zip4");
-        Debug.logInfo("[testUspsAddressValidation] zip4: " + zip4, module);
+        Debug.logInfo("[testUspsAddressValidation] zip4: " + zip4, MODULE);
         assertEquals("zip4 is correct", "1440", zip4);
     }
 
@@ -135,15 +135,15 @@ public class UspsServicesTests extends OFBizTestCase {
         }
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-        Debug.logInfo("[testUspsCityStateLookup] responseMessage: " + responseMessage, module);
+        Debug.logInfo("[testUspsCityStateLookup] responseMessage: " + responseMessage, MODULE);
         assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
         String city = (String) result.get("city");
-        Debug.logInfo("[testUspsCityStateLookup] city: " + city, module);
+        Debug.logInfo("[testUspsCityStateLookup] city: " + city, MODULE);
         assertEquals("city is correct", "BEVERLY HILLS", city);
 
         String state = (String) result.get("state");
-        Debug.logInfo("[testUspsCityStateLookup] state: " + state, module);
+        Debug.logInfo("[testUspsCityStateLookup] state: " + state, MODULE);
         assertEquals("state is correct", "CA", state);
     }
 
@@ -157,11 +157,11 @@ public class UspsServicesTests extends OFBizTestCase {
         }
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-        Debug.logInfo("[testUspsPriorityMailStandard] responseMessage: " + responseMessage, module);
+        Debug.logInfo("[testUspsPriorityMailStandard] responseMessage: " + responseMessage, MODULE);
         assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
         String days = (String) result.get("days");
-        Debug.logInfo("[testUspsPriorityMailStandard] days: " + days, module);
+        Debug.logInfo("[testUspsPriorityMailStandard] days: " + days, MODULE);
         assertEquals("days is correct", "1", days);
     }
 
@@ -175,11 +175,11 @@ public class UspsServicesTests extends OFBizTestCase {
         }
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-        Debug.logInfo("[testUspsPackageServicesStandard] responseMessage: " + responseMessage, module);
+        Debug.logInfo("[testUspsPackageServicesStandard] responseMessage: " + responseMessage, MODULE);
         assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
         String days = (String) result.get("days");
-        Debug.logInfo("[testUspsPackageServicesStandard] days: " + days, module);
+        Debug.logInfo("[testUspsPackageServicesStandard] days: " + days, MODULE);
         assertEquals("days is correct", "2", days);
     }
 
@@ -207,19 +207,19 @@ public class UspsServicesTests extends OFBizTestCase {
         }
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-        Debug.logInfo("[testUspsDomesticRate] responseMessage: " + responseMessage, module);
+        Debug.logInfo("[testUspsDomesticRate] responseMessage: " + responseMessage, MODULE);
         assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
         String postage = (String) result.get("postage");
-        Debug.logInfo("[testUspsDomesticRate] postage: " + postage, module);
+        Debug.logInfo("[testUspsDomesticRate] postage: " + postage, MODULE);
         assertEquals("postage is correct", "7.90", postage);
 
         String restrictionCodes = (String) result.get("restrictionCodes");
-        Debug.logInfo("[testUspsDomesticRate] restrictionCodes: " + restrictionCodes, module);
+        Debug.logInfo("[testUspsDomesticRate] restrictionCodes: " + restrictionCodes, MODULE);
         assertEquals("restrictionCodes is correct", "B-B1-C-D-U", restrictionCodes);
 
         String restrictionDesc = (String) result.get("restrictionDesc");
-        Debug.logInfo("[testUspsDomesticRate] restrictionDesc: " + restrictionDesc, module);
+        Debug.logInfo("[testUspsDomesticRate] restrictionDesc: " + restrictionDesc, MODULE);
         assertEquals("restrictionDesc is correct", "B. Form 2976-A", restrictionDesc.substring(0,14));
     }
 }

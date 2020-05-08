@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 public class HttpViewHandler extends AbstractViewHandler {
 
-    public static final String module = HttpViewHandler.class.getName();
+    public static final String MODULE = HttpViewHandler.class.getName();
 
     @Override
     public void init(ServletContext context) throws ViewHandlerException {
@@ -50,7 +50,7 @@ public class HttpViewHandler extends AbstractViewHandler {
         if (UtilValidate.isEmpty(page))
             throw new ViewHandlerException("Null or empty source");
 
-        if (Debug.infoOn()) Debug.logInfo("Retreiving HTTP resource at: " + page, module);
+        if (Debug.infoOn()) Debug.logInfo("Retreiving HTTP resource at: " + page, MODULE);
         try {
             HttpClient httpClient = new HttpClient(page);
             String pageText = httpClient.get();

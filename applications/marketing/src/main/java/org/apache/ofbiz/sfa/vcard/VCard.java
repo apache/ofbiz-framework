@@ -65,7 +65,7 @@ import ezvcard.property.StructuredName;
 import ezvcard.property.Telephone;
 
 public class VCard {
-    public static final String module = VCard.class.getName();
+    public static final String MODULE = VCard.class.getName();
     public static final String resourceError = "MarketingUiLabels";
 
     /**
@@ -222,7 +222,7 @@ public class VCard {
                 }
             }
         } catch (IOException | GenericEntityException | GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "SfaImportVCardError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
@@ -292,11 +292,11 @@ public class VCard {
             file = FileUtil.getFile(saveToDirectory + "/" + saveToFilename);
             Ezvcard.write(vcard).go(file);
         } catch (FileNotFoundException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "SfaExportVCardErrorOpeningFile", UtilMisc.toMap("errorString", file.getAbsolutePath()), locale));
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "SfaExportVCardErrorWritingFile", UtilMisc.toMap("errorString", file.getAbsolutePath()), locale));
         } catch (GenericEntityException e) {

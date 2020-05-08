@@ -69,7 +69,7 @@ import org.apache.ofbiz.entity.model.ModelViewEntity;
  *
  */
 public final class SqlJdbcUtil {
-    public static final String module = SqlJdbcUtil.class.getName();
+    public static final String MODULE = SqlJdbcUtil.class.getName();
 
     private static final int CHAR_BUFFER_SIZE = 4096;
     private static Map<String, Integer> fieldTypeMap = new HashMap<>();
@@ -434,12 +434,12 @@ public final class SqlJdbcUtil {
         //String fieldPrefix = includeTablenamePrefix ? (modelEntity.getTableName(datasourceInfo) + ".") : "";
 
         if (UtilValidate.isNotEmpty(orderBy)) {
-            if (Debug.verboseOn()) Debug.logVerbose("Order by list contains: " + orderBy.size() + " entries.", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Order by list contains: " + orderBy.size() + " entries.", MODULE);
             OrderByList orderByList = new OrderByList(orderBy);
             orderByList.checkOrderBy(modelEntity);
             orderByList.makeOrderByString(sql, modelEntity, includeTablenamePrefix, datasourceInfo);
         }
-        if (Debug.verboseOn()) Debug.logVerbose("makeOrderByClause: " + sql.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("makeOrderByClause: " + sql.toString(), MODULE);
         return sql.toString();
     }
 
@@ -590,13 +590,13 @@ public final class SqlJdbcUtil {
                 entity.dangerousSetNoCheckButFast(curField, jdbcValue);
                 return;
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else {
             Debug.logWarning("JdbcValueHandler not found for java-type " + mft.getJavaType() + 
                     ", falling back on switch statement. Entity = " + 
                     curField.getModelEntity().getEntityName() +
-                    ", field = " + curField.getName() + ".", module);
+                    ", field = " + curField.getName() + ".", MODULE);
         }
 
         // ------------------------------------------
@@ -613,7 +613,7 @@ public final class SqlJdbcUtil {
                 switch (typeValue) {
                 case 1:
                     if (java.sql.Types.CLOB == colType) {
-                        // Debug.logInfo("For field " + curField.getName() + " of entity " + entity.getEntityName() + " getString is a CLOB, trying getCharacterStream", module);
+                        // Debug.logInfo("For field " + curField.getName() + " of entity " + entity.getEntityName() + " getString is a CLOB, trying getCharacterStream", MODULE);
                         // if the String is empty, try to get a text input stream, this is required for some databases for larger fields, like CLOBs
 
                         Clob valueClob = rs.getClob(ind);
@@ -781,7 +781,7 @@ public final class SqlJdbcUtil {
         }
 
         if (fieldBytes != null && fieldBytes.length <= 0) {
-            Debug.logWarning("Got bytes back for Object field with length: " + fieldBytes.length + " while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): ", module);
+            Debug.logWarning("Got bytes back for Object field with length: " + fieldBytes.length + " while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): ", MODULE);
         }
 
         //alt 1: binaryInput = rs.getBinaryStream(ind);
@@ -796,10 +796,10 @@ public final class SqlJdbcUtil {
                 in = new ObjectInputStream(binaryInput);
                 return in.readObject();
             } catch (IOException ex) {
-                if (Debug.verboseOn()) Debug.logVerbose("Unable to read BLOB data from input stream while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): " + ex.toString(), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Unable to read BLOB data from input stream while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): " + ex.toString(), MODULE);
                 return null;
             } catch (ClassNotFoundException ex) {
-                if (Debug.verboseOn()) Debug.logVerbose("Class not found: Unable to cast BLOB data to an Java object while getting value: " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "); most likely because it is a straight byte[], so just using the raw bytes" + ex.toString(), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Class not found: Unable to cast BLOB data to an Java object while getting value: " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "); most likely because it is a straight byte[], so just using the raw bytes" + ex.toString(), MODULE);
                 return null;
             } finally {
                 if (in != null) {
@@ -852,7 +852,7 @@ public final class SqlJdbcUtil {
             Debug.logWarning("JdbcValueHandler not found for java-type " + mft.getJavaType() + 
                     ", falling back on switch statement. Entity = " + 
                     modelField.getModelEntity().getEntityName() +
-                    ", field = " + modelField.getName() + ".", module);
+                    ", field = " + modelField.getName() + ".", MODULE);
         }
 
         // ------------------------------------------
@@ -872,7 +872,7 @@ public final class SqlJdbcUtil {
                         " is " + fieldClassName + ", was expecting " + mft.getJavaType() + "; this may " +
                         "indicate an error in the configuration or in the class, and may result " +
                         "in an SQL-Java data conversion error. Will use the real field type: " +
-                        fieldClassName + ", not the definition.", module);
+                        fieldClassName + ", not the definition.", MODULE);
                 fieldType = fieldClassName;
             }
         }

@@ -39,7 +39,7 @@ import com.ibm.icu.util.Calendar;
  */
 public final class UtilDateTime {
 
-    public static final String module = UtilDateTime.class.getName();
+    public static final String MODULE = UtilDateTime.class.getName();
 
     private static final String[][] timevals = {
         {"1000", "millisecond"},
@@ -568,7 +568,7 @@ public final class UtilDateTime {
             minute = Integer.parseInt(minuteStr);
             second = Integer.parseInt(secondStr);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
         return toDate(month, day, year, hour, minute, second);

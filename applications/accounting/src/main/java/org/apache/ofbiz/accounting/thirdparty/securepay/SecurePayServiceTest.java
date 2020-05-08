@@ -39,7 +39,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
         super(name);
     }
     
-    public static final String module = SecurePayServiceTest.class.getName();
+    public static final String MODULE = SecurePayServiceTest.class.getName();
 
     // test data
     protected GenericValue emailAddr = null;
@@ -111,7 +111,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
     }
 
     public void testAuth() throws Exception{
-        Debug.logInfo("=====[testAuth] starting....", module);
+        Debug.logInfo("=====[testAuth] starting....", MODULE);
         try {
             Map<String, Object> serviceInput = UtilMisc.<String, Object>toMap(
                     "paymentConfig", configFile,
@@ -132,14 +132,14 @@ public class SecurePayServiceTest extends OFBizTestCase{
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-            Debug.logInfo("[testCCAuth] responseMessage: " + responseMessage, module);
+            Debug.logInfo("[testCCAuth] responseMessage: " + responseMessage, MODULE);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
             if (((Boolean) result.get("authResult")).equals(Boolean.FALSE)) {          // returnCode ok?
-                Debug.logInfo("[testAuth] Error Messages from SecurePay: " + result.get("internalRespMsgs"), module);
+                Debug.logInfo("[testAuth] Error Messages from SecurePay: " + result.get("internalRespMsgs"), MODULE);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             } else {
-                Debug.logInfo("[testAuth] Result from SecurePay: " + result, module);
+                Debug.logInfo("[testAuth] Result from SecurePay: " + result, MODULE);
                 String authRefNum = (String) result.get("authRefNum");
                 BigDecimal processAmount =  (BigDecimal) result.get("processAmount");
                 paymentGatewayResponse = delegator.makeValue("PaymentGatewayResponse" , UtilMisc.toMap(
@@ -162,7 +162,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
     }
 
     public void testdoCapture() throws Exception {
-        Debug.logInfo("=====[testdoCapture] starting....", module);
+        Debug.logInfo("=====[testdoCapture] starting....", MODULE);
         GenericValue paymentGatewayResponse = EntityQuery.use(delegator).from("PaymentGatewayResponse").where("paymentGatewayResponseId", "testOrder1000_01").queryOne();
         try {
             Map<String, Object> serviceInput = UtilMisc.<String, Object>toMap(
@@ -177,18 +177,18 @@ public class SecurePayServiceTest extends OFBizTestCase{
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-            Debug.logInfo("[testdoCapture] responseMessage: " + responseMessage, module);
+            Debug.logInfo("[testdoCapture] responseMessage: " + responseMessage, MODULE);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
             if (((Boolean) result.get("captureResult")).equals(Boolean.FALSE)) {          // returnCode ok?
-                Debug.logInfo("[testdoCapture] Error Messages from SecurePay: " + result.get("internalRespMsgs"), module);
+                Debug.logInfo("[testdoCapture] Error Messages from SecurePay: " + result.get("internalRespMsgs"), MODULE);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             } else {
                 String captureRefNum = (String) result.get("captureRefNum");
                 GenericValue checkPaymentGatewayResponse = EntityQuery.use(delegator).from("PaymentGatewayResponse").where("paymentGatewayResponseId", "testOrder1000_01").queryOne();
                 checkPaymentGatewayResponse.set("referenceNum", captureRefNum);
                 checkPaymentGatewayResponse.store();
-                Debug.logInfo("[testdoCapture] Result from SecurePay: " + result, module);
+                Debug.logInfo("[testdoCapture] Result from SecurePay: " + result, MODULE);
             }
             
         } catch (GenericServiceException ex) {
@@ -197,7 +197,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
     }
 
     public void testdoRefund() throws Exception {
-        Debug.logInfo("=====[testdoRefund] starting....", module);
+        Debug.logInfo("=====[testdoRefund] starting....", MODULE);
         try {
             Map<String, Object> serviceInput = UtilMisc.toMap(
                     "paymentConfig", configFile,
@@ -209,14 +209,14 @@ public class SecurePayServiceTest extends OFBizTestCase{
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-            Debug.logInfo("[testdoRefund] responseMessage: " + responseMessage, module);
+            Debug.logInfo("[testdoRefund] responseMessage: " + responseMessage, MODULE);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
             if (((Boolean) result.get("refundResult")).equals(Boolean.FALSE)) {          // returnCode ok?
-                Debug.logInfo("[testdoRefund] Error Messages from SecurePay: " + result.get("internalRespMsgs"), module);
+                Debug.logInfo("[testdoRefund] Error Messages from SecurePay: " + result.get("internalRespMsgs"), MODULE);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             } else {
-                Debug.logInfo("[testdoRefund] Result from SecurePay: " + result, module);
+                Debug.logInfo("[testdoRefund] Result from SecurePay: " + result, MODULE);
             }
 
         } catch (GenericServiceException ex) {
@@ -225,7 +225,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
     }
 
     public void testdoCredit() throws Exception{
-        Debug.logInfo("=====[testdoCredit] starting....", module);
+        Debug.logInfo("=====[testdoCredit] starting....", MODULE);
         try {
             Map<String, Object> serviceInput = UtilMisc.toMap(
                     "paymentConfig", configFile,
@@ -242,14 +242,14 @@ public class SecurePayServiceTest extends OFBizTestCase{
             Map<String, Object> result = dispatcher.runSync("ofbScCCCredit",serviceInput);
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-            Debug.logInfo("[testdoCredit] responseMessage: " + responseMessage, module);
+            Debug.logInfo("[testdoCredit] responseMessage: " + responseMessage, MODULE);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
             if (((Boolean) result.get("creditResult")).equals(Boolean.FALSE)) {          // returnCode ok?
-                Debug.logInfo("[testdoCredit] Error Messages from SecurePay: " + result.get("internalRespMsgs"), module);
+                Debug.logInfo("[testdoCredit] Error Messages from SecurePay: " + result.get("internalRespMsgs"), MODULE);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             } else {
-                Debug.logInfo("[testdoCredit] Result from SecurePay: " + result, module);
+                Debug.logInfo("[testdoCredit] Result from SecurePay: " + result, MODULE);
             }
 
         } catch (GenericServiceException ex) {

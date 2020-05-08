@@ -42,7 +42,7 @@ import org.apache.ofbiz.widget.WidgetWorker;
  */
 public class PortalPageWorker {
 
-    public static final String module = PortalPageWorker.class.getName();
+    public static final String MODULE = PortalPageWorker.class.getName();
 
     public PortalPageWorker() { }
 
@@ -93,7 +93,7 @@ public class PortalPageWorker {
                 }
                 portalPages = EntityUtil.orderBy(userPortalPages, UtilMisc.toList("sequenceNum"));
             } catch (GenericEntityException e) {
-                Debug.logError("Could not retrieve portalpages:" + e.getMessage(), module);
+                Debug.logError("Could not retrieve portalpages:" + e.getMessage(), MODULE);
             }
         }
         return portalPages;
@@ -137,7 +137,7 @@ public class PortalPageWorker {
                     portalPage = EntityUtil.getFirst(privateDerivedPortalPages);
                 }
             } catch (GenericEntityException e) {
-                Debug.logError("Could not retrieve portalpage:" + e.getMessage(), module);
+                Debug.logError("Could not retrieve portalpage:" + e.getMessage(), MODULE);
             }
         }
         return portalPage;

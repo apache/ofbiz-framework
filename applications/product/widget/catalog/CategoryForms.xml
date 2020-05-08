@@ -244,7 +244,7 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <field name="productCategoryId" sort-field="true">
+        <field name="productCategoryId" sort-field="true" widget-style="buttontext">
             <hyperlink description="${productCategoryId}" target="EditCategory" also-hidden="false">
                 <parameter param-name="productCategoryId"/>
             </hyperlink>

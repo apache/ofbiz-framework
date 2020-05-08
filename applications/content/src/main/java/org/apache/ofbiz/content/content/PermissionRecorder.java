@@ -49,7 +49,7 @@ public class PermissionRecorder {
     protected String [] statusTargets;
     protected String [] targetOperations;
 
-    public static final String module = PermissionRecorder.class.getName();
+    public static final String MODULE = PermissionRecorder.class.getName();
 
     private static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
     private static final String [] fieldTitles = { "Purpose", "Operation", "Role", "Status", "Privilege"};
@@ -248,7 +248,7 @@ public class PermissionRecorder {
         sb.append((String)rMap.get("contentId"));
         sb.append("</td>");
 
-        //if (Debug.infoOn()) Debug.logInfo("renderResultRowHtml, (1):" + sb.toString(), module);
+        //if (Debug.infoOn()) Debug.logInfo("renderResultRowHtml, (1):" + sb.toString(), MODULE);
         String str = null;
         String s = null;
         for (int i=0; i < opFields.length; i++) {

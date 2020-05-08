@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelTheme implements Serializable {
 
-    public static final String module = ModelTheme.class.getName();
+    public static final String MODULE = ModelTheme.class.getName();
     //generic properties
     private final String name;
     private final Map<String, VisualTheme> visualThemes;
@@ -172,7 +172,7 @@ public class ModelTheme implements Serializable {
                                 location = defaultLocation;
                             }
                             if (UtilValidate.isEmpty(location)) {
-                                Debug.logWarning("We can resolve the screen location " + name + " in the theme " + this.name + " so no added it", module);
+                                Debug.logWarning("We can resolve the screen location " + name + " in the theme " + this.name + " so no added it", MODULE);
                                 continue;
                             }
                             initModelCommonScreensMap.put(name, location);
@@ -189,7 +189,7 @@ public class ModelTheme implements Serializable {
                                 location = defaultLocation;
                             }
                             if (UtilValidate.isEmpty(location)) {
-                                Debug.logWarning("We can resolve the form location " + name + " in the theme " + this.name + " so no added it", module);
+                                Debug.logWarning("We can resolve the form location " + name + " in the theme " + this.name + " so no added it", MODULE);
                                 continue;
                             }
                             initModelCommonFormsMap.put(name, location);
@@ -206,7 +206,7 @@ public class ModelTheme implements Serializable {
                                 location = defaultLocation;
                             }
                             if (UtilValidate.isEmpty(location)) {
-                                Debug.logWarning("We can resolve the menu location " + name + " in the theme " + this.name + " so no added it", module);
+                                Debug.logWarning("We can resolve the menu location " + name + " in the theme " + this.name + " so no added it", MODULE);
                                 continue;
                             }
                             initModelCommonMenusMap.put(name, location);
@@ -331,7 +331,7 @@ public class ModelTheme implements Serializable {
                 name.put(initThemePropertiesMap, ObjectType.simpleTypeOrObjectConvert(value, type, null, null));
             } catch (GeneralException e) {
                 Debug.logError("Impossible to parse the value " + value + " to type " + type +
-                        " for the property " + name + " on theme " + this.name, module);
+                        " for the property " + name + " on theme " + this.name, MODULE);
             }
         }
     }

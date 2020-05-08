@@ -33,7 +33,7 @@ class ProductFeatureTypeTests extends OFBizTestCase {
         serviceCtx.productFeatureTypeId = 'testProdFeat'
         serviceCtx.description = 'Test Description'
         serviceCtx.hasTable = 'N'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map result = dispatcher.runSync('createProductFeatureType', serviceCtx)
         assert ServiceUtil.isSuccess(result)
 

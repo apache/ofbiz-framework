@@ -32,11 +32,6 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
     }
 
     void testCreateInvoiceContent() {
-        def userLogin = EntityQuery.use(delegator).from('UserLogin')
-            .where('userLoginId', 'system')
-            .cache()
-            .queryOne()
-
         Map serviceCtx = [
             invoiceId: '1008',
             contentId: '1000',
@@ -56,11 +51,6 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert invoiceContent.contentId == serviceResult.contentId
     }
     void testCreateSimpleTextContentForInvoice() {
-        def userLogin = EntityQuery.use(delegator).from('UserLogin')
-                .where('userLoginId', 'system')
-                .cache()
-                .queryOne()
-
         Map serviceCtx = [
                 invoiceId: '1009',
                 contentId: '1001',

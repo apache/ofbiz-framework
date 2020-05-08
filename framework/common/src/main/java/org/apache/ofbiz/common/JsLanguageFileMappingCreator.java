@@ -45,7 +45,7 @@ import freemarker.template.TemplateException;
 
 public class JsLanguageFileMappingCreator {
 
-    private static final String module = JsLanguageFileMappingCreator.class.getName();
+    private static final String MODULE = JsLanguageFileMappingCreator.class.getName();
 
     public static Map<String, Object> createJsLanguageFileMapping(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -224,7 +224,7 @@ public class JsLanguageFileMappingCreator {
             FileUtils.writeStringToFile(file, writer.toString(), encoding);
         }
         catch (IOException | TemplateException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated", UtilMisc.toMap("errorString", e.getMessage()), (Locale)context.get("locale")));
         }
 

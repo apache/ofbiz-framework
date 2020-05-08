@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
  */
 public final class CallScript extends MethodOperation {
 
-    public static final String module = CallScript.class.getName();
+    public static final String MODULE = CallScript.class.getName();
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {

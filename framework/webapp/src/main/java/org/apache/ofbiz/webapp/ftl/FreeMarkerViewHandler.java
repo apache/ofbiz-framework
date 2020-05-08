@@ -44,7 +44,7 @@ import freemarker.template.TemplateException;
  */
 public class FreeMarkerViewHandler extends AbstractViewHandler {
 
-    public static final String module = FreeMarkerViewHandler.class.getName();
+    public static final String MODULE = FreeMarkerViewHandler.class.getName();
     protected Configuration config = (Configuration) FreeMarkerWorker.getDefaultOfbizConfig().clone();
 
     @Override

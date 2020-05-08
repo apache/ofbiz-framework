@@ -35,6 +35,8 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
@@ -42,7 +44,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class LayoutWorker {
 
-    public static final String module = LayoutWorker.class.getName();
+    public static final String MODULE = LayoutWorker.class.getName();
     private static final String err_resource = "ContentErrorUiLabels";
 
     private LayoutWorker() {}
@@ -58,14 +60,26 @@ public final class LayoutWorker {
         Map<String, Object> results = new HashMap<>();
         Map<String, String> formInput = new HashMap<>();
         results.put("formInput", formInput);
-        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
+
+        Delegator delegator = (Delegator)request.getAttribute("delegator");
+
+        long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
+        int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
+        File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
+        
+        ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
+        upload.setSizeMax(maxUploadSize);
+
         List<FileItem> lst = null;
         try {
-           lst = UtilGenerics.cast(fu.parseRequest(request));
+           lst = UtilGenerics.cast(upload.parseRequest(request));
         } catch (FileUploadException e4) {
             return ServiceUtil.returnError(e4.getMessage());
         }
 
+        if(lst.size() == 0 && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
+            lst = UtilGenerics.cast(request.getAttribute("fileItems"));
+        }
         if (lst.size() == 0) {
             String errMsg = UtilProperties.getMessage(err_resource,
                     "layoutEvents.no_files_uploaded", locale);
@@ -94,7 +108,7 @@ public final class LayoutWorker {
         }
 
         if (imageFi == null) {
-            String errMsg = UtilProperties.getMessage(err_resource, 
+            String errMsg = UtilProperties.getMessage(err_resource,
                     "layoutEvents.image_null", UtilMisc.toMap("imageFi", imageFi), locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return null;

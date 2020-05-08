@@ -37,7 +37,7 @@ import org.apache.ofbiz.service.job.JobManager;
  * A container for the service engine.
  */
 public class ServiceContainer implements Container {
-    private static final String module = ServiceContainer.class.getName();
+    private static final String MODULE = ServiceContainer.class.getName();
     private static final ConcurrentHashMap<String, LocalDispatcher> dispatcherCache = new ConcurrentHashMap<>();
     private static LocalDispatcherFactory dispatcherFactory;
 
@@ -83,7 +83,7 @@ public class ServiceContainer implements Container {
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator) {
         if (dispatcherName == null) {
             dispatcherName = delegator.getDelegatorName();
-            Debug.logWarning("ServiceContainer.getLocalDispatcher method called with a null dispatcherName, defaulting to delegator name.", module);
+            Debug.logWarning("ServiceContainer.getLocalDispatcher method called with a null dispatcherName, defaulting to delegator name.", MODULE);
         }
         if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
             dispatcherName = dispatcherName.concat("#").concat(delegator.getDelegatorTenantId());
@@ -93,7 +93,7 @@ public class ServiceContainer implements Container {
             dispatcher = dispatcherFactory.createLocalDispatcher(dispatcherName, delegator);
             dispatcherCache.putIfAbsent(dispatcherName, dispatcher);
             dispatcher = dispatcherCache.get(dispatcherName);
-            Debug.logInfo("Created new dispatcher: " + dispatcherName, module);
+            Debug.logInfo("Created new dispatcher: " + dispatcherName, MODULE);
         }
         return dispatcher;
     }
@@ -106,7 +106,7 @@ public class ServiceContainer implements Container {
     }
 
     public static LocalDispatcher removeFromCache(String dispatcherName) {
-        Debug.logInfo("Removing from cache dispatcher: " + dispatcherName, module);
+        Debug.logInfo("Removing from cache dispatcher: " + dispatcherName, MODULE);
         return dispatcherCache.remove(dispatcherName);
     }
 

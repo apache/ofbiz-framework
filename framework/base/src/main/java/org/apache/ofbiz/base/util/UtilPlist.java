@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public final class UtilPlist {
 
-    public static final String module = UtilPlist.class.getName();
+    public static final String MODULE = UtilPlist.class.getName();
 
     private UtilPlist() {}
 

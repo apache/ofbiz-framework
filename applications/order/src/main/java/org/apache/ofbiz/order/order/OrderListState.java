@@ -56,7 +56,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 @SuppressWarnings("serial")
 public class OrderListState implements Serializable {
 
-    public static final String module = OrderListState.class.getName();
+    public static final String MODULE = OrderListState.class.getName();
     public static final String SESSION_KEY = "__ORDER_LIST_STATUS__";
     public static final String VIEW_SIZE_PARAM = "viewSize";
     public static final String VIEW_INDEX_PARAM = "viewIndex";
@@ -159,7 +159,7 @@ public class OrderListState implements Serializable {
             viewSize = Integer.parseInt(viewSizeParam);
             viewIndex = Integer.parseInt(viewIndexParam);
         } catch (NumberFormatException e) {
-            Debug.logWarning("Values of " + VIEW_SIZE_PARAM + " ["+viewSizeParam+"] and " + VIEW_INDEX_PARAM + " ["+viewIndexParam+"] must both be Integers. Not paginating order list.", module);
+            Debug.logWarning("Values of " + VIEW_SIZE_PARAM + " ["+viewSizeParam+"] and " + VIEW_INDEX_PARAM + " ["+viewIndexParam+"] must both be Integers. Not paginating order list.", MODULE);
         }
     }
 

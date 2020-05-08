@@ -39,14 +39,14 @@ import org.apache.ofbiz.entity.GenericEntityException;
  */
 public class ModelEntityChecker {
 
-    public static final String module = ModelEntityChecker.class.getName();
+    public static final String MODULE = ModelEntityChecker.class.getName();
 
     public static void checkEntities(Delegator delegator, List<String> warningList) throws GenericEntityException {
         ModelReader reader = delegator.getModelReader();
 
         Set<String> reservedWords = new HashSet<>();
         if (Debug.infoOn()) {
-            Debug.logInfo("[initReservedWords] array length = " + rwArray.length, module);
+            Debug.logInfo("[initReservedWords] array length = " + rwArray.length, MODULE);
         }
         for (int i = 0; i < rwArray.length; i++) {
             reservedWords.add(rwArray[i]);
@@ -215,7 +215,7 @@ public class ModelEntityChecker {
                         try {
                             relatedEntity = reader.getModelEntity(relation.getRelEntityName());
                         } catch (GenericEntityException e) {
-                            Debug.logInfo("Entity referred to in relation is not defined: " + relation.getRelEntityName(), module);
+                            Debug.logInfo("Entity referred to in relation is not defined: " + relation.getRelEntityName(), MODULE);
                         }
                         if (relatedEntity != null) {
                             //if relation is of type one, make sure keyMaps

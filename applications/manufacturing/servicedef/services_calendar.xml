@@ -41,16 +41,16 @@ under the License.
         <description>Remove a calendar</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-
+    <!-- TechDataCalendarWeek services -->
     <service name="createCalendarWeek" engine="simple" default-entity-name="TechDataCalendarWeek"
             location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarWeek">
         <description>Create a Calendar Week</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateCalendarWeek" engine="simple" default-entity-name="TechDataCalendarWeek"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="updateCalendarWeek">
+    <service name="updateCalendarWeek" engine="entity-auto" default-entity-name="TechDataCalendarWeek" invoke="update">
         <description>Update a Calendar Week</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -59,39 +59,47 @@ under the License.
         <description>Remove a Calendar Week</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-
-    <service name="createCalendarExceptionDay" engine="simple" default-entity-name="TechDataCalendarExcDay"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarExceptionDay">
+    <!-- manufacturing permission service -->
+    <service name="manufacturingPermissionService" engine="simple"
+             location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+        <implements service="permissionInterface"/>
+        <attribute name="primaryPermission" type="String" mode="IN" optional="true" default-value="MANUFACTURING"/>
+        <attribute name="altPermission" type="String" mode="IN" optional="true"/>
+    </service>
+    <!-- TechDataCalendarExcDay services -->
+    <service name="createCalendarExceptionDay" engine="entity-auto" default-entity-name="TechDataCalendarExcDay" invoke="create">
         <description>Create a calendar ExceptionDay</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateCalendarExceptionDay" engine="simple" default-entity-name="TechDataCalendarExcDay"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="updateCalendarExceptionDay">
+    <service name="updateCalendarExceptionDay" engine="entity-auto" default-entity-name="TechDataCalendarExcDay" invoke="update">
         <description>Update a calendar ExceptionDay</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeCalendarExceptionDay" engine="simple" default-entity-name="TechDataCalendarExcDay"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="removeCalendarExceptionDay">
-        <description>Update a calendar ExceptionDay</description>
+    <service name="removeCalendarExceptionDay" engine="entity-auto" default-entity-name="TechDataCalendarExcDay" invoke="delete">
+        <description>Delete a calendar ExceptionDay</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createCalendarExceptionWeek" engine="simple" default-entity-name="TechDataCalendarExcWeek"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarExceptionWeek">
+    <!-- TechDataCalendarExcWeek services -->
+    <service name="createCalendarExceptionWeek" engine="entity-auto" default-entity-name="TechDataCalendarExcWeek" invoke="create">
         <description>Create a Calendar Exception Week</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateCalendarExceptionWeek" engine="simple" default-entity-name="TechDataCalendarExcWeek"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="updateCalendarExceptionWeek">
+    <service name="updateCalendarExceptionWeek" engine="entity-auto" default-entity-name="TechDataCalendarExcWeek" invoke="update">
         <description>Update a Calendar Exception Week</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeCalendarExceptionWeek" engine="simple" default-entity-name="TechDataCalendarExcWeek"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="removeCalendarExceptionWeek">
-        <description>Remove a Calendar Exception Week</description>
+    <service name="removeCalendarExceptionWeek" engine="entity-auto" default-entity-name="TechDataCalendarExcWeek" invoke="delete">
+        <description>Delete a Calendar Exception Week</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 </services>

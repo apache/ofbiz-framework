@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class OrderChangeHelper {
 
-    public static final String module = OrderChangeHelper.class.getName();
+    public static final String MODULE = OrderChangeHelper.class.getName();
 
     private OrderChangeHelper() {}
 
@@ -72,7 +72,7 @@ public final class OrderChangeHelper {
         try {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, "ITEM_CREATED", ITEM_STATUS, DIGITAL_ITEM_STATUS);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
+            Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, MODULE);
             return false;
         }
 
@@ -95,7 +95,7 @@ public final class OrderChangeHelper {
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
             OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
+            Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, MODULE);
             return false;
         }
         return true;
@@ -107,7 +107,7 @@ public final class OrderChangeHelper {
             OrderChangeHelper.createOrderInvoice(dispatcher, userLogin, orderId);
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, "ORDER_COMPLETED", "ITEM_APPROVED", "ITEM_COMPLETED", null);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return false;
         }
         return true;
@@ -129,7 +129,7 @@ public final class OrderChangeHelper {
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
             OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
+            Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, MODULE);
             return false;
         }
         return true;
@@ -141,7 +141,7 @@ public final class OrderChangeHelper {
         Map<String, Object> statusResult = dispatcher.runSync("changeOrderStatus", statusFields);
         if (ServiceUtil.isError(statusResult)) {
             String errorMessage = ServiceUtil.getErrorMessage(statusResult);
-            Debug.logError(errorMessage, module);
+            Debug.logError(errorMessage, MODULE);
             throw new GenericServiceException(errorMessage);
         }
 
@@ -153,7 +153,7 @@ public final class OrderChangeHelper {
         Map<String, Object> itemStatusResult = dispatcher.runSync("changeOrderItemStatus", itemStatusFields);
         if (ServiceUtil.isError(itemStatusResult)) {
             String errorMessage = ServiceUtil.getErrorMessage(itemStatusResult);
-            Debug.logError(errorMessage, module);
+            Debug.logError(errorMessage, MODULE);
             throw new GenericServiceException(errorMessage);
         }
 
@@ -164,14 +164,14 @@ public final class OrderChangeHelper {
             try {
                 orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "ERROR: Unable to get OrderHeader for OrderID : " + orderId, module);
+                Debug.logError(e, "ERROR: Unable to get OrderHeader for OrderID : " + orderId, MODULE);
             }
             if (orderHeader != null) {
                 List<GenericValue> orderItems = null;
                 try {
                     orderItems = orderHeader.getRelated("OrderItem", null, null, false);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "ERROR: Unable to get OrderItem records for OrderHeader : " + orderId, module);
+                    Debug.logError(e, "ERROR: Unable to get OrderItem records for OrderHeader : " + orderId, MODULE);
                 }
                 if (UtilValidate.isNotEmpty(orderItems)) {
                     for (GenericValue orderItem : orderItems) {
@@ -181,14 +181,14 @@ public final class OrderChangeHelper {
                         try {
                             product = orderItem.getRelatedOne("Product", false);
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, "ERROR: Unable to get Product record for OrderItem : " + orderId + "/" + orderItemSeqId, module);
+                            Debug.logError(e, "ERROR: Unable to get Product record for OrderItem : " + orderId + "/" + orderItemSeqId, MODULE);
                         }
                         if (product != null) {
                             GenericValue productType = null;
                             try {
                                 productType = product.getRelatedOne("ProductType", false);
                             } catch (GenericEntityException e) {
-                                Debug.logError(e, "ERROR: Unable to get ProductType from Product : " + product, module);
+                                Debug.logError(e, "ERROR: Unable to get ProductType from Product : " + product, MODULE);
                             }
                             if (productType != null) {
                                 String isDigital = productType.getString("isDigital");
@@ -198,7 +198,7 @@ public final class OrderChangeHelper {
                                     Map<String, Object> digitalStatusChange = dispatcher.runSync("changeOrderItemStatus", digitalStatusFields);
                                     if (ServiceUtil.isError(digitalStatusChange)) {
                                         String errorMessage = ServiceUtil.getErrorMessage(digitalStatusChange);
-                                        Debug.logError(errorMessage, module);
+                                        Debug.logError(errorMessage, MODULE);
                                         throw new GenericServiceException(errorMessage);
                                     }
                                 }
@@ -211,7 +211,7 @@ public final class OrderChangeHelper {
                                 Map<String, Object> digitalStatusChange = dispatcher.runSync("changeOrderItemStatus", digitalStatusFields);
                                 if (ServiceUtil.isError(digitalStatusChange)) {
                                     String errorMessage = ServiceUtil.getErrorMessage(digitalStatusChange);
-                                    Debug.logError(errorMessage, module);
+                                    Debug.logError(errorMessage, MODULE);
                                     throw new GenericServiceException(errorMessage);
                                 }
                             }
@@ -228,7 +228,7 @@ public final class OrderChangeHelper {
         Map<String, Object> cancelInvResult = dispatcher.runSync("cancelOrderInventoryReservation", cancelInvFields);
         if (ServiceUtil.isError(cancelInvResult)) {
             String errorMessage = ServiceUtil.getErrorMessage(cancelInvResult);
-            Debug.logError(errorMessage, module);
+            Debug.logError(errorMessage, MODULE);
             throw new GenericServiceException(errorMessage);
         }
     }
@@ -238,7 +238,7 @@ public final class OrderChangeHelper {
         Map<String, Object> releaseResult = dispatcher.runSync("releaseOrderPayments", releaseFields);
         if (ServiceUtil.isError(releaseResult)) {
             String errorMessage = ServiceUtil.getErrorMessage(releaseResult);
-            Debug.logError(errorMessage, module);
+            Debug.logError(errorMessage, MODULE);
             throw new GenericServiceException(errorMessage);
         }
     }
@@ -248,7 +248,7 @@ public final class OrderChangeHelper {
         try {
             orderHeader = dispatcher.getDelegator().findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (orderHeader != null) {
             OrderReadHelper orh = new OrderReadHelper(orderHeader);
@@ -269,7 +269,7 @@ public final class OrderChangeHelper {
                                 "paymentRefNum",  UtilDateTime.nowTimestamp().toString(), "paymentFromId", partyId));
                         if (ServiceUtil.isError(results)) {
                             String errorMessage = ServiceUtil.getErrorMessage(results);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                             throw new GenericServiceException(errorMessage);
                         }
                     }
@@ -283,7 +283,7 @@ public final class OrderChangeHelper {
         try {
             orderHeader = dispatcher.getDelegator().findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (orderHeader != null) {
             OrderReadHelper orh = new OrderReadHelper(orderHeader);
@@ -293,7 +293,7 @@ public final class OrderChangeHelper {
             Map<String, Object> serviceRes = dispatcher.runSync("createInvoiceForOrder", serviceParam);
             if (ServiceUtil.isError(serviceRes)) {
                 String errorMessage = ServiceUtil.getErrorMessage(serviceRes);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 throw new GenericServiceException(errorMessage);
             }
         }

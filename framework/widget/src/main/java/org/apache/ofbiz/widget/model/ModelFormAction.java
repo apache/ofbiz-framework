@@ -42,16 +42,17 @@ import org.w3c.dom.Element;
  */
 public abstract class ModelFormAction {
 
-    public static final String module = ModelFormAction.class.getName();
+    public static final String MODULE = ModelFormAction.class.getName();
 
     public static List<ModelAction> readSubActions(ModelForm modelForm, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
         List<ModelAction> actions = new ArrayList<>(actionElementList.size());
         for (Element actionElement : UtilXml.childElementList(parentElement)) {
-            if ("service".equals(actionElement.getNodeName())) {
+            String nodeName = actionElement.getLocalName();
+            if ("service".equals(nodeName)) {
                 actions.add(new Service(modelForm, actionElement));
-            } else if ("entity-and".equals(actionElement.getNodeName()) || "entity-condition".equals(actionElement.getNodeName())
-                    || "get-related".equals(actionElement.getNodeName())) {
+            } else if ("entity-and".equals(nodeName) || "entity-condition".equals(nodeName)
+                    || "get-related".equals(nodeName)) {
                 if (!actionElement.hasAttribute("list")) {
                     String listName = modelForm.getListName();
                     if (UtilValidate.isEmpty(listName)) {
@@ -60,7 +61,7 @@ public abstract class ModelFormAction {
                     actionElement.setAttribute("list", listName);
                 }
                 actions.add(AbstractModelAction.newInstance(modelForm, actionElement));
-            } else if ("call-parent-actions".equals(actionElement.getNodeName())) {
+            } else if ("call-parent-actions".equals(nodeName)) {
                 actions.add(new CallParentActions(modelForm, actionElement));
             } else {
                 actions.add(AbstractModelAction.newInstance(modelForm, actionElement));
@@ -81,7 +82,7 @@ public abstract class ModelFormAction {
 
         public CallParentActions(ModelForm modelForm, Element callParentActionsElement) {
             super(modelForm, callParentActionsElement);
-            String parentName = callParentActionsElement.getParentNode().getNodeName();
+            String parentName = callParentActionsElement.getParentNode().getLocalName();
             if ("actions".equals(parentName)) {
                 kind = ActionsKind.ACTIONS;
             } else if ("row-actions".equals(parentName)) {
@@ -224,7 +225,7 @@ public abstract class ModelFormAction {
             } catch (GenericServiceException e) {
                 String errMsg = "Error in form [" + this.getModelWidget().getName() + "] calling service with name ["
                         + serviceNameExpanded + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 if (!this.ignoreError) {
                     throw new IllegalArgumentException(errMsg);
                 }

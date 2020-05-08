@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
  */
 public final class SetOperation extends MethodOperation {
 
-    public static final String module = SetOperation.class.getName();
+    public static final String MODULE = SetOperation.class.getName();
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {
@@ -140,12 +140,12 @@ public final class SetOperation extends MethodOperation {
             try {
                 newValue = this.scriptlet.executeScript(methodContext.getEnvMap());
             } catch (Exception exc) {
-                Debug.logWarning(exc, "Error evaluating scriptlet [" + this.scriptlet + "]: " + exc, module);
+                Debug.logWarning(exc, "Error evaluating scriptlet [" + this.scriptlet + "]: " + exc, MODULE);
             }
         } else if (!this.fromFma.isEmpty()) {
             newValue = this.fromFma.get(methodContext.getEnvMap());
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, module);
+                 Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, MODULE);
             }
         } else if (!this.valueFse.isEmpty()) {
             newValue = this.valueFse.expand(methodContext.getEnvMap());
@@ -158,13 +158,13 @@ public final class SetOperation extends MethodOperation {
         }
         if (!setIfNull && newValue == null && !"NewMap".equals(this.type) && !"NewList".equals(this.type)) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Field value not found (null) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", module);
+                 Debug.logVerbose("Field value not found (null) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", MODULE);
             }
             return true;
         }
         if (!setIfEmpty && ObjectType.isEmpty(newValue)) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Field value not found (empty) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", module);
+                 Debug.logVerbose("Field value not found (empty) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", MODULE);
             }
             return true;
         }
@@ -191,14 +191,14 @@ public final class SetOperation extends MethodOperation {
                     }
                 } catch (Exception e) {
                     String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.getMessage();
-                    Debug.logWarning(e, errMsg, module);
+                    Debug.logWarning(e, errMsg, MODULE);
                     this.simpleMethod.addErrorMessage(methodContext, errMsg);
                     return false;
                 }
             }
         }
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Setting field [" + this.fieldFma.toString() + "] to value: " + newValue, module);
+             Debug.logVerbose("Setting field [" + this.fieldFma.toString() + "] to value: " + newValue, MODULE);
         }
         this.fieldFma.put(methodContext.getEnvMap(), newValue);
         return true;

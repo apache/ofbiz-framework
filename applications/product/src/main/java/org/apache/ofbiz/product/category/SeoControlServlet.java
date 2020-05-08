@@ -39,7 +39,7 @@ import org.apache.ofbiz.webapp.control.ControlServlet;
 @SuppressWarnings("serial")
 public class SeoControlServlet extends ControlServlet {
 
-    public static final String module = SeoControlServlet.class.getName();
+    public static final String MODULE = SeoControlServlet.class.getName();
 
     private static String defaultPage = null;
     private static String controlServlet = null;

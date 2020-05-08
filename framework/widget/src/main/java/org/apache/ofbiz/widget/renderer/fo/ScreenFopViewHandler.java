@@ -60,7 +60,7 @@ import freemarker.template.TemplateException;
  * This handler will use JPublish to generate the XSL-FO
  */
 public class ScreenFopViewHandler extends AbstractViewHandler {
-    public static final String module = ScreenFopViewHandler.class.getName();
+    public static final String MODULE = ScreenFopViewHandler.class.getName();
     protected static final String DEFAULT_ERROR_TEMPLATE = "component://common/widget/CommonScreens.xml#FoError";
 
     protected ServletContext servletContext = null;
@@ -107,7 +107,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         if (!screenOutString.startsWith("<?xml")) {
             screenOutString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + screenOutString;
         }
-        if (Debug.verboseOn()) Debug.logVerbose("XSL:FO Screen Output: " + screenOutString, module);
+        if (Debug.verboseOn()) Debug.logVerbose("XSL:FO Screen Output: " + screenOutString, MODULE);
 
         if (UtilValidate.isEmpty(contentType)) {
             contentType = modelTheme.getContentType(getName());
@@ -159,7 +159,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
                 fw.write(screenOutString);
                 fw.close();
             } catch (IOException e) {
-                Debug.logError(e, "Couldn't save xls debug file: " + e.toString(), module);
+                Debug.logError(e, "Couldn't save xls debug file: " + e.toString(), MODULE);
             }
         */
         try {
@@ -183,7 +183,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     }
 
     protected void renderError(String msg, Exception e, String screenOutString, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
-        Debug.logError(msg + ": " + e + "; Screen XSL:FO text was:\n" + screenOutString, module);
+        Debug.logError(msg + ": " + e + "; Screen XSL:FO text was:\n" + screenOutString, MODULE);
         try {
             Writer writer = new StringWriter();
             VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
@@ -199,7 +199,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             response.getWriter().write(writer.toString());
             writer.close();
         } catch (IOException | GeneralException | SAXException | ParserConfigurationException | TemplateException x) {
-            Debug.logError("Multiple errors rendering FOP", module);
+            Debug.logError("Multiple errors rendering FOP", MODULE);
             throw new ViewHandlerException("Multiple errors rendering FOP", x);
         }
     }

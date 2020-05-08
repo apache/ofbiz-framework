@@ -51,7 +51,7 @@ import org.apache.ofbiz.entity.model.DynamicViewEntity;
  */
 public class EntityQuery {
 
-    public static final String module = EntityQuery.class.getName();
+    public static final String MODULE = EntityQuery.class.getName();
 
     private Delegator delegator;
     private String entityName = null;
@@ -391,7 +391,7 @@ public class EntityQuery {
      */
     public EntityListIterator queryIterator() throws GenericEntityException {
         if (useCache) {
-            Debug.logWarning("Call to iterator() with cache, ignoring cache", module);
+            Debug.logWarning("Call to iterator() with cache, ignoring cache", MODULE);
         }
         if (dynamicViewEntity == null) {
             return delegator.find(entityName, makeWhereCondition(false), havingEntityCondition, fieldsToSelect, orderBy, makeEntityFindOptions());

@@ -34,7 +34,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class PackingSessionLine implements java.io.Serializable {
 
-    public final String module = PackingSessionLine.class.getName();
+    public final String MODULE = PackingSessionLine.class.getName();
 
     protected String orderId = null;
     protected String orderItemSeqId = null;
@@ -204,7 +204,7 @@ public class PackingSessionLine implements java.io.Serializable {
 
         if (picklistBinId != null) {
             // find the pick list item
-            Debug.logInfo("Looking up picklist item for bin ID #" + picklistBinId, module);
+            Debug.logInfo("Looking up picklist item for bin ID #" + picklistBinId, MODULE);
             Delegator delegator = dispatcher.getDelegator();
             Map<String, Object> itemLookup = new HashMap<>();
             itemLookup.put("picklistBinId", picklistBinId);
@@ -217,7 +217,7 @@ public class PackingSessionLine implements java.io.Serializable {
                                       .where(itemLookup)
                                       .queryOne();
             if (plItem != null) {
-                Debug.logInfo("Found picklist bin: " + plItem, module);
+                Debug.logInfo("Found picklist bin: " + plItem, MODULE);
                 BigDecimal itemQty = plItem.getBigDecimal("quantity");
                 if (itemQty.compareTo(quantity) == 0) {
                     // set to complete
@@ -232,10 +232,10 @@ public class PackingSessionLine implements java.io.Serializable {
                     throw new GeneralException(ServiceUtil.getErrorMessage(issueResp));
                 }
             } else {
-                Debug.logInfo("No item was found for lookup: " + itemLookup, module);
+                Debug.logInfo("No item was found for lookup: " + itemLookup, MODULE);
             }
         } else {
-            Debug.logWarning("*** NO Picklist Bin ID set; cannot update picklist status!", module);
+            Debug.logWarning("*** NO Picklist Bin ID set; cannot update picklist status!", MODULE);
         }
     }
 

@@ -64,7 +64,7 @@ import org.apache.shiro.crypto.AesCipherService;
  */
 public class EntityDataServices {
 
-    public static final String module = EntityDataServices.class.getName();
+    public static final String MODULE = EntityDataServices.class.getName();
     public static final String resource = "EntityExtUiLabels";
 
     public static Map<String, Object> exportDelimitedToDirectory(DispatchContext dctx, Map<String, Object> context) {
@@ -115,7 +115,7 @@ public class EntityDataServices {
                     Map<String, Object> serviceCtx = UtilMisc.toMap("file", file, "delimiter", delimiter, "userLogin", userLogin);
                     dispatcher.runSyncIgnore("importDelimitedEntityFile", serviceCtx);
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
         } else {
@@ -153,14 +153,14 @@ public class EntityDataServices {
         } catch (FileNotFoundException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtFileNotFound", UtilMisc.toMap("fileName", file.getName()), locale));
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtProblemReadingFile", UtilMisc.toMap("fileName", file.getName()), locale));
         }
 
         long endTime = System.currentTimeMillis();
         long runTime = endTime - startTime;
 
-        Debug.logInfo("Imported/Updated [" + records + "] from : " + file.getAbsolutePath() + " [" + runTime + "ms]", module);
+        Debug.logInfo("Imported/Updated [" + records + "] from : " + file.getAbsolutePath() + " [" + runTime + "ms]", MODULE);
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("records", records);
         return result;
@@ -171,13 +171,13 @@ public class EntityDataServices {
 
         // check for a file list file
         File listFile = new File(root, "FILELIST.txt");
-        Debug.logInfo("Checking file list - " + listFile.getPath(), module);
+        Debug.logInfo("Checking file list - " + listFile.getPath(), MODULE);
         if (listFile.exists()) {
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(listFile), StandardCharsets.UTF_8));
             } catch (FileNotFoundException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             if (reader != null) {
                 // read each line as a file name to load
@@ -191,16 +191,16 @@ public class EntityDataServices {
                         }
                     }
                 } catch (IOException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
 
                 // close the reader
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
-                Debug.logInfo("Read file list : " + fileList.size() + " entities.", module);
+                Debug.logInfo("Read file list : " + fileList.size() + " entities.", MODULE);
             }
         } else {
             File[] files = root.listFiles();
@@ -212,7 +212,7 @@ public class EntityDataServices {
                     }
                 }
             }
-            Debug.logInfo("No file list found; using directory order : " + fileList.size() + " entities.", module);
+            Debug.logInfo("No file list found; using directory order : " + fileList.size() + " entities.", MODULE);
         }
 
         return fileList;
@@ -234,7 +234,7 @@ public class EntityDataServices {
                     header = firstLine.split(delimiter);
                 }
             } catch (IOException | SecurityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else {
             BufferedReader reader = dataReader;
@@ -253,27 +253,27 @@ public class EntityDataServices {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
         String[] header = readEntityHeader(file, delimiter, reader);
 
-        //Debug.logInfo("Opened data file [" + file.getName() + "] now running...", module);
+        //Debug.logInfo("Opened data file [" + file.getName() + "] now running...", MODULE);
         GeneralException exception = null;
         String line = null;
         int lineNumber = 1;
         while ((line = reader.readLine()) != null) {
             // process the record
             String fields[] = line.split(delimiter);
-            //Debug.logInfo("Split record", module);
+            //Debug.logInfo("Split record", MODULE);
             if (fields.length < 1) {
                 exception = new GeneralException("Illegal number of fields [" + file.getName() + " / " + lineNumber);
                 break;
             }
 
             GenericValue newValue = makeGenericValue(delegator, entityName, header, fields);
-            //Debug.logInfo("Made value object", module);
+            //Debug.logInfo("Made value object", MODULE);
             newValue = delegator.createOrStore(newValue);
-            //Debug.logInfo("Stored record", module);
+            //Debug.logInfo("Stored record", MODULE);
 
             if (lineNumber % 500 == 0 || lineNumber == 1) {
-                Debug.logInfo("Records Stored [" + file.getName() + "]: " + lineNumber, module);
-                //Debug.logInfo("Last record : " + newValue, module);
+                Debug.logInfo("Records Stored [" + file.getName() + "]: " + lineNumber, MODULE);
+                //Debug.logInfo("Last record : " + newValue, MODULE);
             }
 
             lineNumber++;
@@ -345,37 +345,37 @@ public class EntityDataServices {
         try {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting list of entities in group: " + e.toString(), module);
+            Debug.logError(e, "Error getting list of entities in group: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         // step 1 - remove FK indices
-        Debug.logImportant("Removing all foreign key indices", module);
+        Debug.logImportant("Removing all foreign key indices", MODULE);
         for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.deleteForeignKeyIndices(modelEntity, messages);
         }
 
         // step 2 - remove FKs
-        Debug.logImportant("Removing all foreign keys", module);
+        Debug.logImportant("Removing all foreign keys", MODULE);
         for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.deleteForeignKeys(modelEntity, modelEntities, messages);
         }
 
         // step 3 - remove PKs
-        Debug.logImportant("Removing all primary keys", module);
+        Debug.logImportant("Removing all primary keys", MODULE);
         for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.deletePrimaryKey(modelEntity, messages);
         }
 
         // step 4 - remove declared indices
-        Debug.logImportant("Removing all declared indices", module);
+        Debug.logImportant("Removing all declared indices", MODULE);
         for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.deleteDeclaredIndices(modelEntity, messages);
         }
 
         // step 5 - repair field sizes
         if (fixSizes) {
-            Debug.logImportant("Updating column field size changes", module);
+            Debug.logImportant("Updating column field size changes", MODULE);
             List<String> fieldsWrongSize = new LinkedList<>();
             dbUtil.checkDb(modelEntities, fieldsWrongSize, messages, true, true, true, true);
             if (fieldsWrongSize.size() > 0) {
@@ -383,36 +383,36 @@ public class EntityDataServices {
             } else {
                 String thisMsg = "No field sizes to update";
                 messages.add(thisMsg);
-                Debug.logImportant(thisMsg, module);
+                Debug.logImportant(thisMsg, MODULE);
             }
         }
 
         // step 6 - create PKs
-        Debug.logImportant("Creating all primary keys", module);
+        Debug.logImportant("Creating all primary keys", MODULE);
         for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.createPrimaryKey(modelEntity, messages);
         }
 
         // step 7 - create FK indices
-        Debug.logImportant("Creating all foreign key indices", module);
+        Debug.logImportant("Creating all foreign key indices", MODULE);
         for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.createForeignKeyIndices(modelEntity, messages);
         }
 
         // step 8 - create FKs
-        Debug.logImportant("Creating all foreign keys", module);
+        Debug.logImportant("Creating all foreign keys", MODULE);
         for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.createForeignKeys(modelEntity, modelEntities, messages);
         }
 
         // step 8 - create FKs
-        Debug.logImportant("Creating all declared indices", module);
+        Debug.logImportant("Creating all declared indices", MODULE);
         for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.createDeclaredIndices(modelEntity, messages);
         }
 
         // step 8 - checkdb
-        Debug.logImportant("Running DB check with add missing enabled", module);
+        Debug.logImportant("Running DB check with add missing enabled", MODULE);
         dbUtil.checkDb(modelEntities, messages, true);
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -439,7 +439,7 @@ public class EntityDataServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error unwrapping ByteWrapper records: " + e.toString(), module);
+            Debug.logError(e, "Error unwrapping ByteWrapper records: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorUnwrappingRecords", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -463,34 +463,34 @@ public class EntityDataServices {
             List<GenericValue> rows = EntityQuery.use(delegator).from("EntityKeyStore").queryList();
             for (GenericValue row: rows) {
                 byte[] keyBytes = Base64.decodeBase64(row.getString("keyText"));
-                Debug.logInfo("Processing entry " + row.getString("keyName") + " with key: " + row.getString("keyText"), module);
+                Debug.logInfo("Processing entry " + row.getString("keyName") + " with key: " + row.getString("keyText"), MODULE);
                 if (oldKey != null) {
-                    Debug.logInfo("Decrypting with old key: " + oldKey, module);
+                    Debug.logInfo("Decrypting with old key: " + oldKey, MODULE);
                     try {
                         keyBytes = cipherService.decrypt(keyBytes, Base64.decodeBase64(oldKey)).getBytes();
                     } catch(Exception e) {
-                        Debug.logInfo("Failed to decrypt with Shiro cipher; trying with old cipher", module);
+                        Debug.logInfo("Failed to decrypt with Shiro cipher; trying with old cipher", MODULE);
                         try {
                             keyBytes = DesCrypt.decrypt(DesCrypt.getDesKey(Base64.decodeBase64(oldKey)), keyBytes);
                         } catch(Exception e1) {
-                            Debug.logError(e1, module);
+                            Debug.logError(e1, MODULE);
                             return ServiceUtil.returnError(e1.getMessage());
                         }
                     }
                 }
                 String newKeyText;
                 if (newKey != null) {
-                    Debug.logInfo("Encrypting with new key: " + oldKey, module);
+                    Debug.logInfo("Encrypting with new key: " + oldKey, MODULE);
                     newKeyText = cipherService.encrypt(keyBytes, Base64.decodeBase64(newKey)).toBase64();
                 } else {
                     newKeyText = Base64.encodeBase64String(keyBytes);
                 }
-                Debug.logInfo("Storing new encrypted value: " + newKeyText, module);
+                Debug.logInfo("Storing new encrypted value: " + newKeyText, MODULE);
                 row.setString("keyText", newKeyText);
                 row.store();
             }
         } catch(GenericEntityException gee) {
-            Debug.logError(gee, module);
+            Debug.logError(gee, MODULE);
             return ServiceUtil.returnError(gee.getMessage());
         }
         delegator.clearAllCaches();
@@ -514,7 +514,7 @@ public class EntityDataServices {
         try {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting list of entities in group: " + e.toString(), module);
+            Debug.logError(e, "Error getting list of entities in group: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 

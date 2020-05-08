@@ -30,7 +30,7 @@ import org.w3c.dom.Element;
  */
 public final class JNDIConfigUtil {
 
-    public static final String module = JNDIConfigUtil.class.getName();
+    public static final String MODULE = JNDIConfigUtil.class.getName();
     private static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
     private static final ConcurrentHashMap<String, JndiServerInfo> jndiServerInfos = new ConcurrentHashMap<>();
     private JNDIConfigUtil() {}
@@ -47,7 +47,7 @@ public final class JNDIConfigUtil {
         try {
             initialize(getXmlRootElement());
         } catch (Exception e) {
-            Debug.logError(e, "Error loading JNDI config XML file " + JNDI_CONFIG_XML_FILENAME, module);
+            Debug.logError(e, "Error loading JNDI config XML file " + JNDI_CONFIG_XML_FILENAME, MODULE);
         }
     }
     public static void initialize(Element rootElement) {

@@ -169,35 +169,16 @@ under the License.
         <attribute name="parties" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     
-    <service name="getPartiesByRelationship" engine="simple"
-        location="component://party/minilang/party/PartyServices.xml" invoke="getPartiesByRelationship">
+    <service name="getPartiesByRelationship" engine="groovy"
+        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartiesByRelationship">
         <description>Gets all parties related to partyIdFrom through the PartyRelationship entity</description>
         <auto-attributes mode="IN" include="all" optional="true" entity-name="PartyRelationship"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
         <override name="partyIdFrom" optional="false"/>
     </service>
-    <service name="getRelatedParties" engine="simple"
-            location="component://party/minilang/party/PartyServices.xml" invoke="getRelatedParties">
-        <description>
-            Get Parties Related to a Party
-            - The relatedPartyIdList coming out will include the original partyIdFrom
-            - The includeFromToSwitched and recurse attributes should by "Y" or "N" and default to N.
-            - The useCache attribute should be "true" or "false", defaults to "false"
-        </description>
-        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
-        <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdFrom" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdFromInclueAllChildTypes" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdToIncludeAllChildTypes" type="String" mode="IN" optional="true"/>
-        <attribute name="includeFromToSwitched" type="String" mode="IN" optional="true"/>
-        <attribute name="recurse" type="String" mode="IN" optional="true"/>
-        <attribute name="useCache" type="String" mode="IN" optional="true"/>
-        <attribute name="relatedPartyIdList" type="List" mode="OUT" optional="false"/>
-    </service>
 
-    <service name="getParentOrganizations" engine="simple"
-            location="component://party/minilang/party/PartyServices.xml" invoke="getParentOrganizations">
+    <service name="getParentOrganizations" engine="groovy"
+            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getParentOrganizations">
         <description>
             Gets Parent Organizations for an Organization Party.
             This uses the PartyRelationship table with partyRelationshipTypeId="GROUP_ROLLUP".
@@ -206,32 +187,52 @@ under the License.
             The getParentsOfParents attribute defaults to Y.
             The parentOrganizationPartyIdList coming out will contain the original organizationPartyId.
         </description>
-        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingOrganizationPartyId"/>
+            </type-validate>
+        </attribute>
         <attribute name="getParentsOfParents" type="String" mode="IN" optional="true"/>
-        <attribute name="parentOrganizationPartyIdList" type="List" mode="OUT" optional="false"/>
+        <attribute name="parentOrganizationPartyIdList" type="List" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingParentOrganizationPartyIdList"/>
+            </type-validate>
+        </attribute>
     </service>
 
-    <service name="getChildRoleTypes" engine="simple"
-            location="component://party/minilang/party/PartyServices.xml" invoke="getChildRoleTypes">
+    <service name="getChildRoleTypes" engine="groovy"
+            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getChildRoleTypes">
         <description>
             Get Child RoleTypes.
             The childRoleTypeIdList coming out will contain the original roleTypeId.
         </description>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="childRoleTypeIdList" type="List" mode="OUT" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="childRoleTypeIdList" type="List" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingChildRoleTypeIdList"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <!-- PostalAddressBoundary -->
-    <service name="getPostalAddressBoundary" engine="simple"
-            location="component://party/minilang/party/PartyServices.xml" invoke="getPostalAddressBoundary">
+    <service name="getPostalAddressBoundary" engine="groovy"
+            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPostalAddressBoundary">
         <description>Get all Postal Address Boundaries</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="VIEW"/>
-        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechId"/>
+            </type-validate>
+        </attribute>
         <attribute name="geos" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     
-    <service name="getRelatedParties" engine="simple"
-        location="component://party/minilang/party/PartyServices.xml" invoke="getRelatedParties">
+    <service name="getRelatedParties" engine="groovy"
+        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getRelatedParties">
         <description>
             Get Parties Related to a Party
             - The relatedPartyIdList coming out will include the original partyIdFrom
@@ -247,6 +248,10 @@ under the License.
         <attribute name="includeFromToSwitched" type="String" mode="IN" optional="true"/>
         <attribute name="recurse" type="String" mode="IN" optional="true"/>
         <attribute name="useCache" type="String" mode="IN" optional="true"/>
-        <attribute name="relatedPartyIdList" type="List" mode="OUT" optional="false"/>
+        <attribute name="relatedPartyIdList" type="List" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingRelatedPartyIdList"/>
+            </type-validate>
+        </attribute>
     </service>
 </services>

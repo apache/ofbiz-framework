@@ -51,7 +51,7 @@ import freemarker.template.TransformControl;
  */
 public class LoopSubContentTransform implements TemplateTransformModel {
 
-    public static final String module = LoopSubContentTransform.class.getName();
+    public static final String MODULE = LoopSubContentTransform.class.getName();
 
     static final String[] saveKeyNames = {"contentId", "subContentId", "mimeType", "subContentDataResourceView", "wrapTemplateId", "contentTemplateId"};
     static final String[] removeKeyNames = {"wrapTemplateId", "entityList", "entityIndex", "textData", "dataResourceId","drDataResourceId", "subContentIdSub", "parentContent", "wrappedFTL"};
@@ -246,7 +246,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (GeneralException e) {
-                        Debug.logError(e, "Error rendering content", module);
+                        Debug.logError(e, "Error rendering content", MODULE);
                         throw new IOException("Error rendering content" + e.toString());
                     }
                 } else {

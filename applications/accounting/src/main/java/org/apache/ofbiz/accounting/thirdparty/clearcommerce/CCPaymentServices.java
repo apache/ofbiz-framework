@@ -53,7 +53,7 @@ import org.w3c.dom.Element;
  */
 public class CCPaymentServices {
 
-    public final static String module = CCPaymentServices.class.getName();
+    public final static String MODULE = CCPaymentServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
     public final static String resource = "AccountingUiLabels";
@@ -607,7 +607,7 @@ public class CCPaymentServices {
                 try {
                     severity = Integer.parseInt(UtilXml.childElementValue(messageElement, "Sev"));
                 } catch (NumberFormatException nfe) {
-                    Debug.logError("Error parsing message severity: " + nfe.getMessage(), module);
+                    Debug.logError("Error parsing message severity: " + nfe.getMessage(), MODULE);
                     severity = 9;
                 }
                 String message = "[" + UtilXml.childElementValue(messageElement, "Audience") + "] " + UtilXml
@@ -630,7 +630,7 @@ public class CCPaymentServices {
             try {
                 maxSev = Integer.parseInt(maxSevStr);
             } catch (NumberFormatException nfe) {
-                Debug.logError("Error parsing MaxSev: " + nfe.getMessage(), module);
+                Debug.logError("Error parsing MaxSev: " + nfe.getMessage(), MODULE);
                 maxSev = 9;
             }
         }
@@ -709,7 +709,7 @@ public class CCPaymentServices {
         Map<String, Object> pbOrder = UtilGenerics.cast(context.get("pbOrder"));
         if (pbOrder != null) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("pbOrder Map not empty:" + pbOrder.toString(), module);
+                Debug.logVerbose("pbOrder Map not empty:" + pbOrder.toString(), MODULE);
             }
             Element pbOrderElement = UtilXml.addChildElement(orderFormDocElement, "PbOrder", requestDocument); // periodic billing order
             UtilXml.addChildElementValue(pbOrderElement, "OrderFrequencyCycle", (String) pbOrder.get(
@@ -806,7 +806,7 @@ public class CCPaymentServices {
                 GenericValue countryGeo = address.getRelatedOne("CountryGeo", true);
                 UtilXml.addChildElementValue(addressElement, "Country", countryGeo.getString("geoSecCode"), document);
             } catch (GenericEntityException gee) {
-                Debug.logInfo(gee, "Error finding related Geo for countryGeoId: " + countryGeoId, module);
+                Debug.logInfo(gee, "Error finding related Geo for countryGeoId: " + countryGeoId, MODULE);
             }
         }
     }
@@ -897,7 +897,7 @@ public class CCPaymentServices {
             throw new ClearCommerceException("Missing server URL; check your ClearCommerce configuration");
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("ClearCommerce server URL: " + serverURL, module);
+            Debug.logVerbose("ClearCommerce server URL: " + serverURL, MODULE);
         }
 
         OutputStream os = new ByteArrayOutputStream();
@@ -911,7 +911,7 @@ public class CCPaymentServices {
         String xmlString = os.toString();
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("ClearCommerce XML request string: " + xmlString, module);
+            Debug.logVerbose("ClearCommerce XML request string: " + xmlString, MODULE);
         }
 
         HttpClient http = new HttpClient(serverURL);
@@ -921,7 +921,7 @@ public class CCPaymentServices {
         try {
             response = http.post();
         } catch (HttpClientException hce) {
-            Debug.logInfo(hce, module);
+            Debug.logInfo(hce, MODULE);
             throw new ClearCommerceException("ClearCommerce connection problem", hce);
         }
 
@@ -932,10 +932,10 @@ public class CCPaymentServices {
             throw new ClearCommerceException("Error reading response Document from a String: " + e.getMessage());
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Result severity from clearCommerce:" + getMessageListMaxSev(responseDocument), module);
+            Debug.logVerbose("Result severity from clearCommerce:" + getMessageListMaxSev(responseDocument), MODULE);
         }
         if (Debug.verboseOn() && getMessageListMaxSev(responseDocument) > maxSevComp) {
-            Debug.logVerbose("Returned messages:" + getMessageList(responseDocument), module);
+            Debug.logVerbose("Returned messages:" + getMessageList(responseDocument), MODULE);
         }
         return responseDocument;
     }

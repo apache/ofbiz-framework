@@ -42,7 +42,7 @@ import org.apache.ofbiz.webapp.control.JWTManager;
  */
 public final class SecurityUtil {
 
-    public static final String module = SecurityUtil.class.getName();
+    public static final String MODULE = SecurityUtil.class.getName();
     private static final List<String> adminPermissions = UtilMisc.toList(
             "IMPERSONATE_ADMIN",
             "ARTIFACT_INFO_VIEW",
@@ -69,7 +69,7 @@ public final class SecurityUtil {
                     .filterByDate("fromDate", "thruDate", "permissionFromDate", "permissionThruDate")
                     .queryCount() != 0;
         } catch (GenericEntityException e) {
-            Debug.logError("Failed to resolve user permissions", module);
+            Debug.logError("Failed to resolve user permissions", MODULE);
         }
         return false;
     }
@@ -101,7 +101,7 @@ public final class SecurityUtil {
                             .filterByDate("fromDate", "thruDate", "permissionFromDate", "permissionThruDate")
                             .queryList(), "permissionId", true);
         } catch (GenericEntityException e) {
-            Debug.logError("Failed to resolve user permissions", module);
+            Debug.logError("Failed to resolve user permissions", MODULE);
             return returnList;
         }
 
@@ -160,7 +160,7 @@ public final class SecurityUtil {
                         userLogin.getString("userLoginId") + userLogin.getString("currentPassword"));
                 return (! ServiceUtil.isError(claims)) && userLoginId.equals(claims.get("userLoginId"));
             } catch (GenericEntityException e) {
-                Debug.logWarning("failed to validate a jwToken for user " + userLoginId, module);
+                Debug.logWarning("failed to validate a jwToken for user " + userLoginId, MODULE);
             }
         }
         return false;

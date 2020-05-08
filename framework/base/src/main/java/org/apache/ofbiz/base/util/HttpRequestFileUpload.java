@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  */
 public class HttpRequestFileUpload {
-    private static final String module = HttpRequestFileUpload.class.getName();
+    private static final String MODULE = HttpRequestFileUpload.class.getName();
     private int BUFFER_SIZE = 4096;
     private int WAIT_INTERVAL = 200; // in milliseconds
     private int MAX_WAITS = 20;
@@ -118,7 +118,7 @@ public class HttpRequestFileUpload {
 
         String reqLengthString = request.getHeader("content-length");
 
-        Debug.logInfo("expect " + reqLengthString + " bytes.", module);
+        Debug.logInfo("expect " + reqLengthString + " bytes.", MODULE);
         int requestLength = 0;
 
         try {
@@ -140,7 +140,7 @@ public class HttpRequestFileUpload {
 
         String boundary = new String(line, 0, boundaryLength, StandardCharsets.UTF_8); // -2 discards the newline character
 
-        Debug.logInfo("boundary=[" + boundary + "] length is " + boundaryLength, module);
+        Debug.logInfo("boundary=[" + boundary + "] length is " + boundaryLength, MODULE);
         fields = new HashMap<>();
 
         while (requestLength > 0/* i != -1*/) {
@@ -179,7 +179,7 @@ public class HttpRequestFileUpload {
                         lastTwoBytes[0] = line[i - 2];
                         lastTwoBytes[1] = line[i - 1];
                     }
-                    Debug.logInfo("about to create a file:" + (savePath == null ? "" : savePath) + filenameToUse, module);
+                    Debug.logInfo("about to create a file:" + (savePath == null ? "" : savePath) + filenameToUse, MODULE);
                     // before creating the file make sure directory exists
                     if (savePath == null) {
                         throw new IllegalArgumentException("savePath is null");
@@ -235,7 +235,7 @@ public class HttpRequestFileUpload {
                     } catch (RuntimeException e) {
                         throw e;
                     } catch (Exception e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 } else {
                     // this is a field
@@ -282,10 +282,10 @@ public class HttpRequestFileUpload {
         int i = -1;
 
         while (((i = in.readLine(buf, off, len)) == -1) && (reqLen > 0)) {
-            Debug.logInfo("waiting", module);
+            Debug.logInfo("waiting", MODULE);
             if (waitCount > MAX_WAITS) {
                 Debug.logInfo("waited " + waitCount + " times, bailing out while still expecting " +
-                    reqLen + " bytes.", module);
+                    reqLen + " bytes.", MODULE);
                 throw new IOException("waited " + waitCount + " times, bailing out while still expecting " +
                         reqLen + " bytes.");
             }
@@ -296,10 +296,10 @@ public class HttpRequestFileUpload {
                 try {
                     wait(WAIT_INTERVAL);
                 } catch (Exception e3) {
-                    Debug.logInfo(".", module);
+                    Debug.logInfo(".", MODULE);
                 }
             }
-            Debug.logInfo((new Date().getTime() - endMS) + " ms", module);
+            Debug.logInfo((new Date().getTime() - endMS) + " ms", MODULE);
         }
         return i;
     }

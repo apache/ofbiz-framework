@@ -42,8 +42,8 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  * Handles saving and maintaining visit information
  */
 public class VisitHandler {
-    // Debug module name
-    public static final String module = VisitHandler.class.getName();
+    // Debug MODULE name
+    public static final String MODULE = VisitHandler.class.getName();
 
     public static final String visitorCookieName = "OFBiz.Visitor";
 
@@ -53,7 +53,7 @@ public class VisitHandler {
         try {
             tmpAddress = InetAddress.getLocalHost();
         } catch (java.net.UnknownHostException e) {
-            Debug.logError("Unable to get server's internet address: " + e.toString(), module);
+            Debug.logError("Unable to get server's internet address: " + e.toString(), MODULE);
         }
         address = tmpAddress;
     }
@@ -71,7 +71,7 @@ public class VisitHandler {
             try {
                 visitor.store();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Could not update visitor: ", module);
+                Debug.logError(e, "Could not update visitor: ", MODULE);
             }
         }
 
@@ -91,7 +91,7 @@ public class VisitHandler {
             try {
                 visit.store();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Could not update visit: ", module);
+                Debug.logError(e, "Could not update visit: ", MODULE);
             }
         }
     }
@@ -128,7 +128,7 @@ public class VisitHandler {
                         }
 
                         if (delegator == null) {
-                            Debug.logError("Could not find delegator with delegatorName [" + delegatorName + "] in session, or a delegator attribute in the ServletContext, not creating Visit entity", module);
+                            Debug.logError("Could not find delegator with delegatorName [" + delegatorName + "] in session, or a delegator attribute in the ServletContext, not creating Visit entity", MODULE);
                         } else {
                             String webappName = (String) session.getAttribute("_WEBAPP_NAME_");
                             Locale initialLocaleObj = (Locale) session.getAttribute("_CLIENT_LOCALE_");
@@ -139,7 +139,7 @@ public class VisitHandler {
                             String initialLocale = initialLocaleObj != null ? initialLocaleObj.toString() : "";
 
                             if (UtilValidate.isEmpty(webappName)) {
-                                Debug.logInfo(new Exception(), "The webappName was empty, somehow the initial request settings were missing.", module);
+                                Debug.logInfo(new Exception(), "The webappName was empty, somehow the initial request settings were missing.", MODULE);
                             }
 
                             visit = delegator.makeValue("Visit");
@@ -173,7 +173,7 @@ public class VisitHandler {
                                     }
                                     visit.set("visitorId", visitorId);
                                 } catch (GenericEntityException e) {
-                                    Debug.logWarning("Problem checking the visitorId: " + e.toString(), module);
+                                    Debug.logWarning("Problem checking the visitorId: " + e.toString(), MODULE);
                                 }
                             }
 
@@ -187,7 +187,7 @@ public class VisitHandler {
                                 visit = delegator.createSetNextSeqId(visit);
                                 session.setAttribute("visit", visit);
                             } catch (GenericEntityException e) {
-                                Debug.logError(e, "Could not create new visit:", module);
+                                Debug.logError(e, "Could not create new visit:", MODULE);
                                 visit = null;
                             }
                         }
@@ -196,7 +196,7 @@ public class VisitHandler {
             }
 
             if (visit == null) {
-                Debug.logWarning("Could not find or create the visit...", module);
+                Debug.logWarning("Could not find or create the visit...", MODULE);
             }
             return visit;
         }
@@ -221,12 +221,12 @@ public class VisitHandler {
                         }
 
                         if (delegator == null) {
-                            Debug.logError("Could not find delegator in request or with delegatorName [" + delegatorName + "] in session, not creating/getting Visitor entity", module);
+                            Debug.logError("Could not find delegator in request or with delegatorName [" + delegatorName + "] in session, not creating/getting Visitor entity", MODULE);
                         } else {
                             // first try to get the current ID from the visitor cookie
                             String cookieVisitorId = null;
                             Cookie[] cookies = request.getCookies();
-                            if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, module);
+                            if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, MODULE);
                             if (cookies != null) {
                                 for (int i = 0; i < cookies.length; i++) {
                                     if (cookies[i].getName().equals(visitorCookieName)) {
@@ -236,7 +236,7 @@ public class VisitHandler {
                                 }
                             }
 
-                            if (Debug.infoOn()) Debug.logInfo("Found visitorId [" + cookieVisitorId + "] in cookie", module);
+                            if (Debug.infoOn()) Debug.logInfo("Found visitorId [" + cookieVisitorId + "] in cookie", MODULE);
 
                             if (UtilValidate.isEmpty(cookieVisitorId)) {
                                 // no visitor cookie? create visitor and send back cookie too
@@ -244,7 +244,7 @@ public class VisitHandler {
                                 try {
                                     delegator.createSetNextSeqId(visitor);
                                 } catch (GenericEntityException e) {
-                                    Debug.logError(e, "Could not create new visitor:", module);
+                                    Debug.logError(e, "Could not create new visitor:", MODULE);
                                     visitor = null;
                                 }
                             } else {
@@ -256,11 +256,11 @@ public class VisitHandler {
                                         visitor = delegator.createSetNextSeqId(visitor);
                                         if (Debug.infoOn()) {
                                             String visitorId = visitor != null ? visitor.getString("visitorId") : "empty visitor";
-                                            Debug.logInfo("The visitorId [" + cookieVisitorId + "] found in cookie was invalid, creating new Visitor with ID [" + visitorId + "]", module);
+                                            Debug.logInfo("The visitorId [" + cookieVisitorId + "] found in cookie was invalid, creating new Visitor with ID [" + visitorId + "]", MODULE);
                                         }
                                     }
                                 } catch (GenericEntityException e) {
-                                    Debug.logError(e, "Error finding visitor with ID from cookie: " + cookieVisitorId, module);
+                                    Debug.logError(e, "Error finding visitor with ID from cookie: " + cookieVisitorId, MODULE);
                                     visitor = null;
                                 }
                             }
@@ -282,7 +282,7 @@ public class VisitHandler {
                 }
             }
             if (visitor == null) {
-                Debug.logWarning(new Exception(), "Could not find or create the visitor...", module);
+                Debug.logWarning(new Exception(), "Could not find or create the visitor...", MODULE);
             }
             return visitor;
         }

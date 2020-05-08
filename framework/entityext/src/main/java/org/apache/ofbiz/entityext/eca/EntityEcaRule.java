@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class EntityEcaRule implements java.io.Serializable {
 
-    public static final String module = EntityEcaRule.class.getName();
+    public static final String MODULE = EntityEcaRule.class.getName();
 
     private final String entityName;
     private final String operationName;
@@ -79,7 +79,7 @@ public final class EntityEcaRule implements java.io.Serializable {
             } else if ("set".equals(element.getNodeName())) {
                 actionsAndSets.add(new EntityEcaSetField(element));
             } else {
-                Debug.logWarning("Invalid eca child element " + element.getNodeName(), module);
+                Debug.logWarning("Invalid eca child element " + element.getNodeName(), MODULE);
             }
         }
         conditions.trimToSize();
@@ -87,8 +87,8 @@ public final class EntityEcaRule implements java.io.Serializable {
         actionsAndSets.trimToSize();
         this.actionsAndSets = Collections.unmodifiableList(actionsAndSets);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Conditions: " + conditions, module);
-            Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
+            Debug.logVerbose("Conditions: " + conditions, MODULE);
+            Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, MODULE);
         }
     }
 
@@ -118,11 +118,11 @@ public final class EntityEcaRule implements java.io.Serializable {
 
     public void eval(String currentOperation, DispatchContext dctx, GenericEntity value, boolean isError, Set<String> actionsRun) throws GenericEntityException {
         if (!enabled) {
-            Debug.logInfo("Entity ECA [" + this.entityName + "] on [" + this.eventName + "] is disabled; not running.", module);
+            Debug.logInfo("Entity ECA [" + this.entityName + "] on [" + this.eventName + "] is disabled; not running.", MODULE);
             return;
         }
 
-        //Debug.logInfo("eval eeca rule: operation=" + currentOperation + ", in event=" + this.eventName + ", on entity=" + this.entityName + ", for value=" + value, module);
+        //Debug.logInfo("eval eeca rule: operation=" + currentOperation + ", in event=" + this.eventName + ", on entity=" + this.entityName + ", for value=" + value, MODULE);
         if (isError && !this.runOnError) {
             return;
         }
@@ -167,7 +167,7 @@ public final class EntityEcaRule implements java.io.Serializable {
                     //only execute a given service name once per service call phase
                     if (actionsRun.add(ea.getServiceName())) {
                         if (Debug.infoOn()) {
-                            Debug.logInfo("Running Entity ECA Service: " + ea.getServiceName() + ", triggered by rule on Entity: " + value.getEntityName(), module);
+                            Debug.logInfo("Running Entity ECA Service: " + ea.getServiceName() + ", triggered by rule on Entity: " + value.getEntityName(), MODULE);
                         }
                         ea.runAction(dctx, context, value);
                     }

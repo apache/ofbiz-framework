@@ -35,7 +35,7 @@ under the License.
   </div>
   <div class="screenlet-body">
       <br />
-        <div class="align-float">
+        <div class="align-text">
             <span class="label">
             <#if (visitSize > 0)>
                 <#if (viewIndex > 1)>
@@ -79,7 +79,7 @@ under the License.
         </#list>
       </table>
       <br />
-      <div class="align-float">
+      <div class="align-text">
           <span class="label">
           <#if (visitSize > 0)>
               <#if (viewIndex > 1)>

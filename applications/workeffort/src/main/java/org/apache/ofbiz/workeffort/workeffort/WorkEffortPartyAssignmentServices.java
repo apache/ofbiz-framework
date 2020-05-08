@@ -37,7 +37,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class WorkEffortPartyAssignmentServices {
 
-    public static final String module = WorkEffortPartyAssignmentServices.class.getName();
+    public static final String MODULE = WorkEffortPartyAssignmentServices.class.getName();
 
     public static void updateWorkflowEngine(GenericValue wepa, GenericValue userLogin, LocalDispatcher dispatcher) {
         // if the WorkEffort is an ACTIVITY, check for accept or complete new status...
@@ -47,7 +47,7 @@ public class WorkEffortPartyAssignmentServices {
         try {
             workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", wepa.get("workEffortId")).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
         if (workEffort != null && "ACTIVITY".equals(workEffort.getString("workEffortTypeId"))) {
             // TODO: restrict status transitions
@@ -62,26 +62,26 @@ public class WorkEffortPartyAssignmentServices {
                 try {
                     Map<String, Object> results = dispatcher.runSync("wfAcceptAssignment", context);
                     if (ServiceUtil.isError(results)) {
-                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), MODULE);
                     }
                     if (results != null && results.get(ModelService.ERROR_MESSAGE) != null) {
-                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), MODULE);
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             } else if ("CAL_COMPLETED".equals(statusId)) {
                 // complete the activity assignment
                 try {
                     Map<String, Object> results = dispatcher.runSync("wfCompleteAssignment", context);
                     if (ServiceUtil.isError(results)) {
-                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), MODULE);
                     }
                     if (results != null && results.get(ModelService.ERROR_MESSAGE) != null) {
-                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), MODULE);
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             } else if ("CAL_DECLINED".equals(statusId)) {
                 // decline the activity assignment
@@ -89,10 +89,10 @@ public class WorkEffortPartyAssignmentServices {
                     Map<String, Object> results = dispatcher.runSync("wfDeclineAssignment", context);
 
                     if (results != null && results.get(ModelService.ERROR_MESSAGE) != null) {
-                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), MODULE);
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
         }

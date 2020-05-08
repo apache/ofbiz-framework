@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class RequirementServices {
 
-    public static final String module = RequirementServices.class.getName();
+    public static final String MODULE = RequirementServices.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static Map<String, Object> getRequirementsForSupplier(DispatchContext ctx, Map<String, ? extends Object> context) {
@@ -200,10 +200,10 @@ public class RequirementServices {
             results.put("amountTotal", amountTotal);
             return results;
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderServiceExceptionSeeLogs", locale));
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderEntityExceptionSeeLogs", locale));
         }
     }
@@ -219,7 +219,7 @@ public class RequirementServices {
             GenericValue order = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             GenericValue productStore = order.getRelatedOne("ProductStore", true);
             if (productStore == null) {
-                Debug.logInfo("ProductStore for order ID " + orderId + " not found, requirements not created", module);
+                Debug.logInfo("ProductStore for order ID " + orderId + " not found, requirements not created", MODULE);
                 return ServiceUtil.returnSuccess();
             }
             List<GenericValue> orderItemAndShipGroups = EntityQuery.use(delegator).select("orderId", "shipGroupSeqId", "orderItemSeqId").from("OrderItemAndShipGroupAssoc").where("orderId", orderId).distinct().queryList();
@@ -250,9 +250,9 @@ public class RequirementServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();
     }
@@ -282,7 +282,7 @@ public class RequirementServices {
             GenericValue order = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             GenericValue productStore = order.getRelatedOne("ProductStore", true);
             if (productStore == null) {
-                Debug.logInfo("ProductStore for order ID " + orderId + " not found, ATP requirements not created", module);
+                Debug.logInfo("ProductStore for order ID " + orderId + " not found, ATP requirements not created", MODULE);
                 return ServiceUtil.returnSuccess();
             }
             String facilityId = productStore.getString("inventoryFacilityId");
@@ -346,9 +346,9 @@ public class RequirementServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();
     }
@@ -376,9 +376,9 @@ public class RequirementServices {
                 }
             }
         } catch(GenericEntityException e){
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         } catch(GenericServiceException e){
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();
     }

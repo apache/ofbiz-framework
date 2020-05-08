@@ -43,7 +43,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
  */
 public class HttpEngine extends GenericAsyncEngine {
 
-    public static final String module = HttpEngine.class.getName();
+    public static final String MODULE = HttpEngine.class.getName();
     private static final boolean exportAll = false;
 
     public HttpEngine(ServiceDispatcher dispatcher) {
@@ -60,7 +60,7 @@ public class HttpEngine extends GenericAsyncEngine {
 
         try {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Serializing Context --> " + context, module);
+                Debug.logVerbose("Serializing Context --> " + context, MODULE);
             }
             xmlContext = XmlSerializer.serialize(context);
         } catch (Exception e) {
@@ -137,11 +137,11 @@ public class HttpEngine extends GenericAsyncEngine {
                     if (o instanceof Map<?, ?>) {
                         context = UtilGenerics.cast(o);
                     } else {
-                        Debug.logError("Context not an instance of Map error", module);
+                        Debug.logError("Context not an instance of Map error", MODULE);
                         result.put(ModelService.ERROR_MESSAGE, "Context not an instance of Map");
                     }
                 } catch (Exception e) {
-                    Debug.logError(e, "Deserialization error", module);
+                    Debug.logError(e, "Deserialization error", MODULE);
                     result.put(ModelService.ERROR_MESSAGE, "Error occurred deserializing context: " + e.toString());
                 }
             }
@@ -158,11 +158,11 @@ public class HttpEngine extends GenericAsyncEngine {
                         result = dispatcher.runSync(serviceName, context);
                     }
                 } else {
-                    Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, module);
+                    Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, MODULE);
                     throw new GenericServiceException("Cannot find requested service");
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Service invocation error", module);
+                Debug.logError(e, "Service invocation error", MODULE);
                 result.put(ModelService.ERROR_MESSAGE, "Service invocation error: " + e.toString());
             }
         }
@@ -175,7 +175,7 @@ public class HttpEngine extends GenericAsyncEngine {
         try {
             resultString = XmlSerializer.serialize(result);
         } catch (Exception e) {
-            Debug.logError(e, "Cannot serialize result", module);
+            Debug.logError(e, "Cannot serialize result", MODULE);
             if (result.containsKey(ModelService.ERROR_MESSAGE)) {
                 errorMessage.append(result.get(ModelService.ERROR_MESSAGE));
             }
@@ -199,7 +199,7 @@ public class HttpEngine extends GenericAsyncEngine {
             out.flush();
             response.flushBuffer();
         } catch (IOException e) {
-            Debug.logError(e, "Problems w/ getting the servlet writer.", module);
+            Debug.logError(e, "Problems w/ getting the servlet writer.", MODULE);
             return "error";
         }
 

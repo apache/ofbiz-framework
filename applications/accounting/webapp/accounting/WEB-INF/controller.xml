@@ -209,7 +209,7 @@ under the License.
     </request-map>
     <request-map uri="unlinkInvoiceFromTimeEntry">
         <security https="true" auth="true"/>
-        <event type="service" invoke="unlinkInvoiceFromTimeEntry"/>
+        <event type="service" invoke="updateTimeEntry"/>
         <response name="success" type="view" value="editInvoiceTimeEntries"/>
         <response name="error" type="view" value="editInvoiceTimeEntries"/>
     </request-map>
@@ -874,7 +874,7 @@ under the License.
 
     <!-- =============== Fixed Asset mapping =================-->
     <request-map uri="ListFixedAssets"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssets"/></request-map>
-    <request-map uri="FixedAssetSearchResults"><security https="true" auth="false"/><response name="success" type="view" value="FixedAssetSearchResults"/></request-map>
+    <request-map uri="FixedAssetSearchResults"><security https="true" auth="true"/><response name="success" type="view" value="FixedAssetSearchResults"/></request-map>
     <request-map uri="EditFixedAsset"><security https="true" auth="true"/><response name="success" type="view" value="EditFixedAsset"/></request-map>
     <request-map uri="createFixedAsset">
         <security https="true" auth="true"/>
@@ -2030,7 +2030,7 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="reconcileFinAccountTrans">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="service-multi" invoke="reconcileFinAccountTrans"/>
         <response name="success" type="view" value="BankReconciliation"/>
         <response name="error" type="view" value="BankReconciliation"/>
@@ -2066,7 +2066,7 @@ under the License.
         <response name="error" type="view" value="ViewGlReconciliationWithTransaction"/>
     </request-map>
     <request-map uri="assignGlRecToFinAccTrans">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="service-multi" invoke="assignGlRecToFinAccTrans"/>
         <response name="success" type="view" value="FindFinAccountTrans"/>
         <response name="error" type="view" value="FindFinAccountTrans"/>
@@ -2307,6 +2307,10 @@ under the License.
     <request-map uri="LookupCustomerName">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupCustomerName"/>
+    </request-map>
+    <request-map uri="LookupSupplier">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupSupplier"/>
     </request-map>
     <request-map uri="depositWithdrawPayments">
         <security auth="true" https="true"/>
@@ -2859,6 +2863,7 @@ under the License.
     <view-map name="TransactionTotalsCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotalsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="PaymentsDepositWithdraw" type="screen" page="component://accounting/widget/FinAccountScreens.xml#PaymentsDepositWithdraw"/>
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
+    <view-map name="LookupSupplier" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupSupplier"/>
     <view-map name="NewDepositSlip" type="screen" page="component://accounting/widget/FinAccountScreens.xml#NewDepositSlip"/>
     <view-map name="InventoryValuation" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuation"/>
     <view-map name="InventoryValuationPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuationPdf" content-type="application/pdf" encoding="none"/>

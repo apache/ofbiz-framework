@@ -45,7 +45,7 @@ import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
 public class EntityListIterator implements AutoCloseable, ListIterator<GenericValue> {
 
     /** Module Name Used for debugging */
-    public static final String module = EntityListIterator.class.getName();
+    public static final String MODULE = EntityListIterator.class.getName();
 
     protected SQLProcessor sqlp;
     protected ResultSet resultSet;
@@ -161,7 +161,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     public void close() throws GenericEntityException {
         if (closed) {
             String modelEntityName = modelEntity != null ? modelEntity.getEntityName() : "";
-            Debug.logWarning("This EntityListIterator for Entity [" + modelEntityName + "] has already been closed, not closing again.", module);
+            Debug.logWarning("This EntityListIterator for Entity [" + modelEntityName + "] has already been closed, not closing again.", MODULE);
             return;
         }
         if (sqlp != null) {
@@ -288,7 +288,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
             Exception whereAreWe = new Exception();
             Debug.logWarning(whereAreWe,
                     "For performance reasons do not use the EntityListIterator.hasNext() method, just call next() until it returns null; see JavaDoc comments in the EntityListIterator class for details and an example",
-                    module);
+                    MODULE);
 
             haveShowHasNextWarning = true;
         }
@@ -548,7 +548,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     private void closeWithWarning(String warningMessage) throws GenericEntityException {
         if (!closed) {
             this.close();
-            Debug.logWarning(warningMessage, module);
+            Debug.logWarning(warningMessage, MODULE);
         }
     }
 
@@ -565,9 +565,9 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
             try {
                 this.close();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error auto-closing EntityListIterator on error, so info below for more info on original error; close error: %s", module, e.toString());
+                Debug.logError(e, "Error auto-closing EntityListIterator on error, so info below for more info on original error; close error: %s", MODULE, e.toString());
             }
-            Debug.logWarning(warningMessage, module);
+            Debug.logWarning(warningMessage, MODULE);
         }
     }
 }

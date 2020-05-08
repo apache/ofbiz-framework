@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
 
 public class PcChargeApi {
 
-    public static final String module = PcChargeApi.class.getName();
+    public static final String MODULE = PcChargeApi.class.getName();
     public static final String xschema = "x-schema:..\\dtd\\stnd.xdr";
     public static final String rootElement = "XML_FILE";
     public static final String reqElement = "XML_REQUEST";
@@ -139,7 +139,7 @@ public class PcChargeApi {
         try {
             objString = (String) ObjectType.simpleTypeOrObjectConvert(value, "java.lang.String", null, null);
         } catch (GeneralException | ClassCastException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new IllegalArgumentException("Unable to convert value to String");
         }
         if (objString == null && value != null) {
@@ -165,7 +165,7 @@ public class PcChargeApi {
         try {
             return UtilXml.writeXmlDocument(document);
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new IllegalStateException("Unable to write document as String");
         }
     }

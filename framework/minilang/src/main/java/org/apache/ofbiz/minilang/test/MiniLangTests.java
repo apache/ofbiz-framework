@@ -33,7 +33,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class MiniLangTests extends OFBizTestCase {
 
-    private static final String module = MiniLangTests.class.getName();
+    private static final String MODULE = MiniLangTests.class.getName();
 
     private final boolean traceEnabled;
 
@@ -56,7 +56,7 @@ public class MiniLangTests extends OFBizTestCase {
     }
 
     private static SimpleMethod createSimpleMethod(String xmlString) throws Exception {
-        return new SimpleMethod(UtilXml.readXmlDocument(xmlString).getDocumentElement(), module);
+        return new SimpleMethod(UtilXml.readXmlDocument(xmlString).getDocumentElement(), MODULE);
     }
 
     public void testAssignmentOperators() throws Exception {

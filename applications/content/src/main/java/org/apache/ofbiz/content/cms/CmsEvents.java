@@ -59,7 +59,7 @@ import freemarker.template.TemplateException;
  */
 public class CmsEvents {
 
-    public static final String module = CmsEvents.class.getName();
+    public static final String MODULE = CmsEvents.class.getName();
 
     public static String cms(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -113,7 +113,7 @@ public class CmsEvents {
                     return "error";
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             } catch (IOException e) {
                 throw new GeneralRuntimeException("Error in the response writer/output stream while rendering content.", e);
             } catch (GeneralException e) {
@@ -145,7 +145,7 @@ public class CmsEvents {
                         .where("webSiteId", webSiteId, "webSiteContentTypeId", "DEFAULT_PAGE")
                         .orderBy("-fromDate").filterByDate().cache().queryFirst();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             if (defaultContent != null) {
                 pathInfo = defaultContent.getString("contentId");
@@ -167,7 +167,7 @@ public class CmsEvents {
             try {
                 pathAlias = EntityQuery.use(delegator).from("WebSitePathAlias").where("webSiteId", webSiteId, "pathAlias", pathInfo).orderBy("-fromDate").cache().filterByDate().queryFirst();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             if (pathAlias != null) {
                 String alias = pathAlias.getString("aliasTo");
@@ -198,9 +198,9 @@ public class CmsEvents {
 
             // get the contentId/mapKey from URL
             if (contentId == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Current PathInfo: " + pathInfo, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Current PathInfo: " + pathInfo, MODULE);
                 String[] pathSplit = pathInfo.split("/");
-                if (Debug.verboseOn()) Debug.logVerbose("Split pathinfo: " + pathSplit.length, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Split pathinfo: " + pathSplit.length, MODULE);
                 contentId = pathSplit[0];
                 if (pathSplit.length > 1) {
                     mapKey = pathSplit[1];
@@ -216,7 +216,7 @@ public class CmsEvents {
                 try {
                     statusCode = verifyContentToWebSite(delegator, webSiteId, contentId);
                 } catch (GeneralException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     throw new GeneralRuntimeException(e.getMessage(), e);
                 }
             } else {
@@ -231,11 +231,11 @@ public class CmsEvents {
                             .where("webSiteId", webSiteId, "webSiteContentTypeId", "ERROR_ROOT")
                             .orderBy("fromDate").filterByDate().cache().queryFirst();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
 
                 if (errorContainer != null) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Found error containers: " + errorContainer, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Found error containers: " + errorContainer, MODULE);
 
                     GenericValue errorPage = null;
                     try {
@@ -246,16 +246,16 @@ public class CmsEvents {
                                         "caMapKey", String.valueOf(statusCode))
                                 .filterByDate().queryFirst();
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                     if (errorPage != null) {
                         if (Debug.verboseOn()) {
-                             Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, module);
+                             Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, MODULE);
                         }
                         contentId = errorPage.getString("contentId");
                     } else {
                         if (Debug.verboseOn()) {
-                             Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
+                             Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, MODULE);
                         }
                         contentId = errorContainer.getString("contentId");
                     }
@@ -267,13 +267,13 @@ public class CmsEvents {
                     try {
                         GenericValue errorPage = EntityQuery.use(delegator).from("Content").where("contentId", "CONTENT_ERROR_" + statusCode).cache().queryOne();
                         if (errorPage != null) {
-                            if (Debug.verboseOn()) Debug.logVerbose("Found generic page " + statusCode, module);
+                            if (Debug.verboseOn()) Debug.logVerbose("Found generic page " + statusCode, MODULE);
                             contentId = errorPage.getString("contentId");
                             mapKey = null;
                             hasErrorPage = true;
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
 
@@ -338,7 +338,7 @@ public class CmsEvents {
                     }
                     siteName = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne().getString("siteName");
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
                 request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: " + siteName + " [" + webSiteId + "]");
                 return "error";
@@ -356,7 +356,7 @@ public class CmsEvents {
                 siteName = "Not specified";
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (webSite != null) {
             request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: " + siteName + " [" + webSiteId + "] not even a default page!");
@@ -382,7 +382,7 @@ public class CmsEvents {
         }
         publishPoints = EntityUtil.filterByDate(publishPoints);
         if (UtilValidate.isNotEmpty(publishPoints)) {
-            if (Debug.verboseOn()) Debug.logVerbose("Found publish points: " + publishPoints, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Found publish points: " + publishPoints, MODULE);
             return HttpServletResponse.SC_OK;
         } else {
             // the passed in contentId is not a publish point for the web site;
@@ -408,7 +408,7 @@ public class CmsEvents {
         } else {
             responseCode = HttpServletResponse.SC_NOT_FOUND;
         }
-        Debug.logWarning("Could not verify contentId [" + contentId + "] to webSiteId [" + webSiteId + "], returning code: " + responseCode, module);
+        Debug.logWarning("Could not verify contentId [" + contentId + "] to webSiteId [" + webSiteId + "], returning code: " + responseCode, MODULE);
         return responseCode;
     }
 
@@ -435,7 +435,7 @@ public class CmsEvents {
                 }
             }
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("Found assocs: " + contentAssoc, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Found assocs: " + contentAssoc, MODULE);
             return HttpServletResponse.SC_OK;
         }
         if (hadContent) return HttpServletResponse.SC_GONE;

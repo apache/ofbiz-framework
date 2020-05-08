@@ -33,7 +33,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
  */
 public class JNDIContextFactory {
 
-    public static final String module = JNDIContextFactory.class.getName();
+    public static final String MODULE = JNDIContextFactory.class.getName();
     // FIXME: InitialContext instances are not thread-safe! They should not be cached.
     private static final UtilCache<String, InitialContext> contexts = UtilCache.createUtilCache("entity.JNDIContexts", 0, 0);
 
@@ -75,7 +75,7 @@ public class JNDIContextFactory {
             } catch (Exception e) {
                 String errorMsg = "Error getting JNDI initial context for server name " + jndiServerName;
 
-                Debug.logError(e, errorMsg, module);
+                Debug.logError(e, errorMsg, MODULE);
                 throw new GenericConfigException(errorMsg, e);
             }
 

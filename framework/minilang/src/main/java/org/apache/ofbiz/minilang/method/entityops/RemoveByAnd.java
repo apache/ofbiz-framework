@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
  */
 public final class RemoveByAnd extends EntityOperation {
 
-    public static final String module = RemoveByAnd.class.getName();
+    public static final String MODULE = RemoveByAnd.class.getName();
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
 
@@ -67,7 +67,7 @@ public final class RemoveByAnd extends EntityOperation {
             delegator.removeByAnd(entityName, mapFma.get(methodContext.getEnvMap()));
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing entities: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

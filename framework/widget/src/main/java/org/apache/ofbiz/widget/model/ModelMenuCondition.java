@@ -42,7 +42,7 @@ public final class ModelMenuCondition {
      *
      */
 
-    public static final String module = ModelMenuCondition.class.getName();
+    public static final String MODULE = ModelMenuCondition.class.getName();
 
     private final FlexibleStringExpander passStyleExdr;
     private final FlexibleStringExpander failStyleExdr;

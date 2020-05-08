@@ -61,7 +61,7 @@ import org.jdom.JDOMException;
  */
 public class ImageManagementServices {
 
-    public static final String module = ImageManagementServices.class.getName();
+    public static final String MODULE = ImageManagementServices.class.getName();
     public static final String resourceError = "ProductErrorUiLabels";
     public static final String resource = "ProductUiLabels";
     private static int imageCount = 0;
@@ -91,7 +91,7 @@ public class ImageManagementServices {
                 boolean created = rootTargetDir.mkdirs();
                 if (!created) {
                     String errMsg = UtilProperties.getMessage(resourceError, "ProductCannotCreateTheTargetDirectory", locale);
-                    Debug.logFatal(errMsg, module);
+                    Debug.logFatal(errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
             }
@@ -111,7 +111,7 @@ public class ImageManagementServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResult));
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
 
@@ -133,7 +133,7 @@ public class ImageManagementServices {
                 boolean created = targetDir.mkdirs();
                 if (!created) {
                     String errMsg = "Cannot create the target directory";
-                    Debug.logFatal(errMsg, module);
+                    Debug.logFatal(errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
             }
@@ -156,11 +156,11 @@ public class ImageManagementServices {
                     out.write(imageData.array());
                     out.close();
                 } catch (FileNotFoundException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                             "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                             "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
@@ -175,11 +175,11 @@ public class ImageManagementServices {
                     outFile.write(imageData.array());
                     outFile.close();
                 } catch (FileNotFoundException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                             "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", fileOriginal.getAbsolutePath()), locale));
                 } catch (IOException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                             "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", fileOriginal.getAbsolutePath()), locale));
                 }
@@ -190,12 +190,12 @@ public class ImageManagementServices {
                 } catch (IOException e) {
                     String errMsg = UtilProperties.getMessage(resourceError,
                             "ProductScaleAdditionalImageInAllDifferentSizesIsImpossible", UtilMisc.toMap("errorString", e.toString()), locale);
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 } catch (JDOMException e) {
                     String errMsg = UtilProperties.getMessage(resourceError,
                             "ProductErrorsOccurInParsingImageProperties.xml", UtilMisc.toMap("errorString", e .toString()), locale);
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
             }
@@ -222,7 +222,7 @@ public class ImageManagementServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
 
@@ -239,7 +239,7 @@ public class ImageManagementServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
 
@@ -252,7 +252,7 @@ public class ImageManagementServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
 
@@ -268,7 +268,7 @@ public class ImageManagementServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
@@ -287,7 +287,7 @@ public class ImageManagementServices {
                 String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
                 File file = new File(imageServerPath + "/" + productId + "/" + dataResourceName);
                 if (!file.delete()) {
-                    Debug.logError("File :" + file.getName() + ", couldn't be deleted", module);
+                    Debug.logError("File :" + file.getName() + ", couldn't be deleted", MODULE);
                 }
             }
         } catch (Exception e) {
@@ -326,7 +326,7 @@ public class ImageManagementServices {
             imgPropertyMap.putAll(UtilGenerics.<Map<String, Map<String, String>>>cast(resultXMLMap.get("xml")));
         } else {
             String errMsg = UtilProperties.getMessage(resourceError, "ScaleImage.unable_to_parse", locale) + " : ImageProperties.xml";
-            Debug.logError(errMsg, module);
+            Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         }
@@ -351,7 +351,7 @@ public class ImageManagementServices {
             imgWidth = bufImg.getWidth();
             if (imgHeight == 0.0 || imgWidth == 0.0) {
                 String errMsg = UtilProperties.getMessage(resourceError, "ScaleImage.one_current_image_dimension_is_null", locale) + " : imgHeight = " + imgHeight + " ; imgWidth = " + imgWidth;
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
             }
@@ -371,7 +371,7 @@ public class ImageManagementServices {
                         boolean created = targetDir.mkdirs();
                         if (!created) {
                             String errMsg = UtilProperties.getMessage(resourceError, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
-                            Debug.logFatal(errMsg, module);
+                            Debug.logFatal(errMsg, MODULE);
                             return ServiceUtil.returnError(errMsg);
                         }
                     }
@@ -381,16 +381,16 @@ public class ImageManagementServices {
                         ImageIO.write(bufNewImg, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
                         File deleteFile = new File(imageServerPath + "/"  + filenameToUse);
                         if (!deleteFile.delete()) {
-                            Debug.logError("File :" + deleteFile.getName() + ", couldn't be deleted", module);
+                            Debug.logError("File :" + deleteFile.getName() + ", couldn't be deleted", MODULE);
                         }
                     } catch (IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(resourceError, "ScaleImage.one_parameter_is_null", locale) + e.toString();
-                        Debug.logError(errMsg, module);
+                        Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
                     } catch (IOException e) {
                         String errMsg = UtilProperties.getMessage(resourceError, "ScaleImage.error_occurs_during_writing", locale) + e.toString();
-                        Debug.logError(errMsg, module);
+                        Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
                     }
@@ -410,7 +410,7 @@ public class ImageManagementServices {
         }
         String errMsg = UtilProperties.getMessage(resourceError, "ScaleImage.unable_to_scale_original_image", locale)
                 + " : " + filenameToUse;
-        Debug.logError(errMsg, module);
+        Debug.logError(errMsg, MODULE);
         result.put(ModelService.ERROR_MESSAGE, errMsg);
         return ServiceUtil.returnError(errMsg);
     }
@@ -436,7 +436,7 @@ public class ImageManagementServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -455,7 +455,7 @@ public class ImageManagementServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -463,7 +463,7 @@ public class ImageManagementServices {
         try {
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -472,7 +472,7 @@ public class ImageManagementServices {
             try {
                 dataResource = content.getRelatedOne("DataResource", false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
 
@@ -484,7 +484,7 @@ public class ImageManagementServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
@@ -511,7 +511,7 @@ public class ImageManagementServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentThumbResult));
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -529,7 +529,7 @@ public class ImageManagementServices {
         try {
             fileExtensionThumb = EntityQuery.use(delegator).from("FileExtension").where("mimeTypeId", fileContentType).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -546,12 +546,12 @@ public class ImageManagementServices {
             outFileThumb.write(imageData.array());
             outFileThumb.close();
         } catch (FileNotFoundException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "ProductImageViewUnableWriteFile",
                     UtilMisc.toMap("fileName", fileOriginalThumb.getAbsolutePath()), locale));
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "ProductImageViewUnableWriteBinaryData",
                     UtilMisc.toMap("fileName", fileOriginalThumb.getAbsolutePath()), locale));
@@ -705,7 +705,7 @@ public class ImageManagementServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentThumbResult));
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
 
@@ -725,12 +725,12 @@ public class ImageManagementServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         String successMsg = UtilProperties.getMessage(resource, "ProductCreateNewThumbnailSizeSuccessful", locale);
@@ -756,7 +756,7 @@ public class ImageManagementServices {
             Map<String, Object> resultResize = resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
             ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         String successMsg = UtilProperties.getMessage(resource, "ProductResizeImagesSuccessful", locale);
@@ -788,7 +788,7 @@ public class ImageManagementServices {
 
                 File file = new File(imageServerPath + "/" + productId + "/" + dataResourceName);
                 if (!file.delete()) {
-                    Debug.logError("File :" + file.getName() + ", couldn't be deleted", module);
+                    Debug.logError("File :" + file.getName() + ", couldn't be deleted", MODULE);
                 }
 
                 Map<String, Object> contentUp = new HashMap<>();
@@ -801,14 +801,14 @@ public class ImageManagementServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 GenericValue content = null;
                 try {
                     content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 if (content != null) {
@@ -816,7 +816,7 @@ public class ImageManagementServices {
                     try {
                         dataResource = content.getRelatedOne("DataResource", false);
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
 
@@ -832,7 +832,7 @@ public class ImageManagementServices {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                             }
                         } catch (GenericServiceException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                             return ServiceUtil.returnError(e.getMessage());
                         }
                     }
@@ -855,7 +855,7 @@ public class ImageManagementServices {
 
                         File fileAssoc = new File(imageServerPath + "/" + productId + "/" + drDataResourceNameAssoc);
                         if (!fileAssoc.delete()) {
-                            Debug.logError("File :" + fileAssoc.getName() + ", couldn't be deleted", module);
+                            Debug.logError("File :" + fileAssoc.getName() + ", couldn't be deleted", MODULE);
                         }
 
                         Map<String, Object> contentAssocMap = new HashMap<>();
@@ -868,14 +868,14 @@ public class ImageManagementServices {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                             }
                         } catch (GenericServiceException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                             return ServiceUtil.returnError(e.getMessage());
                         }
                         GenericValue contentAssocUp = null;
                         try {
                             contentAssocUp = EntityQuery.use(delegator).from("Content").where("contentId", contentAssoc.get("contentIdTo")).queryOne();
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                             return ServiceUtil.returnError(e.getMessage());
                         }
                         if (contentAssocUp != null) {
@@ -883,7 +883,7 @@ public class ImageManagementServices {
                             try {
                                 dataResourceAssocUp = contentAssocUp.getRelatedOne("DataResource", false);
                             } catch (GenericEntityException e) {
-                                Debug.logError(e, module);
+                                Debug.logError(e, MODULE);
                                 return ServiceUtil.returnError(e.getMessage());
                             }
 
@@ -899,7 +899,7 @@ public class ImageManagementServices {
                                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                                     }
                                 } catch (GenericServiceException e) {
-                                    Debug.logError(e, module);
+                                    Debug.logError(e, MODULE);
                                     return ServiceUtil.returnError(e.getMessage());
                                 }
                             }
@@ -908,7 +908,7 @@ public class ImageManagementServices {
                 }
             }
         } catch (IOException | IllegalArgumentException | GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         String successMsg = UtilProperties.getMessage(resource, "ProductRenameImageSuccessfully.", locale);

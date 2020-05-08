@@ -27,6 +27,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -42,7 +43,7 @@ import org.jsoup.parser.Parser;
 
 public final class WidgetWorker {
 
-    public static final String module = WidgetWorker.class.getName();
+    public static final String MODULE = WidgetWorker.class.getName();
 
     private WidgetWorker () {}
 
@@ -114,6 +115,19 @@ public final class WidgetWorker {
             }
         } else {
             externalWriter.append(localWriter.toString());
+        }
+
+        String tokenValue = CsrfUtil.generateTokenForNonAjax(request, target);
+        if (UtilValidate.isNotEmpty(tokenValue)){
+            String currentString = externalWriter.toString();
+            if(currentString.startsWith("<form")) {
+                currentString = currentString.substring(currentString.lastIndexOf("\"")+1);
+            }
+            if (currentString.indexOf('?') == -1) {
+                externalWriter.append("?" + CsrfUtil.getTokenNameNonAjax() + "=" + tokenValue);
+            } else {
+                externalWriter.append("&amp;" + CsrfUtil.getTokenNameNonAjax() + "=" + tokenValue);
+            }
         }
     }
 

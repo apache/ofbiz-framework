@@ -20,74 +20,6 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="getOrderedSummaryInformation" short-description="Get Summary Information About Orders for a Customer">
-        <!-- The permission checking is commented out to make this service work also when triggered from ecommerce -->
-        <!--if>
-            <condition>
-                <and>
-                    <not><if-has-permission permission="ORDERMGR" action="_VIEW"/></not>
-                    <if-compare-field field="parameters.partyId" to-field="userLogin.partyId" operator="not-equals"/>
-                </and>
-            </condition>
-            <then>
-                <string-to-list string="To get order summary information you must have the ORDERMGR_VIEW permission, or be logged in as the party to get the summary information for." list="error_list"/>
-            </then>
-        </if>
-        <check-errors/>
-       -->
-        <if-not-empty field="monthsToInclude">
-            <now-timestamp field="nowTimestamp"/>
-            <!-- TODO: Change this to use the <set-calendar> operation -->
-            <script>groovy:
-                calendar = com.ibm.icu.util.Calendar.getInstance()
-                calendar.setTimeInMillis(nowTimestamp.getTime())
-                calendar.add(com.ibm.icu.util.Calendar.MONTH, -monthsToInclude.intValue())
-                parameters.put("fromDate", new Timestamp(calendar.getTimeInMillis()))
-            </script>
-            <set from-field="nowTimestamp" field="parameters.thruDate"/>
-        </if-not-empty>
-
-        <if-empty field="parameters.roleTypeId">
-            <set value="PLACING_CUSTOMER" field="parameters.roleTypeId"/>
-        </if-empty>
-        <if-empty field="parameters.orderTypeId">
-            <set value="SALES_ORDER" field="parameters.orderTypeId"/>
-        </if-empty>
-        <if-empty field="parameters.statusId">
-            <set value="ORDER_COMPLETED" field="parameters.statusId"/>
-        </if-empty>
-
-        <entity-condition entity-name="OrderHeaderAndRoleSummary" list="orderInfoList">
-            <condition-list combine="and">
-                <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId"/>
-                <condition-expr field-name="roleTypeId" operator="equals" from-field="parameters.roleTypeId"/>
-                <condition-expr field-name="orderTypeId" operator="equals" from-field="parameters.orderTypeId"/>
-                <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId"/>
-                <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-null="true"/>
-                <condition-expr field-name="orderDate" operator="less-equals" from-field="parameters.thruDate" ignore-if-null="true"/>
-            </condition-list>
-            <select-field field-name="partyId"/>
-            <select-field field-name="roleTypeId"/>
-            <select-field field-name="totalGrandAmount"/>
-            <select-field field-name="totalSubRemainingAmount"/>
-            <select-field field-name="totalOrders"/>
-        </entity-condition>
-
-        <!-- first set the required OUT fields to zero -->
-        <calculate field="plainDoubleZero"><number value="0.0"/></calculate>
-        <calculate field="plainLongZero" type="Long"><number value="0"/></calculate>
-        <field-to-result field="plainDoubleZero" result-name="totalGrandAmount"/>
-        <field-to-result field="plainDoubleZero" result-name="totalSubRemainingAmount"/>
-        <field-to-result field="plainLongZero" result-name="totalOrders"/>
-
-        <!-- because we specified the partyId and the roleTypeId, should only be one item in list returned -->
-        <first-from-list list="orderInfoList" entry="orderInfo"/>
-        <if-not-empty field="orderInfo">
-            <field-to-result field="orderInfo.totalGrandAmount" result-name="totalGrandAmount"/>
-            <field-to-result field="orderInfo.totalSubRemainingAmount" result-name="totalSubRemainingAmount"/>
-            <field-to-result field="orderInfo.totalOrders" result-name="totalOrders"/>
-        </if-not-empty>
-    </simple-method>
 
     <!-- order requirement methods -->
     <simple-method method-name="createRequirementAndCommitment" short-description="create a requirement and commitment for it">
@@ -427,57 +359,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="getNextOrderId" short-description="Get Next orderId">
-        <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special order number sequencing -->
-        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
-        <log level="info" message="In getNextOrderId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
- 
-        <if-not-empty field="partyAcctgPreference">
-           <get-related-one relation-name="OrderCustomMethod" value-field="partyAcctgPreference" to-value-field="customMethod"/>
-           <else>
-               <log level="warning" message="Acctg preference not defined for partyId [${parameters.partyId}]"/>
-           </else>
-        </if-not-empty>
-
-        <if-not-empty field="customMethod">
-            <set field="customMethodName" from-field="customMethod.customMethodName"/>
-            <else><!-- retreive service from deprecated enumeration -->
-                <if-compare operator="equals" value="ODRSQ_ENF_SEQ" field="partyAcctgPreference.oldOrderSequenceEnumId">
-                    <set field="customMethodName" value="orderSequence_enforced"/>
-                </if-compare>
-            </else>
-        </if-not-empty>
-
-        <if-not-empty field="customMethodName">
-            <set-service-fields service-name="${customMethodName}" map="parameters" to-map="customMethodMap"/>
-            <set field="customMethodMap.partyAcctgPreference" from-field="partyAcctgPreference"/>
-            <call-service service-name="${customMethodName}" in-map-name="customMethodMap">
-               <result-to-field result-name="orderId" field="orderIdTemp"/>
-            </call-service>
-            <else>
-                <!-- <log level="info" message="In getNextOrderId sequence by Standard"/> -->
-                <!-- default to the default sequencing: ODRSQ_STANDARD -->
-                <set from-field="parameters.orderId" field="orderIdTemp"/>
-                <if-empty field="orderIdTemp">
-                    <sequenced-id sequence-name="OrderHeader" field="orderIdTemp"/>
-                    <else>
-                        <!-- check the provided ID -->
-                        <check-id field="orderIdTemp"/>
-                        <check-errors/>
-                    </else>
-                </if-empty>
-            </else>
-        </if-not-empty>
-        
-        <if-not-empty field="parameters.productStoreId">
-            <entity-one entity-name="ProductStore" value-field="productStore"/>
-        </if-not-empty>
-
-        <!-- use orderIdTemp along with the orderIdPrefix to create the real ID -->
-        <set field="orderId" value="${productStore.orderNumberPrefix}${partyAcctgPreference.orderIdPrefix}${str:toString(orderIdTemp)}"/>
-        <field-to-result field="orderId" result-name="orderId"/>
-    </simple-method>
-
     <simple-method method-name="orderSequence_enforced" short-description="Enforced Sequence (no gaps, per organization)">
         <log level="info" message="In getNextOrderId sequence enum Enforced"/> 
         <set field="partyAcctgPreference" from-field="parameters.partyAcctgPreference"/>
@@ -763,6 +644,18 @@ under the License.
             <set-service-fields service-name="createOrderContactMech" map="inputMap" to-map="removeOrderContactMechMap"/>
             <call-service service-name="removeOrderContactMech" in-map-name="removeOrderContactMechMap" include-user-login="true"/>
         </if-empty>
+
+        <!-- Update promisedDateTime & currentPromisedDate in OrderItemShipGrpInvRes entity-->
+        <set field="itemShipGrpInvResLookupMap.orderId" from="parameters.orderId"/>
+        <set field="itemShipGrpInvResLookupMap.shipGroupSeqId" from="parameters.shipGroupSeqId"/>
+        <find-by-and entity-name="OrderItemShipGrpInvRes" map="itemShipGrpInvResLookupMap" list="itemShipGrpInvResList"/>
+        <if-not-empty field="itemShipGrpInvResList">
+            <iterate list="itemShipGrpInvResList" entry="orderItemShipGrpInvRes">
+                <set field="orderItemShipGrpInvRes.promisedDatetime" from="parameters.shipByDate"/>
+                <set field="orderItemShipGrpInvRes.currentPromisedDate" from="parameters.shipByDate"/>
+                <store-value value-field="orderItemShipGrpInvRes"/>
+            </iterate>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="getOrderItemShipGroupEstimatedShipDate" short-description="Compute and return the OrderItemShipGroup estimated ship date based on the associated items.">

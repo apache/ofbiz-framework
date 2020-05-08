@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
  *
  */
 public class DynamicViewEntity {
-    public static final String module = DynamicViewEntity.class.getName();
+    public static final String MODULE = DynamicViewEntity.class.getName();
 
     /** The entity-name of the Entity */
     protected String entityName = "DynamicViewEntity";

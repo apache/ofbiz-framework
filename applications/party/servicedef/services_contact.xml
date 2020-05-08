@@ -91,14 +91,14 @@ under the License.
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createFtpAddress" default-entity-name="FtpAddress" engine="groovy" invoke="createFtpAddress"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy">
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy">
         <description>create FtpAddress</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="OUT" include="pk"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateFtpAddressWithHistory" default-entity-name="FtpAddress" engine="groovy" invoke="updateFtpAddressWithHistory"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy">
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy">
         <description>update FtpAddress</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk"/>

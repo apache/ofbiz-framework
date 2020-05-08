@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityEcaSetField {
 
-    public static final String module = EntityEcaSetField.class.getName();
+    public static final String MODULE = EntityEcaSetField.class.getName();
 
     private final String fieldName;
     private final String envName;
@@ -101,7 +101,7 @@ public final class EntityEcaSetField {
             return ModelUtil.javaNameToDbName(s);
         }
 
-        Debug.logWarning("Format function not found [" + format + "] return string unchanged - " + s, module);
+        Debug.logWarning("Format function not found [" + format + "] return string unchanged - " + s, MODULE);
         return s;
     }
 

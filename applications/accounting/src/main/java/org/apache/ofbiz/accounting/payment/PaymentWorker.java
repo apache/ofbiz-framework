@@ -48,7 +48,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class PaymentWorker {
 
-    public static final String module = PaymentWorker.class.getName();
+    public static final String MODULE = PaymentWorker.class.getName();
     private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
 
@@ -106,7 +106,7 @@ public final class PaymentWorker {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
         return paymentMethodValueMaps;
     }
@@ -149,7 +149,7 @@ public final class PaymentWorker {
                 eftAccount = EntityQuery.use(delegator).from("EftAccount").where("paymentMethodId", paymentMethodId).queryOne();
                 checkAccount = EntityQuery.use(delegator).from("CheckAccount").where("paymentMethodId", paymentMethodId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
         }
         if (paymentMethod != null) {
@@ -199,7 +199,7 @@ public final class PaymentWorker {
                     .orderBy("-purposeFromDate").filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                     .queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting PartyContactWithPurpose view entity list", module);
+            Debug.logError(e, "Trouble getting PartyContactWithPurpose view entity list", MODULE);
         }
 
         // get the address for the primary contact mech
@@ -208,7 +208,7 @@ public final class PaymentWorker {
             try {
                 postalAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", purpose.getString("contactMechId")).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Trouble getting PostalAddress record for contactMechId: " + purpose.getString("contactMechId"), module);
+                Debug.logError(e, "Trouble getting PostalAddress record for contactMechId: " + purpose.getString("contactMechId"), MODULE);
             }
         }
 
@@ -253,7 +253,7 @@ public final class PaymentWorker {
         try {
             payment = EntityQuery.use(delegator).from("Payment").where("paymentId", paymentId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting Payment", module);
+            Debug.logError(e, "Problem getting Payment", MODULE);
         }
 
         if (payment == null) {
@@ -283,7 +283,7 @@ public final class PaymentWorker {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting Payment", module);
+            Debug.logError(e, "Problem getting Payment", MODULE);
         }
         return appliedAmount;
     }
@@ -327,7 +327,7 @@ public final class PaymentWorker {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting entities", module);
+            Debug.logError(e, "Trouble getting entities", MODULE);
         }
         return paymentApplied;
     }
@@ -359,7 +359,7 @@ public final class PaymentWorker {
         try {
             payment = EntityQuery.use(delegator).from("Payment").where("paymentId", paymentId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting Payment", module);
+            Debug.logError(e, "Problem getting Payment", MODULE);
         }
 
         if (payment == null) {

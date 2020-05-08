@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
  */
 public final class CallServiceAsynch extends MethodOperation {
 
-    public static final String module = CallServiceAsynch.class.getName();
+    public static final String MODULE = CallServiceAsynch.class.getName();
 
     private final boolean includeUserLogin;
     private final FlexibleMapAccessor<Map<String, Object>> inMapFma;
@@ -91,7 +91,7 @@ public final class CallServiceAsynch extends MethodOperation {
             if (methodContext.isTraceOn()) {
                 outputTraceMessage(methodContext, "Service engine threw an exception: " + e.getMessage() + ", halting script execution. End call-service-asynch.");
             }
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the " + serviceName + " service: " + e.getMessage() + "]";
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);

@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 public final class EntityConfig {
     public static final String ENTITY_ENGINE_XML_FILENAME = "entityengine.xml";
 
-    private static final String module = EntityConfig.class.getName();
+    private static final String MODULE = EntityConfig.class.getName();
 
     private static final EntityConfig instance = createNewInstance();
     private final List<ResourceLoader> resourceLoaderList; // <resource-loader>
@@ -216,7 +216,7 @@ public final class EntityConfig {
         try {
             entityConfig = new EntityConfig();
         } catch (GenericEntityConfException gece) {
-            Debug.logError(gece, module);
+            Debug.logError(gece, MODULE);
         }
         return entityConfig;
     }

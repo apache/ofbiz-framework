@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public final class TransactionBegin extends MethodOperation {
 
-    public static final String module = TransactionBegin.class.getName();
+    public static final String MODULE = TransactionBegin.class.getName();
 
     private final FlexibleMapAccessor<Boolean> beganTransactionFma;
 
@@ -57,7 +57,7 @@ public final class TransactionBegin extends MethodOperation {
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException e) {
             String errMsg = "Exception thrown while beginning transaction: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

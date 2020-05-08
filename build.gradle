@@ -29,11 +29,11 @@ plugins {
     id 'eclipse'
     id 'checkstyle'
     id 'maven-publish'
-    id 'at.bxm.svntools' version '2.2.1'
-    id 'org.asciidoctor.convert' version '2.0.0'
-    id 'org.owasp.dependencycheck' version '5.2.2' apply false
-    id 'se.patrikerdes.use-latest-versions' version '0.2.12' apply false
-    id 'com.github.ben-manes.versions' version '0.27.0' apply false
+    id 'at.bxm.svntools' version '2.2.1' // Don't update as long as we don't use Java 11, it's needed by version 3 
+    id 'org.asciidoctor.convert' version '2.4.0' // About org.asciidoctor.jvm.convert as it says itself: "If you need a production-ready version of the AsciidoctorJ plugin for Gradle use a 1.5.x release of 'org.asciidoctor.convert' instead"
+    id 'org.owasp.dependencycheck' version '5.3.2.1' apply false
+    id 'se.patrikerdes.use-latest-versions' version '0.2.13' apply false
+    id 'com.github.ben-manes.versions' version '0.28.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
 }
 
@@ -58,10 +58,10 @@ if (project.hasProperty('enableOwasp')) {
  * Syntax: gradlew -PenableDependencyUpdates dependencyUpdates -Drevision=release
  *
  * You may want to use the use-latest-versions plugin to help you in your work
- * Syntax: 
+ * Syntax:
  *  Check only: gradlew -PenableDependencyUpdates useLatestVersions && gradlew -PenableDependencyUpdates useLatestVersionsCheck
  *  Automated update: gradlew -PenableDependencyUpdates useLatestVersions
- *  Beware that this is only a help. 
+ *  Beware that this is only a help.
  *  If you use it without check you will need to check things by yourself (can be as tedious as not using this plugin)
  */
 if (project.hasProperty('enableDependencyUpdates')) {
@@ -98,7 +98,7 @@ javadoc {
         links(
             'https://docs.oracle.com/javase/8/docs/api',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
-            'http://docs.groovy-lang.org/docs/groovy-2.5.8/html/api',
+            'http://docs.groovy-lang.org/docs/groovy-2.5.11/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
@@ -153,13 +153,13 @@ configurations {
 }
 
 dependencies {
-    implementation 'apache-xerces:xercesImpl:2.9.1'
+    implementation 'xerces:xercesImpl:2.11.0'
     implementation 'com.google.zxing:core:3.4.0'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
-    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20180219.1'
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.10.20'
-    implementation 'com.ibm.icu:icu4j:65.1'
+    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:1.1'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.1'
+    implementation 'com.ibm.icu:icu4j:66.1'
     implementation 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
     implementation 'com.sun.mail:javax.mail:1.6.2'
     implementation 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
@@ -175,41 +175,42 @@ dependencies {
     implementation 'org.apache.commons:commons-text:1.8'
     implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
-    implementation 'org.apache.httpcomponents:httpclient-cache:4.5.10'
-    implementation 'org.apache.logging.log4j:log4j-api:2.12.1' // the API of log4j 2
-    implementation 'org.apache.poi:poi:4.1.0'
-    implementation 'org.apache.shiro:shiro-core:1.4.1'
-    implementation 'org.apache.sshd:sshd-core:1.7.0'
-    implementation 'org.apache.tika:tika-parsers:1.22'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.31' // Remember to change the version number in javadoc block
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.31'
+    implementation 'org.apache.httpcomponents:httpclient-cache:4.5.12'
+    implementation 'org.apache.logging.log4j:log4j-api:2.13.1' // the API of log4j 2
+    implementation 'org.apache.poi:poi:4.1.2'
+    implementation 'org.apache.shiro:shiro-core:1.4.1' // So far we did not update from 1.4.1 because of a compile issue. You may try w/ a newer version than  1.5.2
+    implementation 'org.apache.sshd:sshd-core:1.7.0' // So far we did not update from 1.7.0 because of a compile issue. You may try w/ a newer version than  2.4.0
+    implementation 'org.apache.tika:tika-parsers:1.24'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.34' // Remember to change the version number in javadoc block
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.34'
     implementation 'org.apache.axis2:axis2-kernel:1.7.9'
-    implementation 'org.apache.xmlgraphics:fop:2.3'
+    implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: in 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
     implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
-    implementation 'org.codehaus.groovy:groovy-all:2.5.8' // Remember to change the version number in javadoc block
-    implementation 'org.freemarker:freemarker:2.3.29' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+    implementation 'org.codehaus.groovy:groovy-all:2.5.11' // Compile issue with commons-cli and Groovy 3. Remember to change the version number in javadoc block.
+    implementation 'org.freemarker:freemarker:2.3.30' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
     implementation 'org.owasp.esapi:esapi:2.2.0.0'
-    implementation 'org.springframework:spring-test:5.2.0.RELEASE'
+    implementation 'org.springframework:spring-test:5.2.5.RELEASE'
     implementation 'org.zapodot:jackson-databind-java-optional:2.6.1'
     implementation 'oro:oro:2.0.8'
     implementation 'wsdl4j:wsdl4j:1.6.3'
-    implementation 'com.auth0:java-jwt:3.8.3'
+    implementation 'com.auth0:java-jwt:3.10.2'
     testImplementation 'org.hamcrest:hamcrest-library:2.2' // Enable junit4 to not depend on hamcrest-1.3
-    testImplementation 'org.mockito:mockito-core:3.2.0'
-    testImplementation 'com.pholser:junit-quickcheck-generators:0.9'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation 'org.jmockit:jmockit:1.49'
+    testImplementation 'com.pholser:junit-quickcheck-generators:0.9.1'
     runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
     runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
     runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
     runtimeOnly 'org.apache.axis2:axis2-transport-http:1.7.9'
     runtimeOnly 'org.apache.axis2:axis2-transport-local:1.7.9'
-    runtimeOnly 'org.apache.derby:derby:10.14.2.0'
+    runtimeOnly 'org.apache.derby:derby:10.14.2.0'  // So far we did not update from 10.14.2.0 because of a compile issue. You may try w/ a newer version than 10.15.1.3
     runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
-    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.12.1' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-core:2.12.1' // the implementation of the log4j 2 API
-    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.12.1' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.12.1' // for external jars using slf4j: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.13.1' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-core:2.13.1' // the implementation of the log4j 2 API
+    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.13.1' // for external jars using the java.util.logging: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.1' // for external jars using slf4j: routes logging to log4j 2
     runtimeOnly 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
     // Dependencies defined by the plugins
@@ -219,10 +220,10 @@ dependencies {
         compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
 
-    junitReport 'junit:junit:4.12'
+    junitReport 'junit:junit:4.13'
     junitReport 'org.apache.ant:ant-junit:1.10.7'
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
-    asciidoctor 'org.jruby:jruby-complete:9.2.8.0' // bug workaround - see OFBIZ-9873
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
+    asciidoctor 'org.jruby:jruby-complete:9.2.11.1' // bug workaround - see OFBIZ-9873
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
@@ -282,10 +283,10 @@ jar.manifest.attributes(
 checkstyle {
     // Defining a maximum number of “tolerated” errors ensures that
     // this number cannot increase in the future. It corresponds to
-    // the sum of errors that were present before introducing the
+    // the sum of errors found last time it was changed after using the
     // ‘checkstyle’ tool present in the framework and in the official
     // plugins.
-    tasks.checkstyleMain.maxErrors = 37713
+    tasks.checkstyleMain.maxErrors = 37094
     // Currently there are a lot of errors so we need to temporarily
     // hide them to avoid polluting the terminal output.
     showViolations = false
@@ -317,6 +318,10 @@ eclipse.classpath.file.whenMerged { classpath ->
     }
 }
 tasks.eclipse.dependsOn(cleanEclipse)
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+}
 
 /* ========================================================
  * Tasks

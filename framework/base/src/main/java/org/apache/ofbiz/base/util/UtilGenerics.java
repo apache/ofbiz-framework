@@ -23,7 +23,7 @@ import java.util.Map;
 
 public final class UtilGenerics {
 
-    public static final String module = UtilMisc.class.getName();
+    public static final String MODULE = UtilMisc.class.getName();
 
     private UtilGenerics() {}
 

@@ -44,7 +44,7 @@ under the License.
             </service>
         </actions>
 
-        <field name="caContentIdTo" title=" ">
+        <field name="caContentIdTo" title=" " widget-style="buttontext">
             <hyperlink description="${caContentIdTo}" target="EditAddContent" also-hidden="false">
                 <parameter param-name="MASTER_contentId" from-field="contentId"/>
                 <parameter param-name="MASTER_drDataResourceId" from-field="drDataResourceId"/>

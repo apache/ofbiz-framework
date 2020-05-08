@@ -46,7 +46,7 @@ import java.util.Map;
  */
 public class FtpServices {
 
-    public static final String module = FtpServices.class.getName();
+    public static final String MODULE = FtpServices.class.getName();
     public static final String resource = "ContentUiLabels";
 
     private static FtpClientInterface createFtpClient(String serverType)
@@ -133,7 +133,7 @@ public class FtpServices {
             String password = ftpAddress.getString("ftpPassword");
 
             if (Debug.infoOn())
-                Debug.logInfo("connecting to: " + username + "@" + ftpAddress.getString("hostname") + ":" + port, module);
+                Debug.logInfo("connecting to: " + username + "@" + ftpAddress.getString("hostname") + ":" + port, MODULE);
             ftpClient.connect(hostname, username, password, port, defaultTimeout);
             boolean binary = "Y".equalsIgnoreCase(ftpAddress.getString("binaryTransfer"));
             ftpClient.setBinaryTransfer(binary);
@@ -149,7 +149,7 @@ public class FtpServices {
 
             String path = ftpAddress.getString("filePath");
             if (Debug.infoOn())
-                Debug.logInfo("storing local file remotely as: " + (UtilValidate.isNotEmpty(path) ? path + "/" : "") + content.getString("contentName"), module);
+                Debug.logInfo("storing local file remotely as: " + (UtilValidate.isNotEmpty(path) ? path + "/" : "") + content.getString("contentName"), MODULE);
 
             String fileName = content.getString("contentName");
             String remoteFileName = fileName;
@@ -168,7 +168,7 @@ public class FtpServices {
 
             //test if the file is correctly sent
             if (forceTransferControlSuccess) {
-                if (Debug.infoOn()) Debug.logInfo(" Control if service really success the transfer", module);
+                if (Debug.infoOn()) Debug.logInfo(" Control if service really success the transfer", MODULE);
 
                 //recreate the connection
                 ftpClient.closeConnection();
@@ -179,13 +179,13 @@ public class FtpServices {
 
                 //check the file name previously copy
                 List<String> fileNames = ftpClient.list(path);
-                if (Debug.infoOn()) Debug.logInfo(" For the path " + path + " we found " + fileNames, module);
+                if (Debug.infoOn()) Debug.logInfo(" For the path " + path + " we found " + fileNames, MODULE);
 
                 if (fileNames == null || !fileNames.contains(remoteFileName)) {
                     return ServiceUtil.returnError("DataResource " + content.getString("dataResourceId") + " return an empty stream");
                 }
                 if (Debug.infoOn())
-                    Debug.logInfo(" Ok the file " + content.getString("contentName") + " is present", module);
+                    Debug.logInfo(" Ok the file " + content.getString("contentName") + " is present", MODULE);
             }
         } catch (GeneralException | IOException e) {
             return ServiceUtil.returnError(e.getMessage());
@@ -195,7 +195,7 @@ public class FtpServices {
                     ftpClient.closeConnection();
                 }
             } catch (Exception e) {
-                Debug.logWarning(e, "[getFile] Problem with FTP disconnect: ", module);
+                Debug.logWarning(e, "[getFile] Problem with FTP disconnect: ", MODULE);
             }
         }
         return resultMap;

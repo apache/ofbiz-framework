@@ -35,7 +35,7 @@ import org.apache.ofbiz.service.semaphore.SemaphoreWaitException;
 @SuppressWarnings("serial")
 public class GenericServiceJob extends AbstractJob implements Serializable {
 
-    public static final String module = GenericServiceJob.class.getName();
+    public static final String MODULE = GenericServiceJob.class.getName();
 
     protected final transient GenericRequester requester;
     protected final transient DispatchContext dctx;
@@ -94,7 +94,7 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
      */
     protected void init() throws InvalidJobException {
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Async-Service initializing.", module);
+            Debug.logVerbose("Async-Service initializing.", MODULE);
         }
     }
 
@@ -107,7 +107,7 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
         }
         currentState = State.FINISHED;
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Async-Service finished.", module);
+            Debug.logVerbose("Async-Service finished.", MODULE);
         }
     }
 
@@ -117,9 +117,9 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
      */
     protected void failed(Throwable t) throws InvalidJobException {
         if (t instanceof SemaphoreWaitException || t instanceof SemaphoreFailException) {
-            Debug.logError("Async-Service failed due to " + t, module);
+            Debug.logError("Async-Service failed due to " + t, MODULE);
         } else {
-            Debug.logError(t, "Async-Service failed.", module);
+            Debug.logError(t, "Async-Service failed.", MODULE);
         }
         currentState = State.FAILED;
     }

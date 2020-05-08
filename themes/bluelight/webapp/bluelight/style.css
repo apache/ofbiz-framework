@@ -904,20 +904,29 @@ in contained elements. */
 /* ================================== */
 /* ===== Used to align elements ===== */
 /* ================================== */
-.align-float {
-    float: right;
+.align-bottom {
+    vertical-align: bottom;;
 }
-
+.align-center {
+    text-align: center;
+}
+.align-justify {
+    text-align: justify;
+}
+.align-left {
+    text-align: left;
+}
+.align-middle {
+    vertical-align: bottom;;
+}
+.align-right {
+    text-align: right;
+}
 .align-text {
     text-align: right;
 }
-
 .align-top {
     vertical-align: top;
-}
-
-.centered {
-    text-align: center;
 }
 
 .page-container {

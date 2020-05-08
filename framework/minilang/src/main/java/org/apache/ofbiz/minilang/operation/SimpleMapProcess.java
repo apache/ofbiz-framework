@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
  */
 public class SimpleMapProcess {
 
-    public static final String module = SimpleMapProcess.class.getName();
+    public static final String MODULE = SimpleMapProcess.class.getName();
 
     String field = "";
     List<SimpleMapOperation> simpleMapOperations = new ArrayList<>();
@@ -73,7 +73,7 @@ public class SimpleMapProcess {
                 } else if ("convert".equals(nodeName)) {
                     simpleMapOperations.add(new Convert(curOperElem, this));
                 } else {
-                    Debug.logWarning("[SimpleMapProcessor.SimpleMapProcess.readOperations] Operation element \"" + nodeName + "\" not recognized", module);
+                    Debug.logWarning("[SimpleMapProcessor.SimpleMapProcess.readOperations] Operation element \"" + nodeName + "\" not recognized", MODULE);
                 }
             }
         }

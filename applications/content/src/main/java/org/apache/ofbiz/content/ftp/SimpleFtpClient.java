@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 
 public class SimpleFtpClient implements FtpClientInterface {
 
-    public static final String module = SimpleFtpClient.class.getName();
+    public static final String MODULE = SimpleFtpClient.class.getName();
     private FTPClient client;
 
     public SimpleFtpClient() {
@@ -53,11 +53,11 @@ public class SimpleFtpClient implements FtpClientInterface {
         if (timeout != null) client.setDefaultTimeout(timeout.intValue());
 
         if (!FTPReply.isPositiveCompletion(client.getReplyCode())) {
-            Debug.logError("Server refused connection", module);
+            Debug.logError("Server refused connection", MODULE);
             throw new GeneralException(UtilProperties.getMessage("CommonUiLabels", "CommonFtpConnectionRefused", Locale.getDefault()));
         }
         if (!client.login(username, password)) {
-            Debug.logError("login failed", module);
+            Debug.logError("login failed", MODULE);
             throw new GeneralException(UtilProperties.getMessage("CommonUiLabels", "CommonFtpLoginFailure", Locale.getDefault()));
         }
     }

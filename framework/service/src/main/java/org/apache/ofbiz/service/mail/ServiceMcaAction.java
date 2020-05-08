@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ServiceMcaAction implements java.io.Serializable {
 
-    public static final String module = ServiceMcaAction.class.getName();
+    public static final String MODULE = ServiceMcaAction.class.getName();
 
     protected String serviceName = null;
     protected String serviceMode = null;
@@ -61,7 +61,7 @@ public class ServiceMcaAction implements java.io.Serializable {
         if ("sync".equals(serviceMode)) {
             Map<String, Object> result = dispatcher.runSync(serviceName, serviceContext);
             if (ServiceUtil.isError(result)) {
-                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                 return false;
             }
             return true;
@@ -69,7 +69,7 @@ public class ServiceMcaAction implements java.io.Serializable {
             dispatcher.runAsync(serviceName, serviceContext, persist);
             return true;
         } else {
-            Debug.logError("Invalid service mode [" + serviceMode + "] unable to invoke MCA action (" + serviceName + ").", module);
+            Debug.logError("Invalid service mode [" + serviceMode + "] unable to invoke MCA action (" + serviceName + ").", MODULE);
             return false;
         }
     }

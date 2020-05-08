@@ -68,7 +68,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
      *
      */
 
-    public static final String module = ModelTreeAction.class.getName();
+    public static final String MODULE = ModelTreeAction.class.getName();
 
     public static List<ModelAction> readNodeActions(ModelNode modelNode, Element actionsElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(actionsElement);
@@ -109,7 +109,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     protected ModelTreeAction(ModelNode modelNode, Element actionElement) {
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), module);
+             Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), MODULE);
         }
         this.modelTree = modelNode.getModelTree();
         this.modelSubNode = null;
@@ -117,7 +117,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     protected ModelTreeAction(ModelNode.ModelSubNode modelSubNode, Element actionElement) {
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), module);
+             Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), MODULE);
         }
         this.modelSubNode = modelSubNode;
         this.modelTree = modelSubNode.getNode().getModelTree();
@@ -187,7 +187,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
                 }
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -249,7 +249,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
                 }
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -440,7 +440,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
                 }
             } catch (GenericServiceException e) {
                 String errMsg = "Error calling service with name " + serviceNameExpanded + ": " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }

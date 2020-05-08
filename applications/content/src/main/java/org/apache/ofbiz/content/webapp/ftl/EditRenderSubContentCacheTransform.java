@@ -49,7 +49,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class EditRenderSubContentCacheTransform implements TemplateTransformModel {
 
-    public static final String module = EditRenderSubContentCacheTransform.class.getName();
+    public static final String MODULE = EditRenderSubContentCacheTransform.class.getName();
     static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
 
     /**
@@ -163,7 +163,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                     if (Debug.verboseOn()) {
                         for (Entry<String, Object> ky : templateCtx.entrySet()) {
                             Object val = ky.getValue();
-                            Debug.logVerbose("context key: " + ky + " val: " + val, module);
+                            Debug.logVerbose("context key: " + ky + " val: " + val, MODULE);
                         }
                     }
 
@@ -175,7 +175,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (IOException | GeneralException e) {
-                        Debug.logError(e, "Error rendering content" + e.getMessage(), module);
+                        Debug.logError(e, "Error rendering content" + e.getMessage(), MODULE);
                         throw new IOException("Error rendering content" + e.toString());
                     }
                 } else {

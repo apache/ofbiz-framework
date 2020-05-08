@@ -45,7 +45,7 @@ import org.apache.poi.ss.usermodel.CellType;
 
 public class ImportProductServices {
 
-    public static final String module = ImportProductServices.class.getName();
+    public static final String MODULE = ImportProductServices.class.getName();
     public static final String resource = "ProductUiLabels";
 
     /**
@@ -108,7 +108,7 @@ public class ImportProductServices {
                 fs = new POIFSFileSystem(new FileInputStream(item));
                 wb = new HSSFWorkbook(fs);
             } catch (IOException e) {
-                Debug.logError("Unable to read or create workbook from file", module);
+                Debug.logError("Unable to read or create workbook from file", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "ProductProductImportCannotCreateWorkbookFromFile", locale));
             }
@@ -148,7 +148,7 @@ public class ImportProductServices {
                     }
                     int rowNum = row.getRowNum() + 1;
                     if (!row.toString().trim().equalsIgnoreCase("") && productExists) {
-                        Debug.logWarning("Row number " + rowNum + " not imported from " + item.getName(), module);
+                        Debug.logWarning("Row number " + rowNum + " not imported from " + item.getName(), MODULE);
                     }
                 }
             }
@@ -162,7 +162,7 @@ public class ImportProductServices {
                         delegator.create(productGV);
                         delegator.create(inventoryItemGV);
                     } catch (GenericEntityException e) {
-                        Debug.logError("Cannot store product", module);
+                        Debug.logError("Cannot store product", MODULE);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                                 "ProductProductImportCannotStoreProduct", locale));
                     }
@@ -170,7 +170,7 @@ public class ImportProductServices {
             }
             int uploadedProducts = products.size() + 1;
             if (products.size() > 0) {
-                Debug.logInfo("Uploaded " + uploadedProducts + " products from file " + item.getName(), module);
+                Debug.logInfo("Uploaded " + uploadedProducts + " products from file " + item.getName(), MODULE);
             }
         }
         return ServiceUtil.returnSuccess();

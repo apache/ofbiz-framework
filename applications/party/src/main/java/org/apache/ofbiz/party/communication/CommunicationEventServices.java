@@ -71,7 +71,7 @@ import org.apache.ofbiz.service.mail.MimeMessageWrapper;
 
 public class CommunicationEventServices {
 
-    public static final String module = CommunicationEventServices.class.getName();
+    public static final String MODULE = CommunicationEventServices.class.getName();
     public static final String resource = "PartyErrorUiLabels";
 
     public static Map<String, Object> sendCommEventAsEmail(DispatchContext ctx, Map<String, ? extends Object> context) {
@@ -121,7 +121,7 @@ public class CommunicationEventServices {
             sendMailParams.put("contentType", communicationEvent.getString("contentMimeTypeId"));
             sendMailParams.put("userLogin", userLogin);
 
-            Debug.logInfo("Sending communicationEvent: " + communicationEventId, module);
+            Debug.logInfo("Sending communicationEvent: " + communicationEventId, MODULE);
 
             // check for attachments
             boolean isMultiPart = false;
@@ -220,7 +220,7 @@ public class CommunicationEventServices {
                         try {
                             communicationEvent.store();
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                             return ServiceUtil.returnError(e.getMessage());
                         }
                     } else {
@@ -234,7 +234,7 @@ public class CommunicationEventServices {
                     try {
                         communicationEvent.store();
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
 
@@ -254,7 +254,7 @@ public class CommunicationEventServices {
                     dispatcher.runAsync("sendEmailToContactList", sendEmailToContactListContext);
                 } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendEmailToContactListService", locale);
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     errorMessages.add(errMsg);
                     errorMessages.addAll(e.getMessageList());
                 }
@@ -448,7 +448,7 @@ public class CommunicationEventServices {
                 // Send an email to each contact list member
                 // loop through the list iterator
                 for (GenericValue contactListPartyAndContactMech; (contactListPartyAndContactMech = eli.next()) != null;) {
-                    Debug.logInfo("Contact info: " + contactListPartyAndContactMech, module);
+                    Debug.logInfo("Contact info: " + contactListPartyAndContactMech, MODULE);
                     // Any exceptions thrown in this inner block will only relate to a single email of the list, so should
                     //  only be logged and not cause the service to return an error
                     try {
@@ -462,7 +462,7 @@ public class CommunicationEventServices {
                         if (! UtilValidate.isEmail(emailAddress)) {
 
                             // If validation fails, just log and skip the email address
-                            Debug.logError(skippingInvalidEmailAddress + ": " + emailAddress, module);
+                            Debug.logError(skippingInvalidEmailAddress + ": " + emailAddress, MODULE);
                             errorMessages.add(skippingInvalidEmailAddress + ": " + emailAddress);
                             continue;
                         }
@@ -507,7 +507,7 @@ public class CommunicationEventServices {
                         }
 
                         // Send e-mail
-                        Debug.logInfo("Sending email to contact list [" + contactListId + "] party [" + partyId + "] : " + emailAddress, module);
+                        Debug.logInfo("Sending email to contact list [" + contactListId + "] party [" + partyId + "] : " + emailAddress, MODULE);
                         // Make the attempt to send the email to the address
 
                         Map<String, Object> tmpResult = null;
@@ -564,7 +564,7 @@ public class CommunicationEventServices {
                                 try {
                                     contactListCommStatusRecord.store();
                                 } catch (GenericEntityException e) {
-                                    Debug.logError(e, module);
+                                    Debug.logError(e, MODULE);
                                     errorMessages.add(e.getMessage());
                                 }
                                 // deactivate from the contact list
@@ -575,14 +575,14 @@ public class CommunicationEventServices {
                                         contactListParty.store();
                                     }
                                 } catch (GenericEntityException e) {
-                                    Debug.logError(e, module);
+                                    Debug.logError(e, MODULE);
                                     errorMessages.add(e.getMessage());
                                 }
                                 continue;
                             }
                             // If the send attempt fails, just log and skip the email address
                             Debug.logError(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult),
-                                    module);
+                                    MODULE);
                             errorMessages.add(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(
                                     tmpResult));
                             continue;
@@ -609,7 +609,7 @@ public class CommunicationEventServices {
                             if (ServiceUtil.isError(tmpResult)) {
 
                                 // If the expiry fails, just log and skip the email address
-                                Debug.logError(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
+                                Debug.logError(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult), MODULE);
                                 errorMessages.add(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult));
                                 continue;
                             }
@@ -621,10 +621,10 @@ public class CommunicationEventServices {
 
                         // Don't return a service error just because of failure for one address - just log the error and continue
                     } catch (GenericEntityException nonFatalGEE) {
-                        Debug.logError(nonFatalGEE, errorInSendEmailToContactListService, module);
+                        Debug.logError(nonFatalGEE, errorInSendEmailToContactListService, MODULE);
                         errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGEE.getMessage());
                     } catch (GenericServiceException nonFatalGSE) {
-                        Debug.logError(nonFatalGSE, errorInSendEmailToContactListService, module);
+                        Debug.logError(nonFatalGSE, errorInSendEmailToContactListService, MODULE);
                         errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGSE.getMessage());
                     }
                 }
@@ -714,7 +714,7 @@ public class CommunicationEventServices {
                 return createResult;
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -751,7 +751,7 @@ public class CommunicationEventServices {
         try {
             fromCm = EntityQuery.use(delegator).from("PartyAndContactMech").where("infoString", sendFrom).orderBy("-fromDate").filterByDate().queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (fromCm != null) {
@@ -765,7 +765,7 @@ public class CommunicationEventServices {
         try {
             toCm = EntityQuery.use(delegator).from("PartyAndContactMech").where("infoString", sendTo, "partyId", partyId).orderBy("-fromDate").filterByDate().queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (toCm != null) {
@@ -803,7 +803,7 @@ public class CommunicationEventServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createResult));
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(createResult)) {
@@ -916,7 +916,7 @@ public class CommunicationEventServices {
                     ((addressesTo == null || addressesTo[0] == null) ? "not found" : addressesTo[0].toString()) + "]";
 
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Processing Incoming Email " + aboutThisEmail, module);
+                Debug.logVerbose("Processing Incoming Email " + aboutThisEmail, MODULE);
             }
 
             // ignore the message when the spam status = yes
@@ -926,7 +926,7 @@ public class CommunicationEventServices {
             if (!"N".equals(spamHeaderName) && wrapper.getHeader(spamHeaderName) != null && wrapper.getHeader(spamHeaderName).length > 0) {
                 String msgHeaderValue = wrapper.getHeader(spamHeaderName)[0];
                 if (msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
-                    Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", module);
+                    Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", MODULE);
                     return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,
                             "PartyCommEventMessageIgnoredDetectedByExternalSpamChecker", locale));
                 }
@@ -934,7 +934,7 @@ public class CommunicationEventServices {
 
             // if no 'from' addresses specified ignore the message
             if (addressesFrom == null) {
-                Debug.logInfo("Incoming Email message ignored, had not 'from' email address", module);
+                Debug.logInfo("Incoming Email message ignored, had not 'from' email address", MODULE);
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,
                         "PartyCommEventMessageIgnoredNoFromAddressSpecified", locale));
             }
@@ -944,11 +944,11 @@ public class CommunicationEventServices {
             try {
                 commEvents = EntityQuery.use(delegator).from("CommunicationEvent").where("messageId", messageId).queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (!commEvents.isEmpty()) {
-                Debug.logInfo("Ignoring Duplicate Email: " + aboutThisEmail, module);
+                Debug.logInfo("Ignoring Duplicate Email: " + aboutThisEmail, MODULE);
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,
                         "PartyCommEventMessageIgnoredDuplicateMessageId", locale));
             }
@@ -1043,7 +1043,7 @@ public class CommunicationEventServices {
                 try {
                     parentCommEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("messageId", inReplyTo[0].replaceAll("[<>]", "")).queryFirst();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
                 if (parentCommEvent != null) {
                     String parentCommEventId = parentCommEvent.getString("communicationEventId");
@@ -1112,7 +1112,7 @@ public class CommunicationEventServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
             }
             communicationEventId = (String)result.get("communicationEventId");
-            Debug.logInfo("Persisting New Email: " + aboutThisEmail + " into CommunicationEventId: " + communicationEventId, module);
+            Debug.logInfo("Persisting New Email: " + aboutThisEmail + " into CommunicationEventId: " + communicationEventId, MODULE);
 
             // handle the attachments
             createAttachmentContent(dispatcher, delegator, wrapper, communicationEventId, userLogin);
@@ -1137,7 +1137,7 @@ public class CommunicationEventServices {
             results.put("statusId", commEventMap.get("statusId"));
             return results;
         } catch (MessagingException | GenericServiceException | GenericEntityException | IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
     }
@@ -1211,11 +1211,11 @@ public class CommunicationEventServices {
         List<String> currentAttachmentNames = getCommEventAttachmentNames(delegator, communicationEventId);
 
         if (attachmentIndexes.size() > 0) {
-            Debug.logInfo("=== message has attachments [" + attachmentIndexes.size() + "] =====", module);
+            Debug.logInfo("=== message has attachments [" + attachmentIndexes.size() + "] =====", MODULE);
             for (String attachmentIdx : attachmentIndexes) {
                 String attFileName = wrapper.getPartFilename(attachmentIdx);
                 if (currentAttachmentNames.contains(attFileName)) {
-                    Debug.logWarning(String.format("CommunicationEvent [%s] already has attachment named '%s'", communicationEventId, attFileName), module);
+                    Debug.logWarning(String.format("CommunicationEvent [%s] already has attachment named '%s'", communicationEventId, attFileName), MODULE);
                     continue;
                 }
 
@@ -1248,7 +1248,7 @@ public class CommunicationEventServices {
                 } else {
                     ByteBuffer data = wrapper.getPartByteBuffer(attachmentIdx);
                     if (Debug.infoOn()) {
-                        Debug.logInfo("Binary attachment size: " + data.limit(), module);
+                        Debug.logInfo("Binary attachment size: " + data.limit(), MODULE);
                     }
                     attachmentMap.put("drDataResourceName", attFileName);
                     attachmentMap.put("imageData", data);
@@ -1260,7 +1260,7 @@ public class CommunicationEventServices {
                 Map<String, Object> result = dispatcher.runSync("createCommContentDataResource", attachmentMap);
                 if (ServiceUtil.isError(result)) {
                     String errorMessage = ServiceUtil.getErrorMessage(result);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     throw new GenericServiceException(errorMessage);
                 }
             }
@@ -1284,12 +1284,12 @@ public class CommunicationEventServices {
                     Map<String, Object> resultMap = dispatcher.runSync("createCommunicationEventRole", input);
                     if (ServiceUtil.isError(resultMap)) {
                         String errorMessage = ServiceUtil.getErrorMessage(resultMap);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                     }
                 }
             }
         } catch (GenericServiceException | GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -1301,11 +1301,11 @@ public class CommunicationEventServices {
                 Map<String, Object> resultMap = dispatcher.runSync("createCommunicationEventWorkEff", UtilMisc.toMap("workEffortId", workEffortId, "communicationEventId", communicationEventId, "userLogin", userLogin));
                 if (ServiceUtil.isError(resultMap)) {
                     String errorMessage = ServiceUtil.getErrorMessage(resultMap);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                 }
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -1335,7 +1335,7 @@ public class CommunicationEventServices {
             result = dispatcher.runSync("findPartyFromEmailAddress", map);
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 throw new GenericServiceException(errorMessage);
             }
         }
@@ -1360,7 +1360,7 @@ public class CommunicationEventServices {
                             UtilMisc.toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
                     if (ServiceUtil.isError(result)) {
                         String errorMessage = ServiceUtil.getErrorMessage(result);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         throw new GenericServiceException(errorMessage);
                     }
                     if (result.get("partyId") != null) {
@@ -1393,7 +1393,7 @@ public class CommunicationEventServices {
                             "WorkEffortContactMechView", "inputFields", inputFields, "userLogin", userLogin));
                     if (ServiceUtil.isError(result)) {
                         String errorMessage = ServiceUtil.getErrorMessage(result);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         throw new GenericServiceException(errorMessage);
                     }
                     try (EntityListIterator listIt = (EntityListIterator) result.get("listIt")) {
@@ -1401,7 +1401,7 @@ public class CommunicationEventServices {
                         List<GenericValue> filteredList = EntityUtil.filterByDate(list);
                         tempResults.addAll(filteredList);
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
             }
@@ -1414,7 +1414,7 @@ public class CommunicationEventServices {
      * the CommunicationEvent will be updated with the proper COM_BOUNCED status.
      */
     public static Map<String,Object> processBouncedMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Debug.logInfo("Running process bounced message check...", module);
+        Debug.logInfo("Running process bounced message check...", MODULE);
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -1426,7 +1426,7 @@ public class CommunicationEventServices {
             // get the second part (delivery report)
             String contentType = wrapper.getPartContentType("1"); // index 1 should be the second part
             if (contentType != null && "message/delivery-status".equalsIgnoreCase(contentType)) {
-                Debug.logInfo("Delivery status report part found; processing...", module);
+                Debug.logInfo("Delivery status report part found; processing...", MODULE);
 
                 // get the content of the part
                 String part2Text = wrapper.getPartRawText("1");
@@ -1434,7 +1434,7 @@ public class CommunicationEventServices {
                     part2Text = "";
                 }
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("Part 2 Text :\n\n" + part2Text, module);
+                     Debug.logVerbose("Part 2 Text :\n\n" + part2Text, MODULE);
                 }
 
                 // find the "Action" element and obtain its value (looking for "failed")
@@ -1452,7 +1452,7 @@ public class CommunicationEventServices {
                         part3Text = "";
                     }
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("Part 3 Text :\n\n" + part3Text, module);
+                         Debug.logVerbose("Part 3 Text :\n\n" + part3Text, MODULE);
                     }
 
                     // find the "Message-Id" element and obtain its value (looking for "failed")
@@ -1460,7 +1460,7 @@ public class CommunicationEventServices {
                     Matcher m3 = p3.matcher(part3Text);
                     String messageId = null;
                     if (m3.find()) {
-                        Debug.logInfo("Found message-id : " + m3.group(), module);
+                        Debug.logInfo("Found message-id : " + m3.group(), MODULE);
                         messageId = m3.group(1);
                     }
 
@@ -1470,7 +1470,7 @@ public class CommunicationEventServices {
                         try {
                             values = EntityQuery.use(delegator).from("CommunicationEvent").where("messageId", messageId).queryList();
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                             return ServiceUtil.returnError(e.getMessage());
                         }
                         if (UtilValidate.isNotEmpty(values)) {
@@ -1487,10 +1487,10 @@ public class CommunicationEventServices {
                                 result = dispatcher.runSync("updateCommunicationEvent", updateCtx);
                                 if (ServiceUtil.isError(result)) {
                                     String errorMessage = ServiceUtil.getErrorMessage(result);
-                                    Debug.logError(errorMessage, module);
+                                    Debug.logError(errorMessage, MODULE);
                                 }
                             } catch (GenericServiceException e) {
-                                Debug.logError(e, module);
+                                Debug.logError(e, MODULE);
                                 return ServiceUtil.returnError(e.getMessage());
                             }
                             if (ServiceUtil.isError(result)) {
@@ -1498,14 +1498,14 @@ public class CommunicationEventServices {
                             }
                         } else {
                             if (Debug.infoOn()) {
-                                Debug.logInfo("Unable to find CommunicationEvent with the matching messageId : " + messageId, module);
+                                Debug.logInfo("Unable to find CommunicationEvent with the matching messageId : " + messageId, MODULE);
                             }
 
                             // no communication events found for that message ID; possible this is a NEWSLETTER
                             try {
                                 values = EntityQuery.use(delegator).from("ContactListCommStatus").where("messageId", messageId).queryList();
                             } catch (GenericEntityException e) {
-                                Debug.logError(e, module);
+                                Debug.logError(e, MODULE);
                                 return ServiceUtil.returnError(e.getMessage());
                             }
                             if (UtilValidate.isNotEmpty(values)) {
@@ -1523,7 +1523,7 @@ public class CommunicationEventServices {
                                 try {
                                     result = dispatcher.runSync("updateContactListCommStatus", updateCtx);
                                 } catch (GenericServiceException e) {
-                                    Debug.logError(e, module);
+                                    Debug.logError(e, MODULE);
                                     return ServiceUtil.returnError(e.getMessage());
                                 }
                                 if (ServiceUtil.isError(result)) {
@@ -1531,12 +1531,12 @@ public class CommunicationEventServices {
                                 }
                             } else {
                                 if (Debug.infoOn()) {
-                                    Debug.logInfo("Unable to find ContactListCommStatus with the matching messageId : "  + messageId, module);
+                                    Debug.logInfo("Unable to find ContactListCommStatus with the matching messageId : "  + messageId, MODULE);
                                 }
                             }
                         }
                     } else {
-                        Debug.logWarning("No message ID attached to part", module);
+                        Debug.logWarning("No message ID attached to part", MODULE);
                     }
                 }
             }
@@ -1547,20 +1547,20 @@ public class CommunicationEventServices {
 
     public static Map<String,Object> logIncomingMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
-        Debug.logInfo("Message recevied         : " + wrapper.getSubject(), module);
-        Debug.logInfo("-- Content Type          : " + wrapper.getContentType(), module);
-        Debug.logInfo("-- Number of parts       : " + wrapper.getMainPartCount(), module);
-        Debug.logInfo("-- Number of attachments : " + wrapper.getAttachmentIndexes().size(), module);
-        Debug.logInfo("-- Message ID            : " + wrapper.getMessageId(), module);
+        Debug.logInfo("Message recevied         : " + wrapper.getSubject(), MODULE);
+        Debug.logInfo("-- Content Type          : " + wrapper.getContentType(), MODULE);
+        Debug.logInfo("-- Number of parts       : " + wrapper.getMainPartCount(), MODULE);
+        Debug.logInfo("-- Number of attachments : " + wrapper.getAttachmentIndexes().size(), MODULE);
+        Debug.logInfo("-- Message ID            : " + wrapper.getMessageId(), MODULE);
 
-        Debug.logInfo("### MESSAGE ###\n\n" + wrapper.getMessageBody(), module);
+        Debug.logInfo("### MESSAGE ###\n\n" + wrapper.getMessageBody(), MODULE);
 
         List<String> attachmentIndexes = wrapper.getAttachmentIndexes();
         if (attachmentIndexes.size() > 0) {
-            Debug.logInfo("### ATTACHMENTS ###", module);
+            Debug.logInfo("### ATTACHMENTS ###", MODULE);
             for (String idx : attachmentIndexes) {
-                Debug.logInfo("### -- Filename          : " + wrapper.getPartFilename(idx), module);
-                Debug.logInfo("### -- Content Type      : " + wrapper.getPartContentType(idx), module);
+                Debug.logInfo("### -- Filename          : " + wrapper.getPartFilename(idx), MODULE);
+                Debug.logInfo("### -- Content Type      : " + wrapper.getPartContentType(idx), MODULE);
             }
         }
 
@@ -1591,19 +1591,19 @@ public class CommunicationEventServices {
 
         // update the communication event
         if (communicationEventId != null) {
-            Debug.logInfo("Marking communicationEventId [" + communicationEventId + "] from path info : " + request.getPathInfo() + " as read.", module);
+            Debug.logInfo("Marking communicationEventId [" + communicationEventId + "] from path info : " + request.getPathInfo() + " as read.", MODULE);
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             GenericValue communicationEvent = null;
             try {
                 communicationEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("communicationEventId", communicationEventId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             try {
                 dispatcher.runAsync("setCommEventRoleToRead", UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", communicationEvent.getString("partyIdTo")));
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 
@@ -1615,9 +1615,9 @@ public class CommunicationEventServices {
             UtilHttp.streamContentToBrowser(response, imageStream, 43, "image/gif", null);
             }
         } catch (MalformedURLException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         // return null to not return any view

@@ -59,7 +59,7 @@ import com.lowagie.text.pdf.PdfReader;
  */
 
 public class CompDocServices {
-    public static final String module = CompDocServices.class.getName();
+    public static final String MODULE = CompDocServices.class.getName();
     public static final String resource = "ContentUiLabels";
     
     /**
@@ -84,7 +84,7 @@ public class CompDocServices {
             try {
                 EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error running serviceName persistContentAndAssoc", module);
+                Debug.logError(e, "Error running serviceName persistContentAndAssoc", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(CoreEvents.err_resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
            }
         }
@@ -93,7 +93,7 @@ public class CompDocServices {
         try {
             modelService = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
         } catch (GenericServiceException e) {
-            Debug.logError("Error getting model service for serviceName, 'persistContentAndAssoc'. " + e.toString(), module);
+            Debug.logError("Error getting model service for serviceName, 'persistContentAndAssoc'. " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale));
         }
         Map<String, Object> persistMap = modelService.makeValid(context, ModelService.IN_PARAM);
@@ -120,7 +120,7 @@ public class CompDocServices {
             result.putAll(persistRevResult);
             return result;
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error running serviceName, 'persistContentAndAssoc'. " + e.toString(), module);
+            Debug.logError(e, "Error running serviceName, 'persistContentAndAssoc'. " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale) + e.toString());
         }
     }
@@ -175,7 +175,7 @@ public class CompDocServices {
                     ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
                     inputByteArray = byteBuffer.array();
                     String s = new String(inputByteArray, "UTF-8");
-                    Debug.logInfo("text/html string:" + s, module);
+                    Debug.logInfo("text/html string:" + s, MODULE);
                     continue;
                 } else if (inputMimeType != null && "application/vnd.ofbiz.survey.response".equals(inputMimeType)) {
                     String surveyResponseId = dataResource.getString("relatedDetailId");
@@ -240,7 +240,7 @@ public class CompDocServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
         } catch (IOException | DocumentException | GeneralException e) {
-            Debug.logError(e, "Error in CompDoc operation: ", module);
+            Debug.logError(e, "Error in CompDoc operation: ", MODULE);
             return ServiceUtil.returnError(e.toString());
         }
     }
@@ -269,7 +269,7 @@ public class CompDocServices {
             if (UtilValidate.isEmpty(contentRevisionSeqId)) {
                 GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
                 dataResourceId = content.getString("dataResourceId");
-                Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, module);
+                Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, MODULE);
                 dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
              } else {
                 GenericValue contentRevisionItem = EntityQuery.use(delegator).from("ContentRevisionItem").where("contentId", contentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId).cache().queryOne();
@@ -277,11 +277,11 @@ public class CompDocServices {
                     throw new ViewHandlerException("ContentRevisionItem record not found for contentId=" + contentId
                                                    + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
                 }
-                Debug.logInfo("SCVH(1)- contentRevisionItem:" + contentRevisionItem, module);
+                Debug.logInfo("SCVH(1)- contentRevisionItem:" + contentRevisionItem, MODULE);
                 Debug.logInfo("SCVH(2)-contentId=" + contentId
-                        + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, module);
+                        + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, MODULE);
                 dataResourceId = contentRevisionItem.getString("newDataResourceId");
-                Debug.logInfo("SCVH(3)- dataResourceId:" + dataResourceId, module);
+                Debug.logInfo("SCVH(3)- dataResourceId:" + dataResourceId, MODULE);
                 dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
             }
             String inputMimeType = null;
@@ -296,7 +296,7 @@ public class CompDocServices {
                 ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 inputByteArray = byteBuffer.array();
                 String s = new String(inputByteArray, "UTF-8");
-                Debug.logInfo("text/html string:" + s, module);
+                Debug.logInfo("text/html string:" + s, MODULE);
             } else if (inputMimeType != null && "application/vnd.ofbiz.survey.response".equals(inputMimeType)) {
                 String surveyResponseId = dataResource.getString("relatedDetailId");
                 String surveyId = null;
@@ -344,7 +344,7 @@ public class CompDocServices {
             }
 
             if (inputByteArray == null) {
-                Debug.logError("Error in PDF generation: ", module);
+                Debug.logError("Error in PDF generation: ", MODULE);
                 return ServiceUtil.returnError("The array used to create outByteBuffer is still declared null");
             }
             ByteBuffer outByteBuffer = ByteBuffer.wrap(inputByteArray);
@@ -352,7 +352,7 @@ public class CompDocServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
         } catch (IOException | GeneralException e) {
-            Debug.logError(e, "Error in PDF generation: ", module);
+            Debug.logError(e, "Error in PDF generation: ", MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return results;

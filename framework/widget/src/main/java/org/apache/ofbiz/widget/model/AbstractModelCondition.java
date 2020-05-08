@@ -72,7 +72,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      *
      */
 
-    public static final String module = AbstractModelCondition.class.getName();
+    public static final String MODULE = AbstractModelCondition.class.getName();
     public static final ModelConditionFactory DEFAULT_CONDITION_FACTORY = new DefaultConditionFactory();
 
     public static List<ModelCondition> readSubConditions(ModelConditionFactory factory, ModelWidget modelWidget,
@@ -102,7 +102,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
         try {
             accept(visitor);
         } catch (Exception e) {
-            Debug.logWarning(e, "Exception thrown in XmlWidgetConditionVisitor: ", module);
+            Debug.logWarning(e, "Exception thrown in XmlWidgetConditionVisitor: ", MODULE);
         }
         return sb.toString();
     }
@@ -180,7 +180,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
             if (conditionElement == null) {
                 return TRUE;
             }
-            String nodeName = conditionElement.getNodeName();
+            String nodeName = conditionElement.getLocalName();
             if ("and".equals(nodeName)) {
                 return new And(factory, modelWidget, conditionElement);
             } else if ("xor".equals(nodeName)) {
@@ -260,7 +260,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 for (Object item : messages) {
                     fullString.append(item.toString());
                 }
-                Debug.logWarning(fullString.toString(), module);
+                Debug.logWarning(fullString.toString(), MODULE);
                 throw new IllegalArgumentException(fullString.toString());
             }
             return resultBool;
@@ -342,7 +342,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 for (Object item : messages) {
                     fullString.append(item.toString());
                 }
-                Debug.logWarning(fullString.toString(), module);
+                Debug.logWarning(fullString.toString(), MODULE);
                 throw new IllegalArgumentException(fullString.toString());
             }
             return resultBool;
@@ -516,7 +516,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 pattern = PatternFactory.createOrGetPerl5CompiledPattern(expr, true);
             } catch (MalformedPatternException e) {
                 String errMsg = "Error in evaluation in if-regexp in screen: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
             String fieldString = null;
@@ -524,7 +524,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 fieldString = (String) ObjectType.simpleTypeOrObjectConvert(fieldVal, "String", null, (TimeZone) context.get("timeZone"),
                         (Locale) context.get("locale"), true);
             } catch (GeneralException e) {
-                Debug.logError(e, "Could not convert object to String, using empty String", module);
+                Debug.logError(e, "Could not convert object to String, using empty String", MODULE);
             }
             // always use an empty string by default
             if (fieldString == null) {
@@ -580,7 +580,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                     resource = serviceName;
                 }
                 if (UtilValidate.isEmpty(serviceName)) {
-                    Debug.logWarning("No permission service-name specified!", module);
+                    Debug.logWarning("No permission service-name specified!", MODULE);
                     return false;
                 }
                 Object obj = context.get(contextMap);
@@ -600,7 +600,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 try {
                     permService = dctx.getModelService(serviceName);
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return false;
                 }
                 // build the context
@@ -615,11 +615,11 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                     resp = dispatcher.runSync(permService.name, svcCtx, 300, true);
                 }
                 catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return false;
                 }
                 if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
-                    Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+                    Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
                     return false;
                 }
                 Boolean hasPermission = (Boolean) resp.get("hasPermission");
@@ -684,7 +684,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                     fieldString = (String) ObjectType.simpleTypeOrObjectConvert(fieldVal, "String", null,
                             (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                 } catch (GeneralException e) {
-                    Debug.logError(e, "Could not convert object to String, using empty String", module);
+                    Debug.logError(e, "Could not convert object to String, using empty String", MODULE);
                 }
             }
             // always use an empty string by default
@@ -697,14 +697,14 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
             try {
                 valClass = ObjectType.loadClass(className);
             } catch (ClassNotFoundException cnfe) {
-                Debug.logError("Could not find validation class: " + className, module);
+                Debug.logError("Could not find validation class: " + className, MODULE);
                 return false;
             }
             Method valMethod;
             try {
                 valMethod = valClass.getMethod(methodName, paramTypes);
             } catch (NoSuchMethodException cnfe) {
-                Debug.logError("Could not find validation method: " + methodName + " of class " + className, module);
+                Debug.logError("Could not find validation method: " + methodName + " of class " + className, MODULE);
                 return false;
             }
             Boolean resultBool = Boolean.FALSE;
@@ -712,7 +712,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 resultBool = (Boolean) valMethod.invoke(null, params);
             } catch (Exception e) {
                 Debug.logError(e, "Error in IfValidationMethod " + methodName + " of class " + className
-                        + ", defaulting to false ", module);
+                        + ", defaulting to false ", MODULE);
             }
             return resultBool;
         }

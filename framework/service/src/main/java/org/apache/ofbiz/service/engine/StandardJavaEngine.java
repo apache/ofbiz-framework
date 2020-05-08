@@ -35,7 +35,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
  */
 public final class StandardJavaEngine extends GenericAsyncEngine {
 
-    public static final String module = StandardJavaEngine.class.getName();
+    public static final String MODULE = StandardJavaEngine.class.getName();
 
     public StandardJavaEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -68,13 +68,13 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
         DispatchContext dctx = dispatcher.getLocalContext(localName);
 
         if (modelService == null) {
-            Debug.logError("ERROR: Null Model Service.", module);
+            Debug.logError("ERROR: Null Model Service.", MODULE);
         }
         if (dctx == null) {
-            Debug.logError("ERROR: Null DispatchContext.", module);
+            Debug.logError("ERROR: Null DispatchContext.", MODULE);
         }
         if (context == null) {
-            Debug.logError("ERROR: Null Service Context.", module);
+            Debug.logError("ERROR: Null Service Context.", MODULE);
         }
 
         Object result = null;

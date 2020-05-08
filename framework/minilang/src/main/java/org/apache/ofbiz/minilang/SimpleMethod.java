@@ -80,7 +80,7 @@ import org.w3c.dom.Element;
  */
 public final class SimpleMethod extends MiniLangElement {
 
-    public static final String module = SimpleMethod.class.getName();
+    public static final String MODULE = SimpleMethod.class.getName();
     private static final String err_resource = "MiniLangErrorUiLabels";
     private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name", "dispatcher-name", "user-login-name"};
     private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
@@ -498,10 +498,10 @@ public final class SimpleMethod extends MiniLangElement {
             if (UtilValidate.isEmpty(response)) {
                 if (forceError) {
                     // override response code, always use error code
-                    Debug.logInfo("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", module);
+                    Debug.logInfo("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", MODULE);
                     response = defaultErrorCode;
                 } else {
-                    Debug.logInfo("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", module);
+                    Debug.logInfo("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", MODULE);
                     response = defaultSuccessCode;
                 }
             } else if ("null".equalsIgnoreCase(response)) {
@@ -543,10 +543,10 @@ public final class SimpleMethod extends MiniLangElement {
             if (UtilValidate.isEmpty(response)) {
                 if (forceError) {
                     // override response code, always use error code
-                    if (Debug.verboseOn()) Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", MODULE);
                     response = defaultErrorCode;
                 } else {
-                    if (Debug.verboseOn()) Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", MODULE);
                     response = defaultSuccessCode;
                 }
             }

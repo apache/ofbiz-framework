@@ -34,7 +34,7 @@ import org.apache.ofbiz.entity.model.ModelViewEntity.ModelAlias;
  */
 public final class ModelUtil {
 
-    public static final String module = ModelUtil.class.getName();
+    public static final String MODULE = ModelUtil.class.getName();
     private static final String vowelBag = "aeiouyAEIOUY";
 
     private ModelUtil () {}
@@ -237,13 +237,13 @@ public final class ModelUtil {
             if (firstUs > 0) {
                 int nextUs = dbBuf.indexOf("_", firstUs + 1);
                 if (nextUs > 0) {
-                    //Debug.logInfo("couldn't shorten enough normally, removing second segment from " + dbBuf, module);
+                    //Debug.logInfo("couldn't shorten enough normally, removing second segment from " + dbBuf, MODULE);
                     dbBuf.delete(firstUs, nextUs);
                 }
             }
         }
 
-        //Debug.logInfo("Shortened " + dbName + " to " + dbBuf.toString(), module);
+        //Debug.logInfo("Shortened " + dbName + " to " + dbBuf.toString(), MODULE);
         return dbBuf.toString();
     }
 

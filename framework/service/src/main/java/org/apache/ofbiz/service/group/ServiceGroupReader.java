@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  */
 public class ServiceGroupReader {
 
-    public static final String module = ServiceGroupReader.class.getName();
+    public static final String MODULE = ServiceGroupReader.class.getName();
 
     // using a cache is dangerous here because if someone clears it the groups won't work at all: public static UtilCache groupsCache = new UtilCache("service.ServiceGroups", 0, 0, false);
     private static final Map<String, GroupModel> groupsCache = new ConcurrentHashMap<>();
@@ -48,7 +48,7 @@ public class ServiceGroupReader {
             serviceGroupsList = ServiceConfigUtil.getServiceEngine().getServiceGroups();
         } catch (GenericConfigException e) {
             // FIXME: Refactor API so exceptions can be thrown and caught.
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new RuntimeException(e.getMessage());
         }
         for (ServiceGroups serviceGroup : serviceGroupsList) {
@@ -68,7 +68,7 @@ public class ServiceGroupReader {
         try {
             rootElement = handler.getDocument().getDocumentElement();
         } catch (GenericConfigException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return;
         }
         int numDefs = 0;
@@ -76,7 +76,7 @@ public class ServiceGroupReader {
         for (Element group: UtilXml.childElementList(rootElement, "group")) {
             String groupName = group.getAttribute("name");
             if (groupName.isEmpty()) {
-                Debug.logError("XML Parsing error: <group> element 'name' attribute null or empty", module);
+                Debug.logError("XML Parsing error: <group> element 'name' attribute null or empty", MODULE);
                 continue;
             }
             groupsCache.put(groupName, new GroupModel(group));
@@ -87,9 +87,9 @@ public class ServiceGroupReader {
             try {
                 resourceLocation = handler.getURL().toExternalForm();
             } catch (GenericConfigException e) {
-                Debug.logError(e, "Could not get resource URL", module);
+                Debug.logError(e, "Could not get resource URL", MODULE);
             }
-            Debug.logInfo("Loaded [" + numDefs + "] Group definitions from " + resourceLocation, module);
+            Debug.logInfo("Loaded [" + numDefs + "] Group definitions from " + resourceLocation, MODULE);
         }
     }
 

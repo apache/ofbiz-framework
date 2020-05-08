@@ -43,7 +43,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public class ContentKeywordIndex {
 
-    public static final String module = ContentKeywordIndex.class.getName();
+    public static final String MODULE = ContentKeywordIndex.class.getName();
 
     public static void forceIndexKeywords(GenericValue content) throws GenericEntityException {
         ContentKeywordIndex.indexKeywords(content, true);
@@ -195,7 +195,7 @@ public class ContentKeywordIndex {
             }
         }
         if (toBeStored.size() > 0) {
-            if (Debug.verboseOn()) Debug.logVerbose("[ContentKeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for contentId " + content.getString("contentId"), module);
+            if (Debug.verboseOn()) Debug.logVerbose("[ContentKeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for contentId " + content.getString("contentId"), MODULE);
 
             if ("true".equals(EntityUtilProperties.getPropertyValue("contentsearch", "index.delete.on_index", "false", delegator))) {
                 // delete all keywords if the properties file says to
@@ -214,9 +214,9 @@ public class ContentKeywordIndex {
                 strings.add(contentText);
             }
         } catch (IOException e1) {
-            Debug.logError(e1, "Error getting content text to index", module);
+            Debug.logError(e1, "Error getting content text to index", MODULE);
         } catch (GeneralException e1) {
-            Debug.logError(e1, "Error getting content text to index", module);
+            Debug.logError(e1, "Error getting content text to index", MODULE);
         }
     }
 

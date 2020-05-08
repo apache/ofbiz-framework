@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
  */
 public class MakeInString {
 
-    public static final String module = MakeInString.class.getName();
+    public static final String MODULE = MakeInString.class.getName();
 
     String fieldName;
     List<MakeInStringOperation> operations = new ArrayList<>();
@@ -51,7 +51,7 @@ public class MakeInString {
                 } else if ("constant".equals(nodeName)) {
                     operations.add(new ConstantOper(curOperElem));
                 } else {
-                    Debug.logWarning("[SimpleMapProcessor.MakeInString.MakeInString] Operation element \"" + nodeName + "\" not recognized", module);
+                    Debug.logWarning("[SimpleMapProcessor.MakeInString.MakeInString] Operation element \"" + nodeName + "\" not recognized", MODULE);
                 }
             }
         }

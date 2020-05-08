@@ -26,7 +26,11 @@ under the License.
 
     <!-- Order processing services -->
     <service name="orderNotificationInterface" engine="interface" location="" invoke="">
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="emailType" type="String" mode="OUT" optional="false"/>
         <attribute name="screenUri" type="String" mode="IN" optional="true"/>
@@ -80,15 +84,27 @@ under the License.
     <service name="createOrderNotificationLog" engine="entity-auto" default-entity-name="OrderNotification" invoke="create">
         <description>Logs when a notification was sent</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="emailType" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="emailType" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingEmailType"/>
+            </type-validate>
+        </attribute>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="storeOrder" engine="java" validate="true" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="createOrder">
         <description>Creates order entities</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
         <attribute name="placingCustomerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="billToCustomerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="shipToCustomerPartyId" type="String" mode="IN" optional="true"/>
@@ -113,15 +129,27 @@ under the License.
         <attribute name="orderTypeId" type="String" mode="INOUT" optional="false"/>
         <attribute name="salesChannelEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="orderItemGroups" type="List" mode="IN" optional="true"/>
-        <attribute name="orderItems" type="List" mode="IN" optional="false"/>
+        <attribute name="orderItems" type="List" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderItems"/>
+            </type-validate>
+        </attribute>
         <attribute name="orderTerms" type="List" mode="IN" optional="true"/>
         <!-- workeffort contains the rental start/enddate, nbr of persons. WorkEfforts is mandatory for ordertype = RENTAL_ORDER_ITEM-->
         <attribute name="workEfforts" type="List" mode="IN" optional="true"/>
-        <attribute name="orderAdjustments" type="List" mode="IN" optional="false"/>
+        <attribute name="orderAdjustments" type="List" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderAdjustments"/>
+            </type-validate>
+        </attribute>
         <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="shippingAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="firstAttemptOrderId" type="String" mode="IN" optional="true"/>
-        <attribute name="currencyUom" type="String" mode="IN" optional="false"/>
+        <attribute name="currencyUom" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingCurrencyUom"/>
+            </type-validate>
+        </attribute>
         <attribute name="grandTotal" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="taxAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="orderDate" type="Timestamp" mode="IN" optional="true"/>
@@ -150,7 +178,11 @@ under the License.
 
     <service name="callProcessOrderPayments" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="callProcessOrderPayments" auth="false">
-        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShoppingCart"/>
+            </type-validate>
+        </attribute>
         <attribute name="manualHold" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="createOrderFromShoppingCart" engine="java"
@@ -160,11 +192,31 @@ under the License.
     </service>
     <service name="createSimpleNonProductSalesOrder" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="createSimpleNonProductSalesOrder" auth="true">
-        <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="currency" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="itemMap" type="Map" mode="IN" optional="false"/>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingPaymentMethodId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingProductStoreId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="currency" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingCurrency"/>
+            </type-validate>
+        </attribute>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="itemMap" type="Map" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingItemMap"/>
+            </type-validate>
+        </attribute>
         <attribute name="orderId" type="String" mode="OUT" optional="false"/>
     </service>
 
@@ -185,21 +237,37 @@ under the License.
         <permission-service service-name="orderAdjustmentPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="orderAdjustmentTypeId" optional="false"/>
-        <override name="orderId" optional="false"/>
+        <override name="orderAdjustmentTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderAdjustmentTypeId"/>
+            </type-validate>
+        </override>
+        <override name="orderId" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateOrderAdjustment" default-entity-name="OrderAdjustment" engine="entity-auto" invoke="update">
         <description>Update an order adjustment record</description>
         <permission-service service-name="orderAdjustmentPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="orderId" optional="false"/>
+        <override name="orderId" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"
         location="component://order/minilang/order/OrderSimpleMethods.xml" invoke="deleteOrderAdjustment">
         <description>Delete an order adjustment record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>  <!-- needed for resetGrandTotal seca -->
+        <attribute name="orderId" type="String" mode="IN" optional="false">  <!-- needed for resetGrandTotal seca -->
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="productPromoCodeId" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -212,7 +280,11 @@ under the License.
     <service name="createPaymentFromPreference" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="createPaymentFromPreference">
         <description>Creates a payment using the order payment preference</description>
-        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderPaymentPreferenceId"/>
+            </type-validate>
+        </attribute>
         <attribute name="paymentFromId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentRefNum" type="String" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
@@ -223,9 +295,21 @@ under the License.
     <service name="updateTrackingNumber" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="updateTrackingNumber">
         <description>Sets the tracking number on a shipment preference</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="trackingNumber" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipGroupSeqId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="trackingNumber" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingTrackingNumber"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="resetGrandTotal" engine="java"
@@ -258,7 +342,11 @@ under the License.
         <attribute name="orderId" type="String" mode="IN"/>
         <attribute name="statusId" type="String" mode="IN"/>
         <attribute name="setItemStatus" type="String" mode="IN" optional="true"/>
-        <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOldStatusId"/>
+            </type-validate>
+        </attribute>
         <attribute name="orderStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="orderTypeId" type="String" mode="OUT" optional="true"/>
         <attribute name="needsInventoryIssuance" type="String" mode="OUT" optional="true"/>
@@ -269,10 +357,18 @@ under the License.
     <service name="changeOrderItemStatus" engine="java" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="setItemStatus">
         <description>Change the status of an existing order item.  If no orderItemSeqId is specified, the status of all order items will be changed.</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="fromStatusId" type="String" mode="IN" optional="true"/>
-        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingStatusId"/>
+            </type-validate>
+        </attribute>
         <attribute name="statusDateTime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="changeReason" type="String" mode="IN" optional="true"/>
     </service>
@@ -280,7 +376,11 @@ under the License.
     <service name="cancelOrderItem" engine="java" auth="true" transaction-timeout="3000"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="cancelOrderItem">
         <description>Cancel an Order Item Quantity</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
@@ -291,7 +391,11 @@ under the License.
     <service name="cancelOrderItemNoActions" engine="java" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="cancelOrderItem">
         <description>Cancel an Order Item Quantity. This is equal to cancelOrderItem but no ECAs are attached to this service.</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
@@ -327,20 +431,40 @@ under the License.
             location="org.apache.ofbiz.order.order.OrderServices" invoke="saveUpdatedCartToOrder">
         <description>Update the quantities/prices for an existing order</description>
         <attribute name="orderId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShoppingCart"/>
+            </type-validate>
+        </attribute>
         <attribute name="calcTax" type="Boolean" mode="IN" optional="true" default-value="true"/>
         <attribute name="deleteItems" type="Boolean" mode="IN" optional="true" default-value="false"/>
-        <attribute name="changeMap" type="Map" mode="IN" optional="false"/>
+        <attribute name="changeMap" type="Map" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingChangeMap"/>
+            </type-validate>
+        </attribute>
     </service>
     <service name="appendOrderItem" engine="java" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="addItemToApprovedOrder">
         <description>Append an item to an existing order</description>
         <attribute name="orderId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipGroupSeqId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingProductId"/>
+            </type-validate>
+        </attribute>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
         <attribute name="basePrice" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingQuantity"/>
+            </type-validate>
+        </attribute>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="overridePrice" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
@@ -356,13 +480,21 @@ under the License.
             location="component://order/minilang/order/OrderServices.xml" invoke="recreateOrderAdjustments">
         <description>Remove all existing order adjustments, recalc them and persist in OrderAdjustment.</description>
         <permission-service service-name="orderAdjustmentPermissionCheck" main-action="UPDATE"/>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="processOrderPayments" engine="java" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="processOrderPayments">
         <description>Process payments for an order</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="updateOrderPaymentPreference" engine="java" auth="true" default-entity-name="OrderPaymentPreference"
@@ -375,13 +507,21 @@ under the License.
     <service name="checkOrderItemStatus" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="checkItemStatus">
       <description>Check the status of all items and cancel/approve/complete the order if we can</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="updateOrderStatusFromReceipt" engine="simple"
             location="component://order/minilang/order/OrderSimpleMethods.xml" invoke="updateOrderStatusFromReceipt">
         <description>Updates the (purchase) order/order item status based on receipt</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="currentStatusId" type="String" mode="OUT" optional="false"/>
     </service>
 
@@ -401,15 +541,31 @@ under the License.
     <service name="setAllowOrderSplit" engine="java" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="allowOrderSplit">
         <description>Set the Allow Split Flag To 'Y' (true)</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipGroupSeqId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="getOrderItemShipGroupEstimatedShipDate" engine="simple"
             location="component://order/minilang/order/OrderServices.xml" invoke="getOrderItemShipGroupEstimatedShipDate" auth="true">
         <description>Compute and return the OrderItemShipGroup estimated ship date based on the associated items.</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipGroupSeqId"/>
+            </type-validate>
+        </attribute>
         <attribute name="estimatedShipDate" type="Timestamp" mode="OUT" optional="true"/>
     </service>
 
@@ -448,9 +604,21 @@ under the License.
     <service name="updateOrderNote" engine="simple" default-entity-name="OrderHeaderNote"
             location="component://order/minilang/order/OrderServices.xml" invoke="updateOrderNote" auth="true">
         <description>Toggle Order Note and make it either Public or Private</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="noteId" type="String" mode="IN" optional="false"/>
-        <attribute name="internalNote" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="noteId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingNoteId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="internalNote" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingInternalNote"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <!-- Order (digital) Fulfillment Services -->
@@ -462,12 +630,24 @@ under the License.
    <service name="fulfillDigitalItems" engine="java" require-new-transaction="true" transaction-timeout="300"
        location="org.apache.ofbiz.order.order.OrderServices" invoke="fulfillDigitalItems">
        <description>Order Fulfillment</description>
-       <attribute name="orderId" type="String" mode="IN" optional="false"/>
-       <attribute name="orderItems" type="java.util.List" mode="IN" optional="false"/>
+       <attribute name="orderId" type="String" mode="IN" optional="false">
+           <type-validate>
+               <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+           </type-validate>
+       </attribute>
+       <attribute name="orderItems" type="java.util.List" mode="IN" optional="false">
+           <type-validate>
+               <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderItems"/>
+           </type-validate>
+       </attribute>
    </service>
    <service name="itemFulfillmentInterface" engine="interface" invoke="" location="" auth="false" >
        <auto-attributes entity-name="ProductContent" include="pk" mode="IN" optional="false"/>
-       <attribute name="orderItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+       <attribute name="orderItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false">
+           <type-validate>
+               <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderItem"/>
+           </type-validate>
+       </attribute>
    </service>
     <service name="invoiceServiceItems" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="invoiceServiceItems" auth="true">
@@ -475,10 +655,14 @@ under the License.
         <attribute name="orderId" type="String" mode="IN"/>
     </service>
     <!-- Order View Services -->
-    <service name="getOrderedSummaryInformation" engine="simple"
-            location="component://order/minilang/order/OrderServices.xml" invoke="getOrderedSummaryInformation">
+    <service name="getOrderedSummaryInformation" engine="groovy"
+            location="component://order/groovyScripts/order/OrderServices.groovy" invoke="getOrderedSummaryInformation">
         <description>Get Ordered Summary Information</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/> <!-- defaults to PLACING_CUSTOMER -->
         <attribute name="orderTypeId" type="String" mode="IN" optional="true"/> <!-- defaults to SALES_ORDER -->
         <attribute name="statusId" type="String" mode="IN" optional="true"/> <!-- defaults to ORDER_COMPLETED -->
@@ -500,14 +684,26 @@ under the License.
     <service name="getOrderShippingAmount" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="getOrderShippingAmount">
         <description>Get the total shipping for an order</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="shippingAmount" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getOrderStatus" engine="simple" location="component://order/minilang/order/OrderServices.xml"
             invoke="getOrderStatus" auth="false">
         <description>Gets the order status</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="statusId" type="String" mode="OUT" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="statusId" type="String" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingStatusId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <!-- Order Delivery Services -->
@@ -527,14 +723,22 @@ under the License.
     <service name="sendOrderDeliveryScheduleNotification" engine="simple"
             location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="sendOrderDeliveryScheduleNotification">
         <description>Send Order Delivery Schedule Notification</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="checkSupplierRelatedOrderPermission" engine="simple"
             location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="checkSupplierRelatedOrderPermissionService">
         <description>Check Supplier Related Order Permission</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="checkAction" type="String" mode="IN" optional="true"/>
         <attribute name="callingMethodName" type="String" mode="IN" optional="true"/>
         <attribute name="hasSupplierRelatedPermission" type="String" mode="OUT" optional="false"/>
@@ -551,7 +755,11 @@ under the License.
     <!-- serialization test -->
     <service name="shoppingCartRemoteTest" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="shoppingCartRemoteTest">
-        <attribute name="cart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="cart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingCart"/>
+            </type-validate>
+        </attribute>
     </service>
     <service name="shoppingCartTest" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="shoppingCartTest">
@@ -576,7 +784,11 @@ under the License.
     <!-- mass order changes -->
     <service name="massOrderChangeInterface" engine="interface" location="" invoke="">
         <description>Interface for Mass Order Change Services</description>
-        <attribute name="orderIdList" type="List" mode="IN" optional="false"/>
+        <attribute name="orderIdList" type="List" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderIdList"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="massPickOrders" engine="java" transaction-timeout="300"
@@ -614,22 +826,38 @@ under the License.
     <service name="massPrintOrders" engine="java" transaction-timeout="300"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="massPrintOrders" auth="true">
         <implements service="massOrderChangeInterface"/>
-        <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
+        <attribute name="screenLocation" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingScreenLocation"/>
+            </type-validate>
+        </attribute>
         <attribute name="printerName" type="String" mode="IN" optional="true"/>
     </service>
     <service name="massCreateFileForOrders" engine="java" transaction-timeout="300"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="massCreateFileForOrders" auth="true">
         <implements service="massOrderChangeInterface"/>
-        <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
+        <attribute name="screenLocation" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingScreenLocation"/>
+            </type-validate>
+        </attribute>
     </service>
 
-    <service name="getNextOrderId" engine="simple"
-        location="component://order/minilang/order/OrderServices.xml" invoke="getNextOrderId">
+    <service name="getNextOrderId" engine="groovy"
+        location="component://order/groovyScripts/order/OrderServices.groovy" invoke="getNextOrderId">
         <description>Get the Next Order ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
         <implements service="storeOrder" optional="true"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
-        <attribute name="orderId" type="String" mode="OUT" optional="false"/>
+        <attribute name="orderId" type="String" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="orderSequence_enforced" engine="simple"
@@ -682,7 +910,11 @@ under the License.
             <check-permission permission="ORDERMGR" action="_CREATE"/>
         </required-permissions>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="shipGroupSeqId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updateOrderItemShipGroup" default-entity-name="OrderItemShipGroup" engine="simple"
@@ -747,14 +979,26 @@ under the License.
     <service name="checkCreateDropShipPurchaseOrders" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="checkCreateDropShipPurchaseOrders" auth="true">
         <description>If the order is a sales order, create purchase orders (drop shipments) for each ship group associated to a supplier</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="addPaymentMethodToOrder" engine="simple"
             location="component://order/minilang/order/OrderServices.xml" invoke="addPaymentMethodToOrder" auth="true">
         <description>Add Payment Method to Order.From this servicewe will call the createOrderPaymentPreference service to create OrderPaymentPreference</description>
-        <attribute type="String" mode="IN" name="orderId" optional="false"/>
-        <attribute type="String" mode="IN" name="paymentMethodId" optional="false"/>
+        <attribute type="String" mode="IN" name="orderId" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute type="String" mode="IN" name="paymentMethodId" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingPaymentMethodId"/>
+            </type-validate>
+        </attribute>
         <attribute type="BigDecimal" mode="IN" name="maxAmount"/>
         <attribute type="String" mode="OUT" name="orderPaymentPreferenceId"/>
     </service>
@@ -772,14 +1016,26 @@ under the License.
     <service name="cancelRemainingPurchaseOrderItems" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="cancelRemainingPurchaseOrderItems" auth="true">
         <description>Cancels remaining (unreceived) quantities for items of an order. Does not consider received-but-rejected quantities.</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="generateReqsFromCancelledPOItems" engine="java"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="generateReqsFromCancelledPOItems" auth="true">
         <description>Generates a product requirement for the total cancelled quantity over all order items for each product</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingFacilityId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="getOrderItemInvoicedAmountAndQuantity" engine="java"
@@ -789,8 +1045,16 @@ under the License.
             share of any order-level adjustments (that calculated by applying the percentage of the items total that the item represents
             to the order-level adjustments total (also via OrderAdjustmentBilling). Also returns the quantity invoiced for the item over
             all invoices, to aid in prorating.</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderItemSeqId"/>
+            </type-validate>
+        </attribute>
         <attribute name="invoicedAmount" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="invoicedQuantity" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
@@ -884,7 +1148,11 @@ under the License.
     <service name="checkOrderIsOnBackOrder" engine="simple" auth="false"
             location="component://order/minilang/order/OrderServices.xml" invoke="checkOrderIsOnBackOrder">
         <description>Check if an Order is on Back Order</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
         <attribute name="isBackOrder" type="Boolean" mode="OUT" optional="false"/>
     </service>
 
@@ -918,7 +1186,11 @@ under the License.
     <service name="changeOrderPaymentStatus" engine="java" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="setOrderPaymentStatus">
         <description>Change the payment status of an existing order</description>
-        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderPaymentPreferenceId"/>
+            </type-validate>
+        </attribute>
         <attribute name="changeReason" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -947,12 +1219,32 @@ under the License.
         <attribute name="userLogin" mode="IN" type="org.apache.ofbiz.entity.GenericValue" optional="true"/>
         <attribute name="shipToAttnName" mode="IN" type="String" optional="true"/>
         <attribute name="shipToName" mode="IN" type="String" optional="true"/>
-        <attribute name="shipToAddress1" mode="IN" type="String" optional="false"/>
+        <attribute name="shipToAddress1" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipToAddress1"/>
+            </type-validate>
+        </attribute>
         <attribute name="shipToAddress2" mode="IN" type="String" optional="true"/>
-        <attribute name="shipToCity" mode="IN" type="String" optional="false"/>
-        <attribute name="shipToStateProvinceGeoId" mode="IN" type="String" optional="false"/>
-        <attribute name="shipToPostalCode" mode="IN" type="String" optional="false"/>
-        <attribute name="shipToCountryGeoId" mode="IN" type="String" optional="false"/>
+        <attribute name="shipToCity" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipToCity"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipToStateProvinceGeoId" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipToStateProvinceGeoId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipToPostalCode" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipToPostalCode"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipToCountryGeoId" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipToCountryGeoId"/>
+            </type-validate>
+        </attribute>
         <attribute name="shipToContactMechId" mode="IN" type="String" optional="true"/>
         <attribute name="contactMechId" mode="OUT" type="String" optional="false"/>
         <attribute name="billToContactMechId" mode="IN" type="String" optional="true"/>
@@ -983,16 +1275,40 @@ under the License.
     <service name="createUpdateCreditCard" engine="simple" auth="true" default-entity-name="CreditCard"
             location="component://order/minilang/order/OrderServices.xml" invoke="createUpdateCreditCard">
         <description>Create/Update credit card</description>
-        <attribute name="expMonth" type="String" mode="IN" optional="false"/>
-        <attribute name="expYear" type="String" mode="IN" optional="false"/>
-        <attribute name="cardType" type="String" mode="IN" optional="false"/>
-        <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
+        <attribute name="expMonth" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingExpMonth"/>
+            </type-validate>
+        </attribute>
+        <attribute name="expYear" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingExpYear"/>
+            </type-validate>
+        </attribute>
+        <attribute name="cardType" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingCardType"/>
+            </type-validate>
+        </attribute>
+        <attribute name="cardNumber" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingCardNumber"/>
+            </type-validate>
+        </attribute>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="companyNameOnCard" type="String" mode="IN" optional="true"/>
         <attribute name="titleOnCard" type="String" mode="IN" optional="true"/>
-        <attribute name="firstNameOnCard" type="String" mode="IN" optional="false"/>
+        <attribute name="firstNameOnCard" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingFirstNameOnCard"/>
+            </type-validate>
+        </attribute>
         <attribute name="middleNameOnCard" type="String" mode="IN" optional="true"/>
-        <attribute name="lastNameOnCard" type="String" mode="IN" optional="false"/>
+        <attribute name="lastNameOnCard" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingLastNameOnCard"/>
+            </type-validate>
+        </attribute>
         <attribute name="suffixOnCard" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
@@ -1022,29 +1338,81 @@ under the License.
     <service name="updateShippingMethodAndCharges" engine="simple" 
             location="component://order/minilang/order/OrderServices.xml" invoke="updateShippingMethodAndCharges">
         <description>Compare order's shipping amount and new shipping amount(based on weight and dimension of packages).If new shipping amount is more then or less than default percentage (defined in shipment.properties) of Order's shipping amount, then shipping method and shipping charges are updated. And if new shipping amount is not more then or less than default percentage (defined in shipment.properties)% of Order's shipping amount then only shipping method is updated.Also updates record in ShipmentRouteSegment entity</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentMethodAndAmount" type="String" mode="IN" optional="false"/>
-        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderAdjustmentId" type="String" mode="IN" optional="false"/>
-        <attribute name="shippingAmount" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentRouteSegmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipGroupSeqId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="oldContactMechId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOldContactMechId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipmentMethodAndAmount" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipmentMethodAndAmount"/>
+            </type-validate>
+        </attribute>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingContactMechPurposeTypeId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="orderAdjustmentId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderAdjustmentId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shippingAmount" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShippingAmount"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipmentId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipmentRouteSegmentId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipmentRouteSegmentId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="setShippingInstructions" engine="java" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="setShippingInstructions">
         <description>Set the shipping instructions for an order</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipGroupSeqId"/>
+            </type-validate>
+        </attribute>
         <attribute name="shippingInstructions" type="String" mode="IN" optional="true"/>
     </service>
     <service name="setGiftMessage" engine="java" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="setGiftMessage">
         <description>Set Gift message for an order</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingShipGroupSeqId"/>
+            </type-validate>
+        </attribute>
         <attribute name="giftMessage" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createAlsoBoughtProductAssocs" engine="java" auth="true" 
@@ -1066,14 +1434,22 @@ under the License.
             Creates ProductAssoc records (of type ALSO_BOUGHT) for products that were purchased together in the Order.  If a ProductAssoc record already exists then the quantity field is incremented by one.  If a variant product has
             been ordered then the association is made to its parent product.
         </description>
-        <attribute name="orderId" mode="IN" type="String" optional="false"/>
+        <attribute name="orderId" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </attribute>
     </service>
     <service name="productAvailabalityByFacility" engine="simple" location="component://order/minilang/order/OrderServices.xml"
             invoke="productAvailabalityByFacility" auth="true">
         <description>
             Calculate ATP and QOH According For each facility
         </description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingProductId"/>
+            </type-validate>
+        </attribute>
         <attribute name="ownerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="availabalityList" type="List" mode="OUT"/>
     </service>
@@ -1179,8 +1555,16 @@ under the License.
     <service name="countProductQuantityOrdered" engine="java"
         location="org.apache.ofbiz.order.order.OrderServices" invoke="countProductQuantityOrdered" auth="true">
         <description>count Product Quantity Ordered</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingProductId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingQuantity"/>
+            </type-validate>
+        </attribute>
     </service>
     
     <service name="MoveItemBetweenShipGroups" engine="simple" 
@@ -1195,7 +1579,11 @@ under the License.
     
     <service name="updateShipGroupShipInfo" engine="java" location="org.apache.ofbiz.order.order.OrderServices" invoke="updateShipGroupShipInfo" auth="true">
             <description>Update Shipping Information on Order View</description>
-         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+         <attribute name="contactMechId" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingContactMechId"/>
+             </type-validate>
+         </attribute>
          <attribute name="orderId" type="String" mode="IN" optional="true"/>
          <attribute name="oldContactMechId" type="String" mode="IN" optional="true"/>
          <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>

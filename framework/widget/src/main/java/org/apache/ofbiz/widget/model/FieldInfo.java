@@ -35,7 +35,7 @@ import org.w3c.dom.Element;
  */
 public abstract class FieldInfo {
 
-    public static final String module = FieldInfo.class.getName();
+    public static final String MODULE = FieldInfo.class.getName();
 
     public static final int DISPLAY = 1;
     public static final int HYPERLINK = 2;
@@ -177,7 +177,7 @@ public abstract class FieldInfo {
         try {
             accept(visitor);
         } catch (Exception e) {
-            Debug.logWarning(e, "Exception thrown in XmlWidgetFieldVisitor: ", module);
+            Debug.logWarning(e, "Exception thrown in XmlWidgetFieldVisitor: ", MODULE);
         }
         return sb.toString();
     }

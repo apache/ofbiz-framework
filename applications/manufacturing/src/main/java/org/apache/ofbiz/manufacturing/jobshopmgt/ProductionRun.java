@@ -47,7 +47,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ProductionRun {
 
-    public static final String module = ProductionRun.class.getName();
+    public static final String MODULE = ProductionRun.class.getName();
     public static final String resource = "ManufacturingUiLabels";
 
     protected GenericValue productionRun; // WorkEffort (PROD_ORDER_HEADER)
@@ -94,7 +94,7 @@ public class ProductionRun {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
         }
     }
 
@@ -153,7 +153,7 @@ public class ProductionRun {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 return false;
             }
             return true;
@@ -175,7 +175,7 @@ public class ProductionRun {
                     quantity = productionRunProduct.getBigDecimal("estimatedQuantity");
                     productProduced = productionRunProduct.getRelatedOne("Product", true);
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
             return productProduced;
@@ -316,7 +316,7 @@ public class ProductionRun {
                 try {
                     currentStatus = productionRun.getRelatedOne("CurrentStatusItem", true);
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
             return currentStatus;
@@ -340,7 +340,7 @@ public class ProductionRun {
                             productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"),null, false));
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logWarning(e.getMessage(), module);
+                        Debug.logWarning(e.getMessage(), MODULE);
                     }
                 }
             }
@@ -358,7 +358,7 @@ public class ProductionRun {
                 try {
                     productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
             return productionRunRoutingTasks;
@@ -376,7 +376,7 @@ public class ProductionRun {
                 try {
                     productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
             return (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1): null);
@@ -428,7 +428,7 @@ public class ProductionRun {
                     Map<String, Object> serviceResult = dispatcher.runSync(serviceName, serviceContext);
                     if (ServiceUtil.isError(serviceResult)) {
                         String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                     }
                     totalTaskTime = ((BigDecimal)serviceResult.get("totalTime")).doubleValue();
                 }

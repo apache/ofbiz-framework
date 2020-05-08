@@ -21,6 +21,7 @@
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.serialize.XmlSerializer
 import org.apache.ofbiz.product.product.KeywordIndex
@@ -296,7 +297,7 @@ def forceIndexProductKeywords() {
  */
 def deleteProductKeywords() {
     GenericValue product = from("Product").where(parameters).cache().queryOne()
-    product.removeRelated("ProductKeyword", product)
+    product.removeRelated("ProductKeyword")
     return success()
 }
 
@@ -329,15 +330,18 @@ def discontinueProductSales() {
     product.salesDiscontinuationDate = nowTimestamp
     product.store()
 
-    // expire product from all categories
-    delegator.storeByCondition("ProductCategoryMember",
-            [thruDate: nowTimestamp],
-            [productId: product.productId, thruDate: null])
 
+    // expire product from all categories
+    exprBldr = new EntityConditionBuilder()
+    condition = exprBldr.AND() {
+        EQUALS(productId: product.productId)
+        EQUALS(thruDate: null)
+    }
+    delegator.storeByCondition("ProductCategoryMember",
+            [thruDate: nowTimestamp], condition)
     // expire product from all associations going to it
-    delegator.storeByCondition("ProducAssoc",
-            [thruDate: nowTimestamp],
-            [productIdTo: product.productId, thruDate: null])
+    delegator.storeByCondition("ProductAssoc",
+            [thruDate: nowTimestamp], condition)
     return success()
 }
 
@@ -527,7 +531,6 @@ def copyToProductVariants() {
 /**
  * Check Product Related Permission
  * a method to centralize product security code, meant to be called in-line with
- * call-simple-method, and the checkAction and callingMethodName attributes should be in the method context
  */
 def checkProductRelatedPermission(String callingMethodName, String checkAction) {
     if (!callingMethodName) {
@@ -538,7 +541,7 @@ def checkProductRelatedPermission(String callingMethodName, String checkAction) 
     }
     List roleCategories = []
     // find all role-categories that this product is a member of
-    if (!security.hasEntityPermission("CATALOG", "_${checkAction}", parameters.userLogin)) {
+    if (parameters.productId && !security.hasEntityPermission("CATALOG", "_${checkAction}", parameters.userLogin)) {
         Map lookupRoleCategoriesMap = [productId : parameters.productId,
                                        partyId   : userLogin.partyId,
                                        roleTypeId: "LTD_ADMIN"]
@@ -557,6 +560,16 @@ def checkProductRelatedPermission(String callingMethodName, String checkAction) 
                 [resourceDescription: callingMethodName, mainAction: checkAction], parameters.locale))
     }
     return success()
+}
+
+/**
+ * call checkProductRelatedPermission function with support permission service interface
+ */
+def checkProductRelatedPermissionService() {
+    parameters.alternatePermissionRoot = parameters.altPermission
+    Map result = checkProductRelatedPermission(parameters.resourceDescription, parameters.mainAction)
+    result.hasPermission = ServiceUtil.isSuccess(result)
+    return result
 }
 
 /**
@@ -589,11 +602,11 @@ def productPriceGenericPermission() {
     }
 
     Map result = success()
-    if (!security.hasEntityPermission("CATALOG_PRICE_MAINT", null, parameters.userLogin)) {
+    if (!security.hasPermission("CATALOG_PRICE_MAINT", parameters.userLogin)) {
         result = error(UtilProperties.getMessage("ProductUiLabels",
                 "ProductPriceMaintPermissionError", parameters.locale))
     }
-    result.hasPermission = ServiceUtil.isSuccess(result) && checkProductRelatedPermission(null, null)
+    result.hasPermission = ServiceUtil.isSuccess(result) && checkProductRelatedPermission(parameters.resourceDescription, mainAction)
     if (!result.hasPermission) {
         result = fail(UtilProperties.getMessage("ProductUiLabels", "ProductPermissionError", parameters.locale))
     }

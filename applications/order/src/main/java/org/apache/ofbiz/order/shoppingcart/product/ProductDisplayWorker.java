@@ -50,7 +50,7 @@ import org.apache.ofbiz.product.product.ProductWorker;
 
 public final class ProductDisplayWorker {
 
-    public static final String module = ProductDisplayWorker.class.getName();
+    public static final String MODULE = ProductDisplayWorker.class.getName();
 
     private ProductDisplayWorker() {}
 
@@ -137,7 +137,7 @@ public final class ProductDisplayWorker {
                 cartAssocs.remove(toRemove);
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
 
         if (UtilValidate.isNotEmpty(cartAssocs)) {
@@ -292,7 +292,7 @@ public final class ProductDisplayWorker {
             results.put("products", reorderProds);
             results.put("quantities", productQuantities);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
 
         return results;

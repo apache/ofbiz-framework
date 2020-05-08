@@ -35,7 +35,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 
 public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<EntityCondition, ConcurrentMap<K, V>> {
 
-    public static final String module = AbstractEntityConditionCache.class.getName();
+    public static final String MODULE = AbstractEntityConditionCache.class.getName();
 
     protected AbstractEntityConditionCache(String delegatorName, String id) {
         super(delegatorName, id);
@@ -52,7 +52,7 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
     protected V put(String entityName, EntityCondition condition, K key, V value) {
         ModelEntity entity = this.getDelegator().getModelEntity(entityName);
         if (entity.getNeverCache()) {
-            Debug.logWarning("Tried to put a value of the " + entityName + " entity in the cache but this entity has never-cache set to true, not caching.", module);
+            Debug.logWarning("Tried to put a value of the " + entityName + " entity in the cache but this entity has never-cache set to true, not caching.", MODULE);
             return null;
         }
 
@@ -215,7 +215,7 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
             }
             if (shouldRemove) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("In storeHook, matched condition, removing from cache for entityName [" + entityName + "] in cache with name [" + entityCache.getName() + "] entry with condition: " + condition, module);
+                    Debug.logVerbose("In storeHook, matched condition, removing from cache for entityName [" + entityName + "] in cache with name [" + entityCache.getName() + "] entry with condition: " + condition, MODULE);
                 }
                 // doesn't work anymore since this is a copy of the cache keySet, can call remove directly though with a concurrent mod exception: cacheKeyIter.remove();
                 entityCache.remove(condition);

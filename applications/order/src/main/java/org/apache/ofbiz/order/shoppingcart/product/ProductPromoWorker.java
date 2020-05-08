@@ -67,7 +67,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class ProductPromoWorker {
 
-    public static final String module = ProductPromoWorker.class.getName();
+    public static final String MODULE = ProductPromoWorker.class.getName();
     private static final String resource = "OrderUiLabels";
     private static final String resource_error = "OrderErrorUiLabels";
 
@@ -89,10 +89,10 @@ public final class ProductPromoWorker {
             req = (HttpServletRequest) request;
             cart = ShoppingCartEvents.getCartObject(req);
         } catch (ClassCastException cce) {
-            Debug.logError("Not a HttpServletRequest, no shopping cart found.", module);
+            Debug.logError("Not a HttpServletRequest, no shopping cart found.", MODULE);
             return null;
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
 
@@ -104,10 +104,10 @@ public final class ProductPromoWorker {
             try {
                 productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error looking up store with id " + productStoreId, module);
+                Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
             }
             if (productStore == null) {
-                Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), module);
+                Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), MODULE);
                 return productPromos;
             }
 
@@ -117,7 +117,7 @@ public final class ProductPromoWorker {
                 if (UtilValidate.isNotEmpty(productStorePromoAppl.getString("manualOnly")) && "Y".equals(productStorePromoAppl.getString("manualOnly"))) {
                     // manual only promotions are not automatically evaluated (they must be explicitly selected by the user)
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Skipping promotion with id [" + productStorePromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
+                        Debug.logVerbose("Skipping promotion with id [" + productStorePromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", MODULE);
                     }
                     continue;
                 }
@@ -156,7 +156,7 @@ public final class ProductPromoWorker {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return productPromos;
     }
@@ -170,10 +170,10 @@ public final class ProductPromoWorker {
         try {
             productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up store with id " + productStoreId, module);
+            Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
         }
         if (productStore == null) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), module);
+            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), MODULE);
             return promoCodes;
         }
         try {
@@ -183,7 +183,7 @@ public final class ProductPromoWorker {
                 if (UtilValidate.isNotEmpty(productStorePromoAppl.getString("manualOnly")) && "Y".equals(productStorePromoAppl.getString("manualOnly"))) {
                     // manual only promotions are not automatically evaluated (they must be explicitly selected by the user)
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Skipping promotion with id [" + productStorePromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
+                        Debug.logVerbose("Skipping promotion with id [" + productStorePromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", MODULE);
                     }
                         continue;
                 }
@@ -195,7 +195,7 @@ public final class ProductPromoWorker {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return promoCodes;
     }
@@ -210,10 +210,10 @@ public final class ProductPromoWorker {
         try {
             productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up store with id " + productStoreId, module);
+            Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
         }
         if (productStore == null) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), module);
+            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), MODULE);
             return productPromoList;
         }
 
@@ -224,7 +224,7 @@ public final class ProductPromoWorker {
 
             if (UtilValidate.isEmpty(productStorePromoApplsList)) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Not doing promotions, none applied to store with ID " + productStoreId, module);
+                    Debug.logVerbose("Not doing promotions, none applied to store with ID " + productStoreId, MODULE);
                 }
             }
 
@@ -232,7 +232,7 @@ public final class ProductPromoWorker {
                 if ("Y".equals(prodCatalogPromoAppl.getString("manualOnly"))) {
                     // manual only promotions are not automatically evaluated (they must be explicitly selected by the user)
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Skipping promotion with id [" + prodCatalogPromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
+                        Debug.logVerbose("Skipping promotion with id [" + prodCatalogPromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", MODULE);
                     }
                     continue;
                 }
@@ -240,7 +240,7 @@ public final class ProductPromoWorker {
                 productPromoList.add(productPromo);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up promotion data while doing promotions", module);
+            Debug.logError(e, "Error looking up promotion data while doing promotions", MODULE);
         }
         return productPromoList;
     }
@@ -255,20 +255,20 @@ public final class ProductPromoWorker {
         try {
             agreement = EntityQuery.use(delegator).from("Agreement").where("agreementId", agreementId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up agreement with id " + agreementId, module);
+            Debug.logError(e, "Error looking up agreement with id " + agreementId, MODULE);
         }
         if (agreement == null) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoAgreementFoundWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), module);
+            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoAgreementFoundWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
             return productPromoList;
         }
         GenericValue agreementItem = null;
         try {
             agreementItem = EntityQuery.use(delegator).from("AgreementItem").where("agreementId", agreementId, "agreementItemTypeId", "AGREEMENT_PRICING_PR", "currencyUomId", cart.getCurrency()).cache(true).queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up agreement items for agreement with id " + agreementId, module);
+            Debug.logError(e, "Error looking up agreement items for agreement with id " + agreementId, MODULE);
         }
         if (agreementItem == null) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), module);
+            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
             return productPromoList;
         }
 
@@ -278,7 +278,7 @@ public final class ProductPromoWorker {
             agreementPromoApplsList = EntityUtil.filterByDate(agreementPromoApplsList, nowTimestamp);
 
             if (Debug.verboseOn() && UtilValidate.isEmpty(agreementPromoApplsList)) {
-                    Debug.logVerbose("Not doing promotions, none applied to agreement with ID " + agreementId, module);
+                    Debug.logVerbose("Not doing promotions, none applied to agreement with ID " + agreementId, MODULE);
             }
 
             Iterator<GenericValue> agreementPromoAppls = UtilMisc.toIterator(agreementPromoApplsList);
@@ -288,7 +288,7 @@ public final class ProductPromoWorker {
                 productPromoList.add(productPromo);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up promotion data while doing promotions", module);
+            Debug.logError(e, "Error looking up promotion data while doing promotions", MODULE);
         }
         return productPromoList;
     }
@@ -381,11 +381,11 @@ public final class ProductPromoWorker {
             cart.clearAllPromotionInformation();
             runProductPromos(sortedExplodedProductPromoList, cart, delegator, dispatcher, nowTimestamp, false);
         } catch (NumberFormatException e) {
-            Debug.logError(e, "Number not formatted correctly in promotion rules, not completed...", module);
+            Debug.logError(e, "Number not formatted correctly in promotion rules, not completed...", MODULE);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up promotion data while doing promotions", module);
+            Debug.logError(e, "Error looking up promotion data while doing promotions", MODULE);
         } catch (GeneralException e) {
-            Debug.logError(e, "Error running promotions, will ignore: " + e.toString(), module);
+            Debug.logError(e, "Error running promotions, will ignore: " + e.toString(), MODULE);
         }
     }
 
@@ -426,7 +426,7 @@ public final class ProductPromoWorker {
                 cartChanged = false;
                 numberOfIterations++;
                 if (numberOfIterations > maxIterations) {
-                    Debug.logError("ERROR: While calculating promotions the promotion rules where run more than " + maxIterations + " times, so the calculation has been ended. This should generally never happen unless you have bad rule definitions.", module);
+                    Debug.logError("ERROR: While calculating promotions the promotion rules where run more than " + maxIterations + " times, so the calculation has been ended. This should generally never happen unless you have bad rule definitions.", MODULE);
                     break;
                 }
 
@@ -439,7 +439,7 @@ public final class ProductPromoWorker {
                         Long candidateUseLimit = getProductPromoUseLimit(productPromo, partyId, delegator);
                         Long useLimit = candidateUseLimit;
                         if (Debug.verboseOn()) {
-                            Debug.logVerbose("Running promotion [" + productPromoId + "], useLimit=" + useLimit + ", # of rules=" + productPromoRules.size(), module);
+                            Debug.logVerbose("Running promotion [" + productPromoId + "], useLimit=" + useLimit + ", # of rules=" + productPromoRules.size(), MODULE);
                         }
 
                         boolean requireCode = "Y".equals(productPromo.getString("requireCode"));
@@ -472,7 +472,7 @@ public final class ProductPromoWorker {
                                     }
 
                                     if (cart.getProductPromoUseCount(productPromoId) > maxUseLimit) {
-                                        Debug.logError("ERROR: While calculating promotions the promotion [" + productPromoId + "] action was applied more than " + maxUseLimit + " times, so the calculation has been ended. This should generally never happen unless you have bad rule definitions.", module);
+                                        Debug.logError("ERROR: While calculating promotions the promotion [" + productPromoId + "] action was applied more than " + maxUseLimit + " times, so the calculation has been ended. This should generally never happen unless you have bad rule definitions.", MODULE);
                                         break;
                                     }
                                 }
@@ -501,7 +501,7 @@ public final class ProductPromoWorker {
                 }
             }
         } catch (UseLimitException e) {
-            Debug.logError(e, e.toString(), module);
+            Debug.logError(e, e.toString(), MODULE);
         }
     }
 
@@ -656,7 +656,7 @@ public final class ProductPromoWorker {
 
             return null;
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up ProductPromoCode", module);
+            Debug.logError(e, "Error looking up ProductPromoCode", MODULE);
             return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_error_lookup", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "errorMsg", e.toString()), locale);
         }
     }
@@ -836,7 +836,7 @@ public final class ProductPromoWorker {
                 productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
                 // using the other method to consolidate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Checking " + productPromoConds.size() + " conditions for rule " + productPromoRule, module);
+                    Debug.logVerbose("Checking " + productPromoConds.size() + " conditions for rule " + productPromoRule, MODULE);
                 }
 
                 Iterator<GenericValue> productPromoCondIter = UtilMisc.toIterator(productPromoConds);
@@ -871,7 +871,7 @@ public final class ProductPromoWorker {
                                 cartChanged = true;
                             }
                         } catch (CartItemModifyException e) {
-                            Debug.logError(e, "Error modifying the cart while performing promotion action [" + productPromoAction.getPrimaryKey() + "]", module);
+                            Debug.logError(e, "Error modifying the cart while performing promotion action [" + productPromoAction.getPrimaryKey() + "]", MODULE);
                         }
                     }
                 }
@@ -938,7 +938,7 @@ public final class ProductPromoWorker {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Checking promotion condition: " + productPromoCond, module);
+            Debug.logVerbose("Checking promotion condition: " + productPromoCond, MODULE);
         }
         Integer compareBase = null;
 
@@ -957,7 +957,7 @@ public final class ProductPromoWorker {
                     customMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", condEnum.get("enumCode")).cache().queryOne();
                     if (customMethod == null) {
                         Debug.logWarning("The oldest enumeration " + inputParamEnumId + " for promo " + productPromoCond.getPkShortValueString()
-                                + " haven't the new customMethod to use, please check your data or load seed data", module);
+                                + " haven't the new customMethod to use, please check your data or load seed data", MODULE);
                         return false;
                     }
                     serviceName = customMethod.getString("customMethodName");
@@ -971,7 +971,7 @@ public final class ProductPromoWorker {
             try {
                 condResult = dispatcher.runSync(serviceName, serviceCtx);
             } catch (GenericServiceException e) {
-                Debug.logWarning("Failed to execute productPromoCond service " + serviceName + " for promo " + productPromoCond.getPkShortValueString() + " throw " + e.toString(), module);
+                Debug.logWarning("Failed to execute productPromoCond service " + serviceName + " for promo " + productPromoCond.getPkShortValueString() + " throw " + e.toString(), MODULE);
                 return false;
             }
             compareBase = (Integer) condResult.get("compareBase");
@@ -979,7 +979,7 @@ public final class ProductPromoWorker {
                 operatorEnumId = (String) condResult.get("operatorEnumId");
             }
             
-            if (Debug.verboseOn()) Debug.logVerbose("Condition compare done, compareBase=" + compareBase, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Condition compare done, compareBase=" + compareBase, MODULE);
             if (compareBase != null) {
                 int compare = compareBase;
                 if ("PPC_EQ".equals(operatorEnumId)) {
@@ -995,7 +995,7 @@ public final class ProductPromoWorker {
                 } else if ("PPC_GTE".equals(operatorEnumId)) {
                     if (compare >= 0) return true;
                 } else {
-                    Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId",operatorEnumId) , cart.getLocale()), module);
+                    Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId",operatorEnumId) , cart.getLocale()), MODULE);
                     return false;
                 }
             }
@@ -1053,7 +1053,7 @@ public final class ProductPromoWorker {
         Debug.logInfo("Checking condition for item productId=" + cartItem.getProductId() + ","
                 + " listPrice=" + listPrice + ", basePrice=" + basePrice + ", amountOff=" + amountOff + ","
                 + " percentOff=" + percentOff + ", condValue=" + condValue + ", compareBase=" + compare + ", "
-                + "productPromoCond=" + productPromoCond, module);
+                + "productPromoCond=" + productPromoCond, MODULE);
 
         boolean res = ("PPC_EQ".equals(operatorEnumId) && compare == 0)
                 || ("PPC_NEQ".equals(operatorEnumId) && compare != 0)
@@ -1063,7 +1063,7 @@ public final class ProductPromoWorker {
                 || ("PPC_GTE".equals(operatorEnumId) && compare >= 0);
         if (!res) {
             Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondCondition",
-                    UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), module);
+                    UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), MODULE);
         }
         return res;
     }
@@ -1123,11 +1123,11 @@ public final class ProductPromoWorker {
             try {
                 actionResult = dispatcher.runSync(serviceName, serviceCtx);
             } catch (GenericServiceException e) {
-                Debug.logError("Error calling promo action service [" + serviceName + "]", module);
+                Debug.logError("Error calling promo action service [" + serviceName + "]", MODULE);
                 throw new CartItemModifyException("Error calling promo action service [" + serviceName + "]", e);
             }
             if (ServiceUtil.isError(actionResult)) {
-                Debug.logError("Error calling promo action service [" + serviceName + "], result is: " + actionResult, module);
+                Debug.logError("Error calling promo action service [" + serviceName + "], result is: " + actionResult, MODULE);
                 throw new CartItemModifyException(ServiceUtil.getErrorMessage(actionResult));
             }
             actionResultInfo = (ActionResultInfo) actionResult.get("actionResultInfo");
@@ -1136,7 +1136,7 @@ public final class ProductPromoWorker {
                 throw cartItemModifyException;
             }
         } else {
-            Debug.logError("An un-supported productPromoActionType was used: " + productPromoActionEnumId + ", not performing any action", module);
+            Debug.logError("An un-supported productPromoActionType was used: " + productPromoActionEnumId + ", not performing any action", MODULE);
             actionResultInfo.ranAction = false;
         }
 
@@ -1282,7 +1282,7 @@ public final class ProductPromoWorker {
             return "No promotion name nor text";
 
         } catch (GenericEntityException e) {
-            Debug.logWarning("Error getting ProductPromo for Id " + prodPromoId, module);
+            Debug.logWarning("Error getting ProductPromo for Id " + prodPromoId, MODULE);
         }
 
         return null;

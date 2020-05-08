@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityEcaUtil {
 
-    public static final String module = EntityEcaUtil.class.getName();
+    public static final String MODULE = EntityEcaUtil.class.getName();
 
     private static final UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>> entityEcaReaders = UtilCache.createUtilCache("entity.EcaReaders", 0, 0, false);
 
@@ -69,10 +69,10 @@ public final class EntityEcaUtil {
         try {
             delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
         } catch (GenericEntityConfException e) {
-            Debug.logWarning(e, "Exception thrown while getting field type config: ", module);
+            Debug.logWarning(e, "Exception thrown while getting field type config: ", MODULE);
         }
         if (delegatorInfo == null) {
-            Debug.logError("BAD ERROR: Could not find delegator config with name: " + delegatorName, module);
+            Debug.logError("BAD ERROR: Could not find delegator config with name: " + delegatorName, MODULE);
             return null;
         }
         return delegatorInfo.getEntityEcaReader();
@@ -83,10 +83,10 @@ public final class EntityEcaUtil {
         try {
             entityEcaReaderInfo = EntityConfig.getInstance().getEntityEcaReader(entityEcaReaderName);
         } catch (GenericEntityConfException e) {
-            Debug.logError(e, "Exception thrown while getting entity-eca-reader config with name: " + entityEcaReaderName, module);
+            Debug.logError(e, "Exception thrown while getting entity-eca-reader config with name: " + entityEcaReaderName, MODULE);
         }
         if (entityEcaReaderInfo == null) {
-            Debug.logError("BAD ERROR: Could not find entity-eca-reader config with name: " + entityEcaReaderName, module);
+            Debug.logError("BAD ERROR: Could not find entity-eca-reader config with name: " + entityEcaReaderName, MODULE);
             return;
         }
 
@@ -124,7 +124,7 @@ public final class EntityEcaUtil {
                 //remove the old rule if found and keep the recent one
                 //This will prevent duplicate rule execution along with enabled/disabled eca workflow
                 if (rules.remove(rule)) {
-                    Debug.logWarning("Duplicate Entity ECA [" + entityName + "]" + "for operation [ "+ rule.getOperationName() + "] " + "on [" + eventName + "] ", module);
+                    Debug.logWarning("Duplicate Entity ECA [" + entityName + "]" + "for operation [ "+ rule.getOperationName() + "] " + "on [" + eventName + "] ", MODULE);
                 }
                 rules.add(rule);
             }
@@ -137,16 +137,16 @@ public final class EntityEcaUtil {
         try {
             rootElement = handler.getDocument().getDocumentElement();
         } catch (GenericConfigException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return rules;
         }
         for (Element e: UtilXml.childElementList(rootElement, "eca")) {
             rules.add(new EntityEcaRule(e));
         }
         try {
-            Debug.logInfo("Loaded [" + rules.size() + "] Entity ECA definitions from " + handler.getFullLocation() + " in loader " + handler.getLoaderName(), module);
+            Debug.logInfo("Loaded [" + rules.size() + "] Entity ECA definitions from " + handler.getFullLocation() + " in loader " + handler.getLoaderName(), MODULE);
         } catch (GenericConfigException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return rules;
     }

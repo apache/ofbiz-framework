@@ -40,7 +40,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public final class CommonWorkers {
 
-    public final static String module = CommonWorkers.class.getName();
+    public final static String MODULE = CommonWorkers.class.getName();
 
     private CommonWorkers() {}
 
@@ -52,7 +52,7 @@ public final class CommonWorkers {
             try {
                 defaultGeo = EntityQuery.use(delegator).from("Geo").where("geoId", defaultCountry).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Cannot lookup Geo", module);
+                Debug.logError(e, "Cannot lookup Geo", MODULE);
             }
         }
 
@@ -67,7 +67,7 @@ public final class CommonWorkers {
         try {
             countriesList = EntityQuery.use(delegator).from("Geo").where(exprs).orderBy("geoName").cache(true).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot lookup Geo", module);
+            Debug.logError(e, "Cannot lookup Geo", MODULE);
         }
         if (defaultGeo != null) {
             geoList.add(defaultGeo);
@@ -96,7 +96,7 @@ public final class CommonWorkers {
         try {
             geoList = EntityQuery.use(delegator).from("Geo").where(condition).orderBy("geoName").cache(true).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot lookup State Geos: " + e.toString(), module);
+            Debug.logError(e, "Cannot lookup State Geos: " + e.toString(), MODULE);
         }
         return geoList;
     }
@@ -157,7 +157,7 @@ public final class CommonWorkers {
                                       .queryList()
                           );
         } catch (GenericEntityException e){
-            Debug.logError(e, "Cannot lookup Geo", module);
+            Debug.logError(e, "Cannot lookup Geo", MODULE);
         }
 
         return geoList;

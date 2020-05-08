@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class LayoutEvents {
 
-    public static final String module = LayoutEvents.class.getName();
+    public static final String MODULE = LayoutEvents.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     public static String createLayoutImage(HttpServletRequest request, HttpServletResponse response) {
@@ -114,7 +114,7 @@ public class LayoutEvents {
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
 
@@ -137,7 +137,7 @@ public class LayoutEvents {
                 if (ServiceUtil.isError(serviceResult)) {
                     String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     return "error";
                 }
             }
@@ -232,7 +232,7 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> context = new HashMap<>();
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        if (Debug.verboseOn()) Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, module);
+        if (Debug.verboseOn()) Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, MODULE);
         String dataResourceId = (String) paramMap.get("dataResourceId");
         if (UtilValidate.isEmpty(dataResourceId)) {
             String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.data_ressource_id_null", locale);
@@ -262,7 +262,7 @@ public class LayoutEvents {
                 if (ServiceUtil.isError(result)) {
                     String errorMessage = ServiceUtil.getErrorMessage(result);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     return "error";
                 }
                 request.setAttribute("contentId", contentIdTo);
@@ -281,7 +281,7 @@ public class LayoutEvents {
                 if (ServiceUtil.isError(serviceResult)) {
                     String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     return "error";
                 }
             } catch (GenericServiceException e) {
@@ -375,7 +375,7 @@ public class LayoutEvents {
             if (ServiceUtil.isError(results)) {
                 String errorMessage = ServiceUtil.getErrorMessage(results);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
             entityList = UtilGenerics.cast(results.get("entityList"));
@@ -423,7 +423,7 @@ public class LayoutEvents {
                     if (ServiceUtil.isError(results)) {
                         String errorMessage = ServiceUtil.getErrorMessage(results);
                         request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         return "error";
                     }
                 } catch (GenericServiceException e) {
@@ -452,8 +452,8 @@ public class LayoutEvents {
             String contentIdTo = (String) paramMap.get("contentIdTo");
             String mapKey = (String) paramMap.get("mapKey");
             if (Debug.verboseOn()) {
-                Debug.logVerbose("in createSubContent, contentIdTo:" + contentIdTo, module);
-                Debug.logVerbose("in createSubContent, mapKey:" + mapKey, module);
+                Debug.logVerbose("in createSubContent, contentIdTo:" + contentIdTo, MODULE);
+                Debug.logVerbose("in createSubContent, mapKey:" + mapKey, MODULE);
             }
             Map<String, Object> context = new HashMap<>();
             List<Object> errorMessages = new LinkedList<>();
@@ -485,18 +485,18 @@ public class LayoutEvents {
             context.put("textData", paramMap.get("textData"));
             context.put("contentAssocTypeId", "SUB_CONTENT");
             if (Debug.verboseOn()) {
-                Debug.logVerbose("in createSubContent, context:" + context, module);
+                Debug.logVerbose("in createSubContent, context:" + context, MODULE);
             }
             Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
 
             if (Debug.verboseOn()) {
-                Debug.logVerbose("in createLayoutFile, result:" + result, module);
+                Debug.logVerbose("in createLayoutFile, result:" + result, MODULE);
             }
             String contentId = (String) result.get("contentId");
             String dataResourceId = (String) result.get("dataResourceId");
@@ -515,7 +515,7 @@ public class LayoutEvents {
             if (ServiceUtil.isError(serviceResult)) {
                 String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
         } catch (GenericServiceException e) {
@@ -563,7 +563,7 @@ public class LayoutEvents {
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
             String contentId = (String) result.get("contentId");

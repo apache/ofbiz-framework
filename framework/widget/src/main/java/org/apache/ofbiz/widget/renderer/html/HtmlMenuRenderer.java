@@ -53,7 +53,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     protected String userLoginIdAtPermGrant;
     protected String permissionErrorMessage = "";
 
-    public static final String module = HtmlMenuRenderer.class.getName();
+    public static final String MODULE = HtmlMenuRenderer.class.getName();
 
     protected HtmlMenuRenderer() {}
 

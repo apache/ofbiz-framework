@@ -94,7 +94,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             MODEL_SERVICE_FIELD_MAP.put(field.getName(), field);
         }
     }
-    public static final String module = ModelService.class.getName();
+    public static final String MODULE = ModelService.class.getName();
 
     public static final String XSD = "http://www.w3.org/2001/XMLSchema";
     public static final String TNS = "http://ofbiz.apache.org/service/";
@@ -504,7 +504,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 Object defaultValueObj = param.getDefaultValue(context);
                 if (defaultValueObj != null && context.get(param.name) == null) {
                     context.put(param.name, defaultValueObj);
-                    Debug.logInfo("Set default value [" + defaultValueObj + "] for parameter [" + param.name + "]", module);
+                    Debug.logInfo("Set default value [" + defaultValueObj + "] for parameter [" + param.name + "]", MODULE);
                 }
             }
         }
@@ -520,12 +520,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Map<String, String> requiredInfo = new HashMap<>();
         Map<String, String> optionalInfo = new HashMap<>();
 
-        if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, module);
+        if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, MODULE);
 
         // do not validate results with errors
         if (mode.equals(OUT_PARAM) && context != null && context.containsKey(RESPONSE_MESSAGE)) {
             if (RESPOND_ERROR.equals(context.get(RESPONSE_MESSAGE)) || RESPOND_FAIL.equals(context.get(RESPONSE_MESSAGE))) {
-                if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", module);
+                if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", MODULE);
                 return;
             }
         }
@@ -587,19 +587,19 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 }
                 requiredNames.append(key);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, module);
+            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, MODULE);
 
             if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - " +
-                requiredTest.size() + " / " + requiredInfo.size(), module);
+                requiredTest.size() + " / " + requiredInfo.size(), MODULE);
             if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - " +
-                optionalTest.size() + " / " + optionalInfo.size(), module);
+                optionalTest.size() + " / " + optionalInfo.size(), MODULE);
         }
 
         try {
             validate(requiredInfo, requiredTest, true, this, mode, locale);
             validate(optionalInfo, optionalTest, false, this, mode, locale);
         } catch (ServiceValidationException e) {
-            Debug.logError("[ModelService.validate] : {" + name + "} : (" + mode + ") Required test error: " + e.toString(), module);
+            Debug.logError("[ModelService.validate] : {" + name + "} : (" + mode + ") Required test error: " + e.toString(), MODULE);
             throw e;
         }
 
@@ -724,7 +724,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                                 typeFailMsgs.add(msg);
                             }
                         } catch (GeneralException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                             String msg = param.getPrimaryFailMessage(locale);
                             if (msg == null) {
                                 msg = "The following parameter failed validation: [" + model.name + "." + key + "]";
@@ -761,7 +761,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         try {
             validatorClass = ObjectType.loadClass(vali.getClassName());
         } catch (ClassNotFoundException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
 
         if (validatorClass == null) {
@@ -780,7 +780,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             try {
                 validatorMethod = validatorClass.getMethod(vali.getMethodName(), String.class);
             } catch (NoSuchMethodException e2) {
-                Debug.logWarning(e2, module);
+                Debug.logWarning(e2, MODULE);
             }
         }
 
@@ -953,7 +953,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                                 value = ObjectType.simpleTypeOrObjectConvert(value, param.type, null, timeZone, locale, false);
                             } catch (GeneralException e) {
                                 String errMsg = "Type conversion of field [" + key + "] to type [" + param.type + "] failed for value \"" + value + "\": " + e.toString();
-                                Debug.logWarning("[ModelService.makeValid] : " + errMsg, module);
+                                Debug.logWarning("[ModelService.makeValid] : " + errMsg, MODULE);
                                 if (errorMessages != null) {
                                     errorMessages.add(errMsg);
                                 }
@@ -1032,7 +1032,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         // old permission checking
         if (this.containsPermissions()) {
             for (ModelPermGroup group: this.permissionGroups) {
-                if (Debug.verboseOn()) Debug.logVerbose(" Permission : Analyse " + group.toString(), module);
+                if (Debug.verboseOn()) Debug.logVerbose(" Permission : Analyse " + group.toString(), MODULE);
                 Map<String, Object> permResult = group.evalPermissions(dctx, context);
                 if (! ServiceUtil.isSuccess(permResult)) {
                     ServiceUtil.addErrors(permGroupErrors, null, permResult);
@@ -1113,7 +1113,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 if (group != null) {
                     for (GroupServiceModel sm: group.getServices()) {
                         implServices.add(new ModelServiceIface(sm.getName(), sm.isOptional()));
-                        if (Debug.verboseOn()) Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", module);
+                        if (Debug.verboseOn()) Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", MODULE);
                     }
                 }
             }
@@ -1148,7 +1148,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                             }
                         }
                     } else {
-                        Debug.logWarning("Inherited model [" + serviceName + "] not found for [" + this.name + "]", module);
+                        Debug.logWarning("Inherited model [" + serviceName + "] not found for [" + this.name + "]", MODULE);
                     }
                 }
             }
@@ -1192,7 +1192,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                         }
                         addParam(existingParam);
                     } else {
-                        Debug.logWarning("Override param found but no parameter existing; ignoring: " + overrideParam.name, module);
+                        Debug.logWarning("Override param found but no parameter existing; ignoring: " + overrideParam.name, MODULE);
                     }
                 }
             }
@@ -1215,7 +1215,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             if (deprecatedReason != null) {
                 informMsg.append(" because '").append(deprecatedReason).append("'");
             }
-            Debug.logWarning(informMsg.toString(), module);
+            Debug.logWarning(informMsg.toString(), MODULE);
         }
     }
 
@@ -1239,7 +1239,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             builder = factory.newDocumentBuilder();
             document = builder.newDocument();
         } catch (Exception e) {
-            throw new WSDLException("can not create WSDL", module);
+            throw new WSDLException("can not create WSDL", MODULE);
         }
         def.setTypes(this.getTypes(document, def));
 

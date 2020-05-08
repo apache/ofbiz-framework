@@ -35,7 +35,7 @@ import org.apache.ofbiz.base.config.GenericConfigException;
  */
 public class URLConnector {
 
-    public static final String module = URLConnector.class.getName();
+    public static final String MODULE = URLConnector.class.getName();
 
     private URLConnection connection = null;
     private URL url = null;
@@ -127,11 +127,11 @@ public class URLConnector {
                             scon.setHostnameVerifier(hv);
                         }
                     } catch (GeneralSecurityException | GenericConfigException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
 
             synchronized (URLConnector.this) {

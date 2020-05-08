@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.config.model.ThreadPool;
  */
 public final class JobPoller implements ServiceConfigListener {
 
-    public static final String module = JobPoller.class.getName();
+    public static final String MODULE = JobPoller.class.getName();
     private static final AtomicInteger created = new AtomicInteger();
     private static final ConcurrentHashMap<String, JobManager> jobManagers = new ConcurrentHashMap<>();
     private static final ThreadPoolExecutor executor = createThreadPoolExecutor();
@@ -73,7 +73,7 @@ public final class JobPoller implements ServiceConfigListener {
                     new JobInvokerThreadFactory(), 
                     new ThreadPoolExecutor.AbortPolicy());
         } catch (GenericConfigException e) {
-            Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", module);
+            Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", MODULE);
             return new ThreadPoolExecutor(
                     ThreadPool.MIN_THREADS, 
                     ThreadPool.MAX_THREADS, 
@@ -111,7 +111,7 @@ public final class JobPoller implements ServiceConfigListener {
             ThreadPool threadPool = ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool();
             return threadPool.getPollDbMillis();
         } catch (GenericConfigException e) {
-            Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", module);
+            Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", MODULE);
             return ThreadPool.POLL_WAIT;
         }
     }
@@ -121,7 +121,7 @@ public final class JobPoller implements ServiceConfigListener {
             ThreadPool threadPool = ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool();
             return threadPool.getJobs();
         } catch (GenericConfigException e) {
-            Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", module);
+            Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", MODULE);
             return ThreadPool.QUEUE_SIZE;
         }
     }
@@ -199,7 +199,7 @@ public final class JobPoller implements ServiceConfigListener {
         try {
             return ServiceConfigUtil.getServiceEngine().getThreadPool().getPollEnabled();
         } catch (GenericConfigException e) {
-            Debug.logWarning(e, "Exception thrown while getting configuration: ", module);
+            Debug.logWarning(e, "Exception thrown while getting configuration: ", MODULE);
             return false;
         }
     }
@@ -214,7 +214,7 @@ public final class JobPoller implements ServiceConfigListener {
         try {
             executor.execute(job);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             job.deQueue();
         }
     }
@@ -224,7 +224,7 @@ public final class JobPoller implements ServiceConfigListener {
      * The <code>JobPoller</code> cannot be restarted.
      */
     public void stop() {
-        Debug.logInfo("Shutting down JobPoller.", module);
+        Debug.logInfo("Shutting down JobPoller.", MODULE);
         if (jobManagerPollerThread != null) {
             jobManagerPollerThread.interrupt();
         }
@@ -234,10 +234,10 @@ public final class JobPoller implements ServiceConfigListener {
                 Job queuedJob = (Job) task;
                 queuedJob.deQueue();
             } catch (Exception e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
         }
-        Debug.logInfo("JobPoller shutdown completed.", module);
+        Debug.logInfo("JobPoller shutdown completed.", MODULE);
     }
 
     private static class JobInvokerThreadFactory implements ThreadFactory {
@@ -255,7 +255,7 @@ public final class JobPoller implements ServiceConfigListener {
         // thread to complete the job manager poll uninterrupted.
         @Override
         public void run() {
-            Debug.logInfo("JobPoller thread started.", module);
+            Debug.logInfo("JobPoller thread started.", MODULE);
             try {
                 while (Start.getInstance().getCurrentState() != Start.ServerState.RUNNING) {
                     Thread.sleep(1000);
@@ -269,7 +269,7 @@ public final class JobPoller implements ServiceConfigListener {
                         for (JobManager jm : jmCollection) {
                             if (!jm.isAvailable()) {
                                 if (Debug.infoOn()) {
-                                    Debug.logInfo("The job manager is locked.", module);
+                                    Debug.logInfo("The job manager is locked.", MODULE);
                                 }
                                 continue;
                             }
@@ -294,7 +294,7 @@ public final class JobPoller implements ServiceConfigListener {
                             try {
                                 queueNow(job);
                             } catch (InvalidJobException e) {
-                                Debug.logError(e, module);
+                                Debug.logError(e, MODULE);
                             }
                         }
                     }
@@ -304,7 +304,7 @@ public final class JobPoller implements ServiceConfigListener {
                 // Happens when JobPoller shuts down - nothing to do.
                 Thread.currentThread().interrupt();
             }
-            Debug.logInfo("JobPoller thread stopped.", module);
+            Debug.logInfo("JobPoller thread stopped.", MODULE);
         }
     }
 }

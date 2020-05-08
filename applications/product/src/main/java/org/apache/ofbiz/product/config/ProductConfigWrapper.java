@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class ProductConfigWrapper implements Serializable {
 
-    public static final String module = ProductConfigWrapper.class.getName();
+    public static final String MODULE = ProductConfigWrapper.class.getName();
 
     protected transient LocalDispatcher dispatcher;
     protected String dispatcherName;
@@ -771,7 +771,7 @@ public class ProductConfigWrapper implements Serializable {
                     GenericValue product = component.getRelatedOne("ProductProduct", false);
                     return "Y".equals(product.getString("isVirtual"));
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
             return false;

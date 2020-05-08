@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.Debug;
  */
 public abstract class GenericXaResource extends Thread implements XAResource {
 
-    public static final String module = GenericXaResource.class.getName();
+    public static final String MODULE = GenericXaResource.class.getName();
 
     protected Transaction trans = null;
     protected boolean active = false;
@@ -118,7 +118,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         this.xid = null;
         if (active) {
             // non-fatal
-            Debug.logWarning("forget() called without end()", module);
+            Debug.logWarning("forget() called without end()", MODULE);
         }
     }
 
@@ -193,20 +193,20 @@ public abstract class GenericXaResource extends Thread implements XAResource {
                         try {
                             status = trans.getStatus();
                         } catch (SystemException e) {
-                            Debug.logWarning(e, module);
+                            Debug.logWarning(e, MODULE);
                         }
                     }
 
                     // log a warning message
                     String statusString = TransactionUtil.getTransactionStateString(status);
-                    Debug.logWarning("Transaction timeout [" + timeout + "] Status: " + statusString + " Xid: " + getXid(), module);
+                    Debug.logWarning("Transaction timeout [" + timeout + "] Status: " + statusString + " Xid: " + getXid(), MODULE);
 
                     // run the abstract method
                     runOnTimeout();
                 }
             }
         } catch (InterruptedException e) {
-            Debug.logWarning(e, "InterruptedException thrown", module);
+            Debug.logWarning(e, "InterruptedException thrown", MODULE);
         }
     }
 }

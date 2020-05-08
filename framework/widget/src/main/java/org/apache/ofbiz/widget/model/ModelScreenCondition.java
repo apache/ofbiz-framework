@@ -47,7 +47,7 @@ public final class ModelScreenCondition {
      *
      */
 
-    public static final String module = ModelScreenCondition.class.getName();
+    public static final String MODULE = ModelScreenCondition.class.getName();
     public static final ModelConditionFactory SCREEN_CONDITION_FACTORY = new ScreenConditionFactory();
 
     public static class IfEmptySection extends AbstractModelCondition {
@@ -82,7 +82,7 @@ public final class ModelScreenCondition {
             if (conditionElement == null) {
                 return DefaultConditionFactory.TRUE;
             }
-            if ("if-empty-section".equals(conditionElement.getNodeName())) {
+            if ("if-empty-section".equals(conditionElement.getLocalName())) {
                 return new IfEmptySection(this, modelWidget, conditionElement);
             }
             return super.newInstance(this, modelWidget,conditionElement);

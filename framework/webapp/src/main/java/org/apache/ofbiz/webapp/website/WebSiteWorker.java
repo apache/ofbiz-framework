@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class WebSiteWorker {
 
-    public static final String module = WebSiteWorker.class.getName();
+    public static final String MODULE = WebSiteWorker.class.getName();
 
     private WebSiteWorker() {}
 
@@ -64,7 +64,7 @@ public final class WebSiteWorker {
             result = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache(useCache).queryOne();
         }
         catch (GenericEntityException e) {
-            Debug.logError("Error looking up website with id " + webSiteId, module);
+            Debug.logError("Error looking up website with id " + webSiteId, MODULE);
         }
         return result;
     }

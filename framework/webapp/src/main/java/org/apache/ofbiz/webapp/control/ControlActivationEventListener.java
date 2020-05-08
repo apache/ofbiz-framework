@@ -29,21 +29,21 @@ import org.apache.ofbiz.base.util.UtilProperties;
  * HttpSessionListener that gathers and tracks various information and statistics
  */
 public class ControlActivationEventListener implements HttpSessionActivationListener {
-    // Debug module name
-    public static final String module = ControlActivationEventListener.class.getName();
+    // Debug MODULE name
+    public static final String MODULE = ControlActivationEventListener.class.getName();
 
     public ControlActivationEventListener() {}
 
     @Override
     public void sessionWillPassivate(HttpSessionEvent event) {
         ControlEventListener.countPassivateSession();
-        Debug.logInfo("Passivating session: " + showSessionId(event.getSession()), module);
+        Debug.logInfo("Passivating session: " + showSessionId(event.getSession()), MODULE);
     }
 
     @Override
     public void sessionDidActivate(HttpSessionEvent event) {
         ControlEventListener.countActivateSession();
-        Debug.logInfo("Activating session: " + showSessionId(event.getSession()), module);
+        Debug.logInfo("Activating session: " + showSessionId(event.getSession()), MODULE);
     }
     
     public static String showSessionId(HttpSession session) {

@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  */
 public final class RemoveRelated extends MethodOperation {
 
-    public static final String module = RemoveRelated.class.getName();
+    public static final String MODULE = RemoveRelated.class.getName();
     private final FlexibleStringExpander relationNameFse;
     private final FlexibleMapAccessor<GenericValue> valueFma;
 
@@ -66,7 +66,7 @@ public final class RemoveRelated extends MethodOperation {
             value.getDelegator().removeRelated(relationName, value);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing related entities: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

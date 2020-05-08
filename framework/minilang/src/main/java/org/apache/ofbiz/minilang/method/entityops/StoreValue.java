@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  */
 public final class StoreValue extends MethodOperation {
 
-    public static final String module = StoreValue.class.getName();
+    public static final String MODULE = StoreValue.class.getName();
     private final FlexibleMapAccessor<GenericValue> valueFma;
 
     public StoreValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -61,7 +61,7 @@ public final class StoreValue extends MethodOperation {
             value.getDelegator().store(value);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while storing entity value: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

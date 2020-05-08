@@ -27,8 +27,8 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
 
-class ProductPromoCondTest extends OFBizTestCase {
-    public ProductPromoCondTest(String name) {
+class ProductPromoCondTests extends OFBizTestCase {
+    public ProductPromoCondTests(String name) {
         super(name)
     }
 
@@ -52,13 +52,12 @@ class ProductPromoCondTest extends OFBizTestCase {
     }
 
     ShoppingCart loadOrder(String orderId) {
-        GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne()
         Map<String, Object> serviceCtx = [orderId: orderId,
                 skipInventoryChecks: true, // the items are already reserved, no need to check again
                 skipProductChecks: true, // the products are already in the order, no need to check their validity now
                 includePromoItems: false,
                 createAsNewOrder: 'Y',
-                userLogin: permUserLogin]
+                userLogin: getUserLogin("system")]
         Map<String, Object> loadCartResp = dispatcher.runSync("loadCartFromOrder", serviceCtx)
 
         return loadCartResp.shoppingCart

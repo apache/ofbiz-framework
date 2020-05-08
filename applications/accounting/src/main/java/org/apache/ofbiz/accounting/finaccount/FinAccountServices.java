@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class FinAccountServices {
 
-    public static final String module = FinAccountServices.class.getName();
+    public static final String MODULE = FinAccountServices.class.getName();
     public static final String resourceError = "AccountingErrorUiLabels";
 
     public static Map<String, Object> createAccountAndCredit(DispatchContext dctx, Map<String, Object> context) {
@@ -258,7 +258,7 @@ public class FinAccountServices {
             try {
                 finAccount = FinAccountHelper.getFinAccountFromCode(finAccountCode, delegator);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         } else {
@@ -266,7 +266,7 @@ public class FinAccountServices {
                 finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId)
                         .queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -287,7 +287,7 @@ public class FinAccountServices {
 
         String statusId = finAccount.getString("statusId");
         Debug.logInfo("FinAccount Balance [" + balance + "] Available [" + availableBalance + "] - Status: " + statusId,
-                module);
+                MODULE);
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("availableBalance", availableBalance);
@@ -324,16 +324,16 @@ public class FinAccountServices {
                 balance = FinAccountHelper.ZERO;
             }
 
-            Debug.logInfo("Account #" + finAccountId + " Balance: " + balance + " Status: " + statusId, module);
+            Debug.logInfo("Account #" + finAccountId + " Balance: " + balance + " Status: " + statusId, MODULE);
 
             if ("FNACT_ACTIVE".equals(statusId) && balance.compareTo(FinAccountHelper.ZERO) < 1) {
                 finAccount.set("statusId", "FNACT_MANFROZEN");
                 Debug.logInfo("Financial account [" + finAccountId + "] has passed its threshold [" + balance
-                        + "] (Frozen)", module);
+                        + "] (Frozen)", MODULE);
             } else if ("FNACT_MANFROZEN".equals(statusId) && balance.compareTo(FinAccountHelper.ZERO) > 0) {
                 finAccount.set("statusId", "FNACT_ACTIVE");
                 Debug.logInfo("Financial account [" + finAccountId + "] has been made current [" + balance
-                        + "] (Un-Frozen)", module);
+                        + "] (Un-Frozen)", MODULE);
             }
             try {
                 finAccount.store();
@@ -492,7 +492,7 @@ public class FinAccountServices {
                         }
                     }
                 } catch (GeneralException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
 

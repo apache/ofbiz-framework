@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.GenericValue;
  */
 public final class TaskWorker {
 
-    public static final String module = TaskWorker.class.getName();
+    public static final String MODULE = TaskWorker.class.getName();
     private static final Map<String, String> statusMapping = UtilMisc.toMap("WF_NOT_STARTED", "Waiting", "WF_RUNNING", "Active", "WF_COMPLETE", "Complete", "WF_SUSPENDED", "Hold");
 
     private TaskWorker() {}
@@ -64,7 +64,7 @@ public final class TaskWorker {
             Map<String, ? extends Object> pkFields = UtilMisc.toMap("roleTypeId", orderTaskList.getString("roleTypeId"));
             role = orderTaskList.getDelegator().findOne("RoleType", pkFields, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot get RoleType entity value", module);
+            Debug.logError(e, "Cannot get RoleType entity value", MODULE);
             return orderTaskList.getString("roleTypeId");
         }
         return role.getString("description");
