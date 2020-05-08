@@ -64,20 +64,22 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createCustRequestAttribute" engine="simple"
-            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestAttribute" auth="true">
+    <!-- CustRequestAttribute services -->
+    <service name="createCustRequestAttribute" engine="entity-auto" default-entity-name="CustRequestAttribute" invoke="create" auth="true">
         <description>Create CustRequestAttribute record</description>
-        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="attrName" type="String" mode="IN" optional="false"/>
-        <attribute name="attrValue" type="String" mode="IN" optional="false"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="attrValue" optional="false"/>
     </service>
-
-    <service name="updateCustRequestAttribute" engine="simple"
-            location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestAttribute" auth="true">
+    <service name="updateCustRequestAttribute" engine="entity-auto" default-entity-name="CustRequestAttribute" invoke="update" auth="true">
         <description>Update CustRequestAttribute record</description>
-        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="attrName" type="String" mode="IN" optional="false"/>
-        <attribute name="attrValue" type="String" mode="IN" optional="false"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="attrValue" optional="false"/>
+    </service>
+    <service name="deleteCustRequestAttribute" engine="entity-auto" default-entity-name="CustRequestAttribute" invoke="delete" auth="true">
+        <description>Delete CustRequestAttribute record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
     <service name="createCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
@@ -110,7 +112,7 @@ under the License.
         <description>Create a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="fromDate" mode="IN" type="Timestamp" optional="true"/>
+        <override name="fromDate" mode="IN" type="Timestamp" optional="true" default-value="${date:nowTimestamp()}"/>
     </service>
     <service name="updateCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="update" auth="true">
         <description>Update CustRequestParty record</description>
@@ -125,12 +127,12 @@ under the License.
         <description>Expires a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="checkStatusCustRequest" engine="simple" default-entity-name="CustRequestParty"
+    <service name="checkStatusCustRequest" engine="simple" default-entity-name="CustRequest"
              location="component://order/minilang/request/CustRequestServices.xml" invoke="checkStatusCustRequest" auth="true">
         <description>Check Status of Cust Request</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="updateCustRequestLastModifiedDate" engine="simple" default-entity-name="CustRequestParty"
+    <service name="updateCustRequestLastModifiedDate" engine="simple" default-entity-name="CustRequest"
              location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestLastModifiedDate" auth="true">
         <description>Update Cust Request Last Modified Date</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -219,7 +221,7 @@ under the License.
         <description>Create a Customer Request Content</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true"/>
+        <override name="fromDate" optional="true" default-value="${date:nowTimestamp()}"/>
     </service>
     <service name="deleteCustRequestContent" engine="entity-auto" invoke="delete" default-entity-name="CustRequestContent" auth="true">
         <description>Delete a Customer Request Content</description>

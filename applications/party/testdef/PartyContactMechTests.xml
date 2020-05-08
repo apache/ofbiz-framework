@@ -25,7 +25,7 @@
         <entity-xml action="load" entity-xml-url="component://party/testdef/data/PartyContactMechTestData.xml"/>
     </test-case>
     <test-case case-name="ContactMechWorker-tests">
-        <junit-test-suite className="org.apache.ofbiz.party.ContactMechWorkerTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.party.ContactMechWorkerTests"/>
     </test-case>
     <test-case case-name="partyContactMech-tests">
         <simple-method-test location="component://party/minilang/test/PartyContactMechTests.xml"/>

@@ -27,14 +27,6 @@ under the License.
         <remove-related value-field="requirement" relation-name="RequirementCustRequest"/>
         <remove-value value-field="requirement"/>
     </simple-method>
-
-    <simple-method method-name="associateRequirementWithRequestItem" short-description="Associate a requirement and CustRequestItem">
-        <make-value entity-name="RequirementCustRequest" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
     <simple-method method-name="autoAssignRequirementToSupplier" short-description="If the requirement is a product requirement (purchasing) try to assign it to the primary supplier">
         <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
         <check-errors/>

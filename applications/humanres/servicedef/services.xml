@@ -546,6 +546,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
+    <!-- EmplPositionType services -->
     <service name="createEmplPositionType" engine="entity-auto" default-entity-name="EmplPositionType" invoke="create" auth="true">
         <description>Create Valid PositionType</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
@@ -553,7 +554,6 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="description" optional="false"/>
     </service>
-
     <service name="updateEmplPositionType" engine="entity-auto" default-entity-name="EmplPositionType" invoke="update" auth="true">
         <description>Update Valid PositionType</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
@@ -561,7 +561,6 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="description" optional="false"/>
     </service>
-
     <service name="deleteEmplPositionType" engine="entity-auto" default-entity-name="EmplPositionType" invoke="delete" auth="true">
         <description>Delete EmplPositionType</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
@@ -589,28 +588,27 @@ under the License.
         <attribute name="periodTypeId" type="String" mode="IN" optional="true"/>
     </service>
 
+    <!-- AgreementEmploymentAppl services -->
     <service name="createAgreementEmploymentAppl" engine="entity-auto" default-entity-name="AgreementEmploymentAppl" invoke="create" auth="true">
         <description>Create Agreement Employment Appl</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-
     <service name="updateAgreementEmploymentAppl" engine="entity-auto" default-entity-name="AgreementEmploymentAppl" invoke="update" auth="true">
         <description>Update Valid AgreementEmploymentAppl</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-
     <service name="deleteAgreementEmploymentAppl" engine="entity-auto" default-entity-name="AgreementEmploymentAppl" invoke="delete" auth="true">
         <description>Delete AgreementEmploymentAppl</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    
-    <service name="createEmplLeave" engine="simple" default-entity-name="EmplLeave"
-             location="component://humanres/minilang/HumanResServices.xml" invoke="createEmplLeave" auth="true">
+
+    <!-- EmplLeave services -->
+    <service name="createEmplLeave" engine="entity-auto" default-entity-name="EmplLeave" invoke="create" auth="true">
         <description>Create Employee Leave</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -618,7 +616,6 @@ under the License.
         <override name="approverPartyId" optional="false"/>
         <override name="thruDate" optional="false"/>
     </service>
-
     <service name="updateEmplLeave" engine="entity-auto" default-entity-name="EmplLeave" invoke="update" auth="true">
         <description>Update Valid Employee Leave</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
@@ -627,13 +624,13 @@ under the License.
         <override name="approverPartyId" optional="false"/>
         <override name="thruDate" optional="false"/>
     </service>
-
     <service name="deleteEmplLeave" engine="entity-auto" default-entity-name="EmplLeave" invoke="delete" auth="true">
         <description>Delete AgreementEmploymentAppl</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
+    <!-- EmplLeaveType services -->
     <service name="createEmplLeaveType" engine="entity-auto" default-entity-name="EmplLeaveType" invoke="create" auth="true">
         <description>Create Valid LeaveType</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
@@ -641,7 +638,6 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="description" optional="false"/>
     </service>
-
     <service name="updateEmplLeaveType" engine="entity-auto" default-entity-name="EmplLeaveType" invoke="update" auth="true">
         <description>Update Valid LeaveType</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
@@ -649,7 +645,6 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="description" optional="false"/>
     </service>
-
     <service name="deleteEmplLeaveType" engine="entity-auto" default-entity-name="EmplLeaveType" invoke="delete" auth="true">
         <description>Delete Valid LeaveType</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>

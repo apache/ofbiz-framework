@@ -433,4 +433,38 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
+
+    <form name="LookupSupplier" target="LookupSupplier" type="single"
+          header-row-style="header-row" default-table-style="basic-table">
+        <field name="roleTypeId"><hidden value="SUPPLIER"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
+        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyType"/>
+            </drop-down>
+        </field>
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
+        <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
+        <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+    <form name="ListLookupSupplier" type="list" list-name="listIt" paginate-target="LookupSupplier"
+          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="inputFields" from-field="parameters"/>
+            <set field="orderBy" value="partyId"/>
+            <set field="entityName" value="PartyRoleNameDetail"/>
+            <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
+        </actions>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
+        </field>
+        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
+            <display-entity also-hidden="false" entity-name="PartyType"/>
+        </field>
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
+        <field name="lastName"  title="${uiLabelMap.PartyLastName}"><display/></field>
+        <field name="groupName" title="${uiLabelMap.PartyGroupName}"><display/></field>
+    </form>
 </forms>

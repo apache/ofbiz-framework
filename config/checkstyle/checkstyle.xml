@@ -40,6 +40,9 @@ under the License.
        <property name="maximum" value="0"/>
        <property name="message" value="Line has trailing spaces."/>
     </module>
+        <module name="LineLength">
+            <property name="max" value="120"/>
+        </module>
 
     <module name="TreeWalker">
         <!-- Naming conventions -->
@@ -62,9 +65,6 @@ under the License.
         </module>
 
         <!-- Checks for Size Violations -->
-        <module name="LineLength">
-            <property name="max" value="120"/>
-        </module>
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
 

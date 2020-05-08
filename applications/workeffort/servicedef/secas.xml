@@ -62,6 +62,9 @@ under the License.
         <condition field-name="orderId" operator="is-empty"/>
         <action service="createOrderHeader" mode="sync"/>
     </eca>
+    <eca service="createTimeEntry" event="invoke">
+        <action service="checkTimesheetStatus" mode="sync"/>
+    </eca>
     <eca service="createTimesheetRole" event="invoke">
         <action service="ensurePartyRole" mode="sync"/>
     </eca>

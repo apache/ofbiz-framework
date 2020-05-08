@@ -83,14 +83,6 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="associatedRequirementWithRequestItem" engine="simple"
-            location="component://order/minilang/requirement/RequirementServices.xml" invoke="associateRequirementWithRequestItem">
-        <description>Creates a CustRequestItem/Requirement association</description>
-        <attribute name="requirementId" type="String" mode="IN" optional="false"/>
-        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
-    </service>
-
     <service name="addRequirementTask" engine="entity-auto" invoke="create" default-entity-name="WorkRequirementFulfillment">
         <description>Associate an existing task w/ a requirement</description>
         <deprecated use-instead="createWorkRequirementFulfillment" since="Upcoming Branch">
@@ -285,8 +277,12 @@ under the License.
         <description>Delete a RequirementTypeAttr record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
-
     <!-- RequirementCustRequest services -->
+    <service name="createRequirementCustRequest" default-entity-name="RequirementCustRequest" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a RequirementCustRequest record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
     <service name="deleteRequirementCustRequest" default-entity-name="RequirementCustRequest" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a RequirementCustRequest record</description>
         <auto-attributes mode="IN" include="pk"/>
