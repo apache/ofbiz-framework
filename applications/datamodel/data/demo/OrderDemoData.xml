@@ -129,6 +129,10 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ALLOCPLAN_CANCEL"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ALLOCPLAN_VIEW"/>
 
+    <!-- Party component demo parties additions -->
+    <!-- Party partyId="AcctBuyer" -->
+    <UserLoginSecurityGroup userLoginId="AcctBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
+    
     <!-- Order Demo User Data -->
     <UserLogin userLoginId="DemoBuyer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLogin userLoginId="DemoRepAll" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
@@ -141,8 +145,6 @@ under the License.
 
     
     <!-- Order Quote Demo Data -->
-    <Product productId="GZ-1000" productTypeId="FINISHED_GOOD" productName="Tiny Gizmo" internalName="Tiny Gizmo" description="The smallest gizmo in town." longDescription="This gizmo is very small and runs on solar power." isVirtual="N" isVariant="N"/>
-    <ProductPrice currencyUomId="USD" fromDate="2000-01-01 00:00:00.0" price="8.900" productId="GZ-1000" productPricePurposeId="PURCHASE" productPriceTypeId="AVERAGE_COST" productStoreGroupId="_NA_" taxInPrice="Y"/>
     <Quote currencyUomId="USD" issueDate="2001-01-01 00:00:00.0" partyId="DemoCustomer" productStoreId="9000" quoteId="CQ0001" quoteName="Demo Quote" quoteTypeId="PRODUCT_QUOTE"
            salesChannelEnumId="PHONE_SALES_CHANNEL" statusId="QUO_CREATED" validFromDate="2001-01-01 00:00:00.0" validThruDate="2100-02-01 00:00:00.0"/>
     <QuoteRole partyId="admin" quoteId="CQ0001" roleTypeId="REQ_TAKER"/>
@@ -150,55 +152,7 @@ under the License.
     <QuoteItem comments="10% off" productId="GZ-1000" quantity="150.000000" quoteId="CQ0001" quoteItemSeqId="00001" quoteUnitPrice="9.90"/>
 
     <!-- Order Demo Product Data -->
-    <FixedAsset fixedAssetId="DEMO_BOOK_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Book Group"/>
-    <FixedAssetGeoPoint fixedAssetId="DEMO_BOOK_GROUP" geoPointId="9000" fromDate="2011-08-02 00:00:00.000"/>
-
-    <ContactMech contactMechId="9200" contactMechTypeId="POSTAL_ADDRESS"/>
-    <ContactMech contactMechId="9201" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMech contactMechId="9202" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
-    <PostalAddress contactMechId="9200" toName="Company XYZ" attnName="ZJAA" address1="2003 Open Blvd" city="Orem" postalCode="84058" countryGeoId="USA" stateProvinceGeoId="UT" geoPointId="9000"/>
-    <TelecomNumber contactMechId="9201" areaCode="801" contactNumber="555-5555"/>
-    <FacilityContactMech facilityId="WebStoreWarehouse" contactMechId="9200" fromDate="2001-05-13 12:00:00.0"/>
-    <FacilityContactMech facilityId="WebStoreWarehouse" contactMechId="9201" fromDate="2001-05-13 12:00:00.0"/>
-    <FacilityContactMech facilityId="WebStoreWarehouse" contactMechId="9202" fromDate="2001-05-13 12:00:00.0"/>
-    <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9200" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 12:00:00.0"/>
-    <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9200" contactMechPurposeTypeId="SHIP_ORIG_LOCATION" fromDate="2001-05-13 12:00:00.0"/>
-    <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9201" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2001-05-13 12:00:00.0"/>
-    <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9201" contactMechPurposeTypeId="PHONE_SHIP_ORIG" fromDate="2001-05-13 12:00:00.0"/>
-    <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9202" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
-    <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="01"/>
-    <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="01"/>
-    <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL02" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="02"/>
-    <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL02" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="02"/>
-    <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL03" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="03"/>
-    <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL03" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="03"/>
-    <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="04"/>
-    <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL04" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="04"/>
-    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL03" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL04" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FacilityLocation facilityId="RegionalWarehouse1" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="05"/>
-    <FacilityLocation facilityId="RegionalWarehouse1" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="06"/>
-    <FacilityLocation facilityId="RegionalWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="05"/>
-    <FacilityLocation facilityId="RegionalWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="06"/>
-    <FacilityLocation facilityId="StoreWarehouse1" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="05"/>
-    <FacilityLocation facilityId="StoreWarehouse1" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="06"/>
-    <FacilityLocation facilityId="StoreWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="05"/>
-    <FacilityLocation facilityId="StoreWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="06"/>
-
-    <ProductStore productStoreId="9000" storeName="OFBiz E-Commerce Store" companyName="Open For Business" title="Open For Commerce"
-                  subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
-                  inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="Y" checkInventory="Y" reserveInventory="Y" balanceResOnOrderCreation="Y" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
-                  defaultLocaleString="en_US" defaultCurrencyUomId="USD" defaultSalesChannelEnumId="WEB_SALES_CHANNEL" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="Y" reqReturnInventoryReceive="N"
-                  headerApprovedStatus="ORDER_APPROVED" itemApprovedStatus="ITEM_APPROVED" digitalItemApprovedStatus="ITEM_APPROVED" headerDeclinedStatus="ORDER_REJECTED"
-                  itemDeclinedStatus="ITEM_REJECTED" headerCancelStatus="ORDER_CANCELLED" itemCancelStatus="ITEM_CANCELLED" orderNumberPrefix="WS"
-                  authDeclinedMessage="There has been a problem with your method of payment. Please try a different method or call customer service."
-                  authFraudMessage="Your order has been rejected and your account has been disabled due to fraud."
-                  authErrorMessage="Problem connecting to payment processor; we will continue to retry and notify you by email."
-                  storeCreditValidDays="90" storeCreditAccountEnumId="FIN_ACCOUNT"
-                  visualThemeId="EC_DEFAULT" prodSearchExcludeVariants="Y" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y" showOutOfStockProducts="Y"/>
-
+    
     <!-- <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="testRandomAuthorize"/> -->
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveCCProcessor" paymentCustomMethodId="CC_AUTH_ALWAYSAPPROV"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease" paymentCustomMethodId="CC_RELEASE_TEST"/>
@@ -285,79 +239,6 @@ under the License.
     <WebSite webSiteId="WebStore" siteName="eCommerce Web Site" productStoreId="9000" visualThemeSetId="ECOMMERCE"/>
     <WebSite webSiteId="WebStoreClone" siteName="Cloned eCommerce Web Site" productStoreId="9000" visualThemeSetId="ECOMMERCE"/>
 
-    <ProdCatalog prodCatalogId="DemoCatalog" catalogName="Demo Catalog" useQuickAdd="Y"/>
-    <ProdCatalog prodCatalogId="TestCatalog" catalogName="Test Catalog" useQuickAdd="N"/>
-    <ProductStoreCatalog productStoreId="9000" prodCatalogId="DemoCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductStoreCatalog productStoreId="9000" prodCatalogId="TestCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
-
-    <ProductCategory categoryName="Demo Browse Root"
-                     longDescription="Demo Catalog Primary Browse Root Category" productCategoryId="CATALOG1" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory longDescription="long description of Gizmos"
-                     primaryParentCategoryId="CATALOG1" productCategoryId="100" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory longDescription="long description of Widgets"
-                     primaryParentCategoryId="CATALOG1" productCategoryId="200" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory longDescription="long description of Small Gizmos"
-                     primaryParentCategoryId="100" productCategoryId="101" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory longDescription="long description of Large Gizmos"
-                     primaryParentCategoryId="100" productCategoryId="102" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory longDescription="long description of Small Widgets"
-                     primaryParentCategoryId="200" productCategoryId="201" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory longDescription="long description of Large Widgets"
-                     primaryParentCategoryId="200" productCategoryId="202" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory longDescription="long description of Mini Widgets"
-                     primaryParentCategoryId="201" productCategoryId="2011" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory longDescription="long description of Other Mini Widgets"
-                     primaryParentCategoryId="201" productCategoryId="2012" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory longDescription="long description of Micro Widgets"
-                     primaryParentCategoryId="2011" productCategoryId="20111" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory productCategoryId="PROMOTIONS" productCategoryTypeId="CATALOG_CATEGORY" detailScreen="component://ecommerce/widget/CatalogScreens.xml#categorydetailmatrix"/>
-    <ProductCategory categoryName="Demo Default Search"
-                     longDescription="Catalog1 Search Products - only products in this category will show up in a search in catalog1"
-                     productCategoryId="CATALOG1_SEARCH" productCategoryTypeId="SEARCH_CATEGORY"/>
-    <ProductCategory categoryName="Main Quick Add"
-                     longDescription="For quick orders, you have found the right place!" productCategoryId="CATALOG1_QUICKADD1" productCategoryTypeId="QUICKADD_CATEGORY"/>
-    <ProductCategory categoryName="Widget Quick Add"
-                     longDescription="Get all you widgets here!" productCategoryId="CATALOG1_QUICKADD2" productCategoryTypeId="QUICKADD_CATEGORY"/>
-
-    <ProductCategory categoryName="Test Limited Admin Category"
-                     longDescription="Test Limited Admin Category" productCategoryId="TSTLTDADMIN" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategoryRole productCategoryId="TSTLTDADMIN" partyId="ltdadmin" roleTypeId="LTD_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
-
-    <!-- Adding this record to test role based security -->
-    <ProductCategoryRole productCategoryId="TSTLTDADMIN" partyId="ltdadmin1" roleTypeId="LTD_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
-
-    <ProductCategory categoryName="Test Cross Sell Category"
-                     longDescription="Test Cross Sell Category" productCategoryId="TSTCSL" productCategoryTypeId="CROSS_SELL_CATEGORY"/>
-
-    <ProdCatalogCategory prodCatalogId="DemoCatalog" productCategoryId="CATALOG1" fromDate="2001-05-13 12:00:00.0"
-                         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
-    <ProdCatalogCategory prodCatalogId="DemoCatalog" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"
-                         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_SEARCH"/>
-    <ProdCatalogCategory prodCatalogId="DemoCatalog" productCategoryId="CATALOG1_QUICKADD1" fromDate="2001-05-13 12:00:00.0"
-                         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_QUICK_ADD"/>
-    <ProdCatalogCategory prodCatalogId="DemoCatalog" productCategoryId="CATALOG1_QUICKADD2" fromDate="2001-05-13 12:00:00.0"
-                         sequenceNum="2" prodCatalogCategoryTypeId="PCCT_QUICK_ADD"/>
-    <ProdCatalogCategory prodCatalogId="DemoCatalog" productCategoryId="PROMOTIONS" fromDate="2001-05-13 12:00:00.0"
-                         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_PROMOTIONS"/>
-
-    <ProdCatalogCategory prodCatalogId="TestCatalog" productCategoryId="100" fromDate="2001-05-13 12:00:00.0"
-                         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
-    <ProdCatalogCategory prodCatalogId="TestCatalog" productCategoryId="TSTLTDADMIN" fromDate="2001-05-13 12:00:00.0"
-                         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_ADMIN_ALLW"/>
-
-    <ProductCategoryLink productCategoryId="100" linkSeqId="01" fromDate="2001-05-13 12:00:00.0"
-                         titleText="See LGPL Gizmos" detailText="The LGPL license may be more restrictive than you would like, but we think you will like the gizmo anyway!"
-                         imageUrl="/images/products/small/handshake_01.png"
-                         sequenceNum="2" linkTypeEnumId="PCLT_SEARCH_PARAM"
-                         linkInfo="SEARCH_CATEGORY_ID1=100&amp;SEARCH_SUB_CATEGORIES1=Y&amp;SEARCH_FEAT1=8000&amp;sortOrder=SortKeywordRelevancy&amp;sortAscending=N"/>
-    <ProductCategoryLink productCategoryId="100" linkSeqId="02" fromDate="2001-05-13 12:00:00.0"
-                         titleText="Go To Google" detailText="If you cannot find the gizmo you want here, try it on Google."
-                         imageUrl="http://www.google.com/intl/en_ALL/images/logo.gif"
-                         sequenceNum="1" linkTypeEnumId="PCLT_ABS_URL"
-                         linkInfo="http://www.google.com/"/>
-    <ProductCategoryLink productCategoryId="100" linkSeqId="03" fromDate="2001-05-13 12:00:00.0"
-                         sequenceNum="3" linkTypeEnumId="PCLT_CAT_ID" linkInfo="101"/>
-
     <!-- Category Alternative URL -->
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="100-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR100-ALTEN" localeString="en_US"/>
@@ -437,58 +318,6 @@ under the License.
     <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="2012" contentId="2012-ALT" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="20111" contentId="20111-ALT" fromDate="2001-05-13 12:00:00.0"/>
 
-    <ProdCatalog prodCatalogId="GoogleCatalog" catalogName="Google Catalog"/>
-    <ProductStoreCatalog productStoreId="9000" prodCatalogId="GoogleCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="3"/>
-
-    <!-- Categories Specific to Google Base -->
-    <ProductCategory categoryName="Google Base Browse Root"
-                     longDescription="Google Base Primary Browse Root Category" productCategoryId="GOOGLE_BASE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Animals"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_ANIMALS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Arts &amp; Entertainment"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_ART_N_ENTMNT" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Business &amp; Industrial"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_BUZ_N_INDSTRL" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Cameras &amp; Optics"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_CMRA_N_OPTCS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Clothing &amp; Accessories"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_CLTNG_N_ACECRS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Food, Beverages &amp; Tobacco"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_FD_BVRG_N_TBCO" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Furniture"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_FURNITURE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Hardware"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_HARDWARE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Health &amp; Beauty"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_HLTH_N_BEAUTY" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Home &amp; Garden"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_HME_N_GRDN" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Luggage"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_LUGGAGE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Mature"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_MATURE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Media"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_MEDIA" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Motor Vehicles"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_MTR_VEHICL" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Offices Supplies"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_OFFC_SPPLS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Software"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_SOFTWARE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Sporting Goods"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_SPRTNG_GDS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-    <ProductCategory categoryName="Toys &amp; Games"
-                     primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_TYS_GMS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
-
-    <ProdCatalogCategory prodCatalogId="GoogleCatalog" productCategoryId="GOOGLE_BASE" fromDate="2001-05-13 12:00:00.0"
-                         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
-
-    <!-- Product productId="GZ-1000" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Tiny Gizmo" internalName="Tiny Gizmo" description="The smallest gizmo in town." longDescription="This gizmo is very small and runs on solar power." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/> same now in OrderQuoteDemoData.xml -->
-    <Product productId="GZ-1001" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Nan Gizmo" internalName="Nan Gizmo" description="Indian style Nan gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-1004" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Rainbow Gizmo" internalName="Rainbow Gizmo" description="The only multi-colored gizmo" longDescription="This is the original multi-colored gizmo, only available from OFBiz!" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-1005" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName=".NIT Gizmo" internalName=".NIT Gizmo" description="M$ .NIT gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin">
-        <longDescription><![CDATA[This gizmo only works in certain areas and requires a lot of extra space to move around.<br/><br/>It is not recommended for mission critical applications or those with a low tolerance for pain and frustration.]]></longDescription>
-    </Product>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1000-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1000-ALTEN" localeString="en_US"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1001-ALT" localeString="en"/>
@@ -532,30 +361,6 @@ under the License.
     <ProductContent productId="GZ-1004" contentId="GZ-1004-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     <ProductContent productId="GZ-1005" contentId="GZ-1005-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     <ProductContent productId="GZ-1005" contentId="GZ-1005-WARN" productContentTypeId="WARNINGS" fromDate="2001-05-13 12:00:00.0"/>
-
-    <Product productId="GZ-1006" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo" internalName="Open Gizmo" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="Y" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-1006-1" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (LGPL)" internalName="Open Gizmo (LGPL)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-1006-2" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (GPL)" internalName="Open Gizmo (GPL)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-1006-3" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (BSD)" internalName="Open Gizmo (BSD)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-1006-4" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (MIT)" internalName="Open Gizmo (MIT)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-1006-5" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (ASL2)" internalName="Open Gizmo (ASL)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-
-    <Product productId="GZ-2002" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Square Gizmo" internalName="Square Gizmo" description="A square gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-2644" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" internalName="Round Gizmo" longDescription="A small round gizmo with multi-colored lights. Works great in the dark. Small and compact." isVirtual="N" isVariant="N" quantityIncluded="100.0" productWeight="7.0"/>
-    <Product productId="GZ-5005" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Purple Gizmo" internalName="Purple Gizmo" description="The stylish gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-7000" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Massive Gizmo" internalName="Massive Gizmo" description="The biggest gizmo ever" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="GZ-8544" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Big Gizmo" internalName="Big Gizmo" description="Big Gizmo w/ Legs" longDescription="A large gizmo with legs. Walks on its own. Does not require a power supply." isVirtual="N" isVariant="N" quantityIncluded="100.0" productWeight="12.0"/>
-    <Product productId="GZ-9290" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="His/Her Gizmo" internalName="His/Her Gizmo" description="A set of his/her gizmos" longDescription="The his/her gizmo is a perfect gift for your favorite couple. Once you try it out you&apos;ll want a set for yourself!" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-
-    <Product productId="WG-1111" productTypeId="FINISHED_GOOD" primaryProductCategoryId="20111" productName="Micro Chrome Widget" internalName="Micro Chrome Widget" description="Micro Widget - Chrome Colored" longDescription="This micro chrome widget makes a perfect gift. This one is so small that it floats in air." isVirtual="N" isVariant="N" quantityIncluded="50.0" productWeight="2.0"/>
-    <Product productId="WG-5569" productTypeId="FINISHED_GOOD" primaryProductCategoryId="201" productName="Tiny Chrome Widget" internalName="Tiny Chrome Widget" description="Tiny Chrome Widget" longDescription="This tiny chrome widget makes a perfect gift. The shine will last forever. No pollishing required." isVirtual="N" isVariant="N" quantityIncluded="50.0" productWeight="4.0"/>
-    <Product productId="WG-9943" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget with variant explosion" internalName="Giant Widget variant explosion" virtualVariantMethodEnum="VV_VARIANTTREE" description="Giant Widget with Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="N"/>
-    <Product productId="WG-9943-B3" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget B3" internalName="Giant Widget B3" description="Black Giant Widget with 3 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="N" isVariant="Y"/>
-    <Product productId="WG-9943-B4" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget B4" internalName="Giant Widget B4" description="Black Giant Widget with 4 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="N" isVariant="Y"/>
-    <Product productId="WG-9943-S3" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget S3" internalName="Giant Widget S3" description="Silver Giant Widget with 3 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="N" isVariant="Y"/>
-    <Product productId="WG-9943-S4" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget S4" internalName="Giant Widget S4" description="Silver Giant Widget with 4 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="N" isVariant="Y"/>
-
-    <Product productId="WG-9944" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget with feature explosion" internalName="Giant Widget feature Explosion" virtualVariantMethodEnum="VV_FEATURETREE" description="Giant Widget with Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item especially as it can have (almost) as many variants as you like" quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="N"/>
 
     <!-- Product Alternative URL -->
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1006-ALT" localeString="en"/>
@@ -761,508 +566,6 @@ under the License.
     <ProductPrice productId="WG-9944" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="594.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="WG-9944" productPricePurposeId="PURCHASE" productPriceTypeId="AVERAGE_COST" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="320.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
 
-    <!-- test Subscription product, a Gizmo Newsletter -->
-    <Product productId="GZ-NEWS-1MO" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="101" productName="Gizmo Newsletter 1 Month" internalName="Gizmo Newsletter 1 Month Subscription" description="A 1 month subscription to the Gizmo Newsletter: can be used immediately after purchase." longDescription="This newsletter will give you regular updates on the wonderful world of Gizmos!" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <SubscriptionResource subscriptionResourceId="GZ-NEWS" description="Gizmo Newsletter" serviceNameOnExpiry="runSubscriptionExpired"/>
-    <ProductSubscriptionResource productId="GZ-NEWS-1MO" subscriptionResourceId="GZ-NEWS" fromDate="2001-05-13 12:00:00.0" useTime="1" useTimeUomId="TF_mon" gracePeriodOnExpiry="1" gracePeriodOnExpiryUomId="TF_mon"/>
-    <ProductPrice productId="GZ-NEWS-1MO" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="3.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GZ-NEWS-1MO" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="5.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-NEWS-1MO-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-NEWS-1MO-ALTEN" localeString="en_US"/>
-    <ElectronicText dataResourceId="GZ-NEWS-1MO-ALT" textData="gizmo-newsletter-1-month"/>
-    <ElectronicText dataResourceId="DRGZ-NEWS-1MO-ALTEN" textData="gizmo-newsletter-1-month"/>
-    <Content contentId="GZ-NEWS-1MO-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-NEWS-1MO-ALT" localeString="en"/>
-    <Content contentId="CGZ-NEWS-1MO-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-NEWS-1MO-ALTEN" localeString="en_US"/>
-    <ContentAssoc contentId="GZ-NEWS-1MO-ALT" contentIdTo="CGZ-NEWS-1MO-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ProductContent productId="GZ-NEWS-1MO" contentId="GZ-NEWS-1MO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-
-    <!-- test Digital Download product -->
-    <Product productId="GZ-DIG" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="101" productName="Digital Gizmo" internalName="Digital Gizmo" description="A digital gizmo: can be downloaded immediately after purchase." longDescription="This gizmo is part of an exciting new breed that needs no corporeal form: it is all digital! Buy and download it now!" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <DataResource dataResourceId="GZ-DIG" dataResourceTypeId="OFBIZ_FILE_BIN" mimeTypeId="image/gif" dataResourceName="Digital Gizmo Image" objectInfo="themes/common-theme/webapp/images/ofbiz_logo.png"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-DIG-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-DIG-ALTEN" localeString="en_US"/>
-    <ElectronicText dataResourceId="GZ-DIG-ALT" textData="digital-gizmo"/>
-    <ElectronicText dataResourceId="DRGZ-DIG-ALTEN" textData="digital-gizmo"/>
-    <Content contentId="GZ-DIG" contentTypeId="DOCUMENT" dataResourceId="GZ-DIG" mimeTypeId="image/gif" contentName="ofbiz_logo.gif" description="Image of Digital Gizmo (actually the OFBiz logo)"/>
-    <Content contentId="GZ-DIG-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-DIG-ALT" localeString="en"/>
-    <Content contentId="CGZ-DIG-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-DIG-ALTEN" localeString="en_US"/>
-    <ContentAssoc contentId="GZ-DIG-ALT" contentIdTo="CGZ-DIG-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ProductContent productId="GZ-DIG" contentId="GZ-DIG" productContentTypeId="DIGITAL_DOWNLOAD" fromDate="2001-05-13 12:00:00.0" useTime="3" useTimeUomId="TF_mon"/>
-    <ProductContent productId="GZ-DIG" contentId="GZ-DIG-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductPrice productId="GZ-DIG" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="55.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GZ-DIG" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="80.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-
-    <!-- test for marketing package -->
-    <Product productId="GZ-BASKET" productTypeId="MARKETING_PKG_AUTO" productName="Gizmo Basket" internalName="Auto-Assembled Gizmo Basket"
-             description="Auto-Assembled Gizmo Basket.  Automatically assembled each time it's ordered."
-             longDescription="Auto-Assembled Gizmo Basket.  This item will be automatically assembled with production runs every time it's ordered, and the inventory counts for it are based on the quantity available and on hand for the component items."
-             taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" requireInventory="N"/>
-    <ProductPrice productId="GZ-BASKET" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="150" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductPrice productId="GZ-BASKET" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="165" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1000" productAssocTypeId="MANUF_COMPONENT" quantity="1" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1001" productAssocTypeId="MANUF_COMPONENT" quantity="2" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1004" productAssocTypeId="MANUF_COMPONENT" quantity="3" fromDate="2001-05-13 12:00:00.0"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-BASKET-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-BASKET-ALTEN" localeString="en_US"/>
-    <ElectronicText dataResourceId="GZ-BASKET-ALT" textData="gizmo-basket"/>
-    <ElectronicText dataResourceId="DRGZ-BASKET-ALTEN" textData="gizmo-basket"/>
-    <Content contentId="GZ-BASKET-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-BASKET-ALT" localeString="en"/>
-    <Content contentId="CGZ-BASKET-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-BASKET-ALTEN" localeString="en_US"/>
-    <ContentAssoc contentId="GZ-BASKET-ALT" contentIdTo="CGZ-BASKET-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ProductContent productId="GZ-BASKET" contentId="GZ-BASKET-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-
-    <!-- test for marketing package pick assembly -->
-    <Product productId="GZ-BASKET-PICK" productTypeId="MARKETING_PKG_PICK" productName="Gizmo Basket Assembly Pick" internalName="Assembled Pick Gizmo Basket"
-             description="Assembled Pick Gizmo Basket.  Assembled during picking."
-             longDescription="Assembled Pick Gizmo Basket.  This item will be assembled during picking."
-             taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N"/>
-    <ProductPrice productId="GZ-BASKET-PICK" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="150" fromDate="2007-01-01 12:00:00.0"/>
-    <ProductPrice productId="GZ-BASKET-PICK" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="165" fromDate="2007-01-01 12:00:00.0"/>
-    <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1000" productAssocTypeId="PRODUCT_COMPONENT" quantity="1" fromDate="2007-01-01 12:00:00.0"/>
-    <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1001" productAssocTypeId="PRODUCT_COMPONENT" quantity="2" fromDate="2007-01-01 12:00:00.0"/>
-    <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1004" productAssocTypeId="PRODUCT_COMPONENT" quantity="3" fromDate="2007-01-01 12:00:00.0"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-BASKET-PICK-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-BASKET-PICK-ALT" localeString="en_US"/>
-    <ElectronicText dataResourceId="GZ-BASKET-PICK-ALT" textData="gizmo-basket-assembly-pick"/>
-    <ElectronicText dataResourceId="DRGZ-BASKET-PICK-ALT" textData="gizmo-basket-assembly-pick"/>
-    <Content contentId="GZ-BASKET-PICK-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-BASKET-PICK-ALT" localeString="en"/>
-    <Content contentId="CGZ-BASKET-PICK-ALT" contentTypeId="DOCUMENT" dataResourceId="DRGZ-BASKET-PICK-ALT" localeString="en_US"/>
-    <ContentAssoc contentId="GZ-BASKET-PICK-ALT" contentIdTo="CGZ-BASKET-PICK-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ProductContent productId="GZ-BASKET-PICK" contentId="GZ-BASKET-PICK-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-
-    <!-- test for service product type-->
-    <ProductCategory productCategoryId="SERV-001" description="Services" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategoryRollup fromDate="2008-12-02 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="SERV-001"/>
-    <Product productId="SV-1000" productTypeId="SERVICE" primaryProductCategoryId="SERV-001" productName="Service product" internalName="Service type product" description="Service type product for demonstration use" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-12-02 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="SV-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2008-12-02 12:00:00.0" price="1000" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin"/>
-    <ProductCategoryMember productCategoryId="SERV-001" productId="SV-1000" fromDate="2008-12-02 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1000" fromDate="2008-12-02 12:00:00.0"/>
-    <DataResource dataResourceId="SERV-001-ALT" dataResourceTypeId="LINK" objectInfo="services-SERV-001-c"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SERV-001-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSERV-001-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceId="SV-1000-ALT" dataResourceTypeId="LINK" objectInfo="service-product-SV-1000-p"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SV-1000-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSV-1000-ALTEN" localeString="en_US"/>
-    <ElectronicText dataResourceId="SERV-001-ALT" textData="services"/>
-    <ElectronicText dataResourceId="SERV-001-ALT" textData="service-product"/>
-    <ElectronicText dataResourceId="SV-1000-ALT"  textData="SV 1000 ALT"/>
-    <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="services"/>
-    <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="service-product"/>
-
-    <Content contentId="SERV-001-ALT" contentTypeId="DOCUMENT" dataResourceId="SERV-001-ALT" localeString="en"/>
-    <Content contentId="CSERV-001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSERV-001-ALTEN" localeString="en_US"/>
-    <Content contentId="SV-1000-ALT" contentTypeId="DOCUMENT" dataResourceId="SV-1000-ALT" localeString="en"/>
-    <Content contentId="CSV-1000-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSERV-001-ALTEN" localeString="en_US"/>
-    <ContentAssoc contentId="SERV-001-ALT" contentIdTo="CSERV-001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="SV-1000-ALT" contentIdTo="CSV-1000-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ProductCategoryContent productCategoryId="SERV-001" contentId="SERV-001-ALT" prodCatContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="SV-1000" contentId="SV-1000-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-
-    <!-- test for service product type which is received to- and shipped from inventory-->
-    <Product productId="SV-1001" productTypeId="SERVICE_PRODUCT" primaryProductCategoryId="SERV-001" productName="Laundry service" internalName="Service type product which is received to- and shipped from inventory" description="Service type product which is received to- and shipped from inventory for demonstration use" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-12-02 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="SV-1001" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-08-02 12:00:00.0" price="10.99" createdDate="2011-08-02 12:00:00.0" createdByUserLogin="admin"/>
-    <ProductCategoryMember productCategoryId="SERV-001" productId="SV-1001" fromDate="2011-08-02 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1001" fromDate="2011-08-02 12:00:00.0"/>
-    <DataResource dataResourceId="SV-1001-ALT" dataResourceTypeId="LINK" objectInfo="lanudry-service-SV-1001-p"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SV-1001-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSV-1001-ALTEN" localeString="en_US"/>
-    <ElectronicText dataResourceId="SV-1001-ALT" textData="service-product"/>
-    <ElectronicText dataResourceId="DRSV-1001-ALTEN" textData="service-product"/>
-
-    <Content contentId="SV-1001-ALT" contentTypeId="DOCUMENT" dataResourceId="SV-1001-ALT" localeString="en"/>
-    <Content contentId="CSV-1001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSV-1001-ALTEN" localeString="en_US"/>
-    <ContentAssoc contentId="SV-1001-ALT" contentIdTo="CSV-1001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-08-02 12:00:00.0"/>
-    <ProductContent productId="SV-1001" contentId="SV-1001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2011-08-02 12:00:00.0"/>
-
-    <!-- test for product shipped from drop shipment and with agreement to resolve the purchase price
-       To test: create a sales order for DemoCustomer with the product DS-100
-       On shipping plan, select DemoSupplier as supplier and agreement DS-1000-PURCH as supplier agreement
-       When the order will be create, the purchase order create will be haave unit price 8 instead 9.
-    -->
-    <Product productId="DS-1000" productTypeId="FINISHED_GOOD" primaryProductCategoryId="PROMOTIONS" productName="Drop ship product" internalName="drop ship" description="product shipped from drop shipment and with agreement to resolve the purchase price" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" requirementMethodEnumId="PRODRQM_DS"/>
-    <ProductPrice productId="DS-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-08-02 12:00:00.0" price="10" />
-    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="DS-1000" lastPrice="9.0" supplierProductId="DS-1000_A" supplierProductName="Drop SP" availableFromDate="2005-01-01 00:00:00.000" canDropShip="Y"/>
-    <ProductCategoryMember productCategoryId="200" productId="DS-1000" fromDate="2011-08-02 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1001" fromDate="2011-08-02 12:00:00.0"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
-    <Agreement agreementId="DS-1000-SALES" agreementTypeId="SALES_AGREEMENT" description="Agreement with DemoCustomer for drop ship" partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2011-08-02 12:00:00.0"/>
-    <AgreementItem agreementId="DS-1000-SALES" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
-    <AgreementProductAppl agreementId="DS-1000-SALES" agreementItemSeqId="00001" price="12" productId="DS-1000"/>
-    <Agreement agreementId="DS-1000-PURCH" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement with DemoSupplier" partyIdFrom="Company" partyIdTo="DemoSupplier" fromDate="2011-08-02 12:00:00.0"/>
-    <AgreementItem agreementId="DS-1000-PURCH" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
-    <AgreementProductAppl agreementId="DS-1000-PURCH" agreementItemSeqId="00001" price="8" productId="DS-1000"/>
-
-    <!-- test for the configurable product type which is received to- and shipped from inventory-->
-    <Product productId="CFSV1001" productTypeId="AGGREGATED_SERVICE" primaryProductCategoryId="SERV-001" productName="Scanning book service" internalName="The configurable product type which is received to- and shipped from inventory" description="The configurable product type which is received to- and shipped from inventory for demonstration use" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-12-02 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <Product productId="SCAN_TYPE" productTypeId="SERVICE_PRODUCT" productName="Scanning Type" internalName="Scanning Type" description="Scanning Type" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
-    <Product productId="SCAN-EC" productTypeId="SERVICE_PRODUCT" internalName="Economy Scanning type" productName="Economy Scanning type" description="Economy Scanning type" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="SCAN-ST" productTypeId="SERVICE_PRODUCT" internalName="Standard Scanning type" productName="Standard Scanning type" description="Standard Scanning type" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="SCAN-SU" productTypeId="SERVICE_PRODUCT" internalName="Superfine Scanning type" productName="Superfine Scanning type" description="Superfine Scanning type" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-
-    <ProductFeatureCategory productFeatureCategoryId="SCAN_TYPE" description="Scanning Type"/>
-    <ProductFeature productFeatureId="ECONOMY" productFeatureTypeId="TYPE" productFeatureCategoryId="SCAN_TYPE" description="Economy Scan" defaultSequenceNum="1"/>
-    <ProductFeature productFeatureId="STANDARD" productFeatureTypeId="TYPE" productFeatureCategoryId="SCAN_TYPE" description="Standard Scan" defaultSequenceNum="2"/>
-    <ProductFeature productFeatureId="SUPERFINE" productFeatureTypeId="TYPE" productFeatureCategoryId="SCAN_TYPE" description="Superfine Scan" defaultSequenceNum="3"/>
-
-    <Product productId="EXPRESS" productTypeId="SERVICE_PRODUCT" productName="Express" internalName="Express" description="Express" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
-    <Product productId="SUPER_EXPRESS" productTypeId="SERVICE_PRODUCT" productName="Super Express" internalName="Super Express" description="Super Express" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
-    <Product productId="SCAN_COVER" productTypeId="SERVICE_PRODUCT" productName="Scan Cover" internalName="Scan Cover" description="Scan Cover" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
-    <Product productId="OCR" productTypeId="SERVICE_PRODUCT" productName="OCR" internalName="OCR" description="OCR" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
-    <Product productId="METADATA" productTypeId="SERVICE_PRODUCT" productName="Metadata" internalName="Metadata" description="Metadata" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
-    <Product productId="DVD" productTypeId="SERVICE_PRODUCT" productName="DVD" internalName="DVD" description="DVD" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
-
-    <ProductAssoc productId="SCAN_TYPE" productIdTo="SCAN-EC" productAssocTypeId="PRODUCT_VARIANT" fromDate="2011-08-02 12:00:00.0"/>
-    <ProductAssoc productId="SCAN_TYPE" productIdTo="SCAN-ST" productAssocTypeId="PRODUCT_VARIANT" fromDate="2011-08-02 12:00:00.0"/>
-    <ProductAssoc productId="SCAN_TYPE" productIdTo="SCAN-SU" productAssocTypeId="PRODUCT_VARIANT" fromDate="2011-08-02 12:00:00.0"/>
-
-    <ProductFeatureAppl productId="SCAN_TYPE" productFeatureId="ECONOMY" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="SCAN_TYPE" productFeatureId="STANDARD" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="2"/>
-    <ProductFeatureAppl productId="SCAN_TYPE" productFeatureId="SUPERFINE" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="3"/>
-
-    <ProductFeatureAppl productId="SCAN-EC" productFeatureId="ECONOMY" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="SCAN-ST" productFeatureId="STANDARD" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="SCAN-SU" productFeatureId="SUPERFINE" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="1"/>
-
-    <ProductPrice productId="CFSV1001" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-08-02 12:00:00.0" price="9.99" createdDate="2011-08-02 12:00:00.0" createdByUserLogin="admin"/>
-    <ProductPrice productId="SCAN-EC" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="SCAN-EC" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="SCAN-ST" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="2.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="SCAN-ST" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="2.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="SCAN-SU" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="3.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="SCAN-SU" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="3.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="EXPRESS" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.50" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="SUPER_EXPRESS" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="3.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="SCAN_COVER" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="OCR" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="2.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="METADATA" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.00" createdDate="2011-01-01 00:00:00.0"/>
-    <ProductPrice productId="DVD" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="0.25" createdDate="2011-01-01 00:00:00.0"/>
-
-    <ProductConfigItem configItemId="SC00000" configItemTypeId="MULTIPLE" configItemName="Scanning Type" description="Select the scanning type :"/>
-    <ProductConfigItem configItemId="SCF0001" configItemTypeId="MULTIPLE" configItemName="Scanning Options" description="Scanning options :"/>
-
-    <ProductConfigOption configItemId="SC00000" configOptionId="SCOP001" configOptionName="OPT0001" description="Scanning Type" sequenceNum="10"/>
-    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP006" configOptionName="OPT0006" description="Express" sequenceNum="10"/>
-    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP007" configOptionName="OPT0007" description="Super Express" sequenceNum="20"/>
-    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP008" configOptionName="OPT0008" description="Scan Cover" sequenceNum="30"/>
-    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP009" configOptionName="OPT0009" description="OCR" sequenceNum="40"/>
-    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP010" configOptionName="OPT0010" description="Metadata" sequenceNum="60"/>
-    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP011" configOptionName="OPT0011" description="DVD" sequenceNum="50"/>
-
-    <ProductConfigProduct configItemId="SC00000" configOptionId="SCOP001" productId="SCAN_TYPE" quantity="1"/>
-    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP006" productId="EXPRESS" quantity="1"/>
-    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP007" productId="SUPER_EXPRESS" quantity="1"/>
-    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP008" productId="SCAN_COVER" quantity="1"/>
-    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP009" productId="OCR" quantity="1"/>
-    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP010" productId="METADATA" quantity="1"/>
-    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP011" productId="DVD" quantity="1"/>
-
-    <ProductCategoryMember productCategoryId="SERV-001" productId="CFSV1001" fromDate="2011-08-02 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="CFSV1001" fromDate="2011-08-02 12:00:00.0"/>
-    <DataResource dataResourceId="CFSV1001-ALT" dataResourceTypeId="LINK" objectInfo="scanning-book-service-CFSV1001-p"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="CFSV1001-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRCFSV1001-ALTEN" localeString="en_US"/>
-    <ElectronicText dataResourceId="CFSV1001-ALT" textData="scanning-book-product"/>
-    <ElectronicText dataResourceId="DRCFSV1001-ALTEN" textData="scanning-book-product"/>
-
-    <ProductConfig productId="CFSV1001" configItemId="SC00000" sequenceNum="10" fromDate="2011-01-01 00:00:00.0" description="Select the scanning type :" configTypeId="QUESTION" isMandatory="N"/>
-    <ProductConfig productId="CFSV1001" configItemId="SCF0001" sequenceNum="20" fromDate="2011-01-01 00:00:00.0" description="Scanning options :" configTypeId="QUESTION" isMandatory="N"/>
-
-    <WorkEffort workEffortId="SCTASK01" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Stock out" description="Components" revisionNumber="1" fixedAssetId="DEMO_BOOK_GROUP" estimatedMilliSeconds="600000" estimatedSetupMillis="0"/>
-    <WorkEffort workEffortId="SCTASK02" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Preparation" description="Preparation" revisionNumber="1" fixedAssetId="DEMO_BOOK_GROUP" estimatedMilliSeconds="900000" estimatedSetupMillis="0"/>
-    <WorkEffort workEffortId="SCROUT01" workEffortTypeId="ROUTING" currentStatusId="ROU_ACTIVE" workEffortName="Pizza preparation" description="Scanning preparation" revisionNumber="1" quantityToProduce="0"/>
-    <WorkEffortGoodStandard workEffortId="SCROUT01" productId="CFSV1001" workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" statusId="WEGS_CREATED" fromDate="2011-01-01 00:00:00.0"/>
-    <WorkEffortAssoc workEffortIdFrom="SCROUT01" workEffortIdTo="SCTASK01" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2011-01-01 00:00:00.0"/>
-    <WorkEffortAssoc workEffortIdFrom="SCROUT01" workEffortIdTo="SCTASK02" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="20" fromDate="2011-01-01 00:00:00.0"/>
-
-    <Content contentId="CFSV1001-ALT" contentTypeId="DOCUMENT" dataResourceId="CFSV1001-ALT" localeString="en"/>
-    <Content contentId="CCFSV1001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRCFSV1001-ALTEN" localeString="en_US"/>
-    <ContentAssoc contentId="CFSV1001-ALT" contentIdTo="CCFSV1001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-08-02 12:00:00.0"/>
-    <ProductContent productId="CFSV1001" contentId="CFSV1001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2011-08-02 12:00:00.0"/>
-
-    <ProductFeatureCategory productFeatureCategoryId="8000" description="License Features"/>
-    <ProductFeatureCategoryAppl productFeatureCategoryId="8000" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"/>
-
-    <ProductFeature productFeatureId="8000" productFeatureCategoryId="8000" productFeatureTypeId="LICENSE" description="LGPL"/>
-    <ProductFeature productFeatureId="8001" productFeatureCategoryId="8000" productFeatureTypeId="LICENSE" description="GPL"/>
-    <ProductFeature productFeatureId="8002" productFeatureCategoryId="8000" productFeatureTypeId="LICENSE" description="BSD"/>
-    <ProductFeature productFeatureId="8003" productFeatureCategoryId="8000" productFeatureTypeId="LICENSE" description="MIT"/>
-    <ProductFeature productFeatureId="8004" productFeatureCategoryId="8000" productFeatureTypeId="LICENSE" description="ASL2"/>
-
-    <ProductFeatureCategory productFeatureCategoryId="9000" description="Widget Features"/>
-    <ProductFeatureCategoryAppl productFeatureCategoryId="9000" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"/>
-
-    <ProductFeature productFeatureId="9000" productFeatureCategoryId="9000" productFeatureTypeId="COLOR" description="Black"/>
-    <ProductFeaturePrice productFeatureId="9000" productPriceTypeId="DEFAULT_PRICE" price="4.30" currencyUomId="USD" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductFeaturePrice productFeatureId="9000" productPriceTypeId="LIST_PRICE" price="4.40" currencyUomId="USD" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductFeaturePrice productFeatureId="9000" productPriceTypeId="AVERAGE_COST" price="2.30" currencyUomId="USD" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductFeature productFeatureId="9001" productFeatureCategoryId="9000" productFeatureTypeId="COLOR" description="Silver"/>
-    <ProductFeaturePrice productFeatureId="9001" price="4.30" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductFeature productFeatureId="9002" productFeatureCategoryId="9000" productFeatureTypeId="SIZE" description="3-Wheel"/>
-    <ProductFeaturePrice productFeatureId="9002" price="5.30" productPriceTypeId="LIST_PRICE" currencyUomId="USD" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductFeature productFeatureId="9003" productFeatureCategoryId="9000" productFeatureTypeId="SIZE" description="4-Wheel"/>
-    <ProductFeaturePrice productFeatureId="9003" price="2.30" productPriceTypeId="AVERAGE_COST" currencyUomId="USD" fromDate="2000-01-01 00:00:00.0"/>
-
-    <ProductFeatureIactn productFeatureId="9000" productFeatureIdTo="9002" productId="WG-9944" productFeatureIactnTypeId="FEATURE_IACTN_INCOMP"/>
-
-    <ProductFeatureAppl productId="GZ-1006" productFeatureId="8000"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GZ-1006" productFeatureId="8001"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GZ-1006" productFeatureId="8002"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="3"/>
-    <ProductFeatureAppl productId="GZ-1006" productFeatureId="8003"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="4"/>
-    <ProductFeatureAppl productId="GZ-1006" productFeatureId="8004"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="4"/>
-
-    <ProductFeatureAppl productId="GZ-1006-1" productFeatureId="8000"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GZ-1006-2" productFeatureId="8001"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GZ-1006-3" productFeatureId="8002"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GZ-1006-4" productFeatureId="8003"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GZ-1006-5" productFeatureId="8004"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-
-    <ProductFeatureAppl productId="WG-9943" productFeatureId="9000"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="WG-9943" productFeatureId="9001"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
-    <ProductFeatureAppl productId="WG-9943" productFeatureId="9002"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="3"/>
-    <ProductFeatureAppl productId="WG-9943" productFeatureId="9003"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="4"/>
-    <ProductFeatureAppl productId="WG-9944" productFeatureId="9000"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="WG-9944" productFeatureId="9001"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
-    <ProductFeatureAppl productId="WG-9944" productFeatureId="9002"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="3"/>
-    <ProductFeatureAppl productId="WG-9944" productFeatureId="9003"
-                        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="4"/>
-
-    <ProductFeatureAppl productId="WG-9943-B3" productFeatureId="9000"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="WG-9943-B3" productFeatureId="9002"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
-    <ProductFeatureAppl productId="WG-9943-B4" productFeatureId="9000"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="WG-9943-B4" productFeatureId="9003"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
-    <ProductFeatureAppl productId="WG-9943-S3" productFeatureId="9001"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="WG-9943-S3" productFeatureId="9002"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
-    <ProductFeatureAppl productId="WG-9943-S4" productFeatureId="9001"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductFeatureAppl productId="WG-9943-S4" productFeatureId="9003"
-                        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
-
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-1" quantity="1.0"/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-2" quantity="1.0"/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-3" quantity="1.0"/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-4" quantity="1.0"/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-5" quantity="1.0"/>
-
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
-                  productIdTo="WG-9943-B3" quantity="1.0"/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
-                  productIdTo="WG-9943-B4" quantity="1.0"/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
-                  productIdTo="WG-9943-S3" quantity="1.0"/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
-                  productIdTo="WG-9943-S4" quantity="1.0"/>
-
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_UPGRADE" productId="WG-5569"
-                  productIdTo="WG-9943" quantity="1.0" reason="A little bit more expensive, but worth every penny!"/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_UPGRADE" productId="WG-1111"
-                  productIdTo="WG-5569" quantity="1.0" reason="If you like chrome, but want it a little bigger, this is the one for you!"/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_UPGRADE" productId="GZ-2644"
-                  productIdTo="GZ-8544" quantity="1.0" reason="A whole lot more features for the buck."/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_COMPLEMENT" productId="WG-5569"
-                  productIdTo="GZ-2644" quantity="1.0" reason="These two are much more useful together."/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_COMPLEMENT" productId="GZ-2644"
-                  productIdTo="WG-5569" quantity="1.0" reason="These two are much more useful together."/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_COMPLEMENT" productId="WG-9943"
-                  productIdTo="GZ-2644" quantity="1.0" reason="This makes it look much better."/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_COMPLEMENT" productId="WG-9943"
-                  productIdTo="GZ-8544" quantity="1.0" reason="This makes it look much better."/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_COMPLEMENT" productId="WG-9943"
-                  productIdTo="WG-1111" quantity="1.0" reason="This makes it look much better."/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_COMPLEMENT" productId="WG-9943"
-                  productIdTo="WG-5569" quantity="1.0" reason="This makes it look much better."/>
-    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_OBSOLESCENCE" productId="GZ-8544"
-                  productIdTo="WG-9943" quantity="1.0" reason="The Giant Widget is much better than the Big Gizmo, so much so that it makes the Big Gizmo obsolete."/>
-
-    <ProductCategoryMember productCategoryId="100" productId="GZ-DIG" sequenceNum="4" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-NEWS-1MO" sequenceNum="5" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-BASKET" sequenceNum="6" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-BASKET-PICK" sequenceNum="8" fromDate="2007-01-01 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-1000" sequenceNum="10" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-1001" sequenceNum="11" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-1004" sequenceNum="14" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-1005" sequenceNum="15" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-1006" sequenceNum="16" fromDate="2001-05-13 12:00:00.0"
-                           comments="The Open Gizmo is compatibile with all other gimzos."/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-2002" sequenceNum="22" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-2644" sequenceNum="26" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-5005" sequenceNum="55" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-7000" sequenceNum="70" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-8544" sequenceNum="85" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-9290" sequenceNum="92" fromDate="2001-05-13 12:00:00.0"/>
-
-    <ProductCategoryMember productCategoryId="101" productId="GZ-1000" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="101" productId="GZ-1001" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="101" productId="GZ-2002" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="101" productId="GZ-2644" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="101" productId="GZ-5005" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="101" productId="GZ-DIG" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="101" productId="GZ-NEWS-1MO" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="102" productId="GZ-1004" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="102" productId="GZ-1005" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="102" productId="GZ-1006" fromDate="2001-05-13 12:00:00.0"
-                           comments="Despite its low price, the Open Gizmo is quite large and powerful."/>
-    <ProductCategoryMember productCategoryId="102" productId="GZ-7000" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="102" productId="GZ-8544" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="102" productId="GZ-9290" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="201" productId="WG-5569" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="20111" productId="WG-1111" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="202" productId="WG-9943" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="202" productId="WG-9944" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_QUICKADD1" productId="GZ-2644" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_QUICKADD1" productId="GZ-8544" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_QUICKADD1" productId="WG-1111" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_QUICKADD1" productId="WG-5569" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_QUICKADD1" productId="WG-9943" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_QUICKADD2" productId="WG-1111" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_QUICKADD2" productId="WG-5569" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_QUICKADD2" productId="WG-9943" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-1000" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-1001" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-1004" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-1005" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-1006" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-2002" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-2644" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-5005" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-7000" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-8544" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GZ-9290" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="WG-1111" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="WG-5569" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="WG-9943" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="PROMOTIONS" productId="GZ-2644" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="PROMOTIONS" productId="WG-5569" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="PROMOTIONS" productId="WG-9943" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-1000" fromDate="2003-03-04 18:49:31.464"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-1001" fromDate="2003-03-04 18:57:49.099"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-1004" fromDate="2003-03-04 18:51:06.45"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-1005" fromDate="2003-03-04 19:01:01.075"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-1006" fromDate="2003-03-04 19:03:36.369"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-2002" fromDate="2003-03-04 18:53:05.622"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-2644" fromDate="2003-03-04 18:46:32.667"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-5005" fromDate="2003-03-04 19:06:23.619"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-7000" fromDate="2003-03-04 19:12:32.389"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-8544" fromDate="2003-03-04 18:46:46.557"/>
-    <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-9290" fromDate="2003-03-04 18:55:14.547"/>
-
-    <!-- Added record to check role based permission for limited admin user -->
-    <ProductCategoryMember productCategoryId="TSTLTDADMIN" productId="GZ-2644" fromDate="2003-03-04 18:55:14.547"/>
-
-    <!-- Product Category Member records specific to Google Base -->
-    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-1001" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-1000" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-1005" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-2002" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-2644" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_LUGGAGE" productId="GZ-1004" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_TYS_GMS" productId="GZ-7000" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_TYS_GMS" productId="GZ-9290" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_TYS_GMS" productId="GZ-2644" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_MTR_VEHICL" productId="GZ-8544" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_MTR_VEHICL" productId="WG-9943" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_MTR_VEHICL" productId="WG-9944" fromDate="2009-07-28 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="GB_OFFC_SPPLS" productId="WG-1111" fromDate="2009-07-28 12:15:00.0"/>
-
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_ANIMALS"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_ART_N_ENTMNT"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_BUZ_N_INDSTRL"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_CMRA_N_OPTCS"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_CLTNG_N_ACECRS"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_FD_BVRG_N_TBCO"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_FURNITURE"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_HARDWARE"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_HLTH_N_BEAUTY"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_HME_N_GRDN"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_LUGGAGE"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_MATURE"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_MEDIA"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_MATURE"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_MTR_VEHICL"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_OFFC_SPPLS"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_SOFTWARE"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_SPRTNG_GDS"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_TYS_GMS"/>
-
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="100"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="100" productCategoryId="101"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="100" productCategoryId="102"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="200"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="200" productCategoryId="201"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="200" productCategoryId="202"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="201" productCategoryId="2011"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="201" productCategoryId="2012"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="2011" productCategoryId="20111"/>
-
-    <!-- some default product facility settings -->
-    <ProductFacility productId="GZ-2644" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="15"/>
-    <ProductFacility productId="GZ-8544" facilityId="WebStoreWarehouse" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
-    <ProductFacility productId="WG-1111" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="WG-5569" facilityId="WebStoreWarehouse" minimumStock="15" reorderQuantity="40" daysToShip="2"/>
-    <ProductFacility productId="WG-9943-B3" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="WG-9943-B4" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="WG-9943-S3" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="WG-9943-S4" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="GZ-1000" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="GZ-1001" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="GZ-1004" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="SV-1001" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="GZ-8544" facilityId="RegionalWarehouse1" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
-    <ProductFacility productId="GZ-8544" facilityId="RegionalWarehouse2" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
-    <ProductFacility productId="GZ-8544" facilityId="StoreWarehouse1" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
-    <ProductFacility productId="GZ-8544" facilityId="StoreWarehouse2" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
-
-    <ProductFacilityLocation productId="GZ-2644" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01"/>
-    <ProductFacilityLocation productId="GZ-2644" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" minimumStock="2" moveQuantity="5"/>
-    <ProductFacilityLocation productId="GZ-8544" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL02"/>
-    <ProductFacilityLocation productId="GZ-8544" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL02" minimumStock="5" moveQuantity="20"/>
-    <ProductFacilityLocation productId="WG-1111" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL03"/>
-    <ProductFacilityLocation productId="WG-1111" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL03" minimumStock="2" moveQuantity="5"/>
-    <ProductFacilityLocation productId="WG-5569" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL04"/>
-    <ProductFacilityLocation productId="WG-5569" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" minimumStock="5" moveQuantity="20"/>
-    <ProductFacilityLocation productId="GZ-1000" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" minimumStock="5" moveQuantity="20"/>
-    <ProductFacilityLocation productId="GZ-1001" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL02" minimumStock="5" moveQuantity="20"/>
-    <ProductFacilityLocation productId="GZ-1004" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" minimumStock="5" moveQuantity="20"/>
-    <ProductFacilityLocation productId="SV-1001" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" minimumStock="5" moveQuantity="20"/>
-    <ProductFacilityLocation productId="GZ-8544" facilityId="RegionalWarehouse1" locationSeqId="TLTLTLUL01"/>
-    <ProductFacilityLocation productId="GZ-8544" facilityId="RegionalWarehouse2" locationSeqId="TLTLTLUL01"/>
-    <ProductFacilityLocation productId="GZ-8544" facilityId="StoreWarehouse1" locationSeqId="TLTLTLUL01"/>
-    <ProductFacilityLocation productId="GZ-8544" facilityId="StoreWarehouse2" locationSeqId="TLTLTLUL01"/>
-
-    <ProductFacilityAssoc productId="GZ-8544" facilityId ="StoreWarehouse1" facilityIdTo="RegionalWarehouse1" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="03"/>
-    <ProductFacilityAssoc productId="GZ-8544" facilityId ="RegionalWarehouse1" facilityIdTo="WebStoreWarehouse" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="03"/>
-    <ProductFacilityAssoc productId="GZ-8544" facilityId ="StoreWarehouse1" facilityIdTo="WebStoreWarehouse" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="00"/>
-    <ProductFacilityAssoc productId="GZ-8544" facilityId ="StoreWarehouse2" facilityIdTo="RegionalWarehouse2" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="00"/>
-    <ProductFacilityAssoc productId="GZ-8544" facilityId ="RegionalWarehouse2" facilityIdTo="WebStoreWarehouse" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="03"/>
-    <ProductFacilityAssoc productId="GZ-8544" facilityId ="StoreWarehouse2" facilityIdTo="WebStoreWarehouse" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="03"/>
-
     <!-- some default inventory quantities, things are a bit underutilized without these... -->
     <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
                    inventoryItemId="9000" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-2644" ownerPartyId="Company" currencyUomId="USD" unitCost="2.5"/>
@@ -1448,441 +751,6 @@ under the License.
     <ProductPriceCond inputParamEnumId="PRIP_PARTY_GRP_MEM" operatorEnumId="PRC_EQ" condValue="DemoCustCompany" productPriceCondSeqId="02" productPriceRuleId="9001"/>
     <ProductPriceAction productPriceRuleId="9001" productPriceActionSeqId="01" productPriceActionTypeId="PRICE_FLAT" amount="18.95"/>
 
-    <!-- example gift card product info -->
-    <ProductCategory productCategoryId="GC-100" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory productCategoryId="GC-101" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory productCategoryId="GC-102" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory productCategoryId="GC-103" productCategoryTypeId="GIFT_CARD_CATEGORY"/>
-
-    <Product productId="GC-002" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="GC-102" internalName="Gift Card Reload" productName="Gift Card Reload" description="Add more money to your card!" requireAmount="Y" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="N" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="GC-101" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="Y" isVariant="N" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-C10" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-C100" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-C25" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-C50" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-CO" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" requireAmount="Y" amountUomTypeId="CURRENCY_MEASURE" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-H10" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-H100" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-H25" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-H50" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="GC-001-HO" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" requireAmount="Y" amountUomTypeId="CURRENCY_MEASURE" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-C10" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-C100" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-C25" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-C50" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-CO" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-H10" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-H100" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-H25" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-H50" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GC-001" productIdTo="GC-001-HO" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductPrice productId="GC-002" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-C10" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="10.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-C100" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="100.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-C25" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="25.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-C50" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="50.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-CO" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-H10" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="10.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-H100" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="100.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-H25" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="25.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-H50" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="50.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GC-001-HO" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductCategoryMember productCategoryId="GC-100" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-100" productId="GC-002" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-102" productId="GC-002" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-C10" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-C100" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-C25" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-C50" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-CO" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H10" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H100" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H25" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H50" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-HO" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C10" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C25" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C50" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C100" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="PROMOTIONS" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="PROMOTIONS" productId="GC-002" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GC-002" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GC-100" productCategoryId="GC-101"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GC-100" productCategoryId="GC-102"/>
-    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="GC-100"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-100-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-100-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-101-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-101-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-102-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-102-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-002-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-002-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C10-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C10-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C100-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C100-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C25-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C25-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C50-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C50-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-CO-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-CO-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H10-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H10-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H100-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H100-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H25-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H25-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H50-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H50-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-HO-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-HO-ALTEN" localeString="en_US"/>
-
-    <ElectronicText dataResourceId="GC-100-ALT" textData="gift-cards"/>
-    <ElectronicText dataResourceId="GC-101-ALT" textData="gift-cards-purchases"/>
-    <ElectronicText dataResourceId="GC-102-ALT" textData="gift-cards-reloads"/>
-    <ElectronicText dataResourceId="GC-002-ALT" textData="gift-card-reload"/>
-    <ElectronicText dataResourceId="GC-001-ALT" textData="gift-card-activation"/>
-    <ElectronicText dataResourceId="GC-001-C10-ALT" textData="gift-card-activation-c10"/>
-    <ElectronicText dataResourceId="GC-001-C100-ALT" textData="gift-card-activation-c100"/>
-    <ElectronicText dataResourceId="GC-001-C25-ALT" textData="gift-card-activation-c25"/>
-    <ElectronicText dataResourceId="GC-001-C50-ALT" textData="gift-card-activation-c50"/>
-    <ElectronicText dataResourceId="GC-001-CO-ALT" textData="gift-card-activation-co"/>
-    <ElectronicText dataResourceId="GC-001-H10-ALT" textData="gift-card-activation-h10"/>
-    <ElectronicText dataResourceId="GC-001-H100-ALT" textData="gift-card-activation-h100"/>
-    <ElectronicText dataResourceId="GC-001-H25-ALT" textData="gift-card-activation-h25"/>
-    <ElectronicText dataResourceId="GC-001-H50-ALT" textData="gift-card-activation-h50"/>
-    <ElectronicText dataResourceId="GC-001-HO-ALT" textData="gift-card-activation-ho"/>
-
-    <ElectronicText dataResourceId="DRGC-100-ALTEN" textData="gift-cards"/>
-    <ElectronicText dataResourceId="DRGC-101-ALTEN" textData="gift-cards-purchases"/>
-    <ElectronicText dataResourceId="DRGC-102-ALTEN" textData="gift-cards-reloads"/>
-    <ElectronicText dataResourceId="DRGC-002-ALTEN" textData="gift-card-reload"/>
-    <ElectronicText dataResourceId="DRGC-001-ALTEN" textData="gift-card-activation"/>
-    <ElectronicText dataResourceId="DRGC-001-C10-ALTEN" textData="gift-card-activation-c10"/>
-    <ElectronicText dataResourceId="DRGC-001-C100-ALTEN" textData="gift-card-activation-c100"/>
-    <ElectronicText dataResourceId="DRGC-001-C25-ALTEN" textData="gift-card-activation-c25"/>
-    <ElectronicText dataResourceId="DRGC-001-C50-ALTEN" textData="gift-card-activation-c50"/>
-    <ElectronicText dataResourceId="DRGC-001-CO-ALTEN" textData="gift-card-activation-co"/>
-    <ElectronicText dataResourceId="DRGC-001-H10-ALTEN" textData="gift-card-activation-h10"/>
-    <ElectronicText dataResourceId="DRGC-001-H100-ALTEN" textData="gift-card-activation-h100"/>
-    <ElectronicText dataResourceId="DRGC-001-H25-ALTEN" textData="gift-card-activation-h25"/>
-    <ElectronicText dataResourceId="DRGC-001-H50-ALTEN" textData="gift-card-activation-h50"/>
-    <ElectronicText dataResourceId="DRGC-001-HO-ALTEN" textData="gift-card-activation-ho"/>
-
-    <Content contentId="GC-100-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-100-ALT" localeString="en"/>
-    <Content contentId="CGC-100-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-100-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-101-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-101-ALT" localeString="en"/>
-    <Content contentId="CGC-101-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-101-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-102-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-102-ALT" localeString="en"/>
-    <Content contentId="CGC-102-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-102-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-002-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-002-ALT" localeString="en"/>
-    <Content contentId="CGC-002-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-002-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-ALT" localeString="en"/>
-    <Content contentId="CGC-001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-C10-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-C10-ALT" localeString="en"/>
-    <Content contentId="CGC-001-C10-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-C10-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-C100-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-C100-ALT" localeString="en"/>
-    <Content contentId="CGC-001-C100-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-C100-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-C25-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-C25-ALT" localeString="en"/>
-    <Content contentId="CGC-001-C25-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-C25-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-C50-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-C50-ALT" localeString="en"/>
-    <Content contentId="CGC-001-C50-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-C50-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-CO-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-CO-ALT" localeString="en"/>
-    <Content contentId="CGC-001-CO-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-CO-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-H10-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-H10-ALT" localeString="en"/>
-    <Content contentId="CGC-001-H10-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-H10-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-H100-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-H100-ALT" localeString="en"/>
-    <Content contentId="CGC-001-H100-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-H100-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-H25-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-H25-ALT" localeString="en"/>
-    <Content contentId="CGC-001-H25-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-H25-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-H50-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-H50-ALT" localeString="en"/>
-    <Content contentId="CGC-001-H50-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-H50-ALTEN" localeString="en_US"/>
-    <Content contentId="GC-001-HO-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-HO-ALT" localeString="en"/>
-    <Content contentId="CGC-001-HO-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-HO-ALTEN" localeString="en_US"/>
-
-    <ContentAssoc contentId="GC-100-ALT" contentIdTo="CGC-100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-101-ALT" contentIdTo="CGC-101-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-102-ALT" contentIdTo="CGC-102-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-002-ALT" contentIdTo="CGC-002-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-ALT" contentIdTo="CGC-001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-C10-ALT" contentIdTo="CGC-001-C10-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-C100-ALT" contentIdTo="CGC-001-C100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-C25-ALT" contentIdTo="CGC-001-C25-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-C50-ALT" contentIdTo="CGC-001-C50-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-CO-ALT" contentIdTo="CGC-001-CO-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-H10-ALT" contentIdTo="CGC-001-H10-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-H100-ALT" contentIdTo="CGC-001-H100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-H25-ALT" contentIdTo="CGC-001-H25-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-H50-ALT" contentIdTo="CGC-001-H50-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="GC-001-HO-ALT" contentIdTo="CGC-001-HO-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-
-    <ProductContent productId="GC-002" contentId="GC-002-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001" contentId="GC-001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-C10" contentId="GC-001-C10-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-C100" contentId="GC-001-C100-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-C25" contentId="GC-001-C25-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-C50" contentId="GC-001-C50-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-CO" contentId="GC-001-CO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-H10" contentId="GC-001-H10-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-H100" contentId="GC-001-H100-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-H25" contentId="GC-001-H25-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-H50" contentId="GC-001-H50-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="GC-100" contentId="GC-100-ALT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="GC-101" contentId="GC-101-ALT" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="GC-102" contentId="GC-102-ALT" fromDate="2001-05-13 12:00:00.0"/>
-
-    <ProductFeatureCategory productFeatureCategoryId="2000" description="Gift Card Features"/>
-    <ProductFeature productFeatureId="2000" productFeatureTypeId="STYLE" productFeatureCategoryId="2000" description="Classic" defaultSequenceNum="1"/>
-    <ProductFeature productFeatureId="2001" productFeatureTypeId="STYLE" productFeatureCategoryId="2000" description="Holiday" defaultSequenceNum="2"/>
-    <ProductFeature productFeatureId="2002" productFeatureTypeId="AMOUNT" productFeatureCategoryId="2000" description="$10.00" uomId="USD" numberSpecified="10.0" defaultSequenceNum="1"/>
-    <ProductFeature productFeatureId="2003" productFeatureTypeId="AMOUNT" productFeatureCategoryId="2000" description="$25.00" uomId="USD" numberSpecified="25.0" defaultSequenceNum="2"/>
-    <ProductFeature productFeatureId="2004" productFeatureTypeId="AMOUNT" productFeatureCategoryId="2000" description="$50.00" uomId="USD" numberSpecified="50.0" defaultSequenceNum="3"/>
-    <ProductFeature productFeatureId="2005" productFeatureTypeId="AMOUNT" productFeatureCategoryId="2000" description="$100.00" uomId="USD" numberSpecified="100.0" defaultSequenceNum="4"/>
-    <ProductFeature productFeatureId="2006" productFeatureTypeId="AMOUNT" productFeatureCategoryId="2000" description="Other Amount"/>
-    <ProductFeature productFeatureId="2007" productFeatureTypeId="TYPE" productFeatureCategoryId="2000" description="Gift Card Type - See idCode" idCode="1"/>
-    <ProductFeature productFeatureId="2008" productFeatureTypeId="TYPE" productFeatureCategoryId="2000" description="Gift Card Type - See idCode" idCode="2"/>
-
-    <ProductFeatureAppl productId="GC-001" productFeatureId="2000" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:07.796" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GC-001" productFeatureId="2001" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:26.411" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GC-001" productFeatureId="2002" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:49:07.293" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GC-001" productFeatureId="2003" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:49:26.542" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GC-001" productFeatureId="2004" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:49:38.299" sequenceNum="3"/>
-    <ProductFeatureAppl productId="GC-001" productFeatureId="2005" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:49:52.782" sequenceNum="4"/>
-    <ProductFeatureAppl productId="GC-001" productFeatureId="2006" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-21 10:26:34.307"/>
-    <ProductFeatureAppl productId="GC-001-C10" productFeatureId="2000" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GC-001-C10" productFeatureId="2002" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.226" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GC-001-C100" productFeatureId="2000" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:19.575" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GC-001-C100" productFeatureId="2005" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:19.472" sequenceNum="4"/>
-    <ProductFeatureAppl productId="GC-001-C25" productFeatureId="2000" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:01.956" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GC-001-C25" productFeatureId="2003" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:01.813" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GC-001-C50" productFeatureId="2000" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:11.151" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GC-001-C50" productFeatureId="2004" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:11.059" sequenceNum="3"/>
-    <ProductFeatureAppl productId="GC-001-C50" productFeatureId="2008" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:11.059" sequenceNum="3"/>
-    <ProductFeatureAppl productId="GC-001-CO" productFeatureId="2000" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-21 10:26:48.937" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GC-001-CO" productFeatureId="2006" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-21 10:26:48.767"/>
-    <ProductFeatureAppl productId="GC-001-CO" productFeatureId="2007" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-21 10:26:48.767"/>
-    <ProductFeatureAppl productId="GC-001-H10" productFeatureId="2001" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:28.339" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GC-001-H10" productFeatureId="2002" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:28.265" sequenceNum="1"/>
-    <ProductFeatureAppl productId="GC-001-H100" productFeatureId="2001" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:54.735" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GC-001-H100" productFeatureId="2005" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:54.602" sequenceNum="4"/>
-    <ProductFeatureAppl productId="GC-001-H25" productFeatureId="2001" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:36.601" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GC-001-H25" productFeatureId="2003" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:36.451" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GC-001-H50" productFeatureId="2001" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:45.47" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GC-001-H50" productFeatureId="2004" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:52:45.336" sequenceNum="3"/>
-    <ProductFeatureAppl productId="GC-001-HO" productFeatureId="2001" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-21 10:27:33.716" sequenceNum="2"/>
-    <ProductFeatureAppl productId="GC-001-HO" productFeatureId="2006" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-21 10:27:33.633"/>
-
-    <ProductFeatureCategory productFeatureCategoryId="1000" description="Hazmat Features"/>
-    <ProductFeature productFeatureId="1000" productFeatureCategoryId="1000" productFeatureTypeId="HAZMAT" description="Hazmat" idCode="Y"/>
-    <ProductFeature productFeatureId="1001" productFeatureCategoryId="1000" productFeatureTypeId="HAZMAT" description="Non-Hazmat" idCode="N"/>
-
-    <ProductFeatureCategory productFeatureCategoryId="1001" description="Model Year Features"/>
-    <ProductFeature productFeatureId="Y1990" description="1990" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y1991" description="1991" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y1992" description="1992" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y1993" description="1993" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y1994" description="1994" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y1995" description="1995" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y1996" description="1996" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y1997" description="1997" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y1998" description="1998" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y1999" description="1999" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2000" description="2000" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2001" description="2001" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2002" description="2002" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2003" description="2003" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2004" description="2004" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2005" description="2005" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2006" description="2006" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2007" description="2007" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2008" description="2008" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2009" description="2009" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    <ProductFeature productFeatureId="Y2010" description="2010" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-
-    <ProductFeatureCategory productFeatureCategoryId="1002" description="Equipment Class Features"/>
-    <ProductFeature productFeatureId="EC_BOAT" description="Boat" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_FORKLIFT" description="Forklift" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_DIGGER" description="Digger" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_MANLIFT" description="Manlift" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_SERVICE_BODY" description="Service Body" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_TRACTOR" description="Tractor" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_PASSENGER" description="Passenger Vehicle" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_COMPRESSOR" description="Compressor" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_TRENCHER" description="Trencher" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_PULLER" description="Puller" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_MOBILE" description="Mobile" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_TANKER" description="Tanker" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_REEL_STAND" description="Reel Stand" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-
-    <!-- Virtual-Variant Demo Product -->
-    <Product productId="WG-9943-B3-BX2" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget B3" internalName="Giant Widget B3" description="Black Giant Widget with 3 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="Y" piecesIncluded="2" quantityUomId="OTH_box" virtualVariantMethodEnum="VV_VARIANTTREE"/>
-    <Product productId="WG-9943-B3-BX5" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget B3" internalName="Giant Widget B3" description="Black Giant Widget with 3 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="Y" piecesIncluded="5" quantityUomId="OTH_box" virtualVariantMethodEnum="VV_VARIANTTREE"/>
-    <Product productId="WG-9943-B4-BX2" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget B4" internalName="Giant Widget B4" description="Black Giant Widget with 4 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="Y" piecesIncluded="2" quantityUomId="OTH_box" virtualVariantMethodEnum="VV_VARIANTTREE"/>
-    <Product productId="WG-9943-B4-BX5" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget B4" internalName="Giant Widget B4" description="Black Giant Widget with 4 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="Y" piecesIncluded="5" quantityUomId="OTH_box" virtualVariantMethodEnum="VV_VARIANTTREE"/>
-    <Product productId="WG-9943-S3-BX2" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget S3" internalName="Giant Widget S3" description="Silver Giant Widget with 3 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="Y" piecesIncluded="2" quantityUomId="OTH_box" virtualVariantMethodEnum="VV_VARIANTTREE"/>
-    <Product productId="WG-9943-S3-BX5" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget S3" internalName="Giant Widget S3" description="Silver Giant Widget with 3 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="Y" piecesIncluded="5" quantityUomId="OTH_box" virtualVariantMethodEnum="VV_VARIANTTREE"/>
-    <Product productId="WG-9943-S4-BX2" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget S4" internalName="Giant Widget S4" description="Silver Giant Widget with 4 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="Y" piecesIncluded="2" quantityUomId="OTH_box" virtualVariantMethodEnum="VV_VARIANTTREE"/>
-    <Product productId="WG-9943-S4-BX5" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget S4" internalName="Giant Widget S4" description="Silver Giant Widget with 4 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" productWeight="22.0" isVirtual="Y" isVariant="Y" piecesIncluded="5" quantityUomId="OTH_box" virtualVariantMethodEnum="VV_VARIANTTREE"/>
-
-    <!-- Association between the alternative product and the variant product -->
-    <ProductAssoc productId="WG-9943-B3-BX2" productIdTo="WG-9943-B3" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductAssoc productId="WG-9943-B3-BX5" productIdTo="WG-9943-B3" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductAssoc productId="WG-9943-B4-BX2" productIdTo="WG-9943-B4" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductAssoc productId="WG-9943-B4-BX5" productIdTo="WG-9943-B4" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductAssoc productId="WG-9943-S3-BX2" productIdTo="WG-9943-S3" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductAssoc productId="WG-9943-S3-BX5" productIdTo="WG-9943-S3" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductAssoc productId="WG-9943-S4-BX2" productIdTo="WG-9943-S4" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductAssoc productId="WG-9943-S4-BX5" productIdTo="WG-9943-S4" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-
-    <ProductPrice productId="WG-9943-B3-BX2" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="800.0" createdDate="2000-01-01 00:00:00.0"/>
-    <ProductPrice productId="WG-9943-B3-BX5" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="2000.0" createdDate="2000-01-01 00:00:00.0"/>
-    <ProductPrice productId="WG-9943-B4-BX2" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="800.0" createdDate="2000-01-01 00:00:00.0"/>
-    <ProductPrice productId="WG-9943-B4-BX5" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="2000.0" createdDate="2000-01-01 00:00:00.0"/>
-    <ProductPrice productId="WG-9943-S3-BX2" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="800.0" createdDate="2000-01-01 00:00:00.0"/>
-    <ProductPrice productId="WG-9943-S3-BX5" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="2000.0" createdDate="2000-01-01 00:00:00.0"/>
-    <ProductPrice productId="WG-9943-S4-BX2" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="800.0" createdDate="2000-01-01 00:00:00.0"/>
-    <ProductPrice productId="WG-9943-S4-BX5" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="2000.0" createdDate="2000-01-01 00:00:00.0"/>
-
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B3-BX2-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B3-BX2-ALT" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B3-BX5-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B3-BX5-ALT" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B4-BX2-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B4-BX2-ALT" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B4-BX5-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B4-BX5-ALT" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S3-BX2-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S3-BX2-ALT" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S3-BX5-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S3-BX5-ALT" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S4-BX2-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S4-BX2-ALT" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S4-BX5-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S4-BX5-ALT" localeString="en_US"/>
-
-    <ElectronicText dataResourceId="WG-9943-B3-BX2-ALT" textData="giant-widget-b3-bx2"/>
-    <ElectronicText dataResourceId="WG-9943-B3-BX5-ALT" textData="giant-widget-b3-bx5"/>
-    <ElectronicText dataResourceId="WG-9943-B4-BX2-ALT" textData="giant-widget-b4-bx2"/>
-    <ElectronicText dataResourceId="WG-9943-B4-BX5-ALT" textData="giant-widget-b4-bx5"/>
-    <ElectronicText dataResourceId="WG-9943-S3-BX2-ALT" textData="giant-widget-s3-bx2"/>
-    <ElectronicText dataResourceId="WG-9943-S3-BX5-ALT" textData="giant-widget-s3-bx5"/>
-    <ElectronicText dataResourceId="WG-9943-S4-BX2-ALT" textData="giant-widget-s4-bx2"/>
-    <ElectronicText dataResourceId="WG-9943-S4-BX5-ALT" textData="giant-widget-s4-bx5"/>
-
-    <ElectronicText dataResourceId="DRWG-9943-B3-BX2-ALT" textData="giant-widget-b3-bx2"/>
-    <ElectronicText dataResourceId="DRWG-9943-B3-BX5-ALT" textData="giant-widget-b3-bx5"/>
-    <ElectronicText dataResourceId="DRWG-9943-B4-BX2-ALT" textData="giant-widget-b4-bx2"/>
-    <ElectronicText dataResourceId="DRWG-9943-B4-BX5-ALT" textData="giant-widget-b4-bx5"/>
-    <ElectronicText dataResourceId="DRWG-9943-S3-BX2-ALT" textData="giant-widget-s3-bx2"/>
-    <ElectronicText dataResourceId="DRWG-9943-S3-BX5-ALT" textData="giant-widget-s3-bx5"/>
-    <ElectronicText dataResourceId="DRWG-9943-S4-BX2-ALT" textData="giant-widget-s4-bx2"/>
-    <ElectronicText dataResourceId="DRWG-9943-S4-BX5-ALT" textData="giant-widget-s4-bx5"/>
-
-    <Content contentId="WG-9943-B3-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B3-BX2-ALT" localeString="en"/>
-    <Content contentId="CWG-9943-B3-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B3-BX2-ALT" localeString="en_US"/>
-    <Content contentId="WG-9943-B3-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B3-BX5-ALT" localeString="en"/>
-    <Content contentId="CWG-9943-B3-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B3-BX5-ALT" localeString="en_US"/>
-    <Content contentId="WG-9943-B4-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B4-BX2-ALT" localeString="en"/>
-    <Content contentId="CWG-9943-B4-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B4-BX2-ALT" localeString="en_US"/>
-    <Content contentId="WG-9943-B4-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B4-BX5-ALT" localeString="en"/>
-    <Content contentId="CWG-9943-B4-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B4-BX5-ALT" localeString="en_US"/>
-    <Content contentId="WG-9943-S3-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S3-BX2-ALT" localeString="en"/>
-    <Content contentId="CWG-9943-S3-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S3-BX2-ALT" localeString="en_US"/>
-    <Content contentId="WG-9943-S3-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S3-BX5-ALT" localeString="en"/>
-    <Content contentId="CWG-9943-S3-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S3-BX5-ALT" localeString="en_US"/>
-    <Content contentId="WG-9943-S4-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S4-BX2-ALT" localeString="en"/>
-    <Content contentId="CWG-9943-S4-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S4-BX2-ALT" localeString="en_US"/>
-    <Content contentId="WG-9943-S4-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S4-BX5-ALT" localeString="en"/>
-    <Content contentId="CWG-9943-S4-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S4-BX5-ALT" localeString="en_US"/>
-
-    <ContentAssoc contentId="WG-9943-B3-BX2-ALT" contentIdTo="CWG-9943-B3-BX2-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="WG-9943-B3-BX5-ALT" contentIdTo="CWG-9943-B3-BX5-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="WG-9943-B4-BX2-ALT" contentIdTo="CWG-9943-B4-BX2-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="WG-9943-B4-BX5-ALT" contentIdTo="CWG-9943-B4-BX5-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="WG-9943-S3-BX2-ALT" contentIdTo="CWG-9943-S3-BX2-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="WG-9943-S3-BX5-ALT" contentIdTo="CWG-9943-S3-BX5-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="WG-9943-S4-BX2-ALT" contentIdTo="CWG-9943-S4-BX2-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="WG-9943-S4-BX5-ALT" contentIdTo="CWG-9943-S4-BX5-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-
-    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-
-    <Product productId="WG-1111-BX2" productTypeId="FINISHED_GOOD" primaryProductCategoryId="20111" productName="Micro Chrome Widget" internalName="Micro Chrome Widget" description="Micro Widget - Chrome Colored" longDescription="This micro chrome widget makes a perfect gift. This one is so small that it floats in air." isVirtual="Y" isVariant="Y" quantityIncluded="50.0" productWeight="2.0" piecesIncluded="2" quantityUomId="OTH_box"/>
-    <Product productId="WG-1111-BX4" productTypeId="FINISHED_GOOD" primaryProductCategoryId="20111" productName="Micro Chrome Widget" internalName="Micro Chrome Widget" description="Micro Widget - Chrome Colored" longDescription="This micro chrome widget makes a perfect gift. This one is so small that it floats in air." isVirtual="Y" isVariant="Y" quantityIncluded="50.0" productWeight="2.0" piecesIncluded="4" quantityUomId="OTH_box"/>
-    <ProductAssoc productId="WG-1111-BX2" productIdTo="WG-1111" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductAssoc productId="WG-1111-BX4" productIdTo="WG-1111" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
-    <ProductPrice productId="WG-1111-BX2" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="110.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="WG-1111-BX4" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="200.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-1111-BX2-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-1111-BX2-ALTEN" localeString="en_US"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-1111-BX4-ALT" localeString="en"/>
-    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-1111-BX4-ALTEN" localeString="en_US"/>
-    <ElectronicText dataResourceId="WG-1111-BX2-ALT" textData="micro-chrome-widget-bx2"/>
-    <ElectronicText dataResourceId="WG-1111-BX4-ALT" textData="micro-chrome-widget-bx4"/>
-    <ElectronicText dataResourceId="DRWG-1111-BX2-ALTEN" textData="micro-chrome-widget-bx2"/>
-    <ElectronicText dataResourceId="DRWG-1111-BX4-ALTEN" textData="micro-chrome-widget-bx4"/>
-    <Content contentId="WG-1111-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-1111-BX2-ALT" localeString="en"/>
-    <Content contentId="CWG-1111-BX2-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-1111-BX2-ALTEN" localeString="en_US"/>
-    <Content contentId="WG-1111-BX4-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-1111-BX4-ALT" localeString="en"/>
-    <Content contentId="CWG-1111-BX4-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-1111-BX4-ALTEN" localeString="en_US"/>
-    <ContentAssoc contentId="WG-1111-BX2-ALT" contentIdTo="CWG-1111-BX2-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ContentAssoc contentId="WG-1111-BX4-ALT" contentIdTo="CWG-1111-BX4-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
-    <ProductContent productId="WG-1111-BX2" contentId="WG-1111-BX2-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductContent productId="WG-1111-BX4" contentId="WG-1111-BX4-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
-
-    <!-- Demo product for rental shipping -->
-    <Product productId="RentalShip" productTypeId="ASSET_USAGE_OUT_IN" primaryProductCategoryId="201" productName="Rental Shipping" internalName="Rental Shipping" description="The Product For Test Rental of an asset which is shipped from and returned to inventory" reservMaxPersons="1" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2011-09-01 12:00:00.0" createdByUserLogin="admin"/>
-    <FixedAsset fixedAssetId="RentalShip" fixedAssetName="Rental Ship" fixedAssetTypeId="PROPERTY" productionCapacity="10"/>
-    <FixedAssetProduct productId="RentalShip" fixedAssetId="RentalShip" fixedAssetProductTypeId="FAPT_USE" fromDate="2011-09-01 12:00:00.0"/>
-    <ProductPrice productId="RentalShip" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-09-01 12:00:00.0" price="15.99" createdDate="2011-09-01 12:00:00.0" createdByUserLogin="admin" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="RentalShip" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-09-01 12:00:00.0" price="15.0" createdDate="2011-09-01 12:00:00.0" createdByUserLogin="admin" lastModifiedByUserLogin="admin"/>
-    <ProductCategoryMember productCategoryId="201" productId="RentalShip" fromDate="2011-09-01 12:00:00.0"/>
-    <ProductFacility productId="RentalShip" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="15"/>
-    <ProductFacilityLocation productId="RentalShip" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" minimumStock="5" moveQuantity="20"/>
-    <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="InventoryRentalShip" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="RentalShip" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
-    <InventoryItemDetail inventoryItemId="InventoryRentalShip" inventoryItemDetailSeqId="0001" effectiveDate="2011-09-01 12:00:00.0" availableToPromiseDiff="10" quantityOnHandDiff="10" accountingQuantityDiff="10"/>
-
-    <!-- Demo product tags -->
-    <ProductKeyword productId="GZ-1000" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-1001" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-2002" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-2644" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-5005" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="WG-1111" keyword="red" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-1004" keyword="red" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-2644" keyword="red" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="SV-1001" keyword="demonstration" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="SV-1000" keyword="demonstration" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="CFSV1001" keyword="demonstration" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="WG-5569" keyword="widget" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="WG-9943" keyword="widget" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-1000" keyword="small" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-2644" keyword="small" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="SV-1001" keyword="service" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="CFSV1001" keyword="service" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-1000" keyword="tiny" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-8544" keyword="big" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="WG-9943" keyword="black" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="WG-1111" keyword="chrome" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-    <ProductKeyword productId="GZ-1006" keyword="standard" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
-
-    <!-- Product review  demo -->
-    <ProductReview productId="GZ-1000" productRating="4.000000" productReview="Good" productReviewId="9000" productStoreId="9000" statusId="PRR_PENDING" userLoginId="DemoCustomer"/>
-    <ProductReview productId="GZ-2644" productRating="5.000000" productReview="It's useful." productReviewId="9000" productStoreId="9000" statusId="PRR_APPROVED" userLoginId="DemoCustomer"/>
-
     <!-- Demo Rental Shipping Data -->
     <Party partyId="USPS" partyTypeId="PARTY_GROUP"/>
     <Party partyId="UPS" partyTypeId="PARTY_GROUP"/>
@@ -1894,14 +762,6 @@ under the License.
     <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
     <PartyRole partyId="Company" roleTypeId="CARRIER"/>
     <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
-
-    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
-    <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
-    <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
-    <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
-    <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
-    <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
-    <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
 
     <CarrierShipmentMethod partyId="Company" roleTypeId="CARRIER" shipmentMethodTypeId="LOCAL_DELIVERY" sequenceNumber="4"/>
     <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="7" carrierServiceCode="Priority"/>
@@ -1931,57 +791,7 @@ under the License.
     <ShipmentCostEstimate productStoreId="RentalStore" shipmentCostEstimateId="9005" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" orderFlatPrice="0.0" orderPricePercent="0.0" orderItemFlatPrice="0.0"/>
 
     <!-- Demo Shipping Data -->
-    <Party partyId="USPS" partyTypeId="PARTY_GROUP"/>
-    <Party partyId="UPS" partyTypeId="PARTY_GROUP"/>
-    <Party partyId="DHL" partyTypeId="PARTY_GROUP"/>
-    <Party partyId="FEDEX" partyTypeId="PARTY_GROUP"/>
-
-    <PartyGroup partyId="USPS" groupName="USPS"/>
-    <PartyGroup partyId="UPS" groupName="UPS"/>
-    <PartyGroup partyId="DHL" groupName="DHL"/>
-    <PartyGroup partyId="FEDEX" groupName="Federal Express"/>
-
-    <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="DHL" roleTypeId="CARRIER"/>
-    <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
-
-    <PartyRole partyId="Company" roleTypeId="CARRIER"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
-
-    <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
-    <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
-
-    <ShipmentMethodType description="Next Morning" shipmentMethodTypeId="NEXT_AM"/>
-    <ShipmentMethodType description="Next Afternoon" shipmentMethodTypeId="NEXT_PM"/>
-    <ShipmentMethodType description="Same Day" shipmentMethodTypeId="SAME_DAY"/>
-    <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
-    <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
-    <ShipmentMethodType description="Third Day" shipmentMethodTypeId="THIRD_DAY"/>
-    <ShipmentMethodType description="International Express" shipmentMethodTypeId="INT_EXPRESS"/>
-
-    <ShipmentMethodType description="Priority Overnight" shipmentMethodTypeId="PR_OVERNIGHT"/>
-    <ShipmentMethodType description="Standard Overnight" shipmentMethodTypeId="ST_OVERNIGHT"/>
-    <ShipmentMethodType description="First Overnight" shipmentMethodTypeId="FI_OVERNIGHT"/>
-    <ShipmentMethodType description="Second Day" shipmentMethodTypeId="SECOND_DAY"/>
-    <ShipmentMethodType description="Express Saver" shipmentMethodTypeId="EXPRESS_SAVER"/>
-    <ShipmentMethodType description="International Priority" shipmentMethodTypeId="INTERNAT_PRI"/>
-    <ShipmentMethodType description="International Economy" shipmentMethodTypeId="INTERNAT_ECON"/>
-    <ShipmentMethodType description="International First" shipmentMethodTypeId="INTERNAT_FI"/>
-    <ShipmentMethodType description="1Day Freight" shipmentMethodTypeId="FIRST_DAY_FR"/>
-    <ShipmentMethodType description="2Day Freight" shipmentMethodTypeId="SECOND_DAY_FR"/>
-    <ShipmentMethodType description="3Day Freight" shipmentMethodTypeId="THIRD_DAY_FR"/>
-    <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
-    <ShipmentMethodType description="Ground Home Delivery" shipmentMethodTypeId="GROUND_HOME"/>
-    <ShipmentMethodType description="International Economy Freight" shipmentMethodTypeId="INTERNAT_ECON_FR"/>
-    <ShipmentMethodType description="International Priority Freight" shipmentMethodTypeId="INTERNAT_PRI_FR"/>
-    <ShipmentMethodType description="2Day AM" shipmentMethodTypeId="SECOND_DAY_AM"/>
-    <ShipmentMethodType description="Europe First Priority" shipmentMethodTypeId="EUROPE_FI_PRIORITY"/>
-    <ShipmentMethodType description="Smart Post" shipmentMethodTypeId="SMART_POST"/>
-    <ShipmentMethodType description="Fedex National Freight" shipmentMethodTypeId="FEDEX_NATIONAL_FR"/>
-    <ShipmentMethodType description="Fedex International Ground " shipmentMethodTypeId="FEDEX_INT_GROUND"/>
-    <ShipmentMethodType description="Fedex Freight" shipmentMethodTypeId="FEDEX_FREIGHT"/>
-
+    
     <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
     <ShipmentMethodType description="Three-Day Select" shipmentMethodTypeId="THIRD_DAY_AIR_SEL"/>
     <ShipmentMethodType description="Second Day Air" shipmentMethodTypeId="SECOND_DAY_AIR"/>
@@ -2192,6 +1002,16 @@ under the License.
     <!-- shows a virtual product can be used to model commission for all variants -->
     <AgreementProductAppl agreementId="9000" agreementItemSeqId="0001" productId="WG-9943"/>
 
+
+    <!-- Customer Requests -->
+    <!-- Party partyId="DemoCustomer2 -->
+    <CustRequest custRequestId="9000" custRequestDate="2008-07-28 09:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer" priority="9" custRequestName="Customer Request Usage" description="Could you please advise us how to use the customer request facility within ofbiz?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
+    <CustRequestItem custRequestId="9000" custRequestItemSeqId="00001" story="This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request."/>
+    <CustRequest custRequestId="9001" custRequestDate="2008-07-21 11:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustAgent" priority="9" custRequestName="Hardware?" description="Please provide us with the hardware requirements of OFBiz" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
+    <CustRequest custRequestId="9002" custRequestDate="2008-07-19 18:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer2" priority="9" custRequestName="Customer Same company" description="This will contain a request from the same company?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
+    <!-- Employees assigned to handle these incoming customer requests-->
+    <CustRequestType custRequestTypeId="RF_SUPPORT" partyId="Company"/>
+    
     <!-- Some Demo Customers -->
 
     <!-- DemoCustCompany -->
@@ -2204,36 +1024,30 @@ under the License.
     <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
 
-    <ContactMech contactMechId="9010" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
-    <PartyContactMech partyId="DemoCustCompany" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMech partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
 
-    <ContactMech contactMechId="9014" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9014" toName="Demo Customer Company" address1="1234 Commerce Way" city="Los Angeles" stateProvinceGeoId="CA" postalCode="90010" countryGeoId="USA"/>
-    <PartyContactMech partyId="DemoCustCompany" contactMechId="9014" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMech partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
 
-    <ContactMech contactMechId="9020" contactMechTypeId="TELECOM_NUMBER"/>
-    <TelecomNumber contactMechId="9020" areaCode="801" contactNumber="555-5555"/>
-    <PartyContactMech partyId="DemoCustCompany" contactMechId="9020" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9020" contactMechPurposeTypeId="PHONE_WORK" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="9021" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
-    <PartyContactMech partyId="DemoCustCompany" contactMechId="9021" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9021" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMech partyId="DemoCustCompany" contactMechId="CUSTOMER_PHONE" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="CUSTOMER_PHONE" contactMechPurposeTypeId="PHONE_WORK" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMech partyId="DemoCustCompany" contactMechId="CUSTOMER_EMAIL" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="CUSTOMER_EMAIL" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
 
-    <BillingAccount billingAccountId="9010" accountLimit="10000.0" accountCurrencyUomId="USD" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" description="Demo Customer Company Billing Account"/>
+    <BillingAccount billingAccountId="9010" accountLimit="10000.0" accountCurrencyUomId="USD" contactMechId="CUSTOMER_ADDRESS" fromDate="2001-05-13 00:00:00.000" description="Demo Customer Company Billing Account"/>
     <BillingAccountRole billingAccountId="9010" partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.000"/>
 
     <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.000" partyTaxId="12-3456789" isExempt="Y"/>
     <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.000" partyTaxId="98-7654321" isExempt="N"/>
 
     <PaymentMethod paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" partyId="DemoCustomer" fromDate="2001-05-13 00:00:00.000"/>
-    <CreditCard paymentMethodId="9015" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" firstNameOnCard="DEMO" lastNameOnCard="CUSTOMER" contactMechId="9015"/>
+    <CreditCard paymentMethodId="9015" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" firstNameOnCard="DEMO" 
+        lastNameOnCard="CUSTOMER" contactMechId="CUSTOMER_ADDRESS"/>
 
     <PaymentMethod paymentMethodId="EUROCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="EuroCustomer" fromDate="2001-05-13 00:00:00.000"/>
     <CreditCard paymentMethodId="EUROCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" firstNameOnCard="EURO" lastNameOnCard="CUSTOMER" contactMechId="EUROCUSTOMER"/>
@@ -2259,7 +1073,11 @@ under the License.
     <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
     <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
 
-    <OrderItemShipGroup orderId="DEMO10090" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="9015" maySplit="N" isGift="N"/>
+    <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="BILLING_LOCATION" contactMechId="CUSTOMER_ADDRESS"/>
+    <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="CUSTOMER_EMAIL"/>
+    <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="CUSTOMER_ADDRESS"/>
+
+    <OrderItemShipGroup orderId="DEMO10090" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="CUSTOMER_ADDRESS" maySplit="N" isGift="N"/>
     <OrderItemShipGroupAssoc orderId="DEMO10090" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.0"/>
     <OrderItemShipGrpInvRes orderId="DEMO10090" shipGroupSeqId="00001" orderItemSeqId="00001" inventoryItemId="9001" reserveOrderEnumId="INVRO_FIFO_REC" quantity="2.0" quantityNotAvailable="0.0" reservedDatetime="2008-04-23 16:49:31.474" createdDatetime="2008-04-23 16:49:31.474" promisedDatetime="2008-05-08 16:49:27.392" priority="2"/>
 
@@ -2276,11 +1094,9 @@ under the License.
     <OrderStatus orderStatusId="9004" statusId="ORDER_APPROVED" orderId="DEMO10090" statusDatetime="2008-04-23 16:49:33.196" statusUserLogin="admin"/>
     <OrderStatus orderStatusId="9005" statusId="ITEM_APPROVED" orderId="DEMO10090" orderItemSeqId="00001" statusDatetime="2008-04-23 16:49:33.513" statusUserLogin="admin"/>
 
-    <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="BILLING_LOCATION" contactMechId="9015"/>
-    <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="9026"/>
-    <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9015"/>
-
-    <Shipment shipmentId="9998" shipmentTypeId="SALES_SHIPMENT" statusId="SHIPMENT_INPUT" primaryOrderId="DEMO10090" primaryShipGroupSeqId="00001" estimatedShipCost="12.45" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destinationContactMechId="9015" destinationTelecomNumberId="9025" partyIdTo="DemoCustomer" createdDate="2008-06-10 12:59:26.8"/>
+    <Shipment shipmentId="9998" shipmentTypeId="SALES_SHIPMENT" statusId="SHIPMENT_INPUT" primaryOrderId="DEMO10090" 
+    primaryShipGroupSeqId="00001" estimatedShipCost="12.45" originFacilityId="WebStoreWarehouse" 
+    originContactMechId="COMPANY_POST" originTelecomNumberId="COMPANY_PHONE" destinationcontactMechId="CUSTOMER_ADDRESS" destinationTelecomNumberId="CUSTOMER_PHONE" partyIdTo="DemoCustomer" createdDate="2008-06-10 12:59:26.8"/>
 
     <!-- Purchase order test data -->
     <!--for jira issue - 1782-->
@@ -2292,7 +1108,7 @@ under the License.
     <OrderRole orderId="DEMO10091" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
     <OrderRole orderId="DEMO10091" partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
     <OrderRole orderId="DEMO10091" partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
-    <OrderItemShipGroup orderId="DEMO10091" shipGroupSeqId="00001" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" contactMechId="9200" maySplit="N" isGift="N"/>
+    <OrderItemShipGroup orderId="DEMO10091" shipGroupSeqId="00001" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" contactMechId="COMPANY_POST" maySplit="N" isGift="N"/>
     <OrderItemShipGroupAssoc orderId="DEMO10091" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="5.0"/>
 
     <!-- for jira issue - 1784 -->
@@ -2300,7 +1116,7 @@ under the License.
 
     <OrderStatus orderStatusId="9007" statusId="ORDER_CREATED" orderId="DEMO10091" statusDatetime="2008-06-10 13:27:07.024" statusUserLogin="admin"/>
     <OrderStatus orderStatusId="9008" statusId="ITEM_CREATED" orderId="DEMO10091" orderItemSeqId="00001" statusDatetime="2008-06-10 13:27:07.024" statusUserLogin="admin"/>
-    <OrderContactMech orderId="DEMO10091" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200"/>
+    <OrderContactMech orderId="DEMO10091" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="COMPANY_POST"/>
 
     <Shipment shipmentId="9999" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_CREATED" primaryOrderId="DEMO10091" primaryShipGroupSeqId="00001" createdDate="2008-06-10 12:59:26.8"/>
     <ShipmentItem shipmentId="9999" shipmentItemSeqId="00001" productId="GZ-2644" quantity="5"/>
@@ -2314,7 +1130,7 @@ under the License.
     <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
     <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
     <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
-    <OrderItemShipGroup orderId="Demo1001" shipGroupSeqId="00001" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" contactMechId="9200" maySplit="N" isGift="N" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
+    <OrderItemShipGroup orderId="Demo1001" shipGroupSeqId="00001" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" contactMechId="COMPANY_POST" maySplit="N" isGift="N" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
     <OrderItemShipGroupAssoc orderId="Demo1001" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.000000"/>
 
     <OrderStatus orderStatusId="9009" statusId="ORDER_CREATED" orderId="Demo1001" statusDatetime="2009-08-13 17:45:50.419" statusUserLogin="admin"/>
@@ -2323,11 +1139,11 @@ under the License.
     <OrderStatus orderStatusId="9012" statusId="ORDER_APPROVED" orderId="Demo1001" statusDatetime="2009-08-13 17:46:15.206" statusUserLogin="admin"/>
     <OrderStatus orderStatusId="9013" statusId="ITEM_COMPLETED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:47:47.292" statusUserLogin="admin"/>
     <OrderStatus orderStatusId="9014" statusId="ORDER_COMPLETED" orderId="Demo1001" statusDatetime="2009-08-13 17:47:47.344" statusUserLogin="admin"/>
-    <OrderContactMech orderId="Demo1001" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200"/>
+    <OrderContactMech orderId="Demo1001" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="COMPANY_POST"/>
 
-    <Shipment shipmentId="9997" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_RECEIVED" primaryOrderId="Demo1001" primaryShipGroupSeqId="00001" estimatedShipCost="0.00" destinationFacilityId="WebStoreWarehouse" destinationContactMechId="9200" destinationTelecomNumberId="9201" partyIdFrom="DemoSupplier" createdDate="2008-06-10 12:59:26.8"/>
+    <Shipment shipmentId="9997" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_RECEIVED" primaryOrderId="Demo1001" primaryShipGroupSeqId="00001" estimatedShipCost="0.00" destinationFacilityId="WebStoreWarehouse" destinationContactMechId="COMPANY_POST" destinationTelecomNumberId="COMPANY_PHONE" partyIdFrom="DemoSupplier" createdDate="2008-06-10 12:59:26.8"/>
     <ShipmentItem shipmentId="9997" shipmentItemSeqId="00001" productId="GZ-2644" quantity="2.000000"/>
-    <ShipmentRouteSegment shipmentId="9997" shipmentRouteSegmentId="00001" destFacilityId="WebStoreWarehouse" destContactMechId="9200" destTelecomNumberId="9201" carrierPartyId="_NA_" shipmentMethodTypeId="NO_SHIPPING" carrierServiceStatusId="SHRSCS_NOT_STARTED"/>
+    <ShipmentRouteSegment shipmentId="9997" shipmentRouteSegmentId="00001" destFacilityId="WebStoreWarehouse" destContactMechId="COMPANY_POST" destTelecomNumberId="COMPANY_PHONE" carrierPartyId="_NA_" shipmentMethodTypeId="NO_SHIPPING" carrierServiceStatusId="SHRSCS_NOT_STARTED"/>
     <ShipmentPackage shipmentId="9997" shipmentPackageSeqId="00001" dateCreated="2009-08-13 17:46:29.751"/>
     <ShipmentPackageContent shipmentId="9997" shipmentPackageSeqId="00001" shipmentItemSeqId="00001" quantity="2.000000"/>
     <ShipmentPackageRouteSeg shipmentId="9997" shipmentPackageSeqId="00001" shipmentRouteSegmentId="00001"/>
@@ -2364,7 +1180,7 @@ under the License.
     <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
     <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
 
-    <OrderItemShipGroup orderId="Demo1002" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="9015" maySplit="N" isGift="N"/>
+    <OrderItemShipGroup orderId="Demo1002" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="CUSTOMER_ADDRESS" maySplit="N" isGift="N"/>
     <OrderItemShipGroupAssoc orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.000000"/>
     <OrderItemShipGroupAssoc orderId="Demo1002" orderItemSeqId="00004" shipGroupSeqId="00001" quantity="1.000000"/>
     <OrderAdjustment orderAdjustmentId="8000" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" orderId="Demo1002" orderItemSeqId="_NA_" shipGroupSeqId="_NA_" amount="-12.000" productPromoId="9011" productPromoRuleId="01" productPromoActionSeqId="01" createdDate="2009-08-17 14:56:44.515"/>
@@ -2389,13 +1205,14 @@ under the License.
     <OrderStatus orderStatusId="8010" statusId="ITEM_COMPLETED" orderId="Demo1002" orderItemSeqId="00004" statusDatetime="2009-08-17 14:57:02.401" statusUserLogin="admin"/>
     <OrderStatus orderStatusId="8011" statusId="ORDER_COMPLETED" orderId="Demo1002" statusDatetime="2009-08-17 14:57:02.433" statusUserLogin="admin"/>
     <OrderStatus orderStatusId="8012" statusId="PAYMENT_SETTLED" orderId="Demo1002" orderPaymentPreferenceId="9001" statusDatetime="2009-08-17 14:57:04.825" statusUserLogin="admin"/>
-    <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="BILLING_LOCATION" contactMechId="9015"/>
-    <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="9026"/>
-    <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9015"/>
+    <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="BILLING_LOCATION" contactMechId="CUSTOMER_ADDRESS"/>
+    <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="CUSTOMER_EMAIL"/>
+    <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="CUSTOMER_ADDRESS"/>
 
-    <Shipment shipmentId="9996" shipmentTypeId="SALES_SHIPMENT" statusId="SHIPMENT_SHIPPED" primaryOrderId="Demo1002" primaryShipGroupSeqId="00001" estimatedShipCost="12.10" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destinationContactMechId="9015" destinationTelecomNumberId="9025" partyIdTo="DemoCustomer" partyIdFrom="Company" createdDate="2009-08-17 14:56:57.553"/>
+    <Shipment shipmentId="9996" shipmentTypeId="SALES_SHIPMENT" statusId="SHIPMENT_SHIPPED" primaryOrderId="Demo1002" primaryShipGroupSeqId="00001" estimatedShipCost="12.10" originFacilityId="WebStoreWarehouse" originContactMechId="COMPANY_POST" originTelecomNumberId="COMPANY_PHONE" destinationcontactMechId="CUSTOMER_ADDRESS" destinationTelecomNumberId="CUSTOMER_PHONE" partyIdTo="DemoCustomer" partyIdFrom="Company" createdDate="2009-08-17 14:56:57.553"/>
     <ShipmentItem shipmentId="9996" shipmentItemSeqId="00001" productId="WG-1111" quantity="3.000000"/>
-    <ShipmentRouteSegment shipmentId="9996" shipmentRouteSegmentId="00001" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destContactMechId="9015" destTelecomNumberId="9025" carrierPartyId="UPS" shipmentMethodTypeId="NEXT_DAY" carrierServiceStatusId="SHRSCS_NOT_STARTED"/>
+    <ShipmentRouteSegment shipmentId="9996" shipmentRouteSegmentId="00001" originFacilityId="WebStoreWarehouse" originContactMechId="COMPANY_POST" 
+        originTelecomNumberId="COMPANY_PHONE" destcontactMechId="CUSTOMER_ADDRESS" destTelecomNumberId="CUSTOMER_PHONE" carrierPartyId="UPS" shipmentMethodTypeId="NEXT_DAY" carrierServiceStatusId="SHRSCS_NOT_STARTED"/>
     <ShipmentPackage shipmentId="9996" shipmentPackageSeqId="00001" dateCreated="2009-08-17 14:57:02.742"/>
     <ShipmentPackageContent shipmentId="9996" shipmentPackageSeqId="00001" shipmentItemSeqId="00001" quantity="3.000000"/>
     <ShipmentPackageRouteSeg shipmentId="9996" shipmentPackageSeqId="00001" shipmentRouteSegmentId="00001"/>
