@@ -783,4 +783,13 @@ under the License.
     <CustomMethod customMethodId="SHIP_EST_USPS_INT" customMethodTypeId="SHIP_EST" customMethodName="uspsInternationalRateInquire"   description="USPS rate estimate international"/>
 
     <Enumeration description="Direct Store Delivery" enumCode="DIRECT_STORE_DELIVRY" enumId="DIRECT_STORE_DELIVRY" sequenceId="01"/>
+
+    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
+    <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
+    <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
+    <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
+    <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
+    <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
+    <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
+    
 </entity-engine-xml>
