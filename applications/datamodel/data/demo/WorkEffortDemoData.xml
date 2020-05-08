@@ -94,4 +94,17 @@ under the License.
     <WorkEffort workEffortId="PublicEvent" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PUBLIC" workEffortName="The general company party june 17" description="General Party" locationDesc="Tom's Banquet Hall" estimatedStartDate="2009-06-17 19:00:00.0" estimatedCompletionDate="2009-06-17 23:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="PROJECT_PUB_DEMO" workEffortIdTo="PublicEvent" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
 
+    <FixedAsset fixedAssetId="DEMO_BOOK_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Book Group"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_BOOK_GROUP" geoPointId="9000" fromDate="2011-08-02 00:00:00.000"/>
+
+
+    <WorkEffort workEffortId="SCTASK01" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Stock out" description="Components" revisionNumber="1" fixedAssetId="DEMO_BOOK_GROUP" estimatedMilliSeconds="600000" estimatedSetupMillis="0"/>
+    <WorkEffort workEffortId="SCTASK02" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Preparation" description="Preparation" revisionNumber="1" fixedAssetId="DEMO_BOOK_GROUP" estimatedMilliSeconds="900000" estimatedSetupMillis="0"/>
+    <WorkEffort workEffortId="SCROUT01" workEffortTypeId="ROUTING" currentStatusId="ROU_ACTIVE" workEffortName="Pizza preparation" description="Scanning preparation" revisionNumber="1" quantityToProduce="0"/>
+    <!-- 
+    <WorkEffortGoodStandard workEffortId="SCROUT01" productId="CFSV1001" workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" statusId="WEGS_CREATED" fromDate="2011-01-01 00:00:00.0"/>
+     -->
+     <WorkEffortAssoc workEffortIdFrom="SCROUT01" workEffortIdTo="SCTASK01" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2011-01-01 00:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="SCROUT01" workEffortIdTo="SCTASK02" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="20" fromDate="2011-01-01 00:00:00.0"/>
+
 </entity-engine-xml>
