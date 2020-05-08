@@ -61,15 +61,26 @@ under the License.
     <StatusItem statusId="LEAVE_CREATED" statusTypeId="LEAVE_STATUS"  description="Created"/>
     <StatusItem statusId="LEAVE_REJECTED" statusTypeId="LEAVE_STATUS"  description="Rejected"/>
 
-    <EmplPositionType description="Programmer" hasTable="N" emplPositionTypeId="PROGRAMMER"/>
-    <EmplPositionType description="System Administrator" hasTable="N" emplPositionTypeId="SYS_ADMIN"/>
+    <EmplPositionType description="Account Manager" hasTable="N" emplPositionTypeId="ACCOUNT_MGR"/>
+    <EmplPositionType description="Buyer" hasTable="N" emplPositionTypeId="BUYER"/>
     <EmplPositionType description="Business Analyst" hasTable="N" emplPositionTypeId="BIZ_ANALYST"/>
+    <EmplPositionType description="Chief Compliance Officer" hasTable="N" emplPositionTypeId="CCO"/>
     <EmplPositionType description="Chief Executive Officer" hasTable="N" emplPositionTypeId="CEO"/>
     <EmplPositionType description="Chief Financial Officer" hasTable="N" emplPositionTypeId="CFO"/>
     <EmplPositionType description="Chief Information Officer" hasTable="N" emplPositionTypeId="CIO"/>
     <EmplPositionType description="Chief Marketing Officer" hasTable="N" emplPositionTypeId="CMO"/>
-    <EmplPositionType description="Chief Compliance Officer" hasTable="N" emplPositionTypeId="CCO"/>
+    <EmplPositionType description="Chief Operations Officer" hasTable="N" emplPositionTypeId="COO"/>
     <EmplPositionType description="Chief Security Officer" hasTable="N" emplPositionTypeId="CSO"/>
+    <EmplPositionType description="Department Manager" hasTable="N" emplPositionTypeId="DEPT_MGR"/>
+    <EmplPositionType description="Management Assistant" hasTable="N" emplPositionTypeId="MGT_ASSST"/>
+    <EmplPositionType description="Operator" hasTable="N" emplPositionTypeId="OPERATOR"/>
+    <EmplPositionType description="Packer" hasTable="N" emplPositionTypeId="PACKER"/>
+    <EmplPositionType description="Picker" hasTable="N" emplPositionTypeId="PICKER"/>
+    <EmplPositionType description="Programmer" hasTable="N" emplPositionTypeId="PROGRAMMER"/>
+    <EmplPositionType description="Project Manager" hasTable="N" emplPositionTypeId="PROJECT_MANAGER"/>
+    <EmplPositionType description="Subject Matter Expert" hasTable="N" emplPositionTypeId="EXPERT"/>
+    <EmplPositionType description="Tester" hasTable="N" emplPositionTypeId="TESTER"/>
+    <EmplPositionType description="System Administrator" hasTable="N" emplPositionTypeId="SYS_ADMIN"/>
 
     <ResponsibilityType description="Finance Management" hasTable="N" responsibilityTypeId="FIN_MGMT"/>
     <ResponsibilityType description="Inventory Management" hasTable="N" responsibilityTypeId="INV_MGMT"/>
