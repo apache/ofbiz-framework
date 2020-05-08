@@ -25,7 +25,7 @@ under the License.
     <Payment paymentId="appltest10000" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="DemoCustomer" partyIdTo="Company" statusId="PMNT_NOT_PAID" effectiveDate="2006-04-25 12:56:54.292" amount="20" currencyUomId="USD"/>
 
     <!-- billing acount  -->
-    <BillingAccount billingAccountId="appltest10000" accountLimit="10000.0" accountCurrencyUomId="USD" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" description="Demo Customer Company Billing Account"/>
+    <BillingAccount billingAccountId="appltest10000" accountLimit="10000.0" accountCurrencyUomId="USD" contactMechId="CUSTOMER_ADDRESS" fromDate="2001-05-13 00:00:00.000" description="Demo Customer Company Billing Account"/>
     <BillingAccountRole billingAccountId="appltest10000" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.000"/>
     
     <!-- other payment -->
