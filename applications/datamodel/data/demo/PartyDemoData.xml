@@ -495,6 +495,7 @@ under the License.
     <Party partyId="employee36" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee36" lastName="Packer" firstName="DemoEmployee" middleName="36"/>
     <PartyRole partyId="employee36" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee36" roleTypeId="PACKER"/>
     <PartyRole partyId="employee36" roleTypeId="_NA_"/>
     <PartyStatus partyId="employee36" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee36" partyId="employee36" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -503,6 +504,7 @@ under the License.
     <Party partyId="employee37" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee37" lastName="Packer" firstName="DemoEmployee" middleName="37"/>
     <PartyRole partyId="employee37" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee37" roleTypeId="PACKER"/>
     <PartyRole partyId="employee37" roleTypeId="_NA_"/>
     <PartyStatus partyId="employee37" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee37" partyId="employee37" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -511,6 +513,7 @@ under the License.
     <Party partyId="employee38" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee38" lastName="Packer" firstName="DemoEmployee" middleName="38"/>
     <PartyRole partyId="employee38" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee38" roleTypeId="PACKER"/>
     <PartyRole partyId="employee38" roleTypeId="_NA_"/>
     <PartyStatus partyId="employee38" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee38" partyId="employee38" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -519,6 +522,7 @@ under the License.
     <Party partyId="employee39" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee39" lastName="Picker" firstName="DemoEmployee" middleName="39"/>
     <PartyRole partyId="employee39" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee39" roleTypeId="PICKER"/>
     <PartyRole partyId="employee39" roleTypeId="_NA_"/>
     <PartyStatus partyId="employee39" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee39" partyId="employee39" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -527,6 +531,7 @@ under the License.
     <Party partyId="employee40" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee40" lastName="Picker" firstName="DemoEmployee" middleName="40"/>
     <PartyRole partyId="employee40" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee40" roleTypeId="PICKER"/>
     <PartyRole partyId="employee40" roleTypeId="_NA_"/>
     <PartyStatus partyId="employee40" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee40" partyId="employee40" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -591,6 +596,7 @@ under the License.
     <Party partyId="employee48" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee40" lastName="Picker" firstName="DemoEmployee" middleName="48"/>
     <PartyRole partyId="employee48" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee48" roleTypeId="PICKER"/>
     <PartyRole partyId="employee48" roleTypeId="_NA_"/>
     <PartyStatus partyId="employee48" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee48" partyId="employee48" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -599,6 +605,7 @@ under the License.
     <Party partyId="employee49" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee49" lastName="Picker" firstName="DemoEmployee" middleName="49"/>
     <PartyRole partyId="employee49" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee49" roleTypeId="PICKER"/>
     <PartyRole partyId="employee49" roleTypeId="_NA_"/>
     <PartyStatus partyId="employee49" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee49" partyId="employee49" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
