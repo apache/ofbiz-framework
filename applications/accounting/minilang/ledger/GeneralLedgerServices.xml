@@ -118,41 +118,12 @@ under the License.
             <call-service service-name="postAcctgTrans" in-map-name="callServiceMap"/>
         </iterate>
     </simple-method>
-
-    <!-- ========= GlReconciliation methods ========= -->
-    <simple-method method-name="createGlReconciliation" short-description="Create an GlReconciliation">
-        <make-value entity-name="GlReconciliation" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <!-- GlReconciliation uses a sequenced id, so get the next one now and set it... -->
-        <sequenced-id sequence-name="GlReconciliation" field="newEntity.glReconciliationId"/>
-        <field-to-result field="newEntity.glReconciliationId" result-name="glReconciliationId"/>
-
-        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
-        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
-
-        <if-empty field="newEntity.statusId">
-            <set field="newEntity.statusId" value="GLREC_CREATED"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateGlReconciliation" short-description="Update an GlReconciliation">
-        <set-service-fields service-name="setGlReconciliationStatus" map="parameters" to-map="setGlReconciliationStatusMap"/>
-        <call-service service-name="setGlReconciliationStatus" in-map-name="setGlReconciliationStatusMap"/>
-        <check-errors/>
-        <entity-one entity-name="GlReconciliation" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-
-        <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="updateGlReconciliationLastModified" short-description="Update GlReconciliation LastModified Info">
         <!-- this is just a little method that is meant to be called as an inline call-simple-method target with the context already setup -->
         <entity-one entity-name="GlReconciliation" value-field="lookedUpGLR"/>
         <set from-field="userLogin.userLoginId" field="lookedUpGLR.lastModifiedByUserLogin"/>
         <store-value value-field="lookedUpGLR"/>
     </simple-method>
-
     <!-- ========= GlReconciliationEntry methods ========= -->
     <simple-method method-name="createGlReconciliationEntry" short-description="Add Entry To GlReconciliation">
         <!-- first of all, make sure that the AcctgTransEntry is not already reconciled -->
