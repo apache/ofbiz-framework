@@ -2520,8 +2520,7 @@ under the License.
     <AcctgTransEntry acctgTransId="8010" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="33.99" currencyUomId="USD" origAmount="33.99" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="8010" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="33.99" currencyUomId="USD" origAmount="33.99" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
 
-    <!-- Demo invoice data for sales invoice with INVOICE_PAID status -->
-    
+    <!-- Demo agreement data -->
     <Agreement agreementId="8000" partyIdFrom="Company" partyIdTo="DemoCustAgent" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement with DemoCustAgent"/>
     <AgreementItem agreementId="8000" agreementItemSeqId="0001" agreementItemTypeId="AGREEMENT_COMMISSION" currencyUomId="USD" agreementText="Commission in USD"/>
     <AgreementTerm agreementTermId="8000" termTypeId="FIN_COMM_FIXED" agreementId="8000" agreementItemSeqId="0001" invoiceItemTypeId="INV_FPROD_ITEM" termValue="1.000" termDays="30"/>
@@ -2529,6 +2528,68 @@ under the License.
     <AgreementTerm agreementTermId="8002" termTypeId="FIN_COMM_MIN" agreementId="8000" agreementItemSeqId="0001" invoiceItemTypeId="INV_FPROD_ITEM" termValue="0.000" termDays="30"/>
     <AgreementProductAppl agreementId="8000" agreementItemSeqId="0001" productId="WG-9943"/>
 
+
+    <!-- entity Agreement and related-->
+    <!-- The agreement header can be used to link directly two parties  -->
+    <!-- Each agreement can have many agreement items, each one with its own agreementItemTypeId -->
+    <!-- An agreement can have several terms -->
+    <!-- The same changes that you have proposed for OrderTerm and InvoiceTerm (see issue OFBIZ-75) should be applied to the AgreementTerm entity too -->
+    <!-- Here we have two "Payment term" options available (30 days or 60 days) -->
+
+    <!--  A Sales Agreement -->
+    <Agreement agreementId="DS-1000-SALES" agreementTypeId="SALES_AGREEMENT" description="Agreement with DemoCustomer for drop ship" partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2011-08-02 12:00:00.0"/>
+    <AgreementItem agreementId="DS-1000-SALES" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
+
+    <!-- A Purchase Agreement -->
+    <Agreement agreementId="DS-1000-PURCH" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement with DemoSupplier" partyIdFrom="Company" partyIdTo="DemoSupplier" fromDate="2011-08-02 12:00:00.0"/>
+    <AgreementItem agreementId="DS-1000-PURCH" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
+    <AgreementProductAppl agreementId="DS-1000-PURCH" agreementItemSeqId="00001" price="8" productId="DS-1000"/>
+
+    <!-- The agreement AGR_TEST is a PURCHASE_AGREEMENT between the Company party and the DemoSupplier party (in the role of SUPPLIER)  -->
+    <Agreement agreementId="AGR_TEST" partyIdFrom="Company" partyIdTo="DemoSupplier" roleTypeIdTo="SUPPLIER" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement for DemoSupplier"/>
+
+    <!-- The agreementItem 10000 is an AGREEMENT_PRICING_PR(OGRAM, i.e. a price list) -->
+    <!-- We will need to add the 'currencyUomId' field to the AgreementItem entity to store the currency of the price list: -->
+    <AgreementItem agreementId="AGR_TEST" agreementItemSeqId="10000" currencyUomId="USD" agreementItemTypeId="AGREEMENT_PRICING_PR" agreementText="Price list in US Dollars"/>
+    <!-- <AgreementItem agreementId="AGR_TEST" agreementItemSeqId="10000" agreementItemTypeId="AGREEMENT_PRICING_PR" agreementText="Price list in EUR"/> -->
+    
+    <!-- Jacopo - based on my suggested changes, termDays would be the # of days and termValue would be the amount of discount, if any.  Does that make sense?
+        Also, I thought that all the terms of the agreement would apply to the order at the same time, so we would not have "Net 30" and "net 60" simultaneously. -->
+    <!--
+    <AgreementTerm agreementTermId="1000" termTypeId="FIN_PAYMENT_TERM" agreementId="AGR_TEST" termValue="30"/>
+    <AgreementTerm agreementTermId="1001" termTypeId="FIN_PAYMENT_TERM" agreementId="AGR_TEST" termValue="60"/>
+    -->
+    <AgreementTerm agreementTermId="1000" termTypeId="FIN_PAYMENT_TERM" agreementId="AGR_TEST" termDays="30"/>
+    <AgreementTerm agreementTermId="1001" termTypeId="FIN_PAYMENT_DISC" agreementId="AGR_TEST" termDays="10" termValue="2"/> <!-- a 2% discount for paying within 10 days -->
+    <AgreementTerm agreementTermId="1003" termTypeId="PURCH_VENDOR_ID" agreementId="AGR_TEST" textValue="OPEN-001"/>
+    <AgreementTerm agreementTermId="1004" termTypeId="PURCH_FREIGHT" agreementId="AGR_TEST" textValue="Shp via Open Express"/>
+
+    <!-- an example of agreements with multiple payment terms -->
+    <Agreement agreementId="1000" partyIdFrom="Company" partyIdTo="BigSupplier" roleTypeIdTo="SUPPLIER" agreementTypeId="PURCHASE_AGREEMENT" description="Purchasing Agreement with BigSupplier"/>
+    <AgreementItem agreementId="1000" agreementItemSeqId="0001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_PRICING_PR" agreementText="Price list in USD"/>
+    <AgreementTerm agreementTermId="1100" termTypeId="FIN_PAYMENT_TERM" agreementId="1000" termDays="30"/>
+    <AgreementTerm agreementTermId="1101" termTypeId="FIN_PAYMENT_DISC" agreementId="1000" termDays="10" termValue="2"/> <!-- a 2% discount for paying within 10 days -->
+
+    <!-- an example of multiple agreements with the same supplier -->
+    <Agreement agreementId="1001" partyIdFrom="Company" partyIdTo="EuroSupplier" roleTypeIdTo="SUPPLIER" agreementTypeId="PURCHASE_AGREEMENT" description="Purchasing Agreement with EuroSupplier-Milan"/>
+    <AgreementItem agreementId="1001" agreementItemSeqId="0001" currencyUomId="EUR" agreementItemTypeId="AGREEMENT_PRICING_PR" agreementText="Price list in EURO"/>
+    <AgreementTerm agreementTermId="1200" termTypeId="FIN_PAYMENT_TERM" agreementId="1001" termDays="60"/>
+
+    <Agreement agreementId="1002" partyIdFrom="Company" partyIdTo="EuroSupplier" roleTypeIdTo="SUPPLIER" agreementTypeId="PURCHASE_AGREEMENT" description="Purchasing Agreement with EuroSupplier-New York"/>
+    <AgreementItem agreementId="1002" agreementItemSeqId="0001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_PRICING_PR" agreementText="Price list in US Dollars"/>
+    <AgreementTerm agreementTermId="1210" termTypeId="FIN_PAYMENT_TERM" agreementId="1002" termDays="30"/>
+
+    <!-- A Commission Agreement -->
+    <Agreement agreementId="9000" partyIdFrom="Company" partyIdTo="DemoRepAll" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement with DemoRepAll"/>
+    <AgreementItem agreementId="9000" agreementItemSeqId="0001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_COMMISSION" agreementText="Commission in USD"/>
+    <AgreementTerm agreementTermId="9000" invoiceItemTypeId="INV_FPROD_ITEM" termTypeId="FIN_COMM_FIXED" agreementId="9000" agreementItemSeqId="0001" termValue="1" termDays="30"/> <!-- $1 commission on every item no matter what price, pay in 30 days -->
+    <AgreementTerm agreementTermId="9001" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_VARIABLE" agreementId="9000" agreementItemSeqId="0001" termValue="3" termDays="30"/> <!-- 3% commission on the price of every item -->
+    <AgreementTerm agreementTermId="9002" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_MIN" agreementId="9000" agreementItemSeqId="0001" termValue="0" termDays="30"/> <!-- No negative commission per unit (returns would still be negative) -->
+    <!-- shows a virtual product can be used to model commission for all variants -->
+    <AgreementProductAppl agreementId="9000" agreementItemSeqId="0001" productId="WG-9943"/>
+
+
+    <!-- Demo invoice data for sales invoice with INVOICE_PAID status -->
     <Invoice invoiceId="8100" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="admin" statusId="INVOICE_PAID" invoiceDate="2009-07-08 11:54:00.765" paidDate="2009-07-08 11:54:03.246" dueDate="2009-08-07 11:54:00.765" currencyUomId="USD"/>
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="8100" statusDate="2009-07-08 11:54:00.845"/>
     <InvoiceStatus statusId="INVOICE_PAID" invoiceId="8100" statusDate="2009-07-08 11:54:03.8"/>
@@ -2677,6 +2738,5 @@ under the License.
     <!-- Party component demo parties additions -->
     <!-- Party partyId="employee1" -->
     <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="employee1" fromDate="2001-01-01 12:00:00.0"/>
-    
 
 </entity-engine-xml>

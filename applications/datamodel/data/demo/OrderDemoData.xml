@@ -993,16 +993,6 @@ under the License.
     <UserLoginSecurityGroup userLoginId="DemoRepStore" groupId="ORDERENTRY" fromDate="2001-05-13 00:00:00"/>
     <ProductStoreRole partyId="DemoRepStore" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
 
-    <!-- Commission Agreements -->
-    <Agreement agreementId="9000" partyIdFrom="Company" partyIdTo="DemoRepAll" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement with DemoRepAll"/>
-    <AgreementItem agreementId="9000" agreementItemSeqId="0001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_COMMISSION" agreementText="Commission in USD"/>
-    <AgreementTerm agreementTermId="9000" invoiceItemTypeId="INV_FPROD_ITEM" termTypeId="FIN_COMM_FIXED" agreementId="9000" agreementItemSeqId="0001" termValue="1" termDays="30"/> <!-- $1 commission on every item no matter what price, pay in 30 days -->
-    <AgreementTerm agreementTermId="9001" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_VARIABLE" agreementId="9000" agreementItemSeqId="0001" termValue="3" termDays="30"/> <!-- 3% commission on the price of every item -->
-    <AgreementTerm agreementTermId="9002" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_MIN" agreementId="9000" agreementItemSeqId="0001" termValue="0" termDays="30"/> <!-- No negative commission per unit (returns would still be negative) -->
-    <!-- shows a virtual product can be used to model commission for all variants -->
-    <AgreementProductAppl agreementId="9000" agreementItemSeqId="0001" productId="WG-9943"/>
-
-
     <!-- Customer Requests -->
     <!-- Party partyId="DemoCustomer2 -->
     <CustRequest custRequestId="9000" custRequestDate="2008-07-28 09:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer" priority="9" custRequestName="Customer Request Usage" description="Could you please advise us how to use the customer request facility within ofbiz?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>

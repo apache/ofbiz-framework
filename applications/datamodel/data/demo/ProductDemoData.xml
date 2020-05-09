@@ -70,6 +70,18 @@ under the License.
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="SUPPLIER_PHONE" contactMechPurposeTypeId="PHONE_BILLING" fromDate="2000-01-01 00:00:00.0"/>
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="SUPPLIER_PHONE" contactMechPurposeTypeId="PHONE_SHIP_ORIG" fromDate="2000-01-01 00:00:00.0"/>
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="SUPPLIER_PHONE" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2000-01-01 00:00:00.0"/>
+    <FacilityLocation facilityId="MyRetailStore" locationSeqId="TLTLTLLL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="01"/>
+    <FacilityLocation facilityId="MyRetailStore" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="01"/>
+    <FacilityLocation facilityId="MyRetailStore" locationSeqId="TLTLTLLL02" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="02"/>
+    <FacilityLocation facilityId="MyRetailStore" locationSeqId="TLTLTLUL02" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="02"/>
+    <FacilityLocation facilityId="MyRetailStore" locationSeqId="TLTLTLLL03" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="03"/>
+    <FacilityLocation facilityId="MyRetailStore" locationSeqId="TLTLTLUL03" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="03"/>
+    <FacilityLocation facilityId="MyRetailStore" locationSeqId="TLTLTLLL04" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="04"/>
+    <FacilityLocation facilityId="MyRetailStore" locationSeqId="TLTLTLUL04" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="04"/>
+    <FacilityLocationGeoPoint facilityId="MyRetailStore" locationSeqId="TLTLTLLL01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FacilityLocationGeoPoint facilityId="MyRetailStore" locationSeqId="TLTLTLUL02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FacilityLocationGeoPoint facilityId="MyRetailStore" locationSeqId="TLTLTLLL03" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FacilityLocationGeoPoint facilityId="MyRetailStore" locationSeqId="TLTLTLUL04" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <FacilityParty facilityId="MyRetailStore" partyId="employee34" roleTypeId="MANAGER" fromDate="2000-01-01 00:00:00.0"/>
     <FacilityParty facilityId="MyRetailStore" partyId="employee36" roleTypeId="PACKER" fromDate="2000-01-01 00:00:00.0"/>
     <FacilityParty facilityId="MyRetailStore" partyId="employee37" roleTypeId="PACKER" fromDate="2000-01-01 00:00:00.0"/>
@@ -339,14 +351,7 @@ under the License.
     <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="DS-1000" lastPrice="9.0" supplierProductId="DS-1000_A" supplierProductName="Drop SP" availableFromDate="2005-01-01 00:00:00.000" canDropShip="Y"/>
     <ProductCategoryMember productCategoryId="200" productId="DS-1000" fromDate="2011-08-02 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1001" fromDate="2011-08-02 12:00:00.0"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
-    <Agreement agreementId="DS-1000-SALES" agreementTypeId="SALES_AGREEMENT" description="Agreement with DemoCustomer for drop ship" partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2011-08-02 12:00:00.0"/>
-    <AgreementItem agreementId="DS-1000-SALES" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
-    <AgreementProductAppl agreementId="DS-1000-SALES" agreementItemSeqId="00001" price="12" productId="DS-1000"/>
-    <Agreement agreementId="DS-1000-PURCH" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement with DemoSupplier" partyIdFrom="Company" partyIdTo="DemoSupplier" fromDate="2011-08-02 12:00:00.0"/>
-    <AgreementItem agreementId="DS-1000-PURCH" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
-    <AgreementProductAppl agreementId="DS-1000-PURCH" agreementItemSeqId="00001" price="8" productId="DS-1000"/>
-
+    
     <!-- test for the configurable product type which is received into- and shipped from inventory-->
     <Product productId="CFSV1001" productTypeId="AGGREGATED_SERVICE" primaryProductCategoryId="SERV-001" productName="Scanning book service" internalName="The configurable product type which is received to- and shipped from inventory" description="The configurable product type which is received to- and shipped from inventory for demonstration use" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-12-02 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="SCAN_TYPE" productTypeId="SERVICE_PRODUCT" productName="Scanning Type" internalName="Scanning Type" description="Scanning Type" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
@@ -1425,5 +1430,123 @@ under the License.
     <PartyRole partyId="admin" roleTypeId="IMAGEAPPROVER"/>
     <!-- Product store group management demo -->
     <ProductStoreGroupType productStoreGroupTypeId="PSGT_AREA" description="Area cover"/>
+
+    <!-- supplier pricing -->
+    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-1000" lastPrice="7.5" supplierProductId="GZ-1000-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-1001" lastPrice="12.99" supplierProductId="GZ-1001-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-1005" lastPrice="1399.5" supplierProductId="GZ-1005-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-1006" lastPrice="2.99" supplierProductId="GZ-1006-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-2002" lastPrice="24.0" supplierProductId="GZ-2002-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-2644" lastPrice="24.0" supplierProductId="GZ-2644-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-5005" lastPrice="24.0" supplierProductId="GZ-5005-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-7000" lastPrice="499.99" supplierProductId="GZ-7000-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-8544" lastPrice="135.0" supplierProductId="GZ-8544-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-9290" lastPrice="49.99" supplierProductId="GZ-9290-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="WG-1111" lastPrice="30.0" supplierProductId="WG-1111-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="WG-5569" lastPrice="30.0" supplierProductId="WG-5569-0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="WG-9943" lastPrice="275.0" supplierProductId="WG-9943-0" availableFromDate="2005-01-01 00:00:00.000"/>
+
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-1000" lastPrice="6.75" supplierProductName="" supplierProductId="GZ-1000-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-1001" lastPrice="11.69" supplierProductName="" supplierProductId="GZ-1001-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-1005" lastPrice="1259.55" supplierProductName="" supplierProductId="GZ-1005-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-1006" lastPrice="2.69" supplierProductName="" supplierProductId="GZ-1006-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-2002" lastPrice="21.6" supplierProductName="" supplierProductId="GZ-2002-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-2644" lastPrice="21.6" supplierProductName="" supplierProductId="GZ-2644-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-5005" lastPrice="21.6" supplierProductName="" supplierProductId="GZ-5005-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-7000" lastPrice="449.99" supplierProductName="" supplierProductId="GZ-7000-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-8544" lastPrice="121.5" supplierProductName="" supplierProductId="GZ-8544-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="GZ-9290" lastPrice="44.99" supplierProductName="" supplierProductId="GZ-9290-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="WG-1111" lastPrice="27.0" supplierProductName="" supplierProductId="WG-1111-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="WG-5569" lastPrice="27.0" supplierProductName="" supplierProductId="WG-5569-5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="5" currencyUomId="USD" productId="WG-9943" lastPrice="247.5" supplierProductName="" supplierProductId="WG-9943-5" availableFromDate="2005-01-01 00:00:00.000"/>
+
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-1000" lastPrice="5.65" supplierProductName="" supplierProductId="GZ-1000-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-1001" lastPrice="9.75" supplierProductName="" supplierProductId="GZ-1001-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-1005" lastPrice="1049.65" supplierProductName="" supplierProductId="GZ-1005-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-1006" lastPrice="2.25" supplierProductName="" supplierProductId="GZ-1006-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-2002" lastPrice="18.0" supplierProductName="" supplierProductId="GZ-2002-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-2644" lastPrice="18.0" supplierProductName="" supplierProductId="GZ-2644-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-5005" lastPrice="18.0" supplierProductName="" supplierProductId="GZ-5005-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-7000" lastPrice="374.00" supplierProductName="" supplierProductId="GZ-7000-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-8544" lastPrice="101.25" supplierProductName="" supplierProductId="GZ-8544-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="GZ-9290" lastPrice="37.5" supplierProductName="" supplierProductId="GZ-9290-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="WG-1111" lastPrice="22.5" supplierProductName="" supplierProductId="WG-1111-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="WG-5569" lastPrice="22.5" supplierProductName="" supplierProductId="WG-5569-25" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="25" currencyUomId="USD" productId="WG-9943" lastPrice="206.25" supplierProductName="" supplierProductId="WG-9943-25" availableFromDate="2005-01-01 00:00:00.000"/>
+
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-1000" supplierProductName="Bulk Tiny Gizmo" supplierProductId="BKGZ-1000" lastPrice="3.75" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-1001" supplierProductName="Bulk Nan Gizmo" supplierProductId="BKGZ-1001" lastPrice="6.49" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-1005" supplierProductName="Bulk .NIT Gizmo" supplierProductId="BKGZ-1005" lastPrice="699.75" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-1006" supplierProductName="Bulk Open Gizmo" supplierProductId="BKGZ-1006" lastPrice="1.4975" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-2002" supplierProductName="Bulk Square Gizmo" supplierProductId="BKGZ-2002" lastPrice="12.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-2644" supplierProductName="Bulk Round Gizmo" supplierProductId="BKGZ-2644" lastPrice="12.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-5005" supplierProductName="Bulk Purple Gizmo" supplierProductId="BKGZ-5005" lastPrice="12.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-7000" supplierProductName="Bulk Massive Gizmo" supplierProductId="BKGZ-7000" lastPrice="249.99" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-8544" supplierProductName="Bulk Big Gizmo" supplierProductId="BKGZ-8544" lastPrice="67.5" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="GZ-9290" supplierProductName="Bulk His/Her Gizmo" supplierProductId="BKGZ-9290" lastPrice="24.99" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="WG-1111" supplierProductName="Bulk Micro Chrome Widget" supplierProductId="BKWG-1111" lastPrice="15.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="WG-5569" supplierProductName="Bulk Tiny Chrome Widget" supplierProductId="BKWG-5569" lastPrice="15.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="BigSupplier" minimumOrderQuantity="500" currencyUomId="USD" productId="WG-9943" supplierProductName="Bulk Giant Widget" supplierProductId="BKWG-9943" lastPrice="137.5" availableFromDate="2005-01-01 00:00:00.000"/>
+
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-1000" supplierProductName="US Tiny Gizmo" supplierProductId="USGZ-1000" lastPrice="6.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-1001" supplierProductName="US Nan Gizmo" supplierProductId="USGZ-1001" lastPrice="10.40" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-1005" supplierProductName="US .NIT Gizmo" supplierProductId="USGZ-1005" lastPrice="1119.6" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-1006" supplierProductName="US Open Gizmo" supplierProductId="USGZ-1006" lastPrice="2.396" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-2002" supplierProductName="US Square Gizmo" supplierProductId="USGZ-2002" lastPrice="19.2" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-2644" supplierProductName="US Round Gizmo" supplierProductId="USGZ-2644" lastPrice="19.2" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-5005" supplierProductName="US Purple Gizmo" supplierProductId="USGZ-5005" lastPrice="19.2" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-7000" supplierProductName="US Massive Gizmo" supplierProductId="USGZ-7000" lastPrice="400.00" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-8544" supplierProductName="US Big Gizmo" supplierProductId="USGZ-8544" lastPrice="108.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-9290" supplierProductName="US His/Her Gizmo" supplierProductId="USGZ-9290" lastPrice="40.00" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="WG-1111" supplierProductName="US Micro Chrome Widget" supplierProductId="USWG-1111" lastPrice="24.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="WG-5569" supplierProductName="US Tiny Chrome Widget" supplierProductId="USWG-5569" lastPrice="24.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="WG-9943" supplierProductName="US Giant Widget" supplierProductId="USWG-9943" lastPrice="220.0" availableFromDate="2005-01-01 00:00:00.000"/>
+
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-1000" supplierProductName="US Tiny Gizmo" supplierProductId="US1-GZ-1000" lastPrice="4.6" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-1001" supplierProductName="US Nan Gizmo" supplierProductId="US1-GZ-1001" lastPrice="7.23" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-1005" supplierProductName="US .NIT Gizmo" supplierProductId="US1-GZ-1005" lastPrice="771.75" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-1006" supplierProductName="US Open Gizmo" supplierProductId="US1-GZ-1006" lastPrice="1.75" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-2002" supplierProductName="US Square Gizmo" supplierProductId="US1-GZ-2002" lastPrice="16.52" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-2644" supplierProductName="US Round Gizmo" supplierProductId="US1-GZ-2644" lastPrice="16.52" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-5005" supplierProductName="US Purple Gizmo" supplierProductId="US1-GZ-5005" lastPrice="16.52" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-7000" supplierProductName="US Massive Gizmo" supplierProductId="US1-GZ-7000" lastPrice="340.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-8544" supplierProductName="US Big Gizmo" supplierProductId="US1-GZ-8544" lastPrice="85.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="GZ-9290" supplierProductName="US His/Her Gizmo" supplierProductId="US1-GZ-9290" lastPrice="34.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="WG-1111" supplierProductName="US Micro Chrome Widget" supplierProductId="US1-WG-1111" lastPrice="20.00" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="WG-5569" supplierProductName="US Tiny Chrome Widget" supplierProductId="US1-WG-5569" lastPrice="20.00" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="10" currencyUomId="USD" productId="WG-9943" supplierProductName="US Giant Widget" supplierProductId="US1-WG-9943" lastPrice="180.0" availableFromDate="2005-01-01 00:00:00.000"/>
+
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-1000" supplierProductName="EU Tiny Gizmo" supplierProductId="EU-GZ-1000" lastPrice="3.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-1001" supplierProductName="EU Nan Gizmo" supplierProductId="EU-GZ-1001" lastPrice="5.20" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-1005" supplierProductName="EU .NIT Gizmo" supplierProductId="EU-GZ-1005" lastPrice="559.8" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-1006" supplierProductName="EU Open Gizmo" supplierProductId="EU-GZ-1006" lastPrice="1.198" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-2002" supplierProductName="EU Square Gizmo" supplierProductId="EU-GZ-2002" lastPrice="9.6" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-2644" supplierProductName="EU Round Gizmo" supplierProductId="EU-GZ-2644" lastPrice="9.6" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-5005" supplierProductName="EU Purple Gizmo" supplierProductId="EU-GZ-5005" lastPrice="9.6" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-7000" supplierProductName="EU Massive Gizmo" supplierProductId="EU-GZ-7000" lastPrice="200.00" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-8544" supplierProductName="EU Big Gizmo" supplierProductId="EU-GZ-8544" lastPrice="54.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="GZ-9290" supplierProductName="EU His/Her Gizmo" supplierProductId="EU-GZ-9290" lastPrice="20.00" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="WG-1111" supplierProductName="EU Micro Chrome Widget" supplierProductId="EU-WG-1111" lastPrice="12.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="WG-5569" supplierProductName="EU Tiny Chrome Widget" supplierProductId="EU-WG-5569" lastPrice="12.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="WG-9943" supplierProductName="EU Giant Widget" supplierProductId="EU-WG-9943" lastPrice="110.0" availableFromDate="2005-01-01 00:00:00.000"/>
+
+    <!-- supplier specific feature descriptions -->
+    <SupplierProductFeature productFeatureId="8000" partyId="EuroSupplier" description="EURO-LGPL"/>
+    <SupplierProductFeature productFeatureId="8001" partyId="EuroSupplier" description="EURO-GPL"/>
+    <SupplierProductFeature productFeatureId="8002" partyId="EuroSupplier" description="EURO-BSD"/>
+    <SupplierProductFeature productFeatureId="8003" partyId="EuroSupplier" description="EURO-MIT"/>
+    <SupplierProductFeature productFeatureId="9000" partyId="EuroSupplier" description="Noir"/>
+    <SupplierProductFeature productFeatureId="9001" partyId="EuroSupplier" description="Argent"/>
+    <SupplierProductFeature productFeatureId="9002" partyId="EuroSupplier" description="a trois roues"/>
+    <SupplierProductFeature productFeatureId="9003" partyId="EuroSupplier" description="a quatre roues"/>
+
+    <SupplierProductFeature productFeatureId="8000" partyId="BigSupplier" description="BIG-LGP"/>
+    <SupplierProductFeature productFeatureId="8001" partyId="BigSupplier" description="BIG-GPL"/>
+    <SupplierProductFeature productFeatureId="8002" partyId="BigSupplier" description="BIG-BSD"/>
+    <SupplierProductFeature productFeatureId="8003" partyId="BigSupplier" description="BIG-MIT"/>
+    <SupplierProductFeature productFeatureId="9000" partyId="BigSupplier" description="BIG-BLK"/>
+    <SupplierProductFeature productFeatureId="9001" partyId="BigSupplier" description="BIG-SIL"/>
+    <SupplierProductFeature productFeatureId="9002" partyId="BigSupplier" description="BIG-3WL"/>
+    <SupplierProductFeature productFeatureId="9003" partyId="BigSupplier" description="BIG-4WL"/>
 
 </entity-engine-xml>
