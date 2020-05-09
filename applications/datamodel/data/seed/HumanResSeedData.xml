@@ -81,6 +81,7 @@ under the License.
     <EmplPositionType description="Subject Matter Expert" hasTable="N" emplPositionTypeId="EXPERT"/>
     <EmplPositionType description="Tester" hasTable="N" emplPositionTypeId="TESTER"/>
     <EmplPositionType description="System Administrator" hasTable="N" emplPositionTypeId="SYS_ADMIN"/>
+    <EmplPositionType description="Worker" hasTable="N" emplPositionTypeId="WORKER"/>
 
     <ResponsibilityType description="Finance Management" hasTable="N" responsibilityTypeId="FIN_MGMT"/>
     <ResponsibilityType description="Inventory Management" hasTable="N" responsibilityTypeId="INV_MGMT"/>
