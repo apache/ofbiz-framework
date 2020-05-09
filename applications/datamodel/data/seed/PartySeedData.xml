@@ -178,6 +178,7 @@ under the License.
     <!-- External Organisation roles -->
     <RoleType roleTypeId="CUSTOMER" description="Customer" hasTable="N" parentTypeId="EXTERNAL_PARTY"/>
     <RoleType roleTypeId="SUPPLIER" description="Supplier" hasTable="N" parentTypeId="EXTERNAL_PARTY"/>
+    <RoleType roleTypeId="VENDOR" description="Vendor" hasTable="N"/>
 
     <!-- Customer roles -->
     <RoleType roleTypeId="BILL_TO_CUSTOMER" description="Bill-To Customer" hasTable="N" parentTypeId="CUSTOMER"/>
@@ -210,6 +211,7 @@ under the License.
     <RoleType roleTypeId="SHIP_FROM_VENDOR" description="Ship-From Vendor" hasTable="N" parentTypeId="VENDOR"/>
 
     <!-- CRM/SFA roles -->
+    <RoleType roleTypeId="ACCOUNT" description="Contact" hasTable="N" parentTypeId="SFA_ROLE"/>
     <RoleType roleTypeId="CONTACT" description="Contact" hasTable="N" parentTypeId="SFA_ROLE"/>
     <RoleType roleTypeId="LEAD" description="Lead" hasTable="N" parentTypeId="SFA_ROLE"/>
     <RoleType roleTypeId="PROSPECT" description="Prospect" hasTable="N" parentTypeId="SFA_ROLE"/>
@@ -235,7 +237,6 @@ under the License.
     <RoleType description="Request Respondent" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_RESPOND"/>
     <RoleType description="Shareholder" hasTable="N" roleTypeId="SHAREHOLDER"/>
     <RoleType description="Subscriber" hasTable="N" roleTypeId="SUBSCRIBER"/>
-    <RoleType description="Vendor" hasTable="N" roleTypeId="VENDOR"/>
     <RoleType description="Visitor" hasTable="N" roleTypeId="VISITOR"/>
     <RoleType description="Web Master" hasTable="N" roleTypeId="WEB_MASTER"/>
     <RoleType description="Workflow" hasTable="N" roleTypeId="WORKFLOW_ROLE"/>
