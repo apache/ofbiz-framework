@@ -2606,32 +2606,30 @@ under the License.
 
     <!-- Budget Demo Data -->
     <Budget budgetId="DemoBudget001" budgetTypeId="CAPITAL_BUDGET" customTimePeriodId="6015" comments="Demo for budget 001"/>
-    <Budget budgetId="DemoBudget002" budgetTypeId="OPERATING_BUDGET" customTimePeriodId="6010" comments="Demo for budget 002"/>
-
     <BudgetStatus budgetId="DemoBudget001" statusId="BG_CREATED" statusDate="2009-01-09 00:00:00.000"/>
     <BudgetStatus budgetId="DemoBudget001" statusId="BG_REVIEWED" statusDate="2009-01-10 00:00:00.000"/>
-    <BudgetStatus budgetId="DemoBudget002" statusId="BG_CREATED" statusDate="2009-01-09 00:00:00.000"/>
-    <BudgetStatus budgetId="DemoBudget002" statusId="BG_REVIEWED" statusDate="2009-01-10 00:00:00.000"/>
-    <BudgetStatus budgetId="DemoBudget002" statusId="BG_APPROVED" statusDate="2009-01-11 00:00:00.000"/>
-
     <BudgetRole budgetId="DemoBudget001" partyId="ACCOUNTING" roleTypeId="DEPARTMENT"/>
     <BudgetRole budgetId="DemoBudget001" partyId="employee1" roleTypeId="BUDGET_RVR"/>
     <BudgetRole budgetId="DemoBudget001" partyId="employee1" roleTypeId="BUDGET_APPRV"/>
-    <BudgetRole budgetId="DemoBudget002" partyId="MARKETING" roleTypeId="DEPARTMENT"/>
-    <BudgetRole budgetId="DemoBudget002" partyId="employee1" roleTypeId="BUDGET_RVR"/>
-    <BudgetRole budgetId="DemoBudget002" partyId="employee1" roleTypeId="BUDGET_APPRV"/>
-
     <BudgetItem budgetId="DemoBudget001" budgetItemSeqId="00001" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="500" purpose="Demo item 1 for Demo budget 001" justification="For Demo budget 001"/>
-    <BudgetItem budgetId="DemoBudget002" budgetItemSeqId="00001" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="1000" purpose="Demo item 1 for Demo budget 002" justification="For Demo budget 002"/>
-    <BudgetItem budgetId="DemoBudget002" budgetItemSeqId="00002" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="1500" purpose="Demo item 2 for Demo budget 002" justification="For Demo budget 002"/>
-
     <BudgetReview budgetId="DemoBudget001" budgetReviewId="00001" partyId="ACCOUNTING" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
     <BudgetReview budgetId="DemoBudget001" budgetReviewId="00002" partyId="ACCOUNTING" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
     <BudgetReview budgetId="DemoBudget001" budgetReviewId="00003" partyId="ACCOUNTING" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
+
+    <Budget budgetId="DemoBudget002" budgetTypeId="OPERATING_BUDGET" customTimePeriodId="6010" comments="Demo for budget 002"/>
+    <BudgetStatus budgetId="DemoBudget002" statusId="BG_CREATED" statusDate="2009-01-09 00:00:00.000"/>
+    <BudgetStatus budgetId="DemoBudget002" statusId="BG_REVIEWED" statusDate="2009-01-10 00:00:00.000"/>
+    <BudgetStatus budgetId="DemoBudget002" statusId="BG_APPROVED" statusDate="2009-01-11 00:00:00.000"/>
+    <BudgetRole budgetId="DemoBudget002" partyId="MARKETING" roleTypeId="DEPARTMENT"/>
+    <BudgetRole budgetId="DemoBudget002" partyId="employee1" roleTypeId="BUDGET_RVR"/>
+    <BudgetRole budgetId="DemoBudget002" partyId="employee1" roleTypeId="BUDGET_APPRV"/>
+    <BudgetItem budgetId="DemoBudget002" budgetItemSeqId="00001" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="1000" purpose="Demo item 1 for Demo budget 002" justification="For Demo budget 002"/>
+    <BudgetItem budgetId="DemoBudget002" budgetItemSeqId="00002" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="1500" purpose="Demo item 2 for Demo budget 002" justification="For Demo budget 002"/>
     <BudgetReview budgetId="DemoBudget002" budgetReviewId="00001" partyId="employee1" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
     <BudgetReview budgetId="DemoBudget002" budgetReviewId="00002" partyId="employee1" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
     <BudgetReview budgetId="DemoBudget002" budgetReviewId="00003" partyId="employee1" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
     <BudgetReview budgetId="DemoBudget002" budgetReviewId="00004" partyId="employee1" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
+    
 
     <!-- Standard Costing Demo Data -->
     <!-- This is an example of a fixed asset (a machine or a workcenter) with standard costing information -->
