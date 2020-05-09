@@ -87,8 +87,12 @@ public class PartyHelper {
                     if (partyValue.getString("firstName") != null) {
                         result.append(", ");
                     }
+                    if (partyValue.getString("middleName") != null) {
+                        result.append(" ");
+                    }
                 }
                 result.append(UtilFormatOut.checkNull(partyValue.getString("firstName")));
+                result.append(UtilFormatOut.checkNull(partyValue.getString("middleName")));
             } else {
                 result.append(UtilFormatOut.ifNotEmpty(partyValue.getString("firstName"), "", " "));
                 result.append(UtilFormatOut.ifNotEmpty(partyValue.getString("middleName"), "", " "));
