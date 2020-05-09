@@ -35,14 +35,8 @@
     <property key="PartyRequiredFieldMissingCity">
         <value xml:lang="en">Required Field Missing : City.</value>
     </property>
-    <property key="PartyRequiredFieldMissingContactMechTypeId">
-        <value xml:lang="en">Required Field Missing : ContactMech Type Id.</value>
-    </property>
     <property key="PartyRequiredFieldMissingCurrentStatusId">
         <value xml:lang="en">Required Field Missing : Current Status Id.</value>
-    </property>
-    <property key="PartyRequiredFieldMissingPartyIdTo">
-        <value xml:lang="en">Required Field Missing : Party Id To.</value>
     </property>
     <property key="PartyRequiredFieldMissingPostalCode">
         <value xml:lang="en">Required Field Missing : Postal Code.</value>
