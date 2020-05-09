@@ -584,7 +584,7 @@ under the License.
                 <set field="buttonBarItem" value="ListAgreementItemSupplierProducts"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
-                <entity-and entity-name="SupplierProduct" list="agreementProducts">
+                <entity-and entity-name="AgreementProductAppl" list="agreementProducts">
                     <field-map field-name="agreementId" from-field="agreement.agreementId"/>
                     <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                     <order-by field-name="productId"/>
