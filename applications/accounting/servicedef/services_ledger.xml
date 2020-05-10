@@ -147,7 +147,12 @@ under the License.
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-
+    <service name="updateGlReconciliationLastModified" default-entity-name="GlReconciliation" engine="entity-auto" invoke="update" auth="true">
+        <description>Update Gl Reconciliation Last Modified</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <!-- GlReconciliationEntry services -->
     <service name="createGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="simple"
             location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createGlReconciliationEntry" auth="true">
         <description>Add an Entry to a GlReconciliation</description>
@@ -156,21 +161,18 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="updateGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="updateGlReconciliationEntry" auth="true">
+    <service name="updateGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="entity-auto" invoke="update" auth="true">
         <description>Update an Entry to a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="deleteGlReconciliationEntry" auth="true">
+    <service name="deleteGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove an Entry from a GlReconciliation</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-
-        <!-- AcctgTrans & Related -->
+    <!-- AcctgTrans & Related services -->
     <service name="completeAcctgTransEntries" default-entity-name="AcctgTrans" engine="simple"
             location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="completeAcctgTransEntries" auth="true">
         <description>Completes, if possible, the AcctgTransEntries using the mappings defined in the gl setup</description>

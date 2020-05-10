@@ -156,22 +156,6 @@ under the License.
         <!-- when changing entries, also update the last modified info for the GlReconciliation -->
         <call-simple-method method-name="updateGlReconciliationLastModified"/>
     </simple-method>
-    <simple-method method-name="updateGlReconciliationEntry" short-description="Update Entry To GlReconciliation">
-        <entity-one entity-name="GlReconciliationEntry" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-
-        <!-- when changing entries, also update the last modified info for the GlReconciliation -->
-        <call-simple-method method-name="updateGlReconciliationLastModified"/>
-    </simple-method>
-    <simple-method method-name="deleteGlReconciliationEntry" short-description="Remove Entry From GlReconciliation">
-        <entity-one entity-name="GlReconciliationEntry" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-
-        <!-- when changing entries, also update the last modified info for the GlReconciliation -->
-        <call-simple-method method-name="updateGlReconciliationLastModified"/>
-    </simple-method>
-
     <!-- ========== GL Posting Services ========== -->
     <simple-method method-name="completeAcctgTransEntries" short-description="Completes, if possible, the AcctgTransEntries using the mappings defined in the gl setup">
         <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
