@@ -2544,25 +2544,21 @@ under the License.
     <Agreement agreementId="DS-1000-PURCH" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement with DemoSupplier" partyIdFrom="Company" partyIdTo="DemoSupplier" fromDate="2011-08-02 12:00:00.0"/>
     <AgreementItem agreementId="DS-1000-PURCH" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
     <AgreementProductAppl agreementId="DS-1000-PURCH" agreementItemSeqId="00001" price="8" productId="DS-1000"/>
+    <!-- adding  applicable supplier products -->
+    <SupplierProduct partyId="DemoSupplier" agreementId="DS-1000-PURCH" agreementItemSeqId="00001" minimumOrderQuantity="0" currencyUomId="USD" productId="DS-1000" lastPrice="9.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" agreementId="DS-1000-PURCH" agreementItemSeqId="00001"  minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_A_COST" lastPrice="9.0" supplierProductId="MAT_A" supplierProductName="Material A" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" agreementId="DS-1000-PURCH" agreementItemSeqId="00001" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_B_COST" lastPrice="7.0" supplierProductId="MAT_B" supplierProductName="Material B" availableFromDate="2005-01-01 00:00:00.000"/>
+    
 
     <!-- The agreement AGR_TEST is a PURCHASE_AGREEMENT between the Company party and the DemoSupplier party (in the role of SUPPLIER)  -->
     <Agreement agreementId="AGR_TEST" partyIdFrom="Company" partyIdTo="DemoSupplier" roleTypeIdTo="SUPPLIER" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement for DemoSupplier"/>
-
     <!-- The agreementItem 10000 is an AGREEMENT_PRICING_PR(OGRAM, i.e. a price list) -->
-    <!-- We will need to add the 'currencyUomId' field to the AgreementItem entity to store the currency of the price list: -->
-    <AgreementItem agreementId="AGR_TEST" agreementItemSeqId="10000" currencyUomId="USD" agreementItemTypeId="AGREEMENT_PRICING_PR" agreementText="Price list in US Dollars"/>
-    <!-- <AgreementItem agreementId="AGR_TEST" agreementItemSeqId="10000" agreementItemTypeId="AGREEMENT_PRICING_PR" agreementText="Price list in EUR"/> -->
-    
-    <!-- Jacopo - based on my suggested changes, termDays would be the # of days and termValue would be the amount of discount, if any.  Does that make sense?
-        Also, I thought that all the terms of the agreement would apply to the order at the same time, so we would not have "Net 30" and "net 60" simultaneously. -->
-    <!--
-    <AgreementTerm agreementTermId="1000" termTypeId="FIN_PAYMENT_TERM" agreementId="AGR_TEST" termValue="30"/>
-    <AgreementTerm agreementTermId="1001" termTypeId="FIN_PAYMENT_TERM" agreementId="AGR_TEST" termValue="60"/>
-    -->
-    <AgreementTerm agreementTermId="1000" termTypeId="FIN_PAYMENT_TERM" agreementId="AGR_TEST" termDays="30"/>
-    <AgreementTerm agreementTermId="1001" termTypeId="FIN_PAYMENT_DISC" agreementId="AGR_TEST" termDays="10" termValue="2"/> <!-- a 2% discount for paying within 10 days -->
-    <AgreementTerm agreementTermId="1003" termTypeId="PURCH_VENDOR_ID" agreementId="AGR_TEST" textValue="OPEN-001"/>
-    <AgreementTerm agreementTermId="1004" termTypeId="PURCH_FREIGHT" agreementId="AGR_TEST" textValue="Shp via Open Express"/>
+    <AgreementItem agreementId="AGR_TEST" agreementItemSeqId="AGR_TEST_001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD" agreementText="Price list in US Dollars"/>
+    <AgreementItem agreementId="AGR_TEST" agreementItemSeqId="AGR_TEST_002" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="EUR" agreementText="Price list in EUR"/> -->
+    <AgreementTerm agreementId="AGR_TEST" agreementTermId="1000" termTypeId="FIN_PAYMENT_TERM" termDays="30"/>
+    <AgreementTerm agreementId="AGR_TEST" agreementTermId="1001" termTypeId="FIN_PAYMENT_DISC" termDays="10" termValue="2"/> <!-- a 2% discount for paying within 10 days -->
+    <AgreementTerm agreementId="AGR_TEST" agreementTermId="1003" termTypeId="PURCH_VENDOR_ID" textValue="OPEN-001"/>
+    <AgreementTerm agreementId="AGR_TEST" agreementTermId="1004" termTypeId="PURCH_FREIGHT" textValue="Shp via Open Express"/>
 
     <!-- an example of agreements with multiple payment terms -->
     <Agreement agreementId="1000" partyIdFrom="Company" partyIdTo="BigSupplier" roleTypeIdTo="SUPPLIER" agreementTypeId="PURCHASE_AGREEMENT" description="Purchasing Agreement with BigSupplier"/>
@@ -2705,9 +2701,6 @@ under the License.
     <!-- Cost information for the raw materials only (the ones for the finished good will be automatically computed by the costing algorithm): -->
     <CostComponent costComponentId="6000" costComponentTypeId="EST_STD_MAT_COST" productId="MAT_A_COST" fromDate="2005-12-31 00:01:00.0" costUomId="USD" cost="9"/>
     <CostComponent costComponentId="6001" costComponentTypeId="EST_STD_MAT_COST" productId="MAT_B_COST" fromDate="2005-12-31 00:01:00.0" costUomId="USD" cost="7"/>
-
-    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_A_COST" lastPrice="9.0" supplierProductId="MAT_A" supplierProductName="Material A" availableFromDate="2005-01-01 00:00:00.000"/>
-    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_B_COST" lastPrice="7.0" supplierProductId="MAT_B" supplierProductName="Material B" availableFromDate="2005-01-01 00:00:00.000"/>
 
     <!-- Bill of materials definition: -->
     <ProductAssoc productId="PROD_MANUF" productIdTo="MAT_A_COST" productAssocTypeId="MANUF_COMPONENT" fromDate="2005-12-31 00:01:00.0" sequenceNum="10" quantity="2.0"/>
