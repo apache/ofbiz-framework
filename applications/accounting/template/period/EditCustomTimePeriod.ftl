@@ -298,6 +298,11 @@ under the License.
           <input type="text" size='14' name='fromDate' />
           <span class="label">${uiLabelMap.CommonThruDate}</span>
           <input type="text" size='14' name='thruDate' />
+          <span class="label">${uiLabelMap.FormFieldTitle_isClosed}:</span>
+          <select name="isClosed">
+            <option value="N">${uiLabelMap.CommonN}</option>
+            <option value="Y">${uiLabelMap.CommonY}</option>
+          </select>
           <input type="submit" value="${uiLabelMap.CommonAdd}" />
         </div>
       </form>

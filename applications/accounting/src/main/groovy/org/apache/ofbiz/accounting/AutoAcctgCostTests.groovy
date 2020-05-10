@@ -19,7 +19,6 @@
 package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -38,7 +37,7 @@ class AutoAcctgCostTests extends OFBizTestCase {
         Map result = dispatcher.runSync('updateProductAverageCostOnReceiveInventory', serviceCtx)
         assert ServiceUtil.isSuccess(result)
 
-        GenericValue productAverageCost = EntityQuery.use(delegator).from('ProductAverageCost').filterByDate()
+        GenericValue productAverageCost = from('ProductAverageCost').filterByDate()
                                 .where('productId', 'TestProduct3', 'facilityId', 'DemoFacility1').queryFirst()
         assert productAverageCost
         assert productAverageCost.productAverageCostTypeId == 'SIMPLE_AVG_COST'
@@ -46,7 +45,7 @@ class AutoAcctgCostTests extends OFBizTestCase {
     }
 
     void testGetProductAverageCost() {
-        GenericValue inventoryItem = EntityQuery.use(delegator).from('InventoryItem')
+        GenericValue inventoryItem = from('InventoryItem')
                                             .where('inventoryItemId', '9999').queryOne()
         Map serviceCtx = [
                 inventoryItem: inventoryItem,

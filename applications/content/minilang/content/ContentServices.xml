@@ -248,23 +248,6 @@
 
         <field-to-result field="createBodyAssoc.contentId" result-name="contentId"/>
     </simple-method>
-    <simple-method method-name="updateEmailContent" short-description="Update Email Content">
-        <if-not-empty field="parameters.subjectDataResourceId">
-            <set from-field="parameters.subjectDataResourceId" field="updateSubjectEt.dataResourceId"/>
-            <set from-field="parameters.subject" field="updateSubjectEt.textData"/>
-            <call-service service-name="updateElectronicText" in-map-name="updateSubjectEt"/>
-        </if-not-empty>
-        <if-not-empty field="parameters.plainBodyDataResourceId">
-            <set from-field="parameters.plainBodyDataResourceId" field="updatePlainBodyEt.dataResourceId"/>
-            <set from-field="parameters.plainBody" field="updatePlainBodyEt.textData"/>
-            <call-service service-name="updateElectronicText" in-map-name="updatePlainBodyEt"/>
-        </if-not-empty>
-        <if-not-empty field="parameters.htmlBodyDataResourceId">
-            <set from-field="parameters.htmlBodyDataResourceId" field="updateHtmlBodyEt.dataResourceId"/>
-            <set from-field="parameters.htmlBody" field="updateHtmlBodyEt.textData"/>
-            <call-service service-name="updateElectronicText" in-map-name="updateHtmlBodyEt"/>
-        </if-not-empty>
-    </simple-method>
 
     <simple-method method-name="createDownloadContent" short-description="Create Download as Content">
         <set-service-fields service-name="createContent" map="parameters" to-map="createDownloadContent"/>

@@ -158,4 +158,8 @@ under the License.
         <action service="checkUpdateFixedAssetDepreciation" mode="sync"/>
     </eca>
 
+    <eca service="updateGlReconciliation" event="invoke">
+        <action service="setGlReconciliationStatus" mode="sync"/>
+    </eca>
+
 </service-eca>

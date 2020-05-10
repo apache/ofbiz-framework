@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,28 +15,35 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.product
+ */
+package org.apache.ofbiz.party
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class ProductFeatureTypeTests extends OFBizTestCase {
-    public ProductFeatureTypeTests(String name) {
+class PartyTests extends OFBizTestCase {
+    public PartyTests(String name) {
         super(name)
     }
 
-    void testCreateProductFeatureType() {
-        Map serviceCtx = [:]
-        serviceCtx.productFeatureTypeId = 'testProdFeat'
-        serviceCtx.description = 'Test Description'
-        serviceCtx.hasTable = 'N'
-        serviceCtx.userLogin = userLogin
-        Map result = dispatcher.runSync('createProductFeatureType', serviceCtx)
-        assert ServiceUtil.isSuccess(result)
+    void testCreatePartyPostalAddress() {
+        Map serviceCtx = [
+                contactMechId: 'TestPostalAddress',
+                partyId: 'TestCustomer',
+                toName: 'Test Address',
+                address1: '2004 Factory Blvd',
+                city: 'City of Industry',
+                countryGeoId: 'USA',
+                stateProvinceGeoId: 'CA',
+                postalCode: '90000',
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync("createPartyPostalAddress", serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue productFeatureType = from('ProductFeatureType').where('productFeatureTypeId', 'testProdFeat').queryOne()
-        assert productFeatureType.productFeatureTypeId == 'testProdFeat'
+        GenericValue postalAddress = from("PostalAddress").where('contactMechId', serviceResult.contactMechId).queryOne()
+        assert postalAddress != null
+        postalAddress.city = 'City of Industry'
     }
 }
