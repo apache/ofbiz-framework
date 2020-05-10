@@ -444,6 +444,7 @@ under the License.
     <Party partyId="employee28" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee28" lastName="ProcurementBuyer" firstName="DemoEmployee" middleName="28"/>
     <PartyRole partyId="employee28" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee28" roleTypeId="BUYER"/>
     <PartyRole partyId="employee28" roleTypeId="_NA_"/>
     <PartyStatus partyId="employee28" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee28" partyId="employee28" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -974,10 +975,10 @@ under the License.
     <PartyContactMechPurpose partyId="DemoSupplier" contactMechId="SUPPLIER_ADDRESS_1" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoSupplier" contactMechId="SUPPLIER_ADDRESS_1" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoSupplier" contactMechId="SUPPLIER_ADDRESS_1" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <UserLogin userLoginId="DemoSupplier" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="DemoSupplier"/>
     <PartyIdentificationType partyIdentificationTypeId="CARD_ID" description="Person card identification number"/>
     <PartyIdentificationType partyIdentificationTypeId="SIRET" description="French company identification number (SIRET)"/>
     <PartyIdentification partyId="DemoSupplier" partyIdentificationTypeId="SIRET" idValue="1234 5678 90123"/>
+    <UserLogin userLoginId="DemoSupplier" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="DemoSupplier"/>
 
     <!-- Party partyId="AcctBuyer" -->
     <Party partyId="AcctBuyer" partyTypeId="PERSON"/>
