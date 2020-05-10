@@ -201,7 +201,6 @@ under the License.
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="isPosted" default-value="N"/>
     </service>
     <service name="deleteAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a AcctgTrans record</description>
@@ -212,7 +211,6 @@ under the License.
     <service name="checkAcctgTransPosted" default-entity-name="AcctgTrans" engine="simple"
         location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="checkAcctgTransPosted" auth="true">
         <description>Check AcctgTrans posted</description>
-        <permission-service service-name="acctgTransactionPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="interfaceAcctgTransEntry" default-entity-name="AcctgTransEntry" engine="interface" location="" invoke="">
