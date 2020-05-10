@@ -19,7 +19,6 @@
 package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -36,7 +35,7 @@ class AutoAcctgBudgetTests extends OFBizTestCase {
         Map result = dispatcher.runSync('createBudget', serviceCtx)
         assert ServiceUtil.isSuccess(result)
 
-        GenericValue budget = EntityQuery.use(delegator).from('Budget').where(result).queryOne()
+        GenericValue budget = from('Budget').where(result).queryOne()
         assert budget
         assert budget.budgetTypeId == 'CAPITAL_BUDGET'
         assert budget.comments == 'Capital Budget'
@@ -49,7 +48,7 @@ class AutoAcctgBudgetTests extends OFBizTestCase {
         serviceCtx.userLogin = userLogin
         Map result = dispatcher.runSync('updateBudgetStatus', serviceCtx)
 
-        List<GenericValue> budgetStatuses = EntityQuery.use(delegator).from('BudgetStatus').where('budgetId', '9999').orderBy('-statusDate').queryList()
+        List<GenericValue> budgetStatuses = from('BudgetStatus').where('budgetId', '9999').orderBy('-statusDate').queryList()
         assert ! budgetStatuses?.isEmpty()
         assert budgetStatuses[0].statusId == 'BG_APPROVED'
     }

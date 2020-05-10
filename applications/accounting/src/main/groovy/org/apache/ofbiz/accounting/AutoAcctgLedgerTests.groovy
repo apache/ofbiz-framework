@@ -20,7 +20,6 @@ package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -38,7 +37,7 @@ class AutoAcctgLedgerTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createAcctgTrans', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue acctgTrans = EntityQuery.use(delegator).from('AcctgTrans').where('acctgTransId', serviceResult.acctgTransId).queryOne()
+        GenericValue acctgTrans = from('AcctgTrans').where('acctgTransId', serviceResult.acctgTransId).queryOne()
         assert acctgTrans.acctgTransId == serviceResult.acctgTransId
         assert acctgTrans.acctgTransTypeId == 'CREDIT_MEMO'
     }
@@ -50,7 +49,7 @@ class AutoAcctgLedgerTests extends OFBizTestCase {
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createAcctgTransEntry', serviceCtx)
-        GenericValue acctgTransEntry = EntityQuery.use(delegator).from('AcctgTransEntry').where('acctgTransId', '1000', 'acctgTransEntrySeqId', serviceResult.acctgTransEntrySeqId).queryOne()
+        GenericValue acctgTransEntry = from('AcctgTransEntry').where('acctgTransId', '1000', 'acctgTransEntrySeqId', serviceResult.acctgTransEntrySeqId).queryOne()
         assert acctgTransEntry != null
     }
 }

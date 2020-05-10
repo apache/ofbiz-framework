@@ -19,7 +19,6 @@
 package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -36,7 +35,7 @@ class AutoAcctgAgreementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('expireAgreement', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue agreement = EntityQuery.use(delegator).from('Agreement')
+        GenericValue agreement = from('Agreement')
                 .where('agreementId', '1000')
                 .filterByDate()
                 .queryOne()
@@ -53,7 +52,7 @@ class AutoAcctgAgreementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('copyAgreement', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue agreement = EntityQuery.use(delegator).from('Agreement')
+        GenericValue agreement = from('Agreement')
                 .where('agreementId', serviceResult.agreementId)
                 .queryOne()
         List<GenericValue> agreementItems = agreement.getRelated("AgreementItem", null, null, false)

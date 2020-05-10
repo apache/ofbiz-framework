@@ -18,7 +18,6 @@
  */
 package org.apache.ofbiz.order
 
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 

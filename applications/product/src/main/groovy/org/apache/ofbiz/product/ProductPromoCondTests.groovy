@@ -20,9 +20,7 @@ package org.apache.ofbiz.product
 
 import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
@@ -220,7 +218,7 @@ class ProductPromoCondTests extends OFBizTestCase {
     void testCondGeoIdPromo() {
         ShoppingCart cart = loadOrder("DEMO10090")
         cart.setShippingContactMechId(0, "9200")
-        GenericValue productPromoCond = EntityQuery.use(delegator).from("ProductPromoCond").where("productPromoId", "9022", "productPromoRuleId", "01", "productPromoCondSeqId", "01").queryOne()
+        GenericValue productPromoCond = from("ProductPromoCond").where("productPromoId", "9022", "productPromoRuleId", "01", "productPromoCondSeqId", "01").queryOne()
 
         // call service promo
         Map<String, Object> serviceContext = [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), productPromoCond: productPromoCond]

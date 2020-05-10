@@ -20,7 +20,6 @@ package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -41,7 +40,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createPayment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue payment = EntityQuery.use(delegator).from('Payment').where('paymentId', serviceResult.paymentId).queryOne()
+        GenericValue payment = from('Payment').where('paymentId', serviceResult.paymentId).queryOne()
         assert payment.paymentTypeId == 'CUSTOMER_PAYMENT'
         assert payment.paymentMethodTypeId == 'COMPANY_CHECK'
     }
@@ -53,7 +52,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('setPaymentStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue payment = EntityQuery.use(delegator).from('Payment').where('paymentId', '1000').queryOne()
+        GenericValue payment = from('Payment').where('paymentId', '1000').queryOne()
         assert payment
         assert serviceResult.oldStatusId == 'PAYMENT_NOT_AUTH'
     }
@@ -64,7 +63,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('quickSendPayment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue payment = EntityQuery.use(delegator).from('Payment').where('paymentId', '1001').queryOne()
+        GenericValue payment = from('Payment').where('paymentId', '1001').queryOne()
         assert payment
         assert payment.statusId == 'PMNT_SENT'
     }
@@ -87,7 +86,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPaymentContent', serviceCtx)
-        GenericValue paymentContent = EntityQuery.use(delegator).from('PaymentContent').where(paymentId: '1006', paymentContentTypeId: 'COMMENTS', contentId: '1006').filterByDate().queryFirst()
+        GenericValue paymentContent = from('PaymentContent').where(paymentId: '1006', paymentContentTypeId: 'COMMENTS', contentId: '1006').filterByDate().queryFirst()
         assert paymentContent
     }
 }
