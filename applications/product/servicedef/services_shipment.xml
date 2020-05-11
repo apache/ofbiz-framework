@@ -164,12 +164,10 @@ under the License.
         <override name="primaryReturnId" optional="false"/>
     </service>
 
-    <service name="createShipment" default-entity-name="Shipment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipment" auth="true">
+    <service name="createShipment" default-entity-name="Shipment" engine="entity-auto" invoke="create" auth="true">
         <description>Create Shipment</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="OUT" optional="false"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdDate"/>
             <exclude field-name="createdByUserLogin"/>

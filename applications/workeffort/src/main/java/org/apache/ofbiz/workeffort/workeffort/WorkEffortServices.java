@@ -1107,4 +1107,185 @@ public class WorkEffortServices {
         result.put("workEfforts", resultList);
         return result;
     }
+    public static Map<String, Object> checkAndCreateWorkEffort(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        Map<String, Object> serviceContext = new HashMap<>();
+        Map<String, Object> serviceResult = new HashMap<>();
+        String shipmentId = (String) context.get("shipmentId");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        try {
+            //INFO: Don't use cache here, need to store value with update workEffortId's
+            GenericValue shipment  = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
+            String shipmentTypeId = shipment.getString("shipmentTypeId");
+            if (UtilValidate.isNotEmpty(shipment.get("estimatedShipDate"))) {
+                serviceContext.clear();
+                serviceContext.put("workEffortName", "Shipment #" + shipmentId + " " + shipment.getString("primaryOrderId") +" Ship");
+                if ("OUTGOING_SHIPMENT".equals(shipmentTypeId) || "SALES_SHIPMENT".equals(shipmentTypeId)
+                        || "PURCHASE_RETURN".equals(shipmentTypeId)) {
+                    serviceContext.put("workEffortTypeId", "SHIPMENT_OUTBOUND");
+                    serviceContext.put("userLogin", userLogin);
+                    serviceContext.put("currentStatusId", "CAL_TENTATIVE");
+                    serviceContext.put("workEffortPurposeTypeId", "WEPT_WAREHOUSING");
+                    serviceContext.put("estimatedStartDate", shipment.getTimestamp("estimatedShipDate"));
+                    serviceContext.put("estimatedCompletionDate", shipment.getTimestamp("estimatedShipDate"));
+                    serviceContext.put("facilityId", shipment.getString("originFacilityId"));
+                    serviceContext.put("quickAssignPartyId", userLogin.getString("partyId"));
+                    serviceResult = dispatcher.runSync("createWorkEffort", serviceContext);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                    shipment.put("estimatedShipWorkEffId", serviceResult.get("workEffortId"));
+                    if (UtilValidate.isNotEmpty(shipment.getString("partyIdFrom"))) {
+                        serviceContext.clear();
+                        serviceContext.put("userLogin", userLogin);
+                        serviceContext.put("workEffortId", serviceResult.get("workEffortId"));
+                        serviceContext.put("partyId", shipment.getString("partyIdFrom"));
+                        serviceContext.put("roleTypeId", "CAL_ATTENDEE");
+                        serviceContext.put("statusId", "CAL_SENT");
+                        serviceResult = dispatcher.runSync("assignPartyToWorkEffort", serviceContext);
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
+                    }
+                }
+            }
+            if (UtilValidate.isNotEmpty(shipment.get("estimatedArrivalDate"))) {
+                serviceContext.clear();
+                serviceContext.put("workEffortName", "Shipment #" + shipmentId + " " + shipment.getString("primaryOrderId") +" Arrival");
+                if ("INCOMING_SHIPMENT".equals(shipmentTypeId) || "PURCHASE_SHIPMENT".equals(shipmentTypeId)
+                        || "SALES_RETURN".equals(shipmentTypeId)) {
+                    serviceContext.put("userLogin", userLogin);
+                    serviceContext.put("workEffortTypeId", "SHIPMENT_INBOUND");
+                    serviceContext.put("currentStatusId", "CAL_TENTATIVE");
+                    serviceContext.put("workEffortPurposeTypeId", "WEPT_WAREHOUSING");
+                    serviceContext.put("estimatedStartDate", shipment.getTimestamp("estimatedArrivalDate"));
+                    serviceContext.put("estimatedCompletionDate", shipment.getTimestamp("estimatedArrivalDate"));
+                    serviceContext.put("facilityId", shipment.getString("destinationFacilityId"));
+                    serviceContext.put("quickAssignPartyId", userLogin.getString("partyId"));
+                    serviceResult = dispatcher.runSync("createWorkEffort", serviceContext);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                    shipment.put("estimatedArrivalWorkEffId", serviceResult.get("workEffortId"));
+                    if (UtilValidate.isNotEmpty(shipment.getString("partyIdTo"))) {
+                        serviceContext.clear();
+                        serviceContext.put("userLogin", userLogin);
+                        serviceContext.put("workEffortId", serviceResult.get("workEffortId"));
+                        serviceContext.put("partyId", shipment.getString("partyIdTo"));
+                        serviceContext.put("roleTypeId", "CAL_ATTENDEE");
+                        serviceContext.put("statusId", "CAL_SENT");
+                        serviceResult = dispatcher.runSync("assignPartyToWorkEffort", serviceContext);
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
+                    }
+                }
+            }
+            shipment.store();
+        } catch (GenericServiceException | GenericEntityException e) {
+            Debug.logError(e, MODULE);
+            ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
+    public static Map<String, Object> checkAndUpdateWorkEffort(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        Map<String, Object> serviceContext = new HashMap<>();
+        Map<String, Object> serviceResult = new HashMap<>();
+        String shipmentId = (String) context.get("shipmentId");
+        String statusId = (String) context.get("statusId");
+        String partyIdFrom = (String) context.get("partyIdFrom");
+        String partyIdTo = (String) context.get("partyIdTo");
+        Timestamp estShipDate = (Timestamp) context.get("estimatedShipDate");
+        String originFacilityId = (String) context.get("originFacilityId");
+        Timestamp estArrivalDate = (Timestamp) context.get("estimatedArrivalDate");
+        String destFacilityId = (String) context.get("destinationFacilityId");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        try {
+            GenericValue shipment  = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
+            GenericValue estShipWorkEff  = EntityQuery.use(delegator).from("WorkEffort")
+                    .where("workEffortId", shipment.getString("estimatedShipWorkEffId")).queryOne();
+            GenericValue estArrivalWorkEff  = EntityQuery.use(delegator).from("WorkEffort")
+                    .where("workEffortId", shipment.getString("estimatedArrivalWorkEffId")).queryOne();
+            if (estShipWorkEff != null) {
+                if ((UtilValidate.isNotEmpty(estShipDate) && !estShipDate.equals(shipment.getTimestamp("estimatedShipDate")))
+                    || (UtilValidate.isNotEmpty(originFacilityId) && !originFacilityId.equals(shipment.getString("originFacilityId")))
+                    || (UtilValidate.isNotEmpty(statusId) && !statusId.equals(shipment.getString("statusId"))
+                    && ("SHIPMENT_CANCELLED".equals(statusId) || "SHIPMENT_PACKED".equals(statusId) || "SHIPMENT_SHIPPED".equals(statusId)))) {
+                    serviceContext.put("estimatedStartDate", estShipDate);
+                    serviceContext.put("estimatedCompletionDate", estShipDate);
+                    serviceContext.put("facilityId", originFacilityId);
+                    if (UtilValidate.isNotEmpty(statusId) && !statusId.equals(shipment.getString("statusId"))) {
+                        if ("SHIPMENT_CANCELLED".equals(statusId)) {
+                            serviceContext.put("currentStatusId", "CAL_CANCELLED");
+                        }
+                        if ("SHIPMENT_PACKED".equals(statusId)) {
+                            serviceContext.put("currentStatusId", "CAL_CONFIRMED");
+                        }
+                        if ("SHIPMENT_SHIPPED".equals(statusId)) {
+                            serviceContext.put("currentStatusId", "CAL_COMPLETED");
+                        }
+                    }
+                }
+            }
+            if (estArrivalWorkEff != null) {
+                if ((UtilValidate.isNotEmpty(estArrivalDate) && !estArrivalDate.equals(shipment.getTimestamp("estimatedArrivalDate")))
+                    || (UtilValidate.isNotEmpty(destFacilityId) && !destFacilityId.equals(shipment.getString("destinationFacilityId")))) {
+                    serviceContext.put("estimatedStartDate", estArrivalDate);
+                    serviceContext.put("estimatedCompletionDate", estArrivalDate);
+                    serviceContext.put("facilityId", destFacilityId);
+                }
+            }
+            if (UtilValidate.isNotEmpty(serviceContext)) {
+                serviceContext.put("userLogin", userLogin);
+                serviceResult = dispatcher.runSync("updateWorkEffort", serviceContext);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
+            }
+            serviceContext.clear();
+            if (UtilValidate.isNotEmpty(partyIdFrom) && !partyIdFrom.equals(shipment.getString("partyIdFrom"))
+                    && UtilValidate.isNotEmpty(estShipWorkEff)) {
+                long workEffortPartyAssignment = EntityQuery.use(delegator).from("WorkEffortPartyAssignment")
+                .where("workEffortId", estShipWorkEff.getString("estimatedShipWorkEffId"), "partyId", partyIdFrom)
+                .filterByDate().queryCount();
+                if (workEffortPartyAssignment == 0) {
+                    serviceContext.put("workEffortId", estShipWorkEff.getString("estimatedShipWorkEffId"));
+                    serviceContext.put("partyId", partyIdFrom);
+                    serviceContext.put("roleTypeId", "CAL_ATTENDEE");
+                    serviceContext.put("statusId", "CAL_SENT");
+                    serviceContext.put("userLogin", userLogin);
+                    serviceResult = dispatcher.runSync("assignPartyToWorkEffort", serviceContext);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+            }
+            if (UtilValidate.isNotEmpty(partyIdTo) && !partyIdTo.equals(shipment.getString("partyIdTo"))
+                    && UtilValidate.isNotEmpty(estArrivalWorkEff)) {
+                long workEffortPartyAssignment = EntityQuery.use(delegator).from("WorkEffortPartyAssignment")
+                .where("workEffortId", estShipWorkEff.getString("estimatedShipWorkEffId"), "partyId", partyIdTo)
+                .filterByDate().queryCount();
+                if (workEffortPartyAssignment == 0) {
+                    serviceContext.put("workEffortId", estArrivalWorkEff.getString("estimatedArrivalWorkEffId"));
+                    serviceContext.put("partyId", partyIdTo);
+                    serviceContext.put("roleTypeId", "CAL_ATTENDEE");
+                    serviceContext.put("statusId", "CAL_SENT");
+                    serviceContext.put("userLogin", userLogin);
+                    serviceResult = dispatcher.runSync("assignPartyToWorkEffort", serviceContext);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+            }
+        } catch (GenericServiceException | GenericEntityException e) {
+            Debug.logError(e.getMessage(), MODULE);
+            ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
 }
