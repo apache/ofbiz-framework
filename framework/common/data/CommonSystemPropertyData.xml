@@ -35,4 +35,21 @@
     <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.fallback" systemPropertyValue="false" description="Fallback [true|false] determines whether you will allow a non secure connection if you are unable to get a secure one"/>
     <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.sendpartial" systemPropertyValue="true" description="setting this property to false will abort sending the message"/>
     <SystemProperty systemResourceId="general" systemPropertyId="telecom.notifications.enabled" systemPropertyValue="N" description="Telecom notifications enabled (Y|N)"/>
+
+    <SystemProperty systemResourceId="general" systemPropertyId="CustomTimePeriod.create" systemPropertyValue="Y" 
+    description="Whether CustomTimePeriod records are created automatically. Options: Y, N"
+    />
+
+    <SystemProperty systemResourceId="general" systemPropertyId="CustomTimePeriod.applType" systemPropertyValue="FISCAL" 
+    description="list of one or more 'types"
+    />
+
+    <SystemProperty systemResourceId="general" systemPropertyId="CustomTimePeriod.FISCAL.grain" systemPropertyValue="MONTH" 
+    description="Lowest granularity of fiscal CustomTimePeriod records to be created. Options: See PeriodType records"
+    />
+
+    <SystemProperty systemResourceId="general" systemPropertyId="CustomTimePeriod.FISCAL.intermediate" systemPropertyValue="N" 
+    description="Whether intermediate between highest (YEAR) and lowest must be recreated for the type. Options: Y, N"
+    />
+
 </entity-engine-xml>

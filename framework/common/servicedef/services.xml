@@ -181,6 +181,10 @@ under the License.
         <description>Delete a CustomTimePeriod record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    <service name="createFuturePeriod" engine="groovy"
+            location="component://common/groovyScripts/CommonServices.groovy" invoke="createFuturePeriod" auth="true">
+        <description>Create a future CustomTimePeriod</description>
+    </service>
 
     <!-- Status services -->
     <service name="getStatusItems" engine="java"
