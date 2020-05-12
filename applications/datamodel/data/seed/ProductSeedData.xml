@@ -39,16 +39,27 @@ under the License.
     <CostComponentType costComponentTypeId="ACTUAL_IND_COST" description="Actual Indirect Cost" hasTable="N" parentTypeId="IND_COST"/>
     <CostComponentType costComponentTypeId="ACTUAL_OTHER_COST" description="Actual Other Cost" hasTable="N" parentTypeId="OTHER_COST"/>
 
-    <GoodIdentificationType description="ISBN" goodIdentificationTypeId="ISBN" hasTable="N"/>
+    <GoodIdentificationType description="GTIN" goodIdentificationTypeId="GTIN" hasTable="N"
+        comment="see https://en.wikipedia.org/wiki/Global_Trade_Item_Number"/>
+    <GoodIdentificationType description="ISBN" goodIdentificationTypeId="ISBN" hasTable="N"
+        comment="see https://en.wikipedia.org/wiki/International_Standard_Book_Number"/>
     <GoodIdentificationType description="Manufacturer (Model) Number" goodIdentificationTypeId="MANUFACTURER_ID_NO" hasTable="N"/>
     <GoodIdentificationType description="Model Year" goodIdentificationTypeId="MODEL_YEAR" hasTable="N"/>
     <GoodIdentificationType description="Other" goodIdentificationTypeId="OTHER_ID" hasTable="N"/>
-    <GoodIdentificationType description="SKU" goodIdentificationTypeId="SKU" hasTable="N"/>
-    <GoodIdentificationType description="UPCA" goodIdentificationTypeId="UPCA" hasTable="N"/>
-    <GoodIdentificationType description="UPCE" goodIdentificationTypeId="UPCE" hasTable="N"/>
-    <GoodIdentificationType description="EAN" goodIdentificationTypeId="EAN" hasTable="N"/>
-    <GoodIdentificationType description="Library of Congress" goodIdentificationTypeId="LOC" hasTable="N"/>
-    <GoodIdentificationType description="Harmonized System Codes (HS Code)" goodIdentificationTypeId="HS_CODE" hasTable="N"/>
+    <GoodIdentificationType description="Stock Keeping Unit" goodIdentificationTypeId="SKU" hasTable="N"
+        comment="see https://en.wikipedia.org/wiki/Stock_keeping_unit"/>
+    <GoodIdentificationType description="UPCA" goodIdentificationTypeId="UPCA" hasTable="N"
+        comment="see https://en.wikipedia.org/wiki/Universal_Product_Code"/>
+    <GoodIdentificationType description="UPCE" goodIdentificationTypeId="UPCE" hasTable="N"
+        comment="see https://en.wikipedia.org/wiki/Universal_Product_Code"/>
+    <GoodIdentificationType description="EAN" goodIdentificationTypeId="EAN" hasTable="N"
+        comment="see https://en.wikipedia.org/wiki/International_Article_Number"/>
+    <GoodIdentificationType description="Library of Congress Control Number" goodIdentificationTypeId="LCCN" hasTable="N"
+        comment="https://en.wikipedia.org/wiki/Library_of_Congress_Control_Number"/>
+    <GoodIdentificationType description="Harmonized System Codes (HS Code)" goodIdentificationTypeId="HS_CODE" hasTable="N"
+        comment="see https://en.wikipedia.org/wiki/Harmonized_System"/>
+    <GoodIdentificationType description="Vehicle Identification Number" goodIdentificationTypeId="VIN" hasTable="N"
+        comment="see https://en.wikipedia.org/wiki/Vehicle_identification_number"/>
 
     <ProdCatalogCategoryType description="Browse Root (One)" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
     <ProdCatalogCategoryType description="Default Search (One)" prodCatalogCategoryTypeId="PCCT_SEARCH"/>
