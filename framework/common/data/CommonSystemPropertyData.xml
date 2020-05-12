@@ -41,7 +41,7 @@
     />
 
     <SystemProperty systemResourceId="general" systemPropertyId="CustomTimePeriod.applType" systemPropertyValue="FISCAL" 
-    description="list of one or more 'types"
+    description="list of one or more period application types"
     />
 
     <SystemProperty systemResourceId="general" systemPropertyId="CustomTimePeriod.FISCAL.grain" systemPropertyValue="MONTH" 
