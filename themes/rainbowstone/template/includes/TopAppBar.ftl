@@ -237,8 +237,12 @@ under the License.
     </div>
         <div id="main-nav-bar-right">
             <div id="company-logo"></div>
-            <#if parameters.componentName?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
-                <a class="dark-color" title="${uiLabelMap.CommonHelp}" href="javascript:lookup_popup1('<@ofbizUrl>showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}</@ofbizUrl>','help' ,500,500);"><img class="appbar-btn-img" id="help-btn" src="/rainbowstone/images/help.svg" alt="Help"></a>
+            <#if helpAnchor??>
+              <a class="dark-color" title="${uiLabelMap.CommonHelp}" href="${userDocUri!Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "userDocUri", delegator)}#${helpAnchor}" target="help">${uiLabelMap.CommonHelp}<img class="appbar-btn-img" id="help-btn" src="/rainbowstone/images/help.svg" alt="Help"></a>
+            <#else>
+              <#if parameters.componentName?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
+                  <a class="dark-color" title="${uiLabelMap.CommonHelp}" href="javascript:lookup_popup1('<@ofbizUrl>showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}</@ofbizUrl>','help' ,500,500);"><img class="appbar-btn-img" id="help-btn" src="/rainbowstone/images/help.svg" alt="Help"></a>
+              </#if>
             </#if>
 
             <#include "component://rainbowstone/template/includes/Avatar.ftl"/>
