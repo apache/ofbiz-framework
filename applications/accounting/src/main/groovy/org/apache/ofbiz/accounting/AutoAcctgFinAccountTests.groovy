@@ -20,7 +20,6 @@ package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -44,7 +43,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createFinAccount', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccount = EntityQuery.use(delegator).from('FinAccount')
+        GenericValue finAccount = from('FinAccount')
                                     .where('finAccountId', '1000', 'finAccountTypeId', 'BANK_ACCOUNT')
                                     .queryOne()
         assert finAccount
@@ -60,7 +59,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('updateFinAccount', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccount = EntityQuery.use(delegator).from('FinAccount')
+        GenericValue finAccount = from('FinAccount')
                 .where('finAccountId', '1001')
                 .queryOne()
         assert finAccount
@@ -75,7 +74,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('deleteFinAccount', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccount = EntityQuery.use(delegator).from('FinAccount')
+        GenericValue finAccount = from('FinAccount')
                 .where('finAccountId', '1002')
                 .queryOne()
         assert finAccount == null
@@ -93,7 +92,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createFinAccountRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccountRole = EntityQuery.use(delegator).from('FinAccountRole')
+        GenericValue finAccountRole = from('FinAccountRole')
                 .where('finAccountId', '1003', 'partyId', 'DEMO_COMPANY', 'roleTypeId', 'INTERNAL_ORGANIZATIO')
                 .queryFirst()
         assert finAccountRole
@@ -111,7 +110,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('updateFinAccountRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccountRole = EntityQuery.use(delegator).from('FinAccountRole')
+        GenericValue finAccountRole = from('FinAccountRole')
                 .where('finAccountId', '1004', 'partyId', 'DEMO_COMPANY', 'roleTypeId', 'SUPPLIER')
                 .queryFirst()
         assert finAccountRole
@@ -129,7 +128,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('deleteFinAccountRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccountRole = EntityQuery.use(delegator).from('FinAccountRole')
+        GenericValue finAccountRole = from('FinAccountRole')
                 .where('finAccountId', '1004', 'partyId', 'DEMO_COMPANY', 'roleTypeId', 'SUPPLIER')
                 .queryFirst()
         assert finAccountRole == null
@@ -144,7 +143,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createFinAccountTrans', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccountTran = EntityQuery.use(delegator).from('FinAccountTrans')
+        GenericValue finAccountTran = from('FinAccountTrans')
                 .where('finAccountId', '1003', 'finAccountTransTypeId', 'ADJUSTMENT')
                 .queryFirst()
         assert finAccountTran
@@ -160,7 +159,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createFinAccountStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccountStatus = EntityQuery.use(delegator).from('FinAccountStatus')
+        GenericValue finAccountStatus = from('FinAccountStatus')
                 .where('finAccountId', '1003', 'statusId', 'FNACT_ACTIVE')
                 .queryFirst()
         assert finAccountStatus
@@ -189,7 +188,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('setFinAccountTransStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccountTrans = EntityQuery.use(delegator).from('FinAccountTrans')
+        GenericValue finAccountTrans = from('FinAccountTrans')
                 .where('finAccountTransId', '1010')
                 .queryOne()
         assert finAccountTrans

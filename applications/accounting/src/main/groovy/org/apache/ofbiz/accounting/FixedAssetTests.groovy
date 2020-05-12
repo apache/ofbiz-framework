@@ -20,7 +20,6 @@ package org.apache.ofbiz.accounting;
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 import java.sql.Timestamp
@@ -41,7 +40,7 @@ class FixedAssetTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createFixedAssetRegistration', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue fixedAssetRegistration = EntityQuery.use(delegator).from('FixedAssetRegistration')
+        GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01')
                 .filterByDate().queryFirst();
         assert fixedAssetRegistration
@@ -60,7 +59,7 @@ class FixedAssetTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('updateFixedAssetRegistration', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue fixedAssetRegistration = EntityQuery.use(delegator).from('FixedAssetRegistration')
+        GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'fromDate', fromDate)
                 .filterByDate().queryOne();
         assert fixedAssetRegistration == null
@@ -75,7 +74,7 @@ class FixedAssetTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('deleteFixedAssetRegistration', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue fixedAssetRegistration = EntityQuery.use(delegator).from('FixedAssetRegistration')
+        GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'fromDate', fromDate)
                 .queryOne();
         assert fixedAssetRegistration == null
@@ -91,7 +90,7 @@ class FixedAssetTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createFixedAssetMeter', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue fixedAssetMeter = EntityQuery.use(delegator).from('FixedAssetMeter')
+        GenericValue fixedAssetMeter = from('FixedAssetMeter')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER')
                 .queryFirst();
         assert fixedAssetMeter
@@ -108,7 +107,7 @@ class FixedAssetTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('updateFixedAssetMeter', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue fixedAssetMeter = EntityQuery.use(delegator).from('FixedAssetMeter')
+        GenericValue fixedAssetMeter = from('FixedAssetMeter')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER', 'readingDate', readingDate)
                 .queryOne();
         assert fixedAssetMeter
@@ -124,7 +123,7 @@ class FixedAssetTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('deleteFixedAssetMeter', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue fixedAssetMeter = EntityQuery.use(delegator).from('FixedAssetMeter')
+        GenericValue fixedAssetMeter = from('FixedAssetMeter')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER', 'readingDate', readingDate)
                 .queryOne();
         assert fixedAssetMeter == null
@@ -138,7 +137,7 @@ class FixedAssetTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createFixedAssetGeoPoint', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue fixedAssetGeoPoint = EntityQuery.use(delegator).from('FixedAssetGeoPoint')
+        GenericValue fixedAssetGeoPoint = from('FixedAssetGeoPoint')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'geoPointId', '9000')
                 .filterByDate().queryFirst();
         assert fixedAssetGeoPoint

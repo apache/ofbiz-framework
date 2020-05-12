@@ -25,7 +25,6 @@ import static org.apache.ofbiz.entity.condition.EntityCondition.makeCondition
 import java.sql.Timestamp
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
@@ -50,8 +49,8 @@ class QuoteTests extends OFBizTestCase {
         assert serviceResult.workEffortId == input.workEffortId
 
         // Confirm the database changes.
-        GenericValue quoteWorkEffort = EntityQuery.use(delegator)
-                .from('QuoteWorkEffort').where(quoteId: quoteId, workEffortId: workEffortId).queryOne()
+        GenericValue quoteWorkEffort = from('QuoteWorkEffort')
+                .where(quoteId: quoteId, workEffortId: workEffortId).queryOne()
         assert quoteWorkEffort
     }
 
@@ -79,8 +78,7 @@ class QuoteTests extends OFBizTestCase {
         assert ServiceUtil.isError(serviceResult)
 
         // Confirm the database changes, in this case nothing should have changed
-        GenericValue quoteWorkEffort = EntityQuery.use(delegator)
-                .from('QuoteWorkEffort').where(
+        GenericValue quoteWorkEffort = from('QuoteWorkEffort').where(
                     makeCondition(quoteId: quoteId, workEffortId: workEffortId),
                     makeCondition('lastUpdatedStamp', GREATER_THAN_EQUAL_TO, startTime)
                 ).queryOne()
@@ -97,7 +95,7 @@ class QuoteTests extends OFBizTestCase {
 
         Map serviceResult = dispatcher.runSync('checkUpdateQuoteStatus', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quote = EntityQuery.use(delegator).from('Quote').where(quoteId: '9001').queryOne()
+        GenericValue quote = from('Quote').where(quoteId: '9001').queryOne()
         assert quote.statusId == 'QUO_ORDERED'
     }
 
@@ -120,8 +118,7 @@ class QuoteTests extends OFBizTestCase {
         assert serviceResult.workEffortId
 
         // Confirm that a matching WorkEffort was created.
-        GenericValue workEfforts = EntityQuery.use(delegator)
-                .from('WorkEffort').where(
+        GenericValue workEfforts = from('WorkEffort').where(
                     workEffortId: serviceResult.workEffortId,
                     currentStatusId: input.currentStatusId,
                     workEffortName: input.workEffortName,
@@ -129,8 +126,7 @@ class QuoteTests extends OFBizTestCase {
                 ).queryOne()
         assert workEfforts
 
-        GenericValue quoteWorkEffort = EntityQuery.use(delegator)
-                .from('WorkEffort').where(
+        GenericValue quoteWorkEffort = from('WorkEffort').where(
                     quoteId: input.quoteId,
                     workEffortId: serviceResult.workEffortId
                 ).queryOne()
@@ -146,7 +142,7 @@ class QuoteTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createQuote', input)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.quoteId
-        GenericValue quote = EntityQuery.use(delegator).from('Quote').where(quoteId: serviceResult.quoteId).queryOne()
+        GenericValue quote = from('Quote').where(quoteId: serviceResult.quoteId).queryOne()
         assert quote
     }
 
@@ -159,7 +155,7 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('updateQuote', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quote = EntityQuery.use(delegator).from('Quote').where(quoteId: '9000').queryOne()
+        GenericValue quote = from('Quote').where(quoteId: '9000').queryOne()
         assert quote.statusId == 'QUO_APPROVED'
 
         input.statusId = 'QUO_CREATED'
@@ -188,7 +184,7 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('createQuoteItem', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = EntityQuery.use(delegator).from('QuoteItem').where(quoteId: '9000', quoteItemSeqId: '00004').queryOne()
+        GenericValue quoteItem = from('QuoteItem').where(quoteId: '9000', quoteItemSeqId: '00004').queryOne()
         assert quoteItem.quoteUnitPrice
     }
 
@@ -203,7 +199,7 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('updateQuoteItem', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = EntityQuery.use(delegator).from('QuoteItem').where(quoteId: '9000', quoteItemSeqId: '00002').queryOne()
+        GenericValue quoteItem = from('QuoteItem').where(quoteId: '9000', quoteItemSeqId: '00002').queryOne()
         assert quoteItem.productId == 'GZ-1001'
     }
 
@@ -217,9 +213,9 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('removeQuoteItem', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = EntityQuery.use(delegator).from('QuoteItem').where(quoteId: '9000', quoteItemSeqId: '00002').queryOne()
+        GenericValue quoteItem = from('QuoteItem').where(quoteId: '9000', quoteItemSeqId: '00002').queryOne()
         assert !quoteItem
-        GenericValue quoteTerm = EntityQuery.use(delegator).from('QuoteTerm').where(quoteId: '9000', quoteItemSeqId: '00002', termTypeId: 'FIN_PAYMENT_DISC').queryOne()
+        GenericValue quoteTerm = from('QuoteTerm').where(quoteId: '9000', quoteItemSeqId: '00002', termTypeId: 'FIN_PAYMENT_DISC').queryOne()
         assert !quoteTerm
     }
 
@@ -237,7 +233,7 @@ class QuoteTests extends OFBizTestCase {
         ]
 
         Map serviceResult = dispatcher.runSync('createQuoteTerm', input)
-        List<GenericValue> terms = EntityQuery.use(delegator).from('QuoteTerm')
+        List<GenericValue> terms = from('QuoteTerm')
                 .where(termTypeId: 'FIN_PAYMENT_DISC', quoteId: '9000', quoteItemSeqId: '00001').queryList()
 
         assert ServiceUtil.isSuccess(serviceResult)
@@ -266,8 +262,7 @@ class QuoteTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
 
         // Confirm that a matching Quoteterm was updated
-        GenericValue quoteTerm = EntityQuery.use(delegator)
-                .from('QuoteTerm').where(
+        GenericValue quoteTerm = from('QuoteTerm').where(
                     termTypeId: input.termTypeId,
                     quoteId: input.quoteId,
                     quoteItemSeqId: input.quoteItemSeqId
@@ -293,7 +288,7 @@ class QuoteTests extends OFBizTestCase {
 
         Map serviceResult = dispatcher.runSync('deleteQuoteTerm', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteTerm = EntityQuery.use(delegator).from('QuoteTerm').where(termTypeId: serviceResult.termTypeId, quoteId: serviceResult.quoteId, quoteItemSeqId: serviceResult.quoteItemSeqId).queryOne()
+        GenericValue quoteTerm = from('QuoteTerm').where(termTypeId: serviceResult.termTypeId, quoteId: serviceResult.quoteId, quoteItemSeqId: serviceResult.quoteItemSeqId).queryOne()
         assert !quoteTerm
     }
 
@@ -335,8 +330,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Test Quote Sequence Enforced
     void testQuoteSequenceEnforced() {
-        GenericValue partyAcctgPreference = EntityQuery.use(delegator)
-                .from('PartyAcctgPreference').where('partyId', 'DemoCustomer').queryOne()
+        GenericValue partyAcctgPreference = from('PartyAcctgPreference').where('partyId', 'DemoCustomer').queryOne()
         Long lastQuoteNumber = partyAcctgPreference.lastQuoteNumber
         if (!lastQuoteNumber) {
             lastQuoteNumber = 0
@@ -366,7 +360,7 @@ class QuoteTests extends OFBizTestCase {
 
         Map serviceResult = dispatcher.runSync('copyQuoteItem', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteAdjustment = EntityQuery.use(delegator).from('QuoteAdjustment').where('quoteId', '9001', 'quoteItemSeqId', '00002', 'quoteAdjustmentTypeId', 'SALES_TAX').queryFirst()
+        GenericValue quoteAdjustment = from('QuoteAdjustment').where('quoteId', '9001', 'quoteItemSeqId', '00002', 'quoteAdjustmentTypeId', 'SALES_TAX').queryFirst()
         assert quoteAdjustment
     }
 
@@ -379,7 +373,7 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('createQuoteAndQuoteItemForRequest', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = EntityQuery.use(delegator).from('QuoteItem').where('quoteId', serviceResult.quoteId, 'custRequestItemSeqId', '00001').queryFirst()
+        GenericValue quoteItem = from('QuoteItem').where('quoteId', serviceResult.quoteId, 'custRequestItemSeqId', '00001').queryFirst()
         assert quoteItem
     }
 
@@ -408,9 +402,9 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('createQuoteFromCart', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = EntityQuery.use(delegator).from('QuoteItem').where('quoteId', serviceResult.quoteId, 'productId', productId).queryFirst()
+        GenericValue quoteItem = from('QuoteItem').where('quoteId', serviceResult.quoteId, 'productId', productId).queryFirst()
         assert quoteItem
-        GenericValue quoteAdjustment = EntityQuery.use(delegator).from('QuoteAdjustment').where('quoteId', serviceResult.quoteId).queryFirst()
+        GenericValue quoteAdjustment = from('QuoteAdjustment').where('quoteId', serviceResult.quoteId).queryFirst()
         assert quoteAdjustment
     }
 
@@ -423,9 +417,9 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('createQuoteFromShoppingList', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = EntityQuery.use(delegator).from('QuoteItem').where('quoteId', serviceResult.quoteId, 'productId', 'SV-1001').queryFirst()
+        GenericValue quoteItem = from('QuoteItem').where('quoteId', serviceResult.quoteId, 'productId', 'SV-1001').queryFirst()
         assert quoteItem
-        GenericValue quoteAdjustment = EntityQuery.use(delegator).from('QuoteAdjustment').where('quoteId', serviceResult.quoteId).queryFirst()
+        GenericValue quoteAdjustment = from('QuoteAdjustment').where('quoteId', serviceResult.quoteId).queryFirst()
         assert quoteAdjustment
     }
 
@@ -439,7 +433,7 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('autoUpdateQuotePrice', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = EntityQuery.use(delegator).from('QuoteItem').where('quoteId', '9000', 'quoteItemSeqId', '00001').queryOne()
+        GenericValue quoteItem = from('QuoteItem').where('quoteId', '9000', 'quoteItemSeqId', '00001').queryOne()
         assert quoteItem.quoteUnitPrice == 12
     }
 
@@ -451,17 +445,12 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('createQuoteFromCustRequest', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = EntityQuery.use(delegator).from('QuoteItem').where('quoteId', serviceResult.quoteId, 'custRequestId', '9000').queryFirst()
+        GenericValue quoteItem = from('QuoteItem').where('quoteId', serviceResult.quoteId, 'custRequestId', '9000').queryFirst()
         assert quoteItem
     }
 
     // Test autoCreateQuoteAdjustments
     void testAutoCreateQuoteAdjustments () {
-        GenericValue userLogin = EntityQuery.use(delegator)
-        .from('UserLogin').where(userLoginId: 'system').queryOne()
-        assert userLogin
-        GenericValue quote = EntityQuery.use(delegator)
-        .from('Quote').where(quoteId: '9001').queryOne()
 
         def input = [
             userLogin: userLogin,
@@ -469,7 +458,7 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('autoCreateQuoteAdjustments', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue promoQuoteAdjustment = EntityQuery.use(delegator).from('QuoteAdjustment').where('quoteId', '9001', 'quoteAdjustmentTypeId', 'PROMOTION_ADJUSTMENT').queryFirst()
+        GenericValue promoQuoteAdjustment = from('QuoteAdjustment').where('quoteId', '9001', 'quoteAdjustmentTypeId', 'PROMOTION_ADJUSTMENT').queryFirst()
         assert promoQuoteAdjustment
     }
 

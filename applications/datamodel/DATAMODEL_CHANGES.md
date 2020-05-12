@@ -34,7 +34,11 @@ The detailed description of migration scripts specified here can be found at [Re
 1. ProductPromoCodeEmail
 
 ## Field Changes
-No changes
+
+| Entity  | Field  | Action | IsPK | Revision |
+|:------------- |:---------------:|:---------------:|:---------------:| -------------:|
+| GlXbrlClass | parentGlXbrlClassId | Added | No | 36a123a |
+
 
 ## Migration Scripts
 1. Migration service migrateProductPromoCodeEmail is implemented to migrate the ProductPromoCodeEmail entity to ProductPromoCodeContactMech. (More detail at [OFBIZ-5426](https://issues.apache.org/jira/browse/OFBIZ-5426))

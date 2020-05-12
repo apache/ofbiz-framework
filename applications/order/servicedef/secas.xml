@@ -510,6 +510,10 @@ under the License.
     <eca service="updateCustRequestItem" event="commit">
         <action service="updateCustRequestLastModifiedDate" mode="sync"/>
     </eca>
+    <!-- RequirementRole eca -->
+    <eca service="createRequirementRole" event="invoke">
+        <action service="ensurePartyRole" mode="sync"/>
+    </eca>
     <!-- CustRequestParty eca -->
     <eca service="createCustRequestParty" event="invoke">
         <action service="checkStatusCustRequest" mode="sync"/>

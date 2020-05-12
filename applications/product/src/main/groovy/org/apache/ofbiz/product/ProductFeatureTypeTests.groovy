@@ -19,7 +19,6 @@
 package org.apache.ofbiz.product
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -37,7 +36,7 @@ class ProductFeatureTypeTests extends OFBizTestCase {
         Map result = dispatcher.runSync('createProductFeatureType', serviceCtx)
         assert ServiceUtil.isSuccess(result)
 
-        GenericValue productFeatureType = EntityQuery.use(delegator).from('ProductFeatureType').where('productFeatureTypeId', 'testProdFeat').queryOne()
+        GenericValue productFeatureType = from('ProductFeatureType').where('productFeatureTypeId', 'testProdFeat').queryOne()
         assert productFeatureType.productFeatureTypeId == 'testProdFeat'
     }
 }
