@@ -18,34 +18,25 @@
  */
 package org.apache.ofbiz.product
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.order.shoppingcart.CheckOutHelper
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem
 import org.apache.ofbiz.service.testtools.OFBizTestCase
-import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker.ActionResultInfo
 import org.apache.ofbiz.service.ServiceUtil
 
-import java.sql.Timestamp
-import java.util.Map
-
-class ProductPromoActionTest extends OFBizTestCase {
-    public ProductPromoActionTest(String name) {
+class ProductPromoActionTests extends OFBizTestCase {
+    public ProductPromoActionTests(String name) {
         super(name)
     }
 
     ShoppingCart loadOrder(String orderId) {
-        GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne()
         Map<String, Object> serviceCtx = [orderId: orderId,
                 skipInventoryChecks: true, // the items are already reserved, no need to check again
                 skipProductChecks: true, // the products are already in the order, no need to check their validity now
-                userLogin: permUserLogin]
+                userLogin: getUserLogin("system")]
         Map<String, Object> loadCartResp = dispatcher.runSync("loadCartFromOrder", serviceCtx)
 
         return loadCartResp.shoppingCart
@@ -137,7 +128,7 @@ class ProductPromoActionTest extends OFBizTestCase {
         ShoppingCart cart = loadOrder("DEMO10091")
 
         Map<String, Object> serviceContext = prepareConditionMap(cart, 10, false)
-        GenericValue productPromoAction = EntityQuery.use(delegator).from("ProductPromoAction").where("productPromoId", "9013", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
+        GenericValue productPromoAction = from("ProductPromoAction").where("productPromoId", "9013", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
         serviceContext.productPromoAction = productPromoAction
         Map<String, Object> serviceResult = dispatcher.runSync("productPromoActProdSpecialPrice", serviceContext)
 
@@ -169,7 +160,7 @@ class ProductPromoActionTest extends OFBizTestCase {
         ShoppingCart cart = loadOrder("DEMO10090")
 
         Map<String, Object> serviceContext = prepareConditionMap(cart, 10, false)
-        GenericValue productPromoAction = EntityQuery.use(delegator).from("ProductPromoAction").where("productPromoId", "9012", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
+        GenericValue productPromoAction = from("ProductPromoAction").where("productPromoId", "9012", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
         serviceContext.productPromoAction = productPromoAction
         Map<String, Object> serviceResult = dispatcher.runSync("productPromoActOrderAmount", serviceContext)
 
@@ -190,7 +181,7 @@ class ProductPromoActionTest extends OFBizTestCase {
         ShoppingCart cart = loadOrder("DEMO10090")
 
         Map<String, Object> serviceContext = prepareConditionMap(cart, 10, false)
-        GenericValue productPromoAction = EntityQuery.use(delegator).from("ProductPromoAction").where("productPromoId", "9019", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
+        GenericValue productPromoAction = from("ProductPromoAction").where("productPromoId", "9019", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
         serviceContext.productPromoAction = productPromoAction
         Map<String, Object> serviceResult = dispatcher.runSync("productPromoActOrderPercent", serviceContext)
 
@@ -203,7 +194,7 @@ class ProductPromoActionTest extends OFBizTestCase {
         cart.clearAllAdjustments()
         for (ShoppingCartItem item : cart.items()) {
             if (!item.getIsPromo()) {
-                GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", item.getProductId()).queryOne()
+                GenericValue product = from("Product").where("productId", item.getProductId()).queryOne()
                 if (product != null) {
                     product.put("includeInPromotions", "N")
                     item._product = product
@@ -230,7 +221,7 @@ class ProductPromoActionTest extends OFBizTestCase {
         ShoppingCart cart = loadOrder("DEMO10090")
 
         Map<String, Object> serviceContext = prepareConditionMap(cart, 10, false)
-        GenericValue productPromoAction = EntityQuery.use(delegator).from("ProductPromoAction").where("productPromoId", "9015", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
+        GenericValue productPromoAction = from("ProductPromoAction").where("productPromoId", "9015", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
         serviceContext.productPromoAction = productPromoAction
         Map<String, Object> serviceResult = dispatcher.runSync("productPromoActProdPrice", serviceContext)
 
@@ -265,7 +256,7 @@ class ProductPromoActionTest extends OFBizTestCase {
         ShoppingCart cart = loadOrder("DEMO10090")
 
         Map<String, Object> serviceContext = prepareConditionMap(cart, 10, false)
-        GenericValue productPromoAction = EntityQuery.use(delegator).from("ProductPromoAction").where("productPromoId", "9015", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
+        GenericValue productPromoAction = from("ProductPromoAction").where("productPromoId", "9015", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
         serviceContext.productPromoAction = productPromoAction
         Map<String, Object> serviceResult = dispatcher.runSync("productPromoActProdAMDISC", serviceContext)
 
@@ -293,7 +284,7 @@ class ProductPromoActionTest extends OFBizTestCase {
         ShoppingCart cart = loadOrder("DEMO10090")
 
         Map<String, Object> serviceContext = prepareConditionMap(cart, 10, false)
-        GenericValue productPromoAction = EntityQuery.use(delegator).from("ProductPromoAction").where("productPromoId", "9015", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
+        GenericValue productPromoAction = from("ProductPromoAction").where("productPromoId", "9015", "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
         serviceContext.productPromoAction = productPromoAction
         Map<String, Object> serviceResult = dispatcher.runSync("productPromoActProdDISC", serviceContext)
 
@@ -330,7 +321,7 @@ class ProductPromoActionTest extends OFBizTestCase {
 
         serviceContext.shoppingCart = cart
         serviceContext.actionResultInfo = new ActionResultInfo()
-        GenericValue productPromoAction = EntityQuery.use(delegator).from("ProductPromoAction").where("productPromoId", "9017",  "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
+        GenericValue productPromoAction = from("ProductPromoAction").where("productPromoId", "9017",  "productPromoRuleId", "01", "productPromoActionSeqId", "01").queryOne()
         serviceContext.productPromoAction = productPromoAction
         serviceResult = dispatcher.runSync("productPromoActGiftGWP", serviceContext)
 

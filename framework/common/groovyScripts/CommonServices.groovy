@@ -23,6 +23,7 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.common.CommonWorkers
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.webapp.event.FileUploadProgressListener 
 
 /**
  * Main permission logic
@@ -127,7 +128,7 @@ def convertUom() {
 
     // all done
     result.convertedValue = convertedValue
-    logVerbose("""Uom conversion of [${parameters.originalValue}] from [${parameters.uomId}] 
+    logVerbose("""Uom conversion of [${parameters.originalValue}] from [${parameters.uomId}]
                            to [${parameters.uomIdTo}] using conversion factor [${uomConversion.conversionFactor}],
                            result is [${convertedValue}]""")
 
@@ -157,12 +158,12 @@ def convertUomCustom() {
  * Look up progress made in File Upload process
  */
 def getFileUploadProgressStatus() {
-    GenericValue uploadProgressListener = parameters.uploadProgressListener
+    FileUploadProgressListener uploadProgressListener = parameters.uploadProgressListener
     Map result = success()
     if (uploadProgressListener) {
-        result.contentLength = uploadProgressListener.getContentLength
-        result.bytesRead = uploadProgressListener.getBytesRead
-        result.hasStarted = uploadProgressListener.hasStarted
+        result.contentLength = uploadProgressListener.getContentLength()
+        result.bytesRead = uploadProgressListener.getBytesRead()
+        result.hasStarted = uploadProgressListener.hasStarted()
 
         result.readPercent = (result.bytesRead * 100) / result.contentLength
     }
@@ -318,7 +319,7 @@ def getServerTimestamp() {
 
 def getServerTimeZone() {
     Map result = success()
-    result.serverTimeZone = TimeZone.getDefault().toZoneId()
+    result.serverTimeZone = TimeZone.getDefault().toZoneId().toString()
     return result
 }
 

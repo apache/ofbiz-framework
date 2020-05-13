@@ -42,7 +42,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
 public class ContentUrlFilter implements Filter {
-    public final static String module = ContentUrlFilter.class.getName();
+    public final static String MODULE = ContentUrlFilter.class.getName();
     private FilterConfig config;
 
     @Override
@@ -75,9 +75,9 @@ public class ContentUrlFilter implements Filter {
                         }
                     }
                 } catch (GenericEntityException gee) {
-                    Debug.logWarning(gee.getMessage(), module);
+                    Debug.logWarning(gee.getMessage(), MODULE);
                 } catch (Exception e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
             if (UtilValidate.isNotEmpty(urlContentId)) {
@@ -87,7 +87,7 @@ public class ContentUrlFilter implements Filter {
 
                 //Set view query parameters
                 UrlServletHelper.setViewQueryParameters(request, urlBuilder);
-                Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
+                Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", MODULE);
                 RequestDispatcher dispatch = request.getRequestDispatcher(urlBuilder.toString());
                 dispatch.forward(request, response);
                 return;

@@ -54,7 +54,7 @@ import org.xml.sax.SAXException;
  */
 public class ThemeFactory {
 
-    public static final String module = ThemeFactory.class.getName();
+    public static final String MODULE = ThemeFactory.class.getName();
 
     private static final UtilCache<String, ModelTheme> themeLocationCache = UtilCache.createUtilCache("widget.theme.locationResource", 0, 0, false);
     private static final UtilCache<String, VisualTheme> themeVisualThemeIdCache = UtilCache.createUtilCache("widget.theme.idAndVisualTheme", 0, 0, false);
@@ -78,9 +78,11 @@ public class ThemeFactory {
      */
     private static void pullModelThemesFromXmlToCache() {
         String ofbizHome = System.getProperty("ofbiz.home");
+        String themeFolderPath = ofbizHome + "/themes";
+        String pluginsFolderPath = ofbizHome + "/plugins";
         try {
-            List<File> xmlThemes = FileUtil.findXmlFiles(ofbizHome, "themes", "theme", "widget-theme.xsd");
-            List<File> xmlPluginThemes = FileUtil.findXmlFiles(ofbizHome, "plugins", "theme", "widget-theme.xsd");
+            List<File> xmlThemes = FileUtil.findXmlFiles(themeFolderPath, null, "theme", "widget-theme.xsd");
+            List<File> xmlPluginThemes = FileUtil.findXmlFiles(pluginsFolderPath, null, "theme", "widget-theme.xsd");
             if (UtilValidate.isNotEmpty(xmlPluginThemes)) {
                 xmlThemes.addAll(xmlPluginThemes);
             }
@@ -93,7 +95,7 @@ public class ThemeFactory {
                 }
             }
         } catch (IOException e) {
-            Debug.logError("Impossible to initialize models themes in cache throw: " + e, module);
+            Debug.logError("Impossible to initialize models themes in cache throw: " + e, MODULE);
         }
     }
 
@@ -116,7 +118,7 @@ public class ThemeFactory {
                 }
                 visualTheme = themeVisualThemeIdCache.get(visualThemeId);
                 if (visualTheme == null) {
-                    Debug.logError("Impossible to resolve the modelTheme for the visualThemeId " + visualThemeId + ", Common is returned", module);
+                    Debug.logError("Impossible to resolve the modelTheme for the visualThemeId " + visualThemeId + ", Common is returned", MODULE);
                     return themeVisualThemeIdCache.get("COMMON");
                 }
 
@@ -148,7 +150,7 @@ public class ThemeFactory {
                         themeLocationCache.put(resourceName, modelTheme);
                     }
                 } catch (IOException | ParserConfigurationException | SAXException e) {
-                    Debug.logError("Impossible to resolve the theme from the resourceName " + resourceName, module);
+                    Debug.logError("Impossible to resolve the theme from the resourceName " + resourceName, MODULE);
                 }
             }
         }
@@ -213,7 +215,7 @@ public class ThemeFactory {
                                 UtilMisc.toMap("userLogin", userLogin, "userPrefTypeId", "VISUAL_THEME"));
                         visualThemeId = (String) userPreferencesResult.get("userPrefValue");
                     } catch (GenericServiceException e) {
-                        Debug.logError("Impossible to resolve the theme from user prefrence for " + userLogin.get("userLoginId"), module);
+                        Debug.logError("Impossible to resolve the theme from user prefrence for " + userLogin.get("userLoginId"), MODULE);
                     }
                 }
             }

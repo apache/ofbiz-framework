@@ -67,7 +67,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class XmlSerializer {
-    public static final String module = XmlSerializer.class.getName();
+    public static final String MODULE = XmlSerializer.class.getName();
 
     private volatile static WeakReference<DateFormat> simpleDateFormatter;
 
@@ -101,7 +101,7 @@ public class XmlSerializer {
             }
             return deserialize(document, delegator);
         }
-        Debug.logWarning("Serialized document came back null", module);
+        Debug.logWarning("Serialized document came back null", MODULE);
         return null;
     }
 
@@ -349,7 +349,7 @@ public class XmlSerializer {
                     return new java.sql.Timestamp(cal.getTimeInMillis());
                 }
                 catch (Exception e) {
-                    Debug.logWarning("sql-Timestamp does not conform to XML Schema definition, try java.sql.Timestamp format", module);
+                    Debug.logWarning("sql-Timestamp does not conform to XML Schema definition, try java.sql.Timestamp format", MODULE);
                     return java.sql.Timestamp.valueOf(valStr);
                 }
             } else if ("sql-Date".equals(tagName)) {

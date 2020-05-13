@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public final class CreateValue extends MethodOperation {
 
-    public static final String module = CreateValue.class.getName();
+    public static final String MODULE = CreateValue.class.getName();
 
     private final boolean createOrStore;
     @Deprecated
@@ -62,7 +62,7 @@ public final class CreateValue extends MethodOperation {
         GenericValue value = valueFma.get(methodContext.getEnvMap());
         if (value == null) {
             String errMsg = "In <create-value> the value \"" + valueFma + "\" was not found, not creating";
-            Debug.logWarning(errMsg, module);
+            Debug.logWarning(errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
@@ -74,7 +74,7 @@ public final class CreateValue extends MethodOperation {
             }
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while creating the \"" + valueFma +"\" GenericValue: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

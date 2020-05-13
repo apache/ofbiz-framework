@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public abstract class ModelWidget implements Serializable {
 
-    public static final String module = ModelWidget.class.getName();
+    public static final String MODULE = ModelWidget.class.getName();
     /**
      * The parameter name used to control widget boundary comments. Currently
      * set to "widgetVerbose".
@@ -108,7 +108,7 @@ public abstract class ModelWidget implements Serializable {
         try {
             accept(visitor);
         } catch (Exception e) {
-            Debug.logWarning(e, "Exception thrown in XmlWidgetVisitor: ", module);
+            Debug.logWarning(e, "Exception thrown in XmlWidgetVisitor: ", MODULE);
         }
         return sb.toString();
     }

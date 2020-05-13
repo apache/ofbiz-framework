@@ -64,7 +64,7 @@ import com.googlecode.concurrentlinkedhashmap.EvictionListener;
 @SuppressWarnings("serial")
 public class UtilCache<K, V> implements Serializable, EvictionListener<Object, CacheLine<V>> {
 
-    public static final String module = UtilCache.class.getName();
+    public static final String MODULE = UtilCache.class.getName();
 
     /** A static Map to keep track of all of the UtilCache instances. */
     private static final ConcurrentHashMap<String, UtilCache<?, ?>> utilCacheTable = new ConcurrentHashMap<>();
@@ -160,7 +160,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
                 }
             }
         } catch (Exception e) {
-            Debug.logWarning(e, "Error getting " + parameter + " value from ResourceBundle for propNames: " + Arrays.toString(propNames), module);
+            Debug.logWarning(e, "Error getting " + parameter + " value from ResourceBundle for propNames: " + Arrays.toString(propNames), MODULE);
         }
         return null;
     }
@@ -365,7 +365,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     private long findSizeInBytes(Object o) {
         if (o == null) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Found null object in cache: " + getName(), module);
+                Debug.logVerbose("Found null object in cache: " + getName(), MODULE);
             }
             return 0;
         }
@@ -374,18 +374,18 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
                 return UtilObject.getByteCount(o);
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Unable to compute memory size for non serializable object; returning 0 byte size for object of " + o.getClass(), module);
+                Debug.logVerbose("Unable to compute memory size for non serializable object; returning 0 byte size for object of " + o.getClass(), MODULE);
             }
             return 0;
         } catch (NotSerializableException e) {
             // this happens when we try to get the byte count for an object which itself is
             // serializable, but fails to be serialized, such as a map holding unserializable objects
             if (Debug.warningOn()) {
-                Debug.logWarning("NotSerializableException while computing memory size; returning 0 byte size for object of " + e.getMessage(), module);
+                Debug.logWarning("NotSerializableException while computing memory size; returning 0 byte size for object of " + e.getMessage(), MODULE);
             }
             return 0;
         } catch (Exception e) {
-            Debug.logWarning(e, "Unable to compute memory size for object of " + o.getClass(), module);
+            Debug.logWarning(e, "Unable to compute memory size for object of " + o.getClass(), MODULE);
             return 0;
         }
     }
@@ -411,7 +411,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     protected synchronized V removeInternal(Object key, boolean countRemove) {
         if (key == null) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("In UtilCache tried to remove with null key, using NullObject" + this.name, module);
+                Debug.logVerbose("In UtilCache tried to remove with null key, using NullObject" + this.name, MODULE);
             }
         }
         Object nulledKey = fromKey(key);

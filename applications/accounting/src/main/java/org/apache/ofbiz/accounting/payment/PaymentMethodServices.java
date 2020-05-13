@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class PaymentMethodServices {
 
-    public final static String module = PaymentMethodServices.class.getName();
+    public final static String MODULE = PaymentMethodServices.class.getName();
     public final static String resource = "AccountingUiLabels";
     public static final String resourceError = "AccountingUiLabels";
 
@@ -75,7 +75,7 @@ public class PaymentMethodServices {
         try {
             paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.toString(), module);
+            Debug.logWarning(e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingPaymentMethodCannotBeDeleted",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -99,7 +99,7 @@ public class PaymentMethodServices {
         try {
             paymentMethod.store();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.toString(), module);
+            Debug.logWarning(e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingPaymentMethodCannotBeDeletedWriteFailure", 
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -220,7 +220,7 @@ public class PaymentMethodServices {
                 allPCWPs = EntityUtil.filterByDate(allPCWPs, now, "purposeFromDate", "purposeThruDate", true);
                 tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 tempVal = null;
             }
 
@@ -238,7 +238,7 @@ public class PaymentMethodServices {
         try {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "AccountingCreditCardCreateWriteFailure", locale) + e.getMessage());
         }
@@ -283,7 +283,7 @@ public class PaymentMethodServices {
             creditCard = EntityQuery.use(delegator).from("CreditCard").where("paymentMethodId", paymentMethodId).queryOne();
             paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCreditCardUpdateReadFailure", locale) + e.getMessage());
         }
@@ -401,7 +401,7 @@ public class PaymentMethodServices {
 
                 tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 tempVal = null;
             }
 
@@ -424,7 +424,7 @@ public class PaymentMethodServices {
             try {
                 delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "AccountingCreditCardUpdateWriteFailure", locale) + e.getMessage());
             }
@@ -457,7 +457,7 @@ public class PaymentMethodServices {
         try {
             creditCard = EntityQuery.use(delegator).from("CreditCard").where("paymentMethodId", paymentMethodId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -467,7 +467,7 @@ public class PaymentMethodServices {
         try {
             delegator.store(creditCard);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -479,7 +479,7 @@ public class PaymentMethodServices {
         try {
             expireResp = dispatcher.runSync("deletePaymentMethod", expireCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(expireResp)) {
@@ -536,7 +536,7 @@ public class PaymentMethodServices {
         try {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingGiftCardCannotBeCreatedWriteFailure",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -575,7 +575,7 @@ public class PaymentMethodServices {
             giftCard = EntityQuery.use(delegator).from("GiftCard").where("paymentMethodId", paymentMethodId).queryOne();
             paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingGiftCardCannotBeUpdated",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -654,7 +654,7 @@ public class PaymentMethodServices {
             try {
                 delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "AccountingEftAccountCannotBeUpdated",
                         UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -747,7 +747,7 @@ public class PaymentMethodServices {
 
                 tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 tempVal = null;
             }
 
@@ -766,7 +766,7 @@ public class PaymentMethodServices {
         try {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingEftAccountCannotBeCreatedWriteFailure",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -813,7 +813,7 @@ public class PaymentMethodServices {
             paymentMethod =
                 EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingEftAccountCannotBeUpdatedReadFailure",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -877,7 +877,7 @@ public class PaymentMethodServices {
                 allPCWPs = EntityUtil.filterByDate(allPCWPs, now, "purposeFromDate", "purposeThruDate", true);
                 tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 tempVal = null;
             }
 
@@ -890,7 +890,7 @@ public class PaymentMethodServices {
         }
 
         if (isModified) {
-            // Debug.logInfo("yes, is modified", module);
+            // Debug.logInfo("yes, is modified", MODULE);
             if (newPartyContactMechPurpose != null) {
                 toBeStored.add(newPartyContactMechPurpose);
             }
@@ -902,7 +902,7 @@ public class PaymentMethodServices {
             try {
                 delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "AccountingEftAccountCannotBeUpdated",
                         UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -982,7 +982,7 @@ public class PaymentMethodServices {
 
                 tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 tempVal = null;
             }
 
@@ -1001,7 +1001,7 @@ public class PaymentMethodServices {
         try {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "AccountingCheckNotAdded", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
@@ -1039,7 +1039,7 @@ public class PaymentMethodServices {
             paymentMethod =
                     EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingCheckAccountCannotBeUpdated",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -1103,7 +1103,7 @@ public class PaymentMethodServices {
                 allPCWPs = EntityUtil.filterByDate(allPCWPs, now, "purposeFromDate", "purposeThruDate", true);
                 tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 tempVal = null;
             }
 
@@ -1116,7 +1116,7 @@ public class PaymentMethodServices {
         }
 
         if (isModified) {
-            // Debug.logInfo("yes, is modified", module);
+            // Debug.logInfo("yes, is modified", MODULE);
             if (newPartyContactMechPurpose != null) {
                 toBeStored.add(newPartyContactMechPurpose);
             }
@@ -1128,7 +1128,7 @@ public class PaymentMethodServices {
             try {
                 delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "AccountingCheckAccountCannotBeUpdated",
                         UtilMisc.toMap("errorString", e.getMessage()), locale));

@@ -33,7 +33,7 @@ import org.apache.ofbiz.entity.model.ModelReader;
  */
 public final class UtilHelpText {
 
-    public static final String module = UtilHelpText.class.getName();
+    public static final String MODULE = UtilHelpText.class.getName();
 
     private UtilHelpText () {}
 
@@ -49,23 +49,23 @@ public final class UtilHelpText {
     public static String getEntityFieldDescription(final String entityName, final String fieldName, final Delegator delegator, final Locale locale) {
 
         if (UtilValidate.isEmpty(entityName)) {
-            // Debug.logWarning("entityName [" + entityName + "] is empty", module);
+            // Debug.logWarning("entityName [" + entityName + "] is empty", MODULE);
             return "";
         }
         if (UtilValidate.isEmpty(fieldName)) {
-            Debug.logWarning("fieldName [" + fieldName + "] is empty", module);
+            Debug.logWarning("fieldName [" + fieldName + "] is empty", MODULE);
             return "";
         }
         ModelReader reader = delegator.getModelReader();
         ModelEntity entity = null;
         try {
             if (!reader.getEntityNames().contains(entityName)) {
-                Debug.logWarning("couldn't find entityName [" + entityName + "]", module);
+                Debug.logWarning("couldn't find entityName [" + entityName + "]", MODULE);
                 return "";
             }
             entity = reader.getModelEntity(entityName);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting help text for entity=" + entityName + " field " + fieldName, module);
+            Debug.logError(e, "Error getting help text for entity=" + entityName + " field " + fieldName, MODULE);
             return "";
         }
         String entityResourceName = entity.getDefaultResourceName();
@@ -74,12 +74,12 @@ public final class UtilHelpText {
         if (fieldDescription.equals(messageId)) {
             messageId = "FieldDescription." + fieldName;
             if (Debug.verboseOn()) {
-                Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "], Trying with: " + messageId, module);
+                Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "], Trying with: " + messageId, MODULE);
             }
             fieldDescription = UtilProperties.getMessage(entityResourceName, messageId, locale);
             if (fieldDescription.equals(messageId)) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "]", module);
+                    Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "]", MODULE);
                 }
                 return "";
             }

@@ -43,7 +43,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class SeoContentUrlFilter implements Filter {
-    public final static String module = SeoContentUrlFilter.class.getName();
+    public final static String MODULE = SeoContentUrlFilter.class.getName();
     protected static final String defaultLocaleString = null;
     protected static final String redirectUrl = null;
     private FilterConfig config;
@@ -76,7 +76,7 @@ public class SeoContentUrlFilter implements Filter {
                         }
                     }
                 } catch (Exception e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
             if (UtilValidate.isNotEmpty(urlContentId)) {
@@ -88,7 +88,7 @@ public class SeoContentUrlFilter implements Filter {
 
                 // Set view query parameters
                 UrlServletHelper.setViewQueryParameters(request, urlBuilder);
-                Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
+                Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", MODULE);
                 RequestDispatcher dispatch = request.getRequestDispatcher(urlBuilder.toString());
                 dispatch.forward(request, response);
                 return;

@@ -35,7 +35,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  * User preference worker methods.
  */
 public final class PreferenceWorker {
-    public static final String module = PreferenceWorker.class.getName();
+    public static final String MODULE = PreferenceWorker.class.getName();
     /**
      * User preference administrator permission. Currently set to "USERPREF_ADMIN".
      */

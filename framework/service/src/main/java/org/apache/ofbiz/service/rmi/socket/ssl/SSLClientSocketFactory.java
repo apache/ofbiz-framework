@@ -37,7 +37,7 @@ import org.apache.ofbiz.base.util.SSLUtil;
 @SuppressWarnings("serial")
 public class SSLClientSocketFactory implements RMIClientSocketFactory, Serializable {
 
-    public static final String module = SSLClientSocketFactory.class.getName();
+    public static final String MODULE = SSLClientSocketFactory.class.getName();
 
     @Override
     public Socket createSocket(String host, int port) throws IOException {
@@ -45,7 +45,7 @@ public class SSLClientSocketFactory implements RMIClientSocketFactory, Serializa
             SSLSocketFactory factory = SSLUtil.getSSLSocketFactory();
             return factory.createSocket(host, port);
         } catch (GeneralSecurityException | GenericConfigException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new IOException(e.getMessage());
         }
     }

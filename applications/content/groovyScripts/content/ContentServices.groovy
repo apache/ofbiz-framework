@@ -17,8 +17,16 @@
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.common.UrlServletHelper
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityListIterator
+import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ServiceUtil
 
+MODULE = "ContentServices.groovy"
 def createTextAndUploadedContent(){
     Map result = success()
 
@@ -38,4 +46,131 @@ def createTextAndUploadedContent(){
 
     result.contentId = parameters.parentContentId
     return result
+}
+
+def createContentAlternativeUrl() {
+    //create Content Alternative URLs.
+    String contentCreated
+    Map serviceResult = [:]
+    Map serviceContext = [:]
+    defaultLocaleString = parameters.locale ?: "en"
+    EntityListIterator contents
+
+    if (parameters.contentId) {
+        entryExprs = EntityCondition.makeCondition([
+                EntityCondition.makeCondition("contentName", EntityOperator.NOT_EQUAL, null),
+                EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, parameters.contentId),
+                EntityCondition.makeCondition([
+                        EntityCondition.makeCondition("contentTypeId", EntityOperator.EQUALS, "DOCUMENT"),
+                        EntityCondition.makeCondition("contentTypeId", EntityOperator.EQUALS, "WEB_SITE_PUB_PT")], EntityOperator.OR)
+        ], EntityOperator.AND)
+    } else {
+        entryExprs = EntityCondition.makeCondition([
+                EntityCondition.makeCondition("contentName", EntityOperator.NOT_EQUAL, null),
+                EntityCondition.makeCondition([
+                        EntityCondition.makeCondition("contentTypeId", EntityOperator.EQUALS, "DOCUMENT"),
+                        EntityCondition.makeCondition("contentTypeId", EntityOperator.EQUALS, "WEB_SITE_PUB_PT")], EntityOperator.OR)
+        ], EntityOperator.AND)
+    }
+
+    contents = select("contentId", "contentName", "localeString").from("Content").where(entryExprs).queryIterator()
+    List contentAssocDataResources = []
+    String localeString
+
+    while (content = contents.next()) {
+        localeString = content.localeString ?: defaultLocaleString
+        contentAssocDataResources = select("contentIdStart", "dataResourceId", "localeString", "drObjectInfo", "caFromDate", "caThruDate").from("ContentAssocDataResourceViewTo").
+                where("caContentAssocTypeId", "ALTERNATIVE_URL", "contentIdStart", content.contentId, "localeString", localeString.toString()).filterByDate("caFromDate", "caThruDate").queryList()
+        if (!contentAssocDataResources) {
+            if (content.contentName) {
+                uri = UrlServletHelper.invalidCharacter(content.contentName)
+                if (uri) {
+                    serviceContext.dataResourceId = delegator.getNextSeqId("DataResource")
+                    serviceContext.dataResourceTypeId = "URL_RESOURCE"
+                    serviceContext.localeString = localeString.toString()
+                    serviceContext.objectInfo = uri + "-" + content.contentId + "-content"
+                    serviceContext.statusId = "CTNT_IN_PROGRESS"
+                    serviceContext.userLogin = userLogin
+                    try {
+                        serviceResult = run service: "createDataResource", with: serviceContext
+                        if (ServiceUtil.isSuccess(serviceResult)) {
+                            dataResourceId = serviceResult.dataResourceId
+                        }
+                    } catch (GenericServiceException e) {
+                        Debug.logInfo(e, MODULE)
+                    }
+                    if (dataResourceId) {
+                        serviceContext.clear()
+                        serviceContext.dataResourceId = dataResourceId
+                        serviceContext.statusId = "CTNT_IN_PROGRESS"
+                        serviceContext.localeString = localeString.toString()
+                        serviceContext.userLogin = userLogin
+                        try {
+                            serviceResult = run service: "createContent", with: serviceContext
+                            if (ServiceUtil.isSuccess(serviceResult)) {
+                                contentIdTo = serviceResult.contentId
+                            }
+                        } catch (GenericServiceException e) {
+                            Debug.logInfo(e, MODULE)
+                        }
+                        if (contentIdTo) {
+                            serviceContext.clear()
+                            serviceContext.contentId = content.contentId
+                            serviceContext.contentIdTo = contentIdTo
+                            serviceContext.contentAssocTypeId = "ALTERNATIVE_URL"
+                            serviceContext.userLogin = userLogin
+                            try {
+                                serviceResult = run service: "createContentAssoc", with: serviceContext
+                                if (ServiceUtil.isSuccess(serviceResult)) {
+                                    contentIdTo = serviceResult.contentId
+                                }
+                            } catch (GenericServiceException e) {
+                                Debug.logInfo(e, MODULE)
+                            }
+                        }
+                    }
+                    contentCreated = "Y"
+                }
+            }
+        } else {
+            if (contentAssocDataResources && contentAssocDataResources.get(0).drObjectInfo) {
+                if (content.contentName) {
+                    uri = UrlServletHelper.invalidCharacter(content.contentName)
+                    if (uri) {
+                        serviceContext.clear()
+                        serviceContext.dataResourceId = contentAssocDataResources.get(0).dataResourceId
+                        serviceContext.objectInfo = "/" + uri + "-" + content.contentId + "-content"
+                        serviceContext.userLogin = userLogin
+                        try {
+                            serviceResult = run service: "updateDataResource", with: serviceContext
+                            if (ServiceUtil.isSuccess(serviceResult)) {
+                                contentIdTo = serviceResult.contentId
+                            }
+                        } catch (GenericServiceException e) {
+                            Debug.logInfo(e, MODULE)
+                        }
+                        contentCreated = "Y"
+                    }
+                }
+            } else {
+                contentCreated = "N"
+            }
+        }
+    }
+
+    map = success()
+    map.contentCreated = contentCreated
+    return map
+}
+
+def updateEmailContent() {
+    if (parameters.subjectDataResourceId) {
+        run service: "updateElectronicText", with: [dataResourceId: parameters.subjectDataResourceId, textData: parameters.subject]
+    }
+    if (parameters.plainBodyDataResourceId) {
+        run service: "updateElectronicText", with: [dataResourceId: parameters.plainBodyDataResourceId, textData: parameters.plainBody]
+    }
+    if (parameters.htmlBodyDataResourceId) {
+        run service: "updateElectronicText", with: [dataResourceId: parameters.htmlBodyDataResourceId, textData: parameters.htmlBody]
+    }
 }

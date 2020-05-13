@@ -70,7 +70,7 @@ import com.ibm.icu.util.Calendar;
  */
 public final class UtilValidate {
 
-    public static final String module = UtilValidate.class.getName();
+    public static final String MODULE = UtilValidate.class.getName();
 
     private UtilValidate() {}
 
@@ -1310,7 +1310,7 @@ public final class UtilValidate {
                 isValid = true;
             }
         } catch (GenericEntityException | NumberParseException ex) {
-            Debug.logError(ex, module);
+            Debug.logError(ex, MODULE);
         }
         return isValid;
     }

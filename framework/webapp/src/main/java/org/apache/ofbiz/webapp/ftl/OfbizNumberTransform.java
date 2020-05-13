@@ -42,20 +42,20 @@ import org.apache.ofbiz.entity.Delegator;
  */
 public class OfbizNumberTransform implements TemplateTransformModel {
 
-    public static final String module = OfbizNumberTransform.class.getName();
+    public static final String MODULE = OfbizNumberTransform.class.getName();
     String format = null;
 
     private static String getArg(Map<String, Object> args, String key) {
         String  result = "";
         Object o = args.get(key);
         if (o != null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + o.getClass().getName(), MODULE);
             if (o instanceof TemplateScalarModel) {
                 TemplateScalarModel s = (TemplateScalarModel) o;
                 try {
                     result = s.getAsString();
                 } catch (TemplateModelException e) {
-                    Debug.logError(e, "Template Exception", module);
+                    Debug.logError(e, "Template Exception", MODULE);
                 }
             } else {
               result = o.toString();
@@ -66,7 +66,7 @@ public class OfbizNumberTransform implements TemplateTransformModel {
     private static Double getNumber(Map<String, Object> args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
-            if (Debug.verboseOn()) Debug.logVerbose("Number Object : " + o.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Number Object : " + o.getClass().getName(), MODULE);
 
             // handle nulls better
             if (o == null) {
@@ -113,7 +113,7 @@ public class OfbizNumberTransform implements TemplateTransformModel {
             @Override
             public void close() throws IOException {
                 try {
-                    if (Debug.verboseOn()) Debug.logVerbose("parms: " + number + " " + format + " " + locale, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("parms: " + number + " " + format + " " + locale, MODULE);
                     Locale localeObj = null;
                     Delegator delegator = null;
                     // Load the locale from the session

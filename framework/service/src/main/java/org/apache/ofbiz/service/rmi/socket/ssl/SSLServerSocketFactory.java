@@ -42,7 +42,7 @@ import org.apache.ofbiz.base.util.SSLUtil;
 @SuppressWarnings("serial")
 public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializable {
 
-    public static final String module =  SSLServerSocketFactory.class.getName();
+    public static final String MODULE =  SSLServerSocketFactory.class.getName();
     protected boolean clientAuth = false;
     protected String keystore = null;
     protected String ksType = null;
@@ -76,7 +76,7 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
                 ks = KeyStore.getInstance(ksType);
                 ks.load(fis, passphrase);
             } catch (NoSuchAlgorithmException | IOException | KeyStoreException | CertificateException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new IOException(e.getMessage());
             }
         }
@@ -93,7 +93,7 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
                 factory = SSLUtil.getSSLServerSocketFactory(alias);
             }
         } catch (GeneralSecurityException | GenericConfigException e) {
-            Debug.logError(e, "Error getting javax.net.ssl.SSLServerSocketFactory instance for Service Engine RMI calls: " + e.toString(), module);
+            Debug.logError(e, "Error getting javax.net.ssl.SSLServerSocketFactory instance for Service Engine RMI calls: " + e.toString(), MODULE);
             throw new IOException(e.toString());
         }
 

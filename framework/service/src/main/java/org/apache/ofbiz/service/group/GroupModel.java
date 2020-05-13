@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public class GroupModel {
 
-    public static final String module = GroupModel.class.getName();
+    public static final String MODULE = GroupModel.class.getName();
 
     private String groupName, sendMode;
     private List<GroupServiceModel> services;
@@ -67,11 +67,11 @@ public class GroupModel {
                 services.add(new GroupServiceModel(service));
             }
             Debug.logWarning("Service Group Definition : [" + group.getAttribute("name")
-                    + "] found with OLD 'service' attribute, change to use 'invoke'", module);
+                    + "] found with OLD 'service' attribute, change to use 'invoke'", MODULE);
         }
 
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Created Service Group Model --> " + this, module);
+             Debug.logVerbose("Created Service Group Model --> " + this, MODULE);
         }
     }
 
@@ -162,23 +162,23 @@ public class GroupModel {
         Map<String, Object> result = new HashMap<>();
         for (GroupServiceModel model : services) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Using Context: " + runContext, module);
+                 Debug.logVerbose("Using Context: " + runContext, MODULE);
             }
             Map<String, Object> thisResult = model.invoke(dispatcher, localName, runContext);
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Result: " + thisResult, module);
+                 Debug.logVerbose("Result: " + thisResult, MODULE);
             }
 
             // make sure we didn't fail
             if (ServiceUtil.isError(thisResult)) {
-                Debug.logError("Grouped service [" + model.getName() + "] failed.", module);
+                Debug.logError("Grouped service [" + model.getName() + "] failed.", MODULE);
                 return thisResult;
             }
 
             result.putAll(thisResult);
             if (model.resultToContext()) {
                 runContext.putAll(thisResult);
-                if (Debug.verboseOn()) Debug.logVerbose("Added result(s) to context.", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Added result(s) to context.", MODULE);
             }
         }
         return result;
@@ -197,7 +197,7 @@ public class GroupModel {
             try {
                 result = model.invoke(dispatcher, localName, context);
             } catch (GenericServiceException e) {
-                Debug.logError("Service: " + model + " failed.", module);
+                Debug.logError("Service: " + model + " failed.", MODULE);
             }
         }
         if (result == null) {

@@ -68,7 +68,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class EntitySyncServices {
 
-    public static final String module = EntitySyncServices.class.getName();
+    public static final String MODULE = EntitySyncServices.class.getName();
     public static final String resource = "EntityExtUiLabels";
 
     /**
@@ -93,7 +93,7 @@ public class EntitySyncServices {
             while (esc.hasMoreTimeToSync()) {
 
                 // this will result in lots of log messages, so leaving commented out unless needed/wanted later
-                // Debug.logInfo("Doing runEntitySync split, currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, module);
+                // Debug.logInfo("Doing runEntitySync split, currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, MODULE);
 
                 esc.totalSplits++;
 
@@ -117,10 +117,10 @@ public class EntitySyncServices {
             esc.saveFinalSyncResults();
 
         } catch (SyncAbortException e) {
-            return e.returnError(module);
+            return e.returnError(MODULE);
         } catch (SyncErrorException e) {
             e.saveSyncErrorInfo(esc);
-            return e.returnError(module);
+            return e.returnError(MODULE);
         }
 
         return ServiceUtil.returnSuccess();
@@ -150,7 +150,7 @@ public class EntitySyncServices {
         List<GenericValue> valuesToStore = UtilGenerics.cast(context.get("valuesToStore"));
         List<GenericEntity> keysToRemove = UtilGenerics.cast(context.get("keysToRemove"));
 
-        if (Debug.infoOn()) Debug.logInfo("Running storeEntitySyncData (" + entitySyncId + ") - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove.", module);
+        if (Debug.infoOn()) Debug.logInfo("Running storeEntitySyncData (" + entitySyncId + ") - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove.", MODULE);
         try {
             long toCreateInserted = 0;
             long toCreateUpdated = 0;
@@ -247,13 +247,13 @@ public class EntitySyncServices {
             result.put("toStoreNotUpdated", toStoreNotUpdated);
             result.put("toRemoveDeleted", toRemoveDeleted);
             result.put("toRemoveAlreadyDeleted", toRemoveAlreadyDeleted);
-            if (Debug.infoOn()) Debug.logInfo("Finisching storeEntitySyncData (" + entitySyncId + ") - [" + keysToRemove.size() + "] to remove. Actually removed: " + toRemoveDeleted  + " already removed: " + toRemoveAlreadyDeleted, module);
+            if (Debug.infoOn()) Debug.logInfo("Finisching storeEntitySyncData (" + entitySyncId + ") - [" + keysToRemove.size() + "] to remove. Actually removed: " + toRemoveDeleted  + " already removed: " + toRemoveAlreadyDeleted, MODULE);
             return result;
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Exception saving Entity Sync Data for entitySyncId [" + entitySyncId + "]: " + e.toString(), module);
+            Debug.logError(e, "Exception saving Entity Sync Data for entitySyncId [" + entitySyncId + "]: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtExceptionSavingEntitySyncData", UtilMisc.toMap("entitySyncId", entitySyncId, "errorString", e.toString()), locale));
         } catch (Throwable t) {
-            Debug.logError(t, "Error saving Entity Sync Data for entitySyncId [" + entitySyncId + "]: " + t.toString(), module);
+            Debug.logError(t, "Error saving Entity Sync Data for entitySyncId [" + entitySyncId + "]: " + t.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorSavingEntitySyncData", UtilMisc.toMap("entitySyncId", entitySyncId, "errorString", t.toString()), locale));
         }
     }
@@ -270,7 +270,7 @@ public class EntitySyncServices {
         String entitySyncId = (String) context.get("entitySyncId");
         String remotePullAndReportEntitySyncDataName = (String) context.get("remotePullAndReportEntitySyncDataName");
 
-        Debug.logInfo("Running runPullEntitySync for entitySyncId=" + context.get("entitySyncId"), module);
+        Debug.logInfo("Running runPullEntitySync for entitySyncId=" + context.get("entitySyncId"), MODULE);
 
         // loop until no data is returned to store
         boolean gotMoreData = true;
@@ -352,14 +352,14 @@ public class EntitySyncServices {
                         toRemoveAlreadyDeleted = (Long) storeResult.get("toRemoveAlreadyDeleted");
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, "Error calling service to store data locally: " + e.toString(), module);
+                    Debug.logError(e, "Error calling service to store data locally: " + e.toString(), MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorCallingService", locale) + e.toString());
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Exception calling remote pull and report EntitySync service with name: " + remotePullAndReportEntitySyncDataName + "; " + e.toString(), module);
+                Debug.logError(e, "Exception calling remote pull and report EntitySync service with name: " + remotePullAndReportEntitySyncDataName + "; " + e.toString(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorCallingRemotePull", UtilMisc.toMap("remotePullAndReportEntitySyncDataName", remotePullAndReportEntitySyncDataName), locale) + e.toString());
             } catch (Throwable t) {
-                Debug.logError(t, "Error calling remote pull and report EntitySync service with name: " + remotePullAndReportEntitySyncDataName + "; " + t.toString(), module);
+                Debug.logError(t, "Error calling remote pull and report EntitySync service with name: " + remotePullAndReportEntitySyncDataName + "; " + t.toString(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorCallingRemotePull", UtilMisc.toMap("remotePullAndReportEntitySyncDataName", remotePullAndReportEntitySyncDataName), locale) + t.toString());
             }
         }
@@ -379,7 +379,7 @@ public class EntitySyncServices {
         try {
             esc = new EntitySyncContext(dctx, context);
 
-            Debug.logInfo("Doing pullAndReportEntitySyncData for entitySyncId=" + esc.entitySyncId + ", currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, module);
+            Debug.logInfo("Doing pullAndReportEntitySyncData for entitySyncId=" + esc.entitySyncId + ", currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, MODULE);
 
             if ("Y".equals(esc.entitySync.get("forPushOnly"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtCannotDoEntitySyncPush", locale));
@@ -393,7 +393,7 @@ public class EntitySyncServices {
             // increment starting time to run until now
             while (esc.hasMoreTimeToSync()) {
                 // make sure the following message is commented out before commit:
-                // Debug.logInfo("(loop)Doing pullAndReportEntitySyncData split, currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, module);
+                // Debug.logInfo("(loop)Doing pullAndReportEntitySyncData split, currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, MODULE);
 
                 esc.totalSplits++;
 
@@ -413,7 +413,7 @@ public class EntitySyncServices {
 
                 esc.setTotalRowCounts(valuesToCreate, valuesToStore, keysToRemove);
 
-                if (Debug.infoOn()) Debug.logInfo("Service pullAndReportEntitySyncData returning - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove; [" + esc.totalRowsPerSplit + "] total rows per split.", module);
+                if (Debug.infoOn()) Debug.logInfo("Service pullAndReportEntitySyncData returning - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove; [" + esc.totalRowsPerSplit + "] total rows per split.", MODULE);
                 if (esc.totalRowsPerSplit > 0) {
                     // stop if we found some data, otherwise look and try again
                     Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -434,10 +434,10 @@ public class EntitySyncServices {
                 esc.saveFinalSyncResults();
             }
         } catch (SyncAbortException e) {
-            return e.returnError(module);
+            return e.returnError(MODULE);
         } catch (SyncErrorException e) {
             e.saveSyncErrorInfo(esc);
-            return e.returnError(module);
+            return e.returnError(MODULE);
         }
         return ServiceUtil.returnSuccess();
     }
@@ -449,7 +449,7 @@ public class EntitySyncServices {
         try {
             esc = new EntitySyncContext(dctx, context);
 
-            Debug.logInfo("Doing runManualEntitySync for entitySyncId=" + esc.entitySyncId + ", currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, module);
+            Debug.logInfo("Doing runManualEntitySync for entitySyncId=" + esc.entitySyncId + ", currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, MODULE);
             Document mainDoc = UtilXml.makeEmptyXmlDocument("xml-entity-synchronization");
             Element docElement = mainDoc.getDocumentElement();
             docElement.setAttribute("xml:lang", "en-US");
@@ -507,16 +507,16 @@ public class EntitySyncServices {
                     throw new EntitySyncContext.SyncOtherErrorException(e);
                 }
             } else {
-                Debug.logInfo("No rows to write; no data exported.", module);
+                Debug.logInfo("No rows to write; no data exported.", MODULE);
             }
 
             // save the final results
             esc.saveFinalSyncResults();
         } catch (SyncAbortException e) {
-            return e.returnError(module);
+            return e.returnError(MODULE);
         } catch (SyncErrorException e) {
             e.saveSyncErrorInfo(esc);
-            return e.returnError(module);
+            return e.returnError(MODULE);
         }
 
         return ServiceUtil.returnSuccess();
@@ -534,11 +534,11 @@ public class EntitySyncServices {
             try {
                 xmlSyncDoc = UtilXml.readXmlDocument(xmlFile, false);
             } catch (SAXException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             } catch (ParserConfigurationException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             if (xmlSyncDoc == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtEntitySyncXMLDocumentIsNotValid", UtilMisc.toMap("fileName", fileName), locale));
@@ -596,7 +596,7 @@ public class EntitySyncServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> cleanSyncRemoveInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Debug.logInfo("Running cleanSyncRemoveInfo", module);
+        Debug.logInfo("Running cleanSyncRemoveInfo", MODULE);
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -624,11 +624,11 @@ public class EntitySyncServices {
             Timestamp keepAfterStamp = new Timestamp(nowCal.getTimeInMillis());
 
             int numRemoved = delegator.removeByCondition("EntitySyncRemove", EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.LESS_THAN, keepAfterStamp));
-            Debug.logInfo("In cleanSyncRemoveInfo removed [" + numRemoved + "] values with TX timestamp before [" + keepAfterStamp + "]", module);
+            Debug.logInfo("In cleanSyncRemoveInfo removed [" + numRemoved + "] values with TX timestamp before [" + keepAfterStamp + "]", MODULE);
 
             return ServiceUtil.returnSuccess();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error cleaning out EntitySyncRemove info: " + e.toString(), module);
+            Debug.logError(e, "Error cleaning out EntitySyncRemove info: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorCleaningEntitySyncRemove", UtilMisc.toMap("errorString", e.toString()), locale));
         }
     }

@@ -40,7 +40,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class PartyRelationshipHelper {
 
-    public static final String module = PartyRelationshipHelper.class.getName();
+    public static final String MODULE = PartyRelationshipHelper.class.getName();
     private PartyRelationshipHelper() {}
 
     /** Return A List of the active Party Relationships (ie with valid from and thru dates)
@@ -74,7 +74,7 @@ public final class PartyRelationshipHelper {
         try {
             partyRelationships = EntityQuery.use(delegator).from("PartyRelationship").where(condition).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem finding PartyRelationships. ", module);
+            Debug.logError(e, "Problem finding PartyRelationships. ", MODULE);
             return null;
         }
         if (UtilValidate.isNotEmpty(partyRelationships)) {

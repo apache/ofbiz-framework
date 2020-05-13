@@ -32,7 +32,7 @@ import org.apache.xmlrpc.client.XmlRpcTransportFactory;
  */
 public class XmlRpcClient extends org.apache.xmlrpc.client.XmlRpcClient {
 
-    public static final String module = XmlRpcClient.class.getName();
+    public static final String MODULE = XmlRpcClient.class.getName();
 
     protected String keyStoreComponent;
     protected String keyStoreName;
@@ -61,7 +61,7 @@ public class XmlRpcClient extends org.apache.xmlrpc.client.XmlRpcClient {
         try {
             keyStore = KeyStoreUtil.getStore(ks.createResourceHandler().getURL(), ks.getPassword(), ks.getType());
         } catch (Exception e) {
-            Debug.logError(e, "Unable to load keystore: " + keyStoreName, module);
+            Debug.logError(e, "Unable to load keystore: " + keyStoreName, MODULE);
         }
 
         return new AliasSupportedTransportFactory(this, keyStore, ks.getPassword(), keyAlias);

@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  */
 public class EntityDataAssert {
 
-    public static final String module = EntityDataAssert.class.getName();
+    public static final String MODULE = EntityDataAssert.class.getName();
 
     public static int assertData(URL dataUrl, Delegator delegator, List<Object> errorMessages) throws GenericEntityException, SAXException, ParserConfigurationException, IOException {
         int rowsChecked = 0;
@@ -45,11 +45,11 @@ public class EntityDataAssert {
         if (dataUrl == null) {
             String errMsg = "Cannot assert/check data, dataUrl was null";
             errorMessages.add(errMsg);
-            Debug.logError(errMsg, module);
+            Debug.logError(errMsg, MODULE);
             return 0;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Loading XML Resource: " + dataUrl.toExternalForm(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Loading XML Resource: " + dataUrl.toExternalForm(), MODULE);
 
         try {
             for (GenericValue checkValue: delegator.readXmlDocument(dataUrl)) {
@@ -58,7 +58,7 @@ public class EntityDataAssert {
             }
         } catch (GenericEntityException e) {
             String xmlError = "Error checking/asserting XML Resource: " + dataUrl.toExternalForm() + "; Error was: " + e.getMessage();
-            Debug.logError(e, xmlError, module);
+            Debug.logError(e, xmlError, MODULE);
             // instead of adding this as a message, throw the real exception; then caller has more control
             //errorMessages.add(xmlError);
             throw e;
@@ -117,7 +117,7 @@ public class EntityDataAssert {
                 errMsg = "Error checking entity [" + checkPK.getEntityName() + "] with pk [" + checkPK.getAllFields() + "]: " + t.toString();
             }
             errorMessages.add(errMsg);
-            Debug.logError(t, errMsg, module);
+            Debug.logError(t, errMsg, MODULE);
         }
     }
 }

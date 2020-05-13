@@ -32,7 +32,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public class DebugManagedDataSource<C extends Connection> extends ManagedDataSource<C> {
 
-    public static final String module = DebugManagedDataSource.class.getName();
+    public static final String MODULE = DebugManagedDataSource.class.getName();
 
     public DebugManagedDataSource(ObjectPool<C> pool, TransactionRegistry transactionRegistry) {
         super(pool, transactionRegistry);
@@ -43,9 +43,9 @@ public class DebugManagedDataSource<C extends Connection> extends ManagedDataSou
         if (Debug.verboseOn()) {
             if (super.getPool() instanceof GenericObjectPool) {
                 GenericObjectPool<?> objectPool = (GenericObjectPool<?>)super.getPool();
-                Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + objectPool.getNumActive() + "/" + objectPool.getNumIdle() + "/" + (objectPool.getNumActive() + objectPool.getNumIdle()) + "; min idle/max idle/max total: " + objectPool.getMinIdle() + "/" + objectPool.getMaxIdle() + "/" + objectPool.getMaxTotal(), module);
+                Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + objectPool.getNumActive() + "/" + objectPool.getNumIdle() + "/" + (objectPool.getNumActive() + objectPool.getNumIdle()) + "; min idle/max idle/max total: " + objectPool.getMinIdle() + "/" + objectPool.getMaxIdle() + "/" + objectPool.getMaxTotal(), MODULE);
             } else {
-                if (Debug.verboseOn()) Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + super.getPool().getNumActive() + "/" + super.getPool().getNumIdle() + "/" + (super.getPool().getNumActive() + super.getPool().getNumIdle()), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + super.getPool().getNumActive() + "/" + super.getPool().getNumIdle() + "/" + (super.getPool().getNumActive() + super.getPool().getNumIdle()), MODULE);
             }
         }
         return super.getConnection();

@@ -36,8 +36,8 @@ under the License.
     <!--  - org.apache.ofbiz.accounting.invoice -->
     <!--  - org.apache.ofbiz.accounting.ledger -->
     <!--  - org.apache.ofbiz.accounting.payment -->
-    <!--  - org.apache.ofbiz.accounting.tax -->
     <!--  - org.apache.ofbiz.accounting.rate -->
+    <!--  - org.apache.ofbiz.accounting.tax -->
     <!-- ========================================================= -->
 
 
@@ -2434,8 +2434,12 @@ under the License.
             package-name="org.apache.ofbiz.accounting.ledger"
             title="General Ledger XBRL Class">
       <field name="glXbrlClassId" type="id"></field>
+      <field name="parentGlXbrlClassId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="glXbrlClassId"/>
+      <relation type="one" fk-name="GL_XBRL_CLSPAR" title="Parent" rel-entity-name="GlXbrlClass">
+        <key-map field-name="parentGlXbrlClassId" rel-field-name="glXbrlClassId"/>
+      </relation>
     </entity>
     <entity entity-name="PartyAcctgPreference"
         package-name="org.apache.ofbiz.accounting.ledger"

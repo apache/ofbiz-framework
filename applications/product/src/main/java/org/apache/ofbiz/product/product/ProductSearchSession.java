@@ -72,7 +72,7 @@ import org.apache.ofbiz.webapp.stats.VisitHandler;
  */
 public class ProductSearchSession {
 
-    public static final String module = ProductSearchSession.class.getName();
+    public static final String MODULE = ProductSearchSession.class.getName();
 
     @SuppressWarnings("serial")
     public static class ProductSearchOptions implements java.io.Serializable {
@@ -175,7 +175,7 @@ public class ProductSearchSession {
             try {
                 this.setViewIndex(Integer.valueOf(viewIndexStr));
             } catch (Exception e) {
-                Debug.logError(e, "Error in formatting of VIEW_INDEX [" + viewIndexStr + "], setting to 20", module);
+                Debug.logError(e, "Error in formatting of VIEW_INDEX [" + viewIndexStr + "], setting to 20", MODULE);
                 if (this.viewIndex == null) {
                     this.setViewIndex(20);
                 }
@@ -210,7 +210,7 @@ public class ProductSearchSession {
             try {
                 this.setViewSize(Integer.valueOf(viewSizeStr));
             } catch (Exception e) {
-                Debug.logError(e, "Error in formatting of VIEW_SIZE [" + viewSizeStr + "], setting to 20", module);
+                Debug.logError(e, "Error in formatting of VIEW_SIZE [" + viewSizeStr + "], setting to 20", MODULE);
                 if (this.viewSize == null) {
                     this.setViewSize(20);
                 }
@@ -422,7 +422,7 @@ public class ProductSearchSession {
                 try {
                     productStoreKeywordOvrdList = EntityQuery.use(delegator).from("ProductStoreKeywordOvrd").where("productStoreId", productStoreId).orderBy("-fromDate").cache(true).filterByDate().queryList();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error reading ProductStoreKeywordOvrd list, not doing keyword override", module);
+                    Debug.logError(e, "Error reading ProductStoreKeywordOvrd list, not doing keyword override", MODULE);
                 }
 
                 if (UtilValidate.isNotEmpty(productStoreKeywordOvrdList)) {
@@ -443,7 +443,7 @@ public class ProductSearchSession {
                             } else if ("KOTT_AURL".equals(targetTypeEnumId)) {
                                 // do nothing, is absolute URL
                             } else {
-                                Debug.logError("The targetTypeEnumId [] is not recognized, not doing keyword override", module);
+                                Debug.logError("The targetTypeEnumId [] is not recognized, not doing keyword override", MODULE);
                                 // might as well see if there are any others...
                                 continue;
                             }
@@ -451,7 +451,7 @@ public class ProductSearchSession {
                                 response.sendRedirect(target);
                                 return "none";
                             } catch (IOException e) {
-                                Debug.logError(e, "Could not send redirect to: " + target, module);
+                                Debug.logError(e, "Could not send redirect to: " + target, MODULE);
                                 continue;
                             }
                         }
@@ -550,7 +550,7 @@ public class ProductSearchSession {
                     searchRemoveConstraint(Integer.parseInt(removeConstraint), session);
                     constraintsChanged = true;
                 } catch (Exception e) {
-                    Debug.logError(e, "Error removing constraint [" + removeConstraint + "]", module);
+                    Debug.logError(e, "Error removing constraint [" + removeConstraint + "]", MODULE);
                 }
             }
         }
@@ -656,7 +656,7 @@ public class ProductSearchSession {
                     String paramNameExt = parameterName.substring("SEARCH_FEAT".length());
                     String searchCategoryExc = (String) parameters.get("SEARCH_FEAT_EXC" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : !"N".equals(searchCategoryExc);
-                    //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc=" + searchCategoryExc + ", exclude=" + exclude, module);
+                    //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc=" + searchCategoryExc + ", exclude=" + exclude, MODULE);
                     searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
                     constraintsChanged = true;
                 }
@@ -746,14 +746,14 @@ public class ProductSearchSession {
                 try {
                     listPriceLow = new BigDecimal((String) parameters.get("LIST_PRICE_LOW"));
                 } catch (NumberFormatException e) {
-                    Debug.logError("Error parsing LIST_PRICE_LOW parameter [" + (String) parameters.get("LIST_PRICE_LOW") + "]: " + e.toString(), module);
+                    Debug.logError("Error parsing LIST_PRICE_LOW parameter [" + (String) parameters.get("LIST_PRICE_LOW") + "]: " + e.toString(), MODULE);
                 }
             }
             if (UtilValidate.isNotEmpty(parameters.get("LIST_PRICE_HIGH"))) {
                 try {
                     listPriceHigh = new BigDecimal((String) parameters.get("LIST_PRICE_HIGH"));
                 } catch (NumberFormatException e) {
-                    Debug.logError("Error parsing LIST_PRICE_HIGH parameter [" + (String) parameters.get("LIST_PRICE_HIGH") + "]: " + e.toString(), module);
+                    Debug.logError("Error parsing LIST_PRICE_HIGH parameter [" + (String) parameters.get("LIST_PRICE_HIGH") + "]: " + e.toString(), MODULE);
                 }
             }
             searchAddConstraint(new ProductSearch.ListPriceRangeConstraint(listPriceLow, listPriceHigh, listPriceCurrency), session);
@@ -783,14 +783,14 @@ public class ProductSearchSession {
                 try {
                     listPriceLow = new BigDecimal(listPriceLowStr);
                 } catch (NumberFormatException e) {
-                    Debug.logError("Error parsing low part of LIST_PRICE_RANGE parameter [" + listPriceLowStr + "]: " + e.toString(), module);
+                    Debug.logError("Error parsing low part of LIST_PRICE_RANGE parameter [" + listPriceLowStr + "]: " + e.toString(), MODULE);
                 }
             }
             if (UtilValidate.isNotEmpty(listPriceHighStr)) {
                 try {
                     listPriceHigh = new BigDecimal(listPriceHighStr);
                 } catch (NumberFormatException e) {
-                    Debug.logError("Error parsing high part of LIST_PRICE_RANGE parameter [" + listPriceHighStr + "]: " + e.toString(), module);
+                    Debug.logError("Error parsing high part of LIST_PRICE_RANGE parameter [" + listPriceHighStr + "]: " + e.toString(), MODULE);
                 }
             }
             searchAddConstraint(new ProductSearch.ListPriceRangeConstraint(listPriceLow, listPriceHigh, listPriceCurrency), session);
@@ -964,7 +964,7 @@ public class ProductSearchSession {
                     addOnTopTotalListSize = pli.getResultsSizeAfterPartialList();
                     listSize = listSize + addOnTopTotalListSize;
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
 
@@ -1260,7 +1260,7 @@ public class ProductSearchSession {
                 featureCountList.add(UtilMisc.<String, String>toMap("productFeatureId", (String) searchResult.get("pfacProductFeatureId"), "productFeatureTypeId", (String) searchResult.get("pfcProductFeatureTypeId"), "description", (String) searchResult.get("pfcDescription"), "featureCount", Long.toString((Long) searchResult.get("featureCount"))));
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error in product search", module);
+            Debug.logError(e, "Error in product search", MODULE);
             return null;
         }
 
@@ -1330,7 +1330,7 @@ public class ProductSearchSession {
                 priceRangeCount = searchResult.getLong("priceRangeCount");
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error in product search", module);
+            Debug.logError(e, "Error in product search", MODULE);
         }
         return priceRangeCount;
     }
@@ -1386,7 +1386,7 @@ public class ProductSearchSession {
                 categoryCount = searchResult.getLong("categoryCount");
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error in product search", module);
+            Debug.logError(e, "Error in product search", MODULE);
         }
         return categoryCount;
     }

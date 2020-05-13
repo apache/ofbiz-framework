@@ -24,18 +24,18 @@ import org.apache.ofbiz.base.util.Debug;
  * instance of <code>GenericDelegator</code>. */
 public class DelegatorFactoryImpl extends DelegatorFactory {
 
-    public static final String module = DelegatorFactoryImpl.class.getName();
+    public static final String MODULE = DelegatorFactoryImpl.class.getName();
 
     // TODO: this method should propagate the GenericEntityException
     @Override
     public Delegator getInstance(String delegatorName) {
         if (Debug.infoOn()) {
-            Debug.logInfo("Creating new delegator [" + delegatorName + "] (" + Thread.currentThread().getName() + ")", module);
+            Debug.logInfo("Creating new delegator [" + delegatorName + "] (" + Thread.currentThread().getName() + ")", MODULE);
         }
         try {
             return new GenericDelegator(delegatorName);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error creating delegator: " + e.getMessage(), module);
+            Debug.logError(e, "Error creating delegator: " + e.getMessage(), MODULE);
             return null;
         }
     }

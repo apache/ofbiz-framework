@@ -24,7 +24,7 @@ import org.apache.ofbiz.base.util.Debug;
  * WidgetContentWorker Class
  */
 public final class WidgetContentWorker {
-    public static final String module = WidgetContentWorker.class.getName();
+    public static final String MODULE = WidgetContentWorker.class.getName();
     private static ContentWorkerInterface contentWorker = null;
 
     private WidgetContentWorker () {}
@@ -36,7 +36,7 @@ public final class WidgetContentWorker {
             Class<?> c = loader.loadClass("org.apache.ofbiz.content.content.ContentWorker");
             contentWorker = (ContentWorkerInterface) c.getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
-            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", MODULE);
         }
     }
 

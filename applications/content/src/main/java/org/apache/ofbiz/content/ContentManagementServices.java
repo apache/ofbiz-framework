@@ -62,7 +62,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class ContentManagementServices {
 
-    public static final String module = ContentManagementServices.class.getName();
+    public static final String MODULE = ContentManagementServices.class.getName();
     public static final String resource = "ContentUiLabels";
 
     /**
@@ -152,7 +152,7 @@ public class ContentManagementServices {
         String deactivateString = (String) context.get("deactivateExisting");
         boolean deactivateExisting = "true".equalsIgnoreCase(deactivateString);
 
-        if (Debug.infoOn()) Debug.logInfo("in persist... mapKey(0):" + mapKey, module);
+        if (Debug.infoOn()) Debug.logInfo("in persist... mapKey(0):" + mapKey, MODULE);
 
         // ContentPurposes can get passed in as a delimited string or a list. Combine.
         List<String> contentPurposeList = UtilGenerics.cast(context.get("contentPurposeList"));
@@ -168,8 +168,8 @@ public class ContentManagementServices {
         context.put("contentPurposeString", null);
         
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... contentPurposeList(0):" + contentPurposeList, module);
-            Debug.logInfo("in persist... textData(0):" + context.get("textData"), module);
+            Debug.logInfo("in persist... contentPurposeList(0):" + contentPurposeList, MODULE);
+            Debug.logInfo("in persist... textData(0):" + context.get("textData"), MODULE);
         }
 
         GenericValue content = delegator.makeValue("Content");
@@ -182,7 +182,7 @@ public class ContentManagementServices {
         String origDataResourceId = (String) content.get("dataResourceId");
         
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... contentId(0):" + contentId, module);
+            Debug.logInfo("in persist... contentId(0):" + contentId, MODULE);
         }
 
         GenericValue dataResource = delegator.makeValue("DataResource");
@@ -197,7 +197,7 @@ public class ContentManagementServices {
         String dataResourceId = (String) dataResource.get("dataResourceId");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, module);
+            Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, MODULE);
         }
 
         GenericValue contentAssoc = delegator.makeValue("ContentAssoc");
@@ -229,20 +229,20 @@ public class ContentManagementServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         boolean dataResourceExists = true;
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... dataResourceTypeId(0):" + dataResourceTypeId, module);
+            Debug.logInfo("in persist... dataResourceTypeId(0):" + dataResourceTypeId, MODULE);
         }
         if (UtilValidate.isNotEmpty(dataResourceTypeId)) {
             Map<String, Object> dataResourceResult;
             try {
                 dataResourceResult = persistDataResourceAndDataMethod(dctx, context);
             } catch (GenericServiceException e) {
-                Debug.logError(e, e.toString(), module);
+                Debug.logError(e, e.toString(), MODULE);
                 return ServiceUtil.returnError(e.toString());
             } catch (GenericEntityException e) {
-                Debug.logError(e, e.toString(), module);
+                Debug.logError(e, e.toString(), MODULE);
                 return ServiceUtil.returnError(e.toString());
             } catch (Exception e) {
-                Debug.logError(e, e.toString(), module);
+                Debug.logError(e, e.toString(), MODULE);
                 return ServiceUtil.returnError(e.toString());
             }
             String errorMsg = ServiceUtil.getErrorMessage(dataResourceResult);
@@ -261,7 +261,7 @@ public class ContentManagementServices {
         context.put("skipPermissionCheck", null);  // Force check here
         boolean contentExists = true;
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... contentTypeId:" +  contentTypeId + " dataResourceTypeId:" + dataResourceTypeId + " contentId:" + contentId + " dataResourceId:" + dataResourceId, module);
+            Debug.logInfo("in persist... contentTypeId:" +  contentTypeId + " dataResourceTypeId:" + dataResourceTypeId + " contentId:" + contentId + " dataResourceId:" + dataResourceId, MODULE);
         }
         if (UtilValidate.isNotEmpty(contentTypeId)) {
             if (UtilValidate.isEmpty(contentId)) {
@@ -282,7 +282,7 @@ public class ContentManagementServices {
                 contentContext.put("userLogin", userLogin);
                 contentContext.put("displayFailCond", bDisplayFailCond);
                 contentContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
-                Debug.logInfo("In persistContentAndAssoc calling updateContent with content: " + contentContext, module);
+                Debug.logInfo("In persistContentAndAssoc calling updateContent with content: " + contentContext, MODULE);
                 Map<String, Object> thisResult = dispatcher.runSync("updateContent", contentContext);
                 if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentContentUpdatingError", UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, thisResult);
@@ -294,7 +294,7 @@ public class ContentManagementServices {
                 contentContext.put("userLogin", userLogin);
                 contentContext.put("displayFailCond", bDisplayFailCond);
                 contentContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
-                Debug.logInfo("In persistContentAndAssoc calling createContent with content: " + contentContext, module);
+                Debug.logInfo("In persistContentAndAssoc calling createContent with content: " + contentContext, MODULE);
                 Map<String, Object> thisResult = dispatcher.runSync("createContent", contentContext);
                 if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, thisResult);
@@ -325,7 +325,7 @@ public class ContentManagementServices {
                 map.put("userLogin", userLogin);
                 map.put("dataResourceId", dataResourceId);
                 map.put("contentId", contentId);
-                if (Debug.infoOn()) Debug.logInfo("in persist... context:" + context, module);
+                if (Debug.infoOn()) Debug.logInfo("in persist... context:" + context, MODULE);
                 Map<String, Object> r = dispatcher.runSync("updateContent", map);
                 boolean isError = ModelService.RESPOND_ERROR.equals(r.get(ModelService.RESPONSE_MESSAGE));
                 if (isError)
@@ -339,12 +339,12 @@ public class ContentManagementServices {
         }
         // If parentContentIdTo or parentContentIdFrom exists, create association with newly created content
         if (Debug.infoOn()) {
-            Debug.logInfo("CREATING contentASSOC contentAssocTypeId:" + contentAssocTypeId, module);
+            Debug.logInfo("CREATING contentASSOC contentAssocTypeId:" + contentAssocTypeId, MODULE);
         }
         // create content assoc if the key values are present....
-        if (Debug.infoOn()) Debug.logInfo("contentAssoc: " + contentAssoc.toString(), module);
+        if (Debug.infoOn()) Debug.logInfo("contentAssoc: " + contentAssoc.toString(), MODULE);
         if (UtilValidate.isNotEmpty(contentAssocTypeId) && contentAssoc.get("contentId") != null && contentAssoc.get("contentIdTo") != null) {
-            if (Debug.infoOn()) Debug.logInfo("in persistContentAndAssoc, deactivateExisting:" + deactivateExisting, module);
+            if (Debug.infoOn()) Debug.logInfo("in persistContentAndAssoc, deactivateExisting:" + deactivateExisting, MODULE);
             Map<String, Object> contentAssocContext = new HashMap<>();
             contentAssocContext.put("userLogin", userLogin);
             contentAssocContext.put("displayFailCond", bDisplayFailCond);
@@ -394,7 +394,7 @@ public class ContentManagementServices {
         context.put("contentId", origContentId);
         context.put("dataResourceId", origDataResourceId);
         context.remove("dataResource");
-        Debug.logInfo("results:" + results, module);
+        Debug.logInfo("results:" + results, MODULE);
         return results;
     }
 
@@ -425,20 +425,20 @@ public class ContentManagementServices {
           serviceContext.put("partyId", partyId);
           serviceContext.put("contentId", siteContentId);
           serviceContext.put("userLogin", userLogin);
-          Debug.logInfo("updateSiteRoles, serviceContext(0):" + serviceContext, module);
+          Debug.logInfo("updateSiteRoles, serviceContext(0):" + serviceContext, MODULE);
           String siteRole = (String)roleType.get("roleTypeId"); // BLOG_EDITOR, BLOG_ADMIN, etc.
           String cappedSiteRole = ModelUtil.dbNameToVarName(siteRole);
           if (Debug.infoOn()) {
-              Debug.logInfo("updateSiteRoles, cappediteRole(1):" + cappedSiteRole, module);
+              Debug.logInfo("updateSiteRoles, cappediteRole(1):" + cappedSiteRole, MODULE);
           }
           String siteRoleVal = (String)context.get(cappedSiteRole);
           if (Debug.infoOn()) {
-              Debug.logInfo("updateSiteRoles, siteRoleVal(1):" + siteRoleVal, module);
-              Debug.logInfo("updateSiteRoles, context(1):" + context, module);
+              Debug.logInfo("updateSiteRoles, siteRoleVal(1):" + siteRoleVal, MODULE);
+              Debug.logInfo("updateSiteRoles, context(1):" + context, MODULE);
           }
           Object fromDate = context.get(cappedSiteRole + "FromDate");
           if (Debug.infoOn()) {
-              Debug.logInfo("updateSiteRoles, fromDate(1):" + fromDate, module);
+              Debug.logInfo("updateSiteRoles, fromDate(1):" + fromDate, MODULE);
           }
           serviceContext.put("roleTypeId", siteRole);
           if (siteRoleVal != null && "Y".equalsIgnoreCase(siteRoleVal)) {
@@ -455,16 +455,16 @@ public class ContentManagementServices {
                           return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
                       }
                       serviceContext.put("fromDate", UtilDateTime.nowTimestamp());
-                      if (Debug.infoOn()) Debug.logInfo("updateSiteRoles, serviceContext(1):" + serviceContext, module);
+                      if (Debug.infoOn()) Debug.logInfo("updateSiteRoles, serviceContext(1):" + serviceContext, MODULE);
                       permResults = dispatcher.runSync("createContentRole", serviceContext);
                       if (ServiceUtil.isError(permResults)) {
                           return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
                       } 
                   } catch (GenericServiceException e) {
-                      Debug.logError(e, e.toString(), module);
+                      Debug.logError(e, e.toString(), MODULE);
                       return ServiceUtil.returnError(e.toString());
                   } catch (Exception e2) {
-                      Debug.logError(e2, e2.toString(), module);
+                      Debug.logError(e2, e2.toString(), MODULE);
                       return ServiceUtil.returnError(e2.toString());
                   }
               }
@@ -472,7 +472,7 @@ public class ContentManagementServices {
               if (fromDate != null) {
                   // for now, will assume that any error is due to non-existence - ignore
                   try {
-                      Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
+                      Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, MODULE);
                       Map<String, Object> newContext = new HashMap<>();
                       newContext.put("contentId", serviceContext.get("contentId"));
                       newContext.put("partyId", serviceContext.get("partyId"));
@@ -483,10 +483,10 @@ public class ContentManagementServices {
                           return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
                       }
                   } catch (GenericServiceException e) {
-                      Debug.logError(e, e.toString(), module);
+                      Debug.logError(e, e.toString(), MODULE);
                       return ServiceUtil.returnError(e.toString());
                   } catch (Exception e2) {
-                      Debug.logError(e2, e2.toString(), module);
+                      Debug.logError(e2, e2.toString(), MODULE);
                       return ServiceUtil.returnError(e2.toString());
                   }
               }
@@ -514,13 +514,13 @@ public class ContentManagementServices {
               return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentContentNoAccessToUploadImage", locale));
           }
       } catch (GenericServiceException e) {
-          Debug.logError(e, e.toString(), module);
+          Debug.logError(e, e.toString(), MODULE);
           return ServiceUtil.returnError(e.toString());
       } catch (GenericEntityException e) {
-          Debug.logError(e, e.toString(), module);
+          Debug.logError(e, e.toString(), MODULE);
           return ServiceUtil.returnError(e.toString());
       } catch (Exception e) {
-          Debug.logError(e, e.toString(), module);
+          Debug.logError(e, e.toString(), MODULE);
           return ServiceUtil.returnError(e.toString());
       }
       String errorMsg = ServiceUtil.getErrorMessage(result);
@@ -551,7 +551,7 @@ public class ContentManagementServices {
       String dataResourceId = (String)dataResource.get("dataResourceId");
       String dataResourceTypeId = (String)dataResource.get("dataResourceTypeId");
       if (Debug.infoOn()) {
-          Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, module);
+          Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, MODULE);
       }
       context.put("skipPermissionCheck", "granted"); // TODO: a temp hack because I don't want to bother with DataResource permissions at this time.
       boolean dataResourceExists = true;
@@ -591,7 +591,7 @@ public class ContentManagementServices {
           }
           dataResourceId = (String)thisResult.get("dataResourceId");
           if (Debug.infoOn()) {
-              Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, module);
+              Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, MODULE);
           }
           dataResource = (GenericValue)thisResult.get("dataResource");
           Map<String, Object> fileContext = new HashMap<>();
@@ -688,7 +688,7 @@ public class ContentManagementServices {
             serviceContext.put("contentId", partyUserLoginId); // author contentId
             result = dispatcher.runSync("createContentRole", serviceContext);
             if (ServiceUtil.isError(result)) {
-                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
             }
         }
     }
@@ -728,7 +728,7 @@ public class ContentManagementServices {
                     try {
                         serviceContext.put("fromDate", UtilDateTime.nowTimestamp());
                         if (Debug.infoOn()) {
-                            Debug.logInfo("updateSiteRoles, serviceContext(1):" + serviceContext, module);
+                            Debug.logInfo("updateSiteRoles, serviceContext(1):" + serviceContext, MODULE);
                         }
                         addRoleToUser(delegator, dispatcher, serviceContext);
                         thisResult = dispatcher.runSync("createContentRole", serviceContext);
@@ -736,9 +736,9 @@ public class ContentManagementServices {
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
                         }
                     } catch (GenericServiceException e) {
-                        Debug.logError(e, e.toString(), module);
+                        Debug.logError(e, e.toString(), MODULE);
                     } catch (Exception e2) {
-                        Debug.logError(e2, e2.toString(), module);
+                        Debug.logError(e2, e2.toString(), MODULE);
                     }
                 }
             } else {
@@ -746,7 +746,7 @@ public class ContentManagementServices {
                     // for now, will assume that any error is due to non-existence - ignore
                     //return ServiceUtil.returnError(e.toString());
                     try {
-                        Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
+                        Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, MODULE);
                         Map<String, Object> newContext = new HashMap<>();
                         newContext.put("contentId", serviceContext.get("contentId"));
                         newContext.put("partyId", serviceContext.get("partyId"));
@@ -756,9 +756,9 @@ public class ContentManagementServices {
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
                         }
                     } catch (GenericServiceException e) {
-                        Debug.logError(e, e.toString(), module);
+                        Debug.logError(e, e.toString(), MODULE);
                     } catch (Exception e2) {
-                        Debug.logError(e2, e2.toString(), module);
+                        Debug.logError(e2, e2.toString(), MODULE);
                     }
                 }
             }
@@ -787,34 +787,34 @@ public class ContentManagementServices {
         }
         boolean doLink = (action != null && "Y".equalsIgnoreCase(action)) ? true : false;
         if (Debug.infoOn()) {
-            Debug.logInfo("in updateOrRemove, context:" + context, module);
+            Debug.logInfo("in updateOrRemove, context:" + context, MODULE);
         }
         try {
             GenericValue entityValuePK = delegator.makeValue(entityName, pkFields);
             if (Debug.infoOn()) {
-                Debug.logInfo("in updateOrRemove, entityValuePK:" + entityValuePK, module);
+                Debug.logInfo("in updateOrRemove, entityValuePK:" + entityValuePK, MODULE);
             }
             GenericValue entityValueExisting = EntityQuery.use(delegator).from(entityName).where(entityValuePK).cache().queryOne();
             if (Debug.infoOn()) {
-                Debug.logInfo("in updateOrRemove, entityValueExisting:" + entityValueExisting, module);
+                Debug.logInfo("in updateOrRemove, entityValueExisting:" + entityValueExisting, MODULE);
             }
             if (entityValueExisting == null) {
                 if (doLink) {
                     entityValuePK.create();
                     if (Debug.infoOn()) {
-                        Debug.logInfo("in updateOrRemove, entityValuePK: CREATED", module);
+                        Debug.logInfo("in updateOrRemove, entityValuePK: CREATED", MODULE);
                     }
                 }
             } else {
                 if (!doLink) {
                     entityValueExisting.remove();
                     if (Debug.infoOn()) {
-                        Debug.logInfo("in updateOrRemove, entityValueExisting: REMOVED", module);
+                        Debug.logInfo("in updateOrRemove, entityValueExisting: REMOVED", MODULE);
                     }
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return results;
@@ -894,7 +894,7 @@ public class ContentManagementServices {
                 seqNum += seqIncrement;
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return result;
@@ -912,7 +912,7 @@ public class ContentManagementServices {
         try {
             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             if (content == null) {
-                Debug.logError("content was null", module);
+                Debug.logError("content was null", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", ""), locale));
             }
             String dataResourceId = content.getString("dataResourceId");
@@ -952,7 +952,7 @@ public class ContentManagementServices {
             }
 
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return result;
@@ -970,7 +970,7 @@ public class ContentManagementServices {
             int leafCount = ContentManagementWorker.updateStatsTopDown(delegator, startContentId, typeList);
             result.put("leafCount", leafCount);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return result;
@@ -1017,7 +1017,7 @@ public class ContentManagementServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.toString());
         }
 
@@ -1063,7 +1063,7 @@ public class ContentManagementServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return results;
@@ -1109,7 +1109,7 @@ public class ContentManagementServices {
             context.put("visitedSet", visitedSet);
         } else {
             if (visitedSet.contains(contentId)) {
-                Debug.logWarning("visitedSet already contains:" + contentId, module);
+                Debug.logWarning("visitedSet already contains:" + contentId, MODULE);
                 return;
             } else {
                 visitedSet.add(contentId);
@@ -1132,7 +1132,7 @@ public class ContentManagementServices {
             context.put("visitedSet", visitedSet);
         } else {
             if (visitedSet.contains(contentId)) {
-                Debug.logWarning("visitedSet already contains:" + contentId, module);
+                Debug.logWarning("visitedSet already contains:" + contentId, MODULE);
                 return;
             } else {
                 visitedSet.add(contentId);
@@ -1178,7 +1178,7 @@ public class ContentManagementServices {
                      .queryList();
              results.put("_LIST_", lst);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return results;
@@ -1350,7 +1350,7 @@ public class ContentManagementServices {
         } else if ("TF_yr".equals(useTimeUomId)) {
             field = Calendar.YEAR;
         } else {
-            Debug.logWarning("Don't know anything about useTimeUomId [" + useTimeUomId + "], defaulting to month", module);
+            Debug.logWarning("Don't know anything about useTimeUomId [" + useTimeUomId + "], defaulting to month", MODULE);
         }
         calendar.add(field, useTime);
         thruDate = new Timestamp(calendar.getTimeInMillis());
@@ -1401,12 +1401,12 @@ public class ContentManagementServices {
                 productContent = lst.get(0);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e.toString(), module);
+            Debug.logError(e.toString(), MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         if (productContent == null) {
             String msg = UtilProperties.getMessage(resource, "ContentNoProductContentFound", UtilMisc.toMap("productId", productId), locale);
-            Debug.logError(msg, module);
+            Debug.logError(msg, MODULE);
             return ServiceUtil.returnError(msg);
         }
         Long useTime = (Long) productContent.get("useTime");
@@ -1435,7 +1435,7 @@ public class ContentManagementServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String orderId = (String) context.get("orderId");
 
-        Debug.logInfo("In updateContentSubscriptionByOrder service with orderId: " + orderId, module);
+        Debug.logInfo("In updateContentSubscriptionByOrder service with orderId: " + orderId, MODULE);
 
         GenericValue orderHeader = null;
         try {
@@ -1476,7 +1476,7 @@ public class ContentManagementServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e.toString(), module);
+            Debug.logError(e.toString(), MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return result;
@@ -1510,7 +1510,7 @@ public class ContentManagementServices {
             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             result = followNodeChildrenMethod(content, dispatcher, serviceName, ctx);
         } catch (GenericEntityException e) {
-            Debug.logError(e.toString(), module);
+            Debug.logError(e.toString(), MODULE);
             return ServiceUtil.returnError(e.toString());
         }
         return result;
@@ -1526,7 +1526,7 @@ public class ContentManagementServices {
             context.put("visitedSet", visitedSet);
         } else {
             if (visitedSet.contains(contentId)) {
-                Debug.logWarning("visitedSet already contains:" + contentId, module);
+                Debug.logWarning("visitedSet already contains:" + contentId, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentVisitedSet", locale) + contentId);
             } else {
                 visitedSet.add(contentId);
@@ -1560,7 +1560,7 @@ public class ContentManagementServices {
           try {
               dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", oldDataResourceId).queryOne();
           } catch (GenericEntityException e) {
-              Debug.logError(e.toString(), module);
+              Debug.logError(e.toString(), MODULE);
               return ServiceUtil.returnError(e.toString());
           }
       }
@@ -1607,7 +1607,7 @@ public class ContentManagementServices {
               }
           }
       } catch (GenericServiceException e) {
-          Debug.logError(e.toString(), module);
+          Debug.logError(e.toString(), MODULE);
           return ServiceUtil.returnError(e.toString());
       }
       return result;

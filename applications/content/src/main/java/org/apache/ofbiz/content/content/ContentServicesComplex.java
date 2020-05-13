@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ContentServicesComplex {
 
-    public static final String module = ContentServicesComplex.class.getName();
+    public static final String MODULE = ContentServicesComplex.class.getName();
 
 
    /*
@@ -269,7 +269,7 @@ public class ContentServicesComplex {
             contentAssocDataResourceList.add(contentAssocDataResourceView);
         }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         

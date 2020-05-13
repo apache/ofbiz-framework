@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class OrderEvents {
 
-    public static final String module = OrderEvents.class.getName();
+    public static final String MODULE = OrderEvents.class.getName();
 
     public static String downloadDigitalProduct(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -84,7 +84,7 @@ public class OrderEvents {
             os.flush();
         } catch (GeneralException | IOException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -120,11 +120,11 @@ public class OrderEvents {
                     if (ServiceUtil.isError(resultMap)) {
                         String errorMessage = ServiceUtil.getErrorMessage(resultMap);
                         request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         return "error";
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                     return "error";
                 }

@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ServiceEcaCondition implements java.io.Serializable {
 
-    public static final String module = ServiceEcaCondition.class.getName();
+    public static final String MODULE = ServiceEcaCondition.class.getName();
 
     protected String conditionService = null;
     protected String lhsValueName = null;
@@ -112,7 +112,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
             throw new GenericServiceException("Cannot have null Service, Context or DispatchContext!");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose(this.toString() + ", In the context: " + context, module);
+        if (Debug.verboseOn()) Debug.logVerbose(this.toString() + ", In the context: " + context, MODULE);
 
         // condition-service; run the service and return the reply result
         if (isService) {
@@ -124,7 +124,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
             Boolean conditionReply = Boolean.FALSE;
             if (ServiceUtil.isError(conditionServiceResult)) {
                 Debug.logError("Error in condition-service : " +
-                        ServiceUtil.getErrorMessage(conditionServiceResult), module);
+                        ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
             } else {
                 conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
             }
@@ -139,7 +139,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
                     Map<String, ? extends Object> envMap = UtilGenerics.cast(context.get(lhsMapName));
                     lhsValue = envMap.get(lhsValueName);
                 } else {
-                    Debug.logInfo("From Map (" + lhsMapName + ") not found in context, defaulting to null.", module);
+                    Debug.logInfo("From Map (" + lhsMapName + ") not found in context, defaulting to null.", MODULE);
                 }
             } catch (ClassCastException e) {
                 throw new GenericServiceException("From Map field [" + lhsMapName + "] is not a Map.", e);
@@ -148,7 +148,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
             if (context.containsKey(lhsValueName)) {
                 lhsValue = context.get(lhsValueName);
             } else {
-                Debug.logInfo("From Field (" + lhsValueName + ") is not found in context for " + serviceName + ", defaulting to null.", module);
+                Debug.logInfo("From Field (" + lhsValueName + ") is not found in context for " + serviceName + ", defaulting to null.", MODULE);
             }
         }
 
@@ -160,7 +160,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
                     Map<String, ? extends Object> envMap = UtilGenerics.cast(context.get(rhsMapName));
                     rhsValue = envMap.get(rhsValueName);
                 } else {
-                    Debug.logInfo("To Map (" + rhsMapName + ") not found in context for " + serviceName + ", defaulting to null.", module);
+                    Debug.logInfo("To Map (" + rhsMapName + ") not found in context for " + serviceName + ", defaulting to null.", MODULE);
                 }
             } catch (ClassCastException e) {
                 throw new GenericServiceException("To Map field [" + rhsMapName + "] is not a Map.", e);
@@ -169,11 +169,11 @@ public class ServiceEcaCondition implements java.io.Serializable {
             if (context.containsKey(rhsValueName)) {
                 rhsValue = context.get(rhsValueName);
             } else {
-                Debug.logInfo("To Field (" + rhsValueName + ") is not found in context for " + serviceName + ", defaulting to null.", module);
+                Debug.logInfo("To Field (" + rhsValueName + ") is not found in context for " + serviceName + ", defaulting to null.", MODULE);
             }
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
 
         // evaluate the condition & invoke the action(s)
         List<Object> messages = new LinkedList<>();
@@ -182,11 +182,11 @@ public class ServiceEcaCondition implements java.io.Serializable {
         // if any messages were returned send them out
         if (messages.size() > 0 && Debug.warningOn()) {
             for (Object message: messages) {
-                Debug.logWarning(message.toString(), module);
+                Debug.logWarning(message.toString(), MODULE);
             }
         }
         if (!cond) {
-            Debug.logWarning("doRealCompare returned null, returning false", module);
+            Debug.logWarning("doRealCompare returned null, returning false", MODULE);
         }
         return cond;
     }

@@ -36,7 +36,7 @@ import org.apache.ofbiz.base.component.ComponentConfig;
  */
 public final class UtilJavaParse {
 
-    public static final String module = UtilJavaParse.class.getName();
+    public static final String MODULE = UtilJavaParse.class.getName();
 
     // FIXME: Not thread safe
     private static Set<String> serviceMethodNames = new HashSet<>();
@@ -117,7 +117,7 @@ public final class UtilJavaParse {
             Path fullPathAndFile = classDir.resolve(classFileName);
             if (Files.notExists(fullPathAndFile)) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("In findRealPathAndFileForClass for [" + fullyQualifiedClassName + "]: [" + fullPathAndFile + "]", module);
+                    Debug.logVerbose("In findRealPathAndFileForClass for [" + fullyQualifiedClassName + "]: [" + fullPathAndFile + "]", MODULE);
                 }
                 return fullPathAndFile.toString();
             }
@@ -128,7 +128,7 @@ public final class UtilJavaParse {
 
     public static int findServiceMethodBlockStart(String methodName, String javaFile) {
         if (Debug.verboseOn()) {
-            Debug.logVerbose("In findServiceMethodBlockStart for " + methodName, module);
+            Debug.logVerbose("In findServiceMethodBlockStart for " + methodName, MODULE);
         }
 
         // starts with something like this: public static Map exportServiceEoModelBundle(DispatchContext dctx, Map context) {

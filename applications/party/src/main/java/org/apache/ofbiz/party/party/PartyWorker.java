@@ -50,7 +50,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class PartyWorker {
 
-    public static final String module = PartyWorker.class.getName();
+    public static final String MODULE = PartyWorker.class.getName();
 
     private PartyWorker() {}
 
@@ -64,7 +64,7 @@ public class PartyWorker {
                 result.put(partyAttr, party);
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Problems getting Party entity", module);
+            Debug.logWarning(e, "Problems getting Party entity", MODULE);
         }
 
         try {
@@ -74,7 +74,7 @@ public class PartyWorker {
                 result.put(personAttr, person);
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Problems getting Person entity", module);
+            Debug.logWarning(e, "Problems getting Person entity", MODULE);
         }
 
         try {
@@ -84,7 +84,7 @@ public class PartyWorker {
                 result.put(partyGroupAttr, partyGroup);
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Problems getting PartyGroup entity", module);
+            Debug.logWarning(e, "Problems getting PartyGroup entity", MODULE);
         }
         return result;
     }
@@ -119,7 +119,7 @@ public class PartyWorker {
                     .filterByDate()
                     .queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error while finding latest ContactMech for party with ID [" + partyId + "] TYPE [" + contactMechTypeId + "]: " + e.toString(), module);
+            Debug.logError(e, "Error while finding latest ContactMech for party with ID [" + partyId + "] TYPE [" + contactMechTypeId + "]: " + e.toString(), MODULE);
             return null;
         }
     }
@@ -130,7 +130,7 @@ public class PartyWorker {
             try {
                 return pcm.getRelatedOne("PostalAddress", false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error while finding latest PostalAddress for party with ID [" + partyId + "]: " + e.toString(), module);
+                Debug.logError(e, "Error while finding latest PostalAddress for party with ID [" + partyId + "]: " + e.toString(), MODULE);
             }
         }
         return null;
@@ -146,7 +146,7 @@ public class PartyWorker {
                 }
                 return null;
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error while finding latest GeoPoint for party with ID [" + partyId + "]: " + e.toString(), module);
+                Debug.logError(e, "Error while finding latest GeoPoint for party with ID [" + partyId + "]: " + e.toString(), MODULE);
             }
         }
         return null;
@@ -158,7 +158,7 @@ public class PartyWorker {
             try {
                 return pcm.getRelatedOne("TelecomNumber", false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error while finding latest TelecomNumber for party with ID [" + partyId + "]: " + e.toString(), module);
+                Debug.logError(e, "Error while finding latest TelecomNumber for party with ID [" + partyId + "]: " + e.toString(), MODULE);
             }
         }
         return null;
@@ -168,7 +168,7 @@ public class PartyWorker {
         try {
             return EntityQuery.use(delegator).from("UserLogin").where("partyId", partyId).orderBy("-" + ModelEntity.STAMP_FIELD).queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error while finding latest UserLogin for party with ID [" + partyId + "]: " + e.toString(), module);
+            Debug.logError(e, "Error while finding latest UserLogin for party with ID [" + partyId + "]: " + e.toString(), MODULE);
             return null;
         }
     }
@@ -182,7 +182,7 @@ public class PartyWorker {
                 return null;
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error while finding latest login time for party with ID [" + partyId + "]: " + e.toString(), module);
+            Debug.logError(e, "Error while finding latest login time for party with ID [" + partyId + "]: " + e.toString(), MODULE);
             return null;
         }
 
@@ -324,7 +324,7 @@ public class PartyWorker {
         List<EntityCondition> addrExprs = new LinkedList<>();
         if (stateProvinceGeoId != null) {
             if ("**".equals(stateProvinceGeoId)) {
-                Debug.logWarning("Illegal state code passed!", module);
+                Debug.logWarning("Illegal state code passed!", MODULE);
             } else if ("NA".equals(stateProvinceGeoId)) {
                 addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, "_NA_"));
             } else {
@@ -378,7 +378,7 @@ public class PartyWorker {
             String addr1Target = PartyWorker.makeMatchingString(delegator, address.getString("address1"));
 
             if (addr1Target != null) {
-                Debug.logInfo("Comparing address1 : " + addr1Source + " / " + addr1Target, module);
+                Debug.logInfo("Comparing address1 : " + addr1Source + " / " + addr1Target, MODULE);
                 if (addr1Target.equals(addr1Source)) {
 
                     // address 2 field
@@ -386,16 +386,16 @@ public class PartyWorker {
                         String addr2Source = PartyWorker.makeMatchingString(delegator, address2);
                         String addr2Target = PartyWorker.makeMatchingString(delegator, address.getString("address2"));
                         if (addr2Target != null) {
-                            Debug.logInfo("Comparing address2 : " + addr2Source + " / " + addr2Target, module);
+                            Debug.logInfo("Comparing address2 : " + addr2Source + " / " + addr2Target, MODULE);
 
                             if (addr2Source.equals(addr2Target)) {
-                                Debug.logInfo("Matching address2; adding valid address", module);
+                                Debug.logInfo("Matching address2; adding valid address", MODULE);
                                 validFound.add(address);
                             }
                         }
                     } else {
                         if (address.get("address2") == null) {
-                            Debug.logInfo("No address2; adding valid address", module);
+                            Debug.logInfo("No address2; adding valid address", MODULE);
                             validFound.add(address);
                         }
                     }
@@ -428,7 +428,7 @@ public class PartyWorker {
         try {
             addressMap = EntityQuery.use(delegator).from("AddressMatchMap").orderBy("sequenceNum").queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (addressMap != null) {
@@ -466,7 +466,7 @@ public class PartyWorker {
             }
             partyIds = EntityUtil.getFieldListFromEntityList(partyList, "partyIdTo", true);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
         return partyIds;
     }
@@ -489,7 +489,7 @@ public class PartyWorker {
             boolean searchPartyFirst, boolean searchAllId) throws GenericEntityException {
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Analyze partyIdentification: entered id = " + idToFind + ", partyIdentificationTypeId = " + partyIdentificationTypeId, module);
+            Debug.logVerbose("Analyze partyIdentification: entered id = " + idToFind + ", partyIdentificationTypeId = " + partyIdentificationTypeId, MODULE);
         }
 
         GenericValue party = null;
@@ -521,7 +521,7 @@ public class PartyWorker {
             }
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Analyze partyIdentification: found party.partyId = " + party + ", and list : " + partiesFound, module);
+            Debug.logVerbose("Analyze partyIdentification: found party.partyId = " + party + ", and list : " + partiesFound, MODULE);
         }
         return partiesFound;
     }

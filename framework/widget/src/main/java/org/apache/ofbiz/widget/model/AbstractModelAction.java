@@ -80,7 +80,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
      *
      */
 
-    public static final String module = AbstractModelAction.class.getName();
+    public static final String MODULE = AbstractModelAction.class.getName();
 
     /**
      * Returns a new <code>ModelAction</code> instance, built from <code>actionElement</code>.
@@ -137,7 +137,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         }
         for (ModelAction action : actions) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Running action " + action.getClass().getName(), module);
+                 Debug.logVerbose("Running action " + action.getClass().getName(), MODULE);
             }
             try {
                 action.runAction(context);
@@ -157,7 +157,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
     protected AbstractModelAction(ModelWidget modelWidget, Element actionElement) {
         this.modelWidget = modelWidget;
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Reading widget action with name: " + actionElement.getNodeName(), module);
+             Debug.logVerbose("Reading widget action with name: " + actionElement.getNodeName(), MODULE);
         }
     }
 
@@ -177,7 +177,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         try {
             accept(visitor);
         } catch (Exception e) {
-            Debug.logWarning(e, "Exception thrown in XmlWidgetActionVisitor: ", module);
+            Debug.logWarning(e, "Exception thrown in XmlWidgetActionVisitor: ", MODULE);
         }
         return sb.toString();
     }
@@ -210,7 +210,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 finder.runFind(context, WidgetWorker.getDelegator(context));
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -244,7 +244,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 finder.runFind(context, WidgetWorker.getDelegator(context));
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -278,7 +278,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 finder.runFind(context, WidgetWorker.getDelegator(context));
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -320,13 +320,13 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {
                 String errMsg = "Env variable for value-name " + valueNameAcsr.toString()
                         + " is not a GenericValue object; for the relation-name: " + relationName + "]";
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
             GenericValue value = (GenericValue) valueObject;
@@ -343,7 +343,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             } catch (GenericEntityException e) {
                 String errMsg = "Problem getting related from entity with name " + value.getEntityName()
                         + " for the relation-name: " + relationName + ": " + e.getMessage();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -401,13 +401,13 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {
                 String errMsg = "Env variable for value-name " + valueNameAcsr.toString()
                         + " is not a GenericValue object; for the relation-name: " + relationName + "]";
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
             GenericValue value = (GenericValue) valueObject;
@@ -416,7 +416,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             } catch (GenericEntityException e) {
                 String errMsg = "Problem getting related one from entity with name " + value.getEntityName()
                         + " for the relation-name: " + relationName + ": " + e.getMessage();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -471,7 +471,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     existingPropMap.addBottomResourceBundle(resource);
                 } catch (IllegalArgumentException e) {
                     // log the error, but don't let it kill everything just for a typo or bad char in an l10n file
-                    Debug.logError(e, "Error adding resource bundle [" + resource + "]: " + e.toString(), module);
+                    Debug.logError(e, "Error adding resource bundle [" + resource + "]: " + e.toString(), MODULE);
                 }
             }
             if (global) {
@@ -487,7 +487,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                                 globalExistingPropMap.addBottomResourceBundle(resource);
                             } catch (IllegalArgumentException e) {
                                 // log the error, but don't let it kill everything just for a typo or bad char in an l10n file
-                                Debug.logError(e, "Error adding resource bundle [" + resource + "]: " + e.toString(), module);
+                                Debug.logError(e, "Error adding resource bundle [" + resource + "]: " + e.toString(), MODULE);
                             }
                         }
                     }
@@ -711,7 +711,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 ModelActionUtil.contextPutQueryStringOrAllResult(context, result, this.resultMapNameAcsr);
             } catch (GenericServiceException e) {
                 String errMsg = "Error calling service with name " + serviceNameExpanded + ": " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
         }
@@ -810,7 +810,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     HttpSession session = (HttpSession) context.get("session");
                     newValue = getInMemoryPersistedFromField(session, context);
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
+                         Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
@@ -820,7 +820,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     ServletContext servletContext = (ServletContext) context.get("application");
                     newValue = getInMemoryPersistedFromField(servletContext, context);
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
+                         Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
@@ -829,7 +829,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 if (!this.fromField.isEmpty()) {
                     newValue = this.fromField.get(context);
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
+                         Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
@@ -851,20 +851,20 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     } catch (GeneralException e) {
                         String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName()
                                 + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
-                        Debug.logError(e, errMsg, module);
+                        Debug.logError(e, errMsg, MODULE);
                         throw new IllegalArgumentException(errMsg);
                     }
                 }
             }
             if (!setIfNull && newValue == null){
                 if (Debug.warningOn()) {
-                    Debug.logWarning("Field value not found (null) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", module);
+                    Debug.logWarning("Field value not found (null) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", MODULE);
                 }
                 return;
             }
             if (!setIfEmpty && ObjectType.isEmpty(newValue)){
                 if (Debug.warningOn()) {
-                    Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", module);
+                    Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", MODULE);
                 }
                 return;
             }
@@ -883,7 +883,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 HttpSession session = (HttpSession) context.get("session");
                 session.setAttribute(newKey, newValue);
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
+                     Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
                 }
             } else if (this.toScope != null && "application".equals(this.toScope)) {
                 String originalName = this.field.getOriginalName();
@@ -900,13 +900,13 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 ServletContext servletContext = (ServletContext) context.get("application");
                 servletContext.setAttribute(newKey, newValue);
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
+                     Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
                 }
             } else {
                 // only do this if it is not global, if global ONLY put it in the global context
                 if (!global) {
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
+                         Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, MODULE);
                     }
                     this.field.put(context, newValue);
                 }

@@ -71,7 +71,7 @@ import org.w3c.dom.Element;
  */
 public class ModelFormFieldBuilder {
 
-    public static final String module = ModelFormFieldBuilder.class.getName();
+    public static final String MODULE = ModelFormFieldBuilder.class.getName();
 
     private FlexibleStringExpander action = FlexibleStringExpander.getInstance("");
     private String attributeName = "";
@@ -637,7 +637,7 @@ public class ModelFormFieldBuilder {
                 return true;
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return false;
     }
@@ -722,7 +722,7 @@ public class ModelFormFieldBuilder {
         } catch (GenericServiceException e) {
             Debug.logError(e,
                     "error getting service parameter definition for auto-field with serviceName: " + this.getServiceName()
-                            + ", and attributeName: " + this.getAttributeName(), module);
+                            + ", and attributeName: " + this.getAttributeName(), MODULE);
         }
         return false;
     }

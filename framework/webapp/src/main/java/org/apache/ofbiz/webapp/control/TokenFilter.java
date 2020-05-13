@@ -39,7 +39,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class TokenFilter implements Filter  {
-    public static final String module = TokenFilter.class.getName();
+    public static final String MODULE = TokenFilter.class.getName();
 
     protected FilterConfig config = null;
 
@@ -78,7 +78,7 @@ public class TokenFilter implements Filter  {
                         CommonEvents.jsonResponseFromRequestAttributes(httpRequest, httpResponse);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels","loginservices.sorry_problem_processing_request_error_try_later", locale));
                     CommonEvents.jsonResponseFromRequestAttributes(httpRequest, httpResponse);
                 }

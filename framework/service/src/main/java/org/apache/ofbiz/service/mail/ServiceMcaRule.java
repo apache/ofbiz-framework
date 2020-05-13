@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ServiceMcaRule implements java.io.Serializable {
 
-    public static final String module = ServiceMcaRule.class.getName();
+    public static final String MODULE = ServiceMcaRule.class.getName();
 
     protected String ruleName = null;
     protected List<ServiceMcaCondition> conditions = new LinkedList<>();
@@ -61,7 +61,7 @@ public class ServiceMcaRule implements java.io.Serializable {
 
     public void eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, Set<String> actionsRun, GenericValue userLogin) throws GenericServiceException {
         if (!enabled) {
-            Debug.logInfo("Service MCA [" + ruleName + "] is disabled; not running.", module);
+            Debug.logInfo("Service MCA [" + ruleName + "] is disabled; not running.", MODULE);
             return;
         }
 

@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class OrderContentWrapper implements ContentWrapper {
 
-    public static final String module = OrderContentWrapper.class.getName();
+    public static final String MODULE = OrderContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
 
     private static final UtilCache<String, String> orderContentCache = UtilCache.createUtilCache("order.content", true); // use soft reference to free up memory if needed
@@ -114,7 +114,7 @@ public class OrderContentWrapper implements ContentWrapper {
             return outString;
 
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering OrderContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering OrderContent, inserting empty String", MODULE);
             return "";
         }
     }

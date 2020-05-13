@@ -57,7 +57,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class ProductUtilServices {
 
-    public static final String module = ProductUtilServices.class.getName();
+    public static final String MODULE = ProductUtilServices.class.getName();
     private static final String resource = "ProductUiLabels";
     private static final String resourceError = "ProductErrorUiLabels";
 
@@ -96,7 +96,7 @@ public final class ProductUtilServices {
 
                     numSoFarOne++;
                     if (numSoFarOne % 500 == 0) {
-                        Debug.logInfo("Expired variant ProductAssocs for " + numSoFarOne + " sales discontinued variant products.", module);
+                        Debug.logInfo("Expired variant ProductAssocs for " + numSoFarOne + " sales discontinued variant products.", MODULE);
                     }
                 }
             }
@@ -116,20 +116,20 @@ public final class ProductUtilServices {
 
                         numSoFar++;
                         if (numSoFar % 500 == 0) {
-                            Debug.logInfo("Sales discontinued " + numSoFar + " virtual products that have no valid variants.", module);
+                            Debug.logInfo("Sales discontinued " + numSoFar + " virtual products that have no valid variants.", MODULE);
                         }
                     }
                 }
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
                 errMsg = UtilProperties.getMessage(resourceError,"productutilservices.entity_error_running_discVirtualsWithDiscVariants", messageMap, locale);
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resourceError,"productutilservices.entity_error_running_discVirtualsWithDiscVariants", messageMap, locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -160,15 +160,15 @@ public final class ProductUtilServices {
                     }
                     numSoFar++;
                     if (numSoFar % 500 == 0) {
-                        Debug.logInfo("Removed category members for " + numSoFar + " sales discontinued products.", module);
+                        Debug.logInfo("Removed category members for " + numSoFar + " sales discontinued products.", MODULE);
                     }
                 }
             }
-            Debug.logInfo("Completed - Removed category members for " + numSoFar + " sales discontinued products.", module);
+            Debug.logInfo("Completed - Removed category members for " + numSoFar + " sales discontinued products.", MODULE);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resourceError,"productutilservices.entity_error_running_removeCategoryMembersOfDiscProducts", messageMap, locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -207,15 +207,15 @@ public final class ProductUtilServices {
                     }
                     numSoFar++;
                     if (numSoFar % 500 == 0) {
-                        Debug.logInfo("Removed category members for " + numSoFar + " products with duplicate category members.", module);
+                        Debug.logInfo("Removed category members for " + numSoFar + " products with duplicate category members.", MODULE);
                     }
                 }
             }
-            Debug.logInfo("Completed - Removed category members for " + numSoFar + " products with duplicate category members.", module);
+            Debug.logInfo("Completed - Removed category members for " + numSoFar + " products with duplicate category members.", MODULE);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resourceError,"productutilservices.entity_error_running_removeDuplicateOpenEndedCategoryMembers", messageMap, locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -230,7 +230,7 @@ public final class ProductUtilServices {
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
 
-        Debug.logInfo("Starting makeStandAloneFromSingleVariantVirtuals", module);
+        Debug.logInfo("Starting makeStandAloneFromSingleVariantVirtuals", MODULE);
 
         DynamicViewEntity dve = new DynamicViewEntity();
         dve.addMemberEntity("PVIRT", "Product");
@@ -258,7 +258,7 @@ public final class ProductUtilServices {
         try (EntityListIterator eliOne = eq.queryIterator()) {
             List<GenericValue> valueList = eliOne.getCompleteList();
 
-            Debug.logInfo("Found " + valueList.size() + " virtual products with one variant to turn into a stand alone product.", module);
+            Debug.logInfo("Found " + valueList.size() + " virtual products with one variant to turn into a stand alone product.", MODULE);
 
             int numWithOneOnly = 0;
             for (GenericValue value: valueList) {
@@ -267,13 +267,13 @@ public final class ProductUtilServices {
                 List<GenericValue> paList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
                 // verify the query; tested on a bunch, looks good
                 if (paList.size() != 1) {
-                    Debug.logInfo("Virtual product with ID " + productId + " should have 1 assoc, has " + paList.size(), module);
+                    Debug.logInfo("Virtual product with ID " + productId + " should have 1 assoc, has " + paList.size(), MODULE);
                 } else {
                     // for all virtuals with one variant move all info from virtual to variant and remove virtual, make variant as not a variant
                     dispatcher.runSync("mergeVirtualWithSingleVariant", UtilMisc.<String, Object>toMap("productId", productId, "removeOld", Boolean.TRUE, "userLogin", userLogin));
                     numWithOneOnly++;
                     if (numWithOneOnly % 100 == 0) {
-                        Debug.logInfo("Made " + numWithOneOnly + " virtual products with only one valid variant stand-alone products.", module);
+                        Debug.logInfo("Made " + numWithOneOnly + " virtual products with only one valid variant stand-alone products.", MODULE);
                     }
                 }
             }
@@ -291,7 +291,7 @@ public final class ProductUtilServices {
                     .having(havingCond);
             try (EntityListIterator eliMulti = eq.queryIterator()) {
                 List<GenericValue> valueMultiList = eliMulti.getCompleteList();
-                Debug.logInfo("Found " + valueMultiList.size() + " virtual products with one VALID variant to pull the variant from to make a stand alone product.", module);
+                Debug.logInfo("Found " + valueMultiList.size() + " virtual products with one VALID variant to pull the variant from to make a stand alone product.", MODULE);
 
                 int numWithOneValid = 0;
                 for (GenericValue value: valueMultiList) {
@@ -302,28 +302,28 @@ public final class ProductUtilServices {
 
                     // verify the query; tested on a bunch, looks good
                     if (paList.size() != 1) {
-                        Debug.logInfo("Virtual product with ID " + productId + " should have 1 assoc, has " + paList.size(), module);
+                        Debug.logInfo("Virtual product with ID " + productId + " should have 1 assoc, has " + paList.size(), MODULE);
                     } else {
                         // for all virtuals with one valid variant move info from virtual to variant, put variant in categories from virtual, remove virtual from all categories but leave "family" otherwise intact, mark variant as not a variant
                         dispatcher.runSync("mergeVirtualWithSingleVariant", UtilMisc.<String, Object>toMap("productId", productId, "removeOld", Boolean.FALSE, "userLogin", userLogin));
 
                         numWithOneValid++;
                         if (numWithOneValid % 100 == 0) {
-                            Debug.logInfo("Made " + numWithOneValid + " virtual products with one valid variant stand-alone products.", module);
+                            Debug.logInfo("Made " + numWithOneValid + " virtual products with one valid variant stand-alone products.", MODULE);
                         }
                     }
                 }
-            Debug.logInfo("Found virtual products with one valid variant: " + numWithOneValid + ", with one variant only: " + numWithOneOnly, module);
+            Debug.logInfo("Found virtual products with one valid variant: " + numWithOneValid + ", with one variant only: " + numWithOneOnly, MODULE);
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
                 errMsg = UtilProperties.getMessage(resourceError,"productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals", messageMap, locale);
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
         } catch (GenericEntityException | GenericServiceException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resourceError,"productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals", messageMap, locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -348,20 +348,20 @@ public final class ProductUtilServices {
 
         try {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-            Debug.logInfo("Processing virtual product with one variant with ID: " + productId + " and name: " + product.getString("internalName"), module);
+            Debug.logInfo("Processing virtual product with one variant with ID: " + productId + " and name: " + product.getString("internalName"), MODULE);
 
             List<GenericValue> paList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
             if (paList.size() > 1) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resourceError,"productutilservices.found_more_than_one_valid_variant_for_virtual_ID", messageMap, locale);
-                Debug.logInfo(errMsg, module);
+                Debug.logInfo(errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
 
             if (paList.size() == 0) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resourceError,"productutilservices.did_not_find_any_valid_variants_for_virtual_ID", messageMap, locale);
-                Debug.logInfo(errMsg, module);
+                Debug.logInfo(errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
 
@@ -369,7 +369,7 @@ public final class ProductUtilServices {
             if (removeOld) {
                 // remove the productAssoc before getting down so it isn't copied over...
                 if (test) {
-                    Debug.logInfo("Test mode, would remove: " + productAssoc, module);
+                    Debug.logInfo("Test mode, would remove: " + productAssoc, MODULE);
                 } else {
                     productAssoc.remove();
                 }
@@ -377,7 +377,7 @@ public final class ProductUtilServices {
                 // don't remove, just expire to avoid running again in the future
                 productAssoc.set("thruDate", nowTimestamp);
                 if (test) {
-                    Debug.logInfo("Test mode, would store: " + productAssoc, module);
+                    Debug.logInfo("Test mode, would store: " + productAssoc, MODULE);
                 } else {
                     productAssoc.store();
                 }
@@ -387,14 +387,14 @@ public final class ProductUtilServices {
             // Product
             GenericValue variantProduct = EntityQuery.use(delegator).from("Product").where("productId", variantProductId).queryOne();
 
-            Debug.logInfo("--variant has ID: " + variantProductId + " and name: " + variantProduct.getString("internalName"), module);
+            Debug.logInfo("--variant has ID: " + variantProductId + " and name: " + variantProduct.getString("internalName"), MODULE);
 
             // start with the values from the virtual product, override from the variant...
             GenericValue newVariantProduct = delegator.makeValue("Product", product);
             newVariantProduct.setAllFields(variantProduct, false, "", null);
             newVariantProduct.set("isVariant", "N");
             if (test) {
-                Debug.logInfo("Test mode, would store: " + newVariantProduct, module);
+                Debug.logInfo("Test mode, would store: " + newVariantProduct, MODULE);
             } else {
                 newVariantProduct.store();
             }
@@ -423,8 +423,8 @@ public final class ProductUtilServices {
 
             if (removeOld) {
                 if (test) {
-                    Debug.logInfo("Test mode, would remove related ProductKeyword with dummy key: " + product.getRelatedDummyPK("ProductKeyword"), module);
-                    Debug.logInfo("Test mode, would remove: " + product, module);
+                    Debug.logInfo("Test mode, would remove related ProductKeyword with dummy key: " + product.getRelatedDummyPK("ProductKeyword"), MODULE);
+                    Debug.logInfo("Test mode, would remove: " + product, MODULE);
                 } else {
                     product.removeRelated("ProductKeyword");
                     product.remove();
@@ -438,7 +438,7 @@ public final class ProductUtilServices {
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resourceError,"productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals", messageMap, locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -460,7 +460,7 @@ public final class ProductUtilServices {
                 List<GenericValue> existingValueList = EntityQuery.use(delegator).from(relatedEntityName).where(findValue).filterByDate(nowTimestamp).queryList();
                 if (existingValueList.size() > 0) {
                     if (test) {
-                        Debug.logInfo("Found " + existingValueList.size() + " existing values for related entity name: " + relatedEntityName + ", not copying, findValue is: " + findValue, module);
+                        Debug.logInfo("Found " + existingValueList.size() + " existing values for related entity name: " + relatedEntityName + ", not copying, findValue is: " + findValue, MODULE);
                     }
                     continue;
                 }
@@ -469,7 +469,7 @@ public final class ProductUtilServices {
 
             if (EntityQuery.use(delegator).from(relatedEntityName).where(EntityCondition.makeCondition(newRelatedValue.getPrimaryKey(), EntityOperator.AND)).queryCount() == 0) {
                 if (test) {
-                    Debug.logInfo("Test mode, would create: " + newRelatedValue, module);
+                    Debug.logInfo("Test mode, would create: " + newRelatedValue, MODULE);
                 } else {
                     newRelatedValue.create();
                 }
@@ -477,7 +477,7 @@ public final class ProductUtilServices {
         }
         if (removeOld) {
             if (test) {
-                Debug.logInfo("Test mode, would remove related " + title + relatedEntityName + " with dummy key: " + product.getRelatedDummyPK(title + relatedEntityName), module);
+                Debug.logInfo("Test mode, would remove related " + title + relatedEntityName + " with dummy key: " + product.getRelatedDummyPK(title + relatedEntityName), MODULE);
             } else {
                 product.removeRelated(title + relatedEntityName);
             }
@@ -539,14 +539,14 @@ public final class ProductUtilServices {
                 product.store();
                 numSoFar++;
                 if (numSoFar % 500 == 0) {
-                    Debug.logInfo("Image URLs set for " + numSoFar + " products.", module);
+                    Debug.logInfo("Image URLs set for " + numSoFar + " products.", MODULE);
                 }
             }
-            Debug.logInfo("Completed - Image URLs set for " + numSoFar + " products.", module);
+            Debug.logInfo("Completed - Image URLs set for " + numSoFar + " products.", MODULE);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resourceError,"productutilservices.entity_error_running_setAllProductImageNames", messageMap, locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -569,14 +569,14 @@ public final class ProductUtilServices {
                 product.store();
                 numSoFar++;
                 if (numSoFar % 500 == 0) {
-                    Debug.logInfo("Image URLs cleared for " + numSoFar + " products.", module);
+                    Debug.logInfo("Image URLs cleared for " + numSoFar + " products.", MODULE);
                 }
             }
-            Debug.logInfo("Completed - Image URLs set for " + numSoFar + " products.", module);
+            Debug.logInfo("Completed - Image URLs set for " + numSoFar + " products.", MODULE);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resourceError,"productutilservices.entity_error_running_clearAllVirtualProductImageNames", messageMap, locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -616,7 +616,7 @@ public final class ProductUtilServices {
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resourceError,"productutilservices.error_in_attachProductFeaturesToCategory", messageMap, locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -678,7 +678,7 @@ public final class ProductUtilServices {
 
                     String productFeatureGroupId = productCategoryId + "_" + productFeatureTypeId;
                     if (productFeatureGroupId.length() > 20) {
-                        Debug.logWarning("Manufactured productFeatureGroupId was greater than 20 characters, means that we had some long productCategoryId and/or productFeatureTypeId values, at the category part should be unique since it is first, so if the feature type isn't unique it just means more than one type of feature will go into the category...", module);
+                        Debug.logWarning("Manufactured productFeatureGroupId was greater than 20 characters, means that we had some long productCategoryId and/or productFeatureTypeId values, at the category part should be unique since it is first, so if the feature type isn't unique it just means more than one type of feature will go into the category...", MODULE);
                         productFeatureGroupId = productFeatureGroupId.substring(0, 20);
                     }
 

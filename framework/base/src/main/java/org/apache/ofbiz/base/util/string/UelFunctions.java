@@ -162,7 +162,7 @@ import org.xml.sax.SAXException;
  */
 public class UelFunctions {
 
-    private static final String module = UelFunctions.class.getName();
+    private static final String MODULE = UelFunctions.class.getName();
     protected static final Functions functionMapper = new Functions();
 
     /** Returns a <code>FunctionMapper</code> instance.
@@ -268,9 +268,9 @@ public class UelFunctions {
                 this.functionMap.put("dom:toXmlString", UelFunctions.class.getMethod("toXmlString", Node.class, String.class, boolean.class, boolean.class, int.class));
                 this.functionMap.put("dom:writeXmlDocument", UelFunctions.class.getMethod("writeXmlDocument", String.class, Node.class, String.class, boolean.class, boolean.class, int.class));
             } catch (NoSuchMethodException | NullPointerException | SecurityException e) {
-                Debug.logError(e, "Error while initializing UelFunctions.Functions instance", module);
+                Debug.logError(e, "Error while initializing UelFunctions.Functions instance", MODULE);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", module);
+            if (Debug.verboseOn()) Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", MODULE);
         }
         @Override
         public Method resolveFunction(String prefix, String localName) {
@@ -428,10 +428,10 @@ public class UelFunctions {
                 parser.parse(url.toExternalForm());
                 document = parser.getDocument();
             } else {
-                Debug.logError("Unable to locate HTML document " + str, module);
+                Debug.logError("Unable to locate HTML document " + str, MODULE);
             }
         } catch (IOException | SAXException e) {
-            Debug.logError(e, "Error while reading HTML document " + str, module);
+            Debug.logError(e, "Error while reading HTML document " + str, MODULE);
         }
         return document;
     }
@@ -445,14 +445,14 @@ public class UelFunctions {
                     document = UtilXml.readXmlDocument(is, str);
                 }
                 catch (SAXException | ParserConfigurationException e) {
-                    Debug.logError(e, "Error while reading XML document " + str, module);
+                    Debug.logError(e, "Error while reading XML document " + str, MODULE);
                 }
             } else {
-                Debug.logError("Unable to locate XML document " + str, module);
+                Debug.logError("Unable to locate XML document " + str, MODULE);
             }
         }
         catch (IOException e) {
-            Debug.logError(e, "Error while reading XML document " + str, module);
+            Debug.logError(e, "Error while reading XML document " + str, MODULE);
         }
         return document;
     }
@@ -466,10 +466,10 @@ public class UelFunctions {
                     return true;
                 }
             } else {
-                Debug.logError("Unable to create XML document " + str, module);
+                Debug.logError("Unable to create XML document " + str, MODULE);
             }
         } catch (IOException | TransformerException | SecurityException e) {
-            Debug.logError(e, "Error while writing XML document " + str, module);
+            Debug.logError(e, "Error while writing XML document " + str, MODULE);
         }
         return false;
     }
@@ -500,7 +500,7 @@ public class UelFunctions {
                 return os.toString();
             }
         } catch (IOException | TransformerException e) {
-            Debug.logError(e, "Error while creating HTML String ", module);
+            Debug.logError(e, "Error while creating HTML String ", MODULE);
         }
         return null;
     }
@@ -510,7 +510,7 @@ public class UelFunctions {
             UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
             return os.toString();
         } catch (IOException | TransformerException e) {
-            Debug.logError(e, "Error while creating XML String ", module);
+            Debug.logError(e, "Error while creating XML String ", MODULE);
         }
         return null;
     }

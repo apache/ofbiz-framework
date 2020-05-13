@@ -21,3 +21,4 @@ under the License.
 
 include::_include/sy-password-and-JWT.adoc[leveloffset=+1]
 include::_include/sy-impersonation.adoc[leveloffset=+1]
+include::_include/sy-CSRF-defense.adoc[leveloffset=+1]

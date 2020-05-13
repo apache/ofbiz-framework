@@ -44,7 +44,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class FinAccountHelper {
 
-     public static final String module = FinAccountHelper.class.getName();
+     public static final String MODULE = FinAccountHelper.class.getName();
      /**
       * A word on precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers.
       */
@@ -146,11 +146,11 @@ public class FinAccountHelper {
                  .filterByDate().queryList();
          if (UtilValidate.isEmpty(accounts)) {
              // OK to display - not a code anyway
-             Debug.logWarning("No fin account found for account code ["  + finAccountCode + "]", module);
+             Debug.logWarning("No fin account found for account code ["  + finAccountCode + "]", MODULE);
              return null;
          } else if (accounts.size() > 1) {
              // This should never happen, but don't display the code if it does -- it is supposed to be encrypted!
-             Debug.logError("Multiple fin accounts found", module);
+             Debug.logError("Multiple fin accounts found", MODULE);
              return null;
          } else {
              return accounts.get(0);
@@ -242,17 +242,17 @@ public class FinAccountHelper {
         try {
             finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (finAccount != null) {
             String dbPin = finAccount.getString("finAccountCode");
-            Debug.logInfo("FinAccount Pin Validation: [Sent: " + pinNumber + "] [Actual: " + dbPin + "]", module);
+            Debug.logInfo("FinAccount Pin Validation: [Sent: " + pinNumber + "] [Actual: " + dbPin + "]", MODULE);
             if (dbPin != null && dbPin.equals(pinNumber)) {
                 return true;
             }
         } else {
-            Debug.logInfo("FinAccount record not found (" + finAccountId + ")", module);
+            Debug.logInfo("FinAccount record not found (" + finAccountId + ")", MODULE);
         }
         return false;
     }

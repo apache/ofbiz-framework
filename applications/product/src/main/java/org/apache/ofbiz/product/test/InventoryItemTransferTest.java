@@ -30,7 +30,6 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class InventoryItemTransferTest extends OFBizTestCase {
 
-    protected GenericValue userLogin = null;
     static String inventoryTransferId = null;
     protected BigDecimal transferQty = BigDecimal.ONE;
 
@@ -39,15 +38,11 @@ public class InventoryItemTransferTest extends OFBizTestCase {
     }
 
     @Override
-    protected void setUp() throws Exception {
-        userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
-    }
-
-    @Override
     protected void tearDown() throws Exception {
     }
 
     public void testCreateInventoryItemsTransfer() throws Exception {
+        GenericValue userLogin = getUserLogin("system");
         // create
         Map<String, Object> ctx = new HashMap<>();
         String inventoryItemId = "9005";

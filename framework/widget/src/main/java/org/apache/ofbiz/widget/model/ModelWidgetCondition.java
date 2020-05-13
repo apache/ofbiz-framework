@@ -72,7 +72,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      *
      */
 
-    public static final String module = ModelWidgetCondition.class.getName();
+    public static final String MODULE = ModelWidgetCondition.class.getName();
     public static final ConditionFactory DEFAULT_CONDITION_FACTORY = new DefaultConditionFactory();
 
     private final ModelWidget modelWidget;
@@ -165,32 +165,33 @@ public abstract class ModelWidgetCondition implements Serializable {
             if (conditionElement == null) {
                 return TRUE;
             }
-            if ("and".equals(conditionElement.getNodeName())) {
+            String nodeName = conditionElement.getLocalName();
+            if ("and".equals(nodeName)) {
                 return new And(this, modelWidget, conditionElement);
-            } else if ("xor".equals(conditionElement.getNodeName())) {
+            } else if ("xor".equals(nodeName)) {
                 return new Xor(this, modelWidget, conditionElement);
-            } else if ("or".equals(conditionElement.getNodeName())) {
+            } else if ("or".equals(nodeName)) {
                 return new Or(this, modelWidget, conditionElement);
-            } else if ("not".equals(conditionElement.getNodeName())) {
+            } else if ("not".equals(nodeName)) {
                 return new Not(this, modelWidget, conditionElement);
-            } else if ("if-service-permission".equals(conditionElement.getNodeName())) {
+            } else if ("if-service-permission".equals(nodeName)) {
                 return new IfServicePermission(this, modelWidget, conditionElement);
-            } else if ("if-has-permission".equals(conditionElement.getNodeName())) {
+            } else if ("if-has-permission".equals(nodeName)) {
                 return new IfHasPermission(this, modelWidget, conditionElement);
-            } else if ("if-validate-method".equals(conditionElement.getNodeName())) {
+            } else if ("if-validate-method".equals(nodeName)) {
                 return new IfValidateMethod(this, modelWidget, conditionElement);
-            } else if ("if-compare".equals(conditionElement.getNodeName())) {
+            } else if ("if-compare".equals(nodeName)) {
                 return new IfCompare(this, modelWidget, conditionElement);
-            } else if ("if-compare-field".equals(conditionElement.getNodeName())) {
+            } else if ("if-compare-field".equals(nodeName)) {
                 return new IfCompareField(this, modelWidget, conditionElement);
-            } else if ("if-regexp".equals(conditionElement.getNodeName())) {
+            } else if ("if-regexp".equals(nodeName)) {
                 return new IfRegexp(this, modelWidget, conditionElement);
-            } else if ("if-empty".equals(conditionElement.getNodeName())) {
+            } else if ("if-empty".equals(nodeName)) {
                 return new IfEmpty(this, modelWidget, conditionElement);
-            } else if ("if-entity-permission".equals(conditionElement.getNodeName())) {
+            } else if ("if-entity-permission".equals(nodeName)) {
                 return new IfEntityPermission(this, modelWidget, conditionElement);
             } else {
-                throw new IllegalArgumentException("Condition element not supported with name: " + conditionElement.getNodeName());
+                throw new IllegalArgumentException("Condition element not supported with name: " + nodeName);
             }
         }
     }
@@ -239,7 +240,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 for (Object item : messages) {
                     fullString.append(item.toString());
                 }
-                Debug.logWarning(fullString.toString(), module);
+                Debug.logWarning(fullString.toString(), MODULE);
                 throw new IllegalArgumentException(fullString.toString());
             }
             return resultBool;
@@ -296,7 +297,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 for (Object item : messages) {
                     fullString.append(item.toString());
                 }
-                Debug.logWarning(fullString.toString(), module);
+                Debug.logWarning(fullString.toString(), MODULE);
                 throw new IllegalArgumentException(fullString.toString());
             }
             return resultBool;
@@ -413,7 +414,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 pattern = PatternFactory.createOrGetPerl5CompiledPattern(expr, true);
             } catch (MalformedPatternException e) {
                 String errMsg = "Error in evaluation in if-regexp in screen: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
             String fieldString = null;
@@ -421,7 +422,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 fieldString = (String) ObjectType.simpleTypeOrObjectConvert(fieldVal, "String", null, (TimeZone) context.get("timeZone"),
                         (Locale) context.get("locale"), true);
             } catch (GeneralException e) {
-                Debug.logError(e, "Could not convert object to String, using empty String", module);
+                Debug.logError(e, "Could not convert object to String, using empty String", MODULE);
             }
             // always use an empty string by default
             if (fieldString == null) {
@@ -464,7 +465,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                     resource = serviceName;
                 }
                 if (UtilValidate.isEmpty(serviceName)) {
-                    Debug.logWarning("No permission service-name specified!", module);
+                    Debug.logWarning("No permission service-name specified!", MODULE);
                     return false;
                 }
                 Object obj = context.get(contextMap);
@@ -484,7 +485,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 try {
                     permService = dctx.getModelService(serviceName);
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return false;
                 }
                 // build the context
@@ -499,11 +500,11 @@ public abstract class ModelWidgetCondition implements Serializable {
                     resp = dispatcher.runSync(permService.name, svcCtx, 300, true);
                 }
                 catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return false;
                 }
                 if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
-                    Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+                    Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
                     return false;
                 }
                 Boolean hasPermission = (Boolean) resp.get("hasPermission");
@@ -547,7 +548,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                     fieldString = (String) ObjectType.simpleTypeOrObjectConvert(fieldVal, "String", null,
                             (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                 } catch (GeneralException e) {
-                    Debug.logError(e, "Could not convert object to String, using empty String", module);
+                    Debug.logError(e, "Could not convert object to String, using empty String", MODULE);
                 }
             }
             // always use an empty string by default
@@ -560,14 +561,14 @@ public abstract class ModelWidgetCondition implements Serializable {
             try {
                 valClass = ObjectType.loadClass(className);
             } catch (ClassNotFoundException cnfe) {
-                Debug.logError("Could not find validation class: " + className, module);
+                Debug.logError("Could not find validation class: " + className, MODULE);
                 return false;
             }
             Method valMethod;
             try {
                 valMethod = valClass.getMethod(methodName, paramTypes);
             } catch (NoSuchMethodException cnfe) {
-                Debug.logError("Could not find validation method: " + methodName + " of class " + className, module);
+                Debug.logError("Could not find validation method: " + methodName + " of class " + className, MODULE);
                 return false;
             }
             Boolean resultBool = Boolean.FALSE;
@@ -575,7 +576,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 resultBool = (Boolean) valMethod.invoke(null, params);
             } catch (Exception e) {
                 Debug.logError(e, "Error in IfValidationMethod " + methodName + " of class " + className
-                        + ", defaulting to false ", module);
+                        + ", defaulting to false ", MODULE);
             }
             return resultBool;
         }

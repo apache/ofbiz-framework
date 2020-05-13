@@ -45,7 +45,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class VerifyPickSession implements Serializable {
 
-    public static final String module = VerifyPickSession.class.getName();
+    public static final String MODULE = VerifyPickSession.class.getName();
 
     protected GenericValue userLogin = null;
     protected String dispatcherName = null;
@@ -227,7 +227,7 @@ public class VerifyPickSession implements Serializable {
                 break;
             default:
                 // if a wrong checkCode is given
-                Debug.logError("There was a wrong checkCode given in the method createVerifyPickRow: " + checkCode, module);
+                Debug.logError("There was a wrong checkCode given in the method createVerifyPickRow: " + checkCode, MODULE);
         }
     }
 
@@ -344,7 +344,7 @@ public class VerifyPickSession implements Serializable {
             GenericValue reservation = EntityUtil.getFirst(this.getDelegator().findByAnd("OrderItemAndShipGrpInvResAndItemSum", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId), null, false));
             reservedQty = reservation.getBigDecimal("totQuantityAvailable");
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return reservedQty;
     }

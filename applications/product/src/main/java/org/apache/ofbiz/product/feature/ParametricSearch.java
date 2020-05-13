@@ -44,7 +44,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class ParametricSearch {
 
-    public static final String module = ParametricSearch.class.getName();
+    public static final String MODULE = ParametricSearch.class.getName();
 
     public static final int DEFAULT_PER_TYPE_MAX_SIZE = 1000;
 
@@ -80,7 +80,7 @@ public class ParametricSearch {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting feature categories associated with the category with ID: " + productCategoryId, module);
+            Debug.logError(e, "Error getting feature categories associated with the category with ID: " + productCategoryId, MODULE);
         }
 
         try {
@@ -105,7 +105,7 @@ public class ParametricSearch {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting feature groups associated with the category with ID: " + productCategoryId, module);
+            Debug.logError(e, "Error getting feature groups associated with the category with ID: " + productCategoryId, MODULE);
         }
 
         // now before returning, order the features in each list by description
@@ -143,7 +143,7 @@ public class ParametricSearch {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting all features", module);
+            Debug.logError(e, "Error getting all features", MODULE);
         }
         return productFeaturesByTypeMap;
     }

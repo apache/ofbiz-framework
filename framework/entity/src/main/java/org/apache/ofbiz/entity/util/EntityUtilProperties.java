@@ -47,7 +47,7 @@ import org.apache.ofbiz.entity.GenericValue;
 @SuppressWarnings("serial")
 public final class EntityUtilProperties implements Serializable {
 
-    public final static String module = EntityUtilProperties.class.getName();
+    public final static String MODULE = EntityUtilProperties.class.getName();
 
     private EntityUtilProperties () {}
 
@@ -72,7 +72,7 @@ public final class EntityUtilProperties implements Serializable {
                 results.put("value", (systemProperty.getString("systemPropertyValue") != null) ? systemProperty.getString("systemPropertyValue") : "");
             }
         } catch (GenericEntityException e) {
-            Debug.logError("Could not get a system property for " + name + " : " + e.getMessage(), module);
+            Debug.logError("Could not get a system property for " + name + " : " + e.getMessage(), MODULE);
         }
         return results;
     }
@@ -104,13 +104,13 @@ public final class EntityUtilProperties implements Serializable {
     public static String getPropertyValueFromDelegatorName(String resource, String name, String defaultValue, String delegatorName) {
         Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
         if (delegator == null) { // This should not happen, but in case...
-            Debug.logError("Could not get a delegator. Using the 'default' delegator", module);
+            Debug.logError("Could not get a delegator. Using the 'default' delegator", MODULE);
             // this will be the common case for now as the delegator isn't available where we want to do this
             // we'll cheat a little here and assume the default delegator
             delegator = DelegatorFactory.getDelegator("default");
-            Debug.logError("Could not get a delegator. Using the 'default' delegator", module);
+            Debug.logError("Could not get a delegator. Using the 'default' delegator", MODULE);
             if (delegator == null) {
-                Debug.logError("Could not get a system property for " + name + ". Reason: the delegator is null", module);
+                Debug.logError("Could not get a system property for " + name + ". Reason: the delegator is null", MODULE);
             }
         }
         Map<String, String> propMap = getSystemPropertyValue(resource, name, delegator);
@@ -170,13 +170,13 @@ public final class EntityUtilProperties implements Serializable {
     public static String getPropertyValueFromDelegatorName(String resource, String name, String delegatorName) {
         Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
         if (delegator == null) { // This should not happen, but in case...
-            Debug.logError("Could not get a delegator. Using the 'default' delegator", module);
+            Debug.logError("Could not get a delegator. Using the 'default' delegator", MODULE);
             // this will be the common case for now as the delegator isn't available where we want to do this
             // we'll cheat a little here and assume the default delegator
             delegator = DelegatorFactory.getDelegator("default");
-            Debug.logError("Could not get a delegator. Using the 'default' delegator", module);
+            Debug.logError("Could not get a delegator. Using the 'default' delegator", MODULE);
             if (delegator == null) {
-                Debug.logError("Could not get a system property for " + name + ". Reason: the delegator is null", module);
+                Debug.logError("Could not get a system property for " + name + ". Reason: the delegator is null", MODULE);
             }
         }
         Map<String, String> propMap = getSystemPropertyValue(resource, name, delegator);
@@ -213,7 +213,7 @@ public final class EntityUtilProperties implements Serializable {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         }
         return properties;
     }
@@ -266,7 +266,7 @@ public final class EntityUtilProperties implements Serializable {
             }
             gv.store();
         } catch (GenericEntityException e) {
-            Debug.logError(String.format("tenantId=%s, exception=%s, message=%s", delegator.getDelegatorTenantId(), e.getClass().getName(), e.getMessage()), module);
+            Debug.logError(String.format("tenantId=%s, exception=%s, message=%s", delegator.getDelegatorTenantId(), e.getClass().getName(), e.getMessage()), MODULE);
         }
         return prevValue;
     }

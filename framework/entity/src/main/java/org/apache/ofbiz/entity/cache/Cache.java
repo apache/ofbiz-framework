@@ -29,7 +29,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 
 public class Cache {
 
-    public static final String module = Cache.class.getName();
+    public static final String MODULE = Cache.class.getName();
 
     protected EntityCache entityCache;
     protected EntityListCache entityListCache;
@@ -111,7 +111,7 @@ public class Cache {
 
     public GenericValue remove(GenericEntity entity) {
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Cache remove GenericEntity: " + entity, module);
+            Debug.logVerbose("Cache remove GenericEntity: " + entity, MODULE);
         }
         GenericValue oldEntity = entityCache.remove(entity.getPrimaryKey());
         // Workaround because AbstractEntityConditionCache.storeHook doesn't work.
@@ -122,7 +122,7 @@ public class Cache {
 
     public GenericValue remove(GenericPK pk) {
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Cache remove GenericPK: " + pk, module);
+            Debug.logVerbose("Cache remove GenericPK: " + pk, MODULE);
         }
         GenericValue oldEntity = entityCache.remove(pk);
         // Workaround because AbstractEntityConditionCache.storeHook doesn't work.

@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class MainResourceHandler implements ResourceHandler {
 
-    public static final String module = MainResourceHandler.class.getName();
+    public static final String MODULE = MainResourceHandler.class.getName();
     private final String xmlFilename;
     private final String loaderName;
     private final String location;
@@ -43,7 +43,7 @@ public final class MainResourceHandler implements ResourceHandler {
         this.loaderName = element.getAttribute("loader");
         this.location = element.getAttribute("location");
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Created " + this.toString(), module);
+            Debug.logVerbose("Created " + this.toString(), MODULE);
         }
     }
 

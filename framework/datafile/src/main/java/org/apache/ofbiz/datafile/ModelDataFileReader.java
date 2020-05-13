@@ -40,20 +40,20 @@ import org.w3c.dom.NodeList;
 
 public final class ModelDataFileReader {
 
-    public static final String module = ModelDataFileReader.class.getName();
+    public static final String MODULE = ModelDataFileReader.class.getName();
     private static final UtilCache<URL, ModelDataFileReader> readers = UtilCache.createUtilCache("ModelDataFile", true);
 
     public static ModelDataFileReader getModelDataFileReader(URL readerURL) throws DataFileException {
         ModelDataFileReader reader = readers.get(readerURL);
         if (reader == null) {
             if (Debug.infoOn()) {
-                Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : creating reader for " + readerURL, module);
+                Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : creating reader for " + readerURL, MODULE);
             }
             reader = new ModelDataFileReader(readerURL);
             readers.putIfAbsent(readerURL, reader);
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : returning reader for " + readerURL, module);
+            Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : returning reader for " + readerURL, MODULE);
         }
         return reader;
     }
@@ -119,7 +119,7 @@ public final class ModelDataFileReader {
                     parentRecord.childRecords.add(modelRecord);
                     modelRecord.parentRecord = parentRecord;
                 } else {
-                    Debug.logError("[ModelDataFileReader.createModelDataFile] ERROR: Could not find parentRecord with name " + modelRecord.parentName, module);
+                    Debug.logError("[ModelDataFileReader.createModelDataFile] ERROR: Could not find parentRecord with name " + modelRecord.parentName, MODULE);
                 }
             }
         }
@@ -133,32 +133,32 @@ public final class ModelDataFileReader {
         try {
             document = UtilXml.readXmlDocument(this.readerURL);
         } catch (Exception e) {
-            Debug.logWarning(e, "Error while reading " + this.readerURL + ": ", module);
+            Debug.logWarning(e, "Error while reading " + this.readerURL + ": ", MODULE);
             throw new DataFileException("Error while reading " + this.readerURL, e);
         }
         if (document != null) {
             docElement = document.getDocumentElement();
         }
         if (docElement == null) {
-            Debug.logWarning("Document element not found in " + this.readerURL, module);
+            Debug.logWarning("Document element not found in " + this.readerURL, MODULE);
             throw new DataFileException("Document element not found in " + this.readerURL);
         }
         docElement.normalize();
         List<? extends Element> dataFileElements = UtilXml.childElementList(docElement, "data-file");
         if (dataFileElements.size() == 0) {
-            Debug.logWarning("No <data-file> elements found in " + this.readerURL, module);
+            Debug.logWarning("No <data-file> elements found in " + this.readerURL, MODULE);
             throw new DataFileException("No <data-file> elements found in " + this.readerURL);
         }
         Map<String, ModelDataFile> result = new HashMap<>();
         for (Element curDataFile : dataFileElements) {
             String dataFileName = UtilXml.checkEmpty(curDataFile.getAttribute("name"));
             if (result.containsKey(dataFileName)) {
-                Debug.logWarning("DataFile " + dataFileName + " is defined more than once, most recent will over-write previous definition(s)", module);
+                Debug.logWarning("DataFile " + dataFileName + " is defined more than once, most recent will over-write previous definition(s)", MODULE);
             }
             ModelDataFile dataFile = createModelDataFile(curDataFile);
             result.put(dataFileName, dataFile);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Loaded dataFile: " + dataFileName, module);
+                Debug.logVerbose("Loaded dataFile: " + dataFileName, MODULE);
             }
         }
         return result;

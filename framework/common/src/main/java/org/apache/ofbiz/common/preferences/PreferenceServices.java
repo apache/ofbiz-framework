@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  * This class handles any data conversion needed.</p>
  */
 public class PreferenceServices {
-    public static final String module = PreferenceServices.class.getName();
+    public static final String MODULE = PreferenceServices.class.getName();
 
     public static final String resource = "PrefErrorUiLabels";
 
@@ -86,7 +86,7 @@ public class PreferenceServices {
                 userPrefMap = PreferenceWorker.createUserPrefMap(preference);
             }
         } catch (GeneralException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
         }
 
@@ -133,7 +133,7 @@ public class PreferenceServices {
                 userPrefMap.putAll(PreferenceWorker.createUserPrefMap(EntityQuery.use(delegator).from("UserPreference").where(fieldMap).cache(true).queryList()));
             }
         } catch (GeneralException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
         }
         // for the 'DEFAULT' values find the related values in general properties and if found use those.
@@ -180,7 +180,7 @@ public class PreferenceServices {
             GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, userPrefTypeId, userPrefGroupTypeId, userPrefValue));
             delegator.createOrStore(rec);
         } catch (GeneralException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
         }
 
@@ -206,7 +206,7 @@ public class PreferenceServices {
                 rec.remove();
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
         }
 
@@ -239,7 +239,7 @@ public class PreferenceServices {
                 delegator.createOrStore(rec);
             }
         } catch (GeneralException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
         }
 
@@ -278,7 +278,7 @@ public class PreferenceServices {
                 delegator.storeAll(resultList);
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "copyPreference.writeFailure", new Object[] { e.getMessage() }, locale));
         }
 

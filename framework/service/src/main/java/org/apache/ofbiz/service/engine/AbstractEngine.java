@@ -36,7 +36,7 @@ import org.apache.ofbiz.service.config.model.ServiceLocation;
  */
 public abstract class AbstractEngine implements GenericEngine {
 
-    public static final String module = AbstractEngine.class.getName();
+    public static final String MODULE = AbstractEngine.class.getName();
     /** Map containing aliases for service implementation locations. */
     protected static final Map<String, String> locationMap = createLocationMap();
 
@@ -58,11 +58,11 @@ public abstract class AbstractEngine implements GenericEngine {
             locations = ServiceConfigUtil.getServiceEngine().getServiceLocations();
         } catch (GenericConfigException e) {
             // FIXME: Refactor API so exceptions can be thrown and caught.
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new RuntimeException(e.getMessage());
         }
         locations.forEach(loc -> tmp.put(loc.getName(), loc.getLocation()));
-        Debug.logInfo("Loaded Service Locations: " + tmp, module);
+        Debug.logInfo("Loaded Service Locations: " + tmp, MODULE);
         return Collections.unmodifiableMap(tmp);
     }
 

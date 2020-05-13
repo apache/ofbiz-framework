@@ -55,7 +55,7 @@ import org.apache.ofbiz.base.location.ComponentLocationResolver;
  */
 public final class FileUtil {
 
-    public static final String module = FileUtil.class.getName();
+    public static final String MODULE = FileUtil.class.getName();
 
     private FileUtil () {}
 
@@ -101,7 +101,7 @@ public final class FileUtil {
                 try {
                     xmlFileBuffer = FileUtil.readTextFile(file, true);
                 } catch (IOException e) {
-                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), module);
+                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), MODULE);
                     return false;
                 }
                 if (UtilValidate.isNotEmpty(xmlFileBuffer)) {
@@ -130,7 +130,7 @@ public final class FileUtil {
             try {
                 path = ComponentLocationResolver.getBaseLocation(path).toString();
             } catch (MalformedURLException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -159,7 +159,7 @@ public final class FileUtil {
         ) {
             out.write(s + System.getProperty("line.separator"));
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -181,7 +181,7 @@ public final class FileUtil {
         try {
             FileUtils.writeStringToFile(new File(fileName), s, encoding);
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw e;
         }
     }
@@ -190,7 +190,7 @@ public final class FileUtil {
         try {
             FileUtils.writeStringToFile(outFile, s, encoding);
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw e;
         }
     }
@@ -254,7 +254,7 @@ public final class FileUtil {
                 }
             }
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return buf;
@@ -269,7 +269,7 @@ public final class FileUtil {
         try {
             readString = FileUtils.readFileToString(inFile, encoding);
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw e;
         }
         return readString;

@@ -44,7 +44,7 @@ import org.apache.ofbiz.webapp.event.EventHandlerException;
  */
 public class TaskEvents {
 
-    public static final String module = TaskEvents.class.getName();
+    public static final String MODULE = TaskEvents.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
     /** Complete assignment event */
@@ -75,7 +75,7 @@ public class TaskEvents {
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
         } catch (GenericServiceException e) {
@@ -96,7 +96,7 @@ public class TaskEvents {
                 EventHandler eh = rh.getEventFactory().getEventHandler("service");
                 eh.invoke(new Event("service", "", "wfAcceptRoleAssignment", true), null, request, response);
             } catch (EventHandlerException e) {
-                Debug.logError(e, "Invocation error", module);
+                Debug.logError(e, "Invocation error", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderFailedToInvokeTheWfAcceptRoleAssignmentService", locale));
                 return "error";
             }
@@ -115,7 +115,7 @@ public class TaskEvents {
                 EventHandler eh = rh.getEventFactory().getEventHandler("service");
                 eh.invoke(new Event("service", "", "wfAcceptRoleAssignment", true), null, request, response);
             } catch (EventHandlerException e) {
-                Debug.logError(e, "Invocation error", module);
+                Debug.logError(e, "Invocation error", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderFailedToInvokeTheWfDelegateAndAcceptAssignmentService", locale));
                 return "error";
             }
@@ -136,10 +136,10 @@ public class TaskEvents {
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return false;
             }
-            Debug.logInfo("Added user to order role " + result, module);
+            Debug.logInfo("Added user to order role " + result, MODULE);
         } catch (GenericServiceException gse) {
             request.setAttribute("_ERROR_MESSAGE_", gse.getMessage());
             return false;

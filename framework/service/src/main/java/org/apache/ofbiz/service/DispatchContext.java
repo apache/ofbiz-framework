@@ -53,7 +53,7 @@ import org.w3c.dom.Document;
 @SuppressWarnings("serial")
 public class DispatchContext implements Serializable {
 
-    public static final String module = DispatchContext.class.getName();
+    public static final String MODULE = DispatchContext.class.getName();
 
     private static final UtilCache<String, Map<String, ModelService>> modelServiceMapByModel = UtilCache.createUtilCache("service.ModelServiceMapByModel", 0, 0, false);
 
@@ -85,7 +85,7 @@ public class DispatchContext implements Serializable {
                 try {
                     delegatorInfo = EntityConfig.getInstance().getDelegator(delegator.getDelegatorBaseName());
                 } catch (GenericEntityConfException e) {
-                    Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
+                    Debug.logWarning(e, "Exception thrown while getting delegator config: ", MODULE);
                 }
                 if (delegatorInfo != null) {
                     modelName = delegatorInfo.getEntityModelReader();
@@ -245,7 +245,7 @@ public class DispatchContext implements Serializable {
                 globalServicesList = ServiceConfigUtil.getServiceEngine().getGlobalServices();
             } catch (GenericConfigException e) {
                 // FIXME: Refactor API so exceptions can be thrown and caught.
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new RuntimeException(e.getMessage());
             }
             for (GlobalServices globalServices : globalServicesList) {

@@ -54,7 +54,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class PartyContentWrapper implements ContentWrapper {
 
-    public static final String module = PartyContentWrapper.class.getName();
+    public static final String MODULE = PartyContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
 
     private static final UtilCache<String, String> partyContentCache = UtilCache.createUtilCache("party.content.rendered", true);
@@ -101,13 +101,13 @@ public class PartyContentWrapper implements ContentWrapper {
         try {
             return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher);
         } catch (GeneralException ge) {
-            Debug.logError(ge, module);
+            Debug.logError(ge, MODULE);
             return null;
         } catch (IOException ioe) {
-            Debug.logError(ioe, module);
+            Debug.logError(ioe, MODULE);
             return null;
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -175,11 +175,11 @@ public class PartyContentWrapper implements ContentWrapper {
             }
             return outString;
         } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering PartyContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering PartyContent, inserting empty String", MODULE);
             String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
         } catch (IOException e) {
-            Debug.logError(e, "Error rendering PartyContent, inserting empty String", module);
+            Debug.logError(e, "Error rendering PartyContent, inserting empty String", MODULE);
             String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
         }
@@ -301,7 +301,7 @@ public class PartyContentWrapper implements ContentWrapper {
                     .cache(true)
                     .queryList();
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (partyContentList != null) {

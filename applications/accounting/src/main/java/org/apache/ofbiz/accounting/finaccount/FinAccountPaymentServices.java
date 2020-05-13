@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class FinAccountPaymentServices {
 
-    public static final String module = FinAccountPaymentServices.class.getName();
+    public static final String MODULE = FinAccountPaymentServices.class.getName();
     public static final String resourceError = "AccountingErrorUiLabels";
 
     // base payment integration services
@@ -80,7 +80,7 @@ public class FinAccountPaymentServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
@@ -110,7 +110,7 @@ public class FinAccountPaymentServices {
                 finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId)
                         .queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         } else {
@@ -118,7 +118,7 @@ public class FinAccountPaymentServices {
                 try {
                     finAccount = FinAccountHelper.getFinAccountFromCode(finAccountCode, delegator);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                             "AccountingFinAccountCannotLocateItFromAccountCode", locale));
                 }
@@ -146,10 +146,10 @@ public class FinAccountPaymentServices {
             if (finAccountSettings == null) {
                 Debug.logWarning(
                         "In finAccountPreAuth could not find ProductStoreFinActSetting record, values searched by: "
-                                + findProductStoreFinActSettingMap, module);
+                                + findProductStoreFinActSettingMap, MODULE);
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("In finAccountPreAuth finAccountSettings=" + finAccountSettings, module);
+                Debug.logVerbose("In finAccountPreAuth finAccountSettings=" + finAccountSettings, MODULE);
             }
 
             BigDecimal minBalance = FinAccountHelper.ZERO;
@@ -173,7 +173,7 @@ public class FinAccountPaymentServices {
                         result.put("authFlag", "0");
                         result.put("authCode", "A");
                         result.put("authRefNum", "0");
-                        Debug.logWarning("Unable to auth FinAccount: " + result, module);
+                        Debug.logWarning("Unable to auth FinAccount: " + result, MODULE);
                         return result;
                     }
                 }
@@ -191,7 +191,7 @@ public class FinAccountPaymentServices {
                 result.put("authFlag", "0");
                 result.put("authCode", "A");
                 result.put("authRefNum", "0");
-                Debug.logWarning("Unable to auth FinAccount: " + result, module);
+                Debug.logWarning("Unable to auth FinAccount: " + result, MODULE);
                 return result;
             }
 
@@ -220,7 +220,7 @@ public class FinAccountPaymentServices {
                     result.put("authFlag", "0");
                     result.put("authCode", "A");
                     result.put("authRefNum", "0");
-                    Debug.logWarning("Unable to auth FinAccount: " + result, module);
+                    Debug.logWarning("Unable to auth FinAccount: " + result, MODULE);
                     return result;
                 }
             }
@@ -237,7 +237,7 @@ public class FinAccountPaymentServices {
                     Debug.logWarning("In finAccountPreAuth for finAccountId [" + finAccountId + "] availableBalance ["
                             + availableBalanceOriginal + "] was different after rounding [" + availableBalance
                             + "]; it should never have made it into the database this way, so check whatever put it there.",
-                            module);
+                            MODULE);
                 }
             }
 
@@ -249,7 +249,7 @@ public class FinAccountPaymentServices {
             // make sure to round and scale it to the same as availableBalance
             amount = amount.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
-            Debug.logInfo("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amount, module);
+            Debug.logInfo("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amount, MODULE);
             // check the available balance to see if we can auth this tx
             if (("Y".equals(allowAuthToNegative) && availableBalance.compareTo(minBalance) > -1)
                     || (availableBalance.compareTo(amount) > -1)) {
@@ -274,7 +274,7 @@ public class FinAccountPaymentServices {
                 finAccount.refresh();
             } else {
                 Debug.logWarning("Attempted to authorize [" + amount + "] against a balance of only ["
-                        + availableBalance + "] for finAccountId [" + finAccountId + "]", module);
+                        + availableBalance + "] for finAccountId [" + finAccountId + "]", MODULE);
                 refNum = "0"; // a refNum is always required from authorization
                 authMessage = "Insufficient funds";
                 processResult = Boolean.FALSE;
@@ -287,11 +287,11 @@ public class FinAccountPaymentServices {
             result.put("authFlag", "1");
             result.put("authCode", "A");
             result.put("authRefNum", refNum);
-            Debug.logInfo("FinAccont Auth: " + result, module);
+            Debug.logInfo("FinAccont Auth: " + result, MODULE);
 
             return result;
         } catch (GenericEntityException | GenericServiceException ex) {
-            Debug.logError(ex, "Cannot authorize financial account", module);
+            Debug.logError(ex, "Cannot authorize financial account", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountCannotBeAuthorized",
                     UtilMisc.toMap("errorString", ex.getMessage()), locale));
@@ -328,7 +328,7 @@ public class FinAccountPaymentServices {
 
             return result;
         } catch (GenericServiceException e) {
-            Debug.logError(e, e.getMessage(), module);
+            Debug.logError(e, e.getMessage(), MODULE);
             return ServiceUtil.returnError(err + e.getMessage());
         }
     }
@@ -360,18 +360,18 @@ public class FinAccountPaymentServices {
             finAccountAuth = EntityQuery.use(delegator).from("FinAccountAuth").where("finAccountAuthId",
                     finAccountAuthId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         Debug.logInfo("Financial account capture [" + finAccountAuth.get("finAccountId") + "] for the amount of $" +
-                amount + " Tx #" + finAccountAuth.get("finAccountAuthId"), module);
+                amount + " Tx #" + finAccountAuth.get("finAccountAuthId"), MODULE);
 
         // get the financial account
         GenericValue finAccount;
         try {
             finAccount = finAccountAuth.getRelatedOne("FinAccount", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -418,7 +418,7 @@ public class FinAccountPaymentServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResult));
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -439,7 +439,7 @@ public class FinAccountPaymentServices {
         try {
             withdrawResp = dispatcher.runSync("finAccountWithdraw", withdrawCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(withdrawResp)) {
@@ -512,7 +512,7 @@ public class FinAccountPaymentServices {
         try {
             depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(depositResp)) {
@@ -572,7 +572,7 @@ public class FinAccountPaymentServices {
         try {
             finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -614,7 +614,7 @@ public class FinAccountPaymentServices {
                 balance = finAccount.getBigDecimal("actualBalance");
                 procResult = Boolean.TRUE;
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -663,7 +663,7 @@ public class FinAccountPaymentServices {
         try {
             finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", finAccountId), locale));
         }
@@ -681,7 +681,7 @@ public class FinAccountPaymentServices {
                     "AccountingFinAccountExpired",
                     UtilMisc.toMap("thruDate", finAccount.getTimestamp("thruDate")), locale));
         }
-        Debug.logInfo("Deposit into financial account #" + finAccountId + " [" + amount + "]", module);
+        Debug.logInfo("Deposit into financial account #" + finAccountId + " [" + amount + "]", MODULE);
 
         // get the previous balance
         BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");
@@ -698,7 +698,7 @@ public class FinAccountPaymentServices {
             finAccount.refresh();
             actualBalance = finAccount.getBigDecimal("actualBalance");
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -714,7 +714,7 @@ public class FinAccountPaymentServices {
                             finAccountId, "statusId", "FNACT_NEGPENDREPL");
                     dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
@@ -744,7 +744,7 @@ public class FinAccountPaymentServices {
         try {
             finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (finAccount == null) {
@@ -759,7 +759,7 @@ public class FinAccountPaymentServices {
         try {
             finAccountType = finAccount.getRelatedOne("FinAccountType", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         String replenishEnumId = finAccountType.getString("replenishEnumId");
@@ -785,12 +785,12 @@ public class FinAccountPaymentServices {
             finAccountSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting").where(psfasFindMap)
                     .cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (finAccountSettings == null) {
             Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId
-                    + "] because no ProductStoreFinActSetting record found for: " + psfasFindMap, module);
+                    + "] because no ProductStoreFinActSetting record found for: " + psfasFindMap, MODULE);
             // no settings; don't replenish
             return ServiceUtil.returnSuccess();
         }
@@ -799,14 +799,14 @@ public class FinAccountPaymentServices {
         if (replenishThreshold == null) {
             Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId
                     + "] because ProductStoreFinActSetting.replenishThreshold field was null for: " + psfasFindMap,
-                    module);
+                    MODULE);
             return ServiceUtil.returnSuccess();
         }
 
         BigDecimal replenishLevel = finAccount.getBigDecimal("replenishLevel");
         if (replenishLevel == null || replenishLevel.compareTo(BigDecimal.ZERO) == 0) {
             Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId
-                    + "] because FinAccount.replenishLevel field was null or 0", module);
+                    + "] because FinAccount.replenishLevel field was null or 0", MODULE);
             // no replenish level set; this account goes not support auto-replenish
             return ServiceUtil.returnSuccess();
         }
@@ -818,7 +818,7 @@ public class FinAccountPaymentServices {
         if (balance.compareTo(replenishThreshold) > -1) {
             Debug.logInfo("finAccountReplenish Info: Not replenishing FinAccount [" + finAccountId
                     + "] because balance [" + balance + "] is greater than the replenishThreshold ["
-                    + replenishThreshold + "]", module);
+                    + replenishThreshold + "]", MODULE);
             // not ready
             return ServiceUtil.returnSuccess();
         }
@@ -830,7 +830,7 @@ public class FinAccountPaymentServices {
                         "statusId", "FNACT_NEGPENDREPL");
                 dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -853,7 +853,7 @@ public class FinAccountPaymentServices {
         if (ownerPartyId == null) {
             // no owner cannot replenish; (not fatal, just not supported by this account)
             Debug.logWarning("finAccountReplenish Warning: No owner attached to financial account [" + finAccountId
-                    + "] cannot auto-replenish", module);
+                    + "] cannot auto-replenish", MODULE);
             return ServiceUtil.returnSuccess();
         }
 
@@ -862,7 +862,7 @@ public class FinAccountPaymentServices {
         if (paymentMethodId == null) {
             Debug.logWarning(
                     "finAccountReplenish Warning: No payment method (replenishPaymentId) attached to financial account ["
-                            + finAccountId + "] cannot auto-replenish", module);
+                            + finAccountId + "] cannot auto-replenish", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNoPaymentMethodAssociatedWithReplenishAccount", locale));
         }
@@ -872,13 +872,13 @@ public class FinAccountPaymentServices {
             paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId)
                     .queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (paymentMethod == null) {
             // no payment methods on file; cannot replenish
             Debug.logWarning("finAccountReplenish Warning: No payment method found for ID [" + paymentMethodId
-                    + "] for party [" + ownerPartyId + "] cannot auto-replenish", module);
+                    + "] for party [" + ownerPartyId + "] cannot auto-replenish", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNoPaymentMethodAssociatedWithReplenishAccount", locale));
         }
@@ -896,7 +896,7 @@ public class FinAccountPaymentServices {
         try {
             replResp = dispatcher.runSync("createSimpleNonProductSalesOrder", replOrderCtx);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(replResp)) {
@@ -921,7 +921,7 @@ public class FinAccountPaymentServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depositResp));
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -933,7 +933,7 @@ public class FinAccountPaymentServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(ufaResp));
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -951,7 +951,7 @@ public class FinAccountPaymentServices {
                             EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null)).orderBy(
                                     "-transactionDate").queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (trans != null) {
@@ -967,7 +967,7 @@ public class FinAccountPaymentServices {
                 return store.getString("productStoreId");
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return null;

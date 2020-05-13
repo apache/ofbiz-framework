@@ -48,7 +48,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class EditRenderSubContentTransform implements TemplateTransformModel {
 
-    public static final String module = EditRenderSubContentTransform.class.getName();
+    public static final String MODULE = EditRenderSubContentTransform.class.getName();
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -116,7 +116,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
             try {
                 subContentDataResourceViewTemp = ContentWorker.getSubContent(delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate);
             } catch (IOException e) {
-                Debug.logError(e, "Error getting sub-content", module);
+                Debug.logError(e, "Error getting sub-content", MODULE);
                 throw new RuntimeException(e.getMessage());
             }
         }
@@ -195,7 +195,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                         try {
                             ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, false);
                         } catch (IOException | GeneralException e) {
-                            Debug.logError(e, "Error rendering content" + e.getMessage(), module);
+                            Debug.logError(e, "Error rendering content" + e.getMessage(), MODULE);
                             throw new IOException("Error rendering content" + e.toString());
                         }
 

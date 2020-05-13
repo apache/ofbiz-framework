@@ -56,7 +56,7 @@ public class HtmlMenuRendererImage extends HtmlMenuRenderer {
             if (WidgetContentWorker.getContentWorker() != null) {
                 webSitePublishPoint = WidgetContentWorker.getContentWorker().getWebSitePublishPointExt(delegator, contentId, false);
             } else {
-                Debug.logError("Not rendering image because can't get WebSitePublishPoint, not ContentWorker found.", module);
+                Debug.logError("Not rendering image because can't get WebSitePublishPoint, not ContentWorker found.", MODULE);
             }
         } catch (GenericEntityException e) {
             throw new RuntimeException(e.getMessage());

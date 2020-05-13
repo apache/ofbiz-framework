@@ -44,7 +44,7 @@ import org.apache.ofbiz.service.ServiceContainer;
  */
 public class RmiServiceContainer implements Container {
 
-    public static final String module = RmiServiceContainer.class.getName();
+    public static final String MODULE = RmiServiceContainer.class.getName();
 
     protected RemoteDispatcherImpl remote = null;
     protected String configFile = null;

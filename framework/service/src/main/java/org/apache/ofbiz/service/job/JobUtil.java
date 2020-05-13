@@ -28,7 +28,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 
 public class JobUtil {
 
-    public static final String module = JobUtil.class.getName();
+    public static final String MODULE = JobUtil.class.getName();
 
     public static void removeJob(GenericValue jobValue) {
         // always suspend the current transaction; use the one internally
@@ -57,22 +57,22 @@ public class JobUtil {
             }
             TransactionUtil.commit(beganTransaction);
             if (Debug.infoOn()) {
-                Debug.logInfo("Purged job " + jobValue.get("jobId"), module);
+                Debug.logInfo("Purged job " + jobValue.get("jobId"), MODULE);
             }
         } catch (Throwable t) {
             String errMsg = "Exception thrown while purging job: ";
             try {
                 TransactionUtil.rollback(beganTransaction, errMsg, t);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Exception thrown while rolling back transaction: ", module);
+                Debug.logWarning(e, "Exception thrown while rolling back transaction: ", MODULE);
             }
-            Debug.logWarning(errMsg, module);
+            Debug.logWarning(errMsg, MODULE);
         } finally {
             if (parent != null) {
                 try {
                     TransactionUtil.resume(parent);
                 } catch (GenericTransactionException e) {
-                    Debug.logWarning(e, "Exception thrown while resume transaction: ", module);
+                    Debug.logWarning(e, "Exception thrown while resume transaction: ", MODULE);
                 }
             }
         }

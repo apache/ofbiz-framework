@@ -34,15 +34,8 @@ import org.apache.ofbiz.shipment.packing.PackingSession;
  */
 public class IssuanceTest extends OFBizTestCase {
 
-    protected GenericValue userLogin = null;
-
     public IssuanceTest(String name) {
         super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
     }
 
     @Override
@@ -57,7 +50,7 @@ public class IssuanceTest extends OFBizTestCase {
         String shipGroupSeqId="00001";
         String shipmentItemSeqId = "00001";
 
-        PackingSession packSession = new PackingSession(dispatcher, userLogin, facilityId, null, orderId, shipGroupSeqId);
+        PackingSession packSession = new PackingSession(dispatcher, getUserLogin("system"), facilityId, null, orderId, shipGroupSeqId);
         packSession.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, productId, BigDecimal.valueOf(6L), 1,
             BigDecimal.valueOf(1000L), false);
         String shipmentId = packSession.complete(false);

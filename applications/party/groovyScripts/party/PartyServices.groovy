@@ -224,7 +224,7 @@ def getRelatedParties() {
     Map resultMap = success()
 
     List relatedPartyIdList = [parameters.partyIdFrom]
-    resultMap.relatedPartyIdList = followPartyRelationshipsInline(relatedPartyIdList, parameters.partyRelationshipTypeId,
+    resultMap = followPartyRelationshipsInline(relatedPartyIdList, parameters.partyRelationshipTypeId,
             parameters.roleTypeIdFrom, parameters.roleTypeIdFromInclueAllChildTypes,
             parameters.roleTypeIdTo, parameters.roleTypeIdToIncludeAllChildTypes,
             parameters.includeFromToSwitched, parameters.recurse, parameters.useCache)

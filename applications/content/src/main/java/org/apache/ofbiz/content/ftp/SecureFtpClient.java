@@ -24,7 +24,7 @@ import java.util.List;
 
 public class SecureFtpClient implements FtpClientInterface {
 
-    public static final String module = SecureFtpClient.class.getName();
+    public static final String MODULE = SecureFtpClient.class.getName();
 
     /**
      * TODO : to implements

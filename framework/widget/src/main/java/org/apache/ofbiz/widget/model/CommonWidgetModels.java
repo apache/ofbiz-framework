@@ -52,7 +52,7 @@ import org.w3c.dom.Element;
  */
 public final class CommonWidgetModels {
 
-    public static final String module = CommonWidgetModels.class.getName();
+    public static final String MODULE = CommonWidgetModels.class.getName();
 
     private CommonWidgetModels() {
     }
@@ -88,7 +88,7 @@ public final class CommonWidgetModels {
             if (delegator == null) {
                 Debug.logError(
                         "We can not append auto entity Parameters since we could not find delegator in the current context",
-                        module);
+                        MODULE);
                 return autEntityParams;
             }
             if (UtilValidate.isEmpty(entityName)) {
@@ -98,7 +98,7 @@ public final class CommonWidgetModels {
             ModelEntity entity = delegator.getModelEntity(toExpand.expandString(context));
             if (entity == null) {
                 Debug.logError("We can not append auto entity Parameters since we could not find entity with name [" + entityName
-                        + "]", module);
+                        + "]", MODULE);
                 return autEntityParams;
             }
 
@@ -148,7 +148,7 @@ public final class CommonWidgetModels {
             if (dispatcher == null) {
                 Debug.logError(
                         "We can not append auto service Parameters since we could not find dispatcher in the current context",
-                        module);
+                        MODULE);
                 return autServiceParams;
             }
             if (UtilValidate.isEmpty(serviceName)) {
@@ -159,11 +159,11 @@ public final class CommonWidgetModels {
             try {
                 service = dispatcher.getDispatchContext().getModelService(toExpand.toString());
             } catch (GenericServiceException e) {
-                Debug.logError("Resolve service throw an error : " + e, module);
+                Debug.logError("Resolve service throw an error : " + e, MODULE);
             }
             if (service == null) {
                 Debug.logError("We can not append auto service Parameters since we could not find service with name ["
-                        + serviceName + "]", module);
+                        + serviceName + "]", MODULE);
                 return autServiceParams;
             }
             Iterator<ModelParam> paramsIter = service.getInModelParamList().iterator();

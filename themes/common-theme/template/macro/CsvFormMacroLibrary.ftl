@@ -54,7 +54,7 @@ under the License.
 <#macro renderEmptyFormDataMessage message></#macro>
 <#macro renderSingleFormFieldTitle></#macro>
 
-<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit focusFieldName hasRequiredField></#macro>
+<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit focusFieldName hasRequiredField csrfNameValue></#macro>
 <#macro renderFormClose></#macro>
 <#macro renderMultiFormClose></#macro>
 

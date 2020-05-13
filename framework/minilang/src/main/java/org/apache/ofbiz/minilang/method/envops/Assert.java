@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
  */
 public final class Assert extends MethodOperation {
 
-    public static final String module = Assert.class.getName();
+    public static final String MODULE = Assert.class.getName();
 
     private final List<Conditional> conditionalList;
     private final FlexibleMapAccessor<List<Object>> errorListFma;

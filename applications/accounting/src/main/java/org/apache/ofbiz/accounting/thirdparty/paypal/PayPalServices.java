@@ -82,7 +82,7 @@ import com.paypal.sdk.services.NVPCallerServices;
  */
 public class PayPalServices {
 
-    public static final String module = PayPalServices.class.getName();
+    public static final String MODULE = PayPalServices.class.getName();
     public final static String resource = "AccountingErrorUiLabels";
     
     // Used to maintain a weak reference to the ShoppingCart for customers who have gone to PayPal to checkout
@@ -139,7 +139,7 @@ public class PayPalServices {
         try {
             addCartDetails(encoder, cart);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPayPalErrorDuringRetrievingCartDetails", locale));
         }
@@ -148,7 +148,7 @@ public class PayPalServices {
         try {
             decoder = sendNVPRequest(payPalConfig, encoder);
         } catch (PayPalException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -185,7 +185,7 @@ public class PayPalServices {
             cart = weakCart.get();
         }
         if (cart == null) {
-            Debug.logError("Could locate the ShoppingCart for token " + token, module);
+            Debug.logError("Could locate the ShoppingCart for token " + token, MODULE);
             return ServiceUtil.returnSuccess();
         }
         // Since most if not all of the shipping estimate codes requires a persisted contactMechId we'll create one and
@@ -208,7 +208,7 @@ public class PayPalServices {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
             inMap.put("userLogin", userLogin);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         boolean beganTransaction = false;
         Transaction parentTransaction = null;
@@ -216,20 +216,20 @@ public class PayPalServices {
             parentTransaction = TransactionUtil.suspend();
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException e1) {
-            Debug.logError(e1, module);
+            Debug.logError(e1, MODULE);
         }
         try {
             Map<String, Object> outMap = dispatcher.runSync("createPostalAddress", inMap);
             contactMechId = (String) outMap.get("contactMechId");
         } catch (GenericServiceException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
             return ServiceUtil.returnSuccess();
         }
         try {
             TransactionUtil.commit(beganTransaction);
             if (parentTransaction != null) TransactionUtil.resume(parentTransaction);
         } catch (GenericTransactionException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         // clone the cart so we can modify it temporarily
         CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
@@ -251,7 +251,7 @@ public class PayPalServices {
             try {
                 coh.calcAndAddTax();
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 continue;
             }
             String estimateLabel = shipMethod.getString("partyId") + " - " + shipMethod.getString("description");
@@ -266,19 +266,19 @@ public class PayPalServices {
         try {
             responseMsg = encoder.encode();
         } catch (PayPalException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (responseMsg != null) {
             try {
                 response.setContentLength(responseMsg.getBytes("UTF-8").length);
             } catch (UnsupportedEncodingException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
 
             try (Writer writer = response.getWriter()) {
                 writer.write(responseMsg);
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 
@@ -289,7 +289,7 @@ public class PayPalServices {
             GenericValue contactMech = EntityQuery.use(delegator).from("ContactMech").where("contactMechId", contactMechId).queryOne();
             contactMech.remove();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         coh.setCheckOutShippingAddress(oldShipAddress);
         return ServiceUtil.returnSuccess();
@@ -371,7 +371,7 @@ public class PayPalServices {
         try {
             decoder = sendNVPRequest(payPalConfig, encoder);
         } catch (PayPalException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -385,11 +385,11 @@ public class PayPalServices {
                 try {
                     cart.setUserLogin(userLogin, dispatcher);
                 } catch (CartItemModifyException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -406,7 +406,7 @@ public class PayPalServices {
             try {
                 party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             if (party == null) {
                 partyId = null;
@@ -436,7 +436,7 @@ public class PayPalServices {
                 inMap.put("roleTypeId", "CUSTOMER");
                 dispatcher.runSync("createPartyRole", inMap);
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -466,7 +466,7 @@ public class PayPalServices {
                     if (primaryEmails > 0) emailContactPurposeTypeId = "BILLING_EMAIL";
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         if (emailContactMechId == null) {
@@ -482,7 +482,7 @@ public class PayPalServices {
                 outMap = dispatcher.runSync("createPartyEmailAddress", inMap);
                 emailContactMechId = (String) outMap.get("contactMechId");
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -512,7 +512,7 @@ public class PayPalServices {
                 phoneContactId = (String) outMap.get("contactMechId");
                 cart.addContactMech("PHONE_BILLING", phoneContactId);
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         // Create a new Postal Address if necessary
@@ -553,7 +553,7 @@ public class PayPalServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         if (postalContactId == null) {
@@ -563,7 +563,7 @@ public class PayPalServices {
                 outMap = dispatcher.runSync("createPartyPostalAddress", postalMap);
                 postalContactId = (String) outMap.get("contactMechId");
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
@@ -583,7 +583,7 @@ public class PayPalServices {
                 }
             } catch (GenericServiceException e) {
                 // Not the end of the world, we'll carry on
-                Debug.logInfo(e.getMessage(), module);
+                Debug.logInfo(e.getMessage(), MODULE);
             }
         }
 
@@ -607,7 +607,7 @@ public class PayPalServices {
                         .queryFirst();
                 cart.setAllShipmentMethodTypeId(shipmentMethod.getString("shipmentMethodTypeId"));
             } catch (GenericEntityException e1) {
-                Debug.logError(e1, module);
+                Debug.logError(e1, MODULE);
             }
         }
         //Get rid of any excess ship groups
@@ -634,7 +634,7 @@ public class PayPalServices {
         try {
             cho.calcAndAddTax();
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -651,7 +651,7 @@ public class PayPalServices {
         try {
             outMap = dispatcher.runSync("createPayPalPaymentMethod", inMap);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         String paymentMethodId = (String) outMap.get("paymentMethodId");
@@ -681,7 +681,7 @@ public class PayPalServices {
             payPalPaymentMethod = paymentPref.getRelatedOne("PaymentMethod", false);
             payPalPaymentMethod = payPalPaymentMethod.getRelatedOne("PayPalPaymentMethod", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         BigDecimal processAmount = paymentPref.getBigDecimal("maxAmount");
@@ -706,7 +706,7 @@ public class PayPalServices {
         try {
             decoder = sendNVPRequest(payPalPaymentSetting, encoder);
         } catch (PayPalException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (decoder == null) {
@@ -737,11 +737,11 @@ public class PayPalServices {
         try {
             outMap = dispatcher.runSync("updatePayPalPaymentMethod", inMap);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(outMap)) {
-            Debug.logError(ServiceUtil.getErrorMessage(outMap), module);
+            Debug.logError(ServiceUtil.getErrorMessage(outMap), MODULE);
             return outMap;
         }
         return ServiceUtil.returnSuccess();
@@ -771,7 +771,7 @@ public class PayPalServices {
         try {
             decoder = sendNVPRequest(payPalConfig, encoder);
         } catch (PayPalException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -824,7 +824,7 @@ public class PayPalServices {
         try {
             decoder = sendNVPRequest(payPalConfig, encoder);
         } catch (PayPalException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -872,7 +872,7 @@ public class PayPalServices {
         try {
             decoder = sendNVPRequest(payPalConfig, encoder);
         } catch (PayPalException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -926,7 +926,7 @@ public class PayPalServices {
         try {
             decoder = sendNVPRequest(payPalConfig, encoder);
         } catch (PayPalException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -985,7 +985,7 @@ public class PayPalServices {
             try {
                 payPalGatewayConfig = EntityQuery.use(delegator).from("PaymentGatewayPayPal").where("paymentGatewayConfigId", paymentGatewayConfigId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         return payPalGatewayConfig;
@@ -1001,7 +1001,7 @@ public class PayPalServices {
             profile.setEnvironment(payPalConfig.getString("apiEnvironment"));
             caller.setAPIProfile(profile);
         } catch (PayPalException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         }
 
         String requestMessage = encoder.encode();
@@ -1010,7 +1010,7 @@ public class PayPalServices {
         NVPDecoder decoder = new NVPDecoder();
         decoder.decode(responseMessage);
         if (!"Success".equals(decoder.get("ACK"))) {
-            Debug.logError("A response other than success was received from PayPal: " + responseMessage, module);
+            Debug.logError("A response other than success was received from PayPal: " + responseMessage, MODULE);
         }
 
         return decoder;
@@ -1025,7 +1025,7 @@ public class PayPalServices {
                 geoId = countryGeo.getString("geoId");
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return geoId;
     }
@@ -1048,7 +1048,7 @@ public class PayPalServices {
             geoAssocAndGeoTo = EntityQuery.use(delegator).from("GeoAssocAndGeoTo").where(cond).cache().queryFirst();
             
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (geoAssocAndGeoTo != null) {
             return geoAssocAndGeoTo.getString("geoId");

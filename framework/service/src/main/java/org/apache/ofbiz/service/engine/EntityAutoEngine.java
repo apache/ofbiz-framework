@@ -49,7 +49,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class EntityAutoEngine extends GenericAsyncEngine {
 
-    public static final String module = EntityAutoEngine.class.getName();
+    public static final String MODULE = EntityAutoEngine.class.getName();
     public static final String resource = "ServiceErrorUiLabels";
     private static final List<String> availableInvokeActionNames = UtilMisc.toList("create", "update", "delete", "expire");
 
@@ -135,7 +135,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 result.putAll(modelService.makeValid(crudValue, ModelService.OUT_PARAM));
             }
         } catch (GeneralException e) {
-            Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service [" + modelService.name + "]: " + e.toString(), module);
+            Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service [" + modelService.name + "]: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name,"errorString", e.toString()), locale));
         }
         result.put(ModelService.SUCCESS_MESSAGE, ServiceUtil.makeSuccessMessage(result, "", "", "", ""));
@@ -557,11 +557,11 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         }
 
         if (Debug.infoOn()) {
-            Debug.logInfo(" FIELD FOUND : " + fieldDateNameIn + " ## # " + fieldThruDates + " ### " + thruDatePresent, module);
+            Debug.logInfo(" FIELD FOUND : " + fieldDateNameIn + " ## # " + fieldThruDates + " ### " + thruDatePresent, MODULE);
         }
 
         if (Debug.infoOn()) {
-            Debug.logInfo(" parameters IN  : " + parameters, module);
+            Debug.logInfo(" parameters IN  : " + parameters, MODULE);
         }
         // Resolve the field without value to expire and check if the value is present on parameters or use now
         if (fieldDateNameIn != null) {
@@ -583,7 +583,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
         if (Debug.infoOn()) {
-            Debug.logInfo(" parameters OUT  : " + parameters, module);
+            Debug.logInfo(" parameters OUT  : " + parameters, MODULE);
         }
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;

@@ -68,7 +68,7 @@ import freemarker.template.TransformControl;
  */
 public class MenuWrapTransform implements TemplateTransformModel {
 
-    public static final String module = MenuWrapTransform.class.getName();
+    public static final String MODULE = MenuWrapTransform.class.getName();
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
 
@@ -101,7 +101,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
             if (WidgetContentWorker.getContentWorker() != null) {
                 val = WidgetContentWorker.getContentWorker().getCurrentContentExt(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
             } else {
-                Debug.logError("Not rendering content, not ContentWorker found.", module);
+                Debug.logError("Not rendering content, not ContentWorker found.", MODULE);
             }
         } catch (GeneralException e) {
             throw new RuntimeException("Error getting current content. " + e.toString());
@@ -132,7 +132,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         if (WidgetContentWorker.getContentWorker() != null) {
             mimeTypeId = WidgetContentWorker.getContentWorker().getMimeTypeIdExt(delegator, view, templateCtx);
         } else {
-            Debug.logError("Not rendering content, not ContentWorker found.", module);
+            Debug.logError("Not rendering content, not ContentWorker found.", MODULE);
         }
         templateCtx.put("drDataResourceId", dataResourceId);
         templateCtx.put("mimeTypeId", mimeTypeId);

@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
- * This class is a module for manipulating component loader files.
+ * This class is a MODULE for manipulating component loader files.
  *
  * <p> The component loader files are named {@code component-load.xml}
  * and are present either in the classpath when defining the top-level component
@@ -52,7 +52,7 @@ import org.xml.sax.SAXException;
  */
 public final class ComponentLoaderConfig {
 
-    public static final String module = ComponentLoaderConfig.class.getName();
+    public static final String MODULE = ComponentLoaderConfig.class.getName();
     public static final String COMPONENT_LOAD_XML_FILENAME = "component-load.xml";
 
     public enum ComponentType { SINGLE_COMPONENT, COMPONENT_DIRECTORY }

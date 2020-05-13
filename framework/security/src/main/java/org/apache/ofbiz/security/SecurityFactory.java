@@ -46,7 +46,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class SecurityFactory {
 
-    public static final String module = SecurityFactory.class.getName();
+    public static final String MODULE = SecurityFactory.class.getName();
     // The default implementation stores a Delegator reference, so we will cache by delegator name.
     // The goal is to remove Delegator references in the Security interface, then we can use a singleton
     // and eliminate the cache.
@@ -75,7 +75,7 @@ public final class SecurityFactory {
             security.setDelegator(delegator);
             security = authorizationCache.putIfAbsentAndGet(delegator.getDelegatorName(), security);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Security implementation " + security.getClass().getName() + " created for delegator " + delegator.getDelegatorName(), module);
+                Debug.logVerbose("Security implementation " + security.getClass().getName() + " created for delegator " + delegator.getDelegatorName(), MODULE);
             }
         }
         return security;
@@ -108,7 +108,7 @@ public final class SecurityFactory {
                 List<GenericValue> collection = EntityUtil.filterByDate(EntityQuery.use(delegator).from("UserLoginSecurityGroup").where("userLoginId", userLoginId).cache(true).queryList());
                 return collection.iterator();
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 return Collections.<GenericValue>emptyList().iterator();
             }
         }
@@ -204,7 +204,7 @@ public final class SecurityFactory {
                         return true;
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Problems doing role security lookup on entity [" + entityName + "] using [" + condition + "]", module);
+                    Debug.logError(e, "Problems doing role security lookup on entity [" + entityName + "] using [" + condition + "]", MODULE);
                     return false;
                 }
             }
@@ -268,7 +268,7 @@ public final class SecurityFactory {
             try {
                 return EntityQuery.use(delegator).from("SecurityGroupPermission").where("groupId", groupId, "permissionId", permission).cache(true).filterByDate().queryFirst() != null;
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 return false;
             }
         }

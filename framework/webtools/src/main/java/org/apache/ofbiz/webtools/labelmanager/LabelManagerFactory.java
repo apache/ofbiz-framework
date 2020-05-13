@@ -47,7 +47,7 @@ import org.xml.sax.SAXException;
 
 public class LabelManagerFactory {
 
-    public static final String module = LabelManagerFactory.class.getName();
+    public static final String MODULE = LabelManagerFactory.class.getName();
     public static final String resource = "WebtoolsUiLabels";
     public static final String keySeparator = "#";
 
@@ -107,7 +107,7 @@ public class LabelManagerFactory {
                 continue;
             }
             if (Debug.infoOn()) {
-                Debug.logInfo("Current file : " + fileInfo.getFileName(), module);
+                Debug.logInfo("Current file : " + fileInfo.getFileName(), MODULE);
             }
             Document resourceDocument = UtilXml.readXmlDocument(fileInfo.file.toURI().toURL(), false);
             Element resourceElem = resourceDocument.getDocumentElement();
@@ -220,7 +220,7 @@ public class LabelManagerFactory {
                         label = new LabelInfo(key, keyComment, fileName, localeName, localeValue, localeComment);
                         labels.put(key + keySeparator + fileName, label);
                     } catch (Exception e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 } else {
                     label.setLabelKeyComment(keyComment);

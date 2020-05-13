@@ -27,7 +27,7 @@ import org.apache.ofbiz.entity.config.model.EntityConfig;
  */
 public class TransactionFactoryLoader {
 
-    public static final String module = TransactionFactoryLoader.class.getName();
+    public static final String MODULE = TransactionFactoryLoader.class.getName();
     private static final TransactionFactory txFactory = createTransactionFactory();
 
     private static TransactionFactory createTransactionFactory() {
@@ -41,11 +41,11 @@ public class TransactionFactoryLoader {
             Class<?> tfClass = loader.loadClass(className);
             instance = (TransactionFactory) tfClass.getDeclaredConstructor().newInstance();
         } catch (GenericEntityConfException gece) {
-            Debug.logError(gece, "Could not find transaction factory class name definition", module);
+            Debug.logError(gece, "Could not find transaction factory class name definition", MODULE);
         } catch (ClassNotFoundException cnfe) {
-            Debug.logError(cnfe, "Could not find transaction factory class", module);
+            Debug.logError(cnfe, "Could not find transaction factory class", MODULE);
         } catch (Exception e) {
-            Debug.logError(e, "Unable to instantiate the transaction factory", module);
+            Debug.logError(e, "Unable to instantiate the transaction factory", MODULE);
         }
         return instance;
     }

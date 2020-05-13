@@ -51,7 +51,7 @@ import org.apache.ofbiz.entity.model.DynamicViewEntity;
  */
 public class EntityQuery {
 
-    public static final String module = EntityQuery.class.getName();
+    public static final String MODULE = EntityQuery.class.getName();
 
     private Delegator delegator;
     private String entityName = null;
@@ -70,7 +70,8 @@ public class EntityQuery {
     private List<String> filterByFieldNames = null;
     private boolean searchPkOnly = false;
     private Map<String, Object> fieldMap = null;
-
+    private Integer offset;
+    private Integer limit;
 
 
     /** Construct an EntityQuery object for use against the specified Delegator
@@ -270,6 +271,24 @@ public class EntityQuery {
         return this;
     }
 
+    public EntityQuery offset(int offset) {
+        this.offset = offset;
+        return this;
+    }
+
+    public Integer getOffset() {
+        return this.offset;
+    }
+
+    public EntityQuery limit(int limit) {
+        this.limit = limit;
+        return this;
+    }
+
+    public Integer getLimit() {
+        return this.limit;
+    }
+
     /** Specifies that the values returned should be filtered to remove duplicate values.
      * 
      * @return this EntityQuery object, to enable chaining
@@ -391,7 +410,7 @@ public class EntityQuery {
      */
     public EntityListIterator queryIterator() throws GenericEntityException {
         if (useCache) {
-            Debug.logWarning("Call to iterator() with cache, ignoring cache", module);
+            Debug.logWarning("Call to iterator() with cache, ignoring cache", MODULE);
         }
         if (dynamicViewEntity == null) {
             return delegator.find(entityName, makeWhereCondition(false), havingEntityCondition, fieldsToSelect, orderBy, makeEntityFindOptions());
@@ -470,6 +489,12 @@ public class EntityQuery {
         }
         if (maxRows != null) {
             findOptions.setMaxRows(maxRows);
+        }
+        if (limit != null) {
+            findOptions.setLimit(limit);
+        }
+        if (offset != null) {
+            findOptions.setOffset(offset);
         }
         findOptions.setDistinct(distinct);
         return findOptions;

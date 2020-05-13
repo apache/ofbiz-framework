@@ -24,7 +24,7 @@ import org.apache.ofbiz.base.util.Debug;
  * WidgetContentWorker Class
  */
 public final class WidgetDataResourceWorker {
-    public static final String module = WidgetDataResourceWorker.class.getName();
+    public static final String MODULE = WidgetDataResourceWorker.class.getName();
     private WidgetDataResourceWorker() {}
     private static DataResourceWorkerInterface dataresourceWorker = null;
     static {
@@ -33,7 +33,7 @@ public final class WidgetDataResourceWorker {
             // note: loadClass is necessary for these since this class doesn't know anything about them at compile time
             dataresourceWorker = (DataResourceWorkerInterface) loader.loadClass("org.apache.ofbiz.content.data.DataResourceWorker").getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
-            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", MODULE);
         }
     }
     public static DataResourceWorkerInterface getDataresourceWorker() {

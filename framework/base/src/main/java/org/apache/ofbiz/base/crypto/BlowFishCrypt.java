@@ -38,7 +38,7 @@ import org.apache.ofbiz.base.util.Debug;
  *
  */
 public class BlowFishCrypt {
-    private static final String module = BlowFishCrypt.class.getName();
+    private static final String MODULE = BlowFishCrypt.class.getName();
     private SecretKeySpec secretKeySpec = null;
 
     /**
@@ -57,7 +57,7 @@ public class BlowFishCrypt {
         try {
             secretKeySpec = new SecretKeySpec(key, "Blowfish");
         } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -74,7 +74,7 @@ public class BlowFishCrypt {
             byte[] keyBytes = keyString.getBytes(StandardCharsets.UTF_8);
             secretKeySpec = new SecretKeySpec(keyBytes, "Blowfish");
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -102,7 +102,7 @@ public class BlowFishCrypt {
         try {
             return crypt(bytes, Cipher.ENCRYPT_MODE);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return new byte[0];
         }
     }
@@ -115,7 +115,7 @@ public class BlowFishCrypt {
         try {
             return crypt(bytes, Cipher.DECRYPT_MODE);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return new byte[0];
         }
     }

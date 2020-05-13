@@ -41,7 +41,7 @@ import java.util.Map;
  */
 public class HttpClient {
 
-    public static final String module = HttpClient.class.getName();
+    public static final String MODULE = HttpClient.class.getName();
 
     private int hostVerification = SSLUtil.getHostCertNormalCheck();
     private int timeout = 30000;
@@ -353,9 +353,9 @@ public class HttpClient {
             if (Debug.verboseOn() || debug) {
                 try {
                     Debug.logVerbose("ContentEncoding: " + con.getContentEncoding() + "; ContentType: " +
-                            con.getContentType() + " or: " + URLConnection.guessContentTypeFromStream(in), module);
+                            con.getContentType() + " or: " + URLConnection.guessContentTypeFromStream(in), MODULE);
                 } catch (IOException ioe) {
-                    Debug.logWarning(ioe, "Caught exception printing content debugging information", module);
+                    Debug.logWarning(ioe, "Caught exception printing content debugging information", MODULE);
                 }
             }
 
@@ -366,13 +366,13 @@ public class HttpClient {
                     contentType = URLConnection.guessContentTypeFromStream(in);
                 } catch (IOException ioe) {
                     if (Debug.warningOn()) {
-                        Debug.logWarning(ioe, "Problems guessing content type from stream", module);
+                        Debug.logWarning(ioe, "Problems guessing content type from stream", MODULE);
                     }
                 }
             }
 
             if (Debug.verboseOn() || debug) {
-                Debug.logVerbose("Content-Type: " + contentType, module);
+                Debug.logVerbose("Content-Type: " + contentType, MODULE);
             }
 
             if (contentType != null) {
@@ -389,7 +389,7 @@ public class HttpClient {
                     charset = charset.trim().replaceAll("\"", "");
                 }
                 if (Debug.verboseOn() || debug) {
-                    Debug.logVerbose("Getting text from HttpClient with charset: " + charset, module);
+                    Debug.logVerbose("Getting text from HttpClient with charset: " + charset, MODULE);
                 }
             }
 
@@ -399,11 +399,11 @@ public class HttpClient {
             String line = "";
 
             if (Debug.verboseOn() || debug) {
-                Debug.logVerbose("---- HttpClient Response Content ----", module);
+                Debug.logVerbose("---- HttpClient Response Content ----", MODULE);
             }
             while ((line = post.readLine()) != null) {
                 if (Debug.verboseOn() || debug) {
-                    Debug.logVerbose("[HttpClient] : " + line, module);
+                    Debug.logVerbose("[HttpClient] : " + line, MODULE);
                 }
                 buf.append(line);
                 if (lineFeed) {
@@ -458,13 +458,13 @@ public class HttpClient {
                 con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, hostVerification);
             }
             if (Debug.verboseOn() || debug) {
-                Debug.logVerbose("Connection opened to : " + requestUrl.toExternalForm(), module);
+                Debug.logVerbose("Connection opened to : " + requestUrl.toExternalForm(), MODULE);
             }
 
             if ((con instanceof HttpURLConnection)) {
                 ((HttpURLConnection) con).setInstanceFollowRedirects(followRedirects);
                 if (Debug.verboseOn() || debug) {
-                    Debug.logVerbose("Connection is of type HttpURLConnection, more specifically: " + con.getClass().getName(), module);
+                    Debug.logVerbose("Connection is of type HttpURLConnection, more specifically: " + con.getClass().getName(), MODULE);
                 }
             }
 
@@ -492,7 +492,7 @@ public class HttpClient {
                 String basicAuthString = "Basic " + Base64.getMimeEncoder().encodeToString((basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword)).getBytes(StandardCharsets.UTF_8));
                 con.setRequestProperty("Authorization", basicAuthString);
                 if (Debug.verboseOn() || debug) {
-                    Debug.logVerbose("Header - Authorization: " + basicAuthString, module);
+                    Debug.logVerbose("Header - Authorization: " + basicAuthString, MODULE);
                 }
             }
 
@@ -502,7 +502,7 @@ public class HttpClient {
                     String headerValue = entry.getValue();
                     con.setRequestProperty(headerName, headerValue);
                     if (Debug.verboseOn() || debug) {
-                        Debug.logVerbose("Header - " + headerName + ": " + headerValue, module);
+                        Debug.logVerbose("Header - " + headerName + ": " + headerValue, MODULE);
                     }
                 }
             }
@@ -512,31 +512,31 @@ public class HttpClient {
                         OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream(),
                                 this.streamCharset != null ? this.streamCharset : "UTF-8")) {
                     if (Debug.verboseOn() || debug) {
-                        Debug.logVerbose("Opened output stream", module);
+                        Debug.logVerbose("Opened output stream", MODULE);
                     }
 
                     if (arguments != null) {
                         out.write(arguments);
                         if (Debug.verboseOn() || debug) {
-                            Debug.logVerbose("Wrote arguements (parameters) : " + arguments, module);
+                            Debug.logVerbose("Wrote arguements (parameters) : " + arguments, MODULE);
                         }
                     }
 
                     if (Debug.verboseOn() || debug) {
-                        Debug.logVerbose("Flushed and closed buffer", module);
+                        Debug.logVerbose("Flushed and closed buffer", MODULE);
                     }
                 }
             }
 
             if (Debug.verboseOn() || debug) {
                 Map<String, List<String>> headerFields = con.getHeaderFields();
-                Debug.logInfo("Header Fields : " + headerFields, module);
+                Debug.logInfo("Header Fields : " + headerFields, MODULE);
             }
 
             in = con.getInputStream();
         } catch (IOException ioe) {
             if ((trustAny && !overrideTrust) && (ioe.getCause() instanceof CertificateException)) {
-                Debug.logWarning(ioe.getCause(), module);
+                Debug.logWarning(ioe.getCause(), MODULE);
                 return sendHttpRequestStream(method, true);
             }
             if ((con instanceof HttpURLConnection)) {

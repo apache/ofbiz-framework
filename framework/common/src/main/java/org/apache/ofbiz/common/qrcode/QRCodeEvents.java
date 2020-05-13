@@ -44,7 +44,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class QRCodeEvents {
 
-    public static final String module = QRCodeEvents.class.getName();
+    public static final String MODULE = QRCodeEvents.class.getName();
 
     /** Streams QR Code to the output. */
     public static String serveQRCodeImage(HttpServletRequest request, HttpServletResponse response) {
@@ -84,13 +84,13 @@ public class QRCodeEvents {
                 try {
                     context.put("width", Integer.parseInt(width));
                 } catch (NumberFormatException e) {
-                    Debug.logWarning(e, e.getMessage(), module);
+                    Debug.logWarning(e, e.getMessage(), MODULE);
                 }
                 if (UtilValidate.isEmpty(height)) {
                     try {
                         context.put("height", Integer.parseInt(width));
                     } catch (NumberFormatException e) {
-                        Debug.logWarning(e, e.getMessage(), module);
+                        Debug.logWarning(e, e.getMessage(), MODULE);
                     }
                 }
             }
@@ -98,13 +98,13 @@ public class QRCodeEvents {
                 try {
                     context.put("height", Integer.parseInt(height));
                 } catch (NumberFormatException e) {
-                    Debug.logWarning(e, e.getMessage(), module);
+                    Debug.logWarning(e, e.getMessage(), MODULE);
                 }
                 if (UtilValidate.isEmpty(width)) {
                     try {
                         context.put("width", Integer.parseInt(height));
                     } catch (NumberFormatException e) {
-                        Debug.logWarning(e, e.getMessage(), module);
+                        Debug.logWarning(e, e.getMessage(), MODULE);
                     }
                 }
             }
@@ -118,14 +118,14 @@ public class QRCodeEvents {
                 try {
                     context.put("logoImageMaxWidth", Integer.parseInt(logoImageMaxWidth));
                 } catch (NumberFormatException e) {
-                    Debug.logWarning(e, e.getMessage(), module);
+                    Debug.logWarning(e, e.getMessage(), MODULE);
                 }
             }
             if (UtilValidate.isNotEmpty(logoImageMaxHeight)) {
                 try {
                     context.put("logoImageMaxHeight", Integer.parseInt(logoImageMaxHeight));
                 } catch (NumberFormatException e) {
-                    Debug.logWarning(e, e.getMessage(), module);
+                    Debug.logWarning(e, e.getMessage(), MODULE);
                 }
             }
             Map<String, Object> results = dispatcher.runSync("generateQRCodeImage", context);

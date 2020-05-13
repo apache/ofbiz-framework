@@ -28,7 +28,7 @@ import org.apache.ofbiz.base.util.Debug;
 @SuppressWarnings("serial")
 public class GenericResultWaiter implements GenericRequester {
 
-    public static final String module = GenericResultWaiter.class.getName();
+    public static final String MODULE = GenericResultWaiter.class.getName();
 
     /** Status code for a running service */
     public static final int SERVICE_RUNNING = -1;
@@ -48,7 +48,7 @@ public class GenericResultWaiter implements GenericRequester {
         completed = true;
         status = SERVICE_FINISHED;
         notify();
-        if (Debug.verboseOn()) Debug.logVerbose("Received Result (" + completed + ") -- " + result, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Received Result (" + completed + ") -- " + result, MODULE);
     }
 
     @Override
@@ -111,13 +111,13 @@ public class GenericResultWaiter implements GenericRequester {
      * @return Map
      */
     public synchronized Map<String, Object> waitForResult(long milliseconds) {
-        if (Debug.verboseOn()) Debug.logVerbose("Waiting for results...", module);
+        if (Debug.verboseOn()) Debug.logVerbose("Waiting for results...", MODULE);
         while (!isCompleted()) {
             try {
                 this.wait(milliseconds);
-                if (Debug.verboseOn()) Debug.logVerbose("Waiting...", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Waiting...", MODULE);
             } catch (java.lang.InterruptedException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         return this.getResult();

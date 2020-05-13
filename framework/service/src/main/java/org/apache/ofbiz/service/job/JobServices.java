@@ -42,7 +42,7 @@ import org.apache.ofbiz.service.config.ServiceConfigUtil;
 
 public class JobServices {
 
-    public static final String module = JobServices.class.getName();
+    public static final String MODULE = JobServices.class.getName();
     private static final String resource = "ServiceErrorUiLabels";
 
     public static Map<String, Object> cancelJob(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -61,7 +61,7 @@ public class JobServices {
                 job.store();
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             String errMsg = UtilProperties.getMessage(resource, "serviceUtil.unable_to_cancel_job", locale) + " : " + fields;
             return ServiceUtil.returnError(errMsg);
         }
@@ -98,7 +98,7 @@ public class JobServices {
                 job.store();
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             String errMsg = UtilProperties.getMessage(resource, "serviceUtil.unable_to_cancel_job_retries", locale) + " : " + fields;
             return ServiceUtil.returnError(errMsg);
         }
@@ -120,7 +120,7 @@ public class JobServices {
             if (daysToKeep == null) daysToKeep = ServiceConfigUtil.getServiceEngine().getThreadPool().getPurgeJobDays();
             if (limit == null) limit = ServiceConfigUtil.getServiceEngine().getThreadPool().getMaxThreads();
         } catch (GenericConfigException e) {
-            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceExceptionThrownWhileGettingServiceConfiguration", UtilMisc.toMap("errorString", e), locale));
         }
         Delegator delegator = dctx.getDelegator();
@@ -147,7 +147,7 @@ public class JobServices {
         try {
             jobQuery.queryList().forEach(JobUtil::removeJob);
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
 
         return ServiceUtil.returnSuccess();
@@ -161,7 +161,7 @@ public class JobServices {
         try {
             job = EntityQuery.use(delegator).from("JobSandbox").where("jobId", jobId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -177,7 +177,7 @@ public class JobServices {
             try {
                 job.store();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }

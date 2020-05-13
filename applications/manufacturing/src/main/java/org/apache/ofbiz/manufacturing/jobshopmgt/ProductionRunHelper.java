@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public final class ProductionRunHelper {
 
-    public static final String module = ProductionRunHelper.class.getName();
+    public static final String MODULE = ProductionRunHelper.class.getName();
 
     private ProductionRunHelper() {}
 
@@ -70,7 +70,7 @@ public final class ProductionRunHelper {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
         }
         return result;
     }

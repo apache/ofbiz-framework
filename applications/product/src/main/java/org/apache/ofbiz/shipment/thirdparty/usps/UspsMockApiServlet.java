@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class UspsMockApiServlet extends HttpServlet {
 
-    public static final String module = UspsMockApiServlet.class.getName();
+    public static final String MODULE = UspsMockApiServlet.class.getName();
 
 
     public UspsMockApiServlet() {
@@ -59,7 +59,7 @@ public class UspsMockApiServlet extends HttpServlet {
 
         // we're only testing the Rate API right now
         if (!"Rate".equals(request.getParameter("API"))) {
-            Debug.logError("Unsupported API [" + request.getParameter("API") + "]", module);
+            Debug.logError("Unsupported API [" + request.getParameter("API") + "]", MODULE);
             return;
         }
 
@@ -68,12 +68,12 @@ public class UspsMockApiServlet extends HttpServlet {
         try {
             requestDocument = UtilXml.readXmlDocument(xmlValue, false);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return;
         }
 
         if (requestDocument == null) {
-            Debug.logError("In UspsMockApiSerlvet No XML document found in request, quiting now; XML parameter is: " + xmlValue, module);
+            Debug.logError("In UspsMockApiSerlvet No XML document found in request, quiting now; XML parameter is: " + xmlValue, MODULE);
             return;
         }
 
@@ -113,7 +113,7 @@ public class UspsMockApiServlet extends HttpServlet {
             try {
                 UtilXml.writeXmlDocument(responseDocument, os, "UTF-8", true, false, 0);
             } catch (TransformerException e) {
-                Debug.logInfo(e, module);
+                Debug.logInfo(e, MODULE);
                 return;
             }
 

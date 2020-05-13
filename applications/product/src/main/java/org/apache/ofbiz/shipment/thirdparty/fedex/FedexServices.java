@@ -77,7 +77,7 @@ import org.xml.sax.SAXException;
  */
 public class FedexServices {
 
-    public final static String module = FedexServices.class.getName();
+    public final static String MODULE = FedexServices.class.getName();
     public final static String shipmentPropertiesFile = "shipment.properties";
     public static final String resourceError = "ProductUiLabels";
     
@@ -118,8 +118,8 @@ public class FedexServices {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Fedex Connect URL : " + url, module);
-            Debug.logVerbose("Fedex XML String : " + xmlString, module);
+            Debug.logVerbose("Fedex Connect URL : " + url, MODULE);
+            Debug.logVerbose("Fedex XML String : " + xmlString, MODULE);
         }
 
         HttpClient http = new HttpClient(url);
@@ -128,7 +128,7 @@ public class FedexServices {
         try {
             response = http.post(xmlString);
         } catch (HttpClientException e) {
-            Debug.logError(e, "Problem connecting to Fedex server", module);
+            Debug.logError(e, "Problem connecting to Fedex server", MODULE);
             throw new FedexConnectException(UtilProperties.getMessage(resourceError, "FacilityShipmentFedexConnectUrlProblem",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
@@ -138,7 +138,7 @@ public class FedexServices {
                     "FacilityShipmentFedexReceivedNullResponse", locale));
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Fedex Response : " + response, module);
+            Debug.logVerbose("Fedex Response : " + response, MODULE);
         }
 
         return response;
@@ -191,7 +191,7 @@ public class FedexServices {
             GenericValue companyParty = EntityQuery.use(delegator).from("Party").where("partyId", companyPartyId).cache().queryOne();
             if (companyParty == null) {
                 String errorMessage = "Party with partyId " + companyPartyId + " does not exist";
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexCompanyPartyDoesNotExists", 
                         UtilMisc.toMap("companyPartyId", companyPartyId), locale));
@@ -201,7 +201,7 @@ public class FedexServices {
             companyName = PartyHelper.getPartyName(companyParty);
             if (UtilValidate.isEmpty(companyName)) {
                 String errorMessage = "Party with partyId " + companyPartyId + " has no name";
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexCompanyPartyHasNoName", 
                         UtilMisc.toMap("companyPartyId", companyPartyId), locale));
@@ -239,7 +239,7 @@ public class FedexServices {
             postalAddress = EntityUtil.getFirst(postalAddresses);
             if (UtilValidate.isEmpty(postalAddress)) {
                 String errorMessage = "Party with partyId " + companyPartyId + " does not have a current, fully populated postal address";
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexCompanyPartyHasNotPostalAddress", 
                         UtilMisc.toMap("companyPartyId", companyPartyId), locale));
@@ -265,7 +265,7 @@ public class FedexServices {
             GenericValue phoneNumberValue = EntityUtil.getFirst(phoneNumbers);
             if (UtilValidate.isEmpty(phoneNumberValue)) {
                 String errorMessage = "Party with partyId " + companyPartyId + " does not have a current, fully populated primary phone number";
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexCompanyPartyHasNotPrimaryPhoneNumber", 
                         UtilMisc.toMap("companyPartyId", companyPartyId), locale));
@@ -343,7 +343,7 @@ public class FedexServices {
                 FreeMarkerWorker.renderTemplate(templateLocation, subscriptionRequestContext, outWriter);
             } catch (Exception e) {
                 String errorMessage = "Cannot send Fedex subscription request: Failed to render Fedex XML Subscription Request Template [" + templateLocation + "].";
-                Debug.logError(e, errorMessage, module);
+                Debug.logError(e, errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexSubscriptionTemplateError",
                         UtilMisc.toMap("templateLocation", templateLocation, "errorString", e.getMessage()), locale));
@@ -354,10 +354,10 @@ public class FedexServices {
             String fDXSubscriptionReplyString = null;
             try {
                 fDXSubscriptionReplyString = sendFedexRequest(fDXSubscriptionRequestString, delegator, shipmentGatewayConfigId, resource, locale);
-                Debug.logInfo("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString, module);
+                Debug.logInfo("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString, MODULE);
             } catch (FedexConnectException e) {
                 String errorMessage = "Error sending Fedex request for FDXSubscriptionRequest: " + e.toString();
-                Debug.logError(e, errorMessage, module);
+                Debug.logError(e, errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexSubscriptionTemplateSendingError",
                         UtilMisc.toMap("errorString", e.toString()), locale));
@@ -366,10 +366,10 @@ public class FedexServices {
             Document fDXSubscriptionReplyDocument = null;
             try {
                 fDXSubscriptionReplyDocument = UtilXml.readXmlDocument(fDXSubscriptionReplyString, false);
-                Debug.logInfo("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString, module);
+                Debug.logInfo("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString, MODULE);
             } catch (SAXException | ParserConfigurationException | IOException e) {
                 String errorMessage = "Error parsing the FDXSubscriptionRequest response: " + e.toString();
-                Debug.logError(e, errorMessage, module);
+                Debug.logError(e, errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexSubscriptionTemplateParsingError",
                         UtilMisc.toMap("errorString", e.toString()), locale));
@@ -387,7 +387,7 @@ public class FedexServices {
             result.put("meterNumber", meterNumber);
 
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -763,7 +763,7 @@ public class FedexServices {
             if ((billingWeight != null) && (billingWeight.compareTo(BigDecimal.ZERO) > 0)) {
                 hasBillingWeight = true;
                 if (billingWeightUomId == null) {
-                    Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId + ", assuming default shipment.fedex.weightUomId of " + weightUomId + " from " + shipmentPropertiesFile,  module);
+                    Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId + ", assuming default shipment.fedex.weightUomId of " + weightUomId + " from " + shipmentPropertiesFile,  MODULE);
                     billingWeightUomId = weightUomId;
                 }
 
@@ -771,7 +771,7 @@ public class FedexServices {
                 if (! billingWeightUomId.equals(weightUomId)) {
                     Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", billingWeightUomId, "uomIdTo", weightUomId, "originalValue", billingWeight));
                     if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                        Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId , module);
+                        Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId , MODULE);
 
                         // Try getting the weight from package instead
                         hasBillingWeight = false;
@@ -796,7 +796,7 @@ public class FedexServices {
                                 UtilMisc.toMap("shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId"), 
                                         "shipmentId", shipmentId), locale));
                     }
-                    Debug.logWarning("Package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipment " + shipmentId + " has no packaging type set - defaulting to " + packaging, module);
+                    Debug.logWarning("Package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipment " + shipmentId + " has no packaging type set - defaulting to " + packaging, MODULE);
                 } else {
                     packaging = shipmentBoxType.getString("shipmentBoxTypeId");
                 }
@@ -830,14 +830,14 @@ public class FedexServices {
                     if (! UtilValidate.isEmpty(boxDimensionsUom)) {
                         boxDimensionsUomId = boxDimensionsUom.getString("uomId");
                     } else {
-                        Debug.logWarning("Packaging type for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId + " is missing dimensionUomId, assuming default shipment.default.dimension.uom of " + dimensionsUomId + " from " + shipmentPropertiesFile,  module);
+                        Debug.logWarning("Packaging type for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId + " is missing dimensionUomId, assuming default shipment.default.dimension.uom of " + dimensionsUomId + " from " + shipmentPropertiesFile,  MODULE);
                         boxDimensionsUomId = dimensionsUomId;
                     }
                     if (dimensionsLength != null && dimensionsLength.compareTo(BigDecimal.ZERO) > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
                             Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsLength));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                                Debug.logWarning("Unable to convert length for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
+                                Debug.logWarning("Unable to convert length for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , MODULE);
                                 dimensionsLength = null;
                             } else {
                                 dimensionsLength = (BigDecimal) results.get("convertedValue");
@@ -849,7 +849,7 @@ public class FedexServices {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
                             Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsWidth));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                                Debug.logWarning("Unable to convert width for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
+                                Debug.logWarning("Unable to convert width for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , MODULE);
                                 dimensionsWidth = null;
                             } else {
                                 dimensionsWidth = (BigDecimal) results.get("convertedValue");
@@ -861,7 +861,7 @@ public class FedexServices {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
                             Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsHeight));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                                Debug.logWarning("Unable to convert height for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
+                                Debug.logWarning("Unable to convert height for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , MODULE);
                                 dimensionsHeight = null;
                             } else {
                                 dimensionsHeight = (BigDecimal) results.get("convertedValue");
@@ -882,7 +882,7 @@ public class FedexServices {
                         try {
                             packageWeight = EntityUtilProperties.getPropertyAsBigDecimal(shipmentPropertiesFile, "shipment.default.weight.value", BigDecimal.ZERO);
                         } catch (NumberFormatException ne) {
-                            Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value), assuming 1.0" + weightUomId , module);
+                            Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value), assuming 1.0" + weightUomId , MODULE);
                             packageWeight = BigDecimal.ONE;
                         }
                     }
@@ -890,7 +890,7 @@ public class FedexServices {
                     // Convert weight if necessary
                     String packageWeightUomId = shipmentPackage.getString("weightUomId");
                     if (UtilValidate.isEmpty(packageWeightUomId)) {
-                        Debug.logWarning("Shipment Route Segment missing weightUomId in shipmentId " + shipmentId + ", assuming shipment.default.weight.uom of " + weightUomId + " from " + shipmentPropertiesFile,  module);
+                        Debug.logWarning("Shipment Route Segment missing weightUomId in shipmentId " + shipmentId + ", assuming shipment.default.weight.uom of " + weightUomId + " from " + shipmentPropertiesFile,  MODULE);
                         packageWeightUomId = weightUomId;
                     }
                     if (! packageWeightUomId.equals(weightUomId)) {
@@ -934,7 +934,7 @@ public class FedexServices {
                 FreeMarkerWorker.renderTemplate(templateLocation, shipRequestContext, outWriter);
             } catch (Exception e) {
                 String errorMessage = "Cannot confirm Fedex shipment: Failed to render Fedex XML Ship Request Template [" + templateLocation + "].";
-                Debug.logError(e, errorMessage, module);
+                Debug.logError(e, errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexShipmentTemplateError", 
                         UtilMisc.toMap("templateLocation", templateLocation, "errorString", e.getMessage()), locale));
@@ -946,11 +946,11 @@ public class FedexServices {
             try {
                 fDXShipReplyString = sendFedexRequest(fDXShipRequestString, delegator, shipmentGatewayConfigId, resource, locale);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose(fDXShipReplyString, module);
+                    Debug.logVerbose(fDXShipReplyString, MODULE);
                 }
             } catch (FedexConnectException e) {
                 String errorMessage = "Error sending Fedex request for FDXShipRequest: ";
-                Debug.logError(e, errorMessage, module);
+                Debug.logError(e, errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexShipmentTemplateSendingError", 
                         UtilMisc.toMap("errorString", e.toString()), locale));
@@ -960,12 +960,12 @@ public class FedexServices {
             return handleFedexShipReply(fDXShipReplyString, shipmentRouteSegment, shipmentPackageRouteSegs, locale);
 
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentFedexShipmentTemplateServiceError", 
                     UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (GenericServiceException se) {
-            Debug.logError(se, module);
+            Debug.logError(se, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentFedexShipmentTemplateServiceError", 
                     UtilMisc.toMap("errorString", se.toString()), locale));
@@ -989,7 +989,7 @@ public class FedexServices {
             fdxShipReplyDocument = UtilXml.readXmlDocument(fDXShipReplyString, false);
         } catch (Exception e) {
             String errorMessage = "Error parsing the FDXShipReply: " + e.toString();
-            Debug.logError(e, errorMessage, module);
+            Debug.logError(e, errorMessage, MODULE);
             // TODO Cancel the package
         }
 
@@ -1014,7 +1014,7 @@ public class FedexServices {
         Element labelElement = UtilXml.firstChildElement(rootElement, "Labels");
         String encodedImageString = UtilXml.childElementValue(labelElement, "OutboundLabel");
         if (UtilValidate.isEmpty(encodedImageString)) {
-            Debug.logError("Cannot find FDXShipReply label. FDXShipReply document is: " + fDXShipReplyString, module);
+            Debug.logError("Cannot find FDXShipReply label. FDXShipReply document is: " + fDXShipReplyString, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentFedexShipmentTemplateLabelNotFound", 
                     UtilMisc.toMap("shipmentPackageRouteSeg", shipmentPackageRouteSeg,
@@ -1028,7 +1028,7 @@ public class FedexServices {
             // Store in db blob
             shipmentPackageRouteSeg.setBytes("labelImage", labelBytes);
         } else {
-            Debug.logInfo("Failed to either decode returned FedEx label or no data found in Labels/OutboundLabel.", module);
+            Debug.logInfo("Failed to either decode returned FedEx label or no data found in Labels/OutboundLabel.", MODULE);
             // TODO: Cancel the package
         }
 
@@ -1078,7 +1078,7 @@ public class FedexServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else {
             String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);

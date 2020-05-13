@@ -45,10 +45,10 @@ import org.apache.ofbiz.service.DispatchContext;
  */
 public class LdapAuthenticationServices {
 
-    public static final String module = LdapAuthenticationServices.class.getName();
+    public static final String MODULE = LdapAuthenticationServices.class.getName();
 
     public static boolean userLogin(DispatchContext ctx, Map<String, ?> context) {
-        if (Debug.verboseOn()) Debug.logVerbose("Starting LDAP authentication", module);
+        if (Debug.verboseOn()) Debug.logVerbose("Starting LDAP authentication", MODULE);
         Properties env = UtilProperties.getProperties("jndiLdap");
         String username = (String) context.get("login.username");
         if (username == null) {
@@ -65,7 +65,7 @@ public class LdapAuthenticationServices {
         try {
             userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).cache(isServiceAuth).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "", module);
+            Debug.logWarning(e, "", MODULE);
         }
         if (userLogin != null) {
             dn = userLogin.getString("userLdapDn");
@@ -75,9 +75,9 @@ public class LdapAuthenticationServices {
             if (dnTemplate != null) {
                 dn = dnTemplate.replace("%u", username);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("Using DN template: " + dn, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Using DN template: " + dn, MODULE);
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("Using UserLogin.userLdapDn: " + dn, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Using UserLogin.userLdapDn: " + dn, MODULE);
         }
         env.put(Context.SECURITY_PRINCIPAL, dn);
         env.put(Context.SECURITY_CREDENTIALS, password);
@@ -86,10 +86,10 @@ public class LdapAuthenticationServices {
             DirContext ldapCtx = new InitialDirContext(env);
             ldapCtx.close();
         } catch (NamingException e) {
-            if (Debug.verboseOn()) Debug.logVerbose("LDAP authentication failed: " + e.getMessage(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("LDAP authentication failed: " + e.getMessage(), MODULE);
             return false;
         }
-        if (Debug.verboseOn()) Debug.logVerbose("LDAP authentication succeeded", module);
+        if (Debug.verboseOn()) Debug.logVerbose("LDAP authentication succeeded", MODULE);
         if (!"true".equals(env.get("ldap.synchronize.passwords"))) {
             return true;
         }
@@ -104,7 +104,7 @@ public class LdapAuthenticationServices {
                 samePassword = currentPassword.equals(password);
             }
             if (!samePassword) {
-                if (Debug.verboseOn()) Debug.logVerbose("Starting password synchronization", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Starting password synchronization", MODULE);
                 userLogin.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(LoginServices.getHashType(), null, password) : password, false);
                 Transaction parentTx = null;
                 boolean beganTransaction = false;
@@ -112,33 +112,33 @@ public class LdapAuthenticationServices {
                     try {
                         parentTx = TransactionUtil.suspend();
                     } catch (GenericTransactionException e) {
-                        Debug.logError(e, "Could not suspend transaction: " + e.getMessage(), module);
+                        Debug.logError(e, "Could not suspend transaction: " + e.getMessage(), MODULE);
                     }
                     try {
                         beganTransaction = TransactionUtil.begin();
                         userLogin.store();
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Error saving UserLogin", module);
+                        Debug.logError(e, "Error saving UserLogin", MODULE);
                         try {
                             TransactionUtil.rollback(beganTransaction, "Error saving UserLogin", e);
                         } catch (GenericTransactionException e2) {
-                            Debug.logError(e2, "Could not rollback nested transaction: " + e2.getMessage(), module);
+                            Debug.logError(e2, "Could not rollback nested transaction: " + e2.getMessage(), MODULE);
                         }
                     } finally {
                         try {
                             TransactionUtil.commit(beganTransaction);
-                            if (Debug.verboseOn()) Debug.logVerbose("Password synchronized", module);
+                            if (Debug.verboseOn()) Debug.logVerbose("Password synchronized", MODULE);
                         } catch (GenericTransactionException e) {
-                            Debug.logError(e, "Could not commit nested transaction: " + e.getMessage(), module);
+                            Debug.logError(e, "Could not commit nested transaction: " + e.getMessage(), MODULE);
                         }
                     }
                 } finally {
                     if (parentTx != null) {
                         try {
                             TransactionUtil.resume(parentTx);
-                            if (Debug.verboseOn()) Debug.logVerbose("Resumed the parent transaction.", module);
+                            if (Debug.verboseOn()) Debug.logVerbose("Resumed the parent transaction.", MODULE);
                         } catch (GenericTransactionException e) {
-                            Debug.logError(e, "Could not resume parent nested transaction: " + e.getMessage(), module);
+                            Debug.logError(e, "Could not resume parent nested transaction: " + e.getMessage(), MODULE);
                         }
                     }
                 }

@@ -78,7 +78,7 @@ public class ModelTree extends ModelWidget {
      *
      */
 
-    public static final String module = ModelTree.class.getName();
+    public static final String MODULE = ModelTree.class.getName();
 
     private final String defaultEntityName;
     private final String defaultRenderStyle;
@@ -255,7 +255,7 @@ public class ModelTree extends ModelWidget {
             node.renderNodeString(writer, context, treeStringRenderer, 0);
         } catch (IOException e2) {
             String errMsg = "Error rendering included label with name [" + getName() + "] : " + e2.toString();
-            Debug.logError(e2, errMsg, module);
+            Debug.logError(e2, errMsg, MODULE);
             throw new RuntimeException(errMsg);
         }
 
@@ -404,7 +404,7 @@ public class ModelTree extends ModelWidget {
                             subNodeValues.add(arr);
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         throw new RuntimeException(e.getMessage());
                     }
                 } else if (dataIter != null) {
@@ -505,7 +505,7 @@ public class ModelTree extends ModelWidget {
                         }
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     throw new RuntimeException(e.getMessage());
                 }
             } else if (nodeCount == null) {
@@ -614,7 +614,7 @@ public class ModelTree extends ModelWidget {
                     }
                 } catch (ScreenRenderException | SAXException | ParserConfigurationException | IOException e) {
                     String errMsg = "Error rendering included label with name [" + getName() + "] : " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     throw new RuntimeException(errMsg);
                 }
                 treeStringRenderer.renderNodeEnd(writer, context, this);
@@ -753,7 +753,7 @@ public class ModelTree extends ModelWidget {
                     treeStringRenderer.renderImage(writer, context, this);
                 } catch (IOException e) {
                     String errMsg = "Error rendering image with id [" + getId(context) + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     throw new RuntimeException(errMsg);
                 }
             }
@@ -800,7 +800,7 @@ public class ModelTree extends ModelWidget {
                     treeStringRenderer.renderLabel(writer, context, this);
                 } catch (IOException e) {
                     String errMsg = "Error rendering label with id [" + getId(context) + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     throw new RuntimeException(errMsg);
                 }
             }
@@ -983,7 +983,7 @@ public class ModelTree extends ModelWidget {
                     treeStringRenderer.renderLink(writer, context, this);
                 } catch (IOException e) {
                     String errMsg = "Error rendering link with id [" + getId(context) + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     throw new RuntimeException(errMsg);
                 }
             }

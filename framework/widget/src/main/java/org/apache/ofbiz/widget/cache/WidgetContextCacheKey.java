@@ -31,7 +31,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 
 public final class WidgetContextCacheKey {
 
-    public static final String module = WidgetContextCacheKey.class.getName();
+    public static final String MODULE = WidgetContextCacheKey.class.getName();
 
     private static Set<String> fieldNamesToSkip = createFieldNamesToSkip();
 
@@ -116,7 +116,7 @@ public final class WidgetContextCacheKey {
                 continue;
             }
             if ((field1 == null || field2 == null) && field1 != field2) {
-                Debug.logWarning("Screen Key doesn't match for :" + fieldName + "; value1 = " + field1 + "; value2 = " + field2, module);
+                Debug.logWarning("Screen Key doesn't match for :" + fieldName + "; value1 = " + field1 + "; value2 = " + field2, MODULE);
                 return false;
             }
             if ("parameters".equals(fieldName)) {
@@ -126,7 +126,7 @@ public final class WidgetContextCacheKey {
                 continue;
             }
             if (!field1.equals(field2)) {
-                Debug.logWarning("Screen Key doesn't match for :" + fieldName + "; value1 = " + field1 + "; value2 = " + field2, module);
+                Debug.logWarning("Screen Key doesn't match for :" + fieldName + "; value1 = " + field1 + "; value2 = " + field2, MODULE);
                 return false;
             }
         }
@@ -178,11 +178,11 @@ public final class WidgetContextCacheKey {
                 continue;
             }
             if ((field1 == null || field2 == null) && field1 != field2) {
-                Debug.logWarning("Screen Key doesn't match for :" + fieldName + "; value1 = " + field1 + "; value2 = " + field2, module);
+                Debug.logWarning("Screen Key doesn't match for :" + fieldName + "; value1 = " + field1 + "; value2 = " + field2, MODULE);
                 return false;
             }
             if (!field1.equals(field2)) {
-                Debug.logWarning("Screen Key doesn't match for :" + fieldName + "; value1 = " + field1 + "; value2 = " + field2, module);
+                Debug.logWarning("Screen Key doesn't match for :" + fieldName + "; value1 = " + field1 + "; value2 = " + field2, MODULE);
                 return false;
             }
         }

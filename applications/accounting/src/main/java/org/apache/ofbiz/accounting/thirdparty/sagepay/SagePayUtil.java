@@ -45,7 +45,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public final class SagePayUtil {
 
-    public static final String module = SagePayUtil.class.getName();
+    public static final String MODULE = SagePayUtil.class.getName();
     private SagePayUtil() {}
 
     public static Map<String, Object> buildCardAuthorisationPaymentResponse
@@ -162,7 +162,7 @@ public final class SagePayUtil {
                 reader.close();
             }
         }
-        Debug.logInfo("SagePay Response Data : " + responseData, module);
+        Debug.logInfo("SagePay Response Data : " + responseData, MODULE);
         return responseData;
     }
 
@@ -176,7 +176,7 @@ public final class SagePayUtil {
             postParameters.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
         }
 
-        Debug.logInfo("SagePay PostParameters - " + postParameters, module);
+        Debug.logInfo("SagePay PostParameters - " + postParameters, MODULE);
 
         HttpEntity postEntity = new UrlEncodedFormEntity(postParameters);
         httpPost.setEntity(postEntity);

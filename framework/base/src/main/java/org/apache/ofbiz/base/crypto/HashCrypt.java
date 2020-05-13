@@ -44,7 +44,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 public class HashCrypt {
 
-    public static final String module = HashCrypt.class.getName();
+    public static final String MODULE = HashCrypt.class.getName();
     public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
     private static final String PBKDF2_SHA1 ="PBKDF2-SHA1";
@@ -87,7 +87,7 @@ public class HashCrypt {
         }
         // This next block should be removed when all {prefix}oldFunnyHex are fixed.
         if (hashed.equals(oldFunnyHex(digestBytes))) {
-            Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid, please update the value in the database with ({%s}%s)", module, hashType, checkCrypted);
+            Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid, please update the value in the database with ({%s}%s)", MODULE, hashType, checkCrypted);
             return true;
         }
         return false;
@@ -348,7 +348,7 @@ public class HashCrypt {
             messagedigest.update(strBytes);
             return oldFunnyHex(messagedigest.digest());
         } catch (Exception e) {
-            Debug.logError(e, "Error while computing hash of type " + hashType, module);
+            Debug.logError(e, "Error while computing hash of type " + hashType, MODULE);
         }
         return str;
     }

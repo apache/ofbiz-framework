@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ZipSalesServices {
 
-    public static final String module = ZipSalesServices.class.getName();
+    public static final String MODULE = ZipSalesServices.class.getName();
     public static final String dataFile = "org/apache/ofbiz/order/thirdparty/zipsales/ZipSalesTaxTables.xml";
     public static final String flatTable = "FlatTaxTable";
     public static final String ruleTable = "FreightRuleTable";
@@ -86,7 +86,7 @@ public class ZipSalesServices {
         try {
             tdf = DataFile.makeDataFile(UtilURL.fromResource(dataFile), flatTable);
         } catch (DataFileException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToReadZipSalesDataFile",locale));
         }
 
@@ -100,7 +100,7 @@ public class ZipSalesServices {
         try {
             tri = tdf.makeRecordIterator(tUrl);
         } catch (DataFileException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemGettingTheRecordIterator",locale));
         }
         if (tri != null) {
@@ -109,7 +109,7 @@ public class ZipSalesServices {
                 try {
                     entry = tri.next();
                 } catch (DataFileException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
                 GenericValue newValue = delegator.makeValue("ZipSalesTaxLookup");
                 // PK fields
@@ -141,12 +141,12 @@ public class ZipSalesServices {
                 try {
                     delegator.createOrStore(newValue);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWritingRecordsToTheDatabase",locale));
                 }
 
                 // console log
-                Debug.logInfo(newValue.get("zipCode") + "/" + newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"), module);
+                Debug.logInfo(newValue.get("zipCode") + "/" + newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"), MODULE);
             }
         }
 
@@ -155,7 +155,7 @@ public class ZipSalesServices {
         try {
             rdf = DataFile.makeDataFile(UtilURL.fromResource(dataFile), ruleTable);
         } catch (DataFileException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToReadZipSalesDataFile",locale));
         }
 
@@ -169,7 +169,7 @@ public class ZipSalesServices {
         try {
             rri = rdf.makeRecordIterator(rUrl);
         } catch (DataFileException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemGettingTheRecordIterator",locale));
         }
         if (rri != null) {
@@ -178,7 +178,7 @@ public class ZipSalesServices {
                 try {
                     entry = rri.next();
                 } catch (DataFileException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
                 if (UtilValidate.isNotEmpty(entry.getString("stateCode"))) {
                     GenericValue newValue = delegator.makeValue("ZipSalesRuleLookup");
@@ -197,12 +197,12 @@ public class ZipSalesServices {
                         // using storeAll as an easy way to create/update
                         delegator.storeAll(UtilMisc.toList(newValue));
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWritingRecordsToTheDatabase",locale));
                     }
 
                     // console log
-                    Debug.logInfo(newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"), module);
+                    Debug.logInfo(newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"), MODULE);
                 }
             }
         }
@@ -323,7 +323,7 @@ public class ZipSalesServices {
         }
 
         if (taxEntry == null) {
-            Debug.logWarning("No tax entry found for : " + zipCode + " / " + city + " - " + itemAmount, module);
+            Debug.logWarning("No tax entry found for : " + zipCode + " / " + city + " - " + itemAmount, MODULE);
             return adjustments;
         }
 
@@ -334,7 +334,7 @@ public class ZipSalesServices {
 
         BigDecimal comboTaxRate = taxEntry.getBigDecimal(fieldName);
         if (comboTaxRate == null) {
-            Debug.logWarning("No Combo Tax Rate In Field " + fieldName + " @ " + zipCode + " / " + city + " - " + itemAmount, module);
+            Debug.logWarning("No Combo Tax Rate In Field " + fieldName + " @ " + zipCode + " / " + city + " - " + itemAmount, MODULE);
             return adjustments;
         }
 
@@ -349,7 +349,7 @@ public class ZipSalesServices {
         try {
             ruleLookup = EntityQuery.use(delegator).from("ZipSalesRuleLookup").where("stateCode", stateCode).orderBy("-fromDate").queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         // filter out city
@@ -467,10 +467,10 @@ public class ZipSalesServices {
 
         BigDecimal taxableAmount = itemAmount;
         if (taxShipping) {
-            //Debug.logInfo("Taxing shipping", module);
+            //Debug.logInfo("Taxing shipping", MODULE);
             taxableAmount = taxableAmount.add(shippingAmount);
         } else {
-            Debug.logInfo("Shipping is not taxable", module);
+            Debug.logInfo("Shipping is not taxable", MODULE);
         }
 
         // calc tax amount
@@ -490,7 +490,7 @@ public class ZipSalesServices {
             try {
                 ts = new Timestamp(dateFormat.parse(dateString).getTime());
             } catch (ParseException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 

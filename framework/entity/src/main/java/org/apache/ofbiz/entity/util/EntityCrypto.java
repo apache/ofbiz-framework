@@ -49,7 +49,7 @@ import org.apache.shiro.crypto.hash.HashService;
 
 public final class EntityCrypto {
 
-    public static final String module = EntityCrypto.class.getName();
+    public static final String MODULE = EntityCrypto.class.getName();
 
     private final Delegator delegator;
     private final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<>();
@@ -115,7 +115,7 @@ public final class EntityCrypto {
     /*
     public Object decrypt(String keyName, String encryptedString) throws EntityCryptoException {
         Object result = _decrypt(keyName, encryptedString);
-        Debug.logInfo("Decrypted value [%s] to result: %s", module, encryptedString, decryptedObj);
+        Debug.logInfo("Decrypted value [%s] to result: %s", MODULE, encryptedString, decryptedObj);
         return result;
     }
     */
@@ -130,7 +130,7 @@ public final class EntityCrypto {
             throw an org.apache.shiro.crypto.CryptoException that is a RuntimeException.
             For backward compatibility we want instead to catch the exception and decrypt the code using the old algorithm.
              */
-            Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
+            Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", MODULE);
             for (int i = 1; i < handlers.length; i++) {
                 try {
                     // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
@@ -360,7 +360,7 @@ public final class EntityCrypto {
                 try {
                     key = DesCrypt.getDesKey(kek);
                 } catch (GeneralException e) {
-                    Debug.logInfo("Invalid key-encryption-key specified for SaltedBase64StorageHandler; the key is probably valid for the newer ShiroStorageHandler", module);
+                    Debug.logInfo("Invalid key-encryption-key specified for SaltedBase64StorageHandler; the key is probably valid for the newer ShiroStorageHandler", MODULE);
                 }
             }
             this.kek = key;

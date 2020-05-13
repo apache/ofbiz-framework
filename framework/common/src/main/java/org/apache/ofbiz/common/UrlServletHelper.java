@@ -43,7 +43,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 public final class UrlServletHelper {
 
-    public final static String module = UrlServletHelper.class.getName();
+    public final static String MODULE = UrlServletHelper.class.getName();
 
     private UrlServletHelper() {}
 
@@ -74,7 +74,7 @@ public final class UrlServletHelper {
                 }
 
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Unable to get Tenant", module);
+                Debug.logWarning(e, "Unable to get Tenant", MODULE);
             }
         }
 
@@ -163,7 +163,7 @@ public final class UrlServletHelper {
                                    .cache()
                                    .queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         if (pathAlias != null) {
             String alias = pathAlias.getString("aliasTo");
@@ -178,7 +178,7 @@ public final class UrlServletHelper {
                     rd.forward(request, response);
                     return;
                 } catch (ServletException | IOException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
         } else {
@@ -193,7 +193,7 @@ public final class UrlServletHelper {
                     return;
                 }
             } catch (GenericEntityException | IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
     }

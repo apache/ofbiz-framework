@@ -28,9 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OrderTest extends OFBizTestCase {
-    public static final String module = OFBizTestCase.class.getName();
-
-    protected GenericValue userLogin = null;
+    public static final String MODULE = OFBizTestCase.class.getName();
 
     public OrderTest(String name) {
         super(name);
@@ -41,7 +39,7 @@ public class OrderTest extends OFBizTestCase {
         ctx.put("partyId", "admin"); //party with no AcctgPref prefix
         Map <String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
         if (ServiceUtil.isError(resp)) {
-            Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+            Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;
         }
         String orderId = (String) resp.get("orderId");
@@ -54,7 +52,7 @@ public class OrderTest extends OFBizTestCase {
         ctx.put("partyId", "Company"); //party with AcctgPref prefix : CO
         Map <String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
         if (ServiceUtil.isError(resp)) {
-            Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+            Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;
         }
         String orderId = (String) resp.get("orderId");
@@ -68,7 +66,7 @@ public class OrderTest extends OFBizTestCase {
         ctx.put("productStoreId", "9000"); // prefix WS
         Map <String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
         if (ServiceUtil.isError(resp)) {
-            Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+            Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;
         }
         String orderId = (String) resp.get("orderId");

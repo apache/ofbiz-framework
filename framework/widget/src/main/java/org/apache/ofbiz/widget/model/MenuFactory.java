@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
  */
 public class MenuFactory {
 
-    public static final String module = MenuFactory.class.getName();
+    public static final String MODULE = MenuFactory.class.getName();
 
     public static final UtilCache<String, Map<String, ModelMenu>> menuWebappCache = UtilCache.createUtilCache("widget.menu.webappResource", 0, 0, false);
     public static final UtilCache<String, Map<String, ModelMenu>> menuLocationCache = UtilCache.createUtilCache("widget.menu.locationResource", 0, 0, false);

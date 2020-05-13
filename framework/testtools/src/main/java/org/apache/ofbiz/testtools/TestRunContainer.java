@@ -49,7 +49,7 @@ import junit.framework.TestSuite;
  */
 public class TestRunContainer implements Container {
 
-    public static final String module = TestRunContainer.class.getName();
+    public static final String MODULE = TestRunContainer.class.getName();
     public static final String logDir = "runtime/logs/test-results/";
 
     private String name;
@@ -145,28 +145,28 @@ public class TestRunContainer implements Container {
     }
 
     private static void logTestSuiteResults(TestSuite suite, TestResult results) {
-        Debug.logInfo("[JUNIT] Results for test suite: " + suite.getName(), module);
+        Debug.logInfo("[JUNIT] Results for test suite: " + suite.getName(), MODULE);
         Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
-                results.failureCount() + " # Errors: " + results.errorCount(), module);
+                results.failureCount() + " # Errors: " + results.errorCount(), MODULE);
         if (Debug.importantOn() && !results.wasSuccessful()) {
-            Debug.logInfo("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", module);
+            Debug.logInfo("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", MODULE);
             logErrorsOrFailures(results.errors());
-            Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
+            Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", MODULE);
 
-            Debug.logInfo("[JUNIT] ---------------------------- FAILURES ---------------------------- [JUNIT]", module);
+            Debug.logInfo("[JUNIT] ---------------------------- FAILURES ---------------------------- [JUNIT]", MODULE);
             logErrorsOrFailures(results.failures());
-            Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
+            Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", MODULE);
         }
     }
 
     private static void logErrorsOrFailures(Enumeration<TestFailure> errorsOrFailures) {
         if (!errorsOrFailures.hasMoreElements()) {
-            Debug.logInfo("None", module);
+            Debug.logInfo("None", MODULE);
         } else {
             while (errorsOrFailures.hasMoreElements()) {
                 TestFailure testFailure = errorsOrFailures.nextElement();
-                Debug.logInfo("--> " + testFailure, module);
-                Debug.logInfo(testFailure.trace(), module);
+                Debug.logInfo("--> " + testFailure, MODULE);
+                Debug.logInfo(testFailure.trace(), MODULE);
             }
         }
     }
@@ -197,22 +197,22 @@ public class TestRunContainer implements Container {
 
         @Override
         public void addError(Test test, Throwable throwable) {
-            Debug.logWarning(throwable, "[JUNIT (error)] - " + getTestName(test) + " : " + throwable.toString(), module);
+            Debug.logWarning(throwable, "[JUNIT (error)] - " + getTestName(test) + " : " + throwable.toString(), MODULE);
         }
 
         @Override
         public void addFailure(Test test, AssertionFailedError assertionFailedError) {
-            Debug.logWarning("[JUNIT (failure)] - " + getTestName(test) + " : " + assertionFailedError.getMessage(), module);
+            Debug.logWarning("[JUNIT (failure)] - " + getTestName(test) + " : " + assertionFailedError.getMessage(), MODULE);
         }
 
         @Override
         public void endTest(Test test) {
-            Debug.logInfo("[JUNIT] : " + getTestName(test) + " finished.", module);
+            Debug.logInfo("[JUNIT] : " + getTestName(test) + " finished.", MODULE);
         }
 
         @Override
         public void startTest(Test test) {
-           Debug.logInfo("[JUNIT] : " + getTestName(test) + " starting...", module);
+           Debug.logInfo("[JUNIT] : " + getTestName(test) + " starting...", MODULE);
         }
 
         private String getTestName(Test test) {

@@ -58,7 +58,7 @@ import org.w3c.dom.Element;
  */
 public class EntityPermissionChecker {
 
-    public static final String module = EntityPermissionChecker.class.getName();
+    public static final String MODULE = EntityPermissionChecker.class.getName();
 
     protected FlexibleStringExpander entityIdExdr;
     protected FlexibleStringExpander entityNameExdr;
@@ -239,7 +239,7 @@ public class EntityPermissionChecker {
         }
 
         if (modelOperationEntity == null) {
-            Debug.logError("No operation entity found for " + entityName, module);
+            Debug.logError("No operation entity found for " + entityName, MODULE);
             throw new RuntimeException("No operation entity found for " + entityName);
         }
 
@@ -498,7 +498,7 @@ public class EntityPermissionChecker {
     public static boolean checkPermissionMethod(Delegator delegator, String partyId,  String entityName, List<? extends Object> entityIdList, AuxiliaryValueGetter auxiliaryValueGetter, RelatedRoleGetter relatedRoleGetter, PermissionConditionGetter permissionConditionGetter) throws GenericEntityException {
 
         permissionConditionGetter.init(delegator);
-        if (Debug.verboseOn()) Debug.logVerbose(permissionConditionGetter.dumpAsText(), module);
+        if (Debug.verboseOn()) Debug.logVerbose(permissionConditionGetter.dumpAsText(), MODULE);
         boolean passed = false;
 
         boolean checkAncestors = false;
@@ -537,7 +537,7 @@ public class EntityPermissionChecker {
         }
 
         if (auxiliaryValueGetter != null) {
-            //if (Debug.infoOn()) Debug.logInfo(auxiliaryValueGetter.dumpAsText(), module);
+            //if (Debug.infoOn()) Debug.logInfo(auxiliaryValueGetter.dumpAsText(), MODULE);
             // Check with just purposes next.
             for (Object id: entityIdList) {
                 GenericValue entity = getNextEntity(delegator, entityName, pkFieldName, id, entities);
@@ -610,8 +610,8 @@ public class EntityPermissionChecker {
     }
 
     public static boolean checkHasRoleOperations(String partyId,  List<String> targetOperations, Delegator delegator) {
-        //if (Debug.infoOn()) Debug.logInfo("targetOperations:" + targetOperations, module);
-        //if (Debug.infoOn()) Debug.logInfo("userLoginId:" + userLoginId, module);
+        //if (Debug.infoOn()) Debug.logInfo("targetOperations:" + targetOperations, MODULE);
+        //if (Debug.infoOn()) Debug.logInfo("userLoginId:" + userLoginId, MODULE);
         if (targetOperations == null) return false;
 
         if (partyId != null && targetOperations.contains("HAS_USER_ROLE")) return true;
@@ -626,7 +626,7 @@ public class EntityPermissionChecker {
                 int idx2 = roleOp1.indexOf("_ROLE");
                 if (idx2 == roleOp1.length() - 5) {
                     String roleOp2 = roleOp1.substring(0, roleOp1.indexOf("_ROLE") - 1); // lop off "_ROLE"
-                    //if (Debug.infoOn()) Debug.logInfo("roleOp2:" + roleOp2, module);
+                    //if (Debug.infoOn()) Debug.logInfo("roleOp2:" + roleOp2, MODULE);
                     newHasRoleList.add(roleOp2);
                     hasNeed = true;
                 }
@@ -650,7 +650,7 @@ public class EntityPermissionChecker {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return hasRoleOperation;
             }
         }
@@ -699,16 +699,16 @@ public class EntityPermissionChecker {
         Delegator delegator = entity.getDelegator();
         String pkFieldName = modelEntity.getFirstPkFieldName();
         String entityId = entity.getString(pkFieldName);
-        if (Debug.verboseOn()) Debug.logVerbose("\n\nIN hasMatch: entityId:" + entityId + " partyId:" + partyId + " checkAncestors:" + checkAncestors, module);
+        if (Debug.verboseOn()) Debug.logVerbose("\n\nIN hasMatch: entityId:" + entityId + " partyId:" + partyId + " checkAncestors:" + checkAncestors, MODULE);
         boolean isMatch = false;
         permissionConditionGetter.restart();
         List<String> auxiliaryValueList = null;
         if (auxiliaryValueGetter != null) {
            auxiliaryValueGetter.init(delegator, entityId);
            auxiliaryValueList =   auxiliaryValueGetter.getList();
-            if (Debug.verboseOn()) Debug.logVerbose(auxiliaryValueGetter.dumpAsText(), module);
+            if (Debug.verboseOn()) Debug.logVerbose(auxiliaryValueGetter.dumpAsText(), MODULE);
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("NO AUX GETTER", module);
+            if (Debug.verboseOn()) Debug.logVerbose("NO AUX GETTER", MODULE);
         }
         List<String> roleValueList = null;
         if (relatedRoleGetter != null) {
@@ -718,16 +718,16 @@ public class EntityPermissionChecker {
                 relatedRoleGetter.init(delegator, entityId, partyId, entity);
             }
             roleValueList =   relatedRoleGetter.getList();
-            if (Debug.verboseOn()) Debug.logVerbose(relatedRoleGetter.dumpAsText(), module);
+            if (Debug.verboseOn()) Debug.logVerbose(relatedRoleGetter.dumpAsText(), MODULE);
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("NO ROLE GETTER", module);
+            if (Debug.verboseOn()) Debug.logVerbose("NO ROLE GETTER", MODULE);
         }
 
         String targStatusId = null;
         if (modelEntity.getField("statusId") != null) {
             targStatusId = entity.getString("statusId");
         }
-            if (Debug.verboseOn()) Debug.logVerbose("STATUS:" + targStatusId, module);
+            if (Debug.verboseOn()) Debug.logVerbose("STATUS:" + targStatusId, MODULE);
 
         while (permissionConditionGetter.getNext()) {
             String roleConditionId = permissionConditionGetter.getRoleValue();
@@ -739,7 +739,7 @@ public class EntityPermissionChecker {
             boolean roleCond = (roleConditionId == null || roleConditionId.equals("_NA_") || (roleValueList != null && roleValueList.contains(roleConditionId)));
 
             if (auxiliaryCond && statusCond && roleCond) {
-                if (Debug.verboseOn()) Debug.logVerbose("MATCHED: role:" + roleConditionId + " status:" + statusConditionId + " aux:" + auxiliaryConditionId, module);
+                if (Debug.verboseOn()) Debug.logVerbose("MATCHED: role:" + roleConditionId + " status:" + statusConditionId + " aux:" + auxiliaryConditionId, MODULE);
                     isMatch = true;
                     break;
             }
@@ -769,7 +769,7 @@ public class EntityPermissionChecker {
         try {
             purposes = entity.getRelated(entityName + "Purpose", null, null, true);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "No associated purposes found. ", module);
+            Debug.logError(e, "No associated purposes found. ", MODULE);
             return purposeIds;
         }
 
@@ -838,7 +838,7 @@ public class EntityPermissionChecker {
                            }
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Error in finding related party. " + e.getMessage(), module);
+                        Debug.logError(e, "Error in finding related party. " + e.getMessage(), MODULE);
                     }
                 }
             }
@@ -886,7 +886,7 @@ public class EntityPermissionChecker {
         try {
             partyRelationships = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdFrom", partyIdFrom, "partyIdTo", partyIdTo).queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem finding PartyRelationships. ", module);
+            Debug.logError(e, "Problem finding PartyRelationships. ", MODULE);
             return false;
         }
         if (partyRelationships.size() > 0) {
@@ -1313,7 +1313,7 @@ public class EntityPermissionChecker {
                         }
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logInfo(e.getMessage() + " Returning false for 'isOwner'.", module);
+                    Debug.logInfo(e.getMessage() + " Returning false for 'isOwner'.", MODULE);
 
                 }
             }

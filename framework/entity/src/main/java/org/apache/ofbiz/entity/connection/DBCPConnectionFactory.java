@@ -53,7 +53,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  */
 public class DBCPConnectionFactory implements ConnectionFactory {
 
-    public static final String module = DBCPConnectionFactory.class.getName();
+    public static final String MODULE = DBCPConnectionFactory.class.getName();
     // ManagedDataSource is useful to debug the usage of connections in the pool (must be verbose)
     // In case you don't want to be disturbed in the log (focusing on something else), it's still easy to comment out the line from DebugManagedDataSource
     protected static final ConcurrentHashMap<String, DebugManagedDataSource<? extends Connection>> dsCache =
@@ -91,7 +91,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
             try {
                 jdbcDriver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new GenericEntityException(e.getMessage(), e);
             }
         }

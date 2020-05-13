@@ -43,7 +43,7 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 @SuppressWarnings("serial")
 public class CatalogUrlServlet extends HttpServlet {
 
-    public static final String module = CatalogUrlServlet.class.getName();
+    public static final String MODULE = CatalogUrlServlet.class.getName();
 
     public static final String CATALOG_URL_MOUNT_POINT = "products";
     public static final String PRODUCT_REQUEST = "product";
@@ -93,7 +93,7 @@ public class CatalogUrlServlet extends HttpServlet {
             }
             pathElements.remove(pathElements.size() - 1);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error in looking up ProductUrl or CategoryUrl with path info [" + pathInfo + "]: " + e.toString(), module);
+            Debug.logError(e, "Error in looking up ProductUrl or CategoryUrl with path info [" + pathInfo + "]: " + e.toString(), MODULE);
         }
 
         // get category info going with the IDs that remain

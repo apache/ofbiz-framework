@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityAnd extends EntityOperation {
 
-    public static final String module = EntityAnd.class.getName();
+    public static final String MODULE = EntityAnd.class.getName();
 
     private final ByAndFinder finder;
 
@@ -59,7 +59,7 @@ public final class EntityAnd extends EntityOperation {
             this.finder.runFind(methodContext.getEnvMap(), delegator);
         } catch (GeneralException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

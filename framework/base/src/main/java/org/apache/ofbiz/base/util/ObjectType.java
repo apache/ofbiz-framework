@@ -41,7 +41,7 @@ import org.w3c.dom.Node;
  */
 public class ObjectType {
 
-    public static final String module = ObjectType.class.getName();
+    public static final String MODULE = ObjectType.class.getName();
 
     public static final Object NULL = new NullObject();
 
@@ -164,7 +164,7 @@ public class ObjectType {
         Object o = c.getDeclaredConstructor().newInstance();
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Instantiated object: " + o.toString(), module);
+            Debug.logVerbose("Instantiated object: " + o.toString(), MODULE);
         }
         return o;
     }
@@ -330,7 +330,7 @@ public class ObjectType {
         try {
             converter = (Converter<Object, Object>) Converters.getConverter(sourceClass, targetClass);
         } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (converter != null) {
@@ -345,27 +345,27 @@ public class ObjectType {
                 try {
                     return localizedConverter.convert(obj, locale, timeZone, format);
                 } catch (ConversionException e) {
-                    Debug.logWarning(e, "Exception thrown while converting type: ", module);
+                    Debug.logWarning(e, "Exception thrown while converting type: ", MODULE);
                     throw new GeneralException(e.getMessage(), e);
                 }
             }
             try {
                 return converter.convert(obj);
             } catch (ConversionException e) {
-                Debug.logWarning(e, "Exception thrown while converting type: ", module);
+                Debug.logWarning(e, "Exception thrown while converting type: ", MODULE);
                 throw new GeneralException(e.getMessage(), e);
             }
         }
         // we can pretty much always do a conversion to a String, so do that here
         if (targetClass.equals(String.class)) {
-            Debug.logWarning("No special conversion available for " + obj.getClass().getName() + " to String, returning object.toString().", module);
+            Debug.logWarning("No special conversion available for " + obj.getClass().getName() + " to String, returning object.toString().", MODULE);
             return obj.toString();
         }
         if (noTypeFail) {
             throw new GeneralException("Conversion from " + obj.getClass().getName() + " to " + type + " not currently supported");
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("No type conversion available for " + obj.getClass().getName() + " to " + targetClass.getName() + ", returning original object.", module);
+            Debug.logInfo("No type conversion available for " + obj.getClass().getName() + " to " + targetClass.getName() + ", returning original object.", MODULE);
         }
         return obj;
     }
@@ -380,7 +380,7 @@ public class ObjectType {
         boolean verboseOn = Debug.verboseOn();
 
         if (verboseOn) {
-            Debug.logVerbose("Comparing value1: \"" + value1 + "\" " + operator + " value2:\"" + value2 + "\"", module);
+            Debug.logVerbose("Comparing value1: \"" + value1 + "\" " + operator + " value2:\"" + value2 + "\"", MODULE);
         }
 
         try {
@@ -389,7 +389,7 @@ public class ObjectType {
                 type = clz.getName();
             }
         } catch (ClassNotFoundException e) {
-            Debug.logWarning("The specified type [" + type + "] is not a valid class or a known special type, may see more errors later because of this: " + e.getMessage(), module);
+            Debug.logWarning("The specified type [" + type + "] is not a valid class or a known special type, may see more errors later because of this: " + e.getMessage(), MODULE);
         }
 
         if (value1 == null) {
@@ -412,7 +412,7 @@ public class ObjectType {
             try {
                 convertedValue2 = simpleTypeOrObjectConvert(value2, type, format, value2Locale);
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 messages.add("Could not convert value2 for comparison: " + e.getMessage());
                 return Boolean.FALSE;
             }
@@ -428,7 +428,7 @@ public class ObjectType {
         try {
             convertedValue1 = simpleTypeOrObjectConvert(value1, type, format, locale);
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             messages.add("Could not convert value1 for comparison: " + e.getMessage());
             return Boolean.FALSE;
         }
@@ -564,7 +564,7 @@ public class ObjectType {
         }
 
         if (verboseOn) {
-            Debug.logVerbose("Got Compare result: " + result + ", operator: " + operator, module);
+            Debug.logVerbose("Got Compare result: " + result + ", operator: " + operator, MODULE);
         }
         if ("less".equals(operator)) {
             if (result >= 0) {
@@ -596,7 +596,7 @@ public class ObjectType {
         }
 
         if (verboseOn) {
-            Debug.logVerbose("Returning true", module);
+            Debug.logVerbose("Returning true", MODULE);
         }
         return Boolean.TRUE;
     }
@@ -639,7 +639,7 @@ public class ObjectType {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("In ObjectType.isEmpty(Object value) returning false for " + value.getClass() + " Object.", module);
+            Debug.logVerbose("In ObjectType.isEmpty(Object value) returning false for " + value.getClass() + " Object.", MODULE);
         }
         return false;
     }

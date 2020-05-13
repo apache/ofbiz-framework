@@ -27,7 +27,7 @@ import org.apache.ofbiz.order.finaccount.FinAccountHelper;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class FinAccountTest extends OFBizTestCase {
-    public static final String module = FinAccountTest.class.getName();
+    public static final String MODULE = FinAccountTest.class.getName();
     public FinAccountTest(String name) {
         super(name);
     }
@@ -37,7 +37,7 @@ public class FinAccountTest extends OFBizTestCase {
         GenericValue account;
 
         finAccountCode = FinAccountHelper.getNewFinAccountCode(20, delegator);
-        Debug.logInfo("finAccountCode=%s%n", module, finAccountCode);
+        Debug.logInfo("finAccountCode=%s%n", MODULE, finAccountCode);
         assertNotNull(finAccountCode);
 
         account = FinAccountHelper.getFinAccountFromCode(finAccountCode, delegator);

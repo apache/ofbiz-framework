@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class PromoServices {
 
-    public final static String module = PromoServices.class.getName();
+    public final static String MODULE = PromoServices.class.getName();
     public static final String resource = "ProductUiLabels";
     private final static char[] smartChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
             'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -96,7 +96,7 @@ public class PromoServices {
                     existingPromoCode = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoCodeId", newPromoCodeId).cache().queryOne();
                 }
                 catch (GenericEntityException e) {
-                    Debug.logWarning("Could not find ProductPromoCode for just generated ID: " + newPromoCodeId, module);
+                    Debug.logWarning("Could not find ProductPromoCode for just generated ID: " + newPromoCodeId, MODULE);
                 }
                 if (existingPromoCode == null) {
                     foundUniqueNewCode = true;
@@ -147,7 +147,7 @@ public class PromoServices {
                 productStorePromo.remove();
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error removing expired ProductStorePromo records: " + e.toString(), module);
+            Debug.logError(e, "Error removing expired ProductStorePromo records: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "ProductPromoCodeCannotBeRemoved", UtilMisc.toMap("errorString", e.toString()), locale));
         }
@@ -173,7 +173,7 @@ public class PromoServices {
         try {
             promoModel = dispatcher.getDispatchContext().getModelService("createProductPromoCode");
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -208,13 +208,13 @@ public class PromoServices {
                 }
             }
         } catch (IOException | GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 
@@ -262,7 +262,7 @@ public class PromoServices {
                             contactMech = EntityQuery.use(dctx.getDelegator()).from("ContactMech")
                                     .where("infoString", line).queryOne();
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                             errors.add(line + ": Too many contactMechIds found ");
                             continue;
                         }
@@ -296,13 +296,13 @@ public class PromoServices {
                 }
             }
         } catch (IOException | GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 

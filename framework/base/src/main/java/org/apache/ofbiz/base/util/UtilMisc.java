@@ -58,7 +58,7 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
  */
 public final class UtilMisc {
 
-    public static final String module = UtilMisc.class.getName();
+    public static final String MODULE = UtilMisc.class.getName();
 
     private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 
@@ -91,7 +91,7 @@ public final class UtilMisc {
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
-            Debug.log(e, module);
+            Debug.log(e, MODULE);
         }
         return 1;
     }
@@ -135,7 +135,7 @@ public final class UtilMisc {
         if (kvs.length % 2 == 1) {
             IllegalArgumentException e = new IllegalArgumentException(
                     "You must pass an even sized array to the toMap method (size = " + kvs.length + ")");
-            Debug.logInfo(e, module);
+            Debug.logInfo(e, MODULE);
             throw e;
         }
         Map<K, V> map = constructor.get();
@@ -187,7 +187,7 @@ public final class UtilMisc {
             if (entryValue != null && !(entryValue instanceof Serializable)) {
                 keysToRemove.add(mapEntry.getKey());
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
+                    Debug.logVerbose("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), MODULE);
                 }
                 
             }
@@ -211,7 +211,7 @@ public final class UtilMisc {
             MapComparator mc = new MapComparator(sortKeys);
             Collections.sort(toSort, mc);
         } catch (Exception e) {
-            Debug.logError(e, "Problems sorting list of maps; returning null.", module);
+            Debug.logError(e, "Problems sorting list of maps; returning null.", MODULE);
             return null;
         }
         return toSort;
@@ -435,7 +435,7 @@ public final class UtilMisc {
         try {
             result = Double.parseDouble(obj.toString());
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return result;
@@ -470,7 +470,7 @@ public final class UtilMisc {
         try {
             result = Integer.parseInt(obj.toString());
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return result;
@@ -505,7 +505,7 @@ public final class UtilMisc {
         try {
             result = Long.parseLong(obj.toString());
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return result;
@@ -552,7 +552,7 @@ public final class UtilMisc {
             String extension = localeString.substring(6);
             locale = new Locale(language, country, extension);
         } else {
-            Debug.logWarning("Do not know what to do with the localeString [" + localeString + "], should be length 2, 5, or greater than 6, returning null", module);
+            Debug.logWarning("Do not know what to do with the localeString [" + localeString + "], should be length 2, 5, or greater than 6, returning null", MODULE);
         }
 
         return locale;
@@ -604,6 +604,19 @@ public final class UtilMisc {
         return LocaleHolder.availableLocaleList;
     }
 
+    /** List of domains or IP addresses to be checked to prevent Host Header Injection, 
+     * no spaces after commas,no wildcard, can be extended of course... 
+     * @return List of domains or IP addresses to be checked to prevent Host Header Injection,
+     */
+    public static List<String> getHostHeadersAllowed() {
+        String hostHeadersAllowedString = UtilProperties.getPropertyValue("security", "host-headers-allowed", "localhost");
+        List<String> hostHeadersAllowed = null;
+        if (UtilValidate.isNotEmpty(hostHeadersAllowedString)) {
+            hostHeadersAllowed = StringUtil.split(hostHeadersAllowedString, ",");
+        }
+        return Collections.unmodifiableList(hostHeadersAllowed);
+    }
+
     /** @deprecated use Thread.sleep() */
     @Deprecated
     public static void staticWait(long timeout) throws InterruptedException {
@@ -651,11 +664,11 @@ public final class UtilMisc {
                     result.put("contactNumber", nationalSignificantNumber);
                 }
             } else {
-                Debug.logError("Invalid phone number " + phoneNumber, module);
+                Debug.logError("Invalid phone number " + phoneNumber, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, "Invalid phone number");
             }
         } catch (GenericEntityException | NumberParseException ex) {
-            Debug.logError(ex, module);
+            Debug.logError(ex, MODULE);
             result.put(ModelService.ERROR_MESSAGE, ex.getMessage());
         }
         return result;

@@ -39,7 +39,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class ProductStoreCartAwareEvents {
 
-    public static final String module = ProductStoreCartAwareEvents.class.getName();
+    public static final String MODULE = ProductStoreCartAwareEvents.class.getName();
 
     public static String setSessionProductStore(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> parameters = UtilHttp.getParameterMap(request);
@@ -49,7 +49,7 @@ public class ProductStoreCartAwareEvents {
             ProductStoreCartAwareEvents.setSessionProductStore(productStoreId, request);
         } catch (Exception e) {
             String errMsg = "Problem setting new store: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }

@@ -33,7 +33,7 @@ import junit.framework.TestCase;
 
 public class CCServicesTest extends OFBizTestCase {
 
-    public static final String module = CCServicesTest.class.getName();
+    public static final String MODULE = CCServicesTest.class.getName();
 
     // test data
     protected GenericValue emailAddr = null;
@@ -79,7 +79,7 @@ public class CCServicesTest extends OFBizTestCase {
      * Check the authorisation
      */
     public void testAuth() throws Exception {
-        Debug.logInfo("=====[testAuth] starting....", module);
+        Debug.logInfo("=====[testAuth] starting....", MODULE);
         try {
             Map<String, Object> serviceInput = UtilMisc.<String, Object>toMap("paymentConfig", configFile,
                     "billToEmail", emailAddr,
@@ -94,12 +94,12 @@ public class CCServicesTest extends OFBizTestCase {
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-            Debug.logInfo("[testCCAuth] responseMessage: " + responseMessage, module);
+            Debug.logInfo("[testCCAuth] responseMessage: " + responseMessage, MODULE);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
             TestCase.assertNotNull("Service returned null for parameter authResult.", result.get("authResult"));
 
             if ((Boolean.TRUE).equals(result.get("authResult"))) { // returnCode ok?
-                Debug.logInfo("[testAuth] Error Messages from ClearCommerce:" + result.get("internalRespMsgs"), module);
+                Debug.logInfo("[testAuth] Error Messages from ClearCommerce:" + result.get("internalRespMsgs"), MODULE);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
 
@@ -113,7 +113,7 @@ public class CCServicesTest extends OFBizTestCase {
      * Check the credit action: to deduct a certain amount of a credit card.
      */
     public void testCredit() throws Exception {
-        Debug.logInfo("=====[testCCredit] starting....", module);
+        Debug.logInfo("=====[testCCredit] starting....", MODULE);
         try {
             Map<String, Object> serviceMap = UtilMisc.<String, Object>toMap("paymentConfig", configFile,
                     "orderId", orderId,
@@ -126,12 +126,12 @@ public class CCServicesTest extends OFBizTestCase {
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-            Debug.logInfo("[testCCCredit] responseMessage: " + responseMessage, module);
+            Debug.logInfo("[testCCCredit] responseMessage: " + responseMessage, MODULE);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
             TestCase.assertNotNull("Service returned null for parameter creditResult.", result.get("creditResult"));
 
             if ((Boolean.FALSE).equals(result.get("creditResult"))) { // returnCode ok?
-                Debug.logInfo("[testCCCredit] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
+                Debug.logInfo("[testCCCredit] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), MODULE);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
         } catch (GenericServiceException ex) {
@@ -144,7 +144,7 @@ public class CCServicesTest extends OFBizTestCase {
      * Test Purchase subscription
      */
     public void testPurchaseSubscription() throws Exception {
-        Debug.logInfo("=====[testPurchaseSubscription] starting....", module);
+        Debug.logInfo("=====[testPurchaseSubscription] starting....", MODULE);
         try {
             Map<String, Object> serviceMap = UtilMisc.<String, Object>toMap("paymentConfig", configFile,
                     "orderId", orderId,
@@ -160,12 +160,12 @@ public class CCServicesTest extends OFBizTestCase {
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-            Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);
+            Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, MODULE);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage); // service completed ok?
             TestCase.assertNotNull("Service returned null for parameter creditResult.", result.get("creditResult"));
 
             if ((Boolean.FALSE).equals(result.get("creditResult"))) { // returnCode ok?
-                Debug.logInfo("[testPurchaseSubscription] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
+                Debug.logInfo("[testPurchaseSubscription] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), MODULE);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
         } catch (GenericServiceException ex) {
@@ -201,7 +201,7 @@ public class CCServicesTest extends OFBizTestCase {
      * Test Query subscription transaction status
      */
     public void testCCReport() throws Exception {
-        Debug.logInfo("=====[testReport] starting....", module);
+        Debug.logInfo("=====[testReport] starting....", MODULE);
         try {
 
             Map<String, Object> serviceMap = UtilMisc.<String, Object>toMap("orderId",
@@ -213,12 +213,12 @@ public class CCServicesTest extends OFBizTestCase {
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
-            Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);
+            Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, MODULE);
             TestCase.assertEquals("Reporting service", ModelService.RESPOND_SUCCESS, responseMessage); // service completed ok?
             TestCase.assertNotNull("Service returned null for parameter creditResult.", result.get("creditResult"));
 
             if ((Boolean.FALSE).equals(result.get("creditResult"))) { // returnCode ok?
-                Debug.logInfo("[testReport] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
+                Debug.logInfo("[testReport] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), MODULE);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
         } catch (GenericServiceException ex) {

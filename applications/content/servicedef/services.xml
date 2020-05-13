@@ -133,7 +133,7 @@
         <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="any"/>
         <override name="contentId" mode="INOUT"/>
     </service>
-    <service name="updateEmailContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateEmailContent">
+    <service name="updateEmailContent" engine="groovy" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="updateEmailContent">
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <attribute name="subjectDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="true"/>
@@ -1160,8 +1160,8 @@
         <attribute name="dataResourceId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createContentAlternativeUrl" engine="simple"
-            location="component://content/minilang/content/ContentServices.xml" invoke="createContentAlternativeUrl" auth="true" transaction-timeout="7200">
+    <service name="createContentAlternativeUrl" engine="groovy"
+            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createContentAlternativeUrl" auth="true" transaction-timeout="7200">
         <description>Create Content Alternative URL</description>
         <attribute name="contentId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="contentCreated" mode="OUT" type="String" optional="true"></attribute>

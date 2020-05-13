@@ -51,7 +51,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderContentAsText implements TemplateTransformModel {
 
-    public static final String module = RenderContentAsText.class.getName();
+    public static final String MODULE = RenderContentAsText.class.getName();
     static final String [] upSaveKeyNames = {"globalNodeTrail"};
     static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
@@ -64,20 +64,20 @@ public class RenderContentAsText implements TemplateTransformModel {
         final HttpServletResponse response = FreeMarkerWorker.getWrappedObject("response", env);
         final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
+            Debug.logVerbose("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), MODULE);
         }
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final Map<String, Object> savedValuesUp = new HashMap<>();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+            Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), MODULE);
         }
         final String thisContentId =  (String)templateRoot.get("contentId");
         final String xmlEscape =  (String)templateRoot.get("xmlEscape");
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId) ? true : false;
         if (Debug.verboseOn()) {
-            Debug.logVerbose("in Render(0), directAssocMode ." + directAssocMode , module);
+            Debug.logVerbose("in Render(0), directAssocMode ." + directAssocMode , MODULE);
         }
 
         final Map<String, Object> savedValues = new HashMap<>();
@@ -114,7 +114,7 @@ public class RenderContentAsText implements TemplateTransformModel {
 
                 String editRequestName = (String)templateRoot.get("editRequestName");
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("in Render(3), editRequestName ." + editRequestName , module);
+                    Debug.logVerbose("in Render(3), editRequestName ." + editRequestName , MODULE);
                 }
 
                 if (UtilValidate.isNotEmpty(editRequestName)) {
@@ -123,8 +123,8 @@ public class RenderContentAsText implements TemplateTransformModel {
                 }
 
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
-                    Debug.logVerbose("in RenderSubContent, subContentId(2):" + templateRoot.get("subContentId"), module);
+                    Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), MODULE);
+                    Debug.logVerbose("in RenderSubContent, subContentId(2):" + templateRoot.get("subContentId"), MODULE);
                 }
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                     try {
@@ -137,7 +137,7 @@ public class RenderContentAsText implements TemplateTransformModel {
 
                     } catch (GeneralException e) {
                         String errMsg = "Error rendering thisContentId:" + thisContentId + " msg:" + e.toString();
-                        Debug.logError(e, errMsg, module);
+                        Debug.logError(e, errMsg, MODULE);
                         // just log a message and don't return anything: throw new IOException();
                     }
                 //}
@@ -156,8 +156,8 @@ public class RenderContentAsText implements TemplateTransformModel {
 
             public void closeEditWrap(Writer out, String editRequestName) throws IOException {
                 if (Debug.infoOn()) {
-                    Debug.logInfo("in RenderSubContent, contentId(3):" + templateRoot.get("contentId"), module);
-                    Debug.logInfo("in RenderSubContent, subContentId(3):" + templateRoot.get("subContentId"), module);
+                    Debug.logInfo("in RenderSubContent, contentId(3):" + templateRoot.get("contentId"), MODULE);
+                    Debug.logInfo("in RenderSubContent, subContentId(3):" + templateRoot.get("subContentId"), MODULE);
                 }
                 String fullRequest = editRequestName;
                 String contentId = null;

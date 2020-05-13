@@ -50,7 +50,6 @@ import org.apache.catalina.filters.RequestDumperFilter;
 import org.apache.catalina.ha.ClusterManager;
 import org.apache.catalina.ha.tcp.ReplicationValve;
 import org.apache.catalina.ha.tcp.SimpleTcpCluster;
-import org.apache.catalina.loader.WebappLoader;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.tribes.group.GroupChannel;
@@ -89,7 +88,7 @@ import org.xml.sax.SAXException;
  */
 public class CatalinaContainer implements Container {
 
-    public static final String module = CatalinaContainer.class.getName();
+    public static final String MODULE = CatalinaContainer.class.getName();
 
     private String name;
     private Tomcat tomcat;
@@ -137,9 +136,9 @@ public class CatalinaContainer implements Container {
 
         for (Connector con: tomcat.getService().findConnectors()) {
             Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
-                (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", module);
+                (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", MODULE);
         }
-        Debug.logInfo("Started " + ServerInfo.getServerInfo(), module);
+        Debug.logInfo("Started " + ServerInfo.getServerInfo(), MODULE);
         return true;
     }
 
@@ -150,7 +149,7 @@ public class CatalinaContainer implements Container {
         } catch (LifecycleException e) {
             /* Don't re-throw this exception or it will kill the rest of the shutdown process.
              * Happens usually when running tests. Output disabled unless in verbose */
-            Debug.logVerbose(e, module);
+            Debug.logVerbose(e, MODULE);
         }
     }
 
@@ -281,7 +280,7 @@ public class CatalinaContainer implements Container {
 
             host.setCluster(cluster);
 
-            Debug.logInfo("Catalina Cluster [" + cluster.getClusterName() + "] configured for host - " + host.getName(), module);
+            Debug.logInfo("Catalina Cluster [" + cluster.getClusterName() + "] configured for host - " + host.getName(), MODULE);
         }
         return clusterProp;
     }
@@ -424,7 +423,7 @@ public class CatalinaContainer implements Container {
         connector.setPort(ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().portOffset);
         if ("true".equals(ContainerConfig.getPropertyValue(connectorProp, "upgradeProtocol", "false"))) {
             connector.addUpgradeProtocol(new Http2Protocol());
-            Debug.logInfo("Tomcat " + connector + ": enabled HTTP/2", module);
+            Debug.logInfo("Tomcat " + connector + ": enabled HTTP/2", MODULE);
         }
         connectorProp.properties().values().stream()
             .filter(prop -> {
@@ -437,19 +436,19 @@ public class CatalinaContainer implements Container {
                 if (IntrospectionUtils.setProperty(connector, name, value)) {
                     if (name.indexOf("Pass") != -1) {
                         // this property may be a password, do not include its value in the logs
-                        Debug.logInfo("Tomcat " + connector + ": set " + name, module);
+                        Debug.logInfo("Tomcat " + connector + ": set " + name, MODULE);
                     } else {
-                        Debug.logInfo("Tomcat " + connector + ": set " + name + "=" + value, module);
+                        Debug.logInfo("Tomcat " + connector + ": set " + name + "=" + value, MODULE);
                     }
                 } else {
-                    Debug.logWarning("Tomcat " + connector + ": ignored parameter " + name, module);
+                    Debug.logWarning("Tomcat " + connector + ": ignored parameter " + name, MODULE);
                 }
             });
         return connector;
     }
 
     private static void loadWebapps(Tomcat tomcat, Configuration configuration, Configuration.Property clusterProp) {
-        ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(new ThreadGroup(module),
+        ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(new ThreadGroup(MODULE),
                 "catalina-startup", Runtime.getRuntime().availableProcessors(), 0, true);
         List<Future<Context>> futures = new ArrayList<>();
 
@@ -470,7 +469,7 @@ public class CatalinaContainer implements Container {
                  * app bar display on overridden apps and do not load */
                 appInfo.setAppBarDisplay(false);
                 Debug.logInfo("Duplicate webapp mount (overridding); not loading : "
-                        + appInfo.getName() + " / " + appInfo.location(), module);
+                        + appInfo.getName() + " / " + appInfo.location(), MODULE);
             }
         }
         ExecutionPool.getAllFutures(futures);
@@ -493,12 +492,12 @@ public class CatalinaContainer implements Container {
     private static Callable<Context> createCallableContext(Tomcat tomcat, ComponentConfig.WebappInfo appInfo,
             Configuration.Property clusterProp, ContainerConfig.Configuration configuration) {
 
-        Debug.logInfo("Creating context [" + appInfo.name + "]", module);
+        Debug.logInfo("Creating context [" + appInfo.name + "]", MODULE);
         Host host = prepareHost(tomcat, appInfo.getVirtualHosts());
 
         return () -> {
             StandardContext context = prepareContext(host, configuration, appInfo, clusterProp);
-            Debug.logInfo("host[" + host + "].addChild(" + context + ")", module);
+            Debug.logInfo("host[" + host + "].addChild(" + context + ")", MODULE);
             host.addChild(context);
             return context;
         };
@@ -520,7 +519,7 @@ public class CatalinaContainer implements Container {
         context.addLifecycleListener(new ContextConfig());
         context.setJ2EEApplication("OFBiz");
         context.setJ2EEServer("OFBiz Container");
-        context.setLoader(new WebappLoader(Thread.currentThread().getContextClassLoader()));
+        context.setParentClassLoader(Thread.currentThread().getContextClassLoader());
         context.setDocBase(location);
         context.setReloadable(ContainerConfig.getPropertyValue(configuration, "apps-context-reloadable", false));
         context.setDistributable(contextIsDistributable);

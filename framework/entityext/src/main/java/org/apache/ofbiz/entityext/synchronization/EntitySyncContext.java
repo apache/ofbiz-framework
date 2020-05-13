@@ -63,7 +63,7 @@ import org.xml.sax.SAXException;
  */
 public class EntitySyncContext {
 
-    public static final String module = EntitySyncContext.class.getName();
+    public static final String MODULE = EntitySyncContext.class.getName();
 
     // set default split to 10 seconds, ie try not to get too much data moving over at once
     public static final long defaultSyncSplitMillis = 10000;
@@ -153,7 +153,7 @@ public class EntitySyncContext {
         this.userLogin = (GenericValue) context.get("userLogin");
 
         this.entitySyncId = (String) context.get("entitySyncId");
-        Debug.logInfo("Creating EntitySyncContext with entitySyncId=" + entitySyncId, module);
+        Debug.logInfo("Creating EntitySyncContext with entitySyncId=" + entitySyncId, MODULE);
 
         boolean beganTransaction = false;
         try {
@@ -194,7 +194,7 @@ public class EntitySyncContext {
             try {
                 TransactionUtil.rollback(beganTransaction, "Entity Engine error while getting Entity Sync init information", e);
             } catch (GenericTransactionException e2) {
-                Debug.logWarning(e2, "Unable to call rollback()", module);
+                Debug.logWarning(e2, "Unable to call rollback()", MODULE);
             }
             throw new SyncDataErrorException("Error initializing EntitySync Context", e);
         }
@@ -327,7 +327,7 @@ public class EntitySyncContext {
             return valuesToCreate;
         }
 
-        //Debug.logInfo("Getting values to create; currentRunStartTime=" + currentRunStartTime + ", currentRunEndTime=" + currentRunEndTime, module);
+        //Debug.logInfo("Getting values to create; currentRunStartTime=" + currentRunStartTime + ", currentRunEndTime=" + currentRunEndTime, MODULE);
 
         int entitiesSkippedForKnownNext = 0;
 
@@ -338,7 +338,7 @@ public class EntitySyncContext {
             // first test to see if we know that there are no records for this entity in this time period...
             Timestamp knownNextCreateTime = this.nextEntityCreateTxTime.get(modelEntity.getEntityName());
             if (knownNextCreateTime != null && (knownNextCreateTime.equals(currentRunEndTime) || knownNextCreateTime.after(currentRunEndTime))) {
-                //Debug.logInfo("In assembleValuesToCreate found knownNextCreateTime [" + knownNextCreateTime + "] after currentRunEndTime [" + currentRunEndTime + "], so skipping time per period for entity [" + modelEntity.getEntityName() + "]", module);
+                //Debug.logInfo("In assembleValuesToCreate found knownNextCreateTime [" + knownNextCreateTime + "] after currentRunEndTime [" + currentRunEndTime + "], so skipping time per period for entity [" + modelEntity.getEntityName() + "]", MODULE);
                 entitiesSkippedForKnownNext++;
                 continue;
             }
@@ -380,7 +380,7 @@ public class EntitySyncContext {
                     try {
                         TransactionUtil.rollback(beganTransaction, "Entity Engine error in assembleValuesToCreate", e);
                     } catch (GenericTransactionException e2) {
-                        Debug.logWarning(e2, "Unable to call rollback()", module);
+                        Debug.logWarning(e2, "Unable to call rollback()", MODULE);
                     }
                     throw new SyncDataErrorException("Error getting values to create from the datasource", e);
                 }
@@ -405,7 +405,7 @@ public class EntitySyncContext {
                         try {
                             TransactionUtil.rollback(beganTransaction, "Entity Engine error in assembleValuesToCreate", e);
                         } catch (GenericTransactionException e2) {
-                            Debug.logWarning(e2, "Unable to call rollback()", module);
+                            Debug.logWarning(e2, "Unable to call rollback()", MODULE);
                         }
                         throw new SyncDataErrorException("Error getting values to create from the datasource", e);
                     }
@@ -419,20 +419,20 @@ public class EntitySyncContext {
                     }
                     if (this.nextCreateTxTime == null || nextTxTime.before(this.nextCreateTxTime)) {
                         this.nextCreateTxTime = nextTxTime;
-                        Debug.logInfo("EntitySync: Set nextCreateTxTime to [" + nextTxTime + "]", module);
+                        Debug.logInfo("EntitySync: Set nextCreateTxTime to [" + nextTxTime + "]", MODULE);
                     }
                     
                     Timestamp curEntityNextTxTime = this.nextEntityCreateTxTime.get(modelEntity.getEntityName());
                     if (curEntityNextTxTime == null || nextTxTime.before(curEntityNextTxTime)) {
                         this.nextEntityCreateTxTime.put(modelEntity.getEntityName(), nextTxTime);
-                        Debug.logInfo("EntitySync: Set nextEntityCreateTxTime to [" + nextTxTime + "] for the entity [" + modelEntity.getEntityName() + "]", module);
+                        Debug.logInfo("EntitySync: Set nextEntityCreateTxTime to [" + nextTxTime + "] for the entity [" + modelEntity.getEntityName() + "]", MODULE);
                     }
                 }
             } catch (Throwable t) {
                 try {
                     TransactionUtil.rollback(beganTransaction, "Throwable error in assembleValuesToCreate", t);
                 } catch (GenericTransactionException e2) {
-                    Debug.logWarning(e2, "Unable to call rollback()", module);
+                    Debug.logWarning(e2, "Unable to call rollback()", MODULE);
                 }
                 throw new SyncDataErrorException("Caught runtime error while getting values to create", t);
             }
@@ -445,7 +445,7 @@ public class EntitySyncContext {
         }
 
         if (entitiesSkippedForKnownNext > 0) {
-            if (Debug.infoOn()) Debug.logInfo("In assembleValuesToCreate skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known create times", module);
+            if (Debug.infoOn()) Debug.logInfo("In assembleValuesToCreate skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known create times", MODULE);
         }
 
         // TEST SECTION: leave false for normal use
@@ -460,7 +460,7 @@ public class EntitySyncContext {
                 toCreateInfo.append("] ");
                 toCreateInfo.append(valueToCreate.getPrimaryKey());
             }
-            Debug.logInfo(toCreateInfo.toString(), module);
+            Debug.logInfo(toCreateInfo.toString(), MODULE);
         }
 
         // As the this.nextCreateTxTime calculation is only based on entities without values to create, if there at least one value to create returned
@@ -481,7 +481,7 @@ public class EntitySyncContext {
             return valuesToStore;
         }
 
-        // Debug.logInfo("Getting values to store; currentRunStartTime=" + currentRunStartTime + ", currentRunEndTime=" + currentRunEndTime, module);
+        // Debug.logInfo("Getting values to store; currentRunStartTime=" + currentRunStartTime + ", currentRunEndTime=" + currentRunEndTime, MODULE);
 
         int entitiesSkippedForKnownNext = 0;
 
@@ -537,7 +537,7 @@ public class EntitySyncContext {
                 // definately remove this message and related data gathering
                 //long preCount = delegator.findCountByCondition(modelEntity.getEntityName(), findValCondition, null);
                 //long entityTotalCount = delegator.findCountByCondition(modelEntity.getEntityName(), null, null);
-                //if (entityTotalCount > 0 || preCount > 0 || valuesPerEntity > 0) Debug.logInfo("Got " + valuesPerEntity + "/" + preCount + "/" + entityTotalCount + " values for entity " + modelEntity.getEntityName(), module);
+                //if (entityTotalCount > 0 || preCount > 0 || valuesPerEntity > 0) Debug.logInfo("Got " + valuesPerEntity + "/" + preCount + "/" + entityTotalCount + " values for entity " + modelEntity.getEntityName(), MODULE);
 
                 // if we didn't find anything for this entity, find the next value's Timestamp and keep track of it
                 if (valuesPerEntity == 0) {
@@ -565,26 +565,26 @@ public class EntitySyncContext {
                     }
                     if (this.nextUpdateTxTime == null || nextTxTime.before(this.nextUpdateTxTime)) {
                         this.nextUpdateTxTime = nextTxTime;
-                        Debug.logInfo("EntitySync: Set nextUpdateTxTime to [" + nextTxTime + "]", module);
+                        Debug.logInfo("EntitySync: Set nextUpdateTxTime to [" + nextTxTime + "]", MODULE);
                     }
                     Timestamp curEntityNextTxTime = this.nextEntityUpdateTxTime.get(modelEntity.getEntityName());
                     if (curEntityNextTxTime == null || nextTxTime.before(curEntityNextTxTime)) {
                         this.nextEntityUpdateTxTime.put(modelEntity.getEntityName(), nextTxTime);
-                        Debug.logInfo("EntitySync: Set nextEntityUpdateTxTime to [" + nextTxTime + "] for the entity [" + modelEntity.getEntityName() + "]", module);
+                        Debug.logInfo("EntitySync: Set nextEntityUpdateTxTime to [" + nextTxTime + "] for the entity [" + modelEntity.getEntityName() + "]", MODULE);
                     }
                 }
             } catch (GenericEntityException e) {
                 try {
                     TransactionUtil.rollback(beganTransaction, "Entity Engine error in assembleValuesToStore", e);
                 } catch (GenericTransactionException e2) {
-                    Debug.logWarning(e2, "Unable to call rollback()", module);
+                    Debug.logWarning(e2, "Unable to call rollback()", MODULE);
                 }
                 throw new SyncDataErrorException("Error getting values to store from the datasource", e);
             } catch (Throwable t) {
                 try {
                     TransactionUtil.rollback(beganTransaction, "General error in assembleValuesToStore", t);
                 } catch (GenericTransactionException e2) {
-                    Debug.logWarning(e2, "Unable to call rollback()", module);
+                    Debug.logWarning(e2, "Unable to call rollback()", MODULE);
                 }
                 throw new SyncDataErrorException("Caught runtime error while getting values to store", t);
             }
@@ -597,7 +597,7 @@ public class EntitySyncContext {
         }
 
         if (entitiesSkippedForKnownNext > 0) {
-            if (Debug.infoOn()) Debug.logInfo("In assembleValuesToStore skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known update times", module);
+            if (Debug.infoOn()) Debug.logInfo("In assembleValuesToStore skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known update times", MODULE);
         }
 
         // TEST SECTION: leave false for normal use
@@ -612,7 +612,7 @@ public class EntitySyncContext {
                 toStoreInfo.append("] ");
                 toStoreInfo.append(valueToStore.getPrimaryKey());
             }
-            Debug.logInfo(toStoreInfo.toString(), module);
+            Debug.logInfo(toStoreInfo.toString(), MODULE);
         }
         
         // As the this.nextUpdateTxTime calculation is only based on entities without values to store, if there at least one value to store returned
@@ -633,7 +633,7 @@ public class EntitySyncContext {
             return keysToRemove;
         }
 
-        //Debug.logInfo("Getting keys to remove; currentRunStartTime=" + currentRunStartTime + ", currentRunEndTime=" + currentRunEndTime, module);
+        //Debug.logInfo("Getting keys to remove; currentRunStartTime=" + currentRunStartTime + ", currentRunEndTime=" + currentRunEndTime, MODULE);
 
         boolean beganTransaction = false;
         try {
@@ -661,7 +661,7 @@ public class EntitySyncContext {
                     pkToRemove = (GenericEntity) XmlSerializer.deserialize(primaryKeyRemoved, delegator);
                 } catch (IOException | SAXException | ParserConfigurationException | SerializeException e) {
                     String errorMsg = "Error deserializing GenericPK to remove in Entity Sync Data for entitySyncId [" + entitySyncId + "] and entitySyncRemoveId [" + entitySyncRemove.getString("entitySyncRemoveId") + "]: " + e.toString();
-                    Debug.logError(e, errorMsg, module);
+                    Debug.logError(e, errorMsg, MODULE);
                     throw new SyncDataErrorException(errorMsg, e);
                 }
 
@@ -699,14 +699,14 @@ public class EntitySyncContext {
             try {
                 TransactionUtil.rollback(beganTransaction, "Entity Engine error in assembleKeysToRemove", e);
             } catch (GenericTransactionException e2) {
-                Debug.logWarning(e2, "Unable to call rollback()", module);
+                Debug.logWarning(e2, "Unable to call rollback()", MODULE);
             }
             throw new SyncDataErrorException("Error getting keys to remove from the datasource", e);
         } catch (Throwable t) {
             try {
                 TransactionUtil.rollback(beganTransaction, "General error in assembleKeysToRemove", t);
             } catch (GenericTransactionException e2) {
-                Debug.logWarning(e2, "Unable to call rollback()", module);
+                Debug.logWarning(e2, "Unable to call rollback()", MODULE);
             }
             throw new SyncDataErrorException("Caught runtime error while getting keys to remove", t);
         }
@@ -729,7 +729,7 @@ public class EntitySyncContext {
                 toRemoveInfo.append("] ");
                 toRemoveInfo.append(keyToRemove);
             }
-            Debug.logInfo(toRemoveInfo.toString(), module);
+            Debug.logInfo(toRemoveInfo.toString(), MODULE);
         }
 
         // As this.nextRemoveTxTime calculation is only based on entities without keys to remove, if there at least one key to remove returned
@@ -867,7 +867,7 @@ public class EntitySyncContext {
             }
         }
 
-        if (Debug.infoOn()) Debug.logInfo("Finished save Final Sync Results [" + entitySyncId + "]: totalRows=" + totalRows + ", totalRowsToCreate=" + totalRowsToCreate + ", totalRowsToStore=" + totalRowsToStore + ", totalRowsToRemove=" + totalRowsToRemove, module);
+        if (Debug.infoOn()) Debug.logInfo("Finished save Final Sync Results [" + entitySyncId + "]: totalRows=" + totalRows + ", totalRowsToCreate=" + totalRowsToCreate + ", totalRowsToStore=" + totalRowsToStore + ", totalRowsToRemove=" + totalRowsToRemove, MODULE);
     }
 
     public Set<String> makeEntityNameToUseSet() {
@@ -887,7 +887,7 @@ public class EntitySyncContext {
 
         List<ModelEntity> entityModelToUseList = EntityGroupUtil.getModelEntitiesFromRecords(entitySyncIncludes, delegator, true);
 
-        if (Debug.infoOn()) Debug.logInfo("In makeEntityModelToUseList for EntitySync with ID [" + entitySync.get("entitySyncId") + "] syncing " + entityModelToUseList.size() + " entities", module);
+        if (Debug.infoOn()) Debug.logInfo("In makeEntityModelToUseList for EntitySync with ID [" + entitySync.get("entitySyncId") + "] syncing " + entityModelToUseList.size() + " entities", MODULE);
         return entityModelToUseList;
     }
 
@@ -915,7 +915,7 @@ public class EntitySyncContext {
                     }
                 }
             }
-            if (Debug.infoOn()) Debug.logInfo("No currentRunStartTime was stored on the EntitySync record, so searched for the earliest value and got: " + currentRunStartTime, module);
+            if (Debug.infoOn()) Debug.logInfo("No currentRunStartTime was stored on the EntitySync record, so searched for the earliest value and got: " + currentRunStartTime, MODULE);
             return currentRunStartTime;
         } else {
             return lastSuccessfulSynchTime;

@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public final class SetServiceFields extends MethodOperation {
 
-    public static final String module = SetServiceFields.class.getName();
+    public static final String MODULE = SetServiceFields.class.getName();
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {
@@ -87,7 +87,7 @@ public final class SetServiceFields extends MethodOperation {
         Map<String, ? extends Object> fromMap = mapFma.get(methodContext.getEnvMap());
         if (fromMap == null) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("The from map in set-service-field was not found with name: " + mapFma, module);
+                Debug.logVerbose("The from map in set-service-field was not found with name: " + mapFma, MODULE);
             }
             return true;
         }

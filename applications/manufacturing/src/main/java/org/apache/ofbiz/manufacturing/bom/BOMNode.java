@@ -46,7 +46,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 
 public class BOMNode {
-    public static final String module = BOMNode.class.getName();
+    public static final String MODULE = BOMNode.class.getName();
 
     protected LocalDispatcher dispatcher = null;
     protected Delegator delegator = null;
@@ -212,7 +212,7 @@ public class BOMNode {
             if (percScrapFactor.compareTo(bdHundred.negate()) > 0 && percScrapFactor.compareTo(bdHundred) < 0) {
                 percScrapFactor = BigDecimal.ONE.add(percScrapFactor.movePointLeft(2));
             } else {
-                Debug.logWarning("A scrap factor of [" + percScrapFactor + "] was ignored", module);
+                Debug.logWarning("A scrap factor of [" + percScrapFactor + "] was ignored", MODULE);
                 percScrapFactor = BigDecimal.ONE;
             }
             oneChildNode.setScrapFactor(percScrapFactor);
@@ -290,7 +290,7 @@ public class BOMNode {
                                     storeResult = dispatcher.runSync("getProductVariant", context);
                                     if (ServiceUtil.isError(storeResult)) {
                                         String errorMessage = ServiceUtil.getErrorMessage(storeResult);
-                                        Debug.logError(errorMessage, module);
+                                        Debug.logError(errorMessage, MODULE);
                                         throw new GenericEntityException(errorMessage);
                                     }
                                     List<GenericValue> variantProducts = UtilGenerics.cast(storeResult.get("products"));
@@ -298,7 +298,7 @@ public class BOMNode {
                                         variantProduct = variantProducts.get(0);
                                     }
                                 } catch (GenericServiceException e) {
-                                    Debug.logError("Error calling getProductVariant service " + e.getMessage(), module);
+                                    Debug.logError("Error calling getProductVariant service " + e.getMessage(), MODULE);
                                 }
                                 if (variantProduct != null) {
                                     newNode = new BOMNode(variantProduct, dispatcher, userLogin);
@@ -434,14 +434,14 @@ public class BOMNode {
                 resultContext = dispatcher.runSync(serviceName, inputContext);
                 if (ServiceUtil.isError(resultContext)) {
                     String errorMessage = ServiceUtil.getErrorMessage(resultContext);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                 }
                 BigDecimal calcQuantity = (BigDecimal)resultContext.get("quantity");
                 if (calcQuantity != null) {
                     this.quantity = calcQuantity;
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Problem calling the " + serviceName + " service (called by the createManufacturingOrder service)", module);
+                Debug.logError(e, "Problem calling the " + serviceName + " service (called by the createManufacturingOrder service)", MODULE);
             }
         } else {
             this.quantity = quantity.multiply(quantityMultiplier).multiply(scrapFactor);
@@ -568,12 +568,12 @@ public class BOMNode {
                 serviceResult = dispatcher.runSync("createProductionRun", serviceContext);
                 if (ServiceUtil.isError(serviceResult)) {
                     String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                 }
                 productionRunId = (String)serviceResult.get("productionRunId");
                 endDate = (Timestamp)serviceResult.get("estimatedCompletionDate");
             } catch (GenericServiceException e) {
-                Debug.logError("Problem calling the createProductionRun service", module);
+                Debug.logError("Problem calling the createProductionRun service", MODULE);
             }
             try {
                 if (productionRunId != null) {
@@ -585,7 +585,7 @@ public class BOMNode {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Problem calling the getManufacturingComponents service", module);
+                Debug.logError(e, "Problem calling the getManufacturingComponents service", MODULE);
             }
         }
         return UtilMisc.toMap("productionRunId", productionRunId, "endDate", endDate);
@@ -646,7 +646,7 @@ public class BOMNode {
                 }
             }
         } catch (GenericEntityException gee) {
-            Debug.logError("Problem in BOMNode.isWarehouseManaged()", module);
+            Debug.logError("Problem in BOMNode.isWarehouseManaged()", MODULE);
         }
     return isWarehouseManaged;
     }
@@ -661,7 +661,7 @@ public class BOMNode {
         try {
             supplierProducts = product.getRelated("SupplierProduct", UtilMisc.toMap("supplierPrefOrderId", "10_MAIN_SUPPL"), UtilMisc.toList("minimumOrderQuantity"), false);
         } catch (GenericEntityException gee) {
-            Debug.logError("Problem in BOMNode.isManufactured()", module);
+            Debug.logError("Problem in BOMNode.isManufactured()", MODULE);
         }
         supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
         return childrenNodes.size() > 0 && (ignoreSupplierProducts || UtilValidate.isEmpty(supplierProducts));

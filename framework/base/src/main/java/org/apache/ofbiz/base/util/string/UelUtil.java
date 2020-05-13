@@ -48,7 +48,7 @@ import org.apache.ofbiz.base.util.collections.LocalizedMap;
 
 /** Implements the Unified Expression Language (JSR-245). */
 public final class UelUtil {
-    private static final String module = UelUtil.class.getName();
+    private static final String MODULE = UelUtil.class.getName();
     private static final String localizedMapLocaleKey = LocalizedMap.class.getName() + "_locale".replace(".", "_");
     private static final ExpressionFactory exprFactory = JuelConnector.newExpressionFactory();
     private static final ELResolver defaultResolver = new ExtendedCompositeResolver() {
@@ -97,7 +97,7 @@ public final class UelUtil {
      */
     public static void setValue(Map<String, Object> context, String expression, Class<?> expectedType, Object value) {
         if (Debug.verboseOn()) {
-            Debug.logVerbose("UelUtil.setValue invoked, expression = " + expression + ", value = " + value, module);
+            Debug.logVerbose("UelUtil.setValue invoked, expression = " + expression + ", value = " + value, MODULE);
         }
         ELContext elContext = new BasicContext(context);
         ValueExpression ve = exprFactory.createValueExpression(elContext, expression, expectedType);
@@ -111,7 +111,7 @@ public final class UelUtil {
      */
     public static void removeValue(Map<String, Object> context, String expression) {
         if (Debug.verboseOn()) {
-            Debug.logVerbose("UelUtil.removeValue invoked, expression = " + expression , module);
+            Debug.logVerbose("UelUtil.removeValue invoked, expression = " + expression , MODULE);
         }
         ELContext elContext = new BasicContext(context);
         ValueExpression ve = exprFactory.createValueExpression(elContext, expression, Object.class);
@@ -336,14 +336,14 @@ public final class UelUtil {
             super.setValue(context, base, property, val);
             if (!context.isPropertyResolved() && base == null) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("ExtendedCompositeResolver.setValue: base = " + base + ", property = " + property + ", value = " + val, module);
+                    Debug.logVerbose("ExtendedCompositeResolver.setValue: base = " + base + ", property = " + property + ", value = " + val, MODULE);
                 }
                 try {
                     BasicContext elContext = (BasicContext) context;
                     elContext.variables.put(property.toString(), val);
                     context.setPropertyResolved(true);
                 } catch (ClassCastException e) {
-                    Debug.logInfo(e.getMessage(), module);
+                    Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
         }
@@ -371,14 +371,14 @@ public final class UelUtil {
                 String str = property.toString();
                 if ("add".equals(str)) {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("ExtendedListResolver.setValue adding List element: base = " + base + ", property = " + property + ", value = " + val, module);
+                        Debug.logVerbose("ExtendedListResolver.setValue adding List element: base = " + base + ", property = " + property + ", value = " + val, MODULE);
                     }
                     context.setPropertyResolved(true);
                     List<Object> list = UtilGenerics.cast(base);
                     list.add(val);
                 } else if (str.startsWith("insert@")) {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("ExtendedListResolver.setValue inserting List element: base = " + base + ", property = " + property + ", value = " + val, module);
+                        Debug.logVerbose("ExtendedListResolver.setValue inserting List element: base = " + base + ", property = " + property + ", value = " + val, MODULE);
                     }
                     context.setPropertyResolved(true);
                     String indexStr = str.replace("insert@", "");
@@ -428,11 +428,11 @@ public final class UelUtil {
                         }
                     }
                 } catch (Exception e) {
-                    Debug.logWarning("Exception thrown while getting LocalizedMap element, locale = " + locale + ", exception " + e, module);
+                    Debug.logWarning("Exception thrown while getting LocalizedMap element, locale = " + locale + ", exception " + e, MODULE);
                 }
                 if (locale == null) {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("ExtendedMapResolver.getValue: unable to find Locale for LocalizedMap element, using default locale", module);
+                        Debug.logVerbose("ExtendedMapResolver.getValue: unable to find Locale for LocalizedMap element, using default locale", MODULE);
                     }
                     locale = Locale.getDefault();
                 }

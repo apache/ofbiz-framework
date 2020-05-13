@@ -32,7 +32,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
  */
 public class OfbizAmountTransform extends OfbizNumberTransform {
 
-    public static final String module = OfbizAmountTransform.class.getName();
+    public static final String MODULE = OfbizAmountTransform.class.getName();
 
     @Override
     public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {

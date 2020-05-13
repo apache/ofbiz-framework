@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="EntityEoModelBundle" type="single" target="exportEntityEoModelBundle" title="">
@@ -43,7 +43,7 @@ under the License.
         <field name="callsPerSecond" title="${uiLabelMap.WebtoolsPerformanceCallsSecond}"><display/></field>
     </form>
     
-    <form name="FilterEntities" default-table-style="condensed-table">
+    <form name="FilterEntities" default-table-style="condensed-table" target="entitymaint">
         <field name="filterByGroupName">
             <drop-down>
                 <list-options key-name="value" list-name="entityGroups" description="${name}"/>

@@ -60,7 +60,7 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
  */
 public class CoreEvents {
 
-    public static final String module = CoreEvents.class.getName();
+    public static final String MODULE = CoreEvents.class.getName();
     public static final String err_resource = "WebappUiLabels";
 
     /**
@@ -160,7 +160,7 @@ public class CoreEvents {
         try {
             modelService = dispatcher.getDispatchContext().getModelService(serviceName);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error looking up ModelService for serviceName [" + serviceName + "]", module);
+            Debug.logError(e, "Error looking up ModelService for serviceName [" + serviceName + "]", MODULE);
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg + " [" + serviceName + "]: " + e.toString());
             return "error";
@@ -455,7 +455,7 @@ public class CoreEvents {
         try {
             modelService = dispatcher.getDispatchContext().getModelService(serviceName);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error looking up ModelService for serviceName [" + serviceName + "]", module);
+            Debug.logError(e, "Error looking up ModelService for serviceName [" + serviceName + "]", MODULE);
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg + "[" + serviceName + "]: " + e.toString());
             return "error";
@@ -472,7 +472,7 @@ public class CoreEvents {
             return "error";
         }
 
-        Debug.logInfo("Running service named [" + serviceName + "] from event with mode [" + mode + "]", module);
+        Debug.logInfo("Running service named [" + serviceName + "] from event with mode [" + mode + "]", MODULE);
 
         // call the service via the ServiceEventHandler which
         // adapts an event to a service.
@@ -499,10 +499,10 @@ public class CoreEvents {
                 UtilHttp.streamContentToBrowser(response, fis, length, null);
                 fis.close();
             } catch (FileNotFoundException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return "error";
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return "error";
             }
         }

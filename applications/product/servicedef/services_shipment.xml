@@ -57,7 +57,11 @@ under the License.
     <service name="createOrderShipmentPlan" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createOrderShipmentPlan" auth="true">
         <description>Create Shipment, ShipmentItems and OrderShipment</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentId" type="String" mode="OUT" optional="true"/>
     </service>
 
@@ -67,23 +71,47 @@ under the License.
           automatically issued in full and put into one package.  The shipment is created in the INPUT status and then updated to
           PACKED and SHIPPED.
         </description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="setPackedOnly" type="String" mode="IN" optional="true"/>
         <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <!-- A List of Maps, each with a shipmentId,a facilityId, and a shipGroupSeqId for each shipment created -->
-        <attribute name="shipmentShipGroupFacilityList" type="List" mode="OUT" optional="false"/>
+        <attribute name="shipmentShipGroupFacilityList" type="List" mode="OUT" optional="false">
+	     <type-validate>
+	          <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentShipGroupFacilityList"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentIds" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="quickShipOrderByItem" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickShipOrderByItem" auth="true">
         <description>Quick Ships An Order By Item</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="itemShipList" type="List" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipGroupSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="itemShipList" type="List" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemShipList"/>
+	     </type-validate>
+        </attribute>
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="setPackedOnly" type="String" mode="IN" optional="true"/>
-        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="quickReceivePurchaseOrder" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickReceivePurchaseOrder" auth="true">
@@ -92,8 +120,16 @@ under the License.
           The shipment's status is first set to CREATED and then set as SHIPPED.  The facilityId is used to set the destinationFacilityId
           of the Shipment.
         </description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingFacilityId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentIds" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="createShipmentForReturn" default-entity-name="ReturnHeader" engine="simple"
@@ -101,7 +137,11 @@ under the License.
         <description>Create a Return Shipment with information from ReturnHeader fields</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="createShipmentAndItemsForReturn" default-entity-name="ReturnHeader" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentAndItemsForReturn">
@@ -116,7 +156,11 @@ under the License.
         <description>Create a Return Shipment and ShipmentItems with primaryReturnId</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+            </type-validate>
+        </attribute>
         <override name="primaryReturnId" optional="false"/>
     </service>
 
@@ -182,7 +226,11 @@ under the License.
             <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
             <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         </required-permissions>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="balanceItemIssuancesForShipment" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="balanceItemIssuancesForShipment" auth="true">
@@ -195,21 +243,41 @@ under the License.
             <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
             <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         </required-permissions>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="checkCancelItemIssuanceAndOrderShipmentFromShipment" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="checkCancelItemIssuanceAndOrderShipmentFromShipment" auth="true">
         <description>Check Shipment Items and cancel Item Issuance and Order Shipment</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="quickDropShipOrder" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickDropShipOrder" auth="true">
         <description>Creates a drop shipment for a ship group and calls updateShipment twice in succession to set
             shipment status to PURCH_SHIP_SHIPPED and then to PURCH_SHIP_RECEIVED</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrdertId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipGroupSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
 
     <!-- ShipmentItem Services -->
@@ -238,7 +306,11 @@ under the License.
             NOTE that this does manage OrderShipment records, but NOTHING else, so it is only to be used for Shipment
             Plan stuff BEFORE the items are issued, shipment packed, etc.</description>
         <auto-attributes entity-name="ShipmentItem" include="pk" mode="IN" optional="false"/>
-        <attribute name="newItemQuantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="newItemQuantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingNewItemQuantity"/>
+	     </type-validate>
+        </attribute>
         <attribute name="newShipmentItemSeqId" type="String" mode="OUT" optional="true"/>
     </service>
 
@@ -423,8 +495,16 @@ under the License.
         </required-permissions>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderItemShipGroupAssoc" include="pk" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
-        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentItemSeqId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="issueOrderItemShipGrpInvResToShipment" engine="simple"
             location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="issueOrderItemShipGrpInvResToShipment" auth="true">
@@ -435,42 +515,98 @@ under the License.
         </required-permissions>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+	     </type-validate>
+        </attribute>
         <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
-        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentItemSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="issueInventoryItemToFixedAssetMaint" engine="simple"
         location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="issueInventoryItemToFixedAssetMaint" auth="true">
         <description>Issue an InventoryItem to a FixedAssetMaint - for conversion to use as supples/parts</description>
         <auto-attributes entity-name="InventoryItem" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="FixedAssetMaint" include="pk" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
-        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="returnInventoryItemIssuedToFixedAssetMaint" engine="simple"
         location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="returnInventoryItemIssuedToFixedAssetMaint" auth="true">
         <description>Return InventoryItem Issued to a FixedAssetMaint - for conversion to use as supples/parts</description>
-        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="cancelOrderItemIssuanceFromSalesShipment" engine="simple"
             location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="cancelOrderItemIssuanceFromSalesShipment" auth="true">
         <description>Cancel an ItemIssuance from Sales Shipment</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="canceledQuantity" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="canceledQuantity" type="BigDecimal" mode="OUT" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingCanceledQuantity"/>
+	     </type-validate>
+        </attribute>
     </service>
 
     <service name="issueInventoryItemToShipment" engine="simple"
             location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="issueInventoryItemToShipment" auth="true">
         <description>Issue an InventoryItem to a Shipment</description>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
-        <attribute name="totalIssuedQty" type="BigDecimal" mode="IN" optional="false"/>
-        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentItemSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingInventoryItemId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="totalIssuedQty" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingTotalIssuedQty"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
     </service>
 
     <service name="getTotalIssuedQuantityForOrderItem" engine="groovy"
@@ -725,7 +861,11 @@ under the License.
         <description>Creates a ShipmentReceipt Record</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceShipmentReceipt"/>
-        <attribute name="receiptId" type="String" mode="OUT" optional="false"/>
+        <attribute name="receiptId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingReceiptId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="affectAccounting" type="Boolean" mode="OUT" optional="true"/>
     </service>
     <service name="updatePurchaseShipmentFromReceipt" engine="java"
@@ -788,15 +928,19 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
     </service>
+
+    <!-- Shipment Receipt Role Services -->
     <service name="createShipmentReceiptRole" default-entity-name="ShipmentReceiptRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ShipmentReceipt Role entry</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <implements service="interfaceShipmentReceiptRole"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeShipmentReceiptRole" default-entity-name="ShipmentReceiptRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ShipmentReceipt Role entry</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
-        <implements service="interfaceShipmentReceiptRole"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- Shipment Estimate (Rate) Services -->
@@ -873,7 +1017,11 @@ under the License.
     <service name="cancelReceivedItems" engine="groovy"
             location="component://product/groovyScripts/shipment/receipt/ShipmentReceiptServices.groovy" invoke="cancelReceivedItems" auth="true">
         <description>Cancel Received Items against a purchase order if received something incorrectly</description>
-        <attribute name="receiptId" type="String" mode="IN" optional="false"/>
+        <attribute name="receiptId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingReceiptId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -910,12 +1058,32 @@ under the License.
     <service name="issueSerializedInvToShipmentPackageAndSetTracking" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="issueSerializedInvToShipmentPackageAndSetTracking" auth="true">
         <description></description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingInventoryItemId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderItemSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipGroupSeqId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="true"/>
@@ -925,13 +1093,21 @@ under the License.
         <attribute name="trackingNum" type="String" mode="IN" optional="true"/>
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingPromisedDatetime"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentPackageSeqId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="setShipmentStatusPackedAndShipped" engine="simple"
         location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="setShipmentStatusPackedAndShipped" auth="true">
         <description>Move a shipment into Packed status and then to Shipped status</description>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="sendShipmentCompleteNotification" engine="java" require-new-transaction="true" max-retry="3"
         location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="sendShipmentCompleteNotification" auth="true">
@@ -949,9 +1125,21 @@ under the License.
     <service name="updateIssuanceShipmentAndPoOnReceiveInventory" engine="groovy"
             location="component://product/groovyScripts/shipment/receipt/ShipmentReceiptServices.groovy" invoke="updateIssuanceShipmentAndPoOnReceiveInventory">
         <description>Update issuance, shipment and order items if quantity received is higher than quantity on purchase order</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantityAccepted"  type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderItemSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="quantityAccepted"  type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantityAccepted"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="unitCost" type="String" mode="IN" optional="true"/>

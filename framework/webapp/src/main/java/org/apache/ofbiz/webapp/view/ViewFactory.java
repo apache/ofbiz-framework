@@ -36,7 +36,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
  */
 public class ViewFactory {
 
-    public static final String module = ViewFactory.class.getName();
+    public static final String MODULE = ViewFactory.class.getName();
 
     private final Map<String, ViewHandler> handlers = new HashMap<>();
 
@@ -59,7 +59,7 @@ public class ViewFactory {
                 this. handlers.put("default", defaultHandler);
             }
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new GeneralRuntimeException(e);
         }
     }

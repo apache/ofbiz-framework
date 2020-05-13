@@ -72,7 +72,7 @@ import freemarker.ext.servlet.ServletContextHashModel;
  */
 public class ScreenRenderer {
 
-    public static final String module = ScreenRenderer.class.getName();
+    public static final String MODULE = ScreenRenderer.class.getName();
 
     protected Appendable writer;
     protected MapStack<String> context;
@@ -176,7 +176,7 @@ public class ScreenRenderer {
             Map<String, Object> result = dispatcher.runSync("getUserPreferenceGroup", UtilMisc.toMap("userLogin", userLogin, "userPrefGroupTypeId", "GLOBAL_PREFERENCES"));
             context.put("userPreferences", result.get("userPrefMap"));
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error while getting user preferences: ", module);
+            Debug.logError(e, "Error while getting user preferences: ", MODULE);
         }
     }
 

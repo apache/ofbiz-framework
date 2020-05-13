@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  */
 public final class RefreshValue extends MethodOperation {
 
-    public static final String module = RemoveValue.class.getName();
+    public static final String MODULE = RemoveValue.class.getName();
 
     private final FlexibleMapAccessor<GenericValue> valueFma;
 
@@ -62,7 +62,7 @@ public final class RefreshValue extends MethodOperation {
             value.getDelegator().refresh(value);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while refreshing value: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

@@ -40,7 +40,7 @@ import org.apache.ofbiz.webapp.webdav.RequestHandlerFactory;
  */
 public class ICalHandlerFactory implements RequestHandlerFactory {
 
-    public static final String module = ICalHandlerFactory.class.getName();
+    public static final String MODULE = ICalHandlerFactory.class.getName();
     protected final Map<String, RequestHandler> handlerMap;
 
     public ICalHandlerFactory() {
@@ -70,34 +70,34 @@ public class ICalHandlerFactory implements RequestHandlerFactory {
 
     protected static void handleInvalidMethod (HttpServletRequest req, HttpServletResponse resp, ServletContext ctx)
             throws ServletException, IOException {
-        Debug.logInfo("[InvalidMethodHandler] method = " + req.getMethod(), module);
+        Debug.logInfo("[InvalidMethodHandler] method = " + req.getMethod(), MODULE);
         resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     protected static void doNothing(HttpServletRequest req, HttpServletResponse resp, ServletContext ctx)
             throws ServletException, IOException {
-        Debug.logInfo("[DoNothingHandler] method = " + req.getMethod(), module);
+        Debug.logInfo("[DoNothingHandler] method = " + req.getMethod(), MODULE);
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     protected static void doGet(HttpServletRequest req, HttpServletResponse resp, ServletContext ctx)
             throws ServletException, IOException {
-        Debug.logInfo("[GetHandler] starting request", module);
+        Debug.logInfo("[GetHandler] starting request", MODULE);
         ICalWorker.handleGetRequest(req, resp, ctx);
-        Debug.logInfo("[GetHandler] finished request", module);
+        Debug.logInfo("[GetHandler] finished request", MODULE);
     }
 
     protected static void doPut(HttpServletRequest req, HttpServletResponse resp, ServletContext ctx)
             throws ServletException, IOException {
-        Debug.logInfo("[PutHandler] starting request", module);
+        Debug.logInfo("[PutHandler] starting request", MODULE);
         ICalWorker.handlePutRequest(req, resp, ctx);
-        Debug.logInfo("[PutHandler] finished request", module);
+        Debug.logInfo("[PutHandler] finished request", MODULE);
     }
 
     protected static void doPropFind(HttpServletRequest req, HttpServletResponse resp, ServletContext ctx)
             throws ServletException, IOException {
-        Debug.logInfo("[PropFindHandler] starting request", module);
+        Debug.logInfo("[PropFindHandler] starting request", MODULE);
         ICalWorker.handlePropFindRequest(req, resp, ctx);
-        Debug.logInfo("[PropFindHandler] finished request", module);
+        Debug.logInfo("[PropFindHandler] finished request", MODULE);
     }
 }

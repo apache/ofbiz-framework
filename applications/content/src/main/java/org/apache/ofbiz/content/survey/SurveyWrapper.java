@@ -60,7 +60,7 @@ import freemarker.template.TemplateException;
  */
 public class SurveyWrapper {
 
-    public static final String module = SurveyWrapper.class.getName();
+    public static final String MODULE = SurveyWrapper.class.getName();
 
     protected Delegator delegator = null;
     protected String responseId = null;
@@ -155,7 +155,7 @@ public class SurveyWrapper {
         }
         if (templateUrl == null) {
             String errMsg = "Problem getting the template for Survey from URL: " + templatePath;
-            Debug.logError(errMsg, module);
+            Debug.logError(errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
 
@@ -213,7 +213,7 @@ public class SurveyWrapper {
         try {
             FreeMarkerWorker.renderTemplate(template, templateContext, writer);
         } catch (TemplateException | IOException e) {
-            Debug.logError(e, "Error rendering Survey with template at [" + templateUrl.toExternalForm() + "]", module);
+            Debug.logError(e, "Error rendering Survey with template at [" + templateUrl.toExternalForm() + "]", MODULE);
         }
     }
 
@@ -229,7 +229,7 @@ public class SurveyWrapper {
                 ){
             template = new Template(templateUrl.toExternalForm(), templateReader, config);
         } catch (IOException e) {
-            Debug.logError(e, "Unable to get template from URL :" + templateUrl.toExternalForm(), module);
+            Debug.logError(e, "Unable to get template from URL :" + templateUrl.toExternalForm(), MODULE);
         }
         return template;
     }
@@ -244,7 +244,7 @@ public class SurveyWrapper {
         try {
             survey = EntityQuery.use(delegator).from("Survey").where("surveyId", surveyId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get Survey : " + surveyId, module);
+            Debug.logError(e, "Unable to get Survey : " + surveyId, MODULE);
         }
         return survey;
     }
@@ -286,7 +286,7 @@ public class SurveyWrapper {
                     .orderBy("sequenceNum", "surveyMultiRespColId")
                     .filterByDate().cache().queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get questions for survey : " + surveyId, module);
+            Debug.logError(e, "Unable to get questions for survey : " + surveyId, MODULE);
         }
 
         return questions;
@@ -310,14 +310,14 @@ public class SurveyWrapper {
                     .orderBy("-lastModifiedDate")
                     .queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (UtilValidate.isNotEmpty(responses)) {
             GenericValue response = EntityUtil.getFirst(responses);
             responseId = response.getString("surveyResponseId");
             if (responses.size() > 1) {
-                Debug.logWarning("More then one response found for survey : " + surveyId + " by party : " + partyId + " using most current", module);
+                Debug.logWarning("More then one response found for survey : " + surveyId + " by party : " + partyId + " using most current", MODULE);
             }
         }
 
@@ -357,7 +357,7 @@ public class SurveyWrapper {
             try {
                 answers = EntityQuery.use(delegator).from("SurveyResponseAnswer").where("surveyResponseId", responseId).queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
 
             if (UtilValidate.isNotEmpty(answers)) {
@@ -397,7 +397,7 @@ public class SurveyWrapper {
         try {
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException gte) {
-            Debug.logError(gte, "Unable to begin transaction", module);
+            Debug.logError(gte, "Unable to begin transaction", MODULE);
         }
         try (EntityListIterator eli = this.getEli(question, maxRows)) {
             if (startIndex > 0 && number > 0) {
@@ -410,7 +410,7 @@ public class SurveyWrapper {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error getting survey question responses", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), MODULE);
             }
 
             throw new SurveyWrapperException(e);
@@ -552,7 +552,7 @@ public class SurveyWrapper {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error getting survey question responses Boolean result", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), MODULE);
             }
 
             throw new SurveyWrapperException(e);
@@ -576,7 +576,7 @@ public class SurveyWrapper {
         try {
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException gte) {
-            Debug.logError(gte, "Unable to begin transaction", module);
+            Debug.logError(gte, "Unable to begin transaction", MODULE);
         }
 
         try (EntityListIterator eli = this.getEli(question, -1)) {
@@ -611,7 +611,7 @@ public class SurveyWrapper {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error getting survey question responses Number result", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), MODULE);
             }
 
             throw new SurveyWrapperException(e);
@@ -654,7 +654,7 @@ public class SurveyWrapper {
                     .where(makeEliCondition(question))
                     .queryCount();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new SurveyWrapperException("Unable to get responses", e);
         }
 
@@ -669,7 +669,7 @@ public class SurveyWrapper {
         try {
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException gte) {
-            Debug.logError(gte, "Unable to begin transaction", module);
+            Debug.logError(gte, "Unable to begin transaction", MODULE);
         }
 
         try (EntityListIterator eli = this.getEli(question, -1)) {
@@ -694,7 +694,7 @@ public class SurveyWrapper {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error getting survey question responses Option result", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), MODULE);
             }
 
             throw new SurveyWrapperException(e);

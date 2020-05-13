@@ -37,7 +37,7 @@ import org.apache.ofbiz.entity.model.ModelViewEntity;
  */
 @SuppressWarnings("serial")
 public class EntityConditionSubSelect extends EntityConditionValue {
-    public static final String module = EntityConditionSubSelect.class.getName();
+    public static final String MODULE = EntityConditionSubSelect.class.getName();
 
     protected ModelEntity localModelEntity = null;
     protected String keyFieldName = null;
@@ -106,7 +106,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
             sql.append(")");
         } catch (GenericEntityException e) {
             String errMsg = "Could not generate sub-select SQL: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
 
         }
     }

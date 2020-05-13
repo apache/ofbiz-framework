@@ -60,7 +60,7 @@ import org.codehaus.groovy.runtime.InvokerHelper;
  */
 public final class ScriptUtil {
 
-    public static final String module = ScriptUtil.class.getName();
+    public static final String MODULE = ScriptUtil.class.getName();
     /** The screen widget context map bindings key. */
     public static final String WIDGET_CONTEXT_KEY = "widget";
     /** The service/servlet/request parameters map bindings key. */
@@ -79,26 +79,26 @@ public final class ScriptUtil {
         ScriptEngineManager manager = new ScriptEngineManager();
         List<ScriptEngineFactory> engines = manager.getEngineFactories();
         if (engines.isEmpty()) {
-            Debug.logInfo("No scripting engines were found.", module);
+            Debug.logInfo("No scripting engines were found.", MODULE);
         } else {
-            Debug.logInfo("The following " + engines.size() + " scripting engines were found:", module);
+            Debug.logInfo("The following " + engines.size() + " scripting engines were found:", MODULE);
             for (ScriptEngineFactory engine : engines) {
-                Debug.logInfo("Engine name: " + engine.getEngineName(), module);
-                Debug.logInfo("  Version: " + engine.getEngineVersion(), module);
-                Debug.logInfo("  Language: " + engine.getLanguageName(), module);
+                Debug.logInfo("Engine name: " + engine.getEngineName(), MODULE);
+                Debug.logInfo("  Version: " + engine.getEngineVersion(), MODULE);
+                Debug.logInfo("  Language: " + engine.getLanguageName(), MODULE);
                 List<String> extensions = engine.getExtensions();
                 if (extensions.size() > 0) {
-                    Debug.logInfo("  Engine supports the following extensions:", module);
+                    Debug.logInfo("  Engine supports the following extensions:", MODULE);
                     for (String e : extensions) {
-                        Debug.logInfo("    " + e, module);
+                        Debug.logInfo("    " + e, MODULE);
                     }
                 }
                 List<String> shortNames = engine.getNames();
                 if (shortNames.size() > 0) {
-                    Debug.logInfo("  Engine has the following short names:", module);
+                    Debug.logInfo("  Engine has the following short names:", MODULE);
                     for (String name : engine.getNames()) {
                         writableScriptNames.add(name);
-                        Debug.logInfo("    " + name, module);
+                        Debug.logInfo("    " + name, MODULE);
                     }
                 }
             }
@@ -130,11 +130,11 @@ public final class ScriptUtil {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream(), StandardCharsets.UTF_8));
                 script = compilableEngine.compile(reader);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Compiled script " + filePath + " using engine " + engine.getClass().getName(), module);
+                    Debug.logVerbose("Compiled script " + filePath + " using engine " + engine.getClass().getName(), MODULE);
                 }
             } catch (ClassCastException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", module);
+                    Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", MODULE);
                 }
             }
             if (script != null) {
@@ -167,11 +167,11 @@ public final class ScriptUtil {
                 Compilable compilableEngine = (Compilable) engine;
                 compiledScript = compilableEngine.compile(script);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Compiled script [" + script + "] using engine " + engine.getClass().getName(), module);
+                    Debug.logVerbose("Compiled script [" + script + "] using engine " + engine.getClass().getName(), MODULE);
                 }
             } catch (ClassCastException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", module);
+                    Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", MODULE);
                 }
             }
             if (compiledScript != null) {
@@ -251,13 +251,13 @@ public final class ScriptUtil {
                 throw new IllegalArgumentException("The script type is not supported for language: " + language);
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), module);
+                Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), MODULE);
             }
             ScriptContext scriptContext = createScriptContext(context);
             return engine.eval(script, scriptContext);
         } catch (Exception e) {
             String errMsg = "Error running " + language + " script [" + script + "]: " + e.toString();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
     }
@@ -276,7 +276,7 @@ public final class ScriptUtil {
         Object result = script.eval(scriptContext);
         if (UtilValidate.isNotEmpty(functionName)) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Invoking function/method " + functionName, module);
+                Debug.logVerbose("Invoking function/method " + functionName, MODULE);
             }
             ScriptEngine engine = script.getEngine();
             try {
@@ -322,7 +322,7 @@ public final class ScriptUtil {
             return executeScript(filePath, functionName, createScriptContext(context), args);
         } catch (Exception e) {
             String errMsg = "Error running script at location [" + filePath + "]: " + e.toString();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg, e);
         }
     }
@@ -358,7 +358,7 @@ public final class ScriptUtil {
             throw new IllegalArgumentException("The script type is not supported for location: " + filePath);
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Begin processing script [" + filePath + "] using engine " + engine.getClass().getName(), module);
+            Debug.logVerbose("Begin processing script [" + filePath + "] using engine " + engine.getClass().getName(), MODULE);
         }
         engine.setContext(scriptContext);
         URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
@@ -392,7 +392,7 @@ public final class ScriptUtil {
             try {
                 scriptClass = GroovyUtil.parseClass(script);
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -453,7 +453,7 @@ public final class ScriptUtil {
             Assert.notNull("key", key);
             if (protectedKeys.contains(key)) {
                 UnsupportedOperationException e = new UnsupportedOperationException("Variable " + key + " is read-only");
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 throw e;
             }
             return bindings.put(key, value);
@@ -471,7 +471,7 @@ public final class ScriptUtil {
         public Object remove(Object key) {
             if (protectedKeys.contains(key)) {
                 UnsupportedOperationException e = new UnsupportedOperationException("Variable " + key + " is read-only");
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 throw e;
             }
             return bindings.remove(key);

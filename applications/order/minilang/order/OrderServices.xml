@@ -644,6 +644,18 @@ under the License.
             <set-service-fields service-name="createOrderContactMech" map="inputMap" to-map="removeOrderContactMechMap"/>
             <call-service service-name="removeOrderContactMech" in-map-name="removeOrderContactMechMap" include-user-login="true"/>
         </if-empty>
+
+        <!-- Update promisedDateTime & currentPromisedDate in OrderItemShipGrpInvRes entity-->
+        <set field="itemShipGrpInvResLookupMap.orderId" from="parameters.orderId"/>
+        <set field="itemShipGrpInvResLookupMap.shipGroupSeqId" from="parameters.shipGroupSeqId"/>
+        <find-by-and entity-name="OrderItemShipGrpInvRes" map="itemShipGrpInvResLookupMap" list="itemShipGrpInvResList"/>
+        <if-not-empty field="itemShipGrpInvResList">
+            <iterate list="itemShipGrpInvResList" entry="orderItemShipGrpInvRes">
+                <set field="orderItemShipGrpInvRes.promisedDatetime" from="parameters.shipByDate"/>
+                <set field="orderItemShipGrpInvRes.currentPromisedDate" from="parameters.shipByDate"/>
+                <store-value value-field="orderItemShipGrpInvRes"/>
+            </iterate>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="getOrderItemShipGroupEstimatedShipDate" short-description="Compute and return the OrderItemShipGroup estimated ship date based on the associated items.">
