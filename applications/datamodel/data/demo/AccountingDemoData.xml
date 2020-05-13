@@ -98,6 +98,7 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_DELETE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_UPDATE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ACCTG_FUNCTNL_ADMIN" permissionId="PERIOD_MAINT"/>
 
     <!-- Payment Gateway Config -->
     <PaymentGatewayConfig paymentGatewayConfigId="SAGEPAY_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_SAGEPAY" description="SagePay Config"/>
@@ -2728,8 +2729,9 @@ under the License.
                    inventoryItemId="9030" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="MAT_B_COST" ownerPartyId="Company" currencyUomId="USD" unitCost="7.0"/>
     <InventoryItemDetail inventoryItemId="9030" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="20" quantityOnHandDiff="20" accountingQuantityDiff="20"/>
 
-    <!-- Party component demo parties additions -->
-    <!-- Party partyId="employee1" -->
+    <!-- UserLoginSecurityGroup additions -->
+    <!-- groupId="ACCTG_FUNCTNL_ADMIN" -->
     <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="employee1" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="employee3" fromDate="2001-01-01 12:00:00.0"/>
 
 </entity-engine-xml>
