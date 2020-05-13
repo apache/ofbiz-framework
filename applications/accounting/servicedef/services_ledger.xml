@@ -147,7 +147,9 @@ under the License.
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="updateGlReconciliationLastModified" default-entity-name="GlReconciliation" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateGlReconciliationLastModified" default-entity-name="GlReconciliation" engine="simple"
+             location="component://accounting/minilang/ledger/GeneralLedgerServices.xml"
+             invoke="updateGlReconciliationLastModified" auth="true">
         <description>Update Gl Reconciliation Last Modified</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
