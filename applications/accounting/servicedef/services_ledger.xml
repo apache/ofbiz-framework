@@ -190,27 +190,31 @@ under the License.
         <override name="transactionDate" optional="false"/>
         <override name="glFiscalTypeId" optional="false"/>
     </service>
-    <service name="createAcctgTrans" default-entity-name="AcctgTrans" engine="simple"
-            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="createAcctgTrans" auth="true">
+    <!-- AcctgTrans services -->
+    <service name="createAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="create" auth="true">
         <description>Create a AcctgTrans record.  isPosted is forced to "N"</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="CREATE"/>
         <implements service="interfaceAcctgTrans"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <override name="isPosted" default-value="N"/>
     </service>
-    <service name="updateAcctgTrans" default-entity-name="AcctgTrans" engine="simple"
-            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="updateAcctgTrans" auth="true">
+    <service name="updateAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="update" auth="true">
         <description>Update a AcctgTrans record</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteAcctgTrans" default-entity-name="AcctgTrans" engine="simple"
-            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="deleteAcctgTrans" auth="true">
+    <service name="deleteAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a AcctgTrans record</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <service name="checkAcctgTransPosted" default-entity-name="AcctgTrans" engine="simple"
+        location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="checkAcctgTransPosted" auth="true">
+        <description>Check AcctgTrans posted</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="interfaceAcctgTransEntry" default-entity-name="AcctgTransEntry" engine="interface" location="" invoke="">
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="reconcileStatusId"/>
