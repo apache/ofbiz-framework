@@ -25,11 +25,7 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.product.product.ProductServices
-import org.apache.ofbiz.service.ServiceUtil
-
-
-
+import org.apache.ofbiz.party.party.PartyHelper
 
 /**
  * Create a Product Price
@@ -184,91 +180,93 @@ def updateProductPriceCond() {
 def getAssociatedPriceRulesConds() {
     Map result = success()
     List productPriceRulesCondValues = []
-    if ((parameters.inputParamEnumId == "PRIP_QUANTITY") || (parameters.inputParamEnumId == "PRIP_LIST_PRICE")) {
-        return success()
+
+    // May prove more useful rather than an entity-and in custom cases, set limit to not return too huge element
+    int sizeLimit = 200
+    switch (parameters.inputParamEnumId) {
+        case "PRIP_PRODUCT_ID":
+            from("Product").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.productId,
+                                                description: it.internalName ?: '[' + it.productId + ']']
+            }
+            break
+
+        case "PRIP_PROD_CAT_ID":
+            from("ProductCategory").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.productCategoryId,
+                                                description: it.categoryName ?: '[' + it.productCategoryId + ']']
+            }
+            break
+
+        case "PRIP_PROD_FEAT_ID":
+            from("ProductFeatureType").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.productFeatureTypeId,
+                                                description: it.description ?: '[' + it.productFeatureTypeId + ']']
+            }
+            break
+
+        case "PRIP_PARTY_ID":
+        case "PRIP_PARTY_GRP_MEM":
+            from("PartyNameView").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.partyId,
+                                                description: PartyHelper.getPartyName(it)]
+            }
+            break
+
+        case "PRIP_PARTY_CLASS":
+            from("PartyClassificationGroup").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.partyClassificationGroupId,
+                                                description: it.description ?: '[' + it.partyClassificationGroupId + ']']
+            }
+            break
+
+        case "PRIP_ROLE_TYPE":
+            from("RoleType").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.roleTypeId,
+                                                description: it.description ?: '[' + it.roleTypeId + ']']
+            }
+            break
+
+        case "PRIP_WEBSITE_ID":
+            from("WebSite").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.webSiteId,
+                                                description: it.siteName ?: '[' + it.webSiteId + ']']
+            }
+            break
+
+        case "PRIP_PROD_SGRP_ID":
+            from("ProductStoreGroup").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.productStoreGroupId,
+                                                description: it.productStoreGroupName ?: '[' + it.productStoreGroupId + ']']
+            }
+            break
+
+        case "PRIP_PROD_CLG_ID":
+            from("ProdCatalog").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.prodCatalogId,
+                                                description: it.catalogName ?: '[' + it.prodCatalogId + ']']
+            }
+            break
+
+        case "PRIP_CURRENCY_UOMID":
+            from("Uom").limit(sizeLimit).queryList()?.each {
+                productPriceRulesCondValues << [key: it.uomId,
+                                                description: it.abbreviation ?: '[' + it.uomId + ']']
+            }
+            break
+
+        default:
+            return success()
+            break
     }
-    if (parameters.inputParamEnumId == "PRIP_PRODUCT_ID") {
-        List condValues = from("Product").queryList()
-        // May prove more useful rather than an entity-and in custom cases
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.internalName ? "${condValue.internalName}: " : ": ") + (condValue.productId ? "${condValue.productId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
-    if (parameters.inputParamEnumId == "PRIP_PROD_CAT_ID") {
-        List condValues = from("ProductCategory").queryList()
-        // May prove more useful rather than an entity-and in custom cases
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.categoryName ? "${condValue.categoryName} " : " ") + (condValue.description ? "${condValue.description} " : " ") +
-                    (condValue.longDescription ? condValue.longDescription.substring(0,10) : "") + (condValue.productCategoryId ? " [${condValue.productCategoryId}]: " : " []: ") +
-                    (condValue.productCategoryId ? "${condValue.productCategoryId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
-    if (parameters.inputParamEnumId == "PRIP_PROD_FEAT_ID") {
-        List condValues = from("ProductFeatureType").queryList()
-        // May prove more useful rather than an entity-and in custom cases
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.description ? "${condValue.description} " : " ") + (condValue.productFeatureTypeId ? " ${condValue.productFeatureTypeId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
-    if ((parameters.inputParamEnumId == "PRIP_PARTY_ID") || (parameters.inputParamEnumId == "PRIP_PARTY_GRP_MEM")) {
-        List condValues = from("PartyNameView").queryList()
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.firstName ? "${condValue.firstName} " : " ") + (condValue.lastName ? "${condValue.lastName}" : "") +
-                    (condValue.groupName ? "${condValue.groupName}: " : ": ") + (condValue.partyId ? "${condValue.partyId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
-    if (parameters.inputParamEnumId == "PRIP_PARTY_CLASS") {
-        List condValues = from("PartyClassificationGroup").queryList()
-        // May prove more useful rather than an entity-and in custom cases
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.description ? "${condValue.description}: " : ": ") + (condValue.partyClassificationGroupId ? "${condValue.partyClassificationGroupId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
-    if (parameters.inputParamEnumId == "PRIP_ROLE_TYPE") {
-        List condValues = from("RoleType").queryList()
-        // May prove more useful rather than an entity-and in custom cases
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.description ? "${condValue.description}: " : ": ") + (condValue.roleTypeId ? "${condValue.roleTypeId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
-    if (parameters.inputParamEnumId == "PRIP_WEBSITE_ID") {
-        List condValues = from("WebSite").queryList()
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.siteName ? "${condValue.siteName}: " : ": ") + (condValue.webSiteId ? "${condValue.webSiteId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
-    if (parameters.inputParamEnumId == "PRIP_PROD_SGRP_ID") {
-        List condValues = from("ProductStoreGroup").queryList()
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.productStoreGroupName ? "${condValue.productStoreGroupName} " : " ") + (condValue.description ? "(${condValue.description}): " : "(): ") + (condValue.productStoreGroupId ? "${condValue.productStoreGroupId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
-    if (parameters.inputParamEnumId == "PRIP_PROD_CLG_ID") {
-        List condValues = from("ProdCatalog").queryList()
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.catalogName ? "${condValue.catalogName}: " : ": ") + (condValue.prodCatalogId ? "${condValue.prodCatalogId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
-    if (parameters.inputParamEnumId == "PRIP_CURRENCY_UOMID") {
-        List condValues = from("Uom").where(uomTypeId: "CURRENCY_MEASURE").queryList()
-        for (GenericValue condValue : condValues) {
-            String option = (condValue.description ? "${condValue.description}: " : ": ") + (condValue.uomId ? "${condValue.uomId}" : "")
-            productPriceRulesCondValues << option
-        }
-    }
+
+    result.productPriceRulesCondValues = []
     if (!productPriceRulesCondValues) {
-        String noOptions = UtilProperties.getMessage("CommonUiLabels", "CommonNoOptions", locale)
-        productPriceRulesCondValues << noOptions
+        result.productPriceRulesCondValues << UtilProperties.getMessage("CommonUiLabels", "CommonNoOptions", locale)
+    } else {
+        productPriceRulesCondValues.each {
+            result.productPriceRulesCondValues << it.description + ": " + it.key
+        }
     }
-    result.productPriceRulesCondValues = productPriceRulesCondValues
     return result
 }
