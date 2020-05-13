@@ -139,7 +139,6 @@ under the License.
     <UserLogin userLoginId="DemoRepStore" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLogin userLoginId="DemoCustCompany" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLogin userLoginId="DemoCustAgent" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
-    <UserLogin userLoginId="DemoCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLogin userLoginId="supplier" partyId="externaluser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLoginSecurityGroup groupId="ORDERSUPPLIER_LTD" userLoginId="supplier" fromDate="2001-01-01 12:00:00.0"/>
 
@@ -1052,10 +1051,6 @@ under the License.
     <OrderHeader orderId="DEMO10090" orderTypeId="SALES_ORDER" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y" webSiteId="WebStore"/>
     <OrderItem orderId="DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" statusId="ITEM_APPROVED"/>
     <OrderItemPriceInfo orderItemPriceInfoId="9000" orderId="DEMO10090" orderItemSeqId="00001" productPriceRuleId="9000" productPriceActionSeqId="01" modifyAmount="-9.600" description="[PRODUCT_CATEGORY_IDIsPROMOTIONS] [list:48.0;avgCost:48.0;margin:0.0] [type:PRICE_POL]"/>
-
-    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
 
     <OrderRole orderId="DEMO10090" partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
     <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
