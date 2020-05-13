@@ -544,6 +544,14 @@ under the License.
             <xs:attribute type="xs:string" name="name" use="required" />
         </xs:complexType>
     </xs:element>
+    <xs:element name="script-template" substitutionGroup="HtmlWidgets">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.script-template" />
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.script-template">
+        <xs:attribute type="xs:string" name="location" use="required" />
+    </xs:attributeGroup>
     <!-- ============== Swing Specific Elements =============== -->
     <xs:element name="swing">
         <xs:complexType />

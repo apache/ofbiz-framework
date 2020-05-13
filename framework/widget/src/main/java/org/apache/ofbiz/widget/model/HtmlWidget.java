@@ -19,6 +19,7 @@
 package org.apache.ofbiz.widget.model;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -120,6 +121,8 @@ public class HtmlWidget extends ModelScreenWidget {
                     subWidgets.add(new HtmlTemplate(modelScreen, childElement));
                 } else if ("html-template-decorator".equals(childElement.getNodeName())) {
                     subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
+                } else if ("script-template".equals(childElement.getNodeName())) {
+                    subWidgets.add(new ScriptTemplate(modelScreen, childElement));
                 } else {
                     throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: "
                             + childElement.getNodeName());
@@ -164,6 +167,36 @@ public class HtmlWidget extends ModelScreenWidget {
 
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
+                }
+            } catch (IllegalArgumentException | TemplateException | IOException e) {
+                String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
+                Debug.logError(e, errMsg, MODULE);
+                writeError(writer, errMsg);
+            }
+        } else {
+            throw new IllegalArgumentException("Rendering not yet supported for the template at location: " + location);
+        }
+    }
+
+    public static void renderScriptTemplate(Appendable writer, FlexibleStringExpander locationExdr, Map<String, Object> context) {
+        String location = locationExdr.expandString(context);
+
+        if (UtilValidate.isEmpty(location)) {
+            throw new IllegalArgumentException("Template location is empty with search string location " + locationExdr.getOriginal());
+        }
+
+        if (location.endsWith(".ftl")) {
+            try {
+                boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(context);
+                if (insertWidgetBoundaryComments) {
+                    writer.append(HtmlWidgetRenderer.formatBoundaryJsComment("Begin", "Template", location));
+                }
+
+                Template template = FreeMarkerWorker.getTemplate(location, specialTemplateCache, specialConfig);
+                FreeMarkerWorker.renderTemplate(template, context, writer);
+
+                if (insertWidgetBoundaryComments) {
+                    writer.append(HtmlWidgetRenderer.formatBoundaryJsComment("End", "Template", location));
                 }
             } catch (IllegalArgumentException | TemplateException | IOException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
@@ -285,6 +318,45 @@ public class HtmlWidget extends ModelScreenWidget {
 
         public List<ModelScreenWidget> getSubWidgets() {
             return subWidgets;
+        }
+    }
+
+    public static class ScriptTemplate extends ModelScreenWidget {
+        protected FlexibleStringExpander locationExdr;
+
+        public ScriptTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
+            super(modelScreen, htmlTemplateElement);
+            this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
+        }
+
+        public String getLocation(Map<String, Object> context) {
+            return locationExdr.expandString(context);
+        }
+
+        @Override
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
+            StringWriter stringWriter = new StringWriter();
+            renderScriptTemplate(stringWriter, this.locationExdr, context);
+            String data = stringWriter.toString();
+            stringWriter.close();
+
+            String fileName = this.getLocation(context);
+            fileName = fileName.substring(fileName.lastIndexOf("/")+1);
+            // remove ".ftl"
+            fileName = fileName.substring(0, fileName.length()-4);
+            ScriptTemplateUtil.putScriptInSession(context, fileName, data);
+
+            String webappName = (String)context.get("webappName");
+            ScriptTemplateUtil.addScriptSrcToRequest(context, "/"+webappName+"/control/getJs?name="+fileName);
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
+            visitor.visit(this);
+        }
+
+        public FlexibleStringExpander getLocationExdr() {
+            return locationExdr;
         }
     }
 

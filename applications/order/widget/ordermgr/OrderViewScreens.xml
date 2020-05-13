@@ -266,7 +266,10 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/template/order/FindOrders.ftl"/></html>
+                            <html>
+                                <script-template location="component://order/template/order/FindOrders.js.ftl"/>
+                                <html-template location="component://order/template/order/FindOrders.ftl"/>
+                            </html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
