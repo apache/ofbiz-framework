@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import java.math.RoundingMode
 import java.sql.Timestamp
 
@@ -112,53 +111,25 @@ def inlineHandlePriceWithTaxIncluded() {
             EntityCondition condition = EntityCondition.makeCondition([
                 EntityCondition.makeCondition("taxAuthGeoId", parameters.taxAuthGeoId),
                 EntityCondition.makeCondition("taxAuthPartyId", parameters.taxAuthPartyId),
-                EntityCondition.makeCondition([
-                    EntityCondition.makeCondition("taxAuthorityRateTypeId", "SALES_TAX"),
-                    EntityCondition.makeCondition("taxAuthorityRateTypeId", "VAT_TAX")
-                ], EntityOperator.OR)
+                EntityCondition.makeCondition("taxAuthorityRateTypeId", EntityOperator.IN, ["SALES_TAX", "VAT_TAX"])
             ])
             GenericValue taxAuthorityRateProduct = from("TaxAuthorityRateProduct").where(condition).filterByDate().queryFirst()
             parameters.taxPercentage = taxAuthorityRateProduct?.taxPercentage
         }
         if (!parameters.taxPercentage) {
-            String errorMessage = UtilProperties.getMessage("ProductUiLabels", "ProductPriceTaxPercentageNotFound", locale)
-            logError(errorMessage)
-            return error(errorMessage)
+            return error(UtilProperties.getMessage("ProductUiLabels", "ProductPriceTaxPercentageNotFound", locale))
         }
         // in short the formula is: taxAmount = priceWithTax - (priceWithTax/(1+taxPercentage/100))
-        BigDecimal taxAmount = parameters.priceWithTax - (parameters.priceWithTax/(1 + parameters.taxPercentage/100))
+        BigDecimal taxAmount = parameters.priceWithTax - (parameters.priceWithTax / (1 + parameters.taxPercentage/100))
         parameters.taxAmount = taxAmount.setScale(3, RoundingMode.HALF_UP)
 
         BigDecimal priceWithoutTax = parameters.priceWithTax - parameters.taxAmount
         parameters.priceWithoutTax = priceWithoutTax.setScale(3, RoundingMode.HALF_UP)
 
-        if (parameters.taxInPrice == "Y") {
-            // the price passed in has tax included, and we want to store it with tax included
-            parameters.price = parameters.priceWithTax
-        } else {
-            // the price passed in has tax included, but we want to store it without tax included
-            parameters.price = parameters.priceWithoutTax
-        }
-
+        parameters.price = parameters.taxInPrice == "Y" ?
+                parameters.priceWithTax: // the price passed in has tax included, and we want to store it with tax included
+                parameters.priceWithoutTax // the price passed in has tax included, but we want to store it without tax included
     }
-    return success()
-}
-
-// TODO NMA convert to entity auto when changed fileds are managed
-
-/**
- * Save History of ProductPrice Change
- * @return
- */
-def saveProductPriceChange() {
-    // Note that this is kept pretty simple: if a price is specific but no oldPrice, then it is generally a create,
-    // if both are specified it is generally an update, if only the oldPrice is specified it is generally a delete
-    GenericValue newEntity = makeValue("ProductPriceChange")
-    newEntity.setNonPKFields(parameters)
-    newEntity.productPriceChangeId = delegator.getNextSeqId("ProductPriceChange")
-    newEntity.changedDate = UtilDateTime.nowTimestamp()
-    newEntity.changedByUserLogin = userLogin.userLoginId
-    newEntity.create()
     return success()
 }
 
@@ -197,10 +168,7 @@ def updateProductPriceCond() {
     if (!security.hasPermission("CATALOG_PRICE_MAINT", userLogin)) {
         return error(UtilProperties.getMessage("ProductUiLabels", "ProductPriceMaintPermissionError", locale))
     }
-    if (parameters.inputParamEnumId == "PRIP_QUANTITY") {
-        parameters.condValue = parameters.condValueInput
-    }
-    if (parameters.inputParamEnumId == "PRIP_LIST_PRICE") {
+    if (["PRIP_QUANTITY", "PRIP_LIST_PRICE"].contains(parameters.inputParamEnumId)) {
         parameters.condValue = parameters.condValueInput
     }
     GenericValue lookedUpValue = from("ProductPriceCond").where(parameters).queryOne()

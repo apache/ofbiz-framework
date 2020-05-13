@@ -295,14 +295,12 @@ under the License.
     </service>
 
     <!-- called by ECAs on ProductPrice service call events -->
-    <service name="saveProductPriceChange" default-entity-name="ProductPrice" engine="groovy"
-            location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="saveProductPriceChange" auth="true">
+    <service name="saveProductPriceChange" default-entity-name="ProductPriceChange" engine="entity-auto" invoke="create" auth="true">
         <description>Save History of a ProductPrice Change</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false" entity-name="ProductPrice"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="oldPrice" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="productPriceChangeId" type="String" mode="OUT" optional="true"/>
+        <attribute name="productPriceChangeId" type="String" mode="OUT"/>
     </service>
 
     <!-- Product PaymentMethodType Services -->
