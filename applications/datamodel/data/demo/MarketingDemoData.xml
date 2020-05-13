@@ -68,9 +68,6 @@ under the License.
     <PartyRole partyId="DemoCustomer2" roleTypeId="CONTACT"/>
     <PartyStatus partyId="DemoCustomer2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer2" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
-    <Party partyId="DemoCustomer3" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoCustomer3" roleTypeId="CONTACT"/>
-    <PartyStatus partyId="DemoCustomer3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
 
     <!-- Demo Lead Owners -->
