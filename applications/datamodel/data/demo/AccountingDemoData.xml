@@ -2021,9 +2021,19 @@ under the License.
     <PaymentMethod paymentMethodId="PETTY_CASH" paymentMethodTypeId="CASH" partyId="Company" description="Petty Cash" glAccountId="110000" fromDate="2009-04-01 00:00:00.000"/>
 
     <!-- Tax Authority Demo Data -->
+    <!-- USA TaxAuthority defs -->
     <Party partyId="USA_IRS" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="USA_IRS" groupName="United States of America - Internal Revenue Service"/>
     <PartyRole partyId="USA_IRS" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" taxIdFormatPattern="\d{2}\-\d{7}|\d{3}\-\d{2}\-\d{4}" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" organizationPartyId="Company" glAccountId="224100"/>
+
+    <TaxAuthority taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" organizationPartyId="Company" glAccountId="224106"/>
+    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="CA" toTaxAuthPartyId="CA_BOE" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9001" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" taxAuthorityRateTypeId="SALES_TAX"
+                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" taxPromotions="N"
+                             fromDate="2001-05-13 00:00:00.001" description="California State Sales Tax"/>
 
     <Party partyId="CA_BOE" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="CA_BOE" groupName="State of California Board of Equalization"/>
@@ -2042,10 +2052,22 @@ under the License.
     <PartyContactMechPurpose partyId="NY_DTF" contactMechId="NY_DTF_0" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="NY_DTF" contactMechId="NY_DTF_0" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyRole partyId="NY_DTF" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" organizationPartyId="Company" glAccountId="224140"/>
+    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="NY" toTaxAuthPartyId="NY_DTF" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9002" taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" taxAuthorityRateTypeId="SALES_TAX"
+                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.25" taxPromotions="N"
+                             fromDate="2001-05-13 00:00:00.001" description="New York State Sales Tax"/>
 
     <Party partyId="TX_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="TX_TAXMAN" groupName="Texas Sales Tax Authority"/>
     <PartyRole partyId="TX_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" organizationPartyId="Company" glAccountId="224151"/>
+    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="TX" toTaxAuthPartyId="TX_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9003" taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" taxAuthorityRateTypeId="SALES_TAX"
+                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" taxPromotions="N"
+                             fromDate="2001-05-13 00:00:00.001" description="Texas State Sales Tax"/>
 
     <Party partyId="UT_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="UT_TAXMAN" groupName="Utah Sales Tax Authority"/>
@@ -2053,13 +2075,31 @@ under the License.
     <Party partyId="UT_UTAH_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="UT_UTAH_TAXMAN" groupName="Utah County, Utah Sales Tax Authority"/>
     <PartyRole partyId="UT_UTAH_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" organizationPartyId="Company" glAccountId="224153"/>
+    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="UT" toTaxAuthPartyId="UT_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9004" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" taxAuthorityRateTypeId="SALES_TAX"
+                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.75" taxPromotions="N"
+                             fromDate="2001-05-13 00:00:00.001" description="Utah State Sales Tax"/>
+    <!-- NOTE: using the state's sales tax GL Account -->
+    <TaxAuthorityGlAccount taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" organizationPartyId="Company" glAccountId="224153"/>
+    <TaxAuthorityAssoc taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" toTaxAuthGeoId="UT-UTAH" toTaxAuthPartyId="UT_UTAH_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9005" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" taxAuthorityRateTypeId="SALES_TAX"
+                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="0.1"
+                             fromDate="2001-05-13 00:00:00.001" description="Utah County, Utah Sales Tax"/>
 
+    <!-- Canada TaxAuthority defs -->
     <Party partyId="CAN_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="CAN_TAXMAN" groupName="Canada Tax Authority"/>
     <PartyRole partyId="CAN_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" organizationPartyId="Company" glAccountId="224209"/>
+
     <Party partyId="ON_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="ON_TAXMAN" groupName="Ontario Sales Tax (VAT) Authority"/>
     <PartyRole partyId="ON_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" includeTaxInPrice="Y"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" organizationPartyId="Company" glAccountId="224209"/>
 
     <!-- _NA_ TaxAuthority defs -->
     <ProductCategory productCategoryId="20111"/>
@@ -2071,52 +2111,6 @@ under the License.
                              minItemPrice="25.00" minPurchase="0.00" taxShipping="N" taxPercentage="1" taxPromotions="N"
                              fromDate="2001-05-13 00:00:00.001" description="1% OFB _NA_ Tax"/>
 
-    <!-- USA TaxAuthority defs -->
-    <TaxAuthority taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" taxIdFormatPattern="\d{2}\-\d{7}|\d{3}\-\d{2}\-\d{4}" includeTaxInPrice="N"/>
-    <TaxAuthorityGlAccount taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" organizationPartyId="Company" glAccountId="224100"/>
-
-    <TaxAuthority taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" includeTaxInPrice="N"/>
-    <TaxAuthorityGlAccount taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" organizationPartyId="Company" glAccountId="224106"/>
-    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="CA" toTaxAuthPartyId="CA_BOE" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
-    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9001" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" taxAuthorityRateTypeId="SALES_TAX"
-                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" taxPromotions="N"
-                             fromDate="2001-05-13 00:00:00.001" description="California State Sales Tax"/>
-
-    <TaxAuthority taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" includeTaxInPrice="N"/>
-    <TaxAuthorityGlAccount taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" organizationPartyId="Company" glAccountId="224140"/>
-    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="NY" toTaxAuthPartyId="NY_DTF" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
-    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9002" taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" taxAuthorityRateTypeId="SALES_TAX"
-                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.25" taxPromotions="N"
-                             fromDate="2001-05-13 00:00:00.001" description="New York State Sales Tax"/>
-
-    <TaxAuthority taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" includeTaxInPrice="N"/>
-    <TaxAuthorityGlAccount taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" organizationPartyId="Company" glAccountId="224151"/>
-    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="TX" toTaxAuthPartyId="TX_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
-    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9003" taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" taxAuthorityRateTypeId="SALES_TAX"
-                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" taxPromotions="N"
-                             fromDate="2001-05-13 00:00:00.001" description="Texas State Sales Tax"/>
-
-    <TaxAuthority taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" includeTaxInPrice="N"/>
-    <TaxAuthorityGlAccount taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" organizationPartyId="Company" glAccountId="224153"/>
-    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="UT" toTaxAuthPartyId="UT_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
-    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9004" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" taxAuthorityRateTypeId="SALES_TAX"
-                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.75" taxPromotions="N"
-                             fromDate="2001-05-13 00:00:00.001" description="Utah State Sales Tax"/>
-    <!-- An example county; there is some zip code data for testing this; note this is ONLY test data, there isn't really extra sales tax for this county -->
-    <TaxAuthority taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" includeTaxInPrice="N"/>
-    <!-- NOTE: using the state's sales tax GL Account -->
-    <TaxAuthorityGlAccount taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" organizationPartyId="Company" glAccountId="224153"/>
-    <TaxAuthorityAssoc taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" toTaxAuthGeoId="UT-UTAH" toTaxAuthPartyId="UT_UTAH_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001"/>
-    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9005" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" taxAuthorityRateTypeId="SALES_TAX"
-                             minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="0.1"
-                             fromDate="2001-05-13 00:00:00.001" description="Utah County, Utah Sales Tax"/>
-
-    <!-- Canada TaxAuthority defs -->
-    <TaxAuthority taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" includeTaxInPrice="N"/>
-    <TaxAuthorityGlAccount taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" organizationPartyId="Company" glAccountId="224209"/>
-    <TaxAuthority taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" includeTaxInPrice="Y"/>
-    <TaxAuthorityGlAccount taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" organizationPartyId="Company" glAccountId="224209"/>
-
     <!-- China TaxAuthority defs -->
     <Party partyId="CHN_STA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="CNY" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="CHN_STA" groupName="State Taxation Administration"/>
@@ -2124,18 +2118,6 @@ under the License.
     <TaxAuthority taxAuthGeoId="CHN" taxAuthPartyId="CHN_STA" includeTaxInPrice="N" requireTaxIdForExemption="Y" 
         taxIdFormatPattern=""/>
     <TaxAuthorityGlAccount taxAuthGeoId="CHN" taxAuthPartyId="CHN_STA" organizationPartyId="Company" glAccountId="224209"/>
-
-    <!-- Party TaxAuthority info for Company -->
-    <!-- some interesting information at: http://www.taxadmin.org/fta/rate/tax_stru.html -->
-    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
-    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" fromDate="2001-05-13 00:00:00.001" partyTaxId="12-3456789" isExempt="Y" isNexus="N"/>
-    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
-    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
-    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" fromDate="2001-05-13 00:00:00.001" isNexus="N"/> <!-- this one is not a nexus to test that feature -->
-    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
-    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
-    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" fromDate="2001-05-13 00:00:00.001" partyTaxId="87654321" isExempt="N" isNexus="Y"/>
-    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
 
     <!-- EU tax authorities -->
     <Party partyId="AUT_BMF" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
@@ -2277,6 +2259,18 @@ under the License.
     <PartyGroup partyId="SWE_SV" groupName="Skatteverket"/>
     <PartyRole partyId="SWE_SV" roleTypeId="TAX_AUTHORITY"/>
     <TaxAuthority taxAuthPartyId="SWE_SV" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="SWE" taxIdFormatPattern="^(SE-?)?{0,1}[0-9]{12}$"/>
+
+    <!-- Party TaxAuthority info for Company -->
+    <!-- some interesting information at: http://www.taxadmin.org/fta/rate/tax_stru.html -->
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" fromDate="2001-05-13 00:00:00.001" partyTaxId="12-3456789" isExempt="Y" isNexus="N"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" fromDate="2001-05-13 00:00:00.001" isNexus="N"/> <!-- this one is not a nexus to test that feature -->
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" fromDate="2001-05-13 00:00:00.001" partyTaxId="87654321" isExempt="N" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>
 
     <!-- Accounting Transaction Demo Data -->
     <!-- Set CAPITAL STOCK and initial CASH value -->
