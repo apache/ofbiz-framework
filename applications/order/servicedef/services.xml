@@ -259,9 +259,9 @@ under the License.
             </type-validate>
         </override>
     </service>
-    <service name="deleteOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"
-        location="component://order/minilang/order/OrderSimpleMethods.xml" invoke="deleteOrderAdjustment">
+    <service name="deleteOrderAdjustment" default-entity-name="OrderAdjustment" engine="entity-auto" invoke="delete">
         <description>Delete an order adjustment record</description>
+        <permission-service service-name="orderAdjustmentPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false">  <!-- needed for resetGrandTotal seca -->
             <type-validate>

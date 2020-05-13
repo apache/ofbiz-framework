@@ -464,7 +464,11 @@ under the License.
         <condition field-name="paymentId" operator="is-not-empty"/>
         <action service="createOrderPaymentApplication" mode="sync"/>
     </eca>
-
+    <eca service="deleteOrderAdjustment" event="commit">
+        <condition field-name="productPromoCodeId" operator="is-not-empty"/>
+        <condition field-name="orderId" operator="is-not-empty"/>
+        <action service="deleteOrderProductPromoCode" mode="sync"/>
+    </eca>
     <!-- Group Buying -->
     <eca service="storeOrder" event="commit">
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
