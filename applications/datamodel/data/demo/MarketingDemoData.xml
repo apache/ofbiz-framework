@@ -37,6 +37,20 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="SFA_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="SFA_ADMIN"/>
 
+    <SecurityGroup groupId="MARKETINGADMIN" description="Marketing Admin, has all permissions in the Marketing plugin" groupName="Marketing Admin"/>
+    <SecurityGroupPermission groupId="MARKETINGADMIN" permissionId="MARKETING_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MARKETINGADMIN" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0" />
+
+    <SecurityGroup groupId="MARKETINGVIEW" description="Marketing View, has view permissions in the Marketing plugin" groupName="Marketing Admin"/>
+    <SecurityGroupPermission groupId="MARKETINGVIEW" permissionId="MARKETING_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MARKETINGVIEW" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0" />
+
+    <!-- UserLoginSecurityGroup groupId="MARKETING_ADMIN" -->
+    <UserLoginSecurityGroup groupId="MARKETINGADMIN" userLoginId="employee17" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- UserLoginSecurityGroup groupId="MARKETING_VIEW" -->
+    <UserLoginSecurityGroup groupId="MARKETINGVIEW" userLoginId="employee18" fromDate="2000-01-01 00:00:00.0"/>
+
     <!-- SFA System Property Data -->
     <SystemProperty systemResourceId="sfa" systemPropertyId="save.outgoing.directory" description="If the save.outgoing.directory is specified the file will be saved there, else it will be saved under OFBIZ_HOME"/>
 
