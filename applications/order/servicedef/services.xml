@@ -1567,8 +1567,8 @@ under the License.
         </attribute>
     </service>
     
-    <service name="MoveItemBetweenShipGroups" engine="simple" 
-        location="component://order/minilang/order/OrderServices.xml" invoke="MoveItemBetweenShipGroups">
+    <service name="moveItemBetweenShipGroups" engine="simple"
+        location="component://order/minilang/order/OrderServices.xml" invoke="moveItemBetweenShipGroups">
         <description>Move order items between ship groups</description>
         <attribute name="orderId" type="String" mode="IN"/>
         <attribute name="orderItemSeqId" type="String" mode="IN"/>

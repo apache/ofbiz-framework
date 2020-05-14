@@ -68,7 +68,7 @@ under the License.
         <get-related list="acctgTransEntryList" relation-name="AcctgTransEntry" value-field="acctgTrans"/>
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
 
-        <call-simple-method method-name="UtilCheckEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
+        <call-simple-method method-name="checkEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
 
         <iterate list="acctgTransEntryList" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
@@ -144,7 +144,7 @@ under the License.
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
 
-        <call-simple-method method-name="UtilCheckEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
+        <call-simple-method method-name="checkEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
 
         <set field="acctgTransEntryFilter.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
         <set field="acctgTransEntryFilter.glAccountId" value="120000"/>
@@ -168,7 +168,7 @@ under the License.
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
 
-        <call-simple-method method-name="UtilCheckEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
+        <call-simple-method method-name="checkEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
 
         <set field="acctgTransEntryFilter.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
         <set field="acctgTransEntryFilter.glAccountId" value="120000"/>
@@ -226,7 +226,7 @@ under the License.
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
 
-        <call-simple-method method-name="UtilCheckEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
+        <call-simple-method method-name="checkEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
 
         <iterate list="acctgTransEntryList" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">

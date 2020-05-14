@@ -67,7 +67,7 @@ under the License.
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
 
-        <call-simple-method method-name="UtilCheckEntriesBalance"/>
+        <call-simple-method method-name="checkEntriesBalance"/>
 
         <iterate list="acctgTransEntryList" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
@@ -133,7 +133,7 @@ under the License.
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
 
-        <call-simple-method method-name="UtilCheckEntriesBalance"/>
+        <call-simple-method method-name="checkEntriesBalance"/>
 
         <iterate list="acctgTransEntryList" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
@@ -177,7 +177,7 @@ under the License.
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
 
-        <call-simple-method method-name="UtilCheckEntriesBalance"/>
+        <call-simple-method method-name="checkEntriesBalance"/>
 
         <iterate list="acctgTransEntryList" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
@@ -198,7 +198,7 @@ under the License.
     </simple-method>
 
 
-    <simple-method method-name="UtilCheckEntriesBalance" login-required="false"
+    <simple-method method-name="checkEntriesBalance" login-required="false"
             short-description="Short util method that takes a list of AcctgTransEntry values (acctgTransEntryList) and checks that the debit and credit totals balance.">
         <set field="debitTotal" type="BigDecimal" value="0.0"/>
         <set field="creditTotal" type="BigDecimal" value="0.0"/>
