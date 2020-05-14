@@ -829,12 +829,15 @@ under the License.
     <!-- Party partyId="DemoCustomer" -->
     <Party partyId="DemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustomer" lastName="Customer" firstName="Demo"/>
-    <UserLogin partyId="DemoCustomer" userLoginId="DemoCustomer"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyStatus partyId="DemoCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="DemoCustomer" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <UserLogin userLoginId="DemoCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     
     <PartyContactMech partyId="DemoCustomer" contactMechId="CUSTOMER_ADDRESS" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="CUSTOMER_ADDRESS" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
@@ -888,9 +891,24 @@ under the License.
 
     <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustomer" roleTypeIdFrom="ACCOUNT" roleTypeIdTo="CONTACT" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00.000"/>
 
+    <!-- Party partyId="DemoCustomer3" billing for demo project 1 and project 2 -->
+    <Party partyId="DemoCustomer3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoCustomer3" lastName="Customer" firstName="Demo" middleName="3"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="CONTACT"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="CLIENT_BILLING"/>
+    <PartyStatus partyId="DemoCustomer3" statusId="PARTY_ENABLED" statusDate="2000-01-01 00:00:00.0"/>
+    <PartyContactMech partyId="DemoCustomer3" contactMechId="CUSTOMER_ADDRESS" fromDate="2000-01-01 00:00:00.0" roleTypeId="CUSTOMER"/>
+    <PartyContactMech partyId="DemoCustomer3" contactMechId="CUSTOMER_PHONE" fromDate="2000-01-01 00:00:00.0" roleTypeId="CUSTOMER"/>
+    <PartyContactMech partyId="DemoCustomer3" contactMechId="CUSTOMER_EMAIL" fromDate="2000-01-01 00:00:00.0" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="PROJECT_TEAM"/>
+    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyStatus partyId="DemoCustomer3" statusId="PARTY_ENABLED" statusDate="2000-01-01 00:00:00.0"/>
+    <UserLogin userLoginId="DemoCustomer3"  partyId="DemoCustomer3"/>
+
     <!-- Party partyId="DemoCustAgent" -->
     <Party partyId="DemoCustAgent" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="DemoCustAgent" lastName="CustomerAgent" firstName="Demo" />
+    <Person partyId="DemoCustAgent" lastName="CustomerAgent" firstName="Demo" middleName="1"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
     <UserLogin partyId="DemoCustAgent" userLoginId="DemoCustAgent"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER"/>
