@@ -77,6 +77,12 @@ under the License.
     <UserLoginSecurityGroup groupId="PRODRUNVIEW" userLoginId="employee15" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginSecurityGroup groupId="PRODRUNVIEW" userLoginId="employee16" fromDate="2000-01-01 00:00:00.0"/>
 
+    <!-- UserLoginSecurityGroup groupId="SUPPLYADMIN" -->
+    <UserLoginSecurityGroup groupId="SUPPLYADMIN" userLoginId="employee25" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PRODRUNVIEW" userLoginId="employee26" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PRODRUNVIEW" userLoginId="employee27" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PRODRUNVIEW" userLoginId="employee28" fromDate="2000-01-01 00:00:00.0"/>
+
     <!-- Manufacturing Example Demo Data -->
     <!-- Task Formulae -->
     <CustomMethod customMethodId="6000" customMethodTypeId="TASK_FORMULA" customMethodName="exampleTaskFormula" description="Example task formula (qty * estimatedMilliSeconds * 10)"/>
