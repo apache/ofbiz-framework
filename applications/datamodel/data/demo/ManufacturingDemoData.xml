@@ -20,13 +20,62 @@ under the License.
 
 <entity-engine-xml>
     <!-- Manufacturing Manager security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="MANUFACTURING_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MANUFACTURING_CREATE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MANUFACTURING_DELETE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MANUFACTURING_UPDATE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MANUFACTURING_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="MANUFACTURING_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="MANUFACTURING_ADMIN"/>
+    <SecurityGroup groupId="MANUFADMIN" description="Manufacturing Admin group, has all permissions to execute manufacturing tasks." groupName="Manufacturing Admin"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="CATALOG_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="MANUFACTURING_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="MANUFACTURING_DELETE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="MANUFACTURING_UPDATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="MANUFACTURING_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="WORKEFFORTMGR_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="WORKEFFORTMGR_UPDATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="WORKEFFORTMGR_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCTG_ATX_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCTG_ATX_UPDATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCTG_PREF_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCOUNTING_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCOUNTING_UPDATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="FACILITY_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0" />
+
+    <SecurityGroup groupId="PRODRUNMGR" description="Production Run Manager, has permissions to execute requirement based manufacturing tasks." groupName="Production Run Manager"/>
+    <SecurityGroupPermission groupId="PRODRUNMGR" permissionId="CATALOG_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="PRODRUNMGR" permissionId="MANUFACTURING_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="PRODRUNMGR" permissionId="WORKEFFORTMGR_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="PRODRUNMGR" permissionId="WORKEFFORTMGR_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="PRODRUNMGR" permissionId="WORKEFFORTMGR_UPDATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="PRODRUNMGR" permissionId="ACCOUNTING_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="PRODRUNMGR" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0" />
+
+    <SecurityGroup groupId="PRODRUNVIEW" description="Production Run Viewer, has permissions to execute requirement based manufacturing tasks." groupName="Production Run Viewer"/>
+    <SecurityGroupPermission groupId="PRODRUNVIEW" permissionId="MANUFACTURING_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="PRODRUNVIEW" permissionId="WORKEFFORTMGR_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="PRODRUNVIEW" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0" />
+
+    <SecurityGroup groupId="SUPPLYADMIN" description="Supply Chain Admin group, has permissions to execute requirement based manufacturing tasks." groupName="Supply Admin"/>
+    <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="MANUFACTURING_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_UPDATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="ACCOUNTING_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0" />
+
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="MANUFACTURING_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUFACTURING_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUFACTURING_DELETE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUFACTURING_UPDATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUFACTURING_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="MANUFACTURING_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="MANUFACTURING_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
+
+    <!-- UserLoginSecurityGroup groupId="MANUFADMIN" -->
+    <UserLoginSecurityGroup groupId="MANUFADMIN" userLoginId="employee13" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- UserLoginSecurityGroup groupId="PRODRUNMGR" -->
+    <UserLoginSecurityGroup groupId="PRODRUNMGR" userLoginId="employee13" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- UserLoginSecurityGroup groupId="PRODRUNVIEW" -->
+    <UserLoginSecurityGroup groupId="PRODRUNVIEW" userLoginId="employee14" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PRODRUNVIEW" userLoginId="employee15" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PRODRUNVIEW" userLoginId="employee16" fromDate="2000-01-01 00:00:00.0"/>
 
     <!-- Manufacturing Example Demo Data -->
     <!-- Task Formulae -->
