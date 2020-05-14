@@ -492,7 +492,7 @@ under the License.
 
     <!-- Party partyId="employee34" -->
     <Party partyId="employee34" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="employee34" lastName="WarehousingMgr" firstName="DemoEmployee" middleName="24"/>
+    <Person partyId="employee34" lastName="WarehousingMgr" firstName="DemoEmployee" middleName="34"/>
     <PartyRole partyId="employee34" roleTypeId="EMPLOYEE"/>
     <PartyRole partyId="employee34" roleTypeId="MANAGER"/>
     <PartyRole partyId="employee34" roleTypeId="_NA_"/>

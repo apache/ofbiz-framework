@@ -1272,15 +1272,34 @@ under the License.
 
 
     <!-- Facility Security Group Demo Data -->
+    <SecurityGroup groupId="WHMANAGERS" description="WH Managers group, has all facility permissions."/>
+    <SecurityGroup groupId="WHWORKERS" description="WH Workers group, has create and update permissions."/>
+    
     <!-- Facility Manager security -->
-    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="FULLADMIN" permissionId="FACILITY_ADMIN"/>
-    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="FLEXADMIN" permissionId="FACILITY_CREATE"/>
-    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="FLEXADMIN" permissionId="FACILITY_DELETE"/>
-    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="FLEXADMIN" permissionId="FACILITY_UPDATE"/>
-    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="FLEXADMIN" permissionId="FACILITY_VIEW"/>
-    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="VIEWADMIN" permissionId="FACILITY_VIEW"/>
-    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="BIZADMIN" permissionId="FACILITY_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="FACILITY_ADMIN" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_CREATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_DELETE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_UPDATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_VIEW" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="FACILITY_VIEW" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="FACILITY_ADMIN" fromDate="2000-01-01 00:00:00.0"/>
 
+    <SecurityGroupPermission groupId="WHMANAGERS" permissionId="FACILITY_ADMIN" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHMANAGERS" permissionId="OFBTOOLS_VIEW" fromDate="2000-01-01 00:00:00.0"/>
+
+    <SecurityGroupPermission groupId="WHWORKERS" permissionId="FACILITY_CREATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHWORKERS" permissionId="FACILITY_UPDATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHWORKERS" permissionId="FACILITY_VIEW" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHWORKERS" permissionId="OFBTOOLS_VIEW" fromDate="2000-01-01 00:00:00.0"/>
+
+    <UserLoginSecurityGroup groupId="WHMANAGERS" userLoginId="employee32" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="WHWORKERS" userLoginId="employee33" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="WHWORKERS" userLoginId="employee34" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="WHWORKERS" userLoginId="employee36" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="WHWORKERS" userLoginId="employee37" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="WHWORKERS" userLoginId="employee38" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="WHWORKERS" userLoginId="employee39" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="WHWORKERS" userLoginId="employee40" fromDate="2000-01-01 00:00:00.0"/>
     <!-- ProductStores -->
     <ProductStore productStoreId="9000" storeName="OFBiz E-Commerce Store" companyName="Open For Business" title="Open For Commerce"
                   subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
