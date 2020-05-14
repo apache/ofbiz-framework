@@ -53,6 +53,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
+import org.apache.ofbiz.widget.model.ScriptTemplateUtil;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 
@@ -172,6 +173,30 @@ public class CommonEvents {
                     Debug.logWarning(e, MODULE);
                 }
             }
+        }
+        return "success";
+    }
+
+    public static String jsResponseFromRequest(HttpServletRequest request, HttpServletResponse response) {
+
+        String fileName = request.getParameter("name");
+        String script = ScriptTemplateUtil.getScriptFromSession(request.getSession(), fileName);
+
+        // return the JS String
+        Writer out;
+        try {
+
+            // set the JS content type
+            response.setContentType("application/javascript");
+            // script.length is not reliable for unicode characters
+            response.setContentLength(script.getBytes("UTF8").length);
+
+            out = response.getWriter();
+            out.write(script);
+            out.flush();
+        } catch (IOException e) {
+            Debug.logError(e, MODULE);
+            return "error";
         }
         return "success";
     }

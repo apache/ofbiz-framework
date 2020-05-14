@@ -21,39 +21,12 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ========= AcctgTrans methods ========= -->
-    <simple-method method-name="createAcctgTrans" short-description="Create an AcctgTrans">
-        <make-value entity-name="AcctgTrans" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set field="newEntity.isPosted" value="N"/>
-
-        <!-- AcctgTrans uses a sequenced id, so get the next one now and set it... -->
-        <sequenced-id sequence-name="AcctgTrans" field="newEntity.acctgTransId"/>
-        <field-to-result field="newEntity.acctgTransId" result-name="acctgTransId"/>
-
-        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
-        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateAcctgTrans" short-description="Update an AcctgTrans">
+    <simple-method method-name="checkAcctgTransPosted" short-description="Check an AcctgTrans">
         <entity-one entity-name="AcctgTrans" value-field="lookedUpValue"/>
         <if-compare field="lookedUpValue.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>
         </if-compare>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-
-        <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
-
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteAcctgTrans" short-description="Delete an AcctgTrans">
-        <entity-one entity-name="AcctgTrans" value-field="lookedUpValue"/>
-        <if-compare field="lookedUpValue.isPosted" operator="equals" value="Y">
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
-            <check-errors/>
-        </if-compare>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="updateAcctgTransLastModified" short-description="Update AcctgTrans LastModified Info">
         <!-- this is just a little method that is meant to be called as an inline call-simple-method target with the context already setup -->

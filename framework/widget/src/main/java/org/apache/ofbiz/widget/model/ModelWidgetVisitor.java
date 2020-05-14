@@ -32,6 +32,8 @@ public interface ModelWidgetVisitor {
 
     void visit(HtmlWidget.HtmlTemplateDecoratorSection htmlTemplateDecoratorSection) throws Exception;
 
+    void visit(HtmlWidget.ScriptTemplate scriptTemplate) throws Exception;
+
     void visit(IterateSectionWidget iterateSectionWidget) throws Exception;
 
     void visit(ModelSingleForm modelForm) throws Exception;

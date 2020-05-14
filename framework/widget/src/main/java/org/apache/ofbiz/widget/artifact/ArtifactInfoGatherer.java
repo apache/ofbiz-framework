@@ -38,6 +38,7 @@ import org.apache.ofbiz.widget.model.HtmlWidget;
 import org.apache.ofbiz.widget.model.HtmlWidget.HtmlTemplate;
 import org.apache.ofbiz.widget.model.HtmlWidget.HtmlTemplateDecorator;
 import org.apache.ofbiz.widget.model.HtmlWidget.HtmlTemplateDecoratorSection;
+import org.apache.ofbiz.widget.model.HtmlWidget.ScriptTemplate;
 import org.apache.ofbiz.widget.model.IterateSectionWidget;
 import org.apache.ofbiz.widget.model.ModelAction;
 import org.apache.ofbiz.widget.model.ModelActionVisitor;
@@ -353,6 +354,10 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
     @Override
     public void visit(Script script) throws Exception {
+    }
+
+    @Override
+    public void visit(ScriptTemplate scriptTemplate) throws Exception {
     }
 
     @Override

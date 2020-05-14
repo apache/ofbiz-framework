@@ -463,14 +463,14 @@ under the License.
         <attribute name="workEffortIterator" type="java.util.ListIterator" mode="IN" optional="true"/>
         <attribute name="workEfforts" type="java.util.List" mode="INOUT" optional="true"/>
     </service>
-    <service name="checkAndCreateWorkEffort" auth="true" engine="java" default-entity-name="Shipment"
-             location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="checkAndCreateWorkEffort">
+    <service name="checkAndCreateWorkEffort" auth="true" engine="groovy" default-entity-name="Shipment"
+             location="component://workeffort/groovyScripts/workeffort/workeffort/WorkEffortServices.groovy" invoke="checkAndCreateWorkEffort">
         <description>Check And Create WorkEffort after Shipment Create</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="checkAndUpdateWorkEffort" auth="true" engine="java" default-entity-name="Shipment"
-             location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="checkAndUpdateWorkEffort">
+    <service name="checkAndUpdateWorkEffort" auth="true" engine="groovy" default-entity-name="Shipment"
+             location="component://workeffort/groovyScripts/workeffort/workeffort/WorkEffortServices.groovy" invoke="checkAndUpdateWorkEffort">
         <description>Check And Update WorkEffort after Shipment Update</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

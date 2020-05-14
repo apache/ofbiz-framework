@@ -160,9 +160,9 @@ under the License.
     </service>
 
     <!-- CustomTimePeriod Services -->
-    <service name="createCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
-            location="component://common/minilang/period/PeriodServices.xml" invoke="createCustomTimePeriod" auth="true">
+    <service name="createCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="entity-auto" invoke="create" auth="true">
         <description>Create a CustomTimePeriod record</description>
+        <required-permissions join-type="AND"><check-permission permission="PERIOD_MAINT"/></required-permissions>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/><!-- FIXME: Framework dependency on Party component -->
@@ -170,15 +170,15 @@ under the License.
         <override name="thruDate" optional="false"/>
         <override name="periodTypeId" optional="false"/>
     </service>
-    <service name="updateCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
-            location="component://common/minilang/period/PeriodServices.xml" invoke="updateCustomTimePeriod" auth="true">
+    <service name="updateCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="entity-auto" invoke="update" auth="true">
         <description>Update a CustomTimePeriod record</description>
+        <required-permissions join-type="AND"><check-permission permission="PERIOD_MAINT"/></required-permissions>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
-            location="component://common/minilang/period/PeriodServices.xml" invoke="deleteCustomTimePeriod" auth="true">
+    <service name="deleteCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a CustomTimePeriod record</description>
+        <required-permissions join-type="AND"><check-permission permission="PERIOD_MAINT"/></required-permissions>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 

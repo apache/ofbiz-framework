@@ -24,6 +24,7 @@ import java.util.Map;
 import org.apache.ofbiz.widget.model.HtmlWidget.HtmlTemplate;
 import org.apache.ofbiz.widget.model.HtmlWidget.HtmlTemplateDecorator;
 import org.apache.ofbiz.widget.model.HtmlWidget.HtmlTemplateDecoratorSection;
+import org.apache.ofbiz.widget.model.HtmlWidget.ScriptTemplate;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Column;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.ColumnContainer;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Container;
@@ -402,6 +403,14 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
             }
         }
         writer.append("</node>");
+    }
+
+    @Override
+    public void visit(ScriptTemplate scriptTemplate) throws Exception {
+        writer.append("<script-template");
+        visitModelWidget(scriptTemplate);
+        visitAttribute("location", scriptTemplate.getLocationExdr());
+        writer.append("/>");
     }
 
     @Override

@@ -81,18 +81,17 @@ under the License.
         <description>Delete CustRequestAttribute record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-
-    <service name="createCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
-            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestItem" auth="true">
+    <!-- CustRequestItem services -->
+    <service name="createCustRequestItem" engine="entity-auto" default-entity-name="CustRequestItem" invoke="create" auth="true">
         <description>Create a CustRequestItem record</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="custRequestItemSeqId" optional="true"/>
         <override name="story" allow-html="safe"/>
         <override name="description" allow-html="safe"/>
+        <override name="status" default-value="CRQ_SUBMITTED"/>
     </service>
-    <service name="updateCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
-            location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestItem" auth="true">
+    <service name="updateCustRequestItem" engine="simple" default-entity-name="CustRequestItem" invoke="update" auth="true">
         <description>Update a CustRequestItem record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -108,6 +107,7 @@ under the License.
         <attribute name="custRequestItemSeqIdTo" type="String" mode="IN" optional="true"/>
         <attribute name="copyLinkedQuotes" type="String" mode="IN" optional="true"/>
     </service>
+    <!-- CustRequestParty services -->
     <service name="createCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="create" auth="true">
         <description>Create a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
