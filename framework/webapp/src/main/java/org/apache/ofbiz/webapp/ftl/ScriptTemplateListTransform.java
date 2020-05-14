@@ -33,7 +33,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 /**
- * Render the script tags collected from the <script-template/>
+ * Render the script tags collected from the "script-template" tag
  */
 public class ScriptTemplateListTransform implements TemplateTransformModel {
 

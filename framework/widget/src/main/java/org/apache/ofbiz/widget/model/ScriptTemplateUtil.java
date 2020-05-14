@@ -52,7 +52,7 @@ public class ScriptTemplateUtil {
     }
 
     /**
-     * get the script src links collected from the <script-template/> tags
+     * get the script src links collected from the "script-template" tags
      * @param request
      * @return
      */
