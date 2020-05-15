@@ -513,7 +513,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
         <field name="billingAccountId"><hidden/></field>
-        <field name="amountToApply"><text size="10" disabled="true"/></field>
+        <field name="amountToApply" disabled="true"><text size="10"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title=" " widget-style="buttontext" use-when="paymentApplicationId!=null">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceApplication">

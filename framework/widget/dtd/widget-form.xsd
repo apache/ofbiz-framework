@@ -840,6 +840,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="disabled" type="xs:boolean" default="false"/>
         </xs:complexType>
     </xs:element>
 
@@ -852,14 +853,6 @@ under the License.
                 <xs:element ref="option" />
             </xs:choice>
             <xs:attribute name="all-checked" type="xs:boolean"/>
-            <xs:attribute name="disabled" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="container" substitutionGroup="AllFields">
@@ -1435,7 +1428,6 @@ under the License.
             <xs:attribute type="xs:positiveInteger" name="size" default="25" />
             <xs:attribute type="xs:positiveInteger" name="maxlength" />
             <xs:attribute type="xs:string" name="default-value" />
-            <xs:attribute name="disabled" type="xs:boolean" default="false"/>
             <xs:attribute name="client-autocomplete-field"
                           type="xs:boolean" default="true">
                 <xs:annotation>
