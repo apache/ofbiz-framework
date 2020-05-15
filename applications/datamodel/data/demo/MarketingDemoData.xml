@@ -50,7 +50,13 @@ under the License.
 
     <!-- UserLoginSecurityGroup groupId="MARKETING_VIEW" -->
     <UserLoginSecurityGroup groupId="MARKETINGVIEW" userLoginId="employee18" fromDate="2000-01-01 00:00:00.0"/>
-
+    
+    <UserLoginSecurityGroup groupId="CRM_ADMIN" userLoginId="employee29" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CRM_AUTHORS" userLoginId="employee32" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CRM_AUTHORS" userLoginId="employee33" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CRM_VIEWERS" userLoginId="employee30" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CRM_VIEWERS" userLoginId="employee31" fromDate="2000-01-01 00:00:00.0"/>
+    
     <!-- SFA System Property Data -->
     <SystemProperty systemResourceId="sfa" systemPropertyId="save.outgoing.directory" description="If the save.outgoing.directory is specified the file will be saved there, else it will be saved under OFBIZ_HOME"/>
 
