@@ -368,7 +368,7 @@ under the License.
                                 <if-compare value="layer" operator="not-equals" field="parameters.presentation"/>
                         </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="component://common-theme/template/includes/Lookup.ftl" /></html></platform-specific>
+                                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/Lookup.ftl" /></html></platform-specific>
                             </widgets>
                         </section>
                         <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
@@ -658,7 +658,7 @@ under the License.
     <screen name="EventMessages">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -720,7 +720,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common-theme/template/ViewBlocked.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -732,7 +732,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://common-theme/template/includes/GeoLocation.ftl"/></html>
+                    <html><html-template multi-block="true" location="component://common-theme/template/includes/GeoLocation.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

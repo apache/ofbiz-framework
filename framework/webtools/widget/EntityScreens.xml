@@ -252,7 +252,7 @@ under the License.
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://webtools/template/entity/ViewGeneric.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://webtools/template/entity/ViewGeneric.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -429,7 +429,7 @@ under the License.
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
-                            <platform-specific><html><html-template location="component://webtools/template/entity/CheckDb.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template multi-block="true" location="component://webtools/template/entity/CheckDb.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
