@@ -99,6 +99,9 @@ under the License.
     <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="employee1" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="employee3" fromDate="2001-01-01 12:00:00.0"/>
 
+    <PartyRole partyId="employee1" roleTypeId="BUDGET_RVR"/>
+    <PartyRole partyId="employee1" roleTypeId="BUDGET_APPRV"/>
+
     <!-- For general ledger accounting transactions. Note that any component that needs to post
         accounting transactions should create a permission service SECA to grant
         task-specific permissions to post transactions. The following permissions
