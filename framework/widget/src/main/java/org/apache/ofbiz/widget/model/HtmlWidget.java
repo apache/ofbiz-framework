@@ -220,12 +220,19 @@ public class HtmlWidget extends ModelScreenWidget {
                 Document doc = Jsoup.parse(data);
 
                 // extract scripts
-                Elements scriptElements = doc.select("script").remove();
-                if (scriptElements != null) {
+                Elements scriptElements = doc.select("script");
+                if (scriptElements != null && scriptElements.size()>0) {
                     StringBuilder scripts = new StringBuilder();
 
                     for (org.jsoup.nodes.Element script : scriptElements) {
-                        scripts.append(script.data());
+                        String type = script.attr("type");
+                        String src = script.attr("src");
+                        if (UtilValidate.isEmpty(src)) {
+                            if (UtilValidate.isEmpty(type) || type.equals("application/javascript")) {
+                                scripts.append(script.data());
+                                script.remove();
+                            }
+                        }
                     }
 
                     // store script for retrieval by the browser
@@ -242,8 +249,12 @@ public class HtmlWidget extends ModelScreenWidget {
                             + fileName);
                 }
 
+                // check for external script
+                String externalScripts = doc.head().select("script").toString();
+                writer.append(externalScripts);
+
                 // the 'template' block
-                String body = doc.body().html();
+                String body = doc.body().toString();
                 writer.append(body);
             } else {
                 renderHtmlTemplate(writer, this.locationExdr, context);
