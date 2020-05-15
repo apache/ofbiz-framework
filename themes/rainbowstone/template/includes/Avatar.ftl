@@ -30,7 +30,7 @@ under the License.
         <#else>
             <img src="/rainbowstone/images/avatar.svg" alt="user">
         </#if>
-            <div id="user-name" <#if userLogin.partyId??>onclick="javascript:location.href='/partymgr/control/viewprofile?partyId=${userLogin.partyId}'"</#if>>
+            <div id="user-name">
                 <#if (person.firstName)?? && (person.lastName)??>
                     <span>${person.firstName}</span>
                     <span>${person.lastName?upper_case}</span>
