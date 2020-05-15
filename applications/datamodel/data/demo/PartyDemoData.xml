@@ -67,6 +67,12 @@ under the License.
     <ContactMech contactMechId="COMPANY_PHONE" contactMechTypeId="TELECOM_NUMBER"/>
     <TelecomNumber contactMechId="COMPANY_PHONE" areaCode="801" contactNumber="555-5555"/>
     
+    <ContactMech contactMechId="EMPLOYEE_POST" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="EMPLOYEE_POST" toName="Employee XYZ" address1="2003 Open Blvd" city="Open City" postalCode="999999" countryGeoId="USA" stateProvinceGeoId="CA" geoPointId="9000"/>
+    <ContactMech contactMechId="EMPLOYEE_EMAIL" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <ContactMech contactMechId="EMPLOYEE_PHONE" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="EMPLOYEE_PHONE" areaCode="801" contactNumber="555-5555"/>
+    
     <ContactMech contactMechId="SUPPLIER_ADDRESS_1" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="SUPPLIER_ADDRESS_1" toName="Demo Supplier Company" address1="2004 Factory Blvd" city="City of Industry" postalCode="90000" countryGeoId="USA" stateProvinceGeoId="CA"/>
     <ContactMech contactMechId="SUPPLIER_ADDRESS_2" contactMechTypeId="POSTAL_ADDRESS"/>
@@ -212,8 +218,6 @@ under the License.
     <PartyRole partyId="employee1" roleTypeId="_NA_"/>
     <PartyRole partyId="employee1" roleTypeId="EMPLOYEE"/>
     <PartyRole partyId="employee1" roleTypeId="MANAGER"/>
-    <PartyRole partyId="employee1" roleTypeId="BUDGET_RVR"/>
-    <PartyRole partyId="employee1" roleTypeId="BUDGET_APPRV"/>
     <PartyStatus partyId="employee1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee1" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="employee1"/>
 
@@ -294,23 +298,20 @@ under the License.
     <UserLogin userLoginId="employee10" partyId="employee10" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- re Party partyId="employee11". -->
-    <!-- The party is an analist of another project, can register time, accept and assign tasks withn his associated project(s)-->
     <Party partyId="employee11" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="employee11" lastName="Tester" firstName="DemoEmployee" middleName="11"/>
+    <Person partyId="employee11" lastName="Support" firstName="DemoEmployee" middleName="11"/>
     <PartyRole partyId="employee11" roleTypeId="EMPLOYEE"/>
     <PartyStatus partyId="employee11" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyContactMech partyId="employee11" contactMechId="CUSTOMER_PHONE" fromDate="2001-01-01 12:00:00.0" roleTypeId="EMPLOYEE"/>
-    <PartyContactMech partyId="employee11" contactMechId="SUPPLIER_ADDRESS_1" fromDate="2001-01-01 12:00:00.0" roleTypeId="EMPLOYEE"/>
-    <PartyContactMech partyId="employee11" contactMechId="employeeEMAIL" fromDate="2001-01-01 12:00:00.0" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="employee11" contactMechId="EMPLOYEE_PHONE" fromDate="2001-01-01 12:00:00.0" roleTypeId="EMPLOYEE"/>
     <UserLogin userLoginId="employee11" partyId="employee11" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee12" -->
     <Party partyId="employee12" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="employee12" lastName="Tester" firstName="DemoEmployee" middleName="12" />
+    <Person partyId="employee12" lastName="SysAdmin" firstName="DemoEmployee" middleName="12" />
     <PartyRole partyId="employee12" roleTypeId="ACCOUNTANT"/>
     <PartyRole partyId="employee12" roleTypeId="EMPLOYEE"/>
     <PartyRole partyId="employee12" roleTypeId="_NA_"/>
-    <PartyStatus partyId="accountant_group" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="employee12" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee12" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="employee12"/>
 
     <PartyRelationship partyIdFrom="Company" partyIdTo="employee12" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2001-01-01 12:00:00.0"/>
@@ -855,6 +856,7 @@ under the License.
 
     <!-- Party partyId="DemoCustomer2 -->
     <Party partyId="DemoCustomer2"/>
+    <Person partyId="DemoCustomer2" lastName="Customer (Consumer)" firstName="Demo" middleName="2"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="ACCOUNT"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="BILL_TO_CUSTOMER"/>
@@ -1000,7 +1002,7 @@ under the License.
 
     <!-- Party partyId="AcctBuyer" -->
     <Party partyId="AcctBuyer" partyTypeId="PERSON"/>
-    <Person partyId="AcctBuyer" firstName="Acct" lastName="Buyer"/>
+    <Person partyId="AcctBuyer" firstName="Demo" lastName="AcctBuyer"/>
     <PartyRole partyId="AcctBuyer" roleTypeId="BUYER"/>
     <UserLogin partyId="AcctBuyer" userLoginId="AcctBuyer"/>
 
@@ -1054,5 +1056,28 @@ under the License.
     <PartyContactMechPurpose partyId="EuroSupplier" contactMechId="SUPPLIER_ADDRESS_2" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="EuroSupplier" contactMechId="SUPPLIER_ADDRESS_2" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <UserLogin userLoginId="EuroSupplier" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="EuroSupplier"/>
-    
+
+    <Party partyId="supplier1" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="supplier1" groupName="The Demo Audit Company"/>
+    <PartyRole partyId="supplier1" roleTypeId="SUPPLIER"/>
+
+    <Party partyId="suppContact1" partyTypeId="PERSON"/>
+    <Person partyId="suppContact1" lastName="SupplierContact" firstName="Demo" middleName="1"/>
+    <PartyRole partyId="suppContact1" roleTypeId="SUPPLIER_CONTACT"/>
+    <PartyRole partyId="suppContact1" roleTypeId="ACCOUNTANT"/>
+    <PartyStatus partyId="suppContact1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="supplier1" roleTypeIdFrom="SUPPLIER" partyIdTo="suppContact1" roleTypeIdTo="SUPPLIER_CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <UserLogin userLoginId="suppContact1" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="suppContact1"/>
+
+    <Party partyId="supplier2" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="supplier2" groupName="The SubContractor Supplier"/>
+    <PartyRole partyId="supplier2" roleTypeId="SUPPLIER"/>
+
+    <Party partyId="suppContact2" partyTypeId="PERSON"/>
+    <Person partyId="suppContact2" lastName="SubContractor" firstName="Demo" middleName="2"/>
+    <PartyRole partyId="suppContact2" roleTypeId="SUPPLIER_CONTACT"/>
+    <PartyRole partyId="suppContact2" roleTypeId="SUBCONTRACTOR"/>
+    <PartyStatus partyId="suppContact2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="suppContact2" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="suppContact2"/>
+
 </entity-engine-xml>
