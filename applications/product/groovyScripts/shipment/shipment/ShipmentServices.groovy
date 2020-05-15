@@ -61,7 +61,7 @@ def updateShipment() {
     }
     // now finally check for errors
     if (errorList) {
-        return error(errorList)
+        return error(errorList.toString())
     }
     Map serviceResult = run service: "checkAndUpdateWorkEffort", with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)

@@ -26,6 +26,7 @@ def checkAndCreateWorkEffort() {
      * estimatedShipDate: estimatedShipWorkEffId
      * estimatedArrivalDate: estimatedArrivalWorkEffId
      */
+    GenericValue lookedUpValue = from("Shipment").where(parameters).queryOne()
     if (parameters.estimatedShipDate) {
         Map shipWorkEffortMap = [workEffortName: "Shipment #${parameters.shipmentId} ${parameters.primaryOrderId} Ship",
                                  currentStatusId: "CAL_TENTATIVE",
@@ -39,9 +40,9 @@ def checkAndCreateWorkEffort() {
         }
         Map serviceResult = run service: "createWorkEffort", with: shipWorkEffortMap
         if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
-        parameters.estimatedShipWorkEffId = serviceResult.workEffortId
+        lookedUpValue.estimatedShipWorkEffId = serviceResult.workEffortId
         if (parameters.partyIdFrom) {
-            serviceResult = run service: "assignPartyToWorkEffort", with: [workEffortId: parameters.estimatedShipWorkEffId,
+            serviceResult = run service: "assignPartyToWorkEffort", with: [workEffortId: lookedUpValue.estimatedShipWorkEffId,
                                                            partyId: parameters.partyIdFrom,
                                                            roleTypeId: "CAL_ATTENDEE",
                                                            statusId: "CAL_SENT"]
@@ -61,15 +62,16 @@ def checkAndCreateWorkEffort() {
         }
         Map serviceResult = run service: "createWorkEffort", with: arrivalWorkEffortMap
         if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
-        parameters.estimatedArrivalWorkEffId = serviceResultAD.workEffortId
+        lookedUpValue.estimatedArrivalWorkEffId = serviceResultAD.workEffortId
         if (parameters.partyIdTo) {
-            serviceResult = run service: "assignPartyToWorkEffort", with: [workEffortId: parameters.estimatedArrivalWorkEffId,
+            serviceResult = run service: "assignPartyToWorkEffort", with: [workEffortId: lookedUpValue.estimatedArrivalWorkEffId,
                                                            partyId: parameters.partyIdTo,
                                                            roleTypeId: "CAL_ATTENDEE",
                                                            statusId: "CAL_SENT"]
             if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
         }
     }
+    lookedUpValue.store()
     return result
 }
 def checkAndUpdateWorkEffort() {
