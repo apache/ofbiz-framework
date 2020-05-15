@@ -18,7 +18,6 @@ under the License.
 -->
 
 <script type="application/javascript">
-<!-- //
     function viewOrder(form) {
         if (form.taskStatus.value == "WF_NOT_STARTED") {
             if (form.delegate.checked) {
@@ -35,7 +34,6 @@ under the License.
         }
         form.submit();
     }
-// -->
 </script>
 
 <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>

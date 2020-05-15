@@ -61,7 +61,7 @@ under the License.
                         <container>
                             <label style="h1" text="${uiLabelMap.OrderQuickFinalizeOrder}"/>
                         </container>
-                        <platform-specific><html><html-template location="component://order/template/entry/CheckoutOptions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/CheckoutOptions.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -96,7 +96,7 @@ under the License.
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/ShipSettings.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://order/template/entry/ShipSettings.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -122,7 +122,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/template/entry/EditShipAddress.ftl"/></html>
                         </platform-specific>
@@ -188,9 +188,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
-                      <platform-specific><html><html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                      <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
                       <platform-specific>
-                            <html><html-template location="component://order/template/entry/BillSettings.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://order/template/entry/BillSettings.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                   </decorator-screen>
@@ -217,7 +217,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/template/entry/SetAdditionalParty.ftl"/></html>
                         </platform-specific>
@@ -306,7 +306,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/CheckoutPayment.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/CheckoutPayment.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -367,7 +367,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/SplitShip.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/SplitShip.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

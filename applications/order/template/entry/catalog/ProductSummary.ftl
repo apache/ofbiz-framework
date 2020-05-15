@@ -18,7 +18,6 @@ under the License.
 -->
 ${virtualJavaScript!}
 <script type="application/javascript">
-<!--
     function displayProductVirtualId(variantId, virtualProductId, pForm) {
         if(variantId){
             pForm.product_id.value = variantId;
@@ -49,7 +48,6 @@ ${virtualJavaScript!}
             priceElem.appendChild(priceTxt);
         }
     }
-//-->
 </script>
 <#if product??>
     <#-- variable setup -->
