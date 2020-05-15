@@ -18,11 +18,9 @@ under the License.
 -->
 
 <script type="application/javascript">
-<!-- //
 function lookupInventory() {
     document.lookupinventory.submit();
 }
-// -->
 </script>
 <div class="screenlet">
   <div class="screenlet-title-bar">
@@ -94,9 +92,7 @@ function lookupInventory() {
 
 <#if requestParameters.hideFields?default("N") != "Y">
 <script type="application/javascript">
-<!--//
 document.lookupinventory.productId.focus();
-//-->
 </script>
 </#if>
 <#if "Y" == requestParameters.lookupFlag?default("N")>

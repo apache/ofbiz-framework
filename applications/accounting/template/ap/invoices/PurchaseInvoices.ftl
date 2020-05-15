@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script type="application/javascript">
-<!--
 function toggleInvoiceId(master) {
     var invoices = jQuery("#listPurchaseInvoices :checkbox[name='invoiceIds']");
 
@@ -119,8 +118,6 @@ function setServiceName(selection) {
 function runAction() {
     jQuery('#listPurchaseInvoices').submit();
 }
-
--->
 </script>
 
 <#if invoices?has_content >

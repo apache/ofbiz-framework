@@ -127,7 +127,7 @@ under the License.
                                     </decorator-section>
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/template/ap/invoices/PurchaseInvoices.ftl"/></html>
+                                            <html><html-template multi-block="true" location="component://accounting/template/ap/invoices/PurchaseInvoices.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>
@@ -182,7 +182,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
@@ -191,7 +191,7 @@ under the License.
                                     </decorator-section>
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/template/ap/invoices/CommissionRun.ftl"/></html>
+                                            <html><html-template multi-block="true" location="component://accounting/template/ap/invoices/CommissionRun.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>

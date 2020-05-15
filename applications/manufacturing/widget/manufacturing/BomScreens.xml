@@ -59,7 +59,7 @@ under the License.
                 <decorator-screen name="CommonBomDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://manufacturing/template/bom/EditProductBom.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://manufacturing/template/bom/EditProductBom.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
