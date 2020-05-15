@@ -380,7 +380,7 @@ under the License.
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/shipment/QuickShipOrder.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://product/template/shipment/QuickShipOrder.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -400,7 +400,7 @@ under the License.
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/shipment/VerifyPick.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://product/template/shipment/VerifyPick.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -419,7 +419,7 @@ under the License.
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/shipment/PackOrder.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://product/template/shipment/PackOrder.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -568,7 +568,7 @@ under the License.
                 <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/shipment/ReceiveInventoryAgainstPurchaseOrder.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://product/template/shipment/ReceiveInventoryAgainstPurchaseOrder.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

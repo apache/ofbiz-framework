@@ -274,7 +274,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet id="ProductKeywordsPanel" title="${uiLabelMap.ProductSearchProducts}" collapsible="true">
-                    <platform-specific><html><html-template location="component://product/template/find/KeywordSearchBox.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template multi-block="true" location="component://product/template/find/KeywordSearchBox.ftl"/></html></platform-specific>
                 </screenlet>
             </widgets>
         </section>
@@ -343,7 +343,7 @@ under the License.
             <widgets>
                 <screenlet id="ProductBrowseCategoriesPanel" title="${uiLabelMap.ProductBrowseCatalogeAndCategories}" collapsible="true">
                     <container id="EditDocumentTree"/>
-                    <platform-specific><html><html-template location="component://product/template/category/CategoryTree.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template multi-block="true" location="component://product/template/category/CategoryTree.ftl"/></html></platform-specific>
                 </screenlet>
             </widgets>
         </section>
@@ -360,7 +360,7 @@ under the License.
             <widgets>
                 <screenlet id="ProductStoreGroupPanel" title="${uiLabelMap.ProductParentProductStoreGroups}" collapsible="true">
                     <container id="EditDocumentTree"/>
-                    <platform-specific><html><html-template location="component://product/template/store/ProductStoreGroupTree.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template multi-block="true" location="component://product/template/store/ProductStoreGroupTree.ftl"/></html></platform-specific>
                 </screenlet>
             </widgets>
         </section>
