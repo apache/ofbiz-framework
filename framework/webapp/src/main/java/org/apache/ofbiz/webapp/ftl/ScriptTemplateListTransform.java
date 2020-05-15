@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.widget.model.ScriptTemplateUtil;
@@ -53,7 +52,7 @@ public class ScriptTemplateListTransform implements TemplateTransformModel {
                     if (req != null) {
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
                         Set<String> scriptSrcSet = ScriptTemplateUtil.getScriptSrcLinksFromRequest(request);
-                        if (scriptSrcSet!=null) {
+                        if (scriptSrcSet != null) {
                             String srcList = "";
                             for (String scriptSrc : scriptSrcSet) {
                                 srcList += ("<script src=\"" + scriptSrc + "\" type=\"application/javascript\"></script>\n");
@@ -73,7 +72,7 @@ public class ScriptTemplateListTransform implements TemplateTransformModel {
             }
 
             @Override
-            public void write(char cbuf[], int off, int len) {
+            public void write(char[] cbuf, int off, int len) {
             }
         };
 

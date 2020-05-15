@@ -40,6 +40,9 @@ import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
 import freemarker.ext.beans.BeansWrapper;
@@ -121,8 +124,6 @@ public class HtmlWidget extends ModelScreenWidget {
                     subWidgets.add(new HtmlTemplate(modelScreen, childElement));
                 } else if ("html-template-decorator".equals(childElement.getNodeName())) {
                     subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
-                } else if ("script-template".equals(childElement.getNodeName())) {
-                    subWidgets.add(new ScriptTemplate(modelScreen, childElement));
                 } else {
                     throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: "
                             + childElement.getNodeName());
@@ -178,36 +179,6 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    public static void renderScriptTemplate(Appendable writer, FlexibleStringExpander locationExdr, Map<String, Object> context) {
-        String location = locationExdr.expandString(context);
-
-        if (UtilValidate.isEmpty(location)) {
-            throw new IllegalArgumentException("Template location is empty with search string location " + locationExdr.getOriginal());
-        }
-
-        if (location.endsWith(".ftl")) {
-            try {
-                boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(context);
-                if (insertWidgetBoundaryComments) {
-                    writer.append(HtmlWidgetRenderer.formatBoundaryJsComment("Begin", "Template", location));
-                }
-
-                Template template = FreeMarkerWorker.getTemplate(location, specialTemplateCache, specialConfig);
-                FreeMarkerWorker.renderTemplate(template, context, writer);
-
-                if (insertWidgetBoundaryComments) {
-                    writer.append(HtmlWidgetRenderer.formatBoundaryJsComment("End", "Template", location));
-                }
-            } catch (IllegalArgumentException | TemplateException | IOException e) {
-                String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, MODULE);
-                writeError(writer, errMsg);
-            }
-        } else {
-            throw new IllegalArgumentException("Rendering not yet supported for the template at location: " + location);
-        }
-    }
-
     // TODO: We can make this more fancy, but for now this is very functional
     public static void writeError(Appendable writer, String message) {
         try {
@@ -218,19 +189,65 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplate extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
+        protected boolean multiBlock;
 
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
+            this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
         }
 
         public String getLocation(Map<String, Object> context) {
             return locationExdr.expandString(context);
         }
 
+        public boolean isMultiBlock() {
+            return this.multiBlock;
+        }
+
         @Override
-        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
-            renderHtmlTemplate(writer, this.locationExdr, context);
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
+
+            if (isMultiBlock()) {
+
+                StringWriter stringWriter = new StringWriter();
+                context.put("MultiBlockWriter", stringWriter);
+                renderHtmlTemplate(stringWriter, this.locationExdr, context);
+                context.remove("MultiBlockWriter");
+                String data = stringWriter.toString();
+                stringWriter.close();
+
+                Document doc = Jsoup.parse(data);
+
+                // extract scripts
+                Elements scriptElements = doc.select("script").remove();
+                if (scriptElements != null) {
+                    StringBuilder scripts = new StringBuilder();
+
+                    for (org.jsoup.nodes.Element script : scriptElements) {
+                        scripts.append(script.data());
+                    }
+
+                    // store script for retrieval by the browser
+                    String fileName = this.getLocation(context);
+                    fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
+                    if (fileName.endsWith(".ftl")) {
+                        fileName = fileName.substring(0, fileName.length() - 4);
+                    }
+                    ScriptTemplateUtil.putScriptInSession(context, fileName, scripts.toString());
+
+                    // store value to be used by ScriptTemplateList freemarker macro
+                    String webappName = (String) context.get("webappName");
+                    ScriptTemplateUtil.addScriptSrcToRequest(context, "/" + webappName + "/control/getJs?name="
+                            + fileName);
+                }
+
+                // the 'template' block
+                String body = doc.body().html();
+                writer.append(body);
+            } else {
+                renderHtmlTemplate(writer, this.locationExdr, context);
+            }
         }
 
         @Override
@@ -318,45 +335,6 @@ public class HtmlWidget extends ModelScreenWidget {
 
         public List<ModelScreenWidget> getSubWidgets() {
             return subWidgets;
-        }
-    }
-
-    public static class ScriptTemplate extends ModelScreenWidget {
-        protected FlexibleStringExpander locationExdr;
-
-        public ScriptTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
-            super(modelScreen, htmlTemplateElement);
-            this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
-        }
-
-        public String getLocation(Map<String, Object> context) {
-            return locationExdr.expandString(context);
-        }
-
-        @Override
-        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
-            StringWriter stringWriter = new StringWriter();
-            renderScriptTemplate(stringWriter, this.locationExdr, context);
-            String data = stringWriter.toString();
-            stringWriter.close();
-
-            String fileName = this.getLocation(context);
-            fileName = fileName.substring(fileName.lastIndexOf("/")+1);
-            // remove ".ftl"
-            fileName = fileName.substring(0, fileName.length()-4);
-            ScriptTemplateUtil.putScriptInSession(context, fileName, data);
-
-            String webappName = (String)context.get("webappName");
-            ScriptTemplateUtil.addScriptSrcToRequest(context, "/"+webappName+"/control/getJs?name="+fileName);
-        }
-
-        @Override
-        public void accept(ModelWidgetVisitor visitor) throws Exception {
-            visitor.visit(this);
-        }
-
-        public FlexibleStringExpander getLocationExdr() {
-            return locationExdr;
         }
     }
 

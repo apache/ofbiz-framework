@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.webapp.ftl.ScriptTemplateListTransform;
 
 public class ScriptTemplateUtil {
 
@@ -35,15 +34,17 @@ public class ScriptTemplateUtil {
     private static String requestKey = "ScriptTemplateList";
     private static int maxNumOfScriptInCache = 10;
 
+    private ScriptTemplateUtil() { }
+
     /**
-     * add script src link for use by @see {@link ScriptTemplateListTransform}
+     * add script src link for use by @see {@link org.apache.ofbiz.webapp.ftl.ScriptTemplateListTransform}
      * @param context
      * @param filePath
      */
-    public static void addScriptSrcToRequest(Map<String, Object> context, String filePath){
-        HttpServletRequest request = (HttpServletRequest)context.get("request");
+    public static void addScriptSrcToRequest(final Map<String, Object> context, final String filePath) {
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
         Set<String> scriptTemplates = UtilGenerics.cast(request.getAttribute(requestKey));
-        if (scriptTemplates==null){
+        if (scriptTemplates == null) {
             // use of LinkedHashSet to maintain insertion order
             scriptTemplates = new LinkedHashSet<String>();
             request.setAttribute(requestKey, scriptTemplates);
@@ -52,22 +53,28 @@ public class ScriptTemplateUtil {
     }
 
     /**
-     * get the script src links collected from the "script-template" tags
+     * get the script src links collected from the html-template tags where multi-block=true.
      * @param request
      * @return
      */
-    public static Set<String> getScriptSrcLinksFromRequest(HttpServletRequest request){
+    public static Set<String> getScriptSrcLinksFromRequest(HttpServletRequest request) {
         Set<String> scriptTemplates = UtilGenerics.cast(request.getAttribute(requestKey));
         return scriptTemplates;
     }
 
-    public static void putScriptInSession(Map<String, Object> context, String fileName, String fileContent){
-        HttpSession session = (HttpSession)context.get("session");
-        Map<String,String> scriptTemplateMap = UtilGenerics.cast(session.getAttribute(sessionKey));
-        if (scriptTemplateMap==null){
+    /**
+     * put script in user session for retrieval by the browser
+     * @param context
+     * @param fileName
+     * @param fileContent
+     */
+    public static void putScriptInSession(Map<String, Object> context, String fileName, String fileContent) {
+        HttpSession session = (HttpSession) context.get("session");
+        Map<String, String> scriptTemplateMap = UtilGenerics.cast(session.getAttribute(sessionKey));
+        if (scriptTemplateMap == null) {
             synchronized (session) {
                 scriptTemplateMap = UtilGenerics.cast(session.getAttribute(sessionKey));
-                if (scriptTemplateMap==null){
+                if (scriptTemplateMap == null) {
                     // use of LinkedHashMap to limit size of the map
                     scriptTemplateMap = new LinkedHashMap<String, String>() {
                         private static final long serialVersionUID = 1L;
@@ -82,9 +89,15 @@ public class ScriptTemplateUtil {
         scriptTemplateMap.put(fileName, fileContent);
     }
 
-    public static String getScriptFromSession(HttpSession session, String fileName){
-        Map<String,String> scriptTemplateMap = UtilGenerics.cast(session.getAttribute(sessionKey));
-        if (scriptTemplateMap!=null){
+    /**
+     * Get the script stored in user session.
+     * @param session
+     * @param fileName
+     * @return script to be sent back to browser
+     */
+    public static String getScriptFromSession(HttpSession session, final String fileName) {
+        Map<String, String> scriptTemplateMap = UtilGenerics.cast(session.getAttribute(sessionKey));
+        if (scriptTemplateMap != null) {
             return scriptTemplateMap.get(fileName);
         }
         return null;
