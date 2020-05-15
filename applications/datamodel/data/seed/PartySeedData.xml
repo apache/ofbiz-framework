@@ -282,6 +282,8 @@ under the License.
     <RoleType description="Sponsor" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SPONSOR"/>
     <RoleType description="Spouse" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SPOUSE"/>
     <RoleType description="Supplier Agent" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SUPPLIER_AGENT"/>
+    <RoleType description="Supplier Contact" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SUPPLIER_CONTACT"/>
+    <RoleType description="Subcontractor (employee)" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SUBCONTRACTOR"/>
     <RoleType description="Tax Authority" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="TAX_AUTHORITY"/>
     <RoleType description="Union" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="UNION"/>
     <RoleType description="Workflow Owner" hasTable="N" parentTypeId="WORKFLOW_ROLE" roleTypeId="WF_OWNER"/>
