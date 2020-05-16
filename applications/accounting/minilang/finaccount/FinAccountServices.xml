@@ -147,11 +147,6 @@ under the License.
         <field-to-result field="lookedUpValue.replenishLevel" result-name="replenishLevel"/>
         <field-to-result field="lookedUpValue.finAccountId" result-name="finAccountId"/>
     </simple-method>
-    <simple-method method-name="deleteFinAccount" short-description="Delete a Financial Account">
-        <entity-one entity-name="FinAccount" value-field="finAccount"/>
-        <remove-value value-field="finAccount"/>
-    </simple-method>
-
     <!-- FinAccountTrans Services -->
     <simple-method method-name="createFinAccountTrans" short-description="Create a Financial Account Transaction">
         <entity-one entity-name="FinAccount" value-field="finAccount"/>
