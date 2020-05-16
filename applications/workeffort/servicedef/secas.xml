@@ -65,6 +65,12 @@ under the License.
     <eca service="createTimeEntry" event="invoke">
         <action service="checkTimesheetStatus" mode="sync"/>
     </eca>
+    <eca service="updateTimesheet" event="invoke">
+        <action service="checkTimesheetStatus" mode="sync"/>
+    </eca>
+    <eca service="deleteTimesheet" event="invoke">
+        <action service="checkTimesheetStatus" mode="sync"/>
+    </eca>
     <eca service="createTimesheetRole" event="invoke">
         <action service="ensurePartyRole" mode="sync"/>
     </eca>
