@@ -803,29 +803,6 @@ under the License.
         <set from-field="workEffort.estimatedCompletionDate" field="newEntity.thruDate"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-
-    <!-- WorkEffort-FixedAsset -->
-    <simple-method method-name="createWorkEffortFixedAssetStd"
-            short-description="Create a WorkEffort FixedAsset Standard">
-        <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue"/>
-        <if-not-empty field="lookedUpValue">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortFixedAssetAlreadyExist"/>
-            </add-error>
-            <check-errors />
-        <else>
-            <make-value entity-name="WorkEffortFixedAssetStd" value-field="newWEFixedAssetStd"/>
-            <set-pk-fields map="parameters" value-field="newWEFixedAssetStd"/>
-            <set-nonpk-fields map="parameters" value-field="newWEFixedAssetStd"/>
-            <create-value value-field="newWEFixedAssetStd"/>
-        </else>
-        </if-not-empty>
-    </simple-method>
-    <simple-method method-name="removeWorkEffortFixedAssetStd"
-            short-description="Delete a WorkEffort FixedAsset Standard">
-        <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="createWorkEffortFixedAssetAssign"
             short-description="Create a WorkEffort FixedAsset Assign">
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue"/>
@@ -853,12 +830,6 @@ under the License.
         </else>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="removeWorkEffortFixedAssetAssign"
-            short-description="Remove a WorkEffort FixedAsset Assign">
-        <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- Create/Update/Delete Work Effort Review-->
     <simple-method method-name="createWorkEffortReview" short-description="Create Work Effort Review">
         <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue"/>
@@ -882,11 +853,6 @@ under the License.
             <create-value value-field="newEntity"/>
         </else>
         </if-not-empty>
-    </simple-method>
-    <simple-method method-name="deleteWorkEffortReview"
-            short-description="Remove a WorkEffort Review">
-        <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="indexWorkEffortKeywords" short-description="Index the Keywords for a WorkEffort" login-required="false">
@@ -931,13 +897,6 @@ under the License.
        </if-not-empty>
        <check-errors/>
     </simple-method>
-
-    <simple-method method-name="deleteWorkEffortKeyword"
-            short-description="Remove a WorkEffort Keyword">
-        <entity-one entity-name="WorkEffortKeyword" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="createWorkEffortKeywords" short-description="Create all Work Effort Keyword">
         <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
         <find-by-primary-key entity-name="WorkEffort" map="findWorkEffortMap" value-field="workEffortInstance"/>

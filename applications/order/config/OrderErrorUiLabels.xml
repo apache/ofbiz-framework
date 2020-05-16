@@ -3313,6 +3313,147 @@
         <value xml:lang="zh">订单中的租赁订单明细，其中的人工服务没有开始/结束日期和人员数量</value>
         <value xml:lang="zh-TW">訂單中的租賃訂單明細，其中的人工服務沒有開始/結束日期和人員數量</value>
     </property>
+    <property key="OrderRequiredFieldMissingCardNumber">
+        <value xml:lang="en">Required Field Missing : Card Number.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingCardType">
+        <value xml:lang="en">Required Field Missing : Card Type.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingCart">
+        <value xml:lang="en">Required Field Missing : Cart.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingChangeMap">
+        <value xml:lang="en">Required Field Missing : Change Map.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingContactMechId">
+        <value xml:lang="en">Required Field Missing : Contact Mech Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingContactMechPurposeTypeId">
+        <value xml:lang="en">Required Field Missing : Contact Mech Purpose Type Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingCurrency">
+        <value xml:lang="en">Required Field Missing : Currency.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingCurrencyUom">
+        <value xml:lang="en">Required Field Missing : Currency Uom.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingEmailType">
+        <value xml:lang="en">Required Field Missing : Email Type.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingExpMonth">
+        <value xml:lang="en">Required Field Missing : Expiry Month.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingExpYear">
+        <value xml:lang="en">Required Field Missing : Expiry Year.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingFacilityId">
+        <value xml:lang="en">Required Field Missing : Facility Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingFirstNameOnCard">
+        <value xml:lang="en">Required Field Missing : First Name On Card.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingInternalNote">
+        <value xml:lang="en">Required Field Missing : Internal Note.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingItemMap">
+        <value xml:lang="en">Required Field Missing : Item Map.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingLastNameOnCard">
+        <value xml:lang="en">Required Field Missing : Last Name On Card.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingNoteId">
+        <value xml:lang="en">Required Field Missing : Note Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingNoteInfo">
+        <value xml:lang="en">Required Field Missing : Note Info.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOldContactMechId">
+        <value xml:lang="en">Required Field Missing : Old Contact Mech Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOldStatusId">
+        <value xml:lang="en">Required Field Missing : Old Status Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOrderAdjustmentId">
+        <value xml:lang="en">Required Field Missing : Order Adjustment Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOrderAdjustmentTypeId">
+        <value xml:lang="en">Required Field Missing : Order Adjustment Type Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOrderAdjustments">
+        <value xml:lang="en">Required Field Missing : Order Adjustments.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOrderId">
+        <value xml:lang="en">Required Field Missing : Order Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOrderIdList">
+        <value xml:lang="en">Required Field Missing : Order Id List.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOrderItem">
+        <value xml:lang="en">Required Field Missing : Order Item.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOrderItemSeqId">
+        <value xml:lang="en">Required Field Missing : Order Item Sequence Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOrderItems">
+        <value xml:lang="en">Required Field Missing : Order Items.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingOrderPaymentPreferenceId">
+        <value xml:lang="en">Required Field Missing : Order Payment Preference Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingPartyId">
+        <value xml:lang="en">Required Field Missing : Party Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingPaymentMethodId">
+        <value xml:lang="en">Required Field Missing : Payment Method Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingProductId">
+        <value xml:lang="en">Required Field Missing : Product Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingProductStoreId">
+        <value xml:lang="en">Required Field Missing : Product Store Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingQuantity">
+        <value xml:lang="en">Required Field Missing : Quantity.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingScreenLocation">
+        <value xml:lang="en">Required Field Missing : Screen Location.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShipGroupSeqId">
+        <value xml:lang="en">Required Field Missing : Ship Group Sequence Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShipToAddress1">
+        <value xml:lang="en">Required Field Missing : Ship To Address 1.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShoppingCart">
+        <value xml:lang="en">Required Field Missing : Shopping Cart.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShipToCountryGeoId">
+        <value xml:lang="en">Required Field Missing : Ship To Country Geo Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShipToPostalCode">
+        <value xml:lang="en">Required Field Missing : Ship To Postal Code.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShipToStateProvinceGeoId">
+        <value xml:lang="en">Required Field Missing : Ship To State Province Geo Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShippingAmount">
+        <value xml:lang="en">Required Field Missing : Shipping Amount.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShipmentId">
+        <value xml:lang="en">Required Field Missing : Shipment Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShipmentMethodAndAmount">
+        <value xml:lang="en">Required Field Missing : Shipment Method And Amount.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingShipmentRouteSegmentId">
+        <value xml:lang="en">Required Field Missing : Shipment Route Segment Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingStatusId">
+        <value xml:lang="en">Required Field Missing : Status Id.</value>
+    </property>
+    <property key="OrderRequiredFieldMissingTrackingNumber">
+        <value xml:lang="en">Required Field Missing : Tracking Number.</value>
+    </property>
     <property key="OrderRequestedReturnQuantityNotAvailablePreviousReturnsMayExist">
         <value xml:lang="ar">كمية الإرجاع المطلوبة [ ${parameters.returnQuantity} ] غير متوفرة: كميات استرجاع سابقة ربما تكون موجودة [ ${returnableQuantity} ].</value>
         <value xml:lang="de">Geforderte Retourenmenge [ ${parameters.returnQuantity} ] ist nicht verfügbar; es könnten vorherige Retouren vorhanden sein [ ${returnableQuantity} ].</value>

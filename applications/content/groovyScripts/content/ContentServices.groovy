@@ -162,3 +162,15 @@ def createContentAlternativeUrl() {
     map.contentCreated = contentCreated
     return map
 }
+
+def updateEmailContent() {
+    if (parameters.subjectDataResourceId) {
+        run service: "updateElectronicText", with: [dataResourceId: parameters.subjectDataResourceId, textData: parameters.subject]
+    }
+    if (parameters.plainBodyDataResourceId) {
+        run service: "updateElectronicText", with: [dataResourceId: parameters.plainBodyDataResourceId, textData: parameters.plainBody]
+    }
+    if (parameters.htmlBodyDataResourceId) {
+        run service: "updateElectronicText", with: [dataResourceId: parameters.htmlBodyDataResourceId, textData: parameters.htmlBody]
+    }
+}

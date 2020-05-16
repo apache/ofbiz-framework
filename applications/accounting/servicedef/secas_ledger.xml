@@ -157,5 +157,15 @@ under the License.
         <condition field-name="verifyOnly" operator="not-equals" value="true"/>
         <action service="checkUpdateFixedAssetDepreciation" mode="sync"/>
     </eca>
-
+    <!-- GlReconciliation secas -->
+    <eca service="updateGlReconciliation" event="invoke">
+        <action service="setGlReconciliationStatus" mode="sync"/>
+    </eca>
+    <!-- GlReconciliationEntry secas -->
+    <eca service="updateGlReconciliationEntry" event="commit">
+        <action service="updateGlReconciliationLastModified" mode="sync"/>
+    </eca>
+    <eca service="deleteGlReconciliationEntry" event="commit">
+        <action service="updateGlReconciliationLastModified" mode="sync"/>
+    </eca>
 </service-eca>

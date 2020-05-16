@@ -52,7 +52,7 @@
         <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgFinAccountTests"/>
     </test-case>
     <test-case case-name="auto-accounting-fixedasset-tests">
-        <simple-method-test location="component://accounting/minilang/test/AutoAcctgFixedAssetTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgFixedAssetTests"/>
     </test-case>
     <test-case case-name="auto-accounting-invoice-tests">
         <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgInvoiceTests"/>

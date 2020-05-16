@@ -74,9 +74,9 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="cancelFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="cancelFixedAssetStdCost" auth="true">
-        <description>Cancel a Fixed Asset Standard Cost</description>
+    <!-- TODO: It should be named with expire prefix -->
+    <service name="cancelFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a Fixed Asset Standard Cost</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -152,17 +152,21 @@ under the License.
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
     </service>
     <!-- FixedAsset Maintenance Meter Create/Update/Delete-->
-    <service name="createFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMeter" auth="true">
-        <description>Create a Fixed Asset Maintenance Meter</description>
+    <service name="createFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Fixed asset Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMeter" auth="true">
-        <description>Update a Fixed Asset Maintenance Meter</description>
+    <service name="updateFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Fixed asset Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createMaintsFromMeterReading" default-entity-name="FixedAssetMeter" engine="simple"
+             location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createMaintsFromMeterReading" auth="true">
+        <description>Create Maints From Meter Reading</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>

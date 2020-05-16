@@ -347,7 +347,7 @@ under the License.
     <eca service="createRequirement" event="commit">
         <condition field-name="custRequestId" operator="is-not-empty"/>
         <condition field-name="custRequestItemSeqId" operator="is-not-empty"/>
-        <action service="associatedRequirementWithRequestItem" mode="sync"/>
+        <action service="createRequirementCustRequest" mode="sync"/>
     </eca>
     <eca service="createRequirement" event="commit" run-on-error="false">
         <condition field-name="statusId" operator="is-not-empty" />
@@ -464,7 +464,11 @@ under the License.
         <condition field-name="paymentId" operator="is-not-empty"/>
         <action service="createOrderPaymentApplication" mode="sync"/>
     </eca>
-
+    <eca service="deleteOrderAdjustment" event="commit">
+        <condition field-name="productPromoCodeId" operator="is-not-empty"/>
+        <condition field-name="orderId" operator="is-not-empty"/>
+        <action service="deleteOrderProductPromoCode" mode="sync"/>
+    </eca>
     <!-- Group Buying -->
     <eca service="storeOrder" event="commit">
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
@@ -496,5 +500,74 @@ under the License.
     <eca service="changeAllocationPlanStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="ALLOC_PLAN_CANCELLED"/>
         <action service="cancelAllocationPlanItems" mode="sync"/>
+    </eca>
+    <!-- CustRequestItem eca -->
+    <eca service="createCustRequestItem" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="updateCustRequestItem" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="createCustRequestItem" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="updateCustRequestItem" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <!-- RequirementRole eca -->
+    <eca service="createRequirementRole" event="invoke">
+        <action service="ensurePartyRole" mode="sync"/>
+    </eca>
+    <!-- CustRequestParty eca -->
+    <eca service="createCustRequestParty" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+        <action service="ensurePartyRole" mode="sync"/>
+    </eca>
+    <eca service="updateCustRequestParty" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="deleteCustRequestParty" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="expireCustRequestParty" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="createCustRequestParty" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="updateCustRequestParty" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="deleteCustRequestParty" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="expireCustRequestParty" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <!-- CustRequestContent eca -->
+    <eca service="createCustRequestContent" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="deleteCustRequestContent" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="expireCustRequestContent" event="invoke">
+        <action service="checkStatusCustRequest" mode="sync"/>
+    </eca>
+    <eca service="createCustRequestContent" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="deleteCustRequestContent" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="expireCustRequestContent" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <!-- CustRequestAttribute eca -->
+    <eca service="createCustRequestAttribute" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
+    </eca>
+    <eca service="updateCustRequestAttribute" event="commit">
+        <action service="updateCustRequestLastModifiedDate" mode="sync"/>
     </eca>
 </service-eca>

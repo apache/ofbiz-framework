@@ -70,7 +70,8 @@ public class EntityQuery {
     private List<String> filterByFieldNames = null;
     private boolean searchPkOnly = false;
     private Map<String, Object> fieldMap = null;
-
+    private Integer offset;
+    private Integer limit;
 
 
     /** Construct an EntityQuery object for use against the specified Delegator
@@ -268,6 +269,24 @@ public class EntityQuery {
     public EntityQuery maxRows(int maxRows) {
         this.maxRows = maxRows;
         return this;
+    }
+
+    public EntityQuery offset(int offset) {
+        this.offset = offset;
+        return this;
+    }
+
+    public Integer getOffset() {
+        return this.offset;
+    }
+
+    public EntityQuery limit(int limit) {
+        this.limit = limit;
+        return this;
+    }
+
+    public Integer getLimit() {
+        return this.limit;
     }
 
     /** Specifies that the values returned should be filtered to remove duplicate values.
@@ -470,6 +489,12 @@ public class EntityQuery {
         }
         if (maxRows != null) {
             findOptions.setMaxRows(maxRows);
+        }
+        if (limit != null) {
+            findOptions.setLimit(limit);
+        }
+        if (offset != null) {
+            findOptions.setOffset(offset);
         }
         findOptions.setDistinct(distinct);
         return findOptions;

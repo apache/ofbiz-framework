@@ -19,6 +19,7 @@
 package org.apache.ofbiz.widget.model;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -39,6 +40,9 @@ import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
 import freemarker.ext.beans.BeansWrapper;
@@ -185,19 +189,76 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplate extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
+        protected boolean multiBlock;
 
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
+            this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
         }
 
         public String getLocation(Map<String, Object> context) {
             return locationExdr.expandString(context);
         }
 
+        public boolean isMultiBlock() {
+            return this.multiBlock;
+        }
+
         @Override
-        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
-            renderHtmlTemplate(writer, this.locationExdr, context);
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
+
+            if (isMultiBlock()) {
+
+                StringWriter stringWriter = new StringWriter();
+                context.put("MultiBlockWriter", stringWriter);
+                renderHtmlTemplate(stringWriter, this.locationExdr, context);
+                context.remove("MultiBlockWriter");
+                String data = stringWriter.toString();
+                stringWriter.close();
+
+                Document doc = Jsoup.parse(data);
+
+                // extract scripts
+                Elements scriptElements = doc.select("script");
+                if (scriptElements != null && scriptElements.size()>0) {
+                    StringBuilder scripts = new StringBuilder();
+
+                    for (org.jsoup.nodes.Element script : scriptElements) {
+                        String type = script.attr("type");
+                        String src = script.attr("src");
+                        if (UtilValidate.isEmpty(src)) {
+                            if (UtilValidate.isEmpty(type) || type.equals("application/javascript")) {
+                                scripts.append(script.data());
+                                script.remove();
+                            }
+                        }
+                    }
+
+                    // store script for retrieval by the browser
+                    String fileName = this.getLocation(context);
+                    fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
+                    if (fileName.endsWith(".ftl")) {
+                        fileName = fileName.substring(0, fileName.length() - 4);
+                    }
+                    ScriptTemplateUtil.putScriptInSession(context, fileName, scripts.toString());
+
+                    // store value to be used by ScriptTemplateList freemarker macro
+                    String webappName = (String) context.get("webappName");
+                    ScriptTemplateUtil.addScriptSrcToRequest(context, "/" + webappName + "/control/getJs?name="
+                            + fileName);
+                }
+
+                // check for external script
+                String externalScripts = doc.head().select("script").toString();
+                writer.append(externalScripts);
+
+                // the 'template' block
+                String body = doc.body().toString();
+                writer.append(body);
+            } else {
+                renderHtmlTemplate(writer, this.locationExdr, context);
+            }
         }
 
         @Override

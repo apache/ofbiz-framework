@@ -18,7 +18,6 @@ under the License.
 -->
 
 <script type="application/javascript">
-//<![CDATA[
 function submitForm(form, mode, value) {
     if ("DN" == mode) {
         // done action; checkout
@@ -70,7 +69,6 @@ function submitForm(form, mode, value) {
         form.submit();
     }
 }
-//]]>
 </script>
 
 <#assign shipping = !shoppingCart.containAllWorkEffortCartItems()> <#-- contains items which need shipping? -->

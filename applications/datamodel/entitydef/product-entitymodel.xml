@@ -3643,6 +3643,7 @@ under the License.
     <entity entity-name="OldProductPromoCodeEmail" table-name="PRODUCT_PROMO_CODE_EMAIL"
             package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Email">
+      <description>Deprecated since branch release: Upcoming branch. Use ProdPromoCodeContactMech instead</description>
       <field name="productPromoCodeId" type="id"></field>
       <field name="emailAddress" type="email"></field>
       <prim-key field="productPromoCodeId"/>

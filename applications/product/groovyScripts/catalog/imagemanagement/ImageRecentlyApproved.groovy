@@ -19,26 +19,27 @@
 
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.entity.util.*
-import java.text.SimpleDateFormat
-import java.util.List
-import java.util.Set
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityFindOptions
 
-def limit = 13 // set number of days
-def sdf = new SimpleDateFormat("EEEE yyyy-MM-dd 00:00:00.000")
-def sdf2 = new SimpleDateFormat("EEEE dd/MM/yyyy")
-def sdfTime = new SimpleDateFormat("HH:mm")
-def today = new Date()
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.List
+import java.util.Set
 
-for(i in 0..limit){
-    def date1 = sdf.format(today-i)
-    def date2 = sdf.format(today-i+1)
-    def parseDate1 = sdf.parse(date1)
-    def parseDate2 = sdf.parse(date2)
-    def timeStampDate1 = UtilDateTime.toTimestamp(parseDate1)
-    def timeStampDate2 = UtilDateTime.toTimestamp(parseDate2)
+def limit = 13 // set number of days
+def sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+def sdf2 = DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy", locale);
+def sdfTime = new SimpleDateFormat("HH:mm")
+def today = LocalDateTime.now()
+
+for (i in 0..limit){
+    def timeStampDate1 = Timestamp.valueOf(today.minusDays(i+1).format(sdf).toString())
+    def timeStampDate2 = Timestamp.valueOf(today.minusDays(i).format(sdf).toString())
     // make condition for distinct productId
     def exprs = []
     exprs.add(EntityCondition.makeCondition("productContentTypeId",EntityOperator.EQUALS, "IMAGE"))
@@ -55,7 +56,7 @@ for(i in 0..limit){
     groupByTimeList.each() {
         key,value -> tempTimeList.add(value.purchaseFromDate)
     }
-    
+
     def time = []
     if(tempTimeList.size > 0){
         for(j in 0..tempTimeList.size-1){

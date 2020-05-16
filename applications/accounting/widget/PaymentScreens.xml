@@ -457,7 +457,7 @@ under the License.
          <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://accounting/template/payment/ManualCCTx.ftl"/></html>
+                    <html><html-template multi-block="true" location="component://accounting/template/payment/ManualCCTx.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

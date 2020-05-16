@@ -106,17 +106,14 @@ public class ShoppingCartEvents {
             cart.getProductPromoCodesEntered().clear();
             GenericValue productPromoCode = null;
             try {
-                productPromoCode = dispatcher.getDelegator().findOne("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", promoCodeId), false);
+                productPromoCode = cart.getDelegator().findOne("ProductPromoCode",
+                                                    UtilMisc.toMap("productPromoCodeId", promoCodeId), false);
                 if (!productPromoCode.isEmpty()) {
                     String productPromoId = productPromoCode.getString("productPromoId");
-                    GenericValue productPromoAction = null;
-                    Map<String, String> productPromoActionMap = new HashMap<>();
-                    productPromoActionMap.put("productPromoId", productPromoId);
-                    productPromoActionMap.put("productPromoRuleId", "01");
-                    productPromoActionMap.put("productPromoActionSeqId", "01");
 
-                    productPromoAction = dispatcher.getDelegator().findOne("ProductPromoAction", productPromoActionMap, false);
-                    if (!productPromoAction.isEmpty()) {
+                    long productPromoActionCount = EntityQuery.use(cart.getDelegator())
+                                    .from("ProductPromoAction").where("productPromoId", productPromoId).queryCount();
+                    if (productPromoActionCount > 0) {
                         int index = cart.getAdjustmentPromoIndex(productPromoId);
                         /*Remove order adjustment*/
                         if (index != -1) {

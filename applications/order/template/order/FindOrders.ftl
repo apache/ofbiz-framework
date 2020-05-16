@@ -17,8 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
-<!-- //
+<script>
 function lookupOrders(click) {
     orderIdValue = document.lookuporder.orderId.value;
     if (orderIdValue.length > 1) {
@@ -74,21 +73,18 @@ function toggleOrderIdList() {
     }
     jQuery('#checkAllOrders').attr("checked", isAllSelected);
     if (!isSingle && jQuery('#serviceName').val() != "") {
-        jQuery('#submitButton').removeAttr("disabled"); 
+        jQuery('#submitButton').removeAttr("disabled");
     } else {
         jQuery('#submitButton').attr('disabled', true);
     }
 }
 
-// -->
-
-    function paginateOrderList(viewSize, viewIndex, hideFields) {
-        document.paginationForm.viewSize.value = viewSize;
-        document.paginationForm.viewIndex.value = viewIndex;
-        document.paginationForm.hideFields.value = hideFields;
-        document.paginationForm.submit();
-    }
-
+function paginateOrderList(viewSize, viewIndex, hideFields) {
+    document.paginationForm.viewSize.value = viewSize;
+    document.paginationForm.viewIndex.value = viewIndex;
+    document.paginationForm.hideFields.value = hideFields;
+    document.paginationForm.submit();
+}
 </script>
 
 <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
@@ -478,9 +474,7 @@ function toggleOrderIdList() {
 </form>
 <#if requestParameters.hideFields?default("N") != "Y">
 <script type="application/javascript">
-<!--//
 document.lookuporder.orderId.focus();
-//-->
 </script>
 </#if>
 

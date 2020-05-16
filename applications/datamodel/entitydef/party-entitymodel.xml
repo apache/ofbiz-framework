@@ -2796,7 +2796,7 @@ under the License.
       <field name="height" type="floating-point"></field>
       <field name="weight" type="floating-point"></field>
       <field name="mothersMaidenName" type="long-varchar" encrypt="true"></field>
-      <field name="oldMaritalStatus" type="indicator" col-name="MARITAL_STATUS"><description>Deprecated since branch release: use martialStatusEnumId</description></field>
+      <field name="oldMaritalStatus" type="indicator" col-name="MARITAL_STATUS"><description>Deprecated since branch release: Upcoming branch, use martialStatusEnumId</description></field>
       <field name="maritalStatusEnumId" type="id"/>
       <field name="socialSecurityNumber" type="long-varchar" encrypt="true"></field>
       <field name="passportNumber" type="long-varchar" encrypt="true"></field>

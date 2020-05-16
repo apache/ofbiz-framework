@@ -107,7 +107,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
@@ -333,7 +333,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditRoutingTaskAssoc}">
                             <platform-specific>
-                                <html><html-template location="component://manufacturing/template/routing/EditRoutingTaskAssoc.ftl"/></html>
+                                <html><html-template multi-block="true" location="component://manufacturing/template/routing/EditRoutingTaskAssoc.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleListRoutingTaskAssoc}">

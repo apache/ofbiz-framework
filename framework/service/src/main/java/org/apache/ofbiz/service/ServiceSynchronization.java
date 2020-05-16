@@ -80,9 +80,18 @@ public class ServiceSynchronization implements Synchronization {
 
     @Override
     public void afterCompletion(int status) {
+        long start = System.currentTimeMillis();
+        if (Debug.verboseOn())
+            Debug.logVerbose("Running " + this.services.size() + " services on commit/rollback", MODULE);
         for (ServiceExecution serviceExec : this.services) {
             serviceExec.runService(status);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Completed service [" + serviceExec.serviceName + "] async [" + serviceExec.async
+                        + "] persisted [" + serviceExec.persist + "]", MODULE);
         }
+        if (Debug.verboseOn())
+            Debug.logVerbose("Commit/rollback services complete in "
+                                            + (System.currentTimeMillis() - start) + "ms", MODULE);
     }
 
     @Override

@@ -544,21 +544,4 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testUnlinkInvoiceFromTimeEntry" short-description="Test the service unlinkInvoiceFromTimeEntry" login-required="false">
-        <set field="serviceCtx.invoiceId" value="TestInvoice"/>
-        <set field="serviceCtx.timeEntryId" value="TestTimeEntry-3"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="unlinkInvoiceFromTimeEntry" in-map-name="serviceCtx"/>
-        <entity-one entity-name="TimeEntry" value-field="timeEntry">
-            <field-map field-name="timeEntryId" value="TestTimeEntry-3"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="timeEntry"/></not>
-            <if-empty field="timeEntry.invoiceId"/>
-        </assert>
-        <check-errors/>
-    </simple-method>
 </simple-methods>
