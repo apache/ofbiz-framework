@@ -644,7 +644,7 @@ public abstract class ModelForm extends ModelWidget {
             fieldGroupList.add(lastFieldGroup);
             // read in sort-field
             for (Element sortFieldElement : UtilXml.childElementList(sortOrderElement)) {
-                String tagName = sortFieldElement.getTagName();
+                String tagName = sortFieldElement.getLocalName();
                 if ("sort-field".equals(tagName)) {
                     String fieldName = sortFieldElement.getAttribute("name");
                     String position = sortFieldElement.getAttribute("position");
