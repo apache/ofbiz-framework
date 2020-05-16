@@ -367,31 +367,35 @@ def createFuturePeriod() {
     grain = null
     intermediate = null
     parties = from('PartyAcctgPreference').where('enableAccounting','Y').queryIterator()
-    while(party = parties.next()){
+    while (party = parties.next()){
         parameters.organizationPartyId = party.partyId
-        createCustomTimePeriod = from('SystemProperty').where('systemResourceId','general', 'systemPropertyId','CustomTimePeriod.create').queryOne()
-        if("Y".equals(createCustomTimePeriod.systemPropertyValue)) {
+        createCustomTimePeriod = from('SystemProperty')
+            .where('systemResourceId','general', 'systemPropertyId','CustomTimePeriod.create').queryOne()
+        if ("Y".equals(createCustomTimePeriod.systemPropertyValue)) {
             // get list of CustomTypePeriod types
-            applTypes = from('SystemProperty').where('systemResourceId','general', 'systemPropertyId','CustomTimePeriod.applType').queryOne()
+            applTypes = from('SystemProperty')
+                .where('systemResourceId','general', 'systemPropertyId','CustomTimePeriod.applType').queryOne()
             List types = Arrays.asList(applTypes.systemPropertyValue.split("\\s*,\\s*"))
             types.each{periodTypeId ->
                 Calendar periodCal = Calendar.getInstance();
                 systemPropertyId = "CustomTimePeriod." + periodTypeId + ".intermediate"
-                applTypeInter = from('SystemProperty').where('systemResourceId','general', 'systemPropertyId',systemPropertyId).queryOne()
-                if(applTypeInter) {
+                applTypeInter = from('SystemProperty')
+                    .where('systemResourceId','general', 'systemPropertyId',systemPropertyId).queryOne()
+                if (applTypeInter) {
                     intermediate = applTypeInter.systemPropertyValue
                 }
                 // get grain for application type
                 systemPropertyId = "CustomTimePeriod." + periodTypeId + ".grain"
-                applTypeGrain = from('SystemProperty').where('systemResourceId','general', 'systemPropertyId',systemPropertyId).queryOne()
-                if(applTypeGrain) {
+                applTypeGrain = from('SystemProperty')
+                    .where('systemResourceId','general', 'systemPropertyId',systemPropertyId).queryOne()
+                if (applTypeGrain) {
                     grain = applTypeGrain.systemPropertyValue
-                    if("MONTH".equals(grain)) {
+                    if ("MONTH".equals(grain)) {
                         periodCal.add(Calendar.MONTH, 1)
                         monthName = new SimpleDateFormat("MMM").format(periodCal.getTime())
                         year = periodCal.get(Calendar.YEAR)
                         month = (periodCal.get(Calendar.MONTH) + 1).toString()
-                        if( 1 == month.length()) {
+                        if ( 1 == month.length()) {
                             month = "0" + month
                         }
                         periodCal.set(Calendar.DATE, 1)
@@ -408,10 +412,10 @@ def createFuturePeriod() {
                         yearPeriodType = periodTypeId + "_YEAR"
                         existingYear = from('CustomTimePeriod')
                             .where('fromDate',yearStartDate, 'thruDate',yearEndDate,'organizationPartyId',parameters.organizationPartyId, 'periodTypeId',yearPeriodType).queryFirst()
-                        if(existingYear) {
+                        if (existingYear) {
                             parameters.parentPeriodId = existingYear.customTimePeriodId
                         } else {
-                        	parameters.fromDate = yearStartDate
+                            parameters.fromDate = yearStartDate
                             parameters.thruDate = yearEndDate
                             parameters.periodTypeId = yearPeriodType
                             parameters.periodNum = year + "00"
@@ -434,7 +438,7 @@ def createFuturePeriod() {
                         parameters.periodTypeId = periodTypeId + "_" + grain
                         existingPeriod = from('CustomTimePeriod')
                             .where('fromDate',fromDate, 'thruDate',thruDate,'organizationPartyId',parameters.organizationPartyId, 'periodTypeId',parameters.periodTypeId).queryFirst()
-                        if(!existingPeriod) {
+                        if (!existingPeriod) {
                             parameters.fromDate = periodStartDate
                             parameters.thruDate = periodEndDate
                             // persist the future period
