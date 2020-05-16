@@ -181,6 +181,10 @@ under the License.
         <required-permissions join-type="AND"><check-permission permission="PERIOD_MAINT"/></required-permissions>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    <service name="createFuturePeriod" engine="groovy"
+            location="component://common/groovyScripts/CommonServices.groovy" invoke="createFuturePeriod" auth="true">
+        <description>Create a future CustomTimePeriod</description>
+    </service>
 
     <!-- Status services -->
     <service name="getStatusItems" engine="java"
