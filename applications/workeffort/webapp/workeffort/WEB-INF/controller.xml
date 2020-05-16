@@ -395,7 +395,7 @@ under the License.
     </request-map>
     <request-map uri="updateTimesheet">
         <security https="true" auth="true"/>
-        <event type="service" invoke="checkAndUpdateTimesheet"/>
+        <event type="service" invoke="updateTimesheet"/>
         <response name="success" type="view" value="EditTimesheet"/>
         <response name="error" type="view" value="EditTimesheet"/>
     </request-map>

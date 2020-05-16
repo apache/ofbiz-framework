@@ -41,17 +41,6 @@ under the License.
         <description>Deletes Timesheet</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="checkAndUpdateTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
-             location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="checkAndUpdateTimesheet">
-        <description>Updates Timesheet</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="checkAndDeleteTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
-             location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="checkAndDeleteTimesheet">
-        <description>Deletes Timesheet</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
     <service name="createTimesheets" engine="simple"
             location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimesheets" auth="true">
         <description>Creates Timesheet for multiple Parties in a single shot</description>
