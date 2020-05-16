@@ -36,8 +36,8 @@ import java.util.stream.Stream;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -52,6 +52,7 @@ import freemarker.cache.StringTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.cache.URLTemplateLoader;
 import freemarker.core.Environment;
+import freemarker.core.TemplateClassResolver;
 import freemarker.ext.beans.BeanModel;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.BeansWrapperBuilder;
@@ -125,6 +126,7 @@ public final class FreeMarkerWorker {
         } catch (TemplateException e) {
             Debug.logError("Unable to set date/time and number formats in FreeMarker: " + e, MODULE);
         }
+        newConfig.setNewBuiltinClassResolver(TemplateClassResolver.SAFER_RESOLVER);
         // Transforms properties file set up as key=transform name, property=transform class name
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         transformsURL(loader).forEach(url -> {
