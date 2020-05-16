@@ -72,9 +72,9 @@ the command line at the OFBiz top level directory (folder).
 [[download-the-gradle-wrapper]]
 === Download the Gradle wrapper:
 
-MS Windows: `init-gradle-wrapper`
+MS Windows: `init-gradle`
 
-Unix-like OS: `./gradle/init-gradle-wrapper`
+Unix-like OS: `./init-gradle`
 
 
 [[prepare-ofbiz]]
