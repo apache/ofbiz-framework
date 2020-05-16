@@ -1801,8 +1801,11 @@ under the License.
 
     <PartyAcctgPreference partyId="Company" taxFormId="US_IRS_1120" cogsMethodId="COGS_LIFO" baseCurrencyUomId="USD"
                           invoiceSeqCustMethId="INV_HOOK_ENF_SEQ" invoiceIdPrefix="CI"
+                          fiscalYearStartMonth="1"
+                          fiscalYearStartDay="1"
                           quoteIdPrefix="CQ"
                           orderIdPrefix="CO"
+                          enableAccounting="Y"
                           errorGlJournalId="ERROR_JOURNAL"/>
 
     <!-- Chart Of Accounts -->
