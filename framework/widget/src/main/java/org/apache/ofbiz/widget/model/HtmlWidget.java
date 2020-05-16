@@ -254,7 +254,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 writer.append(externalScripts);
 
                 // the 'template' block
-                String body = doc.body().toString();
+                String body = doc.body().html();
                 writer.append(body);
             } else {
                 renderHtmlTemplate(writer, this.locationExdr, context);
