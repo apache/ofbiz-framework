@@ -363,6 +363,27 @@ under the License.
         <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="AgreementStatus"
+            package-name="org.apache.ofbiz.party.agreement"
+            title="Agremeement Status">
+      <field name="agreementId" type="id"></field>
+      <field name="statusId" type="id"></field>
+      <field name="statusDate" type="date-time"></field>
+      <field name="comments" type="comment"></field>
+      <field name="changeByUserLoginId" type="id-vlong"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="statusId"/>
+      <prim-key field="statusDate"/>
+      <relation type="one" fk-name="AGRMNT_STTS_AGRMNT" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_STTS_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_STTS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+          <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
+      </relation>
+    </entity>
     <entity entity-name="AgreementTerm"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Term">
