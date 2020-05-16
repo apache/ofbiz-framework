@@ -42,7 +42,9 @@ under the License.
             <field-map field-name="thruDate" from-field="parameters.thruDate"/>
         </entity-and>
         <if-empty field="timesheets">
-                <call-simple-method method-name="createTimesheet"/>
+            <call-service service-name="createTimesheet" in-map-name="parameters">
+                <result-to-result result-name="timesheetId"/>
+            </call-service>
             <else>
                 <add-error>
                     <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetAlreadyExists"/>
