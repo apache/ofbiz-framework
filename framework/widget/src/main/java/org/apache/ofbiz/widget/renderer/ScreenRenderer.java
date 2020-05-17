@@ -271,7 +271,7 @@ public class ScreenRenderer {
         context.put("serverRoot", request.getAttribute("_SERVER_ROOT_URL_"));
         context.put("checkLoginUrl", LoginWorker.makeLoginUrl(request));
         String externalLoginKey = null;
-        boolean externalLoginKeyEnabled = "true".equals(EntityUtilProperties.getPropertyValue("security", "security.login.externalLoginKey.enabled", "true", (Delegator) request.getAttribute("delegator")));
+        boolean externalLoginKeyEnabled = ExternalLoginKeysManager.isExternalLoginKeyEnabled(request);
         if (externalLoginKeyEnabled) {
             externalLoginKey = ExternalLoginKeysManager.getExternalLoginKey(request);
         }

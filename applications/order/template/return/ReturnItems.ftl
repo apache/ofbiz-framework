@@ -71,13 +71,13 @@ under the License.
     <#if returnHeader?has_content>
       <#if returnHeader.destinationFacilityId?has_content && "RETURN_ACCEPTED" == returnHeader.statusId && returnHeader.returnHeaderTypeId?starts_with("CUSTOMER_")>
         <#list returnShipmentIds as returnShipmentId>
-          <a href="<@ofbizUrl controlPath="/facility/control">ViewShipment?shipmentId=${returnShipmentId.shipmentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
-          <a href="<@ofbizUrl controlPath="/facility/control">ReceiveReturn?facilityId=${returnHeader.destinationFacilityId}&amp;returnId=${returnHeader.returnId!}&amp;shipmentId=${returnShipmentId.shipmentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderReceiveReturn}</a>
+          <a href="<@ofbizUrl controlPath="/facility/control">ViewShipment?shipmentId=${returnShipmentId.shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
+          <a href="<@ofbizUrl controlPath="/facility/control">ReceiveReturn?facilityId=${returnHeader.destinationFacilityId}&amp;returnId=${returnHeader.returnId!}&amp;shipmentId=${returnShipmentId.shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderReceiveReturn}</a>
         </#list>
       <#elseif "SUP_RETURN_ACCEPTED" == returnHeader.statusId && "VENDOR_RETURN" == returnHeader.returnHeaderTypeId>
          <#if returnShipmentIds?has_content>
            <#list returnShipmentIds as returnShipmentId>
-             <a href="<@ofbizUrl controlPath="/facility/control">ViewShipment?shipmentId=${returnShipmentId.shipmentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
+             <a href="<@ofbizUrl controlPath="/facility/control">ViewShipment?shipmentId=${returnShipmentId.shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
            </#list>
          <#else>
            <a href="<@ofbizUrl controlPath="/facility/control">EditShipment?primaryReturnId=${returnHeader.returnId}&amp;partyIdTo=${toPartyId}&amp;statusId=SHIPMENT_INPUT&amp;shipmentTypeId=PURCHASE_RETURN</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturnShipment}</a>
@@ -238,11 +238,11 @@ under the License.
                     <#assign itemResp = item.getRelatedOne("ReturnItemResponse", false)!>
                     <#if itemResp?has_content>
                       <#if itemResp.paymentId?has_content>
-                        <div>${uiLabelMap.AccountingPayment} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${itemResp.paymentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${itemResp.paymentId}</a></div>
+                        <div>${uiLabelMap.AccountingPayment} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${itemResp.paymentId}</@ofbizUrl>" class="buttontext">${itemResp.paymentId}</a></div>
                       <#elseif itemResp.replacementOrderId?has_content>
                         <div>${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderview?orderId=${itemResp.replacementOrderId}</@ofbizUrl>" class="buttontext">${itemResp.replacementOrderId}</a></div>
                       <#elseif itemResp.billingAccountId?has_content>
-                        <div>${uiLabelMap.AccountingAccountId} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">EditBillingAccount?billingAccountId=${itemResp.billingAccountId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${itemResp.billingAccountId}</a></div>
+                        <div>${uiLabelMap.AccountingAccountId} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">EditBillingAccount?billingAccountId=${itemResp.billingAccountId}</@ofbizUrl>" class="buttontext">${itemResp.billingAccountId}</a></div>
                       </#if>
                     <#else>
                       <div>${uiLabelMap.CommonNone}</div>

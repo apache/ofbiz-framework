@@ -180,7 +180,7 @@ under the License.
                         </li>
                     </#if>
                 </#if>
-                <li class="user"><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${userLogin.partyId}${externalKeyParam!}</@ofbizUrl>">${userName}</a></li>
+                <li class="user"><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${userLogin.partyId}</@ofbizUrl>">${userName}</a></li>
               <#else>
                 <li class="user">${userName}</li>
               </#if>

@@ -1150,10 +1150,14 @@ public class RequestHandler {
             }
         }
 
-        String controlPath = targetControlPath;
-        if (UtilValidate.isEmpty(controlPath)){
-            // create the path to the control servlet
-            controlPath = (String) request.getAttribute("_CONTROL_PATH_");
+        boolean externalLoginKeyEnabled = ExternalLoginKeysManager.isExternalLoginKeyEnabled(request);
+        boolean addExternalKeyParam = false;
+
+        // create the path to the control servlet
+        String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
+        if (UtilValidate.isNotEmpty(targetControlPath) && !controlPath.equals(targetControlPath)) {
+            controlPath = targetControlPath;
+            addExternalKeyParam = externalLoginKeyEnabled;
         }
 
         //If required by webSite parameter, surcharge control path
@@ -1186,6 +1190,14 @@ public class RequestHandler {
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Problems with WebSite entity", MODULE);
+            }
+        }
+
+        if (addExternalKeyParam) {
+            if (url.contains("?")) {
+                url += "&externalLoginKey=" + ExternalLoginKeysManager.getExternalLoginKey(request);;
+            } else {
+                url += "?externalLoginKey=" + ExternalLoginKeysManager.getExternalLoginKey(request);;
             }
         }
 
