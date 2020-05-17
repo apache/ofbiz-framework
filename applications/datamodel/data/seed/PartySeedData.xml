@@ -370,14 +370,31 @@ under the License.
     <PartyType description="Corporation" hasTable="N" parentTypeId="LEGAL_ORGANIZATION" partyTypeId="CORPORATION"/>
     <PartyType description="Government Agency" hasTable="N" parentTypeId="LEGAL_ORGANIZATION" partyTypeId="GOVERNMENT_AGENCY"/>
 
-    <StatusType description="Party" hasTable="N" statusTypeId="PARTY_STATUS"/>
-    <StatusItem description="Enabled" sequenceId="01" statusCode="ENABLED" statusId="PARTY_ENABLED" statusTypeId="PARTY_STATUS"/>
-    <StatusItem description="Disabled" sequenceId="99" statusCode="DISABLED" statusId="PARTY_DISABLED" statusTypeId="PARTY_STATUS"/>
-    <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="PARTY_DISABLED" transitionName="Disable"/>
-    <StatusValidChange statusId="PARTY_DISABLED" statusIdTo="PARTY_ENABLED" transitionName="Re-Enable"/>
-    
+    <!-- artefact statuses -->
+    <!-- Agreement Status Data -->
+    <StatusType description="Agreement" hasTable="N" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Created" sequenceId="00" statusCode="CREATED" statusId="AGRMNT_CREATED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Reviewed" sequenceId="01" statusCode="REVIEWED" statusId="AGRMNT_REVIEWED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Adjusted" sequenceId="02" statusCode="ADJUSTED" statusId="AGRMNT_ADJUSTED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Approved" sequenceId="03" statusCode="APPROVED" statusId="AGRMNT_APPROVED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="04" statusCode="REJECTED" statusId="AGRMNT_REJECTED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="In Effect" sequenceId="05" statusCode="WIP" statusId="AGRMNT_WIP" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Ended" sequenceId="06" statusCode="ENDED" statusId="AGRMNT_END" statusTypeId="AGREEMENT_STATUS"/>
+
+    <StatusValidChange statusId="AGRMNT_CREATED" statusIdTo="AGRMNT_SUBMITTED" transitionName="Submit Agreement"/>
+    <StatusValidChange statusId="AGRMNT_SUBMITTED" statusIdTo="AGRMNT_REVIEWED" transitionName="Review Agreement"/>
+    <StatusValidChange statusId="AGRMNT_REVIEWED" statusIdTo="AGRMNT_ADJUSTED" transitionName="Adjust Agreement"/>
+    <StatusValidChange statusId="AGRMNT_ADJUSTED" statusIdTo="AGRMNT_REVIEWED" transitionName="Review Agreement"/>
+    <StatusValidChange statusId="AGRMNT_REVIEWED" statusIdTo="AGRMNT_APPROVED" transitionName="Approve Agreement"/>
+    <StatusValidChange statusId="AGRMNT_REVIEWED" statusIdTo="AGRMNT_CANCELLED" transitionName="Cancel Agreement"/>
+    <StatusValidChange statusId="AGRMNT_CREATED" statusIdTo="AGRMNT_CANCELED" transitionName="Cancel Agreement"/>
+    <StatusValidChange statusId="AGRMNT_APPROVED" statusIdTo="AGRMNT_WIP" transitionName="Agreement in Effect"/>
+    <StatusValidChange statusId="AGRMNT_WIP" statusIdTo="AGRMNT_ENDED" transitionName="Agreement Ended"/>
+
+    <!-- Case Status Data -->
     <StatusType description="Case" hasTable="N" statusTypeId="CASE_STATUS"/>
 
+    <!-- Communication EventStatus Data -->
     <StatusType description="Communication Event" hasTable="N" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="COM_PENDING" statusTypeId="COM_EVENT_STATUS"/><!-- draft version, only visible by originator -->
     <StatusItem description="Entered" sequenceId="02" statusCode="ENTERED" statusId="COM_ENTERED" statusTypeId="COM_EVENT_STATUS"/>
@@ -402,7 +419,6 @@ under the License.
     <StatusValidChange statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
     <StatusValidChange statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_ENTERED" transitionName="Corrected"/>
     <StatusValidChange statusId="COM_PENDING" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
-
     <StatusValidChange statusId="COM_ENTERED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange statusId="COM_PENDING" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange statusId="COM_IN_PROGRESS" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
@@ -411,6 +427,7 @@ under the License.
     <StatusValidChange statusId="COM_REFERRED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
 
+    <!--Communication Event Role Status Data -->
     <StatusType description="Communication Event Role" hasTable="N" parentTypeId="COM_EVENT_STATUS" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="ENTERED" statusId="COM_ROLE_CREATED" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusItem description="Read" sequenceId="02" statusCode="PENDING" statusId="COM_ROLE_READ" statusTypeId="COM_EVENT_ROL_STATUS"/>
@@ -419,11 +436,14 @@ under the License.
     <StatusValidChange statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
     <StatusValidChange statusId="COM_ROLE_READ" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
 
-    <StatusType description="Party Relationship" hasTable="N" statusTypeId="PARTY_REL_STATUS"/>
-    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PARTYREL_CREATED" statusTypeId="PARTY_REL_STATUS"/>
-    <StatusItem description="Expired" sequenceId="02" statusCode="EXPIRED" statusId="PARTYREL_EXPIRED" statusTypeId="PARTY_REL_STATUS"/>
-    <StatusValidChange statusId="PARTYREL_CREATED" statusIdTo="PARTYREL_EXPIRED" transitionName="Expired"/>
-    
+    <!--Party Status Data -->
+    <StatusType description="Party" hasTable="N" statusTypeId="PARTY_STATUS"/>
+    <StatusItem description="Enabled" sequenceId="01" statusCode="ENABLED" statusId="PARTY_ENABLED" statusTypeId="PARTY_STATUS"/>
+    <StatusItem description="Disabled" sequenceId="99" statusCode="DISABLED" statusId="PARTY_DISABLED" statusTypeId="PARTY_STATUS"/>
+    <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="PARTY_DISABLED" transitionName="Disable"/>
+    <StatusValidChange statusId="PARTY_DISABLED" statusIdTo="PARTY_ENABLED" transitionName="Re-Enable"/>
+
+    <!--Party Invitation Status Data -->
     <StatusType description="Party Invitation" hasTable="N" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Sent" sequenceId="01" statusCode="SENT" statusId="PARTYINV_SENT" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Pending" sequenceId="02" statusCode="PENDING" statusId="PARTYINV_PENDING" statusTypeId="PARTY_INV_STATUS"/>
@@ -436,6 +456,12 @@ under the License.
     <StatusValidChange statusId="PARTYINV_SENT" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
     <StatusValidChange statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_ACCEPTED" transitionName="Accepted"/>
     <StatusValidChange statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
+
+    <!--PartyRelationship Status Data -->
+    <StatusType description="Party Relationship" hasTable="N" statusTypeId="PARTY_REL_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PARTYREL_CREATED" statusTypeId="PARTY_REL_STATUS"/>
+    <StatusItem description="Expired" sequenceId="02" statusCode="EXPIRED" statusId="PARTYREL_EXPIRED" statusTypeId="PARTY_REL_STATUS"/>
+    <StatusValidChange statusId="PARTYREL_CREATED" statusIdTo="PARTYREL_EXPIRED" transitionName="Expired"/>
 
     <TermType description="Financial" hasTable="N" termTypeId="FINANCIAL_TERM"/>
     <TermType description="Payment (net days)" hasTable="N" parentTypeId="FINANCIAL_TERM" termTypeId="FIN_PAYMENT_TERM"/>
