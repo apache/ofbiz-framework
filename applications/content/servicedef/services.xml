@@ -448,8 +448,8 @@
         <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
     </service>
 
-    <service name="createArticleContent" engine="simple" transaction-timeout="300" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="createArticleContent">
+    <service name="createArticleContent" engine="groovy" transaction-timeout="300" auth="true"
+            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createArticleContent">
         <description>Creates content records for a blog entry</description>
         <required-permissions join-type="AND">
             <check-permission permission="CONTENTMGR" action="_CREATE"/>

@@ -174,3 +174,130 @@ def updateEmailContent() {
         run service: "updateElectronicText", with: [dataResourceId: parameters.htmlBodyDataResourceId, textData: parameters.htmlBody]
     }
 }
+
+def createArticleContent() {
+    // Post a new Content article Entry
+    String origContentAssocTypeId = parameters.contentAssocTypeId
+    String contentAssocTypeId = parameters.contentAssocTypeId
+    String ownerContentId = parameters.threadContentId
+    if ("PUBLISH_LINK".equals(origContentAssocTypeId)) {
+        ownerContentId = parameters.pubPtContentId
+    }
+    String contentIdFrom = parameters.contentIdFrom
+    String pubPtContentId = parameters.pubPtContentId
+    String textData = parameters.textData
+    String subDescript = null
+    String contentId = null
+    if (textData) {
+        int textDataLen = textData.length()
+        Debug.logInfo("textDataLen: " + textDataLen, module)
+        int descriptLen = 0
+        if (parameters.descriptLen) {
+            descriptLen = (int) parameters.descriptLen
+            Debug.logInfo("descriptLen: " + descriptLen, module)
+        }
+        int subStringLen = Math.min(descriptLen, textDataLen)
+        Debug.logInfo("subStringLen: " + subStringLen, module)
+        subDescript = textData.substring(0, subStringLen)
+        Debug.logInfo("subDescript: " + subDescript, module)
+    }
+    if ("PUBLISH_LINK".equals(contentAssocTypeId)) {
+        ownerContentId = pubPtContentId
+    }
+    //determine of we need to create complex template structure or simple content structure
+    if (parameters.uploadedFile && textData) {
+        Map createMain = [:]
+        createMain.dataResourceId = parameters.dataResourceId
+        createMain.contentAssocTypeId = parameters.contentAssocTypeId
+        createMain.contentName = parameters.contentName
+        createMain.description = subDescript
+        createMain.statusId = parameters.statusId
+        createMain.contentIdFrom = parameters.contentIdFrom
+        createMain.partyId = userLogin.partyId
+        createMain.ownerContentId = ownerContentId
+
+        createMain.dataTemplateTypeId = "SCREEN_COMBINED"
+        createMain.mapKey = "MAIN"
+        Map serviceResult = run service: "createContent", with: createMain
+        if (ServiceUtil.isSuccess(serviceResult)) {
+            contentId = serviceResult.contentId
+        }
+        // reset contentIdFrom to new contentId
+        contentAssocTypeId = "SUB_CONTENT"
+        contentIdFrom = contentId
+    }
+    if (parameters.uploadedFile) {
+        // create image data
+        Map createImage = [:]
+        createImage.dataResourceTypeId = "LOCAL_FILE"
+        createImage.dataTemplateTypeId = "NONE"
+        createImage.mapKey = "IMAGE"
+        createImage.ownerContentId = ownerContentId
+        createImage.contentName = parameters.contentName
+        createImage.description = subDescript
+        createImage.statusId = parameters.statusId
+        createImage.contentAssocTypeId = contentAssocTypeId
+        createImage.contentIdFrom = contentIdFrom
+        createImage.partyId = userLogin.partyId
+        createImage.uploadedFile = parameters.uploadedFile
+        createImage._uploadedFile_fileName = parameters._uploadedFile_fileName
+        createImage._uploadedFile_contentType = parameters._uploadedFile_contentType
+        Map serviceResult = run service: "createContentFromUploadedFile", with: createImage
+        String imageContentId = ServiceUtil.isSuccess(serviceResult)? serviceResult.contentId : null
+        if (!contentId) {
+            contentIdFrom = imageContentId
+            contentId = imageContentId
+            contentAssocTypeId = "SUB_CONTENT"
+        }
+    }
+    if (textData) {
+        Map createText = [:]
+        createText.dataResourceTypeId = "ELECTRONIC_TEXT"
+        createText.dataTemplateTypeId = "NONE"
+        createText.mapKey = "MAIN"
+        createText.ownerContentId = ownerContentId
+        createText.contentName = parameters.contentName
+        createText.description = subDescript
+        createText.statusId = parameters.statusId
+        createText.contentAssocTypeId = contentAssocTypeId
+        createText.textData = textData
+        createText.contentIdFrom = contentIdFrom
+        createText.partyId = userLogin.partyId
+        Debug.logInfo("calling createTextContent with map: " + createText, module)
+        Map serviceResult = run service: "createTextContent", with: createText
+        String textContentId = ServiceUtil.isSuccess(serviceResult)? serviceResult.contentId : null
+        if (!contentId) {
+            contentIdFrom = textContentId
+            contentId = textContentId
+            contentAssocTypeId = "SUB_CONTENT"
+        }
+    }
+    // we should have a primary (at least) contentId
+    if (contentId && parameters.summaryData) {
+        Map createSummary = [:]
+        createSummary.dataResourceTypeId = "ELECTRONIC_TEXT"
+        createSummary.dataTemplateTypeId = "NONE"
+        createSummary.mapKey = "SUMMARY"
+        createSummary.ownerContentId = ownerContentId
+        createSummary.contentName = parameters.contentName
+        createSummary.description = parameters.description
+        createSummary.statusId = parameters.statusId
+        createSummary.contentAssocTypeId = contentAssocTypeId
+        createSummary.textData = parameters.summaryData
+        createSummary.contentIdFrom = contentIdFrom
+        createSummary.partyId = userLogin.partyId
+        run service: "createTextContent", with:  createSummary
+    }
+    // If a response, still link it to the publish point
+    if ("RESPONSE".equals(origContentAssocTypeId)) {
+        Map contentAssocMap = [:]
+        contentAssocMap.contentId = pubPtContentId
+        contentAssocMap.contentIdTo = contentId
+        contentAssocMap.contentAssocTypeId = "RESPONSE"
+        Debug.logInfo("contentAssocMap: " + contentAssocMap, module)
+        run service: "createContentAssoc", with: contentAssocMap
+    }
+    Map result = success()
+    result.contentId = contentId
+    return result
+}
