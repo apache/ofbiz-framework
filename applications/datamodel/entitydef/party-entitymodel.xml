@@ -75,6 +75,7 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="description" type="description"></field>
       <field name="textData" type="very-long"></field>
+      <field name="statusId" type="id"></field>
       <prim-key field="agreementId"/>
       <relation type="one" fk-name="AGRMNT_PRODUCT" rel-entity-name="Product">
         <key-map field-name="productId"/>
