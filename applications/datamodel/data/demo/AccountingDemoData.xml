@@ -2544,16 +2544,21 @@ under the License.
 
     <!--  A Sales Agreement -->
     <Agreement agreementId="DS-1000-SALES" agreementTypeId="SALES_AGREEMENT" description="Agreement with DemoCustomer for drop ship" partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2011-08-02 12:00:00.0"/>
+    <AgreementTerm agreementId="DS-1000-SALES"  termTypeId="FIN_PAYMENT_TERM" termDays="30"/>
+    <AgreementTerm agreementId="DS-1000-SALES" termTypeId="FIN_PAYMENT_DISC" termDays="10" termValue="2"/> <!-- a 2% discount for paying within 10 days -->
     <AgreementItem agreementId="DS-1000-SALES" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
+    <AgreementProductAppl agreementId="DS-1000-SALES" agreementItemSeqId="00001" price="12" productId="DS-1000" quantity="100000" frequency="MONTHLY"/>
+    <AgreementProductAppl agreementId="DS-1000-SALES" agreementItemSeqId="00001" price="59.99" productId="WG-1111" quantity="100000" frequency="MONTHLY"/>
     <OrderHeader orderId="DEMO10090" agreementId="DS-1000-SALES"/>
     <OrderHeader orderId="Demo1002" agreementId="DS-1000-SALES"/>
 
     <!-- A Purchase Agreement -->
     <Agreement agreementId="DS-1000-PURCH" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement with DemoSupplier" partyIdFrom="Company" partyIdTo="DemoSupplier" fromDate="2011-08-02 12:00:00.0"/>
     <AgreementItem agreementId="DS-1000-PURCH" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
-    <AgreementProductAppl agreementId="DS-1000-PURCH" agreementItemSeqId="00001" price="8" productId="DS-1000"/>
+
     <!-- adding  applicable supplier products -->
-    <SupplierProduct partyId="DemoSupplier" agreementId="DS-1000-PURCH" agreementItemSeqId="00001" minimumOrderQuantity="0" currencyUomId="USD" productId="DS-1000" lastPrice="9.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" agreementId="DS-1000-PURCH" agreementItemSeqId="00001" minimumOrderQuantity="0" currencyUomId="USD" productId="DS-1000" lastPrice="8.0" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" agreementId="DS-1000-PURCH" agreementItemSeqId="00001" minimumOrderQuantity="0" currencyUomId="USD" productId="GZ-2644" lastPrice="24.0" availableFromDate="2005-01-01 00:00:00.000"/>
     <SupplierProduct partyId="DemoSupplier" agreementId="DS-1000-PURCH" agreementItemSeqId="00001"  minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_A_COST" lastPrice="9.0" supplierProductId="MAT_A" supplierProductName="Material A" availableFromDate="2005-01-01 00:00:00.000"/>
     <SupplierProduct partyId="DemoSupplier" agreementId="DS-1000-PURCH" agreementItemSeqId="00001" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_B_COST" lastPrice="7.0" supplierProductId="MAT_B" supplierProductName="Material B" availableFromDate="2005-01-01 00:00:00.000"/>
     <OrderHeader orderId="Demo1001" agreementId="DS-1000-PURCH"/>
