@@ -346,9 +346,16 @@ under the License.
       <field name="agreementId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
+      <field name="fromDate" type="date-time">
+        <description>start date/time from when the assignment of the party in the role is active</description>
+      </field>
+      <field name="thruDate" type="date-time">
+        <description>end date/time until when the assignment of the party in the role is active</description>
+      </field>
       <prim-key field="agreementId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="AGRMNT_ROLE_AGR" rel-entity-name="Agreement">
         <key-map field-name="agreementId"/>
       </relation>
