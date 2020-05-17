@@ -27,8 +27,9 @@ The detailed description of migration scripts specified here can be found at [Re
 # Changes with OFBiz Trunk (Upcoming Branch)
 
 ## Entity Changes
-**Added 1 new entity**
+**Added new entities**
 1. ProdPromoCodeContactMech
+2. StatusChange https://github.com/PierreSmits/ofbiz/commit/cfd70760739afb7a45e5ea2ee7aad28d9bf2ea70#diff-9701dc89309d6129833a4b67ffddf6db
 
 **Removed/Deprecate 1 entity**
 1. ProductPromoCodeEmail
@@ -38,6 +39,7 @@ The detailed description of migration scripts specified here can be found at [Re
 | Entity  | Field  | Action | IsPK | Revision |
 |:------------- |:---------------:|:---------------:|:---------------:| -------------:|
 | GlXbrlClass | parentGlXbrlClassId | Added | No | 36a123a |
+| Agreement | statusId | Added | No | https://github.com/PierreSmits/ofbiz/commit/cdb3b464c185f7dd809f246e96b5405ddca8085f#diff-9701dc89309d6129833a4b67ffddf6db |
 
 
 ## Migration Scripts
