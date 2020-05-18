@@ -17,18 +17,20 @@
  * under the License.
  */
 
+import java.sql.Timestamp
+
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.StringUtil
+import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityJoinOperator
 import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.minilang.SimpleMapProcessor
-
-import java.sql.Timestamp
-import org.apache.ofbiz.base.util.StringUtil
-import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.party.party.PartyHelper
+import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ServiceUtil
 
 /**
   * Save Party Name Change
@@ -923,5 +925,30 @@ def getChildRoleTypesInline (List roleTypeIdListName) {
     }
 
     resultMap.childRoleTypeIdList = newRoleTypeIdList
+    return resultMap
+}
+
+def getRolePartiesList() {
+    Map inMap
+    Map resultMap = success()
+    List rolePartiesList = []
+    roleTypeId = parameters.roleTypeId
+    if (null == parameters.lastNameFirst) {
+    	lastNameFirst = "Y"
+    }
+    partyRoleList = from("PartyRole").where('roleTypeId', roleTypeId).queryList()
+    for (GenericValue partyRole : partyRoleList) {
+    	inMap = dispatcher.getDispatchContext().makeValidContext("getPartyNameForDate", ModelService.IN_PARAM, parameters)
+        inMap.partyId = partyRole.partyId
+        inMap.lastNameFirst = lastNameFirst
+        serviceResult = run service: "getPartyNameForDate", with: inMap
+        if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+        roleParty = serviceResult.fullName + ": " + partyRole.partyId
+        rolePartiesList << roleParty
+    }
+    if (!rolePartiesList) {
+    	rolePartiesList << UtilProperties.getMessage("PartyUiLabels", "PartyNoPartiesFound", parameters.locale)
+    }
+    resultMap.rolePartiesList = rolePartiesList
     return resultMap
 }

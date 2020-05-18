@@ -104,6 +104,16 @@ under the License.
         <auto-attributes mode="IN" include="pk"/>
     </service>
 
+    <!-- PartyRole services -->
+    <service name="getRolePartiesList" engine="groovy" auth="true"
+        location="component://party/groovyScripts//party/PartyServices.groovy" invoke="getRolePartiesList">
+        <description>Get the parties associated for a given roletypeId</description>
+        <attribute name="roleTypeId" mode="IN" type="String" optional="false"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="lastNameFirst" mode="IN" type="String" optional="true"/>
+        <attribute name="rolePartiesList" mode="OUT" type="java.util.List"/>
+    </service>
+
     <!-- PartyType services -->
     <service name="createPartyType" default-entity-name="PartyType" engine="entity-auto" invoke="create" auth="true">
         <description>Create a PartyType Record</description>

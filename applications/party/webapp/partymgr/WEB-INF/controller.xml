@@ -585,6 +585,7 @@ under the License.
         <response name="error" type="view" value="ViewSegmentRoles"/>
     </request-map>
 
+    <!-- roletype related -->
     <request-map uri="addsecondaryroles"><security https="true" auth="true"/><response name="success" type="view" value="addsecondaryroles"/></request-map>
     <request-map uri="addrole">
         <security https="true" auth="true"/>
@@ -604,6 +605,13 @@ under the License.
         <response name="success" type="view" value="viewroles"/>
         <response name="error" type="view" value="viewroles"/>
     </request-map>
+    <request-map uri="getRolePartiesList">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getRolePartiesList"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
 
     <request-map uri="createPartyIdentification">
         <security https="true" auth="true"/>
