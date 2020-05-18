@@ -35,7 +35,6 @@ import java.util.TimeZone;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -129,7 +128,7 @@ public final class FreeMarkerWorker {
                 newConfig.setNewBuiltinClassResolver(TemplateClassResolver.ALLOWS_NOTHING_RESOLVER);
                 break;
             default:
-                Debug.logError("Not a TemplateClassResolver.", MODULE);
+                Debug.logError("Not a TemplateClassResolver.", module);
                 break;
         }
         // Transforms properties file set up as key=transform name, property=transform class name
