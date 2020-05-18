@@ -115,7 +115,7 @@ under the License.
     <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_SALES_MGT" emplPositionIdReportingTo="DEMO_CMO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
     <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_SALES_MGT" emplPositionIdReportingTo="DEMO_COO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
     <EmplPosition emplPositionId="DEMO_SALES_ASSST" emplPositionTypeId="MGT_ASSST" partyId="SALES" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
-    <EmplPosition emplPositionId="DEMO_SALES_ACCT" emplPositionTypeId="ACCOUNT_MGR" partyId="SALES" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_SALES_ACCT" emplPositionTypeId="ACCOUNT_MANAGER" partyId="SALES" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
     <EmplPosition emplPositionId="DEMO_SALES_SME" emplPositionTypeId="EXPERT" partyId="SALES" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
 
     <!-- for partyId="WRHSNG" -->

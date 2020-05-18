@@ -61,7 +61,7 @@ under the License.
     <StatusItem statusId="LEAVE_CREATED" statusTypeId="LEAVE_STATUS"  description="Created"/>
     <StatusItem statusId="LEAVE_REJECTED" statusTypeId="LEAVE_STATUS"  description="Rejected"/>
 
-    <EmplPositionType description="Account Manager" hasTable="N" emplPositionTypeId="ACCOUNT_MGR"/>
+    <EmplPositionType description="Account Manager" hasTable="N" emplPositionTypeId="ACCOUNT_MANAGER"/>
     <EmplPositionType description="Buyer" hasTable="N" emplPositionTypeId="BUYER"/>
     <EmplPositionType description="Business Analyst" hasTable="N" emplPositionTypeId="BIZ_ANALYST"/>
     <EmplPositionType description="Chief Compliance Officer" hasTable="N" emplPositionTypeId="CCO"/>
