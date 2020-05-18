@@ -191,12 +191,7 @@ under the License.
     <RoleType roleTypeId="BUYER" description="Buyer" hasTable="N" parentTypeId="EMPLOYEE"/>
     <RoleType roleTypeId="CASHIER" description="Cashier" hasTable="N" parentTypeId="EMPLOYEE"/>
     <RoleType roleTypeId="MANAGER" description="Manager" hasTable="N" parentTypeId="EMPLOYEE"/>
-    <RoleType roleTypeId="RECEIVER" description="Receiver" hasTable="N" parentTypeId="EMPLOYEE"/>
     <RoleType roleTypeId="ORDER_CLERK" description="Order Clerk" hasTable="N" parentTypeId="EMPLOYEE"/>
-    <RoleType roleTypeId="PACKER" description="Packer" hasTable="N" parentTypeId="EMPLOYEE"/>
-    <RoleType roleTypeId="PICKER" description="Picker" hasTable="N" parentTypeId="EMPLOYEE"/>
-    <RoleType roleTypeId="SHIPMENT_CLERK" description="Shipment Clerk" hasTable="N" parentTypeId="EMPLOYEE"/>
-    <RoleType roleTypeId="STOCKER" description="Stocker" hasTable="N" parentTypeId="EMPLOYEE"/>
     <RoleType roleTypeId="WORKER" description="Worker" hasTable="N" parentTypeId="EMPLOYEE"/>
 
     <!-- Organisation Unit roles (directory related) -->
@@ -232,22 +227,6 @@ under the License.
     <RoleType description="Owner" hasTable="N"  roleTypeId="OWNER"/>
     <RoleType description="Referrer" hasTable="N" roleTypeId="REFERRER"/>
     
-    <!-- artefact roles -->
-    <RoleType description="Agreement Role" hasTable="N" roleTypeId="AGREEMENT_ROLE"/>
-    <RoleType description="Agreement Approver" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_APPROVER"/>
-    <RoleType description="Agreement Creator" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_CREATOR"/>
-    <RoleType description="Agreement Manager" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_MANAGER"/>
-    <RoleType description="Agreement Reviewer" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_REVIEWER"/>
-    <RoleType description="Agreement Viewer" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_VIEWER"/>
-
-    <RoleType description="Quote Role" hasTable="N" roleTypeId="QUOTE_ROLE"/>
-    <RoleType description="Quote Approver" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_APPROVER"/>
-    <RoleType description="Quote Creator" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_CREATOR"/>
-    <RoleType description="Quote Manager" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_MANAGER"/>
-    <RoleType description="Quote Requester" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_REQUESTER"/>
-    <RoleType description="Quote Reviewer" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_REVIEWER"/>
-    <RoleType description="Quote Viewer" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_VIEWER"/>
-
     <RoleType description="Shareholder" hasTable="N" roleTypeId="SHAREHOLDER"/>
     <RoleType description="Subscriber" hasTable="N" roleTypeId="SUBSCRIBER"/>
     <RoleType description="Visitor" hasTable="N" roleTypeId="VISITOR"/>
@@ -256,22 +235,30 @@ under the License.
     <RoleType description="Accountant" hasTable="N" roleTypeId="ACCOUNTANT"/>
 
     <!-- artefact roles -->
-    <RoleType description="Agreement Role" hasTable="N" roleTypeId="AGREEMENT_ROLE"/>
+    <RoleType description="Agreement Roles" hasTable="N" roleTypeId="AGREEMENT_ROLE"/>
     <RoleType description="Agreement Approver" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_APPROVER"/>
     <RoleType description="Agreement Creator" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_CREATOR"/>
     <RoleType description="Agreement Manager" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_MANAGER"/>
     <RoleType description="Agreement Reviewer" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_REVIEWER"/>
     <RoleType description="Agreement Viewer" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_VIEWER"/>
 
-    <RoleType description="Quote Role" hasTable="N" roleTypeId="QUOTE_ROLE"/>
+    <RoleType roleTypeId="WAREHOUSE_ROLE" description="Warehouse Roles" hasTable="N"/>
+    <RoleType roleTypeId="RECEIVER" description="Receiver" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="PACKER" description="Packer" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="PICKER" description="Picker" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="SHIPMENT_CLERK" description="Shipment Clerk" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="STOCKER" description="Stocker" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+
+    <RoleType description="Quote Roles" hasTable="N" roleTypeId="QUOTE_ROLE"/>
     <RoleType description="Quote Approver" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_APPROVER"/>
     <RoleType description="Quote Creator" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_CREATOR"/>
     <RoleType description="Quote Manager" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_MANAGER"/>
     <RoleType description="Quote Requester" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_REQUESTER"/>
     <RoleType description="Quote Reviewer" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_REVIEWER"/>
     <RoleType description="Quote Viewer" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_VIEWER"/>
+    
 
-    <RoleType description="Request Role" hasTable="N" roleTypeId="REQUEST_ROLE"/>
+    <RoleType description="Request Roles" hasTable="N" roleTypeId="REQUEST_ROLE"/>
     <RoleType description="Request Manager" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_MANAGER"/>
     <RoleType description="Requesting Party" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_REQUESTER"/>
     <RoleType description="Request Taker" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_TAKER"/>
