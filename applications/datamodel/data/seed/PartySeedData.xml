@@ -234,6 +234,18 @@ under the License.
     <RoleType description="Workflow" hasTable="N" roleTypeId="WORKFLOW_ROLE"/>
     <RoleType description="Accountant" hasTable="N" roleTypeId="ACCOUNTANT"/>
 
+    <!-- project roles -->
+    <RoleType description="Project Team" hasTable="N" roleTypeId="PROJECT_TEAM"/>
+    <RoleType description="Client Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_MANAGER"/>
+    <RoleType description="Client Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_ANALYST"/>
+    <RoleType description="Client Billing" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_BILLING"/>
+    <RoleType description="Provider Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_MANAGER"/>
+    <RoleType description="Provider Accounting" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ACCOUNTING"/>
+    <RoleType description="Provider Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ANALYST"/>
+    <RoleType description="Provider Validator" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_VALIDATOR"/>
+    <RoleType description="Provider Func. Impl" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_FUNCTIONAL"/>
+    <RoleType description="Provider Tester" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_TESTER"/>
+
     <!-- artefact roles -->
     <RoleType description="Agreement Roles" hasTable="N" roleTypeId="AGREEMENT_ROLE"/>
     <RoleType description="Agreement Approver" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_APPROVER"/>
