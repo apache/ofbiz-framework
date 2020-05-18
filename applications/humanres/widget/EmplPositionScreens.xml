@@ -332,7 +332,7 @@
     <screen name="RemoveInternalOrgFtl">
         <section>
             <widgets>
-                <platform-specific><html><html-template multi-block="true" location="component://humanres/template/internalorg/RemoveInternalOrg.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://humanres/template/internalorg/RemoveInternalOrg.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
