@@ -2534,7 +2534,6 @@ under the License.
     <AgreementTerm agreementTermId="8002" termTypeId="FIN_COMM_MIN" agreementId="8000" agreementItemSeqId="0001" invoiceItemTypeId="INV_FPROD_ITEM" termValue="0.000" termDays="30"/>
     <AgreementProductAppl agreementId="8000" agreementItemSeqId="0001" productId="WG-9943"/>
 
-
     <!-- entity Agreement and related-->
     <!-- The agreement header can be used to link directly two parties  -->
     <!-- Each agreement can have many agreement items, each one with its own agreementItemTypeId -->
@@ -2543,18 +2542,25 @@ under the License.
     <!-- Here we have two "Payment term" options available (30 days or 60 days) -->
 
     <!--  A Sales Agreement -->
-    <Agreement agreementId="DS-1000-SALES" agreementTypeId="SALES_AGREEMENT" description="Agreement with DemoCustomer for drop ship" partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2011-08-02 12:00:00.0"/>
+    <Agreement agreementId="DS-1000-SALES" agreementTypeId="SALES_AGREEMENT" description="Agreement with DemoCustomer for drop ship" 
+        partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2011-08-02 12:00:00.0"/>
     <AgreementTerm agreementId="DS-1000-SALES"  termTypeId="FIN_PAYMENT_TERM" termDays="30"/>
     <AgreementTerm agreementId="DS-1000-SALES" termTypeId="FIN_PAYMENT_DISC" termDays="10" termValue="2"/> <!-- a 2% discount for paying within 10 days -->
     <AgreementItem agreementId="DS-1000-SALES" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
     <AgreementProductAppl agreementId="DS-1000-SALES" agreementItemSeqId="00001" price="12" productId="DS-1000" quantity="100000" frequency="MONTHLY"/>
     <AgreementProductAppl agreementId="DS-1000-SALES" agreementItemSeqId="00001" price="59.99" productId="WG-1111" quantity="100000" frequency="MONTHLY"/>
+    <AgreementRole  agreementId="DS-1000-SALES" partyId="employee32" roleTypeId="AGRMNT_CREATOR" fromDate="2011-08-02 12:00:00.0" />
+    <AgreementRole  agreementId="DS-1000-SALES" partyId="employee29" roleTypeId="AGRMNT_REVIEWER" fromDate="2011-08-02 12:00:00.0" />
+    <AgreementRole  agreementId="DS-1000-SALES" partyId="employee42" roleTypeId="AGRMNT_APPROVER" fromDate="2011-08-02 12:00:00.0" />
     <OrderHeader orderId="DEMO10090" agreementId="DS-1000-SALES"/>
     <OrderHeader orderId="Demo1002" agreementId="DS-1000-SALES"/>
 
     <!-- A Purchase Agreement -->
     <Agreement agreementId="DS-1000-PURCH" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement with DemoSupplier" partyIdFrom="Company" partyIdTo="DemoSupplier" fromDate="2011-08-02 12:00:00.0"/>
     <AgreementItem agreementId="DS-1000-PURCH" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
+    <AgreementRole  agreementId="DS-1000-PURCH" partyId="employee27" roleTypeId="AGRMNT_CREATOR" fromDate="2011-08-02 12:00:00.0" />
+    <AgreementRole  agreementId="DS-1000-PURCH" partyId="employee25" roleTypeId="AGRMNT_REVIEWER" fromDate="2011-08-02 12:00:00.0" />
+    <AgreementRole  agreementId="DS-1000-PURCH" partyId="employee46" roleTypeId="AGRMNT_APPROVER" fromDate="2011-08-02 12:00:00.0" />
 
     <!-- adding  applicable supplier products -->
     <SupplierProduct partyId="DemoSupplier" agreementId="DS-1000-PURCH" agreementItemSeqId="00001" minimumOrderQuantity="0" currencyUomId="USD" productId="DS-1000" lastPrice="8.0" availableFromDate="2005-01-01 00:00:00.000"/>
