@@ -64,7 +64,6 @@ import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
-import freemarker.template.utility.ClassUtil;
 
 /**
  * FreeMarkerWorker - Freemarker Template Engine Utilities.
@@ -118,14 +117,20 @@ public final class FreeMarkerWorker {
         } catch (TemplateException e) {
             Debug.logError("Unable to set date/time and number formats in FreeMarker: " + e, module);
         }
-        String templateClassResolver = UtilProperties.getPropertyValue("security", "templateClassResolver", 
-                "SAFER_RESOLVER");
-        try {
-            newConfig.setNewBuiltinClassResolver((TemplateClassResolver) 
-                    ClassUtil.forName("freemarker.core.TemplateClassResolver" + templateClassResolver)
-                    .cast(templateClassResolver));
-        } catch (ClassNotFoundException e) {
-            Debug.logError("No TemplateClassResolver." + templateClassResolver, MODULE);
+        String templateClassResolver = UtilProperties.getPropertyValue("security", "templateClassResolver", "SAFER_RESOLVER");
+        switch (templateClassResolver) {
+            case "UNRESTRICTED_RESOLVER":
+                newConfig.setNewBuiltinClassResolver(TemplateClassResolver.UNRESTRICTED_RESOLVER);
+                break;
+            case "SAFER_RESOLVER":
+                newConfig.setNewBuiltinClassResolver(TemplateClassResolver.SAFER_RESOLVER);
+                break;
+            case "ALLOWS_NOTHING_RESOLVER":
+                newConfig.setNewBuiltinClassResolver(TemplateClassResolver.ALLOWS_NOTHING_RESOLVER);
+                break;
+            default:
+                Debug.logError("Not a TemplateClassResolver.", MODULE);
+                break;
         }
         // Transforms properties file set up as key=transform name, property=transform class name
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
