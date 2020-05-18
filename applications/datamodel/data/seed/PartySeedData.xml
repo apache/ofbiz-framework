@@ -212,6 +212,7 @@ under the License.
 
     <!-- CRM/SFA roles -->
     <RoleType roleTypeId="ACCOUNT" description="Contact" hasTable="N" parentTypeId="SFA_ROLE"/>
+    <RoleType roleTypeId="ACCOUNT_MANAGER" description="Account Manager" hasTable="N" parentTypeId="SFA_ROLE"/>
     <RoleType roleTypeId="CONTACT" description="Contact" hasTable="N" parentTypeId="SFA_ROLE"/>
     <RoleType roleTypeId="LEAD" description="Lead" hasTable="N" parentTypeId="SFA_ROLE"/>
     <RoleType roleTypeId="PROSPECT" description="Prospect" hasTable="N" parentTypeId="SFA_ROLE"/>
@@ -374,12 +375,14 @@ under the License.
     <!-- Agreement Status Data -->
     <StatusType description="Agreement" hasTable="N" statusTypeId="AGREEMENT_STATUS"/>
     <StatusItem description="Created" sequenceId="00" statusCode="CREATED" statusId="AGRMNT_CREATED" statusTypeId="AGREEMENT_STATUS"/>
-    <StatusItem description="Reviewed" sequenceId="01" statusCode="REVIEWED" statusId="AGRMNT_REVIEWED" statusTypeId="AGREEMENT_STATUS"/>
-    <StatusItem description="Adjusted" sequenceId="02" statusCode="ADJUSTED" statusId="AGRMNT_ADJUSTED" statusTypeId="AGREEMENT_STATUS"/>
-    <StatusItem description="Approved" sequenceId="03" statusCode="APPROVED" statusId="AGRMNT_APPROVED" statusTypeId="AGREEMENT_STATUS"/>
-    <StatusItem description="Rejected" sequenceId="04" statusCode="REJECTED" statusId="AGRMNT_REJECTED" statusTypeId="AGREEMENT_STATUS"/>
-    <StatusItem description="In Effect" sequenceId="05" statusCode="WIP" statusId="AGRMNT_WIP" statusTypeId="AGREEMENT_STATUS"/>
-    <StatusItem description="Ended" sequenceId="06" statusCode="ENDED" statusId="AGRMNT_END" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Submitted" sequenceId="01" statusCode="SUBMITTED" statusId="AGRMNT_SUBMITTED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Reviewed" sequenceId="02" statusCode="REVIEWED" statusId="AGRMNT_REVIEWED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Adjusted" sequenceId="03" statusCode="ADJUSTED" statusId="AGRMNT_ADJUSTED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Approved" sequenceId="04" statusCode="APPROVED" statusId="AGRMNT_APPROVED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="05" statusCode="REJECTED" statusId="AGRMNT_REJECTED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="In Effect" sequenceId="06" statusCode="WIP" statusId="AGRMNT_WIP" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Ended" sequenceId="07" statusCode="ENDED" statusId="AGRMNT_ENDED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="AGRMNT_CANCELLED" statusTypeId="AGREEMENT_STATUS"/>
 
     <StatusValidChange statusId="AGRMNT_CREATED" statusIdTo="AGRMNT_SUBMITTED" transitionName="Submit Agreement"/>
     <StatusValidChange statusId="AGRMNT_SUBMITTED" statusIdTo="AGRMNT_REVIEWED" transitionName="Review Agreement"/>
@@ -387,7 +390,7 @@ under the License.
     <StatusValidChange statusId="AGRMNT_ADJUSTED" statusIdTo="AGRMNT_REVIEWED" transitionName="Review Agreement"/>
     <StatusValidChange statusId="AGRMNT_REVIEWED" statusIdTo="AGRMNT_APPROVED" transitionName="Approve Agreement"/>
     <StatusValidChange statusId="AGRMNT_REVIEWED" statusIdTo="AGRMNT_CANCELLED" transitionName="Cancel Agreement"/>
-    <StatusValidChange statusId="AGRMNT_CREATED" statusIdTo="AGRMNT_CANCELED" transitionName="Cancel Agreement"/>
+    <StatusValidChange statusId="AGRMNT_CREATED" statusIdTo="AGRMNT_CANCELLED" transitionName="Cancel Agreement"/>
     <StatusValidChange statusId="AGRMNT_APPROVED" statusIdTo="AGRMNT_WIP" transitionName="Agreement in Effect"/>
     <StatusValidChange statusId="AGRMNT_WIP" statusIdTo="AGRMNT_ENDED" transitionName="Agreement Ended"/>
 
