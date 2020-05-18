@@ -319,8 +319,8 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deactivateAllContentRoles" engine="simple" default-entity-name="ContentRole" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="deactivateAllContentRoles">
+    <service name="deactivateAllContentRoles" engine="groovy" default-entity-name="ContentRole" auth="true"
+             location="component://content/groovyScripts/content/ContentServices.groovy" invoke="deactivateAllContentRoles">
         <description>Deactivate all ContentRoles</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute mode="IN" name="contentId" optional="false" type="String">

@@ -164,19 +164,6 @@
 
     <!-- Methods for ContentRole -->
 
-    <simple-method method-name="deactivateAllContentRoles" short-description="Update Content Role">
-        <make-value entity-name="ContentRole" value-field="lookupKeyValue"/>
-        <set from-field="parameters.contentId" field="lookupKeyValue.contentId"/>
-        <set from-field="parameters.partyId" field="lookupKeyValue.partyId"/>
-        <set from-field="parameters.roleTypeId" field="lookupKeyValue.roleTypeId"/>
-        <find-by-and entity-name="ContentRole" map="lookupKeyValue" list="roleList"/>
-        <iterate list="roleList" entry="contentRoleMap">
-            <make-value entity-name="ContentRole" value-field="role" map="contentRoleMap"/>
-            <now-timestamp field="role.thruDate"/>
-            <store-value value-field="role"/>
-        </iterate>
-    </simple-method>
-
     <simple-method method-name="updateSingleContentPurpose" short-description="Updates the purpose making sure there is only one">
         <set field="toRemove.contentId" from-field="parameters.contentId"/>
         <remove-by-and entity-name="ContentPurpose" map="toRemove"/>

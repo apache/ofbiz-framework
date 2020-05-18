@@ -17,14 +17,19 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
+import java.sql.Timestamp
+ 
 import org.apache.ofbiz.common.UrlServletHelper
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityListIterator
 import org.apache.ofbiz.service.GenericServiceException;
+
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilDateTime
 
 MODULE = "ContentServices.groovy"
 def createTextAndUploadedContent(){
@@ -46,6 +51,19 @@ def createTextAndUploadedContent(){
 
     result.contentId = parameters.parentContentId
     return result
+}
+
+def deactivateAllContentRoles() {
+    List contentRoles = from("ContentRole").
+            where("contentId", parameters.contentId, "partyId", parameters.partyId, "roleTypeId", parameters.roleTypeId)
+            .queryList();
+    if (contentRoles) {
+        for (GenericValue contentRole : contentRoles) {
+            contentRole.put("thruDate", UtilDateTime.nowTimestamp());
+            contentRole.store();
+        }
+    }
+    return success()
 }
 
 def createContentAlternativeUrl() {
