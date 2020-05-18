@@ -232,9 +232,49 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="EditRequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
-                            <include-form name="EditRequestRole" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                            <include-form name="ListRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewRequestRole">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleRequestRoles"/>
+                <set field="tabButtonItem" value="requestroles"/>
+                <set field="headerItem" value="request"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-and entity-name="CustRequestParty" list="custRequestParties">
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
+                </entity-and>
+                <set field="fromDate" from-field="nowTimestamp"/>
+                <!-- elements for dropdown dependency -->
+                <set field="defaultRequestRole" value="REQ_TAKER"/>
+                <set field="dependentForm" value="NewRequestRole"/>
+                <set field="paramKey" value="roleTypeId"/>
+                <set field="mainId" value="roleTypeId"/>
+                <set field="dependentId" value="partyId"/>
+                <set field="requestName" value="getRolePartiesList"/>
+                <set field="responseName" value="rolePartiesList"/>
+                <set field="dependentKeyName" value="partyId"/>
+                <set field="descName" value="partyId"/>
+                <set field="selectedDependentOption" from-field="partyId" default-value="_none_"/>
+                <set field="lastNameFirst" value="Y"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="${dependentForm}Panel" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonRole}" collapsible="true">
+                            <platform-specific>
+                                <html>
+                                    <html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/>
+                                </html>
+                            </platform-specific>
+                            <include-form name="${dependentForm}" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

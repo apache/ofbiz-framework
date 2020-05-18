@@ -450,7 +450,6 @@ under the License.
 
     <form name="ListRequestRoles" type="list" use-row-submit="true" title="" list-name="custRequestParties" target="updateCustRequestParty"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="RequestRoles">
-        <auto-fields-entity entity-name="CustRequestParty" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
             <display-entity also-hidden="true" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}">
@@ -459,10 +458,11 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}">
             <display-entity also-hidden="true" entity-name="RoleType"/>
         </field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="expireLink" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonExpire}" target="expireCustRequestParty">
@@ -482,21 +482,23 @@ under the License.
         </field>
     </form>
 
-    <form name="EditRequestRole" type="single" target="createCustRequestParty" title=""
+    <form name="NewRequestRole" type="single" target="createCustRequestParty"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="custRequestId"><hidden/></field>
-        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
-            <drop-down allow-empty="false">
-                <option key="REQ_REQUESTER" description="${uiLabelMap.WorkEffortRequestingParty}"/>
-                <option key="AGENT" description="${uiLabelMap.OrderAgent}"/>
-                <option key="REQ_TAKER" description="${uiLabelMap.WorkEffortRequestTaker}"/>
-                <option key="REQ_MANAGER" description="${uiLabelMap.WorkEffortRequestManager}"/>
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}" required-field="true">
+            <drop-down no-current-selected-key="REQ_TAKER" allow-empty="false">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
+                    <entity-constraint name="parentTypeId" operator="equals" value="REQUEST_ROLE"/>
+                </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time default-value="${nowTimestamp}"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="partyId" title="${uiLabelMap.CommonParty}" required-field="true">
+            <!-- dependent on role type selection -->
+            <drop-down allow-empty="false"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}" required-field="true"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListRequestItemRequirements" type="list" title="" list-name="custRequestRequirements"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestItemRequirements">

@@ -279,31 +279,7 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="editRequest" title="${uiLabelMap.OrderRequest}">
-            <condition>
-                <and>
-                    <not><if-empty field="custRequest"/></not>
-                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
-                </and>
-            </condition>
-            <link target="request">
-                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
-            </link>
-        </menu-item>
-        <menu-item name="requestroles" title="${uiLabelMap.OrderRequestRoles}">
-            <condition>
-                <and>
-                    <not><if-empty field="custRequest"/></not>
-                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
-                </and>
-            </condition>
-            <link target="requestroles">
-                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
-            </link>
-        </menu-item>
-        <menu-item name="requestitems" title="${uiLabelMap.OrderRequestItems}">
+        <menu-item name="requestitems" title="${uiLabelMap.CommonItems}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -315,7 +291,7 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="custRequestContent" title="${uiLabelMap.OrderRequestContent}">
+        <menu-item name="custRequestContent" title="${uiLabelMap.CommonContent}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -327,6 +303,18 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
+        <menu-item name="requestroles" title="${uiLabelMap.CommonRoles}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="requestroles">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
@@ -334,7 +322,7 @@ under the License.
         <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
             <link target="EditRequest"/>
         </menu-item>
-        <menu-item name="createQuoteFromRequest" title="${uiLabelMap.OrderCreateQuoteFromRequest}">
+        <menu-item name="createQuoteFromRequest" title="${uiLabelMap.CommonNew }${uiLabelMap.CommonRequest}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -343,6 +331,28 @@ under the License.
             </condition>
             <link target="createQuoteFromCustRequest">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="editRequest" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="request">
+                <parameter param-name="custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="addRequestRole" title="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonRole}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                </and>
+            </condition>
+            <link target="addRequestRole">
+                <parameter param-name="custRequestId"/>
             </link>
         </menu-item>
     </menu>

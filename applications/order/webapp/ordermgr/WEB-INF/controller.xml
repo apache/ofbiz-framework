@@ -23,6 +23,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <include location="component://content/webapp/content/WEB-INF/controller.xml"/>
+    <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
     <description>Order Manager Module Site Configuration File</description>
     
     <!-- Events to run on every request before security (chains exempt) -->
@@ -1373,6 +1374,7 @@ under the License.
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
     <request-map uri="requestroles"><security https="true" auth="true"/><response name="success" type="view" value="RequestRoles"/></request-map>
+    <request-map uri="addRequestRole"><security https="true" auth="true"/><response name="success" type="view" value="addRequestRole"/></request-map>
     <request-map uri="createCustRequestParty">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCustRequestParty"/>
@@ -2110,6 +2112,7 @@ under the License.
     <view-map name="FindRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#FindRequest"/>
     <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#ViewRequest"/>
     <view-map name="EditRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequest"/>
+    <view-map name="addRequestRole" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#NewRequestRole"/>
     <view-map name="EditRequestCustomer" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequestCustomer"/>
     <view-map name="EditRequestItem" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequestItem"/>
     <view-map name="RequestItems" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#RequestItems"/>
