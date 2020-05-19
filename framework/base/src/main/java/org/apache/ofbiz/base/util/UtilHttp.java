@@ -304,7 +304,6 @@ public final class UtilHttp {
                 int equalsIndex = token.indexOf("=");
                 if (equalsIndex > 0) {
                     String name = token.substring(0, equalsIndex);
-                    paramMap.put(name, token.substring(equalsIndex + 1));
                     String paramValue = UtilCodec.getDecoder("url").decode(token.substring(equalsIndex + 1));
                     if (UtilValidate.isEmpty(paramMap.get(name))) {
                         paramMap.put(name, paramValue);
