@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
@@ -56,4 +57,70 @@ def createPayment() {
     Map result = success()
     result.paymentId = paymentId
     return result
+}
+
+def getInvoicePaymentInfoList() {
+    // Create a list with information on payment due dates and amounts for the invoice
+    GenericValue invoice;
+    List invoicePaymentInfoList = []
+    if (!parameters.invoice) {
+        invoice = from("Invoice").where("invoiceId", parameters.invoiceId).queryOne()
+    } else {
+        invoice = parameters.invoice
+    }
+
+    BigDecimal invoiceTotalAmount = InvoiceWorker.getInvoiceTotal(invoice)
+    BigDecimal invoiceTotalAmountPaid = InvoiceWorker.getInvoiceApplied(invoice)
+
+    List invoiceTerms = from("InvoiceTerm").where("invoiceId", invoice.invoiceId).queryList()
+
+    BigDecimal remainingAppliedAmount = invoiceTotalAmountPaid
+    BigDecimal computedTotalAmount = (BigDecimal) 0
+
+    Map invoicePaymentInfo = [:]
+
+    for (invoiceTerm in invoiceTerms) {
+        termType = from("TermType").where("termTypeId", invoiceTerm.termTypeId).cache(true).queryOne()
+        if ("FIN_PAYMENT_TERM" == termType.parentTypeId) {
+            invoicePaymentInfo.clear()
+            invoicePaymentInfo.invoiceId = invoice.invoiceId
+            invoicePaymentInfo.invoiceTermId = invoiceTerm.invoiceTermId
+            invoicePaymentInfo.termTypeId = invoiceTerm.termTypeId
+            invoicePaymentInfo.dueDate = UtilDateTime.getDayEnd(invoice.invoiceDate, invoiceTerm.termDays)
+
+            BigDecimal invoiceTermAmount = (invoiceTerm.termValue * invoiceTotalAmount ) / 100
+            invoicePaymentInfo.amount = invoiceTermAmount
+            computedTotalAmount = computedTotalAmount + (BigDecimal) invoicePaymentInfo.amount
+
+            if (remainingAppliedAmount >= invoiceTermAmount) {
+                invoicePaymentInfo.paidAmount = invoiceTermAmount
+                remainingAppliedAmount = remainingAppliedAmount - invoiceTermAmount
+            } else {
+                invoicePaymentInfo.paidAmount = remainingAppliedAmount
+                remainingAppliedAmount = (BigDecimal) 0
+            }
+            invoicePaymentInfo.outstandingAmount = invoicePaymentInfo.amount - invoicePaymentInfo.paidAmount
+            invoicePaymentInfoList.add(invoicePaymentInfo)
+        }
+    }
+
+    if (remainingAppliedAmount > 0.0 || invoiceTotalAmount <= 0.0 || computedTotalAmount < invoiceTotalAmount) {
+        invoicePaymentInfo.clear()
+        invoiceTerm = from("InvoiceTerm").where("invoiceId", invoice.invoiceId, "termTypeId", "FIN_PAYMENT_TERM").queryFirst()
+        if (invoiceTerm) {
+            invoicePaymentInfo.termTypeId = invoiceTerm.termTypeId
+            invoicePaymentInfo.dueDate = UtilDateTime.getDayEnd(invoice.invoiceDate, invoiceTerm.termDays)
+        } else {
+            invoicePaymentInfo.dueDate = UtilDateTime.getDayEnd(invoice.invoiceDate)
+        }
+        invoicePaymentInfo.invoiceId = invoice.invoiceId
+        invoicePaymentInfo.amount = invoiceTotalAmount - computedTotalAmount
+        invoicePaymentInfo.paidAmount = remainingAppliedAmount
+        invoicePaymentInfo.outstandingAmount = invoicePaymentInfo.amount - invoicePaymentInfo.paidAmount
+        invoicePaymentInfoList.add(invoicePaymentInfo)
+    }
+    Map result = success()
+    result.invoicePaymentInfoList = invoicePaymentInfoList
+    return result
+
 }
