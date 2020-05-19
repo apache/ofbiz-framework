@@ -20,7 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-        
 
     <screen name="CommonBillingAccountDecorator">
         <section>
@@ -70,6 +69,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindBillingAccount"/>
                 <set field="headerItem" value="billingaccount"/>
+                <set field="helpAnchor" value="_help_for_find_billing_account"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator" location="${parameters.billingAccountDecoratorLocation}">
@@ -121,6 +121,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditBillingAccount"/>
                 <set field="headerItem" value="billingaccount"/>
                 <set field="tabButtonItem" value="EditBillingAccount"/>
+                <set field="helpAnchor" value="_help_for_edit_billing_account"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
@@ -148,6 +149,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditBillingAccountRoles"/>
                 <set field="headerItem" value="billingaccount"/>
                 <set field="tabButtonItem" value="EditBillingAccountRoles"/>
+                <set field="helpAnchor" value="_help_for_billing_account_roles"/>
 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
@@ -170,6 +172,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditBillingAccountTerms"/>
                 <set field="headerItem" value="billingaccount"/>
                 <set field="tabButtonItem" value="EditBillingAccountTerms"/>
+                <set field="helpAnchor" value="_help_for_billing_account_terms"/>
 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <set field="billingAccountTermId" from-field="parameters.billingAccountTermId"/>
@@ -210,6 +213,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditBillingAccountInvoices"/>
                 <set field="headerItem" value="billingaccount"/>
                 <set field="tabButtonItem" value="BillingAccountInvoices"/>
+                <set field="helpAnchor" value="_help_for_billing_account_invoices"/>
 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <set field="billingAccountTermId" from-field="parameters.billingAccountTermId"/>
@@ -233,6 +237,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditBillingAccountOrders"/>
                 <set field="headerItem" value="billingaccount"/>
                 <set field="tabButtonItem" value="BillingAccountOrders"/>
+                <set field="helpAnchor" value="_help_for_billing_account_orders"/>
 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
@@ -255,6 +260,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditBillingAccountPayments"/>
                 <set field="headerItem" value="billingaccount"/>
                 <set field="tabButtonItem" value="BillingAccountPayments"/>
+                <set field="helpAnchor" value="_help_for_billing_account_payments"/>
 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
