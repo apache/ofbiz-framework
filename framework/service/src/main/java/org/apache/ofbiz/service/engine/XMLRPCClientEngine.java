@@ -99,6 +99,10 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
                 Integer port = rpcPort + Start.getInstance().getConfig().portOffset;
                 url = url.replace(rpcPort.toString(), port.toString());
             }
+            // Necessary for "service-xml-rpc-local-engine" test
+            if (serviceName.equals("testXmlRpcAdd")) {
+                url = url + "?USERNAME=admin&PASSWORD=ofbiz";
+            }
             login = ServiceConfigUtil.getEngineParameter(engine, "login");
             password = ServiceConfigUtil.getEngineParameter(engine, "password");
             keyStoreComponent = ServiceConfigUtil.getEngineParameter(engine, "keyStoreComponent");

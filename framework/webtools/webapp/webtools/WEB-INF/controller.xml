@@ -98,13 +98,14 @@ under the License.
         <response name="success" type="none"/>
     </request-map>
     <request-map uri="xmlrpc" track-serverhit="false" track-visit="false">
-        <security https="false"/>
+        <security auth="true"/>
         <event type="xmlrpc"/>
         <response name="error" type="none"/>
         <response name="success" type="none"/>
     </request-map>
 
     <request-map uri="ping">
+        <security auth="true"/>
         <event type="service" invoke="ping"/>
         <response name="error" type="view" value="ping"/>
         <response name="success" type="view" value="ping"/>
