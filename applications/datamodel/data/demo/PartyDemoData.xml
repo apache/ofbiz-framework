@@ -396,7 +396,7 @@ under the License.
 
     <!-- Party partyId="employee26" -->
     <Party partyId="employee26" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="employee26" lastName="ProcurementAssist" firstName="DemoEmployee" middleName="26"/>
+    <Person partyId="employee26" lastName="ProcurementMgrAssist" firstName="DemoEmployee" middleName="26"/>
     <PartyRole partyId="employee26" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee26" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee26" partyId="employee26" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -430,7 +430,7 @@ under the License.
 
     <!-- Party partyId="employee30" -->
     <Party partyId="employee30" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="employee30" lastName="SalesAssit" firstName="DemoEmployee" middleName="30"/>
+    <Person partyId="employee30" lastName="SalesMgrAssist" firstName="DemoEmployee" middleName="30"/>
     <PartyRole partyId="employee30" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee30" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee30" partyId="employee30" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
