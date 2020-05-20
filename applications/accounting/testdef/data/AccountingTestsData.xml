@@ -28,11 +28,11 @@ under the License.
 
     <!-- For Testing service createPartyAcctgPreference -->
     <Party partyId="DEMO_COMPANY" partyTypeId="PARTY_GROUP"/>
-    <PartyRole partyId="DEMO_COMPANY" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="DEMO_COMPANY" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
     <PaymentMethod fromDate="2001-05-13 00:00:00.0" partyId="DEMO_COMPANY" paymentMethodId="9020" paymentMethodTypeId="CREDIT_CARD"/>
     <!-- For Testing service updatePartyAcctgPreference / getPartyAccountingPreferences-->
     <Party partyId="DEMO_COMPANY1" partyTypeId="PARTY_GROUP"/>
-    <PartyRole partyId="DEMO_COMPANY1" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="DEMO_COMPANY1" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
     <PartyAcctgPreference partyId="DEMO_COMPANY1"/>
     <!-- For Testing service updateFXConversion-->
     <UomConversionDated uomId="EUR" uomIdTo="USD" fromDate="2001-01-01 00:00:00.0" conversionFactor="1.5"/>
@@ -49,8 +49,8 @@ under the License.
     <PaymentMethodTypeGlAccount paymentMethodTypeId="CASH" glAccountId="999999" organizationPartyId="DEMO_COMPANY1"/>
 
     <!-- For Testing service cancelAgreement -->
-    <PartyRole partyId="DEMO_COMPANY" roleTypeId="SUPPLIER"/>
-    <PartyRole partyId="DEMO_COMPANY1" roleTypeId="DISTRIBUTOR"/>
+    <PartyRole partyId="DEMO_COMPANY" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DEMO_COMPANY1" roleTypeId="DISTRIBUTOR" fromDate="2001-05-13 00:00:00.0"/>
     <Agreement agreementId="1000" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement" partyIdFrom="DEMO_COMPANY" partyIdTo="DEMO_COMPANY1" roleTypeIdFrom="SUPPLIER" roleTypeIdTo="DISTRIBUTOR" fromDate="2016-09-29 00:00:00"/>
     <!-- For Testing service copyAgreement -->
     <Product productId="TestProduct2" productName="Test Product 2" internalName="Test Product 2" description="Test Product For Testing getCommissionForProduct services"/>
@@ -65,7 +65,7 @@ under the License.
     <Product productId="TestProduct3" productName="Test Product 3" internalName="Test Product 3" description="Test Product For Testing updateProductAverageCostOnReceiveInventory services"/>
     <Facility facilityId="DemoFacility1" facilityTypeId="WAREHOUSE" facilityName="Demo Facility" />
     <Party partyId="DEMO_COMPANY2" partyTypeId="PARTY_GROUP"/>
-    <PartyRole partyId="DEMO_COMPANY2" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="DEMO_COMPANY2" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
     <InventoryItem facilityId="DemoFacility1" inventoryItemId="9999" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="TestProduct3" ownerPartyId="DEMO_COMPANY2" currencyUomId="USD" unitCost="9"/>
     <PartyAcctgPreference partyId="DEMO_COMPANY2" cogsMethodId="COGS_LIFO"/>
     <!-- For Testing service updateFinAccount -->

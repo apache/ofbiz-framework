@@ -192,7 +192,7 @@ under the License.
     
     
     <!-- Accounting component role types regarding Budget entities-->
-    <RoleType description="Budget Roles Group (not to be assigned to parties)" roleTypeId="BUDGET" hasTable="Y" />
+    <RoleType description="Budget Role" roleTypeId="BUDGET" hasTable="Y" />
     <RoleType description="Budget Application" roleTypeId="BUDGET_APPL" parentTypeId="BUDGET" hasTable="N" />
     <RoleType description="Budget Manager" roleTypeId="BUDGET_MGR" parentTypeId="BUDGET" hasTable="N" />
     <RoleType description="Budget Reviewer" roleTypeId="BUDGET_RVR" parentTypeId="BUDGET" hasTable="N" />
