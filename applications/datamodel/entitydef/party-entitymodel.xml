@@ -2538,10 +2538,14 @@ under the License.
     <entity entity-name="PartyRole"
             package-name="org.apache.ofbiz.party.party"
             title="Party Role">
+       <description>Roles assigned to parties</description>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="PARTY_RLE_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
