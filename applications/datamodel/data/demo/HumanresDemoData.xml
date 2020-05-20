@@ -44,28 +44,243 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HUMANRES_EMPLOYEE" permissionId="PARTYMGR_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HUMANRES_EMPLOYEE" permissionId="OFBTOOLS_VIEW"/>
 
+    <!-- humanres specific security permissions -->
+    
+    <UserLoginSecurityGroup groupId="HUMANRES_APPROVER" userLoginId="employee20" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="HUMANRES_EMPLOYEE" userLoginId="employee22" fromDate="2001-01-01 12:00:00.0"/>
+    
+    <SecurityPermission permissionId="employeeVIEW" description="Employee can check the status of his requests and trainings assigned to him with this permission." />
+    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="employeeVIEW" fromDate="2001-05-13 12:00:00.0" />
+    
+
     <!-- Humanres Demo Data -->
-    <Party partyId="DemoEmployee" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/><!-- data completed by components loaded later -->
-    <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <!-- Employment Positions -->
+    <EmplPosition emplPositionId="DEMO_CCO" emplPositionTypeId="CCO" partyId="Company" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_CEO" emplPositionTypeId="CEO" partyId="Company" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_CFO" emplPositionTypeId="CFO" partyId="Company" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_CIO" emplPositionTypeId="CIO" partyId="Company" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_CMO" emplPositionTypeId="CMO" partyId="Company" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_COO" emplPositionTypeId="COO" partyId="Company" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_CSO" emplPositionTypeId="CSO" partyId="Company" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <!-- regarding departments -->
+    <!-- for partyId="ACCOUNTING" -->
+    <EmplPosition emplPositionId="DEMO_ACCT_MGT" emplPositionTypeId="DEPT_MGR" partyId="ACCOUNTING" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_ACCT_MGT" emplPositionIdReportingTo="DEMO_CFO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPosition emplPositionId="DEMO_ACCT_ASSST" emplPositionTypeId="MGT_ASSST" partyId="ACCOUNTING" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_ACCT_SME" emplPositionTypeId="EXPERT" partyId="ACCOUNTING" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
 
-    <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="DemoEmployee" emplPositionTypeId="_NA_" fromDate="2000-01-30 17:58:56.038" rateAmount="2300"/>
+    <!-- for partyId="FACSERV" -->
+    <EmplPosition emplPositionId="DEMO_FACSERV_MGT" emplPositionTypeId="DEPT_MGR" partyId="FACSERV" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_FACSERV_MGT" emplPositionIdReportingTo="DEMO_COO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPosition emplPositionId="DEMO_FACSERV_ASSST" emplPositionTypeId="MGT_ASSST" partyId="FACSERV" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_FACSERV_WRKR" emplPositionTypeId="WORKER" partyId="FACSERV" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+
+    <!-- for partyId="INFOSERV" -->
+    <EmplPosition emplPositionId="DEMO_INFO_MGT" emplPositionTypeId="DEPT_MGR" partyId="INFOSERV" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_INFO_MGT" emplPositionIdReportingTo="DEMO_CIO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPosition emplPositionId="DEMO_INFO_ASSST" emplPositionTypeId="MGT_ASSST" partyId="INFOSERV" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_PROGRAMMER" emplPositionTypeId="PROGRAMMER" partyId="INFOSERV" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_SYS_ADMIN" emplPositionTypeId="SYS_ADMIN" partyId="INFOSERV" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_TESTER" emplPositionTypeId="TESTER" partyId="INFOSERV" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    
+    <!-- for partyId="MNFCTRNG" -->
+    <EmplPosition emplPositionId="DEMO_MFG_MGT" emplPositionTypeId="DEPT_MGR" partyId="MNFCTRNG" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_MFG_MGT" emplPositionIdReportingTo="DEMO_COO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPosition emplPositionId="DEMO_MFG_ASSST" emplPositionTypeId="MGT_ASSST" partyId="MNFCTRNG" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_MFG_OPERATOR" emplPositionTypeId="OPERATOR" partyId="MNFCTRNG" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    
+    <!-- for partyId="MARKETING" -->
+    <EmplPosition emplPositionId="DEMO_MRKTNG_MGT" emplPositionTypeId="DEPT_MGR" partyId="MARKETING" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_MRKTNG_MGT" emplPositionIdReportingTo="DEMO_CMO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPosition emplPositionId="DEMO_MRKTNG_ASSST" emplPositionTypeId="MGT_ASSST" partyId="MARKETING" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_MRKTNG_SME" emplPositionTypeId="EXPERT" partyId="MARKETING" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+
+    <!-- for partyId="ORGTLNT" -->
+    <EmplPosition emplPositionId="DEMO_ORGTLNT_MGT" emplPositionTypeId="DEPT_MGR" partyId="ORGTLNT" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_ORGTLNT_MGT" emplPositionIdReportingTo="DEMO_CEO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_ORGTLNT_MGT" emplPositionIdReportingTo="DEMO_COO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPosition emplPositionId="DEMO_ORGTLNT_ASSST" emplPositionTypeId="MGT_ASSST" partyId="ORGTLNT" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_ORGTLNT_PROJECT" emplPositionTypeId="PROJECT_MANAGER" partyId="ORGTLNT" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_ORGTLNT_SME" emplPositionTypeId="EXPERT" partyId="ORGTLNT" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+
+    <!-- for partyId="PRCRMNT" -->
+    <EmplPosition emplPositionId="DEMO_PRCRMNT_MGT" emplPositionTypeId="DEPT_MGR" partyId="PRCRMNT" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_PRCRMNT_MGT" emplPositionIdReportingTo="DEMO_COO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPosition emplPositionId="DEMO_PRCRMNT_ASSST" emplPositionTypeId="MGT_ASSST" partyId="PRCRMNT" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_PRCRMNT_BYR" emplPositionTypeId="BUYER" partyId="PRCRMNT" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+
+    <!-- for partyId="SALES" -->
+    <EmplPosition emplPositionId="DEMO_SALES_MGT" emplPositionTypeId="DEPT_MGR" partyId="SALES" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_SALES_MGT" emplPositionIdReportingTo="DEMO_CEO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_SALES_MGT" emplPositionIdReportingTo="DEMO_CMO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_SALES_MGT" emplPositionIdReportingTo="DEMO_COO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPosition emplPositionId="DEMO_SALES_ASSST" emplPositionTypeId="MGT_ASSST" partyId="SALES" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_SALES_ACCT" emplPositionTypeId="ACCOUNT_MANAGER" partyId="SALES" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_SALES_SME" emplPositionTypeId="EXPERT" partyId="SALES" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+
+    <!-- for partyId="WRHSNG" -->
+    <EmplPosition emplPositionId="DEMO_WRHSNG_MGT" emplPositionTypeId="DEPT_MGR" partyId="WRHSNG" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionReportingStruct emplPositionIdManagedBy="DEMO_WRHSNG_MGT" emplPositionIdReportingTo="DEMO_COO" primaryFlag="Y" fromDate="2020-05-01 00:00:00.0"/>
+    <EmplPosition emplPositionId="DEMO_WRHSNG_ASSST" emplPositionTypeId="MGT_ASSST" partyId="WRHSNG" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_WRHSNG_PACK" emplPositionTypeId="PACKER" partyId="WRHSNG" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPosition emplPositionId="DEMO_WRHSNG_PICK" emplPositionTypeId="PICKER" partyId="WRHSNG" statusId="EMPL_POS_ACTIVE" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+
+    <!-- Fulfillments of Employment Positions -->
+    <EmplPositionFulfillment emplPositionId="DEMO_ACCT_MGT" partyId="employee1" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee1" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_ACCT_ASSST" partyId="employee2" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee2" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_ACCT_SME" partyId="employee3" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee3" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_FACSERV_MGT" partyId="employee48" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee48" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_FACSERV_ASSST" partyId="employee49" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee49" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_FACSERV_WRKR" partyId="employee50" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee50" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_INFO_MGT" partyId="employee4" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee4" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_INFO_ASSST" partyId="employee5" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee5" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_PROGRAMMER" partyId="employee6" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee6" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_PROGRAMMER" partyId="employee7" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee7" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_PROGRAMMER" partyId="employee8" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee8" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_PROGRAMMER" partyId="employee9" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee9" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_TESTER" partyId="employee10" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee10" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_TESTER" partyId="employee11" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee11" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_TESTER" partyId="employee12" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee12" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_MFG_MGT" partyId="employee13" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee13" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_MFG_ASSST" partyId="employee14" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee14" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_MFG_OPERATOR" partyId="employee15" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee15" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_MFG_OPERATOR" partyId="employee16" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee16" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_MRKTNG_MGT" partyId="employee17" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee17" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_MRKTNG_ASSST" partyId="employee18" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee18" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_MRKTNG_SME" partyId="employee19" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee19" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_ORGTLNT_MGT" partyId="employee20" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee20" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_ORGTLNT_ASSST" partyId="employee21" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee21" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_ORGTLNT_SME" partyId="employee22" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee22" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_ORGTLNT_PROJECT" partyId="employee23" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee23" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_ORGTLNT_PROJECT" partyId="employee24" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee24" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_PRCRMNT_MGT" partyId="employee25" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee25" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_PRCRMNT_ASSST" partyId="employee26" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee26" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_PRCRMNT_BYR" partyId="employee27" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee27" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_PRCRMNT_BYR" partyId="employee28" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee28" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_SALES_MGT" partyId="employee29" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee29" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_SALES_ASSST" partyId="employee30" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee30" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_SALES_SME" partyId="employee31" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee31" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_SALES_ACCT" partyId="employee32" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee32" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_SALES_ACCT" partyId="employee33" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee33" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_WRHSNG_MGT" partyId="employee34" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee34" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_WRHSNG_ASSST" partyId="employee35" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee35" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_WRHSNG_PACK" partyId="employee36" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee36" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_WRHSNG_PACK" partyId="employee37" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee37" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_WRHSNG_PACK" partyId="employee38" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee38" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_WRHSNG_PICK" partyId="employee39" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee39" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_WRHSNG_PICK" partyId="employee40" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee40" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_CCO" partyId="employee41" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee41" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_CEO" partyId="employee42" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee41" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_CFO" partyId="employee43" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee43" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_CIO" partyId="employee44" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee44" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_CMO" partyId="employee45" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee45" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_COO" partyId="employee46" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee46" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <EmplPositionFulfillment emplPositionId="DEMO_CSO" partyId="employee47" fromDate="2000-01-01 00:00:00.0"/>
+    <Employment partyIdFrom="Company" partyIdTo="employee47" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2000-01-30 17:50:15.767"/>
+
+    <!-- Employment rates -->
+    <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="employee8" emplPositionTypeId="_NA_" fromDate="2000-01-30 17:58:56.038" rateAmount="2300"/>
     <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="PROGRAMMER" fromDate="2000-01-30 17:58:56.038" rateAmount="2000"/>
-    <EmplPosition emplPositionId="DEMO100" statusId="EMPL_POS_ACTIVE" partyId="Company" emplPositionTypeId="PROGRAMMER" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
-    <EmplPositionFulfillment emplPositionId="DEMO100" partyId="DemoEmployee" fromDate="2009-01-30 17:58:02.745"/>
+
+    <!-- applied rates to fulfilled employment positions -->
     <EmplPositionTypeRate emplPositionTypeId="PROGRAMMER" rateTypeId="AVERAGE_PAY_RATE" fromDate="2009-01-30 17:58:56.038"/>
-    <Employment roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" partyIdFrom="Company" partyIdTo="DemoEmployee" fromDate="2000-01-30 17:50:15.767"/>
-
-    <Party partyId="DemoApprover" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="DemoApprover" firstName="Demo" lastName="Approver"/>
-    <PartyStatus partyId="DemoApprover" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-
-    <UserLogin userLoginId="demoapprover" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="DemoApprover"/>
-    <UserLoginSecurityGroup groupId="HUMANRES_APPROVER" userLoginId="demoapprover" fromDate="2001-01-01 12:00:00.0"/>
-
-    <UserLogin userLoginId="demoemployee" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="DemoEmployee"/>
-    <SecurityPermission description="Employee can check the status of his requests and trainings assigned to him with this permission." permissionId="EMPLOYEE_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HUMANRES_EMPLOYEE" permissionId="EMPLOYEE_VIEW"/>
-    <UserLoginSecurityGroup groupId="HUMANRES_EMPLOYEE" userLoginId="demoemployee" fromDate="2001-01-01 12:00:00.0"/>
-
+    
 </entity-engine-xml>

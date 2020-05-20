@@ -161,99 +161,155 @@ under the License.
     <RoleType description="Main Role" hasTable="N" roleTypeId="MAIN_ROLE"/>
 
     <!-- top level role types -->
+    <!-- main roles -->
+    <RoleType roleTypeId="ORGANIZATION_ROLE" description="Organization" hasTable="N" parentTypeId="MAIN_ROLE"/>
+    <RoleType roleTypeId="EXTERNAL_PARTY" description="External Organization" hasTable="Y" parentTypeId="MAIN_ROLE"/>
+    <RoleType roleTypeId="INTERNAL_ORGANIZATIO" description="Internal Organization" hasTable="Y" parentTypeId="MAIN_ROLE"/>
+    <RoleType roleTypeId="SFA_ROLE" description="Sales Force Autm." hasTable="N" parentTypeId="MAIN_ROLE"/>
+
+    <!-- Directory roles -->
+    <RoleType roleTypeId="ORGANIZATION_UNIT" description="Organization Unit" hasTable="N" parentTypeId="ORGANIZATION_ROLE"/>
+    <RoleType roleTypeId="PERSON_ROLE" description="Person" hasTable="N" parentTypeId="ORGANIZATION_ROLE"/>
+
+    <!-- Internal Organisation roles -->
+    <RoleType roleTypeId="EMPLOYEE" description="Employee" hasTable="N" parentTypeId="INTERNAL_ORGANIZATIO"/>
+    <RoleType roleTypeId="EMPLOYER" description="Employer" hasTable="N" parentTypeId="INTERNAL_ORGANIZATIO"/>
+
+    <!-- External Organisation roles -->
+    <RoleType roleTypeId="CUSTOMER" description="Customer" hasTable="N" parentTypeId="EXTERNAL_PARTY"/>
+    <RoleType roleTypeId="SUPPLIER" description="Supplier" hasTable="N" parentTypeId="EXTERNAL_PARTY"/>
+    <RoleType roleTypeId="VENDOR" description="Vendor" hasTable="N"/>
+
+    <!-- Customer roles -->
+    <RoleType roleTypeId="BILL_TO_CUSTOMER" description="Bill-To Customer" hasTable="N" parentTypeId="CUSTOMER"/>
+    <RoleType roleTypeId="BULK_CUSTOMER" description="Bulk Customer" hasTable="N" parentTypeId="CUSTOMER"/>
+    <RoleType roleTypeId="END_USER_CUSTOMER" description="End-User Customer" hasTable="N" parentTypeId="CUSTOMER"/>
+    <RoleType roleTypeId="PLACING_CUSTOMER" description="Placing Customer" hasTable="N" parentTypeId="CUSTOMER"/>
+    <RoleType roleTypeId="SHIP_TO_CUSTOMER" description="Ship-To Customer" hasTable="N" parentTypeId="CUSTOMER"/>
+
+    <!-- Employee roles -->
+    <RoleType roleTypeId="BUYER" description="Buyer" hasTable="N" parentTypeId="EMPLOYEE"/>
+    <RoleType roleTypeId="CASHIER" description="Cashier" hasTable="N" parentTypeId="EMPLOYEE"/>
+    <RoleType roleTypeId="MANAGER" description="Manager" hasTable="N" parentTypeId="EMPLOYEE"/>
+    <RoleType roleTypeId="ORDER_CLERK" description="Order Clerk" hasTable="N" parentTypeId="EMPLOYEE"/>
+    <RoleType roleTypeId="WORKER" description="Worker" hasTable="N" parentTypeId="EMPLOYEE"/>
+
+    <!-- Organisation Unit roles (directory related) -->
+    <RoleType roleTypeId="DEPARTMENT" description="Department" hasTable="N" parentTypeId="ORGANIZATION_UNIT"/>
+    <RoleType roleTypeId="DIVISION" description="Division" hasTable="N" parentTypeId="ORGANIZATION_UNIT"/>
+    <RoleType roleTypeId="OTHER_ORGANIZATION_U" description="Other Organization Unit" hasTable="N" parentTypeId="ORGANIZATION_UNIT"/>
+
+    <!-- Supplier roles -->
+    <RoleType roleTypeId="BILL_FROM_VENDOR" description="Bill-From Vendor" hasTable="N" parentTypeId="VENDOR"/>
+    <RoleType roleTypeId="CARRIER" description="Carrier" hasTable="N" parentTypeId="SUPPLIER"/>
+    <RoleType roleTypeId="ISP" description="ISP" hasTable="N" parentTypeId="SUPPLIER"/>
+    <RoleType roleTypeId="SHIP_FROM_VENDOR" description="Ship-From Vendor" hasTable="N" parentTypeId="VENDOR"/>
+
+    <!-- CRM/SFA roles -->
+    <RoleType roleTypeId="ACCOUNT" description="Contact" hasTable="N" parentTypeId="SFA_ROLE"/>
+    <RoleType roleTypeId="ACCOUNT_MANAGER" description="Account Manager" hasTable="N" parentTypeId="SFA_ROLE"/>
+    <RoleType roleTypeId="CONTACT" description="Contact" hasTable="N" parentTypeId="SFA_ROLE"/>
+    <RoleType roleTypeId="LEAD" description="Lead" hasTable="N" parentTypeId="SFA_ROLE"/>
+    <RoleType roleTypeId="PROSPECT" description="Prospect" hasTable="N" parentTypeId="SFA_ROLE"/>
+
     <RoleType description="Account Lead" hasTable="N" roleTypeId="ACCOUNT_LEAD"/>
     <RoleType description="Administrator" hasTable="N" roleTypeId="ADMIN"/>
     <RoleType description="Agent" hasTable="N" roleTypeId="AGENT"/>
     <RoleType description="Automated Agent" hasTable="N" roleTypeId="AUTOMATED_AGENT_ROLE"/>
     <RoleType description="Calendar" hasTable="N" roleTypeId="CALENDAR_ROLE"/>
-    <RoleType description="Client" hasTable="N" roleTypeId="CLIENT"/>
     <RoleType description="Communication Participant" hasTable="N" roleTypeId="COMMEVENT_ROLE"/>
     <RoleType description="Consumer" hasTable="N" roleTypeId="CONSUMER"/>
     <RoleType description="Contractor" hasTable="N" roleTypeId="CONTRACTOR"/>
-    <RoleType description="Customer" hasTable="N" roleTypeId="CUSTOMER"/>
     <RoleType description="Distribution Channel" hasTable="N" roleTypeId="DISTRIBUTION_CHANNEL"/>
-    <RoleType description="ISP" hasTable="N" roleTypeId="ISP"/>
     <RoleType description="Hosting Server" hasTable="N" roleTypeId="HOSTING_SERVER"/>
     <RoleType description="Manufacturer" hasTable="N" roleTypeId="MANUFACTURER"/>
     <RoleType description="Not Applicable" hasTable="N" roleTypeId="_NA_"/>
-    <RoleType description="Organization" hasTable="N" parentTypeId="MAIN_ROLE" roleTypeId="ORGANIZATION_ROLE"/>
     <RoleType description="Owner" hasTable="N"  roleTypeId="OWNER"/>
-    <RoleType description="Prospect" hasTable="N" roleTypeId="PROSPECT"/>
-    <RoleType description="Person" hasTable="N" roleTypeId="PERSON_ROLE"/>
     <RoleType description="Referrer" hasTable="N" roleTypeId="REFERRER"/>
-    <RoleType description="Request Role" hasTable="N" roleTypeId="REQUEST_ROLE"/>
-    <RoleType description="Request Manager" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_MANAGER"/>
-    <RoleType description="Requesting Party" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_REQUESTER"/>
-    <RoleType description="Request Taker" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_TAKER"/>
-    <RoleType description="Request Respondent" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_RESPOND"/>
-    <RoleType description="Sales Force Autm." hasTable="N" parentTypeId="MAIN_ROLE" roleTypeId="SFA_ROLE"/>
+    
     <RoleType description="Shareholder" hasTable="N" roleTypeId="SHAREHOLDER"/>
     <RoleType description="Subscriber" hasTable="N" roleTypeId="SUBSCRIBER"/>
-    <RoleType description="Vendor" hasTable="N" roleTypeId="VENDOR"/>
     <RoleType description="Visitor" hasTable="N" roleTypeId="VISITOR"/>
     <RoleType description="Web Master" hasTable="N" roleTypeId="WEB_MASTER"/>
     <RoleType description="Workflow" hasTable="N" roleTypeId="WORKFLOW_ROLE"/>
     <RoleType description="Accountant" hasTable="N" roleTypeId="ACCOUNTANT"/>
 
+    <!-- project roles -->
+    <RoleType description="Project Team" hasTable="N" roleTypeId="PROJECT_TEAM"/>
+    <RoleType description="Client Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_MANAGER"/>
+    <RoleType description="Client Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_ANALYST"/>
+    <RoleType description="Client Billing" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_BILLING"/>
+    <RoleType description="Provider Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_MANAGER"/>
+    <RoleType description="Provider Accounting" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ACCOUNTING"/>
+    <RoleType description="Provider Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ANALYST"/>
+    <RoleType description="Provider Validator" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_VALIDATOR"/>
+    <RoleType description="Provider Func. Impl" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_FUNCTIONAL"/>
+    <RoleType description="Provider Tester" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_TESTER"/>
+
+    <!-- artefact roles -->
+    <RoleType description="Agreement Roles" hasTable="N" roleTypeId="AGREEMENT_ROLE"/>
+    <RoleType description="Agreement Approver" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_APPROVER"/>
+    <RoleType description="Agreement Creator" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_CREATOR"/>
+    <RoleType description="Agreement Manager" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_MANAGER"/>
+    <RoleType description="Agreement Reviewer" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_REVIEWER"/>
+    <RoleType description="Agreement Viewer" hasTable="N" parentTypeId="AGREEMENT_ROLE" roleTypeId="AGRMNT_VIEWER"/>
+
+    <RoleType roleTypeId="WAREHOUSE_ROLE" description="Warehouse Roles" hasTable="N"/>
+    <RoleType roleTypeId="RECEIVER" description="Receiver" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="PACKER" description="Packer" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="PICKER" description="Picker" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="SHIPMENT_CLERK" description="Shipment Clerk" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="STOCKER" description="Stocker" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+
+    <RoleType description="Quote Roles" hasTable="N" roleTypeId="QUOTE_ROLE"/>
+    <RoleType description="Quote Approver" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_APPROVER"/>
+    <RoleType description="Quote Creator" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_CREATOR"/>
+    <RoleType description="Quote Manager" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_MANAGER"/>
+    <RoleType description="Quote Requester" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_REQUESTER"/>
+    <RoleType description="Quote Reviewer" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_REVIEWER"/>
+    <RoleType description="Quote Viewer" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_VIEWER"/>
+    
+
+    <RoleType description="Request Roles" hasTable="N" roleTypeId="REQUEST_ROLE"/>
+    <RoleType description="Request Manager" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_MANAGER"/>
+    <RoleType description="Requesting Party" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_REQUESTER"/>
+    <RoleType description="Request Taker" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_TAKER"/>
+    <RoleType description="Request Respondent" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_RESPOND"/>
+    <RoleType description="Request Viewer" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_VIEWER"/>
+
     <!-- second level role types -->
-    <RoleType description="Account" hasTable="N" parentTypeId="SFA_ROLE" roleTypeId="ACCOUNT"/>
     <RoleType description="Addressee" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="ADDRESSEE"/>
     <RoleType description="Association" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="ASSOCIATION"/>
-    <RoleType description="Bill-From Vendor" hasTable="N" parentTypeId="VENDOR" roleTypeId="BILL_FROM_VENDOR"/>
-    <RoleType description="Bill-To Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="BILL_TO_CUSTOMER"/>
     <RoleType description="Blind Copy" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="BCC"/>
-    <RoleType description="Bulk Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="BULK_CUSTOMER"/>
     <RoleType description="Calendar Attendee" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_ATTENDEE"/>
     <RoleType description="Calendar Delegate" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_DELEGATE"/>
     <RoleType description="Calendar Host" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_HOST"/>
     <RoleType description="Calendar Organizer" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_ORGANIZER"/>
     <RoleType description="Calendar Owner" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_OWNER"/>
-    <RoleType description="Carrier" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="CARRIER"/>
     <RoleType description="Competitor" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="COMPETITOR"/>
-    <RoleType description="Contact" hasTable="N" parentTypeId="SFA_ROLE" roleTypeId="CONTACT"/>
     <RoleType description="Carbon Copy" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="CC"/>
     <RoleType description="Originator" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="ORIGINATOR"/>
     <RoleType description="Distributor" hasTable="N" parentTypeId="DISTRIBUTION_CHANNEL" roleTypeId="DISTRIBUTOR"/>
-    <RoleType description="Employee" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMPLOYEE"/>
-    <RoleType description="End-User Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="END_USER_CUSTOMER"/>
     <RoleType description="Household" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="HOUSEHOLD"/>
-    <RoleType description="Internal Organization" hasTable="Y" parentTypeId="ORGANIZATION_ROLE" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <RoleType description="Lead" hasTable="N" parentTypeId="SFA_ROLE" roleTypeId="LEAD"/>
     <RoleType description="Limited Administrator" hasTable="N" parentTypeId="ADMIN" roleTypeId="LTD_ADMIN"/>
-    <RoleType description="Organization Unit" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="ORGANIZATION_UNIT"/>
     <RoleType description="Partner" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="PARTNER"/>
-    <RoleType description="Placing Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="PLACING_CUSTOMER"/>
     <RoleType description="Regulatory Agency" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="REGULATORY_AGENCY"/>
     <RoleType description="Sales Representative" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SALES_REP"/>
-    <RoleType description="Ship-From Vendor" hasTable="N" parentTypeId="VENDOR" roleTypeId="SHIP_FROM_VENDOR"/>
-    <RoleType description="Ship-To Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="SHIP_TO_CUSTOMER"/>
     <RoleType description="Sponsor" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SPONSOR"/>
     <RoleType description="Spouse" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SPOUSE"/>
     <RoleType description="Supplier Agent" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SUPPLIER_AGENT"/>
-    <RoleType description="Supplier" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="SUPPLIER"/>
+    <RoleType description="Supplier Contact" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SUPPLIER_CONTACT"/>
+    <RoleType description="Subcontractor (employee)" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="SUBCONTRACTOR"/>
     <RoleType description="Tax Authority" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="TAX_AUTHORITY"/>
     <RoleType description="Union" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="UNION"/>
     <RoleType description="Workflow Owner" hasTable="N" parentTypeId="WORKFLOW_ROLE" roleTypeId="WF_OWNER"/>
 
     <!-- third level role types -->
     <RoleType description="Affiliate" hasTable="N" parentTypeId="SALES_REP" roleTypeId="AFFILIATE"/>
-    <RoleType description="Buyer" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="BUYER"/>
-    <RoleType description="Cashier" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="CASHIER"/>
-    <RoleType description="Department" hasTable="N" parentTypeId="ORGANIZATION_UNIT" roleTypeId="DEPARTMENT"/>
-    <RoleType description="Division" hasTable="N" parentTypeId="ORGANIZATION_UNIT" roleTypeId="DIVISION"/>
     <RoleType description="Family Member" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="FAMILY_MEMBER"/>
-    <RoleType description="Manager" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="MANAGER"/>
-    <RoleType description="Order Clerk" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="ORDER_CLERK"/>
     <RoleType description="Other Internal" hasTable="N" parentTypeId="INTERNAL_ORGANIZATIO" roleTypeId="OTHER_INTERNAL_ORGAN"/>
-    <RoleType description="Other Organization Unit" hasTable="N" parentTypeId="ORGANIZATION_UNIT" roleTypeId="OTHER_ORGANIZATION_U"/>
     <RoleType description="Parent Organization" hasTable="N" parentTypeId="ORGANIZATION_UNIT" roleTypeId="PARENT_ORGANIZATION"/>
-    <RoleType description="Packer" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="PACKER"/>
-    <RoleType description="Picker" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="PICKER"/>
-    <RoleType description="Receiver" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="RECEIVER"/>
-    <RoleType description="Shipment Clerk" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="SHIPMENT_CLERK"/>
-    <RoleType description="Stocker" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="STOCKER"/>
     <RoleType description="Subsidiary" hasTable="N" parentTypeId="ORGANIZATION_UNIT" roleTypeId="SUBSIDIARY"/>
-    <RoleType description="Worker" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="WORKER"/>
 
     <RoleType description="Email Administrator" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMAIL_ADMIN"/>
 
@@ -314,14 +370,33 @@ under the License.
     <PartyType description="Corporation" hasTable="N" parentTypeId="LEGAL_ORGANIZATION" partyTypeId="CORPORATION"/>
     <PartyType description="Government Agency" hasTable="N" parentTypeId="LEGAL_ORGANIZATION" partyTypeId="GOVERNMENT_AGENCY"/>
 
-    <StatusType description="Party" hasTable="N" statusTypeId="PARTY_STATUS"/>
-    <StatusItem description="Enabled" sequenceId="01" statusCode="ENABLED" statusId="PARTY_ENABLED" statusTypeId="PARTY_STATUS"/>
-    <StatusItem description="Disabled" sequenceId="99" statusCode="DISABLED" statusId="PARTY_DISABLED" statusTypeId="PARTY_STATUS"/>
-    <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="PARTY_DISABLED" transitionName="Disable"/>
-    <StatusValidChange statusId="PARTY_DISABLED" statusIdTo="PARTY_ENABLED" transitionName="Re-Enable"/>
-    
+    <!-- artefact statuses -->
+    <!-- Agreement Status Data -->
+    <StatusType description="Agreement" hasTable="N" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Created" sequenceId="00" statusCode="CREATED" statusId="AGRMNT_CREATED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Submitted" sequenceId="01" statusCode="SUBMITTED" statusId="AGRMNT_SUBMITTED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Reviewed" sequenceId="02" statusCode="REVIEWED" statusId="AGRMNT_REVIEWED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Adjusted" sequenceId="03" statusCode="ADJUSTED" statusId="AGRMNT_ADJUSTED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Approved" sequenceId="04" statusCode="APPROVED" statusId="AGRMNT_APPROVED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="05" statusCode="REJECTED" statusId="AGRMNT_REJECTED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="In Effect" sequenceId="06" statusCode="WIP" statusId="AGRMNT_WIP" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Ended" sequenceId="07" statusCode="ENDED" statusId="AGRMNT_ENDED" statusTypeId="AGREEMENT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="AGRMNT_CANCELLED" statusTypeId="AGREEMENT_STATUS"/>
+
+    <StatusValidChange statusId="AGRMNT_CREATED" statusIdTo="AGRMNT_SUBMITTED" transitionName="Submit Agreement"/>
+    <StatusValidChange statusId="AGRMNT_SUBMITTED" statusIdTo="AGRMNT_REVIEWED" transitionName="Review Agreement"/>
+    <StatusValidChange statusId="AGRMNT_REVIEWED" statusIdTo="AGRMNT_ADJUSTED" transitionName="Adjust Agreement"/>
+    <StatusValidChange statusId="AGRMNT_ADJUSTED" statusIdTo="AGRMNT_REVIEWED" transitionName="Review Agreement"/>
+    <StatusValidChange statusId="AGRMNT_REVIEWED" statusIdTo="AGRMNT_APPROVED" transitionName="Approve Agreement"/>
+    <StatusValidChange statusId="AGRMNT_REVIEWED" statusIdTo="AGRMNT_CANCELLED" transitionName="Cancel Agreement"/>
+    <StatusValidChange statusId="AGRMNT_CREATED" statusIdTo="AGRMNT_CANCELLED" transitionName="Cancel Agreement"/>
+    <StatusValidChange statusId="AGRMNT_APPROVED" statusIdTo="AGRMNT_WIP" transitionName="Agreement in Effect"/>
+    <StatusValidChange statusId="AGRMNT_WIP" statusIdTo="AGRMNT_ENDED" transitionName="Agreement Ended"/>
+
+    <!-- Case Status Data -->
     <StatusType description="Case" hasTable="N" statusTypeId="CASE_STATUS"/>
 
+    <!-- Communication EventStatus Data -->
     <StatusType description="Communication Event" hasTable="N" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="COM_PENDING" statusTypeId="COM_EVENT_STATUS"/><!-- draft version, only visible by originator -->
     <StatusItem description="Entered" sequenceId="02" statusCode="ENTERED" statusId="COM_ENTERED" statusTypeId="COM_EVENT_STATUS"/>
@@ -346,7 +421,6 @@ under the License.
     <StatusValidChange statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
     <StatusValidChange statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_ENTERED" transitionName="Corrected"/>
     <StatusValidChange statusId="COM_PENDING" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
-
     <StatusValidChange statusId="COM_ENTERED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange statusId="COM_PENDING" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange statusId="COM_IN_PROGRESS" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
@@ -355,6 +429,7 @@ under the License.
     <StatusValidChange statusId="COM_REFERRED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
 
+    <!--Communication Event Role Status Data -->
     <StatusType description="Communication Event Role" hasTable="N" parentTypeId="COM_EVENT_STATUS" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="ENTERED" statusId="COM_ROLE_CREATED" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusItem description="Read" sequenceId="02" statusCode="PENDING" statusId="COM_ROLE_READ" statusTypeId="COM_EVENT_ROL_STATUS"/>
@@ -363,11 +438,14 @@ under the License.
     <StatusValidChange statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
     <StatusValidChange statusId="COM_ROLE_READ" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
 
-    <StatusType description="Party Relationship" hasTable="N" statusTypeId="PARTY_REL_STATUS"/>
-    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PARTYREL_CREATED" statusTypeId="PARTY_REL_STATUS"/>
-    <StatusItem description="Expired" sequenceId="02" statusCode="EXPIRED" statusId="PARTYREL_EXPIRED" statusTypeId="PARTY_REL_STATUS"/>
-    <StatusValidChange statusId="PARTYREL_CREATED" statusIdTo="PARTYREL_EXPIRED" transitionName="Expired"/>
-    
+    <!--Party Status Data -->
+    <StatusType description="Party" hasTable="N" statusTypeId="PARTY_STATUS"/>
+    <StatusItem description="Enabled" sequenceId="01" statusCode="ENABLED" statusId="PARTY_ENABLED" statusTypeId="PARTY_STATUS"/>
+    <StatusItem description="Disabled" sequenceId="99" statusCode="DISABLED" statusId="PARTY_DISABLED" statusTypeId="PARTY_STATUS"/>
+    <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="PARTY_DISABLED" transitionName="Disable"/>
+    <StatusValidChange statusId="PARTY_DISABLED" statusIdTo="PARTY_ENABLED" transitionName="Re-Enable"/>
+
+    <!--Party Invitation Status Data -->
     <StatusType description="Party Invitation" hasTable="N" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Sent" sequenceId="01" statusCode="SENT" statusId="PARTYINV_SENT" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Pending" sequenceId="02" statusCode="PENDING" statusId="PARTYINV_PENDING" statusTypeId="PARTY_INV_STATUS"/>
@@ -380,6 +458,12 @@ under the License.
     <StatusValidChange statusId="PARTYINV_SENT" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
     <StatusValidChange statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_ACCEPTED" transitionName="Accepted"/>
     <StatusValidChange statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
+
+    <!--PartyRelationship Status Data -->
+    <StatusType description="Party Relationship" hasTable="N" statusTypeId="PARTY_REL_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PARTYREL_CREATED" statusTypeId="PARTY_REL_STATUS"/>
+    <StatusItem description="Expired" sequenceId="02" statusCode="EXPIRED" statusId="PARTYREL_EXPIRED" statusTypeId="PARTY_REL_STATUS"/>
+    <StatusValidChange statusId="PARTYREL_CREATED" statusIdTo="PARTYREL_EXPIRED" transitionName="Expired"/>
 
     <TermType description="Financial" hasTable="N" termTypeId="FINANCIAL_TERM"/>
     <TermType description="Payment (net days)" hasTable="N" parentTypeId="FINANCIAL_TERM" termTypeId="FIN_PAYMENT_TERM"/>

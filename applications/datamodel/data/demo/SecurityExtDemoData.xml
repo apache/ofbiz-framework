@@ -22,24 +22,21 @@ under the License.
     <!-- OFBiz Core security -->
     <Party partyId="_NA_" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="_NA_"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
-    <PartyRole partyId="_NA_" roleTypeId="_NA_"/>
+    <PartyRole partyId="_NA_" roleTypeId="CARRIER" fromDate="2001-05-13 00:00:00.0"/>
 
     <Party partyId="admin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person firstName="THE" lastName="ADMINISTRATOR" middleName="PRIVILEGED" partyId="admin" personalTitle="Mr."/>
-    <PartyRole partyId="admin" roleTypeId="BUYER"/>
-    <PartyRole partyId="admin" roleTypeId="MANAGER"/>
-    <PartyRole partyId="admin" roleTypeId="ORDER_CLERK"/>
-    <PartyRole partyId="admin" roleTypeId="SHIPMENT_CLERK"/>
-    <PartyRole partyId="admin" roleTypeId="SALES_REP"/>
-    <PartyRole partyId="admin" roleTypeId="_NA_"/>
+    <PartyRole partyId="admin" roleTypeId="BUYER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="admin" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="admin" roleTypeId="ORDER_CLERK" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="admin" roleTypeId="SHIPMENT_CLERK" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="admin" roleTypeId="SALES_REP" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="admin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="ltdadmin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person firstName="Limited" lastName="Administrator" partyId="ltdadmin" personalTitle="Mr."/>
-    <PartyRole partyId="ltdadmin" roleTypeId="ORDER_CLERK"/>
-    <PartyRole partyId="ltdadmin" roleTypeId="LTD_ADMIN"/>
-    <PartyRole partyId="ltdadmin" roleTypeId="_NA_"/>
+    <PartyRole partyId="ltdadmin" roleTypeId="ORDER_CLERK" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="ltdadmin" roleTypeId="LTD_ADMIN" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="ltdadmin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="ltdadmin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 
@@ -47,26 +44,24 @@ under the License.
 
     <Party partyId="ltdadmin1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person firstName="Limited" lastName="Administrator1" partyId="ltdadmin1" personalTitle="Mr."/>
-    <PartyRole partyId="ltdadmin1" roleTypeId="ORDER_CLERK"/>
-    <PartyRole partyId="ltdadmin1" roleTypeId="LTD_ADMIN"/>
-    <PartyRole partyId="ltdadmin1" roleTypeId="_NA_"/>
+    <PartyRole partyId="ltdadmin1" roleTypeId="ORDER_CLERK" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="ltdadmin1" roleTypeId="LTD_ADMIN" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="ltdadmin1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="ltdadmin1" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 
     <Party partyId="externaluser" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person firstName="External" lastName="User" partyId="externaluser" personalTitle="Mr."/>
-    <PartyRole partyId="externaluser" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="externaluser" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="externaluser" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="externaluser" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 
     <Party partyId="bizadmin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="bizadmin" firstName="Business" lastName="Administrator"/>
-    <PartyRole partyId="bizadmin" roleTypeId="BUYER"/>
-    <PartyRole partyId="bizadmin" roleTypeId="MANAGER"/>
-    <PartyRole partyId="bizadmin" roleTypeId="ORDER_CLERK"/>
-    <PartyRole partyId="bizadmin" roleTypeId="SHIPMENT_CLERK"/>
-    <PartyRole partyId="bizadmin" roleTypeId="SALES_REP"/>
-    <PartyRole partyId="bizadmin" roleTypeId="_NA_"/>
+    <PartyRole partyId="bizadmin" roleTypeId="BUYER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="bizadmin" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="bizadmin" roleTypeId="ORDER_CLERK" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="bizadmin" roleTypeId="SHIPMENT_CLERK" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="bizadmin" roleTypeId="SALES_REP" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="bizadmin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="bizadmin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 

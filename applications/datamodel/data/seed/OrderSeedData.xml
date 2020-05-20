@@ -19,6 +19,10 @@ under the License.
 -->
 
 <entity-engine-xml>
+
+    <!-- component specific security groups -->
+    <SecurityGroup groupId="ORDERPURCH"/><!-- is needed because accounting is before order -->
+
     <CustRequestType custRequestTypeId="RF_BUGFIX" description="Request For Bug Fix" hasTable="N"/>
     <CustRequestType custRequestTypeId="RF_CATALOG" description="Request For Catalog" hasTable="N"/>
     <CustRequestType custRequestTypeId="RF_FEATURE" description="Request For Feature" hasTable="N"/>

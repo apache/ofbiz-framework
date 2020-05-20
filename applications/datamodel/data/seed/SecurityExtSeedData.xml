@@ -24,7 +24,7 @@ under the License.
     <Person partyId="system" firstName="System" lastName="Account"/>
     <PartyStatus partyId="system" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <!-- various automated processes will cause it to be put in this role anyway -->
-    <PartyRole partyId="system" roleTypeId="PACKER"/>
+    <PartyRole partyId="system" roleTypeId="PACKER" fromDate="2001-05-13 00:00:00.0"/>
 
     <UserLogin userLoginId="system" partyId="system"/>
 </entity-engine-xml>

@@ -20,6 +20,10 @@ under the License.
 
 <entity-engine-xml>
     <!-- Marketing Manager security -->
+    <SecurityGroup groupId="CRM_ADMIN" description="SFA Admin group, has all sfa permissions."/>
+    <SecurityGroup groupId="CRM_AUTHORS" description="SFA Authors group, has create and update permissions."/>
+    <SecurityGroup groupId="CRM_VIEWERS" description="SFA Viewers group, has view permissions."/>
+    
     <SecurityPermission description="View operations in the Marketing Manager." permissionId="MARKETING_VIEW"/>
     <SecurityPermission description="Create operations in the Marketing Manager." permissionId="MARKETING_CREATE"/>
     <SecurityPermission description="Update operations in the Marketing Manager." permissionId="MARKETING_UPDATE"/>
@@ -38,7 +42,19 @@ under the License.
     <SecurityPermission description="Limited update operations in the SFA Manager." permissionId="SFA_ROLE_UPDATE"/>
     
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="MARKETING_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SFA_ADMIN"/>
-    
+    <SecurityGroupPermission groupId="SUPER" permissionId="MARKETING_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="SFA_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
+
+    <SecurityGroupPermission groupId="CRM_ADMIN" permissionId="SFA_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_ADMIN" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_AUTHORS" permissionId="SFA_CREATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_AUTHORS" permissionId="SFA_DELETE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_AUTHORS" permissionId="SFA_UPDATE" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_AUTHORS" permissionId="SFA_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_AUTHORS" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_VIEWERS" permissionId="SFA_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_VIEWERS" permissionId="SFA_ROLE_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_VIEWERS" permissionId="SFA_ROLE_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CRM_VIEWERS" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+
 </entity-engine-xml>
