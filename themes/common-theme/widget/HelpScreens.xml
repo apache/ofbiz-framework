@@ -30,7 +30,7 @@ under the License.
                 <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" default-value="component://common-theme/template/includes/Messages.ftl"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/Lookup.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/Lookup.ftl"/></html></platform-specific>
                 <platform-specific><html><html-template multi-block="true" location="${messagesTemplateLocation}"/></html></platform-specific>
                 <container style="contentarea">
                     <container id="column-container">
