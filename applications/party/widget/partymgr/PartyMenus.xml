@@ -145,6 +145,14 @@
         </menu-item>
     </menu>
     <menu name="ProfileSubTabBar" menu-container-style="button-bar button-style-2">
+        <menu-item name="NewPartyRole" title="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonRole}" >
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="UPDATE"/>
+            </condition>
+            <link target="addPartyRole">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
         <menu-item name="createNew" title="${uiLabelMap.AccountingBillingAccount}" >
             <condition>
                 <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>

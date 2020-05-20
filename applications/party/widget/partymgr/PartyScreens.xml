@@ -177,38 +177,54 @@ under the License.
                         <screenlet title="${uiLabelMap.PartyMemberRoles}" navigation-form-name="ViewPartyRoles">
                             <include-grid name="ViewPartyRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
-                        <section>
-                            <condition>
-                                <if-has-permission permission="PARTYMGR" action="_UPDATE"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PartyAddToRole}">
-                                    <container>
-                                        <label style="h2">${uiLabelMap.PartyAddToMainRole}</label>
-                                        <include-form name="AddPartyMainRole" location="component://party/widget/partymgr/PartyForms.xml"/>
-                                        <container id="addPartySecondaryRole"/>
-                                    </container>
-                                    <label style="h2">${uiLabelMap.PartyAddToRoleViewAll}</label>
-                                    <include-form name="AddPartyRole" location="component://party/widget/partymgr/PartyForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
-                            </condition>
-                            <actions>
-                                <entity-condition entity-name="RoleType" list="parentRoleList">
-                                    <condition-expr field-name="parentTypeId" operator="equals" from-field="nullField"/>
-                                    <order-by field-name="description"/>
-                                </entity-condition>
-                            </actions>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PartyNewRoleType}">
-                                    <include-form name="AddRoleType" location="component://party/widget/partymgr/PartyForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddPartyRole">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyRole"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="viewroles"/>
+                <set field="labelTitleProperty" value="PartyMemberRoles"/>
+                <set field="fromDate" value="${nowTimestamp}"/>
+                <entity-condition entity-name="RoleTypeAndParty" list="partyRoles">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" operator="equals" value="${parameters.partyId}"/>
+                        <condition-expr field-name="roleTypeId" operator="not-equals" value="_NA_"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form location="component://party/widget/partymgr/PartyForms.xml" name="AddPartyRole"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExpirePartyRole">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyRole"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="viewroles"/>
+                <set field="labelTitleProperty" value="PartyMemberRoles"/>
+                <set field="thruDate" value="${nowTimestamp}"/>
+                <entity-condition entity-name="RoleTypeAndParty" list="partyRoles">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" operator="equals" value="${parameters.partyId}"/>
+                        <condition-expr field-name="roleTypeId" operator="not-equals" value="_NA_"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form location="component://party/widget/partymgr/PartyForms.xml" name="ExpirePartyRole"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

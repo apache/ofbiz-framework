@@ -592,11 +592,24 @@ under the License.
         <response name="success" type="view" value="viewroles"/>
         <response name="error" type="view" value="viewroles"/>
     </request-map>
-    <request-map uri="deleterole">
+    <request-map uri="addPartyRole">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deletePartyRole"/>
+        <response name="success" type="view" value="addPartyRole"/>
+    </request-map>
+    <request-map uri="createPartyRole">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createPartyRole"/>
         <response name="success" type="view" value="viewroles"/>
         <response name="error" type="view" value="viewroles"/>
+    </request-map>
+    <request-map uri="expirePartyRole">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="expirePartyRole"/>
+    </request-map>
+    <request-map uri="updatePartyRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyRole"/>
+        <response name="success" type="view" value="viewroles"/>
     </request-map>
     <request-map uri="createroletype">
         <security https="true" auth="true"/>
@@ -1409,6 +1422,8 @@ under the License.
 
     <view-map name="viewprofile" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewprofile"/>
     <view-map name="partyContentList" type="screen" page="component://party/widget/partymgr/ProfileScreens.xml#ContentList"/>
+    <view-map name="addPartyRole" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#AddPartyRole"/>
+    <view-map name="expirePartyRole" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ExpirePartyRole"/>
     <view-map name="viewroles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewroles"/>
     <view-map name="addsecondaryroles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#AddPartySecondaryRoles"/>
     <view-map name="viewidentifications" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ListPartyIdentifications"/>

@@ -1183,27 +1183,42 @@ under the License.
     <grid name="ViewPartyRoles" list-name="partyRoles" target="viewroles"
         default-title-style="tableheadtext"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
-        <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
-        <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="remove">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleterole">
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="parentTypeId" title="${uiLabelMap.CommonParent} roleTypeId">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${parentTypeId}"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
+        <field name="expireLink" title=" ">
+            <hyperlink description="${uiLabelMap.CommonExpire}" target="expirePartyRole">
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </grid>
-    
-    <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole">
+    <form name="AddPartyRole" type="single" title="Add a role to party" target="createPartyRole">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
-        <field name="roleTypeId">
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><date-time/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
+    </form>
+    <form name="ExpirePartyRole" type="single" title="Expire a role assignment" target="updatePartyRole">
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}">
+            <display-entity entity-name="RoleType"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}" required-field="true"><date-time/></field>
+        <field name="expire" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
     <form name="AddPartyMainRole" type="single" title="${uiLabelMap.PartyAddToMainRole}" target="addrole">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>

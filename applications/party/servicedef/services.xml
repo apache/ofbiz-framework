@@ -321,12 +321,20 @@ under the License.
             permission to change the role of this partyId</description>
         <permission-service service-name="partyRolePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deletePartyRole" default-entity-name="PartyRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Party Role (remove a Role from a Party). The logged in user must have PARTYMGR_DELETE or have
             permission to change the role of this partyId</description>
         <permission-service service-name="partyRolePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="updatePartyRole" default-entity-name="PartyRole" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Party Role. The logged in user must have PARTYMGR_UPDATE or have
+            permission to change the role of partyId</description>
+        <permission-service service-name="partyRolePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="ensurePartyRole" engine="simple"
             location="component://party/minilang/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="false">
