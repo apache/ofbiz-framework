@@ -757,10 +757,9 @@ under the License.
     <PartyGroup partyId="USPS" groupName="USPS"/>
     <PartyGroup partyId="UPS" groupName="UPS"/>
 
-    <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="Company" roleTypeId="CARRIER"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
+    <PartyRole partyId="USPS" roleTypeId="CARRIER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="UPS" roleTypeId="CARRIER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="Company" roleTypeId="CARRIER" fromDate="2001-05-13 00:00:00.0"/>
 
     <CarrierShipmentMethod partyId="Company" roleTypeId="CARRIER" shipmentMethodTypeId="LOCAL_DELIVERY" sequenceNumber="4"/>
     <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="7" carrierServiceCode="Priority"/>
@@ -970,7 +969,7 @@ under the License.
     <!-- this person can view any order but only place purchase orders -->
     <Party partyId="DemoBuyer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoBuyer" firstName="Demo" lastName="Buyer"/>
-    <PartyRole partyId="DemoBuyer" roleTypeId="BUYER"/>
+    <PartyRole partyId="DemoBuyer" roleTypeId="BUYER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoBuyer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoBuyer" userLoginId="DemoBuyer"/>
     <UserLoginSecurityGroup userLoginId="DemoBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
@@ -978,7 +977,7 @@ under the License.
     <!-- this person can create sales orders for any store -->
     <Party partyId="DemoRepAll" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoRepAll" firstName="Demo" lastName="Sales Rep for All Stores"/>
-    <PartyRole partyId="DemoRepAll" roleTypeId="SALES_REP"/>
+    <PartyRole partyId="DemoRepAll" roleTypeId="SALES_REP" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoRepAll" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoRepAll" userLoginId="DemoRepAll"/>
     <UserLoginSecurityGroup userLoginId="DemoRepAll" groupId="ORDERENTRY_ALL" fromDate="2001-05-13 00:00:00"/>
@@ -986,7 +985,7 @@ under the License.
     <!-- this person can only create sales orders for stores for which he is a sales rep -->
     <Party partyId="DemoRepStore" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoRepStore" firstName="Demo" lastName="Sales Rep for Specified Stores Only"/>
-    <PartyRole partyId="DemoRepStore" roleTypeId="SALES_REP"/>
+    <PartyRole partyId="DemoRepStore" roleTypeId="SALES_REP" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoRepStore" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoRepStore" userLoginId="DemoRepStore"/>
     <UserLoginSecurityGroup userLoginId="DemoRepStore" groupId="ORDERENTRY" fromDate="2001-05-13 00:00:00"/>
@@ -1005,13 +1004,12 @@ under the License.
 
     <!-- DemoCustCompany -->
     <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoCustCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGroup partyId="DemoCustCompany" groupName="Demo Customer Company"/>
     <UserLogin partyId="DemoCustCompany" userLoginId="DemoCustCompany"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
 
     <PartyContactMech partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="CUSTOMER_ADDRESS" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
@@ -1155,9 +1153,9 @@ under the License.
     <OrderHeader orderId="Demo1002" orderTypeId="SALES_ORDER" orderName="Demo Sales Order" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2009-08-17 14:23:49.475" priority="2" entryDate="2009-08-17 14:23:49.475" visitId="10000" statusId="ORDER_COMPLETED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="107.98" grandTotal="127.09" webSiteId="WebStore"/>
     <OrderItem orderId="Demo1002" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
     <OrderItem orderId="Demo1002" orderItemSeqId="00004" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" isPromo="Y" quantity="1.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
 
     <OrderRole orderId="Demo1002" partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
     <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
