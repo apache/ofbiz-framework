@@ -323,12 +323,14 @@ public class RequestHandler {
             // Check if we SHOULD be secure and are not.
             boolean forwardedHTTPS = "HTTPS".equalsIgnoreCase(request.getHeader("X-Forwarded-Proto"));
             if (!request.isSecure() && !forwardedHTTPS && requestMap.securityHttps) {
-                // If the request method was POST then return an error to avoid problems with XSRF where the request may have come from another machine/program and had the same session ID but was not encrypted as it should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
+                // If the request method was POST then return an error to avoid problems with CSRF where the request 
+                // may have come from another machine/program and had the same session ID but was not encrypted as it 
+                // should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
                 if ("POST".equalsIgnoreCase(request.getMethod())) {
-                    // we can't redirect with the body parameters, and for better security from XSRF, just return an error message
+                    // we can't redirect with the body parameters, and for better security from CSRF, just return an error message
                     Locale locale = UtilHttp.getLocale(request);
                     String errMsg = UtilProperties.getMessage("WebappUiLabels", "requestHandler.InsecureFormPostToSecureRequest", locale);
-                    Debug.logError("Got a insecure (non-https) form POST to a secure (http) request [" + requestMap.uri + "], returning error", MODULE);
+                    Debug.logError("Got an insecure (non HTTPS) form POST to a secure (HTTPS) request [" + requestMap.uri + "], returning error", MODULE);
 
                     // see if HTTPS is enabled, if not then log a warning instead of throwing an exception
                     Boolean enableHttps = null;
@@ -346,7 +348,8 @@ public class RequestHandler {
                     }
 
                     if (Boolean.FALSE.equals(enableHttps)) {
-                        Debug.logWarning("HTTPS is disabled for this site, so we can't tell if this was encrypted or not which means if a form was POSTed and it was not over HTTPS we don't know, but it would be vulnerable to an XSRF and other attacks: " + errMsg, MODULE);
+                        Debug.logWarning("HTTPS is disabled for this site, so we can't tell if this was encrypted or not which means if a form was POSTed "
+                                + "and it was not over HTTPS we don't know, but it would be vulnerable to an CSRF and other attacks: " + errMsg, MODULE);
                     } else {
                         throw new RequestHandlerException(errMsg);
                     }
