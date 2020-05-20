@@ -20,18 +20,25 @@ under the License.
 
 <entity-engine-xml>
     <!-- Catalog Manager security -->
-    <SecurityGroup description="Limited Catalog Admin group, has limited catalog permissions." groupId="CATALOGADMIN_LTD" groupName="Catalog Admin (Limited)"/>
+    <SecurityGroup groupId="CATALOGADMIN_LTD" groupName="Catalog Admin (Limited)" description="Limited Catalog Admin group, has limited catalog permissions."/>
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="CATALOG_VIEW"/>
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_CREATE"/>
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_UPDATE"/>
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_DELETE"/>
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
 
-    <SecurityGroup description="Catalog Admin group, has all catalog permissions." groupId="CATALOGADMIN" groupName="Catalog Admin"/>
+    <SecurityGroup groupId="CATALOGADMIN" groupName="Catalog Admin" description="Catalog Admin group, has all catalog permissions."/>
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGADMIN" permissionId="CATALOG_PRICE_MAINT"/>
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGADMIN" permissionId="OFBTOOLS_VIEW"/>
     <!-- NOTE DEJ20070810 where did this come from? has duplicate ID of that above: <SecurityGroup description="Catalog Admin View and Purchase Allow Products" groupId="CATALOGADMIN"/> -->
+
+    <SecurityGroup groupId="CATALOGVIEW" groupName="Catalog Viewers" description="Catalog Viewers group, has view permissions."/>
+    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGVIEW" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGVIEW" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="CATALOGVIEW" permissionId="OFBTOOLS_VIEW"/>
+    <UserLoginSecurityGroup groupId="CATALOGVIEW" userLoginId="employee26" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CATALOGVIEW" userLoginId="employee30" fromDate="2001-01-01 12:00:00.0"/>
 
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
     <SecurityGroupPermission fromDate="2000-01-01 00:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
