@@ -8260,16 +8260,16 @@
         <value xml:lang="zh-TW">係數值</value>
     </property>
     <property key="OrderOrderQuoteCoefficients">
-        <value xml:lang="de">Angebotskoeffizienten</value>
-        <value xml:lang="de-CH">Offertkoeffizienten</value>
-        <value xml:lang="en">Quote Coefficients</value>
+        <value xml:lang="de">Koeffizienten</value>
+        <value xml:lang="de-CH">Koeffizienten</value>
+        <value xml:lang="en">Coefficients</value>
         <value xml:lang="es">Coeficientes</value>
-        <value xml:lang="fr">Coefficients du devis</value>
-        <value xml:lang="it">Coefficienti Preventivo</value>
+        <value xml:lang="fr">Coefficients</value>
+        <value xml:lang="it">Coefficienti</value>
         <value xml:lang="ja">見積係数</value>
-        <value xml:lang="nl">Offerte coefficiënten</value>
-        <value xml:lang="pt-BR">Coeficientes de cotação</value>
-        <value xml:lang="ro">Coeficienti Oferta</value>
+        <value xml:lang="nl">coefficiënten</value>
+        <value xml:lang="pt-BR">Coeficientes</value>
+        <value xml:lang="ro">Coeficienti</value>
         <value xml:lang="ru">Коэффициенты предложения</value>
         <value xml:lang="th">ตัวลข</value>
         <value xml:lang="vi">Hệ số Báo giá</value>
