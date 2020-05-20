@@ -84,7 +84,7 @@ under the License.
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if visualEditorEnable?has_content> data-toolbar="${buttons?default("maxi")}"</#if><#rt/>
     <#if language?has_content> data-language="${language!"en"}"</#if><#rt/>
-    <#if disabled?has_content> disabled="${disabled}"</#if><#rt/>
+    <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
     ><#t/>
     <#if value?has_content>${value}</#if><#t/>
   </textarea><#lt/>
@@ -98,7 +98,7 @@ under the License.
         <#if value?has_content> value="${value}"</#if>
         <#if size?has_content> size="${size}"</#if><#rt/>
         <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
-        <#if disabled?has_content> disabled="${disabled}"</#if><#rt/>
+        <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
         <#if id?has_content> id="${id}_i18n"</#if>/><#rt/>
         <#local className = className + " date-time-picker"/>
     </#if>
@@ -198,7 +198,7 @@ under the License.
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
       <input type="radio"<#if currentValue?has_content><#if currentValue==item.key> checked="checked"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
-        <#elseif noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> checked="checked"</#if><#if disabled?has_content> disabled="${disabled}"</#if>
+        <#elseif noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> checked="checked"</#if><#if disabled?has_content && disabled> disabled="disabled"</#if>
         name="${name?default("")?html}" value="${item.key?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
       ${item.description}
     </span>
