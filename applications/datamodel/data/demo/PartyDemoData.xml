@@ -103,11 +103,11 @@ under the License.
     <!-- Party partyId="Company" == The main Company Internal Organization -->
     <Party partyId="Company" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="Company" groupName="The Apache OFBiz Demo Company" logoImageUrl="/images/ofbiz_logo.png"/>
-    <PartyRole partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
-    <PartyRole partyId="Company" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyRole partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="Company" roleTypeId="ACCOUNT"/>
-    <PartyRole partyId="Company" roleTypeId="_NA_"/>
+    <PartyRole partyId="Company" roleTypeId="BILL_FROM_VENDOR" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="Company" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="Company" roleTypeId="PARENT_ORGANIZATION" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="Company" roleTypeId="ACCOUNT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="Company" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="Company" contactMechId="COMPANY_POST" fromDate="2000-01-01 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMech partyId="Company" contactMechId="COMPANY_EMAIL" fromDate="2000-01-01 00:00:00.000" allowSolicitation="Y"/>
@@ -121,9 +121,9 @@ under the License.
 
     <!-- Party partyId="admin" is a special party.  -->
     <Party partyId="admin" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="admin" roleTypeId="CONTACT"/>
-    <PartyRole partyId="admin" roleTypeId="REQ_TAKER"/>
-    <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
+    <PartyRole partyId="admin" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="admin" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="admin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
     <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0"/>
@@ -135,143 +135,127 @@ under the License.
     <!-- Sub-Organizations -->
     <Party partyId="ACCOUNTING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="ACCOUNTING" groupName="Accounting department"/>
-    <PartyRole partyId="ACCOUNTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="ACCOUNTING" roleTypeId="_NA_"/>
-    <PartyRole partyId="ACCOUNTING" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="ACCOUNTING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="INFOSERV" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="INFOSERV" groupName="Information Services department"/>
-    <PartyRole partyId="INFOSERV" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="INFOSERV" roleTypeId="DEPARTMENT"/>
-    <PartyRole partyId="INFOSERV" roleTypeId="_NA_"/>
+    <PartyRole partyId="INFOSERV" roleTypeId="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="INFOSERV" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="INFOSERV" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="INFOSERV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="INFOSERV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="FACSERV" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="FACSERV" groupName="Facility Services department"/>
-    <PartyRole partyId="FACSERV" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="FACSERV" roleTypeId="DEPARTMENT"/>
-    <PartyRole partyId="FACSERV" roleTypeId="_NA_"/>
+    <PartyRole partyId="FACSERV" roleTypeId="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="FACSERV" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="FACSERV" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="FACSERV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="FACSERV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="MNFCTRNG" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="MNFCTRNG" groupName="Manufacturing department"/>
-    <PartyRole partyId="MNFCTRNG" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="MNFCTRNG" roleTypeId="DEPARTMENT"/>
-    <PartyRole partyId="MNFCTRNG" roleTypeId="_NA_"/>
+    <PartyRole partyId="MNFCTRNG" roleTypeId="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="MNFCTRNG" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="MNFCTRNG" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="MNFCTRNG" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="MNFCTRNG" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="MARKETING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="MARKETING" groupName="Marketing department"/>
-    <PartyRole partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="MARKETING" roleTypeId="DEPARTMENT"/>
-    <PartyRole partyId="MARKETING" roleTypeId="_NA_"/>
+    <PartyRole partyId="MARKETING" roleTypeId="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="MARKETING" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="MARKETING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="MARKETING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="MARKETING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="ORGTLNT" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="ORGTLNT" groupName="Organisation and Talent department"/>
-    <PartyRole partyId="ORGTLNT" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="MARKETING" roleTypeId="DEPARTMENT"/>
-    <PartyRole partyId="ORGTLNT" roleTypeId="_NA_"/>
+    <PartyRole partyId="ORGTLNT" roleTypeId="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="ORGTLNT" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="ORGTLNT" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="ORGTLNT" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="ORGTLNT" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="PRCRMNT" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="PRCRMNT" groupName="Procurement department"/>
-    <PartyRole partyId="PRCRMNT" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="MARKETING" roleTypeId="DEPARTMENT"/>
-    <PartyRole partyId="PRCRMNT" roleTypeId="_NA_"/>
+    <PartyRole partyId="PRCRMNT" roleTypeId="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="PRCRMNT" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="PRCRMNT" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="PRCRMNT" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="PRCRMNT" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="SALES" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="SALES" groupName="Sales department"/>
-    <PartyRole partyId="SALES" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="MARKETING" roleTypeId="DEPARTMENT"/>
-    <PartyRole partyId="SALES" roleTypeId="_NA_"/>
+    <PartyRole partyId="SALES" roleTypeId="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="MARKETING" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="SALES" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="WRHSNG" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="WRHSNG" groupName="Warehousing department"/>
-    <PartyRole partyId="WRHSNG" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="WRHSNG" roleTypeId="DEPARTMENT"/>
-    <PartyRole partyId="WRHSNG" roleTypeId="_NA_"/>
+    <PartyRole partyId="WRHSNG" roleTypeId="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="WRHSNG" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="WRHSNG" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="WRHSNG" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="WRHSNG" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Party partyId="accountant_group" -->
     <Party partyId="accountant_group" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="accountant_group" groupName="Demo Accountant Group"/>
-    <PartyRole partyId="accountant_group" roleTypeId="ORGANIZATION_ROLE"/>
-    <PartyRole partyId="accountant_group" roleTypeId="_NA_"/>
+    <PartyRole partyId="accountant_group" roleTypeId="ORGANIZATION_ROLE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="accountant_group" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <!--Demo employees -->
     <Party partyId="employee1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee1" lastName="AccountingDeptMgr" firstName="DemoEmployee" middleName="1"/>
-    <PartyRole partyId="employee1" roleTypeId="_NA_"/>
-    <PartyRole partyId="employee1" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee1" roleTypeId="MANAGER"/>
+    <PartyRole partyId="employee1" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee1" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee1" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="employee1"/>
 
     <Party partyId="employee2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee2" lastName="AccountingMgrAssist" firstName="DemoEmployee" middleName="2"/>
-    <PartyRole partyId="employee2" roleTypeId="_NA_"/>
-    <PartyRole partyId="employee2" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee2" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee2" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="employee2"/>
 
     <Party partyId="employee3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee3" lastName="AccountingSME" firstName="DemoEmployee" middleName="3"/>
-    <PartyRole partyId="employee3" roleTypeId="_NA_"/>
-    <PartyRole partyId="employee3" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee3" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee3" partyId="employee3" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <Party partyId="employee4" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee4" lastName="InfoServMgr" firstName="DemoEmployee" middleName="4"/>
-    <PartyRole partyId="employee4" roleTypeId="_NA_"/>
-    <PartyRole partyId="employee4" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee4" roleTypeId="MANAGER"/>
+    <PartyRole partyId="employee4" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee4" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee4" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee4" partyId="employee4" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <Party partyId="employee5" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="employee5" lastName="InfoServAssist" firstName="DemoEmployee" middleName="5"/>
-    <PartyRole partyId="employee5" roleTypeId="_NA_"/>
-    <PartyRole partyId="employee5" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee5" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee5" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee5" partyId="employee5" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <Party partyId="employee6" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee6" lastName="Programmer" firstName="DemoEmployee" middleName="6"/>
-    <PartyRole partyId="employee6" roleTypeId="_NA_"/>
-    <PartyRole partyId="employee6" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee6" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee6" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee6" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="employee6"/>
 
     <!-- Party partyId="employee7"-->
     <Party partyId="employee7" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee7" lastName="Programmer" firstName="DemoEmployee" middleName="7"/>
-    <PartyRole partyId="employee7" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee7" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee7" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee7" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="employee7"/>
 
     <Party partyId="employee8" statusId="PARTY_ENABLED"/>
     <Person partyId="employee8" lastName="Programmer" firstName="DemoEmployee" middleName="8"/>
-    <PartyRole partyId="employee8" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee8" roleTypeId="EMAIL_ADMIN"/>
-    <PartyRole partyId="employee8" roleTypeId="REQ_TAKER"/>
+    <PartyRole partyId="employee8" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee8" roleTypeId="EMAIL_ADMIN" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee8" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee8" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="employee8" userLoginId="demoemployee" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" />
-    <PartyRole partyId="employee8" roleTypeId="REQ_TAKER"/>
+    <PartyRole partyId="employee8" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee8" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="INTERNAL_ORGANIZATIO" partyIdTo="employee8" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/>
     <!-- so Employee_8 can hadle incoming cust request 'support' types -->
     <UserLogin userLoginId="employee8" partyId="employee8" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -279,7 +263,7 @@ under the License.
     <!-- Party partyId="employee9" is project analist can register time, accept and assign tasks within the project-->
     <Party partyId="employee9" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee9" lastName="Programmer" firstName="DemoEmployee" middleName="9"/>
-    <PartyRole partyId="employee9" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee9" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyContactMech partyId="employee9" contactMechId="employeePHONE" fromDate="2000-01-01 00:00:00.0" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="employee9" contactMechId="employeeADDRESS" fromDate="2000-01-01 00:00:00.0" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="employee9" contactMechId="employeeEMAIL" fromDate="2000-01-01 00:00:00.0" roleTypeId="EMPLOYEE"/>
@@ -289,18 +273,18 @@ under the License.
     <!-- Party partyId="employee10" is project analist can register time, accept and assign tasks within the project-->
     <Party partyId="employee10" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee10" lastName="Tester" firstName="DemoEmployee" middleName="10"/>
-    <PartyRole partyId="employee10" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee10" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee10" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="employee10" contactMechId="CUSTOMER_PHONE" fromDate="2001-01-01 12:00:00.0" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="employee10" contactMechId="SUPPLIER_ADDRESS_1" fromDate="2001-01-01 12:00:00.0" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="employee10" contactMechId="employeeEMAIL" fromDate="2001-01-01 12:00:00.0" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee10" roleTypeId="PROJECT_TEAM"/>
+    <PartyRole partyId="employee10" roleTypeId="PROJECT_TEAM" fromDate="2001-05-13 00:00:00.0"/>
     <UserLogin userLoginId="employee10" partyId="employee10" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- re Party partyId="employee11". -->
     <Party partyId="employee11" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee11" lastName="Support" firstName="DemoEmployee" middleName="11"/>
-    <PartyRole partyId="employee11" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="employee11" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee11" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="employee11" contactMechId="EMPLOYEE_PHONE" fromDate="2001-01-01 12:00:00.0" roleTypeId="EMPLOYEE"/>
     <UserLogin userLoginId="employee11" partyId="employee11" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
@@ -308,338 +292,304 @@ under the License.
     <!-- Party partyId="employee12" -->
     <Party partyId="employee12" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee12" lastName="SysAdmin" firstName="DemoEmployee" middleName="12" />
-    <PartyRole partyId="employee12" roleTypeId="ACCOUNTANT"/>
-    <PartyRole partyId="employee12" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee12" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee12" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee12" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee12" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="employee12"/>
 
     <PartyRelationship partyIdFrom="Company" partyIdTo="employee12" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="accountant_group" partyIdTo="employee12" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="ORGANIZATION_ROLE" roleTypeIdTo="ACCOUNTANT" fromDate="2001-01-01 12:00:00.0"/>
 
     <!-- Party partyId="employee13" -->
     <Party partyId="employee13" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee13" lastName="MfgManager" firstName="DemoEmployee" middleName="13"/>
-    <PartyRole partyId="employee13" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee13" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee13" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee13" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee13" partyId="employee13" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee14" -->
     <Party partyId="employee14" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee14" lastName="MfgAssist" firstName="DemoEmployee" middleName="14"/>
-    <PartyRole partyId="employee14" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee14" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee14" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee14" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee14" partyId="employee14" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee15" -->
     <Party partyId="employee15" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee15" lastName="MfgOperator" firstName="DemoEmployee" middleName="15"/>
-    <PartyRole partyId="employee15" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee15" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee15" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee15" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee15" partyId="employee15" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee16" -->
     <Party partyId="employee16" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee16" lastName="MfgOperator" firstName="DemoEmployee" middleName="16"/>
-    <PartyRole partyId="employee16" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee16" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee16" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee16" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee16" partyId="employee16" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee17" -->
     <Party partyId="employee17" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee17" lastName="MarketingMgr" firstName="DemoEmployee" middleName="17"/>
-    <PartyRole partyId="employee17" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee17" roleTypeId="MANAGER"/>
-    <PartyRole partyId="employee17" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee17" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee17" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee17" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee17" partyId="employee17" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee18" -->
     <Party partyId="employee18" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee18" lastName="MarketingAssist" firstName="DemoEmployee" middleName="18"/>
-    <PartyRole partyId="employee18" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee18" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee18" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee18" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee18" partyId="employee18" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee19" -->
     <Party partyId="employee19" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee19" lastName="MarketingSME" firstName="DemoEmployee" middleName="19"/>
-    <PartyRole partyId="employee19" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee19" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee19" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee19" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee19" partyId="employee19" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee20" -->
     <Party partyId="employee20" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee20" lastName="OrgTalentMgr" firstName="DemoEmployee" middleName="20"/>
-    <PartyRole partyId="employee20" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee20" roleTypeId="MANAGER"/>
-    <PartyRole partyId="employee20" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee20" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee20" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee20" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee20" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="employee20"/>
 
     <!-- Party partyId="employee21" -->
     <Party partyId="employee21" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee21" lastName="OrgTalentAssist" firstName="DemoEmployee" middleName="21"/>
-    <PartyRole partyId="employee21" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee21" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee21" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee21" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee21" partyId="employee21" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee22" -->
     <Party partyId="employee22" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee22" lastName="OrgTalentSME" firstName="DemoEmployee" middleName="22"/>
-    <PartyRole partyId="employee22" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee22" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee22" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee22" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee22" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="employee22"/>
 
     <!-- Party partyId="employee23" -->
     <Party partyId="employee23" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee23" lastName="OrgTalentProjectMgr" firstName="DemoEmployee" middleName="23"/>
-    <PartyRole partyId="employee23" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee23" roleTypeId="MANAGER"/>
-    <PartyRole partyId="employee23" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee23" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee23" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee23" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee23"  partyId="employee23" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee24" -->
     <Party partyId="employee24" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee24" lastName="OrgTalentProjectgr" firstName="DemoEmployee" middleName="24"/>
-    <PartyRole partyId="employee24" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee24" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee24" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee24" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee24"  partyId="employee24" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee25" -->
     <Party partyId="employee25" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee25" lastName="ProcurementMgr" firstName="DemoEmployee" middleName="25"/>
-    <PartyRole partyId="employee25" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee25" roleTypeId="MANAGER"/>
-    <PartyRole partyId="employee25" roleTypeId="AGRMNT_REVIEWER"/>
+    <PartyRole partyId="employee25" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee25" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee25" roleTypeId="AGRMNT_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee25" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee25" partyId="employee25" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee26" -->
     <Party partyId="employee26" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee26" lastName="ProcurementAssist" firstName="DemoEmployee" middleName="26"/>
-    <PartyRole partyId="employee26" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee26" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee26" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee26" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee26" partyId="employee26" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee27" -->
     <Party partyId="employee27" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee27" lastName="ProcurementBuyer" firstName="DemoEmployee" middleName="27"/>
-    <PartyRole partyId="employee27" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee27" roleTypeId="BUYER"/>
-    <PartyRole partyId="employee27" roleTypeId="AGRMNT_CREATOR"/>
+    <PartyRole partyId="employee27" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee27" roleTypeId="BUYER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee27" roleTypeId="AGRMNT_CREATOR" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee27" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee27" partyId="employee27" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee28" -->
     <Party partyId="employee28" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee28" lastName="ProcurementBuyer" firstName="DemoEmployee" middleName="28"/>
-    <PartyRole partyId="employee28" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee28" roleTypeId="BUYER"/>
-    <PartyRole partyId="employee28" roleTypeId="AGRMNT_CREATOR"/>
+    <PartyRole partyId="employee28" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee28" roleTypeId="BUYER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee28" roleTypeId="AGRMNT_CREATOR" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee28" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee28" partyId="employee28" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee29" -->
     <Party partyId="employee29" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee29" lastName="SalesMgr" firstName="DemoEmployee" middleName="29"/>
-    <PartyRole partyId="employee29" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee29" roleTypeId="MANAGER"/>
-    <PartyRole partyId="employee29" roleTypeId="AGRMNT_REVIEWER"/>
+    <PartyRole partyId="employee29" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee29" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee29" roleTypeId="AGRMNT_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee29" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee29" partyId="employee29" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee30" -->
     <Party partyId="employee30" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee30" lastName="SalesAssit" firstName="DemoEmployee" middleName="30"/>
-    <PartyRole partyId="employee30" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee30" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee30" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee30" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee30" partyId="employee30" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee31" -->
     <Party partyId="employee31" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee31" lastName="SalesSME" firstName="DemoEmployee" middleName="31"/>
-    <PartyRole partyId="employee31" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee31" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee31" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee31" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee31" partyId="employee31" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee32" -->
     <Party partyId="employee32" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee32" lastName="SalesAccountMgr" firstName="DemoEmployee" middleName="32"/>
-    <PartyRole partyId="employee32" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee32" roleTypeId="ACCOUNT_MANAGER"/>
-    <PartyRole partyId="employee32" roleTypeId="AGRMNT_CREATOR"/>
+    <PartyRole partyId="employee32" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee32" roleTypeId="ACCOUNT_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee32" roleTypeId="AGRMNT_CREATOR" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee32" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee32" partyId="employee32" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee33" -->
     <Party partyId="employee33" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee33" lastName="SalesAccountMgr" firstName="DemoEmployee" middleName="33"/>
-    <PartyRole partyId="employee33" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee33" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee33" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee33" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee33" partyId="employee33" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee34" -->
     <Party partyId="employee34" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee34" lastName="WarehousingMgr" firstName="DemoEmployee" middleName="34"/>
-    <PartyRole partyId="employee34" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee34" roleTypeId="MANAGER"/>
-    <PartyRole partyId="employee34" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee34" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee34" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee34" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee34" partyId="employee34" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee35" -->
     <Party partyId="employee35" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee35" lastName="WarehousingAssist" firstName="DemoEmployee" middleName="35"/>
-    <PartyRole partyId="employee35" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee35" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee35" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee35" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee35" partyId="employee35" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee36" -->
     <Party partyId="employee36" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee36" lastName="Packer" firstName="DemoEmployee" middleName="36"/>
-    <PartyRole partyId="employee36" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee36" roleTypeId="PACKER"/>
-    <PartyRole partyId="employee36" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee36" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee36" roleTypeId="PACKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee36" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee36" partyId="employee36" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee37" -->
     <Party partyId="employee37" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee37" lastName="Packer" firstName="DemoEmployee" middleName="37"/>
-    <PartyRole partyId="employee37" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee37" roleTypeId="PACKER"/>
-    <PartyRole partyId="employee37" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee37" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee37" roleTypeId="PACKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee37" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee37" partyId="employee37" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee38" -->
     <Party partyId="employee38" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee38" lastName="Packer" firstName="DemoEmployee" middleName="38"/>
-    <PartyRole partyId="employee38" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee38" roleTypeId="PACKER"/>
-    <PartyRole partyId="employee38" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee38" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee38" roleTypeId="PACKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee38" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee38" partyId="employee38" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee39" -->
     <Party partyId="employee39" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee39" lastName="Picker" firstName="DemoEmployee" middleName="39"/>
-    <PartyRole partyId="employee39" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee39" roleTypeId="PICKER"/>
-    <PartyRole partyId="employee39" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee39" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee39" roleTypeId="PICKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee39" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee39" partyId="employee39" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee40" -->
     <Party partyId="employee40" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee40" lastName="Picker" firstName="DemoEmployee" middleName="40"/>
-    <PartyRole partyId="employee40" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee40" roleTypeId="PICKER"/>
-    <PartyRole partyId="employee40" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee40" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee40" roleTypeId="PICKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee40" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee40" partyId="employee40" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee41" -->
     <Party partyId="employee41" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee41" lastName="CCO" firstName="DemoEmployee" middleName="41"/>
-    <PartyRole partyId="employee41" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee41" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee41" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee41" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee41" partyId="employee41" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee42" -->
     <Party partyId="employee42" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee42" lastName="CEO" firstName="DemoEmployee" middleName="42"/>
-    <PartyRole partyId="employee42" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee42" roleTypeId="AGRMNT_APPROVER"/>
+    <PartyRole partyId="employee42" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee42" roleTypeId="AGRMNT_APPROVER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee42" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee42" partyId="employee42" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee43" -->
     <Party partyId="employee43" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee43" lastName="CFO" firstName="DemoEmployee" middleName="43"/>
-    <PartyRole partyId="employee43" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee43" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee43" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee43" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee43" partyId="employee43" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee44" -->
     <Party partyId="employee44" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee44" lastName="CIO" firstName="DemoEmployee" middleName="44"/>
-    <PartyRole partyId="employee44" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee44" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee44" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee44" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee44" partyId="employee44" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee45" -->
     <Party partyId="employee45" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee45" lastName="CMO" firstName="DemoEmployee" middleName="45"/>
-    <PartyRole partyId="employee45" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee45" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee45" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee45" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee45" partyId="employee45" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee46" -->
     <Party partyId="employee46" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee46" lastName="COO" firstName="DemoEmployee" middleName="46"/>
-    <PartyRole partyId="employee46" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee46" roleTypeId="AGRMNT_APPROVER"/>
+    <PartyRole partyId="employee46" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee46" roleTypeId="AGRMNT_APPROVER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee46" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee46" partyId="employee46" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee47" -->
     <Party partyId="employee47" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee47" lastName="CSO" firstName="DemoEmployee" middleName="47"/>
-    <PartyRole partyId="employee47" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee47" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee47" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee47" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee47" partyId="employee47" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee48" -->
     <Party partyId="employee48" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee48" lastName="FacServMgr" firstName="DemoEmployee" middleName="48"/>
-    <PartyRole partyId="employee48" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee48" roleTypeId="MANAGER"/>
-    <PartyRole partyId="employee48" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee48" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee48" roleTypeId="MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee48" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee48" partyId="employee48" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee49" -->
     <Party partyId="employee49" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee49" lastName="FacServAssist" firstName="DemoEmployee" middleName="49"/>
-    <PartyRole partyId="employee49" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee49" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee49" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee49" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee49" partyId="employee49" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee50" -->
     <Party partyId="employee50" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee50" lastName="FacServAssist" firstName="DemoEmployee" middleName="50"/>
-    <PartyRole partyId="employee50" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="employee50" roleTypeId="WORKER"/>
-    <PartyRole partyId="employee50" roleTypeId="_NA_"/>
+    <PartyRole partyId="employee50" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee50" roleTypeId="WORKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee50" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="employee50" partyId="employee50" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- email from an unknown party -->
     <CommunicationEvent communicationEventId="9000" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_UNKNOWN_PARTY" contactMechTypeId="EMAIL_ADDRESS" contactMechIdTo="admin" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" partyIdTo="admin" entryDate="2008-07-28 13:55:55.827" datetimeStarted="2008-07-28 13:55:19.0" subject="Why i would use the OFBiz system" contentMimeTypeId="text/plain" content="Every time i think of you, only you...you are always on my mind......." note="Sent from: my@email.com; Sent Name from: Jo Easy User; Sent to: ofbiztest@example.com; Delivered-To: ofbiztest@example.com; " fromString="mailinglist@example.com" toString="ofbiztest@example.com"/>
-    <PartyRole partyId="admin" roleTypeId="ADDRESSEE"/>
+    <PartyRole partyId="admin" roleTypeId="ADDRESSEE" fromDate="2001-05-13 00:00:00.0"/>
     <CommunicationEventRole communicationEventId="9000" partyId="admin" roleTypeId="ADDRESSEE" contactMechId="admin" statusId="COM_ROLE_CREATED"/>
 
     <!-- new registration notification -->
@@ -656,30 +606,30 @@ under the License.
 
     <Party partyId="Enterprise" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="Enterprise" groupName="Large Enterprise, Inc." logoImageUrl="/images/ofbiz_logo.png"/>
-    <PartyRole partyId="Enterprise" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="Enterprise" roleTypeId="PARENT_ORGANIZATION"/>
+    <PartyRole partyId="Enterprise" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="Enterprise" roleTypeId="PARENT_ORGANIZATION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="Enterprise" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <!-- Top tier divisions -->
 
     <Party partyId="bu_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="bu_div" groupName="Business Unit Division"/>
-    <PartyRole partyId="bu_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="bu_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="bu_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="bu_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="bu_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Enterprise" partyIdTo="bu_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="md_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="md_div" groupName="Market Development Division"/>
-    <PartyRole partyId="md_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="md_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="md_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="md_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="md_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Enterprise" partyIdTo="md_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="cf_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="cf_div" groupName="Corporate Functions Division"/>
-    <PartyRole partyId="cf_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="cf_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="cf_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="cf_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="cf_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Enterprise" partyIdTo="cf_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -687,15 +637,15 @@ under the License.
 
     <Party partyId="gizmo_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="gizmo_div" groupName="Gizmo Business Unit"/>
-    <PartyRole partyId="gizmo_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="gizmo_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="gizmo_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="gizmo_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="gizmo_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="bu_div" partyIdTo="gizmo_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="widget_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="widget_div" groupName="Widget Business Unit"/>
-    <PartyRole partyId="widget_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="widget_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="widget_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="widget_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="widget_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="bu_div" partyIdTo="widget_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -703,43 +653,43 @@ under the License.
 
     <Party partyId="na_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="na_div" groupName="North America"/>
-    <PartyRole partyId="na_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="na_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="na_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="na_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="na_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="na_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="sa_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sa_div" groupName="Central and South America"/>
-    <PartyRole partyId="sa_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="sa_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="sa_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="sa_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="sa_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="sa_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="we_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="we_div" groupName="Western Europe"/>
-    <PartyRole partyId="we_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="we_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="we_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="we_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="we_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="we_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="asia_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <PartyGroup partyId="asia_div" groupName="Asia"/>
-    <PartyRole partyId="asia_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="asia_div" roleTypeId="DIVISION"/>
+    <PartyGroup partyId="asia_div" groupName="Division Asia"/>
+    <PartyRole partyId="asia_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="asia_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="asia_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="asia_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="anz_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="anz_div" groupName="Australia and New Zealand"/>
-    <PartyRole partyId="anz_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="anz_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="anz_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="anz_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="anz_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="anz_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="india_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="india_div" groupName="India"/>
-    <PartyRole partyId="india_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="india_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="india_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="india_div" roleTypeId="DIVISION" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="india_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="india_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -747,32 +697,32 @@ under the License.
 
     <Party partyId="RECEIVING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="RECEIVING" groupName="Receiving Department"/>
-    <PartyRole partyId="RECEIVING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="RECEIVING" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="RECEIVING" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="RECEIVING" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="RECEIVING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="RECEIVING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
     <PartyRelationship partyIdFrom="widget_div" partyIdTo="RECEIVING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="PRODUCTION" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="PRODUCTION" groupName="Production Department"/>
-    <PartyRole partyId="PRODUCTION" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="PRODUCTION" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="PRODUCTION" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="PRODUCTION" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="PRODUCTION" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="PRODUCTION" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
     <PartyRelationship partyIdFrom="widget_div" partyIdTo="PRODUCTION" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="SHIPPING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="SHIPPING" groupName="Shipping Department"/>
-    <PartyRole partyId="SHIPPING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="SHIPPING" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="SHIPPING" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="SHIPPING" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="SHIPPING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="SHIPPING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
     <PartyRelationship partyIdFrom="widget_div" partyIdTo="SHIPPING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="MAINTENANCE" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="MAINTENANCE" groupName="Maintenance Department"/>
-    <PartyRole partyId="MAINTENANCE" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="MAINTENANCE" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="MAINTENANCE" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="MAINTENANCE" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="MAINTENANCE" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="MAINTENANCE" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
     <PartyRelationship partyIdFrom="widget_div" partyIdTo="MAINTENANCE" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
@@ -781,44 +731,44 @@ under the License.
 
     <Party partyId="LEGAL" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="LEGAL" groupName="Legal Department"/>
-    <PartyRole partyId="LEGAL" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="LEGAL" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="LEGAL" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="LEGAL" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="LEGAL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="LEGAL" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="PUBLIC_REL" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="PUBLIC_REL" groupName="Public Relations"/>
-    <PartyRole partyId="PUBLIC_REL" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="PUBLIC_REL" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="PUBLIC_REL" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="PUBLIC_REL" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="PUBLIC_REL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="PUBLIC_REL" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="HUMAN_RES" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"
     />
     <PartyGroup partyId="HUMAN_RES" groupName="Human Resources"/>
-    <PartyRole partyId="HUMAN_RES" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="HUMAN_RES" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="HUMAN_RES" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="HUMAN_RES" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="HUMAN_RES" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="HUMAN_RES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="INFO_TECH" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="INFO_TECH" groupName="Information Technology"/>
-    <PartyRole partyId="INFO_TECH" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="INFO_TECH" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="INFO_TECH" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="INFO_TECH" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="INFO_TECH" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="INFO_TECH" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="R_AND_D" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="R_AND_D" groupName="Research and Development"/>
-    <PartyRole partyId="R_AND_D" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="R_AND_D" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="R_AND_D" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="R_AND_D" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="R_AND_D" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="R_AND_D" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="LOGISTICS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="LOGISTICS" groupName="Logistics"/>
-    <PartyRole partyId="LOGISTICS" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="LOGISTICS" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="LOGISTICS" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="LOGISTICS" roleTypeId="DEPARTMENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="LOGISTICS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="LOGISTICS" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -832,12 +782,12 @@ under the License.
     <!-- Party partyId="DemoCustomer" -->
     <Party partyId="DemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustomer" lastName="Customer" firstName="Demo"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="DemoCustomer" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <UserLogin userLoginId="DemoCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
@@ -859,9 +809,9 @@ under the License.
     <!-- Party partyId="DemoCustomer2 -->
     <Party partyId="DemoCustomer2"/>
     <Person partyId="DemoCustomer2" lastName="Customer (Consumer)" firstName="Demo" middleName="2"/>
-    <PartyRole partyId="DemoCustomer2" roleTypeId="ACCOUNT"/>
-    <PartyRole partyId="DemoCustomer2" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer2" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer2" roleTypeId="ACCOUNT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer2" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer2" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyContactMech partyId="DemoCustomer2" contactMechId="CUSTOMER_ADDRESS" fromDate="2001-01-01 12:00:00.0" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer2" contactMechId="CUSTOMER_PHONE" fromDate="2001-01-01 12:00:00.0" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer2" contactMechId="CUSTOMER_EMAIL" fromDate="2001-01-01 12:00:00.0" roleTypeId="CUSTOMER"/>
@@ -871,10 +821,9 @@ under the License.
     <!-- Party partyId="DemoCustCompany" -->
     <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="DemoCustCompany" groupName="Demo Customer Company"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoCustCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoCustCompany" userLoginId="DemoCustCompany"/>
 
@@ -898,14 +847,14 @@ under the License.
     <!-- Party partyId="DemoCustomer3" billing for demo project 1 and project 2 -->
     <Party partyId="DemoCustomer3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustomer3" lastName="Customer" firstName="Demo" middleName="3"/>
-    <PartyRole partyId="DemoCustomer3" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer3" roleTypeId="CONTACT"/>
-    <PartyRole partyId="DemoCustomer3" roleTypeId="CLIENT_BILLING"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="CLIENT_BILLING" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoCustomer3" statusId="PARTY_ENABLED" statusDate="2000-01-01 00:00:00.0"/>
     <PartyContactMech partyId="DemoCustomer3" contactMechId="CUSTOMER_ADDRESS" fromDate="2000-01-01 00:00:00.0" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer3" contactMechId="CUSTOMER_PHONE" fromDate="2000-01-01 00:00:00.0" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer3" contactMechId="CUSTOMER_EMAIL" fromDate="2000-01-01 00:00:00.0" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer3" roleTypeId="PROJECT_TEAM"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="PROJECT_TEAM" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     <PartyStatus partyId="DemoCustomer3" statusId="PARTY_ENABLED" statusDate="2000-01-01 00:00:00.0"/>
     <UserLogin userLoginId="DemoCustomer3"  partyId="DemoCustomer3"/>
@@ -913,12 +862,11 @@ under the License.
     <!-- Party partyId="DemoCustAgent" -->
     <Party partyId="DemoCustAgent" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustAgent" lastName="CustomerAgent" firstName="Demo" middleName="1"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
     <UserLogin partyId="DemoCustAgent" userLoginId="DemoCustAgent"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="SALES_REP"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="CONTACT"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="SALES_REP" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoCustAgent" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="DemoCustAgent" contactMechId="CUSTOMER_ADDRESS" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="CUSTOMER_ADDRESS" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
@@ -930,16 +878,14 @@ under the License.
     <UserLogin userLoginId="DemoCustAgent" partyId="DemoCustAgent"  currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
     
     <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="AGENT"
-                       fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="AGENT" comments="Allows the DemoCustAgent to purchase on behalf of DemoCustCompany, ie purchase against BillingAccount"/>
-    <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_"
-                       fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="GROUP_ROLLUP" comments="Specifies the DemoCustAgent is a member of the DemoCustCompany, for Price Rules, Promos, etc"/>
-    
+        fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="AGENT" comments="Allows the DemoCustAgent to purchase on behalf of DemoCustCompany, ie purchase against BillingAccount"/>
+
     <!-- Party partyId="EuroCustomer" -->
     <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="EuroCustomer" firstName="Demo " lastName="EuroCustomer"/>
     <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer"/>
-    <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2009-01-09 00:00:00.000"/>
 
@@ -963,8 +909,8 @@ under the License.
     <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="FrenchCustomer" firstName="French" lastName="Customer"/>
     <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer"/>
-    <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="FrenchCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="FrenchCustomer" geoPointId="9002" fromDate="2009-01-09 00:00:00.000"/>
 
@@ -986,11 +932,11 @@ under the License.
     <!-- Party partyId="DemoSupplier"-->
     <Party partyId="DemoSupplier" statusId="PARTY_ENABLED" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="DemoSupplier" groupName="Demo Supplier"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="SUPPLIER"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
+    <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoSupplier" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoSupplier" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PostalAddress contactMechId="SUPPLIER_ADDRESS_1" toName="Demo Supplier Company" address1="2004 Factory Blvd" city="City of Industry" postalCode="90000" countryGeoId="USA" stateProvinceGeoId="CA"/>
     <PartyContactMech partyId="DemoSupplier" contactMechId="SUPPLIER_ADDRESS_1" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
@@ -1005,45 +951,45 @@ under the License.
     <!-- Party partyId="AcctBuyer" -->
     <Party partyId="AcctBuyer" partyTypeId="PERSON"/>
     <Person partyId="AcctBuyer" firstName="Demo" lastName="AcctBuyer"/>
-    <PartyRole partyId="AcctBuyer" roleTypeId="BUYER"/>
+    <PartyRole partyId="AcctBuyer" roleTypeId="BUYER" fromDate="2001-05-13 00:00:00.0"/>
     <UserLogin partyId="AcctBuyer" userLoginId="AcctBuyer"/>
 
     <Party partyId="AcctBigSupplier" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="AcctBigSupplier" groupName="Acct Big Supplier"/>
-    <PartyRole partyId="AcctBigSupplier" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="AcctBigSupplier" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
 
     <Party partyId="DHL" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <PartyGroup partyId="DHL" groupName="DHL"/>
-    <PartyRole partyId="DHL" roleTypeId="SUPPLIER"/>
-    <PartyRole partyId="DHL" roleTypeId="CARRIER"/>
+    <PartyGroup partyId="DHL" groupName="DHL" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DHL" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DHL" roleTypeId="CARRIER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DHL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="FEDEX" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="FEDEX" groupName="Federal Express"/>
-    <PartyRole partyId="FEDEX" roleTypeId="SUPPLIER"/>
-    <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
+    <PartyRole partyId="FEDEX" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="FEDEX" roleTypeId="CARRIER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="FEDEX" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="UPS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="UPS" groupName="UPS"/>
-    <PartyRole partyId="UPS" roleTypeId="SUPPLIER"/>
-    <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
+    <PartyRole partyId="UPS" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="UPS" roleTypeId="CARRIER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="UPS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="USPS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="USPS" groupName="USPS"/>
-    <PartyRole partyId="USPS" roleTypeId="SUPPLIER"/>
-    <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
+    <PartyRole partyId="USPS" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="USPS" roleTypeId="CARRIER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="USPS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="_NA_" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="_NA_"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
+    <PartyRole partyId="_NA_" roleTypeId="CARRIER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="_NA_" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="BigSupplier" partyTypeId="PARTY_GROUP" />
     <PartyGroup partyId="BigSupplier" groupName="Big Supplier" />
-    <PartyRole partyId="BigSupplier" roleTypeId="SUPPLIER" />
+    <PartyRole partyId="BigSupplier" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyContactMech partyId="BigSupplier" contactMechId="SUPPLIER_ADDRESS_4" fromDate="2000-01-01 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="BigSupplier" contactMechId="SUPPLIER_ADDRESS_4" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="BigSupplier" contactMechId="SUPPLIER_ADDRESS_4" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
@@ -1052,7 +998,7 @@ under the License.
 
     <Party partyId="EuroSupplier" partyTypeId="PARTY_GROUP" />
     <PartyGroup partyId="EuroSupplier" groupName="European Supplier"/>
-    <PartyRole partyId="EuroSupplier" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="EuroSupplier" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyContactMech partyId="EuroSupplier" contactMechId="SUPPLIER_ADDRESS_2" fromDate="2000-01-01 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="EuroSupplier" contactMechId="SUPPLIER_ADDRESS_2" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="EuroSupplier" contactMechId="SUPPLIER_ADDRESS_2" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
@@ -1061,24 +1007,24 @@ under the License.
 
     <Party partyId="supplier1" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="supplier1" groupName="The Demo Audit Company"/>
-    <PartyRole partyId="supplier1" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="supplier1" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
 
     <Party partyId="suppContact1" partyTypeId="PERSON"/>
     <Person partyId="suppContact1" lastName="SupplierContact" firstName="Demo" middleName="1"/>
-    <PartyRole partyId="suppContact1" roleTypeId="SUPPLIER_CONTACT"/>
-    <PartyRole partyId="suppContact1" roleTypeId="ACCOUNTANT"/>
+    <PartyRole partyId="suppContact1" roleTypeId="SUPPLIER_CONTACT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="suppContact1" roleTypeId="ACCOUNTANT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="suppContact1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="supplier1" roleTypeIdFrom="SUPPLIER" partyIdTo="suppContact1" roleTypeIdTo="SUPPLIER_CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     <UserLogin userLoginId="suppContact1" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="suppContact1"/>
 
     <Party partyId="supplier2" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="supplier2" groupName="The SubContractor Supplier"/>
-    <PartyRole partyId="supplier2" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="supplier2" roleTypeId="SUPPLIER" fromDate="2001-05-13 00:00:00.0"/>
 
     <Party partyId="suppContact2" partyTypeId="PERSON"/>
     <Person partyId="suppContact2" lastName="SubContractor" firstName="Demo" middleName="2"/>
-    <PartyRole partyId="suppContact2" roleTypeId="SUPPLIER_CONTACT"/>
-    <PartyRole partyId="suppContact2" roleTypeId="SUBCONTRACTOR"/>
+    <PartyRole partyId="suppContact2" roleTypeId="SUPPLIER_CONTACT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="suppContact2" roleTypeId="SUBCONTRACTOR" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="suppContact2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="suppContact2" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="suppContact2"/>
 

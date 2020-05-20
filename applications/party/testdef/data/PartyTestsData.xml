@@ -20,11 +20,10 @@ under the License.
 
 <entity-engine-xml>
     <Party partyId="TestCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <PartyGroup partyId="TestCompany" groupName="Your Company Name Here"/>
-    <PartyRole partyId="TestCompany" roleTypeId="BILL_FROM_VENDOR"/>
-    <PartyRole partyId="TestCompany" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyRole partyId="TestCompany" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="TestCompany" roleTypeId="_NA_"/>
+    <PartyGroup partyId="TestCompany" groupName="The OFBiz Test Company"/>
+    <PartyRole partyId="TestCompany" roleTypeId="BILL_FROM_VENDOR" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestCompany" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestCompany" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="TestCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="TestGroup-1" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
@@ -33,19 +32,19 @@ under the License.
 
     <Party partyId="TestCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestCustomer" firstName="Test" lastName="Customer"/>
-    <PartyRole partyId="TestCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="TestCustomer" roleTypeId="CONTACT"/>
-    <PartyRole partyId="TestCustomer" roleTypeId="ACCOUNTANT"/>
+    <PartyRole partyId="TestCustomer" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestCustomer" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestCustomer" roleTypeId="ACCOUNTANT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="TestCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="TestParty" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestParty" firstName="Test" lastName="Party"/>
-    <PartyRole partyId="TestParty" roleTypeId="CONTACT"/>
+    <PartyRole partyId="TestParty" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="TestParty" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="TestParty" partyId="TestParty"/>
 
-    <PartyRelationship partyIdFrom="TestCompany" roleTypeIdFrom="_NA_" partyIdTo="TestCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00" partyRelationshipTypeId="EMPLOYMENT"/>
-    <PartyRelationship partyIdFrom="TestCompany" roleTypeIdFrom="_NA_" partyIdTo="TestParty" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="TestCompany" partyIdTo="TestCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00"/>
+    <PartyRelationship partyIdFrom="TestCompany" partyIdTo="TestParty" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00"/>
 
     <ContactMech contactMechId="TestContactMech" contactMechTypeId="EMAIL_ADDRESS" infoString="newtest_email@example.com"/>
     <PartyContactMech partyId="TestCustomer" contactMechId="TestContactMech" fromDate="2001-05-13 00:00:00.000"/>
@@ -69,7 +68,7 @@ under the License.
 
     <CommunicationEvent communicationEventId="TestEvent-1" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestCustomer" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
     <CommunicationEvent communicationEventId="TestEvent-2" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_UNKNOWN_PARTY" contactMechTypeId="EMAIL_ADDRESS" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" partyIdTo="TestCompany" entryDate="2010-10-27 15:04:17.895" subject="Why i would use the OFBiz system" contentMimeTypeId="text/plain" content="Every time i think of you, only you...you are always on my mind......." note="Sent from: my@example.com"/>
-    <PartyRole partyId="TestCompany" roleTypeId="ADDRESSEE"/>
+    <PartyRole partyId="TestCompany" roleTypeId="ADDRESSEE" fromDate="2001-05-13 00:00:00.0"/>
     <CommunicationEventRole communicationEventId="TestEvent-2" partyId="TestCompany" roleTypeId="ADDRESSEE" statusId="COM_ROLE_CREATED"/>
 
     <CommunicationEvent communicationEventId="TestEvent-5" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="TestContactMech" contactMechIdTo="TestContactMech2" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestCustomer" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
