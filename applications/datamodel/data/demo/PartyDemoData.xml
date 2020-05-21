@@ -251,13 +251,8 @@ under the License.
     <Person partyId="employee8" lastName="Programmer" firstName="DemoEmployee" middleName="8"/>
     <PartyRole partyId="employee8" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee8" roleTypeId="EMAIL_ADMIN" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee8" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="employee8" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <UserLogin partyId="employee8" userLoginId="demoemployee" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" />
-    <PartyRole partyId="employee8" roleTypeId="EMPLOYEE" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee8" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="INTERNAL_ORGANIZATIO" partyIdTo="employee8" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/>
-    <!-- so Employee_8 can hadle incoming cust request 'support' types -->
     <UserLogin userLoginId="employee8" partyId="employee8" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"/>
 
     <!-- Party partyId="employee9" is project analist can register time, accept and assign tasks within the project-->
