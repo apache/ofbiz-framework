@@ -39,6 +39,18 @@ The detailed description of migration scripts specified here can be found at [Re
 |:------------- |:---------------:|:---------------:|:---------------:| -------------:|
 | GlXbrlClass | parentGlXbrlClassId | Added | No | 36a123a |
 
+If in the list above fields are mentioned where 'IsPK' = yes, we advice to follow steps below for a successful upgrade.
+* Stop your OFBiz implementation
+* Go to the entity definition in the appropriate entitymodel.xml file
+* Disable temporarily the prim-key reference of the added field, and save the file
+* Restart the OFBiz implementation
+* Check with your RDBMS client that the new field is present in the table
+* Add values for the field in the table (if appropriate)
+* Stop the OFBiz implementation
+* Go back to the definition in the appropriate entitymodel.xml file
+* Enable the temporary disabled prim-key reference of the added field, and save the file
+* Check with your RDBMS client that the new field is part of the primary key defintion of the table
+
 
 ## Migration Scripts
 1. Migration service migrateProductPromoCodeEmail is implemented to migrate the ProductPromoCodeEmail entity to ProductPromoCodeContactMech. (More detail at [OFBIZ-5426](https://issues.apache.org/jira/browse/OFBIZ-5426))
