@@ -271,7 +271,7 @@ under the License.
                 <!-- render messages -->
                 <platform-specific>
                     <html>
-                        <html-template location="${messagesTemplateLocation}" />
+                        <html-template multi-block="true" location="${messagesTemplateLocation}" />
                     </html>
                 </platform-specific>
                 <!-- render content area -->

@@ -217,7 +217,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 String data = stringWriter.toString();
                 stringWriter.close();
 
-                Document doc = Jsoup.parse(data);
+                Document doc = Jsoup.parseBodyFragment(data);
 
                 // extract scripts
                 Elements scriptElements = doc.select("script");
