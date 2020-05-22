@@ -109,7 +109,7 @@ under the License.
     <RoleType description="Reviewer" hasTable="N" parentTypeId="PINVOICE_ROLE" roleTypeId="PINVOICE_REVIEWER"/>
     <RoleType description="Viewer" hasTable="N" parentTypeId="PINVOICE_ROLE" roleTypeId="PINVOICE_VIEWER"/>
 
-    <RoleType description="Payment Roles" hasTable="N" roleTypeId="PAMENT_ROLE"/>
+    <RoleType description="Payment Roles" hasTable="N" roleTypeId="PAYMENT_ROLE"/>
     <RoleType description="Approver" hasTable="N" parentTypeId="PAYMENT_ROLE" roleTypeId="PAYMENT_APPROVER"/>
     <RoleType description="Creator" hasTable="N" parentTypeId="PAYMENT_ROLE" roleTypeId="PAYMENT_CREATOR"/>
     <RoleType description="Reviewer" hasTable="N" parentTypeId="PAYMENT_ROLE" roleTypeId="PAYMENT_REVIEWER"/>
