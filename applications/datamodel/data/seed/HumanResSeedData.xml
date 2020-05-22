@@ -19,6 +19,13 @@ under the License.
 -->
 
 <entity-engine-xml>
+    <RoleType description="Employement Agreement Roles" hasTable="N" roleTypeId="EAGRMNT_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="EAGRMNT_ROLE" roleTypeId="EAGRMNT_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="EAGRMNT_ROLE" roleTypeId="EAGRMNT_CREATOR"/>
+    <RoleType description="Manager" hasTable="N" parentTypeId="EAGRMNT_ROLE" roleTypeId="EAGRMNT_MANAGER"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="EAGRMNT_ROLE" roleTypeId="EAGRMNT_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="EAGRMNT_ROLE" roleTypeId="EAGRMNT_VIEWER"/>
+
     <StatusType description="Employment Application" hasTable="N" statusTypeId="EMPLOYMENT_APP_STTS"/>
     <StatusType description="Employee Position Status" hasTable="N" statusTypeId="EMPL_POSITION_STATUS"/>
     <StatusItem description="Planned For" sequenceId="01" statusCode="PLANNED_FOR" statusId="EMPL_POS_PLANNEDFOR" statusTypeId="EMPL_POSITION_STATUS"/>

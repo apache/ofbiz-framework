@@ -103,6 +103,24 @@ under the License.
     <FinAccountType description="Credit Card Account" finAccountTypeId="CREDIT_CARD_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="LOAN_ACCOUNT"/>
     <FinAccountType description="Equity Line Account" finAccountTypeId="EQUITY_LINE_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="LOAN_ACCOUNT"/>
 
+    <RoleType description="Purchase Invoice Roles" hasTable="N" roleTypeId="PINVOICE_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="PINVOICE_ROLE" roleTypeId="PINVOICE_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="PINVOICE_ROLE" roleTypeId="PINVOICE_CREATOR"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="PINVOICE_ROLE" roleTypeId="PINVOICE_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="PINVOICE_ROLE" roleTypeId="PINVOICE_VIEWER"/>
+
+    <RoleType description="Payment Roles" hasTable="N" roleTypeId="PAMENT_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="PAYMENT_ROLE" roleTypeId="PAYMENT_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="PAYMENT_ROLE" roleTypeId="PAYMENT_CREATOR"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="PAYMENT_ROLE" roleTypeId="PAYMENT_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="PAYMENT_ROLE" roleTypeId="PAYMENT_VIEWER"/>
+
+    <RoleType description="Sales Invoice Roles" hasTable="N" roleTypeId="SINVOICE__ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="SINVOICE__ROLE" roleTypeId="SINVOICE__APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="SINVOICE__ROLE" roleTypeId="SINVOICE__CREATOR"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="SINVOICE__ROLE" roleTypeId="SINVOICE__REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="SINVOICE__ROLE" roleTypeId="SINVOICE__VIEWER"/>
+
     <StatusType description="Financial Account Status" hasTable="N" statusTypeId="FINACCT_STATUS"/>
     <StatusItem description="Active" sequenceId="01" statusCode="ACTIVE" statusId="FNACT_ACTIVE" statusTypeId="FINACCT_STATUS"/>
     <!-- This is set automatically by the auto-replenishment code to allow one transaction to bring the balance below zero and then if any other transactions are attempted during replenishment they will be rejected. Was inGoodStanding -->

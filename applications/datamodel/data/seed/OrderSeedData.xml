@@ -106,6 +106,76 @@ under the License.
     <RequirementType description="Work Requirement" hasTable="N" requirementTypeId="WORK_REQUIREMENT"/>
     <RequirementType description="Inter Facility Transfer Requirement" requirementTypeId="TRANSFER_REQUIREMENT"/>
 
+    <!-- artefact roles -->
+    <RoleType roleTypeId="WAREHOUSE_ROLE" description="Warehouse Roles" hasTable="N"/>
+    <RoleType roleTypeId="RECEIVER" description="Receiver" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="PACKER" description="Packer" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="PICKER" description="Picker" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="SHIPMENT_CLERK" description="Shipment Clerk" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+    <RoleType roleTypeId="STOCKER" description="Stocker" hasTable="N" parentTypeId="WAREHOUSE_ROLE"/>
+
+    <RoleType description="Purchase Agreement Roles" hasTable="N" roleTypeId="PAGRMNT_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="PAGRMNT_ROLE" roleTypeId="PAGRMNT_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="PAGRMNT_ROLE" roleTypeId="PAGRMNT_CREATOR"/>
+    <RoleType description="Manager" hasTable="N" parentTypeId="PAGRMNT_ROLE" roleTypeId="PAGRMNT_MANAGER"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="PAGRMNT_ROLE" roleTypeId="PAGRMNT_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="PAGRMNT_ROLE" roleTypeId="PAGRMNT_VIEWER"/>
+
+    <RoleType description="Purchase Order Roles" hasTable="N" roleTypeId="PO_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="PO_ROLE" roleTypeId="PO_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="PO_ROLE" roleTypeId="PO_CREATOR"/>
+    <RoleType description="Manager" hasTable="N" parentTypeId="PO_ROLE" roleTypeId="PO_MANAGER"/>
+    <RoleType description="Requester" hasTable="N" parentTypeId="PO_ROLE" roleTypeId="PO_REQUESTER"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="PO_ROLE" roleTypeId="PO_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="PO_ROLE" roleTypeId="PO_VIEWER"/>
+
+    <RoleType description="Purchase Return Roles" hasTable="N" roleTypeId="PR_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="PR_ROLE" roleTypeId="PR_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="PR_ROLE" roleTypeId="PR_CREATOR"/>
+    <RoleType description="Manager" hasTable="N" parentTypeId="PR_ROLE" roleTypeId="PR_MANAGER"/>
+    <RoleType description="Requester" hasTable="N" parentTypeId="PR_ROLE" roleTypeId="PR_REQUESTER"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="PR_ROLE" roleTypeId="PR_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="PR_ROLE" roleTypeId="PR_VIEWER"/>
+
+    <RoleType description="Quote Roles" hasTable="N" roleTypeId="QUOTE_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_CREATOR"/>
+    <RoleType description="Manager" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_MANAGER"/>
+    <RoleType description="Requester" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_REQUESTER"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="QUOTE_ROLE" roleTypeId="QUOTE_VIEWER"/>
+
+    <RoleType description="Sales Agreement Roles" hasTable="N" roleTypeId="SAGRMNT_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="SAGRMNT_ROLE" roleTypeId="SAGRMNT_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="SAGRMNT_ROLE" roleTypeId="SAGRMNT_CREATOR"/>
+    <RoleType description="Manager" hasTable="N" parentTypeId="SAGRMNT_ROLE" roleTypeId="SAGRMNT_MANAGER"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="SAGRMNT_ROLE" roleTypeId="SAGRMNT_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="SAGRMNT_ROLE" roleTypeId="SAGRMNT_VIEWER"/>
+
+    <RoleType description="Sales Order Roles" hasTable="N" roleTypeId="SO_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="SO_ROLE" roleTypeId="SO_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="SO_ROLE" roleTypeId="SO_CREATOR"/>
+    <RoleType description="Manager" hasTable="N" parentTypeId="SO_ROLE" roleTypeId="SO_MANAGER"/>
+    <RoleType description="Requester" hasTable="N" parentTypeId="SO_ROLE" roleTypeId="SO_REQUESTER"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="SO_ROLE" roleTypeId="SO_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="SO_ROLE" roleTypeId="SO_VIEWER"/>
+
+    <RoleType description="Sales Return Roles" hasTable="N" roleTypeId="SR_ROLE"/>
+    <RoleType description="Approver" hasTable="N" parentTypeId="SR_ROLE" roleTypeId="SR_APPROVER"/>
+    <RoleType description="Creator" hasTable="N" parentTypeId="SR_ROLE" roleTypeId="SR_CREATOR"/>
+    <RoleType description="Manager" hasTable="N" parentTypeId="SR_ROLE" roleTypeId="SR_MANAGER"/>
+    <RoleType description="Requester" hasTable="N" parentTypeId="SR_ROLE" roleTypeId="SR_REQUESTER"/>
+    <RoleType description="Reviewer" hasTable="N" parentTypeId="SR_ROLE" roleTypeId="SR_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="SR_ROLE" roleTypeId="SR_VIEWER"/>
+
+    <RoleType description="Request Roles" hasTable="N" roleTypeId="REQUEST_ROLE"/>
+    <RoleType description="Manager" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_MANAGER"/>
+    <RoleType description="Requester" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_REQUESTER"/>
+    <RoleType description="Taker" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_TAKER"/>
+    <RoleType description="Respondent" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_RESPOND"/>
+    <RoleType description="Reiewer" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_REVIEWER"/>
+    <RoleType description="Viewer" hasTable="N" parentTypeId="REQUEST_ROLE" roleTypeId="REQ_VIEWER"/>
+
     <ShoppingListType description="Wish List" shoppingListTypeId="SLT_WISH_LIST"/>
     <ShoppingListType description="Gift Registry" shoppingListTypeId="SLT_GIFT_REG"/>
     <ShoppingListType description="Automatic Re-Orders" shoppingListTypeId="SLT_AUTO_REODR"/>
