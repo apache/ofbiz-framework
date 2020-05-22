@@ -615,6 +615,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="use-when" type="xs:string" />
         </xs:complexType>
     </xs:element>
 
@@ -1561,6 +1562,7 @@ under the License.
             </xs:attribute>
             <xs:attribute type="xs:string" name="area-id" use="required" />
             <xs:attribute type="xs:string" name="area-target" use="required" />
+            <xs:attribute type="xs:string" name="use-when" />
         </xs:complexType>
     </xs:element>
 
