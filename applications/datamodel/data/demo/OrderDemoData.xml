@@ -178,7 +178,7 @@ under the License.
     <PartyRole partyId="employee26" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="REQ_RESPOND" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee27" 27leTypeId="REQ_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee27" roleTypeId="REQ_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="QUOTE_CREATOR" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="QUOTE_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
