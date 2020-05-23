@@ -94,3 +94,66 @@ def getPaymentRunningTotal(){
     result.paymentRunningTotal = paymentRunningTotal
     return result
 }
+
+def setPaymentStatus() {
+    if (parameters.paymentId) {
+        Map resultMap = new HashMap()
+        payment = from("Payment").where("paymentId", parameters.paymentId).queryOne()
+        if (payment) {
+            oldStatusId = payment.statusId
+            statusItem = from("StatusItem").where("statusId", parameters.statusId).queryOne()
+            if (statusItem) {
+                if (!oldStatusId.equals(parameters.statusId)) {
+                    statusChange = from("StatusValidChange").where("statusId", oldStatusId, "statusIdTo", parameters.statusId).queryOne()
+                    if (statusChange) {
+                        // payment method is mandatory when set to sent or received
+                        if (("PMNT_RECEIVED".equals(parameters.paymentId) || "PMNT_SENT".equals(parameters.paymentId)) && !payment.paymentMethodId) {
+                            resultMap.errorMessage = UtilProperties.getMessage("AccountingUiLabels","AccountingMissingPaymentMethod", [statusItem.description], locale)
+                            logError("Cannot set status to " + parameters.statusId + " on payment " + payment.paymentId + ": payment method is missing")
+                            return failure(resultMap.errorMessage)
+                        }
+                        // check if the payment fully applied when set to confirmed
+                        if ("PMNT_CONFIRMED".equals(parameters.statusId)) {
+                            notYetApplied = org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)
+                            if (BigDecimal.ZERO.compareTo(notYetApplied)) {
+                                resultMap.errorMessage = UtilProperties.getMessage("AccountingUiLabels","AccountingPSNotConfirmedNotFullyApplied", locale)
+                                logError("Cannot change from " + payment.statusId + " to " + parameters.statusId + ", payment not fully applied:" + notYetapplied)
+                                return failure(resultMap.errorMessage)
+                            }
+                        }
+                        // if new status is cancelled delete existing payment applications
+                        if ("PMNT_CANCELLED".equals(parameters.statusId)) {
+                            paymentApplications = payment.getRelated("PaymentApplication", null, null, false);
+                            if (paymentApplications) {
+                                paymentApplications.each { paymentApplication ->
+                                    removePaymentApplicationMap.paymentApplicationId = paymentApplication.paymentApplicationId
+                                    paymentAppResult = runService('removePaymentApplication', removePaymentApplicationMap)
+                                }
+                            }
+                            // if new status is cancelled and the payment is associated to an OrderPaymentPreference, update the status of that record too
+                            orderPaymentPreference = payment.getRelatedOne("OrderPaymentPreference", false)
+                            if (orderPaymentPreference) {
+                                updateOrderPaymentPreferenceMap.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId
+                                updateOrderPaymentPreferenceMap.statusId = "PAYMENT_CANCELLED"
+                                runService('updateOrderPaymentPreference', updateOrderPaymentPreferenceMap)
+                            }
+                        }
+
+                        // everything ok, so now change the status field
+                        payment.statusId = parameters.statusId
+                        payment.store()
+                    } else {
+                        resultMap.errorMessage = "Cannot change from " + oldStatusId + " to " + parameters.statusId
+                        logError(resultMap.errorMessage)
+                    }
+                }
+            } else {
+                resultMap.errorMessage = "No status found with status ID" + parameters.statusId
+                logError(resultMap.errorMessage)
+            }
+        } else {
+            resultMap.errorMessage = "No payment found with payment ID " + parameters.paymentId
+            logError(resultMap.errorMessage)
+        }
+    }
+}
