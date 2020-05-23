@@ -21,7 +21,34 @@
 
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="HumanResRequiredFieldMissingTrainingClassTypeId">
-    	<value xml:lang="de">benötigter Eintrag fehlt: Weiterbildungsklasse Typ ID.</value>
+        <value xml:lang="de">benötigter Eintrag fehlt: Weiterbildungsklasse Typ ID.</value>
+        <value xml:lang="en">Required Field Missing : Training Class Type Id.</value>
+    </property>
+    <property key="HRRequiredFieldMissingDescription">
+        <value xml:lang="en">Required Field Missing : Description.</value>
+    </property>
+    <property key="HRRequiredFieldMissingEmployeePartyId">
+        <value xml:lang="en">Required Field Missing : Employee Party Id.</value>
+    </property>
+    <property key="HRRequiredFieldMissingEmployeeRoleTypeId">
+        <value xml:lang="en">Required Field Missing : Employee Role Type Id.</value>
+    </property>
+    <property key="HRRequiredFieldMissingPartyId">
+        <value xml:lang="en">Required Field Missing : Party Id.</value>
+    </property>
+    <property key="HRRequiredFieldMissingPartyQualTypeId">
+        <value xml:lang="en">Required Field Missing : Party Qual Type Id.</value>
+    </property>
+    <property key="HRRequiredFieldMissingPeriodTypeId">
+        <value xml:lang="en">Required Field Missing : Period Type Id.</value>
+    </property>
+    <property key="HRRequiredFieldMissingPostalAddContactMechPurpTypeId">
+        <value xml:lang="en">Required Field Missing : Postal Address Contact Mech Purpose.</value>
+    </property>
+    <property key="HRRequiredFieldMissingPrefReviewID">
+        <value xml:lang="en">Required Field Missing : Pref Review Id.</value>
+    </property>
+    <property key="HRRequiredFieldMissingTrainingClassTypeId">
         <value xml:lang="en">Required Field Missing : Training Class Type Id.</value>
     </property>
 </resource>

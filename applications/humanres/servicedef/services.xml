@@ -28,8 +28,16 @@ under the License.
         <description>Create a Party Qualification entry</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="partyId" mode="IN" type="String"/>
-        <attribute name="partyQualTypeId" mode="IN" type="String"/>
+        <attribute name="partyId" mode="IN" type="String">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingPartyId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
+        <attribute name="partyQualTypeId" mode="IN" type="String">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingPartyQualTypeId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
         <attribute name="fromDate" mode="INOUT" type="Timestamp" optional="true"/>
     </service>
 
@@ -91,9 +99,21 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute mode="IN" type="String" name="perfReviewId" optional="true"/>
-        <attribute mode="OUT" type="String" name="perfReviewId" optional="false"/>
-        <attribute mode="INOUT" type="String" name="employeePartyId" optional="false"/>
-        <attribute mode="INOUT" type="String" name="employeeRoleTypeId" optional="false"/>
+        <attribute mode="OUT" type="String" name="perfReviewId" optional="false">
+            <type-validate>
+                <fail-property property="NoPrefReviewId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
+        <attribute mode="INOUT" type="String" name="employeePartyId" optional="false">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingEmployeePartyId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
+        <attribute mode="INOUT" type="String" name="employeeRoleTypeId" optional="false">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingEmployeeRoleTypeId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="updatePerfReview" engine="entity-auto" default-entity-name="PerfReview" invoke="update" auth="true">
@@ -113,9 +133,21 @@ under the License.
         <description>Create Performance Review Item</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute mode="IN" type="String" name="employeePartyId" optional="false"/>
-        <attribute mode="IN" type="String" name="employeeRoleTypeId" optional="false"/>
-        <attribute mode="IN" type="String" name="perfReviewId" optional="false"/>
+        <attribute mode="IN" type="String" name="employeePartyId" optional="false">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingEmployeePartyId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
+        <attribute mode="IN" type="String" name="employeeRoleTypeId" optional="false">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingEmployeeRoleTypeId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
+        <attribute mode="IN" type="String" name="perfReviewId" optional="false">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingPrefReviewID" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
         <attribute mode="OUT" type="String" name="perfReviewItemSeqId" optional="false"/>
     </service>
 
@@ -501,7 +533,11 @@ under the License.
         </auto-attributes>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="String" mode="IN" optional="true"/>
-        <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingPostalAddContactMechPurpTypeId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
         <attribute name="partyId" type="String" mode="OUT"/>
     </service>
 
@@ -575,7 +611,11 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="rateAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="rateCurrencyUomId" type="String" mode="IN" optional="true"/>
-        <attribute name="periodTypeId" type="String" mode="IN"/>
+        <attribute name="periodTypeId" type="String" mode="IN">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingPeriodTypeId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
         <override name="fromDate" optional="true"/>
     </service>
 
@@ -655,7 +695,11 @@ under the License.
         location="component://humanres/minilang/HumanResServices.xml" invoke="getCurrentPartyEmploymentData" auth="true">
         <description>Delete Valid LeaveType</description>
         <permission-service service-name="humanResManagerPermission" main-action="VIEW"/>
-        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="partyId" type="String" mode="IN">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingPartyId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
         <attribute name="partyBenefitTypes" type="java.util.List" mode="OUT" optional="true"/>
         <attribute name="employment" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="emplPosition" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
@@ -812,9 +856,17 @@ under the License.
     <service name="createTrainingTypes" engine="entity-auto" default-entity-name="TrainingClassType" invoke="create" auth="true">
         <description>Create a New Training type</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
-        <attribute name="trainingClassTypeId" mode="IN" type="String" optional="false"/>
+        <attribute name="trainingClassTypeId" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingTrainingClassTypeId" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
         <attribute name="parentTypeId" mode="IN" type="String" optional="true"/>
-        <attribute name="description" mode="IN" type="String" optional="false"/>
+        <attribute name="description" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property property="HRRequiredFieldMissingDescription" resource="HumanResErrorUiLabels"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="updateTrainingTypes" engine="entity-auto" default-entity-name="TrainingClassType" invoke="update" auth="true">
