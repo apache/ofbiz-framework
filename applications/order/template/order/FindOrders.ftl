@@ -496,6 +496,7 @@ document.lookuporder.orderId.focus();
       <input type="hidden" name="viewSize"/>
       <input type="hidden" name="viewIndex"/>
       <input type="hidden" name="hideFields"/>
+      <input type="hidden" name="showAll" value="Y"/>
       <#if paramIdList?? && paramIdList?has_content>
         <#list paramIdList as paramIds>
           <#assign paramId = paramIds.split("=")/>
