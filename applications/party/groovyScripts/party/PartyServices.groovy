@@ -936,7 +936,7 @@ def getRolePartiesList() {
     if (null == parameters.lastNameFirst) {
     	lastNameFirst = "Y"
     }
-    partyRoleList = from("PartyRole").where('roleTypeId', roleTypeId).queryList()
+    partyRoleList = from("PartyRole").where('roleTypeId', roleTypeId).filterByDate.queryList()
     for (GenericValue partyRole : partyRoleList) {
     	inMap = dispatcher.getDispatchContext().makeValidContext("getPartyNameForDate", ModelService.IN_PARAM, parameters)
         inMap.partyId = partyRole.partyId
