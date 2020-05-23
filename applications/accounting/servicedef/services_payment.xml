@@ -174,8 +174,8 @@ under the License.
         <attribute name="paymentGroupId" type="String" mode="OUT" optional="true"/>
         <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
     </service>
-    <service name="createPaymentAndApplicationForParty" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentAndApplicationForParty" auth="true">
+    <service name="createPaymentAndApplicationForParty" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndApplicationForParty" auth="true">
         <description>create Payment and PaymentApplications for multiple invoices for one party</description>
         <attribute name="organizationPartyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>

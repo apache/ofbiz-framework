@@ -593,65 +593,6 @@ under the License.
         </if-empty>
     </simple-method>
 
-    <simple-method method-name="createPaymentAndApplicationForParty" short-description="create Payment and PaymentApplications for multiple invoices for one party">
-        <set field="paymentAmount" type="BigDecimal" value="0"/>
-        <iterate list="parameters.invoices" entry="invoice">
-            <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY" type="String">
-                <set-service-fields service-name="getInvoicePaymentInfoList" map="invoice" to-map="getInvoicePaymentInfoListCtx"/>
-                <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListCtx">
-                    <result-to-field result-name="invoicePaymentInfoList"/>
-                </call-service>
-                <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
-                <set field="paymentAmount" value="${paymentAmount + invoicePaymentInfo.outstandingAmount}"/>
-            <else>
-                <add-error>
-                    <fail-property resource="AccountingUiLabels" property="AccountingInvoicesRequiredInReadyStatus"/>
-                </add-error>
-                <check-errors/>
-            </else>
-            </if-compare>
-        </iterate>
-        <if-compare field="paymentAmount" operator="greater" type="BigDecimal" value="0">
-            <set-service-fields service-name="getPartyAccountingPreferences" map="parameters" to-map="getPartyAccountingPreferencesMap"/>
-            <call-service service-name="getPartyAccountingPreferences" in-map-name="getPartyAccountingPreferencesMap">
-                <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
-            </call-service>
-            <set field="createPaymentMap.paymentTypeId" value="VENDOR_PAYMENT"/>
-            <set field="createPaymentMap.partyIdFrom" from-field="parameters.organizationPartyId"/>
-            <set field="createPaymentMap.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-            <set field="createPaymentMap.partyIdTo" from-field="parameters.partyId"/>
-            <set field="createPaymentMap.statusId" value="PMNT_SENT"/>
-            <set field="createPaymentMap.amount" type="BigDecimal" from-field="paymentAmount"/>
-            <set field="createPaymentMap.paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
-            <set field="createPaymentMap.paymentMethodId" from-field="parameters.paymentMethodId"/>
-            <set field="createPaymentMap.paymentRefNum" type="String" from-field="parameters.checkStartNumber"/>
-            <call-service service-name="createPayment" in-map-name="createPaymentMap">
-                <result-to-field result-name="paymentId"/>
-                <result-to-result result-name="paymentId"/>
-            </call-service>
-            <iterate list="parameters.invoices" entry="invoice">
-                <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY">
-                    <set-service-fields service-name="getInvoicePaymentInfoList" map="invoice" to-map="getInvoicePaymentInfoListCtx"/>
-                    <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListCtx">
-                        <result-to-field result-name="invoicePaymentInfoList" field="invoicePaymentInfoList"/>
-                    </call-service>
-                    <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
-                    <if-compare field="invoicePaymentInfo.outstandingAmount" operator="greater" value="0">
-                        <set field="createPaymentApplicationMap.paymentId" from-field="paymentId"/>
-                        <set field="createPaymentApplicationMap.amountApplied" from-field="invoicePaymentInfo.outstandingAmount"/>
-                        <set field="createPaymentApplicationMap.invoiceId" from-field="invoice.invoiceId"/>
-                        <call-service service-name="createPaymentApplication" in-map-name="createPaymentApplicationMap"/>
-                    </if-compare>
-                </if-compare>
-                <field-to-list field="invoice.invoiceId" list="invoiceIds"/>
-                <clear-field field="createPaymentApplicationMap"/>
-            </iterate>
-        </if-compare>
-        <field-to-result field="invoiceIds"/>
-        <set field="amount" type="BigDecimal" from-field="paymentAmount"/>
-        <field-to-result field="amount"/>
-    </simple-method>
-
     <simple-method method-name="createFinAccoutnTransFromPayment" short-description="Creates a record for FinAccountTrans on creation of payment.">
         <set-service-fields service-name="createFinAccountTrans" map="parameters" to-map="createFinAccountTransMap"/>
         <set field="createFinAccountTransMap.finAccountTransTypeId" value="WITHDRAWAL"/>

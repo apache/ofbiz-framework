@@ -23,6 +23,7 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import java.sql.Timestamp
 
@@ -62,7 +63,65 @@ def createPayment() {
     result.paymentId = paymentId
     return result
 }
+def createPaymentAndApplicationForParty() {
+    paymentAmount = 0
+    List invoiceIds = []
+    Map result = success()
+    parameters.invoices.each { invoice ->
+        if ("INVOICE_READY" == invoice.statusId) {
+            Map serviceContext = dispatcher.getDispatchContext().makeValidContext('getInvoicePaymentInfoList', ModelService.IN_PARAM, invoice)
+            serviceContext.userLogin = userLogin
+            serviceResult = run service: 'getInvoicePaymentInfoList', with: serviceContext
+            if (ServiceUtil.isError(serviceResult)) return serviceResult
+            invoicePaymentInfo = serviceResult.invoicePaymentInfoList[0]
+            paymentAmount += invoicePaymentInfo.outstandingAmount
+        } else {
+            return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingInvoicesRequiredInReadyStatus", parameters.locale))
+        }
+    }
+    if (paymentAmount > 0) {
+        serviceResult = run service: 'getPartyAccountingPreferences', with: parameters
+        if (ServiceUtil.isError(serviceResult)) return serviceResult
+        partyAcctgPreference = serviceResult.partyAccountingPreference
+        Map createPaymentMap = [:]
+        createPaymentMap.paymentTypeId = "VENDOR_PAYMENT"
+        createPaymentMap.partyIdFrom = parameters.organizationPartyId
+        createPaymentMap.currencyUomId = partyAcctgPreference.baseCurrencyUomId
+        createPaymentMap.partyIdTo = parameters.partyId
+        createPaymentMap.statusId = "PMNT_SENT"
+        createPaymentMap.amount = paymentAmount
+        createPaymentMap.paymentMethodTypeId = parameters.paymentMethodTypeId
+        createPaymentMap.paymentMethodId = parameters.paymentMethodId
+        createPaymentMap.paymentRefNum = parameters.checkStartNumber
+        createPaymentMap.userLogin = userLogin
+        serviceResult = run service: 'createPayment', with: createPaymentMap
+        if (ServiceUtil.isError(serviceResult)) return serviceResult
+        paymentId = serviceResult.paymentId
+        result.paymentId = paymentId
 
+        parameters.invoices.each {invoice ->
+        if ("INVOICE_READY" == invoice.statusId) {
+            Map serviceContext = dispatcher.getDispatchContext().makeValidContext('getInvoicePaymentInfoList', ModelService.IN_PARAM, invoice)
+            serviceContext.userLogin = userLogin
+            serviceResult = run service: 'getInvoicePaymentInfoList', with: serviceContext
+            if (ServiceUtil.isError(serviceResult)) return serviceResult
+            invoicePaymentInfo = serviceResult.invoicePaymentInfoList[0]
+            if (invoicePaymentInfo.outstandingAmount > 0) {
+                Map createPaymentApplicationMap = [:]
+                createPaymentApplicationMap.paymentId =  paymentId
+                createPaymentApplicationMap.amountApplied = invoicePaymentInfo.outstandingAmount
+                createPaymentApplicationMap.invoiceId = invoice.invoiceId
+                serviceResult = run service: 'createPaymentApplication', with: createPaymentApplicationMap
+                if (ServiceUtil.isError(serviceResult)) return serviceResult
+            }
+        }
+        invoiceIds.add(invoice.invoiceId)
+        }
+    }
+    result.invoiceIds = invoiceIds
+    result.amount =  paymentAmount
+    return result
+}
 def getPaymentRunningTotal(){
     paymentIds = parameters.paymentIds;
     runningTotal = 0;
