@@ -17,6 +17,8 @@
  * under the License.
  */
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
+import org.apache.ofbiz.accounting.payment.PaymentWorker
+import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilProperties
@@ -624,4 +626,66 @@ def createPaymentFromOrder() {
 
         return result
     }
+}
+def createPaymentApplication() {
+    // Create a Payment Application
+    if (!parameters.invoiceId && !parameters.billingAccountId && !parameters.taxAuthGeoId && !parameters.toPaymentId) {
+        return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentApplicationParameterMissing", locale))
+    }
+    GenericValue paymentAppl = delegator.makeValue("PaymentApplication")
+    paymentAppl.setNonPKFields(parameters)
+
+    GenericValue payment = from("Payment").where("paymentId", parameters.paymentId).queryOne()
+    if (!payment) {
+        return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentApplicationParameterMissing", locale))
+    }
+
+    BigDecimal notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment)
+
+    if (parameters.invoiceId) {
+        // get the invoice and do some further validation against it
+        GenericValue invoice = from("Invoice").where("invoiceId", parameters.invoiceId).queryOne()
+        // check the currencies if they are compatible
+        if (invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId != payment.actualCurrencyUomId) {
+            return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingCurrenciesOfInvoiceAndPaymentNotCompatible", locale))
+        }
+        if (invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId == payment.actualCurrencyUomId) {
+            // if required get the payment amount in foreign currency (local we already have)
+            notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment, true)
+        }
+        // get the amount that has not been applied yet for the invoice (outstanding amount)
+        BigDecimal notAppliedInvoice = InvoiceWorker.getInvoiceNotApplied(invoice)
+        paymentAppl.amountApplied = notAppliedInvoice <= notAppliedPayment
+            ? notAppliedInvoice : notAppliedPayment
+
+        if (invoice.billingAccountId) {
+            paymentAppl.billingAccountId = invoice.billingAccountId
+        }
+    }
+
+    if (parameters.toPaymentId) {
+        // get the to payment and check the parent types are compatible
+        GenericValue toPayment = from("Payment").where("paymentId", parameters.toPaymentId).queryOne()
+        //  when amount not provided use the the lowest value available
+        if (!parameters.amountApplied) {
+            notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment)
+            BigDecimal notAppliedToPayment = PaymentWorker.getPaymentNotApplied(toPayment)
+             paymentAppl.amountApplied = notAppliedPayment < notAppliedToPayment
+                ? notAppliedPayment : notAppliedToPayment
+        }
+    }
+
+    if (!paymentAppl.amountApplied) {
+        if (parameters.billingAccountId || parameters.taxAuthGeoId) {
+            paymentAppl.amountApplied = notAppliedPayment
+        }
+    }
+    paymentAppl.paymentApplicationId = delegator.getNextSeqId("PaymentApplication")
+    paymentAppl.create()
+
+    Map serviceResult = success()
+    serviceResult.amountApplied = paymentAppl.amountApplied
+    serviceResult.paymentApplicationId = paymentAppl.paymentApplicationId
+    serviceResult.paymentTypeId = payment.paymentTypeId
+    return serviceResult
 }
