@@ -720,7 +720,7 @@ under the License.
         <set field="map.fromGroupIndex" value="00001"/>
         <set field="map.toGroupIndex" value="00002"/>
         <set field="map.quantity" value="2" type="BigDecimal"/>
-        <call-service service-name="MoveItemBetweenShipGroups" in-map-name="map"/>
+        <call-service service-name="moveItemBetweenShipGroups" in-map-name="map"/>
         
         <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc1">
             <field-map field-name="orderId" from-field="orderMap.orderId"/>
