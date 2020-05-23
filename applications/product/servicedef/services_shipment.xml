@@ -163,13 +163,10 @@ under the License.
         </attribute>
         <override name="primaryReturnId" optional="false"/>
     </service>
-
-    <service name="createShipment" default-entity-name="Shipment" engine="groovy"
-            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="createShipment" auth="true">
+    <service name="createShipment" default-entity-name="Shipment" engine="entity-auto" invoke="create" auth="true">
         <description>Create Shipment</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="OUT" optional="false"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdDate"/>
             <exclude field-name="createdByUserLogin"/>
