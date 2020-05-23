@@ -75,6 +75,7 @@ under the License.
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="partyId" from-field="parameters.partyId"/>
+                <set field="DONE_PAGE" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
                 <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
             </actions>

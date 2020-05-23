@@ -23,6 +23,7 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import java.sql.Timestamp
 
@@ -62,7 +63,114 @@ def createPayment() {
     result.paymentId = paymentId
     return result
 }
+def updatePayment() {
+    Map lookupPayment = delegator.makeValue("Payment")
+    lookupPayment.setPKFields(parameters)
+    GenericValue payment = from("Payment").where("paymentId", lookupPayment.paymentId).queryOne()
+    if (!security.hasEntityPermission("ACCOUNTING", "_UPDATE", parameters.userLogin) &&
+        (!security.hasEntityPermission("PAY_INFO", "_UPDATE", parameters.userLogin) &&
+        userLogin.partyId != payment.partyIdFrom && userLogin.partyId != payment.partyIdTo)) {
+        return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingUpdatePaymentPermissionError)
+    }
+    if ("PMNT_NOT_PAID" != payment.statusId) {
+        // check if only status change
+        GenericValue newPayment = delegator.makeValue("Payment")
+        GenericValue oldPayment = delegator.makeValue("Payment")
+        newPayment.setNonPKFields(payment)
+        oldPayment.setNonPKFields(payment)
+        newPayment.setNonPKFields(parameters)
 
+        // fields :- comments, paymentRefNum, finAccountTransId, statusIhStatus does not allow an update of the information are editable for Payment
+        oldPayment.statusId = newPayment.statusId
+        oldPayment.comments = newPayment.comments
+        oldPayment.paymentRefNum = newPayment.paymentRefNum ?: null
+        oldPayment.finAccountTransId = newPayment.finAccountTransId ?: null
+        if (!oldPayment.equals(newPayment)) {
+            return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingPSUpdateNotAllowedBecauseOfStatus)
+        }
+    }
+    statusIdSave = payment.statusId  // do not allow status change here
+    payment.setNonPKFields(parameters)
+    payment.statusId = statusIdSave  // do not allow status change here
+    payment.effectiveDate = payment.effectiveDate ?: UtilDateTime.nowTimestamp()
+    if (payment.paymentMethodId) {
+        paymentMethod = from("PaymentMethod").where("paymentMethodId", payment.paymentMethodId).queryOne()
+        if (payment.paymentMethodTypeId != paymentMethod.paymentMethodTypeId) {
+            Debug.logInfo("Replacing passed payment method type [" + parameters.paymentMethodTypeId + "] with payment method type [" +
+                paymentMethod.paymentMethodTypeId + "] for payment method [" + parameters.paymentMethodId +"]", MODULE)
+        }
+        payment.paymentMethodTypeId = paymentMethod.paymentMethodTypeId
+    }
+    payment.store()
+    if (parameters.statusId) {
+        if (parameters.statusId != statusIdSave) {
+            Map param = dispatcher.getDispatchContext().makeValidContext('setPaymentStatus', ModelService.IN_PARAM, parameters)
+            param.paymentId = payment.paymentId
+            serviceResult = run service: 'setPaymentStatus', with: param
+            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult)
+        }
+    }
+    return success()
+}
+def createPaymentAndApplicationForParty() {
+    paymentAmount = 0
+    List invoiceIds = []
+    Map result = success()
+    parameters.invoices.each { invoice ->
+        if ("INVOICE_READY" == invoice.statusId) {
+            Map serviceContext = dispatcher.getDispatchContext().makeValidContext('getInvoicePaymentInfoList', ModelService.IN_PARAM, invoice)
+            serviceContext.userLogin = userLogin
+            serviceResult = run service: 'getInvoicePaymentInfoList', with: serviceContext
+            if (ServiceUtil.isError(serviceResult)) return serviceResult
+            invoicePaymentInfo = serviceResult.invoicePaymentInfoList[0]
+            paymentAmount += invoicePaymentInfo.outstandingAmount
+        } else {
+            return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingInvoicesRequiredInReadyStatus", parameters.locale))
+        }
+    }
+    if (paymentAmount > 0) {
+        serviceResult = run service: 'getPartyAccountingPreferences', with: parameters
+        if (ServiceUtil.isError(serviceResult)) return serviceResult
+        partyAcctgPreference = serviceResult.partyAccountingPreference
+        Map createPaymentMap = [:]
+        createPaymentMap.paymentTypeId = "VENDOR_PAYMENT"
+        createPaymentMap.partyIdFrom = parameters.organizationPartyId
+        createPaymentMap.currencyUomId = partyAcctgPreference.baseCurrencyUomId
+        createPaymentMap.partyIdTo = parameters.partyId
+        createPaymentMap.statusId = "PMNT_SENT"
+        createPaymentMap.amount = paymentAmount
+        createPaymentMap.paymentMethodTypeId = parameters.paymentMethodTypeId
+        createPaymentMap.paymentMethodId = parameters.paymentMethodId
+        createPaymentMap.paymentRefNum = parameters.checkStartNumber
+        createPaymentMap.userLogin = userLogin
+        serviceResult = run service: 'createPayment', with: createPaymentMap
+        if (ServiceUtil.isError(serviceResult)) return serviceResult
+        paymentId = serviceResult.paymentId
+        result.paymentId = paymentId
+
+        parameters.invoices.each {invoice ->
+        if ("INVOICE_READY" == invoice.statusId) {
+            Map serviceContext = dispatcher.getDispatchContext().makeValidContext('getInvoicePaymentInfoList', ModelService.IN_PARAM, invoice)
+            serviceContext.userLogin = userLogin
+            serviceResult = run service: 'getInvoicePaymentInfoList', with: serviceContext
+            if (ServiceUtil.isError(serviceResult)) return serviceResult
+            invoicePaymentInfo = serviceResult.invoicePaymentInfoList[0]
+            if (invoicePaymentInfo.outstandingAmount > 0) {
+                Map createPaymentApplicationMap = [:]
+                createPaymentApplicationMap.paymentId =  paymentId
+                createPaymentApplicationMap.amountApplied = invoicePaymentInfo.outstandingAmount
+                createPaymentApplicationMap.invoiceId = invoice.invoiceId
+                serviceResult = run service: 'createPaymentApplication', with: createPaymentApplicationMap
+                if (ServiceUtil.isError(serviceResult)) return serviceResult
+            }
+        }
+        invoiceIds.add(invoice.invoiceId)
+        }
+    }
+    result.invoiceIds = invoiceIds
+    result.amount =  paymentAmount
+    return result
+}
 def getPaymentRunningTotal(){
     paymentIds = parameters.paymentIds;
     runningTotal = 0;
@@ -133,4 +241,18 @@ def updatePaymentContent() {
         return ServiceUtil.returnError("Error getting Payment Content")
     }
 }
+def massChangePaymentStatus() {
+    serviceResult = success()
+    Map setPaymentStatusMap = [:]
+    parameters.paymentIds.each{ paymentId ->
+        setPaymentStatusMap.paymentId = paymentId
+        setPaymentStatusMap.statusId = parameters.statusId
+        setPaymentStatusMap.userLogin = parameters.userLogin
+        result = run service: 'setPaymentStatus', with: setPaymentStatusMap
+        if (ServiceUtil.isError(result)) return result
+        setPaymentStatusMap.clear()
+    }
+    return serviceResult
+}
+
 
