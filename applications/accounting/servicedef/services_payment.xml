@@ -253,16 +253,16 @@ under the License.
     </service>
 
     <!-- Payment content services -->
-    <service name="createPaymentContent" default-entity-name="PaymentContent" engine="simple"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentContent" auth="true">
+    <service name="createPaymentContent" default-entity-name="PaymentContent" engine="groovy"
+             location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentContent" auth="true">
         <description>Add Content To Payment</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updatePaymentContent" default-entity-name="PaymentContent" engine="simple"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="updatePaymentContent" auth="true">
+    <service name="updatePaymentContent" default-entity-name="PaymentContent" engine="groovy"
+             location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="updatePaymentContent" auth="true">
         <description>Update Content To Payment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

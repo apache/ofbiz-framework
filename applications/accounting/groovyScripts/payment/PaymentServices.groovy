@@ -23,6 +23,8 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceUtil
+import java.sql.Timestamp
 
 MODULE = "PaymentServices.groovy"
 def createPayment() {
@@ -94,3 +96,41 @@ def getPaymentRunningTotal(){
     result.paymentRunningTotal = paymentRunningTotal
     return result
 }
+def createPaymentContent() {
+    GenericValue newEntity = delegator.makeValue("PaymentContent")
+    newEntity.setPKFields(parameters, true)
+    newEntity.setNonPKFields(parameters, true)
+
+    if (!newEntity.fromDate) {
+        Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
+        newEntity.fromDate  = nowTimestamp
+    }
+    newEntity.create()
+
+    result = run service: 'updateContent', with: parameters
+    if (ServiceUtil.isError(result)) return result
+
+    Map result = success()
+    result.contentId = newEntity.contentId
+    result.paymentId = newEntity.paymentId
+    result.paymentContentTypeId = newEntity.paymentContentTypeId
+    return result
+}
+//TODO: This can be converted into entity-auto with a seca rule for updateContent
+def updatePaymentContent() {
+    serviceResult = success()
+    GenericValue lookupPKMap = delegator.makeValue("PaymentContent")
+    lookupPKMap.setPKFields(parameters, true)
+
+    GenericValue lookedUpValue = findOne("PaymentContent", lookupPKMap, false)
+    if (lookedUpValue) {
+        lookedUpValue.setNonPKFields(parameters)
+        lookedUpValue.store()
+        result = run service: 'updateContent', with: parameters
+        if (ServiceUtil.isError(result)) return result
+        return serviceResult
+    } else {
+        return ServiceUtil.returnError("Error getting Payment Content")
+    }
+}
+
