@@ -18,7 +18,10 @@
  */
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericValue
 
 MODULE = "PaymentServices.groovy"
@@ -55,5 +58,39 @@ def createPayment() {
     delegator.create(payment)
     Map result = success()
     result.paymentId = paymentId
+    return result
+}
+
+def getPaymentRunningTotal(){
+    paymentIds = parameters.paymentIds;
+    runningTotal = 0;
+    payments = from("Payment").where(EntityCondition.makeCondition("paymentId", EntityOperator.IN, paymentIds)).queryList()
+    if (payments) {
+        for (GenericValue payment : payments) {
+            runningTotal = runningTotal + payment.amount;
+        }
+    }
+
+    if (parameters.organizationPartyId) {
+        serviceCtx = [
+                organizationPartyId: parameters.organizationPartyId,
+                userLogin: userLogin
+        ]
+        serviceResult = dispatcher.runSync('getPartyAccountingPreferences', serviceCtx);
+        partyAcctgPreference = serviceResult.partyAccountingPreference;
+
+        if (partyAcctgPreference.baseCurrencyUomId) {
+            currencyUomId = partyAcctgPreference.baseCurrencyUomId;
+        } else {
+            currencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default');
+        }
+    } else  {
+        currencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default');
+    }
+
+    paymentRunningTotal = UtilFormatOut.formatCurrency(runningTotal, currencyUomId, locale);
+
+    result = success()
+    result.paymentRunningTotal = paymentRunningTotal
     return result
 }

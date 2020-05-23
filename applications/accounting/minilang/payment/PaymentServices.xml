@@ -512,27 +512,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="getPaymentRunningTotal" short-description="calculate running total for payments">
-        <set field="paymentIds" from-field="parameters.paymentIds"/>
-        <set field="runningTotal" type="BigDecimal" value="0"/>
-        <entity-condition entity-name="Payment" list="payments">
-            <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
-        </entity-condition>
-        <iterate list="payments" entry="payment">
-            <set field="runningTotal" value="${runningTotal + payment.amount}" type="BigDecimal"/>
-        </iterate>
-        <set-service-fields service-name="getPartyAccountingPreferences" map="parameters" to-map="getPartyAccountingPreferencesMap"/>
-        <call-service service-name="getPartyAccountingPreferences" in-map-name="getPartyAccountingPreferencesMap">
-            <result-to-field result-name="partyAccountingPreference"/>
-        </call-service>
-        <set field="currencyUomId" from-field="partyAccountingPreference.baseCurrencyUomId"/>
-        <if-empty field="currencyUomId">
-            <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
-        </if-empty>
-        <set field="paymentRunningTotal" value="${groovy:org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
-        <field-to-result field="paymentRunningTotal"/>
-    </simple-method>
-
     <simple-method method-name="cancelPaymentBatch" short-description="cancel payment batch">
         <entity-and entity-name="PmtGrpMembrPaymentAndFinAcctTrans" list="paymentGroupMemberAndTransList">
             <field-map field-name="paymentGroupId" from-field="parameters.paymentGroupId"/>

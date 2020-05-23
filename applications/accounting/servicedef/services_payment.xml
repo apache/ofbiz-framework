@@ -151,8 +151,8 @@ under the License.
         <attribute name="finAccountTransId" type="String" mode="OUT" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="getPaymentRunningTotal" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="getPaymentRunningTotal" auth="true">
+    <service name="getPaymentRunningTotal" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getPaymentRunningTotal" auth="true">
         <description>calculate running total for payments</description>
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
