@@ -208,7 +208,7 @@ public class HtmlWidget extends ModelScreenWidget {
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
 
-            if (isMultiBlock()) {
+            if (false && isMultiBlock()) {
 
                 StringWriter stringWriter = new StringWriter();
                 context.put("MultiBlockWriter", stringWriter);
@@ -250,7 +250,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
 
                 // check for external script
-                String externalScripts = doc.head().select("script").toString();
+                String externalScripts = doc.body().select("script").toString();
                 writer.append(externalScripts);
 
                 // the 'template' block
