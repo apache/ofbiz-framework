@@ -877,10 +877,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="ORDER_ITRL_PTRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </entity>
     <entity entity-name="OrderItemShipGroup"
             package-name="org.apache.ofbiz.order.order"
@@ -926,10 +922,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="ORDER_ITSG_CPRTY" title="Carrier" rel-entity-name="Party">
         <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="ORDER_ITSG_CPRLE" title="Carrier" rel-entity-name="PartyRole">
-        <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
-        <key-map field-name="carrierRoleTypeId" rel-field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="ORDER_ITSG_FAC" rel-entity-name="Facility">
         <key-map field-name="facilityId"/>
@@ -1176,10 +1168,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="ORDER_ROLE_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="ORDER_ROLE_PROLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
@@ -1568,10 +1556,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="QUOTE_RL_PROLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
@@ -2005,10 +1989,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="CREQ_RL_PROLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </entity>
     <entity entity-name="CustRequestStatus"
             package-name="org.apache.ofbiz.order.request"
@@ -2268,10 +2248,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="REQ_ROLE_PRTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="REQ_ROLE_PROLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
     <entity entity-name="RequirementStatus"

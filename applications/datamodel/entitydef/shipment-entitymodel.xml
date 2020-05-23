@@ -140,10 +140,6 @@ under the License.
       <relation type="one" fk-name="ITEM_ISSRL_PTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="ITEM_ISSRL_PTRL" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </entity>
 
   <!-- ========================================================= -->
@@ -305,10 +301,6 @@ under the License.
       <relation type="one" fk-name="PCKLST_RLE_PKLT" rel-entity-name="Picklist">
         <key-map field-name="picklistId"/>
       </relation>
-      <relation type="one" fk-name="PCKLST_RLE_PRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
@@ -458,10 +450,6 @@ under the License.
       <relation type="one" fk-name="SHP_RCPTRL_PTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="SHP_RCPTRL_PTRL" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </entity>
     <view-entity entity-name="ShipmentReceiptAndItem"
             package-name="org.apache.ofbiz.shipment.shipment"
@@ -514,10 +502,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="CARR_SHMETH_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="CARR_SHMETH_PROLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
     <entity entity-name="CarrierShipmentBoxType"
@@ -841,10 +825,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="SHPMNT_CE_ROLET" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="SHPMNT_CE_WUOM" title="Weight" rel-entity-name="Uom">

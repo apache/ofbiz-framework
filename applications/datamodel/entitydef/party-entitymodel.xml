@@ -85,18 +85,10 @@ under the License.
       <relation type="one-nofk" title="From" rel-entity-name="RoleType">
         <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="AGRMNT_FPRTYRLE" title="From" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
-      </relation>
       <relation type="one-nofk" title="To" rel-entity-name="Party">
         <key-map field-name="partyIdTo" rel-field-name="partyId"/>
       </relation>
       <relation type="one-nofk" title="To" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="AGRMNT_TPRTYRLE" title="To" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
         <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
       </relation>
       <relation type="many" rel-entity-name="PartyRelationship">
@@ -356,10 +348,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="AGRMNT_ROLE_PRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
@@ -745,18 +733,10 @@ under the License.
         <relation type="one" fk-name="COM_EVNT_TRTYP" title="To" rel-entity-name="RoleType">
             <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
         </relation>
-        <relation type="one-nofk" title="To" rel-entity-name="PartyRole">
-            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
-            <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-        </relation>
         <relation type="one" fk-name="COM_EVNT_FPTY" title="From" rel-entity-name="Party">
             <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
         </relation>
         <relation type="one" fk-name="COM_EVNT_FRTYP" title="From" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
-        </relation>
-        <relation type="one-nofk" title="From" rel-entity-name="PartyRole">
-            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
             <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
         </relation>
         <relation type="one" fk-name="COM_EVNT_STTS" rel-entity-name="StatusItem">
@@ -821,10 +801,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
       <relation type="one-nofk" rel-entity-name="CommunicationEventType">
         <key-map field-name="communicationEventTypeId"/>
       </relation>
@@ -837,18 +813,10 @@ under the License.
       <relation type="one-nofk" title="To" rel-entity-name="RoleType">
         <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
       </relation>
-      <relation type="one-nofk" title="To" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
-        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-      </relation>
       <relation type="one-nofk" title="From" rel-entity-name="Party">
         <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
       </relation>
       <relation type="one-nofk" title="From" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" title="From" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
         <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="StatusItem">
@@ -925,10 +893,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVRL_PRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="COM_EVRL_CMCH" rel-entity-name="ContactMech">
@@ -1151,10 +1115,6 @@ under the License.
       </relation>
       <relation type="one-nofk" rel-entity-name="PartyGroup">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PARTY_CMECH_PROLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="PARTY_CMECH_ROLE" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
@@ -1517,10 +1477,6 @@ under the License.
       <relation type="one" fk-name="PARTY_NEED_RTYP" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
       <relation type="one" fk-name="PARTY_NEED_PTTP" rel-entity-name="PartyType">
         <key-map field-name="partyTypeId"/>
       </relation>
@@ -1618,7 +1574,7 @@ under the License.
         <alias entity-alias="PTYACCPREF"  name="partyId"/>
         <alias entity-alias="PTYACCPREF"  name="baseCurrencyUomId"/>
         <alias entity-alias="PTYGROUP"  name="groupName"/>
-        <alias entity-alias="PTYROLE"  name="roleTypeId"/>
+        <alias-all entity-alias="PTYROLE"/>
         <view-link entity-alias="PTYACCPREF" rel-entity-alias="PTYGROUP">
             <key-map field-name="partyId"/>
         </view-link>
@@ -2312,6 +2268,7 @@ under the License.
       <relation type="one-nofk" title="To" rel-entity-name="RoleType">
         <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
       </relation>
+      <!-- 
       <relation type="one" fk-name="PARTY_REL_FPROLE" title="From" rel-entity-name="PartyRole">
         <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
         <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
@@ -2320,17 +2277,18 @@ under the License.
         <key-map field-name="partyIdTo" rel-field-name="partyId"/>
         <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="PARTY_REL_STTS" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
-      <relation type="one" fk-name="PARTY_REL_PRTYP" rel-entity-name="PriorityType">
-        <key-map field-name="priorityTypeId"/>
-      </relation>
+       -->
       <relation type="one" fk-name="PARTY_REL_TYPE" rel-entity-name="PartyRelationshipType">
         <key-map field-name="partyRelationshipTypeId"/>
       </relation>
       <relation type="one" fk-name="PARTY_REL_SECGRP" rel-entity-name="SecurityGroup">
         <key-map field-name="securityGroupId" rel-field-name="groupId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_REL_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_REL_PRTYP" rel-entity-name="PriorityType">
+        <key-map field-name="priorityTypeId"/>
       </relation>
     </entity>
     <view-entity entity-name="PartyRelationshipToFrom" package-name="org.apache.ofbiz.party.party">
@@ -2644,7 +2602,6 @@ under the License.
     </view-entity>
     <view-entity entity-name="PartyRoleAndContactMechDetail" package-name="org.apache.ofbiz.party.party" title="Party Role And Contact Mech Details">
         <member-entity entity-alias="PTY" entity-name="Party"/>
-        <member-entity entity-alias="PR" entity-name="PartyRole"/>
         <member-entity entity-alias="RT" entity-name="RoleType"/>
         <member-entity entity-alias="PERSON" entity-name="Person"/>
         <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
@@ -2655,7 +2612,6 @@ under the License.
         <alias-all entity-alias="PTY">
             <exclude field="description"/>
         </alias-all>
-        <alias-all entity-alias="PR"/>
         <alias-all entity-alias="RT"/>
         <alias-all entity-alias="PERSON">
             <exclude field="comments"/>
@@ -2671,18 +2627,12 @@ under the License.
         <alias-all entity-alias="TN" prefix="tn"/>
         <alias entity-alias="PERSON" name="personComments" field="comments"/>
         <alias entity-alias="PTYGRP" name="partyGroupComments" field="comments"/>
-        <view-link entity-alias="PTY" rel-entity-alias="PR">
-            <key-map field-name="partyId"/>
-            </view-link>
         <view-link entity-alias="PTY" rel-entity-alias="PERSON" rel-optional="true">
             <key-map field-name="partyId"/>
             </view-link>
         <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
             <key-map field-name="partyId"/>
             </view-link>
-        <view-link entity-alias="PR" rel-entity-alias="RT">
-            <key-map field-name="roleTypeId"/>
-        </view-link>
         <view-link entity-alias="PTY" rel-entity-alias="PCM" rel-optional="true">
             <key-map field-name="partyId"/>
         </view-link>
@@ -2695,10 +2645,9 @@ under the License.
         <view-link entity-alias="PCM" rel-entity-alias="TN" rel-optional="true">
             <key-map field-name="contactMechId"/>
         </view-link>
-        <relation type="one-nofk" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
+        <view-link entity-alias="PCM" rel-entity-alias="RT" rel-optional="true">
             <key-map field-name="roleTypeId"/>
-        </relation>
+        </view-link>
         <relation type="one-nofk" rel-entity-name="PartyContactMech">
             <key-map field-name="partyId"/>
             <key-map field-name="contactMechId"/>

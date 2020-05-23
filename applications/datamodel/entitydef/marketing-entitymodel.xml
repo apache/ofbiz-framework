@@ -137,10 +137,6 @@ under the License.
         <relation type="one" fk-name="MKTGCPN_ROLE_MC" rel-entity-name="MarketingCampaign">
             <key-map field-name="marketingCampaignId"/>
         </relation>
-        <relation type="one" fk-name="MKTGCPN_ROLE_PR" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
-        </relation>
         <relation type="one-nofk" rel-entity-name="Party">
             <key-map field-name="partyId"/>
         </relation>
@@ -367,10 +363,6 @@ under the License.
         <prim-key field="roleTypeId"/>
         <relation type="one" fk-name="SGMTGRPRL_SGGP" rel-entity-name="SegmentGroup">
             <key-map field-name="segmentGroupId"/>
-        </relation>
-        <relation type="one" fk-name="SGMTGRPRL_PRLE" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="Party">
             <key-map field-name="partyId"/>
@@ -745,10 +737,6 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
         <relation fk-name="SLSOPPRL_ROLETYPE" rel-entity-name="RoleType" type="one">
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation fk-name="SLSOPPRL_PTYROLE" rel-entity-name="PartyRole" type="one"> <!-- make sure the party actually is in the role specified -->
-            <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
         </relation>
     </entity>

@@ -225,10 +225,6 @@ under the License.
         <relation type="one-nofk" rel-entity-name="Person">
             <key-map field-name="partyId"/>
         </relation>
-        <relation type="one-nofk" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
-        </relation>
         <relation type="one-nofk" rel-entity-name="RoleType">
             <key-map field-name="roleTypeId"/>
         </relation>
@@ -268,10 +264,6 @@ under the License.
         </relation>
         <relation type="one-nofk" rel-entity-name="Person">
             <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="RoleType">
             <key-map field-name="roleTypeId"/>
@@ -441,10 +433,6 @@ under the License.
         <relation type="one-nofk" rel-entity-name="Person">
             <key-map field-name="partyId"/>
         </relation>
-        <relation type="one-nofk" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
-        </relation>
         <relation type="one-nofk" rel-entity-name="RoleType">
             <key-map field-name="roleTypeId"/>
         </relation>
@@ -455,19 +443,17 @@ under the License.
         <description>Also includes PartyRole Link so that if a partyId is specified it will find all PartyAssignments for all roles a party is in; does not link on the partyId of the PartyAssignment</description>
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
         <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
-        <member-entity entity-alias="PR" entity-name="PartyRole"/>
+        <member-entity entity-alias="RT" entity-name="RoleType"/>
         <alias-all entity-alias="WE"/>
         <alias-all entity-alias="WEPA">
-            <exclude field="partyId"/>
             <exclude field="facilityId"/>
         </alias-all>
-        <alias-all entity-alias="PR"/>
         <alias entity-alias="WEPA" name="wepaPartyId" field="partyId"/>
         <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
         <view-link entity-alias="WE" rel-entity-alias="WEPA">
             <key-map field-name="workEffortId"/>
         </view-link>
-        <view-link entity-alias="WEPA" rel-entity-alias="PR">
+        <view-link entity-alias="WEPA" rel-entity-alias="RT">
             <key-map field-name="roleTypeId"/>
         </view-link>
         <relation type="one-nofk" rel-entity-name="WorkEffort">
@@ -484,10 +470,6 @@ under the License.
         </relation>
         <relation type="one-nofk" rel-entity-name="Person">
             <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="RoleType">
             <key-map field-name="roleTypeId"/>
@@ -614,10 +596,11 @@ under the License.
         <description>Ties WEPA to the party info.</description>
         <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
         <member-entity entity-alias="PNV" entity-name="PartyNameView"/>
-        <alias-all entity-alias="PNV"/>
         <alias-all entity-alias="WEPA">
             <exclude field="statusId"/>
+            <exclude field="partyId"/>
         </alias-all>
+        <alias-all entity-alias="PNV"/>
         <alias name="assignmentStatusId" entity-alias="WEPA" field="statusId"/>
         <view-link entity-alias="WEPA" rel-entity-alias="PNV">
             <key-map field-name="partyId"/>
@@ -633,13 +616,6 @@ under the License.
         </relation>
         <relation type="one-nofk" rel-entity-name="PartyNameView">
             <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="Person">
-            <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="RoleType">
             <key-map field-name="roleTypeId"/>

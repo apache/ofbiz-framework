@@ -646,10 +646,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="CNTNT_RL_PTRL" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </entity>
     <entity entity-name="ContentType"
             package-name="org.apache.ofbiz.content.content"
@@ -935,10 +931,6 @@ under the License.
       </relation>
       <relation type="one-nofk" rel-entity-name="Party">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="DATARECRL_PTRL" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
     <entity entity-name="DataResourceType"
@@ -1596,7 +1588,9 @@ under the License.
             <key-map field-name="contentId"/>
         </relation>
     </entity>
-    <entity entity-name="WebSiteRole" package-name="org.apache.ofbiz.party.party" title="WebSite Role Association">
+    <entity entity-name="WebSiteRole" 
+            package-name="org.apache.ofbiz.party.party" 
+            title="WebSite Role Association">
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
         <field name="webSiteId" type="id"></field>
@@ -1618,10 +1612,6 @@ under the License.
         </relation>
         <relation type="one-nofk" rel-entity-name="PartyGroup">
             <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one" fk-name="WSRLE_PTYRLE" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
         </relation>
         <relation type="one" fk-name="WSRLE_WSITE" rel-entity-name="WebSite">
             <key-map field-name="webSiteId"/>
