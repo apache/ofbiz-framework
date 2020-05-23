@@ -37,8 +37,8 @@ under the License.
         <override name="amount" optional="false"/>
     </service>
 
-    <service name="updatePayment" engine="simple" default-entity-name="Payment"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="updatePayment" auth="true">
+    <service name="updatePayment" engine="groovy" default-entity-name="Payment"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="updatePayment" auth="true">
         <description>Update a Payment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

@@ -63,6 +63,55 @@ def createPayment() {
     result.paymentId = paymentId
     return result
 }
+def updatePayment() {
+    Map lookupPayment = delegator.makeValue("Payment")
+    lookupPayment.setPKFields(parameters)
+    GenericValue payment = from("Payment").where("paymentId", lookupPayment.paymentId).queryOne()
+    if (!security.hasEntityPermission("ACCOUNTING", "_UPDATE", parameters.userLogin) &&
+        (!security.hasEntityPermission("PAY_INFO", "_UPDATE", parameters.userLogin) &&
+        userLogin.partyId != payment.partyIdFrom && userLogin.partyId != payment.partyIdTo)) {
+        return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingUpdatePaymentPermissionError)
+    }
+    if ("PMNT_NOT_PAID" != payment.statusId) {
+        // check if only status change
+        GenericValue newPayment = delegator.makeValue("Payment")
+        GenericValue oldPayment = delegator.makeValue("Payment")
+        newPayment.setNonPKFields(payment)
+        oldPayment.setNonPKFields(payment)
+        newPayment.setNonPKFields(parameters)
+
+        // fields :- comments, paymentRefNum, finAccountTransId, statusIhStatus does not allow an update of the information are editable for Payment
+        oldPayment.statusId = newPayment.statusId
+        oldPayment.comments = newPayment.comments
+        oldPayment.paymentRefNum = newPayment.paymentRefNum ?: null
+        oldPayment.finAccountTransId = newPayment.finAccountTransId ?: null
+        if (!oldPayment.equals(newPayment)) {
+            return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingPSUpdateNotAllowedBecauseOfStatus)
+        }
+    }
+    statusIdSave = payment.statusId  // do not allow status change here
+    payment.setNonPKFields(parameters)
+    payment.statusId = statusIdSave  // do not allow status change here
+    payment.effectiveDate = payment.effectiveDate ?: UtilDateTime.nowTimestamp()
+    if (payment.paymentMethodId) {
+        paymentMethod = from("PaymentMethod").where("paymentMethodId", payment.paymentMethodId).queryOne()
+        if (payment.paymentMethodTypeId != paymentMethod.paymentMethodTypeId) {
+            Debug.logInfo("Replacing passed payment method type [" + parameters.paymentMethodTypeId + "] with payment method type [" +
+                paymentMethod.paymentMethodTypeId + "] for payment method [" + parameters.paymentMethodId +"]", MODULE)
+        }
+        payment.paymentMethodTypeId = paymentMethod.paymentMethodTypeId
+    }
+    payment.store()
+    if (parameters.statusId) {
+        if (parameters.statusId != statusIdSave) {
+            Map param = dispatcher.getDispatchContext().makeValidContext('setPaymentStatus', ModelService.IN_PARAM, parameters)
+            param.paymentId = payment.paymentId
+            serviceResult = run service: 'setPaymentStatus', with: param
+            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult)
+        }
+    }
+    return success()
+}
 def createPaymentAndApplicationForParty() {
     paymentAmount = 0
     List invoiceIds = []
@@ -205,4 +254,5 @@ def massChangePaymentStatus() {
     }
     return serviceResult
 }
+
 
