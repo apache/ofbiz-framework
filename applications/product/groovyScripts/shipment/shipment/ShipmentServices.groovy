@@ -17,8 +17,6 @@
  * under the License.
  */
 
-
-
 import java.sql.Timestamp
 
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -29,83 +27,6 @@ import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.contact.ContactMechWorker
 import org.apache.ofbiz.product.product.ProductWorker
 import org.apache.ofbiz.service.ServiceUtil
-
-
-/**
- * Create Shipment
- * @return
- */
-def createShipment() {
-    GenericValue newEntity = makeValue("Shipment")
-    newEntity.setNonPKFields(parameters)
-
-    if (parameters.shipmentId) {
-        newEntity.setPKFields(parameters)
-    } else {
-        newEntity.shipmentId = delegator.getNextSeqId("Shipment")
-    }
-    Map result = success()
-    result.shipmentId = newEntity.shipmentId
-    String shipmentTypeId = parameters.shipmentTypeId
-    // set the created and lastModified info
-    newEntity.createdDate = UtilDateTime.nowTimestamp()
-    newEntity.createdByUserLogin = userLogin.userLoginId
-    newEntity.lastModifiedDate = UtilDateTime.nowTimestamp()
-    newEntity.lastModifiedByUserLogin = userLogin.userLoginId
-    /*
-     * if needed create some WorkEfforts and remember their IDs:
-     * estimatedShipDate: estimatedShipWorkEffId
-     * estimatedArrivalDate: estimatedArrivalWorkEffId
-     */
-    if (parameters.estimatedShipDate) {
-        Map shipWorkEffortMap = [workEffortName: "Shipment #${newEntity.shipmentId} ${newEntity.primaryOrderId} Ship",
-                                 currentStatusId: "CAL_TENTATIVE",
-                                 workEffortPurposeTypeId: "WEPT_WAREHOUSING",
-                                 estimatedStartDate: parameters.estimatedShipDate,
-                                 estimatedCompletionDate: parameters.estimatedShipDate,
-                                 facilityId: parameters.originFacilityId,
-                                 quickAssignPartyId: userLogin.partyId]
-        if (["OUTGOING_SHIPMENT", "SALES_SHIPMENT", "PURCHASE_RETURN"].contains(shipmentTypeId)) {
-            shipWorkEffortMap.workEffortTypeId = "SHIPMENT_OUTBOUND"
-        }
-        Map serviceResultSD = run service: "createWorkEffort", with: shipWorkEffortMap
-        newEntity.estimatedShipWorkEffId = serviceResultSD.workEffortId
-        if (newEntity.partyIdFrom) {
-            run service: "assignPartyToWorkEffort", with: [workEffortId: newEntity.estimatedShipWorkEffId,
-                                                           partyId: newEntity.partyIdFrom,
-                                                           roleTypeId: "CAL_ATTENDEE",
-                                                           statusId: "CAL_SENT"]
-        }
-    }
-    if (parameters.estimatedArrivalDate) {
-        Map arrivalWorkEffortMap = [workEffortName: "Shipment #${newEntity.shipmentId} ${newEntity.primaryOrderId} Arrival",
-                                    currentStatusId: "CAL_TENTATIVE",
-                                    workEffortPurposeTypeId: "WEPT_WAREHOUSING",
-                                    estimatedStartDate: parameters.estimatedArrivalDate,
-                                    estimatedCompletionDate: parameters.estimatedArrivalDate,
-                                    facilityId: parameters.destinationFacilityId,
-                                    quickAssignPartyId: userLogin.partyId]
-        if (["INCOMING_SHIPMENT", "PURCHASE_SHIPMENT", "SALES_RETURN"].contains(shipmentTypeId)) {
-            arrivalWorkEffortMap.workEffortTypeId = "SHIPMENT_INBOUND"
-        }
-        Map serviceResultAD = run service: "createWorkEffort", with: arrivalWorkEffortMap
-        newEntity.estimatedArrivalWorkEffId = serviceResultAD.workEffortId
-        if (newEntity.partyIdTo) {
-            run service: "assignPartyToWorkEffort", with: [workEffortId: newEntity.estimatedArrivalWorkEffId,
-                                                           partyId: newEntity.partyIdTo,
-                                                           roleTypeId: "CAL_ATTENDEE",
-                                                           statusId: "CAL_SENT"]
-        }
-    }
-    newEntity.create()
-
-    // get the ShipmentStatus history started
-    if (newEntity.statusId) {
-        run service: "createShipmentStatus", with: [shipmentId: newEntity.shipmentId,
-                                                    statusId: newEntity.statusId]
-    }
-    return result
-}
 
 /**
  * Update Shipment
@@ -140,80 +61,11 @@ def updateShipment() {
     }
     // now finally check for errors
     if (errorList) {
-        return error(errorList)
+        return error(errorList.toString())
     }
-    // Check the pickup and delivery dates for changes and update the corresponding WorkEfforts
-    if ((parameters.estimatedShipDate && parameters.estimatedShipDate != lookedUpValue.estimatedShipDate)
-            || (parameters.originFacilityId && parameters.originFacilityId != lookedUpValue.originFacilityId)
-            || (parameters.statusId && parameters.statusId != lookedUpValue.statusId
-                && ["SHIPMENT_CANCELLED", "SHIPMENT_PACKED", "SHIPMENT_SHIPPED"].contains(parameters.statusId))) {
-        GenericValue estShipWe = from("WorkEffort").where(workEffortId: lookedUpValue.estimatedShipWorkEffId).queryOne()
-        if (estShipWe) {
-            estShipWe.estimatedStartDate = parameters.estimatedShipDate
-            estShipWe.estimatedCompletionDate = parameters.estimatedShipDate
-            estShipWe.facilityId = parameters.originFacilityId
-            if ((parameters.statusId) && (parameters.statusId != lookedUpValue.statusId)) {
-                if (parameters.statusId == "SHIPMENT_CANCELLED") {
-                    estShipWe.currentStatusId = "CAL_CANCELLED"
-                }
-                if (parameters.statusId == "SHIPMENT_PACKED") {
-                    estShipWe.currentStatusId = "CAL_CONFIRMED"
-                }
-                if (parameters.statusId == "SHIPMENT_SHIPPED") {
-                    estShipWe.currentStatusId = "CAL_COMPLETED"
-                }
-            }
-            Map estShipWeUpdMap = [:]
-            estShipWeUpdMap << estShipWe
-            run service: "updateWorkEffort", with: estShipWeUpdMap
-        }
-    }
-    if ((parameters.estimatedArrivalDate
-            && parameters.estimatedArrivalDate != lookedUpValue.estimatedArrivalDate)
-            || (parameters.destinationFacilityId
-            && parameters.destinationFacilityId != lookedUpValue.destinationFacilityId)) {
-        GenericValue estimatedArrivalWorkEffort = from("WorkEffort")
-                .where(workEffortId: lookedUpValue.estimatedArrivalWorkEffId)
-                .queryOne()
-        if (estimatedArrivalWorkEffort) {
-            estimatedArrivalWorkEffort.estimatedStartDate = parameters.estimatedArrivalDate
-            estimatedArrivalWorkEffort.estimatedCompletionDate = parameters.estimatedArrivalDate
-            estimatedArrivalWorkEffort.facilityId = parameters.destinationFacilityId
-            run service: "updateWorkEffort", with: estimatedArrivalWorkEffort
-        }
-    }
-    // if the partyIdTo or partyIdFrom has changed, add WEPAs
-    //TODO REFACTORING
-    if (parameters.partyIdFrom
-            && parameters.partyIdFrom != lookedUpValue.partyIdFrom
-            && lookedUpValue.estimatedShipWorkEffId) {
-        Map assignPartyToWorkEffortShip = [workEffortId: lookedUpValue.estimatedShipWorkEffId,
-                                           partyId: parameters.partyIdFrom]
-        List existingShipWepas = from("WorkEffortPartyAssignment")
-                .where(assignPartyToWorkEffortShip)
-                .filterByDate()
-                .queryList()
-        if (!existingShipWepas) {
-            assignPartyToWorkEffortShip.roleTypeId = "CAL_ATTENDEE"
-            assignPartyToWorkEffortShip.statusId = "CAL_SENT"
-            run service: "assignPartyToWorkEffort", with: assignPartyToWorkEffortShip
-        }
-    }
-    if (parameters.partyIdTo
-            && parameters.partyIdTo != lookedUpValue.partyIdTo
-            && lookedUpValue.estimatedArrivalWorkEffId) {
-        Map assignPartyToWorkEffortArrival = [workEffortId: lookedUpValue.estimatedArrivalWorkEffId,
-                                              partyId: parameters.partyIdTo]
-        List existingArrivalWepas = from("WorkEffortPartyAssignment")
-                .where(assignPartyToWorkEffortArrival)
-                .filterByDate()
-                .queryList()
-        if (!existingArrivalWepas) {
-            assignPartyToWorkEffortArrival.roleTypeId = "CAL_ATTENDEE"
-            assignPartyToWorkEffortArrival.statusId = "CAL_SENT"
-            run service: "assignPartyToWorkEffort", with: assignPartyToWorkEffortArrival
-        }
-    }
+    Map serviceResult = run service: "checkAndUpdateWorkEffort", with: parameters
+    if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+
     // finally before setting nonpk fields, set the oldStatusId, oldPrimaryOrderId, oldOriginFacilityId, oldDestinationFacilityId
     result.oldStatusId = lookedUpValue.statusId
     result.oldPrimaryOrderId = lookedUpValue.primaryOrderId
