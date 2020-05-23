@@ -319,3 +319,25 @@ def createArticleContent() {
     result.contentId = contentId
     return result
 }
+
+def setContentStatus() {
+    Map resultMap = new HashMap()
+    content = from("Content").where("contentId", parameters.contentId).queryOne()
+    if (content) {
+        oldStatusId = content.statusId
+        resultMap.oldStatusId = oldStatusId
+        if (!oldStatusId.equals(parameters.statusId)) {
+            statusChange = from("StatusValidChange").where("statusId", oldStatusId, "statusIdTo", parameters.statusId).queryOne()
+            if (statusChange) {
+                content.put("statusId", parameters.statusId)
+                content.store()
+            } else {
+                resultMap.errorMessage = "Cannot change from " + oldStatusId + " to " + parameters.statusId
+                logError(resultMap.errorMessage)
+            }
+        }
+    } else {
+        return failure("No Content is not available in the system with content ID - " + parameters.contentId)
+    }
+    return resultMap
+}

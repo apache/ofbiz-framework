@@ -46,32 +46,6 @@
         </if-not-empty>
     </simple-method>
 
-    <!-- update content; just status -->
-    <simple-method method-name="setContentStatus" short-description="Set The Content Status">
-
-        <entity-one entity-name="Content" value-field="content"/>
-        <field-to-result field="content.statusId" result-name="oldStatusId"/>
-
-       <if-compare-field field="content.statusId" to-field="parameters.statusId" operator="not-equals">
-            <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
-                <field-map field-name="statusId" from-field="content.statusId"/>
-                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
-            </entity-one>
-
-            <if-empty field="statusChange">
-                <add-error>
-                    <fail-property resource="ContentUiLabels" property="ContentCannotChangeStatus"/>
-                </add-error>
-                <log level="error" message="Cannot change from ${content.statusId} to ${parameters.statusId}"/>
-                <check-errors/>
-                <else>
-                    <set from-field="parameters.statusId" field="content.statusId"/>
-                    <store-value value-field="content"/>
-                </else>
-            </if-empty>
-        </if-compare-field>
-    </simple-method>
-
     <simple-method method-name="copyContentAndElectronicTextandAssoc" short-description="copy a content, electronic text and assocs and set status in progress">
         <set-service-fields service-name="getContent" map="parameters" to-map="getC"/>
         <call-service service-name="getContent" in-map-name="getC">
