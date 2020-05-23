@@ -133,4 +133,17 @@ def updatePaymentContent() {
         return ServiceUtil.returnError("Error getting Payment Content")
     }
 }
+def massChangePaymentStatus() {
+    serviceResult = success()
+    Map setPaymentStatusMap = [:]
+    parameters.paymentIds.each{ paymentId ->
+        setPaymentStatusMap.paymentId = paymentId
+        setPaymentStatusMap.statusId = parameters.statusId
+        setPaymentStatusMap.userLogin = parameters.userLogin
+        result = run service: 'setPaymentStatus', with: setPaymentStatusMap
+        if (ServiceUtil.isError(result)) return result
+        setPaymentStatusMap.clear()
+    }
+    return serviceResult
+}
 

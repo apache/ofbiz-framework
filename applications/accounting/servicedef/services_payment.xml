@@ -227,8 +227,8 @@ under the License.
         <implements service="createPaymentGroupAndMember"/>
     </service>
     
-    <service name="massChangePaymentStatus" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="massChangePaymentStatus" auth="true">
+    <service name="massChangePaymentStatus" engine="groovy"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="massChangePaymentStatus" auth="true">
         <description>Set status of Payments in bulk.</description>
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
