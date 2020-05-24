@@ -4570,6 +4570,9 @@
         <value xml:lang="zh">服务没有执行</value>
         <value xml:lang="zh-TW">服務沒有執行</value>
     </property>
+    <property key="OrderServiceOrderItemShipGroupAssocNotExist">
+        <value xml:lang="en">The orderItemShipGroupAssoc qualified by orderId=${parameters.orderId} orderItemSeqId=${parameters.orderItemSeqId} shipGroupSeqId=${parameters.fromGroupIndex} does not exist</value>
+    </property>
     <property key="OrderSetCurrencyError">
         <value xml:lang="ar">حدد خطأ العملة : </value>
         <value xml:lang="de">Fehler beim Auswählen der Währung : </value>

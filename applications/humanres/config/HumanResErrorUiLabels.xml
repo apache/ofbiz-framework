@@ -51,4 +51,13 @@
     <property key="HRRequiredFieldMissingTrainingClassTypeId">
         <value xml:lang="en">Required Field Missing : Training Class Type Id.</value>
     </property>
+    <property key="HumanResHolidayNameMissing">
+        <value xml:lang="en">The Holiday Name is missing.</value>
+    </property>
+    <property key="HumanResFromDateMissing">
+        <value xml:lang="en">The FromDate is missing</value>
+    </property>
+    <property key="HumanResFromDateAlreadyExist">
+        <value xml:lang="en">This FromDate : ${parameters.estimatedStartDate} already exist.</value>
+    </property>
 </resource>

@@ -1300,7 +1300,7 @@ under the License.
         </entity-one>
         <if-empty field="orderItemShipGroupAssoc">
             <add-error>
-                <fail-message message="The orderItemShipGroupAssoc qualified by orderId=${parameters.orderId} orderItemSeqId=${parameters.orderItemSeqId} shipGroupSeqId=${parameters.fromGroupIndex} does not exist"/>
+                <fail-property resource="OrderErrorUiLabels" property="OrderServiceOrderItemShipGroupAssocNotExist"/>
             </add-error>
         </if-empty>
         <check-errors/>
