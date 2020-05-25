@@ -143,7 +143,7 @@
         <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
 
-    <service name="createDownloadContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createDownloadContent">
+    <service name="createDownloadContent" engine="simple" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createDownloadContent">
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="file" type="String" mode="IN" optional="false">
@@ -153,7 +153,7 @@
         </attribute>
         <override name="contentId" mode="INOUT"/>
     </service>
-    <service name="updateDownloadContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateDownloadContent">
+    <service name="updateDownloadContent" engine="simple" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="updateDownloadContent">
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <attribute name="fileDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="file" type="String" mode="IN" optional="true"/>

@@ -209,25 +209,6 @@
 
         <field-to-result field="createBodyAssoc.contentId" result-name="contentId"/>
     </simple-method>
-
-    <simple-method method-name="createDownloadContent" short-description="Create Download as Content">
-        <set-service-fields service-name="createContent" map="parameters" to-map="createDownloadContent"/>
-        <set from-field="parameters.file" field="createDownload.dataResourceContent"/>
-        <call-service service-name="createOtherDataResource" in-map-name="createDownload">
-            <result-to-field result-name="dataResourceId" field="createDownloadContent.dataResourceId"/>
-        </call-service>
-        <call-service service-name="createContent" in-map-name="createDownloadContent">
-            <result-to-result result-name="contentId"/>
-        </call-service>
-    </simple-method>
-    <simple-method method-name="updateDownloadContent" short-description="Update Download Content">
-        <if-not-empty field="parameters.fileDataResourceId">
-            <set from-field="parameters.fileDataResourceId" field="updateFile.dataResourceId"/>
-            <set from-field="parameters.file" field="updateFile.dataResourceContent"/>
-            <call-service service-name="updateOtherDataResource" in-map-name="updateFile"/>
-        </if-not-empty>
-    </simple-method>
-
     <simple-method method-name="createSimpleTextContent" short-description="Create Simple Text Content">
         <set-service-fields service-name="createContent" map="parameters" to-map="createSimpleTextContent"/>
         <set value="DOCUMENT" field="createSimpleTextContent.contentTypeId"/>

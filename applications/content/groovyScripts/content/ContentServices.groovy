@@ -18,7 +18,7 @@
  */
 
 import java.sql.Timestamp
- 
+
 import org.apache.ofbiz.common.UrlServletHelper
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
@@ -340,4 +340,22 @@ def setContentStatus() {
         return failure("No Content is not available in the system with content ID - " + parameters.contentId)
     }
     return resultMap
+}
+def createDownloadContent() {
+    Map serviceResult = success()
+    result = runService("createOtherDataResource", [dataResourceContent : parameters.file])
+    if (ServiceUtil.isError(result)) return result
+    Map serviceCtx = dispatcher.dispatchContext.makeValidContext("createContent", ModelService.IN_PARAM, parameters)
+    serviceCtx.dataResourceId = result.dataResourceId
+    result = runService("createContent", serviceCtx)
+    if (ServiceUtil.isError(result)) return result
+    serviceResult.contentId = result.contentId
+    return serviceResult;
+}
+def updateDownloadContent() {
+    Map result = success()
+    if(parameters.fileDataResourceId) {
+        result = runService("updateOtherDataResource", [dataResourceId: parameters.fileDataResourceId, dataResourceContent: parameters.file])
+    }
+    return result
 }
