@@ -436,7 +436,9 @@ public abstract class ModelForm extends ModelWidget {
                 } else {
                     onPaginateUpdateAreas.add(updateArea);
                 }
-            } else if ("submit".equals(updateArea.getEventType())) {
+            } else if ("submit".equals(updateArea.getEventType())
+                     ||"post".equals(updateArea.getEventType())
+                      ) {
                 int index = onSubmitUpdateAreas.indexOf(updateArea);
                 if (index != -1) {
                     onSubmitUpdateAreas.set(index, updateArea);

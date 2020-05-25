@@ -1557,6 +1557,9 @@ under the License.
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="change" />
                         <xs:enumeration value="click" />
+                        <xs:enumeration value="post" />
+                        <xs:enumeration value="put" />
+                        <xs:enumeration value="delete" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>

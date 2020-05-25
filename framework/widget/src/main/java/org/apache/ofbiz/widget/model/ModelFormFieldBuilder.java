@@ -215,6 +215,11 @@ public class ModelFormFieldBuilder {
                     onChangeUpdateAreas.add(updateArea);
                 } else if ("click".equals(updateArea.getEventType())) {
                     onClickUpdateAreas.add(updateArea);
+                } else if ("post".equals(updateArea.getEventType())
+                        || "put".equals(updateArea.getEventType())
+                        || "delete".equals(updateArea.getEventType())
+                        ) {
+                    onClickUpdateAreas.add(updateArea);
                 }
             } else {
                 if (this.fieldType != null) {
