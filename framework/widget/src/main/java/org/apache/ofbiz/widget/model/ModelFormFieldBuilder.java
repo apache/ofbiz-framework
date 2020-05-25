@@ -218,6 +218,10 @@ public class ModelFormFieldBuilder {
                 } else if ("post".equals(updateArea.getEventType())
                         || "put".equals(updateArea.getEventType())
                         || "delete".equals(updateArea.getEventType())
+                        || "set-area".equals(updateArea.getEventType())
+                        || "refresh-area".equals(updateArea.getEventType())
+                        || "set-watcher".equals(updateArea.getEventType())
+                        || "refresh-watcher".equals(updateArea.getEventType())
                         ) {
                     onClickUpdateAreas.add(updateArea);
                 }

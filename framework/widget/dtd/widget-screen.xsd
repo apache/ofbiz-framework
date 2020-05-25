@@ -232,6 +232,11 @@ under the License.
                     <xs:documentation>The auto-update interval, in seconds.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute type="xs:string" name="watcher-name">
+                <xs:annotation>
+                    <xs:documentation>Name of the watcher, which will trigger auto-update when it changes.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="horizontal-separator" substitutionGroup="AllWidgets">

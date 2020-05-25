@@ -438,6 +438,10 @@ public abstract class ModelForm extends ModelWidget {
                 }
             } else if ("submit".equals(updateArea.getEventType())
                      ||"post".equals(updateArea.getEventType())
+                     ||"set-area".equals(updateArea.getEventType())
+                     ||"refresh-area".equals(updateArea.getEventType())
+                     ||"set-watcher".equals(updateArea.getEventType())
+                     ||"refresh-watcher".equals(updateArea.getEventType())
                       ) {
                 int index = onSubmitUpdateAreas.indexOf(updateArea);
                 if (index != -1) {

@@ -567,6 +567,20 @@ under the License.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
+                    <xs:enumeration value="set-area" >
+                        <xs:annotation>
+                            <xs:documentation>
+                                Usable only in menu link, for FrontJs action, target and target-windows are used.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="set-watcher" >
+                        <xs:annotation>
+                            <xs:documentation>
+                                Usable only in menu link, for FrontJs action, only target-windows is used (as watcherName).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>

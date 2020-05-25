@@ -589,11 +589,34 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
             </xs:sequence>
             <xs:attribute name="event-type" use="required">
+                <xs:annotation>
+                    <xs:documentation>set-area and set-watcher are specifics for VueJs and are put onSubmitUpdateAreas list.
+                                      submit, set-area and set-watcher are activate when submit button is clicked.
+                    </xs:documentation>
+                </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="paginate" />
                         <xs:enumeration value="sort-column" />
                         <xs:enumeration value="submit" />
+                        <xs:enumeration value="set-area" >
+                          <xs:annotation>
+                            <xs:documentation>
+                              set-area is activate when submit button is clicked, it uses area-id as area to update and area-target as target to call.
+                              Parameters area read in included parameter tag or all form fields if parameters is empty.
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="refresh-area" >
+                          <xs:annotation>
+                            <xs:documentation>
+                              refresh-area is activate when submit button is clicked, it's same as set-area but areaId should be a container with a
+                              auto-update-target, because refresh-area will use it to refresh area and parameters in the watcher associated for call.
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="set-watcher" />
+                        <xs:enumeration value="refresh-watcher" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
@@ -1556,6 +1579,9 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
             </xs:sequence>
             <xs:attribute name="event-type" use="required">
+                <xs:annotation>
+                    <xs:documentation>post, put, delete, setArea and setWatcher are specifics for VueJs on hyperlink (or link) and are put onClickUpdateAreas list.</xs:documentation>
+                </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="change" />
@@ -1563,6 +1589,24 @@ under the License.
                         <xs:enumeration value="post" />
                         <xs:enumeration value="put" />
                         <xs:enumeration value="delete" />
+                        <xs:enumeration value="set-area" >
+                          <xs:annotation>
+                            <xs:documentation>
+                              set-area is activate when field is clicked, it uses area-id as area to update and area-target as target to call.
+                              Parameters area read in included parameter tag or all form fields if parameters is empty.
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="refresh-area" >
+                          <xs:annotation>
+                            <xs:documentation>
+                              refresh-area is activate when field is clicked, it's same as set-area but areaId should be a container with a
+                              auto-update-target, because refresh-area will use it to refresh area and parameters in the watcher associated for call.
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="set-watcher" />
+                        <xs:enumeration value="refresh-watcher" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>

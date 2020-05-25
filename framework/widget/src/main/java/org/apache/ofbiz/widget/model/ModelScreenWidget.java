@@ -453,6 +453,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         private final FlexibleStringExpander styleExdr;
         private final FlexibleStringExpander autoUpdateTargetExdr;
         private final FlexibleStringExpander autoUpdateInterval;
+        private final FlexibleStringExpander watcherNameExdr;
         private final List<ModelScreenWidget> subWidgets;
 
         public Container(ModelScreen modelScreen, Element containerElement) {
@@ -461,6 +462,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.typeExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("type"));
             this.styleExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("style"));
             this.autoUpdateTargetExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("auto-update-target"));
+            this.watcherNameExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("watcher-name"));
             String autoUpdateInterval = containerElement.getAttribute("auto-update-interval");
             if (autoUpdateInterval.isEmpty()) {
                 autoUpdateInterval = "2";
@@ -502,6 +504,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getAutoUpdateTargetExdr(Map<String, Object> context) {
             return this.autoUpdateTargetExdr.expandString(context);
+        }
+
+        public String getWatcherNameExdr(Map<String, Object> context) {
+            return this.watcherNameExdr.expandString(context);
         }
 
         public String getAutoUpdateInterval(Map<String, Object> context) {
