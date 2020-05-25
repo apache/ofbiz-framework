@@ -38,7 +38,12 @@ The following file contains information about the data model changes in the Apac
 1. ProductPromoCodeEmail
 
 === Field Changes
-No changes
+[cols="<,^,^,^,>",options="header",]
+|=======================================================
+|Entity                 |Field   |Action |IsPK |Revision
+| GlXbrlClass | parentGlXbrlClassId | Added | No | 36a123a
+|=======================================================
+
 
 === Migration Scripts
 1.  Migration service migrateProductPromoCodeEmail is implemented to migrate the
