@@ -19,6 +19,7 @@
 import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.AsciidoctorTask
+import java.nio.file.Paths
 
 /* ========================================================
  * Project setup
@@ -29,12 +30,13 @@ plugins {
     id 'eclipse'
     id 'checkstyle'
     id 'maven-publish'
-    id 'at.bxm.svntools' version '2.2.1' // Don't update as long as we don't use Java 11, it's needed by version 3 
+    id 'at.bxm.svntools' version '2.2.1' // Don't update as long as we don't use Java 11, it's needed by version 3
     id 'org.asciidoctor.convert' version '2.4.0' // About org.asciidoctor.jvm.convert as it says itself: "If you need a production-ready version of the AsciidoctorJ plugin for Gradle use a 1.5.x release of 'org.asciidoctor.convert' instead"
     id 'org.owasp.dependencycheck' version '5.3.2.1' apply false
     id 'se.patrikerdes.use-latest-versions' version '0.2.13' apply false
     id 'com.github.ben-manes.versions' version '0.28.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
+    id "com.github.jakemarsden.git-hooks" version "0.0.2"
 }
 
 /* OWASP plugin
@@ -290,6 +292,42 @@ checkstyle {
     // Currently there are a lot of errors so we need to temporarily
     // hide them to avoid polluting the terminal output.
     showViolations = false
+}
+gitHooks {
+    hooks = ['pre-commit': 'checkstyleChanged']
+}
+task checkstyleChanged(type: Checkstyle) {
+    source "${project.rootDir}"
+    def changedFiles = getChangedFiles()
+    showViolations = true
+    // include only changed files or skip
+    if (changedFiles) {
+        include changedFiles
+    } else {
+        exclude "**/*"
+    }
+    classpath = files()
+}
+
+
+def getChangedFiles() {
+    ByteArrayOutputStream systemOutStream = new ByteArrayOutputStream()
+    ArrayList<String> files = new ArrayList<>()
+
+    // --cached include the stages files
+    // --name-only Show only names of changed files.
+    // --diff-filter=d Excludes the deleted files
+    ("git diff --cached --name-only --diff-filter=d").execute().waitForProcessOutput(systemOutStream, System.err)
+    def allFiles = systemOutStream.toString().trim().split('\n')
+    systemOutStream.close()
+
+    // Collect only java  files from all changed files
+    for (file in allFiles) {
+        if (file.endsWith(".java")) {
+            files.add(file)
+        }
+    }
+    files
 }
 
 // Eclipse plugin settings
