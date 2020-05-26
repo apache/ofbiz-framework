@@ -102,11 +102,6 @@ under the License.
     <PartyRole partyId="employee1" roleTypeId="BUDGET_RVR" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee1" roleTypeId="BUDGET_APPRV" fromDate="2001-05-13 00:00:00.0"/>
 
-    <!-- For general ledger accounting transactions. Note that any component that needs to post
-        accounting transactions should create a permission service SECA to grant
-        task-specific permissions to post transactions. The following permissions
-        should be given to accountants only, as that involves changing the books. -->
-
     <!-- Payment Gateway Config -->
     <PaymentGatewayConfig paymentGatewayConfigId="SAGEPAY_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_SAGEPAY" description="SagePay Config"/>
     <PaymentGatewaySagePay paymentGatewayConfigId="SAGEPAY_CONFIG" vendor="YOUR_VENDOR_NAME" productionHost="https://live.sagepay.com:443" testingHost="https://test.sagepay.com:443" sagePayMode="TEST" protocolVersion="2.22" authenticationTransType="DEFERRED" authenticationUrl="/gateway/service/vspdirect-register.vsp" authoriseTransType="RELEASE" authoriseUrl="/gateway/service/release.vsp" releaseTransType="ABORT" releaseUrl="/gateway/service/abort.vsp" voidUrl="/gateway/service/void.vsp" refundUrl="/gateway/service/refund.vsp"/>
