@@ -196,12 +196,6 @@ under the License.
     <PartyStatus partyId="WRHSNG" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="WRHSNG" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="ORGANIZATION_UNIT" fromDate="2001-05-13 00:00:00.000"/>
 
-    <!-- Party partyId="accountant_group" -->
-    <Party partyId="accountant_group" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <PartyGroup partyId="accountant_group" groupName="Demo Accountant Group"/>
-    <PartyRole partyId="accountant_group" roleTypeId="ORGANIZATION_ROLE" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyStatus partyId="accountant_group" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-
     <!--Demo employees -->
     <Party partyId="employee1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="employee1" lastName="AccountingDeptMgr" firstName="DemoEmployee" middleName="1"/>
