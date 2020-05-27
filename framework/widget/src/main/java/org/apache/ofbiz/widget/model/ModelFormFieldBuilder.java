@@ -225,6 +225,7 @@ public class ModelFormFieldBuilder {
                         || "submit".equals(updateArea.getEventType())
                         || "set-field-in-form".equals(updateArea.getEventType())
                         || "collapse".equals(updateArea.getEventType())
+                        || "close-modal".equals(updateArea.getEventType())
                         ) {
                     onClickUpdateAreas.add(updateArea);
                 }
