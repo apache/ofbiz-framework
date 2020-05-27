@@ -47,9 +47,7 @@ public abstract class MethodOperation extends MiniLangElement {
      * @throws MiniLangException */
     public abstract boolean exec(MethodContext methodContext) throws MiniLangException;
 
-    /** Create a string representation of the operation, using the current context.
-     * @deprecated No replacement.
-     */
+    /** Create a string representation of the operation, using the current context.*/
     @Deprecated
     public String expandedString(MethodContext methodContext) {
         return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
