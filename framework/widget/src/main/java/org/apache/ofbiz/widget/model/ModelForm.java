@@ -2343,12 +2343,20 @@ public abstract class ModelForm extends ModelWidget {
             this.defaultServiceName = defaultServiceName;
             this.defaultEntityName = defaultEntityName;
             List<? extends Element> parameterElementList = UtilXml.childElementList(updateAreaElement, "parameter");
-            if (parameterElementList.isEmpty()) {
+            boolean autoPortletParamsElement = UtilXml.firstChildElement(updateAreaElement, "auto-parameters-portlet") == null ? false : true;
+            if (parameterElementList.isEmpty() && ! autoPortletParamsElement) {
                 this.parameterList = Collections.emptyList();
             } else {
-                List<CommonWidgetModels.Parameter> parameterList = new ArrayList<>(parameterElementList.size());
+                int paramListSize = parameterElementList.size() + (autoPortletParamsElement ? 4 : 0);
+                List<CommonWidgetModels.Parameter> parameterList = new ArrayList<>(paramListSize);
                 for (Element parameterElement : parameterElementList) {
                     parameterList.add(new CommonWidgetModels.Parameter(parameterElement));
+                }
+                if (autoPortletParamsElement) {
+                    parameterList.add(new CommonWidgetModels.Parameter("portalPageId",    "parameters.portalPageId",    true));
+                    parameterList.add(new CommonWidgetModels.Parameter("portalPortletId", "parameters.portalPortletId", true));
+                    parameterList.add(new CommonWidgetModels.Parameter("portletSeqId",    "parameters.portletSeqId",    true));
+                    parameterList.add(new CommonWidgetModels.Parameter("currentAreaId",   "parameters.currentAreaId",   true));
                 }
                 this.parameterList = Collections.unmodifiableList(parameterList);
             }

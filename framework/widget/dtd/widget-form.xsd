@@ -587,6 +587,7 @@ under the License.
                 <xs:element minOccurs="0" ref="auto-parameters-service"/>
                 <xs:element minOccurs="0" ref="auto-parameters-entity"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
+                <xs:element minOccurs="0" ref="auto-parameters-portlet"/>
             </xs:sequence>
             <xs:attribute name="event-type" use="required">
                 <xs:annotation>
@@ -1579,6 +1580,7 @@ under the License.
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
+                <xs:element minOccurs="0" ref="auto-parameters-portlet"/>
             </xs:sequence>
             <xs:attribute name="event-type" use="required">
                 <xs:annotation>

@@ -515,6 +515,13 @@ under the License.
             <xs:attribute name="send-if-empty" type="xs:boolean" default="true"/>
         </xs:complexType>
     </xs:element>
+    <xs:element name="auto-parameters-portlet">
+        <xs:annotation>
+            <xs:documentation>Generate 4 parameters : portalPageId, portalPortletId, portletSeqId and currentAreaId update from-field parameters.xxx</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="exclude">
         <xs:complexType>
             <xs:attribute name="field-name" type="xs:string" use="required" />
@@ -525,6 +532,7 @@ under the License.
             <xs:element minOccurs="0" ref="auto-parameters-service"/>
             <xs:element minOccurs="0" ref="auto-parameters-entity"/>
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
+            <xs:element minOccurs="0" ref="auto-parameters-portlet"/>
             <xs:element minOccurs="0" name="image" type="image" />
             <xs:element minOccurs="0" ref="set-callback"/>
         </xs:sequence>
