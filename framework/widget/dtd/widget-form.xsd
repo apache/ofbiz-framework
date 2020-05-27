@@ -617,6 +617,7 @@ under the License.
                         </xs:enumeration>
                         <xs:enumeration value="set-watcher" />
                         <xs:enumeration value="refresh-watcher" />
+                        <xs:enumeration value="collapse" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
@@ -1609,6 +1610,7 @@ under the License.
                         <xs:enumeration value="refresh-watcher" />
                         <xs:enumeration value="submit" />
                         <xs:enumeration value="set-field-in-form" />
+                        <xs:enumeration value="collapse" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>

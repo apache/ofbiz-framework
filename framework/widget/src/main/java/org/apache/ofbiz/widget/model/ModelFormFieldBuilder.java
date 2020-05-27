@@ -224,6 +224,7 @@ public class ModelFormFieldBuilder {
                         || "refresh-watcher".equals(updateArea.getEventType())
                         || "submit".equals(updateArea.getEventType())
                         || "set-field-in-form".equals(updateArea.getEventType())
+                        || "collapse".equals(updateArea.getEventType())
                         ) {
                     onClickUpdateAreas.add(updateArea);
                 }

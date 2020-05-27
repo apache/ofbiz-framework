@@ -442,6 +442,7 @@ public abstract class ModelForm extends ModelWidget {
                      ||"refresh-area".equals(updateArea.getEventType())
                      ||"set-watcher".equals(updateArea.getEventType())
                      ||"refresh-watcher".equals(updateArea.getEventType())
+                     ||"collapse".equals(updateArea.getEventType())
                       ) {
                 int index = onSubmitUpdateAreas.indexOf(updateArea);
                 if (index != -1) {
