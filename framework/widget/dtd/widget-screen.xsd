@@ -536,6 +536,15 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="vuejs" substitutionGroup="HtmlWidgets">
+      <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
+          </xs:sequence>
+          <xs:attribute type="xs:string" name="component-name" use="required" />
+          <xs:attribute type="xs:string" name="param-map" />
+      </xs:complexType>
+    </xs:element>
     <xs:element name="html-template-decorator" substitutionGroup="HtmlWidgets">
         <xs:annotation>
             <xs:documentation>

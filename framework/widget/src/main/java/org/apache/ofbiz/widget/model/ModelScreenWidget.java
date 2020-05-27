@@ -1067,6 +1067,71 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return styleExdr;
         }
     }
+    public static final class VueJs extends ModelScreenWidget {
+        public static final String TAG_NAME = "vuejs";
+        private final FlexibleStringExpander componentNameExdr;
+        private final List<Parameter> parameterList;
+
+        public VueJs(ModelScreen modelScreen, Element vueJsElement) {
+            super(modelScreen, vueJsElement);
+
+            this.componentNameExdr = FlexibleStringExpander.getInstance(vueJsElement.getAttribute("component-name"));
+            List<? extends Element> parameterElementList = UtilXml.childElementList(vueJsElement, "parameter");
+            if (parameterElementList.isEmpty() ) {
+                this.parameterList = Collections.emptyList();
+            } else {
+                List<Parameter> parameterList = new ArrayList<>(parameterElementList.size());
+                for (Element parameterElement : parameterElementList) {
+                    parameterList.add(new Parameter(parameterElement));
+                }
+                this.parameterList = Collections.unmodifiableList(parameterList);
+            }
+
+        }
+
+        @Override
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+            try {
+                screenStringRenderer.renderVueJs(writer, context, this);
+            } catch (IOException e) {
+                String errMsg = "Error rendering vue-js in screen named [" + getModelScreen().getName() + "]: " + e.toString();
+                Debug.logError(e, errMsg, MODULE);
+                throw new RuntimeException(errMsg);
+            }
+        }
+
+        public Map<String, Object> getParameterMap(Map<String, Object> context) {
+            Map<String, Object> fullParameterMap = new HashMap<>();
+            for (Parameter parameter : this.parameterList) {
+                Object retVal = null;
+                if (parameter.getValue() != null) {
+                    retVal = parameter.getValue(context);
+                } else if (parameter.getFromField() != null && parameter.getFromField().get(context) != null) {
+                    retVal = parameter.getFromField().get(context);
+                } else {
+                    retVal = context.get(parameter.getName());
+                }
+                fullParameterMap.put(parameter.getName(), retVal);
+            }
+            return fullParameterMap;
+        }
+
+        public String getComponentName(Map<String, Object> context) {
+            return this.componentNameExdr.expandString(context);
+        }
+
+        public FlexibleStringExpander getComponentNameExdr() {
+            return componentNameExdr;
+        }
+        public List<Parameter> getParameterList() {
+            return parameterList;
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
+            visitor.visit(this);
+        }
+    }
 
     public static final class Form extends ModelScreenWidget {
         public static final String TAG_NAME = "include-form";

@@ -45,6 +45,7 @@ import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
+import org.apache.ofbiz.widget.WidgetFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.ParseError;
@@ -140,6 +141,9 @@ public class HtmlWidget extends ModelScreenWidget {
                     break;
                 case "html-template-decorator":
                     subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
+                    break;
+                case "vuejs":
+                    subWidgets.add(WidgetFactory.getModelScreenWidget(modelScreen, childElement));
                     break;
                 default:
                     throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: "
