@@ -1,0 +1,1184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="IconsTooltips_Accounting"><!-- currently copy from AccountingAccounting but will change to more detail -->
+        <value xml:lang="de">Buchhaltung</value>
+        <value xml:lang="en">Accounting</value>
+        <value xml:lang="fr">Comptabilité</value>
+        <value xml:lang="hi-IN">लेखांकन</value>
+        <value xml:lang="it">Contabilità</value>
+        <value xml:lang="nl">Boekhouding</value>
+        <value xml:lang="pt">Contabilidade</value>
+        <value xml:lang="th">การบัญชี</value>
+        <value xml:lang="zh">记账</value>
+        <value xml:lang="zh-TW">會計</value>
+    </property>
+    <property key="IconsTooltips_Activate">
+        <value xml:lang="en">Activate</value>
+        <value xml:lang="fr">Activer</value>
+    </property>
+    <property key="IconsTooltips_Activity">
+        <value xml:lang="en">Activities</value>
+        <value xml:lang="fr">Activités</value>
+    </property>
+    <property key="IconsTooltips_Add"><!-- currently copy from CommonAdd but will change to more detail -->
+        <value xml:lang="ar">إضافة</value>
+        <value xml:lang="cs">Přidat</value>
+        <value xml:lang="de">Hinzufügen</value>
+        <value xml:lang="en">Add</value>
+        <value xml:lang="es">Añadir</value>
+        <value xml:lang="fr">Ajouter</value>
+        <value xml:lang="hi-IN">जोड़ें</value>
+        <value xml:lang="it">Aggiungi</value>
+        <value xml:lang="nl">Toevoegen</value>
+        <value xml:lang="pt">Adicionar</value>
+        <value xml:lang="ro">Adauga</value>
+        <value xml:lang="ru">Добавить</value>
+        <value xml:lang="th">เพิ่ม</value>
+        <value xml:lang="zh">新建</value>
+        <value xml:lang="zh-CN">添加</value>
+        <value xml:lang="zh-TW">增加</value>
+    </property>
+    <property key="IconsTooltips_Address"><!-- currently copy from CommonAddress1 -->
+        <value xml:lang="ar">عنوان</value>
+        <value xml:lang="de">Adresse</value>
+        <value xml:lang="en">Address</value>
+        <value xml:lang="es">Dirección</value>
+        <value xml:lang="fr">Adresse</value>
+        <value xml:lang="hi-IN">पता</value>
+        <value xml:lang="it">Indirizzo</value>
+        <value xml:lang="nl">Adres</value>
+        <value xml:lang="pt">Endereço</value>
+        <value xml:lang="ro">Adresa</value>
+        <value xml:lang="ru">Адрес</value>
+        <value xml:lang="th">ที่อยู่ที่</value>
+        <value xml:lang="zh">地址一</value>
+        <value xml:lang="zh-CN">地址</value>
+        <value xml:lang="zh-TW">地址</value>
+    </property>
+    <property key="IconsTooltips_AddSimple">
+        <value xml:lang="en">Add, simplify method</value>
+        <value xml:lang="fr">Ajout simplifié</value>
+    </property>
+    <property key="IconsTooltips_Adm">
+        <value xml:lang="en">Administration / preference</value>
+        <value xml:lang="fr">Administration / préférence</value>
+    </property>
+    <property key="IconsTooltips_Agreement"><!-- currently copy from AccountingAgreement -->
+        <value xml:lang="ar">إتفاق</value>
+        <value xml:lang="de">Vereinbarung</value>
+        <value xml:lang="en">Agreement</value>
+        <value xml:lang="es">Acuerdo</value>
+        <value xml:lang="fr">Accord commercial</value>
+        <value xml:lang="hi-IN">अनुबंध</value>
+        <value xml:lang="it">Contratto</value>
+        <value xml:lang="ja">契約</value>
+        <value xml:lang="nl">Overeenkomst</value>
+        <value xml:lang="pt">Acordo</value>
+        <value xml:lang="ro">Contract</value>
+        <value xml:lang="ru">Договор</value>
+        <value xml:lang="th">สัญญา</value>
+        <value xml:lang="vi">Bản hợp đồng</value>
+        <value xml:lang="zh">合同</value>
+        <value xml:lang="zh-TW">合同</value>
+    </property>
+    <property key="IconsTooltips_Alarm">
+        <value xml:lang="en">Alarm</value>
+        <value xml:lang="fr">Alarme</value>
+    </property>
+    <property key="IconsTooltips_AppNext">
+        <value xml:lang="en">Next Parent</value>
+        <value xml:lang="fr">Parent suivant</value>
+    </property>
+    <property key="IconsTooltips_AppPrev">
+        <value xml:lang="en">Previous Parent</value>
+        <value xml:lang="fr">Parent précédent</value>
+    </property>
+    <property key="IconsTooltips_Associate">
+        <value xml:lang="en">Associate</value>
+        <value xml:lang="fr">Associer</value>
+    </property>
+    <property key="IconsTooltips_Attach">
+        <value xml:lang="en">Document files associated list</value>
+        <value xml:lang="fr">Liste des documents associés</value>
+    </property>
+    <property key="IconsTooltips_Calendar"><!-- currently copy from WorkEffortCalendar but will change to more detail -->
+        <value xml:lang="de">Kalender</value>
+        <value xml:lang="en">Calendar</value>
+        <value xml:lang="es">Calendario</value>
+        <value xml:lang="fr">Calendrier</value>
+        <value xml:lang="it">Calendario</value>
+        <value xml:lang="nl">Kalender</value>
+        <value xml:lang="ro">Calendar</value>
+        <value xml:lang="ru">Календарь</value>
+        <value xml:lang="th">ปฏิทิน</value>
+        <value xml:lang="zh">日历</value>
+        <value xml:lang="zh-TW">日歷</value>
+    </property>
+    <property key="IconsTooltips_Cancel"><!-- Copy from CommonCancel but changed in french -->
+        <value xml:lang="ar">إلغاء</value>
+        <value xml:lang="cs">Storno</value>
+        <value xml:lang="de">Abbrechen</value>
+        <value xml:lang="en">Cancel</value>
+        <value xml:lang="es">Cancelar</value>
+        <value xml:lang="fr">Annuler l'usage de cet objet</value>
+        <value xml:lang="hi-IN">रद्द करें</value>
+        <value xml:lang="it">Annulla</value>
+        <value xml:lang="nl">Annuleer</value>
+        <value xml:lang="pt">Cancelar</value>
+        <value xml:lang="ro">Sterge</value>
+        <value xml:lang="ru">Отменить</value>
+        <value xml:lang="th">ยกเลิก</value>
+        <value xml:lang="zh">取消</value>
+        <value xml:lang="zh-CN">取消</value>
+        <value xml:lang="zh-TW">取消</value>
+    </property>
+    <property key="IconsTooltips_Catalog"><!-- Copy from Catalog in CommonUiLabels -->
+        <value xml:lang="ar">كاتالوج</value>
+        <value xml:lang="de">Katalog</value>
+        <value xml:lang="en">Catalog</value>
+        <value xml:lang="es">Catálogo</value>
+        <value xml:lang="fr">Catalogues</value>
+        <value xml:lang="hi-IN">सूचीपत्र</value>
+        <value xml:lang="it">Cataloghi</value>
+        <value xml:lang="nl">Catalogus</value>
+        <value xml:lang="pt">Catálogo</value>
+        <value xml:lang="ro">Cataloage</value>
+        <value xml:lang="ru">Каталог</value>
+        <value xml:lang="th">หมวดหมู่</value>
+        <value xml:lang="vi">Chương mục</value>
+        <value xml:lang="zh">目录</value>
+        <value xml:lang="zh-CN">目录</value>
+        <value xml:lang="zh-TW">目錄</value>
+    </property>
+    <property key="IconsTooltips_Category"><!-- Copy from ContentCategory but change in french, english, nl-->
+        <value xml:lang="ar">الفئة</value>
+        <value xml:lang="da">Kategori</value>
+        <value xml:lang="de">Kategorie</value>
+        <value xml:lang="en">Categories</value>
+        <value xml:lang="es">Categoría</value>
+        <value xml:lang="fr">Catégories</value>
+        <value xml:lang="it">Categoria</value>
+        <value xml:lang="nl">Categories</value>
+        <value xml:lang="pt">Categoria</value>
+        <value xml:lang="ro">Categoria</value>
+        <value xml:lang="th">หมวดหมู่</value>
+        <value xml:lang="zh">分类</value>
+        <value xml:lang="zh-TW">分類</value>
+    </property>
+    <property key="IconsTooltips_Chart"><!-- currently copy from CommonChart but will change to more detail -->
+        <value xml:lang="ar">رسوم بيانية</value>
+        <value xml:lang="de">Diagramme</value>
+        <value xml:lang="en">Charts</value>
+        <value xml:lang="es">Gráficas</value>
+        <value xml:lang="fr">Graphiques</value>
+        <value xml:lang="hi-IN">चार्ट</value>
+        <value xml:lang="it">Grafici</value>
+        <value xml:lang="nl">Grafiek</value>
+        <value xml:lang="pt">Gráficos</value>
+        <value xml:lang="ro">Grafice</value>
+        <value xml:lang="ru">Диаграммы</value>
+        <value xml:lang="th">แผนภูมิ</value>
+        <value xml:lang="zh">图表</value>
+        <value xml:lang="zh-CN">图表</value>
+        <value xml:lang="zh-TW">圖表</value>
+    </property>
+    <property key="IconsTooltips_Child">
+        <value xml:lang="en">Child object</value>
+        <value xml:lang="fr">Objets fils</value>
+    </property>
+    <property key="IconsTooltips_CollapseAll"><!-- currently copy from CommonCollapseAll  -->
+        <value xml:lang="de">Alles zuklappen</value>
+        <value xml:lang="en">Collapse all</value>
+        <value xml:lang="es">Colapsar todo</value>
+        <value xml:lang="fr">Tout replier</value>
+        <value xml:lang="hi-IN">सभी को संक्षिप्त करें</value>
+        <value xml:lang="it">Collassato</value>
+        <value xml:lang="ja">すべて折りたたむ</value>
+        <value xml:lang="nl">Verberg velden</value>
+        <value xml:lang="pt-BR">Recolher tudo</value>
+        <value xml:lang="ru">Свернуть все</value>
+        <value xml:lang="th">ล้มเหลว</value>
+        <value xml:lang="vi">Mở rộng toàn bộ</value>
+        <value xml:lang="zh">全部合拢</value>
+        <value xml:lang="zh-TW">全部合攏</value>
+    </property>
+    <property key="IconsTooltips_Contact"><!-- currently copy from CommonContacts but will change to more detail -->
+        <value xml:lang="ar">وصلات</value>
+        <value xml:lang="de">Kontakte</value>
+        <value xml:lang="en">Contacts</value>
+        <value xml:lang="es">Contactos</value>
+        <value xml:lang="fr">Contacts</value>
+        <value xml:lang="hi-IN">संपर्क</value>
+        <value xml:lang="it">Contatti</value>
+        <value xml:lang="nl">Contacten</value>
+        <value xml:lang="pt">Contactos</value>
+        <value xml:lang="pt-BR">Contatos</value>
+        <value xml:lang="ro">Contacte</value>
+        <value xml:lang="ru">Контакты    </value>
+        <value xml:lang="th">ติดต่อ</value>
+        <value xml:lang="zh">联系</value>
+        <value xml:lang="zh-CN">联系</value>
+        <value xml:lang="zh-TW">連絡</value>
+    </property>
+    <property key="IconsTooltips_ContactMech"><!-- currently copy from PartyContactMechs but will change to more detail -->
+        <value xml:lang="de">Kontaktmechanismus</value>
+        <value xml:lang="en">ContactMechs</value>
+        <value xml:lang="es">Mecanismos de Contacto</value>
+        <value xml:lang="fr">Coordonnées</value>
+        <value xml:lang="hi-IN">संपर्क यांत्रिक</value>
+        <value xml:lang="it">Contatto</value>
+        <value xml:lang="pt-BR">Mecanismos de contato</value>
+        <value xml:lang="ro">Contact</value>
+        <value xml:lang="ru">СпособСвязи</value>
+        <value xml:lang="th">วิธีการติดต่อ</value>
+        <value xml:lang="zh">联系方式</value>
+        <value xml:lang="zh-TW">連絡方式</value>
+    </property>
+    <property key="IconsTooltips_Date"><!-- currently copy from CommonDate but will change to more detail -->
+        <value xml:lang="ar">تاريخ</value>
+        <value xml:lang="cs">Datum</value>
+        <value xml:lang="de">Datum</value>
+        <value xml:lang="en">Date</value>
+        <value xml:lang="es">Fecha</value>
+        <value xml:lang="fr">Date</value>
+        <value xml:lang="hi-IN">दिनांक</value>
+        <value xml:lang="it">Data</value>
+        <value xml:lang="nl">Datum</value>
+        <value xml:lang="pt">Data</value>
+        <value xml:lang="ro">Data</value>
+        <value xml:lang="ru">Дата</value>
+        <value xml:lang="th">วันที่</value>
+        <value xml:lang="zh">日期</value>
+        <value xml:lang="zh-CN">日期</value>
+        <value xml:lang="zh-TW">日期</value>
+    </property>
+    <property key="IconsTooltips_Deactivate">
+        <value xml:lang="en">Deactivate</value>
+        <value xml:lang="fr">Désactiver</value>
+    </property>
+    <property key="IconsTooltips_Delete"><!-- currently copy from CommonDelete but will change to more detail -->
+        <value xml:lang="ar">حذف</value>
+        <value xml:lang="cs">Smazat</value>
+        <value xml:lang="de">Löschen</value>
+        <value xml:lang="en">Delete</value>
+        <value xml:lang="es">Eliminar</value>
+        <value xml:lang="fr">Supprimer</value>
+        <value xml:lang="hi-IN">मिटाए</value>
+        <value xml:lang="it">Cancella</value>
+        <value xml:lang="nl">Wis</value>
+        <value xml:lang="pt">Apagar</value>
+        <value xml:lang="pt-BR">Excluir</value>
+        <value xml:lang="pt-PT">Eliminar</value>
+        <value xml:lang="ro">Sterge</value>
+        <value xml:lang="ru">Удалить</value>
+        <value xml:lang="th">ลบ</value>
+        <value xml:lang="zh">删除</value>
+        <value xml:lang="zh-CN">删除</value>
+        <value xml:lang="zh-TW">刪除</value>
+    </property>
+    <property key="IconsTooltips_Details"><!-- copy from CommonDetails but changed in french -->
+        <value xml:lang="ar">تفاصيل</value>
+        <value xml:lang="cs">Detaily</value>
+        <value xml:lang="de">Details</value>
+        <value xml:lang="en">Details</value>
+        <value xml:lang="es">Detalles</value>
+        <value xml:lang="fr">Afficher la vue de synthèse (ou détaillée)</value>
+        <value xml:lang="hi-IN">विस्तृत सूचना</value>
+        <value xml:lang="it">Dettagli</value>
+        <value xml:lang="nl">Details</value>
+        <value xml:lang="pt">Detalhes</value>
+        <value xml:lang="ro">Detalii</value>
+        <value xml:lang="ru">Подробности</value>
+        <value xml:lang="th">รายละเอียด</value>
+        <value xml:lang="zh">详细</value>
+        <value xml:lang="zh-CN">细节</value>
+        <value xml:lang="zh-TW">詳細</value>
+    </property>
+    <property key="IconsTooltips_Diff">
+        <value xml:lang="en">Difference between two </value>
+        <value xml:lang="fr">Différence entre deux </value>
+    </property>
+    <property key="IconsTooltips_Disabled"><!-- copy from CommonDisabled but changed in french -->
+        <value xml:lang="ar">غير شغال</value>
+        <value xml:lang="de">Deaktiviert</value>
+        <value xml:lang="en">Disabled</value>
+        <value xml:lang="es">Deshabilitado</value>
+        <value xml:lang="fr">Désactiver</value>
+        <value xml:lang="hi-IN">निष्क्रिय</value>
+        <value xml:lang="it">Disabilitato</value>
+        <value xml:lang="nl">Onbeschikbaar</value>
+        <value xml:lang="pt">Desactivado</value>
+        <value xml:lang="pt-BR">Desabilitado</value>
+        <value xml:lang="ro">Dizabilitat</value>
+        <value xml:lang="ru">Недоступно</value>
+        <value xml:lang="th">ไม่สามารถใช้ได้</value>
+        <value xml:lang="zh">无效</value>
+        <value xml:lang="zh-CN">禁用</value>
+        <value xml:lang="zh-TW">無效</value>
+    </property>
+    <property key="IconsTooltips_Done"><!-- copy from CommonDone -->
+        <value xml:lang="de">Erledigt</value>
+        <value xml:lang="en">Done</value>
+        <value xml:lang="es">Terminar</value>
+        <value xml:lang="fr">Terminer</value>
+        <value xml:lang="hi-IN">हो गया</value>
+        <value xml:lang="it">Fatto</value>
+        <value xml:lang="nl">Klaar</value>
+        <value xml:lang="pt">Feito</value>
+        <value xml:lang="pt-BR">Terminar</value>
+        <value xml:lang="ro">Executa</value>
+        <value xml:lang="ru">Выполнить</value>
+        <value xml:lang="zh">完成</value>
+        <value xml:lang="zh-CN">完成</value>
+        <value xml:lang="zh-TW">完成</value>
+    </property>
+    <property key="IconsTooltips_Docfusion">
+        <value xml:lang="en">Merge data and template to create a document</value>
+        <value xml:lang="fr">Compléter un modèle avec des données pour obtenir un document</value>
+    </property>
+    <property key="IconsTooltips_Duplicate"><!-- currently copy from CommonDelete but will change to more detail -->
+        <value xml:lang="ar">مضاعفة</value>
+        <value xml:lang="de">Verdoppeln</value>
+        <value xml:lang="en">Duplicate</value>
+        <value xml:lang="es">Duplicar</value>
+        <value xml:lang="fr">Dupliquer</value>
+        <value xml:lang="hi-IN">दोहरा</value>
+        <value xml:lang="it">Duplica</value>
+        <value xml:lang="nl">Dubbel</value>
+        <value xml:lang="pt">Duplicar</value>
+        <value xml:lang="ro">Dubleaza</value>
+        <value xml:lang="ru">Дублировать</value>
+        <value xml:lang="th">จำลอง</value>
+        <value xml:lang="zh">重复</value>
+        <value xml:lang="zh-CN">副本</value>
+        <value xml:lang="zh-TW">重複</value>
+    </property>
+    <property key="IconsTooltips_Download"><!-- copy from ContentDownload but changed in french -->
+        <value xml:lang="da">Download</value>
+        <value xml:lang="en">Download</value>
+        <value xml:lang="fr">Télécharger le document en local</value>
+        <value xml:lang="it">Scarica</value>
+        <value xml:lang="nl">Download</value>
+    </property>
+    <property key="IconsTooltips_Edit"><!-- currently copy from CommonEdit but will change to more detail -->
+        <value xml:lang="ar">تحرير</value>
+        <value xml:lang="cs">Zpracovat</value>
+        <value xml:lang="de">Bearbeiten</value>
+        <value xml:lang="en">Edit</value>
+        <value xml:lang="es">Editar</value>
+        <value xml:lang="fr">Modifier</value>
+        <value xml:lang="hi-IN">संपादित करें</value>
+        <value xml:lang="it">Aggiorna</value>
+        <value xml:lang="nl">Wijzigen</value>
+        <value xml:lang="pt">Editar</value>
+        <value xml:lang="ro">Actualizare</value>
+        <value xml:lang="ru">Редактировать</value>
+        <value xml:lang="th">แก้ไข</value>
+        <value xml:lang="zh">编辑</value>
+        <value xml:lang="zh-CN">编辑</value>
+        <value xml:lang="zh-TW">編輯</value>
+    </property>
+    <property key="IconsTooltips_Email"><!-- currently copy from CommonEmail but will change to more detail -->
+        <value xml:lang="ar">البريد الإلكتروني</value>
+        <value xml:lang="de">E-Mail</value>
+        <value xml:lang="en">Email</value>
+        <value xml:lang="es">Correo electrónico</value>
+        <value xml:lang="fr">Courriel</value>
+        <value xml:lang="hi-IN">ईमेल</value>
+        <value xml:lang="it">Email</value>
+        <value xml:lang="pt">Email</value>
+        <value xml:lang="pt-BR">E-mail</value>
+        <value xml:lang="ro">Email</value>
+        <value xml:lang="ru">Эл. почта</value>
+        <value xml:lang="th">อีเมล</value>
+        <value xml:lang="zh">电子邮件</value>
+        <value xml:lang="zh-TW">電子郵件</value>
+    </property>
+    <property key="IconsTooltips_EmailAttach">
+        <value xml:lang="en">Attach Email</value>
+        <value xml:lang="fr">Associer un courriel</value>
+    </property>
+    <property key="IconsTooltips_EmailEdit">
+        <value xml:lang="en">Email Edit</value>
+        <value xml:lang="fr">Editer un courriel</value>
+    </property>
+    <property key="IconsTooltips_EmailGo">
+        <value xml:lang="en">Email send</value>
+        <value xml:lang="fr">Envoyer un courriel</value>
+    </property>
+    <property key="IconsTooltips_EmailOpen">
+        <value xml:lang="en">Email Open</value>
+        <value xml:lang="fr">Courriel lu</value>
+    </property>
+    <property key="IconsTooltips_EventCom">
+        <value xml:lang="en">Communication events</value>
+        <value xml:lang="fr">Evènements de communication</value>
+    </property>
+    <property key="IconsTooltips_ExpandAll"><!-- Copy from CommonExpandAll  -->
+        <value xml:lang="de">Erweitern</value>
+        <value xml:lang="en">Expand all</value>
+        <value xml:lang="es">Expandir</value>
+        <value xml:lang="fr">Tout développer</value>
+        <value xml:lang="hi-IN">सभी विस्तृत करें</value>
+        <value xml:lang="it">Espandi</value>
+        <value xml:lang="ja">すべて展開</value>
+        <value xml:lang="nl">Tonen velden</value>
+        <value xml:lang="pt-BR">Expandir todos</value>
+        <value xml:lang="ru">Расширить все</value>
+        <value xml:lang="th">แผ่ขยาย</value>
+        <value xml:lang="vi">Mở rộng toàn bộ</value>
+        <value xml:lang="zh">全部展开</value>
+        <value xml:lang="zh-TW">全部展開</value>
+    </property>
+    <property key="IconsTooltips_Expire"><!-- Copy from CommonExpire but changed in french -->
+        <value xml:lang="ar">نهاية الصلاحية</value>
+        <value xml:lang="cs">Vypršet</value>
+        <value xml:lang="de">Ablaufen</value>
+        <value xml:lang="en">Expire</value>
+        <value xml:lang="es">Expiración</value>
+        <value xml:lang="fr">Mettre à jour la date de fin de validité avec [maintenant]</value>
+        <value xml:lang="hi-IN">निश्वासन</value>
+        <value xml:lang="it">Scade</value>
+        <value xml:lang="nl">Maak verlopen</value>
+        <value xml:lang="pt">Expirar</value>
+        <value xml:lang="pt-PT">Terminar</value>
+        <value xml:lang="ro">Expira</value>
+        <value xml:lang="ru">Прекратить</value>
+        <value xml:lang="th">หมดเขต</value>
+        <value xml:lang="zh">过期</value>
+        <value xml:lang="zh-CN">过期</value>
+        <value xml:lang="zh-TW">過期</value>
+    </property>
+    <property key="IconsTooltips_Facility"><!-- Copy from FacilityFacility but changed for french -->
+        <value xml:lang="de">Lager</value>
+        <value xml:lang="en">Facility</value>
+        <value xml:lang="es">Almacén</value>
+        <value xml:lang="fr">Lieu de stockage</value>
+        <value xml:lang="it">Stabilimento </value>
+        <value xml:lang="ja">拠点</value>
+        <value xml:lang="nl">Faciliteit</value>
+        <value xml:lang="ro">Compartiment </value>
+        <value xml:lang="ru">Оборудование</value>
+        <value xml:lang="th">คลังสินค้า</value>
+        <value xml:lang="vi">Chi nhánh / Cơ sở</value>
+        <value xml:lang="zh">场所</value>
+        <value xml:lang="zh-CN">仓储设施</value>
+        <value xml:lang="zh-TW">場所</value>
+    </property>
+    <property key="IconsTooltips_Filter"><!-- Copy from CommonFilter but changed for french -->
+        <value xml:lang="ar">مصفاة</value>
+        <value xml:lang="de">Filter</value>
+        <value xml:lang="en">Filter</value>
+        <value xml:lang="es">Filtro</value>
+        <value xml:lang="fr">Rechercher, filtrer</value>
+        <value xml:lang="hi-IN">फ़िल्टर</value>
+        <value xml:lang="it">Filtra</value>
+        <value xml:lang="pt">Filtrar</value>
+        <value xml:lang="pt-BR">Filtro</value>
+        <value xml:lang="ro">Filtreaza</value>
+        <value xml:lang="ru">Фильтр</value>
+        <value xml:lang="th">Filter</value>
+        <value xml:lang="zh">过滤器</value>
+        <value xml:lang="zh-TW">過濾器</value>
+    </property>
+    <property key="IconsTooltips_Gantt"><!-- currently copy from ProjectMgrGanttChart but will change to more detail -->
+        <value xml:lang="de">Gantt Chart</value>
+        <value xml:lang="en">Gantt Chart</value>
+        <value xml:lang="fr">Diagramme de Gantt</value>
+        <value xml:lang="it">Grafico gantt</value>
+        <value xml:lang="nl">GANT chart</value>
+        <value xml:lang="th">แผนผังคุมการกำหนดงาน</value>
+        <value xml:lang="zh">甘特图</value>
+    </property>
+    <property key="IconsTooltips_GeoLoc"><!-- currently copy from CommonGeoLocation but will change to more detail -->
+        <value xml:lang="en">Geo Location</value>
+        <value xml:lang="fr">Géolocalisation</value>
+        <value xml:lang="hi-IN">भू स्थान</value>
+        <value xml:lang="it">Localizzazione geografica</value>
+        <value xml:lang="pt-BR">Localização geográfica</value>
+        <value xml:lang="zh">地理位置</value>
+        <value xml:lang="zh-TW">地理位置</value>
+    </property>
+    <property key="IconsTooltips_GoodIdent"><!-- currently copy from ProductGoodIdentification  -->
+        <value xml:lang="de">Produkt Identifikation</value>
+        <value xml:lang="en">Good Identification</value>
+        <value xml:lang="es">Identificación de bien</value>
+        <value xml:lang="fr">Identifiant produit</value>
+        <value xml:lang="it">Identificazione Prodotto</value>
+        <value xml:lang="ja">品目識別</value>
+        <value xml:lang="ru">Идентификация товара</value>
+        <value xml:lang="th">การแสดงตัวถูกต้อง</value>
+        <value xml:lang="vi">Định danh hàng hóa</value>
+        <value xml:lang="zh">商品标识</value>
+        <value xml:lang="zh-TW">成品ID</value>
+    </property>
+    <property key="IconsTooltips_Grants"><!-- copy from PartySecurityGroup but changed for french -->
+        <value xml:lang="de">Sicherheitsgruppe</value>
+        <value xml:lang="en">Security Group</value>
+        <value xml:lang="es">Grupo de Seguridad</value>
+        <value xml:lang="fr">Gestion des autorisations d'accés</value>
+        <value xml:lang="hi-IN">सुरक्षा समूह</value>
+        <value xml:lang="it">Gruppo Sicurezza</value>
+        <value xml:lang="nl">Beveiligingsgroep</value>
+        <value xml:lang="pt-BR">Grupo de segurança</value>
+        <value xml:lang="ro">Grup De Siguranta</value>
+        <value xml:lang="ru">Группа безопасности</value>
+        <value xml:lang="th">กลุ่มความปลอดภัย</value>
+        <value xml:lang="zh">安全组</value>
+        <value xml:lang="zh-TW">安全群組</value>
+    </property>
+    <property key="IconsTooltips_GeoLoc"><!-- currently copy from CommonGeoLocation but will change to more detail -->
+        <value xml:lang="en">Geo Location</value>
+        <value xml:lang="fr">Géolocalisation</value>
+        <value xml:lang="hi-IN">भू स्थान</value>
+        <value xml:lang="it">Localizzazione geografica</value>
+        <value xml:lang="pt-BR">Localização geográfica</value>
+        <value xml:lang="zh">地理位置</value>
+        <value xml:lang="zh-TW">地理位置</value>
+    </property>
+    <property key="IconsTooltips_Group"><!-- currently copy from CommonGroup -->
+        <value xml:lang="ar">مجموعة</value>
+        <value xml:lang="de">Gruppe</value>
+        <value xml:lang="en">Group</value>
+        <value xml:lang="es">Grupo</value>
+        <value xml:lang="fr">Groupe</value>
+        <value xml:lang="hi-IN">समूह</value>
+        <value xml:lang="it">Gruppo</value>
+        <value xml:lang="nl">Groep</value>
+        <value xml:lang="pt">Grupo</value>
+        <value xml:lang="ro">Grup</value>
+        <value xml:lang="ru">Группа</value>
+        <value xml:lang="th">กลุ่ม</value>
+        <value xml:lang="zh">组</value>
+        <value xml:lang="zh-CN">组</value>
+        <value xml:lang="zh-TW">組</value>
+    </property>
+    <property key="IconsTooltips_Hierarchy"><!-- copy from ProductRollup but changed for french and english -->
+        <value xml:lang="de">Kategoriezuordnung</value>
+        <value xml:lang="en">Rollup</value>
+        <value xml:lang="es">Jerarquía</value>
+        <value xml:lang="fr">Hiérarchie</value>
+        <value xml:lang="it">Gerarchia</value>
+        <value xml:lang="nl">Hiërarchie</value>
+        <value xml:lang="ro">Sosire</value>
+        <value xml:lang="ru">Иерархия</value>
+        <value xml:lang="th">Rollup</value>
+        <value xml:lang="zh">汇总</value>
+        <value xml:lang="zh-TW">匯總</value>
+    </property>
+    <property key="IconsTooltips_HideHistory"><!-- copy from PartyHideOld--> 
+        <value xml:lang="cs">Skrýt původní</value>
+        <value xml:lang="de">Altes ausblenden</value>
+        <value xml:lang="en">Hide Old</value>
+        <value xml:lang="es">Guardar historial</value>
+        <value xml:lang="fr">Masquer l'historique</value>
+        <value xml:lang="hi-IN">पुराना हटाइये</value>
+        <value xml:lang="it">Nascondi storia</value>
+        <value xml:lang="ja">Hide Old</value>
+        <value xml:lang="nl">Verberg oude versie</value>
+        <value xml:lang="pt-BR">Salvar histórico</value>
+        <value xml:lang="pt-PT">Ocultar Idade</value>
+        <value xml:lang="ro">Ascunde pe cel Vechi</value>
+        <value xml:lang="ru">Hide Old</value>
+        <value xml:lang="th">อายุ</value>
+        <value xml:lang="zh">隐藏过去的</value>
+        <value xml:lang="zh-TW">隱藏過去的</value>
+    </property>
+    <property key="IconsTooltips_History"><!-- copy from PartyShowOld but changed for french and english -->
+        <value xml:lang="cs">Ukázat původní</value>
+        <value xml:lang="de">Altes zeigen</value>
+        <value xml:lang="en">Show Old</value>
+        <value xml:lang="es">Mostrar historial</value>
+        <value xml:lang="fr">Affiche l'historique</value>
+        <value xml:lang="hi-IN">पुराना दिखाइये</value>
+        <value xml:lang="it">Storia</value>
+        <value xml:lang="ja">Show history</value>
+        <value xml:lang="nl">Laat de oude versie zien</value>
+        <value xml:lang="pt-BR">Mostrar antigos</value>
+        <value xml:lang="pt-PT">Mostrar Idade</value>
+        <value xml:lang="ro">Afiseaza Vechea</value>
+        <value xml:lang="ru">Показать старые</value>
+        <value xml:lang="th">แสดงอันเดิม</value>
+        <value xml:lang="zh">显示旧信息</value>
+        <value xml:lang="zh-TW">顯示舊資訊</value>
+    </property>
+    <property key="IconsTooltips_Identification"><!-- currently copy from PartyPartyIdentification but will change to more detail -->
+        <value xml:lang="de">Identifikationsnummer</value>
+        <value xml:lang="en">Identification Number</value>
+        <value xml:lang="fr">N° d'identification</value>
+        <value xml:lang="it">Numero identificativo</value>
+        <value xml:lang="ja">ID番号</value>
+        <value xml:lang="pt-BR">Número de identificação</value>
+        <value xml:lang="vi">Số định danh (Identification Number)</value>
+        <value xml:lang="zh-TW">ID編號</value>
+    </property>
+    <property key="IconsTooltips_Images">
+        <value xml:lang="en">Images</value>
+        <value xml:lang="fr">Images</value>
+    </property>
+    <property key="IconsTooltips_Items"><!-- currently copy from CommonItems but will change to more detail -->
+        <value xml:lang="ar">أسطر</value>
+        <value xml:lang="de">Artikel</value>
+        <value xml:lang="en">Items</value>
+        <value xml:lang="es">Ítems</value>
+        <value xml:lang="fr">Lignes</value>
+        <value xml:lang="hi-IN">मदे</value>
+        <value xml:lang="it">Righe</value>
+        <value xml:lang="nl">Items</value>
+        <value xml:lang="pt">Items</value>
+        <value xml:lang="pt-BR">Itens</value>
+        <value xml:lang="ro">Linii</value>
+        <value xml:lang="ru">Пункты</value>
+        <value xml:lang="th">ไอเทม</value>
+        <value xml:lang="zh">明细</value>
+        <value xml:lang="zh-CN">东西</value>
+        <value xml:lang="zh-TW">明細</value>
+    </property>
+    <property key="IconsTooltips_Note"><!-- currently copy from CommonNotes but will change to more detail -->
+        <value xml:lang="ar">مذكرات</value>
+        <value xml:lang="de">Anmerkungen</value>
+        <value xml:lang="en">Notes</value>
+        <value xml:lang="es">Notas</value>
+        <value xml:lang="fr">Notes</value>
+        <value xml:lang="hi-IN">नोट्स</value>
+        <value xml:lang="it">Note</value>
+        <value xml:lang="nl">Nota's</value>
+        <value xml:lang="pt">Notas</value>
+        <value xml:lang="ro">Note</value>
+        <value xml:lang="ru">Заметки</value>
+        <value xml:lang="th">Note : หมายเหตุ</value>
+        <value xml:lang="zh">便笺</value>
+        <value xml:lang="zh-CN">注释</value>
+        <value xml:lang="zh-TW">便箋</value>
+    </property>
+    <property key="IconsTooltips_Order"><!-- copy from OrderOrder but changed for french -->
+        <value xml:lang="cs">Objednávka</value>
+        <value xml:lang="de">Bestellung</value>
+        <value xml:lang="en">Order</value>
+        <value xml:lang="es">Pedido</value>
+        <value xml:lang="fr">Commande</value>
+        <value xml:lang="hi-IN">आर्डर</value>
+        <value xml:lang="it">Ordine</value>
+        <value xml:lang="ja">Order</value>
+        <value xml:lang="nl">Bestelling</value>
+        <value xml:lang="pt-BR">Pedido</value>
+        <value xml:lang="pt-PT">Encomenda</value>
+        <value xml:lang="ro">Comanda</value>
+        <value xml:lang="ru">Заказ</value>
+        <value xml:lang="th">การสั่งซื้อสินค้า</value>
+        <value xml:lang="zh">订单</value>
+        <value xml:lang="zh-CN">订单</value>
+        <value xml:lang="zh-TW">訂單</value>
+    </property>
+    <property key="IconsTooltips_Overview"><!-- copy from CommonOverview but changed for french -->
+        <value xml:lang="de">Überblick</value>
+        <value xml:lang="en">Overview</value>
+        <value xml:lang="es">Sumario</value>
+        <value xml:lang="fr">Aller à la page récapitulative (vue de l'ensemble des portlets)</value>
+        <value xml:lang="hi-IN">समीक्षा</value>
+        <value xml:lang="it">Sommario</value>
+        <value xml:lang="pt-BR">Resumo</value>
+        <value xml:lang="zh">概览</value>
+        <value xml:lang="zh-TW">概覽</value>
+    </property>
+    <property key="IconsTooltips_Party"><!-- copy from PartyParties but changed for french -->
+        <value xml:lang="de">Akteure</value>
+        <value xml:lang="en">Parties</value>
+        <value xml:lang="es">Participante</value>
+        <value xml:lang="fr">Liste des acteurs associés</value>
+        <value xml:lang="hi-IN">पार्टियाँ</value>
+        <value xml:lang="it">Soggetti</value>
+        <value xml:lang="nl">Relaties</value>
+        <value xml:lang="pt-BR">Participantes</value>
+        <value xml:lang="pt-PT">Secções</value>
+        <value xml:lang="ro">Subiecti </value>
+        <value xml:lang="ru">Участники</value>
+        <value xml:lang="th">กลุ่มผู้ใช้</value>
+        <value xml:lang="zh">会员</value>
+        <value xml:lang="zh-TW">成員</value>
+    </property>
+    <property key="IconsTooltips_Pause">
+        <value xml:lang="de">Pause</value>
+        <value xml:lang="en">Pause</value>
+        <value xml:lang="fr">Pause</value>
+        <value xml:lang="it">Pausa</value>
+        <value xml:lang="pt">Pausar</value>
+        <value xml:lang="ro">Pausa</value>
+        <value xml:lang="th">หยุด</value>
+        <value xml:lang="zh">文件间暂停</value>
+        <value xml:lang="zh-TW">文件間暫停</value>
+    </property>
+    <property key="IconsTooltips_Payment"><!-- currently copy from AccountingPayment but will change to more detail -->
+        <value xml:lang="ar">تسديد</value>
+        <value xml:lang="de">Bezahlung</value>
+        <value xml:lang="en">Payment</value>
+        <value xml:lang="es">Pago</value>
+        <value xml:lang="fr">Paiement</value>
+        <value xml:lang="hi-IN">भुगतान</value>
+        <value xml:lang="it">Pagamento</value>
+        <value xml:lang="nl">Betaling</value>
+        <value xml:lang="pt-BR">Pagamento</value>
+        <value xml:lang="pt-PT">Pagamento</value>
+        <value xml:lang="ro">Plata</value>
+        <value xml:lang="ru">платеж</value>
+        <value xml:lang="th">การชำระเงิน</value>
+        <value xml:lang="zh">支付</value>
+        <value xml:lang="zh-TW">支付</value>
+    </property>
+    <property key="IconsTooltips_PDF"><!-- come from ContentPDF -->
+        <value xml:lang="ar">PDF تعريف محتوى</value>
+        <value xml:lang="da">PDF indholds</value>
+        <value xml:lang="de">PDF Inhalt</value>
+        <value xml:lang="en">(generate and) Show PDF document</value>
+        <value xml:lang="fr">(génère et) Affiche le Document au format Pdf</value>
+        <value xml:lang="it">Contenuto PDF</value>
+        <value xml:lang="ro">Continut PDF</value>
+        <value xml:lang="th">หัวข้อ PDF</value>
+        <value xml:lang="zh">PDF内容标识</value>
+        <value xml:lang="zh-TW">PDF內容</value>
+    </property>
+    <property key="IconsTooltips_Phone"><!-- currently copy from PartyPhoneNumber but will change to more detail -->
+        <value xml:lang="cs">Telefonní číslo</value>
+        <value xml:lang="de">Telefonnummer</value>
+        <value xml:lang="en">Phone Number</value>
+        <value xml:lang="es">Número de Teléfono</value>
+        <value xml:lang="fr">N° de téléphone</value>
+        <value xml:lang="hi-IN">फोन नम्बर</value>
+        <value xml:lang="it">Numero di telefono</value>
+        <value xml:lang="ja">Phone Number</value>
+        <value xml:lang="nl">Telefoonnummer</value>
+        <value xml:lang="pt-BR">Número de telefone</value>
+        <value xml:lang="pt-PT">Número de Telefone</value>
+        <value xml:lang="ro">Numar Telefon</value>
+        <value xml:lang="ru">Телефонный номер</value>
+        <value xml:lang="th">เบอร์โทรศัพท์</value>
+        <value xml:lang="zh">电话号码</value>
+        <value xml:lang="zh-TW">電話號碼</value>
+    </property>
+    <property key="IconsTooltips_Phase">
+        <value xml:lang="en">Phase(s)</value>
+        <value xml:lang="fr">Phase(s)</value>
+    </property>
+    <property key="IconsTooltips_Plan">
+        <value xml:lang="en">Planning</value>
+        <value xml:lang="fr">Planification</value>
+    </property>
+    <property key="IconsTooltips_Print"><!-- copy from CommonPrint  -->
+        <value xml:lang="ar">نسخ</value>
+        <value xml:lang="de">Drucken</value>
+        <value xml:lang="en">Print</value>
+        <value xml:lang="es">Imprimir</value>
+        <value xml:lang="fr">Imprimer</value>
+        <value xml:lang="hi-IN">प्रिंट</value>
+        <value xml:lang="it">Stampa</value>
+        <value xml:lang="pt">Imprimir</value>
+        <value xml:lang="ro">Tipareste</value>
+        <value xml:lang="ru">Печать</value>
+        <value xml:lang="th">พิมพ์</value>
+        <value xml:lang="zh">打印</value>
+        <value xml:lang="zh-TW">列印</value>
+    </property>
+    <property key="IconsTooltips_Product"><!-- copy from ProductProduct but but changed for french  -->
+        <value xml:lang="de">Produkt</value>
+        <value xml:lang="en">Product</value>
+        <value xml:lang="es">Producto</value>
+        <value xml:lang="fr">Liste des articles associés</value>
+        <value xml:lang="it">Prodotto</value>
+        <value xml:lang="ro">Produs</value>
+        <value xml:lang="ru">Наименование</value>
+        <value xml:lang="th">สินค้า</value>
+        <value xml:lang="zh">产品</value>
+        <value xml:lang="zh-TW">產品</value>
+    </property>
+    <property key="IconsTooltips_ProductAssoc"><!-- copy from ProductAssociationsFromProduct   -->
+        <value xml:lang="de">Zuordnungen VON diesem Produkt zu</value>
+        <value xml:lang="en">Associations FROM this Product to</value>
+        <value xml:lang="es">Asociaciones DE este Producto a</value>
+        <value xml:lang="fr">Articles associés depuis cet article</value>
+        <value xml:lang="it">Associazioni da questo prodotto a</value>
+        <value xml:lang="ja">この製品から関連付け</value>
+        <value xml:lang="ro">Asociatie De la acest Produs la</value>
+        <value xml:lang="ru">Ассоциации от этого продукта к</value>
+        <value xml:lang="th">กลุ่มจากสินค้านี้ไปยัง</value>
+        <value xml:lang="vi">Kết hợp TỪ sản phẩm này đến</value>
+        <value xml:lang="zh">从这个产品关联到</value>
+        <value xml:lang="zh-TW">從這個產品關聯到</value>
+    </property>
+    <property key="IconsTooltips_ProductAssocTo"> <!-- copy from ProductAssociationsToProduct   -->
+        <value xml:lang="de">Zuordnungen ZU diesem Produkt von</value>
+        <value xml:lang="en">Associations TO this Product from</value>
+        <value xml:lang="es">Asociaciones A este Producto de</value>
+        <value xml:lang="fr">Articles associés à cet article</value>
+        <value xml:lang="it">Associazioni a questo prodotto da</value>
+        <value xml:lang="ja">この製品に関連付け</value>
+        <value xml:lang="ro">Asociatii La acest Produs de la</value>
+        <value xml:lang="ru">Ассоциации к этому продукту от</value>
+        <value xml:lang="th">กลุ่มสินค้านี้จาก</value>
+        <value xml:lang="vi">Kết hợp ĐẾN sản phẩm này từ</value>
+        <value xml:lang="zh">关联到这个产品来自</value>
+        <value xml:lang="zh-TW">關聯到這個產品來自</value>
+    </property>
+    <property key="IconsTooltips_ProductFeature">
+        <value xml:lang="de">Produktmerkmale</value>
+        <value xml:lang="en">Product Features</value>
+        <value xml:lang="es">Características de un Producto</value>
+        <value xml:lang="fr">Caractéristiques d'articles</value>
+        <value xml:lang="it">caratteristiche prodotto</value>
+        <value xml:lang="ro">Caracteristici Produs</value>
+    </property>
+    <property key="IconsTooltips_Project"><!-- currently copy from ProjectMgrProjects but will change to more detail -->
+        <value xml:lang="de">Projekte</value>
+        <value xml:lang="en">Project</value>
+        <value xml:lang="fr">Projet</value>
+        <value xml:lang="it">Progetti</value>
+        <value xml:lang="nl">Projecten</value>
+        <value xml:lang="zh">项目</value>
+    </property>
+    <property key="IconsTooltips_PurchaseOrder"><!-- currently copy from OrderPurchaseOrder but will change to more detail -->
+        <value xml:lang="de">Beschaffungsauftrag</value>
+        <value xml:lang="en">Purchase Order</value>
+        <value xml:lang="es">Pedido de compra</value>
+        <value xml:lang="fr">Commande d'achat</value>
+        <value xml:lang="it">Ordine Acquisto</value>
+        <value xml:lang="ja">購買注文</value>
+        <value xml:lang="nl">Inkoopbestelling</value>
+        <value xml:lang="pt-BR">Pedido de compra</value>
+        <value xml:lang="ro">Comanda Cumparare</value>
+        <value xml:lang="ru">Закупочный заказ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Đặt hàng mua (PO)</value>
+        <value xml:lang="zh">购物订单</value>
+        <value xml:lang="zh-CN">采购订单</value>
+        <value xml:lang="zh-TW">購物訂單</value>
+    </property>
+    <property key="IconsTooltips_Quote"><!-- copy from OrderOrderQuote but but changed for french  -->
+        <value xml:lang="de">Offerte</value>
+        <value xml:lang="de-DE">Angebot</value>
+        <value xml:lang="en">Quote</value>
+        <value xml:lang="es">Presupuesto</value>
+        <value xml:lang="fr">Devis</value>
+        <value xml:lang="it">Preventivo</value>
+        <value xml:lang="nl">Offerte</value>
+        <value xml:lang="pt-BR">Cotação</value>
+        <value xml:lang="ro">Oferte</value>
+        <value xml:lang="ru">Предложение</value>
+        <value xml:lang="th">คำร้อง</value>
+        <value xml:lang="zh">询价</value>
+        <value xml:lang="zh-CN">报价</value>
+        <value xml:lang="zh-TW">報價</value>
+    </property>
+    <property key="IconsTooltips_Receipt"><!-- copy from ProductGoodsReceipt -->
+        <value xml:lang="en">Goods Receipt</value>
+        <value xml:lang="fr">Réception d'articles</value>
+        <value xml:lang="it">Ricezione bene</value>
+        <value xml:lang="ja">品目受取</value>
+        <value xml:lang="vi">Biên nhận hàng</value>
+        <value xml:lang="zh">商品收据</value>
+        <value xml:lang="zh-TW">成品收據</value>
+    </property>
+    <property key="IconsTooltips_Refresh"><!-- copy from CommonRefresh -->
+        <value xml:lang="ar">تحديث</value>
+        <value xml:lang="de">Aktualisieren</value>
+        <value xml:lang="en">Refresh</value>
+        <value xml:lang="es">Refrescar</value>
+        <value xml:lang="fr">Rafraichir</value>
+        <value xml:lang="hi-IN">पुनश्चर्या(Refresh)</value>
+        <value xml:lang="it">Rinfresca</value>
+        <value xml:lang="nl">Ververs</value>
+        <value xml:lang="pt">Actualizar</value>
+        <value xml:lang="pt-BR">Atualizar</value>
+        <value xml:lang="ro">Reimprospateaza</value>
+        <value xml:lang="ru">Обновить</value>
+        <value xml:lang="th">รีเฟรช</value>
+        <value xml:lang="zh">刷新</value>
+        <value xml:lang="zh-CN">刷新</value>
+        <value xml:lang="zh-TW">更新</value>
+    </property>
+    <property key="IconsTooltips_Request">
+        <value xml:lang="en">Request</value>
+        <value xml:lang="fr">Demandes</value>
+    </property>
+    <property key="IconsTooltips_Relation">
+        <value xml:lang="en">Relations</value>
+        <value xml:lang="fr">Relations</value>
+    </property>
+    <property key="IconsTooltips_Resource">
+        <value xml:lang="en">Material Resource</value>
+        <value xml:lang="fr">Ressource matériel</value>
+    </property>
+    <property key="IconsTooltips_Revision">
+        <value xml:lang="en">Revisions</value>
+        <value xml:lang="fr">Révisions</value>
+    </property>
+    <property key="IconsTooltips_Role">
+        <value xml:lang="en">Role</value>
+        <value xml:lang="fr">Rôle</value>
+    </property>
+    <property key="IconsTooltips_Run"><!-- copy from CommonRun but changed for french -->
+        <value xml:lang="ar">بدء</value>
+        <value xml:lang="de">Starten</value>
+        <value xml:lang="en">Run</value>
+        <value xml:lang="es">Iniciar</value>
+        <value xml:lang="fr">Démarrer la tâche (l'opération)</value>
+        <value xml:lang="hi-IN">चलाये</value>
+        <value xml:lang="it">Esegui</value>
+        <value xml:lang="nl">Run</value>
+        <value xml:lang="pt">Executar</value>
+        <value xml:lang="ro">Executa</value>
+        <value xml:lang="ru">Выполнить</value>
+        <value xml:lang="th">ดำเนินการ</value>
+        <value xml:lang="zh">运行</value>
+        <value xml:lang="zh-CN">运行</value>
+        <value xml:lang="zh-TW">運行</value>
+    </property>
+    <property key="IconsTooltips_Sales">
+        <value xml:lang="en">Sales</value>
+        <value xml:lang="fr">Ventes</value>
+    </property>
+    <property key="IconsTooltips_SaleOrder"><!-- copy from OrderSalesOrder  -->
+        <value xml:lang="de">Kundenauftrag</value>
+        <value xml:lang="en">Sales Order</value>
+        <value xml:lang="es">Pedido de venta</value>
+        <value xml:lang="fr">Commande de vente</value>
+        <value xml:lang="it">Ordine Vendita</value>
+        <value xml:lang="ja">販売注文</value>
+        <value xml:lang="nl">Verkoopbestelling</value>
+        <value xml:lang="pt-BR">Pedido de venda</value>
+        <value xml:lang="ro">Comanda Vanzare </value>
+        <value xml:lang="ru">Заказ на продажу</value>
+        <value xml:lang="th">รายการขาย</value>
+        <value xml:lang="vi">Đơn hàng bán</value>
+        <value xml:lang="zh">销售订单</value>
+        <value xml:lang="zh-CN">销售订单</value>
+        <value xml:lang="zh-TW">銷售訂單</value>
+    </property>
+    <property key="IconsTooltips_Save"><!-- Copy from CommonSave -->
+        <value xml:lang="ar">حفظ</value>
+        <value xml:lang="cs">Uložit</value>
+        <value xml:lang="de">Speichern</value>
+        <value xml:lang="en">Save</value>
+        <value xml:lang="es">Guardar</value>
+        <value xml:lang="fr">Enregistrer</value>
+        <value xml:lang="hi-IN">सुरक्षित करे</value>
+        <value xml:lang="it">Salva</value>
+        <value xml:lang="nl">Opslaan</value>
+        <value xml:lang="pt">Guardar</value>
+        <value xml:lang="pt-BR">Salvar</value>
+        <value xml:lang="ro">Salveaza</value>
+        <value xml:lang="ru">Сохранить</value>
+        <value xml:lang="th">บันทึก</value>
+        <value xml:lang="zh">保存</value>
+        <value xml:lang="zh-CN">保存</value>
+        <value xml:lang="zh-TW">儲存</value>
+    </property>
+    <property key="IconsTooltips_Select"><!-- copy from CommonSelect but changed for french -->
+        <value xml:lang="ar">إختر</value>
+        <value xml:lang="de">Auswählen</value>
+        <value xml:lang="en">Select</value>
+        <value xml:lang="es">Seleccionar</value>
+        <value xml:lang="fr">Afficher (et modifier) les critères de sélection de la liste</value>
+        <value xml:lang="hi-IN">चुनें</value>
+        <value xml:lang="it">Seleziona</value>
+        <value xml:lang="nl">Selecteer</value>
+        <value xml:lang="pt">Seleccionar</value>
+        <value xml:lang="pt-BR">Selecionar</value>
+        <value xml:lang="ro">Selectioneaza</value>
+        <value xml:lang="ru">Выбрать</value>
+        <value xml:lang="th">เลือก</value>
+        <value xml:lang="zh">选择</value>
+        <value xml:lang="zh-CN">选择</value>
+        <value xml:lang="zh-TW">選擇</value>
+    </property>
+    <property key="IconsTooltips_Server"><!-- copy from CommonServer but changed for french -->
+        <value xml:lang="en">Server</value>
+        <value xml:lang="fr">Serveur</value>
+    </property>
+    <property key="IconsTooltips_Shipment">
+        <value xml:lang="en">Shipment</value>
+        <value xml:lang="fr">Expédition</value>
+    </property>
+    <property key="IconsTooltips_ShipGroup">
+        <value xml:lang="en">ShipGroup</value>
+        <value xml:lang="fr">Groupe(s) d'expédition</value>
+    </property>
+    <property key="IconsTooltips_Skills">
+        <value xml:lang="en">Skills</value>
+        <value xml:lang="fr">Compétences</value>
+    </property>
+    <property key="IconsTooltips_Stop">
+        <value xml:lang="en">Stop the current task</value>
+        <value xml:lang="fr">Arrêter la tâche (ou l'opération) en cours</value>
+    </property>
+    <property key="IconsTooltips_Switch">
+        <value xml:lang="en">Switch the type</value>
+        <value xml:lang="fr">Changer le type</value>
+    </property>
+    <property key="IconsTooltips_Synchronize">
+        <value xml:lang="en">Synchronize</value>
+        <value xml:lang="fr">Synchroniser</value>
+    </property>
+    <property key="IconsTooltips_Task">
+        <value xml:lang="en">Task(s)</value>
+        <value xml:lang="fr">Tâche(s)</value>
+    </property>
+    <property key="IconsTooltips_Telephone"><!-- currently copy from PartyPhoneNumber but will change to more detail -->
+        <value xml:lang="cs">Telefonní číslo</value>
+        <value xml:lang="de">Telefonnummer</value>
+        <value xml:lang="en">Phone Number</value>
+        <value xml:lang="es">Número de Teléfono</value>
+        <value xml:lang="fr">N° de téléphone</value>
+        <value xml:lang="hi-IN">फोन नम्बर</value>
+        <value xml:lang="it">Numero di telefono</value>
+        <value xml:lang="ja">Phone Number</value>
+        <value xml:lang="nl">Telefoonnummer</value>
+        <value xml:lang="pt-BR">Número de telefone</value>
+        <value xml:lang="pt-PT">Número de Telefone</value>
+        <value xml:lang="ro">Numar Telefon</value>
+        <value xml:lang="ru">Телефонный номер</value>
+        <value xml:lang="th">เบอร์โทรศัพท์</value>
+        <value xml:lang="zh">电话号码</value>
+        <value xml:lang="zh-TW">電話號碼</value>
+    </property>
+    <property key="IconsTooltips_Template"><!-- currently copy from ContentTemplate but will change to more detail -->
+        <value xml:lang="ar">نموذج</value>
+        <value xml:lang="da">Skabelon</value>
+        <value xml:lang="de">Vorlage</value>
+        <value xml:lang="en">Template</value>
+        <value xml:lang="es">Plantilla</value>
+        <value xml:lang="fr">Modèle</value>
+        <value xml:lang="it">Template</value>
+        <value xml:lang="ro">Template</value>
+        <value xml:lang="th">รูปแบบ</value>
+        <value xml:lang="zh">模板</value>
+        <value xml:lang="zh-TW">範本</value>
+    </property>
+    <property key="IconsTooltips_TimeEntry">
+        <value xml:lang="en">Time Entry</value>
+        <value xml:lang="fr">Saisie(s) de temps</value>
+    </property>
+    <property key="IconsTooltips_Tools">
+        <value xml:lang="en">Tools</value>
+        <value xml:lang="fr">Outils</value>
+    </property>
+    <property key="IconsTooltips_Upload"><!-- copy from CommonUpload but changed for french -->
+        <value xml:lang="ar">الشحن الفوقي</value>
+        <value xml:lang="de">Hinaufladen</value>
+        <value xml:lang="en">Upload</value>
+        <value xml:lang="es">Cargar</value>
+        <value xml:lang="fr">Ajouter un document (télécharger celui-ci sur le serveur)</value>
+        <value xml:lang="hi-IN">अपलोड करें</value>
+        <value xml:lang="it">Carica</value>
+        <value xml:lang="nl">Upload</value>
+        <value xml:lang="pt">Upload</value>
+        <value xml:lang="pt-BR">Enviar</value>
+        <value xml:lang="ro">Incarca</value>
+        <value xml:lang="ru">Загрузить</value>
+        <value xml:lang="th">อัพโหลด</value>
+        <value xml:lang="zh">上传</value>
+        <value xml:lang="zh-CN">上传</value>
+        <value xml:lang="zh-TW">上傳</value>
+    </property>
+    <property key="IconsTooltips_UserAvAvai">
+        <value xml:lang="en">User Available</value>
+        <value xml:lang="fr">Utilisateur disponible</value>
+    </property>
+    <property key="IconsTooltips_UserAvAway">
+        <value xml:lang="en">User Away</value>
+        <value xml:lang="fr">Utilisateur absent</value>
+    </property>
+    <property key="IconsTooltips_UserAvBusy">
+        <value xml:lang="en">User Busy</value>
+        <value xml:lang="fr">Utilisateur occupé</value>
+    </property>
+    <property key="IconsTooltips_UserAvUnkn">
+        <value xml:lang="en">User Unknown</value>
+        <value xml:lang="fr">Utilisateur déconnecté</value>
+    </property>
+    <property key="IconsTooltips_UserLogin"><!-- copy from PartyUserLogin but changed for french -->
+        <value xml:lang="de">Benutzeranmeldung</value>
+        <value xml:lang="en">User Login</value>
+        <value xml:lang="es">Usuario</value>
+        <value xml:lang="fr">Identifiant de connexion associé</value>
+        <value xml:lang="hi-IN">प्रयोक्ता लॉगिन</value>
+        <value xml:lang="it">Utente Login</value>
+        <value xml:lang="nl">Gebruikersnaam</value>
+        <value xml:lang="pt-BR">Nome de usuário</value>
+        <value xml:lang="pt-PT">Início de Secção </value>
+        <value xml:lang="ro">Utilizator Login</value>
+        <value xml:lang="ru">Имя пользователя</value>
+        <value xml:lang="th">ผู้เข้าใช้ระบบ</value>
+        <value xml:lang="zh">用户登录</value>
+        <value xml:lang="zh-TW">用戶登錄</value>
+    </property>
+    <property key="IconsTooltips_Validate"><!-- copy from CommonValidate but changed for french -->
+        <value xml:lang="ar">الموافقة</value>
+        <value xml:lang="de">Überprüfen</value>
+        <value xml:lang="en">Validate</value>
+        <value xml:lang="es">Validar</value>
+        <value xml:lang="fr">Valider l'objet (passage au statut validé ou terminé ou fini)</value>
+        <value xml:lang="hi-IN">मान्य</value>
+        <value xml:lang="it">Validare</value>
+        <value xml:lang="nl">Testen</value>
+        <value xml:lang="pt">Validade</value>
+        <value xml:lang="pt-BR">Validar</value>
+        <value xml:lang="ro">Validare</value>
+        <value xml:lang="ru">Проверить достоверность</value>
+        <value xml:lang="th">มีผลวันที่</value>
+        <value xml:lang="zh">验证</value>
+        <value xml:lang="zh-CN">验证</value>
+        <value xml:lang="zh-TW">驗証</value>
+    </property>
+    <property key="IconsTooltips_View"><!-- copy from CommonView but changed for french -->
+        <value xml:lang="ar">مشهد</value>
+        <value xml:lang="cs">Náhled</value>
+        <value xml:lang="de">Sichten</value>
+        <value xml:lang="en">View</value>
+        <value xml:lang="es">Ver</value>
+        <value xml:lang="fr">Visualiser</value>
+        <value xml:lang="hi-IN">देखे</value>
+        <value xml:lang="it">Mostra</value>
+        <value xml:lang="nl">Bekijk</value>
+        <value xml:lang="pt">Vêr</value>
+        <value xml:lang="pt-BR">Visualizar</value>
+        <value xml:lang="ro">Afiseaza</value>
+        <value xml:lang="ru">Просмотреть</value>
+        <value xml:lang="th">แสดง</value>
+        <value xml:lang="zh">浏览</value>
+        <value xml:lang="zh-CN">查看</value>
+        <value xml:lang="zh-TW">瀏覽</value>
+    </property>
+    <property key="IconsTooltips_Www"><!-- copy from CommonWebSite but will change to more detail -->
+        <value xml:lang="ar">موقع الويب</value>
+        <value xml:lang="de">Webseite</value>
+        <value xml:lang="en">Website</value>
+        <value xml:lang="es">Sitio web</value>
+        <value xml:lang="fr">Site web</value>
+        <value xml:lang="hi-IN">वेबसाइट</value>
+        <value xml:lang="it">Sito web</value>
+        <value xml:lang="nl">Website</value>
+        <value xml:lang="pt">Website</value>
+        <value xml:lang="ro">Sit Web</value>
+        <value xml:lang="ru">Web сайт</value>
+        <value xml:lang="th">เว็บไซต์</value>
+        <value xml:lang="zh">网站</value>
+        <value xml:lang="zh-TW">網站</value>
+    </property>
+</resource>
