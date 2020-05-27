@@ -1607,6 +1607,7 @@ under the License.
                         </xs:enumeration>
                         <xs:enumeration value="set-watcher" />
                         <xs:enumeration value="refresh-watcher" />
+                        <xs:enumeration value="submit" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
