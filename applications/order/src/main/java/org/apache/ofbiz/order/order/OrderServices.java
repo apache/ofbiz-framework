@@ -1043,6 +1043,7 @@ public class OrderServices {
             delegator.storeAll(toBeStored);
 
             List<String> resErrorMessages = new LinkedList<>();
+            GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
 
             // add a product service to inventory
             if (UtilValidate.isNotEmpty(orderItems)) {
@@ -1076,14 +1077,13 @@ public class OrderServices {
 
                         Map<String, Object> ripCtx = new HashMap<>();
                         if (UtilValidate.isNotEmpty(inventoryFacilityId) && UtilValidate.isNotEmpty(productId) && orderItem.getBigDecimal("quantity").compareTo(BigDecimal.ZERO) > 0) {
-                            // do something tricky here: run as the "system" user
-                            GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
                             ripCtx.put("productId", productId);
                             ripCtx.put("facilityId", inventoryFacilityId);
                             ripCtx.put("inventoryItemTypeId", "SERIALIZED_INV_ITEM");
                             ripCtx.put("statusId","INV_AVAILABLE");
                             ripCtx.put("quantityAccepted", orderItem.getBigDecimal("quantity"));
                             ripCtx.put("quantityRejected", 0.0);
+                            // do something tricky here: run as the "system" user
                             ripCtx.put("userLogin", permUserLogin);
                             try {
                                 Map<String, Object> ripResult = dispatcher.runSync("receiveInventoryProduct", ripCtx);
@@ -1103,7 +1103,7 @@ public class OrderServices {
 
             // START inventory reservation
             try {
-                reserveInventory(delegator, dispatcher, userLogin, locale, orderItemShipGroupInfo, dropShipGroupIds, itemValuesBySeqId,
+                reserveInventory(delegator, dispatcher, permUserLogin, locale, orderItemShipGroupInfo, dropShipGroupIds, itemValuesBySeqId,
                         orderTypeId, productStoreId, resErrorMessages);
             } catch (GeneralException e) {
                 return ServiceUtil.returnError(e.getMessage());
