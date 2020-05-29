@@ -50,7 +50,7 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
+        <menu-item name="viewroles" title="${uiLabelMap.CommonRoles}">
             <link target="viewroles">
                 <parameter param-name="partyId"/>
             </link>
@@ -77,11 +77,6 @@
         </menu-item>
         <menu-item name="EditPartyTaxAuthInfos" title="${uiLabelMap.PartyTaxAuthInfos}">
             <link target="EditPartyTaxAuthInfos">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
-        <menu-item name="EditPartyRates" title="${uiLabelMap.CommonRates}">
-            <link target="EditPartyRates">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
