@@ -746,22 +746,24 @@ def checkCanChangeShipmentStatusGeneral(Map inputParameters) {
     }
     Boolean hasPermission = serviceResult.hasPermission
     GenericValue testShipment = from("Shipment").where(inputParameters).cache().queryOne()
+    if (testShipment) {
 
-    boolean badMoveToPacked = testShipment.statusId == "SHIPMENT_PACKED" && fromStatusId == "SHIPMENT_PACKED"
-    boolean badMoveToShipped = testShipment.statusId == "SHIPMENT_SHIPPED" &&
-            ["SHIPMENT_PACKED", "SHIPMENT_SHIPPED"].contains(fromStatusId)
-    boolean badMoveToDelivered = testShipment.statusId == "SHIPMENT_DELIVERED" &&
-            ["SHIPMENT_PACKED", "SHIPMENT_SHIPPED", "SHIPMENT_DELIVERED"].contains(fromStatusId)
+        boolean badMoveToPacked = testShipment.statusId == "SHIPMENT_PACKED" && fromStatusId == "SHIPMENT_PACKED"
+        boolean badMoveToShipped = testShipment.statusId == "SHIPMENT_SHIPPED" &&
+                ["SHIPMENT_PACKED", "SHIPMENT_SHIPPED"].contains(fromStatusId)
+        boolean badMoveToDelivered = testShipment.statusId == "SHIPMENT_DELIVERED" &&
+                ["SHIPMENT_PACKED", "SHIPMENT_SHIPPED", "SHIPMENT_DELIVERED"].contains(fromStatusId)
 
-    if (badMoveToPacked || badMoveToShipped || badMoveToDelivered
-            || testShipment.statusId == "SHIPMENT_CANCELLED") {
-        GenericValue testShipmentStatus = testShipment.getRelatedOne("StatusItem", true)
-        Map testShipmentMap = [testShipment: testShipment,
-                               testShipmentStatus: testShipmentStatus]
-        String failMessage = UtilProperties.getMessage("ProductErrorUiLabels",
-                "ShipmentCanChangeStatusPermissionError", testShipmentMap, locale)
-        hasPermission = false
-        result.failMessage = failMessage
+        if (badMoveToPacked || badMoveToShipped || badMoveToDelivered
+                || testShipment.statusId == "SHIPMENT_CANCELLED") {
+            GenericValue testShipmentStatus = testShipment.getRelatedOne("StatusItem", true)
+            Map testShipmentMap = [testShipment      : testShipment,
+                                   testShipmentStatus: testShipmentStatus]
+            String failMessage = UtilProperties.getMessage("ProductErrorUiLabels",
+                    "ShipmentCanChangeStatusPermissionError", testShipmentMap, locale)
+            hasPermission = false
+            result.failMessage = failMessage
+        }
     }
     result.hasPermission = hasPermission
     return result
