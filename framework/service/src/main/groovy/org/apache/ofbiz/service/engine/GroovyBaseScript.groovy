@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.engine
 
-import java.util.Map
-
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
@@ -33,8 +31,8 @@ abstract class GroovyBaseScript extends Script {
     public static final String module = GroovyBaseScript.class.getName()
 
     Map runService(String serviceName, Map inputMap) throws ExecutionServiceException {
-        LocalDispatcher dispatcher = binding.getVariable('dispatcher');
-        DispatchContext dctx = dispatcher.getDispatchContext();
+        LocalDispatcher dispatcher = binding.getVariable('dispatcher')
+        DispatchContext dctx = dispatcher.getDispatchContext()
         if (!inputMap.userLogin) {
             inputMap.userLogin = this.binding.getVariable('parameters').userLogin
         }
