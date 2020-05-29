@@ -105,11 +105,6 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="EditPartySkills" title="${uiLabelMap.CommonPartySkills}">
-            <link target="EditPartySkills">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
         <menu-item name="EditPartyResumes" title="${uiLabelMap.HumanResPartyResume}">
             <link target="EditPartyResumes">
                 <parameter param-name="partyId"/>
