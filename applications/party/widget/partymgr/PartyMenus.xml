@@ -105,11 +105,6 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="EditEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
-            <link target="EditEmploymentApps">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
         <menu-item name="FinancialHistory" title="${uiLabelMap.PartyFinancialHistory}">
             <condition>
                 <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
