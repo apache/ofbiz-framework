@@ -113,7 +113,7 @@ def createContentAlternativeUrl() {
                             dataResourceId = serviceResult.dataResourceId
                         }
                     } catch (GenericServiceException e) {
-                        logInfo(e)
+                        logInfo(e.getMessage())
                     }
                     if (dataResourceId) {
                         serviceContext.clear()
@@ -127,7 +127,7 @@ def createContentAlternativeUrl() {
                                 contentIdTo = serviceResult.contentId
                             }
                         } catch (GenericServiceException e) {
-                            logInfo(e)
+                            logInfo(e.getMessage())
                         }
                         if (contentIdTo) {
                             serviceContext.clear()
@@ -141,7 +141,7 @@ def createContentAlternativeUrl() {
                                     contentIdTo = serviceResult.contentId
                                 }
                             } catch (GenericServiceException e) {
-                                logInfo(e)
+                                logInfo(e.getMessage())
                             }
                         }
                     }
@@ -163,7 +163,7 @@ def createContentAlternativeUrl() {
                                 contentIdTo = serviceResult.contentId
                             }
                         } catch (GenericServiceException e) {
-                            logInfo(e)
+                            logInfo(e.getMessage())
                         }
                         contentCreated = "Y"
                     }
