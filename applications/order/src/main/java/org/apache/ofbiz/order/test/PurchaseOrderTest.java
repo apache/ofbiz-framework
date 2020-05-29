@@ -32,7 +32,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
 import org.apache.ofbiz.service.ServiceUtil;
 
 public class PurchaseOrderTest extends OFBizTestCase {
-    public static final String MODULE = OFBizTestCase.class.getName();
+    private static final String MODULE = OFBizTestCase.class.getName();
 
     protected String orderId = null;
     protected String statusId = null;

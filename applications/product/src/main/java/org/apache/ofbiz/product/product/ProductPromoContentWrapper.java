@@ -56,7 +56,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class ProductPromoContentWrapper implements ContentWrapper {
 
-    public static final String MODULE = ProductPromoContentWrapper.class.getName();
+    private static final String MODULE = ProductPromoContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
 
     private static final UtilCache<String, String> productPromoContentCache = UtilCache.createUtilCache("product.promo.content.rendered", true);

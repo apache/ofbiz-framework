@@ -50,8 +50,8 @@ import com.ibm.icu.util.Calendar;
  */
 public class TechDataServices {
 
-    public static final String MODULE = TechDataServices.class.getName();
-    public static final String resource = "ManufacturingUiLabels";
+    private static final String MODULE = TechDataServices.class.getName();
+    private static final String RESOURCE = "ManufacturingUiLabels";
 
     /**
      *
@@ -87,7 +87,7 @@ public class TechDataServices {
                     .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingTechDataWorkEffortNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (listRoutingTask == null) {
             listRoutingTask = new LinkedList<>();
@@ -131,7 +131,7 @@ public class TechDataServices {
                     .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingTechDataWorkEffortAssocNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortAssocNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         if (listRoutingTaskAssoc != null) {

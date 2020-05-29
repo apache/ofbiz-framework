@@ -38,8 +38,8 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.party.party.PartyHelper;
 
 public class HumanResEvents {
-    public static final String MODULE = HumanResEvents.class.getName();
-    public static final String resourceError = "HumanResErrorUiLabels";
+    private static final String MODULE = HumanResEvents.class.getName();
+    private static final String RES_ERROR = "HumanResErrorUiLabels";
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
     public static String getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response){

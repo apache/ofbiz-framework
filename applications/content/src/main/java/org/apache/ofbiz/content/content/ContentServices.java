@@ -56,8 +56,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ContentServices {
 
-    public static final String MODULE = ContentServices.class.getName();
-    public static final String resource = "ContentUiLabels";
+    private static final String MODULE = ContentServices.class.getName();
+    private static final String RESOURCE = "ContentUiLabels";
 
     /**
      * findRelatedContent Finds the related
@@ -85,7 +85,7 @@ public class ContentServices {
         try {
             contentList = ContentWorker.getAssociatedContent(currentContent, toFrom, assocTypes, contentTypes, fromDate, thruDate);
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         if (UtilValidate.isEmpty(targetOperations)) {
@@ -109,7 +109,7 @@ public class ContentServices {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPermissionNotGranted", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPermissionNotGranted", locale));
             }
 
             String permissionStatus = (String) permResults.get("permissionStatus");
@@ -188,7 +188,7 @@ public class ContentServices {
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
         }
 
         String fromDateStr = (String) context.get("fromDateStr");
@@ -267,11 +267,11 @@ public class ContentServices {
             contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where(pk).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         if (contentAssoc == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocDeactivatingError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocDeactivatingError", locale));
         }
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -299,7 +299,7 @@ public class ContentServices {
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPermissionNotGranted", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPermissionNotGranted", locale));
         }
         permissionStatus = (String) permResults.get("permissionStatus");
 
@@ -338,7 +338,7 @@ public class ContentServices {
             if (fromDate != null) {
                 activeAssoc = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", activeContentId, "contentIdTo", contentIdTo, "fromDate", fromDate, "contentAssocTypeId", contentAssocTypeId).queryOne();
                 if (activeAssoc == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocNotFound", UtilMisc.toMap("activeContentId", activeContentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocNotFound", UtilMisc.toMap("activeContentId", activeContentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), locale));
                 }
                 sequenceNum = (String) activeAssoc.get("sequenceNum");
             }

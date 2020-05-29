@@ -77,8 +77,8 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class WorkEffortSearch {
 
-    public static final String MODULE = WorkEffortSearch.class.getName();
-    public static final String resource = "WorkEffortUiLabels";
+    private static final String MODULE = WorkEffortSearch.class.getName();
+    private static final String RESOURCE = "WorkEffortUiLabels";
 
     public static ArrayList<String> searchWorkEfforts(List<? extends WorkEffortSearchConstraint> workEffortSearchConstraintList, ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
         WorkEffortSearchContext workEffortSearchContext = new WorkEffortSearchContext(delegator, visitId);
@@ -560,7 +560,7 @@ public class WorkEffortSearch {
             }
 
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortAssoc", locale) + ": ");
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "WorkEffortAssoc", locale) + ": ");
             if (workEffort != null) {
                 ppBuf.append(workEffort.getString("workEffortName"));
             }
@@ -580,7 +580,7 @@ public class WorkEffortSearch {
                 }
             }
             if (this.includeSubWorkEfforts) {
-                ppBuf.append(" (").append(UtilProperties.getMessage(resource, "WorkEffortIncludeAllSubWorkEfforts", locale)).append(")");
+                ppBuf.append(" (").append(UtilProperties.getMessage(RESOURCE, "WorkEffortIncludeAllSubWorkEfforts", locale)).append(")");
             }
             return ppBuf.toString();
         }
@@ -656,8 +656,8 @@ public class WorkEffortSearch {
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortReviews", locale) + ": \"");
-            ppBuf.append(this.reviewTextString).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale)).append(" ");
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "WorkEffortReviews", locale) + ": \"");
+            ppBuf.append(this.reviewTextString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordWhere", locale)).append(" ");
             return ppBuf.toString();
         }
 
@@ -992,9 +992,9 @@ public class WorkEffortSearch {
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortKeywords", locale)).append(": \"");
-            ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale)).append(" ");
-            ppBuf.append(isAnd ? UtilProperties.getMessage(resource, "WorkEffortKeywordAllWordsMatch", locale) : UtilProperties.getMessage(resource, "WorkEffortKeywordAnyWordMatches", locale));
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "WorkEffortKeywords", locale)).append(": \"");
+            ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordWhere", locale)).append(" ");
+            ppBuf.append(isAnd ? UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordAllWordsMatch", locale) : UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordAnyWordMatches", locale));
             return ppBuf.toString();
         }
 
@@ -1094,8 +1094,8 @@ public class WorkEffortSearch {
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(": \"");
-            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(" ");
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "WorkEffortLastModified", locale)).append(": \"");
+            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(RESOURCE, "WorkEffortLastModified", locale)).append(" ");
             return ppBuf.toString();
         }
 
@@ -1175,7 +1175,7 @@ public class WorkEffortSearch {
 
         @Override
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(resource, "WorkEffortKeywordRelevancy", locale);
+            return UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordRelevancy", locale);
         }
 
         @Override
@@ -1222,13 +1222,13 @@ public class WorkEffortSearch {
         @Override
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
             if ("workEffortName".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "WorkEffortName", locale);
+                return UtilProperties.getMessage(RESOURCE, "WorkEffortName", locale);
             } else if ("totalQuantityOrdered".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "WorkEffortPopularityByOrders", locale);
+                return UtilProperties.getMessage(RESOURCE, "WorkEffortPopularityByOrders", locale);
             } else if ("totalTimesViewed".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "WorkEffortPopularityByViews", locale);
+                return UtilProperties.getMessage(RESOURCE, "WorkEffortPopularityByViews", locale);
             } else if ("averageCustomerRating".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "WorkEffortCustomerRating", locale);
+                return UtilProperties.getMessage(RESOURCE, "WorkEffortCustomerRating", locale);
             }
             return this.fieldName;
         }

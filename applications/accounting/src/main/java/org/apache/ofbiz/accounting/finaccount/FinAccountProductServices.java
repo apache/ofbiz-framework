@@ -50,9 +50,9 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class FinAccountProductServices {
 
-    public static final String MODULE = FinAccountProductServices.class.getName();
-    public static final String resourceOrderError = "OrderErrorUiLabels";
-    public static final String resourceError = "AccountingErrorUiLabels";
+    private static final String MODULE = FinAccountProductServices.class.getName();
+    private static final String RES_ORDERError = "OrderErrorUiLabels";
+    private static final String RES_ERROR = "AccountingErrorUiLabels";
 
     public static Map<String, Object> createPartyFinAccountFromPurchase(DispatchContext dctx, Map<String, Object> context) {
         // this service should always be called via FULFILLMENT_EXTASYNC
@@ -72,7 +72,7 @@ public class FinAccountProductServices {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDERError,
                     "OrderCannotGetOrderHeader", UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -129,7 +129,7 @@ public class FinAccountProductServices {
         }
         if (productStoreId == null) {
             Debug.logFatal("Unable to create financial accout; no productStoreId on OrderHeader : " + orderId, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingFinAccountCannotCreate",
                     UtilMisc.toMap("orderId", orderId), locale));
         }

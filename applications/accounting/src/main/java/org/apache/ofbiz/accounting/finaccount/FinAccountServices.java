@@ -50,8 +50,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class FinAccountServices {
 
-    public static final String MODULE = FinAccountServices.class.getName();
-    public static final String resourceError = "AccountingErrorUiLabels";
+    private static final String MODULE = FinAccountServices.class.getName();
+    private static final String RES_ERROR = "AccountingErrorUiLabels";
 
     public static Map<String, Object> createAccountAndCredit(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -151,7 +151,7 @@ public class FinAccountServices {
                     }
                 }
                 if (creditAccount == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "AccountingFinAccountCannotCreditAccount", locale));
                 }
             }
@@ -193,7 +193,7 @@ public class FinAccountServices {
             GenericValue productStoreFinAccountSetting = EntityQuery.use(delegator).from("ProductStoreFinActSetting")
                     .where("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId).cache().queryOne();
             if (productStoreFinAccountSetting == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingFinAccountSetting",
                         UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId),
                         locale));
@@ -271,7 +271,7 @@ public class FinAccountServices {
             }
         }
         if (finAccount == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", finAccountId), locale));
         }
 
@@ -302,7 +302,7 @@ public class FinAccountServices {
         Locale locale = (Locale) context.get("locale");
 
         if (finAccountId == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", ""), locale));
         }
 
@@ -363,7 +363,7 @@ public class FinAccountServices {
         if (finAccount != null) {
             // check to make sure the account is refundable
             if (!"Y".equals(finAccount.getString("isRefundable"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingFinAccountIsNotRefundable", locale));
             }
 
@@ -374,7 +374,7 @@ public class FinAccountServices {
             // if they do not match, then there are outstanding authorizations which need to
             // be settled first
             if (actualBalance.compareTo(availableBalance) != 0) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingFinAccountCannotBeRefunded", locale));
             }
 
@@ -498,7 +498,7 @@ public class FinAccountServices {
 
                 // check to make sure we balanced out
                 if (remainingBalance.compareTo(FinAccountHelper.ZERO) == 1) {
-                    result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resourceError,
+                    result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RES_ERROR,
                             "AccountingFinAccountPartiallyRefunded", locale));
                 }
             }

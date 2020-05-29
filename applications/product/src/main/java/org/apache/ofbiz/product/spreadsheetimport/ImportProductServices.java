@@ -45,8 +45,8 @@ import org.apache.poi.ss.usermodel.CellType;
 
 public class ImportProductServices {
 
-    public static final String MODULE = ImportProductServices.class.getName();
-    public static final String resource = "ProductUiLabels";
+    private static final String MODULE = ImportProductServices.class.getName();
+    private static final String RESOURCE = "ProductUiLabels";
 
     /**
      * This method is responsible to import spreadsheet data into "Product" and
@@ -77,7 +77,7 @@ public class ImportProductServices {
                 // loop for all the containing xls file in the spreadsheet
                 // directory
                 if (files == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "FileFilesIsNull", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "FileFilesIsNull", locale));
                 }
                 for (File file : files) {
                     if (file.getName().toUpperCase(Locale.getDefault()).endsWith("XLS")) {
@@ -85,16 +85,16 @@ public class ImportProductServices {
                     }
                 }
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductProductImportDirectoryNotFound", locale));
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductProductImportPathNotSpecified", locale));
         }
 
         if (fileItems.size() < 1) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductProductImportPathNoSpreadsheetExists", locale) + path);
         }
 
@@ -109,7 +109,7 @@ public class ImportProductServices {
                 wb = new HSSFWorkbook(fs);
             } catch (IOException e) {
                 Debug.logError("Unable to read or create workbook from file", MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductProductImportCannotCreateWorkbookFromFile", locale));
             }
 
@@ -163,7 +163,7 @@ public class ImportProductServices {
                         delegator.create(inventoryItemGV);
                     } catch (GenericEntityException e) {
                         Debug.logError("Cannot store product", MODULE);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                                 "ProductProductImportCannotStoreProduct", locale));
                     }
                 }

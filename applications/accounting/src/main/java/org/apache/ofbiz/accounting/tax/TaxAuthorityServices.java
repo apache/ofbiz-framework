@@ -54,14 +54,14 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class TaxAuthorityServices {
 
-    public static final String MODULE = TaxAuthorityServices.class.getName();
+    private static final String MODULE = TaxAuthorityServices.class.getName();
     public static final BigDecimal ZERO_BASE = BigDecimal.ZERO;
     public static final BigDecimal ONE_BASE = BigDecimal.ONE;
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
     public static final int salestaxFinalDecimals = UtilNumber.getBigDecimalScale("salestax.final.decimals");
     public static final int salestaxCalcDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final RoundingMode salestaxRounding = UtilNumber.getRoundingMode("salestax.rounding");
-    public static final String resource = "AccountingUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
 
     public static Map<String, Object> rateProductTaxCalcForDisplay(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -148,7 +148,7 @@ public class TaxAuthorityServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
 
@@ -192,7 +192,7 @@ public class TaxAuthorityServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
 
@@ -212,15 +212,15 @@ public class TaxAuthorityServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                         .toMap("errorString", e.toString()), locale));
             }
         }
         if (shippingAddress == null || (shippingAddress.get("countryGeoId") == null && shippingAddress.get(
                 "stateProvinceGeoId") == null && shippingAddress.get("postalCodeGeoId") == null)) {
-            String errMsg = UtilProperties.getMessage(resource, "AccountingTaxNoAddressSpecified", locale);
+            String errMsg = UtilProperties.getMessage(RESOURCE, "AccountingTaxNoAddressSpecified", locale);
             if (shippingAddress != null) {
-                errMsg += UtilProperties.getMessage(resource, "AccountingTaxNoAddressSpecifiedDetails", UtilMisc.toMap(
+                errMsg += UtilProperties.getMessage(RESOURCE, "AccountingTaxNoAddressSpecifiedDetails", UtilMisc.toMap(
                         "contactMechId", shippingAddress.getString("contactMechId"), "address1", shippingAddress.get(
                                 "address1"), "postalCodeGeoId", shippingAddress.get("postalCodeGeoId"),
                         "stateProvinceGeoId", shippingAddress.get("stateProvinceGeoId"), "countryGeoId", shippingAddress
@@ -237,7 +237,7 @@ public class TaxAuthorityServices {
             getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
 

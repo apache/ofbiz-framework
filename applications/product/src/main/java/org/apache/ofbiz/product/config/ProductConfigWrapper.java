@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class ProductConfigWrapper implements Serializable {
 
-    public static final String MODULE = ProductConfigWrapper.class.getName();
+    private static final String MODULE = ProductConfigWrapper.class.getName();
 
     protected transient LocalDispatcher dispatcher;
     protected String dispatcherName;

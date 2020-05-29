@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.GenericValue;
  */
 public class ProductStoreSurveyWrapper extends SurveyWrapper {
 
-    public static final String MODULE = ProductStoreSurveyWrapper.class.getName();
+    private static final String MODULE = ProductStoreSurveyWrapper.class.getName();
 
     protected GenericValue productStoreSurveyAppl = null;
     protected String surveyTemplate = null;

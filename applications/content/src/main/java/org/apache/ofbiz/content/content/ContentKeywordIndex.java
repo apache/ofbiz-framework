@@ -43,7 +43,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public class ContentKeywordIndex {
 
-    public static final String MODULE = ContentKeywordIndex.class.getName();
+    private static final String MODULE = ContentKeywordIndex.class.getName();
 
     public static void forceIndexKeywords(GenericValue content) throws GenericEntityException {
         ContentKeywordIndex.indexKeywords(content, true);

@@ -56,7 +56,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class PromoServices {
 
     public final static String MODULE = PromoServices.class.getName();
-    public static final String resource = "ProductUiLabels";
+    private static final String RESOURCE = "ProductUiLabels";
     private final static char[] smartChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
             'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
 
@@ -79,7 +79,7 @@ public class PromoServices {
 
         String newPromoCodeId = "";
         StringBuilder bankOfNumbers = new StringBuilder();
-        bankOfNumbers.append(UtilProperties.getMessage(resource, "ProductPromoCodesCreated", locale));
+        bankOfNumbers.append(UtilProperties.getMessage(RESOURCE, "ProductPromoCodesCreated", locale));
         for (long i = 0; i < quantity; i++) {
             Map<String, Object> createProductPromoCodeMap = null;
             boolean foundUniqueNewCode = false;
@@ -112,11 +112,11 @@ public class PromoServices {
                 newContext.put("productPromoCodeId", newPromoCodeId);
                 createProductPromoCodeMap = dispatcher.runSync("createProductPromoCode", newContext);
             } catch (GenericServiceException err) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductPromoCodeCannotBeCreated", locale), null, null, null);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductPromoCodeCannotBeCreated", locale), null, null, null);
             }
             if (ServiceUtil.isError(createProductPromoCodeMap)) {
                 // what to do here? try again?
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductPromoCodeCannotBeCreated", locale), null, null, createProductPromoCodeMap);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductPromoCodeCannotBeCreated", locale), null, null, createProductPromoCodeMap);
             }
             bankOfNumbers.append((String) createProductPromoCodeMap.get("productPromoCodeId"));
             bankOfNumbers.append(",");
@@ -148,7 +148,7 @@ public class PromoServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error removing expired ProductStorePromo records: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPromoCodeCannotBeRemoved", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -162,7 +162,7 @@ public class PromoServices {
         // check the uploaded file
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         if (fileBytes == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPromoCodeImportUploadedFileNotValid", locale));
         }
 
@@ -202,7 +202,7 @@ public class PromoServices {
                         }
                     } else {
                         // not valid ignore and notify
-                        errors.add(line + UtilProperties.getMessage(resource, "ProductPromoCodeInvalidCode", locale));
+                        errors.add(line + UtilProperties.getMessage(RESOURCE, "ProductPromoCodeInvalidCode", locale));
                     }
                     ++lines;
                 }
@@ -222,7 +222,7 @@ public class PromoServices {
         if (errors.size() > 0) {
             return ServiceUtil.returnError(errors);
         } else if (lines == 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPromoCodeImportEmptyFile", locale));
         }
 
@@ -238,7 +238,7 @@ public class PromoServices {
         ByteBuffer bytebufferwrapper = (ByteBuffer) context.get("uploadedFile");
 
         if (bytebufferwrapper == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductPromoCodeImportUploadedFileNotValid", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductPromoCodeImportUploadedFileNotValid", locale));
         }
 
         byte[] wrapper = bytebufferwrapper.array();
@@ -310,7 +310,7 @@ public class PromoServices {
         if (errors.size() > 0) {
             return ServiceUtil.returnError(errors);
         } else if (lines == 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPromoCodeImportEmptyFile", locale));
         }
 

@@ -53,7 +53,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class WorkEffortContentWrapper implements ContentWrapper {
 
-    public static final String MODULE = WorkEffortContentWrapper.class.getName();
+    private static final String MODULE = WorkEffortContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
 
     private static final UtilCache<String, String> workEffortContentCache = UtilCache.createUtilCache("workeffort.content.rendered", true);

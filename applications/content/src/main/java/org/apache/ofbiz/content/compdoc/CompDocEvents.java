@@ -52,7 +52,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  * CompDocEvents Class
  */
 public class CompDocEvents {
-    public static final String MODULE = CompDocEvents.class.getName();
+    private static final String MODULE = CompDocEvents.class.getName();
 
     /**
      *

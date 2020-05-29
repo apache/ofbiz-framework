@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class DataEvents {
 
-    public static final String MODULE = DataEvents.class.getName();
+    private static final String MODULE = DataEvents.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     public static String uploadImage(HttpServletRequest request, HttpServletResponse response) {
@@ -109,7 +109,7 @@ public class DataEvents {
             return "error";
         }
 
-        // get the data resource
+        // get the data RESOURCE
         GenericValue dataResource;
         try {
             dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
@@ -119,7 +119,7 @@ public class DataEvents {
             return "error";
         }
 
-        // make sure the data resource exists
+        // make sure the data RESOURCE exists
         if (dataResource == null) {
             String errorMsg = "No Data Resource found for ID: " + dataResourceId;
             Debug.logError(errorMsg, MODULE);
@@ -127,7 +127,7 @@ public class DataEvents {
             return "error";
         }
 
-        // see if data resource is public or not
+        // see if data RESOURCE is public or not
         String isPublic = dataResource.getString("isPublic");
         if (UtilValidate.isEmpty(isPublic)) {
             isPublic = "N";
@@ -183,7 +183,7 @@ public class DataEvents {
             https = "true";
         }
 
-        // get the data resource stream and content length
+        // get the data RESOURCE stream and content length
         Map<String, Object> resourceData;
         try {
             resourceData = DataResourceWorker.getDataResourceStream(dataResource, https, webSiteId, locale, contextRoot, false);
@@ -201,7 +201,7 @@ public class DataEvents {
             stream = (InputStream) resourceData.get("stream");
             length = (Long) resourceData.get("length");
         }
-        Debug.logInfo("Got resource data stream: " + length + " bytes", MODULE);
+        Debug.logInfo("Got RESOURCE data stream: " + length + " bytes", MODULE);
 
         // stream the content to the browser
         if (stream != null && length != null) {

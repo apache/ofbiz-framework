@@ -44,7 +44,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class FinAccountHelper {
 
-     public static final String MODULE = FinAccountHelper.class.getName();
+     private static final String MODULE = FinAccountHelper.class.getName();
      /**
       * A word on precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers.
       */

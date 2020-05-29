@@ -30,7 +30,7 @@ import org.apache.ofbiz.base.util.ObjectType;
 
 public class RitaApi {
 
-    public static final String MODULE = RitaApi.class.getName();
+    private static final String MODULE = RitaApi.class.getName();
     public static final String xschema = "x-schema:..\\dtd\\stnd.xdr";
     public static final String rootElement = "XML_FILE";
     public static final String reqElement = "XML_REQUEST";

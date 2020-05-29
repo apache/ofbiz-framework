@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class BOMHelper {
 
-    public static final String MODULE = BOMHelper.class.getName();
+    private static final String MODULE = BOMHelper.class.getName();
 
     /** Creates a new instance of BOMHelper */
     private BOMHelper() {

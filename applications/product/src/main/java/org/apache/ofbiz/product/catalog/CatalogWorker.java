@@ -46,7 +46,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public final class CatalogWorker {
 
-    public static final String MODULE = CatalogWorker.class.getName();
+    private static final String MODULE = CatalogWorker.class.getName();
 
     private CatalogWorker () {}
 

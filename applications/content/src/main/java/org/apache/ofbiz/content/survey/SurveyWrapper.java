@@ -60,7 +60,7 @@ import freemarker.template.TemplateException;
  */
 public class SurveyWrapper {
 
-    public static final String MODULE = SurveyWrapper.class.getName();
+    private static final String MODULE = SurveyWrapper.class.getName();
 
     protected Delegator delegator = null;
     protected String responseId = null;

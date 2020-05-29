@@ -42,7 +42,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
 public class ConvertTree{
-    public static final String MODULE = ConvertTree.class.getName();
+    private static final String MODULE = ConvertTree.class.getName();
 
 /*
 

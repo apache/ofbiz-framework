@@ -35,7 +35,7 @@ import com.ibm.icu.math.BigDecimal;
  */
 public class TaxwareServices {
     
-    public static final String MODULE = TaxwareServices.class.getName();
+    private static final String MODULE = TaxwareServices.class.getName();
 
     public static Map calcTax(DispatchContext dctx, Map context) {
         Map result = new HashMap();

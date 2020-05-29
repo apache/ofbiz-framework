@@ -50,7 +50,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class PartyWorker {
 
-    public static final String MODULE = PartyWorker.class.getName();
+    private static final String MODULE = PartyWorker.class.getName();
 
     private PartyWorker() {}
 

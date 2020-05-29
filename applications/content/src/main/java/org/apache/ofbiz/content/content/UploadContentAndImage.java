@@ -63,7 +63,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class UploadContentAndImage {
 
-    public static final String MODULE = UploadContentAndImage.class.getName();
+    private static final String MODULE = UploadContentAndImage.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     public UploadContentAndImage() {}

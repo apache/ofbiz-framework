@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 @SuppressWarnings("serial")
 public class SeoCatalogUrlServlet extends HttpServlet {
 
-    public static final String MODULE = SeoCatalogUrlServlet.class.getName();
+    private static final String MODULE = SeoCatalogUrlServlet.class.getName();
     public static final String CATALOG_URL_MOUNT_POINT = "products";
     public static final String PRODUCT_REQUEST = "product";
     public static final String CATEGORY_REQUEST = "category";

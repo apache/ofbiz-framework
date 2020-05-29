@@ -44,12 +44,11 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class AgreementServices {
 
-    public static final String MODULE = AgreementServices.class.getName();
+    private static final String MODULE = AgreementServices.class.getName();
     // set some BigDecimal properties
     public static final int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
     public static final RoundingMode rounding = UtilNumber.getRoundingMode("finaccount.rounding");
     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
-    public static final String resource = "AccountingUiLabels";
 
     /**
      * Determines commission receiving parties and amounts for the provided product, price, and quantity

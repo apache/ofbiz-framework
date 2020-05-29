@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class CategoryContentWrapper implements ContentWrapper {
 
-    public static final String MODULE = CategoryContentWrapper.class.getName();
+    private static final String MODULE = CategoryContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
     private static final UtilCache<String, String> categoryContentCache = UtilCache.createUtilCache("category.content", true); // use soft reference to free up memory if needed
 

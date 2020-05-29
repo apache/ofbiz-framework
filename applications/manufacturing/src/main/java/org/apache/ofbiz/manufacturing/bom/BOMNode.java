@@ -46,7 +46,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 
 public class BOMNode {
-    public static final String MODULE = BOMNode.class.getName();
+    private static final String MODULE = BOMNode.class.getName();
 
     protected LocalDispatcher dispatcher = null;
     protected Delegator delegator = null;

@@ -36,7 +36,7 @@ import org.apache.ofbiz.webapp.stats.VisitHandler;
  */
 public class CartEventListener implements HttpSessionListener {
 
-    public static final String MODULE = CartEventListener.class.getName();
+    private static final String MODULE = CartEventListener.class.getName();
 
     public CartEventListener() {}
 

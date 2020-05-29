@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
 
 public class PcChargeApi {
 
-    public static final String MODULE = PcChargeApi.class.getName();
+    private static final String MODULE = PcChargeApi.class.getName();
     public static final String xschema = "x-schema:..\\dtd\\stnd.xdr";
     public static final String rootElement = "XML_FILE";
     public static final String reqElement = "XML_REQUEST";

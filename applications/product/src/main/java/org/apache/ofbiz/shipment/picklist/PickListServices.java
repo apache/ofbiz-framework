@@ -37,7 +37,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class PickListServices {
 
-    public static final String MODULE = PickListServices.class.getName();
+    private static final String MODULE = PickListServices.class.getName();
 
     public static Map<String, Object> convertOrderIdListToHeaders(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();

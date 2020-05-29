@@ -49,7 +49,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class OrderTestServices {
 
-    public static final String MODULE = OrderTestServices.class.getName();
+    private static final String MODULE = OrderTestServices.class.getName();
 
     public static Map<String, Object> createTestSalesOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();

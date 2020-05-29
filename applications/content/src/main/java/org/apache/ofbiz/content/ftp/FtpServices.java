@@ -46,8 +46,8 @@ import java.util.Map;
  */
 public class FtpServices {
 
-    public static final String MODULE = FtpServices.class.getName();
-    public static final String resource = "ContentUiLabels";
+    private static final String MODULE = FtpServices.class.getName();
+    private static final String RESOURCE = "ContentUiLabels";
 
     private static FtpClientInterface createFtpClient(String serverType)
             throws GeneralException {
@@ -95,7 +95,7 @@ public class FtpServices {
             //Validate content
             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
             if (null == content) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
             }
 
             //ftp redirection

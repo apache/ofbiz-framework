@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public final class ProductionRunHelper {
 
-    public static final String MODULE = ProductionRunHelper.class.getName();
+    private static final String MODULE = ProductionRunHelper.class.getName();
 
     private ProductionRunHelper() {}
 

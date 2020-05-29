@@ -54,7 +54,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public final class InvoiceWorker {
 
-    public static final String MODULE = InvoiceWorker.class.getName();
+    private static final String MODULE = InvoiceWorker.class.getName();
     private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
     private static final int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");

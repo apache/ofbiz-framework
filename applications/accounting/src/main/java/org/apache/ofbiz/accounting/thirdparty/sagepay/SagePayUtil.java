@@ -45,7 +45,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public final class SagePayUtil {
 
-    public static final String MODULE = SagePayUtil.class.getName();
+    private static final String MODULE = SagePayUtil.class.getName();
     private SagePayUtil() {}
 
     public static Map<String, Object> buildCardAuthorisationPaymentResponse

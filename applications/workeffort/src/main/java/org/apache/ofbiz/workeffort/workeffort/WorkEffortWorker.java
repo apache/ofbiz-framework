@@ -35,7 +35,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 /** WorkEffortWorker - Work Effort worker class. */
 public final class WorkEffortWorker {
 
-    public static final String MODULE = WorkEffortWorker.class.getName();
+    private static final String MODULE = WorkEffortWorker.class.getName();
 
     private WorkEffortWorker() {}
 

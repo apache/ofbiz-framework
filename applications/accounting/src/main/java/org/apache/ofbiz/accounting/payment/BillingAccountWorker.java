@@ -52,8 +52,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class BillingAccountWorker {
 
-    public static final String MODULE = BillingAccountWorker.class.getName();
-    public static final String resourceError = "AccountingUiLabels";
+    private static final String MODULE = BillingAccountWorker.class.getName();
+    private static final String RES_ERROR = "AccountingUiLabels";
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
     public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
@@ -187,7 +187,7 @@ public class BillingAccountWorker {
         try {
             GenericValue billingAccount = EntityQuery.use(delegator).from("BillingAccount").where("billingAccountId", billingAccountId).queryOne();
             if (billingAccount == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingBillingAccountNotFound",
                         UtilMisc.toMap("billingAccountId", billingAccountId), locale));
             }
@@ -201,7 +201,7 @@ public class BillingAccountWorker {
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingBillingAccountNotFound",
                     UtilMisc.toMap("billingAccountId", billingAccountId), locale));
         }
