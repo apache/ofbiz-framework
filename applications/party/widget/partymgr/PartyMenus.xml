@@ -118,11 +118,6 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="productStoreRoles" title="${uiLabelMap.ProductProductStoreRoles}">
-            <link target="ViewProductStoreRoles">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
     </menu>
     <menu name="ProfileSubTabBar" menu-container-style="button-bar button-style-2">
         <menu-item name="createNew" title="${uiLabelMap.AccountingBillingAccount}" >
