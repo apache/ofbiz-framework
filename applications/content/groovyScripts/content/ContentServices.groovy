@@ -28,10 +28,8 @@ import org.apache.ofbiz.service.GenericServiceException;
 
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 
-MODULE = "ContentServices.groovy"
 def createTextAndUploadedContent(){
     Map result = success()
 
@@ -115,7 +113,7 @@ def createContentAlternativeUrl() {
                             dataResourceId = serviceResult.dataResourceId
                         }
                     } catch (GenericServiceException e) {
-                        Debug.logInfo(e, MODULE)
+                        logInfo(e)
                     }
                     if (dataResourceId) {
                         serviceContext.clear()
@@ -129,7 +127,7 @@ def createContentAlternativeUrl() {
                                 contentIdTo = serviceResult.contentId
                             }
                         } catch (GenericServiceException e) {
-                            Debug.logInfo(e, MODULE)
+                            logInfo(e)
                         }
                         if (contentIdTo) {
                             serviceContext.clear()
@@ -143,7 +141,7 @@ def createContentAlternativeUrl() {
                                     contentIdTo = serviceResult.contentId
                                 }
                             } catch (GenericServiceException e) {
-                                Debug.logInfo(e, MODULE)
+                                logInfo(e)
                             }
                         }
                     }
@@ -165,7 +163,7 @@ def createContentAlternativeUrl() {
                                 contentIdTo = serviceResult.contentId
                             }
                         } catch (GenericServiceException e) {
-                            Debug.logInfo(e, MODULE)
+                            logInfo(e)
                         }
                         contentCreated = "Y"
                     }
@@ -208,16 +206,16 @@ def createArticleContent() {
     String contentId = null
     if (textData) {
         int textDataLen = textData.length()
-        Debug.logInfo("textDataLen: " + textDataLen, module)
+        logInfo("textDataLen: " + textDataLen)
         int descriptLen = 0
         if (parameters.descriptLen) {
             descriptLen = (int) parameters.descriptLen
-            Debug.logInfo("descriptLen: " + descriptLen, module)
+            logInfo("descriptLen: " + descriptLen)
         }
         int subStringLen = Math.min(descriptLen, textDataLen)
-        Debug.logInfo("subStringLen: " + subStringLen, module)
+        logInfo("subStringLen: " + subStringLen)
         subDescript = textData.substring(0, subStringLen)
-        Debug.logInfo("subDescript: " + subDescript, module)
+        logInfo("subDescript: " + subDescript)
     }
     if ("PUBLISH_LINK".equals(contentAssocTypeId)) {
         ownerContentId = pubPtContentId
@@ -281,7 +279,7 @@ def createArticleContent() {
         createText.textData = textData
         createText.contentIdFrom = contentIdFrom
         createText.partyId = userLogin.partyId
-        Debug.logInfo("calling createTextContent with map: " + createText, module)
+        logInfo("calling createTextContent with map: " + createText)
         Map serviceResult = run service: "createTextContent", with: createText
         String textContentId = ServiceUtil.isSuccess(serviceResult)? serviceResult.contentId : null
         if (!contentId) {
@@ -312,7 +310,7 @@ def createArticleContent() {
         contentAssocMap.contentId = pubPtContentId
         contentAssocMap.contentIdTo = contentId
         contentAssocMap.contentAssocTypeId = "RESPONSE"
-        Debug.logInfo("contentAssocMap: " + contentAssocMap, module)
+        logInfo("contentAssocMap: " + contentAssocMap)
         run service: "createContentAssoc", with: contentAssocMap
     }
     Map result = success()
