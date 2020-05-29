@@ -59,7 +59,7 @@ import org.apache.ofbiz.entity.model.ModelField;
  */
 public final class EntityUtil {
 
-    public static final String MODULE = EntityUtil.class.getName();
+    private static final String MODULE = EntityUtil.class.getName();
 
     private EntityUtil() {}
 

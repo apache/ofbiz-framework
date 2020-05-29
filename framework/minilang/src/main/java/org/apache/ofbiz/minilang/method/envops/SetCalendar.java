@@ -47,7 +47,7 @@ import com.ibm.icu.util.Calendar;
  */
 public final class SetCalendar extends MethodOperation {
 
-    public static final String MODULE = SetCalendar.class.getName();
+    private static final String MODULE = SetCalendar.class.getName();
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {

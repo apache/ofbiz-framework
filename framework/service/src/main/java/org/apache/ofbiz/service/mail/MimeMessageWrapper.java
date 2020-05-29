@@ -48,7 +48,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 @SuppressWarnings("serial")
 public class MimeMessageWrapper implements java.io.Serializable {
 
-    public static final String MODULE = MimeMessageWrapper.class.getName();
+    private static final String MODULE = MimeMessageWrapper.class.getName();
     protected transient MimeMessage message = null;
     protected transient Session session = null;
     protected Properties mailProperties = null;

@@ -61,7 +61,7 @@ import org.apache.ofbiz.entity.jdbc.CursorConnection;
  */
 public final class TransactionUtil implements Status {
     // Debug MODULE name
-    public static final String MODULE = TransactionUtil.class.getName();
+    private static final String MODULE = TransactionUtil.class.getName();
 
     private static ThreadLocal<List<Transaction>> suspendedTxStack = new ThreadLocal<>();
     private static ThreadLocal<List<Exception>> suspendedTxLocationStack = new ThreadLocal<>();

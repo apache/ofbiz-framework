@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public abstract class ModelMenuAction {
 
-    public static final String MODULE = ModelMenuAction.class.getName();
+    private static final String MODULE = ModelMenuAction.class.getName();
 
     public static List<ModelAction> readSubActions(ModelMenu modelMenu, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);

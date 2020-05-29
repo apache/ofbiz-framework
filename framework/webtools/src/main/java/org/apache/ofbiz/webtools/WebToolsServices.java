@@ -102,7 +102,7 @@ import org.xml.sax.SAXException;
 
 public class WebToolsServices {
 
-    public static final String MODULE = WebToolsServices.class.getName();
+    private static final String MODULE = WebToolsServices.class.getName();
     public static final String resource = "WebtoolsUiLabels";
 
     public static Map<String, Object> entityImport(DispatchContext dctx, Map<String, ? extends Object> context) {

@@ -48,7 +48,7 @@ import org.w3c.dom.Element;
  */
 public final class ServiceEcaUtil {
 
-    public static final String MODULE = ServiceEcaUtil.class.getName();
+    private static final String MODULE = ServiceEcaUtil.class.getName();
 
     // using a cache is dangerous here because if someone clears it the ECAs won't run: public static UtilCache ecaCache = new UtilCache("service.ServiceECAs", 0, 0, false);
     private static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = new ConcurrentHashMap<>();

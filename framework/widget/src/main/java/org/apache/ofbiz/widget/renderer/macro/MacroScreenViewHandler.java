@@ -49,7 +49,7 @@ import freemarker.template.utility.StandardCompress;
 
 public class MacroScreenViewHandler extends AbstractViewHandler {
 
-    public static final String MODULE = MacroScreenViewHandler.class.getName();
+    private static final String MODULE = MacroScreenViewHandler.class.getName();
 
     protected ServletContext servletContext = null;
 

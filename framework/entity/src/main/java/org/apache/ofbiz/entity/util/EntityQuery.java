@@ -51,7 +51,7 @@ import org.apache.ofbiz.entity.model.DynamicViewEntity;
  */
 public class EntityQuery {
 
-    public static final String MODULE = EntityQuery.class.getName();
+    private static final String MODULE = EntityQuery.class.getName();
 
     private Delegator delegator;
     private String entityName = null;

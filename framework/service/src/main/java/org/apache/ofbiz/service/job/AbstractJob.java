@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  */
 public abstract class AbstractJob implements Job {
 
-    public static final String MODULE = AbstractJob.class.getName();
+    private static final String MODULE = AbstractJob.class.getName();
 
     private final String jobId;
     private final String jobName;

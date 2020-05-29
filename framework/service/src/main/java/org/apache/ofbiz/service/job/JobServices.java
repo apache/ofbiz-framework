@@ -42,7 +42,7 @@ import org.apache.ofbiz.service.config.ServiceConfigUtil;
 
 public class JobServices {
 
-    public static final String MODULE = JobServices.class.getName();
+    private static final String MODULE = JobServices.class.getName();
     private static final String resource = "ServiceErrorUiLabels";
 
     public static Map<String, Object> cancelJob(DispatchContext dctx, Map<String, ? extends Object> context) {

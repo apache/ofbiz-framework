@@ -57,7 +57,7 @@ import org.xml.sax.SAXException;
  */
 public class EntityDataLoader {
 
-    public static final String MODULE = EntityDataLoader.class.getName();
+    private static final String MODULE = EntityDataLoader.class.getName();
 
     public static String getPathsString(String helperName) {
         StringBuilder pathBuffer = new StringBuilder();

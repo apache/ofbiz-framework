@@ -38,7 +38,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class RecurrenceRule {
 
-    public static final String MODULE = RecurrenceRule.class.getName();
+    private static final String MODULE = RecurrenceRule.class.getName();
 
     // **********************
     // * byXXX constants

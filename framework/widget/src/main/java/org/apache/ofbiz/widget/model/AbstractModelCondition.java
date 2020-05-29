@@ -72,7 +72,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      *
      */
 
-    public static final String MODULE = AbstractModelCondition.class.getName();
+    private static final String MODULE = AbstractModelCondition.class.getName();
     public static final ModelConditionFactory DEFAULT_CONDITION_FACTORY = new DefaultConditionFactory();
 
     public static List<ModelCondition> readSubConditions(ModelConditionFactory factory, ModelWidget modelWidget,

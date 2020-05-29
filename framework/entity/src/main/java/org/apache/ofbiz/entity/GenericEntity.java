@@ -77,7 +77,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable {
 
-    public static final String MODULE = GenericEntity.class.getName();
+    private static final String MODULE = GenericEntity.class.getName();
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
     public static final NullField NULL_FIELD = new NullField();
 

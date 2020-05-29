@@ -43,7 +43,7 @@ import groovy.lang.Script;
  */
 public class GroovyUtil {
 
-    public static final String MODULE = GroovyUtil.class.getName();
+    private static final String MODULE = GroovyUtil.class.getName();
 
     private static final UtilCache<String, Class<?>> parsedScripts = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
 

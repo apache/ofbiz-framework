@@ -80,7 +80,7 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
  */
 public class RequestHandler {
 
-    public static final String MODULE = RequestHandler.class.getName();
+    private static final String MODULE = RequestHandler.class.getName();
     private final ViewFactory viewFactory;
     private final EventFactory eventFactory;
     private final URL controllerConfigURL;

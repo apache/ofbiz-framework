@@ -65,7 +65,7 @@ import org.xml.sax.SAXException;
  */
 @SuppressWarnings("serial")
 public abstract class ModelScreenWidget extends ModelWidget {
-    public static final String MODULE = ModelScreenWidget.class.getName();
+    private static final String MODULE = ModelScreenWidget.class.getName();
 
     private final ModelScreen modelScreen;
 

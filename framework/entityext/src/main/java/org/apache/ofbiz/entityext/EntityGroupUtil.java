@@ -36,7 +36,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class EntityGroupUtil {
 
-    public static final String MODULE = EntityGroupUtil.class.getName();
+    private static final String MODULE = EntityGroupUtil.class.getName();
 
     private EntityGroupUtil () {}
 

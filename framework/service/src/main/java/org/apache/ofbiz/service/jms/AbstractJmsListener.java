@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceContainer;
  */
 public abstract class AbstractJmsListener implements GenericMessageListener, ExceptionListener {
 
-    public static final String MODULE = AbstractJmsListener.class.getName();
+    private static final String MODULE = AbstractJmsListener.class.getName();
 
     protected LocalDispatcher dispatcher;
     protected boolean isConnected = false;

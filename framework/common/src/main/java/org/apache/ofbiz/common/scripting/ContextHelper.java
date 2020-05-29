@@ -48,7 +48,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
  */
 public final class ContextHelper {
 
-    public static final String MODULE = ContextHelper.class.getName();
+    private static final String MODULE = ContextHelper.class.getName();
     private static final int EVENT = 1;
     private static final int SERVICE = 2;
     private static final int UNKNOWN = 3;

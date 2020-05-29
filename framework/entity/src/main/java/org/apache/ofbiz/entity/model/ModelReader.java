@@ -57,7 +57,7 @@ import org.w3c.dom.Node;
 @SuppressWarnings("serial")
 public class ModelReader implements Serializable {
 
-    public static final String MODULE = ModelReader.class.getName();
+    private static final String MODULE = ModelReader.class.getName();
     private static final UtilCache<String, ModelReader> readers = UtilCache.createUtilCache("entity.ModelReader", 0, 0);
 
     protected volatile Map<String, ModelEntity> entityCache = null;

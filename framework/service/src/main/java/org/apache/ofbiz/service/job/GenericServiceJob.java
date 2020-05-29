@@ -35,7 +35,7 @@ import org.apache.ofbiz.service.semaphore.SemaphoreWaitException;
 @SuppressWarnings("serial")
 public class GenericServiceJob extends AbstractJob implements Serializable {
 
-    public static final String MODULE = GenericServiceJob.class.getName();
+    private static final String MODULE = GenericServiceJob.class.getName();
 
     protected final transient GenericRequester requester;
     protected final transient DispatchContext dctx;

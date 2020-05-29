@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public final class TransactionCommit extends MethodOperation {
 
-    public static final String MODULE = TransactionCommit.class.getName();
+    private static final String MODULE = TransactionCommit.class.getName();
 
     private final FlexibleMapAccessor<Boolean> beganTransactionFma;
 

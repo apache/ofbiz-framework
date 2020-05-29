@@ -28,7 +28,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 
 public class JobUtil {
 
-    public static final String MODULE = JobUtil.class.getName();
+    private static final String MODULE = JobUtil.class.getName();
 
     public static void removeJob(GenericValue jobValue) {
         // always suspend the current transaction; use the one internally

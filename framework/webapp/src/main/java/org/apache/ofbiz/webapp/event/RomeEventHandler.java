@@ -38,7 +38,7 @@ import com.sun.syndication.io.WireFeedOutput;
  */
 public class RomeEventHandler implements EventHandler {
 
-    public static final String MODULE = RomeEventHandler.class.getName();
+    private static final String MODULE = RomeEventHandler.class.getName();
     public static final String mime = "application/xml; charset=UTF-8";
     public static final String defaultFeedType = "rss_2.0";
 

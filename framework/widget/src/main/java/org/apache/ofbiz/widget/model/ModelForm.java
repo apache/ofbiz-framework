@@ -81,7 +81,7 @@ public abstract class ModelForm extends ModelWidget {
      *
      */
 
-    public static final String MODULE = ModelForm.class.getName();
+    private static final String MODULE = ModelForm.class.getName();
     public static final String DEFAULT_FORM_RESULT_LIST_NAME = "defaultFormResultList";
     /** Pagination settings and defaults. */
     public static final int DEFAULT_PAGE_SIZE = 10;

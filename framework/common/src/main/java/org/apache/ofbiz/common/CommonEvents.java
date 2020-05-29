@@ -62,7 +62,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
  */
 public class CommonEvents {
 
-    public static final String MODULE = CommonEvents.class.getName();
+    private static final String MODULE = CommonEvents.class.getName();
 
     // Attributes removed for security reason; _ERROR_MESSAGE_ and _ERROR_MESSAGE_LIST are kept
     private static final String[] IGNOREATTRS = new String[] {

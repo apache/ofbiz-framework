@@ -63,7 +63,7 @@ import org.w3c.dom.Element;
  */
 public class ConfigXMLReader {
 
-    public static final String MODULE = ConfigXMLReader.class.getName();
+    private static final String MODULE = ConfigXMLReader.class.getName();
     public static final Path CONTROLLERXMLFILENAME = Paths.get("WEB-INF", "controller.xml");
     private static final UtilCache<URL, ControllerConfig> CONTROLLERCACHE = UtilCache
             .createUtilCache("webapp.ControllerConfig");

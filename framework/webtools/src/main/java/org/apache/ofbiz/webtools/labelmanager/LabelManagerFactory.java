@@ -47,7 +47,7 @@ import org.xml.sax.SAXException;
 
 public class LabelManagerFactory {
 
-    public static final String MODULE = LabelManagerFactory.class.getName();
+    private static final String MODULE = LabelManagerFactory.class.getName();
     public static final String resource = "WebtoolsUiLabels";
     public static final String keySeparator = "#";
 

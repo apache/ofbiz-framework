@@ -33,7 +33,7 @@ import org.apache.ofbiz.entity.model.ModelReader;
  */
 public final class UtilHelpText {
 
-    public static final String MODULE = UtilHelpText.class.getName();
+    private static final String MODULE = UtilHelpText.class.getName();
 
     private UtilHelpText () {}
 

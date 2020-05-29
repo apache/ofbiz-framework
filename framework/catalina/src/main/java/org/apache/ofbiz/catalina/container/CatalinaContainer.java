@@ -88,7 +88,7 @@ import org.xml.sax.SAXException;
  */
 public class CatalinaContainer implements Container {
 
-    public static final String MODULE = CatalinaContainer.class.getName();
+    private static final String MODULE = CatalinaContainer.class.getName();
 
     private String name;
     private Tomcat tomcat;

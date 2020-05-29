@@ -38,7 +38,7 @@ import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
 
 public class GeronimoTransactionFactory implements TransactionFactory {
 
-    public static final String MODULE = GeronimoTransactionFactory.class.getName();
+    private static final String MODULE = GeronimoTransactionFactory.class.getName();
 
     private static int defaultTransactionTimeoutSeconds = 60;
     private static TransactionLog transactionLog;

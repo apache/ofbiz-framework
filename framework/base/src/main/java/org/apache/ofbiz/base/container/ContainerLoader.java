@@ -47,7 +47,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 public class ContainerLoader {
 
-    public static final String MODULE = ContainerLoader.class.getName();
+    private static final String MODULE = ContainerLoader.class.getName();
 
     private final Deque<Container> loadedContainers = new LinkedList<>();
 

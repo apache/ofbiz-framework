@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class FormWidgetArtifactInfo extends ArtifactInfoBase {
-    public static final String MODULE = FormWidgetArtifactInfo.class.getName();
+    private static final String MODULE = FormWidgetArtifactInfo.class.getName();
 
     protected ModelForm modelForm;
 

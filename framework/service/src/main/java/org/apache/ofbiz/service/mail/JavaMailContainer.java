@@ -60,7 +60,7 @@ import org.apache.ofbiz.service.ServiceContainer;
 
 public class JavaMailContainer implements Container {
 
-    public static final String MODULE = JavaMailContainer.class.getName();
+    private static final String MODULE = JavaMailContainer.class.getName();
     public static final String INBOX = "INBOX";
 
     protected Delegator delegator = null;

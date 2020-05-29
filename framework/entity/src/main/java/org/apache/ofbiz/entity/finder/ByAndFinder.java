@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ByAndFinder extends ListFinder {
 
-    public static final String MODULE = ByAndFinder.class.getName();
+    private static final String MODULE = ByAndFinder.class.getName();
 
     protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
 

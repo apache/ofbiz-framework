@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
  */
 public final class CallObjectMethod extends MethodOperation {
 
-    public static final String MODULE = CallClassMethod.class.getName();
+    private static final String MODULE = CallClassMethod.class.getName();
 
     private final String methodName;
     private final FlexibleMapAccessor<Object> objFieldFma;

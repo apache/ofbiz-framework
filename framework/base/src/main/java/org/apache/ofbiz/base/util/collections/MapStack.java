@@ -29,7 +29,7 @@ import org.apache.ofbiz.base.util.Debug;
  */
 public class MapStack<K> extends MapContext<K, Object> {
 
-    public static final String MODULE = MapStack.class.getName();
+    private static final String MODULE = MapStack.class.getName();
 
     public static <K> MapStack<K> create() {
         MapStack<K> newValue = new MapStack<>();

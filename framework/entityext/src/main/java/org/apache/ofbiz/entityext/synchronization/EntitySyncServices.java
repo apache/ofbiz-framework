@@ -68,7 +68,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class EntitySyncServices {
 
-    public static final String MODULE = EntitySyncServices.class.getName();
+    private static final String MODULE = EntitySyncServices.class.getName();
     public static final String resource = "EntityExtUiLabels";
 
     /**

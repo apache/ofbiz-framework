@@ -105,7 +105,7 @@ public class ModelFormField {
      *
      */
 
-    public static final String MODULE = ModelFormField.class.getName();
+    private static final String MODULE = ModelFormField.class.getName();
 
     /**
      * Constructs a form field model from a builder specification.

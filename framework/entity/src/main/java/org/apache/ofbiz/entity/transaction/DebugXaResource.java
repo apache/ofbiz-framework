@@ -25,7 +25,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public class DebugXaResource extends GenericXaResource {
 
-    public static final String MODULE = DebugXaResource.class.getName();
+    private static final String MODULE = DebugXaResource.class.getName();
     public Exception ex = null;
 
     public DebugXaResource(String info) {

@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
  */
 public class WidgetFactory {
 
-    public static final String MODULE = WidgetFactory.class.getName();
+    private static final String MODULE = WidgetFactory.class.getName();
     protected static final Map<String, Constructor<? extends ModelScreenWidget>> screenWidgets = new ConcurrentHashMap<>();
 
     static {

@@ -60,7 +60,7 @@ import freemarker.template.TemplateException;
  * This handler will use JPublish to generate the XSL-FO
  */
 public class ScreenFopViewHandler extends AbstractViewHandler {
-    public static final String MODULE = ScreenFopViewHandler.class.getName();
+    private static final String MODULE = ScreenFopViewHandler.class.getName();
     protected static final String DEFAULT_ERROR_TEMPLATE = "component://common/widget/CommonScreens.xml#FoError";
 
     protected ServletContext servletContext = null;

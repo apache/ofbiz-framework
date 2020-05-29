@@ -60,7 +60,7 @@ import org.apache.ofbiz.base.config.GenericConfigException;
  */
 public final class KeyStoreUtil {
 
-    public static final String MODULE = KeyStoreUtil.class.getName();
+    private static final String MODULE = KeyStoreUtil.class.getName();
 
     private KeyStoreUtil () {}
 

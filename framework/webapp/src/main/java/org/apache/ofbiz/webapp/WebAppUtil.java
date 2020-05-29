@@ -64,7 +64,7 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public final class WebAppUtil {
 
-    public static final String MODULE = WebAppUtil.class.getName();
+    private static final String MODULE = WebAppUtil.class.getName();
     public static final String CONTROL_MOUNT_POINT = "control";
     private static final Path webAppFileName = Paths.get("WEB-INF", "web.xml");
     private static final UtilCache<Path, WebXml> webXmlCache = UtilCache.createUtilCache("webapp.WebXml");

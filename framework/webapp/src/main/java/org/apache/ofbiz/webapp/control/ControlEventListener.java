@@ -44,7 +44,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class ControlEventListener implements HttpSessionListener {
     // Debug MODULE name
-    public static final String MODULE = ControlEventListener.class.getName();
+    private static final String MODULE = ControlEventListener.class.getName();
 
     protected static long totalActiveSessions = 0;
     protected static long totalPassiveSessions = 0;

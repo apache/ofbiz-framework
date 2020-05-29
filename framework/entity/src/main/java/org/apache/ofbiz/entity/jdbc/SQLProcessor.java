@@ -53,7 +53,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 public class SQLProcessor implements AutoCloseable {
 
     /** Module Name Used for debugging */
-    public static final String MODULE = SQLProcessor.class.getName();
+    private static final String MODULE = SQLProcessor.class.getName();
 
     /** Used for testing connections when test is enabled */
     private static final List<String> CONNECTION_TEST_LIST = new ArrayList<>();

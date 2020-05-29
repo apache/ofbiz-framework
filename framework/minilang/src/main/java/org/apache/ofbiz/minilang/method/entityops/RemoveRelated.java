@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  */
 public final class RemoveRelated extends MethodOperation {
 
-    public static final String MODULE = RemoveRelated.class.getName();
+    private static final String MODULE = RemoveRelated.class.getName();
     private final FlexibleStringExpander relationNameFse;
     private final FlexibleMapAccessor<GenericValue> valueFma;
 

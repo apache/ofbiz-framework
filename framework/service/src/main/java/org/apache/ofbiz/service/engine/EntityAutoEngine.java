@@ -49,7 +49,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class EntityAutoEngine extends GenericAsyncEngine {
 
-    public static final String MODULE = EntityAutoEngine.class.getName();
+    private static final String MODULE = EntityAutoEngine.class.getName();
     public static final String resource = "ServiceErrorUiLabels";
     private static final List<String> availableInvokeActionNames = UtilMisc.toList("create", "update", "delete", "expire");
 

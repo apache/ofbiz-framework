@@ -49,7 +49,7 @@ import org.apache.ofbiz.service.ServiceContainer;
 @SuppressWarnings("serial")
 public class WebDavServlet extends GenericServlet {
 
-    public static final String MODULE = WebDavServlet.class.getName();
+    private static final String MODULE = WebDavServlet.class.getName();
 
     protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;

@@ -49,7 +49,7 @@ import junit.framework.TestSuite;
  */
 public class TestRunContainer implements Container {
 
-    public static final String MODULE = TestRunContainer.class.getName();
+    private static final String MODULE = TestRunContainer.class.getName();
     public static final String logDir = "runtime/logs/test-results/";
 
     private String name;

@@ -36,7 +36,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class UomWorker {
 
-    public static final String MODULE = UomWorker.class.getName();
+    private static final String MODULE = UomWorker.class.getName();
 
     private UomWorker () {}
 

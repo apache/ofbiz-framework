@@ -36,7 +36,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
  */
 public class ViewFactory {
 
-    public static final String MODULE = ViewFactory.class.getName();
+    private static final String MODULE = ViewFactory.class.getName();
 
     private final Map<String, ViewHandler> handlers = new HashMap<>();
 

@@ -100,7 +100,7 @@ import freemarker.template.TemplateException;
  */
 public class NotificationServices {
 
-    public static final String MODULE = NotificationServices.class.getName();
+    private static final String MODULE = NotificationServices.class.getName();
     public static final String resource = "CommonUiLabels";
 
     /**

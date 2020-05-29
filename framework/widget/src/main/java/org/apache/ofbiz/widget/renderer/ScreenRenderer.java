@@ -72,7 +72,7 @@ import freemarker.ext.servlet.ServletContextHashModel;
  */
 public class ScreenRenderer {
 
-    public static final String MODULE = ScreenRenderer.class.getName();
+    private static final String MODULE = ScreenRenderer.class.getName();
 
     protected Appendable writer;
     protected MapStack<String> context;

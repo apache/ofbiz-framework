@@ -50,7 +50,7 @@ import org.xml.sax.SAXException;
  */
 public class ImageTransform {
 
-    public static final String MODULE = ImageTransform.class.getName();
+    private static final String MODULE = ImageTransform.class.getName();
     public static final String resource = "CommonErrorUiLabels";
 
     public ImageTransform() {

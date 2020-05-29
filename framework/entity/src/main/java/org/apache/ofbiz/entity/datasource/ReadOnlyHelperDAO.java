@@ -40,7 +40,7 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
  */
 public class ReadOnlyHelperDAO implements GenericHelper {
 
-    public static final String MODULE = ReadOnlyHelperDAO.class.getName();
+    private static final String MODULE = ReadOnlyHelperDAO.class.getName();
 
     protected GenericDAO genericDAO;
     protected GenericHelperInfo helperInfo;
