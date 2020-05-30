@@ -84,7 +84,7 @@ public class GiftCertificateServices {
             final String deposit = "DEPOSIT";
 
             GenericValue giftCertSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting")
-                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId)
+                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId())
                     .cache().queryOne();
             Map<String, Object> acctResult = null;
 
@@ -106,7 +106,7 @@ public class GiftCertificateServices {
 
                 // create the FinAccount
                 Map<String, Object> acctCtx = UtilMisc.<String, Object>toMap("finAccountId", finAccountId);
-                acctCtx.put("finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId);
+                acctCtx.put("finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId());
                 acctCtx.put("finAccountName", accountName);
                 acctCtx.put("finAccountCode", pinNumber);
                 acctCtx.put("userLogin", userLogin);
@@ -118,7 +118,7 @@ public class GiftCertificateServices {
             } else {
                 Map<String, Object> createAccountCtx = new HashMap<>();
                 createAccountCtx.put("ownerPartyId", partyId);
-                createAccountCtx.put("finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId);
+                createAccountCtx.put("finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId());
                 createAccountCtx.put("productStoreId", productStoreId);
                 createAccountCtx.put("currencyUomId", currency);
                 createAccountCtx.put("finAccountName", accountName + " for party ["+partyId+"]");
@@ -188,7 +188,7 @@ public class GiftCertificateServices {
          // validate the pin if the store requires it and figure out the finAccountId from card number
         try {
             GenericValue giftCertSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting")
-                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId)
+                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId())
                     .cache().queryOne();
             if ("Y".equals(giftCertSettings.getString("requirePinCode"))) {
                 if (!validatePin(delegator, cardNumber, pinNumber)) {
@@ -206,7 +206,7 @@ public class GiftCertificateServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingFinAccountSetting", 
                     UtilMisc.toMap("productStoreId", productStoreId, 
-                            "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId), locale));
+                            "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId()), locale));
         }
 
         if (finAccountId == null) {
@@ -283,7 +283,7 @@ public class GiftCertificateServices {
         // validate the pin if the store requires it
         try {
             GenericValue giftCertSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting")
-                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId)
+                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId())
                     .cache().queryOne();
             if ("Y".equals(giftCertSettings.getString("requirePinCode")) && !validatePin(delegator, cardNumber, pinNumber)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -293,7 +293,7 @@ public class GiftCertificateServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingFinAccountSetting", 
                     UtilMisc.toMap("productStoreId", productStoreId, 
-                            "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId), locale));
+                            "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId()), locale));
         }
         Debug.logInfo("Attempting to redeem GC for " + amount, MODULE);
 
@@ -486,7 +486,7 @@ public class GiftCertificateServices {
             // if the store requires pin codes, then validate pin code against card number, and the gift certificate's finAccountId is the gift card's card number
             // otherwise, the gift card's card number is an ecrypted string, which must be decoded to find the FinAccount
             GenericValue giftCertSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting")
-                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId)
+                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId())
                     .cache().queryOne();
             GenericValue finAccount = null;
             String finAccountId = null;
@@ -509,7 +509,7 @@ public class GiftCertificateServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingFinAccountSetting", 
                         UtilMisc.toMap("productStoreId", productStoreId, 
-                                "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId), locale));
+                                "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId()), locale));
             }
 
             if (finAccountId == null) {
@@ -531,7 +531,7 @@ public class GiftCertificateServices {
             Map<String, Object> result = ServiceUtil.returnSuccess();
 
             // make sure to round and scale it to the same as availableBalance
-            amount = amount.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
+            amount = amount.setScale(FinAccountHelper.getDecimals(), FinAccountHelper.getRounding());
 
             // if availableBalance equal to or greater than amount, then auth
             if (UtilValidate.isNotEmpty(availableBalance) && availableBalance.compareTo(amount) >= 0) {
@@ -756,14 +756,14 @@ public class GiftCertificateServices {
         GenericValue giftCertSettings = null;
         try {
             giftCertSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting")
-                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId)
+                    .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId())
                     .cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get Product Store FinAccount settings for " + FinAccountHelper.giftCertFinAccountTypeId, MODULE);
+            Debug.logError(e, "Unable to get Product Store FinAccount settings for " + FinAccountHelper.getGiftCertFinAccountTypeId(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingFinAccountSetting", 
                     UtilMisc.toMap("productStoreId", productStoreId, 
-                            "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId), locale) + ": " + e.getMessage());
+                            "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId()), locale) + ": " + e.getMessage());
         }
 
         // survey information
