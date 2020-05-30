@@ -76,7 +76,6 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/miscAjaxFunctions.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/selectMultipleRelatedValues.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/util.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jsTree/jquery.jstree.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/FromThruDateCheck.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/application.js"/>

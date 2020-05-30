@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ofbiz.widget.model.ScriptTemplateUtil;
+import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -32,14 +32,14 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 /**
- * Render the script tags collected from the "script-template" tag
+ * Render the externalized script tags collected from the "html-template" tag where multi-block = true
  */
-public class ScriptTemplateListTransform implements TemplateTransformModel {
+public class ScriptTagsFooterTransform implements TemplateTransformModel {
 
     private static final String MODULE = CsrfTokenAjaxTransform.class.getName();
 
     @Override
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)
+    public final Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)
             throws TemplateModelException, IOException {
 
         return new Writer(out) {
@@ -51,7 +51,7 @@ public class ScriptTemplateListTransform implements TemplateTransformModel {
                     BeanModel req = (BeanModel) env.getVariable("request");
                     if (req != null) {
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                        Set<String> scriptSrcSet = ScriptTemplateUtil.getScriptSrcLinksFromRequest(request);
+                        Set<String> scriptSrcSet = MultiBlockHtmlTemplateUtil.getScriptLinksForFoot(request);
                         if (scriptSrcSet != null) {
                             String srcList = "";
                             for (String scriptSrc : scriptSrcSet) {

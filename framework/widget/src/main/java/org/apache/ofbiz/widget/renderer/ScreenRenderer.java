@@ -58,6 +58,7 @@ import org.apache.ofbiz.widget.cache.GenericWidgetOutput;
 import org.apache.ofbiz.widget.cache.ScreenCache;
 import org.apache.ofbiz.widget.cache.WidgetContextCacheKey;
 import org.apache.ofbiz.widget.model.ModelScreen;
+import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
 import org.apache.ofbiz.widget.model.ScreenFactory;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
@@ -137,8 +138,8 @@ public class ScreenRenderer {
             }
         } else {
             context.put("renderFormSeqNumber", String.valueOf(renderFormSeqNumber));
-            if (context.get("MultiBlockWriter") != null) {
-                StringWriter stringWriter = (StringWriter) context.get("MultiBlockWriter");
+            if (context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER) != null) {
+                StringWriter stringWriter = (StringWriter) context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
                 modelScreen.renderScreenString(stringWriter, context, screenStringRenderer);
             } else {
                 modelScreen.renderScreenString(writer, context, screenStringRenderer);

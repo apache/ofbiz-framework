@@ -179,6 +179,72 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
+    public static void renderHtmlTemplateMultiBlock(Appendable writer, FlexibleStringExpander locationExdr, Map<String, Object> context) throws IOException {
+        String location = locationExdr.expandString(context);
+
+        StringWriter stringWriter = new StringWriter();
+        context.put(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER, stringWriter);
+        renderHtmlTemplate(stringWriter, locationExdr, context);
+        context.remove(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
+        String data = stringWriter.toString();
+        stringWriter.close();
+
+        Document doc = Jsoup.parseBodyFragment(data);
+
+        // extract scripts
+        Elements scriptElements = doc.select("script");
+        if (scriptElements != null && scriptElements.size() > 0) {
+            StringBuilder scripts = new StringBuilder();
+
+            // check if location contains variable
+            String originalLocation = locationExdr.getOriginal();
+            boolean isStaticLocation = !originalLocation.contains("${");
+
+            for (org.jsoup.nodes.Element script : scriptElements) {
+                String type = script.attr("type");
+                String src = script.attr("src");
+                if (UtilValidate.isEmpty(src)) {
+                    if (UtilValidate.isEmpty(type) || type.equals("application/javascript")) {
+                        scripts.append(script.data());
+                        script.remove();
+                    }
+                } else {
+                    String dataImport = script.attr("data-import");
+                    if ("head".equals(dataImport)) {
+                        if (isStaticLocation) {
+                            // remove external script in the template that is meant to be imported in the html header
+                            script.remove();
+                        } else {
+                            // throw error to the browser
+                            writer.append("<script>alert('Unable to headerize "
+                                    + UtilCodec.getEncoder("html").encode(script.toString())
+                                    + " when template location not is static');</script>");
+                        }
+                    }
+                }
+            }
+
+            if (scripts.length() > 0) {
+                // store script for retrieval by the browser
+                String fileName = location;
+                fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+                if (fileName.endsWith(".ftl")) {
+                    fileName = fileName.substring(0, fileName.length() - 4);
+                }
+                MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
+
+                // store value to be used by scriptTagsFooter freemarker macro
+                String webappName = (String) context.get("webappName");
+                MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(context, "/" + webappName + "/control/getJs?name="
+                        + fileName);
+            }
+        }
+
+        // the 'template' block
+        String body = doc.body().html();
+        writer.append(body);
+    }
+
     // TODO: We can make this more fancy, but for now this is very functional
     public static void writeError(Appendable writer, String message) {
         try {
@@ -208,54 +274,8 @@ public class HtmlWidget extends ModelScreenWidget {
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
 
-            if (false && isMultiBlock()) {
-
-                StringWriter stringWriter = new StringWriter();
-                context.put("MultiBlockWriter", stringWriter);
-                renderHtmlTemplate(stringWriter, this.locationExdr, context);
-                context.remove("MultiBlockWriter");
-                String data = stringWriter.toString();
-                stringWriter.close();
-
-                Document doc = Jsoup.parseBodyFragment(data);
-
-                // extract scripts
-                Elements scriptElements = doc.select("script");
-                if (scriptElements != null && scriptElements.size()>0) {
-                    StringBuilder scripts = new StringBuilder();
-
-                    for (org.jsoup.nodes.Element script : scriptElements) {
-                        String type = script.attr("type");
-                        String src = script.attr("src");
-                        if (UtilValidate.isEmpty(src)) {
-                            if (UtilValidate.isEmpty(type) || type.equals("application/javascript")) {
-                                scripts.append(script.data());
-                                script.remove();
-                            }
-                        }
-                    }
-
-                    // store script for retrieval by the browser
-                    String fileName = this.getLocation(context);
-                    fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
-                    if (fileName.endsWith(".ftl")) {
-                        fileName = fileName.substring(0, fileName.length() - 4);
-                    }
-                    ScriptTemplateUtil.putScriptInSession(context, fileName, scripts.toString());
-
-                    // store value to be used by ScriptTemplateList freemarker macro
-                    String webappName = (String) context.get("webappName");
-                    ScriptTemplateUtil.addScriptSrcToRequest(context, "/" + webappName + "/control/getJs?name="
-                            + fileName);
-                }
-
-                // check for external script
-                String externalScripts = doc.body().select("script").toString();
-                writer.append(externalScripts);
-
-                // the 'template' block
-                String body = doc.body().html();
-                writer.append(body);
+            if (isMultiBlock()) {
+                renderHtmlTemplateMultiBlock(writer, this.locationExdr, context);
             } else {
                 renderHtmlTemplate(writer, this.locationExdr, context);
             }
