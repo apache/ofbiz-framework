@@ -177,15 +177,6 @@
                 <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
             </link>
         </menu-item>
-        <menu-item name="newOrder" title="${uiLabelMap.OrderNewOrder}">
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_CREATE"/>
-            </condition>
-            <link target="/ordermgr/control/checkinits" url-mode="inter-app">
-                <parameter param-name="partyId"/>
-                <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
-            </link>
-        </menu-item>
     </menu>
     <menu name="CreateNewParty" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
