@@ -27,6 +27,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for ORDERMGR, _VIEW permission -->
@@ -45,9 +48,6 @@ under the License.
                                         </container>
                                     </widgets>
                                 </section>
-                                <container>
-                                  <link target="EditQuote" text="${uiLabelMap.OrderCreateOrderQuote}" style="buttontext"/>
-                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -72,11 +72,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuotes}">
-                            <container>
-                                <link target="EditQuote" text="${uiLabelMap.OrderCreateOrderQuote}" style="buttontext"/>
-                            </container>
                             <include-form name="FindQuotes" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                             <include-form name="ListQuotes" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>

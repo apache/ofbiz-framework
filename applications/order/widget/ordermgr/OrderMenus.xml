@@ -28,7 +28,6 @@ under the License.
             </condition>
             <link target="FindRequest"/>
         </menu-item>
-
         <menu-item name="quote" title="${uiLabelMap.OrderOrderQuotes}">
             <condition>
                 <or>
@@ -38,21 +37,18 @@ under the License.
             </condition>
             <link target="FindQuote"/>
         </menu-item>
-
         <menu-item name="orderlist" title="${uiLabelMap.OrderOrderList}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <link target="orderlist"/>
         </menu-item>
-
         <menu-item name="findorders" title="${uiLabelMap.OrderFindOrder}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <link target="findorders"/>
         </menu-item>
-
         <menu-item name="orderentry" title="${uiLabelMap.OrderOrderEntry}">
             <condition>
                 <or>
@@ -62,14 +58,12 @@ under the License.
             </condition>
             <link target="orderentry" link-type="anchor"/>
         </menu-item>
-
         <menu-item name="return" title="${uiLabelMap.OrderOrderReturns}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_RETURN"/>
             </condition>
             <link target="findreturn"/>
         </menu-item>
-
         <menu-item name="requirement" title="${uiLabelMap.OrderRequirements}">
             <condition>
                 <or>
@@ -79,17 +73,66 @@ under the License.
             </condition>
             <link target="FindRequirements"/>
         </menu-item>
-
         <menu-item name="reports" title="${uiLabelMap.CommonReports}">
             <link target="OrderPurchaseReportOptions"/>
         </menu-item>
-
         <menu-item name="stats" title="${uiLabelMap.CommonStats}">
             <link target="orderstats"/>
         </menu-item>
-
         <menu-item name="allocationPlan" title="${uiLabelMap.OrderAllocationPlan}">
             <link target="FindAllocationPlan"/>
+        </menu-item>
+    </menu>
+
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewOrder" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonOrder}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                    <if-has-permission permission="ORDERMGR" action="_PURCHASE_CREATE"/>
+                </or>
+            </condition>
+            <link target="orderentry" link-type="anchor"/>
+        </menu-item>
+        <menu-item name="NewQuote" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonQuote}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditQuote"/>
+        </menu-item>
+        <menu-item name="NewRequest" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonRequest}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="request"/>
+        </menu-item>
+        <menu-item name="NewRequirement" title="${uiLabelMap.CommonNew} ${uiLabelMap.OrderRequirement}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditRequirement"/>
+        </menu-item>
+        <menu-item name="NewReturn" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonReturn}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="returnMain"/>
+        </menu-item>
+        <menu-item name="NewAllocationPlan" title="${uiLabelMap.CommonNew} ${uiLabelMap.OrderAllocationPlan}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="CreateAllocationPlan"/>
         </menu-item>
     </menu>
 
@@ -321,9 +364,6 @@ under the License.
 
     <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         menu-container-style="button-bar button-style-2">
-        <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
-            <link target="EditRequest"/>
-        </menu-item>
         <menu-item name="createQuoteFromRequest" title="${uiLabelMap.OrderCreateQuoteFromRequest}">
             <condition>
                 <and>
