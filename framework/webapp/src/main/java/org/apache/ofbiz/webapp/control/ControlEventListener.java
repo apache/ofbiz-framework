@@ -26,7 +26,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -38,6 +37,8 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.serialize.XmlSerializer;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.security.CsrfUtil;
+import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
 
 /**
  * HttpSessionListener that gathers and tracks various information and statistics
@@ -73,6 +74,7 @@ public class ControlEventListener implements HttpSessionListener {
         HttpSession session = event.getSession();
 
         CsrfUtil.cleanupTokenMap(session);
+        MultiBlockHtmlTemplateUtil.cleanupScriptCache(session);
 
         // Finalize the Visit
         boolean beganTransaction = false;
@@ -141,7 +143,7 @@ public class ControlEventListener implements HttpSessionListener {
             Debug.logInfo("--------------------------------------------------------------------", MODULE);
             Debug.logInfo("Total Sessions : " + ControlEventListener.getTotalActiveSessions(), MODULE);
             Debug.logInfo("Total Active   : " + ControlEventListener.getTotalActiveSessions(), MODULE);
-            Debug.logInfo("Total Passive  : " + ControlEventListener.getTotalPassiveSessions(),  MODULE);
+            Debug.logInfo("Total Passive  : " + ControlEventListener.getTotalPassiveSessions(), MODULE);
             Debug.logInfo("** note : this session has been counted as destroyed.", MODULE);
             Debug.logInfo("--------------------------------------------------------------------", MODULE);
             if (visit != null) {

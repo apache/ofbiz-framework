@@ -36,8 +36,7 @@ public final class MultiBlockHtmlTemplateUtil {
     public static final String MULTI_BLOCK_WRITER = "multiBlockWriter";
     private static final String HTML_LINKS_FOR_HEAD = "htmlLinksForHead";
     private static final String SCRIPT_LINKS_FOR_FOOT = "ScriptLinksForFoot";
-    private static int maxNumOfScriptInCache = 10;
-    private static int cacheSize = 100;
+    private static int maxScriptCacheSizePerSession = 10;
     // store inline script from freemarker template by user session
     private static LinkedHashMap<String, Map<String, String>> scriptCache =
             new LinkedHashMap<String, Map<String, String>>() {
@@ -180,7 +179,7 @@ public final class MultiBlockHtmlTemplateUtil {
     }
 
     /**
-     * get the script links for page footer. Also @see {@link ScriptTagsFooterTransform}
+     * get the script links for page footer. Also @see {@link org.apache.ofbiz.webapp.ftl.ScriptTagsFooterTransform}
      * @param request
      * @return
      */
@@ -204,7 +203,7 @@ public final class MultiBlockHtmlTemplateUtil {
             scriptMap = new LinkedHashMap<String, String>() {
                 private static final long serialVersionUID = 1L;
                 protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
-                    return size() > maxNumOfScriptInCache;
+                    return size() > maxScriptCacheSizePerSession;
                 }
             };
             scriptCache.put(sessionId, scriptMap);
@@ -224,5 +223,9 @@ public final class MultiBlockHtmlTemplateUtil {
             return scriptMap.get(fileName);
         }
         return "";
+    }
+
+    public static void cleanupScriptCache(HttpSession session) {
+        scriptCache.remove(session.getId());
     }
 }
