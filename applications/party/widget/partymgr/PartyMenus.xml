@@ -95,11 +95,6 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="ContactList" title="${uiLabelMap.PartyContactLists}">
-            <link target="ListPartyContactLists">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
         <menu-item name="PartyContents" title="${uiLabelMap.PartyContent}">
             <link target="EditPartyContents">
                 <parameter param-name="partyId"/>
