@@ -168,15 +168,6 @@
                 <parameter param-name="viewSize" value="20"/>
             </link>
         </menu-item>
-        <menu-item name="newQuote" title="${uiLabelMap.OrderNewQuote}">
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_CREATE"/>
-            </condition>
-            <link target="/ordermgr/control/EditQuote" url-mode="inter-app">
-                <parameter param-name="partyId"/>
-                <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
-            </link>
-        </menu-item>
     </menu>
     <menu name="CreateNewParty" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
