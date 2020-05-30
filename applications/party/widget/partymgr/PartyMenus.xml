@@ -136,16 +136,6 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="findRequest" title="${uiLabelMap.PartyPartyRequests}" >
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-            </condition>
-            <link target="/ordermgr/control/FindRequest" url-mode="inter-app">
-                <parameter param-name="lookupFlag" value="Y"/>
-                <parameter param-name="fromPartyId" from-field="partyId"/>
-                <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
-            </link>
-        </menu-item>
     </menu>
     <menu name="CreateNewParty" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
