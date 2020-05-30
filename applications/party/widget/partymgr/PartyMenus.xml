@@ -155,19 +155,6 @@
                 <parameter param-name="externalLoginKey"/>
             </link>
         </menu-item>
-        <menu-item name="searchOrder" title="${uiLabelMap.OrderOrders}" >
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-            </condition>
-            <link target="/ordermgr/control/searchorders" url-mode="inter-app" link-type="hidden-form">
-                <parameter param-name="lookupFlag" value="Y"/>
-                <parameter param-name="hideFields" value="Y"/>
-                <parameter param-name="partyId"/>
-                <parameter param-name="externalLoginKey"/>
-                <parameter param-name="viewIndex" value="1"/>
-                <parameter param-name="viewSize" value="20"/>
-            </link>
-        </menu-item>
     </menu>
     <menu name="CreateNewParty" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
