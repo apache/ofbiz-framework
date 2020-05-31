@@ -24,8 +24,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -261,6 +263,23 @@ public class HtmlWidget extends ModelScreenWidget {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
             this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
+
+            if (this.isMultiBlock()) {
+                String origLoc = this.locationExdr.getOriginal();
+                Set<String> urls = null;
+                if (origLoc.contains("${")) {
+                    urls = new LinkedHashSet<>();
+                    urls.add(origLoc);
+                } else {
+                    try {
+                        urls = MultiBlockHtmlTemplateUtil.getHtmlImportsFromHtmlTemplate(origLoc);
+                    } catch (IOException e) {
+                        String errMsg = "Error getting html imports from template at location [" + origLoc + "]: " + e.toString();
+                        Debug.logError(e, errMsg, MODULE);
+                    }
+                }
+                MultiBlockHtmlTemplateUtil.addLinksToHtmlImportCache(modelScreen.getSourceLocation(), modelScreen.getName(), urls);
+            }
         }
 
         public String getLocation(Map<String, Object> context) {

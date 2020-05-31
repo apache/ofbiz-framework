@@ -259,25 +259,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 this.failWidgets = Collections.emptyList();
             }
             this.isMainSection = isMainSection;
-
-            String screenLocation = modelScreen.getSourceLocation();
-            String screenName = modelScreen.getName();
-
-            // check required html import from the widgets
-            HtmlImportWidgetVisitor visitor = new HtmlImportWidgetVisitor();
-            try {
-                for (ModelScreenWidget widget : this.subWidgets) {
-                    widget.accept(visitor);
-                }
-                for (ModelScreenWidget widget : this.failWidgets) {
-                    widget.accept(visitor);
-                }
-                MultiBlockHtmlTemplateUtil.addLinksToHtmlImportCache(screenLocation, screenName, visitor.getJsImports());
-            } catch (Exception e) {
-                String errMsg = "Error adding links to Html Import Cache";
-                Debug.logError(e, errMsg, MODULE);
-                throw new RuntimeException(errMsg);
-            }
         }
 
         @Override

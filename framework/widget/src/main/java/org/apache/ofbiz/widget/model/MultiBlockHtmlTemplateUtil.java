@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -28,42 +29,69 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public final class MultiBlockHtmlTemplateUtil {
 
+    private static final String MODULE = MultiBlockHtmlTemplateUtil.class.getName();
     public static final String MULTI_BLOCK_WRITER = "multiBlockWriter";
     private static final String HTML_LINKS_FOR_HEAD = "htmlLinksForHead";
     private static final String SCRIPT_LINKS_FOR_FOOT = "ScriptLinksForFoot";
-    private static int maxScriptCacheSizePerSession = 10;
-    // store inline script from freemarker template by user session
+    private static int maxScriptCacheSizePerUserSession = 10;
+    private static int estimatedConcurrentUserSessions = 250;
+    private static int estimatedScreensWithMultiBlockHtmlTemplate = 200;
+    private static int estimatedScreensWithChildScreen = 200;
+    /**
+     * Store inline script extracted from freemarker template for a user session.
+     * Number of inline scripts for a user session will be constraint by {@link MultiBlockHtmlTemplateUtil#maxScriptCacheSizePerUserSession}
+     * {@link MultiBlockHtmlTemplateUtil#cleanupScriptCache(HttpSession)} will be called to remove entry when session ends.
+     */
     private static LinkedHashMap<String, Map<String, String>> scriptCache =
             new LinkedHashMap<String, Map<String, String>>() {
                 private static final long serialVersionUID = 1L;
                 protected boolean removeEldestEntry(Map.Entry<String, Map<String, String>> eldest) {
-                    return size() > 100; // TODO probably set to max number of concurrent user
+                    return size() > estimatedConcurrentUserSessions;
                 }
             };
-    // store the additional html import by screen location
+    /**
+     * For each screen containing html-template, store a set of html imports headerized from html-template.
+     * The set may contain entry of an expression of the the html-template's location.
+     * In this case, we need to expand the location expression, read the html-template for any html imports.
+     */
     private static LinkedHashMap<String, Set<String>> htmlImportCache =
             new LinkedHashMap<String, Set<String>>() {
                 private static final long serialVersionUID = 1L;
                 protected boolean removeEldestEntry(Map.Entry<String, Set<String>> eldest) {
-                    return size() > 300; // TODO probably set to max number of screens
+                    return size() > estimatedScreensWithMultiBlockHtmlTemplate;
                 }
             };
-    // store the child screen
+    /**
+     * Store set of dependent screens info, in form of screen location + hash + name, of a given parent screen.
+     * The set may contain entry of an expression of the dependent screen location and will need to be expanded before use.
+     */
     private static LinkedHashMap<String, Set<String>> dependentScreenCache =
             new LinkedHashMap<String, Set<String>>() {
                 private static final long serialVersionUID = 1L;
                 protected boolean removeEldestEntry(Map.Entry<String, Set<String>> eldest) {
-                    return size() > 100;
+                    return size() > estimatedScreensWithChildScreen;
                 }
             };
 
     private MultiBlockHtmlTemplateUtil() { }
 
+    /**
+     * Add child screen info to {@link MultiBlockHtmlTemplateUtil#dependentScreenCache}.
+     * @param parentModelScreen parent screen.
+     * @param location screen location. Expression is allowed.
+     * @param name screen name. Expression is allowed.
+     */
     public static void collectChildScreenInfo(ModelScreen parentModelScreen, String location, String name) {
         String key = parentModelScreen.getSourceLocation() + "#" + parentModelScreen.getName();
         Set<String> childList = dependentScreenCache.get(key);
@@ -78,7 +106,14 @@ public final class MultiBlockHtmlTemplateUtil {
         }
     }
 
-    public static void addLinksToHtmlImportCache(String location, String name, Set<String> urls) throws Exception {
+    /**
+     * Add Html Imports to {@link MultiBlockHtmlTemplateUtil#htmlImportCache}.
+     * @param location screen location. Expression is not allowed.
+     * @param name screen name. Expression is not allowed.
+     * @param urls Set of html links associated with the screen. May contain expression to html-template location.
+     * @throws Exception
+     */
+    public static void addLinksToHtmlImportCache(String location, String name, Set<String> urls) {
         if (UtilValidate.isEmpty(urls)) {
             return;
         }
@@ -91,6 +126,37 @@ public final class MultiBlockHtmlTemplateUtil {
         existingUrls.addAll(urls);
     }
 
+    /**
+     * Get html import scr location from html template
+     * @param fileLocation Location to html template. Expression is not allowed.
+     * @return
+     */
+    public static Set<String> getHtmlImportsFromHtmlTemplate(String fileLocation) throws IOException {
+        Set<String> imports = new LinkedHashSet<>();
+        String template = FileUtil.readString("UTF-8", FileUtil.getFile(fileLocation));
+        Document doc = Jsoup.parseBodyFragment(template);
+        Elements scriptElements = doc.select("script");
+        if (scriptElements != null && scriptElements.size() > 0) {
+            for (org.jsoup.nodes.Element script : scriptElements) {
+                String src = script.attr("src");
+                if (UtilValidate.isNotEmpty(src)) {
+                    String dataImport = script.attr("data-import");
+                    if ("head".equals(dataImport)) {
+                        imports.add(src);
+                    }
+                }
+            }
+        }
+        return imports;
+    }
+
+    /**
+     * Add html links to the header
+     * @param context
+     * @param location screen location. Expression is not allowed.
+     * @param name screen name. Expression is not allowed.
+     * @throws Exception
+     */
     public static void addLinksToLayoutSettings(final Map<String, Object> context, String location, String name) throws Exception {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         if (request.getAttribute(HTML_LINKS_FOR_HEAD) == null) {
@@ -107,18 +173,37 @@ public final class MultiBlockHtmlTemplateUtil {
         if (UtilValidate.isEmpty(layoutSettingsJsList)) {
             return;
         }
+        // ensure initTheme.groovy has run.
+        Map<String, String> commonScreenLocations = UtilGenerics.cast(context.get("commonScreenLocations"));
+        if (UtilValidate.isEmpty(commonScreenLocations)) {
+            return;
+        }
         Object objValue = request.getAttribute(HTML_LINKS_FOR_HEAD);
         if (objValue instanceof String) {
             String currentLocationHashName = (String) request.getAttribute(HTML_LINKS_FOR_HEAD);
             Set<String> htmlLinks = new LinkedHashSet<>();
-            Set<String> locHashNameList = getRelatedScreenLocationHashName(currentLocationHashName);
+            Set<String> locHashNameList = getRelatedScreenLocationHashName(currentLocationHashName, context);
             for (String locHashName:locHashNameList) {
-                Set<String> urls = htmlImportCache.get(locHashName);
+                String expandLocHashName = "";
+                if (locHashName.contains("${")) {
+                    expandLocHashName = FlexibleStringExpander.expandString(locHashName, context);
+                } else {
+                    expandLocHashName = locHashName;
+                }
+                Set<String> urls = htmlImportCache.get(expandLocHashName);
                 if (UtilValidate.isNotEmpty(urls)) {
-                    // check url is not already in layoutSettings.javaScripts
                     for (String url : urls) {
-                        if (!htmlLinks.contains(url)) {
-                            htmlLinks.add(url);
+                        if (url.contains("${")) {
+                            String expandUrl = FlexibleStringExpander.expandString(url, context);
+                            if (UtilValidate.isNotEmpty(expandUrl)) {
+                                htmlLinks.addAll(getHtmlImportsFromHtmlTemplate(expandUrl));
+                            } else {
+                                Debug.log("Unable to expand " + url, MODULE);
+                            }
+                        } else {
+                            if (!htmlLinks.contains(url)) {
+                                htmlLinks.add(url);
+                            }
                         }
                     }
                 }
@@ -141,25 +226,22 @@ public final class MultiBlockHtmlTemplateUtil {
      * @param locationHashName
      * @return
      */
-    private static Set<String> getRelatedScreenLocationHashName(String locationHashName) {
+    private static Set<String> getRelatedScreenLocationHashName(String locationHashName, final Map<String, Object> context) {
         Set<String> resultList = new HashSet<>();
         resultList.add(locationHashName);
         Set<String> locHashNameList = dependentScreenCache.get(locationHashName);
         if (locHashNameList != null) {
             for (String locHashName : locHashNameList) {
-                resultList.addAll(getRelatedScreenLocationHashName(locHashName));
+                String exLocHashName = "";
+                if (locHashName.contains("${")) {
+                    exLocHashName = FlexibleStringExpander.expandString(locHashName, context);
+                } else {
+                    exLocHashName = locHashName;
+                }
+                resultList.addAll(getRelatedScreenLocationHashName(exLocHashName, context));
             }
         }
         return resultList;
-    }
-
-    /**
-     * add the script links that should be in the head tag
-     * @param context
-     * @param urls
-     */
-    private static void addJsLinkToLayoutSettings(final Map<String, Object> context, final Set<String> urls) {
-
     }
 
     /**
@@ -203,7 +285,7 @@ public final class MultiBlockHtmlTemplateUtil {
             scriptMap = new LinkedHashMap<String, String>() {
                 private static final long serialVersionUID = 1L;
                 protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
-                    return size() > maxScriptCacheSizePerSession;
+                    return size() > maxScriptCacheSizePerUserSession;
                 }
             };
             scriptCache.put(sessionId, scriptMap);

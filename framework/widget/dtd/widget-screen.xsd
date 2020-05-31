@@ -524,7 +524,7 @@ under the License.
                 <xs:documentation>
                     Multi-block processing of template targeted for the html body.
                     Inline script will be rendered as external script after html body tag.
-                    External script tag with attribute data-import='head' will be rendered within html head tag if the template location is static.
+                    External script tag with attribute data-import='head' will be rendered within html head tag.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
