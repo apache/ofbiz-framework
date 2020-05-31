@@ -41,10 +41,12 @@ under the License.
             <a id="user-lang" href="<@ofbizUrl>ListLocales</@ofbizUrl>">
             <#assign userLang = locale.toString()>
             <#assign flagLang = locale.toString()?keep_after_last("_")>
-            <#if "en" == userLang><#assign flagLang = "GB"></#if>
-            <#if "fr" == userLang><#assign flagLang = "FR"></#if>
-            <#if "zh" == userLang><#assign flagLang = "SG"></#if>
-            <#if "th" == userLang><#assign flagLang = "TH"></#if>
+            <#if "en" == userLang || "fr" == userLang || "zh" == userLang || "th" == userLang>
+                <#if "en" == userLang><#assign flagLang = "GB"></#if>
+                <#if "fr" == userLang><#assign flagLang = "FR"></#if>
+                <#if "zh" == userLang><#assign flagLang = "SG"></#if>
+                <#if "th" == userLang><#assign flagLang = "TH"></#if>
+            <#elseif 2 == userLang?length><#assign flagLang = "UN"></#if>
                 <span class="flag-icon flag-icon-<#if userLang?size <= 2>${userLang}<#else>${flagLang?lower_case}</#if>"><#if userLang?size <= 2>${userLang}<#else>${flagLang}</#if></span>
             </a>
         </div>
