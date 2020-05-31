@@ -26,9 +26,10 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 
-public class JobUtil {
+public final class JobUtil {
 
     private static final String MODULE = JobUtil.class.getName();
+    protected JobUtil() { }
 
     public static void removeJob(GenericValue jobValue) {
         // always suspend the current transaction; use the one internally
