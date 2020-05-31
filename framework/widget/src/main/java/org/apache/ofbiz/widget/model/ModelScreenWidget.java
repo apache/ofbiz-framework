@@ -270,13 +270,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void renderWidgetString(Appendable writer, Map<String, Object> context,
                                        ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
 
-            try {
-                String location = getModelScreen().getSourceLocation();
-                String name = getModelScreen().getName();
-                MultiBlockHtmlTemplateUtil.addLinksToLayoutSettings(context, location, name);
-            } catch (Exception e) {
-                throw new GeneralException(e);
-            }
+            String location = getModelScreen().getSourceLocation();
+            String name = getModelScreen().getName();
+            MultiBlockHtmlTemplateUtil.storeScreenLocationName(context, location, name);
 
             // check the condition, if there is one
             boolean condTrue = true;
@@ -292,6 +288,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 AbstractModelAction.runSubActions(this.actions, context);
 
                 try {
+                    MultiBlockHtmlTemplateUtil.addLinksToLayoutSettings(context);
+
                     // section by definition do not themselves do anything, so this method will generally do nothing, but we'll call it anyway
                     screenStringRenderer.renderSectionBegin(writer, context, this);
 

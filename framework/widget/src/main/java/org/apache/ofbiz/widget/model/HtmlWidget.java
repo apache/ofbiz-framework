@@ -197,11 +197,6 @@ public class HtmlWidget extends ModelScreenWidget {
         Elements scriptElements = doc.select("script");
         if (scriptElements != null && scriptElements.size() > 0) {
             StringBuilder scripts = new StringBuilder();
-
-            // check if location contains variable
-            String originalLocation = locationExdr.getOriginal();
-            boolean isStaticLocation = !originalLocation.contains("${");
-
             for (org.jsoup.nodes.Element script : scriptElements) {
                 String type = script.attr("type");
                 String src = script.attr("src");
@@ -213,15 +208,8 @@ public class HtmlWidget extends ModelScreenWidget {
                 } else {
                     String dataImport = script.attr("data-import");
                     if ("head".equals(dataImport)) {
-                        if (isStaticLocation) {
-                            // remove external script in the template that is meant to be imported in the html header
-                            script.remove();
-                        } else {
-                            // throw error to the browser
-                            writer.append("<script>alert('Unable to headerize "
-                                    + UtilCodec.getEncoder("html").encode(script.toString())
-                                    + " when template location not is static');</script>");
-                        }
+                        // remove external script in the template that is meant to be imported in the html header
+                        script.remove();
                     }
                 }
             }

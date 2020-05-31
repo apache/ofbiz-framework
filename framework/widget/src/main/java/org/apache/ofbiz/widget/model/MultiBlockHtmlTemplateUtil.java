@@ -151,19 +151,27 @@ public final class MultiBlockHtmlTemplateUtil {
     }
 
     /**
-     * Add html links to the header
+     * Store the 1st screen called by request
      * @param context
      * @param location screen location. Expression is not allowed.
      * @param name screen name. Expression is not allowed.
-     * @throws Exception
      */
-    public static void addLinksToLayoutSettings(final Map<String, Object> context, String location, String name) throws Exception {
+    public static void storeScreenLocationName(final Map<String, Object> context, String location, String name) {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         if (request.getAttribute(HTML_LINKS_FOR_HEAD) == null) {
             String currentLocationHashName = location + "#" + name;
             request.setAttribute(HTML_LINKS_FOR_HEAD, currentLocationHashName);
-            return;
         }
+    }
+
+    /**
+     * Add html links to the header
+     * @param context
+     * @throws Exception
+     */
+    public static void addLinksToLayoutSettings(final Map<String, Object> context) throws IOException {
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
+
         // check "layoutSettings.javaScripts" is not empty
         Map<String, Object> layoutSettings = UtilGenerics.cast(context.get("layoutSettings"));
         if (UtilValidate.isEmpty(layoutSettings)) {
@@ -180,6 +188,7 @@ public final class MultiBlockHtmlTemplateUtil {
         }
         Object objValue = request.getAttribute(HTML_LINKS_FOR_HEAD);
         if (objValue instanceof String) {
+            Set<String> retryHtmlLinks = new LinkedHashSet<>();
             String currentLocationHashName = (String) request.getAttribute(HTML_LINKS_FOR_HEAD);
             Set<String> htmlLinks = new LinkedHashSet<>();
             Set<String> locHashNameList = getRelatedScreenLocationHashName(currentLocationHashName, context);
@@ -198,6 +207,7 @@ public final class MultiBlockHtmlTemplateUtil {
                             if (UtilValidate.isNotEmpty(expandUrl)) {
                                 htmlLinks.addAll(getHtmlImportsFromHtmlTemplate(expandUrl));
                             } else {
+                                retryHtmlLinks.add(url);
                                 Debug.log("Unable to expand " + url, MODULE);
                             }
                         } else {
@@ -216,7 +226,9 @@ public final class MultiBlockHtmlTemplateUtil {
                     }
                 }
             }
-            request.setAttribute(HTML_LINKS_FOR_HEAD, true);
+            if (UtilValidate.isEmpty(retryHtmlLinks)) {
+                request.setAttribute(HTML_LINKS_FOR_HEAD, true);
+            }
         }
 
     }
