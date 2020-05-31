@@ -35,12 +35,14 @@ import org.w3c.dom.Element;
 /**
  * ServiceGroupReader.java
  */
-public class ServiceGroupReader {
+public final class ServiceGroupReader {
 
     private static final String MODULE = ServiceGroupReader.class.getName();
+    // using a cache is dangerous here because if someone clears it the groups won't work at all:
+    // public static UtilCache GROUPS_CACHE = new UtilCache("service.ServiceGroups", 0, 0, false);
+    private static final Map<String, GroupModel> GROUPS_CACHE = new ConcurrentHashMap<>();
 
-    // using a cache is dangerous here because if someone clears it the groups won't work at all: public static UtilCache groupsCache = new UtilCache("service.ServiceGroups", 0, 0, false);
-    private static final Map<String, GroupModel> groupsCache = new ConcurrentHashMap<>();
+    protected ServiceGroupReader() { }
 
     public static void readConfig() {
         List<ServiceGroups> serviceGroupsList = null;
@@ -79,7 +81,7 @@ public class ServiceGroupReader {
                 Debug.logError("XML Parsing error: <group> element 'name' attribute null or empty", MODULE);
                 continue;
             }
-            groupsCache.put(groupName, new GroupModel(group));
+            GROUPS_CACHE.put(groupName, new GroupModel(group));
             numDefs++;
         }
         if (Debug.infoOn()) {
@@ -94,9 +96,9 @@ public class ServiceGroupReader {
     }
 
     public static GroupModel getGroupModel(String serviceName) {
-        if (groupsCache.size() == 0) {
+        if (GROUPS_CACHE.size() == 0) {
             ServiceGroupReader.readConfig();
         }
-        return groupsCache.get(serviceName);
+        return GROUPS_CACHE.get(serviceName);
     }
 }
