@@ -32,17 +32,11 @@
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                            <decorator-section name="menu-bar">
-                                <section>
-                                    <widgets>
-                                        <container style="button-bar">
-                                            <link target="NewPartyQual" text="${uiLabelMap.HumanResNewPartyQual}" style="buttontext create"/>
-                                        </container>
-                                    </widgets>
-                                </section>
-                            </decorator-section>
                            <decorator-section name="search-options">
                                <include-form name="FindPartyQuals" location="component://humanres/widget/forms/PartyQualForms.xml"/>
                            </decorator-section>

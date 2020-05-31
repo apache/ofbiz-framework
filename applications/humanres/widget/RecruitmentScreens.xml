@@ -20,7 +20,7 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindJobRequisitions">
-        <section>             
+        <section>
             <actions>   
                 <set field="titleProperty" value="PageTitleFindJobRequisition"/>
                 <set field="tabButtonItem" value="JobRequisition"/>
@@ -38,18 +38,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
-                                        <section>
-                                            <condition>
-                                                <if-has-permission permission="HUMANRES" action="_ADMIN"/>
-                                            </condition>
-                                            <widgets>
-                                                <container style="button-bar">
-                                                    <link target="EditJobRequisition" text="${uiLabelMap.HumanResNewJobRequisition}" style="buttontext create"/>
-                                                </container>
-                                            </widgets>
-                                        </section>
-                                    </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindJobRequisitions" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>

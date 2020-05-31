@@ -28,6 +28,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <actions>
@@ -35,9 +38,6 @@ under the License.
                                 <set field="tabButtonItem" value="Employee"/>
                             </actions>
                             <widgets>
-                                <container style="button-bar">
-                                    <link target="NewEmployee" text="${uiLabelMap.HumanResNewEmployee}" style="buttontext create"/>
-                                </container>
                                 <section>
                                     <widgets>
                                         <platform-specific>
@@ -72,6 +72,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.HumanResNewEmployee}">
                         <platform-specific>
