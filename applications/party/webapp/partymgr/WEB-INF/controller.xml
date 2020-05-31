@@ -1238,6 +1238,7 @@ under the License.
     <request-map uri="LookupEmplPosition"><security auth="true" https="true"/><response name="success" type="view" value="LookupEmplPosition"/></request-map>
     <request-map uri="LookupOrderHeader"><security auth="true" https="true"/><response name="success" type="view" value="LookupOrderHeader"/></request-map>
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
+    <request-map uri="LookupBudget"><security auth="true" https="true"/><response name="success" type="view" value="LookupBudget"/></request-map>
 
     <!-- Financial History Report-->
     <request-map uri="PartyFinancialHistory">
@@ -1449,6 +1450,7 @@ under the License.
     <view-map name="visitdetail" type="screen" page="component://party/widget/partymgr/VisitScreens.xml#visitdetail"/>
     <view-map name="listLoggedInUsers" type="screen" page="component://party/widget/partymgr/VisitScreens.xml#ListLoggedInUsers"/>
 
+    <view-map name="LookupBudget"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupBudget"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupPartyEmail" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyEmail"/>
     <view-map name="LookupPartyClassificationGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyClassificationGroup"/>
