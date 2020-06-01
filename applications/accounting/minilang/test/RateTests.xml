@@ -170,27 +170,6 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testExpirePartyRate" short-description="test to expire PartyRate" login-required="false">
-        <set field="serviceCtx.partyId" value="TEST_PARTY"/>
-        <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
-        <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
-        <set field="serviceCtx.rateAmountFromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="expirePartyRate" in-map-name="serviceCtx"/>
-         <entity-one entity-name="PartyRate" value-field="partyRate">
-            <field-map field-name="rateTypeId" value="AVERAGE_PAY_RATE"/>
-            <field-map field-name="partyId" value="TEST_PARTY"/>
-            <field-map field-name="fromDate" value="2013-07-04 00:00:00"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="partyRate"/></not>
-            <not><if-empty field="partyRate.thruDate"/></not>
-        </assert>
-        <check-errors/>
-    </simple-method>
     <simple-method method-name="testFilterRateAmountList" short-description="test the service filterRateAmountList" login-required="false">
         <entity-and entity-name="RateAmount" list="amountList">
             <field-map field-name="rateTypeId" value="AVERAGE_PAY_RATE"/>
