@@ -59,6 +59,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu location="component://marketing/widget/MarketingMenus.xml" name="MainActionMenu"/>
                         <section>
                             <!-- do check for MARKETING, _VIEW permission -->
                             <condition>
@@ -110,6 +111,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu location="component://marketing/widget/MarketingMenus.xml" name="MainActionMenu"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.MarketingManagerApplication}">
                             <container><label style="label" text="${uiLabelMap.MarketingManagerWelcome}"/></container>
