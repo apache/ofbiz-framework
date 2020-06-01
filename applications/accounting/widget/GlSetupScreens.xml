@@ -66,6 +66,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAvailableInternalOrganizations}" navigation-menu-name="NewAccountOrganization">
                             <include-menu name="NewAccountOrganization" location="component://accounting/widget/AccountingMenus.xml"/>
