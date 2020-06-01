@@ -54,6 +54,9 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator">
+                    <decorator-section name="pre-body">
+                        <include-menu location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml" name="MainActionMenu"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
