@@ -26,4 +26,23 @@ under the License.
         <menu-item name="ContactList" title="${uiLabelMap.MarketingContactList}"><link target="FindContactLists"/></menu-item>
         <menu-item name="Reports" title="${uiLabelMap.MarketingReports}"><link target="MarketingReport"/></menu-item>
     </menu>
+
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewCampaign" title="${uiLabelMap.CommonNew} ${uiLabelMap.MarketingCampaign}">
+            <condition>
+                <or>
+                    <if-has-permission permission="MARKETING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditMarketingCampaign"/>
+        </menu-item>
+        <menu-item name="NewContactList" title="${uiLabelMap.CommonNew} ${uiLabelMap.MarketingContactList}">
+            <condition>
+                <or>
+                    <if-has-permission permission="MARKETING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditContactList"/>
+        </menu-item>
+    </menu>
 </menus>
