@@ -111,7 +111,6 @@ public final class MultiBlockHtmlTemplateUtil {
      * @param location screen location. Expression is not allowed.
      * @param name screen name. Expression is not allowed.
      * @param urls Set of html links associated with the screen. May contain expression to html-template location.
-     * @throws Exception
      */
     public static void addLinksToHtmlImportCache(String location, String name, Set<String> urls) {
         if (UtilValidate.isEmpty(urls)) {
@@ -167,7 +166,7 @@ public final class MultiBlockHtmlTemplateUtil {
     /**
      * Add html links to the header
      * @param context
-     * @throws Exception
+     * @throws IOException
      */
     public static void addLinksToLayoutSettings(final Map<String, Object> context) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
