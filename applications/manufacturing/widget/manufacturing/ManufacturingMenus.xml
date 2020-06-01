@@ -78,6 +78,32 @@ under the License.
         </menu-item>
     </menu>
 
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewProdRun" title="${uiLabelMap.CommonNew} ${uiLabelMap.ManufacturingProductionRun}">
+            <condition>
+                <or>
+                    <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="CreateProductionRun"/>
+        </menu-item>
+        <menu-item name="NewRouting" title="${uiLabelMap.CommonNew} ${uiLabelMap.ManufacturingRouting}">
+            <condition>
+                <or>
+                    <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditRouting"/>
+        </menu-item>
+        <menu-item name="NewRoutingTask" title="${uiLabelMap.CommonNew} ${uiLabelMap.ManufacturingRoutingTask}">
+            <condition>
+                <or>
+                    <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditRoutingTask"/>
+        </menu-item>
+    </menu>
 
     <menu name="BomTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="findBom" title="${uiLabelMap.CommonFind}">
