@@ -70,12 +70,12 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}" widget-style="buttontext">
-            <hyperlink description="${shipmentId}" target="EditShipment">
+        <field name="shipmentId" title="${uiLabelMap.CommonShipment}" widget-style="buttontext">
+            <hyperlink description="${shipmentId}" target="ViewShipment">
                 <parameter param-name="shipmentId" from-field="shipmentId"/>
             </hyperlink>
         </field>
-        <field name="shipmentTypeId" title="${uiLabelMap.ProductShipmentType}"><display-entity entity-name="ShipmentType"/></field>
+        <field name="shipmentTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="ShipmentType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="originFacilityId" title="${uiLabelMap.ProductOriginFacility}"><display-entity entity-name="Facility" description="${facilityName}" key-field-name="facilityId"/></field>
         <field name="destinationFacilityId" title="${uiLabelMap.ProductDestinationFacility}"><display-entity entity-name="Facility" description="${facilityName}" key-field-name="facilityId"/></field>
