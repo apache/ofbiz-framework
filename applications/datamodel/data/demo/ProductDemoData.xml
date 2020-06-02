@@ -1292,11 +1292,21 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="FACILITY_ADMIN" fromDate="2000-01-01 00:00:00.0"/>
 
     <SecurityGroupPermission groupId="WHMANAGERS" permissionId="FACILITY_ADMIN" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHMANAGERS" permissionId="ACCOUNTING_UPDATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHMANAGERS" permissionId="ACCTG_ATX_CREATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHMANAGERS" permissionId="ACCTG_PREF_VIEW" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHMANAGERS" permissionId="ASSETMAINT_UPDATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHMANAGERS" permissionId="CATALOG_UPDATE" fromDate="2000-01-01 00:00:00.0"/>
     <SecurityGroupPermission groupId="WHMANAGERS" permissionId="OFBTOOLS_VIEW" fromDate="2000-01-01 00:00:00.0"/>
 
     <SecurityGroupPermission groupId="WHWORKERS" permissionId="FACILITY_CREATE" fromDate="2000-01-01 00:00:00.0"/>
     <SecurityGroupPermission groupId="WHWORKERS" permissionId="FACILITY_UPDATE" fromDate="2000-01-01 00:00:00.0"/>
     <SecurityGroupPermission groupId="WHWORKERS" permissionId="FACILITY_VIEW" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHWORKERS" permissionId="ACCOUNTING_UPDATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHWORKERS" permissionId="ACCTG_ATX_CREATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHWORKERS" permissionId="ACCTG_PREF_VIEW" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHWORKERS" permissionId="ASSETMAINT_UPDATE" fromDate="2000-01-01 00:00:00.0"/>
+    <SecurityGroupPermission groupId="WHWORKERS" permissionId="CATALOG_UPDATE" fromDate="2000-01-01 00:00:00.0"/>
     <SecurityGroupPermission groupId="WHWORKERS" permissionId="OFBTOOLS_VIEW" fromDate="2000-01-01 00:00:00.0"/>
 
     <UserLoginSecurityGroup groupId="WHMANAGERS" userLoginId="employee32" fromDate="2000-01-01 00:00:00.0"/>
