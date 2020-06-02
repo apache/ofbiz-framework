@@ -40,6 +40,8 @@ if (shipment) {
     context.destinationFacility = shipment.getRelatedOne("DestinationFacility", false)
     context.originPostalAddress = shipment.getRelatedOne("OriginPostalAddress", false)
     context.destinationPostalAddress = shipment.getRelatedOne("DestinationPostalAddress", false)
+    context.originTelecomNumber = shipment.getRelatedOne("OriginTelecomNumber", false)
+    context.destinationTelecomNumber = shipment.getRelatedOne("DestinationTelecomNumber", false)
 }
 
 // check permission
