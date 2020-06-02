@@ -71,7 +71,7 @@ under the License.
             </service>
         </actions>
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}" widget-style="buttontext">
-            <hyperlink description="${shipmentId}" target="EditShipment">
+            <hyperlink description="${shipmentId}" target="ViewShipment">
                 <parameter param-name="shipmentId" from-field="shipmentId"/>
             </hyperlink>
         </field>
