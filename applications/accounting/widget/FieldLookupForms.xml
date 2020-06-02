@@ -165,7 +165,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListPayment" list-name="listIt" title="" paginate-target="LookupPayment"
+    <form name="ListPayment" list-name="listIt" title="" type="list" paginate-target="LookupPayment"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
