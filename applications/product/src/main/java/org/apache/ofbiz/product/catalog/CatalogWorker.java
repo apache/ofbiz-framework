@@ -262,22 +262,28 @@ public final class CatalogWorker {
         }
     }
 
+    public static String getProdCatalogCategoryId(Delegator delegator, String prodCatalogId, String prodCatalogCategoryTypeId) {
+        if (UtilValidate.isNotEmpty(prodCatalogId) && UtilValidate.isNotEmpty(prodCatalogCategoryTypeId)) {
+            GenericValue prodCatalogCategory = EntityUtil.getFirst(getProdCatalogCategories(delegator, prodCatalogId
+                                                            , prodCatalogCategoryTypeId));
+
+            if (prodCatalogCategory != null) {
+                return prodCatalogCategory.getString("productCategoryId");
+            }
+        }
+        return null;
+    }
+
     public static String getCatalogTopCategoryId(ServletRequest request) {
         return getCatalogTopCategoryId(request, getCurrentCatalogId(request));
     }
 
     public static String getCatalogTopCategoryId(ServletRequest request, String prodCatalogId) {
-        if (UtilValidate.isEmpty(prodCatalogId)) return null;
+        return getCatalogTopCategoryId((Delegator) request.getAttribute("delegator"), prodCatalogId);
+    }
 
-        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_BROWSE_ROOT");
-
-        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
-
-            return prodCatalogCategory.getString("productCategoryId");
-        } else {
-            return null;
-        }
+    public static String getCatalogTopCategoryId(Delegator delegator, String prodCatalogId) {
+        return getProdCatalogCategoryId(delegator, prodCatalogId, "PCCT_BROWSE_ROOT");
     }
 
     public static String getCatalogSearchCategoryId(ServletRequest request) {
@@ -288,39 +294,15 @@ public final class CatalogWorker {
         return getCatalogSearchCategoryId((Delegator) request.getAttribute("delegator"), prodCatalogId);
     }
     public static String getCatalogSearchCategoryId(Delegator delegator, String prodCatalogId) {
-        if (UtilValidate.isEmpty(prodCatalogId)) return null;
-
-        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_SEARCH");
-        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
-            return prodCatalogCategory.getString("productCategoryId");
-        } else {
-            return null;
-        }
+        return getProdCatalogCategoryId(delegator, prodCatalogId, "PCCT_SEARCH");
     }
 
     public static String getCatalogViewAllowCategoryId(Delegator delegator, String prodCatalogId) {
-        if (UtilValidate.isEmpty(prodCatalogId)) return null;
-
-        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_VIEW_ALLW");
-        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
-            return prodCatalogCategory.getString("productCategoryId");
-        } else {
-            return null;
-        }
+        return getProdCatalogCategoryId(delegator, prodCatalogId, "PCCT_VIEW_ALLW");
     }
 
     public static String getCatalogPurchaseAllowCategoryId(Delegator delegator, String prodCatalogId) {
-        if (UtilValidate.isEmpty(prodCatalogId)) return null;
-
-        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_PURCH_ALLW");
-        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
-            return prodCatalogCategory.getString("productCategoryId");
-        } else {
-            return null;
-        }
+        return getProdCatalogCategoryId(delegator, prodCatalogId, "PCCT_PURCH_ALLW");
     }
 
     public static String getCatalogPromotionsCategoryId(ServletRequest request) {
@@ -328,17 +310,10 @@ public final class CatalogWorker {
     }
 
     public static String getCatalogPromotionsCategoryId(ServletRequest request, String prodCatalogId) {
-        if (UtilValidate.isEmpty(prodCatalogId)) return null;
-
-        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_PROMOTIONS");
-
-        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
-
-            return prodCatalogCategory.getString("productCategoryId");
-        } else {
-            return null;
-        }
+        return getCatalogPromotionsCategoryId((Delegator) request.getAttribute("delegator"), prodCatalogId);
+    }
+    public static String getCatalogPromotionsCategoryId(Delegator delegator, String prodCatalogId) {
+        return getProdCatalogCategoryId(delegator, prodCatalogId, "PCCT_PROMOTIONS");
     }
 
     public static boolean getCatalogQuickaddUse(ServletRequest request) {
@@ -366,17 +341,7 @@ public final class CatalogWorker {
     }
 
     public static String getCatalogQuickaddCategoryPrimary(ServletRequest request, String prodCatalogId) {
-        if (UtilValidate.isEmpty(prodCatalogId)) return null;
-
-        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
-
-        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
-
-            return prodCatalogCategory.getString("productCategoryId");
-        } else {
-            return null;
-        }
+        return getProdCatalogCategoryId((Delegator) request.getAttribute("delegator"), prodCatalogId, "PCCT_QUICK_ADD");
     }
 
     public static Collection<String> getCatalogQuickaddCategories(ServletRequest request) {
@@ -386,30 +351,14 @@ public final class CatalogWorker {
     public static Collection<String> getCatalogQuickaddCategories(ServletRequest request, String prodCatalogId) {
         if (UtilValidate.isEmpty(prodCatalogId)) return null;
 
-        Collection<String> categoryIds = new LinkedList<>();
-
-        Collection<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
-
-        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            for (GenericValue prodCatalogCategory: prodCatalogCategories) {
-                categoryIds.add(prodCatalogCategory.getString("productCategoryId"));
-            }
-        }
-
-        return categoryIds;
+        return EntityUtil.getFieldListFromEntityList(
+                getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD"),
+                "productCategoryId",
+                true
+        );
     }
 
     public static String getCatalogTopEbayCategoryId(ServletRequest request, String prodCatalogId) {
-        if (UtilValidate.isEmpty(prodCatalogId)) return null;
-
-        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_EBAY_ROOT");
-
-        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
-
-            return prodCatalogCategory.getString("productCategoryId");
-        } else {
-            return null;
-        }
+        return getProdCatalogCategoryId((Delegator) request.getAttribute("delegator"), prodCatalogId, "PCCT_EBAY_ROOT");
     }
 }
