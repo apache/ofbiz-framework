@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.content.ContentManagementWorker
@@ -25,7 +24,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
 
-Debug.logInfo("in mostrecentprep(1):","")
+logInfo("in mostrecentprep(1):")
 paramMap = UtilHttp.getParameterMap(request)
 forumId = ContentManagementWorker.getFromSomewhere("moderatedSiteId", paramMap, request, context)
 
@@ -41,7 +40,7 @@ if (forumId) {
     expr = EntityCondition.makeCondition(exprList, EntityOperator.AND)
     entityList = from("ContentAssocViewFrom").where(exprList).orderBy("-caFromDate").queryList()
 
-    Debug.logInfo("in mostrecentprep(1), entityList.size():" + entityList.size(),"")
-    Debug.logInfo("in mostrecentprep(1), entityList:" + entityList,"")
+    logInfo("in mostrecentprep(1), entityList.size():" + entityList.size())
+    logInfo("in mostrecentprep(1), entityList:" + entityList)
     context.mostRecentList = entityList
 }

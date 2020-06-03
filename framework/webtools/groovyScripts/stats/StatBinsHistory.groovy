@@ -1,4 +1,4 @@
-/*
+    /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,7 +27,7 @@ type = -1
 try {
     type = Integer.valueOf(typeStr)
 } catch (NumberFormatException nfe) {
-    Debug.logError(nfe, "Caught an exception : " + nfe.toString(), "StatBinsHistory.groovy")
+    logError(nfe, "Caught an exception : " + nfe.toString())
     errMsgList.add("Entered value is non-numeric for numeric field: " + field.getName())
 }
 

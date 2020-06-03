@@ -18,10 +18,7 @@
  */
 
 import org.apache.ofbiz.entity.transaction.TransactionUtil
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.entity.util.EntityUtilProperties
-
-module = "showvisits.groovy"
 
 partyId = parameters.partyId
 context.partyId = partyId
@@ -72,12 +69,12 @@ try {
 
 } catch (Exception e) {
     String errMsg = "Failure in operation, rolling back transaction"
-    Debug.logError(e, errMsg, module)
+    logError(e, errMsg)
     try {
         // only rollback the transaction if we started one...
         TransactionUtil.rollback(beganTransaction, errMsg, e)
     } catch (Exception e2) {
-        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module)
+        logError(e2, "Could not rollback transaction: " + e2.toString())
     }
     // after rolling back, rethrow the exception
     throw e

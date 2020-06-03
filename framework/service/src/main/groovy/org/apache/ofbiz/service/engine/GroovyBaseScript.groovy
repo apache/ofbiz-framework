@@ -1,3 +1,5 @@
+
+
 /*******************************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -29,6 +31,10 @@ import org.apache.ofbiz.entity.GenericValue
 
 abstract class GroovyBaseScript extends Script {
     public static final String module = GroovyBaseScript.class.getName()
+
+    String getModule() {
+        return this.class.getName()
+    }
 
     Map runService(String serviceName, Map inputMap) throws ExecutionServiceException {
         LocalDispatcher dispatcher = binding.getVariable('dispatcher')
@@ -121,16 +127,18 @@ abstract class GroovyBaseScript extends Script {
         }
     }
     def logInfo(String message) {
-        Debug.logInfo(message, module)
+        Debug.logInfo(message, getModule())
     }
     def logWarning(String message) {
-        Debug.logWarning(message, module)
+        Debug.logWarning(message, getModule())
     }
     def logError(String message) {
-        Debug.logError(message, module)
+        Debug.logError(message, getModule())
     }
-
+    def logError(Throwable t, String message) {
+        Debug.logError(t, message, getModule())
+    }
     def logVerbose(String message) {
-        Debug.logVerbose(message, module)
+        Debug.logVerbose(message, getModule())
     }
 }
