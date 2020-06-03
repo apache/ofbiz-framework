@@ -67,7 +67,7 @@ if (parameters.logFileName && listLogFileNames.contains(parameters.logFileName))
             logLines.add([type: type, line:line])
         }
     } catch (Exception e) {
-        logError(e, "")
+        logError(e, module)
     }
     context.logLines = logLines
 }
