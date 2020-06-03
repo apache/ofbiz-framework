@@ -140,16 +140,23 @@ under the License.
     <PartyRole partyId="employee29" roleTypeId="REQ_RESPOND" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee29" roleTypeId="REQ_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee29" roleTypeId="QUOTE_APPROVER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="employee29" roleTypeId="QUOTE_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee29" roleTypeId="QUOTE_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee29" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ORDERADMIN" userLoginId="employee29" fromDate="2000-01-01 00:00:00.0"/>
+
     <PartyRole partyId="employee30" roleTypeId="REQ_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee30" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ORDERADMIN_LTD" userLoginId="employee30" fromDate="2000-01-01 00:00:00.0"/>
+
     <PartyRole partyId="employee31" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee31" roleTypeId="REQ_RESPOND" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee31" roleTypeId="REQ_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee31" roleTypeId="QUOTE_CREATOR" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee31" roleTypeId="QUOTE_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee31" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ORDERENTRY" userLoginId="employee31" fromDate="2000-01-01 00:00:00.0"/>
+
     <PartyRole partyId="employee32" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee32" roleTypeId="REQ_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee32" roleTypeId="REQ_RESPOND" fromDate="2001-05-13 00:00:00.0"/>
@@ -158,6 +165,8 @@ under the License.
     <PartyRole partyId="employee32" roleTypeId="QUOTE_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee32" roleTypeId="QUOTE_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee32" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ORDERPROC" userLoginId="employee32" fromDate="2000-01-01 00:00:00.0"/>
+
     <PartyRole partyId="employee33" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee33" roleTypeId="REQ_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee33" roleTypeId="REQ_RESPOND" fromDate="2001-05-13 00:00:00.0"/>
@@ -166,6 +175,8 @@ under the License.
     <PartyRole partyId="employee33" roleTypeId="QUOTE_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee33" roleTypeId="QUOTE_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee33" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ORDERPROC" userLoginId="employee33" fromDate="2000-01-01 00:00:00.0"/>
+
     <!-- Procurement related -->
     <PartyRole partyId="employee25" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee25" roleTypeId="REQ_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
@@ -174,14 +185,20 @@ under the License.
     <PartyRole partyId="employee25" roleTypeId="QUOTE_APPROVER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee25" roleTypeId="QUOTE_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee25" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ORDERPURCH" userLoginId="employee25" fromDate="2000-01-01 00:00:00.0"/>
+
     <PartyRole partyId="employee26" roleTypeId="REQ_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee26" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ORDERSUPPLIER_LTD" userLoginId="employee26" fromDate="2000-01-01 00:00:00.0"/>
+
     <PartyRole partyId="employee27" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="REQ_RESPOND" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="REQ_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="QUOTE_CREATOR" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="QUOTE_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee27" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ORDERPURCH" userLoginId="employee27" fromDate="2000-01-01 00:00:00.0"/>
+
     <PartyRole partyId="employee28" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee28" roleTypeId="REQ_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee28" roleTypeId="REQ_RESPOND" fromDate="2001-05-13 00:00:00.0"/>
@@ -190,14 +207,7 @@ under the License.
     <PartyRole partyId="employee28" roleTypeId="QUOTE_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee28" roleTypeId="QUOTE_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyRole partyId="employee28" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee29" roleTypeId="REQ_TAKER" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee29" roleTypeId="REQ_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee29" roleTypeId="REQ_RESPOND" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee29" roleTypeId="REQ_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee29" roleTypeId="QUOTE_CREATOR" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee29" roleTypeId="QUOTE_MANAGER" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee29" roleTypeId="QUOTE_REVIEWER" fromDate="2001-05-13 00:00:00.0"/>
-    <PartyRole partyId="employee29" roleTypeId="QUOTE_VIEWER" fromDate="2001-05-13 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="ORDERPURCH" userLoginId="employee28" fromDate="2000-01-01 00:00:00.0"/>
 
     <!-- Order Demo User Data -->
     <UserLogin userLoginId="DemoBuyer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
