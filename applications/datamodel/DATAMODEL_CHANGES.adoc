@@ -18,7 +18,7 @@ under the License.
 ////
 = Data Model Changes
 The Apache OFBiz® Project
-Release 17.12
+Release trunk
 
 Apache OFBiz follows *The Universal Data Model* by **Len Silverston**, with a grain of salt.
 
