@@ -1208,6 +1208,29 @@ under the License.
     <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="InventoryRentalShip" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="RentalShip" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
     <InventoryItemDetail inventoryItemId="InventoryRentalShip" inventoryItemDetailSeqId="0001" effectiveDate="2011-09-01 12:00:00.0" availableToPromiseDiff="10" quantityOnHandDiff="10" accountingQuantityDiff="10"/>
 
+    <!-- Regarding Price Rules -->
+    <ProductCategory categoryName="Tier 1 products"
+        longDescription="Product for Tier #1 price rule" productCategoryId="TIER1" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <!-- A price rule applicable for products of a particular category -->
+    <ProductPriceRule productPriceRuleId="TIER1" ruleName="Tier1" description="Tier #1 prices" isSale="Y" fromDate="2001-05-13 00:00:00.0"/>
+    <ProductPriceCond inputParamEnumId="PRIP_PROD_CAT_ID" operatorEnumId="PRC_EQ" condValue="TIER1"
+        productPriceCondSeqId="01" productPriceRuleId="TIER1"/>
+    <ProductPriceCond inputParamEnumId="PRIP_QUANTITY" operatorEnumId="PRC_LTE" condValue="5" 
+        productPriceCondSeqId="02" productPriceRuleId="TIER1"/>
+    <ProductPriceAction productPriceActionSeqId="00001" productPriceActionTypeId="PRICE_POD" amount="100.000000" productPriceRuleId="TIER1"/>
+    
+    <ProductCategory categoryName="Tier 2 products"
+        longDescription="Product for Tier #2 price rule" productCategoryId="TIER2" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <!-- A price rule applicable for products of a particular category -->
+    <ProductPriceRule productPriceRuleId="TIER2" ruleName="Tier2" description="Tier #2 prices" isSale="Y" fromDate="2001-05-13 00:00:00.0"/>
+    <ProductPriceCond inputParamEnumId="PRIP_PROD_CAT_ID" operatorEnumId="PRC_EQ" condValue="TIER2"
+        productPriceCondSeqId="01" productPriceRuleId="TIER2"/>
+    <ProductPriceCond inputParamEnumId="PRIP_QUANTITY" operatorEnumId="PRC_GTE" condValue="6" 
+        productPriceCondSeqId="02" productPriceRuleId="TIER2"/>
+    <ProductPriceCond inputParamEnumId="PRIP_QUANTITY" operatorEnumId="PRC_LTE" condValue="10" 
+        productPriceCondSeqId="02" productPriceRuleId="TIER2"/>
+    <ProductPriceAction productPriceActionSeqId="00001" productPriceActionTypeId="PRICE_POD" amount="95.000000" productPriceRuleId="TIER2"/>
+
     <!-- Demo product tags -->
     <ProductKeyword productId="GZ-1000" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
     <ProductKeyword productId="GZ-1001" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
