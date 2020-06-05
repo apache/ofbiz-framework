@@ -67,7 +67,7 @@ under the License.
                     <#assign thisApp = StringUtil.wrapString(thisApp)>
                     <#assign thisURL = thisApp>
                     <#if thisApp != "/">
-                        <#assign thisURL = thisURL + "/control/main">
+                        <#assign thisURL = thisURL>
                     </#if>
                     <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
                     <#-- do not display this component-->
@@ -109,7 +109,7 @@ under the License.
                     <#assign thisApp = StringUtil.wrapString(thisApp)>
                     <#assign thisURL = thisApp>
                     <#if thisApp != "/">
-                        <#assign thisURL = thisURL + "/control/main">
+                        <#assign thisURL = thisURL>
                     </#if>
                     <#if appCount<=appMax>
                         <li class="app-btn<#if selected> selected</#if>">
@@ -153,7 +153,7 @@ under the License.
                 <#assign thisApp = StringUtil.wrapString(thisApp)>
                 <#assign thisURL = thisApp>
                 <#if thisApp != "/">
-                    <#assign thisURL = thisURL + "/control/main">
+                    <#assign thisURL = thisURL>
                 </#if>
                 <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
                 <#-- do not display this component-->
@@ -194,7 +194,7 @@ under the License.
                 <#assign thisApp = StringUtil.wrapString(thisApp)>
                 <#assign thisURL = thisApp>
                 <#if thisApp != "/">
-                    <#assign thisURL = thisURL + "/control/main">
+                    <#assign thisURL = thisURL>
                 </#if>
                 <#if appMax < appCount>
                     <#if !moreApp>
@@ -224,7 +224,7 @@ under the License.
             <#assign thisApp = StringUtil.wrapString(thisApp)>
             <#assign thisURL = thisApp>
             <#if thisApp != "/">
-                <#assign thisURL = thisURL + "/control/main">
+                <#assign thisURL = thisURL>
             </#if>
             <li class="app-btn selected">
                 <div id="app-selected">
