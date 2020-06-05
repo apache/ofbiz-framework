@@ -52,7 +52,7 @@ under the License.
               <#assign thisApp = StringUtil.wrapString(thisApp)>
               <#assign thisURL = thisApp>
               <#if thisApp != "/">
-                <#assign thisURL = thisURL + "/control/main">
+                <#assign thisURL = thisURL>
               </#if>
               <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>
                 <!-- do not display this component-->
@@ -72,7 +72,7 @@ under the License.
               <#assign thisApp = StringUtil.wrapString(thisApp)>
               <#assign thisURL = thisApp>
               <#if thisApp != "/">
-                <#assign thisURL = thisURL + "/control/main">
+                <#assign thisURL = thisURL>
               </#if>
               <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>
                 <!-- do not display this component-->
