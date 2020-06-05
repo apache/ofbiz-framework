@@ -18,7 +18,7 @@ under the License.
 ////
 = Apache OFBiz Themes
 The Apache OFBiz® Project
-Release 17.12
+Release 18.12
 
 This OFBiz component contains all elements needed to manage theming in OFBiz.
 
