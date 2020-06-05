@@ -279,10 +279,10 @@ public class FinAccountServices {
         BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
         BigDecimal balance = finAccount.getBigDecimal("actualBalance");
         if (availableBalance == null) {
-            availableBalance = FinAccountHelper.ZERO;
+            availableBalance = FinAccountHelper.getZero();
         }
         if (balance == null) {
-            balance = FinAccountHelper.ZERO;
+            balance = FinAccountHelper.getZero();
         }
 
         String statusId = finAccount.getString("statusId");
@@ -321,16 +321,16 @@ public class FinAccountServices {
 
             BigDecimal balance = finAccount.getBigDecimal("actualBalance");
             if (balance == null) {
-                balance = FinAccountHelper.ZERO;
+                balance = FinAccountHelper.getZero();
             }
 
             Debug.logInfo("Account #" + finAccountId + " Balance: " + balance + " Status: " + statusId, MODULE);
 
-            if ("FNACT_ACTIVE".equals(statusId) && balance.compareTo(FinAccountHelper.ZERO) < 1) {
+            if ("FNACT_ACTIVE".equals(statusId) && balance.compareTo(FinAccountHelper.getZero()) < 1) {
                 finAccount.set("statusId", "FNACT_MANFROZEN");
                 Debug.logInfo("Financial account [" + finAccountId + "] has passed its threshold [" + balance
                         + "] (Frozen)", MODULE);
-            } else if ("FNACT_MANFROZEN".equals(statusId) && balance.compareTo(FinAccountHelper.ZERO) > 0) {
+            } else if ("FNACT_MANFROZEN".equals(statusId) && balance.compareTo(FinAccountHelper.getZero()) > 0) {
                 finAccount.set("statusId", "FNACT_ACTIVE");
                 Debug.logInfo("Financial account [" + finAccountId + "] has been made current [" + balance
                         + "] (Un-Frozen)", MODULE);
@@ -391,7 +391,7 @@ public class FinAccountServices {
                 try (EntityListIterator eli = EntityQuery.use(delegator).from("FinAccountTrans").where(condition)
                         .orderBy("-transactionDate").queryIterator()) {
                     GenericValue trans;
-                    while (remainingBalance.compareTo(FinAccountHelper.ZERO) < 0 && (trans = eli.next()) != null) {
+                    while (remainingBalance.compareTo(FinAccountHelper.getZero()) < 0 && (trans = eli.next()) != null) {
                         String orderId = trans.getString("orderId");
                         String orderItemSeqId = trans.getString("orderItemSeqId");
 
@@ -497,7 +497,7 @@ public class FinAccountServices {
                 }
 
                 // check to make sure we balanced out
-                if (remainingBalance.compareTo(FinAccountHelper.ZERO) == 1) {
+                if (remainingBalance.compareTo(FinAccountHelper.getZero()) == 1) {
                     result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RES_ERROR,
                             "AccountingFinAccountPartiallyRefunded", locale));
                 }

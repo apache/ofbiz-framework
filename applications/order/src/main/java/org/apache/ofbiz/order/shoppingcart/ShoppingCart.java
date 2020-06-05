@@ -1951,7 +1951,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      * @throws GenericEntityException
      */
     public GenericValue getGiftCertSettingFromStore(Delegator delegator) throws GenericEntityException {
-        return EntityQuery.use(delegator).from("ProductStoreFinActSetting").where("productStoreId", getProductStoreId(), "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId).cache().queryOne();
+        return EntityQuery.use(delegator).from("ProductStoreFinActSetting")
+            .where("productStoreId", getProductStoreId(), "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId()).cache().queryOne();
     }
 
     /**

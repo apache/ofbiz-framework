@@ -189,7 +189,7 @@ public class FinAccountProductServices {
         // price/amount/quantity to create initial deposit amount
         BigDecimal quantity = orderItem.getBigDecimal("quantity");
         BigDecimal price = orderItem.getBigDecimal("unitPrice");
-        BigDecimal deposit = price.multiply(quantity).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
+        BigDecimal deposit = price.multiply(quantity).setScale(FinAccountHelper.getDecimals(), FinAccountHelper.getRounding());
 
         // create the financial account
         Map<String, Object> createCtx = new HashMap<>();
