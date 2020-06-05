@@ -39,6 +39,7 @@ import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
+import org.apache.ofbiz.entity.util.EntityBatchIterator;
 
 /**
  * Used to setup various options for and subsequently execute entity queries.
@@ -417,6 +418,10 @@ public class EntityQuery {
         } else {
             return delegator.findListIteratorByCondition(dynamicViewEntity, makeWhereCondition(false), havingEntityCondition, fieldsToSelect, orderBy, makeEntityFindOptions());
         }
+    }
+
+    public EntityBatchIterator queryBatchIterator() {
+        return new EntityBatchIterator(this);
     }
 
     /** Executes the EntityQuery and returns the first result

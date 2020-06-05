@@ -835,7 +835,7 @@ public class GenericDAO {
                         offsetString.append(" OFFSET " + findOptions.getOffset());
                     }
                 }
-            } else if ("fetch".equals(datasource.getOffsetStyle())) {
+            } else {
                 // use SQL2008 OFFSET/FETCH style by default
                 if (findOptions.getOffset() > -1) {
                     offsetString.append(" OFFSET ").append(findOptions.getOffset()).append(" ROWS");
