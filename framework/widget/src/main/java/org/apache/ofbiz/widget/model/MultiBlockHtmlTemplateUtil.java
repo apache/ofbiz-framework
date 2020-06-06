@@ -167,6 +167,9 @@ public final class MultiBlockHtmlTemplateUtil {
      */
     public static void storeScreenLocationName(final Map<String, Object> context, String location, String name) {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
+        if (request == null) {
+            return;
+        }
         if (request.getAttribute(HTML_LINKS_FOR_HEAD) == null) {
             String currentLocationHashName = location + "#" + name;
             request.setAttribute(HTML_LINKS_FOR_HEAD, currentLocationHashName);
@@ -183,7 +186,9 @@ public final class MultiBlockHtmlTemplateUtil {
      */
     public static void addLinksToLayoutSettings(final Map<String, Object> context) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
-
+        if (request == null) {
+            return;
+        }
         // check "layoutSettings.javaScripts" is not empty
         Map<String, Object> layoutSettings = UtilGenerics.cast(context.get("layoutSettings"));
         if (UtilValidate.isEmpty(layoutSettings)) {
