@@ -23,8 +23,6 @@ import org.apache.ofbiz.entity.util.EntityFindOptions
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.entity.transaction.*
 
-module = "EditFeatureCategoryFeatures.groovy"
-
 context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session)
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
@@ -81,12 +79,12 @@ try {
     productFeaturesEli.close()
 } catch (GenericEntityException e) {
     String errMsg = "Failure in operation, rolling back transaction"
-    Debug.logError(e, errMsg, module)
+    logError(e, errMsg)
     try {
         // only rollback the transaction if we started one...
         TransactionUtil.rollback(beganTransaction, errMsg, e)
     } catch (GenericEntityException e2) {
-        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module)
+        logError(e2, "Could not rollback transaction: " + e2.toString())
     }
     // after rolling back, rethrow the exception
     throw e
