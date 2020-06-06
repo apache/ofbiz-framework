@@ -61,15 +61,21 @@ import org.w3c.dom.Element;
 /**
  * ConfigXMLReader.java - Reads and parses the XML site config files.
  */
-public class ConfigXMLReader {
+public final class ConfigXMLReader {
 
     private static final String MODULE = ConfigXMLReader.class.getName();
-    public static final Path CONTROLLERXMLFILENAME = Paths.get("WEB-INF", "controller.xml");
+    private static final Path CONTROLLERXMLFILENAME = Paths.get("WEB-INF", "controller.xml");
     private static final UtilCache<URL, ControllerConfig> CONTROLLERCACHE = UtilCache
             .createUtilCache("webapp.ControllerConfig");
     private static final UtilCache<String, List<ControllerConfig>> CONTROLLERSEARCHRESULTSCACHE = UtilCache
             .createUtilCache("webapp.ControllerSearchResults");
-    public static final RequestResponse emptyNoneRequestResponse = RequestResponse.createEmptyNoneRequestResponse();
+    private static final RequestResponse EMPTY_NONE_REQ_RES = RequestResponse.createEmptyNoneRequestResponse();
+
+    protected ConfigXMLReader() { }
+
+    public static RequestResponse getEmptyNoneRequestResponse() {
+        return EMPTY_NONE_REQ_RES;
+    }
 
     public static Set<String> findControllerFilesWithRequest(String requestUri, String controllerPartialPath)
             throws GeneralException {
