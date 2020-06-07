@@ -320,14 +320,7 @@ def getChangedFiles() {
     ("git diff --cached --name-only --diff-filter=d").execute().waitForProcessOutput(systemOutStream, System.err)
     def allFiles = systemOutStream.toString().trim().split('\n')
     systemOutStream.close()
-
-    // Collect only java  files from all changed files
-    for (file in allFiles) {
-        if (file.endsWith(".java")) {
-            files.add(file)
-        }
-    }
-    files
+    allFiles
 }
 
 // Eclipse plugin settings
