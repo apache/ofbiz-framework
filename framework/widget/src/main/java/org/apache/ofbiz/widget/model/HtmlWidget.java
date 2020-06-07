@@ -39,6 +39,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
@@ -56,6 +57,8 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -226,10 +229,17 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
                 MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
 
-                // store value to be used by scriptTagsFooter freemarker macro
+                // construct script link
                 String webappName = (String) context.get("webappName");
-                MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(context, "/" + webappName + "/control/getJs?name="
-                        + fileName);
+                String url = "/" + webappName + "/control/getJs?name=" + fileName;
+
+                // add csrf token to script link
+                HttpServletRequest request = (HttpServletRequest) context.get("request");
+                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
+                url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
+
+                // store script link to be output by scriptTagsFooter freemarker macro
+                MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
             }
         }
 

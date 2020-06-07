@@ -343,11 +343,10 @@ public final class MultiBlockHtmlTemplateUtil {
 
     /**
      * add script link for page footer.
-     * @param context
+     * @param request
      * @param filePath
      */
-    public static void addScriptLinkForFoot(final Map<String, Object> context, final String filePath) {
-        HttpServletRequest request = (HttpServletRequest) context.get("request");
+    public static void addScriptLinkForFoot(final HttpServletRequest request, final String filePath) {
         Set<String> scriptLinks = UtilGenerics.cast(request.getAttribute(SCRIPT_LINKS_FOR_FOOT));
         if (scriptLinks == null) {
             // use of LinkedHashSet to maintain insertion order
