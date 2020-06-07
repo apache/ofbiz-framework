@@ -56,7 +56,7 @@ import org.w3c.dom.Node;
  */
 public final class MiniLangUtil {
 
-    public static final String MODULE = MiniLangUtil.class.getName();
+    private static final String MODULE = MiniLangUtil.class.getName();
 
     private static final Set<String> SCRIPT_PREFIXES;
 

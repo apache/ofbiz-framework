@@ -42,7 +42,7 @@ import org.apache.ofbiz.widget.WidgetWorker;
  */
 public class PortalPageWorker {
 
-    public static final String MODULE = PortalPageWorker.class.getName();
+    private static final String MODULE = PortalPageWorker.class.getName();
 
     public PortalPageWorker() { }
 

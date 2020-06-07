@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class ServiceEngineTestServices {
 
-    public static final String MODULE = ServiceEngineTestServices.class.getName();
+    private static final String MODULE = ServiceEngineTestServices.class.getName();
     public static final String resource = "ServiceErrorUiLabels";
 
     public static Map<String, Object> testServiceDeadLockRetry(DispatchContext dctx, Map<String, ? extends Object> context) {

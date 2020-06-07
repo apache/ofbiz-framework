@@ -46,7 +46,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class WeightPackageSession implements Serializable {
 
-    public static final String MODULE = WeightPackageSession.class.getName();
+    private static final String MODULE = WeightPackageSession.class.getName();
 
     protected GenericValue userLogin = null;
     protected String dispatcherName = null;

@@ -45,7 +45,7 @@ import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 
 public final class CsrfUtil {
 
-    public static final String MODULE = CsrfUtil.class.getName();
+    private static final String MODULE = CsrfUtil.class.getName();
     private static String tokenNameNonAjax = UtilProperties.getPropertyValue("security", "csrf.tokenName.nonAjax",
             "csrf");
     private static ICsrfDefenseStrategy strategy;

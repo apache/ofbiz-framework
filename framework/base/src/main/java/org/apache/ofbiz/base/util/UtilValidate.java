@@ -70,7 +70,7 @@ import com.ibm.icu.util.Calendar;
  */
 public final class UtilValidate {
 
-    public static final String MODULE = UtilValidate.class.getName();
+    private static final String MODULE = UtilValidate.class.getName();
 
     private UtilValidate() {}
 

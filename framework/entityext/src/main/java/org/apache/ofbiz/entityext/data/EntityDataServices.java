@@ -64,7 +64,7 @@ import org.apache.shiro.crypto.AesCipherService;
  */
 public class EntityDataServices {
 
-    public static final String MODULE = EntityDataServices.class.getName();
+    private static final String MODULE = EntityDataServices.class.getName();
     public static final String resource = "EntityExtUiLabels";
 
     public static Map<String, Object> exportDelimitedToDirectory(DispatchContext dctx, Map<String, Object> context) {

@@ -68,7 +68,7 @@ import org.apache.tomcat.util.res.StringManager;
  */
 public class LoginServices {
 
-    public static final String MODULE = LoginServices.class.getName();
+    private static final String MODULE = LoginServices.class.getName();
     public static final String resource = "SecurityextUiLabels";
 
     /** Login service to authenticate username and password

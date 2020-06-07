@@ -45,7 +45,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  */
 public class ServiceSynchronization implements Synchronization {
 
-    public static final String MODULE = ServiceSynchronization.class.getName();
+    private static final String MODULE = ServiceSynchronization.class.getName();
 
     private static Map<Transaction, ServiceSynchronization> syncingleton = new WeakHashMap<>();
     private List<ServiceExecution> services = new ArrayList<>();

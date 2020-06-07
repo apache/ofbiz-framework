@@ -27,7 +27,7 @@ import org.apache.ofbiz.order.finaccount.FinAccountHelper;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class FinAccountTest extends OFBizTestCase {
-    public static final String MODULE = FinAccountTest.class.getName();
+    private static final String MODULE = FinAccountTest.class.getName();
     public FinAccountTest(String name) {
         super(name);
     }

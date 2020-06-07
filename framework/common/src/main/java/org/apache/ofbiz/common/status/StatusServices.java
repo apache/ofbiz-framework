@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class StatusServices {
 
-    public static final String MODULE = StatusServices.class.getName();
+    private static final String MODULE = StatusServices.class.getName();
     public static final String resource = "CommonUiLabels";
 
     public static Map<String, Object> getStatusItems(DispatchContext ctx, Map<String, ?> context) {

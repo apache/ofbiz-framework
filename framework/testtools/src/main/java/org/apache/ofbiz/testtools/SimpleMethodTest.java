@@ -42,7 +42,7 @@ import junit.framework.TestResult;
 
 public class SimpleMethodTest extends OFBizTestCase {
 
-    public static final String MODULE = ServiceTest.class.getName();
+    private static final String MODULE = ServiceTest.class.getName();
 
     protected String methodLocation;
     protected String methodName;

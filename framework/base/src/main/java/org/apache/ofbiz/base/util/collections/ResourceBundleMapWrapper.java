@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.calendar.TemporalExpressions.Frequency;
 @SuppressWarnings("serial")
 public class ResourceBundleMapWrapper implements Map<String, Object>, Serializable {
 
-    public static final String MODULE = Frequency.class.getName();
+    private static final String MODULE = Frequency.class.getName();
     protected MapStack<String> rbmwStack;
     protected ResourceBundle initialResourceBundle;
     protected Map<String, Object> context;

@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.GenericServiceException;
  */
 public class JmsTopicListener extends AbstractJmsListener {
 
-    public static final String MODULE = JmsTopicListener.class.getName();
+    private static final String MODULE = JmsTopicListener.class.getName();
 
     private TopicConnection con = null;
     private TopicSession session = null;

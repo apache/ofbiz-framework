@@ -70,7 +70,7 @@ import org.w3c.dom.Element;
  */
 public class JmsServiceEngine extends AbstractEngine {
 
-    public static final String MODULE = JmsServiceEngine.class.getName();
+    private static final String MODULE = JmsServiceEngine.class.getName();
 
     public JmsServiceEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);

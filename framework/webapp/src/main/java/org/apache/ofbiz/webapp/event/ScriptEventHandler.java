@@ -58,7 +58,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
  */
 public final class ScriptEventHandler implements EventHandler {
 
-    public static final String MODULE = ScriptEventHandler.class.getName();
+    private static final String MODULE = ScriptEventHandler.class.getName();
     private static final Set<String> protectedKeys = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {

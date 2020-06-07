@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class ProductionRunEvents {
 
-    public static final String MODULE = ProductionRunEvents.class.getName();
+    private static final String MODULE = ProductionRunEvents.class.getName();
 
     public static String productionRunDeclareAndProduce(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();

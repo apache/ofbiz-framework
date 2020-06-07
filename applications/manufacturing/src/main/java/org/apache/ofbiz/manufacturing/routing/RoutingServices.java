@@ -40,8 +40,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class RoutingServices {
 
-    public static final String MODULE = RoutingServices.class.getName();
-    public static final String resource = "ManufacturingUiLabels";
+    private static final String MODULE = RoutingServices.class.getName();
+    private static final String RESOURCE = "ManufacturingUiLabels";
 
     /**
      * Computes the estimated time needed to perform the task.
@@ -70,7 +70,7 @@ public class RoutingServices {
         try {
             task = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", taskId).queryOne();
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingErrorFindingTask", UtilMisc.toMap("taskId", taskId), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingRoutingErrorFindingTask", UtilMisc.toMap("taskId", taskId), locale));
         }
         // FIXME: the ProductionRun.getEstimatedTaskTime(...) method will be removed and
         // its logic will be implemented inside this method.

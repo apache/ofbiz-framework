@@ -40,7 +40,7 @@ import org.apache.ofbiz.widget.model.ModelForm;
  */
 public final class Paginator {
 
-    public static final String MODULE = Paginator.class.getName();
+    private static final String MODULE = Paginator.class.getName();
 
     public static int getActualPageSize(Map<String, Object> context) {
         Integer value = (Integer) context.get("actualPageSize");

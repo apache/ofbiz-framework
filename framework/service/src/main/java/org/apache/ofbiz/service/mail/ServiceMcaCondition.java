@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ServiceMcaCondition implements java.io.Serializable {
 
-    public static final String MODULE = ServiceMcaCondition.class.getName();
+    private static final String MODULE = ServiceMcaCondition.class.getName();
     public static final int CONDITION_FIELD = 1;
     public static final int CONDITION_HEADER = 2;
     public static final int CONDITION_SERVICE = 3;

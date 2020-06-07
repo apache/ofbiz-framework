@@ -42,5 +42,5 @@ under the License.
 
 </div>
 </body>
-<@scriptTemplateList/>
+<@scriptTagsFooter/>
 </html>

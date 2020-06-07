@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.job.JobPriority;
  */
 public abstract class GenericAsyncEngine extends AbstractEngine {
 
-    public static final String MODULE = GenericAsyncEngine.class.getName();
+    private static final String MODULE = GenericAsyncEngine.class.getName();
 
     protected GenericAsyncEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);

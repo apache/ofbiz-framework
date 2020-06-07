@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ModelService;
  */
 public final class ProductWorker {
 
-    public static final String MODULE = ProductWorker.class.getName();
+    private static final String MODULE = ProductWorker.class.getName();
 
     private static final MathContext generalRounding = new MathContext(10);
 

@@ -56,7 +56,7 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("serial")
 public class ModelServiceReader implements Serializable {
 
-    public static final String MODULE = ModelServiceReader.class.getName();
+    private static final String MODULE = ModelServiceReader.class.getName();
 
     /** is either from a URL or from a ResourceLoader (through the ResourceHandler) */
     protected boolean isFromURL;

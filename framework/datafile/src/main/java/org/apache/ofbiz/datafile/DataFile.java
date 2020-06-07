@@ -40,7 +40,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 
 public class DataFile {
 
-    public static final String MODULE = DataFile.class.getName();
+    private static final String MODULE = DataFile.class.getName();
 
     /** List of record in the file, contains Record objects */
     protected List<Record> records = new ArrayList<>();

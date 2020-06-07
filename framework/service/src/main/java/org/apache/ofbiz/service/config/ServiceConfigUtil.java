@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public final class ServiceConfigUtil {
 
-    public static final String MODULE = ServiceConfigUtil.class.getName();
+    private static final String MODULE = ServiceConfigUtil.class.getName();
     private static final String engine = "default";
     private static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
     // Keep the ServiceConfig instance in a cache - so the configuration can be reloaded at run-time. There will be only one ServiceConfig instance in the cache.

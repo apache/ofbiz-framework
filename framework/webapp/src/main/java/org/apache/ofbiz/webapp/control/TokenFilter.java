@@ -39,7 +39,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class TokenFilter implements Filter  {
-    public static final String MODULE = TokenFilter.class.getName();
+    private static final String MODULE = TokenFilter.class.getName();
 
     protected FilterConfig config = null;
 

@@ -63,7 +63,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
  */
 public class EntityDataLoadContainer implements Container {
 
-    public static final String MODULE = EntityDataLoadContainer.class.getName();
+    private static final String MODULE = EntityDataLoadContainer.class.getName();
     private String name;
 
     // possible command line properties passed by user

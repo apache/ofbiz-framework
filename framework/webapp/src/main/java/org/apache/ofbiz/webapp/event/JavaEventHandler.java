@@ -36,7 +36,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
  */
 public class JavaEventHandler implements EventHandler {
 
-    public static final String MODULE = JavaEventHandler.class.getName();
+    private static final String MODULE = JavaEventHandler.class.getName();
 
     /* Cache for event handler classes. */
     private ConcurrentHashMap<String, Class<?>> classes = new ConcurrentHashMap<>();

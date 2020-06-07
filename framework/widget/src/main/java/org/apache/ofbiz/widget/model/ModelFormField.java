@@ -105,7 +105,7 @@ public class ModelFormField {
      *
      */
 
-    public static final String MODULE = ModelFormField.class.getName();
+    private static final String MODULE = ModelFormField.class.getName();
 
     /**
      * Constructs a form field model from a builder specification.
@@ -2149,11 +2149,12 @@ public class ModelFormField {
             List<? extends Element> childElements = UtilXml.childElementList(element);
             if (childElements.size() > 0) {
                 for (Element childElement : childElements) {
-                    if ("option".equals(childElement.getTagName())) {
+                    String childName = childElement.getLocalName();
+                    if ("option".equals(childName)) {
                         optionSources.add(new SingleOption(childElement, modelFormField));
-                    } else if ("list-options".equals(childElement.getTagName())) {
+                    } else if ("list-options".equals(childName)) {
                         optionSources.add(new ListOptions(childElement, modelFormField));
-                    } else if ("entity-options".equals(childElement.getTagName())) {
+                    } else if ("entity-options".equals(childName)) {
                         optionSources.add(new EntityOptions(childElement, modelFormField));
                     }
                 }

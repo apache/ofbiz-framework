@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class ScriptHelperImpl implements ScriptHelper {
 
-    public static final String MODULE = ScriptHelperImpl.class.getName();
+    private static final String MODULE = ScriptHelperImpl.class.getName();
     private static final Map<String, ? extends Object> EMPTY_ARGS = Collections.unmodifiableMap(new HashMap<String, Object>());
 
     private static GenericValue runFindByPrimaryKey(ModelEntity modelEntity, ContextHelper ctxHelper, boolean useCache, boolean autoFieldMap,

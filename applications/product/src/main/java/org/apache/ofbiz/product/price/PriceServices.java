@@ -55,8 +55,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class PriceServices {
 
-    public static final String MODULE = PriceServices.class.getName();
-    public static final String resource = "ProductUiLabels";
+    private static final String MODULE = PriceServices.class.getName();
+    private static final String RESOURCE = "ProductUiLabels";
     public static final BigDecimal ONE_BASE = BigDecimal.ONE;
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
 
@@ -109,7 +109,7 @@ public class PriceServices {
             productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()) , locale));
         }
         if (UtilValidate.isEmpty(productStoreGroupId)) {
@@ -128,7 +128,7 @@ public class PriceServices {
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                             "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()) , locale));
                 }
             }
@@ -167,7 +167,7 @@ public class PriceServices {
                 virtualProductId = ProductWorker.getVariantVirtualId(product);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting virtual product id from the database while calculating price" + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductPriceCannotRetrieveVirtualProductId", UtilMisc.toMap("errorString", e.toString()) , locale));
             }
         }
@@ -244,7 +244,7 @@ public class PriceServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting agreement info from the database while calculating price" + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductPriceCannotRetrieveAgreementInfo", UtilMisc.toMap("errorString", e.toString()) , locale));
             }
         }
@@ -507,7 +507,7 @@ public class PriceServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting rules from the database while calculating price", MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductPriceCannotRetrievePriceRules", UtilMisc.toMap("errorString", e.toString()) , locale));
             }
         }
@@ -591,7 +591,7 @@ public class PriceServices {
             try {
                 Map<String, Object> calcTaxForDisplayResult = dispatcher.runSync("calcTaxForDisplay", calcTaxForDisplayContext);
                 if (ServiceUtil.isError(calcTaxForDisplayResult)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                             "ProductPriceCannotCalculateVatTax", locale), null, null, calcTaxForDisplayResult);
                 }
                 // taxTotal, taxPercentage, priceWithTax
@@ -617,7 +617,7 @@ public class PriceServices {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error calculating VAT tax (with calcTaxForDisplay service): " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductPriceCannotCalculateVatTax", locale));
             }
         }
@@ -943,7 +943,7 @@ public class PriceServices {
                     
                     priceInfoDescription.append(condsDescription.toString());
                     priceInfoDescription.append("[");
-                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductPriceConditionType", locale));
+                    priceInfoDescription.append(UtilProperties.getMessage(RESOURCE, "ProductPriceConditionType", locale));
                     priceInfoDescription.append(productPriceAction.getString("productPriceActionTypeId"));
                     priceInfoDescription.append("]");
 
@@ -1263,7 +1263,7 @@ public class PriceServices {
                 if (validPriceFound) {
                     GenericValue agreement = delegator.findOne("Agreement", true, UtilMisc.toMap("agreementId", agreementId));
                     StringBuilder priceInfoDescription = new StringBuilder();
-                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductAgreementUse", locale));
+                    priceInfoDescription.append(UtilProperties.getMessage(RESOURCE, "ProductAgreementUse", locale));
                     priceInfoDescription.append("[");
                     priceInfoDescription.append(agreementId);
                     priceInfoDescription.append("] ");
@@ -1307,11 +1307,11 @@ public class PriceServices {
                     }
                     // add a orderItemPriceInfo element too, without orderId or orderItemId
                     StringBuilder priceInfoDescription = new StringBuilder();
-                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductSupplier", locale));
+                    priceInfoDescription.append(UtilProperties.getMessage(RESOURCE, "ProductSupplier", locale));
                     priceInfoDescription.append(" [");
-                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductSupplierMinimumOrderQuantity", locale));
+                    priceInfoDescription.append(UtilProperties.getMessage(RESOURCE, "ProductSupplierMinimumOrderQuantity", locale));
                     priceInfoDescription.append(productSupplier.getBigDecimal("minimumOrderQuantity"));
-                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductSupplierLastPrice", locale));
+                    priceInfoDescription.append(UtilProperties.getMessage(RESOURCE, "ProductSupplierLastPrice", locale));
                     priceInfoDescription.append(productSupplier.getBigDecimal("lastPrice"));
                     priceInfoDescription.append("]");
                     GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo");

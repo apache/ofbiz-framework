@@ -80,7 +80,7 @@ import com.thoughtworks.xstream.XStream;
  */
 public final class UtilXml {
 
-    public static final String MODULE = UtilXml.class.getName();
+    private static final String MODULE = UtilXml.class.getName();
     private static final XStream xstream = createXStream();
     private UtilXml () {}
 

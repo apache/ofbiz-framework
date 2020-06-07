@@ -225,7 +225,7 @@ if (passedEntityNames) {
                     TransactionUtil.commit(beganTransaction)
                 } catch (Exception e) {
                     errMsg = "Error reading data for XML export:"
-                    Debug.logError(e, errMsg, "JSP")
+                    logError(e, errMsg)
                     TransactionUtil.rollback(beganTransaction, errMsg, e)
                 }
             }

@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilProperties
@@ -27,7 +26,6 @@ import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import java.sql.Timestamp
 
-MODULE = "PaymentServices.groovy"
 def createPayment() {
     if (!security.hasEntityPermission("ACCOUNTING", "_CREATE", parameters.userLogin) && (!security.hasEntityPermission("PAY_INFO", "_CREATE", parameters.userLogin) && userLogin.partyId != parameters.partyIdFrom && userLogin.partyId != parameters.partyIdTo)) {
         return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingCreatePaymentPermissionError)
@@ -41,7 +39,7 @@ def createPayment() {
     if (parameters.paymentMethodId) {
         GenericValue paymentMethod = from("PaymentMethod").where("paymentMethodId", parameters.paymentMethodId).queryOne()
         if (parameters.paymentMethodTypeId != paymentMethod.paymentMethodTypeId) {
-            Debug.logInfo("Replacing passed payment method type [" + parameters.paymentMethodTypeId + "] with payment method type [" + paymentMethod.paymentMethodTypeId + "] for payment method [" + parameters.paymentMethodId +"]", MODULE)
+            logInfo("Replacing passed payment method type [" + parameters.paymentMethodTypeId + "] with payment method type [" + paymentMethod.paymentMethodTypeId + "] for payment method [" + parameters.paymentMethodId +"]")
             parameters.paymentMethodTypeId = paymentMethod.paymentMethodTypeId
         }
     }
@@ -96,8 +94,8 @@ def updatePayment() {
     if (payment.paymentMethodId) {
         paymentMethod = from("PaymentMethod").where("paymentMethodId", payment.paymentMethodId).queryOne()
         if (payment.paymentMethodTypeId != paymentMethod.paymentMethodTypeId) {
-            Debug.logInfo("Replacing passed payment method type [" + parameters.paymentMethodTypeId + "] with payment method type [" +
-                paymentMethod.paymentMethodTypeId + "] for payment method [" + parameters.paymentMethodId +"]", MODULE)
+            logInfo("Replacing passed payment method type [" + parameters.paymentMethodTypeId + "] with payment method type [" +
+                paymentMethod.paymentMethodTypeId + "] for payment method [" + parameters.paymentMethodId +"]")
         }
         payment.paymentMethodTypeId = paymentMethod.paymentMethodTypeId
     }

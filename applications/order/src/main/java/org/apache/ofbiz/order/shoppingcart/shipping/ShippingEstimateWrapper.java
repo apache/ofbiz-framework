@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class ShippingEstimateWrapper {
 
-    public static final String MODULE = ShippingEstimateWrapper.class.getName();
+    private static final String MODULE = ShippingEstimateWrapper.class.getName();
 
     protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;

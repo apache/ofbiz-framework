@@ -74,7 +74,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class ValueLinkApi {
 
-    public static final String MODULE = ValueLinkApi.class.getName();
+    private static final String MODULE = ValueLinkApi.class.getName();
 
     // static object cache
     private static Map<String, Object> objectCache = new HashMap<>();

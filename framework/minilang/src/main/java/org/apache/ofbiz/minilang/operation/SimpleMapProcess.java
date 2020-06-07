@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
  */
 public class SimpleMapProcess {
 
-    public static final String MODULE = SimpleMapProcess.class.getName();
+    private static final String MODULE = SimpleMapProcess.class.getName();
 
     String field = "";
     List<SimpleMapOperation> simpleMapOperations = new ArrayList<>();

@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
-    public static final String MODULE = ScreenWidgetArtifactInfo.class.getName();
+    private static final String MODULE = ScreenWidgetArtifactInfo.class.getName();
 
     protected ModelScreen modelScreen;
 

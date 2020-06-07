@@ -47,11 +47,11 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class RitaServices {
 
-    public static final String MODULE = RitaServices.class.getName();
+    private static final String MODULE = RitaServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
-    public final static String resource = "AccountingUiLabels";
-    public static final String resourceOrder = "OrderUiLabels";
+    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String RES_ORDER = "OrderUiLabels";
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
@@ -59,7 +59,7 @@ public class RitaServices {
         Properties props = buildPccProperties(context, delegator);
         RitaApi api = getApi(props, "CREDIT");
         if (api == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingRitaErrorGettingPaymentGatewayConfig", locale));
         }
 
@@ -145,7 +145,7 @@ public class RitaServices {
         }
 
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
 
@@ -153,7 +153,7 @@ public class RitaServices {
         Properties props = buildPccProperties(context, delegator);
         RitaApi api = getApi(props, "CREDIT");
         if (api == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingRitaErrorGettingPaymentGatewayConfig", locale));
         }
 
@@ -206,7 +206,7 @@ public class RitaServices {
         }
 
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
 
@@ -214,7 +214,7 @@ public class RitaServices {
         Properties props = buildPccProperties(context, delegator);
         RitaApi api = getApi(props, "CREDIT");
         if (api == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingRitaErrorGettingPaymentGatewayConfig", locale));
         }
 
@@ -224,7 +224,7 @@ public class RitaServices {
 
         // check to make sure we are configured for SALE mode
         if (!"1".equals(props.getProperty("autoBill"))) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingRitaCannotSupportReleasingPreAuth", locale));
         }
 
@@ -268,7 +268,7 @@ public class RitaServices {
         }
 
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
 
@@ -276,7 +276,7 @@ public class RitaServices {
         Properties props = buildPccProperties(context, delegator);
         RitaApi api = getApi(props, "CREDIT");
         if (api == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingRitaErrorGettingPaymentGatewayConfig", locale));
         }
 
@@ -326,7 +326,7 @@ public class RitaServices {
             orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderPaymentPreference.getString("orderId")), locale));
         }
 
@@ -363,12 +363,12 @@ public class RitaServices {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                         "AccountingRitaErrorServiceException", locale));
             }
             return refundResp;
         }
-        return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder,
+        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                 "OrderOrderNotFound", UtilMisc.toMap("orderId", orderPaymentPreference.getString("orderId")), locale));
     }
 

@@ -43,7 +43,7 @@ import org.apache.ofbiz.service.DispatchContext;
  */
 public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
 
-    public static final String MODULE = DelegatorEcaHandler.class.getName();
+    private static final String MODULE = DelegatorEcaHandler.class.getName();
 
     protected Delegator delegator = null;
     protected String delegatorName = null;

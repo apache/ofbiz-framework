@@ -78,7 +78,7 @@ public class ModelTree extends ModelWidget {
      *
      */
 
-    public static final String MODULE = ModelTree.class.getName();
+    private static final String MODULE = ModelTree.class.getName();
 
     private final String defaultEntityName;
     private final String defaultRenderStyle;

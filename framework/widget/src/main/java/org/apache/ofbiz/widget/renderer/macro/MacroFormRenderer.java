@@ -107,7 +107,7 @@ import freemarker.template.TemplateException;
  */
 public final class MacroFormRenderer implements FormStringRenderer {
 
-    public static final String MODULE = MacroFormRenderer.class.getName();
+    private static final String MODULE = MacroFormRenderer.class.getName();
     private final Template macroLibrary;
     private final WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private final UtilCodec.SimpleEncoder internalEncoder;

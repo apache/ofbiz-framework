@@ -80,7 +80,7 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
  */
 public class RequestHandler {
 
-    public static final String MODULE = RequestHandler.class.getName();
+    private static final String MODULE = RequestHandler.class.getName();
     private final ViewFactory viewFactory;
     private final EventFactory eventFactory;
     private final URL controllerConfigURL;
@@ -508,7 +508,7 @@ public class RequestHandler {
 
                     // set the default event return
                     if (eventReturn == null) {
-                        nextRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
+                        nextRequestResponse = ConfigXMLReader.getEmptyNoneRequestResponse();
                     }
                 } catch (EventHandlerException e) {
                     // check to see if there is an "error" response, if so go there and make an request error message
@@ -532,7 +532,7 @@ public class RequestHandler {
         } else {
             eventReturnBasedRequestResponse = requestMap.requestResponseMap.get(eventReturn);
             if (eventReturnBasedRequestResponse == null && "none".equals(eventReturn)) {
-                eventReturnBasedRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
+                eventReturnBasedRequestResponse = ConfigXMLReader.getEmptyNoneRequestResponse();
             }
         }
         if (eventReturnBasedRequestResponse != null) {

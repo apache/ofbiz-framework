@@ -34,7 +34,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
  */
 public class EventFactory {
 
-    public static final String MODULE = EventFactory.class.getName();
+    private static final String MODULE = EventFactory.class.getName();
 
     private final Map<String, EventHandler> handlers = new HashMap<>();
 

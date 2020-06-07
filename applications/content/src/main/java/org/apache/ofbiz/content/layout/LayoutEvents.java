@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class LayoutEvents {
 
-    public static final String MODULE = LayoutEvents.class.getName();
+    private static final String MODULE = LayoutEvents.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     public static String createLayoutImage(HttpServletRequest request, HttpServletResponse response) {

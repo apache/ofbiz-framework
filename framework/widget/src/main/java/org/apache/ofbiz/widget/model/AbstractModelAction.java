@@ -80,7 +80,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
      *
      */
 
-    public static final String MODULE = AbstractModelAction.class.getName();
+    private static final String MODULE = AbstractModelAction.class.getName();
 
     /**
      * Returns a new <code>ModelAction</code> instance, built from <code>actionElement</code>.

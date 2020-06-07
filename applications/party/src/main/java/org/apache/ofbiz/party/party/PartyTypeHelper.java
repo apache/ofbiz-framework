@@ -31,7 +31,7 @@ import org.apache.ofbiz.entity.util.EntityTypeUtil;
  */
 public final class PartyTypeHelper {
 
-    public static final String MODULE = PartyTypeHelper.class.getName();
+    private static final String MODULE = PartyTypeHelper.class.getName();
 
     private PartyTypeHelper () {}
 

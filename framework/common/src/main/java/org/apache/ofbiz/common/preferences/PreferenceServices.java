@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  * This class handles any data conversion needed.</p>
  */
 public class PreferenceServices {
-    public static final String MODULE = PreferenceServices.class.getName();
+    private static final String MODULE = PreferenceServices.class.getName();
 
     public static final String resource = "PrefErrorUiLabels";
 

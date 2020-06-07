@@ -105,7 +105,7 @@ import freemarker.template.TemplateException;
  */
 public class DataResourceWorker  implements org.apache.ofbiz.widget.content.DataResourceWorkerInterface {
 
-    public static final String MODULE = DataResourceWorker.class.getName();
+    private static final String MODULE = DataResourceWorker.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     /**
@@ -646,7 +646,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             delegator = dispatcher.getDelegator();
         }
         if (dataResourceId == null) {
-            throw new GeneralException("Cannot lookup data resource with for a null dataResourceId");
+            throw new GeneralException("Cannot lookup data RESOURCE with for a null dataResourceId");
         }
         if (templateContext == null) {
             templateContext = new HashMap<>();
@@ -666,16 +666,16 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             throw new GeneralException("The desired mime-type is not a text type, cannot render as text: " + targetMimeTypeId);
         }
 
-        // get the data resource object
+        // get the data RESOURCE object
         GenericValue dataResource = EntityQuery.use(delegator).from("DataResource")
                 .where("dataResourceId", dataResourceId)
                 .cache(cache).queryOne();
 
         if (dataResource == null) {
-            throw new GeneralException("No data resource object found for dataResourceId: [" + dataResourceId + "]");
+            throw new GeneralException("No data RESOURCE object found for dataResourceId: [" + dataResourceId + "]");
         }
 
-        // a data template attached to the data resource
+        // a data template attached to the data RESOURCE
         String dataTemplateTypeId = dataResource.getString("dataTemplateTypeId");
 
         // no template; or template is NONE; render the data
@@ -882,7 +882,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             String text = (String) dataResource.get("dataResourceId");
             writeText(dataResource, text, templateContext, mimeTypeId, locale, out);
 
-        // resource type
+        // RESOURCE type
         } else if ("URL_RESOURCE".equals(dataResourceTypeId)) {
             String text = null;
             URL url = FlexibleLocation.resolveLocation(dataResource.getString("objectInfo"));
@@ -928,7 +928,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         String dataResourceMimeTypeId = dataResource.getString("mimeTypeId");
         Delegator delegator = dataResource.getDelegator();
 
-        // assume HTML as data resource data
+        // assume HTML as data RESOURCE data
         if (UtilValidate.isEmpty(dataResourceMimeTypeId)) {
             dataResourceMimeTypeId = "text/html";
         }
@@ -979,7 +979,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
     }
 
     public static void renderFile(String dataResourceTypeId, String objectInfo, String rootDir, Appendable out) throws GeneralException, IOException {
-        // TODO: this method assumes the file is a text file, if it is an image we should respond differently, see the comment above for IMAGE_OBJECT type data resource
+        // TODO: this method assumes the file is a text file, if it is an image we should respond differently, see the comment above for IMAGE_OBJECT type data RESOURCE
 
         if ("LOCAL_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
             File file = FileUtil.getFile(objectInfo);
@@ -1039,7 +1039,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
      */
     public static Map<String, Object> getDataResourceStream(GenericValue dataResource, String https, String webSiteId, Locale locale, String contextRoot, boolean cache) throws IOException, GeneralException {
         if (dataResource == null) {
-            throw new GeneralException("Cannot stream null data resource!");
+            throw new GeneralException("Cannot stream null data RESOURCE!");
         }
 
         String dataResourceTypeId = dataResource.getString("dataResourceTypeId");
@@ -1107,7 +1107,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             }
             throw new GeneralException("No objectInfo found for FILE type [" + dataResourceTypeId + "]; cannot stream");
 
-        // URL resource data
+        // URL RESOURCE data
         } else if ("URL_RESOURCE".equals(dataResourceTypeId)) {
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {

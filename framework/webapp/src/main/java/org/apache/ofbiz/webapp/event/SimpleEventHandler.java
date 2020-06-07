@@ -39,7 +39,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
  */
 public class SimpleEventHandler implements EventHandler {
 
-    public static final String MODULE = SimpleEventHandler.class.getName();
+    private static final String MODULE = SimpleEventHandler.class.getName();
     /** Contains the property file name for translation of error messages. */
     public static final String err_resource = "WebappUiLabels";
 

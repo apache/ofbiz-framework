@@ -2,7 +2,7 @@ bin/
 build/
 applications/*/build
 framework/*/build
-plugins/
+plugins/*
 runtime/git-rebase/*
 runtime/SvnInfo.ftl
 runtime/GitInfo.ftl

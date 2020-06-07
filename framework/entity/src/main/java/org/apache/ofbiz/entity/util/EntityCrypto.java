@@ -49,7 +49,7 @@ import org.apache.shiro.crypto.hash.HashService;
 
 public final class EntityCrypto {
 
-    public static final String MODULE = EntityCrypto.class.getName();
+    private static final String MODULE = EntityCrypto.class.getName();
 
     private final Delegator delegator;
     private final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<>();

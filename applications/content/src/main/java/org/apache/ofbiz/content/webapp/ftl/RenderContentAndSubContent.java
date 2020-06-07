@@ -44,7 +44,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderContentAndSubContent implements TemplateTransformModel {
 
-    public static final String MODULE = RenderContentAndSubContent.class.getName();
+    private static final String MODULE = RenderContentAndSubContent.class.getName();
 
     @Override
     @SuppressWarnings("unchecked")

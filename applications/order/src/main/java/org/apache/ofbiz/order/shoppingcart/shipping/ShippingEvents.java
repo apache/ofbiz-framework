@@ -60,7 +60,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ShippingEvents {
 
-    public static final String MODULE = ShippingEvents.class.getName();
+    private static final String MODULE = ShippingEvents.class.getName();
     private static final List<String> fieldNameGeoIds = UtilMisc.toList("countryGeoId", "countyGeoId", "stateProvinceGeoId", "municipalityGeoId", "postalCodeGeoId");
 
     public static String getShipEstimate(HttpServletRequest request, HttpServletResponse response) {

@@ -48,7 +48,7 @@ import org.apache.ofbiz.security.Security;
  */
 public class GenericWebEvent {
 
-    public static final String MODULE = GenericWebEvent.class.getName();
+    private static final String MODULE = GenericWebEvent.class.getName();
     public static final String err_resource = "WebtoolsErrorUiLabels";
 
     /** An HTTP WebEvent handler that updates a Generic entity

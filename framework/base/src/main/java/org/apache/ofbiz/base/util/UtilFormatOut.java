@@ -33,7 +33,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public final class UtilFormatOut {
 
-    public static final String MODULE = UtilFormatOut.class.getName();
+    private static final String MODULE = UtilFormatOut.class.getName();
     public static final String DEFAULT_FORMAT = "default";
     public static final String AMOUNT_FORMAT = "amount";
     public static final String QUANTITY_FORMAT = "quantity";

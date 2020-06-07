@@ -28,7 +28,7 @@ import com.ibm.icu.text.RuleBasedNumberFormat;
 
 public final class UtilNumber {
 
-    public static final String MODULE = UtilNumber.class.getName();
+    private static final String MODULE = UtilNumber.class.getName();
 
     // properties file name for arithmetic configuration
     private static final String arithmeticPropertiesFile = "arithmetic.properties";

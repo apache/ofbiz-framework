@@ -49,7 +49,7 @@ public class PermissionRecorder {
     protected String [] statusTargets;
     protected String [] targetOperations;
 
-    public static final String MODULE = PermissionRecorder.class.getName();
+    private static final String MODULE = PermissionRecorder.class.getName();
 
     private static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
     private static final String [] fieldTitles = { "Purpose", "Operation", "Role", "Status", "Privilege"};

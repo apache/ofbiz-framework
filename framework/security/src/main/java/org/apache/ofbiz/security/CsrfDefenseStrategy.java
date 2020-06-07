@@ -29,7 +29,7 @@ import org.apache.ofbiz.webapp.control.RequestHandlerExceptionAllowExternalReque
 
 public class CsrfDefenseStrategy implements ICsrfDefenseStrategy {
 
-    public static final String MODULE = CsrfDefenseStrategy.class.getName();
+    private static final String MODULE = CsrfDefenseStrategy.class.getName();
     private static SecureRandom secureRandom = null;
     private static final String PRNG = "SHA1PRNG";
     private static final String CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

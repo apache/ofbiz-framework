@@ -45,7 +45,7 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
  */
 public class XMLRPCClientEngine extends GenericAsyncEngine {
 
-    public static final String MODULE = XMLRPCClientEngine.class.getName();
+    private static final String MODULE = XMLRPCClientEngine.class.getName();
 
     public XMLRPCClientEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);

@@ -48,7 +48,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class PaymentWorker {
 
-    public static final String MODULE = PaymentWorker.class.getName();
+    private static final String MODULE = PaymentWorker.class.getName();
     private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
 

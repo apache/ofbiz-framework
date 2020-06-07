@@ -49,8 +49,8 @@ import com.ibm.icu.util.Calendar;
 
 public class AIMPaymentServices {
 
-    public static final String MODULE = AIMPaymentServices.class.getName();
-    public final static String resource = "AccountingUiLabels";
+    private static final String MODULE = AIMPaymentServices.class.getName();
+    public final static String RESOURCE = "AccountingUiLabels";
 
     // The list of refund failure response codes that would cause the ccRefund service
     // to attempt to void the refund's associated authorization transaction.  This list
@@ -93,7 +93,7 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);
@@ -111,12 +111,12 @@ public class AIMPaymentServices {
             creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
         context.put("creditCard", creditCard);
@@ -137,7 +137,7 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);
@@ -158,12 +158,12 @@ public class AIMPaymentServices {
             creditCard = delegator.getRelatedOne("CreditCard", orderPaymentPreference, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
         context.put("creditCard",creditCard);
@@ -182,7 +182,7 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);
@@ -228,7 +228,7 @@ public class AIMPaymentServices {
                 } else {
                     // TODO: Modify the code to (a) do a void of the whole transaction, and (b)
                     // create a new auth-capture of the difference.
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                             "AccountingAuthorizeNetCannotPerformVoidTransaction", 
                             UtilMisc.toMap("authAmount", authAmount, "refundAmount", refundAmount), locale));
                 }
@@ -243,7 +243,7 @@ public class AIMPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
         Map<String, Object> reply = voidTransaction(authTransaction, context, delegator);
@@ -270,7 +270,7 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         return processCard(request, props, locale);
@@ -280,7 +280,7 @@ public class AIMPaymentServices {
     	Locale locale = (Locale) context.get("locale");
         Map<String, Object> results = new HashMap<>();
         results.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-        results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingAuthorizeNetccCreditUnsupported", locale));
+        results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingAuthorizeNetccCreditUnsupported", locale));
         return results;
     }
 
@@ -300,7 +300,7 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);
@@ -317,7 +317,7 @@ public class AIMPaymentServices {
         Map<String, Object> result = new HashMap<>();
         String url = props.getProperty("url");
         if (UtilValidate.isEmpty(url)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingAuthorizeNetTransactionUrlNotFound", locale));
         }
         if (isTestMode()) {
@@ -793,7 +793,7 @@ public class AIMPaymentServices {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String resource, String parameterName) {
+                                                       String RESOURCE, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -808,7 +808,7 @@ public class AIMPaymentServices {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }

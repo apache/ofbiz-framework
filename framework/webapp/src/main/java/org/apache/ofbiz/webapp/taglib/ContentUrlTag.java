@@ -34,7 +34,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class ContentUrlTag {
 
-    public static final String MODULE = ContentUrlTag.class.getName();
+    private static final String MODULE = ContentUrlTag.class.getName();
 
     public static void appendContentPrefix(HttpServletRequest request, StringBuilder urlBuffer) {
         try {

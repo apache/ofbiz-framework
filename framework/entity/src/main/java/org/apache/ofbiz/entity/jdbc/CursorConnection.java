@@ -28,7 +28,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public class CursorConnection extends AbstractCursorHandler {
 
-    public static final String MODULE = CursorConnection.class.getName();
+    private static final String MODULE = CursorConnection.class.getName();
     public static Connection newCursorConnection(Connection con, String cursorName, int pageSize) throws Exception {
         return newHandler(new CursorConnection(con, cursorName, pageSize), Connection.class);
     }

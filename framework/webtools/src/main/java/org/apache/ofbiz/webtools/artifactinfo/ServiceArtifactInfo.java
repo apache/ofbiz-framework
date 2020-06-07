@@ -54,7 +54,7 @@ import org.apache.ofbiz.service.group.ServiceGroupReader;
  *
  */
 public class ServiceArtifactInfo extends ArtifactInfoBase {
-    public static final String MODULE = ServiceArtifactInfo.class.getName();
+    private static final String MODULE = ServiceArtifactInfo.class.getName();
 
     protected ModelService modelService;
     protected String displayPrefix = null;

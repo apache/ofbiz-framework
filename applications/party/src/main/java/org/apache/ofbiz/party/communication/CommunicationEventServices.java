@@ -71,8 +71,8 @@ import org.apache.ofbiz.service.mail.MimeMessageWrapper;
 
 public class CommunicationEventServices {
 
-    public static final String MODULE = CommunicationEventServices.class.getName();
-    public static final String resource = "PartyErrorUiLabels";
+    private static final String MODULE = CommunicationEventServices.class.getName();
+    private static final String RESOURCE = "PartyErrorUiLabels";
 
     public static Map<String, Object> sendCommEventAsEmail(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
@@ -89,12 +89,12 @@ public class CommunicationEventServices {
             // find the communication event and make sure that it is actually an email
             GenericValue communicationEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
             if (communicationEvent == null) {
-                String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_not_found_failure", locale);
+                String errMsg = UtilProperties.getMessage(RESOURCE,"commeventservices.communication_event_not_found_failure", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
             String communicationEventType = communicationEvent.getString("communicationEventTypeId");
             if (communicationEventType == null || !("EMAIL_COMMUNICATION".equals(communicationEventType) || "AUTO_EMAIL_COMM".equals(communicationEventType))) {
-                String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_must_be_email_for_email", locale);
+                String errMsg = UtilProperties.getMessage(RESOURCE,"commeventservices.communication_event_must_be_email_for_email", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
 
@@ -102,7 +102,7 @@ public class CommunicationEventServices {
             if ((communicationEvent.getRelatedOne("FromContactMech", false) == null) ||
                  (!("EMAIL_ADDRESS".equals(communicationEvent.getRelatedOne("FromContactMech", false).getString("contactMechTypeId"))) ||
                  (communicationEvent.getRelatedOne("FromContactMech", false).getString("infoString") == null))) {
-                String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_from_contact_mech_must_be_email", locale);
+                String errMsg = UtilProperties.getMessage(RESOURCE,"commeventservices.communication_event_from_contact_mech_must_be_email", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
 
@@ -155,7 +155,7 @@ public class CommunicationEventServices {
                     }
                 }
                 if (UtilValidate.isEmpty(sendTo)) {
-                    String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_to_contact_mech_must_be_email", locale);
+                    String errMsg = UtilProperties.getMessage(RESOURCE,"commeventservices.communication_event_to_contact_mech_must_be_email", locale);
                     return ServiceUtil.returnError(errMsg + " " + communicationEventId);
                 }
 
@@ -253,7 +253,7 @@ public class CommunicationEventServices {
                 try {
                     dispatcher.runAsync("sendEmailToContactList", sendEmailToContactListContext);
                 } catch (GenericServiceException e) {
-                    String errMsg = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendEmailToContactListService", locale);
+                    String errMsg = UtilProperties.getMessage(RESOURCE, "commeventservices.errorCallingSendEmailToContactListService", locale);
                     Debug.logError(e, errMsg, MODULE);
                     errorMessages.add(errMsg);
                     errorMessages.addAll(e.getMessageList());
@@ -289,7 +289,7 @@ public class CommunicationEventServices {
         try {
             GenericValue communicationEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
             if (communicationEvent == null) {
-                String errMsg = UtilProperties.getMessage(resource, "commeventservices.communication_event_not_found_failure", locale);
+                String errMsg = UtilProperties.getMessage(RESOURCE, "commeventservices.communication_event_not_found_failure", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
 
@@ -297,7 +297,7 @@ public class CommunicationEventServices {
 
             String communicationEventType = communicationEvent.getString("communicationEventTypeId");
             if (communicationEventType == null || !"FILE_TRANSFER_COMM".equals(communicationEventType)) {
-                String errMsg = UtilProperties.getMessage(resource, "commeventservices.communication_event_must_be_ftp_for_ftp", locale);
+                String errMsg = UtilProperties.getMessage(RESOURCE, "commeventservices.communication_event_must_be_ftp_for_ftp", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
 
@@ -307,7 +307,7 @@ public class CommunicationEventServices {
             GenericValue contactMech = EntityQuery.use(delegator).from("ContactMech").cache().where("contactMechId",contactMechId).queryOne();
             GenericValue ftpAddress = EntityQuery.use(delegator).from("FtpAddress").cache().where("contactMechId",contactMechId).queryOne();
             if (null == contactMech || null == ftpAddress || !"FTP_ADDRESS".equals(contactMech.getString("contactMechTypeId"))) {
-                String errMsg = UtilProperties.getMessage(resource, "commeventservices.communication_event_to_contact_mech_must_be_ftp", locale);
+                String errMsg = UtilProperties.getMessage(RESOURCE, "commeventservices.communication_event_to_contact_mech_must_be_ftp", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
 
@@ -373,7 +373,7 @@ public class CommunicationEventServices {
                     }
                 }
             } else {
-                errorMessages.add(UtilProperties.getMessage(resource, "commeventservices.communication_event_not_without_content", locale));
+                errorMessages.add(UtilProperties.getMessage(RESOURCE, "commeventservices.communication_event_not_without_content", locale));
             }
 
             if (errorMessages.size() > 0) {
@@ -410,10 +410,10 @@ public class CommunicationEventServices {
         Locale locale = (Locale) context.get("locale");
 
         List<Object> errorMessages = new LinkedList<>();
-        String errorCallingUpdateContactListPartyService = UtilProperties.getMessage(resource, "commeventservices.errorCallingUpdateContactListPartyService", locale);
-        String errorCallingSendMailService = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendMailService", locale);
-        String errorInSendEmailToContactListService = UtilProperties.getMessage(resource, "commeventservices.errorInSendEmailToContactListService", locale);
-        String skippingInvalidEmailAddress = UtilProperties.getMessage(resource, "commeventservices.skippingInvalidEmailAddress", locale);
+        String errorCallingUpdateContactListPartyService = UtilProperties.getMessage(RESOURCE, "commeventservices.errorCallingUpdateContactListPartyService", locale);
+        String errorCallingSendMailService = UtilProperties.getMessage(RESOURCE, "commeventservices.errorCallingSendMailService", locale);
+        String errorInSendEmailToContactListService = UtilProperties.getMessage(RESOURCE, "commeventservices.errorInSendEmailToContactListService", locale);
+        String skippingInvalidEmailAddress = UtilProperties.getMessage(RESOURCE, "commeventservices.skippingInvalidEmailAddress", locale);
 
         String contactListId = (String) context.get("contactListId");
         String communicationEventId = (String) context.get("communicationEventId");
@@ -927,7 +927,7 @@ public class CommunicationEventServices {
                 String msgHeaderValue = wrapper.getHeader(spamHeaderName)[0];
                 if (msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
                     Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", MODULE);
-                    return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,
+                    return ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                             "PartyCommEventMessageIgnoredDetectedByExternalSpamChecker", locale));
                 }
             }
@@ -935,7 +935,7 @@ public class CommunicationEventServices {
             // if no 'from' addresses specified ignore the message
             if (addressesFrom == null) {
                 Debug.logInfo("Incoming Email message ignored, had not 'from' email address", MODULE);
-                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                         "PartyCommEventMessageIgnoredNoFromAddressSpecified", locale));
             }
 
@@ -949,7 +949,7 @@ public class CommunicationEventServices {
             }
             if (!commEvents.isEmpty()) {
                 Debug.logInfo("Ignoring Duplicate Email: " + aboutThisEmail, MODULE);
-                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                         "PartyCommEventMessageIgnoredDuplicateMessageId", locale));
             }
 

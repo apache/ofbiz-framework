@@ -51,7 +51,7 @@ import freemarker.template.TransformControl;
  */
 public class TraverseSubContentTransform implements TemplateTransformModel {
 
-    public static final String MODULE = TraverseSubContentTransform.class.getName();
+    private static final String MODULE = TraverseSubContentTransform.class.getName();
     public static final String [] saveKeyNames = {"contentId", "subContentId", "mimeType", "subContentDataResourceView", "wrapTemplateId", "templateContentId", "pickWhen", "followWhen", "returnAfterPickWhen", "returnBeforePickWhen", "indent"};
     public static final String [] removeKeyNames = {"templateContentId", "subDataResourceTypeId", "mapKey", "wrappedFTL", "nodeTrail"};
 

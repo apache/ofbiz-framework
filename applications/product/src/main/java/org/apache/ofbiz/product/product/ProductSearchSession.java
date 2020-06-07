@@ -72,7 +72,7 @@ import org.apache.ofbiz.webapp.stats.VisitHandler;
  */
 public class ProductSearchSession {
 
-    public static final String MODULE = ProductSearchSession.class.getName();
+    private static final String MODULE = ProductSearchSession.class.getName();
 
     @SuppressWarnings("serial")
     public static class ProductSearchOptions implements java.io.Serializable {

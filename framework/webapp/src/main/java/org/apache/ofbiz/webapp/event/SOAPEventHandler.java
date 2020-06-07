@@ -65,7 +65,7 @@ import org.w3c.dom.Document;
  */
 public class SOAPEventHandler implements EventHandler {
 
-    public static final String MODULE = SOAPEventHandler.class.getName();
+    private static final String MODULE = SOAPEventHandler.class.getName();
 
     @Override
     public void init(ServletContext context) throws EventHandlerException {

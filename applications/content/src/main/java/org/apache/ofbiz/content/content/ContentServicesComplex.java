@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ContentServicesComplex {
 
-    public static final String MODULE = ContentServicesComplex.class.getName();
+    private static final String MODULE = ContentServicesComplex.class.getName();
 
 
    /*

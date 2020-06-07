@@ -60,7 +60,7 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
  */
 public class CoreEvents {
 
-    public static final String MODULE = CoreEvents.class.getName();
+    private static final String MODULE = CoreEvents.class.getName();
     public static final String err_resource = "WebappUiLabels";
 
     /**

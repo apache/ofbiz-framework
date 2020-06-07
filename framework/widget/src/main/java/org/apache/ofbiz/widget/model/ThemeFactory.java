@@ -54,7 +54,7 @@ import org.xml.sax.SAXException;
  */
 public class ThemeFactory {
 
-    public static final String MODULE = ThemeFactory.class.getName();
+    private static final String MODULE = ThemeFactory.class.getName();
 
     private static final UtilCache<String, ModelTheme> themeLocationCache = UtilCache.createUtilCache("widget.theme.locationResource", 0, 0, false);
     private static final UtilCache<String, VisualTheme> themeVisualThemeIdCache = UtilCache.createUtilCache("widget.theme.idAndVisualTheme", 0, 0, false);

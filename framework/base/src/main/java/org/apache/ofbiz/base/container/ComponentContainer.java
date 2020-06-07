@@ -47,7 +47,7 @@ import org.apache.ofbiz.base.util.Debug;
  */
 public class ComponentContainer implements Container {
 
-    public static final String MODULE = ComponentContainer.class.getName();
+    private static final String MODULE = ComponentContainer.class.getName();
 
     private String name;
     private final AtomicBoolean loaded = new AtomicBoolean(false);

@@ -68,7 +68,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  */
 public class DatabaseUtil {
 
-    public static final String MODULE = DatabaseUtil.class.getName();
+    private static final String MODULE = DatabaseUtil.class.getName();
 
     // OFBiz Connections
     protected ModelFieldTypeReader modelFieldTypeReader = null;

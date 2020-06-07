@@ -34,7 +34,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class ContactHelper {
 
-    public static final String MODULE = ContactHelper.class.getName();
+    private static final String MODULE = ContactHelper.class.getName();
 
     private ContactHelper() {}
 

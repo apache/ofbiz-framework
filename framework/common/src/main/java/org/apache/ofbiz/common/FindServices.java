@@ -67,7 +67,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class FindServices {
 
-    public static final String MODULE = FindServices.class.getName();
+    private static final String MODULE = FindServices.class.getName();
     public static final String resource = "CommonUiLabels";
     public static final Map<String, EntityComparisonOperator<?, ?>> entityOperators;
 

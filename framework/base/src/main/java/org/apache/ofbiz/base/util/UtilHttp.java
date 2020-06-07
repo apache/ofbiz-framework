@@ -85,7 +85,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
  */
 public final class UtilHttp {
 
-    public static final String MODULE = UtilHttp.class.getName();
+    private static final String MODULE = UtilHttp.class.getName();
 
     private static final String MULTI_ROW_DELIMITER = "_o_";
     private static final String ROW_SUBMIT_PREFIX = "_rowSubmit_o_";

@@ -72,7 +72,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      *
      */
 
-    public static final String MODULE = ModelWidgetCondition.class.getName();
+    private static final String MODULE = ModelWidgetCondition.class.getName();
     public static final ConditionFactory DEFAULT_CONDITION_FACTORY = new DefaultConditionFactory();
 
     private final ModelWidget modelWidget;

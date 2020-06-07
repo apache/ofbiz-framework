@@ -53,7 +53,7 @@ import org.apache.ofbiz.base.config.GenericConfigException;
  */
 public final class SSLUtil {
 
-    public static final String MODULE = SSLUtil.class.getName();
+    private static final String MODULE = SSLUtil.class.getName();
 
     private static final int HOSTCERT_NO_CHECK = 0;
     private static final int HOSTCERT_MIN_CHECK = 1;

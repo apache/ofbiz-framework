@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceContainer;
  */
 public class ProductConfigItemContentWrapper implements ContentWrapper {
 
-    public static final String MODULE = ProductConfigItemContentWrapper.class.getName();
+    private static final String MODULE = ProductConfigItemContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
     private static final UtilCache<String, String> configItemContentCache = UtilCache.createUtilCache("configItem.content", true); // use soft reference to free up memory if needed
 

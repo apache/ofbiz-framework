@@ -36,7 +36,7 @@ import org.apache.tomcat.util.http.MimeHeaders;
 
 public class CrossSubdomainSessionValve extends ValveBase {
 
-    public static final String MODULE = CrossSubdomainSessionValve.class.getName();
+    private static final String MODULE = CrossSubdomainSessionValve.class.getName();
 
     public CrossSubdomainSessionValve() {
         super();

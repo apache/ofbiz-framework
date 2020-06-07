@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -69,7 +68,7 @@ while (invoice = invIterator.next()) {
         totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else {
-        Debug.logError("InvoiceType: " + invoice.invoiceTypeId + " without a valid parentTypeId: " + invoice.parentTypeId + " !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE", "")
+        logError("InvoiceType: " + invoice.invoiceTypeId + " without a valid parentTypeId: " + invoice.parentTypeId + " !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE")
     }
 }
 
@@ -109,7 +108,7 @@ while (payment = payIterator.next()) {
         totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else {
-        Debug.logError("PaymentTypeId: " + payment.paymentTypeId + " without a valid parentTypeId: " + payment.parentTypeId + " !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT", "")
+        logError("PaymentTypeId: " + payment.paymentTypeId + " without a valid parentTypeId: " + payment.parentTypeId + " !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT")
     }
 }
 payIterator.close()

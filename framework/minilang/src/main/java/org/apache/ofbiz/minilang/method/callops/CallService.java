@@ -54,7 +54,7 @@ import org.w3c.dom.Element;
 public final class CallService extends MethodOperation {
 
     private static final String MODULE = CallService.class.getName();
-    public static final String RESOURCE = "MiniLangErrorUiLabels";
+    private static final String RESOURCE = "MiniLangErrorUiLabels";
 
     private final boolean breakOnError;
     private final FlexibleMessage defaultMessage;

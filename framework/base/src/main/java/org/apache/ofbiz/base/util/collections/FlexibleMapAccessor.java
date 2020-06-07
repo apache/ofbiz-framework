@@ -42,7 +42,7 @@ import org.apache.ofbiz.base.util.string.UelUtil;
 @SourceMonitored
 @SuppressWarnings("serial")
 public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
-    public static final String MODULE = FlexibleMapAccessor.class.getName();
+    private static final String MODULE = FlexibleMapAccessor.class.getName();
     private static final UtilCache<String, FlexibleMapAccessor<Object>> fmaCache =
             UtilCache.createUtilCache("flexibleMapAccessor.ExpressionCache");
     private static final FlexibleMapAccessor<?> nullFma = new FlexibleMapAccessor<>("");

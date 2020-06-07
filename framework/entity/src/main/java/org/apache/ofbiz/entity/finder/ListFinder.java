@@ -55,7 +55,7 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("serial")
 public abstract class ListFinder extends Finder {
-    public static final String MODULE = ListFinder.class.getName();
+    private static final String MODULE = ListFinder.class.getName();
 
     protected String label;
 

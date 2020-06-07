@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class MainResourceHandler implements ResourceHandler {
 
-    public static final String MODULE = MainResourceHandler.class.getName();
+    private static final String MODULE = MainResourceHandler.class.getName();
     private final String xmlFilename;
     private final String loaderName;
     private final String location;

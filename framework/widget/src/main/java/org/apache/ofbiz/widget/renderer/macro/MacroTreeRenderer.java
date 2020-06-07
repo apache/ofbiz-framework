@@ -53,7 +53,7 @@ import freemarker.template.TemplateException;
  */
 public class MacroTreeRenderer implements TreeStringRenderer {
 
-    public static final String MODULE = MacroTreeRenderer.class.getName();
+    private static final String MODULE = MacroTreeRenderer.class.getName();
     private Template macroLibrary;
     private Environment environment;
 

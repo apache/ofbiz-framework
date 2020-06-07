@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.config.model.ThreadPool;
  */
 public final class JobPoller implements ServiceConfigListener {
 
-    public static final String MODULE = JobPoller.class.getName();
+    private static final String MODULE = JobPoller.class.getName();
     private static final AtomicInteger created = new AtomicInteger();
     private static final ConcurrentHashMap<String, JobManager> jobManagers = new ConcurrentHashMap<>();
     private static final ThreadPoolExecutor executor = createThreadPoolExecutor();

@@ -44,7 +44,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 public class HashCrypt {
 
-    public static final String MODULE = HashCrypt.class.getName();
+    private static final String MODULE = HashCrypt.class.getName();
     public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
     private static final String PBKDF2_SHA1 ="PBKDF2-SHA1";

@@ -47,7 +47,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 
 public class UpgradeServices {
-    public static final String MODULE = UpgradeServices.class.getName();
+    private static final String MODULE = UpgradeServices.class.getName();
     public static final String resource = "EntityExtUiLabels";
 
 

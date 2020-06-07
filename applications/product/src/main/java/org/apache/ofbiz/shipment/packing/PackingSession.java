@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class PackingSession implements java.io.Serializable {
 
-    public static final String MODULE = PackingSession.class.getName();
+    private static final String MODULE = PackingSession.class.getName();
 
     protected GenericValue userLogin = null;
     protected String pickerPartyId = null;

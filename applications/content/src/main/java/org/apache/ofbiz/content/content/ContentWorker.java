@@ -72,7 +72,7 @@ import freemarker.ext.dom.NodeModel;
  */
 public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWorkerInterface {
 
-    public static final String MODULE = ContentWorker.class.getName();
+    private static final String MODULE = ContentWorker.class.getName();
     static final UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder("html");
 
     public ContentWorker() { }
@@ -126,7 +126,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             throw new GeneralException("No content found for content ID [" + contentId + "]");
         }
 
-        // if the content is a PUBLISH_POINT and the data resource is not defined; get the related content
+        // if the content is a PUBLISH_POINT and the data RESOURCE is not defined; get the related content
         if ("WEB_SITE_PUB_PT".equals(content.get("contentTypeId")) && content.get("dataResourceId") == null) {
             GenericValue relContent = EntityQuery.use(delegator)
                     .from("ContentAssocDataResourceViewTo")
@@ -259,7 +259,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             templateContext.put("thisContent", decFacade); // decorator content
             ContentWorker.renderContentAsText(dispatcher, contentDecoratorId, out, templateContext, locale, mimeTypeId, null, null, cache);
         } else {
-            // get the data resource info
+            // get the data RESOURCE info
             String templateDataResourceId = content.getString("templateDataResourceId");
             String dataResourceId = content.getString("dataResourceId");
             if (UtilValidate.isEmpty(dataResourceId)) {

@@ -33,7 +33,7 @@ import junit.framework.TestCase;
 
 public class CCServicesTest extends OFBizTestCase {
 
-    public static final String MODULE = CCServicesTest.class.getName();
+    private static final String MODULE = CCServicesTest.class.getName();
 
     // test data
     protected GenericValue emailAddr = null;

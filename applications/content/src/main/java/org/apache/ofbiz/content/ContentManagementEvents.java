@@ -51,7 +51,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class ContentManagementEvents {
 
-    public static final String MODULE = ContentManagementEvents.class.getName();
+    private static final String MODULE = ContentManagementEvents.class.getName();
 
     public static String updateStaticValues(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();

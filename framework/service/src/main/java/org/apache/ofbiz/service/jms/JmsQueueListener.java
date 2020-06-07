@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.GenericServiceException;
  */
 public class JmsQueueListener extends AbstractJmsListener {
 
-    public static final String MODULE = JmsQueueListener.class.getName();
+    private static final String MODULE = JmsQueueListener.class.getName();
 
     private QueueConnection con = null;
     private QueueSession session = null;

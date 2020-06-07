@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
  */
 public class GenericHelperDAO implements GenericHelper {
 
-    public static final String MODULE = GenericHelperDAO.class.getName();
+    private static final String MODULE = GenericHelperDAO.class.getName();
 
     protected GenericDAO genericDAO;
     protected GenericHelperInfo helperInfo;

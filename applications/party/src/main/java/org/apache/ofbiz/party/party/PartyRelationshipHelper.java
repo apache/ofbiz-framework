@@ -40,7 +40,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class PartyRelationshipHelper {
 
-    public static final String MODULE = PartyRelationshipHelper.class.getName();
+    private static final String MODULE = PartyRelationshipHelper.class.getName();
     private PartyRelationshipHelper() {}
 
     /** Return A List of the active Party Relationships (ie with valid from and thru dates)

@@ -62,7 +62,7 @@ import org.xml.sax.SAXException;
 
 public class ArtifactInfoFactory {
 
-    public static final String MODULE = ArtifactInfoFactory.class.getName();
+    private static final String MODULE = ArtifactInfoFactory.class.getName();
 
     private static final UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = UtilCache.createUtilCache("ArtifactInfoFactory");
 

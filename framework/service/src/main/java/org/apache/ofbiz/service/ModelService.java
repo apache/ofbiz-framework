@@ -94,7 +94,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             MODEL_SERVICE_FIELD_MAP.put(field.getName(), field);
         }
     }
-    public static final String MODULE = ModelService.class.getName();
+    private static final String MODULE = ModelService.class.getName();
 
     public static final String XSD = "http://www.w3.org/2001/XMLSchema";
     public static final String TNS = "http://ofbiz.apache.org/service/";

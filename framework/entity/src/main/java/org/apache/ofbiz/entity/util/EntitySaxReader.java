@@ -73,7 +73,7 @@ import freemarker.template.TemplateHashModel;
  * SAX XML Parser Content Handler for Entity Engine XML files
  */
 public class EntitySaxReader extends DefaultHandler {
-    public static final String MODULE = EntitySaxReader.class.getName();
+    private static final String MODULE = EntitySaxReader.class.getName();
     public static final int DEFAULT_TX_TIMEOUT = 7200;
 
     protected org.xml.sax.Locator locator;

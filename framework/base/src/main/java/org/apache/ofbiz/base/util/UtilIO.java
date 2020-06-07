@@ -34,7 +34,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public final class UtilIO {
-    public static final String MODULE = UtilIO.class.getName();
+    private static final String MODULE = UtilIO.class.getName();
 
     private UtilIO () {}
 

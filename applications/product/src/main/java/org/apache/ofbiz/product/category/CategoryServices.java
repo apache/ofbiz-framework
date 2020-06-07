@@ -55,8 +55,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class CategoryServices {
 
-    public static final String MODULE = CategoryServices.class.getName();
-    public static final String resourceError = "ProductErrorUiLabels";
+    private static final String MODULE = CategoryServices.class.getName();
+    private static final String RES_ERROR = "ProductErrorUiLabels";
 
     public static Map<String, Object> getCategoryMembers(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -71,7 +71,7 @@ public class CategoryServices {
             if (Debug.verboseOn()) Debug.logVerbose("Category: " + productCategory + " Member Size: " + members.size() + " Members: " + members, MODULE);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem reading product categories: " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "categoryservices.problems_reading_category_entity", 
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
@@ -92,7 +92,7 @@ public class CategoryServices {
         Locale locale = (Locale) context.get("locale");
         
         if (index == null && productId == null) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.problems_getting_next_products", locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.problems_getting_next_products", locale));
         }
 
         List<String> orderByFields = UtilGenerics.cast(context.get("orderByFields"));
@@ -106,7 +106,7 @@ public class CategoryServices {
             productCategoryMembers = EntityQuery.use(delegator).from(entityName).where("productCategoryId", categoryId).orderBy(orderByFields).cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logInfo(e, "Error finding previous/next product info: " + e.toString(), MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.error_find_next_products", UtilMisc.toMap("errMessage", e.getMessage()), locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.error_find_next_products", UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
@@ -134,7 +134,7 @@ public class CategoryServices {
 
         if (index == null) {
             // this is not going to be an error condition because we don't want it to be so critical, ie rolling back the transaction and such
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.product_not_found", locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.product_not_found", locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();

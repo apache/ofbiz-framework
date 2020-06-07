@@ -18,7 +18,7 @@ under the License.
 ////
 = Data Model Changes
 The Apache OFBiz® Project
-Release 17.12
+Release trunk
 
 Apache OFBiz follows *The Universal Data Model* by **Len Silverston**, with a grain of salt.
 
@@ -43,7 +43,18 @@ The following file contains information about the data model changes in the Apac
 |Entity                 |Field   |Action |IsPK |Revision
 | GlXbrlClass | parentGlXbrlClassId | Added | No | 36a123a
 |=======================================================
+If in the list above fields are mentioned where 'IsPK' = yes, we advice to follow steps below for a successful upgrade:
 
+. Stop your OFBiz implementation
+. Go to the entity definition in the appropriate entitymodel.xml file
+. Disable temporarily the prim-key reference of the added field, and save the file
+. Restart the OFBiz implementation
+. Check with your RDBMS client that the new field is present in the table
+. Add values for the field in the table (if appropriate)
+. Stop the OFBiz implementation
+. Go back to the definition in the appropriate entitymodel.xml file
+. Enable the temporary disabled prim-key reference of the added field, and save the file
+. Check with your RDBMS client that the new field is part of the primary key defintion of the table
 
 === Migration Scripts
 1.  Migration service migrateProductPromoCodeEmail is implemented to migrate the

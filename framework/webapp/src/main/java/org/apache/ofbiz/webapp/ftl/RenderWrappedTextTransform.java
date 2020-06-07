@@ -36,7 +36,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderWrappedTextTransform implements  TemplateTransformModel {
 
-    public static final String MODULE = RenderWrappedTextTransform.class.getName();
+    private static final String MODULE = RenderWrappedTextTransform.class.getName();
 
     @Override
     public Writer getWriter(final Writer out, @SuppressWarnings("rawtypes") Map args) {

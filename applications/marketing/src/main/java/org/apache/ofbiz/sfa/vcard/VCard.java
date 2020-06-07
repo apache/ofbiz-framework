@@ -65,8 +65,8 @@ import ezvcard.property.StructuredName;
 import ezvcard.property.Telephone;
 
 public class VCard {
-    public static final String MODULE = VCard.class.getName();
-    public static final String resourceError = "MarketingUiLabels";
+    private static final String MODULE = VCard.class.getName();
+    private static final String RES_ERROR = "MarketingUiLabels";
 
     /**
      * import a vcard from byteBuffer. the reader use is ez-vcard, see official site https://github.com/mangstadt/ez-vcard/
@@ -161,8 +161,8 @@ public class VCard {
                         serviceCtx.put("emailAddress", emailAddr);
                     } else {
                         //TODO change uncorrect labellisation
-                        String emailFormatErrMsg = UtilProperties.getMessage(resourceError, "SfaImportVCardEmailFormatError", locale);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "MarketingEmailFormatError", UtilMisc.toMap("firstName", structuredName.getGiven(), "lastName", structuredName.getFamily(), "emailFOrmatErrMsg", emailFormatErrMsg), locale));
+                        String emailFormatErrMsg = UtilProperties.getMessage(RES_ERROR, "SfaImportVCardEmailFormatError", locale);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "MarketingEmailFormatError", UtilMisc.toMap("firstName", structuredName.getGiven(), "lastName", structuredName.getFamily(), "emailFOrmatErrMsg", emailFormatErrMsg), locale));
                     }
                 }
 
@@ -223,7 +223,7 @@ public class VCard {
             }
         } catch (IOException | GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "SfaImportVCardError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         result.put("partiesCreated", partiesCreated);
@@ -293,14 +293,14 @@ public class VCard {
             Ezvcard.write(vcard).go(file);
         } catch (FileNotFoundException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "SfaExportVCardErrorOpeningFile", UtilMisc.toMap("errorString", file.getAbsolutePath()), locale));
         } catch (IOException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "SfaExportVCardErrorWritingFile", UtilMisc.toMap("errorString", file.getAbsolutePath()), locale));
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "SfaExportVCardError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return ServiceUtil.returnSuccess();

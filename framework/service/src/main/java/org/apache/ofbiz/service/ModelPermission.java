@@ -34,7 +34,7 @@ import org.apache.ofbiz.security.Security;
 @SuppressWarnings("serial")
 public class ModelPermission implements Serializable {
 
-    public static final String MODULE = ModelPermission.class.getName();
+    private static final String MODULE = ModelPermission.class.getName();
 
     public static final int PERMISSION = 1;
     public static final int ENTITY_PERMISSION = 2;
