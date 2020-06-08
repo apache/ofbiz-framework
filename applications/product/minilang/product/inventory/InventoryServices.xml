@@ -1122,11 +1122,11 @@ under the License.
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"  auto-field-map="false">
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
         </entity-one>
-        <entity-and entity-name="ProductFacility" list="productFacilities">
+        <entity-one entity-name="ProductFacility" value-field="productFacility">
             <field-map field-name="productId" from-field="inventoryItem.productId" />
-        </entity-and>
-        <if-not-empty field="productFacilities">
-            <iterate list="productFacilities" entry="productFacility">
+            <field-map field-name="facilityId" from-field="inventoryItem.facilityId" />
+        </entity-one>
+        <if-not-empty field="productFacility">
                 <set field="serviceInMap.productId" from-field="productFacility.productId"/>
                 <set field="serviceInMap.facilityId" from-field="productFacility.facilityId"/>
                 <call-service service-name="getInventoryAvailableByFacility" in-map-name="serviceInMap">
@@ -1138,7 +1138,6 @@ under the License.
                 <call-service service-name="updateProductFacility" in-map-name="serviceInMap"/>
                 <clear-field field="productFacility"/>
                 <clear-field field="serviceInMap"/>
-            </iterate>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="createUpdateFacilityGeoPoint" short-description="Create or update GeoPoint assigned to facility">
