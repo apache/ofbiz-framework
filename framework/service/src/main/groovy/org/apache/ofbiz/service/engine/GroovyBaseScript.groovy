@@ -136,6 +136,9 @@ abstract class GroovyBaseScript extends Script {
     def logError(Throwable t, String message) {
         Debug.logError(t, message, getModule())
     }
+    def logError(Throwable t) {
+        Debug.logError(t, null, getModule())
+    }
     def logVerbose(String message) {
         Debug.logVerbose(message, getModule())
     }
