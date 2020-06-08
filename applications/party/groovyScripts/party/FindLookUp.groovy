@@ -20,7 +20,6 @@
 
 
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtilProperties
@@ -57,7 +56,7 @@ executeResult = runService('executeFind', [entityName : context.entityName,
                                            entityConditionList : entityConditionList,
                                            noConditionFind : context.noConditionFind])
 if (executeResult.listIt == null) {
-    Debug.logWarning("No list found for query string + [" + prepareResult.queryString + "]", "FindLookUp.groovy")
+    logWarning("No list found for query string + [" + prepareResult.queryString + "]")
 }
 context.listIt = executeResult.listIt
 context.queryString = prepareResult.queryString

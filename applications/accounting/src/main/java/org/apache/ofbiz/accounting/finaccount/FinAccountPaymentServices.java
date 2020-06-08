@@ -152,14 +152,14 @@ public class FinAccountPaymentServices {
                 Debug.logVerbose("In finAccountPreAuth finAccountSettings=" + finAccountSettings, MODULE);
             }
 
-            BigDecimal minBalance = FinAccountHelper.ZERO;
+            BigDecimal minBalance = FinAccountHelper.getZero();
             String allowAuthToNegative = "N";
 
             if (finAccountSettings != null) {
                 allowAuthToNegative = finAccountSettings.getString("allowAuthToNegative");
                 minBalance = finAccountSettings.getBigDecimal("minBalance");
                 if (minBalance == null) {
-                    minBalance = FinAccountHelper.ZERO;
+                    minBalance = FinAccountHelper.getZero();
                 }
 
                 // validate the PIN if the store requires it
@@ -229,10 +229,10 @@ public class FinAccountPaymentServices {
             // which includes active authorizations as well as transactions
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             if (availableBalance == null) {
-                availableBalance = FinAccountHelper.ZERO;
+                availableBalance = FinAccountHelper.getZero();
             } else {
                 BigDecimal availableBalanceOriginal = availableBalance;
-                availableBalance = availableBalance.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
+                availableBalance = availableBalance.setScale(FinAccountHelper.getDecimals(), FinAccountHelper.getRounding());
                 if (availableBalance.compareTo(availableBalanceOriginal) != 0) {
                     Debug.logWarning("In finAccountPreAuth for finAccountId [" + finAccountId + "] availableBalance ["
                             + availableBalanceOriginal + "] was different after rounding [" + availableBalance
@@ -247,7 +247,7 @@ public class FinAccountPaymentServices {
             String refNum;
 
             // make sure to round and scale it to the same as availableBalance
-            amount = amount.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
+            amount = amount.setScale(FinAccountHelper.getDecimals(), FinAccountHelper.getRounding());
 
             Debug.logInfo("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amount, MODULE);
             // check the available balance to see if we can auth this tx
@@ -594,7 +594,7 @@ public class FinAccountPaymentServices {
         // transaction if it is sufficient
         BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");
         if (previousBalance == null) {
-            previousBalance = FinAccountHelper.ZERO;
+            previousBalance = FinAccountHelper.getZero();
         }
 
         BigDecimal balance;
@@ -621,7 +621,7 @@ public class FinAccountPaymentServices {
 
         // make sure balance is not null
         if (balance == null) {
-            balance = FinAccountHelper.ZERO;
+            balance = FinAccountHelper.getZero();
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -686,7 +686,7 @@ public class FinAccountPaymentServices {
         // get the previous balance
         BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");
         if (previousBalance == null) {
-            previousBalance = FinAccountHelper.ZERO;
+            previousBalance = FinAccountHelper.getZero();
         }
 
         // create the transaction
@@ -704,7 +704,7 @@ public class FinAccountPaymentServices {
 
         // make sure balance is not null
         if (actualBalance == null) {
-            actualBalance = FinAccountHelper.ZERO;
+            actualBalance = FinAccountHelper.getZero();
         } else {
             if (actualBalance.compareTo(BigDecimal.ZERO) < 0) {
                 // balance went below zero, set negative pending replenishment status so that no

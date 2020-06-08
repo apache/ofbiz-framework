@@ -777,7 +777,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.nameExdr = FlexibleStringExpander.getInstance(includeScreenElement.getAttribute("name"));
             this.locationExdr = FlexibleStringExpander.getInstance(includeScreenElement.getAttribute("location"));
             this.shareScopeExdr = FlexibleStringExpander.getInstance(includeScreenElement.getAttribute("share-scope"));
-            MultiBlockHtmlTemplateUtil.collectChildScreenInfo(modelScreen, this.locationExdr.getOriginal(), this.nameExdr.getOriginal());
+            MultiBlockHtmlTemplateUtil.addChildScreen(modelScreen, this.locationExdr.getOriginal(), this.nameExdr.getOriginal());
         }
 
         @Override
@@ -873,7 +873,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 sectionMap.put(decoratorSection.getName(), decoratorSection);
             }
             this.sectionMap = Collections.unmodifiableMap(sectionMap);
-            MultiBlockHtmlTemplateUtil.collectChildScreenInfo(modelScreen, this.locationExdr.getOriginal(), this.nameExdr.getOriginal());
+            MultiBlockHtmlTemplateUtil.addChildScreen(modelScreen, this.locationExdr.getOriginal(), this.nameExdr.getOriginal());
         }
 
         @Override

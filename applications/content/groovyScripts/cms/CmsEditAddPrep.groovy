@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.content.data.DataResourceWorker
@@ -30,7 +29,7 @@ contentId = context.contentId
 
 contentAssocPK = delegator.makeValue("ContentAssoc")
 contentAssocPK.setAllFields(context, false, "ca", new Boolean(true))
-Debug.logInfo("in cmseditaddprep, contentAssocPK:" + contentAssocPK,"")
+logInfo("in cmseditaddprep, contentAssocPK:" + contentAssocPK)
 
 contentAssoc = null
 if (contentAssocPK.isPrimaryKey()) {
@@ -43,7 +42,7 @@ if (contentAssoc) {
     contentAssocPK.setAllFields(context, false, "ca", null) //set all field, pk and non
     SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssocPK, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
 }
-Debug.logInfo("in cmseditaddprep, contentAssocDataResourceViewFrom:" + contentAssocDataResourceViewFrom,"")
+logInfo("in cmseditaddprep, contentAssocDataResourceViewFrom:" + contentAssocDataResourceViewFrom)
 
 dataResourceId = ""
 textData = ""
@@ -77,7 +76,7 @@ if (dataResourceId) {
         textData = UtilFormatOut.encodeXmlValue(txt)
     }
 }
-Debug.logInfo("in cmseditaddprep, textData:" + textData,"")
+logInfo("in cmseditaddprep, textData:" + textData)
 
 currentValue = new HashMap(contentAssocDataResourceViewFrom)
 currentValue.textData = textData

@@ -471,7 +471,7 @@ public class CheckOutHelper {
                             errorMessages.add(errMsg);
                             gcFieldsOkay = false;
                         } else if ((finAccount.getBigDecimal("availableBalance") == null) ||
-                                !((finAccount.getBigDecimal("availableBalance")).compareTo(FinAccountHelper.ZERO) > 0)) {
+                                !((finAccount.getBigDecimal("availableBalance")).compareTo(FinAccountHelper.getZero()) > 0)) {
                             // if account's available balance (including authorizations) is not greater than zero, then return an error
                             errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.gift_card_has_no_value", cart.getLocale());
                             errorMessages.add(errMsg);

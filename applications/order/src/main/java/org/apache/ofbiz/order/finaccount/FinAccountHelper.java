@@ -42,31 +42,41 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  * A package of methods for improving efficiency of financial accounts services
  *
  */
-public class FinAccountHelper {
+public final class FinAccountHelper {
+    private static final String MODULE = FinAccountHelper.class.getName();
+    /**
+    * Precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers
+    */
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("finaccount.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("finaccount.rounding");
+    private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
+    private static final String GC_FIN_ACCOUNT_TYPE = "GIFTCERT_ACCOUNT";
 
-     private static final String MODULE = FinAccountHelper.class.getName();
-     /**
-      * A word on precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers.
-      */
-     public static final int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
-     public static final RoundingMode rounding = UtilNumber.getRoundingMode("finaccount.rounding");
-     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
+    protected FinAccountHelper() { }
 
-     public static final String giftCertFinAccountTypeId = "GIFTCERT_ACCOUNT";
-
-     // pool of available characters for account codes, here numbers plus uppercase characters
-     static char[] char_pool = new char[10+26];
-     static {
-         int j = 0;
-         for (int i = "0".charAt(0); i <= "9".charAt(0); i++) {
-             char_pool[j++] = (char) i;
-         }
-         for (int i = "A".charAt(0); i <= "Z".charAt(0); i++) {
-             char_pool[j++] = (char) i;
-         }
-     }
-
-
+    // pool of available characters for account codes, here numbers plus uppercase characters
+    private static char[] charPool = new char[10 + 26];
+    static {
+        int j = 0;
+        for (int i = "0".charAt(0); i <= "9".charAt(0); i++) {
+            charPool[j++] = (char) i;
+        }
+        for (int i = "A".charAt(0); i <= "Z".charAt(0); i++) {
+            charPool[j++] = (char) i;
+        }
+    }
+    public static int getDecimals() {
+        return DECIMALS;
+    }
+    public static RoundingMode getRounding() {
+        return ROUNDING;
+    }
+    public static BigDecimal getZero() {
+        return ZERO;
+    }
+    public static String getGiftCertFinAccountTypeId() {
+        return GC_FIN_ACCOUNT_TYPE;
+    }
      /**
       * A convenience method which adds transactions.get(0).get(fieldName) to initialValue, all done in BigDecimal to decimals and rounding
       * @param initialValue the initial value
@@ -109,7 +119,7 @@ public class FinAccountHelper {
          while (!foundUniqueNewCode) {
              newAccountCode = new StringBuilder(codeLength);
              for (int i = 0; i < codeLength; i++) {
-                 newAccountCode.append(char_pool[r.nextInt(char_pool.length)]);
+                 newAccountCode.append(charPool[r.nextInt(charPool.length)]);
              }
 
              GenericValue existingAccountWithCode = EntityQuery.use(delegator).from("FinAccount")
@@ -183,7 +193,7 @@ public class FinAccountHelper {
                                 EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "ADJUSTMENT")),
                             EntityOperator.OR))
                 .queryList();
-        incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (decimals+1), rounding);
+        incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (DECIMALS+1), ROUNDING);
 
         // now find sum of all transactions with decrease the value
         transSums = EntityQuery.use(delegator)
@@ -193,10 +203,10 @@ public class FinAccountHelper {
                         EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
                         EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL"))
                 .queryList();
-        decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (decimals+1), rounding);
+        decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (DECIMALS+1), ROUNDING);
 
         // the net balance is just the incrementTotal minus the decrementTotal
-        return incrementTotal.subtract(decrementTotal).setScale(decimals, rounding);
+        return incrementTotal.subtract(decrementTotal).setScale(DECIMALS, ROUNDING);
     }
 
      /**
@@ -220,10 +230,10 @@ public class FinAccountHelper {
                         EntityCondition.makeCondition("authorizationDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime))
                 .queryList();
 
-        BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (decimals+1), rounding);
+        BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (DECIMALS+1), ROUNDING);
 
         // the total available balance is transactions total minus authorizations total
-        return netBalance.subtract(authorizationsTotal).setScale(decimals, rounding);
+        return netBalance.subtract(authorizationsTotal).setScale(DECIMALS, ROUNDING);
     }
 
     public static boolean validateFinAccount(GenericValue finAccount) {

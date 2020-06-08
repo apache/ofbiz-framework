@@ -41,6 +41,7 @@
                 <set field="applicationMenuName" value="SetupAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://commonext/widget/ofbizsetup/Menus.xml" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.SetupApp" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_the_ofbiz_setup_application_overview"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>

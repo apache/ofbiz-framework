@@ -39,6 +39,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
@@ -57,6 +58,8 @@ import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Widget Library - Screen model HTML class.
  */
@@ -64,7 +67,8 @@ import freemarker.template.Version;
 public class HtmlWidget extends ModelScreenWidget {
     private static final String MODULE = HtmlWidget.class.getName();
 
-    private static final UtilCache<String, Template> specialTemplateCache = UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
+    private static final UtilCache<String, Template> specialTemplateCache =
+            UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
     protected static final Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
 
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
@@ -140,7 +144,8 @@ public class HtmlWidget extends ModelScreenWidget {
     }
 
     @Override
-    public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+    public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer)
+            throws GeneralException, IOException {
         for (ModelScreenWidget subWidget : subWidgets) {
             subWidget.renderWidgetString(writer, context, screenStringRenderer);
         }
@@ -181,7 +186,8 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    public static void renderHtmlTemplateMultiBlock(Appendable writer, FlexibleStringExpander locationExdr, Map<String, Object> context) throws IOException {
+    public static void renderHtmlTemplateMultiBlock(Appendable writer, FlexibleStringExpander locationExdr,
+                                                    Map<String, Object> context) throws IOException {
         String location = locationExdr.expandString(context);
 
         StringWriter stringWriter = new StringWriter();
@@ -223,10 +229,17 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
                 MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
 
-                // store value to be used by scriptTagsFooter freemarker macro
+                // construct script link
                 String webappName = (String) context.get("webappName");
-                MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(context, "/" + webappName + "/control/getJs?name="
-                        + fileName);
+                String url = "/" + webappName + "/control/getJs?name=" + fileName;
+
+                // add csrf token to script link
+                HttpServletRequest request = (HttpServletRequest) context.get("request");
+                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
+                url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
+
+                // store script link to be output by scriptTagsFooter freemarker macro
+                MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
             }
         }
 
@@ -260,13 +273,13 @@ public class HtmlWidget extends ModelScreenWidget {
                     urls.add(origLoc);
                 } else {
                     try {
-                        urls = MultiBlockHtmlTemplateUtil.getHtmlImportsFromHtmlTemplate(origLoc);
+                        urls = MultiBlockHtmlTemplateUtil.getHtmlLinksFromHtmlTemplate(origLoc);
                     } catch (IOException e) {
                         String errMsg = "Error getting html imports from template at location [" + origLoc + "]: " + e.toString();
                         Debug.logError(e, errMsg, MODULE);
                     }
                 }
-                MultiBlockHtmlTemplateUtil.addLinksToHtmlImportCache(modelScreen.getSourceLocation(), modelScreen.getName(), urls);
+                MultiBlockHtmlTemplateUtil.addHtmlLinksToHtmlLinksForScreenCache(modelScreen.getSourceLocation(), modelScreen.getName(), urls);
             }
         }
 
@@ -306,7 +319,8 @@ public class HtmlWidget extends ModelScreenWidget {
             super(modelScreen, htmlTemplateDecoratorElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateDecoratorElement.getAttribute("location"));
 
-            List<? extends Element> htmlTemplateDecoratorSectionElementList = UtilXml.childElementList(htmlTemplateDecoratorElement, "html-template-decorator-section");
+            List<? extends Element> htmlTemplateDecoratorSectionElementList = UtilXml.childElementList(
+                    htmlTemplateDecoratorElement, "html-template-decorator-section");
             for (Element htmlTemplateDecoratorSectionElement: htmlTemplateDecoratorSectionElementList) {
                 String name = htmlTemplateDecoratorSectionElement.getAttribute("name");
                 this.sectionMap.put(name, new HtmlTemplateDecoratorSection(modelScreen, htmlTemplateDecoratorSectionElement));
@@ -324,7 +338,8 @@ public class HtmlWidget extends ModelScreenWidget {
                 contextMs = UtilGenerics.cast(context);
             }
 
-            // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
+            // create a standAloneStack, basically a "save point" for this SectionsRenderer,
+            // and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
             MapStack<String> standAloneStack = contextMs.standAloneChildStack();
             standAloneStack.put("screens", new ScreenRenderer(writer, standAloneStack, screenStringRenderer));
             SectionsRenderer sections = new SectionsRenderer(this.sectionMap, standAloneStack, writer, screenStringRenderer);
@@ -361,7 +376,8 @@ public class HtmlWidget extends ModelScreenWidget {
         }
 
         @Override
-        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context,
+                                       ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // render sub-widgets
             renderSubWidgetsString(this.subWidgets, writer, context, screenStringRenderer);
         }

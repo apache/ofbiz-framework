@@ -20,7 +20,6 @@
 import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.config.GenericConfigException
 import org.apache.ofbiz.base.config.ResourceHandler
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.base.util.UtilMisc
 
@@ -50,7 +49,7 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuit
         }
     } catch (GenericConfigException e) {
         String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]"
-        Debug.logError(e, errMsg, module)
+        logError(e, errMsg)
         throw new IllegalArgumentException(errMsg)
     }
 
