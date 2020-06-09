@@ -19,7 +19,6 @@
 import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.AsciidoctorTask
-import java.nio.file.Paths
 
 /* ========================================================
  * Project setup
@@ -295,32 +294,6 @@ checkstyle {
 }
 gitHooks {
     hooks = ['pre-commit': 'checkstyleMain']
-}
-task checkstyleChanged(type: Checkstyle) {
-    source "${project.rootDir}"
-    def changedFiles = getChangedFiles()
-    showViolations = true
-    // include only changed files or skip
-    if (changedFiles) {
-        include changedFiles
-    } else {
-        exclude "**/*"
-    }
-    classpath = files()
-}
-
-
-def getChangedFiles() {
-    ByteArrayOutputStream systemOutStream = new ByteArrayOutputStream()
-    ArrayList<String> files = new ArrayList<>()
-
-    // --cached include the stages files
-    // --name-only Show only names of changed files.
-    // --diff-filter=d Excludes the deleted files
-    ("git diff --cached --name-only --diff-filter=d").execute().waitForProcessOutput(systemOutStream, System.err)
-    def allFiles = systemOutStream.toString().trim().split('\n')
-    systemOutStream.close()
-    allFiles
 }
 
 // Eclipse plugin settings
