@@ -74,8 +74,8 @@ public class CheckOutHelper {
     private static final String MODULE = CheckOutHelper.class.getName();
     private static final String RES_ERROR = "OrderErrorUiLabels";
 
-    public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
 
     protected LocalDispatcher dispatcher = null;
     protected Delegator delegator = null;
@@ -1631,8 +1631,8 @@ public class CheckOutHelper {
         BigDecimal reqAmtPreParse = cart.getGrandTotal().subtract(cart.getBillingAccountAmount());
         BigDecimal selectedPmnt = cart.getPaymentTotal();
 
-        BigDecimal selectedPaymentTotal = selectedPmnt.setScale(scale, rounding);
-        BigDecimal requiredAmount = reqAmtPreParse.setScale(scale, rounding);
+        BigDecimal selectedPaymentTotal = selectedPmnt.setScale(DECIMALS, ROUNDING);
+        BigDecimal requiredAmount = reqAmtPreParse.setScale(DECIMALS, ROUNDING);
 
         if (UtilValidate.isNotEmpty(paymentMethods) && requiredAmount.compareTo(selectedPaymentTotal) > 0) {
             Debug.logError("Required Amount : " + requiredAmount + " / Selected Amount : " + selectedPaymentTotal, MODULE);

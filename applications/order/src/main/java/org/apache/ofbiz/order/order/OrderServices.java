@@ -95,26 +95,25 @@ public class OrderServices {
     private static final String RES_ERROR = "OrderErrorUiLabels";
     private static final String RES_PRODUCT = "ProductUiLabels";
 
-    private static Map<String, String> salesAttributeRoleMap = new HashMap<>();
-    private static Map<String, String> purchaseAttributeRoleMap = new HashMap<>();
+    private static final Map<String, String> SALES_ROLE_MAP = new HashMap<>();
+    private static final Map<String, String> PURCHASE_ROLE_MAP = new HashMap<>();
     static {
-        salesAttributeRoleMap.put("placingCustomerPartyId", "PLACING_CUSTOMER");
-        salesAttributeRoleMap.put("billToCustomerPartyId", "BILL_TO_CUSTOMER");
-        salesAttributeRoleMap.put("billFromVendorPartyId", "BILL_FROM_VENDOR");
-        salesAttributeRoleMap.put("shipToCustomerPartyId", "SHIP_TO_CUSTOMER");
-        salesAttributeRoleMap.put("endUserCustomerPartyId", "END_USER_CUSTOMER");
+        SALES_ROLE_MAP.put("placingCustomerPartyId", "PLACING_CUSTOMER");
+        SALES_ROLE_MAP.put("billToCustomerPartyId", "BILL_TO_CUSTOMER");
+        SALES_ROLE_MAP.put("billFromVendorPartyId", "BILL_FROM_VENDOR");
+        SALES_ROLE_MAP.put("shipToCustomerPartyId", "SHIP_TO_CUSTOMER");
+        SALES_ROLE_MAP.put("endUserCustomerPartyId", "END_USER_CUSTOMER");
 
-        purchaseAttributeRoleMap.put("billToCustomerPartyId", "BILL_TO_CUSTOMER");
-        purchaseAttributeRoleMap.put("billFromVendorPartyId", "BILL_FROM_VENDOR");
-        purchaseAttributeRoleMap.put("shipFromVendorPartyId", "SHIP_FROM_VENDOR");
-        purchaseAttributeRoleMap.put("supplierAgentPartyId", "SUPPLIER_AGENT");
+        PURCHASE_ROLE_MAP.put("billToCustomerPartyId", "BILL_TO_CUSTOMER");
+        PURCHASE_ROLE_MAP.put("billFromVendorPartyId", "BILL_FROM_VENDOR");
+        PURCHASE_ROLE_MAP.put("shipFromVendorPartyId", "SHIP_FROM_VENDOR");
+        PURCHASE_ROLE_MAP.put("supplierAgentPartyId", "SUPPLIER_AGENT");
     }
-    public static final int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    public static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
-    public static final int orderDecimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode orderRounding = UtilNumber.getRoundingMode("order.rounding");
-    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(taxDecimals, taxRounding);
-
+    private static final int TAX_SCALE = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    private static final RoundingMode TAX_ROUNDING = UtilNumber.getRoundingMode("salestax.rounding");
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
+    private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(TAX_SCALE, TAX_ROUNDING);
 
     private static boolean hasPermission(String orderId, GenericValue userLogin, String action, Security security, Delegator delegator) {
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
@@ -931,9 +930,9 @@ public class OrderServices {
         }
 
         // see the attributeRoleMap definition near the top of this file for attribute-role mappings
-        Map<String, String> attributeRoleMap = salesAttributeRoleMap;
+        Map<String, String> attributeRoleMap = SALES_ROLE_MAP;
         if ("PURCHASE_ORDER".equals(orderTypeId)) {
-            attributeRoleMap = purchaseAttributeRoleMap;
+            attributeRoleMap = PURCHASE_ROLE_MAP;
         }
         for (Map.Entry<String, String> attributeRoleEntry : attributeRoleMap.entrySet()) {
             if (UtilValidate.isNotEmpty(context.get(attributeRoleEntry.getKey()))) {
@@ -1592,7 +1591,7 @@ public class OrderServices {
         BigDecimal totalExistingOrderTax = ZERO;
         for (GenericValue orderTaxAdjustment : orderTaxAdjustments) {
             if (orderTaxAdjustment.get("amount") != null) {
-                totalExistingOrderTax = totalExistingOrderTax.add(orderTaxAdjustment.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
+                totalExistingOrderTax = totalExistingOrderTax.add(orderTaxAdjustment.getBigDecimal("amount").setScale(TAX_SCALE, TAX_ROUNDING));
             }
         }
 
@@ -1600,7 +1599,7 @@ public class OrderServices {
         BigDecimal totalManuallyAddedOrderTax = ZERO;
         for (GenericValue orderTaxAdjustment : orderTaxAdjustments) {
             if (orderTaxAdjustment.get("amount") != null && "Y".equals(orderTaxAdjustment.getString("isManual"))) {
-                totalManuallyAddedOrderTax = totalManuallyAddedOrderTax.add(orderTaxAdjustment.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
+                totalManuallyAddedOrderTax = totalManuallyAddedOrderTax.add(orderTaxAdjustment.getBigDecimal("amount").setScale(TAX_SCALE, TAX_ROUNDING));
             }
         }
 
@@ -1715,7 +1714,7 @@ public class OrderServices {
                     if (UtilValidate.isNotEmpty(orderAdj)) {
                         for (GenericValue oa : orderAdj) {
                             if (oa.get("amount") != null) {
-                                totalNewOrderTax = totalNewOrderTax.add(oa.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
+                                totalNewOrderTax = totalNewOrderTax.add(oa.getBigDecimal("amount").setScale(TAX_SCALE, TAX_ROUNDING));
                             }
                         }
                     }
@@ -1726,7 +1725,7 @@ public class OrderServices {
                             List<GenericValue> itemAdjustments = itemAdj.get(i);
                             for (GenericValue ia : itemAdjustments) {
                                 if (ia.get("amount") != null) {
-                                    totalNewOrderTax = totalNewOrderTax.add(ia.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
+                                    totalNewOrderTax = totalNewOrderTax.add(ia.getBigDecimal("amount").setScale(TAX_SCALE, TAX_ROUNDING));
                                 }
                             }
                         }
@@ -1736,11 +1735,11 @@ public class OrderServices {
 
             // If there is any manually added tax then add it into new system generated tax.
             if (totalManuallyAddedOrderTax.compareTo(BigDecimal.ZERO) > 0) {
-                totalNewOrderTax = totalNewOrderTax.add(totalManuallyAddedOrderTax).setScale(taxDecimals, taxRounding);
+                totalNewOrderTax = totalNewOrderTax.add(totalManuallyAddedOrderTax).setScale(TAX_SCALE, TAX_ROUNDING);
             }
 
             // Determine the difference between existing and new tax adjustment totals, if any
-            BigDecimal orderTaxDifference = totalNewOrderTax.subtract(totalExistingOrderTax).setScale(taxDecimals, taxRounding);
+            BigDecimal orderTaxDifference = totalNewOrderTax.subtract(totalExistingOrderTax).setScale(TAX_SCALE, TAX_ROUNDING);
 
             // If the total has changed, create an OrderAdjustment to reflect the fact
             if (orderTaxDifference.signum() != 0) {
@@ -1823,7 +1822,7 @@ public class OrderServices {
                     Debug.logInfo("No valid order items found - " + shippingTotal, MODULE);
                 } else {
                     shippingTotal = UtilValidate.isEmpty(shippingEstMap.get("shippingTotal")) ? ZERO : (BigDecimal)shippingEstMap.get("shippingTotal");
-                    shippingTotal = shippingTotal.setScale(orderDecimals, orderRounding);
+                    shippingTotal = shippingTotal.setScale(DECIMALS, ROUNDING);
                     Debug.logInfo("Got new shipping estimate - " + shippingTotal, MODULE);
                 }
                 if (Debug.infoOn()) {
@@ -2179,7 +2178,7 @@ public class OrderServices {
 
                     // log an order note
                     try {
-                        BigDecimal quantity = thisCancelQty.setScale(1, orderRounding);
+                        BigDecimal quantity = thisCancelQty.setScale(1, ROUNDING);
                         String cancelledItemToOrder = UtilProperties.getMessage(RESOURCE, "OrderCancelledItemToOrder", locale);
                         resp = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", cancelledItemToOrder +
                                 orderItem.getString("productId") + " (" + quantity + ")", "internalNote", "Y", "userLogin", userLogin));
@@ -5478,7 +5477,7 @@ public class OrderServices {
                 List<GenericValue> orderItemBillings = EntityQuery.use(delegator).from("OrderItemBilling").where("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId")).queryList();
                 for (GenericValue orderItemBilling : orderItemBillings) {
                     BigDecimal quantity = orderItemBilling.getBigDecimal("quantity");
-                    BigDecimal amount = orderItemBilling.getBigDecimal("amount").setScale(orderDecimals, orderRounding);
+                    BigDecimal amount = orderItemBilling.getBigDecimal("amount").setScale(DECIMALS, ROUNDING);
                     if (UtilValidate.isEmpty(invoicedQuantity) || UtilValidate.isEmpty(amount)) {
                         continue;
                     }
@@ -5501,7 +5500,7 @@ public class OrderServices {
                     // Look at the orderAdjustmentBillings to discove the amount ever invoiced for this order adjustment
                     List<GenericValue> orderAdjustmentBillings = EntityQuery.use(delegator).from("OrderAdjustmentBilling").where("orderAdjustmentId", orderAdjustment.get("orderAdjustmentId")).queryList();
                     for (GenericValue orderAjustmentBilling : orderAdjustmentBillings) {
-                        BigDecimal amount = orderAjustmentBilling.getBigDecimal("amount").setScale(orderDecimals, orderRounding);
+                        BigDecimal amount = orderAjustmentBilling.getBigDecimal("amount").setScale(DECIMALS, ROUNDING);
                         if (UtilValidate.isEmpty(amount)) {
                             continue;
                         }
@@ -5532,7 +5531,7 @@ public class OrderServices {
             for (GenericValue orderHeaderAdjustment : orderHeaderAdjustments) {
                 List<GenericValue> orderHeaderAdjustmentBillings = EntityQuery.use(delegator).from("OrderAdjustmentBilling").where("orderAdjustmentId", orderHeaderAdjustment.get("orderAdjustmentId")).queryList();
                 for (GenericValue orderHeaderAdjustmentBilling : orderHeaderAdjustmentBillings) {
-                    BigDecimal amount = orderHeaderAdjustmentBilling.getBigDecimal("amount").setScale(orderDecimals, orderRounding);
+                    BigDecimal amount = orderHeaderAdjustmentBilling.getBigDecimal("amount").setScale(DECIMALS, ROUNDING);
                     if (UtilValidate.isEmpty(amount)) {
                         continue;
                     }
@@ -5545,7 +5544,7 @@ public class OrderServices {
             //  figures don't take tax- and shipping- adjustments into account, so as to be in accordance with the code in InvoiceServices
             BigDecimal invoicedAmountProportion = ZERO;
             if (orderItemsSubtotal.signum() != 0) {
-                invoicedAmountProportion = invoicedTotal.divide(orderItemsSubtotal, 5, orderRounding);
+                invoicedAmountProportion = invoicedTotal.divide(orderItemsSubtotal, 5, ROUNDING);
             }
             BigDecimal orderItemHeaderAjustmentAmount = orderHeaderAdjustmentsTotalValue.multiply(invoicedAmountProportion);
             orderItemTotalValue = invoicedTotal.add(orderItemHeaderAjustmentAmount);
@@ -5559,8 +5558,8 @@ public class OrderServices {
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("invoicedAmount", orderItemTotalValue.setScale(orderDecimals, orderRounding));
-        result.put("invoicedQuantity", invoicedQuantity.setScale(orderDecimals, orderRounding));
+        result.put("invoicedAmount", orderItemTotalValue.setScale(DECIMALS, ROUNDING));
+        result.put("invoicedQuantity", invoicedQuantity.setScale(DECIMALS, ROUNDING));
         return result;
     }
 
