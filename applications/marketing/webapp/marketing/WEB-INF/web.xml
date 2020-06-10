@@ -40,113 +40,70 @@ under the License.
   </context-param>
 
     <filter>
-        <display-name>ControlFilter</display-name>
-        <filter-name>ControlFilter</filter-name>
-        <filter-class>org.apache.ofbiz.webapp.control.ControlFilter</filter-class>
-        <init-param>
-            <param-name>redirectPath</param-name>
-            <param-value>/control/main</param-value>
-        </init-param>
-        <init-param>
-            <param-name>allowedPaths</param-name>
-            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
-        </init-param>
-    </filter>
-    <filter>
         <display-name>ContextFilter</display-name>
         <filter-name>ContextFilter</filter-name>
         <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>ControlFilter</filter-name>
-            <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    <filter>
+        <display-name>SeoContentUrlFilter</display-name>
+        <filter-name>SeoContentUrlFilter</filter-name>
+        <filter-class>org.apache.ofbiz.product.category.SeoContentUrlFilter</filter-class>
+        <init-param>
+            <param-name>defaultLocaleString</param-name>
+            <param-value>en_US</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <display-name>SeoContextFilter</display-name>
+        <filter-name>SeoContextFilter</filter-name>
+        <filter-class>org.apache.ofbiz.product.category.SeoContextFilter</filter-class>
+        <init-param>
+            <param-name>allowedPaths</param-name>
+            <param-value>/control:/select:/index.html:/index.jsp:/robots.txt:/default.html:/default.jsp:/images:/static</param-value>
+        </init-param>
+    </filter>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
-            <url-pattern>/*</url-pattern>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SeoContentUrlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SeoContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-  <listener><listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
-  <listener><listener-class>org.apache.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
-  <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
-  <!-- <listener><listener-class>org.apache.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
+    <listener><listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
+    <!-- this listener will clean up info -->
+    <listener><listener-class>org.apache.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
 
-  <servlet>
-    <description>Main Control Servlet</description>
-    <display-name>ControlServlet</display-name>
-    <servlet-name>ControlServlet</servlet-name>
-    <servlet-class>org.apache.ofbiz.webapp.control.ControlServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ControlServlet</servlet-name>
-    <url-pattern>/control/*</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <description>Main SEO Control Servlet</description>
+        <display-name>SeoControlServlet</display-name>
+        <servlet-name>SeoControlServlet</servlet-name>
+        <servlet-class>org.apache.ofbiz.product.category.SeoControlServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-  <session-config>
-    <session-timeout>60</session-timeout><!-- in minutes -->
-  </session-config>
+    <servlet-mapping>
+        <servlet-name>SeoControlServlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-<!--
-  <error-page>
-    <error-code>403</error-code>
-    <location>/error/error403.jsp</location>
-  </error-page>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/error/error404.jsp</location>
-  </error-page>
-  <error-page>
-    <error-code>410</error-code>
-    <location>/error/error.jsp</location>
-  </error-page>
-  <error-page>
-    <error-code>500</error-code>
-    <location>/error/error.jsp</location>
-  </error-page>
--->
+    <session-config>
+        <session-timeout>60</session-timeout><!-- in minutes -->
+    </session-config>
 
-<!-- HTTP Response Code definitions:
-| "400"   ; Bad Request
-| "401"   ; Unauthorized
-| "402"   ; Payment Required
-| "403"   ; Forbidden
-| "404"   ; Not Found
-| "405"   ; Method Not Allowed
-| "406"   ; Not Acceptable
-| "407"   ; Proxy Authentication Required
-| "408"   ; Request Time-out
-| "409"   ; Conflict
-| "410"   ; Gone
-| "411"   ; Length Required
-| "412"   ; Precondition Failed
-| "413"   ; Request Entity Too Large
-| "414"   ; Request-URI Too Large
-| "415"   ; Unsupported Media Type
-| "500"   ; Internal Server Error
-| "501"   ; Not Implemented
-| "502"   ; Bad Gateway
-| "503"   ; Service Unavailable
-| "504"   ; Gateway Time-out
-| "505"   ; HTTP Version not supported
--->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+    </welcome-file-list>
 
-<!--
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>Entire Site</web-resource-name>
-      <description>Entire Site</description>
-      <url-pattern>/*</url-pattern>
-    </web-resource-collection>
--->
-    <!-- For enabling SSL, specify CONFIDENTIAL or INTEGRAL. -->
-<!--
-    <user-data-constraint>
-      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-    </user-data-constraint>
-  </security-constraint>
--->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
 </web-app>
