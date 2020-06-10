@@ -70,9 +70,9 @@ public class ProductionRunServices {
     private static final String RES_ORDER = "OrderErrorUiLabels";
     private static final String RES_PRODUCT = "ProductUiLabels";
 
-    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("finaccount.rounding");
-    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("finaccount.rounding");
+    private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
 
     /**
      * Cancels a ProductionRun.
@@ -1209,7 +1209,7 @@ public class ProductionRunServices {
                     if (variableCost == null) {
                         variableCost = BigDecimal.ZERO;
                     }
-                    BigDecimal totalCost = fixedCost.add(variableCost.multiply(BigDecimal.valueOf(totalTime))).setScale(decimals, rounding);
+                    BigDecimal totalCost = fixedCost.add(variableCost.multiply(BigDecimal.valueOf(totalTime))).setScale(DECIMALS, ROUNDING);
                     // store the cost
                     Map<String, Object> inMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", productionRunTaskId);
                     inMap.put("costComponentTypeId", "ACTUAL_" + workEffortCostCalc.getString("costComponentTypeId"));
@@ -1253,8 +1253,8 @@ public class ProductionRunServices {
                     if (usageCost != null) {
                         usageCostAmount = usageCost.getBigDecimal("amount").multiply(BigDecimal.valueOf(actualMilliSeconds));
                     }
-                    BigDecimal fixedAssetCost = setupCostAmount.add(usageCostAmount).setScale(decimals, rounding);
-                    fixedAssetCost = fixedAssetCost.divide(BigDecimal.valueOf(3600000), decimals, rounding);
+                    BigDecimal fixedAssetCost = setupCostAmount.add(usageCostAmount).setScale(DECIMALS, ROUNDING);
+                    fixedAssetCost = fixedAssetCost.divide(BigDecimal.valueOf(3600000), DECIMALS, ROUNDING);
                     // store the cost
                     Map<String, Object> inMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, 
                             "workEffortId", productionRunTaskId);
@@ -1288,7 +1288,7 @@ public class ProductionRunServices {
                     materialsCostByCurrency.put(currencyUomId, BigDecimal.ZERO);
                 }
                 BigDecimal materialsCost = materialsCostByCurrency.get(currencyUomId);
-                materialsCost = materialsCost.add(unitCost.multiply(quantity)).setScale(decimals, rounding);
+                materialsCost = materialsCost.add(unitCost.multiply(quantity)).setScale(DECIMALS, ROUNDING);
                 materialsCostByCurrency.put(currencyUomId, materialsCost);
             }
             for (String currencyUomId : materialsCostByCurrency.keySet()) {
@@ -2379,7 +2379,7 @@ public class ProductionRunServices {
                 try {
                     List<GenericValue> components = theTask.getRelated("WorkEffortGoodStandard", null, null, false);
                     for (GenericValue component : components) {
-                        BigDecimal totalRequiredMaterialQuantity = component.getBigDecimal("estimatedQuantity").multiply(totalQuantityProduced).divide(quantityToProduce, rounding);
+                        BigDecimal totalRequiredMaterialQuantity = component.getBigDecimal("estimatedQuantity").multiply(totalQuantityProduced).divide(quantityToProduce, ROUNDING);
                         // now get the units that have been already issued and subtract them
                         List<GenericValue> issuances = EntityQuery.use(delegator).from("WorkEffortAndInventoryAssign")
                                 .where("workEffortId", workEffortId, 
@@ -3426,7 +3426,7 @@ public class ProductionRunServices {
                 // will be equal to the components' standard costs
                 costCoefficient = BigDecimal.ONE;
             } else {
-                costCoefficient = inventoryItemCost.divide(packageCost, 10, rounding);
+                costCoefficient = inventoryItemCost.divide(packageCost, 10, ROUNDING);
             }
 
             // the components are retrieved
