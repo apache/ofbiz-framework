@@ -49,10 +49,10 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 public final class PaymentWorker {
 
     private static final String MODULE = PaymentWorker.class.getName();
-    private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final RoundingMode ROUNDING_MODE = UtilNumber.getRoundingMode("invoice.rounding");
 
-    private PaymentWorker() {}
+    private PaymentWorker() { }
 
     // to be able to use in minilanguage where Boolean cannot be used
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId) {
@@ -229,7 +229,7 @@ public final class PaymentWorker {
 
         BigDecimal paymentsTotal = BigDecimal.ZERO;
         for (GenericValue payment : payments) {
-            paymentsTotal = paymentsTotal.add(payment.getBigDecimal("amount")).setScale(decimals, rounding);
+            paymentsTotal = paymentsTotal.add(payment.getBigDecimal("amount")).setScale(DECIMALS, ROUNDING_MODE);
         }
         return paymentsTotal;
     }
@@ -323,7 +323,7 @@ public final class PaymentWorker {
                                amountApplied = amountApplied.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
                         }
                     }
-                    paymentApplied = paymentApplied.add(amountApplied).setScale(decimals,rounding);
+                    paymentApplied = paymentApplied.add(amountApplied).setScale(DECIMALS, ROUNDING_MODE);
                 }
             }
         } catch (GenericEntityException e) {
@@ -334,16 +334,16 @@ public final class PaymentWorker {
 
     public static BigDecimal getPaymentNotApplied(GenericValue payment) {
         if (payment != null) { 
-            return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
+            return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(DECIMALS, ROUNDING_MODE);
         } 
         return BigDecimal.ZERO;
     }
 
     public static BigDecimal getPaymentNotApplied(GenericValue payment, Boolean actual) {
         if (actual.equals(Boolean.TRUE) && UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
-            return payment.getBigDecimal("actualCurrencyAmount").subtract(getPaymentApplied(payment, actual)).setScale(decimals,rounding);
+            return payment.getBigDecimal("actualCurrencyAmount").subtract(getPaymentApplied(payment, actual)).setScale(DECIMALS, ROUNDING_MODE);
         }
-        return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
+        return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(DECIMALS, ROUNDING_MODE);
     }
 
     public static BigDecimal getPaymentNotApplied(Delegator delegator, String paymentId) {
@@ -365,6 +365,6 @@ public final class PaymentWorker {
         if (payment == null) {
             throw new IllegalArgumentException("The paymentId passed does not match an existing payment");
         }
-        return payment.getBigDecimal("amount").subtract(getPaymentApplied(delegator,paymentId, actual)).setScale(decimals,rounding);
+        return payment.getBigDecimal("amount").subtract(getPaymentApplied(delegator,paymentId, actual)).setScale(DECIMALS, ROUNDING_MODE);
     }
 }
