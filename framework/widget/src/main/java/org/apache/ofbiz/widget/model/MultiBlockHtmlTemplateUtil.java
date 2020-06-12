@@ -135,11 +135,11 @@ public final class MultiBlockHtmlTemplateUtil {
     }
 
     /**
-     * Get html import scr location from html template
+     * Get locations for external css link and external script from raw html template
      * @param fileLocation Location to html template. Expression is not allowed.
      * @return
      */
-    public static Set<String> getHtmlLinksFromHtmlTemplate(String fileLocation) throws IOException {
+    public static Set<String> extractHtmlLinksFromRawHtmlTemplate(String fileLocation) throws IOException {
         Set<String> imports = new LinkedHashSet<>();
         String template = FileUtil.readString("UTF-8", FileUtil.getFile(fileLocation));
         Document doc = Jsoup.parseBodyFragment(template);
@@ -150,8 +150,17 @@ public final class MultiBlockHtmlTemplateUtil {
                 if (UtilValidate.isNotEmpty(src)) {
                     String dataImport = script.attr("data-import");
                     if ("head".equals(dataImport)) {
-                        imports.add(src);
+                        imports.add("script:" + src);
                     }
+                }
+            }
+        }
+        Elements csslinkElements = doc.select("link");
+        if (csslinkElements != null && csslinkElements.size() > 0) {
+            for (org.jsoup.nodes.Element link : csslinkElements) {
+                String src = link.attr("href");
+                if (UtilValidate.isNotEmpty(src)) {
+                    imports.add("link:" + src);
                 }
             }
         }
@@ -184,7 +193,7 @@ public final class MultiBlockHtmlTemplateUtil {
      * @param context
      * @throws IOException
      */
-    public static void addLinksToLayoutSettings(final Map<String, Object> context) throws IOException {
+    public static void addLinksToLayoutSettingsWhenConditionsAreRight(final Map<String, Object> context) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         if (request == null) {
             return;
@@ -194,8 +203,12 @@ public final class MultiBlockHtmlTemplateUtil {
         if (UtilValidate.isEmpty(layoutSettings)) {
             return;
         }
-        List<String> layoutSettingsJsList = UtilGenerics.cast(layoutSettings.get("javaScripts"));
-        if (UtilValidate.isEmpty(layoutSettingsJsList)) {
+        List<String> layoutSettingsJavaScripts = UtilGenerics.cast(layoutSettings.get("javaScripts"));
+        if (UtilValidate.isEmpty(layoutSettingsJavaScripts)) {
+            return;
+        }
+        List<String> layoutSettingsStyleSheets = UtilGenerics.cast(layoutSettings.get("styleSheets"));
+        if (UtilValidate.isEmpty(layoutSettingsStyleSheets)) {
             return;
         }
         // ensure initTheme.groovy has run.
@@ -228,7 +241,7 @@ public final class MultiBlockHtmlTemplateUtil {
                         if (url.contains("${")) {
                             String expandUrl = FlexibleStringExpander.expandString(url, context);
                             if (UtilValidate.isNotEmpty(expandUrl)) {
-                                htmlLinks.addAll(getHtmlLinksFromHtmlTemplate(expandUrl));
+                                htmlLinks.addAll(extractHtmlLinksFromRawHtmlTemplate(expandUrl));
                             } else {
                                 retryTemplateLocationExpressions.add(url);
                             }
@@ -241,12 +254,7 @@ public final class MultiBlockHtmlTemplateUtil {
                 }
             }
             if (UtilValidate.isNotEmpty(htmlLinks)) {
-                // check url is not already in layoutSettings.javaScripts
-                for (String url : htmlLinks) {
-                    if (!layoutSettingsJsList.contains(url)) {
-                        layoutSettingsJsList.add(url);
-                    }
-                }
+                addLinksToLayoutSettings(htmlLinks, layoutSettingsJavaScripts, layoutSettingsStyleSheets);
             }
             if (UtilValidate.isEmpty(retryScreenLocHashNameExpressions) && UtilValidate.isEmpty(retryTemplateLocationExpressions)) {
                 request.setAttribute(HTML_LINKS_FOR_HEAD, true);
@@ -289,19 +297,14 @@ public final class MultiBlockHtmlTemplateUtil {
                     // we know url contains "${", so we expand the url
                     String expandUrl = FlexibleStringExpander.expandString(url, context);
                     if (UtilValidate.isNotEmpty(expandUrl)) {
-                        htmlLinks.addAll(getHtmlLinksFromHtmlTemplate(expandUrl));
+                        htmlLinks.addAll(extractHtmlLinksFromRawHtmlTemplate(expandUrl));
                         it.remove();
                     }
 
                 }
             }
             if (UtilValidate.isNotEmpty(htmlLinks)) {
-                // check url is not already in layoutSettings.javaScripts
-                for (String url : htmlLinks) {
-                    if (!layoutSettingsJsList.contains(url)) {
-                        layoutSettingsJsList.add(url);
-                    }
-                }
+                addLinksToLayoutSettings(htmlLinks, layoutSettingsJavaScripts, layoutSettingsStyleSheets);
             }
             if (UtilValidate.isEmpty(retryScreenLocHashNameExpressions) && UtilValidate.isEmpty(retryTemplateLocationExpressions)) {
                 request.setAttribute(HTML_LINKS_FOR_HEAD, true);
@@ -312,7 +315,26 @@ public final class MultiBlockHtmlTemplateUtil {
                 request.setAttribute(HTML_LINKS_FOR_HEAD, retry2);
             }
         }
+    }
 
+    private static void addLinksToLayoutSettings(Set<String> htmlLinks,
+                                                 List<String> layoutSettingsJavaScripts,
+                                                 List<String> layoutSettingsStyleSheets) {
+        for (String link : htmlLinks) {
+            if (link.startsWith("script:")) {
+                String url = link.substring(7);
+                // check url is not already in layoutSettings.javaScripts
+                if (!layoutSettingsJavaScripts.contains(url)) {
+                    layoutSettingsJavaScripts.add(url);
+                }
+            } else if (link.startsWith("link:")) {
+                String url = link.substring(5);
+                // check url is not already in layoutSettings.styleSheets
+                if (!layoutSettingsStyleSheets.contains(url)) {
+                    layoutSettingsStyleSheets.add(url);
+                }
+            }
+        }
     }
 
     /**
