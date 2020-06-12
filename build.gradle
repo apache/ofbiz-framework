@@ -29,12 +29,13 @@ plugins {
     id 'eclipse'
     id 'checkstyle'
     id 'maven-publish'
-    id 'at.bxm.svntools' version '2.2.1' // Don't update as long as we don't use Java 11, it's needed by version 3 
+    id 'at.bxm.svntools' version '2.2.1' // Don't update as long as we don't use Java 11, it's needed by version 3
     id 'org.asciidoctor.convert' version '2.4.0' // About org.asciidoctor.jvm.convert as it says itself: "If you need a production-ready version of the AsciidoctorJ plugin for Gradle use a 1.5.x release of 'org.asciidoctor.convert' instead"
     id 'org.owasp.dependencycheck' version '5.3.2.1' apply false
     id 'se.patrikerdes.use-latest-versions' version '0.2.13' apply false
     id 'com.github.ben-manes.versions' version '0.28.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
+    id "com.github.jakemarsden.git-hooks" version "0.0.2"
 }
 
 /* OWASP plugin
@@ -286,10 +287,13 @@ checkstyle {
     // the sum of errors found last time it was changed after using the
     // ‘checkstyle’ tool present in the framework and in the official
     // plugins.
-    tasks.checkstyleMain.maxErrors = 26845
+    tasks.checkstyleMain.maxErrors = 26844
     // Currently there are a lot of errors so we need to temporarily
     // hide them to avoid polluting the terminal output.
     showViolations = false
+}
+gitHooks {
+    hooks = ['pre-commit': 'checkstyleMain']
 }
 
 // Eclipse plugin settings
