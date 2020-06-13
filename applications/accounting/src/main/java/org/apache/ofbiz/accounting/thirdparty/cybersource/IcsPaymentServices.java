@@ -19,6 +19,7 @@
 package org.apache.ofbiz.accounting.thirdparty.cybersource;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -52,9 +53,9 @@ import com.cybersource.ws.client.FaultException;
 public class IcsPaymentServices {
 
     private static final String MODULE = IcsPaymentServices.class.getName();
-    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("invoice.rounding");
 
     // load the JSSE properties
     static {
@@ -529,7 +530,7 @@ public class IcsPaymentServices {
 
     private static String getAmountString(Map<String, ? extends Object> context, String amountField) {
         BigDecimal processAmount = (BigDecimal) context.get(amountField);
-        return processAmount.setScale(decimals, rounding).toPlainString();
+        return processAmount.setScale(DECIMALS, ROUNDING).toPlainString();
     }
 
     private static void processAuthResult(Map<String, Object> reply, Map<String, Object> result, Delegator delegator) {
