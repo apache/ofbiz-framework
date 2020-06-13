@@ -67,7 +67,7 @@ public class WeightPackageSession implements Serializable {
 
     private transient Delegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
-    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
+    private static final RoundingMode ROUNDING_MODE = UtilNumber.getRoundingMode("invoice.rounding");
 
     public WeightPackageSession() {
     }
@@ -393,7 +393,7 @@ public class WeightPackageSession implements Serializable {
         if (estimatedShipCost.compareTo(BigDecimal.ZERO) == 0) {
             diffInShipCostInPerc = actualShippingCost;
         } else {
-            diffInShipCostInPerc = (((actualShippingCost.subtract(estimatedShipCost)).divide(estimatedShipCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
+            diffInShipCostInPerc = (((actualShippingCost.subtract(estimatedShipCost)).divide(estimatedShipCost, 2, ROUNDING_MODE)).multiply(new BigDecimal(100))).abs();
         }
         return doEstimates.compareTo(diffInShipCostInPerc) == -1;
     }
