@@ -63,17 +63,9 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <section>
-                            <condition>
-                                <not><if-empty field="custRequest"/></not>
-                            </condition>
-                            <widgets>
-                                <include-menu name="RequestTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
-                            </widgets>
-                        </section>
+                        <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
-                        <include-menu name="RequestSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                         <container>
                             <section>
                                 <condition>
@@ -81,6 +73,8 @@ under the License.
                                 </condition>
                                 <widgets>
                                     <label style="h1">${custRequest.custRequestName} [${uiLabelMap.CommonId}:${custRequest.custRequestId}] </label>
+                                    <include-menu name="RequestTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                                    <include-menu name="RequestSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                                 </widgets>
                             </section>
                         </container>

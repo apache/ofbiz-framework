@@ -22,6 +22,9 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -49,11 +52,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleFindReturn}">
-                            <container style="basic-nav">
-                                <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"/>
-                            </container>
                             <include-form name="FindReturns" location="component://order/widget/ordermgr/ReturnForms.xml"/>
                             <include-form name="ListReturns" location="component://order/widget/ordermgr/ReturnForms.xml"/>
                         </screenlet>
