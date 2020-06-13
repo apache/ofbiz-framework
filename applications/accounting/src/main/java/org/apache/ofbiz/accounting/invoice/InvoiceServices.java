@@ -2712,7 +2712,7 @@ public class InvoiceServices {
                         "AccountingPaymentRecordNotFound", UtilMisc.toMap("paymentId", paymentId), locale));
                 return ServiceUtil.returnError(errorMessageList);
             }
-            paymentApplyAvailable = payment.getBigDecimal("amount").subtract(PaymentWorker.getPaymentApplied(payment)).setScale(DECIMALS,ROUNDING);
+            paymentApplyAvailable = payment.getBigDecimal("amount").subtract(PaymentWorker.getPaymentApplied(payment)).setScale(DECIMALS, ROUNDING);
 
             if ("PMNT_CANCELLED".equals(payment.getString("statusId"))) {
                 errorMessageList.add(UtilProperties.getMessage(RESOURCE,
@@ -2741,7 +2741,7 @@ public class InvoiceServices {
                         "AccountingPaymentRecordNotFound", UtilMisc.toMap("paymentId", toPaymentId), locale));
                 return ServiceUtil.returnError(errorMessageList);
             }
-            toPaymentApplyAvailable = toPayment.getBigDecimal("amount").subtract(PaymentWorker.getPaymentApplied(toPayment)).setScale(DECIMALS,ROUNDING);
+            toPaymentApplyAvailable = toPayment.getBigDecimal("amount").subtract(PaymentWorker.getPaymentApplied(toPayment)).setScale(DECIMALS, ROUNDING);
 
             if ("PMNT_CANCELLED".equals(toPayment.getString("statusId"))) {
                 errorMessageList.add(UtilProperties.getMessage(RESOURCE,
@@ -2867,7 +2867,7 @@ public class InvoiceServices {
                             errorMessageList.add("actual currency on payment (" + currencyUomId + ") not the same as original invoice currency (" + invoice.getString("currencyUomId") + ")");
                         }
                     }
-                    paymentApplyAvailable = payment.getBigDecimal("actualCurrencyAmount").subtract(PaymentWorker.getPaymentApplied(payment)).setScale(DECIMALS,ROUNDING);
+                    paymentApplyAvailable = payment.getBigDecimal("actualCurrencyAmount").subtract(PaymentWorker.getPaymentApplied(payment)).setScale(DECIMALS, ROUNDING);
                 }
 
                 // check if the invoice already covered by payments
@@ -2932,9 +2932,9 @@ public class InvoiceServices {
                     if (invoiceItem.get("quantity") == null) {
                         quantity = BigDecimal.ONE;
                     } else {
-                        quantity = invoiceItem.getBigDecimal("quantity").setScale(DECIMALS,ROUNDING);
+                        quantity = invoiceItem.getBigDecimal("quantity").setScale(DECIMALS, ROUNDING);
                     }
-                    invoiceItemApplyAvailable = invoiceItem.getBigDecimal("amount").multiply(quantity).setScale(DECIMALS,ROUNDING).subtract(InvoiceWorker.getInvoiceItemApplied(invoiceItem));
+                    invoiceItemApplyAvailable = invoiceItem.getBigDecimal("amount").multiply(quantity).setScale(DECIMALS, ROUNDING).subtract(InvoiceWorker.getInvoiceItemApplied(invoiceItem));
                     // check here for too much application if a new record is added
                     if (paymentApplicationId == null && amountApplied.compareTo(invoiceItemApplyAvailable) > 0) {
                         // new record
@@ -3278,10 +3278,10 @@ public class InvoiceServices {
                 }
                 BigDecimal itemQuantity = BigDecimal.ONE;
                 if (currentInvoiceItem.get("quantity") != null && currentInvoiceItem.getBigDecimal("quantity").signum() != 0) {
-                    itemQuantity = new BigDecimal(currentInvoiceItem.getString("quantity")).setScale(DECIMALS,ROUNDING);
+                    itemQuantity = new BigDecimal(currentInvoiceItem.getString("quantity")).setScale(DECIMALS, ROUNDING);
                 }
-                BigDecimal itemAmount = currentInvoiceItem.getBigDecimal("amount").setScale(DECIMALS,ROUNDING);
-                BigDecimal itemTotal = itemAmount.multiply(itemQuantity).setScale(DECIMALS,ROUNDING);
+                BigDecimal itemAmount = currentInvoiceItem.getBigDecimal("amount").setScale(DECIMALS, ROUNDING);
+                BigDecimal itemTotal = itemAmount.multiply(itemQuantity).setScale(DECIMALS, ROUNDING);
 
                 // get the application(s) already allocated to this
                 // item, if available
@@ -3299,9 +3299,9 @@ public class InvoiceServices {
                     Iterator<GenericValue> p = paymentApplications.iterator();
                     while (p.hasNext()) {
                         paymentApplication = p.next();
-                        alreadyApplied = alreadyApplied.add(paymentApplication.getBigDecimal("amountApplied").setScale(DECIMALS,ROUNDING));
+                        alreadyApplied = alreadyApplied.add(paymentApplication.getBigDecimal("amountApplied").setScale(DECIMALS, ROUNDING));
                     }
-                    tobeApplied = itemTotal.subtract(alreadyApplied).setScale(DECIMALS,ROUNDING);
+                    tobeApplied = itemTotal.subtract(alreadyApplied).setScale(DECIMALS, ROUNDING);
                 } else {
                     // no application connected yet
                     tobeApplied = itemTotal;
@@ -3431,7 +3431,7 @@ public class InvoiceServices {
             if (paymentApplication.get("paymentApplicationId") == null)    {
                 // add 2 amounts together
                 checkAppl.set("amountApplied", paymentApplication.getBigDecimal("amountApplied").
-                        add(checkAppl.getBigDecimal("amountApplied")).setScale(DECIMALS,ROUNDING));
+                        add(checkAppl.getBigDecimal("amountApplied")).setScale(DECIMALS, ROUNDING));
                 if (debug) {
                     Debug.logInfo("Update paymentApplication record: " + checkAppl.getString("paymentApplicationId") + " with appliedAmount:" + checkAppl.getBigDecimal("amountApplied"), MODULE);
                 }
@@ -3454,7 +3454,7 @@ public class InvoiceServices {
             } else    { // two existing records, an updated one added to the existing one
                 // add 2 amounts together
                 checkAppl.set("amountApplied", paymentApplication.getBigDecimal("amountApplied").
-                        add(checkAppl.getBigDecimal("amountApplied")).setScale(DECIMALS,ROUNDING));
+                        add(checkAppl.getBigDecimal("amountApplied")).setScale(DECIMALS, ROUNDING));
                 // delete paymentApplication record and update the checkAppls one.
                 if (debug) {
                     Debug.logInfo("Delete paymentApplication record: " + paymentApplication.getString("paymentApplicationId") + " with appliedAmount:" + paymentApplication.getBigDecimal("amountApplied"), MODULE);

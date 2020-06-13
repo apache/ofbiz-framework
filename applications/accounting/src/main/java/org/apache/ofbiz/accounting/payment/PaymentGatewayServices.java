@@ -76,19 +76,21 @@ import com.ibm.icu.util.Calendar;
 public class PaymentGatewayServices {
 
     private static final String MODULE = PaymentGatewayServices.class.getName();
-    public static final String AUTH_SERVICE_TYPE = "PRDS_PAY_AUTH";
+    private static final String RESOURCE = "AccountingUiLabels";
+    private static final String RES_ERROR = "AccountingErrorUiLabels";
+    private static final String RES_ORDER = "OrderUiLabels";
+
+    private static final String AUTH_SERVICE_TYPE = "PRDS_PAY_AUTH";
     private static final String REAUTH_SERVICE_TYPE = "PRDS_PAY_REAUTH";
     private static final String RELEASE_SERVICE_TYPE = "PRDS_PAY_RELEASE";
     private static final String CAPTURE_SERVICE_TYPE = "PRDS_PAY_CAPTURE";
     private static final String REFUND_SERVICE_TYPE = "PRDS_PAY_REFUND";
     private static final String CREDIT_SERVICE_TYPE = "PRDS_PAY_CREDIT";
     private static final int TX_TIME = 300;
-    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
-    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
-    private static final String RESOURCE = "AccountingUiLabels";
-    private static final String RES_ERROR = "AccountingErrorUiLabels";
-    private static final String RES_ORDER = "OrderUiLabels";
+
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
+    private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
 
     /**
      * Authorizes a single order preference with an option to specify an amount. The result map has the Booleans
@@ -168,7 +170,7 @@ public class PaymentGatewayServices {
         }
 
         // round this before moving on just in case a funny number made it this far
-        transAmount = transAmount.setScale(decimals, rounding);
+        transAmount = transAmount.setScale(DECIMALS, ROUNDING);
 
         // if our transaction amount exists and is zero, there's nothing to process, so return
         if ((transAmount != null) && (transAmount.compareTo(BigDecimal.ZERO) <= 0)) {
@@ -525,7 +527,7 @@ public class PaymentGatewayServices {
         }
 
         // format the decimal
-        processAmount = processAmount.setScale(decimals, rounding);
+        processAmount = processAmount.setScale(DECIMALS, ROUNDING);
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("Charging amount: " + processAmount, MODULE);
@@ -1185,7 +1187,7 @@ public class PaymentGatewayServices {
         String billingAccountId = (String) context.get("billingAccountId");
         BigDecimal amountToCapture = (BigDecimal) context.get("captureAmount");
         Locale locale = (Locale) context.get("locale");
-        amountToCapture = amountToCapture.setScale(decimals, rounding);
+        amountToCapture = amountToCapture.setScale(DECIMALS, ROUNDING);
 
         // get the order header and payment preferences
         GenericValue orderHeader = null;
@@ -1220,9 +1222,9 @@ public class PaymentGatewayServices {
         // amount that we are going to capture.
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
         BigDecimal orderGrandTotal = orh.getOrderGrandTotal();
-        orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
+        orderGrandTotal = orderGrandTotal.setScale(DECIMALS, ROUNDING);
         BigDecimal totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
-        totalPayments = totalPayments.setScale(decimals, rounding);
+        totalPayments = totalPayments.setScale(DECIMALS, ROUNDING);
         BigDecimal remainingTotal = orderGrandTotal.subtract(totalPayments);
         if (Debug.infoOn()) {
             Debug.logInfo("The Remaining Total for order: " + orderId + " is: " + remainingTotal, MODULE);
@@ -1242,7 +1244,7 @@ public class PaymentGatewayServices {
                 if (authAmount == null) {
                     authAmount = ZERO;
                 }
-                authAmount = authAmount.setScale(decimals, rounding);
+                authAmount = authAmount.setScale(DECIMALS, ROUNDING);
 
                 if (authAmount.compareTo(ZERO) == 0) {
                     // nothing to capture
@@ -1285,7 +1287,7 @@ public class PaymentGatewayServices {
                             Debug.logInfo("Amount captured for order [" + orderId + "] from unapplied payments associated to billing account [" + billingAccountId + "] is: " + amountCaptured, MODULE);
                         }
 
-                        amountCaptured = amountCaptured.setScale(decimals, rounding);
+                        amountCaptured = amountCaptured.setScale(DECIMALS, ROUNDING);
 
                         if (amountCaptured.compareTo(BigDecimal.ZERO) == 0) {
                             continue;
@@ -1353,7 +1355,7 @@ public class PaymentGatewayServices {
                 if (authAmount == null) {
                     authAmount = ZERO;
                 }
-                authAmount = authAmount.setScale(decimals, rounding);
+                authAmount = authAmount.setScale(DECIMALS, ROUNDING);
 
                 if (authAmount.compareTo(ZERO) == 0) {
                     // nothing to capture
@@ -1394,7 +1396,7 @@ public class PaymentGatewayServices {
                         amountCaptured = (BigDecimal) captureResult.get("processAmount");
                     }
 
-                    amountCaptured = amountCaptured.setScale(decimals, rounding);
+                    amountCaptured = amountCaptured.setScale(DECIMALS, ROUNDING);
 
                     // decrease amount of next payment preference to capture
                     amountToCapture = amountToCapture.subtract(amountCaptured);
@@ -1530,7 +1532,7 @@ public class PaymentGatewayServices {
         String invoiceId = (String) context.get("invoiceId");
         String billingAccountId = (String) context.get("billingAccountId");
         BigDecimal captureAmount = (BigDecimal) context.get("captureAmount");
-        captureAmount = captureAmount.setScale(decimals, rounding);
+        captureAmount = captureAmount.setScale(DECIMALS, ROUNDING);
         BigDecimal capturedAmount = BigDecimal.ZERO;
 
         try {
@@ -1555,7 +1557,7 @@ public class PaymentGatewayServices {
                     // TODO: check the statusId of the payment
                     BigDecimal paymentApplicationAmount = paymentApplication.getBigDecimal("amountApplied");
                     BigDecimal amountToCapture = paymentApplicationAmount.min(captureAmount.subtract(capturedAmount));
-                    amountToCapture = amountToCapture.setScale(decimals, rounding);
+                    amountToCapture = amountToCapture.setScale(DECIMALS, ROUNDING);
                     if (amountToCapture.compareTo(paymentApplicationAmount) == 0) {
                         // apply the whole payment application to the invoice
                         paymentApplication.set("invoiceId", invoiceId);
@@ -1578,7 +1580,7 @@ public class PaymentGatewayServices {
         } catch (GenericEntityException ex) {
             return ServiceUtil.returnError(ex.getMessage());
         }
-        capturedAmount = capturedAmount.setScale(decimals, rounding);
+        capturedAmount = capturedAmount.setScale(DECIMALS, ROUNDING);
         Map<String, Object> results = ServiceUtil.returnSuccess();
         results.put("captureAmount", capturedAmount);
         return results;
@@ -2054,7 +2056,7 @@ public class PaymentGatewayServices {
         }
 
         // setup the amount big decimal
-        amount = amount.setScale(decimals, rounding);
+        amount = amount.setScale(DECIMALS, ROUNDING);
 
         result.put("orderPaymentPreference", paymentPreference);
         result.put("userLogin", userLogin);
@@ -2417,7 +2419,7 @@ public class PaymentGatewayServices {
                 // get the creditCard/address/email
                 String payToPartyId = orh.getBillToParty().getString("partyId");
 
-                BigDecimal processAmount = refundAmount.setScale(decimals, rounding);
+                BigDecimal processAmount = refundAmount.setScale(DECIMALS, ROUNDING);
                 serviceContext.put("refundAmount", processAmount);
                 serviceContext.put("userLogin", userLogin);
 
