@@ -293,7 +293,7 @@ checkstyle {
     showViolations = false
 }
 gitHooks {
-    hooks = ['pre-commit': 'checkstyleMain']
+    hooks = ['pre-push': 'checkstyleMain']
 }
 
 // Eclipse plugin settings

@@ -100,7 +100,7 @@ public class RequestHandler {
 
     private RequestHandler(ServletContext context) {
         // init the ControllerConfig, but don't save it anywhere, just load it into the cache
-        this.controllerConfigURL = ConfigXMLReader.getControllerConfigURL(context);
+        this.controllerConfigURL = ConfigXMLReader.getControllerConfigURL(context); 
         try {
             ConfigXMLReader.getControllerConfig(this.controllerConfigURL);
         } catch (WebAppConfigurationException e) {
