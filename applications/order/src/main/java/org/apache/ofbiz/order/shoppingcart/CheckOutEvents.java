@@ -317,6 +317,10 @@ public class CheckOutEvents {
                 if (UtilValidate.isNotEmpty(securityCode)) {
                     paymentMethodInfo.put("securityCode", securityCode);
                 }
+                String paymentRefNumber = request.getParameter("paymentRefNumber");
+                if (UtilValidate.isNotEmpty(paymentRefNumber)) {
+                    paymentMethodInfo.put("refNum", paymentRefNumber);
+                }
                 String amountStr = request.getParameter("amount_" + paymentMethod);
                 BigDecimal amount = null;
                 if (UtilValidate.isNotEmpty(amountStr) && !"REMAINING".equals(amountStr)) {
