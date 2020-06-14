@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:sm="http://ofbiz.apache.org/Simple-Method"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wt="http://ofbiz.apache.org/Widget-Tree"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+    <sc:site-conf>
+        <sc:request-map uri="FindRequest">
+            <sc:security https="true" auth="true"/>
+            <sc:response name="success" type="view" value="FindRequest"/>
+        </sc:request-map>
+        <sc:view-map name="FindRequest" type="screen" page="component://order/widget/ordermgr/RequestFindCompound.xml#FindRequest"/>
+    </sc:site-conf>
+
+    <ws:screens>
+        <ws:screen name="FindRequest">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="OrderFindRequests"/>
+                    <ws:set field="headerItem" value="request"/>
+                    <ws:set field="entityName" value="CustRequest"/>
+                    <ws:set field="asm_multipleSelectForm" value="FindRequests"/>
+                    <ws:set field="asm_asmListItemPercentOfForm" value="110"/>
+                    <ws:set field="custRequestType.asm_multipleSelect"  value="FindRequests_custRequestTypeId"/>
+                    <ws:set field="custRequestType.asm_sortable" value="true"/>
+                    <ws:set field="custRequestType.asm_title" value=" "/>
+                    <ws:set field="statusId.asm_multipleSelect"  value="FindRequests_statusId"/>
+                    <ws:set field="statusId.asm_sortable" value="true"/>
+                    <ws:set field="statusId.asm_title" value=" "/>
+                    <ws:set field="productStoreId.asm_multipleSelect"  value="FindRequests_productStoreId"/>
+                    <ws:set field="productStoreId.asm_sortable" value="true"/>
+                    <ws:set field="productStoreId.asm_title" value=" "/>
+                    <ws:set field="salesChannelEnumId.asm_multipleSelect"  value="FindRequests_salesChannelEnumId"/>
+                    <ws:set field="salesChannelEnumId.asm_sortable" value="true"/>
+                    <ws:set field="salesChannelEnumId.asm_title" value=" "/>
+                    <ws:set field="asm_listField[]" from-field="custRequestType"/>
+                    <ws:set field="asm_listField[]" from-field="statusId"/>
+                    <ws:set field="asm_listField[]" from-field="productStoreId"/>
+                    <ws:set field="asm_listField[]" from-field="salesChannelEnumId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                        <ws:decorator-section name="body">
+                            <ws:decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                <ws:decorator-section name="menu-bar">
+                                    <ws:container style="button-bar">
+                                        <ws:link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext create"/>
+                                    </ws:container>
+                                </ws:decorator-section>
+                                <ws:decorator-section name="search-options">
+                                    <ws:platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html></ws:platform-specific>
+                                    <ws:include-form name="FindRequests" location="component://order/widget/ordermgr/RequestFindCompound.xml"/>
+                                </ws:decorator-section>
+                                <ws:decorator-section name="search-results">
+                                    <ws:include-form name="ListRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                </ws:decorator-section>
+                            </ws:decorator-screen>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+    </ws:screens>
+
+    <wf:forms>
+        <wf:form name="FindRequests" target="FindRequest" title="" type="single" default-map-name="parameters"
+              header-row-style="header-row" default-table-style="basic-table">
+            <wf:auto-fields-entity entity-name="CustRequest" default-field-type="find"/>
+            <wf:field name="custRequestTypeId" position="2">
+                <wf:drop-down allow-empty="true" allow-multiple="true">
+                    <wf:entity-options entity-name="CustRequestType" key-field-name="custRequestTypeId"/>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="statusId">
+                <wf:drop-down allow-multiple="true">
+                    <wf:entity-options entity-name="StatusItem" key-field-name="statusId">
+                        <wf:entity-constraint name="statusTypeId" operator="equals" value="CUSTREQ_STTS"/>
+                        <wf:entity-order-by field-name="sequenceId"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" position="2">
+                <wf:drop-down allow-empty="true" allow-multiple="true">
+                    <wf:entity-options entity-name="Enumeration" key-field-name="enumId">
+                        <wf:entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
+                        <wf:entity-order-by field-name="sequenceId"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="fromPartyId" position="2"><wf:lookup target-form-name="LookupPartyName"/></wf:field>
+            <wf:field name="currencyUomId"><wf:ignored/></wf:field>
+            <wf:field name="maximumAmountUomId"><wf:ignored/></wf:field>
+            <wf:field name="custRequestCategoryId"><wf:ignored/></wf:field>
+            <wf:field name="fulfillContactMechId"><wf:ignored/></wf:field>
+            <wf:field name="priority"><wf:ignored/></wf:field>
+            <wf:field name="description"><wf:ignored/></wf:field>
+            <wf:field name="createdDate"><wf:ignored/></wf:field>
+            <wf:field name="createdByUserLogin"><wf:ignored/></wf:field>
+            <wf:field name="lastModifiedDate"><wf:ignored/></wf:field>
+            <wf:field name="lastModifiedByUserLogin"><wf:ignored/></wf:field>
+            <wf:field name="closedDateTime" position="2"><wf:date-find/></wf:field>
+            <wf:field name="responseRequiredDate" position="2"><wf:date-find/></wf:field>
+            <wf:field name="productStoreId" title="${uiLabelMap.ProductProductStore}">
+                <wf:drop-down allow-empty="true" allow-multiple="true">
+                    <wf:entity-options description="${storeName}" entity-name="ProductStore" key-field-name="productStoreId">
+                        <wf:entity-order-by field-name="storeName"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="reason" position="2"><wf:text/></wf:field>
+            <wf:field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+                <wf:submit button-type="button"/>
+            </wf:field>
+            <wf:field name="noConditionFind"><wf:hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></wf:field>
+        </wf:form>
+    </wf:forms>
+</compound-widgets>
