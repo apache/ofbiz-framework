@@ -20,11 +20,11 @@
 package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.accounting.payment.PaymentWorker
+import org.apache.ofbiz.order.order.OrderReadHelper
 
 class PaymentApplicationTests extends OFBizTestCase {
     
@@ -88,6 +88,39 @@ class PaymentApplicationTests extends OFBizTestCase {
 
         assert notAppliedPayment == BigDecimal.ZERO
         assert notAppliedToPayment == BigDecimal.ZERO
+        delegator.removeAll('PaymentApplication')
+    }
+
+    void testBillingAppl() {
+        Map serviceInMap = [:]
+        //from the test data
+        serviceInMap.paymentId = "appltest10000"
+        serviceInMap.billingAccountId = "appltest10000"
+        serviceInMap.userLogin = userLogin
+        Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue paymentApplication = from('PaymentApplication')
+                                                .where('paymentApplicationId', serviceResult.paymentApplicationId).queryOne()
+        assert paymentApplication
+
+        BigDecimal notAppliedPayment = PaymentWorker.getPaymentNotApplied(delegator, serviceInMap.paymentId)
+
+        GenericValue payment = from('Payment').where('paymentId', serviceInMap.paymentId).queryOne()
+        assert payment
+
+        assert paymentApplication !=null
+        assert paymentApplication.billingAccountId == serviceInMap.billingAccountId
+        assert paymentApplication.paymentId == serviceInMap.paymentId
+        assert paymentApplication.amountApplied == payment.amount
+        // both payment and invoice should be completely applied
+        notAppliedPayment = PaymentWorker.getPaymentNotApplied(delegator, serviceInMap.paymentId)
+
+        GenericValue billingAccount = from('BillingAccount').where('billingAccountId', serviceInMap.billingAccountId).queryOne()
+        BigDecimal appliedBillling= OrderReadHelper.getBillingAccountBalance(billingAccount)
+        assert appliedBillling
+
+        assert notAppliedPayment == BigDecimal.ZERO
         delegator.removeAll('PaymentApplication')
     }
 }
