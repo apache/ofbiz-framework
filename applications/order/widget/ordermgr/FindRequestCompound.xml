@@ -30,7 +30,7 @@ under the License.
             <sc:security https="true" auth="true"/>
             <sc:response name="success" type="view" value="FindRequest"/>
         </sc:request-map>
-        <sc:view-map name="FindRequest" type="screen" page="component://order/widget/ordermgr/RequestFindCompound.xml#FindRequest"/>
+        <sc:view-map name="FindRequest" type="screen" page="component://order/widget/ordermgr/FindRequestCompound.xml#FindRequest"/>
     </sc:site-conf>
 
     <ws:screens>
@@ -70,7 +70,7 @@ under the License.
                                 </ws:decorator-section>
                                 <ws:decorator-section name="search-options">
                                     <ws:platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html></ws:platform-specific>
-                                    <ws:include-form name="FindRequests" location="component://order/widget/ordermgr/RequestFindCompound.xml"/>
+                                    <ws:include-form name="FindRequests" location="component://order/widget/ordermgr/FindRequestCompound.xml"/>
                                 </ws:decorator-section>
                                 <ws:decorator-section name="search-results">
                                     <ws:include-form name="ListRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
