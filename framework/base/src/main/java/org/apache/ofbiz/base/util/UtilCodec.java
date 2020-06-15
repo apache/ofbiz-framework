@@ -244,7 +244,7 @@ public class UtilCodec {
 
         public String decode(String original) {
             try {
-                canonicalize(original);
+                original = canonicalize(original);
                 return URLDecoder.decode(original, "UTF-8");
             } catch (UnsupportedEncodingException ee) {
                 Debug.logError(ee, module);
