@@ -66,6 +66,7 @@ under the License.
         <xs:attribute name="export" type="xs:boolean" default="false"/>
         <xs:attribute name="validate" type="xs:boolean" default="true"/>
         <xs:attribute name="default-entity-name" type="xs:string"/>
+        <xs:attribute name="verb" type="xs:string"/>
         <xs:attribute name="use-transaction" type="xs:boolean" default="true">
             <xs:annotation>
                 <xs:documentation>
