@@ -439,8 +439,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-migrate-3.0.0.min.js" global="true" />
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.4.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-migrate-3.3.0.min.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.5.1.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css" global="true" />
@@ -609,7 +609,7 @@ under the License.
                 <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
                 <entity-one entity-name="Enumeration" value-field="securityQuestion">
                     <field-map field-name="enumId" from-field="questionEnumId"/>
-                </entity-one> 
+                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
