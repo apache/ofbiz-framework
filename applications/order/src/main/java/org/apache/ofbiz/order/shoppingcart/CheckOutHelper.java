@@ -334,10 +334,13 @@ public class CheckOutHelper {
                 // get the selected amount to use
                 BigDecimal paymentAmount = null;
                 String securityCode = null;
+                String refNum = null;
+
                 if (selectedPaymentMethods.get(checkOutPaymentId) != null) {
                     Map<String, Object> checkOutPaymentInfo = selectedPaymentMethods.get(checkOutPaymentId);
                     paymentAmount = (BigDecimal) checkOutPaymentInfo.get("amount");
                     securityCode = (String) checkOutPaymentInfo.get("securityCode");
+                    refNum = (String) checkOutPaymentInfo.get("refNum");
                 }
 
                 boolean singleUse = singleUsePayments.contains(checkOutPaymentId);
@@ -347,6 +350,9 @@ public class CheckOutHelper {
                 }
                 if (securityCode != null) {
                     inf.securityCode = securityCode;
+                }
+                if (refNum != null) {
+                    inf.refNum[0] = refNum;
                 }
             }
         } else if (cart.getGrandTotal().compareTo(BigDecimal.ZERO) != 0) {
