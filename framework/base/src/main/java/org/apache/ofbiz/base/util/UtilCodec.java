@@ -484,17 +484,19 @@ public class UtilCodec {
                     + "Beware: the result is not rightly checked!", MODULE);
         }
 
-        String filtered = policy.sanitize(value);
-        if (!value.equals(StringEscapeUtils.unescapeHtml4(filtered))) {
-            String issueMsg = null;
-            if (locale.equals(new Locale("test"))) {
-                issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
-                        + "for security reason. Please check and modify accordingly, thanks.";
-            } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicySafe", 
-                        UtilMisc.toMap("valueName", valueName), locale);
+        if (value != null) {
+            String filtered = policy.sanitize(value);
+            if (filtered != null && !value.equals(StringEscapeUtils.unescapeHtml4(filtered))) {
+                String issueMsg = null;
+                if (locale.equals(new Locale("test"))) {
+                    issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
+                            + "for security reason. Please check and modify accordingly, thanks.";
+                } else {
+                    issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicySafe", 
+                            UtilMisc.toMap("valueName", valueName), locale);
+                }
+                errorMessageList.add(issueMsg);
             }
-            errorMessageList.add(issueMsg);
         }
         
         return value;
