@@ -3,6 +3,7 @@ github:
   homepage:  https://ofbiz.apache.org/
   labels:
     - OFBiz
+    - Plugins
     - Java
     - XML
     - Groovy
