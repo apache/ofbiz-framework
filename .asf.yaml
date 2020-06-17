@@ -7,10 +7,9 @@ github:
     - XML
     - Groovy
     - Javascript
-    - web-framework
-    - database
-    - network-server
-    - xml
-    - http
-    - content
-    - geospatial
+    - Web-framework
+    - Database
+    - Network-server
+    - HTTPS
+    - Content
+    - Geospatial
