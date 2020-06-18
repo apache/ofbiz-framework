@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public final class EntityAutoEngine extends GenericAsyncEngine {
 
     private static final String MODULE = EntityAutoEngine.class.getName();
-    public static final String resource = "ServiceErrorUiLabels";
+    private static final String RESOURCE = "ServiceErrorUiLabels";
     private static final List<String> availableInvokeActionNames = UtilMisc.toList("create", "update", "delete", "expire");
 
     public EntityAutoEngine(ServiceDispatcher dispatcher) {
@@ -136,7 +136,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         } catch (GeneralException e) {
             Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service [" + modelService.name + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name,"errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name,"errorString", e.toString()), locale));
         }
         result.put(ModelService.SUCCESS_MESSAGE, ServiceUtil.makeSuccessMessage(result, "", "", "", ""));
         return result;
@@ -224,14 +224,14 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 if (pkValue instanceof String) {
                     StringBuffer errorDetails = new StringBuffer();
                     if (!UtilValidate.isValidDatabaseId((String) pkValue, errorDetails)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceParameterValueNotValid", UtilMisc.toMap("parameterName", singlePkModelParam.name,"errorDetails", errorDetails), locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceParameterValueNotValid", UtilMisc.toMap("parameterName", singlePkModelParam.name,"errorDetails", errorDetails), locale));
                     }
                 }
             }
             newEntity.set(singlePkModeField.getName(), pkValue);
             GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
             if (lookedUpValue != null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueFound", UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueFound", UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
             }
         } else if (isDoublePk && doublePkPrimaryInParam != null && doublePkSecondaryOutParam != null) {
             /*
@@ -266,7 +266,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             //with all pks present on parameters, check if the entity is not already exists.
             GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
             if (lookedUpValue != null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueFound", UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueFound", UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
             }
         } else {
             /* We haven't all Pk and their are 3 or more, now check if isn't a associate entity with own sequence
@@ -382,7 +382,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
         GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
         if (lookedUpValue == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFound", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueNotFound", locale));
         }
 
         localContext.put("lookedUpValue", lookedUpValue);
@@ -508,7 +508,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
         GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
         if (lookedUpValue == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFoundForRemove", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueNotFoundForRemove", locale));
         }
         lookedUpValue.remove();
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
@@ -539,7 +539,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         }
         GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
         if (lookedUpValue == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFound", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueNotFound", locale));
         }
 
         //check if a non pk date field is present on parameters

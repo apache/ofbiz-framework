@@ -25,7 +25,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ServiceEngineTestPermissionServices {
 
     private static final String MODULE = ServiceEngineTestPermissionServices.class.getName();
-    public static final String resource = "ServiceErrorUiLabels";
+    private static final String RESOURCE = "ServiceErrorUiLabels";
 
     public static Map<String, Object> genericTestService(DispatchContext dctx, Map<String, ? extends Object> context) {
         return ServiceUtil.returnSuccess();

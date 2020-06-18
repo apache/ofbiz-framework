@@ -46,7 +46,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class FtpServices {
 
     public final static String MODULE = FtpServices.class.getName();
-    public static final String resource = "CommonUiLabels";
+    private static final String RESOURCE = "CommonUiLabels";
 
     public static Map<String, Object> putFile(DispatchContext dctx, Map<String, ?> context) {
         Locale locale = (Locale) context.get("locale");
@@ -56,7 +56,7 @@ public class FtpServices {
             localFile = new FileInputStream((String) context.get("localFilename"));
         } catch (IOException ioe) {
             Debug.logError(ioe, "[putFile] Problem opening local file", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFtpFileCannotBeOpen", locale));
         }
         List<String> errorList = new LinkedList<>();
         FTPClient ftp = new FTPClient();
@@ -70,14 +70,14 @@ public class FtpServices {
             ftp.connect((String) context.get("hostname"));
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
                 Debug.logInfo("[putFile] Server refused connection", MODULE);
-                errorList.add(UtilProperties.getMessage(resource, "CommonFtpConnectionRefused", locale));
+                errorList.add(UtilProperties.getMessage(RESOURCE, "CommonFtpConnectionRefused", locale));
             } else {
                 String username = (String) context.get("username");
                 String password = (String) context.get("password");
                 Debug.logInfo("[putFile] logging in: username=" + username + ", password=" + password, MODULE);
                 if (!ftp.login(username, password)) {
                     Debug.logInfo("[putFile] login failed", MODULE);
-                    errorList.add(UtilProperties.getMessage(resource, "CommonFtpLoginFailure", UtilMisc.toMap("username", username, "password", password), locale));
+                    errorList.add(UtilProperties.getMessage(RESOURCE, "CommonFtpLoginFailure", UtilMisc.toMap("username", username, "password", password), locale));
                 } else {
                     Boolean binaryTransfer = (Boolean) context.get("binaryTransfer");
                     boolean binary = (binaryTransfer == null) ? false : binaryTransfer;
@@ -92,7 +92,7 @@ public class FtpServices {
                     Debug.logInfo("[putFile] storing local file remotely as: " + context.get("remoteFilename"), MODULE);
                     if (!ftp.storeFile((String) context.get("remoteFilename"), localFile)) {
                         Debug.logInfo("[putFile] store was unsuccessful", MODULE);
-                        errorList.add(UtilProperties.getMessage(resource, "CommonFtpFileNotSentSuccesfully", UtilMisc.toMap("replyString", ftp.getReplyString()), locale));
+                        errorList.add(UtilProperties.getMessage(RESOURCE, "CommonFtpFileNotSentSuccesfully", UtilMisc.toMap("replyString", ftp.getReplyString()), locale));
                     } else {
                         Debug.logInfo("[putFile] store was successful", MODULE);
                         List<String> siteCommands = checkCollection(context.get("siteCommands"), String.class);
@@ -100,7 +100,7 @@ public class FtpServices {
                             for (String command : siteCommands) {
                                 Debug.logInfo("[putFile] sending SITE command: " + command, MODULE);
                                 if (!ftp.sendSiteCommand(command)) {
-                                    errorList.add(UtilProperties.getMessage(resource, "CommonFtpSiteCommandFailed", UtilMisc.toMap("command", command, "replyString", ftp.getReplyString()), locale));
+                                    errorList.add(UtilProperties.getMessage(RESOURCE, "CommonFtpSiteCommandFailed", UtilMisc.toMap("command", command, "replyString", ftp.getReplyString()), locale));
                                 }
                             }
                         }
@@ -110,7 +110,7 @@ public class FtpServices {
             }
         } catch (IOException ioe) {
             Debug.logWarning(ioe, "[putFile] caught exception: " + ioe.getMessage(), MODULE);
-            errorList.add(UtilProperties.getMessage(resource, "CommonFtpProblemWithTransfer", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            errorList.add(UtilProperties.getMessage(RESOURCE, "CommonFtpProblemWithTransfer", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         } finally {
             try {
                 if (ftp.isConnected()) {
@@ -136,7 +136,7 @@ public class FtpServices {
             localFile = new FileOutputStream(localFilename);
         } catch (IOException ioe) {
             Debug.logError(ioe, "[getFile] Problem opening local file", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFtpFileCannotBeOpen", locale));
         }
         List<String> errorList = new LinkedList<>();
         FTPClient ftp = new FTPClient();
@@ -148,12 +148,12 @@ public class FtpServices {
             }
             ftp.connect((String) context.get("hostname"));
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
-                errorList.add(UtilProperties.getMessage(resource, "CommonFtpConnectionRefused", locale));
+                errorList.add(UtilProperties.getMessage(RESOURCE, "CommonFtpConnectionRefused", locale));
             } else {
                 String username = (String) context.get("username");
                 String password = (String) context.get("password");
                 if (!ftp.login(username, password)) {
-                    errorList.add(UtilProperties.getMessage(resource, "CommonFtpLoginFailure", UtilMisc.toMap("username", username, "password", password), locale));
+                    errorList.add(UtilProperties.getMessage(RESOURCE, "CommonFtpLoginFailure", UtilMisc.toMap("username", username, "password", password), locale));
                 } else {
                     Boolean binaryTransfer = (Boolean) context.get("binaryTransfer");
                     boolean binary = (binaryTransfer == null) ? false : binaryTransfer;
@@ -166,14 +166,14 @@ public class FtpServices {
                         ftp.enterLocalPassiveMode();
                     }
                     if (!ftp.retrieveFile((String) context.get("remoteFilename"), localFile)) {
-                        errorList.add(UtilProperties.getMessage(resource, "CommonFtpFileNotSentSuccesfully", UtilMisc.toMap("replyString", ftp.getReplyString()), locale));
+                        errorList.add(UtilProperties.getMessage(RESOURCE, "CommonFtpFileNotSentSuccesfully", UtilMisc.toMap("replyString", ftp.getReplyString()), locale));
                     }
                 }
                 ftp.logout();
             }
         } catch (IOException ioe) {
             Debug.logWarning(ioe, "[getFile] caught exception: " + ioe.getMessage(), MODULE);
-            errorList.add(UtilProperties.getMessage(resource, "CommonFtpProblemWithTransfer", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            errorList.add(UtilProperties.getMessage(RESOURCE, "CommonFtpProblemWithTransfer", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         } finally {
             try {
                 if (ftp.isConnected()) {

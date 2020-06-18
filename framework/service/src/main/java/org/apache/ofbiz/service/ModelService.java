@@ -112,7 +112,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public static final String SUCCESS_MESSAGE = "successMessage";
     public static final String SUCCESS_MESSAGE_LIST = "successMessageList";
 
-    public static final String resource = "ServiceErrorUiLabels";
+    private static final String RESOURCE = "ServiceErrorUiLabels";
 
     /** The name of this service */
     public String name;
@@ -1006,7 +1006,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         } else {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("hasPermission", Boolean.FALSE);
-            result.put("failMessage", UtilProperties.getMessage(resource, "ServicePermissionErrorDefinitionProblem", (Locale) context.get("locale")));
+            result.put("failMessage", UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorDefinitionProblem", (Locale) context.get("locale")));
             return result;
         }
     }
