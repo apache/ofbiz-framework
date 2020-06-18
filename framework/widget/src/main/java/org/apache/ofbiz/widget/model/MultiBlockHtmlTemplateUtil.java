@@ -208,7 +208,8 @@ public final class MultiBlockHtmlTemplateUtil {
             return;
         }
         List<String> layoutSettingsStyleSheets = UtilGenerics.cast(layoutSettings.get("styleSheets"));
-        if (UtilValidate.isEmpty(layoutSettingsStyleSheets)) {
+        if (UtilValidate.isEmpty(layoutSettingsStyleSheets)
+                && UtilValidate.isEmpty(layoutSettings.get("VT_STYLESHEET"))) {
             return;
         }
         // ensure initTheme.groovy has run.
