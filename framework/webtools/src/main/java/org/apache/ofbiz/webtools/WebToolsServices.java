@@ -663,7 +663,9 @@ public class WebToolsServices {
                         if (bundle != null) {
                             try {
                                 entityDescription = bundle.getString("EntityDescription." + entity.getEntityName());
-                            } catch (Exception exception) {}
+                            } catch (Exception exception) {
+                                Debug.logWarning("EntityDescription for entity " + entity.getEntityName() + " is missing", MODULE);
+                            }
                         }
                         if (UtilValidate.isEmpty(entityDescription)) {
                             entityDescription = entity.getDescription();
@@ -682,7 +684,10 @@ public class WebToolsServices {
                             if (bundle != null) {
                                 try {
                                     fieldDescription = bundle.getString("FieldDescription." + entity.getEntityName() + "." + field.getName());
-                                } catch (Exception exception) {}
+                                } catch (Exception exception) {
+                                    Debug.logWarning("FieldDescription for entity.field " + entity.getEntityName() + "."
+                                            + field.getName() + " is missing", MODULE);
+                                }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
                                 fieldDescription = field.getDescription();
@@ -690,7 +695,9 @@ public class WebToolsServices {
                             if (UtilValidate.isEmpty(fieldDescription) && bundle != null) {
                                 try {
                                 fieldDescription = bundle.getString("FieldDescription." + field.getName());
-                                } catch (Exception exception) {}
+                                } catch (Exception exception) {
+                                    Debug.logWarning("FieldDescription for field " + field.getName() + " is missing", MODULE);
+                                }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
                                 fieldDescription = ModelUtil.javaNameToDbName(field.getName()).toLowerCase();
