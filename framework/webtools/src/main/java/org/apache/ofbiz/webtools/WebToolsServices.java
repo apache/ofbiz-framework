@@ -664,7 +664,7 @@ public class WebToolsServices {
                             try {
                                 entityDescription = bundle.getString("EntityDescription." + entity.getEntityName());
                             } catch (Exception exception) {
-                                Debug.logWarning("EntityDescription for entity " + entity.getEntityName() + " is missing", MODULE);
+                                Debug.logWarning("EntityDescription for entity " + entity.getEntityName() + " is missing", module);
                             }
                         }
                         if (UtilValidate.isEmpty(entityDescription)) {
@@ -686,7 +686,7 @@ public class WebToolsServices {
                                     fieldDescription = bundle.getString("FieldDescription." + entity.getEntityName() + "." + field.getName());
                                 } catch (Exception exception) {
                                     Debug.logWarning("FieldDescription for entity.field " + entity.getEntityName() + "."
-                                            + field.getName() + " is missing", MODULE);
+                                            + field.getName() + " is missing", module);
                                 }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
@@ -696,7 +696,7 @@ public class WebToolsServices {
                                 try {
                                 fieldDescription = bundle.getString("FieldDescription." + field.getName());
                                 } catch (Exception exception) {
-                                    Debug.logWarning("FieldDescription for field " + field.getName() + " is missing", MODULE);
+                                    Debug.logWarning("FieldDescription for field " + field.getName() + " is missing", module);
                                 }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
