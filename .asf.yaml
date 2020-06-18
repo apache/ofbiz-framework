@@ -2,15 +2,15 @@ github:
   description: "Apache OFBiz is an open source product for the automation of enterprise processes that includes framework components and business applications  ERP (Enterprise Resource Planning), CRM (Customer Relationship Management), E-Business / E-Commerce, SCM (Supply Chain Management), (Manufacturing Resource Planning), MMS/EAM (Maintenance Management System/Enterprise Asset Management). Apache OFBiz provides a foundation and starting point for reliable, secure and scalable enterprise solutions."
   homepage:  https://ofbiz.apache.org/
   labels:
-    - OFBiz
-    - Plugins
-    - Java
-    - XML
-    - Groovy
-    - Javascript
-    - Web-framework
-    - Database
-    - Network-server
-    - HTTPS
-    - Content
-    - Geospatial
+    - ofbiz
+    - plugins
+    - xml
+    - java
+    - groovy
+    - javascript
+    - web-framework
+    - database
+    - network-server
+    - https
+    - content
+    - geospatial
