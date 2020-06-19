@@ -1172,7 +1172,7 @@ public final class UtilHttp {
         
         resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
         
-        resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
+        resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self' 'unsafe-inline'; report-uri /csp/control/report");
         
         SameSiteFilter.addSameSiteCookieAttribute(resp);
         
