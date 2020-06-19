@@ -28,6 +28,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -191,9 +192,19 @@ public class HtmlWidget extends ModelScreenWidget {
         String location = locationExdr.expandString(context);
 
         StringWriter stringWriter = new StringWriter();
-        context.put(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER, stringWriter);
+        Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER));
+        if (stringWriterStack == null) {
+            stringWriterStack = new Stack<>();
+        }
+        stringWriterStack.push(stringWriter);
+        // we use stack because a freemarker template may render a sub screen widget
+        context.put(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER, stringWriterStack);
         renderHtmlTemplate(stringWriter, locationExdr, context);
-        context.remove(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
+        stringWriterStack.pop();
+        // check if no more parent freemarker template before removing from context
+        if (stringWriterStack.empty()) {
+            context.remove(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
+        }
         String data = stringWriter.toString();
         stringWriter.close();
 
