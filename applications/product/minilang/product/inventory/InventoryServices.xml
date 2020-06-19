@@ -1080,7 +1080,7 @@ under the License.
                 <set field="locationTypeMap.enumTypeId" value="FACLOC_TYPE"/>
                 <find-by-and entity-name="Enumeration" list="locationTypeEnums" map="locationTypeMap"/>
                 <set field="locationTypeEnumIds" value="${groovy: return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(locationTypeEnums, 'enumId', true);}" type="List"/>
-                <set field="nothing" value="${groovy: locationTypeEnumIds.add(null)" type="List"/>
+                <set field="nothing" value="${groovy: locationTypeEnumIds.add(null)}" type="List"/>
                 <iterate list="locationTypeEnumIds" entry="locationTypeEnumId">
                     <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/> 
                     <entity-condition entity-name="InventoryItemAndLocation" list="inventoryItemAndLocations">
