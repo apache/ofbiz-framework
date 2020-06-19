@@ -17,12 +17,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<entity-engine-xml>
-    <DataResource dataResourceId="HELP_HR" localeString="en" dataResourceTypeId="OFBIZ_FILE"
-        objectInfo="applications/humanres/data/HELP_HR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
-        dataResourceName="Human Resources Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_HR" contentTypeId="DOCUMENT" contentName="Human Resources" templateDataResourceId="HELP_TEMPL"
-        dataResourceId="HELP_HR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_HR" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000"/>
-
-</entity-engine-xml>
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+  xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+  xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+  xmlns="http://docbook.org/ns/docbook">
+  <title>Human Resources Help redirection</title>
+    <para>Human Resource Help has been migrated to a new system, you can access it by using
+       <link xl:href="https://ci.apache.org/projects/ofbiz/site/trunk/ofbizdoc/html5/user-manual.html#_human_resources">OFBiz user documentation site / Human Resources</link>
+    </para>
+</section>
