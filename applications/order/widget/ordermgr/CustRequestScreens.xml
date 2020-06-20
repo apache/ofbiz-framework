@@ -65,7 +65,7 @@ under the License.
                                     </html>
                                 </platform-specific>
                                 <include-form name="FindRequests"
-                                              location="component://order/widget/ordermgr/FindRequestCompound.xml"/>
+                                              location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
                                 <include-form name="ListRequests"
