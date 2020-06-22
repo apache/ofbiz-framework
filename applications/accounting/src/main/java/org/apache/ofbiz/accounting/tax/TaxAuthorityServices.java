@@ -266,7 +266,7 @@ public class TaxAuthorityServices {
             itemAdjustments.add(taxList);
             
             //Calculates the TotalPrices for each Product in the Order
-            BigDecimal currentTotalPrice =  productWeight.containsKey(product) ? productWeight.get(product) : BigDecimal.ZERO;
+            BigDecimal currentTotalPrice = productWeight.getOrDefault(product, BigDecimal.ZERO);
             currentTotalPrice = currentTotalPrice.add(itemAmount);
             productWeight.put(product, currentTotalPrice);
         }
