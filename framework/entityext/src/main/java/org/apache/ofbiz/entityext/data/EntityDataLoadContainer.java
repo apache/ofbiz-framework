@@ -91,7 +91,7 @@ public class EntityDataLoadContainer implements Container {
         // get the data-load properties passed by the user in the command line
         Map<String, String> loadDataProps = ofbizCommands.stream()
                 .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.LOAD_DATA.getName()))
-                .map(command -> command.getProperties())
+                .map(StartupCommand::getProperties)
                 .findFirst().get();
 
         /* disable job scheduler, JMS listener and startup services

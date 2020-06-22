@@ -388,7 +388,7 @@ public final class EntityUtil {
         if (values == null || UtilValidate.isEmpty(condition)) {
             return values;
         }
-        return values.stream().filter(value -> condition.entityMatches(value)).collect(toList());
+        return values.stream().filter(condition::entityMatches).collect(toList());
     }
 
     public static <T extends GenericEntity> List<T> filterOutByCondition(List<T> values, EntityCondition condition) {

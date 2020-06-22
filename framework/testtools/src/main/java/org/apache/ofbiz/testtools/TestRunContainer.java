@@ -63,7 +63,7 @@ public class TestRunContainer implements Container {
         // get the test properties passed by the user in the command line
         Map<String, String> testProps = ofbizCommands.stream()
                 .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.TEST.getName()))
-                .map(command -> command.getProperties())
+                .map(StartupCommand::getProperties)
                 .findFirst().get();
 
         // set selected log level if passed by user
