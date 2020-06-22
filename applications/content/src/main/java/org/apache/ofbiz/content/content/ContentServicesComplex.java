@@ -138,9 +138,10 @@ public class ContentServicesComplex {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
-        for (int i=0; i < relatedAssocs.size(); i++) {
-            GenericValue a = relatedAssocs.get(i);
-            if (Debug.verboseOn()) Debug.logVerbose(" contentId:" + a.get("contentId") + " To:" + a.get("caContentIdTo") + " fromDate:" + a.get("caFromDate") + " thruDate:" + a.get("caThruDate") + " AssocTypeId:" + a.get("caContentAssocTypeId"), null);
+        for (GenericValue a : relatedAssocs) {
+            if (Debug.verboseOn())
+                Debug.logVerbose(" contentId:" + a.get("contentId") + " To:" + a.get("caContentIdTo") + " fromDate:" + a.get("caFromDate") +
+                        " thruDate:" + a.get("caThruDate") + " AssocTypeId:" + a.get("caContentAssocTypeId"), null);
         }
         Map<String, Object> results = new HashMap<>();
         results.put("entityList", relatedAssocs);

@@ -817,8 +817,8 @@ public class ValueLinkApi {
     protected byte[] getPinCheckSum(byte[] pinBytes) {
         byte[] checkSum = new byte[1];
         checkSum[0] = 0;
-        for (int i = 0; i < pinBytes.length; i++) {
-            checkSum[0] += pinBytes[i];
+        for (byte pinByte : pinBytes) {
+            checkSum[0] += pinByte;
         }
         return checkSum;
     }
@@ -996,8 +996,8 @@ public class ValueLinkApi {
 
         // create a List of Maps for each set of values
         List<Map<String, String>> valueMap = new LinkedList<>();
-        for (int i = 0; i < valueList.size(); i++) {
-            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(valueList.get(i), "|")));
+        for (String s : valueList) {
+            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(s, "|")));
         }
 
         if (debug) {

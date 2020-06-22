@@ -185,14 +185,14 @@ public class RitaApi {
             }
 
             String[] lines = resp.split("\n");
-            for (int i = 0; i < lines.length; i++) {
-                Debug.logInfo(lines[i], MODULE);
-                if (!".".equals(lines[i].trim())) {
-                    String[] lineSplit = lines[i].trim().split(" ", 2);
+            for (String line : lines) {
+                Debug.logInfo(line, MODULE);
+                if (!".".equals(line.trim())) {
+                    String[] lineSplit = line.trim().split(" ", 2);
                     if (lineSplit != null && lineSplit.length == 2) {
                         docMap.put(lineSplit[0], lineSplit[1]);
                     } else {
-                        Debug.logWarning("Line split error - " + lines[i], MODULE);
+                        Debug.logWarning("Line split error - " + line, MODULE);
                     }
                 } else {
                     break;

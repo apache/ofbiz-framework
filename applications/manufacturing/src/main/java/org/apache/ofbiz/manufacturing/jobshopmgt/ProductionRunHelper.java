@@ -90,8 +90,7 @@ public final class ProductionRunHelper {
                 .where("workEffortIdTo", productionRunId, 
                         "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")
                 .filterByDate().queryList();
-        for (int i = 0; i < linkedWorkEfforts.size(); i++) {
-            GenericValue link = linkedWorkEfforts.get(i);
+        for (GenericValue link : linkedWorkEfforts) {
             getLinkedProductionRuns(delegator, dispatcher, link.getString("workEffortIdFrom"), productionRuns);
         }
     }

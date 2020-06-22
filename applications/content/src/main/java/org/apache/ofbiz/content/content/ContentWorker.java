@@ -481,20 +481,17 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             contentTypeId = (String) content.get("contentTypeId");
             List<GenericValue> topicList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "TOPIC"), null, false);
             List<String> topics = new LinkedList<>();
-            for (int i = 0; i < topicList.size(); i++) {
-                GenericValue assoc = topicList.get(i);
+            for (GenericValue assoc : topicList) {
                 topics.add(assoc.getString("contentId"));
             }
             List<GenericValue> keywordList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "KEYWORD"), null, false);
             List<String> keywords = new LinkedList<>();
-            for (int i = 0; i < keywordList.size(); i++) {
-                GenericValue assoc = keywordList.get(i);
+            for (GenericValue assoc : keywordList) {
                 keywords.add(assoc.getString("contentId"));
             }
             List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
             List<String> purposes = new LinkedList<>();
-            for (int i = 0; i < purposeValueList.size(); i++) {
-                GenericValue purposeValue = purposeValueList.get(i);
+            for (GenericValue purposeValue : purposeValueList) {
                 purposes.add(purposeValue.getString("contentPurposeTypeId"));
             }
             List<String> contentTypeAncestry = new LinkedList<>();
@@ -652,8 +649,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<Object> purposes = new LinkedList<>();
         try {
             List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
-            for (int i = 0; i < purposeValueList.size(); i++) {
-                GenericValue purposeValue = purposeValueList.get(i);
+            for (GenericValue purposeValue : purposeValueList) {
                 purposes.add(purposeValue.get("contentPurposeTypeId"));
             }
         } catch (GenericEntityException e) {
@@ -666,9 +662,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<Object> sections = new LinkedList<>();
         try {
             List<GenericValue> sectionValueList = content.getRelated("FromContentAssoc", null, null, true);
-            for (int i = 0; i < sectionValueList.size(); i++) {
-                GenericValue sectionValue = sectionValueList.get(i);
-                String contentAssocPredicateId = (String)sectionValue.get("contentAssocPredicateId");
+            for (GenericValue sectionValue : sectionValueList) {
+                String contentAssocPredicateId = (String) sectionValue.get("contentAssocPredicateId");
                 if (contentAssocPredicateId != null && "categorizes".equals(contentAssocPredicateId)) {
                     sections.add(sectionValue.get("contentIdTo"));
                 }
@@ -683,9 +678,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<Object> topics = new LinkedList<>();
         try {
             List<GenericValue> topicValueList = content.getRelated("FromContentAssoc", null, null, true);
-            for (int i = 0; i < topicValueList.size(); i++) {
-                GenericValue topicValue = topicValueList.get(i);
-                String contentAssocPredicateId = (String)topicValue.get("contentAssocPredicateId");
+            for (GenericValue topicValue : topicValueList) {
+                String contentAssocPredicateId = (String) topicValue.get("contentAssocPredicateId");
                 if (contentAssocPredicateId != null && "topifies".equals(contentAssocPredicateId))
                     topics.add(topicValue.get("contentIdTo"));
             }

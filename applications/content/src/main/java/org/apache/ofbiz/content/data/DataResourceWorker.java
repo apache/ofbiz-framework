@@ -232,8 +232,8 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         passedParams.put("userLogin", userLogin);
         byte[] imageBytes = null;
-        for (int i = 0; i < lst.size(); i++) {
-            fi = lst.get(i);
+        for (FileItem fileItem : lst) {
+            fi = fileItem;
             String fieldName = fi.getFieldName();
             if (fi.isFormField()) {
                 String fieldStr = fi.getString();
@@ -551,9 +551,9 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             File[] subs = parent.listFiles();
             if (subs != null) {
                 int length = subs.length;
-                for (int i = 0; i < length; i++) {
-                    if (subs[i].isDirectory()) {
-                        dirMap.put(subs[i].lastModified(), subs[i]);
+                for (File sub : subs) {
+                    if (sub.isDirectory()) {
+                        dirMap.put(sub.lastModified(), sub);
                     }
                 }
             }

@@ -107,8 +107,8 @@ public class BOMTree {
                 .queryList();
         List<GenericValue> productFeatures = new LinkedList<>();
         GenericValue oneProductFeatureAppl = null;
-        for (int i = 0; i < productFeaturesAppl.size(); i++) {
-            oneProductFeatureAppl = productFeaturesAppl.get(i);
+        for (GenericValue genericValue : productFeaturesAppl) {
+            oneProductFeatureAppl = genericValue;
             productFeatures.add(oneProductFeatureAppl.getRelatedOne("ProductFeature", false));
         }
         // If the product is manufactured as a different product,
@@ -303,8 +303,8 @@ public class BOMTree {
         List<BOMNode> nodeArr = new LinkedList<>();
         List<String> productsId = new LinkedList<>();
         print(nodeArr);
-        for (int i = 0; i < nodeArr.size(); i++) {
-            productsId.add((nodeArr.get(i)).getProduct().getString("productId"));
+        for (BOMNode bomNode : nodeArr) {
+            productsId.add(bomNode.getProduct().getString("productId"));
         }
         return productsId;
     }

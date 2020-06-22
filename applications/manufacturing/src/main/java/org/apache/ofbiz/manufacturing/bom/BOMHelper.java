@@ -117,8 +117,8 @@ public final class BOMHelper {
                 .cache().filterByDate(inDate).queryList();
         GenericValue duplicatedNode = null;
         for (GenericValue oneNode : productNodesList) {
-            for (int i = 0; i < productIdKeys.size(); i++) {
-                if (oneNode.getString("productId").equals(productIdKeys.get(i))) {
+            for (String idKey : productIdKeys) {
+                if (oneNode.getString("productId").equals(idKey)) {
                     return oneNode;
                 }
             }

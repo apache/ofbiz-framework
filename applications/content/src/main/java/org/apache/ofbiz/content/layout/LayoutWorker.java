@@ -92,8 +92,8 @@ public final class LayoutWorker {
         // This code finds the idField and the upload FileItems
         FileItem fi = null;
         FileItem imageFi = null;
-        for (int i=0; i < lst.size(); i++) {
-            fi = lst.get(i);
+        for (FileItem fileItem : lst) {
+            fi = fileItem;
             String fieldName = fi.getFieldName();
             String fieldStr = fi.getString();
             if (fi.isFormField()) {

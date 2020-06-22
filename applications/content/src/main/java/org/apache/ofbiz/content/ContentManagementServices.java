@@ -1598,8 +1598,7 @@ public class ContentManagementServices {
           contentRevisionMap.put("newDataResourceId", result.get("dataResourceId"));
           contentRevisionMap.put("oldDataResourceId", oldDataResourceId);
           // need committedByPartyId
-          for (int i=0; i < parentList.size(); i++) {
-              String thisContentId = parentList.get(i);
+          for (String thisContentId : parentList) {
               contentRevisionMap.put("contentId", thisContentId);
               result = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
               if (ServiceUtil.isError(result)) {
