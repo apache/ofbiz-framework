@@ -143,14 +143,12 @@ public class SaveLabelsToXmlFile {
                             }
                         }
                     }
-                    FileOutputStream fos = new FileOutputStream(labelFile.file);
-                    try {
+                    try (FileOutputStream fos = new FileOutputStream(labelFile.file)) {
                         if (apacheLicenseText != null) {
                             fos.write(apacheLicenseText.getBytes());
                         }
                         UtilXml.writeXmlDocument(resourceElem, fos, "UTF-8", !(apacheLicenseText == null), true, 4);
                     } finally {
-                        fos.close();
                         // clear cache to see immediately the new labels and
                         // translations in OFBiz
                         UtilCache.clearCache("properties.UtilPropertiesBundleCache");

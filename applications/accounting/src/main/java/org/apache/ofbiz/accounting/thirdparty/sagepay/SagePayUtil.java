@@ -147,8 +147,7 @@ public final class SagePayUtil {
         HttpEntity httpEntity = response.getEntity();
         if (httpEntity != null) {
             InputStream inputStream = httpEntity.getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-            try{
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
                 String data = null;
                 while ((data = reader.readLine()) != null) {
                     if (data.indexOf("=") != -1) {
@@ -157,9 +156,6 @@ public final class SagePayUtil {
                         responseData.put(name, value);
                     }
                 }
-            }
-            finally {
-                reader.close();
             }
         }
         Debug.logInfo("SagePay Response Data : " + responseData, MODULE);
