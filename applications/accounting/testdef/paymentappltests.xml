@@ -26,7 +26,6 @@
         <entity-xml action="load" entity-xml-url="component://accounting/testdef/data/PaymentApplicationTestsData.xml"/>
     </test-case>
     <test-group case-name="application-tests">
-        <simple-method-test location="component://accounting/minilang/test/PaymentApplicationTests.xml"/>
         <junit-test-suite class-name="org.apache.ofbiz.accounting.PaymentApplicationTests"/>
     </test-group>
 

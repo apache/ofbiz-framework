@@ -123,4 +123,30 @@ class PaymentApplicationTests extends OFBizTestCase {
         assert notAppliedPayment == BigDecimal.ZERO
         delegator.removeAll('PaymentApplication')
     }
+
+    void testTaxGeoId () {
+        Map serviceInMap = [:]
+        //from the test data
+        serviceInMap.paymentId = "appltest10000"
+        serviceInMap.taxAuthGeoId = "UT"
+        serviceInMap.userLogin = userLogin
+        Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue paymentApplication = from('PaymentApplication')
+                .where('paymentApplicationId', serviceResult.paymentApplicationId).queryOne()
+        assert paymentApplication
+
+        GenericValue payment = from('Payment').where('paymentId', serviceInMap.paymentId).queryOne()
+        assert payment
+        assert paymentApplication != null
+        assert paymentApplication.taxAuthGeoId == serviceInMap.taxAuthGeoId
+        assert paymentApplication.paymentId == serviceInMap.paymentId
+        assert paymentApplication.amountApplied == payment.amount
+        // payment should be completely applied
+        BigDecimal notAppliedPayment = PaymentWorker.getPaymentNotApplied(delegator, serviceInMap.paymentId)
+        assert notAppliedPayment == BigDecimal.ZERO
+        delegator.removeAll('PaymentApplication')
+    }
+
 }
