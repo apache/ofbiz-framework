@@ -147,18 +147,8 @@ public abstract class ModelWidgetCondition implements Serializable {
     }
 
     public static class DefaultConditionFactory implements ConditionFactory {
-        public static final Condition TRUE = new Condition() {
-            @Override
-            public boolean eval(Map<String, Object> context) {
-                return true;
-            }
-        };
-        public static final Condition FALSE = new Condition() {
-            @Override
-            public boolean eval(Map<String, Object> context) {
-                return false;
-            }
-        };
+        public static final Condition TRUE = context -> true;
+        public static final Condition FALSE = context -> false;
 
         @Override
         public Condition newInstance(ModelWidget modelWidget, Element conditionElement) {

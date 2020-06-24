@@ -65,10 +65,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class LENGTH extends EntityFunctionSingle<Integer> {
-        public static final Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
-            @Override
-            public Integer getValue(Object value) { return value.toString().length(); }
-        };
+        public static final Fetcher<Integer> FETCHER = value -> value.toString().length();
 
         private LENGTH(Object value) {
             super(FETCHER, SQLFunction.LENGTH, value);
@@ -80,10 +77,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class TRIM extends EntityFunctionSingle<String> {
-        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
-            @Override
-            public String getValue(Object value) { return value.toString().trim(); }
-        };
+        public static final Fetcher<String> FETCHER = value -> value.toString().trim();
 
         private TRIM(Object value) {
             super(FETCHER, SQLFunction.TRIM, value);
@@ -95,10 +89,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class UPPER extends EntityFunctionSingle<String> {
-        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
-            @Override
-            public String getValue(Object value) { return value.toString().toUpperCase(Locale.getDefault()); }
-        };
+        public static final Fetcher<String> FETCHER = value -> value.toString().toUpperCase(Locale.getDefault());
 
         private UPPER(Object value) {
             super(FETCHER, SQLFunction.UPPER, value);
@@ -110,10 +101,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class LOWER extends EntityFunctionSingle<String> {
-        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
-            @Override
-            public String getValue(Object value) { return value.toString().toLowerCase(Locale.getDefault()); }
-        };
+        public static final Fetcher<String> FETCHER = value -> value.toString().toLowerCase(Locale.getDefault());
 
         private LOWER(Object value) {
             super(FETCHER, SQLFunction.LOWER, value);
