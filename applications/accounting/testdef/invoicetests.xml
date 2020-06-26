@@ -27,6 +27,6 @@
         <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoInvoiceTests"/>
     </test-group>
     <test-case case-name="invoice-per-shipment-tests">
-        <simple-method-test location="component://accounting/minilang/test/InvoicePerShipmentTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.InvoicePerShipmentTests"/>
     </test-case>
 </test-suite>
