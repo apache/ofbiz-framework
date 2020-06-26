@@ -1133,16 +1133,16 @@
     </service>
 
     <!-- content permission services -->
-    <service name="contentManagerRolePermission" engine="simple" auth="true"
-            location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="contentManagerRolePermission">
+    <service name="contentManagerRolePermission" engine="groovy" auth="true"
+            location="component://content/groovyScripts/permission/ContentPermissionServices.groovy" invoke="contentManagerRolePermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="contentManagerPermission" engine="simple" auth="true"
-            location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="contentManagerPermission">
+    <service name="contentManagerPermission" engine="groovy" auth="true"
+            location="component://content/groovyScripts/permission/ContentPermissionServices.groovy" invoke="contentManagerPermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="genericContentPermission" engine="simple" auth="true"
-            location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="genericContentPermission">
+    <service name="genericContentPermission" engine="groovy" auth="true"
+            location="component://content/groovyScripts/permission/ContentPermissionServices.groovy" invoke="genericContentPermission">
         <description>Generic Content Permission Service; Takes mainAction to determine the mode.</description>
         <implements service="permissionInterface"/>
         <attribute name="ownerContentId" type="String" mode="IN" optional="true"/>
@@ -1153,6 +1153,15 @@
         <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contentOperationId" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="checkOwnership" engine="groovy" auth="true"
+            location="component://content/groovyScripts/permission/ContentPermissionServices.groovy" invoke="checkOwnership">
+        <description>Generic DataResource Permission Service; Takes mainAction to determine the mode.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="roleEntity" type="String" mode="IN" optional="true"/>
+        <attribute name="roleEntityField" type="String" mode="IN" optional="true"/>
+        <attribute name="checkId" type="String" mode="IN" optional="true"/>
+    </service>
+
     <service name="genericDataResourcePermission" engine="simple" auth="true"
             location="component://content/minilang/permission/DataResourcePermissionServices.xml" invoke="genericDataResourcePermission">
         <description>Generic DataResource Permission Service; Takes mainAction to determine the mode.</description>
