@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
  */
 public class UspsServicesTests extends OFBizTestCase {
 
-    public static final String MODULE = UspsServicesTests.class.getName();
+    private static final String MODULE = UspsServicesTests.class.getName();
 
     public UspsServicesTests(String name) {
         super(name);

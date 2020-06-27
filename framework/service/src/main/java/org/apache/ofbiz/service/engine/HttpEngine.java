@@ -43,7 +43,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
  */
 public class HttpEngine extends GenericAsyncEngine {
 
-    public static final String MODULE = HttpEngine.class.getName();
+    private static final String MODULE = HttpEngine.class.getName();
     private static final boolean exportAll = false;
 
     public HttpEngine(ServiceDispatcher dispatcher) {

@@ -35,14 +35,8 @@
     <property key="PartyRequiredFieldMissingCity">
         <value xml:lang="en">Required Field Missing : City.</value>
     </property>
-    <property key="PartyRequiredFieldMissingContactMechTypeId">
-        <value xml:lang="en">Required Field Missing : ContactMech Type Id.</value>
-    </property>
     <property key="PartyRequiredFieldMissingCurrentStatusId">
         <value xml:lang="en">Required Field Missing : Current Status Id.</value>
-    </property>
-    <property key="PartyRequiredFieldMissingPartyIdTo">
-        <value xml:lang="en">Required Field Missing : Party Id To.</value>
     </property>
     <property key="PartyRequiredFieldMissingPostalCode">
         <value xml:lang="en">Required Field Missing : Postal Code.</value>
@@ -52,6 +46,78 @@
     </property>
     <property key="PartyRequiredFieldMissingWorkEffortTypeId">
         <value xml:lang="en">Required Field Missing : WorkEffort Type Id.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingAddress">
+            <value xml:lang="en">Required Field Missing : Address</value>
+        </property>
+    <property key="PartyRequiredFieldMissingChildRoleTypeIdList">
+        <value xml:lang="en">Required Field Missing : ChildRole Type Id List</value>
+    </property>
+    <property key="PartyRequiredFieldMissingContactMechId">
+        <value xml:lang="en">Required Field Missing : Contact Mech Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingContactMechPurposeTypeId">
+        <value xml:lang="en">Required Field Missing : Contact Mech Purpose Type Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingContactMechTypeId">
+        <value xml:lang="en">Required Field Missing : Contact Mech Type Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingEmailAddress">
+        <value xml:lang="en">Required Field Missing : Email Address</value>
+    </property>
+    <property key="PartyRequiredFieldMissingFirstName">
+        <value xml:lang="en">Required Field Missing : First Name</value>
+    </property>
+    <property key="PartyRequiredFieldMissingLastName">
+        <value xml:lang="en">Required Field Missing : Last Name</value>
+    </property>
+    <property key="PartyRequiredFieldMissingLookupResult">
+        <value xml:lang="en">Required Field Missing : Lookup Result</value>
+    </property>
+    <property key="PartyRequiredFieldMissingNewUserLogin">
+        <value xml:lang="en">Required Field Missing : New User Login</value>
+    </property>
+    <property key="PartyRequiredFieldMissingOldContactMechId">
+        <value xml:lang="en">Required Field Missing : Old Contact Mech Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingOrganizationPartyId">
+        <value xml:lang="en">Required Field Missing : Organization Party Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingParentOrganizationPartyIdList">
+        <value xml:lang="en">Required Field Missing : Organization Party Id List</value>
+    </property>
+    <property key="PartyRequiredFieldMissingPartyId">
+        <value xml:lang="en">Required Field Missing : Party Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingPartyIdFrom">
+        <value xml:lang="en">Required Field Missing : Party Id From</value>
+    </property>
+    <property key="PartyRequiredFieldMissingPartyIdTo">
+        <value xml:lang="en">Required Field Missing : Party Id To</value>
+    </property>
+    <property key="PartyRequiredFieldMissingPartyInvitationId">
+        <value xml:lang="en">Required Field Missing : Party Invitation Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingProductStoreId">
+        <value xml:lang="en">Required Field Missing : Product Store Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingRelatedPartyIdList">
+        <value xml:lang="en">Required Field Missing : Related Party Id List</value>
+    </property>
+    <property key="PartyRequiredFieldMissingRoleTypeId">
+        <value xml:lang="en">Required Field Missing : Role Type Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingStatusId">
+        <value xml:lang="en">Required Field Missing : Status Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingTelno">
+        <value xml:lang="en">Required Field Missing : Tel no.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingUserLoginId">
+        <value xml:lang="en">Required Field Missing : User Login Id</value>
+    </property>
+    <property key="PartyRequiredFieldMissingVerifyHash">
+        <value xml:lang="en">Required Field Missing : Verify Hash</value>
     </property>
     <property key="PartyUploadedFileDataNotFound">
         <value xml:lang="en">Uploaded file data not found</value>

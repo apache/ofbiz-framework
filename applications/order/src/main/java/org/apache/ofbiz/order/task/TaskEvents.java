@@ -44,8 +44,8 @@ import org.apache.ofbiz.webapp.event.EventHandlerException;
  */
 public class TaskEvents {
 
-    public static final String MODULE = TaskEvents.class.getName();
-    public static final String resource_error = "OrderErrorUiLabels";
+    private static final String MODULE = TaskEvents.class.getName();
+    private static final String RES_ERROR = "OrderErrorUiLabels";
 
     /** Complete assignment event */
     public static String completeAssignment(HttpServletRequest request, HttpServletResponse response) {
@@ -63,7 +63,7 @@ public class TaskEvents {
         try {
             fromDate = (java.sql.Timestamp) ObjectType.simpleTypeOrObjectConvert(fromDateStr, "java.sql.Timestamp", null, null);
         } catch (GeneralException e) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidDateFormatForFromDate", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderInvalidDateFormatForFromDate", locale));
             return "error";
         }
 
@@ -79,7 +79,7 @@ public class TaskEvents {
                 return "error";
             }
         } catch (GenericServiceException e) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsInvokingTheCompleteAssignmentService", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderProblemsInvokingTheCompleteAssignmentService", locale));
             return "error";
         }
 
@@ -97,7 +97,7 @@ public class TaskEvents {
                 eh.invoke(new Event("service", "", "wfAcceptRoleAssignment", true), null, request, response);
             } catch (EventHandlerException e) {
                 Debug.logError(e, "Invocation error", MODULE);
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderFailedToInvokeTheWfAcceptRoleAssignmentService", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderFailedToInvokeTheWfAcceptRoleAssignmentService", locale));
                 return "error";
             }
             return "success";
@@ -116,7 +116,7 @@ public class TaskEvents {
                 eh.invoke(new Event("service", "", "wfAcceptRoleAssignment", true), null, request, response);
             } catch (EventHandlerException e) {
                 Debug.logError(e, "Invocation error", MODULE);
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderFailedToInvokeTheWfDelegateAndAcceptAssignmentService", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderFailedToInvokeTheWfDelegateAndAcceptAssignmentService", locale));
                 return "error";
             }
             return "success";

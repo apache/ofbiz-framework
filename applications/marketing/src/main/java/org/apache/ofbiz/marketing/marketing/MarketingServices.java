@@ -43,9 +43,9 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class MarketingServices {
 
-    public static final String MODULE = MarketingServices.class.getName();
+    private static final String MODULE = MarketingServices.class.getName();
     public static final String resourceMarketing = "MarketingUiLabels";
-    public static final String resourceOrder = "OrderUiLabels";
+    private static final String RES_ORDER = "OrderUiLabels";
 
     public static Map<String, Object> signUpForContactList(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -103,7 +103,7 @@ public class MarketingServices {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));
             }
         } catch (GenericEntityException e) {
-            String error = UtilProperties.getMessage(resourceOrder, "checkhelper.problems_reading_database", locale);
+            String error = UtilProperties.getMessage(RES_ORDER, "checkhelper.problems_reading_database", locale);
             Debug.logInfo(e, error + e.getMessage(), MODULE);
             return ServiceUtil.returnError(error);
         } catch (GenericServiceException e) {

@@ -109,7 +109,7 @@ under the License.
                     <#if cartLine.getAttribute("surveyResponses")?has_content>
                         <br />Surveys:
                        <#list cartLine.getAttribute("surveyResponses") as surveyResponseId>
-                        <a href="<@ofbizUrl controlPath="/content/control">ViewSurveyResponses?surveyResponseId=${surveyResponseId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext" style="font-size: xx-small;">${surveyResponseId}</a>
+                        <a href="<@ofbizUrl controlPath="/content/control">ViewSurveyResponses?surveyResponseId=${surveyResponseId}</@ofbizUrl>" class="buttontext" style="font-size: xx-small;">${surveyResponseId}</a>
                        </#list>
                     </#if>
                 </div>

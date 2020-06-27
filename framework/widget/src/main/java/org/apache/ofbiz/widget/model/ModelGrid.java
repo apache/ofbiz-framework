@@ -52,7 +52,7 @@ public class ModelGrid extends ModelForm {
      *
      */
 
-    public static final String MODULE = ModelGrid.class.getName();
+    private static final String MODULE = ModelGrid.class.getName();
 
     /** XML Constructor */
     public ModelGrid(Element formElement, String formLocation, ModelReader entityModelReader,

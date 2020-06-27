@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class ScriptEngine extends GenericAsyncEngine {
 
-    public static final String MODULE = ScriptEngine.class.getName();
+    private static final String MODULE = ScriptEngine.class.getName();
     private static final Set<String> protectedKeys = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {

@@ -28,7 +28,6 @@ import org.apache.ofbiz.entity.model.ModelKeyMap
 import org.apache.ofbiz.entity.util.EntityFindOptions
 import org.apache.ofbiz.product.inventory.*
 
-module = "ViewFacilityInventoryByProduct"
 action = request.getParameter("action")
 statusId = request.getParameter("statusId")
 searchParameterString = ""
@@ -53,7 +52,7 @@ if (action) {
             hasOffsetQOH = true
             searchParameterString = searchParameterString + "&offsetQOHQty=" + offsetQOH
         } catch (NumberFormatException nfe) {
-            Debug.logError(nfe, "Caught an exception : " + nfe.toString(), module)
+            logError(nfe, "Caught an exception : " + nfe.toString())
             request.setAttribute("_ERROR_MESSAGE", "An entered value seems non-numeric")
         }
     }
@@ -63,7 +62,7 @@ if (action) {
             hasOffsetATP = true
             searchParameterString = searchParameterString + "&offsetATPQty=" + offsetATP
         } catch (NumberFormatException nfe) {
-            Debug.logError(nfe, "Caught an exception : " + nfe.toString(), module)
+            logError(nfe, "Caught an exception : " + nfe.toString())
             request.setAttribute("_ERROR_MESSAGE", "An entered value seems non-numeric")
         }
     }
@@ -149,12 +148,12 @@ if (action) {
         prodsEli.close()
     } catch (GenericEntityException e) {
         errMsg = "Failure in operation, rolling back transaction"
-        Debug.logError(e, errMsg, module)
+        logError(e, errMsg)
         try {
             // only rollback the transaction if we started one...
             TransactionUtil.rollback(beganTransaction, errMsg, e)
         } catch (GenericEntityException e2) {
-            Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module)
+            logError(e2, "Could not rollback transaction: " + e2.toString())
         }
         // after rolling back, rethrow the exception
         throw e
@@ -174,7 +173,7 @@ if (action) {
             checkTime = UtilDateTime.toTimestamp(cal.getTime())
             searchParameterString += "&monthsInPastLimit=" + monthsInPastLimitStr
         } catch (Exception e) {
-            Debug.logError(e, "Caught an exception : " + e.toString(), module)
+            logError(e, "Caught an exception : " + e.toString())
             request.setAttribute("_ERROR_MESSAGE", "An exception occured please check the log")
         }
     }

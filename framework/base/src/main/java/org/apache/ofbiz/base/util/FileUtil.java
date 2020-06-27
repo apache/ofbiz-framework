@@ -55,7 +55,7 @@ import org.apache.ofbiz.base.location.ComponentLocationResolver;
  */
 public final class FileUtil {
 
-    public static final String MODULE = FileUtil.class.getName();
+    private static final String MODULE = FileUtil.class.getName();
 
     private FileUtil () {}
 

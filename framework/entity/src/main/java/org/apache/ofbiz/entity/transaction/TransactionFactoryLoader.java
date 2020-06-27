@@ -27,7 +27,7 @@ import org.apache.ofbiz.entity.config.model.EntityConfig;
  */
 public class TransactionFactoryLoader {
 
-    public static final String MODULE = TransactionFactoryLoader.class.getName();
+    private static final String MODULE = TransactionFactoryLoader.class.getName();
     private static final TransactionFactory txFactory = createTransactionFactory();
 
     private static TransactionFactory createTransactionFactory() {

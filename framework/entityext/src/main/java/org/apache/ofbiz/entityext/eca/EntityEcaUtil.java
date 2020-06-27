@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityEcaUtil {
 
-    public static final String MODULE = EntityEcaUtil.class.getName();
+    private static final String MODULE = EntityEcaUtil.class.getName();
 
     private static final UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>> entityEcaReaders = UtilCache.createUtilCache("entity.EcaReaders", 0, 0, false);
 

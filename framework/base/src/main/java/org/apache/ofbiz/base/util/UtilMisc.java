@@ -58,7 +58,7 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
  */
 public final class UtilMisc {
 
-    public static final String MODULE = UtilMisc.class.getName();
+    private static final String MODULE = UtilMisc.class.getName();
 
     private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 

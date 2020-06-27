@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
-    public static final String MODULE = ScreenWidgetArtifactInfo.class.getName();
+    private static final String MODULE = ScreenWidgetArtifactInfo.class.getName();
 
     protected ModelScreen modelScreen;
 
@@ -59,13 +59,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         this.screenLocation = screenLocation;
         try {
             this.modelScreen = aif.getModelScreen(screenName, screenLocation);
-        } catch (IllegalArgumentException e) {
-            throw new GeneralException(e);
-        } catch (ParserConfigurationException e) {
-            throw new GeneralException(e);
-        } catch (SAXException e) {
-            throw new GeneralException(e);
-        } catch (IOException e) {
+        } catch (IllegalArgumentException | IOException | SAXException | ParserConfigurationException e) {
             throw new GeneralException(e);
         }
 

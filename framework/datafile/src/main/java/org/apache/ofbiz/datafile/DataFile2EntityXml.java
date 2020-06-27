@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 
 public class DataFile2EntityXml {
 
-    public static final String MODULE = DataFile2EntityXml.class.getName();
+    private static final String MODULE = DataFile2EntityXml.class.getName();
 
     /** Creates a new instance of DataFile2EntityXml */
     public DataFile2EntityXml() {

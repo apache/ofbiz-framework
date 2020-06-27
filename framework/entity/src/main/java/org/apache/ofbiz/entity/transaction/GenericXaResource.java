@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.Debug;
  */
 public abstract class GenericXaResource extends Thread implements XAResource {
 
-    public static final String MODULE = GenericXaResource.class.getName();
+    private static final String MODULE = GenericXaResource.class.getName();
 
     protected Transaction trans = null;
     protected boolean active = false;

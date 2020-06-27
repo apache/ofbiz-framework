@@ -71,7 +71,7 @@ import com.ibm.icu.util.Calendar;
  */
 public final class JobManager {
 
-    public static final String MODULE = JobManager.class.getName();
+    private static final String MODULE = JobManager.class.getName();
     public static final String instanceId = UtilProperties.getPropertyValue("general", "unique.instanceId", "ofbiz0");
     private static final ConcurrentHashMap<String, JobManager> registeredManagers = new ConcurrentHashMap<>();
     private static boolean isShutDown = false;

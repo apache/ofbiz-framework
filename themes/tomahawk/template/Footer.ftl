@@ -42,4 +42,5 @@ under the License.
 
 </div>
 </body>
+<@scriptTagsFooter/>
 </html>

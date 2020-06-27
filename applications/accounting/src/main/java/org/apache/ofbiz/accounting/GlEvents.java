@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class GlEvents {
 
-public static final String MODULE = GlEvents.class.getName();
+private static final String MODULE = GlEvents.class.getName();
 public static String createReconcileAccount(HttpServletRequest request, HttpServletResponse response) {
     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
     final Delegator delegator = (Delegator)request.getAttribute("delegator");

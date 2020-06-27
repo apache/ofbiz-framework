@@ -54,78 +54,119 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createOrderShipmentPlan" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createOrderShipmentPlan" auth="true">
+    <service name="createOrderShipmentPlan" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="createOrderShipmentPlan" auth="true">
         <description>Create Shipment, ShipmentItems and OrderShipment</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentId" type="String" mode="OUT" optional="true"/>
     </service>
 
-    <service name="quickShipEntireOrder" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickShipEntireOrder" auth="true" transaction-timeout="600">
+    <service name="quickShipEntireOrder" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="quickShipEntireOrder" auth="true" transaction-timeout="600">
         <description>Quick Ships An Entire Order Creating One Shipment Per Facility and Ship Group.  All approved order items are
           automatically issued in full and put into one package.  The shipment is created in the INPUT status and then updated to
           PACKED and SHIPPED.
         </description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="setPackedOnly" type="String" mode="IN" optional="true"/>
         <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <!-- A List of Maps, each with a shipmentId,a facilityId, and a shipGroupSeqId for each shipment created -->
-        <attribute name="shipmentShipGroupFacilityList" type="List" mode="OUT" optional="false"/>
+        <attribute name="shipmentShipGroupFacilityList" type="List" mode="OUT" optional="false">
+	     <type-validate>
+	          <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentShipGroupFacilityList"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentIds" type="List" mode="OUT" optional="true"/>
     </service>
-    <service name="quickShipOrderByItem" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickShipOrderByItem" auth="true">
+    <service name="quickShipOrderByItem" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="quickShipOrderByItem" auth="true">
         <description>Quick Ships An Order By Item</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="itemShipList" type="List" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipGroupSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="itemShipList" type="List" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemShipList"/>
+	     </type-validate>
+        </attribute>
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="setPackedOnly" type="String" mode="IN" optional="true"/>
-        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
-    <service name="quickReceivePurchaseOrder" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickReceivePurchaseOrder" auth="true">
+    <service name="quickReceivePurchaseOrder" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="quickReceivePurchaseOrder" auth="true">
         <description>The mirror of quickShipEntireOrder, this service automatically creates shipments for an entire purchase order.
           All order items on each ship group is created as a Shipment.  All items on a Shipment are automatically issued to a Package.
           The shipment's status is first set to CREATED and then set as SHIPPED.  The facilityId is used to set the destinationFacilityId
           of the Shipment.
         </description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingFacilityId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentIds" type="List" mode="OUT" optional="true"/>
     </service>
-    <service name="createShipmentForReturn" default-entity-name="ReturnHeader" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentForReturn">
+    <service name="createShipmentForReturn" default-entity-name="ReturnHeader" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="createShipmentForReturn">
         <description>Create a Return Shipment with information from ReturnHeader fields</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
-    <service name="createShipmentAndItemsForReturn" default-entity-name="ReturnHeader" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentAndItemsForReturn">
+    <service name="createShipmentAndItemsForReturn" default-entity-name="ReturnHeader" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="createShipmentAndItemsForReturn">
         <description>Create a Return Shipment and ShipmentItems with information from ReturnHeader and ReturnItems</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="true"/>
     </service>
 
-    <service name="createShipmentAndItemsForVendorReturn" default-entity-name="Shipment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentAndItemsForVendorReturn">
+    <service name="createShipmentAndItemsForVendorReturn" default-entity-name="Shipment" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="createShipmentAndItemsForVendorReturn">
         <description>Create a Return Shipment and ShipmentItems with primaryReturnId</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+            </type-validate>
+        </attribute>
         <override name="primaryReturnId" optional="false"/>
     </service>
-
-    <service name="createShipment" default-entity-name="Shipment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipment" auth="true">
+    <service name="createShipment" default-entity-name="Shipment" engine="entity-auto" invoke="create" auth="true">
         <description>Create Shipment</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="OUT" optional="false"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdDate"/>
             <exclude field-name="createdByUserLogin"/>
@@ -133,8 +174,8 @@ under the License.
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
     </service>
-    <service name="updateShipment" default-entity-name="Shipment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipment" auth="true">
+    <service name="updateShipment" default-entity-name="Shipment" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="updateShipment" auth="true">
         <description>Update Shipment</description>
         <permission-service service-name="checkCanChangeShipmentStatusDelivered" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
@@ -163,29 +204,33 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="statusDate" mode="IN" optional="true"/>
     </service>
-    <service name="setShipmentSettingsFromPrimaryOrder" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="setShipmentSettingsFromPrimaryOrder" auth="true">
+    <service name="setShipmentSettingsFromPrimaryOrder" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="setShipmentSettingsFromPrimaryOrder" auth="true">
         <description>Set Shipment Settings From Primary Order</description>
         <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="UPDATE"/>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="setShipmentSettingsFromFacilities" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="setShipmentSettingsFromFacilities" auth="true">
+    <service name="setShipmentSettingsFromFacilities" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="setShipmentSettingsFromFacilities" auth="true">
         <description>Set Shipment Settings From Facilities</description>
         <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="UPDATE"/>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="sendShipmentScheduledNotification" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="sendShipmentScheduledNotification" auth="true">
+    <service name="sendShipmentScheduledNotification" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="sendShipmentScheduledNotification" auth="true">
         <description>Send Shipment Scheduled Notification</description>
         <required-permissions join-type="OR">
             <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
             <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         </required-permissions>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
-    <service name="balanceItemIssuancesForShipment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="balanceItemIssuancesForShipment" auth="true">
+    <service name="balanceItemIssuancesForShipment" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="balanceItemIssuancesForShipment" auth="true">
         <description>
             Release the purchase order's items assigned to the shipment but not
             actually received; it is invoked as a seca when the purchase shipment
@@ -195,21 +240,41 @@ under the License.
             <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
             <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         </required-permissions>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
-    <service name="checkCancelItemIssuanceAndOrderShipmentFromShipment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="checkCancelItemIssuanceAndOrderShipmentFromShipment" auth="true">
+    <service name="checkCancelItemIssuanceAndOrderShipmentFromShipment" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="checkCancelItemIssuanceAndOrderShipmentFromShipment" auth="true">
         <description>Check Shipment Items and cancel Item Issuance and Order Shipment</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
-    <service name="quickDropShipOrder" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickDropShipOrder" auth="true">
+    <service name="quickDropShipOrder" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="quickDropShipOrder" auth="true">
         <description>Creates a drop shipment for a ship group and calls updateShipment twice in succession to set
             shipment status to PURCH_SHIP_SHIPPED and then to PURCH_SHIP_RECEIVED</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrdertId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipGroupSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
 
     <!-- ShipmentItem Services -->
@@ -232,19 +297,23 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="splitShipmentItemByQuantity" engine="simple"
-        location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="splitShipmentItemByQuantity">
+    <service name="splitShipmentItemByQuantity" engine="groovy"
+        location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="splitShipmentItemByQuantity">
         <description>Splits the specified ShipmentItem creating a new ShipmentItem with the given newItemQuantity.
             NOTE that this does manage OrderShipment records, but NOTHING else, so it is only to be used for Shipment
             Plan stuff BEFORE the items are issued, shipment packed, etc.</description>
         <auto-attributes entity-name="ShipmentItem" include="pk" mode="IN" optional="false"/>
-        <attribute name="newItemQuantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="newItemQuantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingNewItemQuantity"/>
+	     </type-validate>
+        </attribute>
         <attribute name="newShipmentItemSeqId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <!-- ShipmentPackage Services -->
-    <service name="createShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackage" auth="true">
+    <service name="createShipmentPackage" default-entity-name="ShipmentPackage" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="createShipmentPackage" auth="true">
         <description>Create ShipmentPackage</description>
         <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -253,15 +322,15 @@ under the License.
         </auto-attributes>
         <override name="shipmentPackageSeqId" mode="INOUT" optional="true"/>
     </service>
-    <service name="updateShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackage" auth="true">
+    <service name="updateShipmentPackage" default-entity-name="ShipmentPackage" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="updateShipmentPackage" auth="true">
         <description>Update ShipmentPackage</description>
         <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackage" auth="true">
+    <service name="deleteShipmentPackage" default-entity-name="ShipmentPackage" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="deleteShipmentPackage" auth="true">
         <description>Delete ShipmentPackage</description>
         <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -286,8 +355,8 @@ under the License.
         <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="addShipmentContentToPackage" default-entity-name="ShipmentPackageContent" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="addShipmentContentToPackage" auth="true">
+    <service name="addShipmentContentToPackage" default-entity-name="ShipmentPackageContent" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="addShipmentContentToPackage" auth="true">
         <description>Add Shipment Content To Package</description>
         <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -369,8 +438,8 @@ under the License.
         </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="ensureRouteSegPackage" default-entity-name="ShipmentRouteSegment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="ensureRouteSegPackage" auth="true">
+    <service name="ensureRouteSegPackage" default-entity-name="ShipmentRouteSegment" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="ensureRouteSegPackage" auth="true">
         <description>Ensure ShipmentPackageRouteSeg exists for all Packages for this RouteSegment</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -423,8 +492,16 @@ under the License.
         </required-permissions>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderItemShipGroupAssoc" include="pk" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
-        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentItemSeqId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="issueOrderItemShipGrpInvResToShipment" engine="simple"
             location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="issueOrderItemShipGrpInvResToShipment" auth="true">
@@ -435,42 +512,105 @@ under the License.
         </required-permissions>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+	     </type-validate>
+        </attribute>
         <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
-        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentItemSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="issueInventoryItemToFixedAssetMaint" engine="simple"
         location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="issueInventoryItemToFixedAssetMaint" auth="true">
         <description>Issue an InventoryItem to a FixedAssetMaint - for conversion to use as supples/parts</description>
         <auto-attributes entity-name="InventoryItem" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="FixedAssetMaint" include="pk" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
-        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="returnInventoryItemIssuedToFixedAssetMaint" engine="simple"
         location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="returnInventoryItemIssuedToFixedAssetMaint" auth="true">
         <description>Return InventoryItem Issued to a FixedAssetMaint - for conversion to use as supples/parts</description>
-        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="cancelOrderItemIssuanceFromSalesShipment" engine="simple"
             location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="cancelOrderItemIssuanceFromSalesShipment" auth="true">
         <description>Cancel an ItemIssuance from Sales Shipment</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="canceledQuantity" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="canceledQuantity" type="BigDecimal" mode="OUT" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingCanceledQuantity"/>
+	     </type-validate>
+        </attribute>
     </service>
 
     <service name="issueInventoryItemToShipment" engine="simple"
             location="component://product/minilang/shipment/issuance/IssuanceServices.xml" invoke="issueInventoryItemToShipment" auth="true">
         <description>Issue an InventoryItem to a Shipment</description>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
-        <attribute name="totalIssuedQty" type="BigDecimal" mode="IN" optional="false"/>
-        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentItemSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingInventoryItemId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="totalIssuedQty" type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingTotalIssuedQty"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>
+	     </type-validate>
+        </attribute>
+    </service>
+
+    <service name="getTotalIssuedQuantityForOrderItem" engine="groovy"
+            location="component://product/groovyScripts/shipment/issuance/IssuanceServices.groovy" invoke="getTotalIssuedQuantityForOrderItem" auth="true">
+        <description>Computes the total quantity assigned to shipment for a purchase order item</description>
+        <attribute name="orderItem" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="totalIssuedQuantity" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <!-- Pick Verify Services -->
@@ -676,8 +816,8 @@ under the License.
     </service>
 
     <!-- Shipment Plan Services -->
-    <service name="addOrderShipmentToShipment" engine="simple" default-entity-name="OrderShipment"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="addOrderShipmentToShipment" auth="true">
+    <service name="addOrderShipmentToShipment" engine="groovy" default-entity-name="OrderShipment"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="addOrderShipmentToShipment" auth="true">
         <description>Add an OrderShipment and a ShipmentItem - only for sales orders</description>
         <required-permissions join-type="AND">
             <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
@@ -687,8 +827,8 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
         <override name="shipmentItemSeqId" mode="INOUT" optional="true"/>
     </service>
-    <service name="removeOrderShipmentFromShipment" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="removeOrderShipmentFromShipment" auth="true">
+    <service name="removeOrderShipmentFromShipment" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="removeOrderShipmentFromShipment" auth="true">
         <description>Delete an OrderShipment and updates the ShipmentItem</description>
         <required-permissions join-type="AND">
             <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
@@ -696,8 +836,8 @@ under the License.
         </required-permissions>
         <auto-attributes entity-name="OrderShipment" include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="getQuantityForShipment" engine="simple" default-entity-name="OrderItem"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="getQuantityForShipment" auth="true">
+    <service name="getQuantityForShipment" engine="groovy" default-entity-name="OrderItem"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="getQuantityForShipment" auth="true">
         <description>get the order item quantity still not put in shipments</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="remainingQuantity" type="BigDecimal" mode="OUT" optional="false"/>
@@ -713,12 +853,16 @@ under the License.
         <override name="quantityAccepted" optional="false"/>
         <override name="quantityRejected" optional="false"/>
     </service>
-    <service name="createShipmentReceipt" engine="simple"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="createShipmentReceipt" auth="true">
+    <service name="createShipmentReceipt" engine="groovy"
+            location="component://product/groovyScripts/shipment/receipt/ShipmentReceiptServices.groovy" invoke="createShipmentReceipt" auth="true">
         <description>Creates a ShipmentReceipt Record</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceShipmentReceipt"/>
-        <attribute name="receiptId" type="String" mode="OUT" optional="false"/>
+        <attribute name="receiptId" type="String" mode="OUT" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingReceiptId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="affectAccounting" type="Boolean" mode="OUT" optional="true"/>
     </service>
     <service name="updatePurchaseShipmentFromReceipt" engine="java"
@@ -733,8 +877,8 @@ under the License.
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="receiveInventoryProduct" engine="simple" transaction-timeout="600"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="receiveInventoryProduct" auth="true">
+    <service name="receiveInventoryProduct" engine="groovy" transaction-timeout="600"
+            location="component://product/groovyScripts/shipment/receipt/ShipmentReceiptServices.groovy" invoke="receiveInventoryProduct" auth="true">
         <description>Receive Inventory In Warehouse</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes entity-name="InventoryItem" include="nonpk" mode="IN" optional="true">
@@ -756,8 +900,8 @@ under the License.
         <override name="facilityId" optional="false"/>
     </service>
 
-    <service name="issueOrderItemToShipmentAndReceiveAgainstPO" engine="simple" transaction-timeout="600"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="issueOrderItemToShipmentAndReceiveAgainstPO" auth="true">
+    <service name="issueOrderItemToShipmentAndReceiveAgainstPO" engine="groovy" transaction-timeout="600"
+            location="component://product/groovyScripts/shipment/receipt/ShipmentReceiptServices.groovy" invoke="issueOrderItemToShipmentAndReceiveAgainstPO" auth="true">
         <description>Issues order item quantity specified to the shipment, then receives inventory for that item and quantity</description>
         <required-permissions join-type="AND">
             <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
@@ -767,8 +911,8 @@ under the License.
         <implements service="receiveInventoryProduct"/>
     </service>
 
-    <service name="quickReceiveReturn" engine="simple"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="quickReceiveReturn" auth="true">
+    <service name="quickReceiveReturn" engine="groovy"
+            location="component://product/groovyScripts/shipment/receipt/ShipmentReceiptServices.groovy" invoke="quickReceiveReturn" auth="true">
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
@@ -781,17 +925,19 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="createShipmentReceiptRole" engine="simple"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="createShipmentReceiptRole" auth="true">
+
+    <!-- Shipment Receipt Role Services -->
+    <service name="createShipmentReceiptRole" default-entity-name="ShipmentReceiptRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ShipmentReceipt Role entry</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <implements service="interfaceShipmentReceiptRole"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeShipmentReceiptRole" engine="simple"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="removeShipmentReceiptRole" auth="true">
+    <service name="removeShipmentReceiptRole" default-entity-name="ShipmentReceiptRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ShipmentReceipt Role entry</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
-        <implements service="interfaceShipmentReceiptRole"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- Shipment Estimate (Rate) Services -->
@@ -865,10 +1011,14 @@ under the License.
         <implements service="calcShipmentEstimateInterface"/>
     </service>
 
-    <service name="cancelReceivedItems" engine="simple"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="cancelReceivedItems" auth="true">
+    <service name="cancelReceivedItems" engine="groovy"
+            location="component://product/groovyScripts/shipment/receipt/ShipmentReceiptServices.groovy" invoke="cancelReceivedItems" auth="true">
         <description>Cancel Received Items against a purchase order if received something incorrectly</description>
-        <attribute name="receiptId" type="String" mode="IN" optional="false"/>
+        <attribute name="receiptId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingReceiptId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -902,15 +1052,35 @@ under the License.
         <attribute name="packageValue" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
 
-    <service name="issueSerializedInvToShipmentPackageAndSetTracking" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="issueSerializedInvToShipmentPackageAndSetTracking" auth="true">
+    <service name="issueSerializedInvToShipmentPackageAndSetTracking" engine="groovy"
+            location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="issueSerializedInvToShipmentPackageAndSetTracking" auth="true">
         <description></description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingInventoryItemId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderItemSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipGroupSeqId"/>
+	     </type-validate>
+        </attribute>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="true"/>
@@ -920,13 +1090,21 @@ under the License.
         <attribute name="trackingNum" type="String" mode="IN" optional="true"/>
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingPromisedDatetime"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentPackageSeqId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="setShipmentStatusPackedAndShipped" engine="simple"
-        location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="setShipmentStatusPackedAndShipped" auth="true">
+    <service name="setShipmentStatusPackedAndShipped" engine="groovy"
+        location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="setShipmentStatusPackedAndShipped" auth="true">
         <description>Move a shipment into Packed status and then to Shipped status</description>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingShipmentId"/>
+	     </type-validate>
+        </attribute>
     </service>
     <service name="sendShipmentCompleteNotification" engine="java" require-new-transaction="true" max-retry="3"
         location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="sendShipmentCompleteNotification" auth="true">
@@ -941,12 +1119,24 @@ under the License.
         <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="updateIssuanceShipmentAndPoOnReceiveInventory" engine="simple"
-            location="component://product/minilang/shipment/receipt/ShipmentReceiptServices.xml" invoke="updateIssuanceShipmentAndPoOnReceiveInventory">
+    <service name="updateIssuanceShipmentAndPoOnReceiveInventory" engine="groovy"
+            location="component://product/groovyScripts/shipment/receipt/ShipmentReceiptServices.groovy" invoke="updateIssuanceShipmentAndPoOnReceiveInventory">
         <description>Update issuance, shipment and order items if quantity received is higher than quantity on purchase order</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantityAccepted"  type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingOrderItemSeqId"/>
+	     </type-validate>
+        </attribute>
+        <attribute name="quantityAccepted"  type="BigDecimal" mode="IN" optional="false">
+	     <type-validate>
+	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantityAccepted"/>
+	     </type-validate>
+        </attribute>
         <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="unitCost" type="String" mode="IN" optional="true"/>
@@ -1147,22 +1337,22 @@ under the License.
     </service>
 
     <!-- Permission Services -->
-    <service name="checkCanChangeShipmentStatusPacked" engine="simple"
-        location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="checkCanChangeShipmentStatusPacked">
+    <service name="checkCanChangeShipmentStatusPacked" engine="groovy"
+        location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="checkCanChangeShipmentStatusPacked">
         <description>Check the Status of a Shipment to see if it can be changed for an operation relative to the packed state</description>
         <!-- Info : permission-service service-name="facilityGenericPermission" -->
         <implements service="permissionInterface"/>
         <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="checkCanChangeShipmentStatusShipped" engine="simple"
-        location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="checkCanChangeShipmentStatusShipped">
+    <service name="checkCanChangeShipmentStatusShipped" engine="groovy"
+        location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="checkCanChangeShipmentStatusShipped">
         <description>Check the Status of a Shipment to see if it can be changed for an operation relative to the shipped state</description>
         <!-- Info : permission-service service-name="facilityGenericPermission" -->
         <implements service="permissionInterface"/>
         <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="checkCanChangeShipmentStatusDelivered" engine="simple"
-        location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="checkCanChangeShipmentStatusDelivered">
+    <service name="checkCanChangeShipmentStatusDelivered" engine="groovy"
+        location="component://product/groovyScripts/shipment/shipment/ShipmentServices.groovy" invoke="checkCanChangeShipmentStatusDelivered">
         <description>Check the Status of a Shipment to see if it can be changed for an operation relative to the delivered state</description>
         <!-- Info : permission-service service-name="facilityGenericPermission" -->
         <implements service="permissionInterface"/>

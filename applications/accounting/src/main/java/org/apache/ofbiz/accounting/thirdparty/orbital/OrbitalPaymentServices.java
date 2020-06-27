@@ -19,6 +19,7 @@
 package org.apache.ofbiz.accounting.thirdparty.orbital;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -26,7 +27,6 @@ import java.util.Map;
 import org.apache.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -34,7 +34,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -51,12 +50,13 @@ import com.paymentech.orbital.sdk.util.exceptions.InitializationException;
 
 public class OrbitalPaymentServices {
 
-    public static String MODULE = OrbitalPaymentServices.class.getName();
-    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
-    public final static String resource = "AccountingUiLabels";
+    private static final String MODULE = OrbitalPaymentServices.class.getName();
+    private static final String RESOURCE = "AccountingUiLabels";
+    private static final String ERROR = "Error";
 
-    public static String ERROR    = "Error";
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("invoice.rounding");
+
 
     public static final String BIN_VALUE = "000002";
     public static TransactionProcessorIF tp = null;
@@ -126,12 +126,12 @@ public class OrbitalPaymentServices {
             creditCard = orderPaymentPreference.getRelatedOne("CreditCard", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
         context.put("creditCard", creditCard);
@@ -171,12 +171,12 @@ public class OrbitalPaymentServices {
             creditCard = orderPaymentPreference.getRelatedOne("CreditCard", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
         context.put("creditCard", creditCard);
@@ -215,12 +215,12 @@ public class OrbitalPaymentServices {
             orderPaymentPreference.getRelatedOne("CreditCard", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
         context.put("authTransaction", authTransaction);
@@ -300,7 +300,7 @@ public class OrbitalPaymentServices {
     private static void buildAuthOrAuthCaptureTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("processAmount");
-        String amountValue = amount.setScale(decimals, rounding).movePointRight(2).toPlainString();
+        String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         expDate = formatExpDateForOrbital(expDate);
@@ -382,7 +382,7 @@ public class OrbitalPaymentServices {
         GenericValue authTransaction = (GenericValue) params.get("authTransaction");
         GenericValue creditCard = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("captureAmount");
-        String amountValue = amount.setScale(decimals, rounding).movePointRight(2).toPlainString();
+        String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
         String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
         try {
             //If there were no errors preparing the template, we can now specify the data
@@ -420,7 +420,7 @@ public class OrbitalPaymentServices {
     private static void buildRefundTransaction(Map<String, Object> params, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("refundAmount");
-        String amountValue = amount.setScale(decimals, rounding).movePointRight(2).toPlainString();
+        String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         expDate = formatExpDateForOrbital(expDate);

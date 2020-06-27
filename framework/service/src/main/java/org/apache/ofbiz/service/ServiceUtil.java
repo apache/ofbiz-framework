@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.job.JobUtil;
  */
 public final class ServiceUtil {
 
-    public static final String MODULE = ServiceUtil.class.getName();
+    private static final String MODULE = ServiceUtil.class.getName();
     private static final String resource = "ServiceErrorUiLabels";
 
     private ServiceUtil () {}

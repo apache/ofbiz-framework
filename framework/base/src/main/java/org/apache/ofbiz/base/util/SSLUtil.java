@@ -53,7 +53,7 @@ import org.apache.ofbiz.base.config.GenericConfigException;
  */
 public final class SSLUtil {
 
-    public static final String MODULE = SSLUtil.class.getName();
+    private static final String MODULE = SSLUtil.class.getName();
 
     private static final int HOSTCERT_NO_CHECK = 0;
     private static final int HOSTCERT_MIN_CHECK = 1;
@@ -250,45 +250,37 @@ public final class SSLUtil {
     public static HostnameVerifier getHostnameVerifier(int level) {
         switch (level) {
             case HOSTCERT_MIN_CHECK:
-                return new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        Certificate[] peerCerts;
+                return (hostname, session) -> {
+                    Certificate[] peerCerts;
+                    try {
+                        peerCerts = session.getPeerCertificates();
+                    } catch (SSLPeerUnverifiedException e) {
+                        // cert not verified
+                        Debug.logWarning(e.getMessage(), MODULE);
+                        return false;
+                    }
+                    for (Certificate peerCert : peerCerts) {
                         try {
-                            peerCerts = session.getPeerCertificates();
-                        } catch (SSLPeerUnverifiedException e) {
-                            // cert not verified
-                            Debug.logWarning(e.getMessage(), MODULE);
+                            Principal x500s = session.getPeerPrincipal();
+                            Map<String, String> subjectMap = KeyStoreUtil.getX500Map(x500s);
+                            if (Debug.infoOn()) {
+                                byte[] encodedCert = peerCert.getEncoded();
+                                Debug.logInfo(new BigInteger(encodedCert).toString(16)
+                                        + " :: " + subjectMap.get("CN"), MODULE);
+                            }
+                            peerCert.verify(peerCert.getPublicKey());
+                        } catch (RuntimeException e) {
+                            throw e;
+                        } catch (Exception e) {
+                            // certificate not valid
+                            Debug.logWarning("Certificate is not valid!", MODULE);
                             return false;
                         }
-                        for (Certificate peerCert : peerCerts) {
-                            try {
-                                Principal x500s = session.getPeerPrincipal();
-                                Map<String, String> subjectMap = KeyStoreUtil.getX500Map(x500s);
-                                if (Debug.infoOn()) {
-                                    byte[] encodedCert = peerCert.getEncoded();
-                                    Debug.logInfo(new BigInteger(encodedCert).toString(16)
-                                            + " :: " + subjectMap.get("CN"), MODULE);
-                                }
-                                peerCert.verify(peerCert.getPublicKey());
-                            } catch (RuntimeException e) {
-                                throw e;
-                            } catch (Exception e) {
-                                // certificate not valid
-                                Debug.logWarning("Certificate is not valid!", MODULE);
-                                return false;
-                            }
-                        }
-                        return true;
                     }
+                    return true;
                 };
             case HOSTCERT_NO_CHECK:
-                return new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                };
+                return (hostname, session) -> true;
             default:
                 return null;
         }

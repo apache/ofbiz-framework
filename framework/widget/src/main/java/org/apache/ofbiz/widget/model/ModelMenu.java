@@ -56,7 +56,7 @@ public class ModelMenu extends ModelWidget {
      *
      */
 
-    public static final String MODULE = ModelMenu.class.getName();
+    private static final String MODULE = ModelMenu.class.getName();
 
     private final List<ModelAction> actions;
     private final String defaultAlign;

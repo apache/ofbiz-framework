@@ -51,7 +51,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
  */
 public class ServiceEventHandler implements EventHandler {
 
-    public static final String MODULE = ServiceEventHandler.class.getName();
+    private static final String MODULE = ServiceEventHandler.class.getName();
 
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";

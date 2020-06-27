@@ -1327,7 +1327,10 @@ under the License.
     </request-map>
 
     <!-- =============== CustRequest mapping =================-->
-    <request-map uri="FindRequest"><security https="true" auth="true"/><response name="success" type="view" value="FindRequest"/></request-map>
+    <request-map uri="FindRequest">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindRequest"/>
+    </request-map>
     <request-map uri="ViewRequest"><security https="true" auth="true"/><response name="success" type="view" value="ViewRequest"/></request-map>
     <request-map uri="EditRequest"><security https="true" auth="true"/><response name="success" type="view" value="EditRequest"/></request-map>
     <request-map uri="EditRequestCustomer"><security https="true" auth="true"/><response name="success" type="view" value="EditRequestCustomer"/></request-map>
@@ -1345,9 +1348,9 @@ under the License.
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
 
-    <request-map uri="deleteCustRequestContent">
+    <request-map uri="expireCustRequestContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteCustRequestContent"/>
+        <event type="service" invoke="expireCustRequestContent"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
@@ -2107,7 +2110,8 @@ under the License.
     <view-map name="ListQuoteNotes" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#ListQuoteNotes"/>
     <view-map name="EditQuoteNote" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#EditQuoteNote"/>
 
-    <view-map name="FindRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#FindRequest"/>
+    <view-map name="FindRequest" type="screen"
+              page="component://order/widget/ordermgr/CustRequestScreens.xml#FindRequest"/>
     <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#ViewRequest"/>
     <view-map name="EditRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequest"/>
     <view-map name="EditRequestCustomer" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequestCustomer"/>

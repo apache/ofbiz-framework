@@ -20,74 +20,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="updatePayment" short-description="Update a Payment">
-        <make-value entity-name="Payment" value-field="lookupPayment"/>
-        <set-pk-fields value-field="lookupPayment" map="parameters"/>
-
-        <find-by-primary-key entity-name="Payment" map="lookupPayment" value-field="payment"/>
-        <if>
-            <condition>
-                <and>
-                    <not><if-has-permission permission="ACCOUNTING" action="_UPDATE"/></not>
-                    <not><if-has-permission permission="PAY_INFO" action="_UPDATE"/></not>
-                    <not><if-compare-field field="userLogin.partyId" to-field="payment.partyIdFrom" operator="equals"/></not>
-                    <not><if-compare-field field="userLogin.partyId" to-field="payment.partyIdTo" operator="equals"/></not>
-                </and>
-            </condition>
-            <then>
-                <add-error>
-                    <fail-property resource="AccountingUiLabels" property="AccountingUpdatePaymentPermissionError"/>
-                </add-error>
-            </then>
-        </if>
-        <check-errors/>
-
-        <if-compare field="payment.statusId" value="PMNT_NOT_PAID" operator="not-equals">
-            <!-- check if only status change -->
-            <make-value entity-name="Payment" value-field="newPayment"/>
-            <make-value entity-name="Payment" value-field="oldPayment"/>
-            <set-nonpk-fields map="payment" value-field="newPayment"/>
-            <set-nonpk-fields map="payment" value-field="oldPayment"/>
-            <set-nonpk-fields map="parameters" value-field="newPayment"/>
-            <!-- fields :- comments, paymentRefNum, finAccountTransId, statusId can editable for Payment -->
-            <set field="oldPayment.statusId" from-field="newPayment.statusId"/>
-            <set field="oldPayment.comments" from-field="newPayment.comments"/>
-            <set field="oldPayment.paymentRefNum" from-field="newPayment.paymentRefNum" set-if-null="true"/>
-            <set field="oldPayment.finAccountTransId" from-field="newPayment.finAccountTransId" set-if-null="true"/>
-            <if-compare-field field="oldPayment" to-field="newPayment" operator="not-equals">
-                <add-error>
-                    <fail-property resource="AccountingUiLabels" property="AccountingPSUpdateNotAllowedBecauseOfStatus"/>
-                </add-error>
-            </if-compare-field>
-        </if-compare>
-        <check-errors/>
-
-        <set field="statusIdSave" from-field="payment.statusId"/><!-- do not allow status change here -->
-        <set-nonpk-fields map="parameters" value-field="payment"/>
-        <set field="payment.statusId" from-field="statusIdSave"/><!-- do not allow status change here -->
-
-        <if-empty field="payment.effectiveDate">
-            <now-timestamp field="payment.effectiveDate"/>
-        </if-empty>
-        <if-not-empty field="payment.paymentMethodId">
-            <entity-one entity-name="PaymentMethod" value-field="paymentMethod">
-                <field-map field-name="paymentMethodId" from-field="payment.paymentMethodId"/>
-            </entity-one>
-            <if-compare-field field="payment.paymentMethodTypeId" to-field="paymentMethod.paymentMethodTypeId" operator="not-equals">
-                <log level="info" message="Replacing passed payment method type [${payment.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${payment.paymentMethodId}]"/>
-            </if-compare-field>
-            <set field="payment.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
-        </if-not-empty>
-        <store-value value-field="payment"/>
-
-        <if-not-empty field="parameters.statusId">
-            <if-compare-field field="parameters.statusId" to-field="statusIdSave" operator="not-equals">
-                <set-service-fields service-name="setPaymentStatus" map="parameters" to-map="param"/>
-                <call-service service-name="setPaymentStatus" in-map-name="param"/>
-                <check-errors/>
-            </if-compare-field>
-        </if-not-empty>
-    </simple-method>
     <simple-method method-name="createPaymentApplication" short-description="Create a Payment Application">
         <if-empty field="parameters.invoiceId">
             <if-empty field="parameters.billingAccountId">
@@ -512,27 +444,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="getPaymentRunningTotal" short-description="calculate running total for payments">
-        <set field="paymentIds" from-field="parameters.paymentIds"/>
-        <set field="runningTotal" type="BigDecimal" value="0"/>
-        <entity-condition entity-name="Payment" list="payments">
-            <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
-        </entity-condition>
-        <iterate list="payments" entry="payment">
-            <set field="runningTotal" value="${runningTotal + payment.amount}" type="BigDecimal"/>
-        </iterate>
-        <set-service-fields service-name="getPartyAccountingPreferences" map="parameters" to-map="getPartyAccountingPreferencesMap"/>
-        <call-service service-name="getPartyAccountingPreferences" in-map-name="getPartyAccountingPreferencesMap">
-            <result-to-field result-name="partyAccountingPreference"/>
-        </call-service>
-        <set field="currencyUomId" from-field="partyAccountingPreference.baseCurrencyUomId"/>
-        <if-empty field="currencyUomId">
-            <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
-        </if-empty>
-        <set field="paymentRunningTotal" value="${groovy:org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
-        <field-to-result field="paymentRunningTotal"/>
-    </simple-method>
-
     <simple-method method-name="cancelPaymentBatch" short-description="cancel payment batch">
         <entity-and entity-name="PmtGrpMembrPaymentAndFinAcctTrans" list="paymentGroupMemberAndTransList">
             <field-map field-name="paymentGroupId" from-field="parameters.paymentGroupId"/>
@@ -612,65 +523,6 @@ under the License.
             <property-to-field property="AccountingNoInvoicesReadyOrOutstandingAmountZero" resource="AccountingUiLabels" field="errorMessage"/>
             <field-to-result field="errorMessage" result-name="errorMessage"/>
         </if-empty>
-    </simple-method>
-
-    <simple-method method-name="createPaymentAndApplicationForParty" short-description="create Payment and PaymentApplications for multiple invoices for one party">
-        <set field="paymentAmount" type="BigDecimal" value="0"/>
-        <iterate list="parameters.invoices" entry="invoice">
-            <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY" type="String">
-                <set-service-fields service-name="getInvoicePaymentInfoList" map="invoice" to-map="getInvoicePaymentInfoListCtx"/>
-                <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListCtx">
-                    <result-to-field result-name="invoicePaymentInfoList"/>
-                </call-service>
-                <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
-                <set field="paymentAmount" value="${paymentAmount + invoicePaymentInfo.outstandingAmount}"/>
-            <else>
-                <add-error>
-                    <fail-property resource="AccountingUiLabels" property="AccountingInvoicesRequiredInReadyStatus"/>
-                </add-error>
-                <check-errors/>
-            </else>
-            </if-compare>
-        </iterate>
-        <if-compare field="paymentAmount" operator="greater" type="BigDecimal" value="0">
-            <set-service-fields service-name="getPartyAccountingPreferences" map="parameters" to-map="getPartyAccountingPreferencesMap"/>
-            <call-service service-name="getPartyAccountingPreferences" in-map-name="getPartyAccountingPreferencesMap">
-                <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
-            </call-service>
-            <set field="createPaymentMap.paymentTypeId" value="VENDOR_PAYMENT"/>
-            <set field="createPaymentMap.partyIdFrom" from-field="parameters.organizationPartyId"/>
-            <set field="createPaymentMap.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-            <set field="createPaymentMap.partyIdTo" from-field="parameters.partyId"/>
-            <set field="createPaymentMap.statusId" value="PMNT_SENT"/>
-            <set field="createPaymentMap.amount" type="BigDecimal" from-field="paymentAmount"/>
-            <set field="createPaymentMap.paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
-            <set field="createPaymentMap.paymentMethodId" from-field="parameters.paymentMethodId"/>
-            <set field="createPaymentMap.paymentRefNum" type="String" from-field="parameters.checkStartNumber"/>
-            <call-service service-name="createPayment" in-map-name="createPaymentMap">
-                <result-to-field result-name="paymentId"/>
-                <result-to-result result-name="paymentId"/>
-            </call-service>
-            <iterate list="parameters.invoices" entry="invoice">
-                <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY">
-                    <set-service-fields service-name="getInvoicePaymentInfoList" map="invoice" to-map="getInvoicePaymentInfoListCtx"/>
-                    <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListCtx">
-                        <result-to-field result-name="invoicePaymentInfoList" field="invoicePaymentInfoList"/>
-                    </call-service>
-                    <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
-                    <if-compare field="invoicePaymentInfo.outstandingAmount" operator="greater" value="0">
-                        <set field="createPaymentApplicationMap.paymentId" from-field="paymentId"/>
-                        <set field="createPaymentApplicationMap.amountApplied" from-field="invoicePaymentInfo.outstandingAmount"/>
-                        <set field="createPaymentApplicationMap.invoiceId" from-field="invoice.invoiceId"/>
-                        <call-service service-name="createPaymentApplication" in-map-name="createPaymentApplicationMap"/>
-                    </if-compare>
-                </if-compare>
-                <field-to-list field="invoice.invoiceId" list="invoiceIds"/>
-                <clear-field field="createPaymentApplicationMap"/>
-            </iterate>
-        </if-compare>
-        <field-to-result field="invoiceIds"/>
-        <set field="amount" type="BigDecimal" from-field="paymentAmount"/>
-        <field-to-result field="amount"/>
     </simple-method>
 
     <simple-method method-name="createFinAccoutnTransFromPayment" short-description="Creates a record for FinAccountTrans on creation of payment.">
@@ -806,16 +658,6 @@ under the License.
         </else>
         </if-not-empty>
     </simple-method>
-
-    <simple-method method-name="massChangePaymentStatus" short-description="Service set status of Payments in bulk.">
-        <iterate list="parameters.paymentIds" entry="paymentId">
-            <set field="setPaymentStatusMap.paymentId" from-field="paymentId"/>
-            <set field="setPaymentStatusMap.statusId" from-field="parameters.statusId"/>
-            <call-service service-name="setPaymentStatus" in-map-name="setPaymentStatusMap"/>
-            <clear-field field="setPaymentStatusMap"/>
-        </iterate>
-    </simple-method>
-
     <simple-method method-name="createPaymentFromOrder" short-description="Service auto create Payment from Order when payment does exist yet and not disabled by accounting config">
         <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
 
@@ -1094,36 +936,5 @@ under the License.
                 <log level="info" message="payment application automatically created between invoiceId: ${createAppl.invoiceId} and paymentId: ${createAppl.paymentId} for the amount: ${createAppl.appliedAmount} (can be disabled in accounting.properties)"/>
             </if-not-empty>
         </if-not-empty>
-    </simple-method>
-
-    <!-- PaymentContent -->
-    <simple-method method-name="createPaymentContent" short-description="Create Content For Payment">
-        <make-value entity-name="PaymentContent" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-
-        <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
-        <call-service service-name="updateContent" in-map-name="updateContent"/>
-
-        <field-to-result field="newEntity.contentId" result-name="contentId"/>
-        <field-to-result field="newEntity.paymentId" result-name="paymentId"/>
-        <field-to-result field="newEntity.paymentContentTypeId" result-name="paymentContentTypeId"/>
-    </simple-method>
-    <simple-method method-name="updatePaymentContent" short-description="Update Content For Payment">
-        <make-value entity-name="PaymentContent" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-
-        <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
-        <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
 </simple-methods>

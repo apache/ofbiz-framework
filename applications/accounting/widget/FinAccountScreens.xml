@@ -73,6 +73,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindFinAccount"/>
                 <set field="tabButtonItem" value="FindFinAccount"/>
+                <set field="helpAnchor" value="_help_for_find_financial_accounts"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -119,6 +120,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditFinAccount"/>
                 <set field="tabButtonItem" value="EditFinAccount"/>
+                <set field="helpAnchor" value="_help_for_edit_financial_account"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
@@ -154,6 +156,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditFinAccountRole"/>
                 <set field="tabButtonItem" value="EditFinAccountRoles"/>
+                <set field="helpAnchor" value="_help_for_edit_financial_account_roles"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <set field="partyId" from-field="parameters.partyId"/>
@@ -179,6 +182,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditFinAccountTrans"/>
                 <set field="tabButtonItem" value="FinAccountTrans"/>
+                <set field="helpAnchor" value="_help_for_edit_financial_account_authorizations"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <set field="finAccountTransId" from-field="parameters.finAccountTransId"/>
@@ -201,6 +205,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditFinAccountAuths"/>
                 <set field="tabButtonItem" value="EditFinAccountAuths"/>
+                <set field="helpAnchor" value="_help_for_financial_account_transactions_list"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <set field="finAccountAuthId" from-field="parameters.finAccountAuthId"/>
@@ -223,6 +228,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingDepositOrWithdrawPayments"/>
                 <set field="tabButtonItem" value="depositWithdraw"/>
+                <set field="helpAnchor" value="_help_for_financial_account_deposit_withdraw"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
                 <set field="cardType" from-field="parameters.cardType"/>
@@ -249,13 +255,13 @@ under the License.
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
                                         <include-form name="PaymentsDepositWithdraw" location="component://accounting/widget/FinAccountForms.xml"/>
-                                    </decorator-section> 
+                                    </decorator-section>
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/template/payment/DepositWithdrawPayments.ftl"/></html>
+                                            <html><html-template multi-block="true" location="component://accounting/template/payment/DepositWithdrawPayments.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
-                                </decorator-screen>  
+                                </decorator-screen>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -267,6 +273,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="finAccountMain"/>
+                <set field="helpAnchor" value="_the_financial_account_main_screen"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
@@ -282,6 +289,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="parameters.finAccountTypeId" value="BANK_ACCOUNT"/>
+                <set field="helpAnchor" value="_the_financial_account_main_screen"/>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.AccountingBankAccount}">
@@ -295,6 +303,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingFindDepositSlip"/>
                 <set field="tabButtonItem" value="findDepositSlips"/>
+                <set field="helpAnchor" value="_help_for_find_deposit_slips"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <entity-condition entity-name="PmtGrpMembrPaymentAndFinAcctTrans" list="pmtGrpMembrPaymentAndFinAcctTransList">
@@ -342,6 +351,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingFindDepositSlip"/>
                 <set field="tabButtonItem" value="findDepositSlips"/>
+                <set field="helpAnchor" value="_help_for_financial_account_edit_deposit_slip_and_member"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
@@ -381,6 +391,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingCreateNewDepositSlipForFinancialAccount"/>
                 <set field="tabButtonItem" value="findDepositSlips"/>
+                <set field="helpAnchor" value="_help_for_financial_account_new_deposit_slip"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="headerItem" value="FindFinAccount"/>
                 <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
@@ -400,13 +411,13 @@ under the License.
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
                                         <include-form name="FindBatchPaymentsForDepositSlip" location="component://accounting/widget/ar/forms/ArPaymentForms.xml"/>
-                                    </decorator-section> 
+                                    </decorator-section>
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/template/ar/payment/BatchPayments.ftl"/></html>
+                                            <html><html-template multi-block="true" location="component://accounting/template/ar/payment/BatchPayments.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
-                                </decorator-screen>  
+                                </decorator-screen>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -419,6 +430,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindFinAccountTrans"/>
                 <set field="tabButtonItem" value="FinAccountTrans"/>
+                <set field="helpAnchor" value="_help_for_find_financial_account_transactions"/>
                 <service service-name="getFinAccountTransListAndTotals" result-map="finAccountTransListAndTotals" auto-field-map="true"/>
                 <set field="finAccountTransList" type="List" from-field="finAccountTransListAndTotals.finAccountTransList"/>
                 <set field="searchedNumberOfRecords" type="Integer" from-field="finAccountTransListAndTotals.searchedNumberOfRecords"/>
@@ -454,10 +466,10 @@ under the License.
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
                                 <include-form name="FindFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
-                            </decorator-section> 
+                            </decorator-section>
                             <decorator-section name="search-results">
                                 <platform-specific>
-                                    <html><html-template location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                    <html><html-template multi-block="true" location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
                                 </platform-specific>
                             </decorator-section>
                         </decorator-screen>
@@ -471,6 +483,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingBankReconciliation"/>
                 <set field="tabButtonItem" value="FinAccountTrans"/>
+                <set field="helpAnchor" value="_help_for_financial_account_bank_reconciliation"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
             </actions>
@@ -508,7 +521,7 @@ under the License.
                                             <include-form name="FindBankReconciliationFinAcctTrans" location="component://accounting/widget/FinAccountForms.xml"/>
                                         </screenlet>
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                            <html><html-template multi-block="true" location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
                                         </platform-specific>
                                     </widgets>
                                 </section>
@@ -518,7 +531,7 @@ under the License.
                                     <include-form name="FindBankReconciliationFinAcctTrans" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
                                 <platform-specific>
-                                    <html><html-template location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                    <html><html-template multi-block="true" location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
                                 </platform-specific>
                             </fail-widgets>
                         </section>
@@ -538,6 +551,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="depositWithdraw"/>
+                <set field="helpAnchor" value="_help_for_financial_account_new_deposit_payment"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="statusId" value="PMNT_RECEIVED"/>
                 <set field="parentTypeId" value="RECEIPT"/>
@@ -560,6 +574,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="depositWithdraw"/>
+                <set field="helpAnchor" value="_help_for_financial_account_new_withdrawal_payment"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="statusId" value="PMNT_SENT"/>
                 <set field="parentTypeId" value="DISBURSEMENT"/>
@@ -583,6 +598,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingEditFinAccountReconciliations"/>
                 <set field="tabButtonItem" value="FindFinAccountReconciliations"/>
+                <set field="helpAnchor" value="_help_for_edit_financial_account_reconciliations"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="glReconciliationId" from-field="parameters.glReconciliationId" default-value=""/>
                 <set field="tabButtonItem2" value="${groovy:glReconciliationId==null?'NewFinAccountReconciliations':'EditFinAccountReconciliations'}"/>
@@ -616,6 +632,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="FindFinAccountReconciliations"/>
+                <set field="helpAnchor" value="_help_for_view_financial_account_reconciliations"/>
                 <set field="titleProperty" value="AccountingEditFinAccountReconciliations"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="glReconciliationId" from-field="parameters.glReconciliationId"/>
@@ -653,7 +670,7 @@ under the License.
                     <decorator-section name="body">
                         <label style="h1" text="${uiLabelMap.AccountingGlReconciliationFor}"></label>
                         <platform-specific>
-                            <html><html-template location="component://accounting/template/finaccounttrans/GlReconciledFinAccountTrans.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://accounting/template/finaccounttrans/GlReconciledFinAccountTrans.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -666,6 +683,7 @@ under the License.
                 <set field="tabButtonItem" value="FindFinAccountReconciliations"/>
                 <set field="titleProperty" value="PageTitleFindFinAccountReconciliations"/>
                 <set field="tabButtonItem2" value="Find"/>
+                <set field="helpAnchor" value="_help_find_financial_account_reconciliations"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="glReconciliationId" from-field="parameters.glReconciliationId" default-value=""/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
@@ -695,7 +713,7 @@ under the License.
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
                                 <include-form name="FindBankReconciliation" location="component://accounting/widget/FinAccountForms.xml"/>
-                            </decorator-section> 
+                            </decorator-section>
                             <decorator-section name="search-results">
                                 <include-form name="ListFinAccountReconciliations" location="component://accounting/widget/FinAccountForms.xml"/>
                             </decorator-section>

@@ -66,7 +66,7 @@ import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
  */
 public final class ServiceDispatcher {
 
-    public static final String MODULE = ServiceDispatcher.class.getName();
+    private static final String MODULE = ServiceDispatcher.class.getName();
     public static final int lruLogSize = 200;
     public static final int LOCK_RETRIES = 3;
 

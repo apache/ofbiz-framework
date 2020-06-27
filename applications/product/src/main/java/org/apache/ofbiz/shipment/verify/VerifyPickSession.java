@@ -45,7 +45,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class VerifyPickSession implements Serializable {
 
-    public static final String MODULE = VerifyPickSession.class.getName();
+    private static final String MODULE = VerifyPickSession.class.getName();
 
     protected GenericValue userLogin = null;
     protected String dispatcherName = null;

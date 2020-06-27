@@ -50,7 +50,7 @@ import org.apache.ofbiz.product.product.ProductWorker;
 
 public final class ProductDisplayWorker {
 
-    public static final String MODULE = ProductDisplayWorker.class.getName();
+    private static final String MODULE = ProductDisplayWorker.class.getName();
 
     private ProductDisplayWorker() {}
 

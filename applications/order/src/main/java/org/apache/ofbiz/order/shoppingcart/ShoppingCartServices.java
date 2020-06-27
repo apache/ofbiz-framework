@@ -62,8 +62,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ShoppingCartServices {
 
-    public static final String MODULE = ShoppingCartServices.class.getName();
-    public static final String resource_error = "OrderErrorUiLabels";
+    private static final String MODULE = ShoppingCartServices.class.getName();
+    private static final String RES_ERROR = "OrderErrorUiLabels";
 
     public static final MathContext generalRounding = new MathContext(10);
     public static Map<String, Object> assignItemShipGroup(DispatchContext dctx, Map<String, Object> context) {
@@ -131,7 +131,7 @@ public class ShoppingCartServices {
                 cart.setIsGift(idx, isGift);
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex",groupIndex), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex",groupIndex), locale));
         }
         return ServiceUtil.returnSuccess();
     }
@@ -139,7 +139,7 @@ public class ShoppingCartServices {
     public static Map<String, Object>setPaymentOptions(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
 
-        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderServiceNotYetImplemented",locale));
+        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderServiceNotYetImplemented",locale));
     }
 
     public static Map<String, Object>setOtherOptions(DispatchContext dctx, Map<String, Object> context) {

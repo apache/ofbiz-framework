@@ -24,7 +24,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#if productId?has_content>
-            <a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?productId=${productId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewInventoryItemProduct}</a>
+            <a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?productId=${productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewInventoryItemProduct}</a>
             <#if showEmpty>
                 <a href="<@ofbizUrl>EditProductInventoryItems?productId=${productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductHideEmptyItems}</a>
             <#else>
@@ -61,7 +61,7 @@ under the License.
                     <#assign inventoryItemDetailFirst = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", null, Static["org.apache.ofbiz.base.util.UtilMisc"].toList("effectiveDate"), false))!>
                     <#if curInventoryItemType??>
                         <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
-                            <td><a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${(inventoryItem.inventoryItemId)!}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${(inventoryItem.inventoryItemId)!}</a></td>
+                            <td><a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${(inventoryItem.inventoryItemId)!}</@ofbizUrl>" class="buttontext">${(inventoryItem.inventoryItemId)!}</a></td>
                             <td>&nbsp;${(curInventoryItemType.get("description",locale))!}</td>
                             <td>
                                 <div>
@@ -80,13 +80,13 @@ under the License.
                                 <td style="color: red;">${uiLabelMap.ProductErrorFacility} (${inventoryItem.facilityId})
                                     ${uiLabelMap.ProductAndContainer} (${inventoryItem.containerId}) ${uiLabelMap.CommonSpecified}</td>
                             <#elseif inventoryItem.facilityId??>
-                                <td>${uiLabelMap.ProductFacilityLetter}:&nbsp;<a href="<@ofbizUrl controlPath="/facility/control">EditFacility?facilityId=${inventoryItem.facilityId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="linktext">${inventoryItem.facilityId}</a></td>
+                                <td>${uiLabelMap.ProductFacilityLetter}:&nbsp;<a href="<@ofbizUrl controlPath="/facility/control">EditFacility?facilityId=${inventoryItem.facilityId}</@ofbizUrl>" class="linktext">${inventoryItem.facilityId}</a></td>
                             <#elseif (inventoryItem.containerId)??>
                                 <td>${uiLabelMap.ProductContainerLetter}:&nbsp;<a href="<@ofbizUrl>EditContainer?containerId=${inventoryItem.containerId }</@ofbizUrl>" class="linktext">${inventoryItem.containerId}</a></td>
                             <#else>
                                 <td>&nbsp;</td>
                             </#if>
-                            <td><a href="<@ofbizUrl controlPath="/facility/control">EditFacilityLocation?facilityId=${(inventoryItem.facilityId)!}&amp;locationSeqId=${(inventoryItem.locationSeqId)!}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="linktext"><#if facilityLocation??>${facilityLocation.areaId!}:${facilityLocation.aisleId!}:${facilityLocation.sectionId!}:${facilityLocation.levelId!}:${facilityLocation.positionId!}</#if><#if facilityLocationTypeEnum?has_content> (${facilityLocationTypeEnum.get("description",locale)})</#if> [${(inventoryItem.locationSeqId)!}]</a></td>
+                            <td><a href="<@ofbizUrl controlPath="/facility/control">EditFacilityLocation?facilityId=${(inventoryItem.facilityId)!}&amp;locationSeqId=${(inventoryItem.locationSeqId)!}</@ofbizUrl>" class="linktext"><#if facilityLocation??>${facilityLocation.areaId!}:${facilityLocation.aisleId!}:${facilityLocation.sectionId!}:${facilityLocation.levelId!}:${facilityLocation.positionId!}</#if><#if facilityLocationTypeEnum?has_content> (${facilityLocationTypeEnum.get("description",locale)})</#if> [${(inventoryItem.locationSeqId)!}]</a></td>
                             <td>&nbsp;${(inventoryItem.lotId)!}</td>
                             <td>&nbsp;${(inventoryItem.binNumber)!}</td>
                             <td align="right"><@ofbizCurrency amount=inventoryItem.unitCost isoCode=inventoryItem.currencyUomId/></td>

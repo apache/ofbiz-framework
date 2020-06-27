@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
  */
 public final class GetRelated extends MethodOperation {
 
-    public static final String MODULE = GetRelated.class.getName();
+    private static final String MODULE = GetRelated.class.getName();
 
     private final FlexibleMapAccessor<Object> listFma;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;

@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class EntityEcaCondition implements java.io.Serializable {
 
-    public static final String MODULE = EntityEcaCondition.class.getName();
+    private static final String MODULE = EntityEcaCondition.class.getName();
 
     protected String lhsValueName = null;
     protected String rhsValueName = null;

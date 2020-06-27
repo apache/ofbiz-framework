@@ -39,7 +39,7 @@ import com.ibm.icu.util.Calendar;
  */
 public final class UtilDateTime {
 
-    public static final String MODULE = UtilDateTime.class.getName();
+    private static final String MODULE = UtilDateTime.class.getName();
 
     private static final String[][] timevals = {
         {"1000", "millisecond"},

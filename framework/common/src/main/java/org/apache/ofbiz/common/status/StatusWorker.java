@@ -34,7 +34,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class StatusWorker {
 
-    public static final String MODULE = StatusWorker.class.getName();
+    private static final String MODULE = StatusWorker.class.getName();
 
     private StatusWorker() {}
 

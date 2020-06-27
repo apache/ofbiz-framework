@@ -58,7 +58,7 @@ import org.w3c.dom.Element;
  */
 public class EntityPermissionChecker {
 
-    public static final String MODULE = EntityPermissionChecker.class.getName();
+    private static final String MODULE = EntityPermissionChecker.class.getName();
 
     protected FlexibleStringExpander entityIdExdr;
     protected FlexibleStringExpander entityNameExdr;

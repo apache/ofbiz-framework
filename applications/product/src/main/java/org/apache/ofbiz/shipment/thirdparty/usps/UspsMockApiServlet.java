@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class UspsMockApiServlet extends HttpServlet {
 
-    public static final String MODULE = UspsMockApiServlet.class.getName();
+    private static final String MODULE = UspsMockApiServlet.class.getName();
 
 
     public UspsMockApiServlet() {

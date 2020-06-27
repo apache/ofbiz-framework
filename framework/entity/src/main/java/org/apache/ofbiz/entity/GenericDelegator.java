@@ -94,7 +94,7 @@ import org.xml.sax.SAXException;
  */
 public class GenericDelegator implements Delegator {
 
-    public static final String MODULE = GenericDelegator.class.getName();
+    private static final String MODULE = GenericDelegator.class.getName();
 
     protected ModelReader modelReader = null;
     protected ModelGroupReader modelGroupReader = null;
@@ -312,7 +312,7 @@ public class GenericDelegator implements Delegator {
             return;
         }
 
-        Callable<EntityEcaHandler<?>> creator = () -> createEntityEcaHandler();
+        Callable<EntityEcaHandler<?>> creator = this::createEntityEcaHandler;
         FutureTask<EntityEcaHandler<?>> futureTask = new FutureTask<>(creator);
         if (this.entityEcaHandler.compareAndSet(null, futureTask)) {
             // This needs to use BATCH, as the service engine might add it's own items into a thread pool.
@@ -2602,7 +2602,7 @@ public class GenericDelegator implements Delegator {
             return;
         }
 
-        Callable<DistributedCacheClear> creator = () -> createDistributedCacheClear();
+        Callable<DistributedCacheClear> creator = this::createDistributedCacheClear;
         FutureTask<DistributedCacheClear> futureTask = new FutureTask<>(creator);
         if (distributedCacheClear.compareAndSet(null, futureTask)) {
             ExecutionPool.GLOBAL_BATCH.submit(futureTask);

@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityEcaSetField {
 
-    public static final String MODULE = EntityEcaSetField.class.getName();
+    private static final String MODULE = EntityEcaSetField.class.getName();
 
     private final String fieldName;
     private final String envName;

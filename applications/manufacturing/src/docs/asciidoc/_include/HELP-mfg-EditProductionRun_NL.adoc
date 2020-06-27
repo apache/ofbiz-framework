@@ -1,0 +1,58 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Tonen production run
+Dit scherm toont de productierun. +
+Via dit scherm kun je:
+
+* Basisgegevens van de productierun wijzigen
+* Taken aanmaken - klik op 'Taken'
+* Materialen toevoegen - klik op 'Materialen'
+* Productiemiddelen koppelen - klik op 'Productiemiddelen'
+* De gekoppelde (afhankelijke) productieruns bekijken - klik op 'Associaties'
+* De gekoppelde content document bekijken - klik op 'Content'
+* De werkelijke kosten van de productierun bekijken - klik op 'Kosten'
+
+== Gegevens productierun
+Deze sectie toont de basisgegevens van de productie run. +
+Tevens kun je de basisgegevens bijwerken.
+
+In deze sectie kun je volgende acties uitvoeren:
+
+* Annuleren - om de taak te annuleren
+* Quick close - om de taak af te sluiten
+* Quick complete - 0m de taak als uitgevoerd aan te merken
+* Bevestigen - om de taak te bevestigen
+* Agenderen -om de taak te agenderen in de kalender
+* Afdrukken - om een pdf van de productierun aan te maken
+
+== Orderregels
+Deze sectie toont de gekoppelde orderregels
+
+== Taken
+Deze sectie toont de gekoppelde taken
+
+== Materialen
+Deze sectie toont de benodigde materialen voor de productierun
+
+== Productiemiddelen
+Deze sectie toont de benodigde productiemiddelen voor de productierun
+
+== Notities
+Deze sectie toont de gekoppelde notities inzake de productierun

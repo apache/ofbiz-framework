@@ -49,8 +49,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class ProductFeatureServices {
 
-    public static final String MODULE = ProductFeatureServices.class.getName();
-    public static final String resource = "ProductUiLabels";
+    private static final String MODULE = ProductFeatureServices.class.getName();
+    private static final String RESOURCE = "ProductUiLabels";
 
     /*
      * Parameters: productFeatureCategoryId, productFeatureGroupId, productId, productFeatureApplTypeId
@@ -87,7 +87,7 @@ public class ProductFeatureServices {
         }
 
         if (valueToSearch == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductFeatureByType", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductFeatureByType", locale));
         }
 
         try {
@@ -337,7 +337,7 @@ public class ProductFeatureServices {
             }
 
             if (products.size() == 0) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductCategoryNoVariants", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductCategoryNoVariants", locale));
             } else {
                 results = ServiceUtil.returnSuccess();
                 results.put("products", products);

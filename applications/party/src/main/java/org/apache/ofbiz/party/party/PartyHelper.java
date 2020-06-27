@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class PartyHelper {
 
-    public static final String MODULE = PartyHelper.class.getName();
+    private static final String MODULE = PartyHelper.class.getName();
 
     private PartyHelper() {}
 
@@ -89,6 +89,10 @@ public class PartyHelper {
                     }
                 }
                 result.append(UtilFormatOut.checkNull(partyValue.getString("firstName")));
+                if (partyValue.getString("middleName") != null) {
+                    result.append(" ");
+                }
+                result.append(UtilFormatOut.checkNull(partyValue.getString("middleName")));
             } else {
                 result.append(UtilFormatOut.ifNotEmpty(partyValue.getString("firstName"), "", " "));
                 result.append(UtilFormatOut.ifNotEmpty(partyValue.getString("middleName"), "", " "));

@@ -384,22 +384,6 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testUpdateTimesheetToInProcess" short-description="Test the service updateTimesheetToInProcess" login-required="false">
-        <set field="serviceCtx.timesheetId" value="TestTimesheet-1"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="updateTimesheetToInProcess" in-map-name="serviceCtx"/>
-        <entity-one entity-name="Timesheet" value-field="timesheet">
-            <field-map field-name="timesheetId" value="TestTimesheet-1"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="timesheet"/></not>
-            <if-compare operator="equals" field="timesheet.statusId" value="TIMESHEET_IN_PROCESS"/>
-        </assert>
-        <check-errors/>
-    </simple-method>
     <simple-method method-name="testUpdateTimesheet" short-description="Test the service updateTimesheet" login-required="false">
         <set field="serviceCtx.timesheetId" value="TestTimesheet-2"/>
         <set field="serviceCtx.clientPartyId" value="TestParty"/>
@@ -510,7 +494,7 @@ under the License.
     </simple-method>
     <simple-method method-name="testUpdateTimeEntry" short-description="Test the service updateTimeEntry" login-required="false">
         <set field="serviceCtx.timeEntryId" value="TestTimeEntry-1"/>
-        <set field="serviceCtx.timesheetId" value="TestTimesheet-1"/>
+        <set field="serviceCtx.timesheetId" value="TestTimesheet-4"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -521,7 +505,7 @@ under the License.
         </entity-one>
         <assert>
             <not><if-empty field="timeEntry"/></not>
-            <if-compare operator="equals" field="timeEntry.timesheetId" value="TestTimesheet-1"/>
+            <if-compare operator="equals" field="timeEntry.timesheetId" value="TestTimesheet-4"/>
         </assert>
         <check-errors/>
     </simple-method>
@@ -557,23 +541,6 @@ under the License.
         <first-from-list entry="rateAmount" list="rateAmountList"/>
         <assert>
             <not><if-empty field="rateAmount"/></not>
-        </assert>
-        <check-errors/>
-    </simple-method>
-    <simple-method method-name="testUnlinkInvoiceFromTimeEntry" short-description="Test the service unlinkInvoiceFromTimeEntry" login-required="false">
-        <set field="serviceCtx.invoiceId" value="TestInvoice"/>
-        <set field="serviceCtx.timeEntryId" value="TestTimeEntry-3"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="unlinkInvoiceFromTimeEntry" in-map-name="serviceCtx"/>
-        <entity-one entity-name="TimeEntry" value-field="timeEntry">
-            <field-map field-name="timeEntryId" value="TestTimeEntry-3"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="timeEntry"/></not>
-            <if-empty field="timeEntry.invoiceId"/>
         </assert>
         <check-errors/>
     </simple-method>

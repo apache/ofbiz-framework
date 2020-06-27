@@ -84,6 +84,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingEditProductionRun"/>
                 <set field="tabButtonItem" value="edit"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="helpAnchor" value="_edit_production_run"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -162,6 +163,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingProductionRunDeclaration"/>
                 <set field="tabButtonItem" value="declaration"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="helpAnchor" value="_productionrun_management_in_ui"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -276,7 +278,7 @@ under the License.
                             </widgets>
                           </section>
                         </screenlet>
-                        
+
                         <screenlet title="${uiLabelMap.ManufacturingMaterialsRequiredByRunningTask}">
                             <include-form name="ListIssueProductionRunDeclComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
@@ -320,6 +322,7 @@ under the License.
                 <set field="tabButtonItem" value="assocs"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="jobshop"/>
+                <set field="helpAnchor" value="_display_production_run_assocs"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
@@ -447,6 +450,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingProductionRunTasks"/>
                 <set field="tabButtonItem" value="tasks"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="helpAnchor" value="_display_production_run_tasks"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -479,6 +483,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingProductionRunComponents"/>
                 <set field="tabButtonItem" value="components"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="helpAnchor" value="_display_production_run_materials"/>
                 <set field="formName" value="ProductionRunTaskComponents"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -545,6 +550,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingProductionRunFixedAssets"/>
                 <set field="tabButtonItem" value="fixedAssets"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="helpAnchor" value="_display_production_run_equipment"/>
                 <set field="formName" value="ProductionRunTaskFixedAssets"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -590,6 +596,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingProductionRunCosts"/>
                 <set field="tabButtonItem" value="costs"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="helpAnchor" value="_display_production_run_costs"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
@@ -628,6 +635,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingProductionRunContent"/>
                 <set field="tabButtonItem" value="content"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="helpAnchor" value="_display_production_run_content"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
@@ -679,6 +687,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ManufacturingFindProductionRun"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="helpAnchor" value="_jobshop_or_productionrun"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -713,6 +722,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ManufacturingWorkWithShipmentPlans"/>
                 <set field="headerItem" value="ShipmentPlans"/>
+                <set field="helpAnchor" value="_shipment_plans"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <set field="sortField" from-field="parameters.sortField" default-value="estimatedShipDate"/>
                 <entity-one entity-name="Shipment" value-field="shipment"/>

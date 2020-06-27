@@ -45,10 +45,11 @@ import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 
 public final class CsrfUtil {
 
-    public static final String MODULE = CsrfUtil.class.getName();
+    private static final String MODULE = CsrfUtil.class.getName();
     private static String tokenNameNonAjax = UtilProperties.getPropertyValue("security", "csrf.tokenName.nonAjax",
             "csrf");
     private static ICsrfDefenseStrategy strategy;
+    private static String strategyCanonicalName;
     private static int cacheSize = (int) Long
             .parseLong(UtilProperties.getPropertyValue("security", "csrf.cache.size", "5000"));
     private static LinkedHashMap<String, Map<String, Map<String, String>>> csrfTokenCache =
@@ -68,10 +69,11 @@ public final class CsrfUtil {
             String className = UtilProperties.getPropertyValue("security", "csrf.defense.strategy",
                     NoCsrfDefenseStrategy.class.getCanonicalName());
             Class<?> c = Class.forName(className);
+            strategyCanonicalName = c.getCanonicalName();
             setStrategy((ICsrfDefenseStrategy) c.newInstance());
         } catch (Exception e) {
             Debug.logError(e, MODULE);
-            setStrategy(new CsrfDefenseStrategy());
+            setStrategy(new NoCsrfDefenseStrategy());
         }
     }
 
@@ -199,7 +201,9 @@ public final class CsrfUtil {
             requestMap = findRequestMap(requestMapMap, pathOrRequestUri);
         }
         if (requestMap == null) {
-            Debug.logError("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
+            if (!"org.apache.ofbiz.security.NoCsrfDefenseStrategy".equals(strategyCanonicalName)) {
+                Debug.logWarning("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
+            }
         }
         String tokenValue = "";
         if (requestMap != null && requestMap.securityCsrfToken) {

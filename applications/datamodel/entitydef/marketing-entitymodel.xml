@@ -632,7 +632,7 @@ under the License.
         <alias entity-alias="TC" name="marketingCampaignId" group-by="true"/>
         <alias entity-alias="TCV" name="visitId" function="count"/>
         <alias entity-alias="TCV" name="fromDate" group-by="false"/>
-        <view-link entity-alias="TC" rel-entity-alias="TCV" rel-optional="true">
+        <view-link entity-alias="TC" rel-entity-alias="TCV" rel-optional="false">
             <key-map field-name="trackingCodeId"/>
         </view-link>
     </view-entity>

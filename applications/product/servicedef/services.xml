@@ -242,8 +242,8 @@ under the License.
     </service>
 
     <!-- Product Price Services -->
-    <service name="createProductPrice" default-entity-name="ProductPrice" engine="simple"
-                location="component://product/minilang/product/price/PriceServices.xml" invoke="createProductPrice" auth="true">
+    <service name="createProductPrice" default-entity-name="ProductPrice" engine="groovy"
+                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="createProductPrice" auth="true">
         <description>
             Create a Product Price.
 
@@ -269,8 +269,8 @@ under the License.
         <override name="fromDate" mode="INOUT" optional="true"/>
         <override name="price" optional="false"/>
     </service>
-    <service name="updateProductPrice" default-entity-name="ProductPrice" engine="simple"
-                location="component://product/minilang/product/price/PriceServices.xml" invoke="updateProductPrice" auth="true">
+    <service name="updateProductPrice" default-entity-name="ProductPrice" engine="groovy"
+                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="updateProductPrice" auth="true">
         <description>Update an ProductPrice</description>
         <permission-service service-name="checkProductRelatedPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -286,8 +286,8 @@ under the License.
         <attribute name="oldPrice" type="BigDecimal" mode="OUT" optional="false"/>
         <override name="price" optional="false"/>
     </service>
-    <service name="deleteProductPrice" default-entity-name="ProductPrice" engine="simple"
-                location="component://product/minilang/product/price/PriceServices.xml" invoke="deleteProductPrice" auth="true">
+    <service name="deleteProductPrice" default-entity-name="ProductPrice" engine="groovy"
+                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="deleteProductPrice" auth="true">
         <description>Delete an ProductPrice</description>
         <permission-service service-name="checkProductRelatedPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -295,14 +295,12 @@ under the License.
     </service>
 
     <!-- called by ECAs on ProductPrice service call events -->
-    <service name="saveProductPriceChange" default-entity-name="ProductPrice" engine="simple"
-            location="component://product/minilang/product/price/PriceServices.xml" invoke="saveProductPriceChange" auth="true">
+    <service name="saveProductPriceChange" default-entity-name="ProductPriceChange" engine="entity-auto" invoke="create" auth="true">
         <description>Save History of a ProductPrice Change</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false" entity-name="ProductPrice"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="oldPrice" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="productPriceChangeId" type="String" mode="OUT" optional="true"/>
+        <attribute name="productPriceChangeId" type="String" mode="OUT"/>
     </service>
 
     <!-- Product PaymentMethodType Services -->
@@ -1003,7 +1001,7 @@ under the License.
         <description>Create ProductFeature-DataResource</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="removeProductFeatureDataResource" default-entity-name="ProductFeatureDataResource" engine="entity-auto" invoke="remove" auth="true">
+    <service name="removeProductFeatureDataResource" default-entity-name="ProductFeatureDataResource" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove ProductFeature-DataResource</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -1246,6 +1244,12 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
     </service>
+    <service name="checkProductRelatedPermission" engine="groovy"
+        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="checkProductRelatedPermissionCall">
+        <attribute name="callingMethodName" mode="IN" type="String"/>
+        <attribute name="checkAction" mode="IN" type="String"/>
+        <attribute name="productId" mode="IN" type="String"/>
+    </service>
     <!-- Product Attribute Services -->
     <service name="createProductAttribute" default-entity-name="ProductAttribute" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductAttribute</description>
@@ -1384,7 +1388,7 @@ under the License.
     </service>
 
     <service name="multipleUploadProductImages" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="UploadProductImages" auth="true">
+        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="uploadProductImages" auth="true">
         <description>Multiple upload Images For Product</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="INOUT" optional="false"/>

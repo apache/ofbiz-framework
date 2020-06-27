@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelFieldTypeReader implements Serializable {
 
-    public static final String MODULE = ModelFieldTypeReader.class.getName();
+    private static final String MODULE = ModelFieldTypeReader.class.getName();
     protected static final UtilCache<String, ModelFieldTypeReader> readers = UtilCache.createUtilCache("entity.ModelFieldTypeReader", 0, 0);
 
     protected static Map<String, ModelFieldType> createFieldTypeCache(Element docElement, String location) {

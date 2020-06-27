@@ -35,7 +35,7 @@ import javax.net.ssl.X509TrustManager;
  */
 public class MultiTrustManager implements X509TrustManager {
 
-    public static final String MODULE = MultiTrustManager.class.getName();
+    private static final String MODULE = MultiTrustManager.class.getName();
 
     protected List<KeyStore> keystores;
 

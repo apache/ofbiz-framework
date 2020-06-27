@@ -18,7 +18,6 @@
  */
 package org.apache.ofbiz.order
 
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -72,14 +71,14 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('autoAssignRequirementToSupplier', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
-    void testAssociatedRequirementWithRequestItem() {
+    void testCreateRequirementCustRequest() {
         Map serviceCtx = [
             requirementId: '1000',
             custRequestId: '9000',
             custRequestItemSeqId: '00001',
             userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync('associatedRequirementWithRequestItem', serviceCtx)
+        Map serviceResult = dispatcher.runSync('createRequirementCustRequest', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
     void testAddRequirementTask() {
@@ -91,5 +90,4 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync("addRequirementTask", serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
-
 }

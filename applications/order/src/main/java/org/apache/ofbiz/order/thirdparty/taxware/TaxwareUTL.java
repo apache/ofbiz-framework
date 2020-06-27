@@ -49,7 +49,7 @@ import org.apache.ofbiz.entity.GenericValue;
  */
 public class TaxwareUTL {
 
-    public static final String MODULE = TaxwareUTL.class.getName();
+    private static final String MODULE = TaxwareUTL.class.getName();
 
     // default data files
     DataFile outHead = null;

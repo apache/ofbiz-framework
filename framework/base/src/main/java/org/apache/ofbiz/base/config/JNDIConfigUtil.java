@@ -30,7 +30,7 @@ import org.w3c.dom.Element;
  */
 public final class JNDIConfigUtil {
 
-    public static final String MODULE = JNDIConfigUtil.class.getName();
+    private static final String MODULE = JNDIConfigUtil.class.getName();
     private static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
     private static final ConcurrentHashMap<String, JndiServerInfo> jndiServerInfos = new ConcurrentHashMap<>();
     private JNDIConfigUtil() {}

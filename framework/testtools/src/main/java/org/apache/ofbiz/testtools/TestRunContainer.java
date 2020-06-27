@@ -49,7 +49,7 @@ import junit.framework.TestSuite;
  */
 public class TestRunContainer implements Container {
 
-    public static final String MODULE = TestRunContainer.class.getName();
+    private static final String MODULE = TestRunContainer.class.getName();
     public static final String logDir = "runtime/logs/test-results/";
 
     private String name;
@@ -63,7 +63,7 @@ public class TestRunContainer implements Container {
         // get the test properties passed by the user in the command line
         Map<String, String> testProps = ofbizCommands.stream()
                 .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.TEST.getName()))
-                .map(command -> command.getProperties())
+                .map(StartupCommand::getProperties)
                 .findFirst().get();
 
         // set selected log level if passed by user

@@ -44,7 +44,7 @@ import org.apache.ofbiz.base.util.Debug;
  *
  */
 public abstract class JdbcValueHandler<T> {
-    public static final String MODULE = JdbcValueHandler.class.getName();
+    private static final String MODULE = JdbcValueHandler.class.getName();
     private static final Map<String, JdbcValueHandler<?>> JdbcValueHandlerMap = createJdbcValueHandlerMap();
     private static final Map<String, Integer> SqlTypeMap = createSqlTypeMap();
 

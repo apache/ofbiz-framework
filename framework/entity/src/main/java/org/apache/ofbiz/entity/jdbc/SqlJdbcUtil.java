@@ -69,7 +69,7 @@ import org.apache.ofbiz.entity.model.ModelViewEntity;
  *
  */
 public final class SqlJdbcUtil {
-    public static final String MODULE = SqlJdbcUtil.class.getName();
+    private static final String MODULE = SqlJdbcUtil.class.getName();
 
     private static final int CHAR_BUFFER_SIZE = 4096;
     private static Map<String, Integer> fieldTypeMap = new HashMap<>();

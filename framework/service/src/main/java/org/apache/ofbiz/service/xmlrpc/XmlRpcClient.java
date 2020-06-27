@@ -32,7 +32,7 @@ import org.apache.xmlrpc.client.XmlRpcTransportFactory;
  */
 public class XmlRpcClient extends org.apache.xmlrpc.client.XmlRpcClient {
 
-    public static final String MODULE = XmlRpcClient.class.getName();
+    private static final String MODULE = XmlRpcClient.class.getName();
 
     protected String keyStoreComponent;
     protected String keyStoreName;

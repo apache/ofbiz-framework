@@ -271,7 +271,7 @@ under the License.
                 <!-- render messages -->
                 <platform-specific>
                     <html>
-                        <html-template location="${messagesTemplateLocation}" />
+                        <html-template multi-block="true" location="${messagesTemplateLocation}" />
                     </html>
                 </platform-specific>
                 <!-- render content area -->
@@ -358,8 +358,8 @@ under the License.
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/validate/jquery.validate.min.js"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js" global="true"/>
-                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-migrate-3.0.0.min.js" global="true"/>
-                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.4.1.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-migrate-3.3.0.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.5.1.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[]" value="/common/js/util/OfbizUtil.js" global="true"/>
                     </actions>
                     <widgets>
@@ -449,8 +449,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-migrate-3.0.0.min.js" global="true" />
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.4.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-migrate-3.3.0.min.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.5.1.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/select2/css/select2-4.0.6.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css" global="true" />
@@ -658,7 +658,7 @@ under the License.
     <screen name="EventMessages">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -720,7 +720,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common-theme/template/ViewBlocked.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -732,7 +732,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://common-theme/template/includes/GeoLocation.ftl"/></html>
+                    <html><html-template multi-block="true" location="component://common-theme/template/includes/GeoLocation.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

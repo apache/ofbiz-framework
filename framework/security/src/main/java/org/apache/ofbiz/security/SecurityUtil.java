@@ -42,7 +42,7 @@ import org.apache.ofbiz.webapp.control.JWTManager;
  */
 public final class SecurityUtil {
 
-    public static final String MODULE = SecurityUtil.class.getName();
+    private static final String MODULE = SecurityUtil.class.getName();
     private static final List<String> adminPermissions = UtilMisc.toList(
             "IMPERSONATE_ADMIN",
             "ARTIFACT_INFO_VIEW",

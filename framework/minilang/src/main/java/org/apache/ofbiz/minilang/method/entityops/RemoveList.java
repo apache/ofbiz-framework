@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  */
 public final class RemoveList extends EntityOperation {
 
-    public static final String MODULE = RemoveList.class.getName();
+    private static final String MODULE = RemoveList.class.getName();
     private final FlexibleMapAccessor<List<GenericValue>> listFma;
 
     public RemoveList(Element element, SimpleMethod simpleMethod) throws MiniLangException {

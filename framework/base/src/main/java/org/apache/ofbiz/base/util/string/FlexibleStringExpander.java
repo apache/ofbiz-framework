@@ -53,7 +53,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 @SuppressWarnings("serial")
 public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
 
-    public static final String MODULE = FlexibleStringExpander.class.getName();
+    private static final String MODULE = FlexibleStringExpander.class.getName();
     public static final String openBracket = "${";
     public static final String closeBracket = "}";
     protected static final UtilCache<Key, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");

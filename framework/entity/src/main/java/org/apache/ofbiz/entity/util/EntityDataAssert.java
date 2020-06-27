@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  */
 public class EntityDataAssert {
 
-    public static final String MODULE = EntityDataAssert.class.getName();
+    private static final String MODULE = EntityDataAssert.class.getName();
 
     public static int assertData(URL dataUrl, Delegator delegator, List<Object> errorMessages) throws GenericEntityException, SAXException, ParserConfigurationException, IOException {
         int rowsChecked = 0;

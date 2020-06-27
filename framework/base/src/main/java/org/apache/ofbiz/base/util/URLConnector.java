@@ -35,7 +35,7 @@ import org.apache.ofbiz.base.config.GenericConfigException;
  */
 public class URLConnector {
 
-    public static final String MODULE = URLConnector.class.getName();
+    private static final String MODULE = URLConnector.class.getName();
 
     private URLConnection connection = null;
     private URL url = null;

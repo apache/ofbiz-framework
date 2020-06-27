@@ -44,7 +44,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class ParametricSearch {
 
-    public static final String MODULE = ParametricSearch.class.getName();
+    private static final String MODULE = ParametricSearch.class.getName();
 
     public static final int DEFAULT_PER_TYPE_MAX_SIZE = 1000;
 

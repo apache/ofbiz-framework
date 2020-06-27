@@ -57,7 +57,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a range of dates. */
     public static class DateRange extends TemporalExpression {
-        public static final String MODULE = DateRange.class.getName();
+        private static final String MODULE = DateRange.class.getName();
         protected final org.apache.ofbiz.base.util.DateRange range;
 
         public DateRange(Date date) {
@@ -136,7 +136,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a day in the month. */
     public static class DayInMonth extends TemporalExpression {
-        public static final String MODULE = DayInMonth.class.getName();
+        private static final String MODULE = DayInMonth.class.getName();
         protected final int dayOfWeek;
         protected final int occurrence;
 
@@ -290,7 +290,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a day of month range. */
     public static class DayOfMonthRange extends TemporalExpression {
-        public static final String MODULE = DayOfMonthRange.class.getName();
+        private static final String MODULE = DayOfMonthRange.class.getName();
         protected final int end;
         protected final int start;
 
@@ -408,7 +408,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a day of week range. */
     public static class DayOfWeekRange extends TemporalExpression {
-        public static final String MODULE = DayOfWeekRange.class.getName();
+        private static final String MODULE = DayOfWeekRange.class.getName();
         protected final int end;
         protected final int start;
 
@@ -550,7 +550,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a difference of two temporal expressions. */
     public static class Difference extends TemporalExpression {
-        public static final String MODULE = Difference.class.getName();
+        private static final String MODULE = Difference.class.getName();
         protected final TemporalExpression excluded;
         protected final TemporalExpression included;
 
@@ -655,7 +655,7 @@ public class TemporalExpressions implements Serializable {
 
     /* A temporal expression that represents a frequency. */
     public static class Frequency extends TemporalExpression {
-        public static final String MODULE = Frequency.class.getName();
+        private static final String MODULE = Frequency.class.getName();
         protected final int freqCount;
         protected final int freqType;
         protected final Date start;
@@ -818,7 +818,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents an hour range. */
     public static class HourRange extends TemporalExpression {
-        public static final String MODULE = HourRange.class.getName();
+        private static final String MODULE = HourRange.class.getName();
         protected final int end;
         protected final int start;
 
@@ -977,7 +977,7 @@ public class TemporalExpressions implements Serializable {
     /** A temporal expression that represents a mathematical intersection of all of its
      * member expressions. */
     public static class Intersection extends TemporalExpression {
-        public static final String MODULE = Intersection.class.getName();
+        private static final String MODULE = Intersection.class.getName();
         protected final Set<TemporalExpression> expressionSet;
 
         public Intersection(Set<TemporalExpression> expressionSet) {
@@ -1106,7 +1106,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a minute range. */
     public static class MinuteRange extends TemporalExpression {
-        public static final String MODULE = MinuteRange.class.getName();
+        private static final String MODULE = MinuteRange.class.getName();
         protected final int end;
         protected final int start;
 
@@ -1264,7 +1264,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a month range. */
     public static class MonthRange extends TemporalExpression {
-        public static final String MODULE = MonthRange.class.getName();
+        private static final String MODULE = MonthRange.class.getName();
         protected final int end;
         protected final int start;
 
@@ -1423,7 +1423,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that provides a substitution for an excluded temporal expression. */
     public static class Substitution extends TemporalExpression {
-        public static final String MODULE = Substitution.class.getName();
+        private static final String MODULE = Substitution.class.getName();
         protected final TemporalExpression excluded;
         protected final TemporalExpression included;
         protected final TemporalExpression substitute;
@@ -1545,7 +1545,7 @@ public class TemporalExpressions implements Serializable {
     /** A temporal expression that represents a mathematical union of all of its
      * member expressions. */
     public static class Union extends TemporalExpression {
-        public static final String MODULE = Union.class.getName();
+        private static final String MODULE = Union.class.getName();
         protected final Set<TemporalExpression> expressionSet;
 
         public Union(Set<TemporalExpression> expressionSet) {

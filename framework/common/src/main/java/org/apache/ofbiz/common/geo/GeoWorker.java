@@ -37,7 +37,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class GeoWorker {
 
-    public static final String MODULE = GeoWorker.class.getName();
+    private static final String MODULE = GeoWorker.class.getName();
 
     private GeoWorker() {}
 

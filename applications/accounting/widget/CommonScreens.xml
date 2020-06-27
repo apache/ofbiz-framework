@@ -40,6 +40,7 @@ under the License.
                 <set field="applicationMenuName" value="AccountingAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://accounting/widget/AccountingMenus.xml" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.AccountingManagerApplication" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_accounting"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -273,6 +274,7 @@ under the License.
             </condition>
             <actions>
                 <set field="headerItem" value="main"/>
+                <set field="helpAnchor" value="_help_for_accounting_main_screen"/>
                 <entity-condition entity-name="PaymentType" list="paymentTypes">
                     <order-by field-name="paymentTypeId"/>
                 </entity-condition>

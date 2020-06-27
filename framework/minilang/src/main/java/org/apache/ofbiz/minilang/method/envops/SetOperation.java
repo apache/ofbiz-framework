@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
  */
 public final class SetOperation extends MethodOperation {
 
-    public static final String MODULE = SetOperation.class.getName();
+    private static final String MODULE = SetOperation.class.getName();
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {

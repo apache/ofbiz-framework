@@ -54,7 +54,7 @@ import org.xml.sax.SAXException;
  */
 public class ThemeFactory {
 
-    public static final String MODULE = ThemeFactory.class.getName();
+    private static final String MODULE = ThemeFactory.class.getName();
 
     private static final UtilCache<String, ModelTheme> themeLocationCache = UtilCache.createUtilCache("widget.theme.locationResource", 0, 0, false);
     private static final UtilCache<String, VisualTheme> themeVisualThemeIdCache = UtilCache.createUtilCache("widget.theme.idAndVisualTheme", 0, 0, false);
@@ -78,9 +78,11 @@ public class ThemeFactory {
      */
     private static void pullModelThemesFromXmlToCache() {
         String ofbizHome = System.getProperty("ofbiz.home");
+        String themeFolderPath = ofbizHome + "/themes";
+        String pluginsFolderPath = ofbizHome + "/plugins";
         try {
-            List<File> xmlThemes = FileUtil.findXmlFiles(ofbizHome, "themes", "theme", "widget-theme.xsd");
-            List<File> xmlPluginThemes = FileUtil.findXmlFiles(ofbizHome, "plugins", "theme", "widget-theme.xsd");
+            List<File> xmlThemes = FileUtil.findXmlFiles(themeFolderPath, null, "theme", "widget-theme.xsd");
+            List<File> xmlPluginThemes = FileUtil.findXmlFiles(pluginsFolderPath, null, "theme", "widget-theme.xsd");
             if (UtilValidate.isNotEmpty(xmlPluginThemes)) {
                 xmlThemes.addAll(xmlPluginThemes);
             }

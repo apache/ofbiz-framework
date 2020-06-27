@@ -45,7 +45,7 @@ import org.apache.oro.text.regex.Perl5Matcher;
 @SuppressWarnings("serial")
 public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R> {
 
-    public static final String MODULE = EntityComparisonOperator.class.getName();
+    private static final String MODULE = EntityComparisonOperator.class.getName();
 
     public static Pattern makeOroPattern(String sqlLike) {
         Perl5Util perl5Util = new Perl5Util();

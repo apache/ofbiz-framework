@@ -19,7 +19,8 @@ under the License.
 -->
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+         xmlns="http://ofbiz.apache.org/Widget-Screen"
+         xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindRequest">
         <section>
             <actions>
@@ -28,16 +29,16 @@ under the License.
                 <set field="entityName" value="CustRequest"/>
                 <set field="asm_multipleSelectForm" value="FindRequests"/>
                 <set field="asm_asmListItemPercentOfForm" value="110"/>
-                <set field="custRequestType.asm_multipleSelect"  value="FindRequests_custRequestTypeId"/>
+                <set field="custRequestType.asm_multipleSelect" value="FindRequests_custRequestTypeId"/>
                 <set field="custRequestType.asm_sortable" value="true"/>
                 <set field="custRequestType.asm_title" value=" "/>
-                <set field="statusId.asm_multipleSelect"  value="FindRequests_statusId"/>
+                <set field="statusId.asm_multipleSelect" value="FindRequests_statusId"/>
                 <set field="statusId.asm_sortable" value="true"/>
                 <set field="statusId.asm_title" value=" "/>
-                <set field="productStoreId.asm_multipleSelect"  value="FindRequests_productStoreId"/>
+                <set field="productStoreId.asm_multipleSelect" value="FindRequests_productStoreId"/>
                 <set field="productStoreId.asm_sortable" value="true"/>
                 <set field="productStoreId.asm_title" value=" "/>
-                <set field="salesChannelEnumId.asm_multipleSelect"  value="FindRequests_salesChannelEnumId"/>
+                <set field="salesChannelEnumId.asm_multipleSelect" value="FindRequests_salesChannelEnumId"/>
                 <set field="salesChannelEnumId.asm_sortable" value="true"/>
                 <set field="salesChannelEnumId.asm_title" value=" "/>
                 <set field="asm_listField[]" from-field="custRequestType"/>
@@ -48,32 +49,42 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                        <decorator-screen name="FindScreenDecorator"
+                                          location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
                                 <container style="button-bar">
-                                    <link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext create"/>
+                                    <link target="request" text="${uiLabelMap.OrderNewRequest}"
+                                          style="buttontext create"/>
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
-                                <platform-specific><html><html-template location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html></platform-specific>
-                                <include-form name="FindRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                <platform-specific>
+                                    <html>
+                                        <html-template multi-block="true"
+                                                       location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/>
+                                    </html>
+                                </platform-specific>
+                                <include-form name="FindRequests"
+                                              location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ListRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                <include-form name="ListRequests"
+                                              location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-         </section>
+        </section>
     </screen>
-    
+
     <screen name="ViewCustRequest">
         <section>
             <actions>
                 <set field="custRequestId" from-field="parameters.custRequestId" default-value="${parameters.id}"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
-                <get-related-one value-field="custRequest" relation-name="CustRequestType" to-value-field="custRequestType"/>
+                <get-related-one value-field="custRequest" relation-name="CustRequestType"
+                                 to-value-field="custRequestType"/>
                 <get-related-one value-field="custRequest" relation-name="StatusItem" to-value-field="statusItem"/>
                 <get-related-one value-field="custRequest" relation-name="CurrencyUom" to-value-field="currency"/>
                 <get-related-one value-field="custRequest" relation-name="ProductStore" to-value-field="store"/>

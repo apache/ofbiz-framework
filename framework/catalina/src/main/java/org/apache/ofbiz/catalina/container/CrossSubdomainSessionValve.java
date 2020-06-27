@@ -36,7 +36,7 @@ import org.apache.tomcat.util.http.MimeHeaders;
 
 public class CrossSubdomainSessionValve extends ValveBase {
 
-    public static final String MODULE = CrossSubdomainSessionValve.class.getName();
+    private static final String MODULE = CrossSubdomainSessionValve.class.getName();
 
     public CrossSubdomainSessionValve() {
         super();
@@ -115,9 +115,14 @@ public class CrossSubdomainSessionValve extends ValveBase {
                 if (mimeHeaders.getName(i).equals("Set-Cookie")) {
                     MessageBytes value = mimeHeaders.getValue(i);
                     if (value.indexOf(cookie.getName()) >= 0) {
-                        String newCookieValue = request.getContext().getCookieProcessor().generateHeader(newCookie);
-                        if (Debug.verboseOn()) Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(), MODULE);
-                        if (Debug.verboseOn()) Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + newCookieValue, MODULE);
+                        String newCookieValue = request.getContext().
+                                getCookieProcessor().generateHeader(newCookie,request);
+                        if (Debug.verboseOn())
+                            Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(),
+                                    MODULE);
+                        if (Debug.verboseOn())
+                            Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + newCookieValue,
+                                    MODULE);
                         value.setString(newCookieValue);
                     }
                 }

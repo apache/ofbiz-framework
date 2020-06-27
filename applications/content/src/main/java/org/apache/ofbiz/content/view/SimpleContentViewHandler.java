@@ -53,7 +53,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 public class SimpleContentViewHandler extends AbstractViewHandler {
 
-    public static final String MODULE = SimpleContentViewHandler.class.getName();
+    private static final String MODULE = SimpleContentViewHandler.class.getName();
     private String rootDir = null;
     private String https = null;
 
@@ -149,7 +149,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                     fileName = dataResource.getString("dataResourceName").replace(" ", "_"); // spaces in filenames can be a problem
                 }
 
-                // see if data resource is public or not
+                // see if data RESOURCE is public or not
                 String isPublic = dataResource.getString("isPublic");
                 if (UtilValidate.isEmpty(isPublic)) {
                     isPublic = "N";

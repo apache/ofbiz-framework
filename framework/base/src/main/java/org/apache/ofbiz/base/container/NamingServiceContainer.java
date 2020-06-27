@@ -38,7 +38,7 @@ import org.apache.ofbiz.base.util.RMIExtendedSocketFactory;
 
 public class NamingServiceContainer implements Container {
 
-    public static final String MODULE = NamingServiceContainer.class.getName();
+    private static final String MODULE = NamingServiceContainer.class.getName();
 
     protected String configFileLocation = null;
     protected boolean isRunning = false;

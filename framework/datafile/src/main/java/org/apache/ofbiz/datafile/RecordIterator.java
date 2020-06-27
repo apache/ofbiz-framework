@@ -33,7 +33,7 @@ import java.util.Stack;
  */
 public class RecordIterator {
 
-    public static final String MODULE = RecordIterator.class.getName();
+    private static final String MODULE = RecordIterator.class.getName();
 
     protected BufferedReader br;
     protected ModelDataFile modelDataFile;

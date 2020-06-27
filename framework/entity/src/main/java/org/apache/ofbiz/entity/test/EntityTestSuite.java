@@ -65,7 +65,7 @@ import org.apache.ofbiz.entity.util.SequenceUtil;
 
 public class EntityTestSuite extends EntityTestCase {
 
-    public static final String MODULE = EntityTestSuite.class.getName();
+    private static final String MODULE = EntityTestSuite.class.getName();
     /*
      * This sets how many values to insert when trying to create a large number of values.  10,000 causes HSQL to crash but is ok
      * with Derby.  Going up to 100,000 causes problems all around because Java List seems to be capped at about 65,000 values.

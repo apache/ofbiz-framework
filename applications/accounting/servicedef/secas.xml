@@ -164,4 +164,19 @@ under the License.
         <set field-name="organizationPartyId" env-name="partyId"/>
         <action service="setAcctgCompany" mode="sync"/>
     </eca>
+
+    <!-- Create Fixed Asset Maintenances From A Meter Reading -->
+    <eca service="createFixedAssetMeter" event="commit">
+        <action service="createMaintsFromMeterReading" mode="sync"/>
+    </eca>
+    <eca service="updateFixedAssetMeter" event="commit">
+        <action service="createMaintsFromMeterReading" mode="sync"/>
+    </eca>
+    <!-- Check AcctgTrans posted -->
+    <eca service="updateAcctgTrans" event="invoke">
+        <action service="checkAcctgTransPosted" mode="sync"/>
+    </eca>
+    <eca service="deleteAcctgTrans" event="invoke">
+        <action service="checkAcctgTransPosted" mode="sync"/>
+    </eca>
 </service-eca>

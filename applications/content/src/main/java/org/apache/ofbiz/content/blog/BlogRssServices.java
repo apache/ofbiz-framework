@@ -51,8 +51,8 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  */
 public class BlogRssServices {
 
-    public static final String MODULE = BlogRssServices.class.getName();
-    public static final String resource = "ContentUiLabels";
+    private static final String MODULE = BlogRssServices.class.getName();
+    private static final String RESOURCE = "ContentUiLabels";
     public static final String mimeTypeId = "text/html";
     public static final String mapKey = "SUMMARY";
 
@@ -79,7 +79,7 @@ public class BlogRssServices {
         }
 
         if (content == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ContentCannotGenerateBlogRssFeed", 
                     UtilMisc.toMap("contentId", contentId), locale));
         }
@@ -118,9 +118,7 @@ public class BlogRssServices {
                 try {
                     Map<String, Object> dummy = new HashMap<>();
                     sub = ContentWorker.renderSubContentAsText(dispatcher, v.getString("contentId"), mapKey, dummy, locale, mimeTypeId, true);
-                } catch (GeneralException e) {
-                    Debug.logError(e, MODULE);
-                } catch (IOException e) {
+                } catch (GeneralException | IOException e) {
                     Debug.logError(e, MODULE);
                 }
                 if (sub != null) {

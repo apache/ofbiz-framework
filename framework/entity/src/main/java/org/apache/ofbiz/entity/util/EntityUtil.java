@@ -59,7 +59,7 @@ import org.apache.ofbiz.entity.model.ModelField;
  */
 public final class EntityUtil {
 
-    public static final String MODULE = EntityUtil.class.getName();
+    private static final String MODULE = EntityUtil.class.getName();
 
     private EntityUtil() {}
 
@@ -388,7 +388,7 @@ public final class EntityUtil {
         if (values == null || UtilValidate.isEmpty(condition)) {
             return values;
         }
-        return values.stream().filter(value -> condition.entityMatches(value)).collect(toList());
+        return values.stream().filter(condition::entityMatches).collect(toList());
     }
 
     public static <T extends GenericEntity> List<T> filterOutByCondition(List<T> values, EntityCondition condition) {

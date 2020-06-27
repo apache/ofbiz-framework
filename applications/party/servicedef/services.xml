@@ -85,7 +85,58 @@ under the License.
         <auto-attributes entity-name="Person" mode="IN" include="nonpk" optional="true"/>
         <auto-attributes entity-name="Party" mode="IN" include="nonpk" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true" entity-name="Person"/>
-        <attribute name="newUserLogin" type="Map" mode="OUT" optional="false"/>
+        <attribute name="newUserLogin" type="Map" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingNewUserLogin"/>
+            </type-validate>
+        </attribute>
+    </service>
+
+    <service name="createPartyGroupRoleAndContactMechs" engine="groovy" default-entity-name="PartyGroupRoleAndContactMechs"
+            location="component://party/groovyScripts/party/PartySimpleMethods.groovy" invoke="createPartyGroupRoleAndContactMechs">
+        <description>Create Party Group Role and Contact Mechs</description>
+        <auto-attributes entity-name="PartyGroup" mode="IN" optional="true">
+            <exclude field-name="partyId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="PostalAddress" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <attribute name="groupName" type="String" mode="IN" optional="false"/>
+        <attribute name="address1" type="String" mode="IN" optional="true"/>
+        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="phoneContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="emailContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="createPartyContactMechs" engine="simple" default-entity-name="createPartyContactMechs"
+            location="component://party/minilang/party/PartySimpleMethods.xml" invoke="createPartyContactMechs">
+        <description>Create Party Group Role and Contact Mechs</description>
+        <attribute name="partyGroupContext" type="Map" mode="IN" optional="true"/>
+        <attribute name="postalAddressContext" type="Map" mode="IN" optional="true"/>
+        <attribute name="telecomNumberContext" type="Map" mode="IN" optional="true"/>
+        <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="phoneContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="emailContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createPersonRoleAndContactMechs" engine="simple"
+            location="component://party/minilang/party/PartySimpleMethods.xml" invoke="createPersonRoleAndContactMechs">
+        <description>Creates a person, role and contactMechs</description>
+        <auto-attributes entity-name="Person" mode="IN" include="nonpk" optional="true"/>
+        <auto-attributes entity-name="PartyRole" mode="IN" include="nonpk" optional="true"/>
+        <auto-attributes entity-name="PostalAddress" mode="IN" optional="true"/>
+        <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" mode="IN" type="String"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" mode="OUT" type="String" optional="false"/>
     </service>
     <service name="updatePerson" engine="java" default-entity-name="Person"
             location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true">
@@ -144,7 +195,11 @@ under the License.
     <service name="getPartyNameForDate" engine="groovy"
         location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyNameForDate" auth="true">
         <description>Get Party Name For Date</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
         <attribute name="compareDate" type="Timestamp" mode="IN" optional="true"><!-- defaults to now --></attribute>
         <attribute name="lastNameFirst" type="String" mode="IN" optional="true"><!-- Y or N, defaults to N --></attribute>
         <attribute name="groupName" type="String" mode="OUT" optional="true"/>
@@ -242,7 +297,11 @@ under the License.
         </deprecated>
         <attribute name="firstName" type="String" form-display="true" form-label="First name" mode="IN" optional="true"/>
         <attribute name="lastName" type="String" form-display="true" form-label="Last name" mode="IN" optional="true"/>
-        <attribute name="lookupResult" type="List" mode="OUT" optional="false"/>
+        <attribute name="lookupResult" type="List" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingLookupResult"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="findPartiesById" engine="java"  auth="true"
@@ -272,24 +331,44 @@ under the License.
     <service name="ensurePartyRole" engine="simple"
             location="component://party/minilang/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="false">
         <description>Ensure that the party is in the specified role.</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </attribute>
     </service>
     <service name="ensureNaPartyRole" engine="simple"
             location="component://party/minilang/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="false">
         <description>Ensure that the party is in the _NA_ role.</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
     </service>
     <service name="ensurePartyRoleFrom" engine="simple"
             location="component://party/minilang/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
         <description>Ensure that the party indicate by partyIdFrom is in the roleTypeIdFrom specifc role. If roleTypeIdFrom isn't present use _NA_</description>
-        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyIdFrom"/>
+            </type-validate>
+        </attribute>
         <attribute name="roleTypeIdFrom" type="String" mode="IN" optional="true"/>
     </service>
     <service name="ensurePartyRoleTo" engine="simple"
             location="component://party/minilang/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
         <description>Ensure that the party indicate by partyIdTo is in the roleTypeIdTo specific role. If roleTypeIdTo isn't present use _NA_</description>
-        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyIdTo"/>
+            </type-validate>
+        </attribute>
         <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -395,8 +474,16 @@ under the License.
         <description>Update a PartyContactMech</description>
         <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="contactMechTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="contactMechTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechTypeId"/>
+            </type-validate>
+        </attribute>
         <attribute name="infoString" type="String" mode="IN" optional="true"/>
         <attribute name="newContactMechId" type="String" mode="IN" optional="true"/>
     </service>
@@ -405,13 +492,21 @@ under the License.
         <description>Delete a PartyContactMech</description>
         <permission-service service-name="partyContactMechPermissionCheck" main-action="DELETE"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechId"/>
+            </type-validate>
+        </attribute>
     </service>
     <!-- Party ContachMech reverse find -->
     <service name="findPartyFromEmailAddress" engine="simple"
         location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="findPartyFromEmailAddress" auth="true">
         <description>Find the partyId/contactMechId for a specific email address, if not found do not return a value</description>
-        <attribute name="address" type="String" mode="IN" optional="false"/>
+        <attribute name="address" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingAddress"/>
+            </type-validate>
+        </attribute>
         <attribute name="caseInsensitive" type="String" mode="IN" optional="true"/>
         <attribute name="personal" type="String" mode="IN" optional="true"/><!-- field not used -->
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -421,7 +516,11 @@ under the License.
     <service name="findPartyFromTelephone" engine="simple"
         location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="findPartyFromTelephone" auth="true">
         <description>Find the partyId/contactMechId for a specific telephone number, if not found do not return a value</description>
-        <attribute name="telno" type="String" mode="IN" optional="false"/>
+        <attribute name="telno" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingTelno"/>
+            </type-validate>
+        </attribute>
         <attribute name="partyId" type="String" mode="OUT" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
@@ -431,7 +530,11 @@ under the License.
             Find the partyId/contactMechId for a specific telephone number, if not found do not return a value.
             Same than above but keep the number complete internally.
         </description>
-        <attribute name="telno" type="String" mode="IN" optional="false"/>
+        <attribute name="telno" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingTelno"/>
+            </type-validate>
+        </attribute>
         <attribute name="partyId" type="String" mode="OUT" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
@@ -443,7 +546,11 @@ under the License.
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechId"/>
+            </type-validate>
+        </attribute>
         <attribute name="latitude" type="String" mode="IN" optional="true"/>
         <attribute name="longitude" type="String" mode="IN" optional="true"/>
         <override name="address1" optional="false"/>
@@ -494,9 +601,21 @@ under the License.
         <description>Update an Email Address</description>
         <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/> <!-- the out paramater is the id of the new address -->
-        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
-        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"> <!-- the out paramater is the id of the new address -->
+            <type-validate>
+                    <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechId"/>
+            </type-validate>
+         </attribute>
+         <attribute name="emailAddress" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
+             </type-validate>
+         </attribute>
+         <attribute name="oldContactMechId" type="String" mode="OUT" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingOldContactMechId"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="copyPartyContactMechs" engine="java"
         location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="copyPartyContactMechs" auth="true">
@@ -966,8 +1085,16 @@ under the License.
     <service name="getPartyEmail" engine="groovy"
         location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyEmail" auth="false">
         <description>Get the main party Email address</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false" default-value="PRIMARY_EMAIL"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+                 <type-validate>
+                     <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+                 </type-validate>
+             </attribute>
+         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false" default-value="PRIMARY_EMAIL">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechPurposeTypeId"/>
+             </type-validate>
+         </attribute>
         <attribute name="emailAddress" type="String" mode="OUT" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
@@ -987,7 +1114,11 @@ under the License.
     <service name="getPartyPostalAddress" engine="groovy"
         location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyPostalAddress" auth="false">
         <description>Get the party postal address</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
         <attribute name="contactMechPurposeTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
         <attribute name="address1" type="String" mode="OUT" optional="true"/>
@@ -1022,9 +1153,21 @@ under the License.
     </service>
     <service name="sendCreatePartyEmailNotification" engine="groovy"
             location="component://party/groovyScripts/party/PartyServices.groovy" invoke="sendCreatePartyEmailNotification" auth="false">
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+             </type-validate>
+         </attribute>
+         <attribute name="emailAddress" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
+             </type-validate>
+         </attribute>
+         <attribute name="productStoreId" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingProductStoreId"/>
+             </type-validate>
+         </attribute>
     </service>
 
     <!-- Email address verification services-->
@@ -1036,11 +1179,19 @@ under the License.
     </service>
     <service name="sendVerifyEmailAddressNotification" engine="groovy"
              location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="sendVerifyEmailAddressNotification">
-        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="verifyEmailAddress" engine="groovy"
              location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="verifyEmailAddress">
-        <attribute name="verifyHash" type="String" mode="IN" optional="false"/>
+        <attribute name="verifyHash" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingVerifyHash"/>
+             </type-validate>
+         </attribute>
     </service>
 
     <!-- Party Invitation Services -->
@@ -1085,13 +1236,25 @@ under the License.
     <service name="acceptPartyInvitation" engine="groovy"
             location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="acceptPartyInvitation">
         <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
-        <attribute name="partyInvitationId" type="String" mode="IN"/>
-        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
+             </type-validate>
+         </attribute>
+         <attribute name="partyId" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="declinePartyInvitation" engine="groovy"
             location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
         <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
-        <attribute name="partyInvitationId" type="String" mode="IN"/>
+        <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
+            </type-validate>
+        </attribute>
         <attribute name="statusId" type="String" mode="IN" optional="true" default-value="PARTYINV_DECLINED"/>
     </service>
     <service name="cancelPartyInvitation" engine="groovy"
@@ -1188,7 +1351,11 @@ under the License.
             The user with PARTYMGR_UPDATE permission can also perform this function.
         </description>
         <implements service="permissionInterface"/>
-        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="cancelPartyInvitationPermissionCheck" engine="groovy"
             location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="cancelPartyInvitationPermissionCheck">
@@ -1198,7 +1365,11 @@ under the License.
             The user with PARTYMGR_UPDATE permission can also perform this function.
         </description>
         <implements service="permissionInterface"/>
-        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
+             <type-validate>
+                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
+             </type-validate>
+         </attribute>
     </service>
     <service name="partyCommunicationEventPermissionCheck" engine="groovy"
             location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyCommunicationEventPermissionCheck">
@@ -1299,10 +1470,26 @@ under the License.
     <service name="quickCreateCustomer" engine="groovy"
             location="component://party/groovyScripts/party/PartyServices.groovy" invoke="quickCreateCustomer">
         <description>Create customer profile on basis of First Name ,Last Name and Email Address</description>
-        <attribute name="firstName" type="String" mode="IN" optional="false"/>
-        <attribute name="lastName" type="String" mode="IN" optional="false"/>
-        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="OUT" optional="false"/>
+        <attribute name="firstName" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingFirstName"/>
+            </type-validate>
+        </attribute>
+        <attribute name="lastName" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingLastName"/>
+            </type-validate>
+        </attribute>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
+            </type-validate>
+        </attribute>
+        <attribute name="partyId" type="String" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
         <attribute name="contactListId" type="String" mode="IN" optional="true"/>
         <attribute name="subscribeContactList" type="String" mode="IN" optional="true"/>
     </service>
@@ -1310,7 +1497,11 @@ under the License.
     <service name="getPartyMainRole" engine="groovy"
             location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyMainRole">
         <description>Get the main role of this party which is a child of the MAIN_ROLE roletypeId</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
         <attribute name="roleTypeId" type="String" mode="OUT" optional="true"/>
         <attribute name="description" type="String" mode="OUT" optional="true"/>
     </service>
@@ -1336,8 +1527,16 @@ under the License.
     <!-- send account activated email notification -->
     <service name="sendAccountActivatedEmailNotification" engine="groovy"
             location="component://party/groovyScripts/party/PartyServices.groovy" invoke="sendAccountActivatedEmailNotification" auth="false">
-        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingUserLoginId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingProductStoreId"/>
+            </type-validate>
+        </attribute>
     </service>
     <service name="createAgreementAttribute" default-entity-name="AgreementAttribute" engine="entity-auto" invoke="create" auth="true">
         <description>Create a AgreementAttribute entry</description>

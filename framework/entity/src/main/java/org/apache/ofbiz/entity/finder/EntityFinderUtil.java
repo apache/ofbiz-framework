@@ -57,7 +57,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityFinderUtil {
 
-    public static final String MODULE = EntityFinderUtil.class.getName();
+    private static final String MODULE = EntityFinderUtil.class.getName();
 
     private EntityFinderUtil () {}
 

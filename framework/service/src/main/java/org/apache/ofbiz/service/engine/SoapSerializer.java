@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class SoapSerializer {
-    public static final String MODULE = SoapSerializer.class.getName();
+    private static final String MODULE = SoapSerializer.class.getName();
 
     public static Object deserialize(String content, Delegator delegator) throws SerializeException, SAXException, ParserConfigurationException, IOException {
         Document document = UtilXml.readXmlDocument(content, false);

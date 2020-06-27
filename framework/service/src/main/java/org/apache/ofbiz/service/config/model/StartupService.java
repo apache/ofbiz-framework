@@ -39,7 +39,8 @@ public final class StartupService {
             throw new ServiceConfigException("<startup-service> element name attribute is empty");
         }
         this.name = name;
-        this.runtimeDataId = startupServiceElement.getAttribute("runtime-data-id").intern();
+        String runtimeDataId = startupServiceElement.getAttribute("runtime-data-id").intern();
+        this.runtimeDataId = runtimeDataId.isEmpty() ? null : runtimeDataId;
         String runtimeDelay = startupServiceElement.getAttribute("runtime-delay").intern();
         if (runtimeDelay.isEmpty()) {
             this.runtimeDelay = 0;

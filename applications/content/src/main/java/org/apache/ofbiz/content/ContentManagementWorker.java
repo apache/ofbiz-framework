@@ -60,7 +60,7 @@ import org.apache.ofbiz.security.Security;
  */
 public final class ContentManagementWorker {
 
-    public static final String MODULE = ContentManagementWorker.class.getName();
+    private static final String MODULE = ContentManagementWorker.class.getName();
     private static Map<String, GenericValue> cachedWebSitePublishPoints = new HashMap<>();
     private static Map<String, Map<String, Object>> cachedStaticValues = new HashMap<>();
 

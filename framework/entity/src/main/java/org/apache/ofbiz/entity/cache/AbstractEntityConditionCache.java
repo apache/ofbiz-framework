@@ -35,7 +35,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 
 public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<EntityCondition, ConcurrentMap<K, V>> {
 
-    public static final String MODULE = AbstractEntityConditionCache.class.getName();
+    private static final String MODULE = AbstractEntityConditionCache.class.getName();
 
     protected AbstractEntityConditionCache(String delegatorName, String id) {
         super(delegatorName, id);

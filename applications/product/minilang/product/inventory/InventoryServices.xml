@@ -302,7 +302,7 @@ under the License.
         </if-not-empty>
         <set field="oldUnitCost" from-field="lookedUpValue.unitCost"/>
         <if-not-empty field="parameters.lotId">
-        	<!-- Check if the lot already exists -->
+            <!-- Check if the lot already exists -->
             <entity-and entity-name="Lot" list="lotList">
                   <field-map field-name="lotId" from-field="parameters.lotId" />
             </entity-and>
@@ -1097,10 +1097,11 @@ under the License.
                     </if-compare>
                 </else>
                 </if-compare>
-
                 <set from-field="parameters.quantity" field="quantityNotTransferred"/>
-                
-                <set field="locationTypeEnumIds" value="${groovy: ['FLT_PICKLOC', 'FLT_BULK', null]}"/>
+                <set field="locationTypeMap.enumTypeId" value="FACLOC_TYPE"/>
+                <find-by-and entity-name="Enumeration" list="locationTypeEnums" map="locationTypeMap"/>
+                <set field="locationTypeEnumIds" value="${groovy: return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(locationTypeEnums, 'enumId', true);}" type="List"/>
+                <set field="nothing" value="${groovy: locationTypeEnumIds.add(null)}" type="List"/>
                 <iterate list="locationTypeEnumIds" entry="locationTypeEnumId">
                     <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/> 
                     <entity-condition entity-name="InventoryItemAndLocation" list="inventoryItemAndLocations">
@@ -1113,49 +1114,43 @@ under the License.
                         </condition-list>
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
-	                <!-- first transfer InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
-	                <iterate list="inventoryItemAndLocations" entry="inventoryItemAndLocation">
-	                    <clear-field field="inputMap"/>
-	                    <set field="inputMap.inventoryItemId" from-field="inventoryItemAndLocation.inventoryItemId"/>
-	                    <set field="inputMap.locationSeqId" from-field="inventoryItemAndLocation.locationSeqId"/>
-	                    <if-empty field="parameters.statusId">
-	                       <set field="inputMap.statusId" value="IXF_REQUESTED"/>
-	                    <else>
-	                       <set field="inputMap.statusId" value="${parameters.statusId}"/>
-	                    </else>
-	                    </if-empty>
-	                    <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
-	                    <set field="inputMap.facilityIdTo" from-field="parameters.facilityIdTo"/>
-	                    <set field="inputMap.locationSeqIdTo" from-field="parameters.locationSeqIdTo"/>
-	                    <set field="inputMap.sendDate" from-field="parameters.sendDate"/>
-	                    <!-- TODO: inventory transfers for serialized items are not yet implemented -->
-	                    <if-compare field="inventoryItemAndLocation.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-	                        <if-compare-field field="quantityNotTransferred" to-field="inventoryItemAndLocation.availableToPromiseTotal" operator="greater" type="BigDecimal">
-	                            <set field="inputMap.xferQty" from-field="inventoryItemAndLocation.availableToPromiseTotal"/>
-	                        <else>
-	                            <set field="inputMap.xferQty" from-field="quantityNotTransferred"/>
-	                        </else>
-	                        </if-compare-field>
-	                        <add-error>
-	                           <fail-message message="inputMap = ${inputMap}"/>
-	                        </add-error>
-	                        <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
-	                        <add-error>
-	                           <fail-message message="quantityNotTransferred = ${quantityNotTransferred}"/>
-	                        </add-error>
-	                        <calculate field="quantityNotTransferred">
-	                            <calcop operator="subtract" field="quantityNotTransferred">
-	                                <calcop operator="get" field="inputMap.xferQty"/>
-	                            </calcop>
-	                        </calculate>
-	                    </if-compare>
-	                    <if-compare operator="equals" value="0" field="quantityNotTransferred">
-	                       <break/>
-	                    </if-compare>
-	                </iterate>
-	                <if-compare operator="equals" value="0" field="quantityNotTransferred">
-	                    <break/>
-	                </if-compare>
+                    <!-- first transfer InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
+                    <iterate list="inventoryItemAndLocations" entry="inventoryItemAndLocation">
+                        <clear-field field="inputMap"/>
+                        <set field="inputMap.inventoryItemId" from-field="inventoryItemAndLocation.inventoryItemId"/>
+                        <set field="inputMap.locationSeqId" from-field="inventoryItemAndLocation.locationSeqId"/>
+                        <if-empty field="parameters.statusId">
+                           <set field="inputMap.statusId" value="IXF_REQUESTED"/>
+                        <else>
+                           <set field="inputMap.statusId" value="${parameters.statusId}"/>
+                        </else>
+                        </if-empty>
+                        <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
+                        <set field="inputMap.facilityIdTo" from-field="parameters.facilityIdTo"/>
+                        <set field="inputMap.locationSeqIdTo" from-field="parameters.locationSeqIdTo"/>
+                        <set field="inputMap.sendDate" from-field="parameters.sendDate"/>
+                        <!-- TODO: inventory transfers for serialized items are not yet implemented -->
+                        <if-compare field="inventoryItemAndLocation.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
+                            <if-compare-field field="quantityNotTransferred" to-field="inventoryItemAndLocation.availableToPromiseTotal" operator="greater" type="BigDecimal">
+                                <set field="inputMap.xferQty" from-field="inventoryItemAndLocation.availableToPromiseTotal"/>
+                            <else>
+                                <set field="inputMap.xferQty" from-field="quantityNotTransferred"/>
+                            </else>
+                            </if-compare-field>
+                            <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
+                            <calculate field="quantityNotTransferred">
+                                <calcop operator="subtract" field="quantityNotTransferred">
+                                    <calcop operator="get" field="inputMap.xferQty"/>
+                                </calcop>
+                            </calculate>
+                        </if-compare>
+                        <if-compare operator="equals" value="0" field="quantityNotTransferred">
+                           <break/>
+                        </if-compare>
+                    </iterate>
+                    <if-compare operator="equals" value="0" field="quantityNotTransferred">
+                        <break/>
+                    </if-compare>
                 </iterate>
             </else>
         </if-compare>
@@ -1163,10 +1158,7 @@ under the License.
         <field-to-result field="quantityNotTransferred"/>
         <if-compare operator="greater" value="0" field="quantityNotTransferred">
             <add-error>
-                <fail-property resource="ProductUiLabels" property="FormFieldTitle_quantityNotAvailable"/>
-            </add-error>
-            <add-error> 
-                <fail-message message="${quantityNotTransferred}"/>
+                <fail-message message="${groovy: import org.apache.ofbiz.base.util.UtilProperties; return (UtilProperties.getMessage('ProductUiLabels', 'ProductInventoryATPNotAvailable', ['unavailableQuantity' : quantityNotTransferred, 'xferQty': parameters.quantity], locale))}"/>
             </add-error>
             <check-errors/>
         </if-compare>
@@ -1250,11 +1242,11 @@ under the License.
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"  auto-field-map="false">
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
         </entity-one>
-        <entity-and entity-name="ProductFacility" list="productFacilities">
+        <entity-one entity-name="ProductFacility" value-field="productFacility">
             <field-map field-name="productId" from-field="inventoryItem.productId" />
-        </entity-and>
-        <if-not-empty field="productFacilities">
-            <iterate list="productFacilities" entry="productFacility">
+            <field-map field-name="facilityId" from-field="inventoryItem.facilityId" />
+        </entity-one>
+        <if-not-empty field="productFacility">
                 <set field="serviceInMap.productId" from-field="productFacility.productId"/>
                 <set field="serviceInMap.facilityId" from-field="productFacility.facilityId"/>
                 <call-service service-name="getInventoryAvailableByFacility" in-map-name="serviceInMap">
@@ -1266,7 +1258,6 @@ under the License.
                 <call-service service-name="updateProductFacility" in-map-name="serviceInMap"/>
                 <clear-field field="productFacility"/>
                 <clear-field field="serviceInMap"/>
-            </iterate>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="createUpdateFacilityGeoPoint" short-description="Create or update GeoPoint assigned to facility">

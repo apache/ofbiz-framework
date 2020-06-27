@@ -168,9 +168,9 @@ under the License.
             </xs:attribute>
             <xs:attribute type="xs:string" name="override-list-size">
                 <xs:annotation>
-                    <xs:documentation>The total number of rows in the original list (used for pagination). 
+                    <xs:documentation>The total number of rows in the original list (used for pagination).
                                       If not specified, the size of the list will be used. Accepts ${} notation.
-                                      You may use any value, true makes sense, when using performFindList, but one value must be passed. 
+                                      You may use any value, true makes sense, when using performFindList, but one value must be passed.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -659,9 +659,9 @@ under the License.
             <xs:attribute type="xs:string" name="title">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of this field that will be shown to the user. 
+                        The name of this field that will be shown to the user.
                         It can use the ${} and foo.bar (dot) syntax to insert values from the context for parameterization or internationalization.
-                        
+
                         Be sure a "FormFieldTitle_" labels does not already exist, else it will be overridden.
                     </xs:documentation>
                 </xs:annotation>
@@ -840,6 +840,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="disabled" type="xs:boolean" default="false"/>
         </xs:complexType>
     </xs:element>
 
@@ -852,14 +853,6 @@ under the License.
                 <xs:element ref="option" />
             </xs:choice>
             <xs:attribute name="all-checked" type="xs:boolean"/>
-            <xs:attribute name="disabled" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="container" substitutionGroup="AllFields">
@@ -1042,7 +1035,7 @@ under the License.
     <xs:element name="display-entity" substitutionGroup="AllFields">
         <xs:annotation>
             <xs:documentation>
-                This is just like display but looks up a description using the Entity Engine; 
+                This is just like display but looks up a description using the Entity Engine;
                 note that if also-hidden is true then it uses the key as the value, not the shown description.
             </xs:documentation>
         </xs:annotation>
@@ -1056,7 +1049,7 @@ under the License.
             <xs:attribute type="xs:integer" name="size">
                 <xs:annotation>
                     <xs:documentation>
-                        Specifies the size of the field (as a number of characters), 
+                        Specifies the size of the field (as a number of characters),
                         when the text to display exceed the given size it is truncated and add the complete text as a hint
                      </xs:documentation>
                 </xs:annotation>
@@ -1238,7 +1231,7 @@ under the License.
                           type="xs:boolean" default="true">
                 <xs:annotation>
                     <xs:documentation>
-                        Tells the browser whether or not to try and autocomplete with values previously entered. 
+                        Tells the browser whether or not to try and autocomplete with values previously entered.
                         Default to true.
                     </xs:documentation>
                 </xs:annotation>
@@ -1251,7 +1244,7 @@ under the License.
             <xs:attribute name="presentation" default="layer">
                 <xs:annotation>
                     <xs:documentation>
-                        Shows the lookup as moveable and resizable layer or popup window. 
+                        Shows the lookup as moveable and resizable layer or popup window.
                         if set to none only autocompletion is active (no lookup form would be call)
                         Default to layer.
                     </xs:documentation>
@@ -1302,8 +1295,8 @@ under the License.
             </xs:attribute>
             <xs:attribute name="show-description" type="xs:boolean">
                 <xs:annotation>
-                    <xs:documentation>If true, a special span with css class "tooltip" will be created at right of the lookup button 
-                        and a description will fill in. 
+                    <xs:documentation>If true, a special span with css class "tooltip" will be created at right of the lookup button
+                        and a description will fill in.
                         If not set then it depends on the "widget.lookup.showDescription" setting.
                     </xs:documentation>
                 </xs:annotation>
@@ -1435,7 +1428,6 @@ under the License.
             <xs:attribute type="xs:positiveInteger" name="size" default="25" />
             <xs:attribute type="xs:positiveInteger" name="maxlength" />
             <xs:attribute type="xs:string" name="default-value" />
-            <xs:attribute name="disabled" type="xs:boolean" default="false"/>
             <xs:attribute name="client-autocomplete-field"
                           type="xs:boolean" default="true">
                 <xs:annotation>

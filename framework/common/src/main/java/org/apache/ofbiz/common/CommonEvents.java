@@ -53,6 +53,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
+import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 
@@ -61,7 +62,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
  */
 public class CommonEvents {
 
-    public static final String MODULE = CommonEvents.class.getName();
+    private static final String MODULE = CommonEvents.class.getName();
 
     // Attributes removed for security reason; _ERROR_MESSAGE_ and _ERROR_MESSAGE_LIST are kept
     private static final String[] IGNOREATTRS = new String[] {
@@ -172,6 +173,30 @@ public class CommonEvents {
                     Debug.logWarning(e, MODULE);
                 }
             }
+        }
+        return "success";
+    }
+
+    public static String jsResponseFromRequest(HttpServletRequest request, HttpServletResponse response) {
+
+        String fileName = request.getParameter("name");
+        String script = MultiBlockHtmlTemplateUtil.getScriptFromCache(request.getSession(), fileName);
+
+        // return the JS String
+        Writer out;
+        try {
+
+            // set the JS content type
+            response.setContentType("application/javascript");
+            // script.length is not reliable for unicode characters
+            response.setContentLength(script.getBytes("UTF8").length);
+
+            out = response.getWriter();
+            out.write(script);
+            out.flush();
+        } catch (IOException e) {
+            Debug.logError(e, MODULE);
+            return "error";
         }
         return "success";
     }

@@ -45,7 +45,7 @@ import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
 public class EntityListIterator implements AutoCloseable, ListIterator<GenericValue> {
 
     /** Module Name Used for debugging */
-    public static final String MODULE = EntityListIterator.class.getName();
+    private static final String MODULE = EntityListIterator.class.getName();
 
     protected SQLProcessor sqlp;
     protected ResultSet resultSet;

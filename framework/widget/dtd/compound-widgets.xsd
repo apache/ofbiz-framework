@@ -42,7 +42,7 @@ under the License.
                 <xs:element ref="ws:screens"/>
                 <xs:element ref="wt:trees" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="wf:forms"/>
-                <xs:element ref="sm:simple-methods"/>
+                <xs:element ref="sm:simple-methods" minOccurs="0" maxOccurs="1"/>
             </xs:all>
         </xs:complexType>
     </xs:element>

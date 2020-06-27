@@ -53,7 +53,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 
 public final class ApacheFopWorker {
 
-    public static final String MODULE = ApacheFopWorker.class.getName();
+    private static final String MODULE = ApacheFopWorker.class.getName();
     /** File name prefix used for temporary files. Currently set to
      * <code>org.apache.ofbiz.webapp.view.ApacheFopWorker-</code>.
      */

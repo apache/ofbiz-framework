@@ -64,7 +64,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 public class CatalogUrlSeoTransform implements TemplateTransformModel {
-    public static final String MODULE = CatalogUrlSeoTransform.class.getName();
+    private static final String MODULE = CatalogUrlSeoTransform.class.getName();
 
     private static Map<String, String> categoryNameIdMap = null;
     private static Map<String, String> categoryIdNameMap = null;

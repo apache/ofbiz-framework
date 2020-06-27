@@ -31,7 +31,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 
 public class CursorStatement extends AbstractCursorHandler {
 
-    public static final String MODULE = CursorStatement.class.getName();
+    private static final String MODULE = CursorStatement.class.getName();
     protected ResultSet currentResultSet;
     protected Statement stmt;
     protected boolean beganTransaction;

@@ -57,17 +57,10 @@ under the License.
       </#if>
     </div>
   </#if>
-  <#assign jGrowlPosition = modelTheme.getProperty("jgrowlPosition")>
-  <#assign jGrowlWidth = modelTheme.getProperty("jgrowlWidth")>
-  <#assign jGrowlHeight = modelTheme.getProperty("jgrowlHeight")>
-  <#assign jGrowlSpeed = modelTheme.getProperty("jgrowlSpeed")>
 
-  <script>showjGrowl(
-          "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
-          "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");</script>
   <#-- display the event messages -->
   <#if (eventMessage?has_content || eventMessageList?has_content)>
-  <div id="content-messages" class="content-messages eventMessage"
+    <div id="content-messages" class="content-messages eventMessage"
       onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
     <#noescape><p>${uiLabelMap.CommonFollowingOccurred}:</p></#noescape>
     <#if eventMessage?has_content>
@@ -78,24 +71,17 @@ under the License.
         <p>${StringUtil.wrapString(eventMsg)}</p>
       </#list>
     </#if>
-  </div>
-  <#assign jGrowlPosition = modelTheme.getProperty("jgrowlPosition")>
-  <#assign jGrowlWidth = modelTheme.getProperty("jgrowlWidth")>
-  <#assign jGrowlHeight = modelTheme.getProperty("jgrowlHeight")>
-  <#assign jGrowlSpeed = modelTheme.getProperty("jgrowlSpeed")>
-  <script>showjGrowl(
-          "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
-          "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");</script>
+    </div>
   </#if>
 
-   <#-- display the warning messages -->
+  <#-- display the warning messages -->
   <#if (warningMessage?has_content || warningMessageList?has_content)>
     <div id="content-messages" class="content-messages errorMessage"
         onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
-      <#noescape><p>${uiLabelMap.CommonFollowingErrorsOccurred}:</p></#noescape>
-      <#if warningMessage?has_content>
-        <p>${StringUtil.wrapString(warningMessage)}</p>
-      </#if>
+    <#noescape><p>${uiLabelMap.CommonFollowingErrorsOccurred}:</p></#noescape>
+    <#if warningMessage?has_content>
+      <p>${StringUtil.wrapString(warningMessage)}</p>
+    </#if>
       <#if warningMessageList?has_content>
         <#list warningMessageList as warningMsg>
           <p>${StringUtil.wrapString(warningMsg)}</p>
@@ -103,12 +89,16 @@ under the License.
       </#if>
     </div>
   </#if>
-  <#assign jGrowlPosition = modelTheme.getProperty("jgrowlPosition")>
-  <#assign jGrowlWidth = modelTheme.getProperty("jgrowlWidth")>
-  <#assign jGrowlHeight = modelTheme.getProperty("jgrowlHeight")>
-  <#assign jGrowlSpeed = modelTheme.getProperty("jgrowlSpeed")>
 
-  <script>showjGrowl(
+  <#if (errorMessage?has_content || errorMessageList?has_content
+     || eventMessage?has_content || eventMessageList?has_content
+     || warningMessage?has_content || warningMessageList?has_content)>
+    <#assign jGrowlPosition = modelTheme.getProperty("jgrowlPosition")>
+    <#assign jGrowlWidth = modelTheme.getProperty("jgrowlWidth")>
+    <#assign jGrowlHeight = modelTheme.getProperty("jgrowlHeight")>
+    <#assign jGrowlSpeed = modelTheme.getProperty("jgrowlSpeed")>
+    <script>showjGrowl(
           "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
           "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");</script>
+  </#if>
 </#escape>

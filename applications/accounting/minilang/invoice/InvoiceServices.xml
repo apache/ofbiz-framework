@@ -102,7 +102,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateInvoice" short-description="Update the header of an existing Invoice">
-        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <call-simple-method method-name="checkInvoiceStatusInProgress"/>
         <!-- find the current record -->
         <make-value entity-name="Invoice" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
@@ -150,7 +150,7 @@ under the License.
 
     <simple-method method-name="createInvoiceItem" short-description="Create a new Invoice Item">
         <set field="invoiceId" from-field="parameters.invoiceId"/>
-        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <call-simple-method method-name="checkInvoiceStatusInProgress"/>
         <make-value entity-name="InvoiceItem" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -184,7 +184,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateInvoiceItem"
         short-description="Update an existing Invoice Item">
-        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <call-simple-method method-name="checkInvoiceStatusInProgress"/>
         <make-value entity-name="InvoiceItem" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
 
@@ -218,9 +218,9 @@ under the License.
         <field-to-result field="lookedUpValue.invoiceId" result-name="invoiceId"/>
     </simple-method>
     <simple-method method-name="removeInvoiceItem" short-description="Remove an existing Invoice Item">
-        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <call-simple-method method-name="checkInvoiceStatusInProgress"/>
         <set field="invoiceId" from-field="parameters.invoiceId"/>
-        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <call-simple-method method-name="checkInvoiceStatusInProgress"/>
 
         <set field="paymentApplicationMap.invoiceId" from-field="parameters.invoiceId"/>
         <set field="paymentApplicationMap.invoiceItemSeqId" from-field="parameters.invoiceItemSeqId"/>
@@ -328,7 +328,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInvoiceRole" short-description="Create a Invoice Role">
-        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <call-simple-method method-name="checkInvoiceStatusInProgress"/>
         <make-value entity-name="InvoiceRole" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -337,7 +337,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="removeInvoiceRole" short-description="Remove existing Invoice Role">
-        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <call-simple-method method-name="checkInvoiceStatusInProgress"/>
         <entity-one entity-name="InvoiceRole" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
@@ -433,7 +433,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInvoiceTerm" short-description="Create a Invoice Term">
-        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <call-simple-method method-name="checkInvoiceStatusInProgress"/>
 
         <make-value entity-name="InvoiceTerm" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -456,7 +456,7 @@ under the License.
     </simple-method>
 
     <!-- ===============subroutine services =================-->
-    <simple-method method-name="InvoiceStatusInProgress" short-description="Check if the invoiceStatus is in progress">
+    <simple-method method-name="checkInvoiceStatusInProgress" short-description="Check if the invoiceStatus is in progress">
         <!-- find the current header record -->
         <entity-one entity-name="Invoice" value-field="headerValue"/>
         <if-empty field="headerValue">

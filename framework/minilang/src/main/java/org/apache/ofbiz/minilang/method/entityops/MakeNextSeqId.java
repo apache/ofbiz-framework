@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public final class MakeNextSeqId extends MethodOperation {
 
-    public static final String MODULE = MakeNextSeqId.class.getName();
+    private static final String MODULE = MakeNextSeqId.class.getName();
 
     private final FlexibleStringExpander incrementByFse;
     private final FlexibleStringExpander numericPaddingFse;

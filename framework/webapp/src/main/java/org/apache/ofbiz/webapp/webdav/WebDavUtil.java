@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
 /** Utility methods needed to implement a WebDAV servlet. */
 public final class WebDavUtil {
 
-    public static final String MODULE = WebDavUtil.class.getName();
+    private static final String MODULE = WebDavUtil.class.getName();
     private static final TimeZone GMT_TIMEZONE = TimeZone.getTimeZone("GMT");
     private static final String RFC1123_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz";
 
