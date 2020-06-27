@@ -36,7 +36,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class ProductStoreEvents {
 
-    public static final String module = ProductStoreWorker.class.getName();
+    public static final String MODULE = ProductStoreWorker.class.getName();
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
     public static String getChildProductStoreGroupTree(HttpServletRequest request, HttpServletResponse response){
@@ -86,7 +86,7 @@ public class ProductStoreEvents {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return "error";
         }
         return "success";

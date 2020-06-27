@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
  */
 public final class FieldToResult extends MethodOperation {
 
-    public static final String module = FieldToResult.class.getName();
+    public static final String MODULE = FieldToResult.class.getName();
 
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleMapAccessor<Object> resultFma;

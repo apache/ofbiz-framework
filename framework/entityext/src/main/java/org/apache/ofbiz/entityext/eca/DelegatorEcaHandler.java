@@ -43,7 +43,7 @@ import org.apache.ofbiz.service.DispatchContext;
  */
 public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
 
-    public static final String module = DelegatorEcaHandler.class.getName();
+    public static final String MODULE = DelegatorEcaHandler.class.getName();
 
     protected Delegator delegator = null;
     protected String delegatorName = null;
@@ -93,18 +93,18 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         // if the eventMap is passed we save a HashMap lookup, but if not that's okay we'll just look it up now
         if (eventMap == null) eventMap = this.getEntityEventMap(value.getEntityName());
         if (UtilValidate.isEmpty(eventMap)) {
-            //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", no eventMap for this entity", module);
+            //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", no eventMap for this entity", MODULE);
             return;
         }
 
         List<EntityEcaRule> rules = eventMap.get(event);
-        //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", num rules=" + (rules == null ? 0 : rules.size()), module);
+        //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", num rules=" + (rules == null ? 0 : rules.size()), MODULE);
 
         if (UtilValidate.isEmpty(rules)) {
             return;
         }
 
-        if (!rules.isEmpty() && Debug.verboseOn()) Debug.logVerbose("Running ECA (" + event + ").", module);
+        if (!rules.isEmpty() && Debug.verboseOn()) Debug.logVerbose("Running ECA (" + event + ").", MODULE);
         Set<String> actionsRun = new TreeSet<>();
         for (EntityEcaRule eca: rules) {
             eca.eval(currentOperation, this.getDispatchContext(), value, isError, actionsRun);

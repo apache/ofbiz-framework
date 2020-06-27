@@ -63,7 +63,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
  */
 public class EntityDataLoadContainer implements Container {
 
-    public static final String module = EntityDataLoadContainer.class.getName();
+    public static final String MODULE = EntityDataLoadContainer.class.getName();
     private String name;
 
     // possible command line properties passed by user
@@ -292,7 +292,7 @@ public class EntityDataLoadContainer implements Container {
                     componentEntry.store();
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
         }
     }
@@ -302,7 +302,7 @@ public class EntityDataLoadContainer implements Container {
 
         List<String> messages = new ArrayList<>();
 
-        Debug.logImportant("Dropping foreign key indices...", module);
+        Debug.logImportant("Dropping foreign key indices...", MODULE);
         for (String entityName : modelEntityNames) {
             ModelEntity modelEntity = modelEntities.get(entityName);
             if (modelEntity != null) {
@@ -310,7 +310,7 @@ public class EntityDataLoadContainer implements Container {
             }
         }
 
-        Debug.logImportant("Dropping declared indices...", module);
+        Debug.logImportant("Dropping declared indices...", MODULE);
         for (String entityName : modelEntityNames) {
             ModelEntity modelEntity = modelEntities.get(entityName);
             if (modelEntity != null) {
@@ -318,7 +318,7 @@ public class EntityDataLoadContainer implements Container {
             }
         }
 
-        Debug.logImportant("Dropping foreign keys...", module);
+        Debug.logImportant("Dropping foreign keys...", MODULE);
         for (String entityName : modelEntityNames) {
             ModelEntity modelEntity = modelEntities.get(entityName);
             if (modelEntity != null) {
@@ -334,7 +334,7 @@ public class EntityDataLoadContainer implements Container {
 
         List<String> messages = new ArrayList<>();
 
-        Debug.logImportant("Creating foreign keys...", module);
+        Debug.logImportant("Creating foreign keys...", MODULE);
         for (String entityName : modelEntityNames) {
             ModelEntity modelEntity = modelEntities.get(entityName);
             if (modelEntity != null) {
@@ -342,7 +342,7 @@ public class EntityDataLoadContainer implements Container {
             }
         }
 
-        Debug.logImportant("Creating foreign key indcies...", module);
+        Debug.logImportant("Creating foreign key indcies...", MODULE);
         for (String entityName : modelEntityNames) {
             ModelEntity modelEntity = modelEntities.get(entityName);
             if (modelEntity != null) {
@@ -350,7 +350,7 @@ public class EntityDataLoadContainer implements Container {
             }
         }
 
-        Debug.logImportant("Creating declared indices...", module);
+        Debug.logImportant("Creating declared indices...", MODULE);
         for (String entityName : modelEntityNames) {
             ModelEntity modelEntity = modelEntities.get(entityName);
             if (modelEntity != null) {
@@ -366,7 +366,7 @@ public class EntityDataLoadContainer implements Container {
 
         List<String> messages = new ArrayList<>();
 
-        Debug.logImportant("Dropping primary keys...", module);
+        Debug.logImportant("Dropping primary keys...", MODULE);
         for (String entityName : modelEntityNames) {
             ModelEntity modelEntity = modelEntities.get(entityName);
             if (modelEntity != null) {
@@ -382,7 +382,7 @@ public class EntityDataLoadContainer implements Container {
 
         List<String> messages = new ArrayList<>();
 
-        Debug.logImportant("Creating primary keys...", module);
+        Debug.logImportant("Creating primary keys...", MODULE);
         for (String entityName : modelEntityNames) {
             ModelEntity modelEntity = modelEntities.get(entityName);
             if (modelEntity != null) {
@@ -406,7 +406,7 @@ public class EntityDataLoadContainer implements Container {
 
     private static void logMessageList(List<String> messages) {
         if (Debug.infoOn()) {
-            messages.forEach(message -> Debug.logInfo(message, module));
+            messages.forEach(message -> Debug.logInfo(message, MODULE));
         }
     }
 
@@ -436,7 +436,7 @@ public class EntityDataLoadContainer implements Container {
                 infoMessages.add(createDataLoadMessage(dataUrl, rowsChanged, totalRowsChanged));
             } catch (GenericEntityException e) {
                 if (continueOnFail) {
-                    Debug.logError(e, "Error loading data file: " + dataUrl.toExternalForm(), module);
+                    Debug.logError(e, "Error loading data file: " + dataUrl.toExternalForm(), MODULE);
                 } else {
                     throw new ContainerException(e);
                 }
@@ -530,9 +530,9 @@ public class EntityDataLoadContainer implements Container {
                         .orderBy("sequenceNum")
                         .queryList();
                 tenantComponents.forEach(comp -> loadComponents.add(comp.getString("componentName")));
-                Debug.logInfo("Loaded : " + loadComponents.size() + " components", module);
+                Debug.logInfo("Loaded : " + loadComponents.size() + " components", MODULE);
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
         }
         return loadComponents;
@@ -563,11 +563,11 @@ public class EntityDataLoadContainer implements Container {
     private static void logDataLoadingPlan(List<URL> urlList, String delegatorName) {
         if (UtilValidate.isNotEmpty(urlList)) {
             Debug.logImportant("=-=-=-=-=-=-= Doing a data load using delegator '"
-                    + delegatorName + "' with the following files:", module);
-            urlList.forEach(dataUrl -> Debug.logImportant(dataUrl.toExternalForm(), module));
-            Debug.logImportant("=-=-=-=-=-=-= Starting the data load...", module);
+                    + delegatorName + "' with the following files:", MODULE);
+            urlList.forEach(dataUrl -> Debug.logImportant(dataUrl.toExternalForm(), MODULE));
+            Debug.logImportant("=-=-=-=-=-=-= Starting the data load...", MODULE);
         } else {
-            Debug.logImportant("=-=-=-=-=-=-= No data load files found.", module);
+            Debug.logImportant("=-=-=-=-=-=-= No data load files found.", MODULE);
         }
     }
 
@@ -584,14 +584,14 @@ public class EntityDataLoadContainer implements Container {
             List<Object> errorMessages, int totalRowsChanged) {
 
         if (UtilValidate.isNotEmpty(infoMessages)) {
-            Debug.logImportant("=-=-=-=-=-=-= Here is a summary of the data load:", module);
-            infoMessages.forEach(message -> Debug.logImportant(message, module));
+            Debug.logImportant("=-=-=-=-=-=-= Here is a summary of the data load:", MODULE);
+            infoMessages.forEach(message -> Debug.logImportant(message, MODULE));
         }
         if (UtilValidate.isNotEmpty(errorMessages)) {
-            Debug.logImportant("The following errors occurred in the data load:", module);
-            errorMessages.forEach(message -> Debug.logImportant(message.toString(), module));
+            Debug.logImportant("The following errors occurred in the data load:", MODULE);
+            errorMessages.forEach(message -> Debug.logImportant(message.toString(), MODULE));
         }
         Debug.logImportant("=-=-=-=-=-=-= Finished the data load with "
-                + totalRowsChanged + " rows changed.", module);
+                + totalRowsChanged + " rows changed.", MODULE);
     }
 }

@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.model.ModelFieldType;
  */
 @SuppressWarnings("serial")
 public final class EntityExpr implements EntityCondition {
-    public static final String module = EntityExpr.class.getName();
+    public static final String MODULE = EntityExpr.class.getName();
     /** The left hand side of the expression.  */
     private final Object lhs;
     /** The operator used to combine the two sides of the expression.  */
@@ -221,7 +221,7 @@ public final class EntityExpr implements EntityCondition {
         try {
             type = deleg.getEntityFieldType(modelEntity, curField.getType());
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
         if (type == null) {
             String ftype = curField.getType();
@@ -237,7 +237,7 @@ public final class EntityExpr implements EntityCondition {
                 valueType = deleg.getEntityFieldType(valueModelEntity,
                         valueModelEntity.getField(((EntityConditionSubSelect) value).getKeyFieldName()).getType());
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
             if (valueType == null) {
                 String ftype = curField.getType();
@@ -257,7 +257,7 @@ public final class EntityExpr implements EntityCondition {
                     // Eventually we should do this, but for now we'll do a "soft" failure:
                     // throw new IllegalArgumentException(msg);
                     Debug.logWarning(new Exception("Location of database type warning"),
-                            "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + msg, module);
+                            "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + msg, MODULE);
                 }
             } catch (ClassNotFoundException e) {
                 String msg = "Warning using ["+ value.getClass().getName() + "]"
@@ -266,7 +266,7 @@ public final class EntityExpr implements EntityCondition {
                 // Eventually we should do this, but for now we'll do a "soft" failure:
                 // throw new IllegalArgumentException(msg);
                 Debug.logWarning(e, "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + msg,
-                        module);
+                        MODULE);
              }
         } else if (value instanceof EntityFieldValue) {
             EntityFieldValue efv = (EntityFieldValue) lhs;
@@ -280,7 +280,7 @@ public final class EntityExpr implements EntityCondition {
             try {
                 rhsType = deleg.getEntityFieldType(modelEntity, rhsField.getType());
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
             try {
                 if (!ObjectType.instanceOf(ObjectType.loadClass(rhsType.getJavaType()), type.getJavaType())) {
@@ -291,7 +291,7 @@ public final class EntityExpr implements EntityCondition {
                     // Eventually we should do this, but for now we'll do a "soft" failure:
                     // throw new IllegalArgumentException(msg);
                     Debug.logWarning(new Exception("Location of database type warning"),
-                            "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=- " + msg, module);
+                            "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=- " + msg, MODULE);
                 }
             } catch (ClassNotFoundException e) {
                 String msg = "Warning using ["+ value.getClass().getName() + "]"
@@ -301,7 +301,7 @@ public final class EntityExpr implements EntityCondition {
                 // Eventually we should do this, but for now we'll do a "soft" failure:
                 // throw new IllegalArgumentException(msg);
                 Debug.logWarning(e, "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + msg,
-                        module);
+                        MODULE);
             }
         } else {
             // Make sure the type matches the field Java type.
@@ -312,7 +312,7 @@ public final class EntityExpr implements EntityCondition {
                 // Eventually we should do this, but for now we'll do a "soft" failure:
                 // throw new IllegalArgumentException(msg);
                 Debug.logWarning(new Exception("Location of database type warning"),
-                        "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + msg, module);
+                        "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + msg, MODULE);
             }
         }
     }

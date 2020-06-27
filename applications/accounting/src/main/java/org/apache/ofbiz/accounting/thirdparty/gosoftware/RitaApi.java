@@ -30,7 +30,7 @@ import org.apache.ofbiz.base.util.ObjectType;
 
 public class RitaApi {
 
-    public static final String module = RitaApi.class.getName();
+    public static final String MODULE = RitaApi.class.getName();
     public static final String xschema = "x-schema:..\\dtd\\stnd.xdr";
     public static final String rootElement = "XML_FILE";
     public static final String reqElement = "XML_REQUEST";
@@ -123,7 +123,7 @@ public class RitaApi {
         try {
             objString = (String) ObjectType.simpleTypeOrObjectConvert(value, "java.lang.String", null, null);
         } catch (GeneralException | ClassCastException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new IllegalArgumentException("Unable to convert value to String");
         }
         if (objString == null && value != null) {
@@ -170,7 +170,7 @@ public class RitaApi {
 
         if (mode == MODE_IN) {
             String stream = this.toString() + "..\r\n";
-            Debug.logInfo("Sending - \n" + stream, module);
+            Debug.logInfo("Sending - \n" + stream, MODULE);
             String urlString = "http://" + host + ":" + port;
             HttpClient http = new HttpClient(urlString);
             http.setDebug(true);
@@ -180,19 +180,19 @@ public class RitaApi {
             try {
                 resp = http.post(stream);
             } catch (HttpClientException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new IOException(e.getMessage());
             }
 
             String[] lines = resp.split("\n");
             for (int i = 0; i < lines.length; i++) {
-                Debug.logInfo(lines[i], module);
+                Debug.logInfo(lines[i], MODULE);
                 if (!".".equals(lines[i].trim())) {
                     String[] lineSplit = lines[i].trim().split(" ", 2);
                     if (lineSplit != null && lineSplit.length == 2) {
                         docMap.put(lineSplit[0], lineSplit[1]);
                     } else {
-                        Debug.logWarning("Line split error - " + lines[i], module);
+                        Debug.logWarning("Line split error - " + lines[i], MODULE);
                     }
                 } else {
                     break;

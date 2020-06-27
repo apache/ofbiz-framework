@@ -57,7 +57,7 @@ import org.xml.sax.SAXException;
  */
 public class EntityDataLoader {
 
-    public static final String module = EntityDataLoader.class.getName();
+    public static final String MODULE = EntityDataLoader.class.getName();
 
     public static String getPathsString(String helperName) {
         StringBuilder pathBuffer = new StringBuilder();
@@ -120,11 +120,11 @@ public class EntityDataLoader {
                     entityDataReaderInfo = EntityConfig.getInstance().getEntityDataReader(readerName);
                     if (entityDataReaderInfo == null) {
                         // create a reader name defined at runtime
-                        Debug.logInfo("Could not find entity-data-reader named: " + readerName + ". Creating a new reader with this name. ", module);
+                        Debug.logInfo("Could not find entity-data-reader named: " + readerName + ". Creating a new reader with this name. ", MODULE);
                         entityDataReaderInfo = new EntityDataReader(readerName);
                     }
                 } catch (GenericEntityConfException e) {
-                    Debug.logWarning(e, "Exception thrown while getting entity data reader config: ", module);
+                    Debug.logWarning(e, "Exception thrown while getting entity data reader config: ", MODULE);
                 }
                 if (entityDataReaderInfo != null) {
                     for (Resource resourceElement: entityDataReaderInfo.getResourceList()) {
@@ -133,7 +133,7 @@ public class EntityDataLoader {
                             urlList.add(handler.getURL());
                         } catch (GenericConfigException e) {
                             String errorMsg = "Could not get URL for Main ResourceHandler: " + e.toString();
-                            Debug.logWarning(errorMsg, module);
+                            Debug.logWarning(errorMsg, MODULE);
                         }
                     }
 
@@ -145,18 +145,18 @@ public class EntityDataLoader {
                                 urlList.add(handler.getURL());
                             } catch (GenericConfigException e) {
                                 String errorMsg = "Could not get URL for Component ResourceHandler: " + e.toString();
-                                Debug.logWarning(errorMsg, module);
+                                Debug.logWarning(errorMsg, MODULE);
                             }
                         }
                     }
                 } else {
                     String errorMsg = "Could not find entity-data-reader named: " + readerName;
-                    Debug.logWarning(errorMsg, module);
+                    Debug.logWarning(errorMsg, MODULE);
                 }
             }
         } else {
             String errorMsg = "Could not find datasource named: " + helperName;
-            Debug.logWarning(errorMsg, module);
+            Debug.logWarning(errorMsg, MODULE);
         }
 
         // get files from the paths string
@@ -184,11 +184,11 @@ public class EntityDataLoader {
                                 urlList.add(url);
                             } catch (java.net.MalformedURLException e) {
                                 String xmlError = "Error loading XML file \"" + dataFile.getAbsolutePath() + "\"; Error was: " + e.getMessage();
-                                Debug.logError(xmlError, module);
+                                Debug.logError(xmlError, MODULE);
                             }
                         } else {
                             String errorMsg = "Could not find file: \"" + dataFile.getAbsolutePath() + "\"";
-                            Debug.logError(errorMsg, module);
+                            Debug.logError(errorMsg, MODULE);
                         }
                     }
                 }
@@ -243,11 +243,11 @@ public class EntityDataLoader {
         if (dataUrl == null) {
             String errMsg = "Cannot load data, dataUrl was null";
             errorMessages.add(errMsg);
-            Debug.logError(errMsg, module);
+            Debug.logError(errMsg, MODULE);
             return 0;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", module);
+        if (Debug.verboseOn()) Debug.logVerbose("[loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", MODULE);
 
         try {
             /* The OLD way
@@ -270,7 +270,7 @@ public class EntityDataLoader {
             String xmlError = "[loadData]: Error loading XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
             errorMessages.add(xmlError);
             if (continueOnFail) {
-                Debug.logError(e, xmlError, module);
+                Debug.logError(e, xmlError, MODULE);
             } else {
                 throw new GenericEntityException(xmlError, e);
             }

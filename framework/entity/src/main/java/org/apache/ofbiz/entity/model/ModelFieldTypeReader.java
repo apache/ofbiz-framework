@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelFieldTypeReader implements Serializable {
 
-    public static final String module = ModelFieldTypeReader.class.getName();
+    public static final String MODULE = ModelFieldTypeReader.class.getName();
     protected static final UtilCache<String, ModelFieldTypeReader> readers = UtilCache.createUtilCache("entity.ModelFieldTypeReader", 0, 0);
 
     protected static Map<String, ModelFieldType> createFieldTypeCache(Element docElement, String location) {
@@ -55,7 +55,7 @@ public class ModelFieldTypeReader implements Serializable {
         for (Element curFieldType: fieldTypeList) {
             String fieldTypeName = curFieldType.getAttribute("type");
             if (UtilValidate.isEmpty(fieldTypeName)) {
-                Debug.logError("Invalid field-type element, type attribute is missing in file " + location, module);
+                Debug.logError("Invalid field-type element, type attribute is missing in file " + location, MODULE);
             } else {
                 ModelFieldType fieldType = new ModelFieldType(curFieldType);
                 fieldTypeMap.put(fieldTypeName.intern(), fieldType);
@@ -76,7 +76,7 @@ public class ModelFieldTypeReader implements Serializable {
             try {
                 fieldTypeInfo = EntityConfig.getInstance().getFieldType(tempModelName);
             } catch (GenericEntityConfException e) {
-                Debug.logWarning(e, "Exception thrown while getting field type config: ", module);
+                Debug.logWarning(e, "Exception thrown while getting field type config: ", MODULE);
             }
             if (fieldTypeInfo == null) {
                 throw new IllegalArgumentException("Could not find a field-type definition with name \"" + tempModelName + "\"");
@@ -88,7 +88,7 @@ public class ModelFieldTypeReader implements Serializable {
             try {
                 document = fieldTypeResourceHandler.getDocument();
             } catch (GenericConfigException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 throw new IllegalStateException("Error loading field type file " + fieldTypeResourceHandler.getLocation());
             }
             Map<String, ModelFieldType> fieldTypeMap = createFieldTypeCache(document.getDocumentElement(), fieldTypeResourceHandler.getLocation());

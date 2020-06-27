@@ -43,7 +43,7 @@ under the License.
                 <field-map field-name="noConditionFind" value="Y"/>
             </service>
         </actions>
-        <field name="prodCatalogId" sort-field="true">
+        <field name="prodCatalogId" sort-field="true" widget-style="buttontext">
             <hyperlink description="${prodCatalogId}" target="EditCatalog" also-hidden="false">
                 <parameter param-name="prodCatalogId"/>
             </hyperlink>

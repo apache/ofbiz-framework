@@ -31,7 +31,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
  */
 public class MapComparator implements Comparator<Map<Object, Object>> {
 
-    public static final String module = MapComparator.class.getName();
+    public static final String MODULE = MapComparator.class.getName();
 
     private List<? extends Object> keys;
 
@@ -114,7 +114,7 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
                     compareResult = comp1.compareTo(o2);
                 } catch (Exception e) {
                     String errorMessage = "Error sorting list of Maps: " + e.toString();
-                    Debug.logError(e, errorMessage, module);
+                    Debug.logError(e, errorMessage, MODULE);
                     throw new RuntimeException(errorMessage);
                 }
             }

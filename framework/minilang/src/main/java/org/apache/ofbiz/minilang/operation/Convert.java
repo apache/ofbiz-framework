@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
  */
 public class Convert extends SimpleMapOperation {
 
-    public static final String module = Convert.class.getName();
+    public static final String MODULE = Convert.class.getName();
 
     String format;
     boolean replace = true;
@@ -77,18 +77,18 @@ public class Convert extends SimpleMapOperation {
             convertedObject = ObjectType.simpleTypeOrObjectConvert(fieldObject, type, format, locale);
         } catch (GeneralException e) {
             addMessage(messages, loader, locale);
-            Debug.logError(e, "Error in convert simple-map-processor operation: " + e.toString(), module);
+            Debug.logError(e, "Error in convert simple-map-processor operation: " + e.toString(), MODULE);
             return;
         }
         if (convertedObject == null)
             return;
         if (replace) {
             results.put(toField, convertedObject);
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Converted.exec] Put converted value \"" + convertedObject + "\" in field \"" + toField + "\"", module);
+            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Converted.exec] Put converted value \"" + convertedObject + "\" in field \"" + toField + "\"", MODULE);
         } else {
             if (!results.containsKey(toField)) {
                 results.put(toField, convertedObject);
-                // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Converted.exec] Put converted value \"" + convertedObject + "\" in field \"" + toField + "\"", module);
+                // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Converted.exec] Put converted value \"" + convertedObject + "\" in field \"" + toField + "\"", MODULE);
             }
         }
     }

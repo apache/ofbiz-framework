@@ -51,7 +51,7 @@ import com.paymentech.orbital.sdk.util.exceptions.InitializationException;
 
 public class OrbitalPaymentServices {
 
-    public static String module = OrbitalPaymentServices.class.getName();
+    public static String MODULE = OrbitalPaymentServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
     public final static String resource = "AccountingUiLabels";
@@ -72,7 +72,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.NEW_ORDER_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError(e, "Error in request initialization", module);
+            Debug.logError(e, "Error in request initialization", MODULE);
         }
         buildAuthOrAuthCaptureTransaction(context, delegator, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -98,7 +98,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.NEW_ORDER_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError(e, "Error in request initialization", module);
+            Debug.logError(e, "Error in request initialization", MODULE);
         }
         buildAuthOrAuthCaptureTransaction(context, delegator, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -125,7 +125,7 @@ public class OrbitalPaymentServices {
         try {
             creditCard = orderPaymentPreference.getRelatedOne("CreditCard", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
@@ -143,7 +143,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.MARK_FOR_CAPTURE_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError(e, "Error in request initialization", module);
+            Debug.logError(e, "Error in request initialization", MODULE);
         }
         buildCaptureTransaction(context, delegator, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -170,7 +170,7 @@ public class OrbitalPaymentServices {
         try {
             creditCard = orderPaymentPreference.getRelatedOne("CreditCard", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
@@ -187,7 +187,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.NEW_ORDER_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError(e, "Error in request initialization", module);
+            Debug.logError(e, "Error in request initialization", MODULE);
         }
         buildRefundTransaction(context, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -214,7 +214,7 @@ public class OrbitalPaymentServices {
         try {
             orderPaymentPreference.getRelatedOne("CreditCard", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentUnableToGetCCInfo", locale));
         }
@@ -230,7 +230,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.REVERSE_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError(e, "Error in request initialization", module);
+            Debug.logError(e, "Error in request initialization", MODULE);
         }
         buildReleaseTransaction(context, delegator, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -273,7 +273,7 @@ public class OrbitalPaymentServices {
             buildConfiguratorContext.putAll(config.getConfigurations());
             config.setConfigurations(buildConfiguratorContext);
         } catch (InitializationException e) {
-            Debug.logError(e, "Orbital Configurator Initialization Error: " + e.getMessage(), module);
+            Debug.logError(e, "Orbital Configurator Initialization Error: " + e.getMessage(), MODULE);
         }
         return buildConfiguratorContext;
     }
@@ -291,7 +291,7 @@ public class OrbitalPaymentServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         return returnValue;
@@ -370,11 +370,11 @@ public class OrbitalPaymentServices {
             }
             results.put("processAmount", amount);
         } catch (InitializationException ie) {
-            Debug.logInfo("Unable to initialize request object", module);
+            Debug.logInfo("Unable to initialize request object", MODULE);
         } catch (FieldNotFoundException fnfe) {
-            Debug.logError("Unable to find XML field in template", module);
+            Debug.logError("Unable to find XML field in template", MODULE);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -409,11 +409,11 @@ public class OrbitalPaymentServices {
             Debug.logInfo("\nCapture Request:\n ======== " + request.getXML());
             results.put("captureAmount", amount);
         } catch (InitializationException ie) {
-            Debug.logInfo("Unable to initialize request object", module);
+            Debug.logInfo("Unable to initialize request object", MODULE);
         } catch (FieldNotFoundException fnfe) {
-            Debug.logError("Unable to find XML field in template" + fnfe.getMessage(), module);
+            Debug.logError("Unable to find XML field in template" + fnfe.getMessage(), MODULE);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -441,11 +441,11 @@ public class OrbitalPaymentServices {
             Debug.logInfo("\nRefund Request:\n ======== " + request.getXML());
             results.put("refundAmount", amount);
         } catch (InitializationException ie) {
-            Debug.logInfo("Unable to initialize request object", module);
+            Debug.logInfo("Unable to initialize request object", MODULE);
         } catch (FieldNotFoundException fnfe) {
-            Debug.logError("Unable to find XML field in template", module);
+            Debug.logError("Unable to find XML field in template", MODULE);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -465,11 +465,11 @@ public class OrbitalPaymentServices {
             Debug.logInfo("\nRelease Request:\n ======== " + request.getXML());
             results.put("releaseAmount", amount);
         } catch (InitializationException ie) {
-            Debug.logInfo("Unable to initialize request object", module);
+            Debug.logInfo("Unable to initialize request object", MODULE);
         } catch (FieldNotFoundException fnfe) {
-            Debug.logError("Unable to find XML field in template" + fnfe.getMessage(), module);
+            Debug.logError("Unable to find XML field in template" + fnfe.getMessage(), MODULE);
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -481,7 +481,7 @@ public class OrbitalPaymentServices {
         try {
             tp = new TransactionProcessor();
         } catch (InitializationException iex) {
-            Debug.logError("TransactionProcessor failed to initialize" + iex.getMessage(), module);
+            Debug.logError("TransactionProcessor failed to initialize" + iex.getMessage(), MODULE);
             iex.printStackTrace();
         }
     }
@@ -497,7 +497,7 @@ public class OrbitalPaymentServices {
             }
             processCardResult.put("processCardResponse", response);
         } catch (TransactionException tex) {
-            Debug.logError("TransactionProcessor failed to initialize" + tex.getMessage(), module);
+            Debug.logError("TransactionProcessor failed to initialize" + tex.getMessage(), MODULE);
             tex.printStackTrace();
         }
         processCardResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
@@ -521,7 +521,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
-        Debug.logInfo("processAuthTransResult: " + results.toString(),module);
+        Debug.logInfo("processAuthTransResult: " + results.toString(),MODULE);
     }
 
     private static void processAuthCaptureTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -545,7 +545,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
-        Debug.logInfo("processAuthCaptureTransResult: " + results.toString(),module);
+        Debug.logInfo("processAuthCaptureTransResult: " + results.toString(),MODULE);
     }
 
     private static void processCaptureTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -561,7 +561,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("captureAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processCaptureTransResult: " + results.toString(),module);
+        Debug.logInfo("processCaptureTransResult: " + results.toString(),MODULE);
     }
 
     private static void processRefundTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -577,7 +577,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("refundAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processRefundTransResult: " + results.toString(),module);
+        Debug.logInfo("processRefundTransResult: " + results.toString(),MODULE);
     }
 
     private static void processReleaseTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -593,7 +593,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("releaseAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processReleaseTransResult: " + results.toString(),module);
+        Debug.logInfo("processReleaseTransResult: " + results.toString(),MODULE);
     }
 
     private static void printTransResult(ResponseIF response) {
@@ -611,7 +611,7 @@ public class OrbitalPaymentServices {
         generatedResponse.put("AVSCode",  response.getAVSResponseCode());
         generatedResponse.put("CVV2ResponseCode", response.getCVV2RespCode());
 
-        Debug.logInfo("printTransResult === " + generatedResponse.toString(),module);
+        Debug.logInfo("printTransResult === " + generatedResponse.toString(),MODULE);
     }
 
     private static String formatExpDateForOrbital(String expDate) {
@@ -634,8 +634,8 @@ public class OrbitalPaymentServices {
                 shippingRef = "No Tracking Info processed in order";
             }
         } catch (GenericEntityException e) {
-            Debug.logError("Shipping Ref not found returning empty string", module);
-            Debug.logError(e, module);
+            Debug.logError("Shipping Ref not found returning empty string", MODULE);
+            Debug.logError(e, MODULE);
         }
         return shippingRef;
     }

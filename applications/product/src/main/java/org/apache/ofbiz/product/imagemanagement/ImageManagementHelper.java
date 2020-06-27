@@ -33,7 +33,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 
 public final class ImageManagementHelper {
 
-    static String module = ImageManagementHelper.class.getName();
+    static String MODULE = ImageManagementHelper.class.getName();
     private ImageManagementHelper() {}
 
     public static String getInternalImageUrl(HttpServletRequest request, String productId) {
@@ -59,7 +59,7 @@ public final class ImageManagementHelper {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot get internal image url", module);
+            Debug.logError(e, "Cannot get internal image url", MODULE);
         }
         return internalImageUrl;
     }

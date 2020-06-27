@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
-    public static final String module = ScreenWidgetArtifactInfo.class.getName();
+    public static final String MODULE = ScreenWidgetArtifactInfo.class.getName();
 
     protected ModelScreen modelScreen;
 
@@ -93,7 +93,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             try {
                 aif.getModelService(serviceName);
             } catch (GeneralException e) {
-                Debug.logWarning("Service [" + serviceName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
+                Debug.logWarning("Service [" + serviceName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", MODULE);
                 continue;
             }
 
@@ -112,7 +112,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             // attempt to convert relation names to entity names
             entityName = aif.getEntityModelReader().validateEntityName(entityName);
             if (entityName == null) {
-                Debug.logWarning("Entity [" + entityName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
+                Debug.logWarning("Entity [" + entityName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", MODULE);
                 continue;
             }
 
@@ -132,7 +132,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             try {
                 aif.getModelForm(formName);
             } catch (Exception e) {
-                Debug.logWarning("Form [" + formName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
+                Debug.logWarning("Form [" + formName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", MODULE);
                 continue;
             }
 

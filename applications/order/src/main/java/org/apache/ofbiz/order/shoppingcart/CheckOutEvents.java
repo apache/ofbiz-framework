@@ -58,7 +58,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class CheckOutEvents {
 
-    public static final String module = CheckOutEvents.class.getName();
+    public static final String MODULE = CheckOutEvents.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static String cartNotEmpty(HttpServletRequest request, HttpServletResponse response) {
@@ -80,7 +80,7 @@ public class CheckOutEvents {
         HttpSession session = request.getSession();
 
         String curPage = request.getParameter("checkoutpage");
-        Debug.logInfo("CheckoutPage: " + curPage, module);
+        Debug.logInfo("CheckoutPage: " + curPage, MODULE);
 
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -94,7 +94,7 @@ public class CheckOutEvents {
             try {
                 cart.createDropShipGroups(dispatcher);
             } catch (CartItemModifyException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else if ("shippingoptions".equals(curPage)) {
             //remove empty ship group
@@ -132,7 +132,7 @@ public class CheckOutEvents {
                     if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
                         String errorMessage = ServiceUtil.getErrorMessage(createCustomerTaxAuthInfoResult);
                         request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         return "error";
                     }
                 } catch (GenericServiceException e) {
@@ -323,7 +323,7 @@ public class CheckOutEvents {
                     try {
                         amount = new BigDecimal(amountStr);
                     } catch (NumberFormatException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         errMsg = UtilProperties.getMessage(resource_error, "checkevents.invalid_amount_set_for_payment_method", (cart != null ? cart.getLocale() : Locale.getDefault()));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return null;
@@ -333,7 +333,7 @@ public class CheckOutEvents {
                 selectedPaymentMethods.put(paymentMethod, paymentMethodInfo);
             }
         }
-        Debug.logInfo("Selected Payment Methods : " + selectedPaymentMethods, module);
+        Debug.logInfo("Selected Payment Methods : " + selectedPaymentMethods, MODULE);
         return selectedPaymentMethods;
     }
 
@@ -394,7 +394,7 @@ public class CheckOutEvents {
                 if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
                     String errorMessage = ServiceUtil.getErrorMessage(createCustomerTaxAuthInfoResult);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     return "error";
                 }
             } catch (GenericServiceException e) {
@@ -543,13 +543,13 @@ public class CheckOutEvents {
         GenericValue productStore = null;
         try {
             productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", cart.getProductStoreId()).cache().queryOne();
-            Debug.logInfo("checkShipmentNeeded: reqShipAddrForDigItems=" + productStore.getString("reqShipAddrForDigItems"), module);
+            Debug.logInfo("checkShipmentNeeded: reqShipAddrForDigItems=" + productStore.getString("reqShipAddrForDigItems"), MODULE);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting ProductStore: " + e.toString(), module);
+            Debug.logError(e, "Error getting ProductStore: " + e.toString(), MODULE);
         }
 
         if (productStore != null && "N".equals(productStore.getString("reqShipAddrForDigItems"))) {
-            Debug.logInfo("checkShipmentNeeded: cart.containOnlyDigitalGoods()=" + cart.containOnlyDigitalGoods(), module);
+            Debug.logInfo("checkShipmentNeeded: cart.containOnlyDigitalGoods()=" + cart.containOnlyDigitalGoods(), MODULE);
             // don't require shipping for all digital items
             if (cart.containOnlyDigitalGoods()) {
                 return "shipmentNotNeeded";
@@ -568,11 +568,11 @@ public class CheckOutEvents {
                 failureCode = 1;
             }
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             ServiceUtil.setMessages(request, e.getMessage(), null, null);
             failureCode = 2;
         } catch (GeneralRuntimeException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             ServiceUtil.setMessages(request, e.getMessage(), null, null);
         }
 
@@ -693,7 +693,7 @@ public class CheckOutEvents {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         return "success";
@@ -739,7 +739,7 @@ public class CheckOutEvents {
         String shipToPartyId = null;
 
         String mode = request.getParameter("finalizeMode");
-        Debug.logInfo("FinalizeMode: " + mode, module);
+        Debug.logInfo("FinalizeMode: " + mode, MODULE);
         // necessary to avoid infinite looping when in a funny state, and will go right back to beginning
         if (mode == null) {
             return "customer";
@@ -757,7 +757,7 @@ public class CheckOutEvents {
             try {
                 cart.setAutoUserLogin(null, dispatcher);
             } catch (CartItemModifyException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 
@@ -766,7 +766,7 @@ public class CheckOutEvents {
             try {
                 cart.createDropShipGroups(dispatcher);
             } catch (CartItemModifyException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 
@@ -790,7 +790,7 @@ public class CheckOutEvents {
                     try {
                         userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "anonymous").queryOne();
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                     if (userLogin != null) {
                         userLogin.set("partyId", partyId);
@@ -799,9 +799,9 @@ public class CheckOutEvents {
                     try {
                         cart.setUserLogin(userLogin, dispatcher);
                     } catch (CartItemModifyException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
-                    Debug.logInfo("Anonymous user-login has been activated", module);
+                    Debug.logInfo("Anonymous user-login has been activated", MODULE);
                 }
             }
         }
@@ -913,7 +913,7 @@ public class CheckOutEvents {
         // payment option; if offline we skip the payment screen
         methodType = request.getParameter("paymentMethodType");
         if ("offline".equals(methodType)) {
-            Debug.logInfo("Changing mode from->to: " + mode + "->payment", module);
+            Debug.logInfo("Changing mode from->to: " + mode + "->payment", MODULE);
             mode = "payment";
         }
 
@@ -1201,7 +1201,7 @@ public class CheckOutEvents {
                     cart.addItem(index, sci);
                 }
             } catch (CartItemModifyException | GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
         }
 

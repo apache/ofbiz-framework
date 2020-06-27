@@ -30,7 +30,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 @SuppressWarnings("serial")
 public class ControlServlet extends org.apache.ofbiz.webapp.control.ControlServlet {
 
-    public static final String module = ControlServlet.class.getName();
+    public static final String MODULE = ControlServlet.class.getName();
 
     private static String defaultPage = null;
     private static String pageNotFound = null;

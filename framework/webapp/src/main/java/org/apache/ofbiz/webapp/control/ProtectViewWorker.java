@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class ProtectViewWorker {
 
-    private final static String module = ProtectViewWorker.class.getName();
+    private final static String MODULE = ProtectViewWorker.class.getName();
     private static final String resourceWebapp = "WebappUiLabels";
     private static final Map<String, Long> hitsByViewAccessed = new ConcurrentHashMap<>();
     private static final Map<String, Long> durationByViewAccessed = new ConcurrentHashMap<>();
@@ -121,7 +121,7 @@ public final class ProtectViewWorker {
                                 try {
                                     delegator.createOrStore(tarpittedLoginView);
                                 } catch (GenericEntityException e) {
-                                    Debug.logError(e, "Could not save TarpittedLoginView:", module);
+                                    Debug.logError(e, "Could not save TarpittedLoginView:", MODULE);
                                 }
                             }
                         } else {
@@ -140,7 +140,7 @@ public final class ProtectViewWorker {
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
                 String errMsg = UtilProperties.getMessage("CommonUiLabels", "CommonDatabaseProblem", messageMap, UtilHttp.getLocale(request));
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
             }
         }
 

@@ -54,7 +54,7 @@ under the License.
                 </#if>
                   "id": "${returnField}",
                   "label": "<#if (displayString?trim?has_content )>${displayString?trim}<#else>${returnField}</#if>",
-                  "value": "${returnField}"
+                  "value": "${StringUtil.wrapString(returnField)}"
               }<#if autocompleteOption_has_next>,</#if>
           </#list>
         <#else>

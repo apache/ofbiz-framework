@@ -33,7 +33,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class OFBizRealm extends RealmBase
 {
-    public static final String module = OFBizRealm.class.getName();
+    public static final String MODULE = OFBizRealm.class.getName();
 
     @Override
     protected String getPassword(String username) {
@@ -44,7 +44,7 @@ public class OFBizRealm extends RealmBase
                 return userLogin.getString("currentPassword");
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return null;
     }

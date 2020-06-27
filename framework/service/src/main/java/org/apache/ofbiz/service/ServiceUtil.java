@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.job.JobUtil;
  */
 public final class ServiceUtil {
 
-    public static final String module = ServiceUtil.class.getName();
+    public static final String MODULE = ServiceUtil.class.getName();
     private static final String resource = "ServiceErrorUiLabels";
 
     private ServiceUtil () {}
@@ -138,7 +138,7 @@ public final class ServiceUtil {
         if (errorMap.size() > 0) {
             result.put(ModelService.ERROR_MESSAGE_MAP, errorMap);
         }
-        Debug.logError(result.toString(), module);
+        Debug.logError(result.toString(), MODULE);
         return result;
     }
 
@@ -257,7 +257,7 @@ public final class ServiceUtil {
 
     public static String makeErrorMessage(Map<String, ? extends Object> result, String msgPrefix, String msgSuffix, String errorPrefix, String errorSuffix) {
         if (result == null) {
-            Debug.logWarning("A null result map was passed", module);
+            Debug.logWarning("A null result map was passed", MODULE);
             return null;
         }
         String errorMsg = (String) result.get(ModelService.ERROR_MESSAGE);
@@ -415,7 +415,7 @@ public final class ServiceUtil {
                     userLogin = runAs;
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         return userLogin;
@@ -466,7 +466,7 @@ public final class ServiceUtil {
             modelService = dispatcher.getDispatchContext().getModelService(serviceName);
         } catch (GenericServiceException e) {
             String errMsg = "Could not get service definition for service name [" + serviceName + "]: ";
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             throw new GeneralServiceException(e);
         }
         outMap.putAll(modelService.makeValid(fromMap, ModelService.IN_PARAM, true, null, timeZone, locale));

@@ -57,7 +57,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class LoginEvents {
 
-    public static final String module = LoginEvents.class.getName();
+    public static final String MODULE = LoginEvents.class.getName();
     public static final String resource = "SecurityextUiLabels";
     public static final String usernameCookieName = "OFBiz.Username";
     /**
@@ -142,39 +142,13 @@ public class LoginEvents {
             return "error";
         }
 
-        String questionEnumId = request.getParameter("securityQuestion");
-        String securityAnswer = request.getParameter("securityAnswer");
-        if (UtilValidate.isEmpty(questionEnumId) && UtilValidate.isEmpty(securityAnswer)) {
-            return "success";
-        }
-
-        try {
-            GenericValue userLoginSecurityQuestion = EntityQuery.use(delegator).from("UserLoginSecurityQuestion").where("questionEnumId", questionEnumId, "userLoginId", userLoginId).cache().queryOne();
-            if (userLoginSecurityQuestion != null) {
-                if (UtilValidate.isEmpty(securityAnswer)) {
-                    errMsg = UtilProperties.getMessage(resource, "loginservices.security_answer_empty", UtilHttp.getLocale(request));
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
-                }
-                String ulSecurityAnswer = userLoginSecurityQuestion.getString("securityAnswer");
-                if (UtilValidate.isNotEmpty(ulSecurityAnswer) && ! securityAnswer.equalsIgnoreCase(ulSecurityAnswer)) {
-                    errMsg = UtilProperties.getMessage(resource, "loginservices.security_answer_not_match", UtilHttp.getLocale(request));
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
-                }
-            }
-        } catch (GenericEntityException e) {
-            errMsg = UtilProperties.getMessage(resource, "loginevents.problem_getting_security_question_record", UtilHttp.getLocale(request));
-            Debug.logError(e, errMsg, module);
-        }
-
         GenericValue supposedUserLogin = null;
         String passwordHint = null; 
         
         try {
             supposedUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         } catch (GenericEntityException gee) {
-            Debug.logWarning(gee, "", module);
+            Debug.logWarning(gee, "", MODULE);
         }
         
         if (supposedUserLogin != null) {
@@ -227,7 +201,7 @@ public class LoginEvents {
                     .where("userLoginId", userLoginId)
                     .queryOne();
             if (userLogin == null || "N".equals(userLogin.getString("enabled"))) {
-                Debug.logError("userlogin uknown or disabled " + userLogin, module);
+                Debug.logError("userlogin uknown or disabled " + userLogin, MODULE);
                 //giving a "sent email to associated email-address" response, to suppress feedback on in-/valid usernames
                 String errMsg = UtilProperties.getMessage(resource, "loginevents.new_password_sent_check_email",
                         UtilHttp.getLocale(request));
@@ -266,7 +240,7 @@ public class LoginEvents {
             try {
                 productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", "PRDS_PWD_RETRIEVE").queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Problem getting ProductStoreEmailSetting", module);
+                Debug.logError(e, "Problem getting ProductStoreEmailSetting", MODULE);
             }
 
             String bodyScreenLocation = null;
@@ -299,7 +273,7 @@ public class LoginEvents {
                 try {
                     emailTemplateSetting = EntityQuery.use(delegator).from("EmailTemplateSetting").where("emailTemplateSettingId", "EMAIL_PASSWORD").cache().queryOne();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
                 if (emailTemplateSetting != null) {
                     String subject = emailTemplateSetting.getString("subject");
@@ -318,7 +292,7 @@ public class LoginEvents {
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
 
@@ -329,7 +303,7 @@ public class LoginEvents {
                 return "error";
             }
         } catch (GeneralException e) {
-            Debug.logWarning(e, "", module);
+            Debug.logWarning(e, "", MODULE);
             String errMsg = UtilProperties.getMessage(resource, "loginevents.error_unable_email_password_contact_customer_service", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";

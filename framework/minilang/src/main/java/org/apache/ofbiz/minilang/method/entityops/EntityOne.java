@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityOne extends EntityOperation {
 
-    public static final String module = EntityOne.class.getName();
+    public static final String MODULE = EntityOne.class.getName();
 
     private final PrimaryKeyFinder finder;
 
@@ -58,7 +58,7 @@ public final class EntityOne extends EntityOperation {
             this.finder.runFind(methodContext.getEnvMap(), delegator);
         } catch (GeneralException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

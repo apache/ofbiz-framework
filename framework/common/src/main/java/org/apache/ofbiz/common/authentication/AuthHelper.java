@@ -37,7 +37,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public final class AuthHelper {
 
-    private static final String module = AuthHelper.class.getName();
+    private static final String MODULE = AuthHelper.class.getName();
     private static List<Authenticator> authenticators = new ArrayList<>();
     private static boolean authenticatorsLoaded = false;
 
@@ -115,7 +115,7 @@ public final class AuthHelper {
                         authenticators.add(auth);
                     }
                 } catch (ClassCastException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
 
@@ -138,7 +138,7 @@ public final class AuthHelper {
                         try {
                             cl = Thread.currentThread().getContextClassLoader();
                         } catch (SecurityException e) {
-                            Debug.logError(e, e.getMessage(), module);
+                            Debug.logError(e, e.getMessage(), MODULE);
                         }
                         return cl;
                     }

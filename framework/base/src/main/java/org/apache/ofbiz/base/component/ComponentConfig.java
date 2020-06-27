@@ -56,7 +56,7 @@ import org.w3c.dom.Element;
  */
 public final class ComponentConfig {
 
-    public static final String module = ComponentConfig.class.getName();
+    public static final String MODULE = ComponentConfig.class.getName();
     public static final String OFBIZ_COMPONENT_XML_FILENAME = "ofbiz-component.xml";
     // This map is not a UtilCache instance because there is no strategy or implementation for reloading components.
     private static final ComponentConfigCache componentConfigCache = new ComponentConfigCache();
@@ -441,7 +441,7 @@ public final class ComponentConfig {
                         Collections::unmodifiableMap));
         configurations = ContainerConfig.getConfigurations(componentElement);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Read component config : [" + rootLocation + "]", module);
+            Debug.logVerbose("Read component config : [" + rootLocation + "]", MODULE);
         }
     }
 
@@ -508,7 +508,7 @@ public final class ComponentConfig {
             String propValue = System.getProperty(resourceLoaderInfo.prependEnv);
             if (propValue == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + resourceLoaderInfo.prependEnv + " is not set, cannot load resource.";
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
             buf.append(propValue);
@@ -808,7 +808,7 @@ public final class ComponentConfig {
             try {
                 return KeyStoreUtil.getStore(rh.getURL(), this.getPassword(), this.getType());
             } catch (Exception e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
             return null;
         }

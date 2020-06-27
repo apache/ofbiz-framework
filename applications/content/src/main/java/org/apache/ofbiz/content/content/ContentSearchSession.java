@@ -39,7 +39,7 @@ import org.apache.ofbiz.entity.Delegator;
 
 public class ContentSearchSession {
 
-    public static final String module = ContentSearchSession.class.getName();
+    public static final String MODULE = ContentSearchSession.class.getName();
     
     @SuppressWarnings("serial")
     public static class ContentSearchOptions implements java.io.Serializable {
@@ -179,7 +179,7 @@ public class ContentSearchSession {
                     searchRemoveConstraint(Integer.parseInt(removeConstraint), session);
                     constraintsChanged = true;
                 } catch (Exception e) {
-                    Debug.logError(e, "Error removing constraint [" + removeConstraint + "]", module);
+                    Debug.logError(e, "Error removing constraint [" + removeConstraint + "]", MODULE);
                 }
             }
         }
@@ -241,7 +241,7 @@ public class ContentSearchSession {
             try {
                 contentSearchOptions.setViewIndex(Integer.valueOf(viewIndexStr));
             } catch (Exception e) {
-                Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", module);
+                Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", MODULE);
                 // we could just do nothing here, but we know something was specified so we don't want to use the previous value from the session
                 contentSearchOptions.setViewIndex(0);
             }
@@ -252,7 +252,7 @@ public class ContentSearchSession {
             try {
                 contentSearchOptions.setViewSize(Integer.valueOf(viewSizeStr));
             } catch (Exception e) {
-                Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", module);
+                Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", MODULE);
                 contentSearchOptions.setViewSize(20);
             }
         }

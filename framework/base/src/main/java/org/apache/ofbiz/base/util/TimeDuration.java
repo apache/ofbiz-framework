@@ -32,7 +32,7 @@ import com.ibm.icu.util.Calendar;
 @SuppressWarnings("serial")
 public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     /** A <code>TimeDuration</code> instance that represents a zero time duration. */
-    private static final String module = TimeDuration.class.getName();
+    private static final String MODULE = TimeDuration.class.getName();
     public static final TimeDuration ZeroTimeDuration = new NullDuration();
 
     protected final int milliseconds;
@@ -186,7 +186,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
                     && this.seconds == that.seconds
                     && this.milliseconds == that.milliseconds;
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return false;

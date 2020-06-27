@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class StatusServices {
 
-    public static final String module = StatusServices.class.getName();
+    public static final String MODULE = StatusServices.class.getName();
     public static final String resource = "CommonUiLabels";
 
     public static Map<String, Object> getStatusItems(DispatchContext ctx, Map<String, ?> context) {
@@ -62,7 +62,7 @@ public class StatusServices {
                                                               .queryList();
                 statusItems.addAll(myStatusItems);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
         Map<String, Object> ret =  new LinkedHashMap<>();
@@ -82,7 +82,7 @@ public class StatusServices {
                                                     .cache(true)
                                                     .queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         Map<String, Object> ret = ServiceUtil.returnSuccess();
         if (statusValidChangeToDetails != null) {

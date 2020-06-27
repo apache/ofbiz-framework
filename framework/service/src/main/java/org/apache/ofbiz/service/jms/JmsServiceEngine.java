@@ -70,7 +70,7 @@ import org.w3c.dom.Element;
  */
 public class JmsServiceEngine extends AbstractEngine {
 
-    public static final String module = JmsServiceEngine.class.getName();
+    public static final String MODULE = JmsServiceEngine.class.getName();
 
     public JmsServiceEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -94,7 +94,7 @@ public class JmsServiceEngine extends AbstractEngine {
         String xmlContext = null;
 
         try {
-            if (Debug.verboseOn()) Debug.logVerbose("Serializing Context --> " + context, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Serializing Context --> " + context, MODULE);
             xmlContext = JmsSerializer.serialize(context);
         } catch (SerializeException | IOException e) {
             throw new GenericServiceException("Cannot serialize context.", e);
@@ -163,7 +163,7 @@ public class JmsServiceEngine extends AbstractEngine {
             Message message = makeMessage(session, modelService, context);
 
             publisher.publish(message);
-            if (Debug.verboseOn()) Debug.logVerbose("Sent JMS Message to " + topicName, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Sent JMS Message to " + topicName, MODULE);
 
             // close the connections
             publisher.close();
@@ -222,7 +222,7 @@ public class JmsServiceEngine extends AbstractEngine {
             Message message = makeMessage(session, modelService, context);
 
             sender.send(message);
-            if (Debug.verboseOn()) Debug.logVerbose("Sent JMS Message to " + queueName, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Sent JMS Message to " + queueName, MODULE);
 
             // close the connections
             sender.close();
@@ -291,7 +291,7 @@ public class JmsServiceEngine extends AbstractEngine {
             if (TransactionUtil.getStatus() != TransactionUtil.STATUS_ACTIVE)
                 session.commit();
 
-            Debug.logInfo("Message sent.", module);
+            Debug.logInfo("Message sent.", MODULE);
 
             // close the connections
             sender.close();

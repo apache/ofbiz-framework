@@ -74,7 +74,7 @@ public class FormRenderer {
      *
      */
 
-    public static final String module = FormRenderer.class.getName();
+    public static final String MODULE = FormRenderer.class.getName();
 
     public static String getCurrentContainerId(ModelForm modelForm, Map<String, Object> context) {
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
@@ -674,13 +674,13 @@ public class FormRenderer {
             boolean formPerItem, int numOfColumns) throws IOException {
         String lookupName = modelForm.getListName();
         if (UtilValidate.isEmpty(lookupName)) {
-            Debug.logError("No value for list or iterator name found.", module);
+            Debug.logError("No value for list or iterator name found.", MODULE);
             return;
         }
         Object obj = context.get(lookupName);
         if (obj == null) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", module);
+                 Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", MODULE);
             }
             return;
         }
@@ -757,7 +757,7 @@ public class FormRenderer {
                 }
 
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("In form got another row, context is: " + localContext, module);
+                     Debug.logVerbose("In form got another row, context is: " + localContext, MODULE);
                 }
 
                 List<ModelFormField> tempFieldList = modelForm.getFieldList().stream()
@@ -889,7 +889,7 @@ public class FormRenderer {
                 try {
                     ((EntityListIterator) iter).close();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error closing list form render EntityListIterator: " + e.toString(), module);
+                    Debug.logError(e, "Error closing list form render EntityListIterator: " + e.toString(), MODULE);
                 }
             }
         }
@@ -1190,7 +1190,7 @@ public class FormRenderer {
         Object obj = context.get(lookupName);
         if (obj == null) {
             if (Debug.verboseOn())
-                Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", module);
+                Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", MODULE);
             return true;
         }
         // if list is empty, do not render rows
@@ -1208,7 +1208,7 @@ public class FormRenderer {
                     itemIndex++;
                 }
             } catch (GenericEntityException gee) {
-                Debug.logError(gee,module);
+                Debug.logError(gee,MODULE);
             }
         } else {
             while (iter.hasNext()) {

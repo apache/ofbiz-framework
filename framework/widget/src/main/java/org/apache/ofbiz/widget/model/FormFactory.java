@@ -45,7 +45,7 @@ import org.xml.sax.SAXException;
  */
 public class FormFactory {
 
-    public static final String module = FormFactory.class.getName();
+    public static final String MODULE = FormFactory.class.getName();
     private static final UtilCache<String, ModelForm> formLocationCache = UtilCache.createUtilCache("widget.form.locationResource", 0, 0, false);
     private static final UtilCache<String, ModelForm> formWebappCache = UtilCache.createUtilCache("widget.form.webappResource", 0, 0, false);
 

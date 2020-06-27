@@ -48,19 +48,19 @@ import freemarker.template.TemplateTransformModel;
  */
 public class OfbizCurrencyTransform implements TemplateTransformModel {
 
-    public static final String module = OfbizCurrencyTransform.class.getName();
+    public static final String MODULE = OfbizCurrencyTransform.class.getName();
 
     private static String getArg(Map<String, Object> args, String key) {
         String  result = "";
         Object o = args.get(key);
         if (o != null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + o.getClass().getName(), MODULE);
             if (o instanceof TemplateScalarModel) {
                 TemplateScalarModel s = (TemplateScalarModel) o;
                 try {
                     result = s.getAsString();
                 } catch (TemplateModelException e) {
-                    Debug.logError(e, "Template Exception", module);
+                    Debug.logError(e, "Template Exception", MODULE);
                 }
             } else {
               result = o.toString();
@@ -77,7 +77,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             if (o == null) {
                 o = 0.00;
             }
-            if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), MODULE);
 
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
@@ -91,7 +91,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
     private static Integer getInteger(Map<String, Object> args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
-            if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), MODULE);
 
             // handle nulls better
             if (o == null) {
@@ -134,7 +134,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         try {
             req = (BeanModel) env.getVariable("request");
         } catch (TemplateModelException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         }
         if (req != null) {
             HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
@@ -170,7 +170,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             @Override
             public void close() throws IOException {
                 try {
-                    if (Debug.verboseOn()) Debug.logVerbose("parms: " + amount + " " + isoCode + " " + locale, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("parms: " + amount + " " + isoCode + " " + locale, MODULE);
                     if (locale.length() < 1) {
                         // Load the locale from the session
                         Environment env = Environment.getCurrentEnvironment();

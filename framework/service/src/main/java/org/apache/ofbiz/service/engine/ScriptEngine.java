@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class ScriptEngine extends GenericAsyncEngine {
 
-    public static final String module = ScriptEngine.class.getName();
+    public static final String MODULE = ScriptEngine.class.getName();
     private static final Set<String> protectedKeys = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
@@ -95,7 +95,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
         } catch (ScriptException se) {
             return ServiceUtil.returnError(se.getMessage());
         } catch (Exception e) {
-            Debug.logWarning(e, "Error invoking service " + modelService.name + ": ", module);
+            Debug.logWarning(e, "Error invoking service " + modelService.name + ": ", MODULE);
             throw new GenericServiceException(e);
         }
     }

@@ -53,7 +53,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 @SuppressWarnings("serial")
 public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
 
-    public static final String module = FlexibleStringExpander.class.getName();
+    public static final String MODULE = FlexibleStringExpander.class.getName();
     public static final String openBracket = "${";
     public static final String closeBracket = "}";
     protected static final UtilCache<Key, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");
@@ -304,7 +304,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         while (start != -1) {
             end = expression.indexOf(closeBracket, start);
             if (end == -1) {
-                Debug.logWarning("Found a ${ without a closing } (curly-brace) in the String: " + expression, module);
+                Debug.logWarning("Found a ${ without a closing } (curly-brace) in the String: " + expression, MODULE);
                 break;
             }
             // Check for escaped expression
@@ -443,7 +443,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 }
             }
         } catch (GeneralException | RuntimeException e) {
-            Debug.log(e, module);
+            Debug.log(e, MODULE);
             buffer.append(obj);
         }
         if (buffer.length() > this.hint) {
@@ -605,10 +605,10 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 }
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Error evaluating expression: " + e, module);
+                    Debug.logVerbose("Error evaluating expression: " + e, MODULE);
                 }
             } catch (Exception e) {
-                Debug.logError("Error evaluating expression: " + e, module);
+                Debug.logError("Error evaluating expression: " + e, MODULE);
             }
             return null;
         }
@@ -659,11 +659,11 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                     return obj;
                 } else {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Scriptlet evaluated to null [" + this + "].", module);
+                        Debug.logVerbose("Scriptlet evaluated to null [" + this + "].", MODULE);
                     }
                 }
             } catch (Exception e) {
-                Debug.logWarning(e, "Error evaluating scriptlet [" + this + "]; error was: " + e, module);
+                Debug.logWarning(e, "Error evaluating scriptlet [" + this + "]; error was: " + e, MODULE);
             }
             return null;
         }
@@ -694,10 +694,10 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 return UelUtil.evaluate(context, openBracket.concat(expr.toString()).concat(closeBracket));
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Error evaluating expression: " + e, module);
+                    Debug.logVerbose("Error evaluating expression: " + e, MODULE);
                 }
             } catch (Exception e) {
-                Debug.logError("Error evaluating expression: " + e, module);
+                Debug.logError("Error evaluating expression: " + e, MODULE);
             }
             return "";
         }
@@ -719,10 +719,10 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 obj = UelUtil.evaluate(context, new String(this.bracketedOriginal));
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Error evaluating expression " + this + ": " + e, module);
+                    Debug.logVerbose("Error evaluating expression " + this + ": " + e, MODULE);
                 }
             } catch (Exception e) {
-                Debug.logError("Error evaluating expression " + this + ": " + e, module);
+                Debug.logError("Error evaluating expression " + this + ": " + e, MODULE);
             }
             return obj;
         }

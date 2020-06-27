@@ -58,7 +58,7 @@ import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
  */
 public class ServiceMultiEventHandler implements EventHandler {
 
-    public static final String module = ServiceMultiEventHandler.class.getName();
+    public static final String MODULE = ServiceMultiEventHandler.class.getName();
 
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";
@@ -104,7 +104,7 @@ public class ServiceMultiEventHandler implements EventHandler {
         if (serviceName == null) {
             throw new EventHandlerException("Service name (eventMethod) cannot be null");
         }
-        if (Debug.verboseOn()) Debug.logVerbose("[Set mode/service]: " + mode + "/" + serviceName, module);
+        if (Debug.verboseOn()) Debug.logVerbose("[Set mode/service]: " + mode + "/" + serviceName, MODULE);
 
         // some needed info for when running the service
         Locale locale = UtilHttp.getLocale(request);
@@ -125,8 +125,8 @@ public class ServiceMultiEventHandler implements EventHandler {
             throw new EventHandlerException("Problems getting the service model");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SERVICE Event", module);
-        if (Debug.verboseOn()) Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SERVICE Event", MODULE);
+        if (Debug.verboseOn()) Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), MODULE);
 
         // check if we are using per row submit
         boolean useRowSubmit = request.getParameter("_useRowSubmit") == null ? false :
@@ -198,7 +198,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 for (ModelParam modelParam: modelService.getInModelParamList()) {
                     String paramName = modelParam.name;
 
-                    // Debug.logInfo("In ServiceMultiEventHandler processing input parameter [" + modelParam.name + (modelParam.optional?"(optional):":"(required):") + modelParam.mode + "] for service [" + serviceName + "]", module);
+                    // Debug.logInfo("In ServiceMultiEventHandler processing input parameter [" + modelParam.name + (modelParam.optional?"(optional):":"(required):") + modelParam.mode + "] for service [" + serviceName + "]", MODULE);
 
                     // don't include userLogin, that's taken care of below
                     if ("userLogin".equals(paramName)) continue;
@@ -275,7 +275,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                     // set even if null so that values will get nulled in the db later on
                     serviceContext.put(paramName, value);
 
-                    // Debug.logInfo("In ServiceMultiEventHandler got value [" + value + "] for input parameter [" + paramName + "] for service [" + serviceName + "]", module);
+                    // Debug.logInfo("In ServiceMultiEventHandler got value [" + value + "] for input parameter [" + paramName + "] for service [" + serviceName + "]", MODULE);
                 }
 
                 // get only the parameters for this service - converted to proper type
@@ -296,7 +296,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                     serviceContext.put("timeZone", timeZone);
                 }
 
-                // Debug.logInfo("ready to call " + serviceName + " with context " + serviceContext, module);
+                // Debug.logInfo("ready to call " + serviceName + " with context " + serviceContext, MODULE);
 
                 // invoke the service
                 Map<String, Object> result = null;
@@ -317,7 +317,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                         errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNonNestedMessage());
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, "Service invocation error", module);
+                    Debug.logError(e, "Service invocation error", MODULE);
                     errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNested() + messageSuffixStr);
                 }
 
@@ -370,7 +370,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                     try {
                         TransactionUtil.rollback(beganTrans, "Error in multi-service event handling: " + errorMessages.toString(), null);
                     } catch (GenericTransactionException e) {
-                        Debug.logError(e, "Could not rollback multi-service global transaction", module);
+                        Debug.logError(e, "Could not rollback multi-service global transaction", MODULE);
                     }
                 }
                 errorMessages.add(0, errorPrefixStr);
@@ -387,7 +387,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                     try {
                         TransactionUtil.commit(beganTrans);
                     } catch (GenericTransactionException e) {
-                        Debug.logError(e, "Could not commit multi-service global transaction", module);
+                        Debug.logError(e, "Could not commit multi-service global transaction", MODULE);
                         throw new EventHandlerException("Commit multi-service global transaction failed");
                     }
                 }

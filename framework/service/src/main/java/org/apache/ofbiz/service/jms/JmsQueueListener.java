@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.GenericServiceException;
  */
 public class JmsQueueListener extends AbstractJmsListener {
 
-    public static final String module = JmsQueueListener.class.getName();
+    public static final String MODULE = JmsQueueListener.class.getName();
 
     private QueueConnection con = null;
     private QueueSession session = null;
@@ -86,7 +86,7 @@ public class JmsQueueListener extends AbstractJmsListener {
                     receiver.setMessageListener(this);
                     con.start();
                     this.setConnected(true);
-                    Debug.logInfo("Listening to queue [" + queueName + "]...", module);
+                    Debug.logInfo("Listening to queue [" + queueName + "]...", MODULE);
                 } else {
                     throw new GenericServiceException("Queue lookup failed.");
                 }

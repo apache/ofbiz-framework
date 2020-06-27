@@ -95,7 +95,7 @@ under the License.
   </div>
   <div class="screenlet-body">
       <#if serverHits?has_content>
-        <div class="align-float">
+        <div class="align-text">
           <span class="label">
             <#if 0 < viewIndex>
               <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |
@@ -151,7 +151,7 @@ under the License.
         </#if>
       </table>
       <#if serverHits?has_content>
-        <div class="align-float">
+        <div class="align-text">
           <span class="label">
             <#if 0 < viewIndex>
               <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |

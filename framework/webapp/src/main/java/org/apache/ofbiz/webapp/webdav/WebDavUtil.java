@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
 /** Utility methods needed to implement a WebDAV servlet. */
 public final class WebDavUtil {
 
-    public static final String module = WebDavUtil.class.getName();
+    public static final String MODULE = WebDavUtil.class.getName();
     private static final TimeZone GMT_TIMEZONE = TimeZone.getTimeZone("GMT");
     private static final String RFC1123_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz";
 
@@ -81,7 +81,7 @@ public final class WebDavUtil {
             String credentials = request.getHeader("Authorization");
             if (credentials != null && credentials.startsWith("Basic ")) {
                 credentials = Arrays.toString(Base64.getMimeDecoder().decode(credentials.replace("Basic ", "").getBytes(StandardCharsets.UTF_8)));
-                if (Debug.verboseOn()) Debug.logVerbose("Found HTTP Basic credentials", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Found HTTP Basic credentials", MODULE);
                 String[] parts = credentials.split(":");
                 if (parts.length < 2) {
                     return null;

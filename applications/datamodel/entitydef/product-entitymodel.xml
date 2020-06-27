@@ -3646,30 +3646,44 @@ under the License.
         <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
       </relation>
     </entity>
-    <entity entity-name="ProductPromoCodeEmail"
+    <entity entity-name="OldProductPromoCodeEmail" table-name="PRODUCT_PROMO_CODE_EMAIL"
             package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Email">
       <field name="productPromoCodeId" type="id"></field>
       <field name="emailAddress" type="email"></field>
       <prim-key field="productPromoCodeId"/>
       <prim-key field="emailAddress"/>
-      <relation type="one" fk-name="PROD_PRCDE_PCD" rel-entity-name="ProductPromoCode">
+      <relation type="one" fk-name="PROD_PRCDE_OPCD" rel-entity-name="ProductPromoCode">
         <key-map field-name="productPromoCodeId"/>
       </relation>
+    </entity>
+    <entity entity-name="ProdPromoCodeContactMech"
+            package-name="org.apache.ofbiz.product.promo"
+            title="Product Promotion ContactMech">
+        <field name="productPromoCodeId" type="id"></field>
+        <field name="contactMechId" type="id"></field>
+        <prim-key field="productPromoCodeId"/>
+        <prim-key field="contactMechId"/>
+        <relation type="one" fk-name="PROD_PRCDE_PCD" rel-entity-name="ProductPromoCode">
+            <key-map field-name="productPromoCodeId"/>
+        </relation>
+        <relation type="one" fk-name="PROD_PRCDE_CM" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
     </entity>
     <view-entity entity-name="ProductPromoCodeEmailParty"
             package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Email and Party View">
-      <member-entity entity-alias="PPCE" entity-name="ProductPromoCodeEmail"/>
+      <member-entity entity-alias="PPCCM" entity-name="ProdPromoCodeContactMech"/>
       <member-entity entity-alias="CM" entity-name="ContactMech"/>
       <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
-      <alias entity-alias="PPCE" name="productPromoCodeId"/>
+      <alias entity-alias="PPCCM" name="productPromoCodeId"/>
       <alias entity-alias="CM" name="infoString"/>
       <alias entity-alias="PCM" name="partyId"/>
       <alias entity-alias="PCM" name="fromDate"/>
       <alias entity-alias="PCM" name="thruDate"/>
-      <view-link entity-alias="PPCE" rel-entity-alias="CM">
-          <key-map field-name="emailAddress" rel-field-name="infoString"/>
+      <view-link entity-alias="PPCCM" rel-entity-alias="CM">
+          <key-map field-name="contactMechId"/>
       </view-link>
       <view-link entity-alias="CM" rel-entity-alias="PCM">
           <key-map field-name="contactMechId"/>

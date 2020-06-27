@@ -65,7 +65,7 @@ import org.w3c.dom.Document;
  */
 public class SOAPEventHandler implements EventHandler {
 
-    public static final String module = SOAPEventHandler.class.getName();
+    public static final String MODULE = SOAPEventHandler.class.getName();
 
     @Override
     public void init(ServletContext context) throws EventHandlerException {
@@ -150,7 +150,7 @@ public class SOAPEventHandler implements EventHandler {
             // log the request message
             if (Debug.verboseOn()) {
                 try {
-                    Debug.logInfo("Request Message:\n" + reqEnv + "\n", module);
+                    Debug.logInfo("Request Message:\n" + reqEnv + "\n", MODULE);
                 } catch (Throwable t) {
                 }
             }
@@ -159,7 +159,7 @@ public class SOAPEventHandler implements EventHandler {
             throw new EventHandlerException("Cannot get the envelope", e);
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SOAP Event", module);
+        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SOAP Event", MODULE);
 
         String serviceName = null;
         try {
@@ -174,23 +174,23 @@ public class SOAPEventHandler implements EventHandler {
 
                 if (model == null) {
                     sendError(response, "Problem processing the service", serviceName);
-                    Debug.logError("Could not find Service [" + serviceName + "].", module);
+                    Debug.logError("Could not find Service [" + serviceName + "].", MODULE);
                     return null;
                 }
 
                 if (!model.export) {
                     sendError(response, "Problem processing the service", serviceName);
-                    Debug.logError("Trying to call Service [" + serviceName + "] that is not exported.", module);
+                    Debug.logError("Trying to call Service [" + serviceName + "] that is not exported.", MODULE);
                     return null;
                 }
 
                 Map<String, Object> serviceResults = dispatcher.runSync(serviceName, parameters);
-                if (Debug.verboseOn()) Debug.logVerbose("[EventHandler] : Service invoked", module);
+                if (Debug.verboseOn()) Debug.logVerbose("[EventHandler] : Service invoked", MODULE);
 
                 createAndSendSOAPResponse(serviceResults, serviceName, response);
 
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 if (UtilProperties.getPropertyAsBoolean("service", "secureSoapAnswer", true)) {
                     sendError(response, "Problem processing the service, check your parameters.", serviceName);
                 } else {
@@ -204,7 +204,7 @@ public class SOAPEventHandler implements EventHandler {
             }
         } catch (Exception e) {
             sendError(response, e.getMessage(), serviceName);
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
 
@@ -228,9 +228,9 @@ public class SOAPEventHandler implements EventHandler {
             HttpServletResponse response) throws EventHandlerException {
         try {
         // setup the response
-            if (Debug.verboseOn()) Debug.logVerbose("[EventHandler] : Setting up response message", module);
+            if (Debug.verboseOn()) Debug.logVerbose("[EventHandler] : Setting up response message", MODULE);
             String xmlResults = SoapSerializer.serialize(serviceResults);
-            //Debug.logInfo("xmlResults ==================" + xmlResults, module);
+            //Debug.logInfo("xmlResults ==================" + xmlResults, MODULE);
             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
             StAXOMBuilder resultsBuilder = (StAXOMBuilder) OMXMLBuilderFactory.createStAXOMBuilder(OMAbstractFactory.getOMFactory(), reader);
             OMElement resultSer = resultsBuilder.getDocumentElement();
@@ -254,7 +254,7 @@ public class SOAPEventHandler implements EventHandler {
             // log the response message
             if (Debug.verboseOn()) {
                 try {
-                    Debug.logInfo("Response Message:\n" + resEnv + "\n", module);
+                    Debug.logInfo("Response Message:\n" + resEnv + "\n", MODULE);
                 } catch (Throwable t) {
                 }
             }
@@ -262,7 +262,7 @@ public class SOAPEventHandler implements EventHandler {
             resEnv.serialize(response.getOutputStream());
             response.getOutputStream().flush();
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new EventHandlerException(e.getMessage(), e);
         }
     }
@@ -306,7 +306,7 @@ public class SOAPEventHandler implements EventHandler {
             // log the response message
             if (Debug.verboseOn()) {
                 try {
-                    Debug.logInfo("Response Message:\n" + resEnv + "\n", module);
+                    Debug.logInfo("Response Message:\n" + resEnv + "\n", MODULE);
                 } catch (Throwable t) {
                 }
             }

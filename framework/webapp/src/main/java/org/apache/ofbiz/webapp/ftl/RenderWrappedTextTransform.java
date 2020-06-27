@@ -36,7 +36,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderWrappedTextTransform implements  TemplateTransformModel {
 
-    public static final String module = RenderWrappedTextTransform.class.getName();
+    public static final String MODULE = RenderWrappedTextTransform.class.getName();
 
     @Override
     public Writer getWriter(final Writer out, @SuppressWarnings("rawtypes") Map args) {
@@ -60,7 +60,7 @@ public class RenderWrappedTextTransform implements  TemplateTransformModel {
                 if (UtilValidate.isNotEmpty(wrappedFTL)) {
                         out.write(wrappedFTL);
                 } else {
-                    Debug.logInfo("wrappedFTL was empty. skipping write.", module);
+                    Debug.logInfo("wrappedFTL was empty. skipping write.", MODULE);
                 }
             }
         };

@@ -65,7 +65,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ShoppingCartHelper {
 
     public static final String resource = "OrderUiLabels";
-    public static final String module = ShoppingCartHelper.class.getName();
+    public static final String MODULE = ShoppingCartHelper.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
     // The shopping cart to manipulate
@@ -209,13 +209,13 @@ public class ShoppingCartHelper {
             try {
                 product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Unable to lookup product : " + productId, module);
+                Debug.logError(e, "Unable to lookup product : " + productId, MODULE);
             }
             if (product == null || product.get("requireAmount") == null || "N".equals(product.getString("requireAmount"))) {
                 amount = null;
             }
-            Debug.logInfo("carthelper productid " + productId,module);
-            Debug.logInfo("parent productid " + pProductId,module);
+            Debug.logInfo("carthelper productid " + productId,MODULE);
+            Debug.logInfo("parent productid " + pProductId,MODULE);
         }
 
         // Get the additional features selected for the product (if any)
@@ -232,7 +232,7 @@ public class ShoppingCartHelper {
                             .filterByDate()
                             .queryFirst();
                 } catch (GenericEntityException gee) {
-                    Debug.logError(gee, module);
+                    Debug.logError(gee, MODULE);
                 }
                 if (productFeatureAndAppl != null) {
                     productFeatureAndAppl.set("productFeatureApplTypeId", "STANDARD_FEATURE");
@@ -445,7 +445,7 @@ public class ShoppingCartHelper {
                         try {
                             originalProduct = EntityQuery.use(delegator).from("Product").where("productId", originalProductId).queryOne();
                         } catch (GenericEntityException e) {
-                            Debug.logError(e, "Error getting parent product", module);
+                            Debug.logError(e, "Error getting parent product", MODULE);
                         }
                         if(originalProduct != null){
                             BigDecimal piecesIncluded = new BigDecimal(originalProduct.getLong("piecesIncluded"));
@@ -466,7 +466,7 @@ public class ShoppingCartHelper {
                             quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
                         }
                     } catch(GenericEntityException e) {
-                        Debug.logError(e.getMessage(), module);
+                        Debug.logError(e.getMessage(), MODULE);
                         quantity = BigDecimal.ONE;
                     }
                     if (quantity.compareTo(BigDecimal.ZERO) < 0) {
@@ -475,7 +475,7 @@ public class ShoppingCartHelper {
 
                     try {
                         if (Debug.verboseOn()) {
-                            Debug.logVerbose("Bulk Adding to cart [" + quantity + "] of [" + productId + "] in Item Group [" + itemGroupNumber + "]", module);
+                            Debug.logVerbose("Bulk Adding to cart [" + quantity + "] of [" + productId + "] in Item Group [" + itemGroupNumber + "]", MODULE);
                         }
                         this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, originalProductId, dispatcher);
                     } catch (CartItemModifyException | ItemNotFoundException e) {
@@ -530,7 +530,7 @@ public class ShoppingCartHelper {
                 try {
                     requirement = EntityQuery.use(delegator).from("Requirement").where("requirementId", requirementId).queryOne();
                 } catch (GenericEntityException gee) {
-                    Debug.logError(gee, module);
+                    Debug.logError(gee, MODULE);
                 }
                 if (requirement == null) {
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource,
@@ -557,14 +557,14 @@ public class ShoppingCartHelper {
                         }
                         if (requirementAlreadyInCart) {
                             if (Debug.warningOn()) {
-                                Debug.logWarning(UtilProperties.getMessage(resource_error, "OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId",requirementId), cart.getLocale()), module);
+                                Debug.logWarning(UtilProperties.getMessage(resource_error, "OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId",requirementId), cart.getLocale()), MODULE);
                             }
                             continue;
                         }
 
                         try {
                             if (Debug.verboseOn()) {
-                                Debug.logVerbose("Bulk Adding to cart requirement [" + quantity + "] of [" + productId + "]", module);
+                                Debug.logVerbose("Bulk Adding to cart requirement [" + quantity + "] of [" + productId + "]", MODULE);
                             }
                             int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, requirement.getTimestamp("requiredByDate"), null, null, null, catalogId, null, null, itemGroupNumber, null, dispatcher);
                             ShoppingCartItem sci = this.cart.items().get(index);
@@ -601,7 +601,7 @@ public class ShoppingCartHelper {
         try {
             prodCatMemberCol = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", categoryId).cache(true).queryList();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.toString(), module);
+            Debug.logWarning(e.toString(), MODULE);
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
             messageMap.put("message", e.getMessage());
             errMsg = UtilProperties.getMessage(resource_error,"cart.could_not_get_products_in_category_cart", messageMap, this.cart.getLocale());
@@ -658,7 +658,7 @@ public class ShoppingCartHelper {
                         errorMsgs.add(e.getMessage());
                     }
                 } catch (NumberFormatException nfe) {
-                    Debug.logError("Error deleting from cart: " + nfe.getMessage(), module);
+                    Debug.logError("Error deleting from cart: " + nfe.getMessage(), MODULE);
                 }
             }
         }
@@ -945,7 +945,7 @@ public class ShoppingCartHelper {
             int itemIndex = this.cart.getItemIndex(item);
 
             if (Debug.infoOn()) {
-                Debug.logInfo("Removing item index: " + itemIndex, module);
+                Debug.logInfo("Removing item index: " + itemIndex, MODULE);
             }
             try {
                 this.cart.removeCartItem(itemIndex, dispatcher);
@@ -1014,7 +1014,7 @@ public class ShoppingCartHelper {
         try {
             features = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where(fields).orderBy("-fromDate").queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
 
@@ -1060,7 +1060,7 @@ public class ShoppingCartHelper {
         try {
             agreement = EntityQuery.use(this.delegator).from("Agreement").where("agreementId", agreementId).cache(true).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.toString(), module);
+            Debug.logWarning(e.toString(), MODULE);
             result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotGetAgreement",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()) + UtilProperties.getMessage(resource_error,"OrderError",this.cart.getLocale()) + e.getMessage());
             return result;
         }
@@ -1086,7 +1086,7 @@ public class ShoppingCartHelper {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.toString(), module);
+                Debug.logWarning(e.toString(), MODULE);
                 result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotGetAgreementItemsThrough",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()) + UtilProperties.getMessage(resource_error,"OrderError",this.cart.getLocale()) + e.getMessage());
                 return result;
             }
@@ -1107,7 +1107,7 @@ public class ShoppingCartHelper {
                       }
                   }
             } catch (GenericEntityException e) {
-                  Debug.logWarning(e.toString(), module);
+                  Debug.logWarning(e.toString(), MODULE);
                   result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotGetAgreementTermsThrough",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale())  + UtilProperties.getMessage(resource_error,"OrderError",this.cart.getLocale()) + e.getMessage());
                   return result;
             }

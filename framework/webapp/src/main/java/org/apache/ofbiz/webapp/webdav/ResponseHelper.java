@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
  * working with WebDAV requests and responses.*/
 public class ResponseHelper {
 
-    public static final String module = ResponseHelper.class.getName();
+    public static final String MODULE = ResponseHelper.class.getName();
     
     public static final String DAV_NAMESPACE_URI = "DAV:";
     public static final String STATUS_200 = "HTTP/1.1 200 OK";
@@ -51,7 +51,7 @@ public class ResponseHelper {
             try {
                 response.sendError(statusCode, statusString);
             } catch (IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
     }

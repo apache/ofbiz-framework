@@ -53,7 +53,7 @@ under the License.
         <response name="success" type="view" value="FindFacility"/>
     </request-map>
     <request-map uri="FacilitySearchResults">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="FacilitySearchResults"/>
     </request-map>
     <request-map uri="EditFacility">

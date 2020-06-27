@@ -1,0 +1,79 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= CSRF defense
+== How is done the CSRF defense in Apache OFBiz and how to adapt it if needed
+The Apache OFBiz Project
+Release 17.12
+
+:imagesdir: ../../themes/common-theme/webapp/images/img/
+ifdef::backend-pdf[]
+:title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
+:source-highlighter: rouge
+endif::[]
+
+=== The same-Site attribute
+
+[quote,According to OWASP ZAP]
+____
+The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.
+____
+
+By default OOTB the SameSiteFilter property sets the same-site attribute value to 'strict. SameSiteFilter allows to change to 'lax' if needed. If you use 'lax' we recommend that you set the csrf.defense.strategy property to org.apache.ofbiz.security.CsrfDefenseStrategy in order to provide an effective defense against CSRF attacks.
+
+
+===== Properties
+
+The _security.properties_ file contains related properties:
+
+    # -- By default the SameSite value in SameSiteFilter is 'strict'.
+    # -- This property allows to change to 'lax' if needed.
+    # -- If you use 'lax' we recommend that you set 
+    # -- org.apache.ofbiz.security.CsrfDefenseStrategy 
+    # -- for csrf.defense.strategy (see below)
+    SameSiteCookieAttribute=
+
+    # -- The cache size for the Tokens Maps that stores the CSRF tokens.
+    # -- RemoveEldestEntry is used when it's get above csrf.cache.size
+    # -- Default is 5000
+    # -- TODO: possibly separate tokenMap size from partyTokenMap size
+    csrf.cache.size=
+
+    # -- Parameter name for CSRF token. Default is "csrf" if not specified
+    csrf.tokenName.nonAjax=
+
+    # -- The csrf.entity.request.limit is used to show how to avoid cluttering the Tokens Maps cache with URIs starting with "entity/"
+    # -- It can be useful with large Database contents, ie with a large numbers of tuples, like "entity/edit/Agreement/10000, etc.
+    # -- The same principle can be extended to other cases similar to "entity/" URIs (harcoded or using similar properties).
+    # -- Default is 3
+    csrf.entity.request.limit=
+
+    # -- CSRF defense strategy.
+    # -- Because OFBiz OOTB also sets the SameSite attribute to 'strict' for all cookies,
+    # -- which is an effective CSRF defense,
+    # -- default is org.apache.ofbiz.security.NoCsrfDefenseStrategy if not specified.
+    # -- Use org.apache.ofbiz.security.CsrfDefenseStrategy 
+    # -- if you need to use a 'lax' for SameSiteCookieAttribute
+    csrf.defense.strategy=
+
+There is also a SystemProperty in __SSOJWTDemoData.xml__:
+[source,xml]
+----
+<SystemProperty systemResourceId="security" systemPropertyId="SameSiteCookieAttribute" systemPropertyValue="strict"/>
+----

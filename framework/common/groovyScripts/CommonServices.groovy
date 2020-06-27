@@ -127,7 +127,7 @@ def convertUom() {
 
     // all done
     result.convertedValue = convertedValue
-    logVerbose("""Uom conversion of [${parameters.originalValue}] from [${parameters.uomId}] 
+    logVerbose("""Uom conversion of [${parameters.originalValue}] from [${parameters.uomId}]
                            to [${parameters.uomIdTo}] using conversion factor [${uomConversion.conversionFactor}],
                            result is [${convertedValue}]""")
 
@@ -318,7 +318,7 @@ def getServerTimestamp() {
 
 def getServerTimeZone() {
     Map result = success()
-    result.serverTimeZone = TimeZone.getDefault().toZoneId()
+    result.serverTimeZone = TimeZone.getDefault().toZoneId().toString()
     return result
 }
 

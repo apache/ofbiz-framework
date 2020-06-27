@@ -58,7 +58,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
  */
 public final class ScriptEventHandler implements EventHandler {
 
-    public static final String module = ScriptEventHandler.class.getName();
+    public static final String MODULE = ScriptEventHandler.class.getName();
     private static final Set<String> protectedKeys = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
@@ -105,7 +105,7 @@ public final class ScriptEventHandler implements EventHandler {
                     result = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
                 }
             } catch (Exception e) {
-                Debug.logWarning(e, "Error running event " + event.path + ": ", module);
+                Debug.logWarning(e, "Error running event " + event.path + ": ", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }

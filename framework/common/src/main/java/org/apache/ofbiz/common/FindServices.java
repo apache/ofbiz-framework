@@ -67,7 +67,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class FindServices {
 
-    public static final String module = FindServices.class.getName();
+    public static final String MODULE = FindServices.class.getName();
     public static final String resource = "CommonUiLabels";
     public static final Map<String, EntityComparisonOperator<?, ?>> entityOperators;
 
@@ -483,7 +483,7 @@ public class FindServices {
             list = it.getPartialList(start+1, viewSize); // list starts at '1'
             listSize = it.getResultsSizeAfterPartialList();
         } catch (ClassCastException | NullPointerException | GenericEntityException e) {
-            Debug.logInfo("Problem getting partial list" + e, module);
+            Debug.logInfo("Problem getting partial list" + e, MODULE);
         }
 
         result.put("listSize", listSize);
@@ -567,7 +567,7 @@ public class FindServices {
 
         if (executeResult.get("listIt") == null) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", module);
+                Debug.logVerbose("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", MODULE);
             }
         }
 
@@ -805,7 +805,7 @@ public class FindServices {
                 item = list.get(0);
             }
         } catch (ClassCastException | NullPointerException | GenericEntityException e) {
-            Debug.logInfo("Problem getting list Item" + e,module);
+            Debug.logInfo("Problem getting list Item" + e,MODULE);
         }
 
         if (UtilValidate.isNotEmpty(item)) {

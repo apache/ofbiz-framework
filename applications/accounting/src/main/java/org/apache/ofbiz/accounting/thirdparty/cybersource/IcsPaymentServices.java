@@ -51,7 +51,7 @@ import com.cybersource.ws.client.FaultException;
  */
 public class IcsPaymentServices {
 
-    public static final String module = IcsPaymentServices.class.getName();
+    public static final String MODULE = IcsPaymentServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
     public final static String resource = "AccountingUiLabels";
@@ -79,12 +79,12 @@ public class IcsPaymentServices {
         try {
             reply = UtilGenerics.cast(Client.runTransaction(request, props));
         } catch (FaultException e) {
-            Debug.logError(e, "ERROR: Fault from CyberSource", module);
-            Debug.logError(e, "Fault : " + e.getFaultString(), module);
+            Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
+            Debug.logError(e, "Fault : " + e.getFaultString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
-            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), module);
+            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
@@ -126,11 +126,11 @@ public class IcsPaymentServices {
         try {
             reply = UtilGenerics.cast(Client.runTransaction(request, props));
         } catch (FaultException e) {
-            Debug.logError(e, "ERROR: Fault from CyberSource", module);
+            Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
-            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), module);
+            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
@@ -165,11 +165,11 @@ public class IcsPaymentServices {
         try {
             reply = UtilGenerics.cast(Client.runTransaction(request, props));
         } catch (FaultException e) {
-            Debug.logError(e, "ERROR: Fault from CyberSource", module);
+            Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
-            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), module);
+            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
@@ -204,11 +204,11 @@ public class IcsPaymentServices {
         try {
             reply = UtilGenerics.cast(Client.runTransaction(request, props));
         } catch (FaultException e) {
-            Debug.logError(e, "ERROR: Fault from CyberSource", module);
+            Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
-            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), module);
+            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
@@ -237,11 +237,11 @@ public class IcsPaymentServices {
         try {
             reply = UtilGenerics.cast(Client.runTransaction(request, props));
         } catch (FaultException e) {
-            Debug.logError(e, "ERROR: Fault from CyberSource", module);
+            Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
-            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), module);
+            Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
@@ -269,11 +269,11 @@ public class IcsPaymentServices {
         String keysFile = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "keysFile", configString, "payment.cybersource.keysFile");
         // some property checking
         if (UtilValidate.isEmpty(merchantId)) {
-            Debug.logWarning("The merchantId property is not configured", module);
+            Debug.logWarning("The merchantId property is not configured", MODULE);
             return null;
         }
         if (UtilValidate.isEmpty(keysDir)) {
-            Debug.logWarning("The keysDir property is not configured", module);
+            Debug.logWarning("The keysDir property is not configured", MODULE);
             return null;
         }
         // create some properties for CS Client
@@ -289,7 +289,7 @@ public class IcsPaymentServices {
         if (UtilValidate.isNotEmpty(keysFile)) {
             props.put("alternateKeyFilename", keysFile);
         }
-        Debug.logInfo("Created CyberSource Properties : " + props, module);
+        Debug.logInfo("Created CyberSource Properties : " + props, MODULE);
         return props;
     }
 
@@ -402,7 +402,7 @@ public class IcsPaymentServices {
                 avsOverride = party.getDelegator().findOne("PartyIcsAvsOverride",
                         UtilMisc.toMap("partyId", party.getString("partyId")), false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             if (avsOverride != null && avsOverride.get("avsDeclineString") != null) {
                 String overrideString = avsOverride.getString("avsDeclineString");
@@ -424,7 +424,7 @@ public class IcsPaymentServices {
         if (email != null) {
             request.put("billTo_email", email.getString("infoString"));
         } else {
-            Debug.logWarning("Email not defined; Cybersource will fail.", module);
+            Debug.logWarning("Email not defined; Cybersource will fail.", MODULE);
         }
         // phone number seems to not be used; possibly only for reporting.
 
@@ -438,7 +438,7 @@ public class IcsPaymentServices {
             request.put("card_expirationMonth", expDateList.get(0));
             request.put("card_expirationYear", expDateList.get(1));
         } else {
-            Debug.logWarning("CreditCard not defined; Cybersource will fail.", module);
+            Debug.logWarning("CreditCard not defined; Cybersource will fail.", MODULE);
         }
         // CCV info
         String cvNum = (String) context.get("cardSecurityCode");
@@ -463,7 +463,7 @@ public class IcsPaymentServices {
                 request.put("billTo_state", billingAddress.getString("stateProvinceGeoId"));
             }
         } else {
-            Debug.logWarning("BillingAddress not defined; Cybersource will fail.", module);
+            Debug.logWarning("BillingAddress not defined; Cybersource will fail.", MODULE);
         }
         // order shipping information
         GenericValue shippingAddress = (GenericValue) context.get("shippingAddress");
@@ -571,7 +571,7 @@ public class IcsPaymentServices {
             result.put("captureMessage", reply.get("decision"));
         }
         if (Debug.infoOn())
-            Debug.logInfo("CC [Cybersource] authorization result : " + result, module);
+            Debug.logInfo("CC [Cybersource] authorization result : " + result, MODULE);
     }
 
     private static void processCaptureResult(Map<String, Object> reply, Map<String, Object> result) {
@@ -591,7 +591,7 @@ public class IcsPaymentServices {
         result.put("captureFlag", reply.get("ccCaptureReply_reasonCode"));
         result.put("captureMessage", reply.get("decision"));
         if (Debug.infoOn())
-            Debug.logInfo("CC [Cybersource] capture result : " + result, module);
+            Debug.logInfo("CC [Cybersource] capture result : " + result, MODULE);
     }
 
     private static void processReleaseResult(Map<String, Object> reply, Map<String, Object> result) {
@@ -611,7 +611,7 @@ public class IcsPaymentServices {
         result.put("releaseFlag", reply.get("reasonCode"));
         result.put("releaseMessage", reply.get("decision"));
         if (Debug.infoOn())
-            Debug.logInfo("CC [Cybersource] release result : " + result, module);
+            Debug.logInfo("CC [Cybersource] release result : " + result, MODULE);
     }
 
     private static void processRefundResult(Map<String, Object> reply, Map<String, Object> result) {
@@ -631,7 +631,7 @@ public class IcsPaymentServices {
         result.put("refundFlag", reply.get("ccCreditReply_reasonCode"));
         result.put("refundMessage", reply.get("decision"));
         if (Debug.infoOn())
-            Debug.logInfo("CC [Cybersource] refund result : " + result, module);
+            Debug.logInfo("CC [Cybersource] refund result : " + result, MODULE);
     }
 
     private static void processCreditResult(Map<String, Object> reply, Map<String, Object> result) {
@@ -653,15 +653,15 @@ public class IcsPaymentServices {
         result.put("creditFlag", reply.get("ccCreditReply_reasonCode"));
         result.put("creditMessage", reply.get("decision"));
         if (Debug.infoOn())
-            Debug.logInfo("CC [Cybersource] credit result : " + result, module);
+            Debug.logInfo("CC [Cybersource] credit result : " + result, MODULE);
     }
 
     private static String getDecision(Map<String, Object> reply) {
         String decision = (String) reply.get("decision");
         String reasonCode = (String) reply.get("reasonCode");
         if (!"ACCEPT".equalsIgnoreCase(decision)) {
-            Debug.logInfo("CyberSource : " + decision + " (" + reasonCode + ")", module);
-            Debug.logInfo("Reply Dump : " + reply, module);
+            Debug.logInfo("CyberSource : " + decision + " (" + reasonCode + ")", MODULE);
+            Debug.logInfo("Reply Dump : " + reply, MODULE);
         }
         return decision;
     }
@@ -679,7 +679,7 @@ public class IcsPaymentServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else {
             String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);

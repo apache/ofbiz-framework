@@ -53,7 +53,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 public class SimpleContentViewHandler extends AbstractViewHandler {
 
-    public static final String module = SimpleContentViewHandler.class.getName();
+    public static final String MODULE = SimpleContentViewHandler.class.getName();
     private String rootDir = null;
     private String https = null;
 
@@ -83,7 +83,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         String webSiteId = WebSiteWorker.getWebSiteId(request);
 
         try {
-            if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
+            if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
             Delegator delegator = (Delegator)request.getAttribute("delegator");
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
@@ -92,7 +92,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
                             dataResourceId = content.getString("dataResourceId");
                         }
-                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
+                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
                     } else {
                         Timestamp fromDate = null;
                         if (UtilValidate.isNotEmpty(fromDateStr)) {
@@ -108,7 +108,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                         }
                         GenericValue content = ContentWorker.getSubContent(delegator, contentId, mapKey, null, null, assocList, fromDate);
                         dataResourceId = content.getString("dataResourceId");
-                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
+                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
                     }
                 } else {
                     GenericValue contentRevisionItem = EntityQuery.use(delegator)
@@ -121,9 +121,9 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                                 + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
                     }
                     dataResourceId = contentRevisionItem.getString("newDataResourceId");
-                    if (Debug.verboseOn()) Debug.logVerbose("contentRevisionItem:" + contentRevisionItem, module);
-                    if (Debug.verboseOn()) Debug.logVerbose("contentId=" + rootContentId + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, module);
-                    if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("contentRevisionItem:" + contentRevisionItem, MODULE);
+                    if (Debug.verboseOn()) Debug.logVerbose("contentId=" + rootContentId + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, MODULE);
+                    if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
                 }
             }
             if (UtilValidate.isNotEmpty(dataResourceId)) {
@@ -165,13 +165,13 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                     try {
                         permSvcResp = dispatcher.runSync(permissionService, permSvcCtx);
                     } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         throw new ViewHandlerException(e.getMessage());
                     }
                     if (ServiceUtil.isError(permSvcResp)) {
                         String errorMsg = ServiceUtil.getErrorMessage(permSvcResp);
-                        Debug.logError(errorMsg, module);
+                        Debug.logError(errorMsg, MODULE);
                         request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                         throw new ViewHandlerException(errorMsg);
                     }
@@ -180,7 +180,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                     Boolean hasPermission = (Boolean) permSvcResp.get("hasPermission");
                     if (!hasPermission) {
                         String errorMsg = (String) permSvcResp.get("failMessage");
-                        Debug.logError(errorMsg, module);
+                        Debug.logError(errorMsg, MODULE);
                         request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                         throw new ViewHandlerException(errorMsg);
                     }

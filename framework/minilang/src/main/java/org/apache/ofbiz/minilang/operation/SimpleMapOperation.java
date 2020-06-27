@@ -57,7 +57,7 @@ public abstract class SimpleMapOperation {
     public void addMessage(List<Object> messages, ClassLoader loader, Locale locale) {
         if (!isProperty && message != null) {
             messages.add(new MessageString(message, fieldName, true));
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, module);
+            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, MODULE);
         } else if (isProperty && propertyResource != null && message != null) {
             // this one doesn't do the proper i18n: String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
             String propMsg = UtilProperties.getMessage(propertyResource, message, locale);
@@ -66,10 +66,10 @@ public abstract class SimpleMapOperation {
             } else {
                 messages.add(new MessageString(propMsg, fieldName, propertyResource, message, locale, true));
             }
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding property message: " + propMsg, module);
+            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding property message: " + propMsg, MODULE);
         } else {
             messages.add(new MessageString("Simple Map Processing error occurred, but no message was found, sorry.", fieldName, true));
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] ERROR: No message found", module);
+            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] ERROR: No message found", MODULE);
         }
     }
 

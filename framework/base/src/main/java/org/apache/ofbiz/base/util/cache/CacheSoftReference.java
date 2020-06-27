@@ -26,7 +26,7 @@ import org.apache.ofbiz.base.util.ReferenceCleaner;
 @SuppressWarnings("serial")
 public abstract class CacheSoftReference<V> extends ReferenceCleaner.Soft<V> implements Serializable {
 
-    public static final String module = CacheSoftReference.class.getName();
+    public static final String MODULE = CacheSoftReference.class.getName();
 
     public CacheSoftReference(V o) {
         super(o);
@@ -35,7 +35,7 @@ public abstract class CacheSoftReference<V> extends ReferenceCleaner.Soft<V> imp
     @Override
     public void clear() {
         if (Debug.verboseOn()) {
-            Debug.logVerbose(new Exception("UtilCache.CacheSoftRef.clear()"), "Clearing UtilCache SoftReference - " + get(), module);
+            Debug.logVerbose(new Exception("UtilCache.CacheSoftRef.clear()"), "Clearing UtilCache SoftReference - " + get(), MODULE);
         }
         super.clear();
     }

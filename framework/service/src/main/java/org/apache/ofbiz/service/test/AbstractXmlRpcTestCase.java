@@ -32,7 +32,7 @@ import junit.framework.TestCase;
  */
 public class AbstractXmlRpcTestCase extends TestCase {
 
-    public static final String module = AbstractXmlRpcTestCase.class.getName();
+    public static final String MODULE = AbstractXmlRpcTestCase.class.getName();
 
     protected String keyStoreComponent;
     protected String keyStoreName;

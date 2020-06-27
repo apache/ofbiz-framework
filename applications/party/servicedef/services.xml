@@ -505,7 +505,7 @@ under the License.
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createPartyFtpAddress" engine="groovy"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy" invoke="createPartyFtpAddress" auth="true">
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="createPartyFtpAddress" auth="true">
         <description>Create an Ftp Address associated to a party</description>
         <permission-service service-name="partyContactMechPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
@@ -515,7 +515,7 @@ under the License.
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updatePartyFtpAddress" engine="groovy"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy" invoke="updatePartyFtpAddress" auth="true">
+             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="updatePartyFtpAddress" auth="true">
         <description>Update an Ftp Address associated to a party</description>
         <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="PartyContactMech" mode="IN" optional="true"/>
@@ -1102,16 +1102,23 @@ under the License.
     </service>
 
     <!-- Permission checking services-->
-    <service name="partyBasePermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="basePermissionCheck">
+    <service name="partyBasePermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="basePermissionCheck">
         <description>
             Performs a basic Party Manager security check. The user must have one of the base PARTYMGR
             CRUD+ADMIN permissions.
         </description>
         <implements service="permissionInterface"/>
     </service>
-    <service name="partyIdPermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="basePlusPartyIdPermissionCheck">
+    <service name="basePermissionCheck" engine="groovy" 
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="basePermissionCheck">
+        <description>
+            Performs a basic security check. The user must have the base PARTYMGR  permission.
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="partyIdPermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="basePlusPartyIdPermissionCheck">
         <description>
             Performs a party ID security check. The userLogin partyId must equal
             the partyId parameter, or the logged-in user must have the correct permission
@@ -1120,8 +1127,8 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
     </service>
-    <service name="partyStatusPermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="partyStatusPermissionCheck">
+    <service name="partyStatusPermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyStatusPermissionCheck">
         <description>
             Performs a party status security check. The userLogin partyId must equal the partyId parameter OR
             the user must have one of the base PARTYMGR or PARTYMGR_STS CRUD+ADMIN permissions.
@@ -1129,8 +1136,8 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="partyGroupPermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="partyGroupPermissionCheck">
+    <service name="partyGroupPermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyGroupPermissionCheck">
         <description>
             Performs a party group security check. The userLogin partyId must equal the partyId parameter OR
             the user has one of the base PARTYMGR or PARTYMGR_GRP CRUD+ADMIN permissions.
@@ -1138,16 +1145,16 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
     </service>
-    <service name="partyDatasourcePermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="partyDatasourcePermissionCheck">
+    <service name="partyDatasourcePermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyDatasourcePermissionCheck">
         <description>
             Performs a party datasource security check. The user must have one of the base PARTYMGR or
             PARTYMGR_SRC CRUD+ADMIN permissions.
         </description>
         <implements service="permissionInterface"/>
     </service>
-    <service name="partyRolePermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="partyRolePermissionCheck">
+    <service name="partyRolePermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyRolePermissionCheck">
         <description>
             Performs a party role security check. The user must have one of the base PARTYMGR or
             PARTYMGR_ROLE CRUD+ADMIN permissions.
@@ -1155,8 +1162,8 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
     </service>
-    <service name="partyRelationshipPermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="partyRelationshipPermissionCheck">
+    <service name="partyRelationshipPermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyRelationshipPermissionCheck">
         <description>
             Performs a party relationship security check. The user must have one of the base PARTYMGR or
             PARTYMGR_REL CRUD+ADMIN permissions.
@@ -1164,8 +1171,8 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="partyContactMechPermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="partyContactMechPermissionCheck">
+    <service name="partyContactMechPermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyContactMechPermissionCheck">
         <description>
             Performs a party contact mech security check. The userLogin partyId must equal the partyId parameter OR
             the user must have one of the base PARTYMGR or PARTYMGR_PCM CRUD+ADMIN permissions.
@@ -1173,8 +1180,8 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="accAndDecPartyInvitationPermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="accAndDecPartyInvitationPermissionCheck">
+    <service name="accAndDecPartyInvitationPermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="accAndDecPartyInvitationPermissionCheck">
         <description>
             Performs accept and decline PartyInvitation security check. The userLogin partyId must equal the
             partyIdTo in PartyInvitation OR partyId fetched using emailAdress in PartyInvitation.
@@ -1183,8 +1190,8 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="cancelPartyInvitationPermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="cancelPartyInvitationPermissionCheck">
+    <service name="cancelPartyInvitationPermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="cancelPartyInvitationPermissionCheck">
         <description>
             Performs cancel PartyInvitation security check. The userLogin partyId must equal the
             partyId/partyIdFrom in PartyInvitation OR partyId fetched using emailAdress in PartyInvitation.
@@ -1193,8 +1200,8 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="partyCommunicationEventPermissionCheck" engine="simple"
-            location="component://party/minilang/party/PartyPermissionServices.xml" invoke="partyCommunicationEventPermissionCheck">
+    <service name="partyCommunicationEventPermissionCheck" engine="groovy"
+            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyCommunicationEventPermissionCheck">
         <description>Party CommunicationEvents Permission Checking Logic</description>
         <implements service="permissionInterface"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>

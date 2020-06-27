@@ -51,7 +51,7 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  */
 public class BlogRssServices {
 
-    public static final String module = BlogRssServices.class.getName();
+    public static final String MODULE = BlogRssServices.class.getName();
     public static final String resource = "ContentUiLabels";
     public static final String mimeTypeId = "text/html";
     public static final String mapKey = "SUMMARY";
@@ -75,7 +75,7 @@ public class BlogRssServices {
         try {
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (content == null) {
@@ -109,7 +109,7 @@ public class BlogRssServices {
                            "statusId", "CTNT_PUBLISHED")
                     .orderBy("-caFromDate").queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (contentRecs != null) {
@@ -119,9 +119,9 @@ public class BlogRssServices {
                     Map<String, Object> dummy = new HashMap<>();
                     sub = ContentWorker.renderSubContentAsText(dispatcher, v.getString("contentId"), mapKey, dummy, locale, mimeTypeId, true);
                 } catch (GeneralException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 } catch (IOException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
                 if (sub != null) {
                     String thisLink = entryLink + "?articleContentId=" + v.getString("contentId") + "&blogContentId=" + contentId;

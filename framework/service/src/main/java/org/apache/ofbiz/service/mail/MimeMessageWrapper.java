@@ -48,7 +48,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 @SuppressWarnings("serial")
 public class MimeMessageWrapper implements java.io.Serializable {
 
-    public static final String module = MimeMessageWrapper.class.getName();
+    public static final String MODULE = MimeMessageWrapper.class.getName();
     protected transient MimeMessage message = null;
     protected transient Session session = null;
     protected Properties mailProperties = null;
@@ -96,7 +96,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                     this.parts = 0;
                 }
             } catch (IOException | MessagingException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
     }
@@ -108,7 +108,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedBytes)){
                     message = new MimeMessage(this.getSession(), bais);
                 } catch (MessagingException | IOException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     throw new GeneralRuntimeException(e.getMessage(), e);
                 }
             }
@@ -129,7 +129,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return message.getHeader(header);
         } catch (MessagingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -139,7 +139,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return message.getFrom();
         } catch (MessagingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -149,7 +149,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return message.getRecipients(MimeMessage.RecipientType.TO);
         } catch (MessagingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -159,7 +159,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return message.getRecipients(MimeMessage.RecipientType.CC);
         } catch (MessagingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -169,7 +169,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return message.getRecipients(MimeMessage.RecipientType.BCC);
         } catch (MessagingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -179,7 +179,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return message.getSubject();
         } catch (MessagingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -189,7 +189,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return message.getMessageID();
         } catch (MessagingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -199,7 +199,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return UtilDateTime.toTimestamp(message.getSentDate());
         } catch (MessagingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -209,7 +209,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return UtilDateTime.toTimestamp(message.getReceivedDate());
         } catch (MessagingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -231,7 +231,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             }
             return 0;
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return -1;
         }
     }
@@ -269,7 +269,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 Object content = message.getContent();
                 return getContentText(content);
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -332,7 +332,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         try {
             return getTextFromStream(message.getInputStream());
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -343,7 +343,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             try {
                 return part.getDescription();
             } catch (MessagingException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -356,7 +356,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             try {
                 return part.getContentType();
             } catch (MessagingException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -369,7 +369,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             try {
                 return part.getDisposition();
             } catch (MessagingException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -382,7 +382,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             try {
                 return part.getFileName();
             } catch (MessagingException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -395,7 +395,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             try (InputStream stream = part.getInputStream()) {
                 return getByteBufferFromStream(stream);
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -408,7 +408,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             try {
                 return getContentText(part.getContent());
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -421,7 +421,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             try {
                 return getTextFromStream(part.getInputStream());
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
@@ -440,10 +440,10 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 subIndex = Integer.parseInt(indexSplit[1]);
             }
         } catch (NumberFormatException e) {
-            Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, module);
+            Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, MODULE);
             return null;
         } catch (ArrayIndexOutOfBoundsException e) {
-            Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, module);
+            Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, MODULE);
             return null;
         }
 
@@ -460,15 +460,15 @@ public class MimeMessageWrapper implements java.io.Serializable {
                     Multipart sp = (Multipart) part.getContent();
                     return sp.getBodyPart(subIndex);
                 }
-                Debug.logWarning("Requested a subpart [" + subIndex + "] which deos not exist; only [" + getSubPartCount(mainIndex) + "] parts", module);
+                Debug.logWarning("Requested a subpart [" + subIndex + "] which deos not exist; only [" + getSubPartCount(mainIndex) + "] parts", MODULE);
                 // there is no sub part to find
                 return part;
             } catch (MessagingException | IOException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         }
-        Debug.logWarning("Requested a part [" + mainIndex + "] which deos not exist; only [" + getMainPartCount() + "] parts", module);
+        Debug.logWarning("Requested a part [" + mainIndex + "] which deos not exist; only [" + getMainPartCount() + "] parts", MODULE);
         return null;
     }
 
@@ -484,11 +484,11 @@ public class MimeMessageWrapper implements java.io.Serializable {
             try {
                 return getTextFromStream(((Message) content).getInputStream());
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
                 return null;
             }
         } else {
-            Debug.logWarning("Content was not a string or a stream; no known handler -- " + content.toString(), module);
+            Debug.logWarning("Content was not a string or a stream; no known handler -- " + content.toString(), MODULE);
             return null;
         }
     }
@@ -501,7 +501,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 builder.append(new String(buffer, 0, n, "UTF-8"));
             }
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
         return builder.toString();
@@ -515,7 +515,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             }
             return ByteBuffer.wrap(baos.toByteArray());
         } catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return null;
         }
     }

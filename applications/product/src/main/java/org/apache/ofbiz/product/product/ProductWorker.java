@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ModelService;
  */
 public final class ProductWorker {
 
-    public static final String module = ProductWorker.class.getName();
+    public static final String MODULE = ProductWorker.class.getName();
 
     private static final MathContext generalRounding = new MathContext(10);
 
@@ -92,7 +92,7 @@ public final class ProductWorker {
             try {
                 productGeos = product.getRelated("ProductGeo", null, null, false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             List<GenericValue> excludeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "EXCLUDE"));
             List<GenericValue> includeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "INCLUDE"));
@@ -135,7 +135,7 @@ public final class ProductWorker {
                 return "SERIALIZED_INV_ITEM".equals(product.getString("inventoryItemTypeId"));
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
         }
         return false;
     }
@@ -222,25 +222,25 @@ public final class ProductWorker {
             availableToPromise = (BigDecimal) result.get("availableToPromiseTotal");
 
             if (availableToPromise == null) {
-                Debug.logWarning("The getInventoryAvailableByFacility service returned a null availableToPromise, the error message was:\n" + result.get(ModelService.ERROR_MESSAGE), module);
+                Debug.logWarning("The getInventoryAvailableByFacility service returned a null availableToPromise, the error message was:\n" + result.get(ModelService.ERROR_MESSAGE), MODULE);
                 return false;
             }
         } catch (GenericServiceException e) {
-            Debug.logWarning(e, "Error invoking getInventoryAvailableByFacility service in isCatalogInventoryAvailable", module);
+            Debug.logWarning(e, "Error invoking getInventoryAvailableByFacility service in isCatalogInventoryAvailable", MODULE);
             return false;
         }
 
         // check to see if we got enough back...
         if (availableToPromise.compareTo(quantity) >= 0) {
             if (Debug.infoOn()) {
-                Debug.logInfo("Inventory IS available in facility with id " + inventoryFacilityId + " for product id " + productId + "; desired quantity is " + quantity + ", available quantity is " + availableToPromise, module);
+                Debug.logInfo("Inventory IS available in facility with id " + inventoryFacilityId + " for product id " + productId + "; desired quantity is " + quantity + ", available quantity is " + availableToPromise, MODULE);
             }
             return true;
         }
         if (Debug.infoOn()) {
             Debug.logInfo("Returning false because there is insufficient inventory available in facility with id "
                     + inventoryFacilityId + " for product id " + productId + "; desired quantity is " + quantity
-                    + ", available quantity is " + availableToPromise, module);
+                    + ", available quantity is " + availableToPromise, MODULE);
         }
         return false;
     }
@@ -349,7 +349,7 @@ public final class ProductWorker {
                 return alternativeProductName;
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         // finally fall back to the ID in square braces
         return "[" + alternativeOptionProductId + "]";
@@ -370,7 +370,7 @@ public final class ProductWorker {
             return getProductFeaturesByApplTypeId(EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne(),
                     productFeatureApplTypeId);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return null;
     }
@@ -394,7 +394,7 @@ public final class ProductWorker {
             features = EntityUtil.getRelated("ProductFeature", null, productAppls, false);
             features = EntityUtil.orderBy(features, UtilMisc.toList("description"));
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             features = new LinkedList<>();
         }
         return features;
@@ -405,7 +405,7 @@ public final class ProductWorker {
         try {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (product != null) {
@@ -471,7 +471,7 @@ public final class ProductWorker {
                 featureTypeFeatures.add(featureList);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return featureTypeFeatures;
     }
@@ -515,7 +515,7 @@ public final class ProductWorker {
         try {
             productFeatureAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", "OPTIONAL_FEATURE").orderBy("productFeatureTypeId", "sequenceNum").queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (productFeatureAppls != null) {
@@ -607,7 +607,7 @@ public final class ProductWorker {
         try {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return ProductWorker.getAverageProductRating(product, productStoreId);
     }
@@ -618,7 +618,7 @@ public final class ProductWorker {
 
     public static BigDecimal getAverageProductRating(GenericValue product, List<GenericValue> reviews, String productStoreId) {
         if (product == null) {
-            Debug.logWarning("Invalid product entity passed; unable to obtain valid product rating", module);
+            Debug.logWarning("Invalid product entity passed; unable to obtain valid product rating", MODULE);
             return BigDecimal.ZERO;
         }
 
@@ -648,7 +648,7 @@ public final class ProductWorker {
                 try {
                     reviews = product.getRelated("ProductReview", reviewByAnd, UtilMisc.toList("-postedDateTime"), true);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
 
@@ -689,7 +689,7 @@ public final class ProductWorker {
         try {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return getCurrentProductCategories(product);
     }
@@ -704,7 +704,7 @@ public final class ProductWorker {
             categoryMembers = EntityUtil.filterByDate(categoryMembers);
             categories = EntityUtil.getRelated("ProductCategory", null, categoryMembers, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return categories;
     }
@@ -713,7 +713,7 @@ public final class ProductWorker {
     public static GenericValue getParentProduct(String productId, Delegator delegator) {
         GenericValue _parentProduct = null;
         if (productId == null) {
-            Debug.logWarning("Bad product id", module);
+            Debug.logWarning("Bad product id", MODULE);
         }
 
         try {
@@ -750,7 +750,7 @@ public final class ProductWorker {
             try {
                 productType = product.getRelatedOne("ProductType", true);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
             }
             String isDigitalValue = (productType != null? productType.getString("isDigital"): null);
             isDigital = isDigitalValue != null && "Y".equalsIgnoreCase(isDigitalValue);
@@ -765,7 +765,7 @@ public final class ProductWorker {
             try {
                 productType = product.getRelatedOne("ProductType", true);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
+                Debug.logWarning(e.getMessage(), MODULE);
             }
             String isPhysicalValue = (productType != null? productType.getString("isPhysical"): null);
             isPhysical = isPhysicalValue != null && "Y".equalsIgnoreCase(isPhysicalValue);
@@ -780,7 +780,7 @@ public final class ProductWorker {
                 return "Y".equals(product.getString("isVirtual"));
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
         }
 
         return false;
@@ -793,7 +793,7 @@ public final class ProductWorker {
                 return "Y".equals(product.getString("requireAmount"));
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
         }
 
         return false;
@@ -806,7 +806,7 @@ public final class ProductWorker {
                 return product.getString("productTypeId");
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
         }
 
         return null;
@@ -840,13 +840,13 @@ public final class ProductWorker {
             try {
                 result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", desiredUomId, "originalValue", weight));
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
 
             if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
                 weight = (BigDecimal) result.get("convertedValue");
             } else {
-                Debug.logError("Unsupported conversion from [" + weightUomId + "] to [" + desiredUomId + "]", module);
+                Debug.logError("Unsupported conversion from [" + weightUomId + "] to [" + desiredUomId + "]", MODULE);
                 return null;
             }
         }
@@ -873,7 +873,7 @@ public final class ProductWorker {
             boolean searchProductFirst, boolean searchAllId) throws GenericEntityException {
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Analyze goodIdentification: entered id = " + idToFind + ", goodIdentificationTypeId = " + goodIdentificationTypeId, module);
+            Debug.logVerbose("Analyze goodIdentification: entered id = " + idToFind + ", goodIdentificationTypeId = " + goodIdentificationTypeId, MODULE);
         }
 
         GenericValue product = null;
@@ -905,7 +905,7 @@ public final class ProductWorker {
             }
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Analyze goodIdentification: found product.productId = " + product + ", and list : " + productsFound, module);
+            Debug.logVerbose("Analyze goodIdentification: found product.productId = " + product + ", and list : " + productsFound, MODULE);
         }
         return productsFound;
     }
@@ -1023,7 +1023,7 @@ public final class ProductWorker {
                         String featurTo = incompatibilityVariant.getString("productFeatureIdTo");
                         for (String paramValueTo: selectedFeatures) {
                             if (featurTo.equals(paramValueTo)) {
-                                Debug.logWarning("Incompatible features", module);
+                                Debug.logWarning("Incompatible features", MODULE);
                                 return null;
                             }
                         }
@@ -1045,7 +1045,7 @@ public final class ProductWorker {
                             }
                         }
                         if (!found) {
-                            Debug.logWarning("Dependency features", module);
+                            Debug.logWarning("Dependency features", MODULE);
                             return null;
                         }
                     }
@@ -1120,7 +1120,7 @@ nextProd:
                 GenericValue productAssoc = delegator.makeValue("ProductAssoc", UtilMisc.toMap("productId", productId, "productIdTo", product.getString("productId"), "productAssocTypeId", "PRODUCT_VARIANT"));
                 productAssoc.put("fromDate", UtilDateTime.nowTimestamp());
                 productAssoc.create();
-                Debug.logInfo("set the productId to: " + product.getString("productId"), module);
+                Debug.logInfo("set the productId to: " + product.getString("productId"), MODULE);
 
                 // copy the supplier
                 List<GenericValue> supplierProducts = EntityQuery.use(delegator).from("SupplierProduct").where("productId", productId).cache(true).queryList();
@@ -1143,7 +1143,7 @@ nextProd:
             }
 
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         return variantProductId;
@@ -1168,7 +1168,7 @@ nextProd:
                     isAlternativePacking = true;
                 }
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Could not found alternative product: " + e.getMessage(), module);
+                Debug.logWarning(e, "Could not found alternative product: " + e.getMessage(), MODULE);
             }
         }
         return isAlternativePacking;
@@ -1181,7 +1181,7 @@ nextProd:
             try {
                 productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE").filterByDate().queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
 
             if (productAssocs != null) {
@@ -1222,7 +1222,7 @@ nextProd:
                 return true;
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
+            Debug.logWarning(e.getMessage(), MODULE);
         }
 
         return false;
@@ -1241,7 +1241,7 @@ nextProd:
                 if ( UtilValidate.isNotEmpty(isMarketingPackage) && isMarketingPackage) {
                     Map<String, Object> resultOutput = new HashMap<>();
                     resultOutput = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId" ,productId));
-                    Debug.logWarning("Error getting available marketing package.", module);
+                    Debug.logWarning("Error getting available marketing package.", MODULE);
 
                     BigDecimal availableInventory = (BigDecimal) resultOutput.get("availableToPromiseTotal");
                     if(availableInventory.compareTo(BigDecimal.ZERO) > 0) {

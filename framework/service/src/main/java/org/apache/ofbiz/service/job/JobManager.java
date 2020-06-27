@@ -71,7 +71,7 @@ import com.ibm.icu.util.Calendar;
  */
 public final class JobManager {
 
-    public static final String module = JobManager.class.getName();
+    public static final String MODULE = JobManager.class.getName();
     public static final String instanceId = UtilProperties.getPropertyValue("general", "unique.instanceId", "ofbiz0");
     private static final ConcurrentHashMap<String, JobManager> registeredManagers = new ConcurrentHashMap<>();
     private static boolean isShutDown = false;
@@ -155,7 +155,7 @@ public final class JobManager {
                     ), EntityJoinOperator.AND);
             return delegator.findCountByCondition("JobManagerLock", condition, null, null) == 0;
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Exception thrown while check lock on JobManager : " + instanceId, module);
+            Debug.logWarning(e, "Exception thrown while check lock on JobManager : " + instanceId, MODULE);
             return false;
         }
     }
@@ -181,7 +181,7 @@ public final class JobManager {
         // connection is not available (possible on a saturated server).
         DispatchContext dctx = getDispatcher().getDispatchContext();
         if (dctx == null) {
-            Debug.logWarning("Unable to locate DispatchContext object; not running job!", module);
+            Debug.logWarning("Unable to locate DispatchContext object; not running job!", MODULE);
             return Collections.emptyList();
         }
         // basic query
@@ -194,7 +194,7 @@ public final class JobManager {
         try {
             pools = getRunPools();
         } catch (GenericConfigException e) {
-            Debug.logWarning(e, "Unable to get run pools - not running job: ", module);
+            Debug.logWarning(e, "Unable to get run pools - not running job: ", MODULE);
             return Collections.emptyList();
         }
         List<EntityExpr> poolsExpr = UtilMisc.toList(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, null));
@@ -212,7 +212,7 @@ public final class JobManager {
         try {
             beganTransaction = TransactionUtil.begin();
             if (!beganTransaction) {
-                Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", module);
+                Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", MODULE);
                 return poll;
             }
             try (EntityListIterator jobsIterator = EntityQuery.use(delegator)
@@ -233,7 +233,7 @@ public final class JobManager {
                     jobValue = jobsIterator.next();
                 }
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
             TransactionUtil.commit(beganTransaction);
         } catch (Throwable t) {
@@ -241,9 +241,9 @@ public final class JobManager {
             try {
                 TransactionUtil.rollback(beganTransaction, errMsg, t);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Exception thrown while rolling back transaction: ", module);
+                Debug.logWarning(e, "Exception thrown while rolling back transaction: ", MODULE);
             }
-            Debug.logWarning(t, errMsg, module);
+            Debug.logWarning(t, errMsg, MODULE);
             return Collections.emptyList();
         }
         if (poll.isEmpty()) {
@@ -253,7 +253,7 @@ public final class JobManager {
                 int daysToKeep = ServiceConfigUtil.getServiceEngine().getThreadPool().getPurgeJobDays();
                 purgeTime = Timestamp.from(Instant.now().minus(Duration.ofDays(daysToKeep)));
             } catch (GenericConfigException e) {
-                Debug.logWarning(e, "Unable to get purge job days: ", module);
+                Debug.logWarning(e, "Unable to get purge job days: ", MODULE);
                 return Collections.emptyList();
             }
             List<EntityCondition> purgeCondition = UtilMisc.toList(
@@ -270,7 +270,7 @@ public final class JobManager {
             try {
                 beganTransaction = TransactionUtil.begin();
                 if (!beganTransaction) {
-                    Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", module);
+                    Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", MODULE);
                     return Collections.emptyList();
                 }
                 List<GenericValue> jobs = EntityQuery.use(delegator).from("JobSandbox")
@@ -285,9 +285,9 @@ public final class JobManager {
                 try {
                     TransactionUtil.rollback(beganTransaction, errMsg, t);
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, "Exception thrown while rolling back transaction: ", module);
+                    Debug.logWarning(e, "Exception thrown while rolling back transaction: ", MODULE);
                 }
-                Debug.logWarning(t, errMsg, module);
+                Debug.logWarning(t, errMsg, MODULE);
                 return Collections.emptyList();
             }
         }
@@ -308,7 +308,7 @@ public final class JobManager {
         try {
             crashed = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("startDateTime").queryList();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Unable to load crashed jobs", module);
+            Debug.logWarning(e, "Unable to load crashed jobs", MODULE);
         }
         if (UtilValidate.isNotEmpty(crashed)) {
             int rescheduled = 0;
@@ -316,7 +316,7 @@ public final class JobManager {
             for (GenericValue job : crashed) {
                 try {
                     if (Debug.infoOn()) {
-                        Debug.logInfo("Scheduling Job : " + job, module);
+                        Debug.logInfo("Scheduling Job : " + job, MODULE);
                     }
                     String pJobId = job.getString("parentJobId");
                     if (pJobId == null) {
@@ -346,15 +346,15 @@ public final class JobManager {
                     delegator.store(job);
                     rescheduled++;
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
             if (Debug.infoOn()) {
-                Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", module);
+                Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", MODULE);
             }
         } else {
             if (Debug.infoOn()) {
-                Debug.logInfo("No crashed jobs to re-schedule", module);
+                Debug.logInfo("No crashed jobs to re-schedule", MODULE);
             }
         }
         crashedJobsReloaded = true;

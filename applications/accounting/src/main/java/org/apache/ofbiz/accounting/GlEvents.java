@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class GlEvents {
 
-public static final String module = GlEvents.class.getName();
+public static final String MODULE = GlEvents.class.getName();
 public static String createReconcileAccount(HttpServletRequest request, HttpServletResponse response) {
     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
     final Delegator delegator = (Delegator)request.getAttribute("delegator");
@@ -75,7 +75,7 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return "error";
         }
 
@@ -88,7 +88,7 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
             return "error";
          }
     } catch (GenericServiceException e) {
-        Debug.logError(e, module);
+        Debug.logError(e, MODULE);
         return "error";
     }
     String glReconciliationId = (String) glReconResult.get("glReconciliationId");
@@ -115,12 +115,12 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
                         return "error";
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     return "error";
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return "error";
         }
     }

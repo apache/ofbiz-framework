@@ -49,7 +49,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ProposedOrder {
 
-    public static final String module = ProposedOrder.class.getName();
+    public static final String MODULE = ProposedOrder.class.getName();
     public static final String resource = "ManufacturingUiLabels";
 
     protected GenericValue product;
@@ -119,7 +119,7 @@ public class ProposedOrder {
                     Map<String, Object> routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
                     if (ServiceUtil.isError(routingOutMap)) {
                             String errorMessage = ServiceUtil.getErrorMessage(routingOutMap);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                     }
                     routing = (GenericValue)routingOutMap.get("routing");
                     listRoutingTaskAssoc = UtilGenerics.cast(routingOutMap.get("tasks"));
@@ -133,7 +133,7 @@ public class ProposedOrder {
                             tree.print(components, true);
                             if (components.size() > 0) components.remove(0);
                         } catch (Exception exc) {
-                            Debug.logWarning(exc.getMessage(), module);
+                            Debug.logWarning(exc.getMessage(), MODULE);
                             tree = null;
                         }
                         if (tree != null && tree.getRoot() != null && tree.getRoot().getProduct() != null) {
@@ -141,13 +141,13 @@ public class ProposedOrder {
                             routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
                             if (ServiceUtil.isError(routingOutMap)) {
                                 String errorMessage = ServiceUtil.getErrorMessage(routingOutMap);
-                                Debug.logError(errorMessage, module);
+                                Debug.logError(errorMessage, MODULE);
                             }
                             routing = (GenericValue)routingOutMap.get("routing");
                         }
                     }
                 } catch (GenericServiceException gse) {
-                    Debug.logWarning(gse.getMessage(), module);
+                    Debug.logWarning(gse.getMessage(), MODULE);
                 }
             }
             if (routing != null) {
@@ -160,11 +160,11 @@ public class ProposedOrder {
                         Map<String, Object> routingTasksOutMap = dispatcher.runSync("getRoutingTaskAssocs", routingTasksInMap);
                         if (ServiceUtil.isError(routingTasksOutMap)) {
                             String errorMessage = ServiceUtil.getErrorMessage(routingTasksOutMap);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                         }
                         listRoutingTaskAssoc = UtilGenerics.cast(routingTasksOutMap.get("routingTaskAssocs"));
                     } catch (GenericServiceException gse) {
-                        Debug.logWarning(gse.getMessage(), module);
+                        Debug.logWarning(gse.getMessage(), MODULE);
                     }
                 }
             }
@@ -176,7 +176,7 @@ public class ProposedOrder {
                         try {
                             routingTask = routingTaskAssoc.getRelatedOne("ToWorkEffort", true);
                         } catch (GenericEntityException e) {
-                            Debug.logError(e.getMessage(),  module);
+                            Debug.logError(e.getMessage(),  MODULE);
                         }
                         // Calculate the estimatedStartDate
                         long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, quantity, dispatcher);
@@ -192,7 +192,7 @@ public class ProposedOrder {
                 }
             } else {
                 // routing is null
-                Debug.logError("No routing found for product = "+ product.getString("productId"), module);
+                Debug.logError("No routing found for product = "+ product.getString("productId"), MODULE);
             }
         } else {
             // the product is purchased
@@ -201,7 +201,7 @@ public class ProposedOrder {
                 GenericValue techDataCalendar = product.getDelegator().findOne("TechDataCalendar", UtilMisc.toMap("calendarId", "SUPPLIER"), true);
                 startDate = TechDataServices.addBackward(techDataCalendar, endDate, timeToShip);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error : reading SUPPLIER TechDataCalendar: " + e.getMessage(), module);
+                Debug.logError(e, "Error : reading SUPPLIER TechDataCalendar: " + e.getMessage(), MODULE);
             }
         }
         requirementStartDate = startDate;
@@ -243,7 +243,7 @@ public class ProposedOrder {
                 tree.print(bom);
                 requirementStartDate = tree.getRoot().getStartDate(manufacturingFacilityId, requiredByDate, true);
             } catch (Exception e) {
-                Debug.logError(e,"Error : computing the requirement start date. " + e.getMessage(), module);
+                Debug.logError(e,"Error : computing the requirement start date. " + e.getMessage(), MODULE);
             }
         }
         parameters.put("productId", productId);
@@ -262,12 +262,12 @@ public class ProposedOrder {
             Map<String, Object> result = dispatcher.runSync("createRequirement", parameters);
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return null;
             }
             return (String) result.get("requirementId");
         } catch (GenericServiceException e) {
-            Debug.logError(e,"Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), module);
+            Debug.logError(e,"Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), MODULE);
             return null;
         }
     }

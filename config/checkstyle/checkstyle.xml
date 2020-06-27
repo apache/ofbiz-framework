@@ -121,7 +121,7 @@ under the License.
         <module name="VisibilityModifier"/>
 
         <!-- Miscellaneous other checks -->
-        <module name="ArrayTypeStyle"/>
+        <!-- module name="ArrayTypeStyle"/-->
         <module name="UpperEll"/>
         <module name="Indentation">
             <property name="caseIndent" value="0"/>

@@ -35,6 +35,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
@@ -42,7 +43,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class LayoutWorker {
 
-    public static final String module = LayoutWorker.class.getName();
+    public static final String MODULE = LayoutWorker.class.getName();
     private static final String err_resource = "ContentErrorUiLabels";
 
     private LayoutWorker() {}
@@ -66,6 +67,9 @@ public final class LayoutWorker {
             return ServiceUtil.returnError(e4.getMessage());
         }
 
+        if(lst.size() == 0 && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
+            lst = UtilGenerics.cast(request.getAttribute("fileItems"));
+        }
         if (lst.size() == 0) {
             String errMsg = UtilProperties.getMessage(err_resource,
                     "layoutEvents.no_files_uploaded", locale);

@@ -44,7 +44,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class ReplaceImage{
 
-    public static final String module = ReplaceImage.class.getName();
+    public static final String MODULE = ReplaceImage.class.getName();
     public static final String resourceError = "ProductErrorUiLabels";
     public static final String resource = "ProductUiLabels";
 
@@ -64,19 +64,19 @@ public class ReplaceImage{
             if (UtilValidate.isNotEmpty(contentIdReplace)) {
                 if (contentIdExist.equals(contentIdReplace)) {
                     String errMsg = UtilProperties.getMessage(resourceError, "ProductCannotReplaceBecauseBothImagesAreTheSameImage", locale);
-                    Debug.logError(errMsg, module);
+                    Debug.logError(errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
             }
             else{
                  String errMsg = UtilProperties.getMessage(resourceError, "ProductPleaseChooseImageToReplace", locale);
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
         }
         else{
             String errMsg = UtilProperties.getMessage(resourceError, "ProductPleaseChooseReplacementImage", locale);
-            Debug.logError(errMsg, module);
+            Debug.logError(errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -122,7 +122,7 @@ public class ReplaceImage{
             }
         } catch (IOException | IllegalArgumentException | GenericEntityException | GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(resourceError, "ProductCannotReplaceImage", locale);
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
         String successMsg = UtilProperties.getMessage(resource, "ProductReplaceImageSuccessfully", locale);

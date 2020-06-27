@@ -35,7 +35,7 @@ public class OrderByItem implements Comparator<GenericEntity> {
 
     public static final String NULLS_FIRST = "NULLS FIRST";
     public static final String NULLS_LAST = "NULLS LAST";
-    public static final String module = OrderByItem.class.getName();
+    public static final String MODULE = OrderByItem.class.getName();
 
     protected boolean descending;
     protected Boolean nullsFirst;

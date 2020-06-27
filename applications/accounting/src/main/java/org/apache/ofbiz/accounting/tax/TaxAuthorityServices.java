@@ -54,7 +54,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class TaxAuthorityServices {
 
-    public static final String module = TaxAuthorityServices.class.getName();
+    public static final String MODULE = TaxAuthorityServices.class.getName();
     public static final BigDecimal ZERO_BASE = BigDecimal.ZERO;
     public static final BigDecimal ONE_BASE = BigDecimal.ONE;
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
@@ -128,7 +128,7 @@ public class TaxAuthorityServices {
                     // such, so don't blow up on it...
                     Debug.logWarning("Could not find any Tax Authories Rate Rules for store with ID [" + productStoreId
                             + "], productId [" + productId + "], basePrice [" + basePrice + "], amount [" + amount
-                            + "], for tax calculation; the store settings may need to be corrected.", module);
+                            + "], for tax calculation; the store settings may need to be corrected.", MODULE);
                 }
 
                 // add up amounts from adjustments (amount OR exemptAmount, sourcePercentage)
@@ -142,12 +142,12 @@ public class TaxAuthorityServices {
                         Debug.logInfo("For productId [" + productId + "] added [" + adjAmount.divide(quantity,
                                 salestaxCalcDecimals, salestaxRounding) + "] of tax to price for geoId ["
                                 + taxAdjustment.getString("taxAuthGeoId") + "], new price is [" + priceWithTax + "]",
-                                module);
+                                MODULE);
                     }
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
+            Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
@@ -191,7 +191,7 @@ public class TaxAuthorityServices {
                 facility = EntityQuery.use(delegator).from("Facility").where("facilityId", facilityId).queryOne();
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
+            Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
@@ -211,7 +211,7 @@ public class TaxAuthorityServices {
                             facilityContactMech.get("contactMechId")).queryOne();
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
+                Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
                         .toMap("errorString", e.toString()), locale));
             }
@@ -225,7 +225,7 @@ public class TaxAuthorityServices {
                                 "address1"), "postalCodeGeoId", shippingAddress.get("postalCodeGeoId"),
                         "stateProvinceGeoId", shippingAddress.get("stateProvinceGeoId"), "countryGeoId", shippingAddress
                                 .get("countryGeoId")), locale);
-                Debug.logError(errMsg, module);
+                Debug.logError(errMsg, MODULE);
             }
             return ServiceUtil.returnError(errMsg);
         }
@@ -236,7 +236,7 @@ public class TaxAuthorityServices {
         try {
             getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
+            Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
@@ -316,7 +316,7 @@ public class TaxAuthorityServices {
                 geoIdByTypeMap.put("POSTAL_CODE", postalCodeGeoId);
             }
         } else {
-            Debug.logWarning("shippingAddress was null, adding nothing to taxAuthoritySet", module);
+            Debug.logWarning("shippingAddress was null, adding nothing to taxAuthoritySet", MODULE);
         }
 
         // get the most granular, or all available, geoIds and then find parents by
@@ -429,7 +429,7 @@ public class TaxAuthorityServices {
 
             if (lookupList.size() == 0) {
                 Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition
-                        .toString(), module);
+                        .toString(), MODULE);
                 return adjustments;
             }
 
@@ -577,7 +577,7 @@ public class TaxAuthorityServices {
                 } else {
                     Debug.logInfo(
                             "NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs considered; billToPartyId=["
-                                    + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", module);
+                                    + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", MODULE);
                 }
                 if (discountedSalesTax.compareTo(BigDecimal.ZERO) < 0) {
                     GenericValue taxAdjValueNegative = delegator.makeValue("OrderAdjustment");
@@ -651,7 +651,7 @@ public class TaxAuthorityServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems looking up tax rates", module);
+            Debug.logError(e, "Problems looking up tax rates", MODULE);
             return new LinkedList<>();
         }
 
@@ -715,7 +715,7 @@ public class TaxAuthorityServices {
     private static void handlePartyTaxExempt(GenericValue adjValue, Set<String> billToPartyIdSet, String taxAuthGeoId,
             String taxAuthPartyId, BigDecimal taxAmount, Timestamp nowTimestamp, Delegator delegator)
             throws GenericEntityException {
-        Debug.logInfo("Checking for tax exemption : " + taxAuthGeoId + " / " + taxAuthPartyId, module);
+        Debug.logInfo("Checking for tax exemption : " + taxAuthGeoId + " / " + taxAuthPartyId, MODULE);
         List<EntityCondition> ptiConditionList = UtilMisc.<EntityCondition>toList(
                 EntityCondition.makeCondition("partyId", EntityOperator.IN, billToPartyIdSet),
                 EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.EQUALS, taxAuthGeoId),

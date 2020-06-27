@@ -43,7 +43,7 @@ import org.apache.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 @SuppressWarnings("serial")
 public class EntityFieldValue extends EntityConditionValue {
 
-    public static final String module = EntityFieldValue.class.getName();
+    public static final String MODULE = EntityFieldValue.class.getName();
 
     protected String fieldName = null;
     protected String entityAlias = null;

@@ -72,7 +72,7 @@ import freemarker.ext.dom.NodeModel;
  */
 public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWorkerInterface {
 
-    public static final String module = ContentWorker.class.getName();
+    public static final String MODULE = ContentWorker.class.getName();
     static final UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder("html");
 
     public ContentWorker() { }
@@ -118,7 +118,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     // -------------------------------------
     public static GenericValue findContentForRendering(Delegator delegator, String contentId, Locale locale, String partyId, String roleTypeId, boolean cache) throws GeneralException, IOException {
         if (UtilValidate.isEmpty(contentId)) {
-            Debug.logError("No content ID found.", module);
+            Debug.logError("No content ID found.", MODULE);
             return null;
         }
         GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache(cache).queryOne();
@@ -166,7 +166,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             try {
                 alternateViews = content.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_ROLE"), UtilMisc.toList("-caFromDate"), true);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error finding alternate content: " + e.toString(), module);
+                Debug.logError(e, "Error finding alternate content: " + e.toString(), MODULE);
             }
 
             alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
@@ -209,11 +209,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     serviceRes = dispatcher.runSync(serviceName, serviceCtx);
                     if (ServiceUtil.isError(serviceRes)) {
                         String errorMessage = ServiceUtil.getErrorMessage(serviceRes);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         throw new GeneralException(errorMessage);
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     throw e;
                 }
                 templateContext.putAll(serviceRes);
@@ -238,7 +238,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         String contentDecoratorId = content.getString("decoratorContentId");
         // Check that the decoratorContent is not the same as the current content
         if (contentId.equals(contentDecoratorId)) {
-            Debug.logError("[" + contentId + "] decoratorContentId is the same as contentId, ignoring.", module);
+            Debug.logError("[" + contentId + "] decoratorContentId is the same as contentId, ignoring.", MODULE);
             contentDecoratorId = null;
         }
         // check to see if the decorator has already been run
@@ -263,7 +263,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             String templateDataResourceId = content.getString("templateDataResourceId");
             String dataResourceId = content.getString("dataResourceId");
             if (UtilValidate.isEmpty(dataResourceId)) {
-                Debug.logError("No dataResourceId found for contentId: " + content.getString("contentId"), module);
+                Debug.logError("No dataResourceId found for contentId: " + content.getString("contentId"), MODULE);
                 return;
             }
 
@@ -274,7 +274,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             // now if no template; just render the data
             if (UtilValidate.isEmpty(templateDataResourceId) || templateContext.containsKey("ignoreTemplate")) {
                 if (UtilValidate.isEmpty(contentId)) {
-                    Debug.logError("No content ID found.", module);
+                    Debug.logError("No content ID found.", MODULE);
                     return;
                 }
                 
@@ -392,7 +392,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 .orderBy("-fromDate").cache(cache).filterByDate().queryFirst();
 
         if (subContent == null) {
-            Debug.logWarning("No sub-content found with map-key [" + mapKey + "] for content [" + contentId + "]", module);
+            Debug.logWarning("No sub-content found with map-key [" + mapKey + "] for content [" + contentId + "]", MODULE);
         } else {
             String subContentId = subContent.getString("contentIdTo");
             templateContext.put("mapKey", mapKey);
@@ -413,7 +413,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         try {
             alternateViews = view.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"), true);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error finding alternate locale content: " + e.toString(), module);
+            Debug.logError(e, "Error finding alternate locale content: " + e.toString(), MODULE);
             return view;
         }
 
@@ -937,7 +937,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 contentAncestorList.add(contentAssoc);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,module);
+            Debug.logError(e,MODULE);
             return;
         }
     }
@@ -972,7 +972,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,module);
+            Debug.logError(e,MODULE);
             return;
         }
     }
@@ -1019,7 +1019,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 contentAncestorList.add(content);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,module);
+            Debug.logError(e,MODULE);
             return;
         }
     }
@@ -1112,7 +1112,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     public static GenericValue getSubContentCache(Delegator delegator, String contentId, String mapKey, GenericValue userLogin, List<String> assocTypes, Timestamp fromDate, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GenericEntityException {
         GenericValue view = null;
         if (contentId == null) {
-            Debug.logError("ContentId is null", module);
+            Debug.logError("ContentId is null", MODULE);
             return view;
         }
         Map<String, Object> results = null;
@@ -1250,7 +1250,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             try {
                 getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
             context.put("typeAncestry", contentTypeAncestry);
             if (contentAssoc == null && (content.getEntityName().indexOf("Assoc") >= 0)) {
@@ -1262,7 +1262,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     context.put("contentAssocPredicateId", contentAssoc.get("contentAssocPredicateId"));
                     context.put("mapKey", contentAssoc.get("mapKey"));
                 } catch (MiniLangException e) {
-                    Debug.logError(e.getMessage(), module);
+                    Debug.logError(e.getMessage(), MODULE);
                 }
             } else {
                 context.put("contentAssocTypeId", null);
@@ -1450,7 +1450,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             try {
                 content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
                 return new LinkedList<>();
             }
             contentName = (String)content.get("contentName");
@@ -1470,7 +1470,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             try {
                 content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
                 return new LinkedList<>();
             }
             trail.add(content);
@@ -1505,7 +1505,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                         ctx.put("parentContent", parentContent);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e.getMessage(), module);
+                    Debug.logError(e.getMessage(), MODULE);
                 }
             }
         }

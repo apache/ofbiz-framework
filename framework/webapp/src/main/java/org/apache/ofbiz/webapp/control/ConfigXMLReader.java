@@ -54,6 +54,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapContext;
 import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
 import org.apache.ofbiz.base.util.collections.MultivaluedMapContextAdapter;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -62,23 +63,27 @@ import org.w3c.dom.Element;
  */
 public class ConfigXMLReader {
 
-    public static final String module = ConfigXMLReader.class.getName();
-    public static final Path controllerXmlFileName = Paths.get("WEB-INF", "controller.xml");
-    private static final UtilCache<URL, ControllerConfig> controllerCache = UtilCache.createUtilCache("webapp.ControllerConfig");
-    private static final UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = UtilCache.createUtilCache("webapp.ControllerSearchResults");
+    public static final String MODULE = ConfigXMLReader.class.getName();
+    public static final Path CONTROLLERXMLFILENAME = Paths.get("WEB-INF", "controller.xml");
+    private static final UtilCache<URL, ControllerConfig> CONTROLLERCACHE = UtilCache
+            .createUtilCache("webapp.ControllerConfig");
+    private static final UtilCache<String, List<ControllerConfig>> CONTROLLERSEARCHRESULTSCACHE = UtilCache
+            .createUtilCache("webapp.ControllerSearchResults");
     public static final RequestResponse emptyNoneRequestResponse = RequestResponse.createEmptyNoneRequestResponse();
 
-    public static Set<String> findControllerFilesWithRequest(String requestUri, String controllerPartialPath) throws GeneralException {
+    public static Set<String> findControllerFilesWithRequest(String requestUri, String controllerPartialPath)
+            throws GeneralException {
         Set<String> allControllerRequestSet = new HashSet<>();
         if (UtilValidate.isEmpty(requestUri)) {
             return allControllerRequestSet;
         }
         String cacheId = controllerPartialPath != null ? controllerPartialPath : "NOPARTIALPATH";
-        List<ControllerConfig> controllerConfigs = controllerSearchResultsCache.get(cacheId);
+        List<ControllerConfig> controllerConfigs = CONTROLLERSEARCHRESULTSCACHE.get(cacheId);
         if (controllerConfigs == null) {
             try {
                 // find controller.xml file with webappMountPoint + "/WEB-INF" in the path
-                List<File> controllerFiles = FileUtil.findXmlFiles(null, controllerPartialPath, "site-conf", "site-conf.xsd");
+                List<File> controllerFiles = FileUtil.findXmlFiles(null, controllerPartialPath, "site-conf",
+                        "site-conf.xsd");
                 controllerConfigs = new LinkedList<>();
                 for (File controllerFile : controllerFiles) {
                     URL controllerUrl = null;
@@ -90,9 +95,10 @@ public class ConfigXMLReader {
                     ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
                     controllerConfigs.add(cc);
                 }
-                controllerConfigs = controllerSearchResultsCache.putIfAbsentAndGet(cacheId, controllerConfigs);
+                controllerConfigs = CONTROLLERSEARCHRESULTSCACHE.putIfAbsentAndGet(cacheId, controllerConfigs);
             } catch (IOException e) {
-                throw new GeneralException("Error finding controller XML files to lookup request references: " + e.toString(), e);
+                throw new GeneralException(
+                        "Error finding controller XML files to lookup request references: " + e.toString(), e);
             }
         }
         if (controllerConfigs != null) {
@@ -101,20 +107,23 @@ public class ConfigXMLReader {
                 if (cc.requestMapMap.get(requestUri) != null) {
                     String requestUniqueId = cc.url.toExternalForm() + "#" + requestUri;
                     allControllerRequestSet.add(requestUniqueId);
-                    // Debug.logInfo("========== In findControllerFilesWithRequest found controller with request here [" + requestUniqueId + "]", module);
+                    // Debug.logInfo("========== In findControllerFilesWithRequest found controller with request here ["
+                    // + requestUniqueId + "]", MODULE);
                 }
             }
         }
         return allControllerRequestSet;
     }
 
-    public static Set<String> findControllerRequestUniqueForTargetType(String target, String urlMode) throws GeneralException {
+    public static Set<String> findControllerRequestUniqueForTargetType(String target, String urlMode)
+            throws GeneralException {
         if (UtilValidate.isEmpty(urlMode)) {
             urlMode = "intra-app";
         }
         int indexOfDollarSignCurlyBrace = target.indexOf("${");
         int indexOfQuestionMark = target.indexOf("?");
-        if (indexOfDollarSignCurlyBrace >= 0 && (indexOfQuestionMark < 0 || indexOfQuestionMark > indexOfDollarSignCurlyBrace)) {
+        if (indexOfDollarSignCurlyBrace >= 0
+                && (indexOfQuestionMark < 0 || indexOfQuestionMark > indexOfDollarSignCurlyBrace)) {
             // we have an expanded string in the requestUri part of the target, not much we can do about that...
             return null;
         }
@@ -122,16 +131,18 @@ public class ConfigXMLReader {
             // look through all controller.xml files and find those with the request-uri referred to by the target
             String requestUri = UtilHttp.getRequestUriFromTarget(target);
             Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, null);
-            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
+            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In
+            // findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, MODULE);
             return controllerLocAndRequestSet;
         } else if ("inter-app".equals(urlMode)) {
             String webappMountPoint = UtilHttp.getWebappMountPointFromTarget(target);
-            if (webappMountPoint != null)
-                webappMountPoint += "/WEB-INF";
+            if (webappMountPoint != null) webappMountPoint += "/WEB-INF";
             String requestUri = UtilHttp.getRequestUriFromTarget(target);
 
-            Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, webappMountPoint);
-            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
+            Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri,
+                    webappMountPoint);
+            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In
+            // findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, MODULE);
             return controllerLocAndRequestSet;
         } else {
             return new HashSet<>();
@@ -141,29 +152,32 @@ public class ConfigXMLReader {
     public static ControllerConfig getControllerConfig(WebappInfo webAppInfo)
             throws WebAppConfigurationException, MalformedURLException {
         Assert.notNull("webAppInfo", webAppInfo);
-        Path filePath = webAppInfo.location().resolve(controllerXmlFileName);
+        Path filePath = webAppInfo.location().resolve(CONTROLLERXMLFILENAME);
         return getControllerConfig(filePath.toUri().toURL());
     }
 
     public static ControllerConfig getControllerConfig(URL url) throws WebAppConfigurationException {
-        ControllerConfig controllerConfig = controllerCache.get(url);
+        ControllerConfig controllerConfig = CONTROLLERCACHE.get(url);
         if (controllerConfig == null) {
-            controllerConfig = controllerCache.putIfAbsentAndGet(url, new ControllerConfig(url));
+            controllerConfig = CONTROLLERCACHE.putIfAbsentAndGet(url, new ControllerConfig(url));
         }
         return controllerConfig;
     }
 
     public static URL getControllerConfigURL(ServletContext context) {
         try {
-            return context.getResource("/" + controllerXmlFileName);
+            return context.getResource("/" + CONTROLLERXMLFILENAME);
         } catch (MalformedURLException e) {
-            Debug.logError(e, "Error Finding XML Config File: " + controllerXmlFileName, module);
+            Debug.logError(e, "Error Finding XML Config File: " + CONTROLLERXMLFILENAME, MODULE);
             return null;
         }
     }
 
-    /** Loads the XML file and returns the root element 
-     * @throws WebAppConfigurationException */
+    /**
+     * Loads the XML file and returns the root element
+     *
+     * @throws WebAppConfigurationException
+     */
     private static Element loadDocument(URL location) throws WebAppConfigurationException {
         try {
             Document document = UtilXml.readXmlDocument(location, true);
@@ -172,18 +186,19 @@ public class ConfigXMLReader {
                 rootElement = UtilXml.firstChildElement(rootElement, "site-conf");
             }
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Loaded XML Config - " + location, module);
+                Debug.logVerbose("Loaded XML Config - " + location, MODULE);
             }
             return rootElement;
         } catch (Exception e) {
-            Debug.logError("When read " + (location != null? location.toString(): "empty location (!)") + " threw " + e.toString(), module);
+            Debug.logError("When read " + (location != null ? location.toString() : "empty location (!)") + " threw "
+                    + e.toString(), MODULE);
             throw new WebAppConfigurationException(e);
         }
     }
 
     public static class ControllerConfig {
-        private static final String DEFAULT_REDIRECT_STATUS_CODE =
-                UtilProperties.getPropertyValue("requestHandler", "status-code", "302");
+        private static final String DEFAULT_REDIRECT_STATUS_CODE = UtilProperties.getPropertyValue("requestHandler",
+                "status-code", "302");
 
         public URL url;
         private String errorpage;
@@ -216,7 +231,8 @@ public class ConfigXMLReader {
                 if (Debug.infoOn()) {
                     double totalSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
                     String locString = this.url.toExternalForm();
-                    Debug.logInfo("controller loaded: " + totalSeconds + "s, " + this.requestMapMap.size() + " requests, " + this.viewMapMap.size() + " views in " + locString, module);
+                    Debug.logInfo("controller loaded: " + totalSeconds + "s, " + this.requestMapMap.size()
+                            + " requests, " + this.viewMapMap.size() + " views in " + locString, MODULE);
                 }
             }
         }
@@ -323,9 +339,11 @@ public class ConfigXMLReader {
         /**
          * Computes the name of an XML element.
          *
-         * @param el  the element containing "type" and/or "name" attributes
+         * @param el
+         *            the element containing "type" and/or "name" attributes
          * @return the derived name.
-         * @throws NullPointerException when {@code el} is {@code null}
+         * @throws NullPointerException
+         *             when {@code el} is {@code null}
          */
         private static String elementToName(Element el) {
             String eventName = el.getAttribute("name");
@@ -337,15 +355,18 @@ public class ConfigXMLReader {
         /**
          * Collects some events defined in an XML tree.
          *
-         * @param root  the root of the XML tree
-         * @param childName  the name of the element inside {@code root} containing the events
-         * @param coll  the map associating element derived names to an event objects to populate.
+         * @param root
+         *            the root of the XML tree
+         * @param childName
+         *            the name of the element inside {@code root} containing the events
+         * @param coll
+         *            the map associating element derived names to an event objects to populate.
          */
         private static void collectEvents(Element root, String childName, Map<String, Event> coll) {
             Element child = UtilXml.firstChildElement(root, childName);
             if (child != null) {
                 UtilXml.childElementList(child, "event").stream()
-                       .forEachOrdered(ev -> coll.put(elementToName(ev), new Event(ev)));
+                        .forEachOrdered(ev -> coll.put(elementToName(ev), new Event(ev)));
             }
         }
 
@@ -386,7 +407,8 @@ public class ConfigXMLReader {
                         ControllerConfig includedController = getControllerConfig(urlLocation);
                         includes.add(includedController);
                     } catch (MalformedURLException mue) {
-                        Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
+                        Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(),
+                                MODULE);
                     }
                 }
             }
@@ -422,7 +444,7 @@ public class ConfigXMLReader {
             this.invoke = eventElement.getAttribute("invoke");
             this.globalTransaction = !"false".equals(eventElement.getAttribute("global-transaction"));
             String tt = eventElement.getAttribute("transaction-timeout");
-            if(!tt.isEmpty()) {
+            if (!tt.isEmpty()) {
                 this.transactionTimeout = Integer.valueOf(tt);
             }
             // Get metrics.
@@ -450,6 +472,7 @@ public class ConfigXMLReader {
         public Event event;
         public boolean securityHttps = true;
         public boolean securityAuth = false;
+        public boolean securityCsrfToken = true;
         public boolean securityCert = false;
         public boolean securityExternalView = true;
         public boolean securityDirectRequest = true;
@@ -481,6 +504,8 @@ public class ConfigXMLReader {
                 this.securityCert = "true".equals(securityElement.getAttribute("cert"));
                 this.securityExternalView = !"false".equals(securityElement.getAttribute("external-view"));
                 this.securityDirectRequest = !"false".equals(securityElement.getAttribute("direct-request"));
+                this.securityCsrfToken = CsrfUtil.getStrategy().modifySecurityCsrfToken(this.uri, this.method,
+                        securityElement.getAttribute("csrf-token"));
             }
             // Check for event
             Element eventElement = UtilXml.firstChildElement(requestMapElement, "event");
@@ -535,11 +560,11 @@ public class ConfigXMLReader {
             this.saveHomeView = "true".equals(responseElement.getAttribute("save-home-view"));
             for (Element redirectParameterElement : UtilXml.childElementList(responseElement, "redirect-parameter")) {
                 if (UtilValidate.isNotEmpty(redirectParameterElement.getAttribute("value"))) {
-                    this.redirectParameterValueMap.put(redirectParameterElement.getAttribute("name"), redirectParameterElement.getAttribute("value"));
+                    this.redirectParameterValueMap.put(redirectParameterElement.getAttribute("name"),
+                            redirectParameterElement.getAttribute("value"));
                 } else {
                     String from = redirectParameterElement.getAttribute("from");
-                    if (from.isEmpty())
-                        from = redirectParameterElement.getAttribute("name");
+                    if (from.isEmpty()) from = redirectParameterElement.getAttribute("name");
                     this.redirectParameterMap.put(redirectParameterElement.getAttribute("name"), from);
                 }
             }

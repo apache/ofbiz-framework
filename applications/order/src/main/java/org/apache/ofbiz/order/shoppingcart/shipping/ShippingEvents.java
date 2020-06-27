@@ -60,7 +60,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ShippingEvents {
 
-    public static final String module = ShippingEvents.class.getName();
+    public static final String MODULE = ShippingEvents.class.getName();
     private static final List<String> fieldNameGeoIds = UtilMisc.toList("countryGeoId", "countyGeoId", "stateProvinceGeoId", "municipalityGeoId", "postalCodeGeoId");
 
     public static String getShipEstimate(HttpServletRequest request, HttpServletResponse response) {
@@ -286,11 +286,11 @@ public class ShippingEvents {
         try {
             genericEstimate = dispatcher.runSync("calcShipmentCostEstimate", context);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Shipment Service Error", module);
+            Debug.logError(e, "Shipment Service Error", MODULE);
             throw new GeneralException();
         }
         if (ServiceUtil.isError(genericEstimate) || ServiceUtil.isFailure(genericEstimate)) {
-            Debug.logError(ServiceUtil.getErrorMessage(genericEstimate), module);
+            Debug.logError(ServiceUtil.getErrorMessage(genericEstimate), MODULE);
             throw new GeneralException();
         } else if (ServiceUtil.isFailure(genericEstimate)) {
             genericShipAmt = BigDecimal.ONE.negate();
@@ -309,7 +309,7 @@ public class ShippingEvents {
                 serviceName = customMethod.getString("customMethodName");
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return serviceName;
     }
@@ -350,20 +350,20 @@ public class ShippingEvents {
                 // invoke the service
                 Map<String, Object> serviceResp = null;
                 try {
-                    Debug.logInfo("Service : " + serviceName + " / shipmentGatewayConfigId : " + shipmentGatewayConfigId + " / configProps : " + configProps + " -- " + context, module);
+                    Debug.logInfo("Service : " + serviceName + " / shipmentGatewayConfigId : " + shipmentGatewayConfigId + " / configProps : " + configProps + " -- " + context, MODULE);
                     // because we don't want to blow up too big or rollback the transaction when this happens, always have it run in its own transaction...
                     serviceResp = dispatcher.runSync(serviceName, context, 0, true);
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, "Shipment Service Error", module);
+                    Debug.logError(e, "Shipment Service Error", MODULE);
                     throw new GeneralException(e);
                 }
                 if (ServiceUtil.isError(serviceResp)) {
                     String errMsg = "Error getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp);
-                    Debug.logError(errMsg, module);
+                    Debug.logError(errMsg, MODULE);
                     throw new GeneralException(errMsg);
                 } else if (ServiceUtil.isFailure(serviceResp)) {
                     String errMsg = "Failure getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp);
-                    Debug.logError(errMsg, module);
+                    Debug.logError(errMsg, MODULE);
                     // should not throw an Exception here, otherwise getShipGroupEstimate would return an error, causing all sorts of services like add or update order item to abort
                 } else {
                     externalShipAmt = (BigDecimal) serviceResp.get("shippingEstimateAmount");
@@ -415,7 +415,7 @@ public class ShippingEvents {
                 try {
                     addressGV = EntityQuery.use(delegator).from("PostalAddress").where(address).cache().queryOne();
                 } catch (GeneralException e) {
-                    Debug.logError(e.toString(), module);
+                    Debug.logError(e.toString(), MODULE);
                 }
             }
             if (addressGV != null) {
@@ -491,7 +491,7 @@ public class ShippingEvents {
             }
         } catch (GenericEntityException e) {
             String errMsg = "Failure getting shipment time estimate: " + e.getLocalizedMessage();
-            Debug.logError(errMsg, module);
+            Debug.logError(errMsg, MODULE);
         }
 
         return shippingTimeEstimates;

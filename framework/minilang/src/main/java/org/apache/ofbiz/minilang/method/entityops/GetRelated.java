@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
  */
 public final class GetRelated extends MethodOperation {
 
-    public static final String module = GetRelated.class.getName();
+    public static final String MODULE = GetRelated.class.getName();
 
     private final FlexibleMapAccessor<Object> listFma;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
@@ -81,7 +81,7 @@ public final class GetRelated extends MethodOperation {
             listFma.put(methodContext.getEnvMap(), value.getRelated(relationName, constraintMap, orderByNames, useCache));
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while finding related values: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

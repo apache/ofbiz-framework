@@ -26,7 +26,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 
 public class LabelInfo {
 
-    public static final String module = LabelInfo.class.getName();
+    public static final String MODULE = LabelInfo.class.getName();
 
     protected String labelKey = "";
     protected String labelKeyComment = "";
@@ -84,7 +84,7 @@ public class LabelInfo {
                 }
             } else {
                 if (Debug.warningOn()) {
-                    Debug.logWarning("Already found locale " + localeStr + " for label " + labelKey + " into the file " + fileName, module);
+                    Debug.logWarning("Already found locale " + localeStr + " for label " + labelKey + " into the file " + fileName, MODULE);
                 }
                 isDuplicatedLocales = true;
             }

@@ -45,7 +45,7 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
  */
 public class XMLRPCClientEngine extends GenericAsyncEngine {
 
-    public static final String module = XMLRPCClientEngine.class.getName();
+    public static final String MODULE = XMLRPCClientEngine.class.getName();
 
     public XMLRPCClientEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -119,9 +119,9 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         List<ModelParam> inModelParamList = modelService.getInModelParamList();
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("[XMLRPCClientEngine.invoke] : Parameter length - " + inModelParamList.size(), module);
+            Debug.logVerbose("[XMLRPCClientEngine.invoke] : Parameter length - " + inModelParamList.size(), MODULE);
             for (ModelParam p: inModelParamList) {
-                Debug.logVerbose("[XMLRPCClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ")", module);
+                Debug.logVerbose("[XMLRPCClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ")", MODULE);
             }
         }
 

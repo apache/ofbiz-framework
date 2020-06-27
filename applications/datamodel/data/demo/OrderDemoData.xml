@@ -792,7 +792,7 @@ under the License.
 
     <!-- test Digital Download product -->
     <Product productId="GZ-DIG" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="101" productName="Digital Gizmo" internalName="Digital Gizmo" description="A digital gizmo: can be downloaded immediately after purchase." longDescription="This gizmo is part of an exciting new breed that needs no corporeal form: it is all digital! Buy and download it now!" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <DataResource dataResourceId="GZ-DIG" dataResourceTypeId="OFBIZ_FILE_BIN" mimeTypeId="image/gif" dataResourceName="Digital Gizmo Image" objectInfo="themes/common/webapp/images/ofbiz_logo.png"/>
+    <DataResource dataResourceId="GZ-DIG" dataResourceTypeId="OFBIZ_FILE_BIN" mimeTypeId="image/gif" dataResourceName="Digital Gizmo Image" objectInfo="themes/common-theme/webapp/images/ofbiz_logo.png"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-DIG-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-DIG-ALTEN" localeString="en_US"/>
     <ElectronicText dataResourceId="GZ-DIG-ALT" textData="digital-gizmo"/>

@@ -71,7 +71,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class CheckOutHelper {
 
-    public static final String module = CheckOutHelper.class.getName();
+    public static final String MODULE = CheckOutHelper.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
@@ -274,7 +274,7 @@ public class CheckOutHelper {
                         }
                     }
                 } catch (GenericEntityException gee) {
-                    Debug.logWarning("Error copying billing account terms to order terms: " + gee.getMessage(), module);
+                    Debug.logWarning("Error copying billing account terms to order terms: " + gee.getMessage(), MODULE);
                 }
             } else {
                 // remove the billing account from the cart
@@ -327,7 +327,7 @@ public class CheckOutHelper {
                         finAccountId = splitStr[1];
                     }
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Split checkOutPaymentId: " + splitStr[0] + " / " + splitStr[1], module);
+                        Debug.logVerbose("Split checkOutPaymentId: " + splitStr[0] + " / " + splitStr[1], MODULE);
                     }
                 }
 
@@ -413,7 +413,7 @@ public class CheckOutHelper {
             try {
                 this.calcAndAddTax();
             } catch (GeneralException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             // set the payment method(s) option
             errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId));
@@ -496,7 +496,7 @@ public class CheckOutHelper {
                 try {
                     gcAmount = new BigDecimal(gcAmt);
                 } catch (NumberFormatException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     errMsg = UtilProperties.getMessage(resource_error,"checkhelper.invalid_amount_for_gift_card", cart.getLocale());
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
@@ -519,7 +519,7 @@ public class CheckOutHelper {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(gcResult));
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                     errorMessages.add(e.getMessage());
                 }
                 if (gcResult != null) {
@@ -622,7 +622,7 @@ public class CheckOutHelper {
             String service = e.getMessage();
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("service", service);
             String errMsg = UtilProperties.getMessage(resource_error, "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -661,7 +661,7 @@ public class CheckOutHelper {
 
                         Map<String, Object> prunResult = dispatcher.runSync("createProductionRunFromConfiguration", inputMap);
                         if (ServiceUtil.isError(prunResult)) {
-                            Debug.logError(ServiceUtil.getErrorMessage(prunResult) + " for input:" + inputMap, module);
+                            Debug.logError(ServiceUtil.getErrorMessage(prunResult) + " for input:" + inputMap, MODULE);
                         }
                     }
                 } catch (GenericEntityException e) {
@@ -669,13 +669,13 @@ public class CheckOutHelper {
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
                     String errMsg = UtilProperties.getMessage(resource_error, "checkhelper.problems_reading_database", cart.getLocale()); 
                     errMsg += UtilProperties.getMessage(resource_error, "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 } catch (GenericServiceException e) {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
                     String errMsg = UtilProperties.getMessage(resource_error, "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
             }
@@ -700,7 +700,7 @@ public class CheckOutHelper {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
                     String errMsg = UtilProperties.getMessage(resource_error, "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
             }
@@ -719,7 +719,7 @@ public class CheckOutHelper {
         try {
             party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsGettingPartyRecord", cart.getLocale()), module);
+            Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsGettingPartyRecord", cart.getLocale()), MODULE);
         }
 
         // create order contact mechs for the email address(s)
@@ -758,12 +758,12 @@ public class CheckOutHelper {
         if (toBeStored.size() > 0) {
             try {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("To Be Stored: " + toBeStored, module);
+                    Debug.logVerbose("To Be Stored: " + toBeStored, MODULE);
                 }
                 this.delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 // not a fatal error; so just print a message
-                Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), module);
+                Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), MODULE);
             }
         }
 
@@ -799,7 +799,7 @@ public class CheckOutHelper {
             List<List<? extends Object>> taxReturn = getTaxAdjustments(dispatcher, "calcTax", serviceContext);
 
             if (Debug.verboseOn()) {
-                Debug.logVerbose("ReturnList: " + taxReturn, module);
+                Debug.logVerbose("ReturnList: " + taxReturn, MODULE);
             }
             List<GenericValue> orderAdj = UtilGenerics.cast(taxReturn.get(0));
             List<List<GenericValue>> itemAdj = UtilGenerics.cast(taxReturn.get(1));
@@ -814,7 +814,7 @@ public class CheckOutHelper {
                     }
                     csi.setItemInfo(item, adjs);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Added item adjustments to ship group [" + i + " / " + x + "] - " + adjs, module);
+                        Debug.logVerbose("Added item adjustments to ship group [" + i + " / " + x + "] - " + adjs, MODULE);
                     }
                 }
             }
@@ -867,7 +867,7 @@ public class CheckOutHelper {
                 GenericValue billAddr = cpi.getBillingAddress(delegator);
                 if (billAddr != null) {
                     shipAddress = billAddr;
-                    Debug.logInfo("In makeTaxContext no shipping address, but found address with ID [" + shipAddress.get("contactMechId") + "] from payment method.", module);
+                    Debug.logInfo("In makeTaxContext no shipping address, but found address with ID [" + shipAddress.get("contactMechId") + "] from payment method.", MODULE);
                     break;
                 }
             }
@@ -881,7 +881,7 @@ public class CheckOutHelper {
                     try {
                         shipAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", facilityContactMech.getString("contactMechId")).queryOne();
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
             }
@@ -889,7 +889,7 @@ public class CheckOutHelper {
 
         // if shippingAddress is still null then don't calculate tax; it may be an situation where no tax is applicable, or the data is bad and we don't have a way to find an address to check tax for
         if (shipAddress == null) {
-            Debug.logWarning("Not calculating tax for new order because there is no shipping address, no billing address, and no address on the origin facility [" + originFacilityId + "]", module);
+            Debug.logWarning("Not calculating tax for new order because there is no shipping address, no billing address, and no address on the origin facility [" + originFacilityId + "]", MODULE);
         }
 
         Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productStoreId", cart.getProductStoreId());
@@ -916,11 +916,11 @@ public class CheckOutHelper {
             serviceResult = dispatcher.runSync(taxService, serviceContext);
             if (ServiceUtil.isError(serviceResult)) {
                 String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 throw new GeneralException(errorMessage);
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw new GeneralException("Problem occurred in tax service (" + e.getMessage() + ")", e);
         }
         // the adjustments (returned in order) from taxware.
@@ -981,7 +981,7 @@ public class CheckOutHelper {
                 Map<String, Object> authResp = dispatcher.runSync("processAuthResult", authCtx);
                 if (ServiceUtil.isError(authResp)) {
                     String errorMessage = ServiceUtil.getErrorMessage(authResp);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     throw new GeneralException(errorMessage);
                 }
 
@@ -1004,7 +1004,7 @@ public class CheckOutHelper {
                     Map<String, Object> capResp = dispatcher.runSync("processCaptureResult", captCtx);
                     if (ServiceUtil.isError(capResp)) {
                         String errorMessage = ServiceUtil.getErrorMessage(capResp);
-                        Debug.logError(errorMessage, module);
+                        Debug.logError(errorMessage, MODULE);
                         throw new GeneralException(errorMessage);
                     }
                 }
@@ -1046,15 +1046,15 @@ public class CheckOutHelper {
                         UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin), 180, false);
                 if (ServiceUtil.isError(paymentResult)) {
                     String errorMessage = ServiceUtil.getErrorMessage(paymentResult);
-                    Debug.logError(errorMessage, module);
+                    Debug.logError(errorMessage, MODULE);
                     throw new GeneralException(errorMessage);
                 }
             } catch (GenericServiceException e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
                 throw new GeneralException("Error in authOrderPayments service: " + e.toString(), e.getNested());
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Finished w/ Payment Service", module);
+                Debug.logVerbose("Finished w/ Payment Service", MODULE);
             }
             if (paymentResult != null && paymentResult.containsKey("processResult")) {
                 // grab the customer messages -- only passed back in the case of an error or failure
@@ -1065,7 +1065,7 @@ public class CheckOutHelper {
                 if ("FAILED".equals(authResp)) {
                     // order was NOT approved
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Payment auth was NOT a success!", module);
+                        Debug.logVerbose("Payment auth was NOT a success!", MODULE);
                     }
 
                     boolean ok = OrderChangeHelper.rejectOrder(dispatcher, userLogin, orderId);
@@ -1079,7 +1079,7 @@ public class CheckOutHelper {
                 } else if ("APPROVED".equals(authResp)) {
                     // order WAS approved
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Payment auth was a success!", module);
+                        Debug.logVerbose("Payment auth was a success!", MODULE);
                     }
 
                     // set the order and item status to approved
@@ -1112,7 +1112,7 @@ public class CheckOutHelper {
                 } else if ("ERROR".equals(authResp)) {
                     // service failed
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Payment auth failed due to processor trouble.", module);
+                        Debug.logVerbose("Payment auth failed due to processor trouble.", MODULE);
                     }
                     if (!faceToFace && "Y".equalsIgnoreCase(RETRY_ON_ERROR)) {
                         // never do this for a face to face purchase regardless of store setting
@@ -1133,7 +1133,7 @@ public class CheckOutHelper {
             } else {
                 // result returned null == service failed
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Payment auth failed due to processor trouble.", module);
+                    Debug.logVerbose("Payment auth failed due to processor trouble.", MODULE);
                 }
                 if (!faceToFace && "Y".equalsIgnoreCase(RETRY_ON_ERROR)) {
                     // never do this for a face to face purchase regardless of store setting
@@ -1182,12 +1182,12 @@ public class CheckOutHelper {
         // check to see if we should auto-invoice/bill
         if (faceToFace) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Face-To-Face Sale - " + orderId, module);
+                Debug.logVerbose("Face-To-Face Sale - " + orderId, MODULE);
             }
             CheckOutHelper.adjustFaceToFacePayment(orderId, orderTotal, allPaymentPreferences, userLogin, delegator);
             boolean ok = OrderChangeHelper.completeOrder(dispatcher, userLogin, orderId);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Complete Order Result - " + ok, module);
+                Debug.logVerbose("Complete Order Result - " + ok, MODULE);
             }
             if (!ok) {
                 throw new GeneralException("Problem with order change; see error logs");
@@ -1250,7 +1250,7 @@ public class CheckOutHelper {
                         billingAddress = creditCard.getRelatedOne("PostalAddress", false);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Problems getting credit card from payment method", module);
+                    Debug.logError(e, "Problems getting credit card from payment method", MODULE);
                     errMsg = UtilProperties.getMessage(resource_error,"checkhelper.problems_reading_database", cart.getLocale());
                     return ServiceUtil.returnError(errMsg);
                 }
@@ -1276,7 +1276,7 @@ public class CheckOutHelper {
             try {
                 blacklistFound = EntityQuery.use(this.delegator).from("OrderBlacklist").where(exprs).queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Problems with OrderBlacklist lookup.", module);
+                Debug.logError(e, "Problems with OrderBlacklist lookup.", MODULE);
                 errMsg = UtilProperties.getMessage(resource_error,"checkhelper.problems_reading_database", cart.getLocale());
                 return ServiceUtil.returnError(errMsg);
             }
@@ -1308,7 +1308,7 @@ public class CheckOutHelper {
                 userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             errMsg = UtilProperties.getMessage(resource_error,"checkhelper.database_error", cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
@@ -1333,7 +1333,7 @@ public class CheckOutHelper {
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems getting order header", module);
+            Debug.logError(e, "Problems getting order header", MODULE);
             errMsg = UtilProperties.getMessage(resource_error,"checkhelper.problems_getting_order_header", (cart != null ? cart.getLocale() : Locale.getDefault()));
             result = ServiceUtil.returnError(errMsg);
             return result;
@@ -1343,14 +1343,14 @@ public class CheckOutHelper {
             try {
                 paymentPrefs = orderHeader.getRelated("OrderPaymentPreference", null, null, false);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Problems getting order payments", module);
+                Debug.logError(e, "Problems getting order payments", MODULE);
                 errMsg = UtilProperties.getMessage(resource_error,"checkhelper.problems_getting_payment_preference", (cart != null ? cart.getLocale() : Locale.getDefault()));
                 result = ServiceUtil.returnError(errMsg);
                 return result;
             }
             if (UtilValidate.isNotEmpty(paymentPrefs)) {
                 if (paymentPrefs.size() > 1) {
-                    Debug.logError("Too many payment preferences, you cannot have more then one when using external gateways", module);
+                    Debug.logError("Too many payment preferences, you cannot have more then one when using external gateways", MODULE);
                 }
                 GenericValue paymentPreference = EntityUtil.getFirst(paymentPrefs);
                 String paymentMethodTypeId = paymentPreference.getString("paymentMethodTypeId");
@@ -1530,7 +1530,7 @@ public class CheckOutHelper {
         try {
             Map<String, Object> res = dispatcher.runSync("calcBillingAccountBalance", UtilMisc.toMap("billingAccountId", billingAccountId));
             if (ServiceUtil.isError(res)) {
-                Debug.logError(ServiceUtil.getErrorMessage(res), module);
+                Debug.logError(ServiceUtil.getErrorMessage(res), MODULE);
                 return BigDecimal.ZERO;
             }
             BigDecimal availableBalance = (BigDecimal) res.get("accountBalance");
@@ -1538,7 +1538,7 @@ public class CheckOutHelper {
                 return availableBalance;
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         return BigDecimal.ZERO;
     }
@@ -1565,7 +1565,7 @@ public class CheckOutHelper {
         BigDecimal billingAccountAmt = cart.getBillingAccountAmount();
         BigDecimal availableAmount = this.availableAccountBalance(billingAccountId);
         if (billingAccountAmt.compareTo(availableAmount) > 0) {
-            Debug.logError("Billing account " + billingAccountId + " has [" + availableAmount + "] available but needs [" + billingAccountAmt + "] for this order", module);
+            Debug.logError("Billing account " + billingAccountId + " has [" + availableAmount + "] available but needs [" + billingAccountAmt + "] for this order", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
             errMsg = UtilProperties.getMessage(resource_error, "checkevents.not_enough_available_on_account", messageMap, cart.getLocale());
             return ServiceUtil.returnError(errMsg);
@@ -1591,7 +1591,7 @@ public class CheckOutHelper {
                 BigDecimal paymentAmount = cart.getPaymentAmount(paymentMethodId);
                 if (paymentAmount == null || paymentAmount.compareTo(BigDecimal.ZERO) == 0) {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Found null paymentMethodId - " + paymentMethodId, module);
+                        Debug.logVerbose("Found null paymentMethodId - " + paymentMethodId, MODULE);
                     }
                     nullPaymentIds.add(paymentMethodId);
                 }
@@ -1605,23 +1605,23 @@ public class CheckOutHelper {
                 ShoppingCart.CartPaymentInfo info = cart.getPaymentInfo(paymentMethodId);
 
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Remaining total is - " + newAmount, module);
+                    Debug.logVerbose("Remaining total is - " + newAmount, MODULE);
                 }
                 if (newAmount.compareTo(BigDecimal.ZERO) > 0) {
                     info.amount = newAmount;
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, module);
+                        Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, MODULE);
                     }
                 } else {
                     info.amount = BigDecimal.ZERO;
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, module);
+                        Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, MODULE);
                     }
                 }
                 if (!setOverflow) {
                     info.overflow = true;
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Set overflow flag on payment - " + info.paymentMethodId, module);
+                        Debug.logVerbose("Set overflow flag on payment - " + info.paymentMethodId, MODULE);
                     }
                 }
             }
@@ -1635,14 +1635,14 @@ public class CheckOutHelper {
         BigDecimal requiredAmount = reqAmtPreParse.setScale(scale, rounding);
 
         if (UtilValidate.isNotEmpty(paymentMethods) && requiredAmount.compareTo(selectedPaymentTotal) > 0) {
-            Debug.logError("Required Amount : " + requiredAmount + " / Selected Amount : " + selectedPaymentTotal, module);
+            Debug.logError("Required Amount : " + requiredAmount + " / Selected Amount : " + selectedPaymentTotal, MODULE);
             errMsg = UtilProperties.getMessage(resource_error, "checkevents.payment_not_cover_this_order", cart.getLocale());
             return ServiceUtil.returnError(errMsg);
         }
         if (UtilValidate.isNotEmpty(paymentMethods) && requiredAmount.compareTo(selectedPaymentTotal) < 0) {
             BigDecimal changeAmount = selectedPaymentTotal.subtract(requiredAmount);
             if (!paymentTypes.contains("CASH")) {
-                Debug.logError("Change Amount : " + changeAmount + " / No cash.", module);
+                Debug.logError("Change Amount : " + changeAmount + " / No cash.", MODULE);
                 errMsg = UtilProperties.getMessage(resource_error, "checkhelper.change_returned_cannot_be_greater_than_cash", cart.getLocale());
                 return ServiceUtil.returnError(errMsg);
             }
@@ -1650,7 +1650,7 @@ public class CheckOutHelper {
             String cashId = paymentTypes.get(cashIndex);
             BigDecimal cashAmount = cart.getPaymentAmount(cashId);
             if (cashAmount.compareTo(changeAmount) < 0) {
-                Debug.logError("Change Amount : " + changeAmount + " / Cash Amount : " + cashAmount, module);
+                Debug.logError("Change Amount : " + changeAmount + " / Cash Amount : " + cashAmount, MODULE);
                 errMsg = UtilProperties.getMessage(resource_error,
                         "checkhelper.change_returned_cannot_be_greater_than_cash", cart.getLocale());
                 return ServiceUtil.returnError(errMsg);
@@ -1684,7 +1684,7 @@ public class CheckOutHelper {
                     ctx.put("pinNumber", gc.getString("pinNumber"));
                     gcBalanceMap = dispatcher.runSync("checkGiftCertificateBalance", ctx);
                     if (ServiceUtil.isError(gcBalanceMap)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(gcBalanceMap), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(gcBalanceMap), MODULE);
                     }
                 }
                 if ("valuelink".equalsIgnoreCase(giftCardType)) {
@@ -1694,11 +1694,11 @@ public class CheckOutHelper {
                     ctx.put("pin", gc.getString("pinNumber"));
                     gcBalanceMap = dispatcher.runSync("balanceInquireGiftCard", ctx);
                     if (ServiceUtil.isError(gcBalanceMap)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(gcBalanceMap), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(gcBalanceMap), MODULE);
                     }
                 }
             } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             if (gcBalanceMap != null) {
                 BigDecimal bal = (BigDecimal) gcBalanceMap.get(balanceField);

@@ -34,7 +34,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class StatusWorker {
 
-    public static final String module = StatusWorker.class.getName();
+    public static final String MODULE = StatusWorker.class.getName();
 
     private StatusWorker() {}
 
@@ -51,7 +51,7 @@ public final class StatusWorker {
             if (statusItems != null)
                 pageContext.setAttribute(attributeName, statusItems);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 
@@ -69,7 +69,7 @@ public final class StatusWorker {
             if (calItems != null)
                 statusItems.addAll(calItems);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         try {
             List<GenericValue> taskItems = EntityQuery.use(delegator)
@@ -81,7 +81,7 @@ public final class StatusWorker {
             if (taskItems != null)
                 statusItems.addAll(taskItems);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (statusItems.size() > 0)
@@ -100,7 +100,7 @@ public final class StatusWorker {
                                                     .cache(true)
                                                     .queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
 
         if (statusValidChangeToDetails != null)

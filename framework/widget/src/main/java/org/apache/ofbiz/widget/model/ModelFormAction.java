@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
  */
 public abstract class ModelFormAction {
 
-    public static final String module = ModelFormAction.class.getName();
+    public static final String MODULE = ModelFormAction.class.getName();
 
     public static List<ModelAction> readSubActions(ModelForm modelForm, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
@@ -224,7 +224,7 @@ public abstract class ModelFormAction {
             } catch (GenericServiceException e) {
                 String errMsg = "Error in form [" + this.getModelWidget().getName() + "] calling service with name ["
                         + serviceNameExpanded + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 if (!this.ignoreError) {
                     throw new IllegalArgumentException(errMsg);
                 }

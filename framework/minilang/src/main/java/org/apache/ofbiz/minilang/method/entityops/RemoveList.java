@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  */
 public final class RemoveList extends EntityOperation {
 
-    public static final String module = RemoveList.class.getName();
+    public static final String MODULE = RemoveList.class.getName();
     private final FlexibleMapAccessor<List<GenericValue>> listFma;
 
     public RemoveList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -64,7 +64,7 @@ public final class RemoveList extends EntityOperation {
             delegator.removeAll(values);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing entities: " + e.getMessage();
-            Debug.logWarning(e, errMsg, module);
+            Debug.logWarning(e, errMsg, MODULE);
             simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }

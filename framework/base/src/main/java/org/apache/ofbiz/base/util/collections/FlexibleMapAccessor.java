@@ -42,7 +42,7 @@ import org.apache.ofbiz.base.util.string.UelUtil;
 @SourceMonitored
 @SuppressWarnings("serial")
 public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
-    public static final String module = FlexibleMapAccessor.class.getName();
+    public static final String MODULE = FlexibleMapAccessor.class.getName();
     private static final UtilCache<String, FlexibleMapAccessor<Object>> fmaCache =
             UtilCache.createUtilCache("flexibleMapAccessor.ExpressionCache");
     private static final FlexibleMapAccessor<?> nullFma = new FlexibleMapAccessor<>("");
@@ -77,7 +77,7 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         this.isAscending = isAscending;
         this.fse = fse;
         if (Debug.verboseOn()) {
-            Debug.logVerbose("FlexibleMapAccessor created, original = " + this.original, module);
+            Debug.logVerbose("FlexibleMapAccessor created, original = " + this.original, MODULE);
         }
     }
 
@@ -150,10 +150,10 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         } catch (PropertyNotFoundException e) {
             // PropertyNotFound exceptions are common, so log verbose.
             if (Debug.verboseOn()) {
-                Debug.logVerbose("UEL exception while getting value: " + e + ", original = " + this.original, module);
+                Debug.logVerbose("UEL exception while getting value: " + e + ", original = " + this.original, MODULE);
             }
         } catch (Exception e) {
-            Debug.logError("UEL exception while getting value: " + e + ", original = " + this.original, module);
+            Debug.logError("UEL exception while getting value: " + e + ", original = " + this.original, MODULE);
         }
         // This method is a hot spot, so placing the cast here instead of in another class.
         return (T) obj;
@@ -177,7 +177,7 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         try {
             UelUtil.setValue(base, getExpression(base), value == null ? Object.class : value.getClass(), value);
         } catch (Exception e) {
-            Debug.logError("UEL exception while setting value: " + e + ", original = " + this.original, module);
+            Debug.logError("UEL exception while setting value: " + e + ", original = " + this.original, MODULE);
         }
     }
 
@@ -197,7 +197,7 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
             Map<String, Object> writableMap = UtilGenerics.cast(base);
             UelUtil.removeValue(writableMap, getExpression(base));
         } catch (Exception e) {
-            Debug.logError("UEL exception while removing value: " + e + ", original = " + this.original, module);
+            Debug.logError("UEL exception while removing value: " + e + ", original = " + this.original, MODULE);
         }
         return object;
     }

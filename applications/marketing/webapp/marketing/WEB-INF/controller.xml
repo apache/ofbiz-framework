@@ -305,7 +305,7 @@ under the License.
         <response name="error" type="request-redirect" value="FindImportContactListParties"/>
     </request-map>
     <request-map uri="contactListOptOut" track-serverhit="false" track-visit="false">
-        <security https="true" auth="false"/>        
+        <security https="true" auth="true"/>
         <event type="service" invoke="updateContactListPartyNoUserLogin"/>
         <response name="success" type="view" value="ContactListOptOut"/>
     </request-map>

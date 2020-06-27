@@ -59,7 +59,7 @@ import org.apache.ofbiz.entity.model.ModelField;
  */
 public final class EntityUtil {
 
-    public static final String module = EntityUtil.class.getName();
+    public static final String MODULE = EntityUtil.class.getName();
 
     private EntityUtil() {}
 
@@ -360,7 +360,7 @@ public final class EntityUtil {
 
         List<T> result = new ArrayList<>();
         result.addAll(values);
-        if (Debug.verboseOn()) Debug.logVerbose("Sorting " + values.size() + " values, orderBy=" + orderBy.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Sorting " + values.size() + " values, orderBy=" + orderBy.toString(), MODULE);
         Collections.sort(result, new OrderByList(orderBy));
         return result;
     }

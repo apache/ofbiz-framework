@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 
 public class DataFile2EntityXml {
 
-    public static final String module = DataFile2EntityXml.class.getName();
+    public static final String MODULE = DataFile2EntityXml.class.getName();
 
     /** Creates a new instance of DataFile2EntityXml */
     public DataFile2EntityXml() {
@@ -106,7 +106,7 @@ public class DataFile2EntityXml {
                     dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName);
                 }
                 catch (DataFileException e) {
-                    Debug.logError("Error Occurred while reading Datafile, Exception: " + e, module);
+                    Debug.logError("Error Occurred while reading Datafile, Exception: " + e, MODULE);
                 }
             }
 
@@ -129,7 +129,7 @@ public class DataFile2EntityXml {
             }
         }
         catch (IOException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
     }
 

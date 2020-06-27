@@ -23,7 +23,7 @@ under the License.
     <form name="ListBlogs" type="list" list-name="blogs" separate-columns="true" paginate-target="blogMain"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="contentId"><hidden/></field>
-        <field name="contentName">
+        <field name="contentName" widget-style="buttontext">
             <hyperlink description="${contentName} [${contentId}]" target="editBlog">
                 <parameter param-name="blogContentId" from-field="contentId"/>
             </hyperlink>

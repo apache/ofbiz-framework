@@ -46,7 +46,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public class KeywordIndex {
 
-    public static final String module = KeywordIndex.class.getName();
+    public static final String MODULE = KeywordIndex.class.getName();
 
     public static void forceIndexKeywords(GenericValue product) throws GenericEntityException {
         KeywordIndex.indexKeywords(product, true);
@@ -95,7 +95,7 @@ public class KeywordIndex {
         try {
             pidWeight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.Product.productId", 0);
         } catch (Exception e) {
-            Debug.logWarning("Could not parse weight number: " + e.toString(), module);
+            Debug.logWarning("Could not parse weight number: " + e.toString(), MODULE);
         }
         keywords.put(product.getString("productId").toLowerCase(Locale.getDefault()), (long) pidWeight);
 
@@ -156,7 +156,7 @@ public class KeywordIndex {
                     try {
                         weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.Variant.Product.productId", 0);
                     } catch (Exception e) {
-                        Debug.logWarning("Could not parse weight number: " + e.toString(), module);
+                        Debug.logWarning("Could not parse weight number: " + e.toString(), MODULE);
                     }
                     for (int i = 0; i < weight; i++) {
                         strings.add(variantProductAssoc.getString("productIdTo"));
@@ -172,7 +172,7 @@ public class KeywordIndex {
                 // this is defaulting to a weight of 1 because you specified you wanted to index this type
                 weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.ProductContent." + productContentTypeId, 1);
             } catch (Exception e) {
-                Debug.logWarning("Could not parse weight number: " + e.toString(), module);
+                Debug.logWarning("Could not parse weight number: " + e.toString(), MODULE);
             }
 
             List<GenericValue> productContentAndInfos = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", productContentTypeId).queryList();
@@ -203,7 +203,7 @@ public class KeywordIndex {
         }
         if (toBeStored.size() > 0) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("[KeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for productId " + product.getString("productId"), module);
+                Debug.logVerbose("[KeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for productId " + product.getString("productId"), MODULE);
             }
 
             if ("true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.delete.on_index", "false", delegator))) {
@@ -223,7 +223,7 @@ public class KeywordIndex {
                 strings.add(contentText);
             }
         } catch (GeneralException | IOException e1) {
-            Debug.logError(e1, "Error getting content text to index", module);
+            Debug.logError(e1, "Error getting content text to index", MODULE);
         }
     }
 
@@ -234,7 +234,7 @@ public class KeywordIndex {
             try {
                 weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight." + value.getEntityName() + "." + fieldName, 1);
             } catch (Exception e) {
-                Debug.logWarning("Could not parse weight number: " + e.toString(), module);
+                Debug.logWarning("Could not parse weight number: " + e.toString(), MODULE);
             }
 
             for (int i = 0; i < weight; i++) {

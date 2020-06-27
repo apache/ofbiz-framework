@@ -44,7 +44,7 @@ import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
  */
 public class DumbTransactionFactory implements TransactionFactory {
 
-    public static final String module = DumbTransactionFactory.class.getName();
+    public static final String MODULE = DumbTransactionFactory.class.getName();
 
     @Override
     public TransactionManager getTransactionManager() {
@@ -133,7 +133,7 @@ public class DumbTransactionFactory implements TransactionFactory {
             Connection otherCon = ConnectionFactoryLoader.getInstance().getConnection(helperInfo, datasourceInfo.getInlineJdbc());
             return TransactionUtil.getCursorConnection(helperInfo, otherCon);
         }
-        Debug.logError("Dumb/Empty is the configured transaction manager but no inline-jdbc element was specified in the " + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", module);
+        Debug.logError("Dumb/Empty is the configured transaction manager but no inline-jdbc element was specified in the " + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", MODULE);
         return null;
     }
 

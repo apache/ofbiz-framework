@@ -44,7 +44,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class AgreementServices {
 
-    public static final String module = AgreementServices.class.getName();
+    public static final String MODULE = AgreementServices.class.getName();
     // set some BigDecimal properties
     public static final int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
     public static final RoundingMode rounding = UtilNumber.getRoundingMode("finaccount.rounding");
@@ -171,7 +171,7 @@ public class AgreementServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage("CommonUiLabels", "CommonDatabaseProblem", messageMap, locale);
             return ServiceUtil.returnError(errMsg);

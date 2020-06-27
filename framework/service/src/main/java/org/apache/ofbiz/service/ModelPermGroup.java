@@ -32,7 +32,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 @SuppressWarnings("serial")
 public class ModelPermGroup implements Serializable {
 
-    public static final String module = ModelPermGroup.class.getName();
+    public static final String MODULE = ModelPermGroup.class.getName();
 
     public static final String PERM_JOIN_AND = "AND";
     public static final String PERM_JOIN_OR = "OR";

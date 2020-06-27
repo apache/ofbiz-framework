@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class BOMHelper {
 
-    public static final String module = BOMHelper.class.getName();
+    public static final String MODULE = BOMHelper.class.getName();
 
     /** Creates a new instance of BOMHelper */
     private BOMHelper() {
@@ -149,7 +149,7 @@ public final class BOMHelper {
                             "shipGroupSeqId", shipmentPlan.get("shipGroupSeqId"))
                     .cache().queryList();
             if (UtilValidate.isNotEmpty(productionRuns)) {
-                Debug.logError("Production Run for order item (" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + ") not created.", module);
+                Debug.logError("Production Run for order item (" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + ") not created.", MODULE);
                 continue;
             }
             Map<String, Object> result = dispatcher.runSync("createProductionRunsForOrder", UtilMisc.<String, Object>toMap("quantity", shipmentPlan.getBigDecimal("quantity"), "orderId", 
@@ -158,15 +158,15 @@ public final class BOMHelper {
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
         }
         } catch (GenericEntityException|GenericServiceException ge) {
-            Debug.logWarning(ge, module);
+            Debug.logWarning(ge, MODULE);
         } catch (Exception e) {
             // if there is an exception for either, the other probably wont work
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
 
         return "success";

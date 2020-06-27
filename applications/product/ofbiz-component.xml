@@ -42,6 +42,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_feature.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_inventory.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_maint.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_migration.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_picklist.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_price.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_pricepromo.xml"/>

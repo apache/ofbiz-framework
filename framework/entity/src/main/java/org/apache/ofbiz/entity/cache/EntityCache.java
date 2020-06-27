@@ -28,7 +28,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
-    public static final String module = EntityCache.class.getName();
+    public static final String MODULE = EntityCache.class.getName();
 
     public EntityCache(String delegatorName) {
         super(delegatorName, "entity");
@@ -51,7 +51,7 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
 
     public GenericValue put(GenericPK pk, GenericValue entity) {
         if (pk.getModelEntity().getNeverCache()) {
-            Debug.logWarning("Tried to put a value of the " + pk.getEntityName() + " entity in the BY PRIMARY KEY cache but this entity has never-cache set to true, not caching.", module);
+            Debug.logWarning("Tried to put a value of the " + pk.getEntityName() + " entity in the BY PRIMARY KEY cache but this entity has never-cache set to true, not caching.", MODULE);
             return null;
         }
 
@@ -88,7 +88,7 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
     public GenericValue remove(GenericPK pk) {
         UtilCache<GenericPK, GenericValue> entityCache = getCache(pk.getEntityName());
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], will remove from this cache: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), module);
+            Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], will remove from this cache: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), MODULE);
         }
         if (entityCache == null) {
             return null;
@@ -103,7 +103,7 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
             }
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], found this in the cache: " + retVal, module);
+            Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], found this in the cache: " + retVal, MODULE);
         }
         return retVal;
     }

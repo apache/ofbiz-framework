@@ -31,7 +31,7 @@ import org.apache.ofbiz.entity.util.EntityTypeUtil;
  */
 public final class PartyTypeHelper {
 
-    public static final String module = PartyTypeHelper.class.getName();
+    public static final String MODULE = PartyTypeHelper.class.getName();
 
     private PartyTypeHelper () {}
 
@@ -54,7 +54,7 @@ public final class PartyTypeHelper {
                 return false;
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+            Debug.logWarning(e, MODULE);
         }
         return EntityTypeUtil.isType(partyType, checkedTypeOfParty);
     }

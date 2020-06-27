@@ -24,18 +24,18 @@ import org.apache.shiro.crypto.AesCipherService;
 
 public class Main {
     
-    public static final String module = Main.class.getName(); 
+    public static final String MODULE = Main.class.getName(); 
     public static void main(String[] args) throws Exception {
         if ("-crypt".equals(args[0])) {
-            Debug.logInfo(HashCrypt.cryptUTF8(args[1], null, args[2]), module);
+            Debug.logInfo(HashCrypt.cryptUTF8(args[1], null, args[2]), MODULE);
         } else if ("-digest".equals(args[0])) {
             String digest = HashCrypt.digestHash("SHA", null, args[1]);
-            Debug.logInfo(digest, module);
+            Debug.logInfo(digest, MODULE);
         } else if ("-kek".equals(args[0])) {
             AesCipherService cs = new AesCipherService();
-            Debug.logInfo(Base64.encodeBase64String(cs.generateNewKey().getEncoded()), module);
+            Debug.logInfo(Base64.encodeBase64String(cs.generateNewKey().getEncoded()), MODULE);
         } else if ("-kek-old".equals(args[0])) {
-            Debug.logInfo(Base64.encodeBase64String(DesCrypt.generateKey().getEncoded()), module);
+            Debug.logInfo(Base64.encodeBase64String(DesCrypt.generateKey().getEncoded()), MODULE);
         }
     }
 }

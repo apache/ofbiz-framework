@@ -34,7 +34,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public final class UtilIO {
-    public static final String module = UtilIO.class.getName();
+    public static final String MODULE = UtilIO.class.getName();
 
     private UtilIO () {}
 
@@ -193,7 +193,7 @@ public final class UtilIO {
             try {
                 reader.close();
             } catch (IOException e) {
-                Debug.logError(e, "Error closing after reading text: " + e.toString(), module);
+                Debug.logError(e, "Error closing after reading text: " + e.toString(), MODULE);
             }
         }
     }

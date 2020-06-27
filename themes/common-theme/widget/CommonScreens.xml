@@ -642,14 +642,6 @@ under the License.
                                     </condition>
                                     <actions>
                                         <set field="userLoginId" from-field="parameters.USERNAME"/>
-                                        <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
-                                            <field-map field-name="userLoginId" />
-                                        </entity-and>
-                                        <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
-                                        <entity-one entity-name="Enumeration" value-field="securityQuestion">
-                                            <field-map field-name="enumId" from-field="questionEnumId"/>
-                                        </entity-one>
-                                        <set field="securityQuestion" from-field="securityQuestion"/>
                                     </actions>
                                 </section>
                                 <platform-specific>

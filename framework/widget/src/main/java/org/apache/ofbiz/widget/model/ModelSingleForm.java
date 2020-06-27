@@ -52,7 +52,7 @@ public class ModelSingleForm extends ModelForm {
      *
      */
 
-    public static final String module = ModelSingleForm.class.getName();
+    public static final String MODULE = ModelSingleForm.class.getName();
 
     /** XML Constructor */
     public ModelSingleForm(Element formElement, String formLocation, ModelReader entityModelReader,
@@ -83,7 +83,7 @@ public class ModelSingleForm extends ModelForm {
                             visualTheme, dispatchContext);
                 } catch (Exception e) {
                     Debug.logError(e, "Failed to load parent form definition '" + parentForm + "' at resource '" + parentResource
-                            + "'", module);
+                            + "'", MODULE);
                 }
             } else if (!parentForm.equals(formElement.getAttribute("name"))) {
                 // try to find a form definition in the same file
@@ -99,10 +99,10 @@ public class ModelSingleForm extends ModelForm {
                     }
                 }
                 if (parent == null) {
-                    Debug.logError("Failed to find parent form definition '" + parentForm + "' in same document.", module);
+                    Debug.logError("Failed to find parent form definition '" + parentForm + "' in same document.", MODULE);
                 }
             } else {
-                Debug.logError("Recursive form definition found for '" + formElement.getAttribute("name") + ".'", module);
+                Debug.logError("Recursive form definition found for '" + formElement.getAttribute("name") + ".'", MODULE);
             }
         }
         return parent;

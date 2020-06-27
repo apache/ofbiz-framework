@@ -27,7 +27,7 @@ import org.apache.ofbiz.common.authentication.api.AuthenticatorException;
  */
 public class TestPassAuthenticator extends TestFailAuthenticator {
 
-    private static final String module = TestPassAuthenticator.class.getName();
+    private static final String MODULE = TestPassAuthenticator.class.getName();
 
     /**
      * Method to authenticate a user
@@ -41,7 +41,7 @@ public class TestPassAuthenticator extends TestFailAuthenticator {
      */
     @Override
     public boolean authenticate(String username, String password, boolean isServiceAuth) throws AuthenticatorException {
-        Debug.logInfo(this.getClass().getName() + " Authenticator authenticate() -- returning false", module);
+        Debug.logInfo(this.getClass().getName() + " Authenticator authenticate() -- returning false", MODULE);
         return true;
     }
 

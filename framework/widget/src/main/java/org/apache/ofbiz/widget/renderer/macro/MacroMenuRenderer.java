@@ -54,7 +54,7 @@ import freemarker.template.TemplateException;
 
 public class MacroMenuRenderer implements MenuStringRenderer {
 
-    public static final String module = MacroMenuRenderer.class.getName();
+    public static final String MODULE = MacroMenuRenderer.class.getName();
     private int macroCount = 999;
     private final Map<Appendable, Environment> environments = new HashMap<>();
     private final Template macroLibrary;
@@ -128,7 +128,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         }
         sb.append(" />");
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Executing macro: " + sb, module);
+            Debug.logVerbose("Executing macro: " + sb, MODULE);
         }
         executeMacro(writer, sb.toString());
     }

@@ -24,11 +24,12 @@ under the License.
         <div class="screenlet-body">
             <#list productPromoCodeEmails as productPromoCodeEmail>
               <div>
+                <#assign contactMech = EntityQuery.use(delegator).from("ContactMech").where("contactMechId", productPromoCodeEmail.contactMechId).queryOne()!/>
                 <form name="deleteProductPromoCodeEmail_${productPromoCodeEmail_index}" method="post" action="<@ofbizUrl>deleteProductPromoCodeEmail</@ofbizUrl>">
                   <input type="hidden" name="productPromoCodeId" value="${productPromoCodeEmail.productPromoCodeId}"/>                
-                  <input type="hidden" name="emailAddress" value="${productPromoCodeEmail.emailAddress}"/>                
+                  <input type="hidden" name="contactMechId" value="${productPromoCodeEmail.contactMechId}"/>
                   <input type="hidden" name="productPromoId" value="${productPromoId}"/>                
-                  <a href='javascript:document.deleteProductPromoCodeEmail_${productPromoCodeEmail_index}.submit()' class='buttontext'>${uiLabelMap.CommonRemove}</a>&nbsp;${productPromoCodeEmail.emailAddress}
+                  <a href='javascript:document.deleteProductPromoCodeEmail_${productPromoCodeEmail_index}.submit()' class='buttontext'>${uiLabelMap.CommonRemove}</a>&nbsp;${contactMech.infoString!}
                 </form>
               </div>                
             </#list>

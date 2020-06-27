@@ -70,7 +70,7 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
  */
 public class ShoppingCartEvents {
 
-    public static final String module = ShoppingCartEvents.class.getName();
+    public static final String MODULE = ShoppingCartEvents.class.getName();
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
 
@@ -142,7 +142,7 @@ public class ShoppingCartEvents {
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
         }
         return result;
@@ -233,8 +233,8 @@ public class ShoppingCartEvents {
             parentProductId = (String) paramMap.remove("product_id");
         }
 
-        Debug.logInfo("adding item product " + productId, module);
-        Debug.logInfo("adding item parent product " + parentProductId, module);
+        Debug.logInfo("adding item product " + productId, MODULE);
+        Debug.logInfo("adding item parent product " + parentProductId, MODULE);
 
         if (paramMap.containsKey("ADD_CATEGORY_ID")) {
             productCategoryId = (String) paramMap.remove("ADD_CATEGORY_ID");
@@ -264,7 +264,7 @@ public class ShoppingCartEvents {
                     productId = pId;
                 }
             } catch (Throwable e) {
-                Debug.logWarning(e, module);
+                Debug.logWarning(e, MODULE);
             }
         }
 
@@ -287,7 +287,7 @@ public class ShoppingCartEvents {
                 try {
                     configWrapper.loadConfig(delegator, (String) paramMap.remove("configId"));
                 } catch (Exception e) {
-                    Debug.logWarning(e, "Could not load configuration", module);
+                    Debug.logWarning(e, "Could not load configuration", MODULE);
                 }
             } else {
                 // The choices selected by the user are taken from request and set in the wrapper
@@ -373,7 +373,7 @@ public class ShoppingCartEvents {
                         reservStart = java.sql.Timestamp.valueOf(reservStartStr);
                     } catch (Exception e) {
                         Debug.logWarning(e, "Problems parsing Reservation start string: "
-                                + reservStartStr, module);
+                                + reservStartStr, MODULE);
                         reservStart = null;
                         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.rental.startDate", locale));
                         return "error";
@@ -393,7 +393,7 @@ public class ShoppingCartEvents {
                     try {
                         reservEnd = java.sql.Timestamp.valueOf(reservEndStr);
                     } catch (Exception e) {
-                        Debug.logWarning(e, "Problems parsing Reservation end string: " + reservEndStr, module);
+                        Debug.logWarning(e, "Problems parsing Reservation end string: " + reservEndStr, MODULE);
                         reservEnd = null;
                         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.rental.endDate", locale));
                         return "error";
@@ -414,7 +414,7 @@ public class ShoppingCartEvents {
                     reservLength = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(reservLengthStr, "BigDecimal", null, locale);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing reservation length string: "
-                            + reservLengthStr, module);
+                            + reservLengthStr, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderReservationLengthShouldBeAPositiveNumber", locale));
                     return "error";
                 }
@@ -426,7 +426,7 @@ public class ShoppingCartEvents {
                 try {
                     reservPersons = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(reservPersonsStr, "BigDecimal", null, locale);
                 } catch (Exception e) {
-                    Debug.logWarning(e, "Problems parsing reservation number of persons string: " + reservPersonsStr, module);
+                    Debug.logWarning(e, "Problems parsing reservation number of persons string: " + reservPersonsStr, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderNumberOfPersonsShouldBeOneOrLarger", locale));
                     return "error";
                 }
@@ -460,7 +460,7 @@ public class ShoppingCartEvents {
         try {
             price = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(priceStr, "BigDecimal", null, locale);
         } catch (Exception e) {
-            Debug.logWarning(e, "Problems parsing price string: " + priceStr, module);
+            Debug.logWarning(e, "Problems parsing price string: " + priceStr, MODULE);
             price = null;
         }
 
@@ -481,7 +481,7 @@ public class ShoppingCartEvents {
                 quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
             }
         } catch (Exception e) {
-            Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, module);
+            Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, MODULE);
             quantity = BigDecimal.ONE;
         }
 
@@ -499,7 +499,7 @@ public class ShoppingCartEvents {
             try {
                 amount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(selectedAmountStr, "BigDecimal", null, locale);
             } catch (Exception e) {
-                Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
+                Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, MODULE);
                 amount = null;
             }
         } else {
@@ -522,7 +522,7 @@ public class ShoppingCartEvents {
             try {
                 shipBeforeDate = java.sql.Timestamp.valueOf(shipBeforeDateStr);
             } catch (IllegalArgumentException e) {
-                Debug.logWarning(e, "Bad shipBeforeDate input: " + e.getMessage(), module);
+                Debug.logWarning(e, "Bad shipBeforeDate input: " + e.getMessage(), MODULE);
                 shipBeforeDate = null;
             }
         }
@@ -536,7 +536,7 @@ public class ShoppingCartEvents {
             try {
                 shipAfterDate = java.sql.Timestamp.valueOf(shipAfterDateStr);
             } catch (IllegalArgumentException e) {
-                Debug.logWarning(e, "Bad shipAfterDate input: " + e.getMessage(), module);
+                Debug.logWarning(e, "Bad shipAfterDate input: " + e.getMessage(), MODULE);
                 shipAfterDate = null;
             }
         }
@@ -550,7 +550,7 @@ public class ShoppingCartEvents {
             try {
                 reserveAfterDate = java.sql.Timestamp.valueOf(reserveAfterDateStr);
             } catch (IllegalArgumentException e) {
-                Debug.logWarning(e, "Bad reserveAfterDate input: " + e.getMessage(), module);
+                Debug.logWarning(e, "Bad reserveAfterDate input: " + e.getMessage(), MODULE);
                 reserveAfterDate = null;
             }
         }
@@ -617,7 +617,7 @@ public class ShoppingCartEvents {
                             try {
                                 cart.removeCartItem(sci, dispatcher);
                             } catch (CartItemModifyException e) {
-                                Debug.logError(e.getMessage(), module);
+                                Debug.logError(e.getMessage(), MODULE);
                             }
                         }
                     }
@@ -631,14 +631,14 @@ public class ShoppingCartEvents {
                                 try {
                                     cart.removeCartItem(sci, dispatcher);
                                 } catch (CartItemModifyException e) {
-                                    Debug.logError(e.getMessage(), module);
+                                    Debug.logError(e.getMessage(), MODULE);
                                 }
                             }
                         }
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
         }
 
@@ -648,7 +648,7 @@ public class ShoppingCartEvents {
             try {
                 parentProduct = EntityQuery.use(delegator).from("Product").where("productId", parentProductId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting parent product", module);
+                Debug.logError(e, "Error getting parent product", MODULE);
             }
             BigDecimal piecesIncluded = BigDecimal.ZERO;
             if(parentProduct != null){
@@ -680,7 +680,7 @@ public class ShoppingCartEvents {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting product"+e.getMessage(), module);
+            Debug.logError(e, "Error getting product"+e.getMessage(), MODULE);
         }
         // Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
@@ -757,7 +757,7 @@ public class ShoppingCartEvents {
                 cart = new WebShoppingCart(request);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         }
 
         // TODO: the code below here needs some cleanups
@@ -773,7 +773,7 @@ public class ShoppingCartEvents {
             try {
                 thisOrder = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
             if (thisOrder == null) {
                 cart.setOrderId(orderId);
@@ -935,7 +935,7 @@ public class ShoppingCartEvents {
             // to allow the display of the order confirmation page put the userLogin in the request, but leave it out of the session
             request.setAttribute("temporaryAnonymousUserLogin", userLogin);
 
-            Debug.logInfo("Doing clearCart for anonymous user, so logging out but put anonymous userLogin in temporaryAnonymousUserLogin request attribute", module);
+            Debug.logInfo("Doing clearCart for anonymous user, so logging out but put anonymous userLogin in temporaryAnonymousUserLogin request attribute", MODULE);
         }
 
         return "success";
@@ -975,7 +975,7 @@ public class ShoppingCartEvents {
                 try {
                     cart.setCurrency(dispatcher, currencyUom);
                 } catch (CartItemModifyException e) {
-                    Debug.logError(e, "Unable to modify currency in cart", module);
+                    Debug.logError(e, "Unable to modify currency in cart", MODULE);
                 }
             }
         }
@@ -995,7 +995,7 @@ public class ShoppingCartEvents {
             try {
                 cartIndex = Integer.parseInt(cartIndexStr);
             } catch (NumberFormatException nfe) {
-                Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
+                Debug.logWarning("Invalid value for cart index =" + cartIndexStr, MODULE);
             }
         }
         List<ShoppingCart> cartList = UtilGenerics.cast(session.getAttribute("shoppingCartList"));
@@ -1031,7 +1031,7 @@ public class ShoppingCartEvents {
             try {
                 cartIndex = Integer.parseInt(cartIndexStr);
             } catch (NumberFormatException nfe) {
-                Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
+                Debug.logWarning("Invalid value for cart index =" + cartIndexStr, MODULE);
             }
         }
         List<ShoppingCart> cartList = UtilGenerics.cast(session.getAttribute("shoppingCartList"));
@@ -1054,7 +1054,7 @@ public class ShoppingCartEvents {
                 try {
                     cart.setUserLogin(userLogin, dispatcher);
                 } catch (CartItemModifyException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
             }
         }
@@ -1067,7 +1067,7 @@ public class ShoppingCartEvents {
                     try {
                         cart.setAutoUserLogin(autoUserLogin, dispatcher);
                     } catch (CartItemModifyException e) {
-                        Debug.logWarning(e, module);
+                        Debug.logWarning(e, MODULE);
                     }
                 } else {
                     cart.setAutoUserLogin(autoUserLogin);
@@ -1193,7 +1193,7 @@ public class ShoppingCartEvents {
             try {
                 cart.removeAdditionalPartyRole(partyId, roleTypeId[i]);
             } catch (Exception e) {
-                Debug.logInfo(e.getLocalizedMessage(), module);
+                Debug.logInfo(e.getLocalizedMessage(), MODULE);
                 eventList.add(e.getLocalizedMessage());
             }
         }
@@ -1377,7 +1377,7 @@ public class ShoppingCartEvents {
                     }
                 }
             } catch (NumberFormatException e) {
-                Debug.logWarning(e, "Error parsing termIndex: " + termIndexStr, module);
+                Debug.logWarning(e, "Error parsing termIndex: " + termIndexStr, MODULE);
             }
         }
 
@@ -1400,7 +1400,7 @@ public class ShoppingCartEvents {
             if (ServiceUtil.isError(outMap)) {
                 String errorMessage = ServiceUtil.getErrorMessage(outMap);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
             cart = (ShoppingCart)outMap.get("shoppingCart");
@@ -1434,7 +1434,7 @@ public class ShoppingCartEvents {
             if (ServiceUtil.isError(outMap)) {
                 String errorMessage = ServiceUtil.getErrorMessage(outMap);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
             cart = (ShoppingCart) outMap.get("shoppingCart");
@@ -1475,7 +1475,7 @@ public class ShoppingCartEvents {
             if (ServiceUtil.isError(outMap)) {
                 String errorMessage = ServiceUtil.getErrorMessage(outMap);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(errorMessage, MODULE);
                 return "error";
             }
             cart = (ShoppingCart) outMap.get("shoppingCart");
@@ -1491,7 +1491,7 @@ public class ShoppingCartEvents {
             try {
                 orderAdjustmentList = EntityQuery.use(delegator).from("OrderAdjustment").where("orderId", orderId).queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
             for (long itr = 1; itr <= groupIndex; itr++) {
                 shipGroupSeqId = UtilFormatOut.formatPaddedNumber(itr, 5);
@@ -1559,7 +1559,7 @@ public class ShoppingCartEvents {
         if (ServiceUtil.isError(result)) {
             String errorMessage = ServiceUtil.getErrorMessage(result);
             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-            Debug.logError(errorMessage, module);
+            Debug.logError(errorMessage, MODULE);
             return "error";
         }
         request.setAttribute("quoteId", quoteId);
@@ -1591,7 +1591,7 @@ public class ShoppingCartEvents {
         if (ServiceUtil.isError(result)) {
             String errorMessage = ServiceUtil.getErrorMessage(result);
             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-            Debug.logError(errorMessage, module);
+            Debug.logError(errorMessage, MODULE);
             return "error";
         }
         request.setAttribute("custRequestId", custRequestId);
@@ -1814,7 +1814,7 @@ public class ShoppingCartEvents {
         // The number of multi form rows is retrieved
         int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
         if (rowCount < 1) {
-            Debug.logWarning("No rows to process, as rowCount = " + rowCount, module);
+            Debug.logWarning("No rows to process, as rowCount = " + rowCount, MODULE);
         } else {
             for (int i = 0; i < rowCount; i++) {
                 controlDirective = null;                // re-initialize each time
@@ -1836,7 +1836,7 @@ public class ShoppingCartEvents {
                 try {
                     quantity = new BigDecimal(quantityStr);
                 } catch (Exception e) {
-                    Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, module);
+                    Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, MODULE);
                     quantity = BigDecimal.ZERO;
                 }
 
@@ -1855,7 +1855,7 @@ public class ShoppingCartEvents {
                         quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logWarning(e.getMessage(), module);
+                    Debug.logWarning(e.getMessage(), MODULE);
                     quantity = BigDecimal.ONE;
                 }
 
@@ -1871,7 +1871,7 @@ public class ShoppingCartEvents {
                     try {
                         amount = new BigDecimal(selectedAmountStr);
                     } catch (Exception e) {
-                        Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
+                        Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, MODULE);
                         amount = null;
                     }
                 } else {
@@ -1894,7 +1894,7 @@ public class ShoppingCartEvents {
 
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                     Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + null +
-                            ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
+                            ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, MODULE);
                     result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
                                                   null, itemType, itemDescription, null,
                                                   amount, quantity, null, null, null, null, null, null,
@@ -1953,7 +1953,7 @@ public class ShoppingCartEvents {
             try {
                 thisOrder = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
             if (thisOrder == null) {
                 cart.setOrderId(orderId);
@@ -2009,7 +2009,7 @@ public class ShoppingCartEvents {
         String currencyUomId = getCartObject(request).getCurrency();
         ProductConfigWrapper configWrapper = ProductConfigWorker.getProductConfigWrapper(productId, currencyUomId, request);
         if (configWrapper == null) {
-            Debug.logWarning("configWrapper is null", module);
+            Debug.logWarning("configWrapper is null", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", "configWrapper is null");
             return "error";
         }
@@ -2038,7 +2038,7 @@ public class ShoppingCartEvents {
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
         if (rowCount < 1) {
-            Debug.logWarning("No rows to process, as rowCount = " + rowCount, module);
+            Debug.logWarning("No rows to process, as rowCount = " + rowCount, MODULE);
         } else {
             for (int i = 0; i < rowCount; i++) {
                 String thisSuffix = UtilHttp.getMultiRowDelimiter() + i;
@@ -2054,7 +2054,7 @@ public class ShoppingCartEvents {
                 try {
                     quantity = new BigDecimal(quantityStr);
                 } catch (Exception e) {
-                    Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, module);
+                    Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, MODULE);
                     quantity = BigDecimal.ZERO;
                 }
                 String selectedAmountStr = null;
@@ -2066,7 +2066,7 @@ public class ShoppingCartEvents {
                     try {
                         amount = new BigDecimal(selectedAmountStr);
                     } catch (Exception e) {
-                        Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
+                        Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, MODULE);
                         amount = null;
                     }
                 } else {
@@ -2080,7 +2080,7 @@ public class ShoppingCartEvents {
                     try {
                         itemDesiredDeliveryDate = Timestamp.valueOf(itemDesiredDeliveryDateStr);
                     } catch (Exception e) {
-                        Debug.logWarning(e,"Problems parsing Reservation start string: " + itemDesiredDeliveryDateStr, module);
+                        Debug.logWarning(e,"Problems parsing Reservation start string: " + itemDesiredDeliveryDateStr, MODULE);
                         itemDesiredDeliveryDate = null;
                         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string", locale));
                     }
@@ -2099,7 +2099,7 @@ public class ShoppingCartEvents {
                 }
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                     Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + null +
-                            ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
+                            ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, MODULE);
                     HttpSession session = request.getSession();
                     GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
                     Map<String, Object> appendOrderItemMap = new HashMap<>();
@@ -2115,13 +2115,13 @@ public class ShoppingCartEvents {
                         if (ServiceUtil.isError(result)) {
                             String errorMessage = ServiceUtil.getErrorMessage(result);
                             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                            Debug.logError(errorMessage, module);
+                            Debug.logError(errorMessage, MODULE);
                             return "error";
                         }
                         request.setAttribute("shoppingCart", result.get("shoppingCart"));
                         destroyCart(request, response);
                     } catch (GenericServiceException e) {
-                        Debug.logError(e, "Failed to execute service appendOrderItem", module);
+                        Debug.logError(e, "Failed to execute service appendOrderItem", MODULE);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         return "error";
                     }

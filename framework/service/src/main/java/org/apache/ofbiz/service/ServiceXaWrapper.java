@@ -39,7 +39,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 @Deprecated
 public class ServiceXaWrapper extends GenericXaResource {
 
-    public static final String module = ServiceXaWrapper.class.getName();
+    public static final String MODULE = ServiceXaWrapper.class.getName();
     public static final int TYPE_ROLLBACK = 600;
     public static final int TYPE_COMMIT = 500;
     public static final int MODE_ASYNC = 100;
@@ -161,7 +161,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     @Override
     public void enlist() throws XAException {
         super.enlist();
-        if (Debug.verboseOn()) Debug.logVerbose("Enlisted in transaction : " + this.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Enlisted in transaction : " + this.toString(), MODULE);
     }
 
     // -- XAResource Methods
@@ -170,10 +170,10 @@ public class ServiceXaWrapper extends GenericXaResource {
      */
     @Override
     public void commit(Xid xid, boolean onePhase) throws XAException {
-        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#commit() : " + onePhase + " / " + xid.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#commit() : " + onePhase + " / " + xid.toString(), MODULE);
         // the commit listener
         if (this.active) {
-            Debug.logWarning("commit() called without end()", module);
+            Debug.logWarning("commit() called without end()", MODULE);
         }
         if (this.xid == null || !this.xid.equals(xid)) {
             throw new XAException(XAException.XAER_NOTA);
@@ -190,7 +190,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                 try {
                     runService(service, context, persist, (async ? MODE_ASYNC : MODE_SYNC), TYPE_COMMIT);
                 } catch (XAException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
         };
@@ -205,10 +205,10 @@ public class ServiceXaWrapper extends GenericXaResource {
      */
     @Override
     public void rollback(Xid xid) throws XAException {
-        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#rollback() : " + xid.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#rollback() : " + xid.toString(), MODULE);
         // the rollback listener
         if (this.active) {
-            Debug.logWarning("rollback() called without end()", module);
+            Debug.logWarning("rollback() called without end()", MODULE);
         }
         if (this.xid == null || !this.xid.equals(xid)) {
             throw new XAException(XAException.XAER_NOTA);
@@ -225,7 +225,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                 try {
                     runService(service, context, persist, (async ? MODE_ASYNC : MODE_SYNC), TYPE_ROLLBACK);
                 } catch (XAException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
         };
@@ -238,15 +238,15 @@ public class ServiceXaWrapper extends GenericXaResource {
     @Override
     public int prepare(Xid xid) throws XAException {
         // overriding to log two phase commits
-        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#prepare() : " + xid.toString(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#prepare() : " + xid.toString(), MODULE);
         int rtn;
         try {
             rtn = super.prepare(xid);
         } catch (XAException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             throw e;
         }
-        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#prepare() : " + rtn + " / " + (rtn == XA_OK) , module);
+        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#prepare() : " + rtn + " / " + (rtn == XA_OK) , MODULE);
         return rtn;
     }
 
@@ -263,7 +263,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                 msgPrefix = "[Commit] ";
                 break;
             default:
-                Debug.logWarning("There was another type instead of [Commit] or [Rollback] in runService: " + type, module);
+                Debug.logWarning("There was another type instead of [Commit] or [Rollback] in runService: " + type, MODULE);
         }
 
         // if a service exists; run it
@@ -278,7 +278,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                 try {
                     currentTxStatus = TransactionUtil.getStatus();
                 } catch (GenericTransactionException e) {
-                    Debug.logWarning(e, module);
+                    Debug.logWarning(e, MODULE);
                 }
 
                 // suspend the parent tx
@@ -307,21 +307,21 @@ public class ServiceXaWrapper extends GenericXaResource {
                     // invoke based on mode
                     switch (mode) {
                         case MODE_ASYNC:
-                            Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runAsync", module);
+                            Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runAsync", MODULE);
                             dctx.getDispatcher().runAsync(service, thisContext, persist);
                             break;
 
                         case MODE_SYNC:
-                            Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runSyncIgnore", module);
+                            Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runSyncIgnore", MODULE);
                             dctx.getDispatcher().runSyncIgnore(service, thisContext);
                             break;
                     }
                 } catch (Throwable t) {
-                    Debug.logError(t, "Problem calling " + msgPrefix + "service : " + service + " / " + context, module);
+                    Debug.logError(t, "Problem calling " + msgPrefix + "service : " + service + " / " + context, MODULE);
                     try {
                         TransactionUtil.rollback(beganTx, t.getMessage(), t);
                     } catch (GenericTransactionException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
 
                     // async calls are assumed to not effect this TX
@@ -333,23 +333,23 @@ public class ServiceXaWrapper extends GenericXaResource {
                     try {
                         TransactionUtil.commit(beganTx);
                     } catch (GenericTransactionException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
             } catch (GenericTransactionException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             } finally {
                 // resume the transaction
                 if (parentTx != null) {
                     try {
                         TransactionUtil.resume(parentTx);
                     } catch (Exception e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                     }
                 }
             }
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("No " + msgPrefix + "service defined; nothing to do", module);
+            if (Debug.verboseOn()) Debug.logVerbose("No " + msgPrefix + "service defined; nothing to do", MODULE);
         }
 
         this.xid = null;

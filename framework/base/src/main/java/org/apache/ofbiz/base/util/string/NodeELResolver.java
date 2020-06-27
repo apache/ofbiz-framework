@@ -52,7 +52,7 @@ import org.w3c.dom.NodeList;
 public class NodeELResolver extends ELResolver {
     private final XPath xpath;
     private final UtilCache<String, XPathExpression> exprCache = UtilCache.createUtilCache("nodeElResolver.ExpressionCache");
-    private static final String module = NodeELResolver.class.getName();
+    private static final String MODULE = NodeELResolver.class.getName();
 
     /**
      * Creates a new read-only NodeELResolver.
@@ -110,7 +110,7 @@ public class NodeELResolver extends ELResolver {
                 }
                 context.setPropertyResolved(true);
             } catch (XPathExpressionException e) {
-                Debug.logError("An error occurred during XPath expression evaluation, error was: " + e, module);
+                Debug.logError("An error occurred during XPath expression evaluation, error was: " + e, MODULE);
             }
         }
         return result;
@@ -151,7 +151,7 @@ public class NodeELResolver extends ELResolver {
                         xpe = xpath.compile(xPathString);
                         exprCache.put(xPathString, xpe);
                     } catch (XPathExpressionException e) {
-                        Debug.logError("An error occurred during XPath expression compilation, error was: " + e, module);
+                        Debug.logError("An error occurred during XPath expression compilation, error was: " + e, MODULE);
                     }
                 }
             }

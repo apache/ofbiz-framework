@@ -75,7 +75,7 @@ under the License.
       <#--if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
       <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
         <#include "component://common-theme/template/includes/HelpLink.ftl" />
-        <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
+        <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('<@ofbizUrl>showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}</@ofbizUrl>','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
       </#if>
       <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
       <li><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>

@@ -93,7 +93,7 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
  */
 public class LoginWorker {
 
-    public final static String module = LoginWorker.class.getName();
+    public final static String MODULE = LoginWorker.class.getName();
     public static final String resourceWebapp = "SecurityextUiLabels";
 
     public static final String X509_CERT_ATTR = "SSLx509Cert";
@@ -135,7 +135,7 @@ public class LoginWorker {
     public static void setLoggedOut(String userLoginId, Delegator delegator) {
         if (UtilValidate.isEmpty(userLoginId)) {
             if (Debug.warningOn()) {
-                Debug.logWarning("Called setLogged out with empty userLoginId", module);
+                Debug.logWarning("Called setLogged out with empty userLoginId", MODULE);
             }
         }
 
@@ -146,7 +146,7 @@ public class LoginWorker {
             try {
                 parentTx = TransactionUtil.suspend();
             } catch (GenericTransactionException e) {
-                Debug.logError(e, "Cannot suspend current transaction: " + e.getMessage(), module);
+                Debug.logError(e, "Cannot suspend current transaction: " + e.getMessage(), MODULE);
             }
 
             try {
@@ -154,24 +154,24 @@ public class LoginWorker {
 
                 GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
                 if (userLogin == null) {
-                    Debug.logError("Could not find UserLogin record for setLoggedOut with userLoginId [" + userLoginId + "]", module);
+                    Debug.logError("Could not find UserLogin record for setLoggedOut with userLoginId [" + userLoginId + "]", MODULE);
                 } else {
                     userLogin.set("hasLoggedOut", "Y");
                     userLogin.store();
                 }
             } catch (GenericEntityException e) {
                 String errMsg = "Unable to set logged out flag on UserLogin";
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 try {
                     TransactionUtil.rollback(beganTransaction, errMsg, e);
                 } catch (GenericTransactionException e2) {
-                    Debug.logError(e2, "Could not rollback nested transaction: " + e.getMessage(), module);
+                    Debug.logError(e2, "Could not rollback nested transaction: " + e.getMessage(), MODULE);
                 }
             } finally {
                 try {
                     TransactionUtil.commit(beganTransaction);
                 } catch (GenericTransactionException e) {
-                    Debug.logError(e, "Could not commit nested transaction: " + e.getMessage(), module);
+                    Debug.logError(e, "Could not commit nested transaction: " + e.getMessage(), MODULE);
                 }
             }
         } finally {
@@ -180,10 +180,10 @@ public class LoginWorker {
                 try {
                     TransactionUtil.resume(parentTx);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Resumed the parent transaction.", module);
+                        Debug.logVerbose("Resumed the parent transaction.", MODULE);
                     }
                 } catch (GenericTransactionException ite) {
-                    Debug.logError(ite, "Cannot resume transaction: " + ite.getMessage(), module);
+                    Debug.logError(ite, "Cannot resume transaction: " + ite.getMessage(), MODULE);
                 }
             }
         }
@@ -211,7 +211,7 @@ public class LoginWorker {
                 }
                 errorMessageList.add("User does not have permission or is flagged as logged out");
                 if (Debug.infoOn()) {
-                    Debug.logInfo("User does not have permission or is flagged as logged out", module);
+                    Debug.logInfo("User does not have permission or is flagged as logged out", MODULE);
                 }
                 doBasicLogout(userLogin, request, response);
                 userLogin = null;
@@ -249,7 +249,7 @@ public class LoginWorker {
                         .filterByDate()
                         .queryFirst();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "impossible to resolve userLogin history", module);
+                Debug.logError(e, "impossible to resolve userLogin history", MODULE);
             }
         }
         if (userLoginHistory != null) {
@@ -366,7 +366,7 @@ public class LoginWorker {
                     session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
                 }
 
-                //if (Debug.infoOn()) Debug.logInfo("checkLogin: PathInfo=" + request.getPathInfo(), module);
+                //if (Debug.infoOn()) Debug.logInfo("checkLogin: PathInfo=" + request.getPathInfo(), MODULE);
 
                 return "error";
             }
@@ -412,7 +412,7 @@ public class LoginWorker {
         try {
             entityDeCrypto = new EntityCrypto(delegator, null);
         } catch (EntityCryptoException e1) {
-            Debug.logError(e1.getMessage(), module);
+            Debug.logError(e1.getMessage(), MODULE);
         }
         
         if(entityDeCrypto != null && "true".equals(forgotPwdFlag)) {
@@ -420,7 +420,7 @@ public class LoginWorker {
                 Object decryptedPwd = entityDeCrypto.decrypt(keyValue, ModelField.EncryptMethod.TRUE, password);
                 password = decryptedPwd.toString();
             } catch (GeneralException e) {
-                Debug.logError(e, "Current Password Decryption failed", module);
+                Debug.logError(e, "Current Password Decryption failed", MODULE);
             }
         }
 
@@ -481,7 +481,7 @@ public class LoginWorker {
                     delegator = DelegatorFactory.getDelegator(delegatorName);
                     dispatcher = WebAppUtil.makeWebappDispatcher(servletContext, delegator);
                 } catch (NullPointerException e) {
-                    Debug.logError(e, "Error getting tenant delegator", module);
+                    Debug.logError(e, "Error getting tenant delegator", MODULE);
                     Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Tenant [" + tenantId + "]  not found...");
                     String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -494,7 +494,7 @@ public class LoginWorker {
         } else {
             // Set default delegator
             if (Debug.infoOn()) {
-                Debug.logInfo("Setting default delegator", module);
+                Debug.logInfo("Setting default delegator", MODULE);
             }
             String delegatorName = delegator.getDelegatorBaseName();
             try {
@@ -502,7 +502,7 @@ public class LoginWorker {
                 delegator = DelegatorFactory.getDelegator(delegatorName);
                 dispatcher = WebAppUtil.makeWebappDispatcher(servletContext, delegator);
             } catch (NullPointerException e) {
-                Debug.logError(e, "Error getting default delegator", module);
+                Debug.logError(e, "Error getting default delegator", MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Error getting default delegator");
                 String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -523,7 +523,7 @@ public class LoginWorker {
                     "locale", UtilHttp.getLocale(request),
                     "request", request));
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error calling userLogin service", module);
+            Debug.logError(e, "Error calling userLogin service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -546,7 +546,7 @@ public class LoginWorker {
                 try {
                     resultPasswordChange = dispatcher.runSync("updatePassword", inMap);
                 } catch (GenericServiceException e) {
-                    Debug.logError(e, "Error calling updatePassword service", module);
+                    Debug.logError(e, "Error calling updatePassword service", MODULE);
                     Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                     String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -566,7 +566,7 @@ public class LoginWorker {
                         userLogin.refresh();
                     }
                     catch (GenericEntityException e) {
-                        Debug.logError(e, "Error refreshing userLogin value", module);
+                        Debug.logError(e, "Error refreshing userLogin value", MODULE);
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                         String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -599,7 +599,7 @@ public class LoginWorker {
             try {
                 result = dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupTypeId", "GLOBAL_PREFERENCES", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Error setting user preference", module);
+                Debug.logError(e, "Error setting user preference", MODULE);
             }
             // finally do the main login routine to set everything else up in the session, etc
             return doMainLogin(request, response, userLogin, userLoginSession);
@@ -655,7 +655,7 @@ public class LoginWorker {
             }
         } catch (GenericEntityException e) {
             String errMsg ="Error impersonating the userLoginId" + userLoginIdToImpersonate;
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             errMsgList.add(errMsg);
             request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
             return  "error";
@@ -667,7 +667,7 @@ public class LoginWorker {
 
         ServletContext servletContext = session.getServletContext();
 
-        Debug.logInfo("Setting default delegator", module);
+        Debug.logInfo("Setting default delegator", MODULE);
         String delegatorName = delegator.getDelegatorBaseName();
         delegator = DelegatorFactory.getDelegator(delegatorName);
         dispatcher = WebAppUtil.makeWebappDispatcher(servletContext, delegator);
@@ -680,7 +680,7 @@ public class LoginWorker {
                     UtilMisc.toMap("userLoginIdToImpersonate", userLoginIdToImpersonate,
                             "userLogin", userLogin,"visitId", visitId, "locale", UtilHttp.getLocale(request)));
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error calling userImpersonate service", module);
+            Debug.logError(e, "Error calling userImpersonate service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -702,7 +702,7 @@ public class LoginWorker {
                 dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled",
                         "userPrefGroupTypeId", "GLOBAL_PREFERENCES", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Error setting user preference", module);
+                Debug.logError(e, "Error setting user preference", MODULE);
             }
 
             //add originUserLogin in session
@@ -773,7 +773,7 @@ public class LoginWorker {
         try {
             security = SecurityFactory.getInstance(delegator);
         } catch (SecurityConfigurationException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         request.setAttribute("delegator", delegator);
         request.setAttribute("dispatcher", dispatcher);
@@ -835,7 +835,7 @@ public class LoginWorker {
             Map<String, Object> result = dispatcher.runSync("getUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupTypeId", "GLOBAL_PREFERENCES", "userLogin", userLogin));
             javaScriptEnabled = (String) result.get("userPrefValue");
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error getting user preference", module);
+            Debug.logError(e, "Error getting user preference", MODULE);
         }
         session.setAttribute("javaScriptEnabled", "Y".equals(javaScriptEnabled));
 
@@ -852,7 +852,7 @@ public class LoginWorker {
                 if (person != null) session.setAttribute("person", person);
                 if (partyGroup != null) session.setAttribute("partyGroup", partyGroup);
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting person/partyGroup info for session, ignoring...", module);
+                Debug.logError(e, "Error getting person/partyGroup info for session, ignoring...", MODULE);
             }
         }
 
@@ -921,7 +921,7 @@ public class LoginWorker {
                 // log out from Tomcat SSO
                 request.logout();
             } catch (ServletException e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         }
 
@@ -1001,7 +1001,7 @@ public class LoginWorker {
         String autoUserLoginId = null;
         Cookie[] cookies = request.getCookies();
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Cookies: " + Arrays.toString(cookies), module);
+            Debug.logVerbose("Cookies: " + Arrays.toString(cookies), MODULE);
         }
         if (cookies != null) {
             for (Cookie cookie: cookies) {
@@ -1018,7 +1018,7 @@ public class LoginWorker {
         String securedUserLoginId = null;
         Cookie[] cookies = request.getCookies();
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Cookies: " + Arrays.toString(cookies), module);
+            Debug.logVerbose("Cookies: " + Arrays.toString(cookies), MODULE);
         }
         if (cookies != null) {
             for (Cookie cookie: cookies) {
@@ -1048,7 +1048,7 @@ public class LoginWorker {
     private static String autoLoginCheck(Delegator delegator, HttpSession session, String autoUserLoginId) {
         if (autoUserLoginId != null) {
             if (Debug.infoOn()) {
-                Debug.logInfo("Running autoLogin check.", module);
+                Debug.logInfo("Running autoLogin check.", MODULE);
             }
             try {
                 GenericValue autoUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", autoUserLoginId).queryOne();
@@ -1069,7 +1069,7 @@ public class LoginWorker {
                     session.setAttribute("autoName", group.getString("groupName"));
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Cannot get autoUserLogin information: " + e.getMessage(), module);
+                Debug.logError(e, "Cannot get autoUserLogin information: " + e.getMessage(), MODULE);
             }
         }
         return "success";
@@ -1137,7 +1137,7 @@ public class LoginWorker {
                 }
             }
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
         }
         // Shouldn't be here if all went well
         return "error";
@@ -1222,7 +1222,7 @@ public class LoginWorker {
 
             String cnPattern = EntityUtilProperties.getPropertyValue("security", "security.login.cert.pattern", "(.*)", delegator);
             Pattern pattern = Pattern.compile(cnPattern);
-            //Debug.logInfo("CN Pattern: " + cnPattern, module);
+            //Debug.logInfo("CN Pattern: " + cnPattern, MODULE);
 
             if (currentUserLogin == null) {
                 X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
@@ -1235,7 +1235,7 @@ public class LoginWorker {
 
                     for (int i = 0; i < clientCerts.length; i++) {
                         //X500Principal x500 = clientCerts[i].getSubjectX500Principal();
-                        //Debug.logInfo("Checking client certification for authentication: " + x500.getName(), module);
+                        //Debug.logInfo("Checking client certification for authentication: " + x500.getName(), MODULE);
 
                         Map<String, String> x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);
                         if (i == 0) {
@@ -1246,7 +1246,7 @@ public class LoginWorker {
                                 userLoginId = m.group(1);
                             } else {
                                 if (Debug.infoOn()) {
-                                    Debug.logInfo("Client certificate CN does not match pattern: [" + cnPattern + "]", module);
+                                    Debug.logInfo("Client certificate CN does not match pattern: [" + cnPattern + "]", MODULE);
                                 }
                             }
                         }
@@ -1254,7 +1254,7 @@ public class LoginWorker {
                         try {
                             // check for a valid issuer (or generated cert data)
                             if (LoginWorker.checkValidIssuer(delegator, x500Map, clientCerts[i].getSerialNumber())) {
-                                //Debug.logInfo("Looking up userLogin from CN: " + userLoginId, module);
+                                //Debug.logInfo("Looking up userLogin from CN: " + userLoginId, MODULE);
 
                                 // CN should match the userLoginId
                                 GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
@@ -1271,7 +1271,7 @@ public class LoginWorker {
                                 }
                             }
                         } catch (GeneralException e) {
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
                         }
                     }
                 }
@@ -1313,7 +1313,7 @@ public class LoginWorker {
 
         EntityConditionList<EntityCondition> condition = EntityCondition.makeCondition(conds);
         if (Debug.infoOn()) {
-            Debug.logInfo("Doing issuer lookup: " + condition.toString(), module);
+            Debug.logInfo("Doing issuer lookup: " + condition.toString(), MODULE);
         }
         long count = EntityQuery.use(delegator).from("X509IssuerProvision").where(condition).queryCount();
         return count > 0;
@@ -1331,7 +1331,7 @@ public class LoginWorker {
             userLogin.refreshFromCache();
         } catch (GenericEntityException e) {
             if (Debug.warningOn()) {
-                Debug.logWarning(e, "Unable to refresh UserLogin", module);
+                Debug.logWarning(e, "Unable to refresh UserLogin", MODULE);
             }
         }
         return (userLogin.get("hasLoggedOut") != null ?
@@ -1374,12 +1374,12 @@ public class LoginWorker {
                 return hasApplicationPermission(info, security, userLogin);
             } else {
                 if (Debug.infoOn()) {
-                    Debug.logInfo("No webapp configuration found for : " + serverId + " / " + contextPath, module);
+                    Debug.logInfo("No webapp configuration found for : " + serverId + " / " + contextPath, MODULE);
                 }
             }
         } else {
             if (Debug.warningOn()) {
-                Debug.logWarning("Received a null Security object from HttpServletRequest", module);
+                Debug.logWarning("Received a null Security object from HttpServletRequest", MODULE);
             }
         }
         return true;
@@ -1419,11 +1419,11 @@ public class LoginWorker {
             }
         } catch (GenericEntityException ge) {
             if (Debug.warningOn()) {
-                Debug.logWarning(ge, "Cannot get UserLoginSession for UserLogin ID: " + userLogin.getString("userLoginId"), module);
+                Debug.logWarning(ge, "Cannot get UserLoginSession for UserLogin ID: " + userLogin.getString("userLoginId"), MODULE);
             }
         } catch (Exception e) {
             if (Debug.warningOn()) {
-                Debug.logWarning(e, "Problems deserializing UserLoginSession", module);
+                Debug.logWarning(e, "Problems deserializing UserLoginSession", MODULE);
             }
         }
         return userLoginSessionMap;
@@ -1440,7 +1440,7 @@ public class LoginWorker {
             try {
                 passwordHistories = EntityQuery.use(delegator).from("UserLoginPasswordHistory").where("userLoginId", userName).queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Cannot get user's password history record: " + e.getMessage(), module);
+                Debug.logError(e, "Cannot get user's password history record: " + e.getMessage(), MODULE);
             }
             if (UtilValidate.isNotEmpty(passwordHistories)) {
                 GenericValue passwordHistory = EntityUtil.getFirst(EntityUtil.filterByDate(passwordHistories));

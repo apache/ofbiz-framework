@@ -65,7 +65,7 @@ import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
  */
 public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRenderer {
 
-    public static final String module = FoFormRenderer.class.getName();
+    public static final String MODULE = FoFormRenderer.class.getName();
 
     HttpServletRequest request;
     HttpServletResponse response;

@@ -40,7 +40,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class KeywordSearchUtil {
 
-    public static final String module = KeywordSearchUtil.class.getName();
+    public static final String MODULE = KeywordSearchUtil.class.getName();
 
     private static Set<String> thesaurusRelsToInclude = new HashSet<>();
     private static Set<String> thesaurusRelsForReplace = new HashSet<>();
@@ -242,10 +242,10 @@ public final class KeywordSearchUtil {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error expanding entered keyword", module);
+            Debug.logError(e, "Error expanding entered keyword", MODULE);
         }
 
-        Debug.logInfo("Expanded keyword [" + enteredKeyword + "], got set: " + addToSet, module);
+        Debug.logInfo("Expanded keyword [" + enteredKeyword + "], got set: " + addToSet, MODULE);
         return replaceEnteredKeyword;
     }
 }

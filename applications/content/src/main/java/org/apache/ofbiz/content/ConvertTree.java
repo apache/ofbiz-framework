@@ -42,7 +42,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
 public class ConvertTree{
-    public static final String module = ConvertTree.class.getName();
+    public static final String MODULE = ConvertTree.class.getName();
 
 /*
 
@@ -222,7 +222,7 @@ In order to make this service active add the following to the service definition
                 sucMsg = UtilProperties.getMessage("ContentUiLabels", "ContentConvertDocumentsTreeSuccessful", UtilMisc.toMap("counterLine", counterLine), locale);
             } catch (IOException | GenericServiceException | GenericEntityException e) {
                 errMsg = "Exception " + UtilMisc.toMap("errMessage", e.toString());
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
         }
@@ -369,11 +369,11 @@ In order to make this service active add the following to the service definition
             return ServiceUtil.returnSuccess(sucMsg);
         } catch (GenericEntityException e) {
             errMsg = "GenericEntityException "+ UtilMisc.toMap("errMessage", e.toString());
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         } catch (GenericServiceException e) {
             errMsg = "GenericServiceException"+ UtilMisc.toMap("errMessage", e.toString());
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
     }

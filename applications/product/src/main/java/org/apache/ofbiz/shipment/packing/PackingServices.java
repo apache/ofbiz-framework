@@ -33,7 +33,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class PackingServices {
 
-    public static final String module = PackingServices.class.getName();
+    public static final String MODULE = PackingServices.class.getName();
     public static final String resource = "ProductUiLabels";
 
     public static Map<String, Object> addPackLine(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -57,17 +57,17 @@ public class PackingServices {
             quantity = BigDecimal.ONE;
         }
 
-        Debug.logInfo("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ [" + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight +"]", module);
+        Debug.logInfo("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ [" + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight +"]", MODULE);
 
         if (weight == null) {
-            Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId + "] being packed without a weight, assuming 0", module);
+            Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId + "] being packed without a weight, assuming 0", MODULE);
             weight = BigDecimal.ZERO;
         }
 
         try {
             session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity, packageSeq, weight, false);
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -130,7 +130,7 @@ public class PackingServices {
                 String qtyStr = qtyInfo.get(rowKey);
                 String wgtStr = wgtInfo.get(rowKey);
 
-                Debug.logInfo("Item: " + orderItemSeqId + " / Product: " + prdStr + " / Quantity: " + qtyStr + " /  Package: " + pkgStr + " / Weight: " + wgtStr, module);
+                Debug.logInfo("Item: " + orderItemSeqId + " / Product: " + prdStr + " / Quantity: " + qtyStr + " /  Package: " + pkgStr + " / Weight: " + wgtStr, MODULE);
 
                 // array place holders
                 String[] quantities;
@@ -197,7 +197,7 @@ public class PackingServices {
                             session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq+numPackage, weightSeq, updateQuantity);
                         }
                     } catch (GeneralException e) {
-                        Debug.logError(e, module);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
                 }
@@ -302,7 +302,7 @@ public class PackingServices {
         try {
             shipmentId = session.complete(force);
         } catch (GeneralException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
         }
 

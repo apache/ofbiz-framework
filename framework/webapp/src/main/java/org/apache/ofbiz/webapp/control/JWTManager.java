@@ -59,7 +59,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
  * This class manages the single sign-on authentication through JWT tokens between OFBiz applications.
  */
 public class JWTManager {
-    private static final String module = JWTManager.class.getName();
+    private static final String MODULE = JWTManager.class.getName();
 
     /**
      * OFBiz controller preprocessor event.
@@ -86,7 +86,7 @@ public class JWTManager {
 
         if(!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
             if(Debug.verboseOn()) {
-                Debug.logVerbose("Internal single sign on is disabled.", module);
+                Debug.logVerbose("Internal single sign on is disabled.", MODULE);
             }
             return "success";
         }
@@ -178,19 +178,19 @@ public class JWTManager {
 
         if (UtilValidate.isEmpty(username) || UtilValidate.isEmpty(password)) {
             request.setAttribute("_ERROR_MESSAGE_", "Username / Password can not be empty");
-            Debug.logError("UserName / Password can not be empty", module);
+            Debug.logError("UserName / Password can not be empty", MODULE);
             return "error";
         }
         Map<String, Object> result;
         try {
             result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request)));
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error calling userLogin service", module);
+            Debug.logError(e, "Error calling userLogin service", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
         if (!ServiceUtil.isSuccess(result)) {
-            Debug.logError(ServiceUtil.getErrorMessage(result), module);
+            Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
             request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
             return "error";
         }
@@ -198,7 +198,7 @@ public class JWTManager {
 
         String token = createJwt(delegator, UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
         if (token == null) {
-            Debug.logError("Unable to generate token", module);
+            Debug.logError("Unable to generate token", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", "Unable to generate token");
             return "error";
         }
@@ -241,7 +241,7 @@ public class JWTManager {
         Map<String, Object> result = new HashMap<>();
         if (UtilValidate.isEmpty(jwtToken) || UtilValidate.isEmpty(key)) {
             String msg = "JWT token or key can not be empty.";
-            Debug.logError(msg, module);
+            Debug.logError(msg, MODULE);
             return ServiceUtil.returnError(msg);
         }
         try {
@@ -257,7 +257,7 @@ public class JWTManager {
             return result;
         } catch (JWTVerificationException e) {
             // signature not valid or token expired
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
     }
@@ -360,7 +360,7 @@ public class JWTManager {
             try {
                 userLogin.store();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Cannot store UserLogin information: " + e.getMessage(), module);
+                Debug.logError(e, "Cannot store UserLogin information: " + e.getMessage(), MODULE);
                 return false;
             }
         }
@@ -378,7 +378,7 @@ public class JWTManager {
         String userLoginId = (String) jwtMap.get("userLoginId");
 
         if(UtilValidate.isEmpty(userLoginId)) {
-            Debug.logWarning("No userLoginId found in the JWT token.", module);
+            Debug.logWarning("No userLoginId found in the JWT token.", MODULE);
             return null;
         }
 
@@ -386,10 +386,10 @@ public class JWTManager {
         try {
             userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
             if (userLogin == null) {
-                Debug.logWarning("There was a problem with the JWT token. Could not find provided userLogin " + userLoginId, module);
+                Debug.logWarning("There was a problem with the JWT token. Could not find provided userLogin " + userLoginId, MODULE);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot get UserLogin information: " + e.getMessage(), module);
+            Debug.logError(e, "Cannot get UserLogin information: " + e.getMessage(), MODULE);
         }
         return userLogin;
     }
@@ -405,7 +405,7 @@ public class JWTManager {
         Map<String, Object> result = validateToken(jwtToken, key);
         if (result.containsKey(ModelService.ERROR_MESSAGE)) {
             // Something unexpected happened here
-            Debug.logWarning("There was a problem with the JWT token, no single sign on user login possible.", module);
+            Debug.logWarning("There was a problem with the JWT token, no single sign on user login possible.", MODULE);
         }
         return result;
     }

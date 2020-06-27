@@ -35,7 +35,7 @@ import com.ibm.icu.math.BigDecimal;
  */
 public class TaxwareServices {
     
-    public static final String module = TaxwareServices.class.getName();
+    public static final String MODULE = TaxwareServices.class.getName();
 
     public static Map calcTax(DispatchContext dctx, Map context) {
         Map result = new HashMap();
@@ -76,7 +76,7 @@ public class TaxwareServices {
             result.put("itemAdjustments", utl.getItemAdjustments());
 
         } catch (TaxwareException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, "ERROR: Taxware problem (" + e.getMessage() + ").");
         }

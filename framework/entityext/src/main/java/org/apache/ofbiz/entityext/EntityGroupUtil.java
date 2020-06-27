@@ -36,7 +36,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class EntityGroupUtil {
 
-    public static final String module = EntityGroupUtil.class.getName();
+    public static final String MODULE = EntityGroupUtil.class.getName();
 
     private EntityGroupUtil () {}
 
@@ -103,7 +103,7 @@ public final class EntityGroupUtil {
 
                 if (matchesAlways || (matchesInclude && !matchesExclude)) {
                     // make sure this log message is not checked in uncommented:
-                    //Debug.logInfo("In runEntitySync adding [" + modelEntity.getEntityName() + "] to list of Entities to sync", module);
+                    //Debug.logInfo("In runEntitySync adding [" + modelEntity.getEntityName() + "] to list of Entities to sync", MODULE);
                     entityModelToUseList.add(modelEntity);
                 }
             }

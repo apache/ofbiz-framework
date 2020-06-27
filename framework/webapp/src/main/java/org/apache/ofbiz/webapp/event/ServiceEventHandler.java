@@ -51,7 +51,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
  */
 public class ServiceEventHandler implements EventHandler {
 
-    public static final String module = ServiceEventHandler.class.getName();
+    public static final String MODULE = ServiceEventHandler.class.getName();
 
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";
@@ -89,7 +89,7 @@ public class ServiceEventHandler implements EventHandler {
             throw new EventHandlerException("Service name (eventMethod) cannot be null");
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("[Set mode/service]: " + mode + "/" + serviceName, module);
+            Debug.logVerbose("[Set mode/service]: " + mode + "/" + serviceName, MODULE);
         }
 
         // some needed info for when running the service
@@ -113,8 +113,8 @@ public class ServiceEventHandler implements EventHandler {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("[Processing]: SERVICE Event", module);
-            Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), module);
+            Debug.logVerbose("[Processing]: SERVICE Event", MODULE);
+            Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), MODULE);
         }
 
         Map<String, Object> rawParametersMap = UtilHttp.getCombinedMap(request);
@@ -148,7 +148,7 @@ public class ServiceEventHandler implements EventHandler {
                         modelParam.stringMapPrefix, null);
                 value = paramMap;
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Set [" + modelParam.name + "]: " + paramMap, module);
+                    Debug.logVerbose("Set [" + modelParam.name + "]: " + paramMap, MODULE);
                 }
             } else if (UtilValidate.isNotEmpty(modelParam.stringListSuffix)) {
                 List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, multiPartMap,
@@ -266,7 +266,7 @@ public class ServiceEventHandler implements EventHandler {
             }
             return "error";
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Service invocation error", module);
+            Debug.logError(e, "Service invocation error", MODULE);
             throw new EventHandlerException("Service invocation error", e.getNested());
         }
 
@@ -307,7 +307,7 @@ public class ServiceEventHandler implements EventHandler {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("[Event Return]: " + responseString, module);
+            Debug.logVerbose("[Event Return]: " + responseString, MODULE);
         }
         return responseString;
     }

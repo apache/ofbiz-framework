@@ -48,7 +48,7 @@ import junit.framework.TestSuite;
  * Use this class in a JUnit test runner to bootstrap the Test Suite runner.
  */
 public class ModelTestSuite {
-    public static final String module = ModelTestSuite.class.getName();
+    public static final String MODULE = ModelTestSuite.class.getName();
     public static final String DELEGATOR_NAME = "test";
     public static final String DISPATCHER_NAME = "test-dispatcher";
 
@@ -99,10 +99,10 @@ public class ModelTestSuite {
                     casesAdded += tst.countTestCases();
                     testsAdded++;
                 }
-                Debug.logInfo("Added " + testsAdded + " tests [" + casesAdded + " cases] from the class: " + className, module);
+                Debug.logInfo("Added " + testsAdded + " tests [" + casesAdded + " cases] from the class: " + className, MODULE);
             } catch (Exception e) {
                 String errMsg = "Unable to load test suite class : " + className;
-                Debug.logError(e, errMsg, module);
+                Debug.logError(e, errMsg, MODULE);
             }
         } else if ("service-test".equals(nodeName)) {
             this.testList.add(new ServiceTest(caseName, testElement));
@@ -121,7 +121,7 @@ public class ModelTestSuite {
                         }
                     }
                 } catch (MiniLangException e) {
-                    Debug.logError(e, module);
+                    Debug.logError(e, MODULE);
                 }
             }
         } else if ("webdriver-test".equals(nodeName)) {
@@ -132,7 +132,7 @@ public class ModelTestSuite {
                 Constructor<?> con = cl.getConstructor(String.class, Element.class);
                 this.testList.add((Test)con.newInstance(caseName, testElement));
             } catch (Exception e) {
-                Debug.logError(e, module);
+                Debug.logError(e, MODULE);
             }
         } else if ("entity-xml".equals(nodeName)) {
             this.testList.add(new EntityXmlAssertTest(caseName, testElement));
