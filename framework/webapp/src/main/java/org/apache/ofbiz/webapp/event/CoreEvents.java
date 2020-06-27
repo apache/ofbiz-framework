@@ -498,9 +498,6 @@ public class CoreEvents {
                 FileInputStream fis = new FileInputStream(file);
                 UtilHttp.streamContentToBrowser(response, fis, length, null);
                 fis.close();
-            } catch (FileNotFoundException e) {
-                Debug.logError(e, MODULE);
-                return "error";
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
                 return "error";

@@ -198,8 +198,6 @@ public class WebToolsServices {
                 }
             } catch (GenericServiceException gsex) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityImportParsingError", UtilMisc.toMap("errorString", gsex.getMessage()), locale));
-            } catch (Exception ex) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityImportParsingError", UtilMisc.toMap("errorString", ex.getMessage()), locale));
             }
         } else {
             messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportNoXmlFileSpecified", locale));
@@ -387,11 +385,7 @@ public class WebToolsServices {
                         try {
                             errorMessages.add("Checking data in [" + dataUrl.toExternalForm() + "]");
                             rowsChanged = EntityDataAssert.assertData(dataUrl, delegator, errorMessages);
-                        } catch (SAXException e) {
-                            errorMessages.add("Error checking data in [" + dataUrl.toExternalForm() + "]: " + e.toString());
-                        } catch (ParserConfigurationException e) {
-                            errorMessages.add("Error checking data in [" + dataUrl.toExternalForm() + "]: " + e.toString());
-                        } catch (IOException e) {
+                        } catch (SAXException | IOException | ParserConfigurationException e) {
                             errorMessages.add("Error checking data in [" + dataUrl.toExternalForm() + "]: " + e.toString());
                         }
                     } else {

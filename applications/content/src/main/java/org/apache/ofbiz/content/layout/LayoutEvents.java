@@ -161,11 +161,8 @@ public class LayoutEvents {
                 imageDataResource.set("imageData", byteWrap.array());
                 imageDataResource.store();
             }
-        } catch (GenericEntityException e3) {
+        } catch (GenericEntityException | GenericServiceException e3) {
             request.setAttribute("_ERROR_MESSAGE_", e3.getMessage());
-            return "error";
-        } catch (GenericServiceException e) {
-            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
         return "success";
@@ -400,10 +397,7 @@ public class LayoutEvents {
             }
             try {
                 SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", view, serviceIn, errorMessages, locale);
-            } catch (IllegalArgumentException e) {
-                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                return "error";
-            } catch (MiniLangException e) {
+            } catch (IllegalArgumentException | MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }

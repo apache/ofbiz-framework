@@ -643,12 +643,9 @@ public class DataServices {
         }
         try {
             file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, rootDir);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | GeneralException e) {
             Debug.logWarning(e, MODULE);
             throw new GenericServiceException(e.getMessage());
-        } catch (GeneralException e2) {
-            Debug.logWarning(e2, MODULE);
-            throw new GenericServiceException(e2.getMessage());
         }
         if (Debug.infoOn()) {
             Debug.logInfo("in updateBinaryFileMethod, file:" + file, MODULE);

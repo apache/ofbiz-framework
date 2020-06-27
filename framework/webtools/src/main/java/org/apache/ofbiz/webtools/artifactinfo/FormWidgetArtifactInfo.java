@@ -61,11 +61,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         this.formLocation = formLocation;
         try {
             this.modelForm = aif.getModelForm(formName, formLocation);
-        } catch (ParserConfigurationException e) {
-            throw new GeneralException(e);
-        } catch (SAXException e) {
-            throw new GeneralException(e);
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | IOException | SAXException e) {
             throw new GeneralException(e);
         }
     }

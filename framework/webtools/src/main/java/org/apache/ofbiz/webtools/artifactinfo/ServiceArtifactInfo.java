@@ -104,9 +104,6 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 String javaFile = null;
                 try {
                     javaFile = FileUtil.readTextFile(fullClassPathAndFile, true).toString();
-                } catch (FileNotFoundException e) {
-                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), MODULE);
-                    return;
                 } catch (IOException e) {
                     Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), MODULE);
                     return;
@@ -166,9 +163,6 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 String javaFile = null;
                 try {
                     javaFile = FileUtil.readTextFile(fullClassPathAndFile, true).toString();
-                } catch (FileNotFoundException e) {
-                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), MODULE);
-                    return;
                 } catch (IOException e) {
                     Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), MODULE);
                     return;

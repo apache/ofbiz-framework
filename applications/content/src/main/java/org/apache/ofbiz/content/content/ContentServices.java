@@ -415,10 +415,7 @@ public class ContentServices {
             ContentWorker.renderSubContentAsText(dispatcher, contentId, outWriter, mapKey, templateContext, locale, mimeTypeId, true);
             out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering sub-content text", MODULE);
-            return ServiceUtil.returnError(e.toString());
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering sub-content text", MODULE);
             return ServiceUtil.returnError(e.toString());
         }
@@ -464,10 +461,7 @@ public class ContentServices {
             ContentWorker.renderContentAsText(dispatcher, contentId, outWriter, templateContext, locale, mimeTypeId, null, null, true);
             if (out != null) out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering sub-content text", MODULE);
-            return ServiceUtil.returnError(e.toString());
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering sub-content text", MODULE);
             return ServiceUtil.returnError(e.toString());
         }

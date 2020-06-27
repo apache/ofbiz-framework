@@ -74,9 +74,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         Future<DispatchContext> future = this.dctx.get();
         try {
             return future != null ? future.get() : null;
-        } catch (ExecutionException e) {
-            throw (GenericEntityException) new GenericEntityException(e.getMessage()).initCause(e);
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             throw (GenericEntityException) new GenericEntityException(e.getMessage()).initCause(e);
         }
     }

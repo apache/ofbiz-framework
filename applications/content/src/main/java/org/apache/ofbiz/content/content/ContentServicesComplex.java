@@ -186,10 +186,8 @@ public class ContentServicesComplex {
         Map<String, Object> results = null;
         try {
             results = getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, mapKey, direction, fromDate, fromDateStr, assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId, null);
-        } catch (GenericEntityException e) {
+        } catch (GenericEntityException | MiniLangException e) {
             return ServiceUtil.returnError(e.getMessage());
-        } catch (MiniLangException e2) {
-            return ServiceUtil.returnError(e2.getMessage());
         }
         return results;
     }

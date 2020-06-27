@@ -132,9 +132,6 @@ public class QuoteServices {
         } catch (GenericServiceException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderServiceExceptionSeeLogs",locale));
-        } catch (Exception e) {
-            Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderServiceExceptionSeeLogs",locale));
         }
 
         // check for errors

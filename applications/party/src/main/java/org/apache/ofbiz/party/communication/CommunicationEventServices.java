@@ -620,12 +620,9 @@ public class CommunicationEventServices {
                         delegator.store(contactListCommStatusRecord);
 
                         // Don't return a service error just because of failure for one address - just log the error and continue
-                    } catch (GenericEntityException nonFatalGEE) {
+                    } catch (GenericEntityException | GenericServiceException nonFatalGEE) {
                         Debug.logError(nonFatalGEE, errorInSendEmailToContactListService, MODULE);
                         errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGEE.getMessage());
-                    } catch (GenericServiceException nonFatalGSE) {
-                        Debug.logError(nonFatalGSE, errorInSendEmailToContactListService, MODULE);
-                        errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGSE.getMessage());
                     }
                 }
             } catch (GenericEntityException fatalGEE) {
@@ -1614,8 +1611,6 @@ public class CommunicationEventServices {
             try (InputStream imageStream = imageUrl.openStream()) {
             UtilHttp.streamContentToBrowser(response, imageStream, 43, "image/gif", null);
             }
-        } catch (MalformedURLException e) {
-            Debug.logError(e, MODULE);
         } catch (IOException e) {
             Debug.logError(e, MODULE);
         }

@@ -311,10 +311,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                             try {
                                 NodeModel nodeModel = NodeModel.parse(new InputSource(sr));
                                 templateContext.put("doc", nodeModel) ;
-                            } catch (SAXException e) {
+                            } catch (SAXException | ParserConfigurationException e) {
                                 throw new GeneralException(e.getMessage());
-                            } catch (ParserConfigurationException e2) {
-                                throw new GeneralException(e2.getMessage());
                             }
                         } else {
                             templateContext.put("docFile", DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).getAbsoluteFile().toString());
@@ -711,10 +709,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         Map<String, Object> results = null;
         try {
             results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, parentContentId, mapKey, direction, null, null, assocTypeList, contentTypeList, nullThruDatesOnly, contentAssocPredicateId, null);
-        } catch (GenericEntityException e) {
+        } catch (GenericEntityException | MiniLangException e) {
             throw new RuntimeException(e.getMessage());
-        } catch (MiniLangException e2) {
-            throw new RuntimeException(e2.getMessage());
         }
         List<GenericValue> relatedViews = UtilGenerics.cast(results.get("entityList"));
         for (GenericValue assocValue : relatedViews) {

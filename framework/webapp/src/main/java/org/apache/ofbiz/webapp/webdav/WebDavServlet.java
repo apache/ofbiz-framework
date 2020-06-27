@@ -94,9 +94,7 @@ public class WebDavServlet extends GenericServlet {
         RequestHandler handler = this.handlerFactory.getHandler(httpRequest.getMethod());
         try {
             handler.handleRequest(httpRequest, (HttpServletResponse) response, this.getServletContext());
-        } catch (IOException e) {
-            throw e;
-        } catch (ServletException e) {
+        } catch (IOException | ServletException e) {
             throw e;
         } catch (Exception e) {
             throw new ServletException(e);
