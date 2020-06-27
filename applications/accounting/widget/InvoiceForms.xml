@@ -259,7 +259,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="2" name="partyIdTo" parameter-name="partyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="2" name="partyIdTo" parameter-name="partyId" required-field="true"><lookup target-form-name="LookupCustomerName"/></field>
         <field position="1" name="createButton" widget-style="smallSubmit" title="${uiLabelMap.CommonCreate}">
             <submit button-type="button"/>
         </field>
@@ -289,7 +289,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="2" name="partyIdFrom" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="2" name="partyIdFrom" required-field="true"><lookup target-form-name="LookupSupplier"/></field>
         <field position="1" name="createButton" widget-style="smallSubmit" title="${uiLabelMap.CommonCreate}">
             <submit button-type="button"/>
         </field>
@@ -513,7 +513,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
         <field name="billingAccountId"><hidden/></field>
-        <field name="amountToApply"><text size="10" disabled="true"/></field>
+        <field name="amountToApply" disabled="true"><text size="10"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title=" " widget-style="buttontext" use-when="paymentApplicationId!=null">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceApplication">
@@ -628,7 +628,8 @@ under the License.
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="unlinkInvoiceFromTimeEntry" also-hidden="false">
                 <parameter param-name="timeEntryId"/>
-                <parameter param-name="invoiceId"/>
+                <parameter param-name="invoiceId" value="null"/>
+                <parameter param-name="invoiceItemSeqId" value="null"/>
                 <parameter param-name="viewIndex"/>
                 <parameter param-name="viewSize"/>
             </hyperlink>

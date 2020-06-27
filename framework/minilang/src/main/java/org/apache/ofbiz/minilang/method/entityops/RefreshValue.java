@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  */
 public final class RefreshValue extends MethodOperation {
 
-    public static final String MODULE = RemoveValue.class.getName();
+    private static final String MODULE = RemoveValue.class.getName();
 
     private final FlexibleMapAccessor<GenericValue> valueFma;
 

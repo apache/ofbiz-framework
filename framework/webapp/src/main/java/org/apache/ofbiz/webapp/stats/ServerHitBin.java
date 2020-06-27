@@ -47,7 +47,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class ServerHitBin {
     // Debug MODULE name
-    public static final String MODULE = ServerHitBin.class.getName();
+    private static final String MODULE = ServerHitBin.class.getName();
 
     public static final int REQUEST = 1;
     public static final int EVENT = 2;

@@ -36,16 +36,18 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import com.ibm.icu.util.Calendar;
 
 /** TemporalExpression UI artifacts worker. */
-public class ExpressionUiHelper {
+public final class ExpressionUiHelper {
 
     /** An array of valid DayInMonth occurrence values. */
-    private static final int Occurrence[] = {1, 2, 3, 4, 5, -1, -2, -3, -4 -5};
+    private static final int OCCURRENCE[] = {1, 2, 3, 4, 5, -1, -2, -3, -4 -5};
+
+    protected ExpressionUiHelper() { }
 
     /** Returns a List of valid DayInMonth occurrence int values.
      * @return returns a List of valid DayInMonth occurrence int values
      */
     public static List<?> getOccurrenceList() {
-        return Arrays.asList(Occurrence);
+        return Arrays.asList(OCCURRENCE);
     }
 
     /** Returns a List of Maps containing day of the week values.

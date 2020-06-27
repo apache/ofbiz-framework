@@ -18,9 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.content
 
-import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -32,7 +29,7 @@ class ContentTests extends OFBizTestCase {
     void testGetDataResource() {
         Map serviceCtx = [:]
         serviceCtx.dataResourceId = 'TEST_RESOURCE'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('getDataResource', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.resultData.dataResource.dataResourceId == 'TEST_RESOURCE'

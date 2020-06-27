@@ -72,10 +72,14 @@ under the License.
       </#if>
     </#if>
     <#if userLogin??>
-      <#--if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
-      <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
-        <#include "component://common-theme/template/includes/HelpLink.ftl" />
-        <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('<@ofbizUrl>showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}</@ofbizUrl>','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
+      <#if helpAnchor??>
+        <li><a class="help-link alert" href="${userDocUri!Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "userDocUri", delegator)}#${helpAnchor}" target="help" title="${uiLabelMap.CommonHelp}"></a></li>
+      <#else>
+        <#--if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
+        <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
+          <#include "component://common-theme/template/includes/HelpLink.ftl" />
+          <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('<@ofbizUrl>showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}</@ofbizUrl>','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
+        </#if>
       </#if>
       <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
       <li><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
@@ -85,7 +89,7 @@ under the License.
     <li <#if companyListSize?default(0) &lt;= 1>class="language"</#if>><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
     <#if userLogin?exists>
       <#if userLogin.partyId?exists>
-        <li class="user"><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${userLogin.partyId}${externalKeyParam!}</@ofbizUrl>">${userName}</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <li class="user"><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${userLogin.partyId}</@ofbizUrl>">${userName}</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
         <#assign size = companyListSize?default(0)>
         <#if size &gt; 1>
             <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>

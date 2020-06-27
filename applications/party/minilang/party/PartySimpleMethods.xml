@@ -148,6 +148,7 @@ under the License.
         <set field="emailAddress" from-field="parameters.emailAddress"/>
         <set field="emailContactMechPurpTypeId" from-field="parameters.emailContactMechPurpTypeId"/>
         <call-simple-method method-name="createPartyContactMechs"/>
+        <field-to-result field="partyId"/>
     </simple-method>
 
     <!-- Simple method to create a party group, its role and basic contact mechs -->

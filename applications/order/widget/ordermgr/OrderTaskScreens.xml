@@ -92,7 +92,7 @@ Also add this back to AppHeader.ftl:
                 <decorator-screen name="CommonOrderTaskDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/template/task/OrderTaskList.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://order/template/task/OrderTaskList.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

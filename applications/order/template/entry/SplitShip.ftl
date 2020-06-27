@@ -18,7 +18,6 @@ under the License.
 -->
 
 <script type="application/javascript">
-//<![CDATA[
 function submitForm(form, mode, value) {
     if ("DN" == mode) {
         // done action; payment info
@@ -42,7 +41,6 @@ function submitForm(form, mode, value) {
         form.submit();
     }
 }
-//]]>
 </script>
 
 <div class="screenlet">

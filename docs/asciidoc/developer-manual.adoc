@@ -18,7 +18,7 @@ under the License.
 ////
 = Apache OFBiz Developer Manual
 The Apache OFBiz Project
-Release 17.12
+Release trunk
 :imagesdir: ./images
 ifdef::backend-pdf[]
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
@@ -216,6 +216,8 @@ include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
 === Entity engine configuration
 
 === Supported databases
+
+include::../../applications/datamodel/DATAMODEL_CHANGES.adoc[leveloffset=+2]
 
 == Service Engine
 

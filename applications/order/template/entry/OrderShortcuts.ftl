@@ -36,13 +36,13 @@ under the License.
             <#if "SALES_ORDER" == shoppingCart.getOrderType()>
               <li><a href="<@ofbizUrl>createCustRequestFromCart?destroyCart=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateCustRequestFromCart}</a></li>
             </#if>
-            <li><a href="<@ofbizUrl controlPath="/partymgr/control">findparty?${externalKeyParam!}</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyFindParty}</a></li>
+            <li><a href="<@ofbizUrl controlPath="/partymgr/control">findparty?</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyFindParty}</a></li>
             <#if "SALES_ORDER" == shoppingCart.getOrderType()>
               <li><a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyCreateNewCustomer}</a></li>
             </#if>
             <li><a href="<@ofbizUrl>checkinits</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyChangeParty}</a></li>
             <#if security.hasEntityPermission("CATALOG", "_CREATE", session)>
-               <li><a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?${externalKeyParam!}</@ofbizUrl>" target="catalog" class="buttontext">${uiLabelMap.ProductCreateNewProduct}</a></li>
+               <li><a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?</@ofbizUrl>" target="catalog" class="buttontext">${uiLabelMap.ProductCreateNewProduct}</a></li>
             </#if>
             <li><a href="<@ofbizUrl>quickadd</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickAdd}</a></li>
             <#if shoppingLists??>

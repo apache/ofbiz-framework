@@ -18,7 +18,6 @@ under the License.
 -->
 
 <script type="application/javascript">
-//<![CDATA[
 function submitForm(form, mode, value) {
     if ("DN" == mode) {
         // done action; checkout
@@ -70,7 +69,6 @@ function submitForm(form, mode, value) {
         form.submit();
     }
 }
-//]]>
 </script>
 
 <#assign shipping = !shoppingCart.containAllWorkEffortCartItems()> <#-- contains items which need shipping? -->
@@ -320,6 +318,7 @@ function submitForm(form, mode, value) {
                       <input type="radio" name="checkOutPaymentId" value="EXT_OFFLINE" <#if "EXT_OFFLINE" == checkOutPaymentId>checked="checked"</#if>/>
                       <span>${uiLabelMap.OrderMoneyOrder}</span>
                       </label>
+                      <input type="text" size="15" name="paymentRefNumber" value="${(requestParameters.paymentRefNumber)!}" onFocus="document.checkoutInfoForm.checkOutPaymentId[0].checked=true;"/>
                     </td>
                   </tr>
                   </#if>

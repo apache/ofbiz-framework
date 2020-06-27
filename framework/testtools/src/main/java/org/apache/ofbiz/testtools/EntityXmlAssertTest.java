@@ -35,7 +35,7 @@ import junit.framework.TestResult;
 
 public class EntityXmlAssertTest extends OFBizTestCase {
 
-    public static final String MODULE = ServiceTest.class.getName();
+    private static final String MODULE = ServiceTest.class.getName();
 
     protected String entityXmlUrlString;
     protected String action;

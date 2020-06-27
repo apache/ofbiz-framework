@@ -18,7 +18,6 @@ under the License.
 -->
 
 <script type="application/javascript">
-//<![CDATA[
 function togglePaymentId(master) {
     var payments = jQuery("#paymentBatchForm :checkbox[name='paymentIds']");
 
@@ -116,8 +115,6 @@ function setServiceName(selection) {
     }
 
 }
-//]]>
-
 </script>
 <div class="screenlet">
     <div class="screenlet-body">

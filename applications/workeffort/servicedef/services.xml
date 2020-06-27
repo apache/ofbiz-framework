@@ -463,6 +463,18 @@ under the License.
         <attribute name="workEffortIterator" type="java.util.ListIterator" mode="IN" optional="true"/>
         <attribute name="workEfforts" type="java.util.List" mode="INOUT" optional="true"/>
     </service>
+    <service name="checkAndCreateWorkEffort" auth="true" engine="groovy" default-entity-name="Shipment"
+             location="component://workeffort/groovyScripts/workeffort/workeffort/WorkEffortServices.groovy" invoke="checkAndCreateWorkEffort">
+        <description>Check And Create WorkEffort after Shipment Create</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="checkAndUpdateWorkEffort" auth="true" engine="groovy" default-entity-name="Shipment"
+             location="component://workeffort/groovyScripts/workeffort/workeffort/WorkEffortServices.groovy" invoke="checkAndUpdateWorkEffort">
+        <description>Check And Update WorkEffort after Shipment Update</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="getProductManufacturingSummaryByFacility" engine="java"
             location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getProductManufacturingSummaryByFacility">
         <description>
@@ -992,10 +1004,9 @@ under the License.
         </attribute>
     </service>
     <!-- WorkEffort-FixedAsset management services -->
-    <service name="createWorkEffortFixedAssetStd" engine="simple" auth="true"
+    <service name="createWorkEffortFixedAssetStd" engine="entity-auto" auth="true"
             default-entity-name="WorkEffortFixedAssetStd"
-            location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"
-            invoke="createWorkEffortFixedAssetStd">
+            invoke="create">
         <description>Creates a WorkEffortFixedAssetStd entry to associate a routing task
             with a fixed asset (type)</description>
         <permission-service service-name="workEffortManagerPermission" main-action="CREATE"/>
@@ -1029,10 +1040,9 @@ under the License.
             </type-validate>
         </override>
     </service>
-    <service name="removeWorkEffortFixedAssetStd" engine="simple" auth="true"
+    <service name="removeWorkEffortFixedAssetStd" engine="entity-auto" auth="true"
             default-entity-name="WorkEffortFixedAssetStd"
-            location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"
-            invoke="removeWorkEffortFixedAssetStd">
+            invoke="delete">
         <description>Removes a WorkEffortFixedAssetStd, thus removing the association between a routing task
             and a fixed asset (type)</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
@@ -1091,10 +1101,9 @@ under the License.
             </type-validate>
         </override>
     </service>
-    <service name="removeWorkEffortFixedAssetAssign" engine="simple" auth="true"
+    <service name="removeWorkEffortFixedAssetAssign" engine="entity-auto" auth="true"
             default-entity-name="WorkEffortFixedAssetAssign"
-            location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"
-            invoke="removeWorkEffortFixedAssetAssign">
+            invoke="delete">
         <description>Remove a WorkEffortFixedAssign entry, which removes the association between a fixed asset
             and a work effort (e.g. a production run task)</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
@@ -1250,8 +1259,7 @@ under the License.
             </type-validate>
         </override>
     </service>
-    <service name="deleteWorkEffortReview" engine="simple"
-                location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortReview" auth="true">
+    <service name="deleteWorkEffortReview" engine="entity-auto" default-entity-name="WorkEffortReview" invoke="delete" auth="true">
         <description>Remove a Work Effort Review</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
         <auto-attributes entity-name="WorkEffortReview" include="pk" mode="IN" optional="false"/>
@@ -1300,8 +1308,7 @@ under the License.
             </type-validate>
         </override>
     </service>
-    <service name="deleteWorkEffortKeyword" engine="simple"
-                location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortKeyword" auth="true">
+    <service name="deleteWorkEffortKeyword" engine="entity-auto" default-entity-name="WorkEffortKeyword" invoke="delete" auth="true">
         <description>Remove a Work Effort Keyword</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
         <auto-attributes entity-name="WorkEffortKeyword" include="pk" mode="IN" optional="false"/>

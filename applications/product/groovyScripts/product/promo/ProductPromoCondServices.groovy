@@ -364,7 +364,7 @@ def productOrderTotal() {
 
     if (condValue) {
         BigDecimal orderSubTotal = cart.getSubTotalForPromotions()
-        if (Debug.infoOn()) Debug.logInfo("Doing order total compare: orderSubTotal=" + orderSubTotal, module)
+        if (Debug.infoOn()) logInfo("Doing order total compare: orderSubTotal=" + orderSubTotal)
         compareBase = orderSubTotal.compareTo(new BigDecimal(condValue))
     }
     result.compareBase = Integer.valueOf(compareBase)
@@ -398,16 +398,16 @@ def productOrderHist() {
         try {
             Map<String, Object> serviceResult = run service: "getOrderedSummaryInformation", with: serviceIn
             if (ServiceUtil.isError(serviceResult)) {
-                Debug.logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_HIST ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result), module)
+                logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_HIST ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result))
                 return serviceResult
             } else {
                 BigDecimal orderSubTotal = (BigDecimal) serviceResult.get("totalSubRemainingAmount")
                 BigDecimal orderSubTotalAndCartSubTotal = orderSubTotal.add(cart.getSubTotal())
-                if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module)
+                if (Debug.verboseOn()) logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.")
                 compareBase = orderSubTotalAndCartSubTotal.compareTo(new BigDecimal(condValue))
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module)
+            logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.")
             return ServiceUtil.returnError("Error getting order history")
         }
     }
@@ -444,16 +444,16 @@ def productOrderYear() {
         try {
             Map<String, Object> serviceResult = dispatcher.runSync("getOrderedSummaryInformation", serviceIn)
             if (ServiceUtil.isError(result)) {
-                Debug.logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result), module)
+                logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result))
                 return serviceResult
             } else {
                 BigDecimal orderSubTotal = (BigDecimal) result.get("totalSubRemainingAmount")
-                if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module)
+                if (Debug.verboseOn()) logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.")
                 compareBase = orderSubTotal.compareTo(new BigDecimal((condValue)))
 
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module)
+            logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.")
             return ServiceUtil.returnError("Error getting order history")
         }
     }
@@ -498,15 +498,15 @@ def productOrderLastYear() {
         try {
             Map<String, Object> serviceResult = dispatcher.runSync("getOrderedSummaryInformation", serviceIn)
             if (ServiceUtil.isError(serviceResult)) {
-                Debug.logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_LAST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result), module)
+                logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_LAST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result))
                 return serviceResult
             } else {
                 Double orderSubTotal = (Double) result.get("totalSubRemainingAmount")
-                if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for last year.", module)
+                if (Debug.verboseOn()) logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for last year.")
                 compareBase = orderSubTotal.compareTo(Double.valueOf(condValue))
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module)
+            logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.")
             return ServiceUtil.returnError("Error getting order history")
         }
     }
@@ -531,7 +531,7 @@ def productPromoRecurrence() {
             try {
                 recurrence = new RecurrenceInfo(recurrenceInfo)
             } catch (RecurrenceInfoException e) {
-                Debug.logError(e, module)
+                logError(e, module)
             }
 
             // check the current recurrence
@@ -560,7 +560,7 @@ def productShipTotal() {
     if (condValue) {
         BigDecimal orderTotalShipping = cart.getTotalShipping()
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping, module)
+            logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping)
         }
         compareBase = orderTotalShipping.compareTo(new BigDecimal(condValue))
     }

@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public final class ProductionRunHelper {
 
-    public static final String MODULE = ProductionRunHelper.class.getName();
+    private static final String MODULE = ProductionRunHelper.class.getName();
 
     private ProductionRunHelper() {}
 
@@ -90,8 +90,7 @@ public final class ProductionRunHelper {
                 .where("workEffortIdTo", productionRunId, 
                         "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")
                 .filterByDate().queryList();
-        for (int i = 0; i < linkedWorkEfforts.size(); i++) {
-            GenericValue link = linkedWorkEfforts.get(i);
+        for (GenericValue link : linkedWorkEfforts) {
             getLinkedProductionRuns(delegator, dispatcher, link.getString("workEffortIdFrom"), productionRuns);
         }
     }

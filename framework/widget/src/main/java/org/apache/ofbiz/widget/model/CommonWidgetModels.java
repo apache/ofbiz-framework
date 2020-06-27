@@ -52,7 +52,7 @@ import org.w3c.dom.Element;
  */
 public final class CommonWidgetModels {
 
-    public static final String MODULE = CommonWidgetModels.class.getName();
+    private static final String MODULE = CommonWidgetModels.class.getName();
 
     private CommonWidgetModels() {
     }

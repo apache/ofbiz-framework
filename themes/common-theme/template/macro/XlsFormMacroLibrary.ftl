@@ -32,19 +32,19 @@ under the License.
 
 <#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder="" delegatorName="default"><@renderItemField value "txf" className/></#macro>
 
-<#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable buttons tabindex language=""></#macro>
+<#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable buttons tabindex language="" disabled=""></#macro>
 
-<#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex="" >
+<#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex="" disabled="">
 <#if dateType=="time" ><@renderItemField value "tf" className/>
 <#elseif dateType=="date"><@renderItemField value "dt" className/>
 <#else><@renderItemField value "dtf" className/></#if>
 </#macro>
 
-<#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup tabindex><@renderItemField explicitDescription "txf" className/></#macro>
+<#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup tabindex disabled><@renderItemField explicitDescription "txf" className/></#macro>
 
 <#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex disabled><@renderItemField currentValue "txf" className/></#macro>
 
-<#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex><@renderItemField currentValue "txf" className/></#macro>
+<#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex disabled><@renderItemField currentValue "txf" className/></#macro>
 
 <#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl tabindex></#macro>
 

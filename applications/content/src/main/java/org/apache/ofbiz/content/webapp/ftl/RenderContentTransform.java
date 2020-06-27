@@ -49,7 +49,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderContentTransform implements TemplateTransformModel {
 
-    public static final String MODULE = RenderContentTransform.class.getName();
+    private static final String MODULE = RenderContentTransform.class.getName();
 
     @Override
     @SuppressWarnings("unchecked")

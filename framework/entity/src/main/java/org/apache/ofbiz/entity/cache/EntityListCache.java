@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 
 public class EntityListCache extends AbstractEntityConditionCache<Object, List<GenericValue>> {
 
-    public static final String MODULE = EntityListCache.class.getName();
+    private static final String MODULE = EntityListCache.class.getName();
 
     public EntityListCache(String delegatorName) {
         super(delegatorName, "entity-list");

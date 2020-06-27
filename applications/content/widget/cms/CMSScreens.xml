@@ -182,7 +182,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
                             <platform-specific>
-                                <html><html-template location="component://content/template/cms/CMSSites.ftl"/></html>
+                                <html><html-template multi-block="true"  location="component://content/template/cms/CMSSites.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>

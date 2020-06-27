@@ -104,7 +104,7 @@ def getPartyNameForDate() {
         if (person.middleName) resultMap.middleName = person.middleName
         if (person.personalTitle) resultMap.personalTitle = person.personalTitle
         if (person.suffix) resultMap.suffix = person.suffix
-        if (person.gender) resultMap.gender = person.gender
+        if (!partyNameHistoryCurrent && person.gender) resultMap.gender = person.gender
 
         resultMap.fullName = PartyHelper.getPartyName(person, parameters.lastNameFirst == "Y")
     } else if (partyGroup) {
@@ -224,7 +224,7 @@ def getRelatedParties() {
     Map resultMap = success()
 
     List relatedPartyIdList = [parameters.partyIdFrom]
-    resultMap.relatedPartyIdList = followPartyRelationshipsInline(relatedPartyIdList, parameters.partyRelationshipTypeId,
+    resultMap = followPartyRelationshipsInline(relatedPartyIdList, parameters.partyRelationshipTypeId,
             parameters.roleTypeIdFrom, parameters.roleTypeIdFromInclueAllChildTypes,
             parameters.roleTypeIdTo, parameters.roleTypeIdToIncludeAllChildTypes,
             parameters.includeFromToSwitched, parameters.recurse, parameters.useCache)

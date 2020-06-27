@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.model.ModelFieldType;
  */
 @SuppressWarnings("serial")
 public final class EntityExpr implements EntityCondition {
-    public static final String MODULE = EntityExpr.class.getName();
+    private static final String MODULE = EntityExpr.class.getName();
     /** The left hand side of the expression.  */
     private final Object lhs;
     /** The operator used to combine the two sides of the expression.  */

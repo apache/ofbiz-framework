@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelScreen extends ModelWidget {
 
-    public static final String MODULE = ModelScreen.class.getName();
+    private static final String MODULE = ModelScreen.class.getName();
 
     private final String sourceLocation;
     private final FlexibleStringExpander transactionTimeoutExdr;

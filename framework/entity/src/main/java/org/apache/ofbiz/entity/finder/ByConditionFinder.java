@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("serial")
 public class ByConditionFinder extends ListFinder {
-    public static final String MODULE = ByConditionFinder.class.getName();
+    private static final String MODULE = ByConditionFinder.class.getName();
 
     protected Condition whereCondition;
     protected Condition havingCondition;

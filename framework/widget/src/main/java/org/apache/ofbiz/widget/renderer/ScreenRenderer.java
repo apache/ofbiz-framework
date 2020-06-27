@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +59,7 @@ import org.apache.ofbiz.widget.cache.GenericWidgetOutput;
 import org.apache.ofbiz.widget.cache.ScreenCache;
 import org.apache.ofbiz.widget.cache.WidgetContextCacheKey;
 import org.apache.ofbiz.widget.model.ModelScreen;
+import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
 import org.apache.ofbiz.widget.model.ScreenFactory;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
@@ -72,7 +74,7 @@ import freemarker.ext.servlet.ServletContextHashModel;
  */
 public class ScreenRenderer {
 
-    public static final String MODULE = ScreenRenderer.class.getName();
+    private static final String MODULE = ScreenRenderer.class.getName();
 
     protected Appendable writer;
     protected MapStack<String> context;
@@ -137,7 +139,12 @@ public class ScreenRenderer {
             }
         } else {
             context.put("renderFormSeqNumber", String.valueOf(renderFormSeqNumber));
-            modelScreen.renderScreenString(writer, context, screenStringRenderer);
+            if (context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER) != null) {
+                Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER));
+                modelScreen.renderScreenString(stringWriterStack.peek(), context, screenStringRenderer);
+            } else {
+                modelScreen.renderScreenString(writer, context, screenStringRenderer);
+            }
         }
         return "";
     }
@@ -266,7 +273,7 @@ public class ScreenRenderer {
         context.put("serverRoot", request.getAttribute("_SERVER_ROOT_URL_"));
         context.put("checkLoginUrl", LoginWorker.makeLoginUrl(request));
         String externalLoginKey = null;
-        boolean externalLoginKeyEnabled = "true".equals(EntityUtilProperties.getPropertyValue("security", "security.login.externalLoginKey.enabled", "true", (Delegator) request.getAttribute("delegator")));
+        boolean externalLoginKeyEnabled = ExternalLoginKeysManager.isExternalLoginKeyEnabled(request);
         if (externalLoginKeyEnabled) {
             externalLoginKey = ExternalLoginKeysManager.getExternalLoginKey(request);
         }

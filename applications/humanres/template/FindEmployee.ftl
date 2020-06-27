@@ -124,9 +124,7 @@ under the License.
 </div>
     <#if parameters.hideFields?default("N") != "Y">
         <script type="application/javascript">
-    <!--//
       document.lookupparty.partyId.focus();
-    //-->
         </script>
     </#if>
     <#if partyList??>

@@ -72,7 +72,7 @@ import org.xml.sax.XMLReader;
  */
 public final class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler {
 
-    public static final String MODULE = XmlRpcEventHandler.class.getName();
+    private static final String MODULE = XmlRpcEventHandler.class.getName();
     private LocalDispatcher dispatcher;
 
     private Boolean enabledForExtensions = null;

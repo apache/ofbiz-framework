@@ -44,7 +44,7 @@ import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
  */
 public class DumbTransactionFactory implements TransactionFactory {
 
-    public static final String MODULE = DumbTransactionFactory.class.getName();
+    private static final String MODULE = DumbTransactionFactory.class.getName();
 
     @Override
     public TransactionManager getTransactionManager() {

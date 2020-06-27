@@ -28,9 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OrderTest extends OFBizTestCase {
-    public static final String MODULE = OFBizTestCase.class.getName();
-
-    protected GenericValue userLogin = null;
+    private static final String MODULE = OFBizTestCase.class.getName();
 
     public OrderTest(String name) {
         super(name);

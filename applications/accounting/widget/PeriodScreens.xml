@@ -26,6 +26,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="AccountingEditCustomTimePeriods"/>
                 <set field="tabButtonItem" value="EditCustomTimePeriod"/>
+                <set field="helpAnchor" value="_help_for_time_periods"/>
                 <script location="component://accounting/groovyScripts/period/EditCustomTimePeriod.groovy"/>
             </actions>
             <widgets>

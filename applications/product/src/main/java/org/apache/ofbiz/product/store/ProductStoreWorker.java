@@ -54,7 +54,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public final class ProductStoreWorker {
 
-    public static final String MODULE = ProductStoreWorker.class.getName();
+    private static final String MODULE = ProductStoreWorker.class.getName();
     private static Map<String, String> defaultProductStoreEmailScreenLocation = new HashMap<>();
 
     static {

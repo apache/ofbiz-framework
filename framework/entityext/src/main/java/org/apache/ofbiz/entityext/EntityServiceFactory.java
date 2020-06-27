@@ -28,7 +28,7 @@ import org.apache.ofbiz.service.ServiceContainer;
  */
 public class EntityServiceFactory {
 
-    public static final String MODULE = EntityServiceFactory.class.getName();
+    private static final String MODULE = EntityServiceFactory.class.getName();
 
     public static LocalDispatcher getLocalDispatcher(Delegator delegator) {
         LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher("entity-" + delegator.getDelegatorName(), delegator);

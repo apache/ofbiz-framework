@@ -112,7 +112,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindConditionFieldEquals() throws Exception {
-        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+        GenericValue userLogin = getUserLogin("system");
         prepareData();
 
         Map<String, Object> inputFields = new HashMap<>();
@@ -149,7 +149,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindConditionFieldLike() throws Exception {
-        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+        GenericValue userLogin = getUserLogin("system");
         prepareData();
 
         //first test like condition
@@ -186,7 +186,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindConditionDistinct() throws Exception {
-        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+        GenericValue userLogin = getUserLogin("system");
         prepareData();
 
         //first test without distinct condition
@@ -207,7 +207,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindFilterByDate() throws Exception {
-        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+        GenericValue userLogin = getUserLogin("system");
         prepareData();
 
         //first test without filterDate condition
@@ -227,7 +227,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindFilterByDateWithDedicateDateField() throws Exception {
-        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+        GenericValue userLogin = getUserLogin("system");
         prepareData();
 
         //first test without filterDate condition

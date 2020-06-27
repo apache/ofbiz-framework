@@ -26,7 +26,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 
 public class LabelInfo {
 
-    public static final String MODULE = LabelInfo.class.getName();
+    private static final String MODULE = LabelInfo.class.getName();
 
     protected String labelKey = "";
     protected String labelKeyComment = "";

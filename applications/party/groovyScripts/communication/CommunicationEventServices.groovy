@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
@@ -381,8 +380,7 @@ def deleteCommunicationEventWorkEffort() {
         List<GenericValue> otherComs = workEffort.getRelated("CommunicationEventWorkEff", null, null, false)
 
         if (!otherComs) {
-            Debug.logInfo("remove workeffort ${workEffort.workEffortId} and related parties and status",
-                    "CommunicationEventService.groovy")
+            logInfo("remove workeffort ${workEffort.workEffortId} and related parties and status")
             workEffort.removeRelated("WorkEffortPartyAssignment")
             workEffort.removeRelated("WorkEffortStatus")
             workEffort.removeRelated("WorkEffortKeyword")
@@ -536,8 +534,7 @@ def setCommunicationEventStatus() {
                         statusIdTo: parameters.statusId)
                 .queryOne()
         if (!statusChange) {
-            Debug.logError("Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}",
-                    "CommunicationEventServices.groovy")
+            logError("Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}")
             return error(UtilProperties.getMessage("ProductUiLabels",
                             "commeventservices.communication_event_status", parameters.locale as Locale))
         } else {
@@ -624,8 +621,7 @@ def setCommunicationEventRoleStatus() {
                 .cache()
                 .queryOne()
         if (!statusChange) {
-            Debug.logError("Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}",
-                    "CommunicationEventServices.groovy")
+            logError("Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}")
             return error(UtilProperties.getMessage("ProductUiLabels",
                             "commeventservices.communication_event_status", parameters.locale as Locale))
         } else {

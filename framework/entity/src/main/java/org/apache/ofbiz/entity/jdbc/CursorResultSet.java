@@ -28,7 +28,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public class CursorResultSet extends AbstractCursorHandler {
 
-    public static final String MODULE = CursorResultSet.class.getName();
+    private static final String MODULE = CursorResultSet.class.getName();
     protected ResultSet rs;
     protected Statement stmt;
     protected String query;

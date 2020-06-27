@@ -34,15 +34,8 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
  */
 public class StockMovesTest extends OFBizTestCase {
 
-    protected GenericValue userLogin = null;
-
     public StockMovesTest(String name) {
         super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
     }
 
     @Override
@@ -50,6 +43,7 @@ public class StockMovesTest extends OFBizTestCase {
     }
 
     public void testStockMoves() throws Exception {
+        GenericValue userLogin = getUserLogin("system");
         Map<String, Object> fsmnCtx = new HashMap<>();
         Map<?,?> stockMoveHandled = null;
         List<?> warningList;

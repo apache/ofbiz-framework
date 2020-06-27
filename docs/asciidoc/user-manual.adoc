@@ -18,7 +18,7 @@ under the License.
 ////
 = Apache OFBiz User Manual
 The Apache OFBiz Project
-Release 17.12
+Release trunk
 :imagesdir: ./images
 ifdef::backend-pdf[]
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
@@ -158,3 +158,5 @@ include::../../applications/accounting/src/docs/asciidoc/accounting.adoc[levelof
 include::../../applications/content/src/docs/asciidoc/content.adoc[leveloffset=+2]
 
 include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+2]
+
+include::../../applications/manufacturing/src/docs/asciidoc/manufacturing.adoc[leveloffset=+2]

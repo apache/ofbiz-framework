@@ -42,8 +42,8 @@ import securepay.jxa.api.Txn;
 
 public class SecurePayPaymentServices {
 
-    public static final String MODULE = SecurePayPaymentServices.class.getName();
-    public final static String resource = "AccountingUiLabels";
+    private static final String MODULE = SecurePayPaymentServices.class.getName();
+    public final static String RESOURCE = "AccountingUiLabels";
 
     public static Map<String, Object> doAuth(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
@@ -53,7 +53,7 @@ public class SecurePayPaymentServices {
         // generate the request/properties
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
@@ -106,7 +106,7 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1) {
@@ -141,13 +141,13 @@ public class SecurePayPaymentServices {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
 
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
@@ -188,7 +188,7 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1){
@@ -220,13 +220,13 @@ public class SecurePayPaymentServices {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
 
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
@@ -267,7 +267,7 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1){
@@ -296,7 +296,7 @@ public class SecurePayPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
 
@@ -313,7 +313,7 @@ public class SecurePayPaymentServices {
 
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
@@ -354,7 +354,7 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1){
@@ -383,7 +383,7 @@ public class SecurePayPaymentServices {
         // generate the request/properties
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
@@ -433,7 +433,7 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1) {
@@ -477,7 +477,7 @@ public class SecurePayPaymentServices {
         return props;
     }
 
-    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,String resource, String parameterName) {
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,String RESOURCE, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -492,7 +492,7 @@ public class SecurePayPaymentServices {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
@@ -500,8 +500,8 @@ public class SecurePayPaymentServices {
         return returnValue;
     }
 
-    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,String resource, String parameterName, String defaultValue) {
-        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,String RESOURCE, String parameterName, String defaultValue) {
+        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, RESOURCE, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

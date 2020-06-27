@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
  */
 public class RegexpCondition extends MethodOperation implements Conditional {
 
-    public static final String MODULE = RegexpCondition.class.getName();
+    private static final String MODULE = RegexpCondition.class.getName();
 
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleStringExpander exprFse;

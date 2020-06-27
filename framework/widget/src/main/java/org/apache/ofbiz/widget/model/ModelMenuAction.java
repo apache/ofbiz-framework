@@ -45,13 +45,13 @@ import org.w3c.dom.Element;
  */
 public abstract class ModelMenuAction {
 
-    public static final String MODULE = ModelMenuAction.class.getName();
+    private static final String MODULE = ModelMenuAction.class.getName();
 
     public static List<ModelAction> readSubActions(ModelMenu modelMenu, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
         List<ModelAction> actions = new ArrayList<>(actionElementList.size());
         for (Element actionElement : actionElementList) {
-            if ("set".equals(actionElement.getNodeName())) {
+            if ("set".equals(actionElement.getLocalName())) {
                 actions.add(new SetField(modelMenu, actionElement));
             } else {
                 actions.add(AbstractModelAction.newInstance(modelMenu, actionElement));

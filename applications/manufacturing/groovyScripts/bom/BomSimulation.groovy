@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.manufacturing.bom.BOMNode
 
 tree = request.getAttribute("tree")
@@ -59,7 +58,7 @@ if (tree) {
                 qoh = outMap.quantityOnHandTotal
             }
         } catch (Exception e) {
-            Debug.logError("Error retrieving bom simulation data: " + e.getMessage(), "BomSimulation")
+            logError("Error retrieving bom simulation data: " + e.getMessage())
         }
         productsData.add([node : node, unitCost : unitCost, totalCost : totalCost, qoh : qoh])
     }

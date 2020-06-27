@@ -27,6 +27,7 @@
             <actions>
                 <set field="titleProperty" value="PartyCreateNewCustomer"/>
                 <set field="tabButtonItemTop" value="firstcustomer"/>
+                <set field="helpAnchor" value="_help_for_setup_create_first_customer"/>
                 <set field="target" value="createCustomer"/>
                 <set field="partyId" value="CUST"/>
                 <entity-condition entity-name="PartyRole" list="parties">
@@ -86,6 +87,7 @@
         <section>
           <actions>
             <set field="parameters.partyId" from-field="partyId"/>
+            <set field="helpAnchor" value="_help_for_view_organization_profile"/>
           </actions>
             <widgets>
                 <include-screen name="Party" location="applications/party/widget/partymgr/ProfileScreens.xml"/>

@@ -47,7 +47,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public final class ProductConfigWorker {
 
-    public static final String MODULE = ProductConfigWorker.class.getName();
+    private static final String MODULE = ProductConfigWorker.class.getName();
     private static final String SEPARATOR = "::";    // cache key separator
 
     private ProductConfigWorker () {}

@@ -78,8 +78,8 @@ under the License.
            <td class="label"><label>${uiLabelMap.OrderInvoices}</label></td>
            <td>
              <#list invoices as invoice>
-               <div>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">invoiceOverview?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${invoice}</a>
-               (<a target="_BLANK" href="<@ofbizUrl controlPath="/accounting/control">invoice.pdf?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPdf}</a>)</div>
+               <div>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">invoiceOverview?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${invoice}</a>
+               (<a target="_BLANK" href="<@ofbizUrl controlPath="/accounting/control">invoice.pdf?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPdf}</a>)</div>
              </#list>
            </td>
          </tr>
@@ -140,7 +140,7 @@ under the License.
                         <table class="basic-table" cellspacing='0'>
                             <tr>
                                 <td>
-                                    ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description!}
+                                    ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description!}
                                 </td>
                                 <td>
                                     <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED" && orderPaymentPreference.statusId != "PAYMENT_RECEIVED">
@@ -186,7 +186,7 @@ under the License.
                       <#if (finAccountType?has_content)>
                         ${finAccountType.description?default(finAccountType.finAccountTypeId)}&nbsp;
                       </#if>
-                      #${finAccount.finAccountCode?default(finAccount.finAccountId)} (<a href="<@ofbizUrl controlPath="/accounting/control">EditFinAccount?finAccountId=${finAccount.finAccountId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${finAccount.finAccountId}</a>)
+                      #${finAccount.finAccountCode?default(finAccount.finAccountId)} (<a href="<@ofbizUrl controlPath="/accounting/control">EditFinAccount?finAccountId=${finAccount.finAccountId}</@ofbizUrl>" class="buttontext">${finAccount.finAccountId}</a>)
                       <br />
                       ${finAccount.finAccountName!}
                       <br />
@@ -194,10 +194,10 @@ under the License.
                       <#-- Authorize and Capture transactions -->
                       <div>
                         <#if "PAYMENT_SETTLED" != orderPaymentPreference.statusId>
-                          <a href="<@ofbizUrl controlPath="/accounting/control">AuthorizeTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
+                          <a href="<@ofbizUrl controlPath="/accounting/control">AuthorizeTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
                         <#if "PAYMENT_AUTHORIZED" == orderPaymentPreference.statusId>
-                          <a href="<@ofbizUrl controlPath="/accounting/control">CaptureTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingCapture}</a>
+                          <a href="<@ofbizUrl controlPath="/accounting/control">CaptureTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                         </#if>
                       </div>
                     </div>
@@ -212,7 +212,7 @@ under the License.
                           (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum!}
                           <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
                           <span class="label">${uiLabelMap.OrderScore}</span>&nbsp;${gatewayResponse.gatewayScoreResult?default("N/A")})
-                          <a href="<@ofbizUrl controlPath="/accounting/control">ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a>
+                          <a href="<@ofbizUrl controlPath="/accounting/control">ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a>
                           <#if gatewayResponse_has_next><hr /></#if>
                         </#list>
                       </div>
@@ -242,7 +242,7 @@ under the License.
                       <td>
                         <div>
                             <#list paymentList as paymentMap>
-                                <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                                <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
                             </#list>
                         </div>
                       </td>
@@ -296,7 +296,7 @@ under the License.
                       <td>
                         <div>
                             <#list paymentList as paymentMap>
-                                <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                                <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
                             </#list>
                         </div>
                       </td>
@@ -343,10 +343,10 @@ under the License.
                       <#-- Authorize and Capture transactions -->
                       <div>
                         <#if "PAYMENT_SETTLED" != orderPaymentPreference.statusId>
-                          <a href="<@ofbizUrl controlPath="/accounting/control">AuthorizeTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
+                          <a href="<@ofbizUrl controlPath="/accounting/control">AuthorizeTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
                         <#if "PAYMENT_AUTHORIZED" == orderPaymentPreference.statusId>
-                          <a href="<@ofbizUrl controlPath="/accounting/control">CaptureTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingCapture}</a>
+                          <a href="<@ofbizUrl controlPath="/accounting/control">CaptureTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                         </#if>
                       </div>
                     <#else>
@@ -364,7 +364,7 @@ under the License.
                         (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum!}
                         <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
                         <span class="label">${uiLabelMap.OrderScore}</span>&nbsp;${gatewayResponse.gatewayScoreResult?default("N/A")})
-                        <a href="<@ofbizUrl controlPath="/accounting/control">ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a>
+                        <a href="<@ofbizUrl controlPath="/accounting/control">ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a>
                         <#if gatewayResponse_has_next><hr /></#if>
                       </#list>
                     </div>
@@ -431,7 +431,7 @@ under the License.
                   <td>
                     <div>
                         <#list paymentList as paymentMap>
-                            <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                            <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
                         </#list>
                     </div>
                   </td>
@@ -488,7 +488,7 @@ under the License.
                   <td>
                     <div>
                         <#list paymentList as paymentMap>
-                            <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                            <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
                         </#list>
                     </div>
                   </td>
@@ -521,7 +521,7 @@ under the License.
               <td>
                 <div>
                     <#list paymentList as paymentMap>
-                        <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                        <a href="<@ofbizUrl controlPath="/accounting/control">paymentOverview?paymentId=${paymentMap.paymentId}</@ofbizUrl>" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
                     </#list>
                 </div>
               </td>
@@ -546,8 +546,8 @@ under the License.
             <td>&nbsp;<span class="label">${uiLabelMap.OrderInvoices}</span></td>
             <td>
               <#list invoices as invoice>
-                <div>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">invoiceOverview?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${invoice}</a>
-                (<a target="_BLANK" href="<@ofbizUrl controlPath="/accounting/control">invoice.pdf?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPdf}</a>)</div>
+                <div>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">invoiceOverview?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${invoice}</a>
+                (<a target="_BLANK" href="<@ofbizUrl controlPath="/accounting/control">invoice.pdf?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPdf}</a>)</div>
               </#list>
             </td>
             <td>&nbsp;</td>

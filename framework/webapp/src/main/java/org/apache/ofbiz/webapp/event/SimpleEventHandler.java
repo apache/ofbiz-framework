@@ -39,7 +39,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
  */
 public class SimpleEventHandler implements EventHandler {
 
-    public static final String MODULE = SimpleEventHandler.class.getName();
+    private static final String MODULE = SimpleEventHandler.class.getName();
     /** Contains the property file name for translation of error messages. */
     public static final String err_resource = "WebappUiLabels";
 
@@ -66,7 +66,8 @@ public class SimpleEventHandler implements EventHandler {
 
         if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SIMPLE Event", MODULE);
         try {
-            beganTransaction = TransactionUtil.begin();
+            int timeout = Integer.max(event.transactionTimeout, 0);
+            beganTransaction = TransactionUtil.begin(timeout);
             String eventReturn = SimpleMethod.runSimpleEvent(xmlResource, eventName, request, response);
             if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + eventReturn, MODULE);
             return eventReturn;

@@ -45,8 +45,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class ExpressCheckoutEvents {
 
-    public static final String resourceErr = "AccountingErrorUiLabels";
-    public static final String MODULE = ExpressCheckoutEvents.class.getName();
+    private static final String RES_ERROR = "AccountingErrorUiLabels";
+    private static final String MODULE = ExpressCheckoutEvents.class.getName();
     public static enum CheckoutType {PAYFLOW, STANDARD, NONE}
 
     public static String setExpressCheckout(HttpServletRequest request, HttpServletResponse response) {
@@ -68,7 +68,7 @@ public class ExpressCheckoutEvents {
                 result = dispatcher.runSync(serviceName, inMap);
             } catch (GenericServiceException e) {
                 Debug.logInfo(e, MODULE);
-                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "AccountingPayPalCommunicationError", locale));
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "AccountingPayPalCommunicationError", locale));
                 return "error";
             }
             if (ServiceUtil.isError(result)) {
@@ -162,7 +162,7 @@ public class ExpressCheckoutEvents {
             try {
                 result = dispatcher.runSync(serviceName, inMap);
             } catch (GenericServiceException e) {
-                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "AccountingPayPalCommunicationError", locale));
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "AccountingPayPalCommunicationError", locale));
                 return "error";
             }
             if (ServiceUtil.isError(result)) {

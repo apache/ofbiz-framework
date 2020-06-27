@@ -25,9 +25,10 @@
         <entity-xml action="load" entity-xml-url="component://party/testdef/data/PartyTestsData.xml"/>
     </test-case>
 
-    <test-case case-name="party-tests">
+    <test-group case-name="party-tests">
         <simple-method-test location="component://party/minilang/test/PartyTests.xml"/>
-    </test-case>
+        <junit-test-suite class-name="org.apache.ofbiz.party.PartyTests"/>
+    </test-group>
     <test-case case-name="partystatuschangetestdata">
         <entity-xml action="load" entity-xml-url="component://party/testdef/data/PartyStatusChangeTestData.xml"/>
     </test-case>

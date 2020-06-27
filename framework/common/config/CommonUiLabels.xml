@@ -895,6 +895,14 @@
         <value xml:lang="zh-CN">應用</value>
         <value xml:lang="zh-TW">應用程式</value>
     </property>
+    <property key="CommonApplication">
+        <value xml:lang="de">Anwendung</value>
+        <value xml:lang="en">Applications</value>
+        <value xml:lang="fr">Application</value>
+        <value xml:lang="hi-IN">एप्प्लिकेशन्स</value>
+        <value xml:lang="it">Applicazione</value>
+        <value xml:lang="nl">Toepassing</value>
+    </property>
     <property key="CommonApply">
         <value xml:lang="ar">تطبيق</value>
         <value xml:lang="cs">Použít</value>
@@ -13323,7 +13331,7 @@
         <value xml:lang="zh">人工服务</value>
     </property>
     <property key="CommonWorkEfforts">
-        <value xml:lang="en">Work Effort</value>
+        <value xml:lang="en">Work Efforts</value>
         <value xml:lang="nl">Activiteiten</value>
         <value xml:lang="zh">人工服务</value>
     </property>

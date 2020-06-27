@@ -55,7 +55,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public class ContactMechWorker {
 
-    public static final String MODULE = ContactMechWorker.class.getName();
+    private static final String MODULE = ContactMechWorker.class.getName();
 
     private ContactMechWorker() {}
 

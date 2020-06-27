@@ -2456,6 +2456,14 @@ under the License.
     <TaxAuthority taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" includeTaxInPrice="Y"/>
     <TaxAuthorityGlAccount taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" organizationPartyId="Company" glAccountId="224209"/>
 
+    <!-- China TaxAuthority defs -->
+    <Party partyId="CHN_STA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="CNY" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
+    <PartyGroup partyId="CHN_STA" groupName="State Taxation Administration"/>
+    <PartyRole partyId="CHN_STA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthGeoId="CHN" taxAuthPartyId="CHN_STA" includeTaxInPrice="N" requireTaxIdForExemption="Y" 
+        taxIdFormatPattern=""/>
+    <TaxAuthorityGlAccount taxAuthGeoId="CHN" taxAuthPartyId="CHN_STA" organizationPartyId="Company" glAccountId="224209"/>
+
     <!-- Party TaxAuthority info for Company -->
     <!-- some interesting information at: http://www.taxadmin.org/fta/rate/tax_stru.html -->
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" fromDate="2001-05-13 00:00:00.001" isNexus="Y"/>

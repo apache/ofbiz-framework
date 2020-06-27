@@ -47,8 +47,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ProductionRun {
 
-    public static final String MODULE = ProductionRun.class.getName();
-    public static final String resource = "ManufacturingUiLabels";
+    private static final String MODULE = ProductionRun.class.getName();
+    private static final String RESOURCE = "ManufacturingUiLabels";
 
     protected GenericValue productionRun; // WorkEffort (PROD_ORDER_HEADER)
     protected GenericValue productionRunProduct; // WorkEffortGoodStandard (type: PRUN_PROD_DELIV)
@@ -141,14 +141,12 @@ public class ProductionRun {
                 }
                 productionRun.store();
                 if (productionRunRoutingTasks != null) {
-                    for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
-                        GenericValue routingTask = iter.next();
+                    for (GenericValue routingTask : productionRunRoutingTasks) {
                         routingTask.store();
                     }
                 }
                 if (productionRunComponents != null) {
-                    for (Iterator<GenericValue> iter = productionRunComponents.iterator(); iter.hasNext();) {
-                        GenericValue component = iter.next();
+                    for (GenericValue component : productionRunComponents) {
                         component.store();
                     }
                 }
@@ -205,8 +203,7 @@ public class ProductionRun {
         this.quantityIsUpdated = true;
         this.updateCompletionDate = true;
         if (productionRunComponents == null) getProductionRunComponents();
-        for (Iterator<GenericValue> iter = productionRunComponents.iterator(); iter.hasNext();) {
-            GenericValue component = iter.next();
+        for (GenericValue component : productionRunComponents) {
             componentQuantity = component.getBigDecimal("estimatedQuantity");
             component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, RoundingMode.HALF_UP).multiply(newQuantity).doubleValue());
         }
@@ -260,15 +257,14 @@ public class ProductionRun {
             getProductionRunRoutingTasks();
             if (quantity == null) getQuantity();
             Timestamp endDate=null;
-            for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
-                GenericValue routingTask = iter.next();
+            for (GenericValue routingTask : productionRunRoutingTasks) {
                 if (priority.compareTo(routingTask.getLong("priority")) <= 0) {
                     // Calculate the estimatedCompletionDate
                     long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, quantity, dispatcher);
-                    endDate = TechDataServices.addForward(TechDataServices.getTechDataCalendar(routingTask),startDate, totalTime);
+                    endDate = TechDataServices.addForward(TechDataServices.getTechDataCalendar(routingTask), startDate, totalTime);
                     // update the routingTask
-                    routingTask.set("estimatedStartDate",startDate);
-                    routingTask.set("estimatedCompletionDate",endDate);
+                    routingTask.set("estimatedStartDate", startDate);
+                    routingTask.set("estimatedCompletionDate", endDate);
                     startDate = endDate;
                 }
             }
@@ -335,9 +331,10 @@ public class ProductionRun {
                     try {
                         productionRunComponents = new LinkedList<>();
                         GenericValue routingTask;
-                        for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
-                            routingTask = iter.next();
-                            productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"),null, false));
+                        for (GenericValue productionRunRoutingTask : productionRunRoutingTasks) {
+                            routingTask = productionRunRoutingTask;
+                            productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard"
+                                    , UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"), null, false));
                         }
                     } catch (GenericEntityException e) {
                         Debug.logWarning(e.getMessage(), MODULE);
@@ -432,9 +429,7 @@ public class ProductionRun {
                     }
                     totalTaskTime = ((BigDecimal)serviceResult.get("totalTime")).doubleValue();
                 }
-            } catch (GenericServiceException exc) {
-                Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
-            } catch (Exception exc) {
+            } catch (GenericEntityException | GenericServiceException exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
             }
         }

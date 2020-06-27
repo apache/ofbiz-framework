@@ -123,18 +123,30 @@ under the License.
         <condition field-name="destinationFacilityId" operator="is-not-empty"/>
         <action service="setShipmentSettingsFromFacilities" mode="sync"/>
     </eca>
-
     <!-- if new primaryOrderId, get settings from order -->
     <eca service="createShipment" event="commit">
         <condition field-name="primaryOrderId" operator="is-not-empty"/>
         <action service="setShipmentSettingsFromPrimaryOrder" mode="sync"/>
     </eca>
-
     <eca service="updateShipment" event="commit">
         <condition-field field-name="primaryOrderId" operator="not-equals" to-field-name="oldPrimaryOrderId"/>
         <condition field-name="primaryOrderId" operator="is-not-empty"/>
         <action service="setShipmentSettingsFromPrimaryOrder" mode="sync"/>
     </eca>
+    <!-- if estimatedShipDate, create work-effort -->
+    <eca service="createShipment" event="commit">
+        <condition field-name="estimatedShipDate" operator="is-not-empty"/>
+        <action service="checkAndCreateWorkEffort" mode="async"/>
+    </eca>
+    <eca service="createShipment" event="commit">
+        <condition field-name="estimatedArrivalDate" operator="is-not-empty"/>
+        <action service="checkAndCreateWorkEffort" mode="async"/>
+    </eca>
+    <eca service="createShipment" event="commit">
+        <condition field-name="statusId" operator="is-not-empty"/>
+        <action service="createShipmentStatus" mode="async"/>
+    </eca>
+
 
     <eca service="createShipmentReceipt" event="commit">
         <condition field-name="returnId" operator="is-not-empty"/>

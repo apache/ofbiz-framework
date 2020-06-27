@@ -31,6 +31,8 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ServiceSecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/ServiceSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/ServiceDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ScheduledServicesDemoData.xml"/>
+    
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_test_se.xml"/>

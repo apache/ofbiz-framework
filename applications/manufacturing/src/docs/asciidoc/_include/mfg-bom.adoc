@@ -1,0 +1,70 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Bill Of Material
+The Bill of Materials is the list of raw materials or list of ingredients required to make
+our manufactured product.
+
+When a product is created and it will be manufactured,  we need to define the relationship between the product
+ and its raw materials. This is done using the BOM.
+
+For configurable product, or product with feature, it's possible to define some "Manufacturing Rules" to have
+ a BOM which that adjust according to the options / feature chosen.
+
+== Bill Of Material management in UI
+=== Find BOM
+This screen displays an overview of the BoM's available, i.e. a list of product with components.
+
+When one is selected in the list, the detail of its components are shown.
+
+You can also click the button 'Create BOM' to create a new BoM.
+
+=== Add/edit a BoM
+In this screen you can create a new BOM (a Product association) or modify an existing BOM.
+
+Usually BOM is understand as the product and its componants, in this screen there is the component list
+and it's possible to add or edit each of association between the product and one of its component.
+
+=== BOM Simulation
+This screen shows the effects of a simulated BOM.
+
+==== The parameters form
+Select the product of the BOM you want to simulate. +
+Choose the BoM-type and set the quantity to simulate.
+
+Set the simulation type and select the warehouse to get the QoH (Quantity on Hand).
+
+Subsequently click the 'Submit'-button to execute the simulation.
+The output of the simulation is shown below the form.
+
+==== The simulation overview
+The simulation will be executed and an overview will be shown after the button has been pressed.
+
+The first section will show the details of the BOM. +
+The second part will show the required quantities and costs of the components.
+
+
+===  Manufacturing rules
+This screen displays an overview of the manufacturing rules that are applicable to produce a product. +
+A manufacturing rule displays the replacements of a component.
+
+In this screen you can also create new manufacturing rules.
+
+==== Create/Edit new manufacturing rule
+This form enables you to define replacing materials for the BoM components. +
+In the second part of the screen the overview of replacement rules is shown.

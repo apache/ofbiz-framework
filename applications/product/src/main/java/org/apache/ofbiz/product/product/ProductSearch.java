@@ -67,9 +67,9 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class ProductSearch {
 
-    public static final String MODULE = ProductSearch.class.getName();
-    public static final String resource = "ProductUiLabels";
-    public static final String resourceCommon = "CommonUiLabels";
+    private static final String MODULE = ProductSearch.class.getName();
+    private static final String RESOURCE = "ProductUiLabels";
+    private static final String RES_COMMON = "CommonUiLabels";
 
     public static ArrayList<String> parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         Set<String> featureIdSet = new HashSet<>();
@@ -879,7 +879,7 @@ public class ProductSearch {
                 Debug.logError(e, "Error finding ProdCatalog information for constraint pretty print", MODULE);
             }
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "ProductCatalog", locale)).append(": ");
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "ProductCatalog", locale)).append(": ");
             if (prodCatalog != null) {
                 ppBuf.append(prodCatalog.getString("catalogName"));
             }
@@ -988,7 +988,7 @@ public class ProductSearch {
                 Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", MODULE);
             }
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "ProductCategory", locale)).append(": ");
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "ProductCategory", locale)).append(": ");
             if (productCategory != null) {
                 String catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, null, "html");
                 if (UtilValidate.isEmpty(catInfo)) {
@@ -1002,7 +1002,7 @@ public class ProductSearch {
                 ppBuf.append("]");
             }
             if (includeSubCategories) {
-                ppBuf.append(" (").append(UtilProperties.getMessage(resource, "ProductIncludeAllSubCategories", locale)).append(")");
+                ppBuf.append(" (").append(UtilProperties.getMessage(RESOURCE, "ProductIncludeAllSubCategories", locale)).append(")");
             }
             return ppBuf.toString();
         }
@@ -1018,7 +1018,7 @@ public class ProductSearch {
                 Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", MODULE);
             }
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "ProductCategory", locale)).append(": ");
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "ProductCategory", locale)).append(": ");
             if (productCategory != null) {
                 String catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, dispatcher, "html");
                 if (UtilValidate.isEmpty(catInfo)) {
@@ -1032,7 +1032,7 @@ public class ProductSearch {
                 ppBuf.append("]");
             }
             if (includeSubCategories) {
-                ppBuf.append(" (").append(UtilProperties.getMessage(resource, "ProductIncludeAllSubCategories", locale)).append(")");
+                ppBuf.append(" (").append(UtilProperties.getMessage(RESOURCE, "ProductIncludeAllSubCategories", locale)).append(")");
             }
             return ppBuf.toString();
         }
@@ -1125,7 +1125,7 @@ public class ProductSearch {
             }
             StringBuilder ppBuf = new StringBuilder();
             if (productFeatureType == null) {
-                ppBuf.append(UtilProperties.getMessage(resource, "ProductFeature", locale)).append(": ");
+                ppBuf.append(UtilProperties.getMessage(RESOURCE, "ProductFeature", locale)).append(": ");
                 ppBuf.append("[").append(this.productFeatureId).append("]");
             } else {
                 // TODO getString to be localized like get("description", locale)
@@ -1233,7 +1233,7 @@ public class ProductSearch {
             }
             StringBuilder ppBuf = new StringBuilder();
             if (productFeatureCategory != null) {
-                ppBuf.append(UtilProperties.getMessage(resource, "ProductFeatureCategory", locale)).append(": ");
+                ppBuf.append(UtilProperties.getMessage(RESOURCE, "ProductFeatureCategory", locale)).append(": ");
                 if (productFeatureCategory.get("description") != null) {
                     ppBuf.append(productFeatureCategory.get("description"));
                 } else {
@@ -1341,7 +1341,7 @@ public class ProductSearch {
             }
             StringBuilder ppBuf = new StringBuilder();
             if (productFeatureGroup != null) {
-                ppBuf.append(UtilProperties.getMessage(resource, "ProductFeatureGroup", locale)).append(": ");
+                ppBuf.append(UtilProperties.getMessage(RESOURCE, "ProductFeatureGroup", locale)).append(": ");
                 if (productFeatureGroup.get("description") != null) {
                     ppBuf.append(productFeatureGroup.get("description"));
                 } else {
@@ -1459,7 +1459,7 @@ public class ProductSearch {
                     GenericValue productFeature = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureId", featureId).cache().queryOne();
                     GenericValue productFeatureType = productFeature == null ? null : productFeature.getRelatedOne("ProductFeatureType", true);
                     if (productFeatureType == null) {
-                        infoOut.append(UtilProperties.getMessage(resource, "ProductFeature", locale)).append(": ");
+                        infoOut.append(UtilProperties.getMessage(RESOURCE, "ProductFeature", locale)).append(": ");
                     } else {
                         infoOut.append(productFeatureType.getString("description"));
                         infoOut.append(": ");
@@ -1610,9 +1610,9 @@ public class ProductSearch {
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "ProductKeywords", locale)).append(": \"");
-            ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(resource, "ProductKeywordWhere", locale)).append(" ");
-            ppBuf.append(isAnd ? UtilProperties.getMessage(resource, "ProductKeywordAllWordsMatch", locale) : UtilProperties.getMessage(resource, "ProductKeywordAnyWordMatches", locale));
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "ProductKeywords", locale)).append(": \"");
+            ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "ProductKeywordWhere", locale)).append(" ");
+            ppBuf.append(isAnd ? UtilProperties.getMessage(RESOURCE, "ProductKeywordAllWordsMatch", locale) : UtilProperties.getMessage(RESOURCE, "ProductKeywordAnyWordMatches", locale));
             return ppBuf.toString();
         }
 
@@ -1899,16 +1899,16 @@ public class ProductSearch {
                 return null;
             }
             StringBuilder msgBuf = new StringBuilder();
-            msgBuf.append(UtilProperties.getMessage(resource, "ProductListPriceRange", locale));
+            msgBuf.append(UtilProperties.getMessage(RESOURCE, "ProductListPriceRange", locale));
             msgBuf.append(": ");
 
             // NOTE: at this point we know that only one or none are null
             if (this.lowPrice == null) {
-                msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonLessThan", locale));
+                msgBuf.append(UtilProperties.getMessage(RES_COMMON, "CommonLessThan", locale));
                 msgBuf.append(" ");
                 msgBuf.append(this.highPrice);
             } else if (this.highPrice == null) {
-                msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonMoreThan", locale));
+                msgBuf.append(UtilProperties.getMessage(RES_COMMON, "CommonMoreThan", locale));
                 msgBuf.append(" ");
                 msgBuf.append(this.lowPrice);
             } else {
@@ -2002,7 +2002,7 @@ public class ProductSearch {
 
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(resource, "ProductSupplier", locale)+": " + PartyHelper.getPartyName(delegator, supplierPartyId, false);
+            return UtilProperties.getMessage(RESOURCE, "ProductSupplier", locale)+": " + PartyHelper.getPartyName(delegator, supplierPartyId, false);
         }
 
         @Override
@@ -2063,7 +2063,7 @@ public class ProductSearch {
 
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(resource, "ProductExcludeVariants", locale);
+            return UtilProperties.getMessage(RESOURCE, "ProductExcludeVariants", locale);
         }
 
         @Override
@@ -2115,7 +2115,7 @@ public class ProductSearch {
 
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(resource, "ProductFilterByAvailabilityDates", locale);
+            return UtilProperties.getMessage(RESOURCE, "ProductFilterByAvailabilityDates", locale);
         }
 
         @Override
@@ -2210,22 +2210,22 @@ public class ProductSearch {
             StringBuilder msgBuf = new StringBuilder();
 
             if (UtilValidate.isNotEmpty(include) && !include) {
-                msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonExclude", locale));
+                msgBuf.append(UtilProperties.getMessage(RES_COMMON, "CommonExclude", locale));
                 msgBuf.append(" ");
             } else {
-                msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonInclude", locale));
+                msgBuf.append(UtilProperties.getMessage(RES_COMMON, "CommonInclude", locale));
                 msgBuf.append(" ");
             }
 
             if (UtilValidate.isNotEmpty(goodIdentificationTypeId)) {
-                msgBuf.append(UtilProperties.getMessage(resource, "ProductIdType", locale));
+                msgBuf.append(UtilProperties.getMessage(RESOURCE, "ProductIdType", locale));
                 msgBuf.append(": ");
                 msgBuf.append(goodIdentificationTypeId);
                 msgBuf.append(" ");
             }
 
             if (UtilValidate.isNotEmpty(goodIdentificationValue)) {
-                msgBuf.append(UtilProperties.getMessage(resource, "ProductIdValue", locale));
+                msgBuf.append(UtilProperties.getMessage(RESOURCE, "ProductIdValue", locale));
                 msgBuf.append(" ");
                 msgBuf.append(goodIdentificationValue);
             }
@@ -2283,7 +2283,7 @@ public class ProductSearch {
 
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(resource, "ProductKeywords", locale);
+            return UtilProperties.getMessage(RESOURCE, "ProductKeywords", locale);
         }
 
         @Override
@@ -2375,7 +2375,7 @@ public class ProductSearch {
 
         @Override
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(resource, "ProductKeywordRelevancy", locale);
+            return UtilProperties.getMessage(RESOURCE, "ProductKeywordRelevancy", locale);
         }
 
         @Override
@@ -2424,13 +2424,13 @@ public class ProductSearch {
         @Override
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
             if ("productName".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "ProductProductName", locale);
+                return UtilProperties.getMessage(RESOURCE, "ProductProductName", locale);
             } else if ("totalQuantityOrdered".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "ProductPopularityByOrders", locale);
+                return UtilProperties.getMessage(RESOURCE, "ProductPopularityByOrders", locale);
             } else if ("totalTimesViewed".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "ProductPopularityByViews", locale);
+                return UtilProperties.getMessage(RESOURCE, "ProductPopularityByViews", locale);
             } else if ("averageCustomerRating".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "ProductCustomerRating", locale);
+                return UtilProperties.getMessage(RESOURCE, "ProductCustomerRating", locale);
             }
             return this.fieldName;
         }
@@ -2504,18 +2504,18 @@ public class ProductSearch {
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
             String priceTypeName = null;
             if ("LIST_PRICE".equals(this.productPriceTypeId)) {
-                priceTypeName = UtilProperties.getMessage(resource, "ProductListPrice", locale);
+                priceTypeName = UtilProperties.getMessage(RESOURCE, "ProductListPrice", locale);
             } else if ("DEFAULT_PRICE".equals(this.productPriceTypeId)) {
-                priceTypeName = UtilProperties.getMessage(resource, "ProductDefaultPrice", locale);
+                priceTypeName = UtilProperties.getMessage(RESOURCE, "ProductDefaultPrice", locale);
             } else if ("AVERAGE_COST".equals(this.productPriceTypeId)) {
-                priceTypeName = UtilProperties.getMessage(resource, "ProductAverageCost", locale);
+                priceTypeName = UtilProperties.getMessage(RESOURCE, "ProductAverageCost", locale);
             }
             if (priceTypeName == null) {
-                priceTypeName = UtilProperties.getMessage(resource, "ProductPrice", locale) + " (";
+                priceTypeName = UtilProperties.getMessage(RESOURCE, "ProductPrice", locale) + " (";
                 if (this.ascending) {
-                    priceTypeName += UtilProperties.getMessage(resource, "ProductLowToHigh", locale)+")";
+                    priceTypeName += UtilProperties.getMessage(RESOURCE, "ProductLowToHigh", locale)+")";
                 } else {
-                    priceTypeName += UtilProperties.getMessage(resource, "ProductHighToLow", locale)+")";
+                    priceTypeName += UtilProperties.getMessage(RESOURCE, "ProductHighToLow", locale)+")";
                 }
             }
 

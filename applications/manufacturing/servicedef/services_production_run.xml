@@ -38,8 +38,8 @@ under the License.
         <attribute name="productionRunId" type="String" mode="OUT" optional="false"/>
         <attribute name="estimatedCompletionDate" type="java.sql.Timestamp" mode="OUT" optional="true"/>
     </service>
-    <service name="createProductionRunPartyAssign" engine="simple"
-        location="component://manufacturing/minilang/jobshopmgt/ProductionRunServices.xml" invoke="createProductionRunPartyAssign" auth="false">
+    <service name="createProductionRunPartyAssign" engine="groovy"
+             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="createProductionRunPartyAssign" auth="false">
         <description>
             Associate a party to the production run
         </description>
@@ -50,8 +50,8 @@ under the License.
         <attribute name="fromDate" type="java.sql.Timestamp" mode="INOUT" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
-    <service name="createProductionRunAssoc" engine="simple"
-                location="component://manufacturing/minilang/jobshopmgt/ProductionRunServices.xml" invoke="createProductionRunAssoc" auth="false">
+    <service name="createProductionRunAssoc" engine="groovy"
+             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="createProductionRunAssoc" auth="false">
         <description>
             Associate the production run to another production run
         </description>
@@ -193,8 +193,8 @@ under the License.
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="issueProductionRunTask" engine="simple"
-                location="component://manufacturing/minilang/jobshopmgt/ProductionRunServices.xml" invoke="issueProductionRunTask" auth="false">
+    <service name="issueProductionRunTask" engine="groovy"
+             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="issueProductionRunTask" auth="false">
         <description>
             Issues the Inventory for a Production Run Task.
             Note that this skips the normal inventory reservation process.
@@ -204,8 +204,8 @@ under the License.
         <attribute name="failIfItemsAreNotAvailable" type="String" mode="IN" optional="true"/>
         <attribute name="failIfItemsAreNotOnHand" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="issueProductionRunTaskComponent" engine="simple"
-                location="component://manufacturing/minilang/jobshopmgt/ProductionRunServices.xml" invoke="issueProductionRunTaskComponent" auth="false">
+    <service name="issueProductionRunTaskComponent" engine="groovy"
+             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="issueProductionRunTaskComponent" auth="false">
         <description>
             Issues the Inventory for a Production Run Task Component. For more info see the issueProductionRunTask service.
             If fromDate is passed, then the WorkEffortGoodStandard record with pk composed of (workEffortId|productId|fromDate)
@@ -231,8 +231,8 @@ under the License.
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="issueInventoryItemToWorkEffort" engine="simple"
-                location="component://manufacturing/minilang/jobshopmgt/ProductionRunServices.xml" invoke="issueInventoryItemToWorkEffort" auth="false">
+    <service name="issueInventoryItemToWorkEffort" engine="groovy"
+             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="issueInventoryItemToWorkEffort" auth="false">
         <description>
             Issue one InventoryItem (or part of it) to a WorkEffort.
             Note that this skips the normal inventory reservation process.

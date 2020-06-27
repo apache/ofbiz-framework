@@ -51,7 +51,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class CategoryWorker {
 
-    public static final String MODULE = CategoryWorker.class.getName();
+    private static final String MODULE = CategoryWorker.class.getName();
 
     private CategoryWorker () {}
 

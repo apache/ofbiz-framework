@@ -31,7 +31,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 
 public final class WidgetContextCacheKey {
 
-    public static final String MODULE = WidgetContextCacheKey.class.getName();
+    private static final String MODULE = WidgetContextCacheKey.class.getName();
 
     private static Set<String> fieldNamesToSkip = createFieldNamesToSkip();
 

@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityData extends EntityOperation {
 
-    public static final String MODULE = EntityData.class.getName();
+    private static final String MODULE = EntityData.class.getName();
 
     private final FlexibleMapAccessor<List<Object>> errorListFma;
     private final FlexibleStringExpander locationFse;

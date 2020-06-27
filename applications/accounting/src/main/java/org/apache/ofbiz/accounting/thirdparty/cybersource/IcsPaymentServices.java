@@ -19,6 +19,7 @@
 package org.apache.ofbiz.accounting.thirdparty.cybersource;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -51,10 +52,10 @@ import com.cybersource.ws.client.FaultException;
  */
 public class IcsPaymentServices {
 
-    public static final String MODULE = IcsPaymentServices.class.getName();
-    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
-    public final static String resource = "AccountingUiLabels";
+    private static final String MODULE = IcsPaymentServices.class.getName();
+    private static final String RESOURCE = "AccountingUiLabels";
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("invoice.rounding");
 
     // load the JSSE properties
     static {
@@ -67,7 +68,7 @@ public class IcsPaymentServices {
         // generate the request/properties
         Properties props = buildCsProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorGettingPaymentGatewayConfig", locale));
         }
 
@@ -81,11 +82,11 @@ public class IcsPaymentServices {
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             Debug.logError(e, "Fault : " + e.getFaultString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
             Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
         // process the reply
@@ -108,13 +109,13 @@ public class IcsPaymentServices {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
         // generate the request/properties
         Properties props = buildCsProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorGettingPaymentGatewayConfig", locale));
         }
 
@@ -127,11 +128,11 @@ public class IcsPaymentServices {
             reply = UtilGenerics.cast(Client.runTransaction(request, props));
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
             Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
         // process the reply
@@ -146,14 +147,14 @@ public class IcsPaymentServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
 
         // generate the request/properties
         Properties props = buildCsProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorGettingPaymentGatewayConfig", locale));
         }
 
@@ -166,11 +167,11 @@ public class IcsPaymentServices {
             reply = UtilGenerics.cast(Client.runTransaction(request, props));
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
             Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
         // process the reply
@@ -185,14 +186,14 @@ public class IcsPaymentServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
 
         // generate the request/properties
         Properties props = buildCsProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorGettingPaymentGatewayConfig", locale));
         }
 
@@ -205,11 +206,11 @@ public class IcsPaymentServices {
             reply = UtilGenerics.cast(Client.runTransaction(request, props));
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
             Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
 
@@ -225,7 +226,7 @@ public class IcsPaymentServices {
         // generate the request/properties
         Properties props = buildCsProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorGettingPaymentGatewayConfig", locale));
         }
 
@@ -238,11 +239,11 @@ public class IcsPaymentServices {
             reply = UtilGenerics.cast(Client.runTransaction(request, props));
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         } catch (ClientException e) {
             Debug.logError(e, "ERROR: CyberSource Client exception : " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCyberSourceErrorCommunicateWithCyberSource", locale));
         }
 
@@ -529,7 +530,7 @@ public class IcsPaymentServices {
 
     private static String getAmountString(Map<String, ? extends Object> context, String amountField) {
         BigDecimal processAmount = (BigDecimal) context.get(amountField);
-        return processAmount.setScale(decimals, rounding).toPlainString();
+        return processAmount.setScale(DECIMALS, ROUNDING).toPlainString();
     }
 
     private static void processAuthResult(Map<String, Object> reply, Map<String, Object> result, Delegator delegator) {
@@ -667,7 +668,7 @@ public class IcsPaymentServices {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String resource, String parameterName) {
+                                                       String RESOURCE, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -682,7 +683,7 @@ public class IcsPaymentServices {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
@@ -691,8 +692,8 @@ public class IcsPaymentServices {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String resource, String parameterName, String defaultValue) {
-        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
+                                                       String RESOURCE, String parameterName, String defaultValue) {
+        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, RESOURCE, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

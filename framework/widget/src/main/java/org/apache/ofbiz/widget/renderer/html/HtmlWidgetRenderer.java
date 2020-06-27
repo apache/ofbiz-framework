@@ -28,7 +28,7 @@ import org.apache.ofbiz.widget.model.ModelWidget;
  * is a base class that is extended by other widget HTML rendering classes.
  */
 public class HtmlWidgetRenderer {
-    public static final String MODULE = HtmlWidgetRenderer.class.getName();
+    private static final String MODULE = HtmlWidgetRenderer.class.getName();
 
     /**
      * Characters that are appended to the end of each rendered element. Currently set to
@@ -58,6 +58,10 @@ public class HtmlWidgetRenderer {
 
     public static String formatBoundaryComment(String boundaryType, String widgetType, String widgetName) {
         return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + whiteSpace;
+    }
+
+    public static String formatBoundaryJsComment(String boundaryType, String widgetType, String widgetName) {
+        return "// " + boundaryType + " " + widgetType + " " + widgetName + whiteSpace;
     }
 
     /**

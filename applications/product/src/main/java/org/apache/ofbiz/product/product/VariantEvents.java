@@ -41,8 +41,8 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class VariantEvents {
 
-    public static final String MODULE = VariantEvents.class.getName();
-    public static final String resource = "ProductErrorUiLabels";
+    private static final String MODULE = VariantEvents.class.getName();
+    private static final String RESOURCE = "ProductErrorUiLabels";
 
     /** Creates variant products from a virtual product and a combination of selectable features
      *@param request The HTTPRequest object for the current request
@@ -58,13 +58,13 @@ public class VariantEvents {
         String featureTypeSizeStr = request.getParameter("featureTypeSize");
 
         if (UtilValidate.isEmpty(productId)) {
-            errMsg = UtilProperties.getMessage(resource,"variantevents.productId_required_but_missing", UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE,"variantevents.productId_required_but_missing", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
         if (UtilValidate.isEmpty(variantProductId)) {
-            errMsg = UtilProperties.getMessage(resource,"variantevents.variantProductId_required_but_missing_enter_an_id", UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE,"variantevents.variantProductId_required_but_missing_enter_an_id", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -75,7 +75,7 @@ public class VariantEvents {
             featureTypeSize = Integer.parseInt(featureTypeSizeStr);
         } catch (NumberFormatException e) {
             Map<String, String> messageMap = UtilMisc.toMap("featureTypeSizeStr", featureTypeSizeStr);
-            errMsg = UtilProperties.getMessage(resource,"variantevents.featureTypeSize_not_number", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE,"variantevents.featureTypeSize_not_number", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -88,7 +88,7 @@ public class VariantEvents {
                 GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                 if (product == null) {
                     Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
-                    errMsg = UtilProperties.getMessage(resource,"variantevents.product_not_found_with_ID", messageMap, UtilHttp.getLocale(request));
+                    errMsg = UtilProperties.getMessage(RESOURCE,"variantevents.product_not_found_with_ID", messageMap, UtilHttp.getLocale(request));
                     TransactionUtil.rollback(beganTransacton, errMsg, null);
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
@@ -125,7 +125,7 @@ public class VariantEvents {
                     String productFeatureId = request.getParameter("feature_" + i);
                     if (productFeatureId == null) {
                         Map<String, String> messageMap = UtilMisc.toMap("i", Integer.toString(i));
-                        errMsg = UtilProperties.getMessage(resource,"variantevents.productFeatureId_for_feature_type_number_not_found", messageMap, UtilHttp.getLocale(request));
+                        errMsg = UtilProperties.getMessage(RESOURCE,"variantevents.productFeatureId_for_feature_type_number_not_found", messageMap, UtilHttp.getLocale(request));
                         TransactionUtil.rollback(beganTransacton, errMsg, null);
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "error";
@@ -148,7 +148,7 @@ public class VariantEvents {
                 TransactionUtil.commit(beganTransacton);
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-                errMsg = UtilProperties.getMessage(resource,"variantevents.entity_error_quick_add_variant_data", messageMap, UtilHttp.getLocale(request));
+                errMsg = UtilProperties.getMessage(RESOURCE,"variantevents.entity_error_quick_add_variant_data", messageMap, UtilHttp.getLocale(request));
                 TransactionUtil.rollback(beganTransacton, errMsg, null);
                 Debug.logError(e, "Entity error creating quick add variant data", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -157,13 +157,13 @@ public class VariantEvents {
         } catch (GenericTransactionException e) {
             Debug.logError(e, "Transaction error creating quick add variant data", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(resource,"variantevents.transaction_error_quick_add_variant_data", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE,"variantevents.transaction_error_quick_add_variant_data", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
         Map<String, String> messageMap = UtilMisc.toMap("variantProductId", variantProductId);
-        String sucMsg = UtilProperties.getMessage(resource,"variantevents.successfully_created_variant_product_with_id", messageMap, UtilHttp.getLocale(request));
+        String sucMsg = UtilProperties.getMessage(RESOURCE,"variantevents.successfully_created_variant_product_with_id", messageMap, UtilHttp.getLocale(request));
         request.setAttribute("_EVENT_MESSAGE_", sucMsg);
         return "success";
     }

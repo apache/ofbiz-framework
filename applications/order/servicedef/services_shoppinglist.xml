@@ -46,8 +46,7 @@ under the License.
         <implements service="shoppingListInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="removeShoppingList" engine="simple" auth="true"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingList">
+    <service name="removeShoppingList" engine="entity-auto" default-entity-name="ShoppingList" auth="true" invoke="delete">
         <description>Remove a shopping list entity</description>
         <permission-service service-name="checkShoppingListSecurity" main-action="DELETE"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>

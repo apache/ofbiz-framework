@@ -172,7 +172,9 @@ under the License.
             <set field="updateContactListPartyMap.baseLocation" from-field="parameters.baseLocation"/>
             <call-service service-name="updateContactListParty" in-map-name="updateContactListPartyMap"/>
             <else>
-                <add-error><fail-message message="Invalid verify code for the ${contactList.contactListName}"/></add-error>
+                <add-error>
+                    <fail-property resource="MarketingUiLabels.xml" property="MarketingContactListInvalidVerifyCode"/>
+                </add-error>
                 <check-errors/>
             </else>
         </if-not-empty>
@@ -226,7 +228,9 @@ under the License.
                     <set field="updateContactListPartyMap.baseLocation" from-field="parameters.baseLocation"/>
                     <call-service service-name="updateContactListParty" in-map-name="updateContactListPartyMap"/>
                     <else>
-                        <add-error><fail-message message="The email address (${parameters.email}) does not have the Other Email Address as contact purpose."/></add-error>
+                        <add-error>
+                            <fail-property resource="MarketingUiLabels.xml" property="MarketingContactListAnotherEmailNotExist"/>
+                        </add-error>
                         <check-errors/>
                     </else>
                 </if-not-empty>
@@ -545,7 +549,9 @@ under the License.
                     <not><if-has-permission permission="MARKETING" action="_VIEW"/></not>
                 </and>
             </condition>
-            <then><add-error><fail-message message="Security Error: to run sendContactListPartyVerifyEmail you must have the MARKETING_VIEW or MARKETING_ADMIN permissions."/></add-error></then>
+            <then><add-error>
+                <fail-property resource="MarketingUiLabels.xml" property="MarketingContactListPermissionError"/>
+            </add-error></then>
         </if>
         <check-errors/>
 

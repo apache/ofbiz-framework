@@ -79,6 +79,7 @@ under the License.
                 <fo:table-body>
                     <#assign rowColor = "white">
                     <#list orderPurchaseProductSummaryList as orderPurchaseProductSummary>
+                        <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : orderPurchaseProductSummary.statusId}, false)!/>
                         <fo:table-row>
                             <#if showProductStore>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
@@ -97,7 +98,7 @@ under the License.
                             </#if>
                             <#if showStatus>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderPurchaseProductSummary.statusId!}</fo:block>
+                                    <fo:block>${statusItem.description!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">

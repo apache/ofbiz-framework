@@ -50,8 +50,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ContentPermissionServices {
 
-    public static final String MODULE = ContentPermissionServices.class.getName();
-    public static final String resource = "ContentUiLabels";
+    private static final String MODULE = ContentPermissionServices.class.getName();
+    private static final String RESOURCE = "ContentUiLabels";
 
     public ContentPermissionServices() {}
 
@@ -269,11 +269,11 @@ public class ContentPermissionServices {
             contentTo = EntityQuery.use(delegator).from("Content").where("contentId", contentIdTo).cache().queryOne();
             contentFrom = EntityQuery.use(delegator).from("Content").where("contentId", contentIdFrom).cache().queryOne();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ContentContentToOrFromErrorRetriving", locale));
         }
         if (contentTo == null || contentFrom == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ContentContentToOrFromIsNull", 
                     UtilMisc.toMap("contentTo", contentTo, "contentFrom", contentFrom), locale));
         }

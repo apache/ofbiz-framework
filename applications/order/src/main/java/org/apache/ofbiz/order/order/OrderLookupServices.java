@@ -59,7 +59,7 @@ import org.apache.ofbiz.widget.renderer.Paginator;
  */
 public class OrderLookupServices {
 
-    public static final String MODULE = OrderLookupServices.class.getName();
+    private static final String MODULE = OrderLookupServices.class.getName();
 
     public static Map<String, Object> findOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();

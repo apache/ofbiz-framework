@@ -46,13 +46,13 @@
         <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgBudgetTests"/>
     </test-case>
     <test-case case-name="auto-accounting-cost-tests">
-        <simple-method-test location="component://accounting/minilang/test/AutoAcctgCostTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgCostTests"/>
     </test-case>
     <test-case case-name="auto-accounting-finaccount-tests">
-        <simple-method-test location="component://accounting/minilang/test/AutoAcctgFinAccountTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgFinAccountTests"/>
     </test-case>
     <test-case case-name="auto-accounting-fixedasset-tests">
-        <simple-method-test location="component://accounting/minilang/test/AutoAcctgFixedAssetTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgFixedAssetTests"/>
     </test-case>
     <test-case case-name="auto-accounting-invoice-tests">
         <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgInvoiceTests"/>

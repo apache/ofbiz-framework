@@ -86,8 +86,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
-                location="component://product/minilang/product/price/PriceServices.xml" invoke="createProductPriceCond" auth="true">
+    <service name="createProductPriceCond" default-entity-name="ProductPriceCond" engine="groovy"
+                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="createProductPriceCond" auth="true">
         <description>Create a ProductPriceCond</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -95,8 +95,8 @@ under the License.
         <attribute name="condValueInput" type="String" mode="IN" optional="true"></attribute>
         <override name="productPriceCondSeqId" mode="OUT"/>
     </service>
-    <service name="updateProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
-                location="component://product/minilang/product/price/PriceServices.xml" invoke="updateProductPriceCond" auth="true">
+    <service name="updateProductPriceCond" default-entity-name="ProductPriceCond" engine="groovy"
+                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="updateProductPriceCond" auth="true">
         <description>Update a ProductPriceCond</description>
         <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -330,8 +330,8 @@ under the License.
         <attribute name="orderItemPriceInfos" type="java.util.List" mode="OUT" optional="false"/>
     </service>
 
-    <service name="getAssociatedPriceRulesConds" engine="simple" auth="false"
-        location="component://product/minilang/product/price/PriceServices.xml" invoke="getAssociatedPriceRulesConds">
+    <service name="getAssociatedPriceRulesConds" engine="groovy" auth="false"
+        location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="getAssociatedPriceRulesConds">
         <description>Set the Value options for selected Price Rule Condition Input</description>
         <attribute name="inputParamEnumId" mode="IN" type="String"/>
         <attribute name="productPriceRulesCondValues" mode="OUT" type="java.util.List" optional="true"/><!-- optional="true" because of quantity or other kind of fiels needing an input -->

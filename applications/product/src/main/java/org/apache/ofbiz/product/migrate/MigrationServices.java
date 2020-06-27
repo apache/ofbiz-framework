@@ -33,7 +33,7 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
 public class MigrationServices {
-    public static final String MODULE = MigrationServices.class.getName();
+    private static final String MODULE = MigrationServices.class.getName();
 
     public static Map<String, Object> migrateProductPromoCodeEmail(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();

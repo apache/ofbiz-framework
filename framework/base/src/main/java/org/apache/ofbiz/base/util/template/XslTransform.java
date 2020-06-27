@@ -53,7 +53,7 @@ import org.xml.sax.XMLReader;
 
 public final class XslTransform {
 
-    public static final String MODULE = XslTransform.class.getName();
+    private static final String MODULE = XslTransform.class.getName();
     private static final UtilCache<String, Templates> xslTemplatesCache = UtilCache.createUtilCache("XsltTemplates", 0, 0);
 
     /**

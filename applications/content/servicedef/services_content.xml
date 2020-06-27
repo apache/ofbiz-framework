@@ -288,8 +288,8 @@
     </service>
 
     <!-- content status services -->
-    <service name="setContentStatus" engine="simple" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="setContentStatus">
+    <service name="setContentStatus" engine="groovy" auth="true"
+            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="setContentStatus">
         <description>Set the Content Status</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false">
@@ -319,8 +319,8 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deactivateAllContentRoles" engine="simple" default-entity-name="ContentRole" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="deactivateAllContentRoles">
+    <service name="deactivateAllContentRoles" engine="groovy" default-entity-name="ContentRole" auth="true"
+             location="component://content/groovyScripts/content/ContentServices.groovy" invoke="deactivateAllContentRoles">
         <description>Deactivate all ContentRoles</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute mode="IN" name="contentId" optional="false" type="String">

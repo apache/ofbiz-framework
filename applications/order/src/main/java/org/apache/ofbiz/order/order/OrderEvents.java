@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class OrderEvents {
 
-    public static final String MODULE = OrderEvents.class.getName();
+    private static final String MODULE = OrderEvents.class.getName();
 
     public static String downloadDigitalProduct(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();

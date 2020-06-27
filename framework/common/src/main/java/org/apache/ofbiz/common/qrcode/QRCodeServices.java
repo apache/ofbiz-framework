@@ -61,7 +61,7 @@ import freemarker.template.utility.StringUtil;
  */
 public class QRCodeServices {
 
-    public static final String MODULE = QRCodeServices.class.getName();
+    private static final String MODULE = QRCodeServices.class.getName();
 
     public static final int MIN_SIZE = 20;
 

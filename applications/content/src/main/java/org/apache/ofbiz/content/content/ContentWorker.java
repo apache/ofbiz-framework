@@ -72,7 +72,7 @@ import freemarker.ext.dom.NodeModel;
  */
 public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWorkerInterface {
 
-    public static final String MODULE = ContentWorker.class.getName();
+    private static final String MODULE = ContentWorker.class.getName();
     static final UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder("html");
 
     public ContentWorker() { }
@@ -126,7 +126,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             throw new GeneralException("No content found for content ID [" + contentId + "]");
         }
 
-        // if the content is a PUBLISH_POINT and the data resource is not defined; get the related content
+        // if the content is a PUBLISH_POINT and the data RESOURCE is not defined; get the related content
         if ("WEB_SITE_PUB_PT".equals(content.get("contentTypeId")) && content.get("dataResourceId") == null) {
             GenericValue relContent = EntityQuery.use(delegator)
                     .from("ContentAssocDataResourceViewTo")
@@ -259,7 +259,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             templateContext.put("thisContent", decFacade); // decorator content
             ContentWorker.renderContentAsText(dispatcher, contentDecoratorId, out, templateContext, locale, mimeTypeId, null, null, cache);
         } else {
-            // get the data resource info
+            // get the data RESOURCE info
             String templateDataResourceId = content.getString("templateDataResourceId");
             String dataResourceId = content.getString("dataResourceId");
             if (UtilValidate.isEmpty(dataResourceId)) {
@@ -311,10 +311,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                             try {
                                 NodeModel nodeModel = NodeModel.parse(new InputSource(sr));
                                 templateContext.put("doc", nodeModel) ;
-                            } catch (SAXException e) {
+                            } catch (SAXException | ParserConfigurationException e) {
                                 throw new GeneralException(e.getMessage());
-                            } catch (ParserConfigurationException e2) {
-                                throw new GeneralException(e2.getMessage());
                             }
                         } else {
                             templateContext.put("docFile", DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).getAbsoluteFile().toString());
@@ -481,20 +479,17 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             contentTypeId = (String) content.get("contentTypeId");
             List<GenericValue> topicList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "TOPIC"), null, false);
             List<String> topics = new LinkedList<>();
-            for (int i = 0; i < topicList.size(); i++) {
-                GenericValue assoc = topicList.get(i);
+            for (GenericValue assoc : topicList) {
                 topics.add(assoc.getString("contentId"));
             }
             List<GenericValue> keywordList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "KEYWORD"), null, false);
             List<String> keywords = new LinkedList<>();
-            for (int i = 0; i < keywordList.size(); i++) {
-                GenericValue assoc = keywordList.get(i);
+            for (GenericValue assoc : keywordList) {
                 keywords.add(assoc.getString("contentId"));
             }
             List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
             List<String> purposes = new LinkedList<>();
-            for (int i = 0; i < purposeValueList.size(); i++) {
-                GenericValue purposeValue = purposeValueList.get(i);
+            for (GenericValue purposeValue : purposeValueList) {
                 purposes.add(purposeValue.getString("contentPurposeTypeId"));
             }
             List<String> contentTypeAncestry = new LinkedList<>();
@@ -652,8 +647,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<Object> purposes = new LinkedList<>();
         try {
             List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
-            for (int i = 0; i < purposeValueList.size(); i++) {
-                GenericValue purposeValue = purposeValueList.get(i);
+            for (GenericValue purposeValue : purposeValueList) {
                 purposes.add(purposeValue.get("contentPurposeTypeId"));
             }
         } catch (GenericEntityException e) {
@@ -666,9 +660,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<Object> sections = new LinkedList<>();
         try {
             List<GenericValue> sectionValueList = content.getRelated("FromContentAssoc", null, null, true);
-            for (int i = 0; i < sectionValueList.size(); i++) {
-                GenericValue sectionValue = sectionValueList.get(i);
-                String contentAssocPredicateId = (String)sectionValue.get("contentAssocPredicateId");
+            for (GenericValue sectionValue : sectionValueList) {
+                String contentAssocPredicateId = (String) sectionValue.get("contentAssocPredicateId");
                 if (contentAssocPredicateId != null && "categorizes".equals(contentAssocPredicateId)) {
                     sections.add(sectionValue.get("contentIdTo"));
                 }
@@ -683,9 +676,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<Object> topics = new LinkedList<>();
         try {
             List<GenericValue> topicValueList = content.getRelated("FromContentAssoc", null, null, true);
-            for (int i = 0; i < topicValueList.size(); i++) {
-                GenericValue topicValue = topicValueList.get(i);
-                String contentAssocPredicateId = (String)topicValue.get("contentAssocPredicateId");
+            for (GenericValue topicValue : topicValueList) {
+                String contentAssocPredicateId = (String) topicValue.get("contentAssocPredicateId");
                 if (contentAssocPredicateId != null && "topifies".equals(contentAssocPredicateId))
                     topics.add(topicValue.get("contentIdTo"));
             }
@@ -717,10 +709,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         Map<String, Object> results = null;
         try {
             results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, parentContentId, mapKey, direction, null, null, assocTypeList, contentTypeList, nullThruDatesOnly, contentAssocPredicateId, null);
-        } catch (GenericEntityException e) {
+        } catch (GenericEntityException | MiniLangException e) {
             throw new RuntimeException(e.getMessage());
-        } catch (MiniLangException e2) {
-            throw new RuntimeException(e2.getMessage());
         }
         List<GenericValue> relatedViews = UtilGenerics.cast(results.get("entityList"));
         for (GenericValue assocValue : relatedViews) {

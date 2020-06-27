@@ -61,7 +61,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
-    public static final String MODULE = ModelEntity.class.getName();
+    private static final String MODULE = ModelEntity.class.getName();
 
     /** The name of the time stamp field for locking/synchronization */
     public static final String STAMP_FIELD = "lastUpdatedStamp";

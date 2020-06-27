@@ -24,8 +24,6 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.image.ScaleImage
 import org.apache.ofbiz.entity.condition.*
 
-module = "ImageUpload.groovy"
-
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
 // make the image file formats
@@ -119,11 +117,11 @@ if (fileType) {
             try {
                 file1.delete()
             } catch (Exception e) {
-                Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
+                logError(e, "error deleting existing file (not neccessarily a problem)")
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            Debug.logError(e, module)
+            logError(e, module)
         }
 
         if (imageUrl && imageUrl.length() > 0) {

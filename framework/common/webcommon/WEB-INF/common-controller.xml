@@ -324,6 +324,17 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
 
+    <request-map uri="getJs" method="get">
+        <security https="false" auth="false"/>
+        <response name="success" type="request" value="js"/>
+        <response name="error" type="request" value="js"/>
+    </request-map>
+    <request-map uri="js">
+        <security direct-request="false"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="jsResponseFromRequest"/>
+        <response name="success" type="none"/>
+    </request-map>
+
     <!--========================== AJAX events =====================-->
 
     <!-- View Mappings -->

@@ -47,7 +47,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class TrackingCodeEvents {
 
-    public static final String MODULE = TrackingCodeEvents.class.getName();
+    private static final String MODULE = TrackingCodeEvents.class.getName();
 
     /** If TrackingCode monitoring is desired this event should be added to the list
      * of events that run on every request. This event looks for the parameter

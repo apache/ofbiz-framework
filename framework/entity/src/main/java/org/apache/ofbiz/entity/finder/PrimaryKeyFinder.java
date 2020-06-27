@@ -44,7 +44,7 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("serial")
 public class PrimaryKeyFinder extends Finder {
-    public static final String MODULE = PrimaryKeyFinder.class.getName();
+    private static final String MODULE = PrimaryKeyFinder.class.getName();
 
     protected FlexibleMapAccessor<Object> valueNameAcsr;
     protected FlexibleStringExpander autoFieldMapExdr;

@@ -24,7 +24,7 @@ import org.apache.ofbiz.base.util.Debug;
  * instance of <code>GenericDelegator</code>. */
 public class DelegatorFactoryImpl extends DelegatorFactory {
 
-    public static final String MODULE = DelegatorFactoryImpl.class.getName();
+    private static final String MODULE = DelegatorFactoryImpl.class.getName();
 
     // TODO: this method should propagate the GenericEntityException
     @Override

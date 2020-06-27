@@ -28,7 +28,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
-    public static final String MODULE = EntityCache.class.getName();
+    private static final String MODULE = EntityCache.class.getName();
 
     public EntityCache(String delegatorName) {
         super(delegatorName, "entity");

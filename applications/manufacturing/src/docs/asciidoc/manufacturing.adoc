@@ -1,0 +1,57 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Manufacturing
+
+The OFBiz Manufacturing component is one of the core application components and has
+all of the functionality you need to manage the cycle of tasks involved in the making of products and ensuring
+ that the material necessary for production is forecast to be available at the right time
+
+It is well integrated with other components especially
+Catalog to manage product definition, whatever its stage of manufacture (raw material, supply, subassembly, service, ...)
+  and Workeffort to manage all means of production.
+
+include::_include/mfg-intro.adoc[leveloffset=+1]
+
+include::_include/mfg-production-run.adoc[leveloffset=+1]
+
+include::_include/mfg-routing.adoc[leveloffset=+1]
+
+include::_include/mfg-routing-task.adoc[leveloffset=+1]
+
+include::_include/mfg-calendar.adoc[leveloffset=+1]
+
+== Manage Cost Component Calc Entries
+Cost component calc is used to be able to calculate routing task cost. +
+In routing task cost, it's possible to associate it to a Cost Component Calc.
+
+In this screen you can create new cost calculations and modify existing calculations.
+
+=== Cost Component Calc management in UI
+==== Modify cost calculation
+The first part of the screen is to create a new cost calculation, or to modify an existing calculation. +
+Click the  'Submit'-button to save the changes.
+
+Subsequently, the screen will be refreshed and the the modified details are shown in the lower part of the screen.
+
+Click the ID of cost calculation to modify it. +
+Click the 'Delete'-button to remove a cost calculation.
+
+include::_include/mfg-bom.adoc[leveloffset=+1]
+
+include::_include/mfg-mrp.adoc[leveloffset=+1]

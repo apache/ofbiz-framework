@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityCondition extends EntityOperation {
 
-    public static final String MODULE = EntityCondition.class.getName();
+    private static final String MODULE = EntityCondition.class.getName();
 
     private final ByConditionFinder finder;
 
