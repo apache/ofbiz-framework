@@ -2310,15 +2310,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (productFeatureId == null) {
             return;
         }
-        Iterator<GenericValue> itemAdjustmentsIter = itemAdjustments.iterator();
 
-        while (itemAdjustmentsIter.hasNext()) {
-            GenericValue itemAdjustment = itemAdjustmentsIter.next();
-
-            if (productFeatureId.equals(itemAdjustment.getString("productFeatureId"))) {
-                itemAdjustmentsIter.remove();
-            }
-        }
+        itemAdjustments.removeIf(itemAdjustment -> productFeatureId.equals(itemAdjustment.getString("productFeatureId")));
     }
 
     public List<GenericValue> getOrderItemPriceInfos() {

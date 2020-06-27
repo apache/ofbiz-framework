@@ -19,6 +19,7 @@
 
 package org.apache.ofbiz.service.testtools;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
@@ -31,6 +32,7 @@ import java.util.Set;
 public class OFBizTestCase extends EntityTestCase {
 
     protected LocalDispatcher dispatcher = null;
+    protected String MODULE = this.getClass().getName();
 
     public LocalDispatcher getDispatcher() {
         return dispatcher;
@@ -71,5 +73,17 @@ public class OFBizTestCase extends EntityTestCase {
 
     protected EntityQuery select(Set<String> fields) {
         return EntityQuery.use(delegator).select(fields);
+    }
+
+    protected void logInfo(String msg) {
+        Debug.logInfo(msg, MODULE);
+    }
+
+    protected void logError(String msg) {
+        Debug.logError(msg, MODULE);
+    }
+
+    protected void logWarning(String msg) {
+        Debug.logWarning(msg, MODULE);
     }
 }
