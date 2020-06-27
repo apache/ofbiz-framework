@@ -19,7 +19,6 @@
 package org.apache.ofbiz.accounting
 
 import javax.servlet.http.HttpSession
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
@@ -39,7 +38,6 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
     public InvoicePerShipmentTests(String name) {
         super(name)
     }
-    String MODULE = "InvoicePerShipmentTests"
 
     def testInvoicePerShipment(String productId, String invoicePerShipment) {
         MockHttpServletRequest request = new MockHttpServletRequest()
@@ -53,7 +51,7 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
         session.setAttribute("orderMode", null)
 
         String result = ShoppingCartEvents.routeOrderEntry(request, response)
-        Debug.logInfo("===== >>> Event : routeOrderEntry, Response : " + result, MODULE)
+        logInfo("===== >>> Event : routeOrderEntry, Response : " + result)
 
         request.setParameter("orderMode", "SALES_ORDER")
         request.setParameter("productStoreId", "9000")
@@ -62,15 +60,15 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
         session.setAttribute("userLogin", userLogin)
 
         result = ShoppingCartEvents.initializeOrderEntry(request, response)
-        Debug.logInfo("===== >>> Event : initializeOrderEntry, Response : " + result, MODULE)
+        logInfo("===== >>> Event : initializeOrderEntry, Response : " + result)
 
         result = ShoppingCartEvents.setOrderCurrencyAgreementShipDates(request, response)
-        Debug.logInfo("===== >>> Event : setOrderCurrencyAgreementShipDates, Response : " + result, MODULE)
+        logInfo("===== >>> Event : setOrderCurrencyAgreementShipDates, Response : " + result)
 
         request.setParameter("add_product_id", productId)
 
         result = ShoppingCartEvents.addToCart(request, response)
-        Debug.logInfo("===== >>> Event : addToCart, Response : " + result, MODULE)
+        logInfo("===== >>> Event : addToCart, Response : " + result)
 
         request.setParameter("checkoutpage", "quick")
         request.setParameter("shipping_contact_mech_id", "9015")
@@ -81,22 +79,22 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
         request.setAttribute("shoppingCart", null)
 
         result = CheckOutEvents.setQuickCheckOutOptions(request, response)
-        Debug.logInfo("===== >>> Event : setQuickCheckOutOptions, Response : " + result, MODULE)
+        logInfo("===== >>> Event : setQuickCheckOutOptions, Response : " + result)
 
         result = CheckOutEvents.createOrder(request, response)
-        Debug.logInfo("===== >>> Event : createOrder, Response : " + result, MODULE)
+        logInfo("===== >>> Event : createOrder, Response : " + result)
 
         result = CheckOutEvents.processPayment(request, response)
-        Debug.log("===== >>> Event : processPayment, Response : " + result, MODULE)
+        logInfo("===== >>> Event : processPayment, Response : " + result)
 
         dispatcher.runAsync("sendOrderConfirmation", null)
 
         result = ShoppingCartEvents.destroyCart(request, response)
-        Debug.logInfo("===== >>> Event : destroyCart, Response = " + result, MODULE)
+        logInfo("===== >>> Event : destroyCart, Response = " + result)
 
         // Step 3
         GenericValue orderHeader = from("OrderHeader").where("orderTypeId", "SALES_ORDER").orderBy("-entryDate").queryFirst()
-        Debug.logInfo("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx : " + orderHeader, MODULE)
+        logInfo("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx : " + orderHeader)
 
         if (invoicePerShipment) {
             // if this value is available that means we need to set this on the order
@@ -105,7 +103,7 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
             orderInput.invoicePerShipment = invoicePerShipment
             orderInput.userLogin = userLogin
             Map serviceResult = dispatcher.runSync("updateOrderHeader", orderInput)
-            Debug.logInfo("===== >>> Service : updateOrderHeader / invoicePerShipment = N,  Response = " + serviceResult.responseMessage, MODULE)
+            logInfo("===== >>> Service : updateOrderHeader / invoicePerShipment = N,  Response = " + serviceResult.responseMessage)
         }
 
         PackingSession packingSession = new PackingSession(dispatcher, userLogin)
@@ -131,12 +129,12 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
 
         Map serviceResult = dispatcher.runSync("packBulkItems", packInput)
         assert ServiceUtil.isSuccess(serviceResult)
-        Debug.logInfo("===== >>> Service: packBulkItems, Response = " + serviceResult.responseMessage, MODULE)
+        logInfo("===== >>> Service: packBulkItems, Response = " + serviceResult.responseMessage)
 
         Map completePackInput = dispatcher.getDispatchContext().makeValidContext("completePack", ModelService.IN_PARAM, packInput)
         serviceResult = dispatcher.runSync("completePack", completePackInput)
         assert ServiceUtil.isSuccess(serviceResult)
-        Debug.logInfo("===== >>> Service: completePack, shipmentId = " + serviceResult.shipmentId, MODULE)
+        logInfo("===== >>> Service: completePack, shipmentId = " + serviceResult.shipmentId)
 
         // Step 4
         List invoices = from("OrderItemBillingAndInvoiceAndItem").where("orderId", orderHeader.orderId).queryList()
@@ -150,7 +148,7 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
             Step 4) Check invoice should not created.
         */
         UtilProperties.setPropertyValueInMemory("accounting", "create.invoice.per.shipment", "N")
-        Debug.logInfo("===== >>> Set Accounting.properties / create.invoice.per.shipment = N", MODULE)
+        logInfo("===== >>> Set Accounting.properties / create.invoice.per.shipment = N")
 
         List invoices = testInvoicePerShipment("GZ-1000", null)
         assert UtilValidate.isEmpty(invoices)
@@ -164,7 +162,7 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
              Step 4) Check invoice should be created.
          */
         UtilProperties.setPropertyValueInMemory("accounting", "create.invoice.per.shipment", "Y")
-        Debug.logInfo("===== >>> Set Accounting.properties / create.invoice.per.shipment = Y", MODULE)
+        logInfo("===== >>> Set Accounting.properties / create.invoice.per.shipment = Y")
 
         List invoices = testInvoicePerShipment("GZ-1000", null)
         assert UtilValidate.isNotEmpty(invoices)
