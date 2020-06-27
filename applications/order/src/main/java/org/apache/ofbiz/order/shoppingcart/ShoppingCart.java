@@ -1774,12 +1774,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (UtilValidate.isEmpty(paymentMethodIdsToRemove)) {
             return;
         }
-        for (Iterator<CartPaymentInfo> iter = paymentInfo.iterator(); iter.hasNext();) {
-            CartPaymentInfo info = iter.next();
-            if (paymentMethodIdsToRemove.contains(info.paymentMethodId)) {
-                iter.remove();
-            }
-        }
+        paymentInfo.removeIf(info -> paymentMethodIdsToRemove.contains(info.paymentMethodId));
     }
 
     /** remove declined payment methods for an order from cart.  The idea is to call this after an attempted order is rejected */
@@ -2234,13 +2229,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         Iterator<CartShipInfo> csi = this.shipInfo.iterator();
         while (csi.hasNext()) {
             CartShipInfo info = csi.next();
-            Iterator<ShoppingCartItem> si = info.shipItemInfo.keySet().iterator();
-            while (si.hasNext()) {
-                ShoppingCartItem item = si.next();
-                if (item.getQuantity().compareTo(BigDecimal.ZERO) == 0) {
-                    si.remove();
-                }
-            }
+            info.shipItemInfo.keySet().removeIf(item -> item.getQuantity().compareTo(BigDecimal.ZERO) == 0);
             if (info.shipItemInfo.size() == 0) {
                 csi.remove();
             }
@@ -3224,12 +3213,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return;
         }
 
-        Iterator<GenericValue> fsppas = this.freeShippingProductPromoActions.iterator();
-        while (fsppas.hasNext()) {
-            if (productPromoActionPK.equals((fsppas.next()).getPrimaryKey())) {
-                fsppas.remove();
-            }
-        }
+        this.freeShippingProductPromoActions.removeIf(genericValue -> productPromoActionPK.equals((genericValue).getPrimaryKey()));
     }
     /** Adds a ProductPromoAction to be used for free shipping (must be of type free shipping, or nothing will be done). */
     public void addFreeShippingProductPromoAction(GenericValue productPromoAction) {
@@ -3389,34 +3373,25 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         // remove cart adjustments from promo actions
         List<GenericValue> cartAdjustments = this.getAdjustments();
         if (cartAdjustments != null) {
-            Iterator<GenericValue> cartAdjustmentIter = cartAdjustments.iterator();
-            while (cartAdjustmentIter.hasNext()) {
-                GenericValue checkOrderAdjustment = cartAdjustmentIter.next();
-                if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
-                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
-                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
-                    cartAdjustmentIter.remove();
-                }
-            }
+            cartAdjustments.removeIf(checkOrderAdjustment -> UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
+                    UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
+                    UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId")));
         }
 
         // remove cart lines that are promos (ie GWPs) and cart line adjustments from promo actions
         Iterator<ShoppingCartItem> cartItemIter = this.iterator();
         while (cartItemIter.hasNext()) {
-            ShoppingCartItem checkItem = cartItemIter.next();
+            org.apache.ofbiz.order.shoppingcart.ShoppingCartItem checkItem = cartItemIter.next();
             if (checkItem.getIsPromo()) {
                 this.clearItemShipInfo(checkItem);
                 cartItemIter.remove();
             } else {
                 // found a promo item with the productId, see if it has a matching adjustment on it
-                Iterator<GenericValue> checkOrderAdjustments = UtilMisc.toIterator(checkItem.getAdjustments());
-                while (checkOrderAdjustments != null && checkOrderAdjustments.hasNext()) {
-                    GenericValue checkOrderAdjustment = checkOrderAdjustments.next();
-                    if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
-                            UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
-                            UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
-                        checkOrderAdjustments.remove();
-                    }
+                List<GenericValue> checkOrderAdjustments = checkItem.getAdjustments();
+                if (!checkOrderAdjustments.isEmpty()) {
+                    checkOrderAdjustments.removeIf(checkOrderAdjustment -> UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId"))
+                            && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
+                            UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId")));
                 }
             }
         }
