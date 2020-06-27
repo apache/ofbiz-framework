@@ -66,7 +66,7 @@ public class ContentJsonEvents {
             nodes.add(getTreeNode(assoc));
         }
 
-        Collections.sort(nodes, (node1, node2) -> {
+        nodes.sort((node1, node2) -> {
             Map<String, Object> data1 = UtilGenerics.cast(node1.get("data"));
             Map<String, Object> data2 = UtilGenerics.cast(node2.get("data"));
             if (data1 == null || data2 == null) {

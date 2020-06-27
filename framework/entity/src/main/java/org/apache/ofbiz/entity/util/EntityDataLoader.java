@@ -175,7 +175,7 @@ public class EntityDataLoader {
                             }
                         }
                     }
-                    Collections.sort(tempFileList);
+                    tempFileList.sort(null);
                     for (File dataFile: tempFileList) {
                         if (dataFile.exists()) {
                             URL url = null;

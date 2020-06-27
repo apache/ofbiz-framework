@@ -132,7 +132,7 @@ public final class ContentManagementWorker {
         StringBuilder sig = new StringBuilder("");
         Collection<String> keyColl = pk.getPrimaryKey().getAllKeys();
         List<String> keyList = UtilMisc.makeListWritable(keyColl);
-        Collections.sort(keyList);
+        keyList.sort(null);
         for (String ky : keyList) {
             String val = (String)pk.get(ky);
             if (UtilValidate.isNotEmpty(val)) {

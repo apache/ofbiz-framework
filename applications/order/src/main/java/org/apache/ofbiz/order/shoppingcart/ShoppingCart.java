@@ -4186,7 +4186,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public List<ShoppingCartItem> getLineListOrderedByBasePrice(boolean ascending) {
         List<ShoppingCartItem> result = new ArrayList<>(this.cartLines);
-        Collections.sort(result, new BasePriceOrderComparator(ascending));
+        result.sort(new BasePriceOrderComparator(ascending));
         return result;
     }
 
@@ -4777,7 +4777,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             Timestamp estimatedShipDate = null;
             if (estimatedShipDates.size() > 0) {
-                Collections.sort(estimatedShipDates);
+                estimatedShipDates.sort(null);
                 estimatedShipDate  = estimatedShipDates.getLast();
                 shipGroup.set("estimatedShipDate", estimatedShipDate);
             }
@@ -4792,7 +4792,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             Timestamp estimatedDeliveryDate = null;
             if (UtilValidate.isNotEmpty(estimatedDeliveryDates)) {
-                Collections.sort(estimatedDeliveryDates);
+                estimatedDeliveryDates.sort(null);
                 estimatedDeliveryDate = estimatedDeliveryDates.getLast();
             } else {
 

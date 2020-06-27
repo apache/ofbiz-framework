@@ -119,7 +119,7 @@ public final class AuthHelper {
                 }
             }
 
-            Collections.sort(authenticators, new AuthenticationComparator());
+            authenticators.sort(new AuthenticationComparator());
             authenticatorsLoaded = true;
         }
     }

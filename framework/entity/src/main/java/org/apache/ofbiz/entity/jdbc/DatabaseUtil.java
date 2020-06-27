@@ -205,7 +205,7 @@ public class DatabaseUtil {
 
         List<ModelEntity> modelEntityList = new ArrayList<>(modelEntities.values());
         // sort using compareTo method on ModelEntity
-        Collections.sort(modelEntityList);
+        modelEntityList.sort(null);
         int curEnt = 0;
         int totalEnt = modelEntityList.size();
         List<ModelEntity> entitiesAdded = new LinkedList<>();

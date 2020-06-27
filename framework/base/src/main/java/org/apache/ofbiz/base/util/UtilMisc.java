@@ -209,7 +209,7 @@ public final class UtilMisc {
         toSort.addAll(listOfMaps);
         try {
             MapComparator mc = new MapComparator(sortKeys);
-            Collections.sort(toSort, mc);
+            toSort.sort(mc);
         } catch (Exception e) {
             Debug.logError(e, "Problems sorting list of maps; returning null.", MODULE);
             return null;

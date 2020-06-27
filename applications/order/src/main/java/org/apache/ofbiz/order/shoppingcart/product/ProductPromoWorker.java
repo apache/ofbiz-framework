@@ -334,7 +334,7 @@ public final class ProductPromoWorker {
                 ProductPromoUseInfo promoUse = promoUses.next();
                 sortedPromoUses.add(promoUse);
             }
-            Collections.sort(sortedPromoUses);
+            sortedPromoUses.sort(null);
             List<GenericValue> sortedExplodedProductPromoList = new ArrayList<>(sortedPromoUses.size());
             Map<String, Long> usesPerPromo = new HashMap<>();
             int indexOfFirstOrderTotalPromo = -1;

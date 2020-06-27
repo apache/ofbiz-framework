@@ -307,7 +307,7 @@ public final class ProductDisplayWorker {
         }
 
         List<GenericValue> result = new LinkedList<>(values);
-        Collections.sort(result, new ProductByMapComparator(orderByMap, descending));
+        result.sort(new ProductByMapComparator(orderByMap, descending));
         return result;
     }
 
