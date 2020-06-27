@@ -557,7 +557,7 @@ public class EntityQuery {
         cache(false);
         try (EntityListIterator genericValueEli = queryIterator()) {
             if (this.distinct) {
-                Set<T> distinctSet = new LinkedHashSet<T>();
+                Set<T> distinctSet = new LinkedHashSet<>();
                 GenericValue value = null;
                 while ((value = genericValueEli.next()) != null) {
                     T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));

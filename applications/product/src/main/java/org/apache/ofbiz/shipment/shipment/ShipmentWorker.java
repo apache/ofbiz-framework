@@ -134,7 +134,7 @@ public final class ShipmentWorker {
                         } else if (totalWeight.compareTo(BigDecimal.ZERO) > 0) {
                             // create the first package
                             if (packages.size() == 0) {
-                                packages.add(new HashMap<String, BigDecimal>());
+                                packages.add(new HashMap<>());
                             }
 
                             // package loop

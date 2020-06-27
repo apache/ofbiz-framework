@@ -4345,7 +4345,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 Map<ShoppingCartItem, Map<Integer, BigDecimal>> supplierCartItems = UtilGenerics.cast(dropShipItems.get(supplierPartyId));
 
                 if (! supplierCartItems.containsKey(cartItem)) {
-                    supplierCartItems.put(cartItem, new HashMap<Integer, BigDecimal>());
+                    supplierCartItems.put(cartItem, new HashMap<>());
                 }
                 Map<Integer, BigDecimal> cartItemGroupQuantities = UtilGenerics.cast(supplierCartItems.get(cartItem));
 

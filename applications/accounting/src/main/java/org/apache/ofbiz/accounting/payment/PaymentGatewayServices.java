@@ -3009,7 +3009,7 @@ public class PaymentGatewayServices {
         }
 
         // prepare the order payment preference (facade)
-        GenericValue orderPaymentPref = delegator.makeValue("OrderPaymentPreference", new HashMap<String, Object>());
+        GenericValue orderPaymentPref = delegator.makeValue("OrderPaymentPreference", new HashMap<>());
         orderPaymentPref.set("orderPaymentPreferenceId", "_NA_");
         orderPaymentPref.set("orderId", "_NA_");
         orderPaymentPref.set("presentFlag", "N");

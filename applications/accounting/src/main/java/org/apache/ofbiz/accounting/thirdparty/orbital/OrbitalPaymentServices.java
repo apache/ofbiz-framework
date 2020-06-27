@@ -252,7 +252,7 @@ public class OrbitalPaymentServices {
         //TODO: Will move this to property file and then will read it from there.
         String configFile = "/applications/accounting/config/linehandler.properties";
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
-        Map<String, Object> buildConfiguratorContext = new HashMap<String, Object>();
+        Map<String, Object> buildConfiguratorContext = new HashMap<>();
         try {
             buildConfiguratorContext.put("OrbitalConnectionUsername", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "username"));
             buildConfiguratorContext.put("OrbitalConnectionPassword", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "connectionPassword"));
@@ -487,7 +487,7 @@ public class OrbitalPaymentServices {
     }
 
     private static Map<String, Object> processCard(RequestIF request) {
-        Map<String, Object> processCardResult = new HashMap<String, Object>();
+        Map<String, Object> processCardResult = new HashMap<>();
         try {
             response = tp.process(request);
             if (response.isApproved()) {
@@ -597,7 +597,7 @@ public class OrbitalPaymentServices {
     }
 
     private static void printTransResult(ResponseIF response) {
-        Map<String, Object> generatedResponse = new HashMap<String, Object>();
+        Map<String, Object> generatedResponse = new HashMap<>();
         generatedResponse.put("isGood",  response.isGood());
         generatedResponse.put("isError", response.isError());
         generatedResponse.put("isQuickResponse",  response.isQuickResponse());
@@ -641,7 +641,7 @@ public class OrbitalPaymentServices {
     }
 
     private static Map<String, Object> validateRequest(Map<String, Object> params, Map props, RequestIF request) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }

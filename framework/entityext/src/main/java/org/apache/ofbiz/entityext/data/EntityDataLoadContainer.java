@@ -557,7 +557,7 @@ public class EntityDataLoadContainer implements Container {
                         .filter(file -> file.getName().toLowerCase(Locale.getDefault()).endsWith(".xml"))
                         .map(file -> UtilURL.fromFilename(file.getPath()))
                         .collect(Collectors.toList()))
-                .orElse(new ArrayList<URL>());
+                .orElse(new ArrayList<>());
     }
 
     private static void logDataLoadingPlan(List<URL> urlList, String delegatorName) {

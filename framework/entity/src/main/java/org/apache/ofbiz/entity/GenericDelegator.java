@@ -2198,7 +2198,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public <T> void setEntityEcaHandler(EntityEcaHandler<T> entityEcaHandler) {
-        this.entityEcaHandler.set(new ConstantFuture<EntityEcaHandler<?>>(entityEcaHandler));
+        this.entityEcaHandler.set(new ConstantFuture<>(entityEcaHandler));
         this.warnNoEcaHandler = false;
     }
 

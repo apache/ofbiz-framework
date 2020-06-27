@@ -3474,7 +3474,7 @@ public class ProductionRunServices {
                     estimatedShipDate = now;
                 }
                 if (!products.containsKey(productId)) {
-                    products.put(productId, new TreeMap<Timestamp, Object>());
+                    products.put(productId, new TreeMap<>());
                 }
                 TreeMap<Timestamp, Object> productMap = products.get(productId);
                 if (!productMap.containsKey(estimatedShipDate)) {
@@ -3517,7 +3517,7 @@ public class ProductionRunServices {
                     estimatedShipDate = now;
                 }
                 if (!products.containsKey(productId)) {
-                    products.put(productId, new TreeMap<Timestamp, Object>());
+                    products.put(productId, new TreeMap<>());
                 }
                 TreeMap<Timestamp, Object> productMap = products.get(productId);
                 if (!productMap.containsKey(estimatedShipDate)) {

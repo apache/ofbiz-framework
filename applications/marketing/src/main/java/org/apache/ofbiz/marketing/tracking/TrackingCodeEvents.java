@@ -307,7 +307,7 @@ public class TrackingCodeEvents {
         String prodCatalogId = trackingCode.getString("prodCatalogId");
         if (UtilValidate.isNotEmpty(prodCatalogId)) {
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
-            CategoryWorker.setTrail(request, new LinkedList<String>());
+            CategoryWorker.setTrail(request, new LinkedList<>());
         }
 
         // if forward/redirect is needed, do a response.sendRedirect and return null to tell the control servlet to not do any other requests/views
