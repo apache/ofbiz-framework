@@ -202,7 +202,7 @@ under the License.
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createFinAccoutnTransFromPayment" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.xml" invoke="createFinAccoutnTransFromPayment" auth="true">
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createFinAccoutnTransFromPayment" auth="true">
         <auto-attributes entity-name="FinAccountTrans" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="FinAccountTrans" include="pk" mode="INOUT" optional="true"/>
         <attribute name="invoiceIds" type="List" mode="IN" optional="true"/>
