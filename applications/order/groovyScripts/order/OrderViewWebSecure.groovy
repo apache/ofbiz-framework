@@ -59,9 +59,9 @@ if (orderHeader) {
             canViewInternalDetails = false
             errMsgList.add("It's not an error : you are not allowed to view this!")
             showErrorMsg = "Y"
+            request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList)
+            context.showErrorMsg = showErrorMsg
         }
-         request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList)
-         context.showErrorMsg = showErrorMsg
     }
 
     context.hasPermission = hasPermission
