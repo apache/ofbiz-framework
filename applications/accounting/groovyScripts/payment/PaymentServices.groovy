@@ -253,4 +253,27 @@ def massChangePaymentStatus() {
     return serviceResult
 }
 
+def createFinAccoutnTransFromPayment() {
+    serviceResult = success()
+    Map createFinAccountTransMap = dispatcher.getDispatchContext().makeValidContext('setPaymentStatus', ModelService.IN_PARAM, parameters)
+    createFinAccountTransMap.finAccountTransTypeId = 'WITHDRAWAL'
+    createFinAccountTransMap.partyId  = parameters.organizationPartyId
+    createFinAccountTransMap.transactionDate = UtilDateTime.nowTimestamp()
+    createFinAccountTransMap.entryDate = UtilDateTime.nowTimestamp()
+    createFinAccountTransMap.statusId = 'FINACT_TRNS_CREATED'
+    createFinAccountTransMap.comments = "Pay to ${parameters.partyId} for invoice Ids - ${parameters.invoiceIds}"
+    result = run service: 'createFinAccountTrans', with: createFinAccountTransMap
+    if (ServiceUtil.isError(result)) {
+        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result))
+    }
+    Map updatePaymentMap = [:]
+    updatePaymentMap.finAccountTransId = result.finAccountTransId
+    updatePaymentMap.paymentId = parameters.paymentId
+    result = run service: 'updatePayment', with: updatePaymentMap
+    if (ServiceUtil.isError(result)) {
+        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result))
+    }
+    return serviceResult
+}
+
 
