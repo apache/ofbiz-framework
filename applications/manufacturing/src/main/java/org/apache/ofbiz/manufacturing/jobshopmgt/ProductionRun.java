@@ -429,9 +429,7 @@ public class ProductionRun {
                     }
                     totalTaskTime = ((BigDecimal)serviceResult.get("totalTime")).doubleValue();
                 }
-            } catch (GenericServiceException exc) {
-                Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
-            } catch (Exception exc) {
+            } catch (GenericEntityException | GenericServiceException exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
             }
         }

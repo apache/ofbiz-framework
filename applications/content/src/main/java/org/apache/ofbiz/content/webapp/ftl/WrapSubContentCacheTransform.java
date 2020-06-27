@@ -180,12 +180,9 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                     
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
-                    } catch (IOException e) {
+                    } catch (IOException | GeneralException e) {
                         Debug.logError(e, "Error rendering content" + e.getMessage(), MODULE);
                         throw new IOException("Error rendering content" + e.toString());
-                    } catch (GeneralException e2) {
-                        Debug.logError(e2, "Error rendering content" + e2.getMessage(), MODULE);
-                        throw new IOException("Error rendering content" + e2.toString());
                     }
                     FreeMarkerWorker.reloadValues(templateCtx, savedValuesUp, env);
                 }

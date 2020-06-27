@@ -152,9 +152,7 @@ public final class EntityCrypto {
         byte[] decryptedBytes = handler.decryptValue(key, encryptMethod, encryptedString);
         try {
             return UtilObject.getObjectException(decryptedBytes);
-        } catch (ClassNotFoundException e) {
-            throw new GeneralException(e);
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             throw new GeneralException(e);
         }
     }

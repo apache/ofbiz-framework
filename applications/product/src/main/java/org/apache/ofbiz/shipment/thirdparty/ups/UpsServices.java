@@ -662,17 +662,7 @@ public class UpsServices {
             Document shipmentConfirmResponseDocument = null;
             try {
                 shipmentConfirmResponseDocument = UtilXml.readXmlDocument(shipmentConfirmResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
@@ -935,17 +925,7 @@ public class UpsServices {
             Document shipmentAcceptResponseDocument = null;
             try {
                 shipmentAcceptResponseDocument = UtilXml.readXmlDocument(shipmentAcceptResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the ShipmentAcceptResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentAcceptResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the ShipmentAcceptResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentAcceptResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the ShipmentAcceptResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentAcceptResponse",
@@ -1317,17 +1297,7 @@ public class UpsServices {
             Document voidShipmentResponseDocument = null;
             try {
                 voidShipmentResponseDocument = UtilXml.readXmlDocument(voidShipmentResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the VoidShipmentResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingVoidShipmentResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the VoidShipmentResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingVoidShipmentResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the VoidShipmentResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingVoidShipmentResponse",
@@ -1513,17 +1483,7 @@ public class UpsServices {
             Document trackResponseDocument = null;
             try {
                 trackResponseDocument = UtilXml.readXmlDocument(trackResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the TrackResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingTrackResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the TrackResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingTrackResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the TrackResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingTrackResponse",
@@ -2099,17 +2059,7 @@ public class UpsServices {
         Document rateResponseDocument = null;
         try {
             rateResponseDocument = UtilXml.readXmlDocument(rateResponseString, false);
-        } catch (SAXException e2) {
-            String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
-            Debug.logError(e2, excErrMsg, MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
-                    UtilMisc.toMap("errorString", e2.toString()), locale));
-        } catch (ParserConfigurationException e2) {
-            String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
-            Debug.logError(e2, excErrMsg, MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
-                    UtilMisc.toMap("errorString", e2.toString()), locale));
-        } catch (IOException e2) {
+        } catch (SAXException | IOException | ParserConfigurationException e2) {
             String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
             Debug.logError(e2, excErrMsg, MODULE);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
@@ -2205,19 +2155,7 @@ public class UpsServices {
         Document avResponseDocument = null;
         try {
             avResponseDocument = UtilXml.readXmlDocument(avResponseString, false);
-        } catch (SAXException e2) {
-            String excErrMsg = "Error parsing the UPS response: " + e2.toString();
-            Debug.logError(e2, excErrMsg, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "FacilityShipmentUpsErrorParsingAddressVerificationResponse",
-                    UtilMisc.toMap("errorString", e2.toString()), locale));
-        } catch (ParserConfigurationException e2) {
-            String excErrMsg = "Error parsing the UPS response: " + e2.toString();
-            Debug.logError(e2, excErrMsg, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "FacilityShipmentUpsErrorParsingAddressVerificationResponse",
-                    UtilMisc.toMap("errorString", e2.toString()), locale));
-        } catch (IOException e2) {
+        } catch (SAXException | IOException | ParserConfigurationException e2) {
             String excErrMsg = "Error parsing the UPS response: " + e2.toString();
             Debug.logError(e2, excErrMsg, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -2551,17 +2489,7 @@ public class UpsServices {
             Document shipmentConfirmResponseDocument = null;
             try {
                 shipmentConfirmResponseDocument = UtilXml.readXmlDocument(shipmentConfirmResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
@@ -2961,17 +2889,7 @@ public class UpsServices {
             Document rateResponseDocument = null;
             try {
                 rateResponseDocument = UtilXml.readXmlDocument(rateResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                 String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
-                 Debug.logError(e2, excErrMsg, MODULE);
-                 return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
-                         UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",

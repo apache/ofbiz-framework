@@ -213,9 +213,7 @@ public class ContentKeywordIndex {
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }
-        } catch (IOException e1) {
-            Debug.logError(e1, "Error getting content text to index", MODULE);
-        } catch (GeneralException e1) {
+        } catch (IOException | GeneralException e1) {
             Debug.logError(e1, "Error getting content text to index", MODULE);
         }
     }

@@ -501,8 +501,6 @@ public class EntitySyncServices {
                 // write the XML file
                 try {
                     UtilXml.writeXmlDocument(fileName, mainDoc);
-                } catch (java.io.FileNotFoundException e) {
-                    throw new EntitySyncContext.SyncOtherErrorException(e);
                 } catch (java.io.IOException e) {
                     throw new EntitySyncContext.SyncOtherErrorException(e);
                 }
@@ -533,11 +531,7 @@ public class EntitySyncServices {
             Document xmlSyncDoc = null;
             try {
                 xmlSyncDoc = UtilXml.readXmlDocument(xmlFile, false);
-            } catch (SAXException e) {
-                Debug.logError(e, MODULE);
-            } catch (ParserConfigurationException e) {
-                Debug.logError(e, MODULE);
-            } catch (IOException e) {
+            } catch (SAXException | IOException | ParserConfigurationException e) {
                 Debug.logError(e, MODULE);
             }
             if (xmlSyncDoc == null) {
@@ -566,14 +560,13 @@ public class EntitySyncServices {
                         // store the value(s)
                         Map<String, Object> storeResult = dispatcher.runSync("storeEntitySyncData", storeContext);
                         if (ServiceUtil.isError(storeResult)) {
-                            throw new Exception(ServiceUtil.getErrorMessage(storeResult));
+                            throw new GenericServiceException(ServiceUtil.getErrorMessage(storeResult));
                         }
 
                         // TODO create a response document to send back to the initial sync machine
-                    } catch (GenericServiceException gse) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtUnableToLoadXMLDocument", UtilMisc.toMap("entitySyncId", entitySyncId, "startTime", startTime, "errorString", gse.getMessage()), locale));
-                    } catch (Exception e) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtUnableToLoadXMLDocument", UtilMisc.toMap("entitySyncId", entitySyncId, "startTime", startTime, "errorString", e.getMessage()), locale));
+                    } catch (GenericServiceException | IOException | ParserConfigurationException | SAXException | SerializeException gse) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtUnableToLoadXMLDocument",
+                                UtilMisc.toMap("entitySyncId", entitySyncId, "startTime", startTime, "errorString", gse.getMessage()), locale));
                     }
                 }
             }

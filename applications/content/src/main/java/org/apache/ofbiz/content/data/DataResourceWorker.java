@@ -531,16 +531,13 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         }
 
         // descending comparator
-        Comparator<Object> desc = new Comparator<Object>() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                if ((Long) o1 > (Long) o2) {
-                    return -1;
-                } else if ((Long) o1 < (Long) o2) {
-                    return 1;
-                }
-                return 0;
+        Comparator<Object> desc = (o1, o2) -> {
+            if ((Long) o1 > (Long) o2) {
+                return -1;
+            } else if ((Long) o1 < (Long) o2) {
+                return 1;
             }
+            return 0;
         };
 
         // check for the latest subdirectory
@@ -811,8 +808,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                     MacroFormRenderer renderer = new MacroFormRenderer(formrenderer, request, response);
                     FormRenderer formRenderer = new FormRenderer(modelForm, renderer);
                     formRenderer.render(out, context);
-                } catch (SAXException | ParserConfigurationException e) {
-                    throw new GeneralException("Error rendering Screen template", e);
                 } catch (TemplateException e) {
                     throw new GeneralException("Error creating Screen renderer", e);
                 } catch (Exception e) {

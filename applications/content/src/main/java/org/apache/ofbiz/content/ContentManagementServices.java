@@ -235,13 +235,7 @@ public class ContentManagementServices {
             Map<String, Object> dataResourceResult;
             try {
                 dataResourceResult = persistDataResourceAndDataMethod(dctx, context);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, e.toString(), MODULE);
-                return ServiceUtil.returnError(e.toString());
-            } catch (GenericEntityException e) {
-                Debug.logError(e, e.toString(), MODULE);
-                return ServiceUtil.returnError(e.toString());
-            } catch (Exception e) {
+            } catch (GenericEntityException | GenericServiceException e) {
                 Debug.logError(e, e.toString(), MODULE);
                 return ServiceUtil.returnError(e.toString());
             }
@@ -380,10 +374,8 @@ public class ContentManagementServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
                     }
                 }
-            } catch (GenericEntityException e) {
+            } catch (GenericEntityException | GenericServiceException e) {
                 throw new GenericServiceException(e.toString());
-            } catch (Exception e2) {
-                throw new GenericServiceException(e2.toString());
             }
             String errMsg = ServiceUtil.getErrorMessage(thisResult);
             if (UtilValidate.isNotEmpty(errMsg)) {
@@ -459,13 +451,10 @@ public class ContentManagementServices {
                       permResults = dispatcher.runSync("createContentRole", serviceContext);
                       if (ServiceUtil.isError(permResults)) {
                           return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
-                      } 
+                      }
                   } catch (GenericServiceException e) {
                       Debug.logError(e, e.toString(), MODULE);
                       return ServiceUtil.returnError(e.toString());
-                  } catch (Exception e2) {
-                      Debug.logError(e2, e2.toString(), MODULE);
-                      return ServiceUtil.returnError(e2.toString());
                   }
               }
           } else {
@@ -485,9 +474,6 @@ public class ContentManagementServices {
                   } catch (GenericServiceException e) {
                       Debug.logError(e, e.toString(), MODULE);
                       return ServiceUtil.returnError(e.toString());
-                  } catch (Exception e2) {
-                      Debug.logError(e2, e2.toString(), MODULE);
-                      return ServiceUtil.returnError(e2.toString());
                   }
               }
           }
@@ -513,13 +499,7 @@ public class ContentManagementServices {
           else {
               return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentNoAccessToUploadImage", locale));
           }
-      } catch (GenericServiceException e) {
-          Debug.logError(e, e.toString(), MODULE);
-          return ServiceUtil.returnError(e.toString());
-      } catch (GenericEntityException e) {
-          Debug.logError(e, e.toString(), MODULE);
-          return ServiceUtil.returnError(e.toString());
-      } catch (Exception e) {
+      } catch (GenericEntityException | GenericServiceException e) {
           Debug.logError(e, e.toString(), MODULE);
           return ServiceUtil.returnError(e.toString());
       }
@@ -530,7 +510,7 @@ public class ContentManagementServices {
       return result;
     }
 
-    public static Map<String, Object> persistDataResourceAndDataMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException, GenericEntityException, Exception {
+    public static Map<String, Object> persistDataResourceAndDataMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException, GenericEntityException {
       Delegator delegator = dctx.getDelegator();
       LocalDispatcher dispatcher = dctx.getDispatcher();
       Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
@@ -587,7 +567,7 @@ public class ContentManagementServices {
       if (!dataResourceExists) { // Create
           Map<String, Object> thisResult = dispatcher.runSync("createDataResource", newDrContext);
           if (ServiceUtil.isError(thisResult)) {
-              throw(new Exception(ServiceUtil.getErrorMessage(thisResult)));
+              throw(new GenericServiceException(ServiceUtil.getErrorMessage(thisResult)));
           }
           dataResourceId = (String)thisResult.get("dataResourceId");
           if (Debug.infoOn()) {
@@ -735,10 +715,8 @@ public class ContentManagementServices {
                         if (ServiceUtil.isError(thisResult)) {
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
                         }
-                    } catch (GenericServiceException e) {
+                    } catch (GenericEntityException | GenericServiceException e) {
                         Debug.logError(e, e.toString(), MODULE);
-                    } catch (Exception e2) {
-                        Debug.logError(e2, e2.toString(), MODULE);
                     }
                 }
             } else {
@@ -757,8 +735,6 @@ public class ContentManagementServices {
                         }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, e.toString(), MODULE);
-                    } catch (Exception e2) {
-                        Debug.logError(e2, e2.toString(), MODULE);
                     }
                 }
             }
@@ -867,7 +843,7 @@ public class ContentManagementServices {
                                     prevValue.store();
                                     contentAssoc.put("sequenceNum", prevSeqNum);
                                     contentAssoc.store();
-                                } catch (Exception e) {
+                                } catch (GenericEntityException e) {
                                     return ServiceUtil.returnError(e.toString());
                                 }
                             }

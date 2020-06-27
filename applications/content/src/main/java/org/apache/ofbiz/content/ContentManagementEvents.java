@@ -190,11 +190,8 @@ public class ContentManagementEvents {
             // TODO: this needs to be given author userLogin
             EntityQuery.use(delegator).from("UserLogin").where("userLoginId", authorId).cache().queryOne();
             origPublishedLinkList = ContentManagementWorker.getPublishedLinks(delegator, targContentId, webSiteId, userLogin, security, permittedAction, permittedOperations, roles);
-        } catch (GenericEntityException e) {
+        } catch (GeneralException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-            return "error";
-        } catch (GeneralException e2) {
-            request.setAttribute("_ERROR_MESSAGE_", e2.getMessage());
             return "error";
         }
 

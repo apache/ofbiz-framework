@@ -21,6 +21,9 @@ import org.apache.ofbiz.order.order.OrderContentWrapper
 
 orderHeader = context.orderHeader
 
+// can anybody view an anonymous order?  this is set in the screen widget and should only be turned on by an email confirmation screen
+allowAnonymousView = context.allowAnonymousView
+
 // if orderHeader is null in OrderView.groovy then it is not null but void here!
 if (orderHeader) {
     // set hasPermission, must always exist if the orderHeader != null
@@ -44,9 +47,28 @@ if (orderHeader) {
             hasPermission = true
         }
     }
+    // This is related with OFBIZ-11836 "IDOR vulnerability in the order processing feature"
+    if (parameters.localDispatcherName.equals("ecommerce")) {
+        List errMsgList = []
+        if (orderHeader.createdBy.equals(person.partyId)
+        || ("anonymous".equals(orderHeader.createdBy) && "Y".equals(allowAnonymousView))) {
+            hasPermission = true
+            canViewInternalDetails = true
+        } else {
+            hasPermission = false
+            canViewInternalDetails = false
+            errMsgList.add("It's not an error : you are not allowed to view this!")
+            showErrorMsg = "Y"
+        }
+         request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList)
+         context.showErrorMsg = showErrorMsg
+    }
+
     context.hasPermission = hasPermission
     context.canViewInternalDetails = canViewInternalDetails
 
     orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderHeader, request)
     context.orderContentWrapper = orderContentWrapper
+    
+
 }

@@ -2867,8 +2867,6 @@ public class PaymentGatewayServices {
             delegator.create(pgr);
         } catch (GenericEntityException | GenericServiceException ge) {
             Debug.logError(ge, MODULE);
-        } catch (Exception e) {
-            Debug.logError(e, MODULE);
         }
     }
 
@@ -2885,8 +2883,6 @@ public class PaymentGatewayServices {
             }
         } catch (GenericEntityException | GenericServiceException ge) {
             Debug.logError(ge, MODULE);
-        } catch (Exception e) {
-            Debug.logError(e, MODULE);
         }
     }
 

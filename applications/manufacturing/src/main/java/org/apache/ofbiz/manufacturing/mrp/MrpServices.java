@@ -743,9 +743,8 @@ public class MrpServices {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
                             }
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
-                        } catch (Exception e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct"
+                                    , UtilMisc.toMap("productId", product.getString("productId")), locale));
                         }
                         components = UtilGenerics.cast(serviceResponse.get("components"));
                         if (UtilValidate.isNotEmpty(components)) {
@@ -780,9 +779,8 @@ public class MrpServices {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
                             }
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
-                        } catch (Exception e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct"
+                                    , UtilMisc.toMap("productId", product.getString("productId")), locale));
                         }
                         components = UtilGenerics.cast(serviceResponse.get("components"));
                         String routingId = (String)serviceResponse.get("workEffortId");

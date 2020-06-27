@@ -113,10 +113,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             outString = encoder.sanitize(outString, null);
             categoryContentCache.put(cacheKey, outString);
             return outString;
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering CategoryContent, inserting empty String", MODULE);
-            return productCategory.getString(candidateFieldName);
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering CategoryContent, inserting empty String", MODULE);
             return productCategory.getString(candidateFieldName);
         }
