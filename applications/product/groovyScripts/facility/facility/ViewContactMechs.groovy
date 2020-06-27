@@ -26,8 +26,8 @@ facilityId = parameters.facilityId
 facility = from("Facility").where("facilityId", facilityId).queryOne()
 facilityType = null
 if (!facility) {
-  context.facility = delegator.makeValue("Facility", null)
-  context.facilityType = delegator.makeValue("FacilityType", null)
+  context.facility = makeValue("Facility", null)
+  context.facilityType = makeValue("FacilityType", null)
 } else {
   facilityType = facility.getRelatedOne("FacilityType", false)
 }

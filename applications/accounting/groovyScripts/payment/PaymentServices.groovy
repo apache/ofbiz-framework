@@ -31,7 +31,7 @@ def createPayment() {
         return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingCreatePaymentPermissionError)
     }
 
-    GenericValue payment = delegator.makeValue("Payment")
+    GenericValue payment = makeValue("Payment")
     payment.paymentId = parameters.paymentId ?: delegator.getNextSeqId("Payment")
     paymentId = payment.paymentId
     parameters.statusId = parameters.statusId ?: "PMNT_NOT_PAID"
@@ -62,7 +62,7 @@ def createPayment() {
     return result
 }
 def updatePayment() {
-    Map lookupPayment = delegator.makeValue("Payment")
+    Map lookupPayment = makeValue("Payment")
     lookupPayment.setPKFields(parameters)
     GenericValue payment = from("Payment").where("paymentId", lookupPayment.paymentId).queryOne()
     if (!security.hasEntityPermission("ACCOUNTING", "_UPDATE", parameters.userLogin) &&
@@ -72,8 +72,8 @@ def updatePayment() {
     }
     if ("PMNT_NOT_PAID" != payment.statusId) {
         // check if only status change
-        GenericValue newPayment = delegator.makeValue("Payment")
-        GenericValue oldPayment = delegator.makeValue("Payment")
+        GenericValue newPayment = makeValue("Payment")
+        GenericValue oldPayment = makeValue("Payment")
         newPayment.setNonPKFields(payment)
         oldPayment.setNonPKFields(payment)
         newPayment.setNonPKFields(parameters)
@@ -203,7 +203,7 @@ def getPaymentRunningTotal(){
     return result
 }
 def createPaymentContent() {
-    GenericValue newEntity = delegator.makeValue("PaymentContent")
+    GenericValue newEntity = makeValue("PaymentContent")
     newEntity.setPKFields(parameters, true)
     newEntity.setNonPKFields(parameters, true)
 
@@ -225,7 +225,7 @@ def createPaymentContent() {
 //TODO: This can be converted into entity-auto with a seca rule for updateContent
 def updatePaymentContent() {
     serviceResult = success()
-    GenericValue lookupPKMap = delegator.makeValue("PaymentContent")
+    GenericValue lookupPKMap = makeValue("PaymentContent")
     lookupPKMap.setPKFields(parameters, true)
 
     GenericValue lookedUpValue = findOne("PaymentContent", lookupPKMap, false)
