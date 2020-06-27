@@ -1043,7 +1043,7 @@ public class InventoryServices {
                     recordProductVarianceCtx.put("inventoryCountItemSeqId", inventoryCountItem.getString("inventoryCountItemSeqId"));
                     serviceResult = dispatcher.runSync("recordProductVariance", recordProductVarianceCtx);
                     if (!ServiceUtil.isSuccess(serviceResult)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 }
@@ -1056,7 +1056,7 @@ public class InventoryServices {
                 serviceResult.clear();
                 serviceResult = dispatcher.runSync("updateInventoryCountItem", updateInventoryCountItemCtx);
                 if (!ServiceUtil.isSuccess(serviceResult)) {
-                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                 }
 
@@ -1079,7 +1079,7 @@ public class InventoryServices {
                             serviceResult.clear();
                             serviceResult = dispatcher.runSync("updateFacilityLocation", facilityLocationCtx);
                             if (!ServiceUtil.isSuccess(serviceResult)) {
-                                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                             }
                         }
@@ -1123,14 +1123,14 @@ public class InventoryServices {
                 updateInventoryCountCtx.put("statusId", newStatus);
                 serviceResult = dispatcher.runSync("updateInventoryCount", updateInventoryCountCtx);
                 if (!ServiceUtil.isSuccess(serviceResult)) {
-                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         } catch (GenericServiceException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         }
         Map<String, Object> result = ServiceUtil.returnSuccess(successMessage);
         result.put("inventoryCountId", inventoryCountId);
@@ -1166,7 +1166,7 @@ public class InventoryServices {
                     serviceResult = dispatcher.runSync("createPhysicalInventoryAndVariance", createPhysicalInventoryAndVarianceCtx);
 
                     if (!ServiceUtil.isSuccess(serviceResult)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 }
@@ -1182,16 +1182,16 @@ public class InventoryServices {
                     serviceResult.clear();
                     serviceResult = dispatcher.runSync("updateInventoryItem", updateInventoryItemCtx);
                     if (!ServiceUtil.isSuccess(serviceResult)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 }
 
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         } catch (GenericServiceException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         }
         return ServiceUtil.returnSuccess("Variance recorded successfully.");
     }
@@ -1213,20 +1213,20 @@ public class InventoryServices {
             if (inventoryCount != null) {
                 String currentStatusId = inventoryCount.getString("statusId");
                 if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_APPROVED".equals(currentStatusId)) {
-                    Debug.logError("Session already in review status, You can not add more items in this session.", module);
+                    Debug.logError("Session already in review status, You can not add more items in this session.", MODULE);
                     return ServiceUtil.returnError("Session already in review status, You can not add more items in this session.");
                 } else if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_COMPLETED".equals(currentStatusId)) {
-                    Debug.logError("Session already completed, Please create new session or use created session.", module);
+                    Debug.logError("Session already completed, Please create new session or use created session.", MODULE);
                     return ServiceUtil.returnError("Session already completed, Please create new session or use created session.");
                 } else if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_REJECTED".equals(currentStatusId)) {
-                    Debug.logError("Session already rejected, Please create new session or use created session.", module);
+                    Debug.logError("Session already rejected, Please create new session or use created session.", MODULE);
                     return ServiceUtil.returnError("Session already rejected, Please create new session or use created session.");
                 }
             }
 
             GenericValue facilityLocation = EntityQuery.use(delegator).from("FacilityLocation").where("facilityId", facilityId, "locationSeqId", locationSeqId).queryOne();
             if (UtilValidate.isEmpty(facilityLocation)) {
-                Debug.logError("Facility location does not exist for facility " + facilityId + " and location " + locationSeqId, module);
+                Debug.logError("Facility location does not exist for facility " + facilityId + " and location " + locationSeqId, MODULE);
                 return ServiceUtil.returnError("Facility location does not exist for facility " + facilityId + " and location " + locationSeqId);
             } else {
                 String facilityIdString = facilityLocation.getString("facilityId");
@@ -1238,7 +1238,7 @@ public class InventoryServices {
                 }
                 String locked = facilityLocation.getString("locked");
                 if (UtilValidate.isNotEmpty(locked) && "Y".equals(locked)) {
-                    Debug.logError("Location #" + locationSeqId + " is currently locked under active counting session. Please choose another location or wait till lock is released.", module);
+                    Debug.logError("Location #" + locationSeqId + " is currently locked under active counting session. Please choose another location or wait till lock is released.", MODULE);
                     return ServiceUtil.returnError("Location #" + locationSeqId + " is currently locked under active counting session. Please choose another location or wait till lock is released.");
                 }
 
@@ -1262,7 +1262,7 @@ public class InventoryServices {
                     createInventoryCountItemCtx.put("itemStatusId", "INV_COUNT_CREATED");
                     serviceResult = dispatcher.runSync("createInventoryCountItem", createInventoryCountItemCtx);
                     if (!ServiceUtil.isSuccess(serviceResult)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                     itemAdded = true;
@@ -1275,15 +1275,15 @@ public class InventoryServices {
                     serviceResult.clear();
                     serviceResult = dispatcher.runSync("updateFacilityLocation", facilityLocationCtx);
                     if (!ServiceUtil.isSuccess(serviceResult)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         } catch (GenericServiceException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
         }
         if (itemAdded) {
             successMessage = "Items added successfully for location # " + locationSeqId + customerOwnedMessage;
@@ -1326,12 +1326,11 @@ public class InventoryServices {
             if (UtilValidate.isNotEmpty(quantity)) {
                 inventoryCountItem.set("quantity", quantity);
             }
-            String inventoryCountItemSeqId = delegator.getNextSeqId("InventoryCountItem");
-            inventoryCountItem.set("inventoryCountItemSeqId", inventoryCountItemSeqId);
+            delegator.setNextSubSeqId(inventoryCountItem, "inventoryCountItemSeqId", 5, 1);
             delegator.create(inventoryCountItem);
-            result.put("inventoryCountItemSeqId", inventoryCountItemSeqId);
+            result.put("inventoryCountItemSeqId", inventoryCountItem.getString("inventoryCountItemSeqId"));
         } catch (GenericEntityException e) {
-            Debug.log(module, e.getMessage());
+            Debug.log(MODULE, e.getMessage());
         }
         return result;
     }
@@ -1345,7 +1344,7 @@ public class InventoryServices {
         String inventoryItemId = (String) context.get("inventoryItemId");
 
         if (UtilValidate.isEmpty(inventoryItemId)) {
-            Debug.logError("Please enter inventoryItemId.", module);
+            Debug.logError("Please enter inventoryItemId.", MODULE);
             return ServiceUtil.returnError("Please enter inventoryItemId.");
         }
 
@@ -1358,13 +1357,13 @@ public class InventoryServices {
             if (inventoryCount != null) {
                 String currentStatusId = inventoryCount.getString("statusId");
                 if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_APPROVED".equals(currentStatusId)) {
-                    Debug.logError("Session already in review status, You can not add more items in this session.", module);
+                    Debug.logError("Session already in review status, You can not add more items in this session.", MODULE);
                     return ServiceUtil.returnError("Session already in review status, You can not add more items in this session.");
                 } else if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_COMPLETED".equals(currentStatusId)) {
-                    Debug.logError("Session already completed, Please create new session or use created session.", module);
+                    Debug.logError("Session already completed, Please create new session or use created session.", MODULE);
                     return ServiceUtil.returnError("Session already completed, Please create new session or use created session.");
                 } else if (UtilValidate.isNotEmpty(currentStatusId) && "INV_COUNT_REJECTED".equals(currentStatusId)) {
-                    Debug.logError("Session already rejected, Please create new session or use created session.", module);
+                    Debug.logError("Session already rejected, Please create new session or use created session.", MODULE);
                     return ServiceUtil.returnError("Session already rejected, Please create new session or use created session.");
                 }
             }
@@ -1374,11 +1373,11 @@ public class InventoryServices {
                 String existingFacilityId = inventoryCount.getString("facilityId");
                 String inventoryItemFacilityId = inventoryItem.getString("facilityId");
                 if (UtilValidate.isNotEmpty(existingFacilityId) && UtilValidate.isNotEmpty(inventoryItemFacilityId) && !existingFacilityId.equals(inventoryItemFacilityId)) {
-                    Debug.logError("Inventory Item belongs to a different facility  " + inventoryItemFacilityId, module);
+                    Debug.logError("Inventory Item belongs to a different facility  " + inventoryItemFacilityId, MODULE);
                     return ServiceUtil.returnError("Inventory Item belongs to a different facility " + inventoryItemFacilityId);
                 }
             } else {
-                Debug.logError("Inventory Item doesn't exist.", module);
+                Debug.logError("Inventory Item doesn't exist.", MODULE);
                 return ServiceUtil.returnError("Inventory Item doesn't exist");
             }
 
@@ -1391,7 +1390,7 @@ public class InventoryServices {
             GenericValue inventoryCountItem = EntityQuery.use(delegator).from("InventoryCountItem").where(EntityCondition.makeCondition(exprList)).queryFirst();
 
             if (UtilValidate.isNotEmpty(inventoryCountItem)) {
-                Debug.logError("Inventory item already exist in session #" + inventoryCountItem.getString("inventoryCountId"), module);
+                Debug.logError("Inventory item already exist in session #" + inventoryCountItem.getString("inventoryCountId"), MODULE);
                 return ServiceUtil.returnError("Inventory item already exist in session #" + inventoryCountItem.getString("inventoryCountId"));
             }
             Map<String, Object> createInventoryCountItemCtx = new HashMap<String, Object>();
@@ -1403,23 +1402,25 @@ public class InventoryServices {
             createInventoryCountItemCtx.put("itemStatusId", "INV_COUNT_CREATED");
             serviceResult = dispatcher.runSync("createInventoryCountItem", createInventoryCountItemCtx);
             if (!ServiceUtil.isSuccess(serviceResult)) {
-                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
-            Map<String, Object> facilityLocationCtx = dctx.getModelService("updateFacilityLocation").makeValid(facilityLocation, "IN");
-            facilityLocationCtx.put("userLogin", userLogin);
-            facilityLocationCtx.put("locked", "Y");
-            serviceResult.clear();
-            serviceResult = dispatcher.runSync("updateFacilityLocation", facilityLocationCtx);
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+            if (UtilValidate.isNotEmpty(inventoryItem.getString("facilityId")) && UtilValidate.isNotEmpty(inventoryItem.getString("locationSeqId"))) {
+                Map<String, Object> facilityLocationCtx = dctx.getModelService("updateFacilityLocation").makeValid(facilityLocation, "IN");
+                facilityLocationCtx.put("userLogin", userLogin);
+                facilityLocationCtx.put("locked", "Y");
+                serviceResult.clear();
+                serviceResult = dispatcher.runSync("updateFacilityLocation", facilityLocationCtx);
+                if (!ServiceUtil.isSuccess(serviceResult)) {
+                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
             return ServiceUtil.returnError(e.getMessage());
         } catch (GenericServiceException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         return result;
@@ -1462,7 +1463,7 @@ public class InventoryServices {
 
                     serviceResult = dispatcher.runSync("updateInventoryCountItem", updateInventoryCountItemCtx);
                     if (!ServiceUtil.isSuccess(serviceResult)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 }
@@ -1477,7 +1478,7 @@ public class InventoryServices {
                 }
                 serviceResult = dispatcher.runSync("updateInventoryCount", updateInventoryCountCtx);
                 if (!ServiceUtil.isSuccess(serviceResult)) {
-                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                    Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                 }
 
@@ -1500,21 +1501,21 @@ public class InventoryServices {
                         serviceResult.clear();
                         serviceResult = dispatcher.runSync("updateFacilityLocation", facilityLocationCtx);
                         if (!ServiceUtil.isSuccess(serviceResult)) {
-                            Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                            Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                         }
                     }
                 }
             } else {
-                Debug.logError("Inventory count does not exist into system.", module);
+                Debug.logError("Inventory count does not exist into system.", MODULE);
                 return ServiceUtil.returnError("Inventory count does not exist into system.");
             }
 
         } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
             return ServiceUtil.returnError(e.getMessage());
         } catch (GenericServiceException e) {
-            Debug.logError(e.getMessage(), module);
+            Debug.logError(e.getMessage(), MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
         return result;
@@ -1536,7 +1537,7 @@ public class InventoryServices {
             try {
                 GenericValue inventoryCountItem = EntityQuery.use(delegator).from("InventoryCountItem").where("inventoryCountId", inventoryCountId, "inventoryCountItemSeqId", inventoryCountItemSeqId).queryOne();
                 if (UtilValidate.isEmpty(inventoryCountItem)) {
-                    Debug.logError("Item doesn't exist", module);
+                    Debug.logError("Item doesn't exist", MODULE);
                     return ServiceUtil.returnError("Item doesn't exist");
                 } else {
                     Map<String, Object> updateInventoryCountItemCtx = dctx.getModelService("updateInventoryCountItem").makeValid(inventoryCountItem, "IN");
@@ -1544,7 +1545,7 @@ public class InventoryServices {
                     updateInventoryCountItemCtx.put("quantity", quantity);
                     serviceResult = dispatcher.runSync("updateInventoryCountItem", updateInventoryCountItemCtx);
                     if (!ServiceUtil.isSuccess(serviceResult)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                        Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
 
@@ -1613,7 +1614,7 @@ public class InventoryServices {
                         updateInventoryCountVarianceCtx.put("userLogin", userLogin);
                         serviceResult = dispatcher.runSync("updateInventoryCountVariance", updateInventoryCountVarianceCtx);
                         if (!ServiceUtil.isSuccess(serviceResult)) {
-                            Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                            Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                         }
                     } else if(UtilValidate.isEmpty(inventoryCountVariance) && UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(inventoryItemId) && UtilValidate.isNotEmpty(locationSeqId)) {
@@ -1623,15 +1624,15 @@ public class InventoryServices {
                         serviceResult.clear();
                         serviceResult = dispatcher.runSync("createInventoryCountVariance", createInventoryCountVarianceCtx);
                         if (!ServiceUtil.isSuccess(serviceResult)) {
-                            Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                            Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                         }
                     }
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             } catch (GenericServiceException e) {
-                Debug.logError(e.getMessage(), module);
+                Debug.logError(e.getMessage(), MODULE);
             }
         }
 
@@ -1708,7 +1709,7 @@ public class InventoryServices {
             GenericValue inventoryCountVariance = delegator.makeValue("InventoryCountVariance", inventoryCountVarianceCtx);
             delegator.create(inventoryCountVariance);
         } catch (GenericEntityException e) {
-            Debug.log(e.getMessage(), module);
+            Debug.log(e.getMessage(), MODULE);
         }
         return ServiceUtil.returnSuccess("Inventory Count Variance record created successfully.");
     }

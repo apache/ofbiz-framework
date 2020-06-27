@@ -69,10 +69,10 @@ under the License.
               <th>${uiLabelMap.ProductSection}</th>
               <th>${uiLabelMap.ProductLevel}</th>
               <th>${uiLabelMap.ProductPosition}</th>
-              <th>Last counted on</th>
-              <th>Days since last count</th>
-              <th>Next count date</th>
-              <th>Days to next count</th>
+              <th>${uiLabelMap.ProductLastCountedOn}</th>
+              <th>${uiLabelMap.ProductDaysSinceLastCount}</th>
+              <th>${uiLabelMap.ProductNextCountDate}</th>
+              <th></th>
               <th>${uiLabelMap.CommonTotal} ${uiLabelMap.ProductInventoryItems}</th>
               <th><input type="checkbox" title="${uiLabelMap.CommonSelectAll}" name="selectAll" id="selectAll"
                          value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');"/></th>
@@ -81,7 +81,7 @@ under the License.
           <tbody>
             <#assign rowCount = 0/>
             <#list pendingLocations as pendingLocation>
-              <tr>
+              <tr id="pendingLocation_tableRow_${pendingLocation_index}">
                 <td>${pendingLocation.facilityName!}</td>
                 <td>
                     <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${pendingLocation.facilityId!}&amp;locationSeqId=${pendingLocation.locationSeqId!}</@ofbizUrl>">${pendingLocation.areaId!} <#if pendingLocation.aisleId?has_content>:${pendingLocation.aisleId!}</#if><#if pendingLocation.sectionId?has_content>:${pendingLocation.sectionId!}</#if><#if pendingLocation.levelId?has_content>:${pendingLocation.levelId!}</#if>:${pendingLocation.positionId!} [${pendingLocation.locationSeqId!}]</a>
@@ -99,7 +99,7 @@ under the License.
                 <td>
                   <input type="hidden" name="locationSeqId_o_${rowCount}" value="${pendingLocation.locationSeqId!}"/>
                   <input type="checkbox" class="rowSubmit" name="_rowSubmit_o_${rowCount}" value="Y"
-                      onclick="javascript:checkToggle(this, 'selectAllForm');"/>
+                  onclick="highlightRow(this,'pendingLocation_tableRow_${pendingLocation_index}');"/>
                 </td>
               </tr>
               <#assign rowCount = rowCount + 1>

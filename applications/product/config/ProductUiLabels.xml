@@ -16806,6 +16806,12 @@
         <value xml:lang="zh">接收日期</value>
         <value xml:lang="zh-TW">接收日期</value>
     </property>
+    <property key="ProductDaysSinceLastCount">
+        <value xml:lang="en">Days since last count</value>
+    </property>
+    <property key="ProductDaysToNextCount">
+        <value xml:lang="en">Days to next count</value>
+    </property>
     <property key="ProductDaysToShip">
         <value xml:lang="de">Tage bis zur Lieferung</value>
         <value xml:lang="en">Days To Ship</value>
@@ -21147,6 +21153,9 @@
         <value xml:lang="zh">大图</value>
         <value xml:lang="zh-TW">大圖</value>
     </property>
+    <property key="ProductLastCountedOn">
+        <value xml:lang="en">Last counted on</value>
+    </property>
     <property key="ProductLastCreatedBy">
         <value xml:lang="de">Letzte Erstellung von</value>
         <value xml:lang="en">Last Created By</value>
@@ -22847,6 +22856,9 @@
         <value xml:lang="vi">Thêm mới phương thức</value>
         <value xml:lang="zh">新建方法</value>
         <value xml:lang="zh-TW">新建方法</value>
+    </property>
+    <property key="ProductNextCountDate">
+        <value xml:lang="en">Next count date</value>
     </property>
     <property key="ProductNextPackage">
         <value xml:lang="de">Nächstes Paket</value>
@@ -28880,6 +28892,9 @@
         <value xml:lang="vi">SRCH</value>
         <value xml:lang="zh">搜索</value>
         <value xml:lang="zh-TW">搜尋</value>
+    </property>
+    <property key="ProductSessionId">
+        <value xml:lang="en">Session ID</value>
     </property>
     <property key="ProductST">
         <value xml:lang="en">ST</value>

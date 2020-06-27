@@ -178,7 +178,7 @@ under the License.
                 <script location="component://product/groovyScripts/facility/cyclecount/FindCountReport.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.commonFacilityDecoratorLocation}">
+                <decorator-screen name="CommonCycleCountMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="CycleCountTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                         <platform-specific>

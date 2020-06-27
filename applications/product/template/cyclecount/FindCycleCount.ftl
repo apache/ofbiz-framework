@@ -32,7 +32,7 @@ under the License.
               <tbody>
                 <tr>
                   <td style="width: 10%;" align="right">
-                    <label class="label">Session ID</label>
+                    <label class="label">${uiLabelMap.ProductSessionId}</label>
                   </td>
                   <td>
                     <input type="text" name="inventoryCountId" value="${parameters.inventoryCountId!}">
@@ -66,7 +66,7 @@ under the License.
                     </td>
                     <td>
                       <#list statusItems as statusItem>
-                        <input type="checkbox" name="statusIds" id="statusId_${statusItem_index}" value="${statusItem.statusId!}" <#if statusIds?has_content && statusIds.contains(statusItem.statusId)>checked="checked"<#elseif parameters.statusIds?has_content && statusItem.statusId == parameters.statusIds>checked="checked"<#elseif !parameters.statusIds?has_content && statusItem.statusId == "INV_COUNT_APPROVED">checked="checked"</#if>/>
+                        <input type="checkbox" name="statusIds" id="statusId_${statusItem_index}" value="${statusItem.statusId!}" <#if statusIds?has_content && statusIds.contains(statusItem.statusId)>checked="checked"<#elseif parameters.statusIds?has_content && statusItem.statusId == parameters.statusIds>checked="checked"<#elseif !parameters.statusIds?has_content>checked="checked"</#if>/>
                         <label for="statusId_${statusItem_index}">${statusItem.description!}</label>
                       </#list>
                     </td>

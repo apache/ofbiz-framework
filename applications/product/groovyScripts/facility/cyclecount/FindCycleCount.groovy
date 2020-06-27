@@ -38,7 +38,7 @@ cond = exprBldr.AND() {
     if (parameters.statusIds)
         IN(statusId: ObjectType.simpleTypeOrObjectConvert(parameters.statusIds, "List", null, null))
     else
-        EQUALS(statusId: "INV_COUNT_APPROVED")
+        IN(statusId: ["INV_COUNT_APPROVED", "INV_COUNT_CREATED", "INV_COUNT_COMPLETED", "INV_COUNT_REJECTED", "INV_COUNT_CLOSED"])
     if (parameters.locationSeqId)
         LIKE(locationSeqId: parameters.locationSeqId)
 }

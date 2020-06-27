@@ -83,7 +83,7 @@ if (parameters.inventoryItemId) {
         inventoryValue.inventoryItemId = parameters.inventoryItemId;
         inventoryValue.locationSeqId = inventoryItem.locationSeqId;
         inventoryValue.quantity = parameters.quantity;
-        inventoryItem = from("Product").where("productId", parameters.productId).queryOne();
+        product = from("Product").where("productId", inventoryItem.productId).queryOne();
         inventoryValue.internalName = product.internalName;
         inventoryValue.partDescription = product.description;
     } else {

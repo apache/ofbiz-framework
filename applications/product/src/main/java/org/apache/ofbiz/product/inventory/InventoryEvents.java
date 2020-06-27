@@ -40,7 +40,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 public class InventoryEvents {
-    public static final String module = InventoryEvents.class.getName();
+    public static final String MODULE = InventoryEvents.class.getName();
     public static final String resource = "ProductUiLabels";
 
     public static String createInventoryCountAndAddBulkLocations(HttpServletRequest request, HttpServletResponse response) {
@@ -91,7 +91,7 @@ public class InventoryEvents {
             createInventoryCountCtx.put("createdDate", UtilDateTime.nowTimestamp());
             serviceResult = dispatcher.runSync("createInventoryCount", createInventoryCountCtx);
             if (!ServiceUtil.isSuccess(serviceResult)) {
-                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), MODULE);
                 return "error";
             }
             inventoryCountId = (String) serviceResult.get("inventoryCountId");
@@ -99,7 +99,7 @@ public class InventoryEvents {
             for (String locationSeqId : locationSeqIds) {
                 GenericValue inventoryItemAndLocation = EntityQuery.use(delegator).from("FacilityLocation").where("facilityId", facilityId, "locationSeqId", locationSeqId, "locked", "Y").queryFirst();
                 if (UtilValidate.isNotEmpty(inventoryItemAndLocation)) {
-                    Debug.logError("Location #" + locationSeqId + " is currently locked under active counting session #" + inventoryItemAndLocation.getString("inventoryCountId") + " Please choose another location or wait till lock is released.", module);
+                    Debug.logError("Location #" + locationSeqId + " is currently locked under active counting session #" + inventoryItemAndLocation.getString("inventoryCountId") + " Please choose another location or wait till lock is released.", MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", "Location #" + locationSeqId + " is currently locked under active counting session #" + inventoryItemAndLocation.getString("inventoryCountId") + ",  Please choose another location or wait till lock is released.");
                     return "error";
                 }
@@ -117,11 +117,11 @@ public class InventoryEvents {
             }
             request.setAttribute("inventoryCountId", inventoryCountId);
         } catch (GenericServiceException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
