@@ -151,7 +151,7 @@ def updateReturnHeader() {
                 logInfo("Available amount for return on order # ${returnItem.orderId} is " +
                         "[${availableReturnTotal}] (orderTotal = [${orderTotal}] - returnTotal = [${returnTotal}]")
                 
-                if (availableReturnTotal < (BigDecimal) -0.01) {
+                if (availableReturnTotal < (-0.01 as BigDecimal)) {
                     return informError("OrderReturnPriceCannotExceedTheOrderTotal")
                 }
             } else {
@@ -299,7 +299,8 @@ def updateReturnItem() {
             .queryList()
     for (GenericValue returnAdjustment : returnAdjustments) {
         logInfo("updating returnAdjustment with Id:[${returnAdjustment.returnAdjustmentId}]")
-        Map ctx = returnAdjustment
+        Map ctx = [:]
+        ctx << returnAdjustment
         ctx.originalReturnPrice = originalReturnPrice
         ctx.originalReturnQuantity = originalReturnQuantity
         ctx.ReturnTypeId = returnItem.returnTypeId
