@@ -31,9 +31,9 @@ under the License.
 
     function setCheckboxes() {
         if (jQuery('#allcheck').is(':checked')) {
-            jQuery('.statuscheck').attr ('checked', 'checked');
+            jQuery('.statuscheck').attr ('checked', true);
         } else {
-            jQuery('.statuscheck').attr ('checked', '' );
+            jQuery('.statuscheck').attr ('checked', false);
         }
     }
     function setAllCheckbox() {
@@ -44,10 +44,10 @@ under the License.
             }
         });
         if (allChecked == false && jQuery('#allcheck').is(':checked')) {
-            jQuery('#allcheck').attr('checked', '');
+            jQuery('#allcheck').attr('checked', false);
         }
         if (allChecked == true && !jQuery('#allcheck').is(':checked')) {
-            jQuery('#allcheck').attr('checked', 'checked');
+            jQuery('#allcheck').attr('checked', true);
         }
     }
 
