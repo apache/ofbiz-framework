@@ -30,6 +30,7 @@ import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.entity.model.ModelRelation;
 import org.apache.ofbiz.entity.util.EntityFindOptions;
 import org.apache.ofbiz.entity.util.EntityListIterator;
@@ -138,6 +139,12 @@ public class ReadOnlyHelperDAO implements GenericHelper {
 
     public long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
         return genericDAO.selectCountByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
+    }
+
+    @Override
+    public long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
+             EntityCondition havingEntityCondition, List<ModelField> selectFields, EntityFindOptions findOptions) throws GenericEntityException {
+        return genericDAO.selectCountByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, selectFields, findOptions);
     }
 
 
