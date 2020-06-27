@@ -1622,11 +1622,22 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
+     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
+     *  org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
      */
     @Override
     public long findCountByCondition(String entityName, EntityCondition whereEntityCondition,
             EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
+        return findCountByCondition(entityName, whereEntityCondition, null, havingEntityCondition, findOptions);
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
+     *  java.util.Set, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
+     */
+    @Override
+    public long findCountByCondition(String entityName, EntityCondition whereEntityCondition, Set<String> fieldsToSelect,
+                                     EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
 
         boolean beganTransaction = false;
         try {
@@ -1646,9 +1657,20 @@ public class GenericDelegator implements Delegator {
                 havingEntityCondition.checkCondition(modelEntity);
             }
 
+            List<ModelField> selectFields = new LinkedList<>();
+            if (UtilValidate.isNotEmpty(fieldsToSelect)) {
+                for (String fieldToSelect : fieldsToSelect) {
+                    ModelField curField = modelEntity.getField(fieldToSelect);
+                    if (curField != null) {
+                        selectFields.add(curField);
+                    }
+                }
+            }
+
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);
             GenericHelper helper = getEntityHelper(modelEntity.getEntityName());
-            long count = helper.findCountByCondition(this, modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
+            long count = helper.findCountByCondition(this, modelEntity, whereEntityCondition,
+                                            havingEntityCondition, selectFields, findOptions);
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
             TransactionUtil.commit(beganTransaction);

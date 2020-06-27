@@ -31,6 +31,7 @@ import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.entity.model.ModelRelation;
 import org.apache.ofbiz.entity.util.EntityFindOptions;
 import org.apache.ofbiz.entity.util.EntityListIterator;
@@ -97,6 +98,10 @@ public interface GenericHelper {
 
     public long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
             EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException;
+
+    long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
+                                     EntityCondition havingEntityCondition, List<ModelField> selectFields,
+                                     EntityFindOptions findOptions) throws GenericEntityException;
 
     /** Removes/deletes Generic Entity records found by all the specified condition
      *@param modelEntity The ModelEntity of the Entity as defined in the entity XML file

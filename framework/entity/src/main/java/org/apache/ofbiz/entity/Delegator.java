@@ -302,6 +302,20 @@ public interface Delegator {
     long findCountByCondition(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException;
 
     /**
+     * Gets the hit count of GenericValues for the given EntityCondition objects.
+     *
+     * @param entityName
+     * @param whereEntityCondition
+     * @param fieldsToSelect
+     * @param havingEntityCondition
+     * @param findOptions
+     * @return long value with hit count
+     * @throws GenericEntityException
+     */
+    long findCountByCondition(String entityName, EntityCondition whereEntityCondition, Set<String> fieldsToSelect,
+                              EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException;
+
+    /**
      * Finds GenericValues by the conditions specified in the EntityCondition
      * object, the the EntityCondition javadoc for more details.
      *
