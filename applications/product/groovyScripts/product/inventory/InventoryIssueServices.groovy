@@ -116,7 +116,7 @@ def issueImmediatelyFulfilledOrderItem() {
         parameters.quantityNotIssued = orderItem.quantity
         // if quantityNotIssued is not 0, then pull it from the last non-serialized inventory item found,
         // in the quantityNotIssued field
-        if (parameters.quantityNotIssued != 0 as BigDecimal) {
+        if (parameters.quantityNotIssued != (0 as BigDecimal)) {
             BigDecimal availableToPromiseDiff = - parameters.quantityNotIssued
             BigDecimal quantityOnHandDiff = - parameters.quantityNotIssued
             if (lastNonSerInventoryItem) {
@@ -175,7 +175,7 @@ def issueImmediatelyFulfilledOrderItem() {
 def issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
     GenericValue lastNonSerInventoryItem
     // only do something with this inventoryItem if there is more inventory to issue
-    if (parameters.quantityNotIssued > 0 as BigDecimal) {
+    if (parameters.quantityNotIssued > (0 as BigDecimal)) {
         if ("SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId) {
             if ("INV_AVAILABLE" == inventoryItem.statusId) {
                 // change status on inventoryItem

@@ -545,7 +545,7 @@ def splitShipmentItemByQuantity() {
             .queryList()
     BigDecimal orderShipmentQuantityLeft = parameters.newItemQuantity
     for (GenericValue itemOrderShipment : itemOrderShipmentList) {
-        if (orderShipmentQuantityLeft > 0 as BigDecimal) {
+        if (orderShipmentQuantityLeft > (0 as BigDecimal)) {
             if (itemOrderShipment.quantity > orderShipmentQuantityLeft) {
                 // there is enough in this OrderShipment record, so just adjust it and move on
                 Map updateOrderShipmentMap = itemOrderShipment.getAllFields()
@@ -1336,7 +1336,7 @@ def removeOrderShipmentFromShipment() {
     GenericValue shipmentItem = from("ShipmentItem").where(parameters).queryOne()
     run service: "deleteOrderShipment", with: parameters
     shipmentItem.quantity = orderShipment.quantity - shipmentItem.quantity
-    if (shipmentItem.quantity > 0 as BigDecimal) {
+    if (shipmentItem.quantity > (0 as BigDecimal)) {
         run service: "updateShipmentItem", with: shipmentItem.getAllFields()
     } else {
         run service: "deleteShipmentItem", with: parameters
@@ -1353,7 +1353,7 @@ def removeOrderShipmentFromShipment() {
 def addOrderShipmentToShipment() {
     Map result = success()
     // if quantity is greater than 0 we add or update the ShipmentPlan
-    if (parameters.quantity > 0 as BigDecimal) {
+    if (parameters.quantity > (0 as BigDecimal)) {
         // get orderHeader
         GenericValue orderHeader = from("OrderHeader").where(parameters).queryOne()
         // get orderItem

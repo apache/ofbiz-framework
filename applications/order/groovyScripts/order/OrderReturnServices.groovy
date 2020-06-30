@@ -205,7 +205,7 @@ def createReturnItem() {
         && ("RTN_CSREPLACE" == parameters.returnTypeId || "RTN_REPAIR_REPLACE" == parameters.returnTypeId)) {
         return informError("OrderReturnPaymentMethodNeededForThisTypeOfReturn")
     }
-    if (parameters.returnQuantity == 0 as BigDecimal) {
+    if (parameters.returnQuantity == (0 as BigDecimal)) {
         return informError("OrderNoReturnQuantityAvailablePreviousReturnsMayExist")
     }
     
@@ -232,7 +232,7 @@ def createReturnItem() {
         returnableQuantity = serviceResult.returnableQuantity ?: returnableQuantity
         returnablePrice = serviceResult.returnablePrice ?: returnablePrice
     }
-    if (returnableQuantity > 0 as BigDecimal) {
+    if (returnableQuantity > (0 as BigDecimal)) {
         // the user is only allowed to set a returnPrice if he has ORDERMGR_CREATE privilege,
         // otherwise only the returnablePrice calculated by service is used
         if (!security.hasEntityPermission("ORDERMGR", "_CREATE", parameters.userLogin)) {
@@ -520,7 +520,7 @@ def quickReturnFromOrder() {
             logInfo("Found unexpected orderAdjustment: ${newItemCtx.orderAdjustmentId}")
             newItemCtx.orderAdjustmentId = null
         }
-        if (newItemCtx.returnQuantity > 0 as BigDecimal) {
+        if (newItemCtx.returnQuantity > (0 as BigDecimal)) {
             // otherwise, items which have been fully returned would still get passed in and then come back with an error
             run service:"createReturnItem", with: newItemCtx
         } else {
@@ -551,7 +551,7 @@ def quickReturnFromOrder() {
     logInfo("OrderTotal [${orderTotal}] - ReturnTotal [${returnTotal}] = available Return Total [${}]")
     
     // create a manual balance adjustment based on the difference between order total and return total
-    if (availableReturnTotal != 0 as BigDecimal) {
+    if (availableReturnTotal != (0 as BigDecimal)) {
         logWarning("Creating a balance adjustment of [" + availableReturnTotal + "] for return [" + returnId + "]")
         
         // create the balance adjustment return item

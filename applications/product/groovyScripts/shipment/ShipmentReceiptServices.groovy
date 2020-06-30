@@ -82,7 +82,7 @@ def receiveInventoryProduct () {
     Double loops = 1.0
     if (parameters.inventoryItemTypeId == "SERIALIZED_INV_ITEM") {
         // if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain
-        if ((parameters.serialNumber || parameters.currentInventoryItemId) && (parameters.quantityAccepted > 1 as BigDecimal)) {
+        if ((parameters.serialNumber || parameters.currentInventoryItemId) && (parameters.quantityAccepted > (1 as BigDecimal))) {
             Map errorLog = [parameters: parameters]
             return error(UtilProperties.getMessage("ProductUiLabels", "FacilityReceiveInventoryProduct", errorLog,  parameters.locale))
             // before getting going, see if there are any validation issues so far
