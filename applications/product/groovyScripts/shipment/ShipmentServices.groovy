@@ -506,7 +506,7 @@ def balanceItemIssuancesForShipment() {
                         orderId: issuance.orderId,
                         orderItemSeqId: issuance.orderItemSeqId)
                 .queryList()
-        BigDecimal issuanceQuantity = (BigDecimal) 0
+        BigDecimal issuanceQuantity = 0 as BigDecimal
         for (GenericValue receipt : receipts) {
             issuanceQuantity = issuanceQuantity + receipt.quantityAccepted + receipt.quantityRejected
         }
@@ -545,7 +545,7 @@ def splitShipmentItemByQuantity() {
             .queryList()
     BigDecimal orderShipmentQuantityLeft = parameters.newItemQuantity
     for (GenericValue itemOrderShipment : itemOrderShipmentList) {
-        if (orderShipmentQuantityLeft > (BigDecimal) 0) {
+        if (orderShipmentQuantityLeft > 0 as BigDecimal) {
             if (itemOrderShipment.quantity > orderShipmentQuantityLeft) {
                 // there is enough in this OrderShipment record, so just adjust it and move on
                 Map updateOrderShipmentMap = itemOrderShipment.getAllFields()
@@ -556,7 +556,7 @@ def splitShipmentItemByQuantity() {
                                                            shipmentId: itemOrderShipment.shipmentId,
                                                            shipmentItemSeqId: newShipmentItemSeqId,
                                                            quantity: orderShipmentQuantityLeft]
-                orderShipmentQuantityLeft = (BigDecimal) 0
+                orderShipmentQuantityLeft = 0 as BigDecimal
             } else {
                 // not enough on this one, create a new one for the new item and delete this one
                 run service: "deleteOrderShipment", with: itemOrderShipment.getAllFields()
@@ -1336,7 +1336,7 @@ def removeOrderShipmentFromShipment() {
     GenericValue shipmentItem = from("ShipmentItem").where(parameters).queryOne()
     run service: "deleteOrderShipment", with: parameters
     shipmentItem.quantity = orderShipment.quantity - shipmentItem.quantity
-    if (shipmentItem.quantity > (BigDecimal) 0) {
+    if (shipmentItem.quantity > 0 as BigDecimal) {
         run service: "updateShipmentItem", with: shipmentItem.getAllFields()
     } else {
         run service: "deleteShipmentItem", with: parameters
@@ -1353,7 +1353,7 @@ def removeOrderShipmentFromShipment() {
 def addOrderShipmentToShipment() {
     Map result = success()
     // if quantity is greater than 0 we add or update the ShipmentPlan
-    if (parameters.quantity > (BigDecimal) 0) {
+    if (parameters.quantity > 0 as BigDecimal) {
         // get orderHeader
         GenericValue orderHeader = from("OrderHeader").where(parameters).queryOne()
         // get orderItem
@@ -1397,25 +1397,25 @@ def addOrderShipmentToShipment() {
  */
 def getQuantityForShipment() {
     Map result = success()
-    BigDecimal plannedQuantity = (BigDecimal) 0
-    BigDecimal issuedQuantity = (BigDecimal) 0
+    BigDecimal plannedQuantity = 0 as BigDecimal
+    BigDecimal issuedQuantity = 0 as BigDecimal
     // get orderItem
     GenericValue orderItem = from("OrderItem").where(parameters).queryOne()
     Map orderShipmentLookup = [orderId: parameters.orderId,
                                orderItemSeqId: parameters.orderItemSeqId]
     List existingOrderShipments = from("OrderShipment").where(orderShipmentLookup).queryList()
     for (GenericValue orderShipment : existingOrderShipments) {
-        plannedQuantity += orderShipment.quantity ?: (BigDecimal) 0
+        plannedQuantity += orderShipment.quantity ?: 0 as BigDecimal
     }
     existingOrderShipments = from("ItemIssuance").where(orderShipmentLookup).queryList()
     for (GenericValue itemIssuance : existingOrderShipments) {
-        BigDecimal quantity = itemIssuance.quantity ?: (BigDecimal) 0
-        BigDecimal cancelQuantity = itemIssuance.cancelQuantity ?: (BigDecimal) 0
+        BigDecimal quantity = itemIssuance.quantity ?: 0 as BigDecimal
+        BigDecimal cancelQuantity = itemIssuance.cancelQuantity ?: 0 as BigDecimal
         issuedQuantity += quantity - cancelQuantity
     }
 
     BigDecimal totPlannedOrIssuedQuantity = issuedQuantity + plannedQuantity
-    BigDecimal orderCancelQuantity = orderItem.cancelQuantity ?: (BigDecimal) 0
+    BigDecimal orderCancelQuantity = orderItem.cancelQuantity ?: 0 as BigDecimal
 
     result.remainingQuantity = orderCancelQuantity + totPlannedOrIssuedQuantity - orderItem.quantity
     return result
