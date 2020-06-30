@@ -401,7 +401,7 @@ def productOrderHist() {
                 Debug.logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_HIST ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result), module)
                 return serviceResult
             } else {
-                BigDecimal orderSubTotal = (BigDecimal) serviceResult.get("totalSubRemainingAmount")
+                BigDecimal orderSubTotal = serviceResult.get("totalSubRemainingAmount")
                 BigDecimal orderSubTotalAndCartSubTotal = orderSubTotal.add(cart.getSubTotal())
                 if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module)
                 compareBase = orderSubTotalAndCartSubTotal.compareTo(new BigDecimal(condValue))
@@ -447,7 +447,7 @@ def productOrderYear() {
                 Debug.logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result), module)
                 return serviceResult
             } else {
-                BigDecimal orderSubTotal = (BigDecimal) result.get("totalSubRemainingAmount")
+                BigDecimal orderSubTotal = result.get("totalSubRemainingAmount")
                 if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module)
                 compareBase = orderSubTotal.compareTo(new BigDecimal((condValue)))
 
