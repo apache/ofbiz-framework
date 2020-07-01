@@ -437,33 +437,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="cancelPaymentBatch" short-description="cancel payment batch">
-        <entity-and entity-name="PmtGrpMembrPaymentAndFinAcctTrans" list="paymentGroupMemberAndTransList">
-            <field-map field-name="paymentGroupId" from-field="parameters.paymentGroupId"/>
-        </entity-and>
-        <if-not-empty field="paymentGroupMemberAndTransList">
-            <first-from-list list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans"/>
-            <if-compare field="paymentGroupMemberAndTrans.finAccountTransStatusId" operator="equals" value="FINACT_TRNS_APPROVED">
-                <add-error>
-                    <fail-property resource="AccountingUiLabels" property="AccountingTransactionIsAlreadyReconciled"/>
-                </add-error>
-                <check-errors/>
-            </if-compare>
-            <iterate list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans">
-                <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMemberAndTrans" to-map="expirePaymentGroupMemberMap"/>
-                <call-service service-name="expirePaymentGroupMember" in-map-name="expirePaymentGroupMemberMap"/>
-                <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans">
-                    <field-map field-name="finAccountTransId" from-field="paymentGroupMemberAndTrans.finAccountTransId"/>
-                </entity-one>
-                <if-not-empty field="finAccountTrans">
-                    <set-service-fields service-name="setFinAccountTransStatus" map="finAccountTrans" to-map="setFinAccountTransStatusMap"/>
-                    <set field="setFinAccountTransStatusMap.statusId" value="FINACT_TRNS_CANCELED"/>
-                    <call-service service-name="setFinAccountTransStatus" in-map-name="setFinAccountTransStatusMap"/>
-                </if-not-empty>
-            </iterate>
-        </if-not-empty>
-    </simple-method>
-
     <simple-method method-name="createPaymentAndPaymentGroupForInvoices" short-description="Creates Payments, PaymentApplications and PaymentGroup for the same">
         <entity-one entity-name="PaymentMethod" value-field="paymentMethod" auto-field-map="true"/>
         <entity-one entity-name="FinAccount" value-field="finAccount" auto-field-map="false">

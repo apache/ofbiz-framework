@@ -158,8 +158,8 @@ under the License.
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentRunningTotal" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="cancelPaymentBatch" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="cancelPaymentBatch" auth="true">
+    <service name="cancelPaymentBatch" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="cancelPaymentBatch" auth="true">
         <description>cancel payment batch</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>

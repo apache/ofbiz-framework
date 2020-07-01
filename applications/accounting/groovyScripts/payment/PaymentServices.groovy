@@ -22,6 +22,7 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import java.sql.Timestamp
@@ -253,6 +254,7 @@ def massChangePaymentStatus() {
     return serviceResult
 }
 
+
 def createFinAccoutnTransFromPayment() {
     serviceResult = success()
     Map createFinAccountTransMap = dispatcher.getDispatchContext().makeValidContext('setPaymentStatus', ModelService.IN_PARAM, parameters)
@@ -291,4 +293,32 @@ def quickSendPayment() {
 
     return result
 
+}
+
+/**
+ * Service to cancel payment batch
+ */
+def cancelPaymentBatch() {
+    List<GenericValue> paymentGroupMemberAndTransList = from("PmtGrpMembrPaymentAndFinAcctTrans").where("paymentGroupId", parameters.paymentGroupId).queryList()
+
+    if (paymentGroupMemberAndTransList) {
+        GenericValue paymentGroupMemberAndTrans = EntityUtil.getFirst(paymentGroupMemberAndTransList)
+        if ("FINACT_TRNS_APPROVED" == paymentGroupMemberAndTrans.finAccountTransStatusId) {
+            return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingTransactionIsAlreadyReconciled', locale))
+        }
+
+        for (GenericValue paymentGroupMember : paymentGroupMemberAndTransList) {
+            Map expirePaymentGroupMemberMap = dispatcher.getDispatchContext().makeValidContext("expirePaymentGroupMember", "IN", paymentGroupMember)
+            result = runService("expirePaymentGroupMember", expirePaymentGroupMemberMap)
+            if (ServiceUtil.isError(result)) return result
+
+            GenericValue finAccountTrans = from("FinAccountTrans").where("finAccountTransId", paymentGroupMember.finAccountTransId).queryOne()
+            if (finAccountTrans) {
+                Map setFinAccountTransStatusMap = dispatcher.getDispatchContext().makeValidContext("setFinAccountTransStatus", "IN", finAccountTrans)
+                setFinAccountTransStatusMap.statusId = "FINACT_TRNS_CANCELED"
+                result = runService("setFinAccountTransStatus", setFinAccountTransStatusMap)
+                if (ServiceUtil.isError(result)) return result
+            }
+        }
+    }
 }
