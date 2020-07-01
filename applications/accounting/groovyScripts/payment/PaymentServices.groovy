@@ -322,3 +322,20 @@ def cancelPaymentBatch() {
         }
     }
 }
+
+def getPayments() {
+    payments = []
+    if (parameters.paymentGroupId) {
+        paymentGroupMembers = from("PaymentGroupMember").where("paymentGroupId", parameters.paymentGroupId).filterByDate().queryList()
+        if (paymentGroupMembers) {
+            paymentIds = EntityUtil.getFieldListFromEntityList(paymentGroupMembers, "paymentId", true)
+            payments = from("Payment").where(EntityCondition.makeCondition("paymentId", EntityOperator.IN, paymentIds)).queryList()
+        }
+    }
+    if (parameters.finAccountTransId) {
+        payments = from("Payment").where("finAccountTransId", parameters.finAccountTransId).queryList()
+    }
+    result = success()
+    result.payments = payments
+    return result
+}
