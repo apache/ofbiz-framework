@@ -228,13 +228,6 @@ under the License.
         </if-compare-field>
     </simple-method>
 
-    <simple-method method-name="quickSendPayment" short-description="Update a Payment then set it to status PMNT_SENT">
-        <call-service service-name="updatePayment" in-map-name="parameters"/>
-        <set field="param.paymentId" from-field="parameters.paymentId"/>
-        <set field="param.statusId" value="PMNT_SENT"/>
-        <call-service service-name="setPaymentStatus" in-map-name="param"/>
-    </simple-method>
-
     <simple-method method-name="createPaymentAndApplication" short-description="Create a payment and a payment application for the full amount">
         <set-service-fields service-name="createPayment" map="parameters" to-map="createPaymentInMap"/>
         <call-service service-name="createPayment" in-map-name="createPaymentInMap">

@@ -59,8 +59,8 @@ under the License.
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="quickSendPayment" engine="simple" default-entity-name="Payment"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="quickSendPayment">
+    <service name="quickSendPayment" engine="groovy" default-entity-name="Payment"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="quickSendPayment">
         <description>Updates a Payment and then marks it as PMNT_SENT</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

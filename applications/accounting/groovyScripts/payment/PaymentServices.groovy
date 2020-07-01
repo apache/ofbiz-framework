@@ -276,4 +276,19 @@ def createFinAccoutnTransFromPayment() {
     return serviceResult
 }
 
+def quickSendPayment() {
+    Map result = success()
+    Map updatePaymentCtx = dispatcher.getDispatchContext().makeValidContext('updatePayment', 'IN', parameters)
+    Map updatePaymentResp = dispatcher.runSync('updatePayment', updatePaymentCtx)
 
+    if (ServiceUtil.isError(updatePaymentResp)) return updatePaymentResp
+
+    Map setPaymentStatusCtx = dispatcher.getDispatchContext().makeValidContext('setPaymentStatus', 'IN', parameters)
+    setPaymentStatusCtx.statusId = "PMNT_SENT"
+    Map setPaymentStatusResp = dispatcher.runSync('setPaymentStatus', setPaymentStatusCtx)
+
+    if (ServiceUtil.isError(setPaymentStatusResp)) return setPaymentStatusResp
+
+    return result
+
+}
