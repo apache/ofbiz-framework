@@ -395,21 +395,6 @@
     </simple-method-->
 
     <!-- retrieve Data resource information -->
-    <simple-method method-name="getDataResource" short-description="get the content and relasted resource information" login-required="false">
-        <entity-one entity-name="DataResource" value-field="resultData.dataResource"/>
-        <if-not-empty field="resultData.dataResource">
-            <if-compare field="resultData.dataResource.dataResourceTypeId" value="ELECTRONIC_TEXT" operator="equals">
-                <get-related-one value-field="resultData.dataResource" relation-name="ElectronicText"
-                    to-value-field="resultData.electronicText"/>
-            </if-compare>
-            <if-compare field="resultData.dataResource.dataResourceTypeId" value="IMAGE_OBJECT" operator="equals">
-                <get-related-one value-field="resultData.dataResource" relation-name="ImageDataResource"
-                    to-value-field="resultData.imageDataResource"/>
-            </if-compare>
-        </if-not-empty>
-        <field-to-result field="resultData" result-name="resultData"/>
-    </simple-method>
-
     <simple-method method-name="getContentAndDataResource" short-description="get the content and related resource information" login-required="false">
         <entity-one entity-name="Content" value-field="resultDataContent.content">
             <field-map field-name="contentId" from-field="parameters.contentId"/>

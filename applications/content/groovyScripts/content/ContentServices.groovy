@@ -357,3 +357,21 @@ def updateDownloadContent() {
     }
     return result
 }
+
+def getDataResource() {
+    Map result = success()
+    resultData = [:]
+
+    GenericValue dataResource = from('DataResource').where(parameters).queryOne()
+    if (dataResource) {
+        resultData.dataResource = dataResource
+        if ("ELECTRONIC_TEXT" == dataResource.dataResourceTypeId) {
+            resultData.electronicText = dataResource.getRelatedOne('ElectronicText', false)
+        }
+        if ("IMAGE_OBJECT" == dataResource.dataResourceTypeId) {
+            resultData.imageDataResource = dataResource.getRelatedOne('ImageDataResource', false)
+        }
+    }
+    result.resultData = resultData
+    return result
+}
