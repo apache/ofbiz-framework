@@ -19,39 +19,12 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- chapter Marketing-->
-    <DataResource dataResourceId="HELP_MARKETING" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/marketing/data/helpdata/HELP_MARKETING.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+    <DataResource dataResourceId="HELP_MARKETING" localeString="en" dataResourceTypeId="OFBIZ_FILE"
+        objectInfo="applications/marketing/data/HELP_MARKETING.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Marketing Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_MARKETING" contentTypeId="DOCUMENT" contentName="Marketing" templateDataResourceId="HELP_TEMPL" 
+    <Content contentId="HELP_MARKETING" contentTypeId="DOCUMENT" contentName="Marketing" templateDataResourceId="HELP_TEMPL"
         dataResourceId="HELP_MARKETING" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_MARKETING" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
-
-    <!-- marketing help -->
-    <DataResource dataResourceId="MARKETING_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/marketing/data/helpdata/HELP_MARKETING_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Marketing Main Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="MARKETING_main" contentTypeId="DOCUMENT" contentName="MARKETING Main Help" templateDataResourceId="HELP_TEMPL" dataResourceId="MARKETING_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_MARKETING" contentIdTo="MARKETING_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="MARKETING_main"/>
-
-    <!-- Contact list help -->
-    <DataResource dataResourceId="MARKETING_ContLsts" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/marketing/data/helpdata/HELP_MARKETING_ContactLists.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Marketing Contact Lists" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="MARKETING_ContLsts" contentTypeId="DOCUMENT" contentName="MARKETING Contact lists" templateDataResourceId="HELP_TEMPL" dataResourceId="MARKETING_ContLsts" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_MARKETING" contentIdTo="MARKETING_ContLsts" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
-
-    <DataResource dataResourceId="MARKETING_FindContL" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/marketing/data/helpdata/HELP_MARKETING_FindContactLists.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Marketing Main Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="MARKETING_FindContL" contentTypeId="DOCUMENT" contentName="MARKETING Find contactlist" templateDataResourceId="HELP_TEMPL" dataResourceId="MARKETING_FindContL" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="MARKETING_ContLsts" contentIdTo="MARKETING_FindContL" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="MARKETING_FindContactLists"/>
-
-    <DataResource dataResourceId="MARKETING_EditContL" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/marketing/data/helpdata/HELP_MARKETING_EditContactList.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Marketing Main Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="MARKETING_EditContL" contentTypeId="DOCUMENT" contentName="MARKETING Edit contactlist" templateDataResourceId="HELP_TEMPL" dataResourceId="MARKETING_EditContL" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="MARKETING_ContLsts" contentIdTo="MARKETING_EditContL" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="MARKETING_EditContactList"/>
-
-    <DataResource dataResourceId="MARKETING_ImpoContLP" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/marketing/data/helpdata/HELP_MARKETING_ImportContactListParties.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Marketing Main Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="MARKETING_ImpoContLP" contentTypeId="DOCUMENT" contentName="MARKETING Import contactlist Parties" templateDataResourceId="HELP_TEMPL" dataResourceId="MARKETING_ImpoContLP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="MARKETING_ContLsts" contentIdTo="MARKETING_ImpoContLP" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="MARKETING_FindImportContactListParties"/>
 
     <!-- Chapter SFA -->
     <DataResource dataResourceId="HELP_SFA" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
