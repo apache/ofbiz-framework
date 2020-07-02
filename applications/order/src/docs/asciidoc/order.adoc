@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= Order Component
+= Order
 
 The order manager allows you to enter and maintain orders, quotes, requests and report on them.
 

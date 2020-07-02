@@ -13,9 +13,15 @@
     the specific language governing permissions and limitations under the
     License.
 -->
-<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" xmlns:xl="http://www.w3.org/1999/xlink"
-    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Order View</title>
-    <para> This screen allow not only to view an order but also to change it (this is a mock to hide a weird bug, please fill in...)</para>
+    <title>Order Help redirection</title>
+    <para>
+        The order manager allows you to enter and maintain orders, quotes, requests and report on them.
+    </para>
+    <para>Order Help has been migrated to a new system, you can access it by using
+      <link xl:href="https://ci.apache.org/projects/ofbiz/site/trunk/ofbizdoc/html5/user-manual.html#_order">OFBiz user documentation site / Order</link>
+    </para>
 </section>
