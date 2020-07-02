@@ -62,7 +62,7 @@ public class IssuanceTest extends OFBizTestCase {
             BigDecimal.valueOf(1000L), false);
         String shipmentId = packSession.complete(false);
 
-        GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).cache().queryOne();
+        GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
         // Test the OrderShipment is correct
         List<GenericValue> orderShipments = orderHeader.getRelated("OrderShipment", null, null, false);
