@@ -59,7 +59,7 @@ orderAdjustments = null
 comments = null
 
 if (orderId) {
-    orderHeader = from('OrderHeader').where('orderId', orderId).cache(false).queryFirst()
+    orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
     comments = select("orderItemSeqId", "changeComments", "changeDatetime", "changeUserLogin").from("OrderItemChange").where(UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId))).orderBy("-changeDatetime").queryList()
 }
 
