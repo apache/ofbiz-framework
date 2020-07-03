@@ -75,6 +75,7 @@ under the License.
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="secretRequired" value="false"/>
+            <property name="allowedRequestAttributesPattern" value=".*"/> 
             <!-- AJP/13 connector attributes -->
             <!-- commented out because the values match the Tomcat defaults:
             <property name="tomcatAuthentication" value="true"/>
