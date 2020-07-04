@@ -17,12 +17,17 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<entity-engine-xml>
-    <DataResource dataResourceId="HELP_ORDERMGR" localeString="en" dataResourceTypeId="OFBIZ_FILE"
-        objectInfo="applications/order/data/HELP_ORDERMGR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
-        dataResourceName="Order" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_ORDERMGR" contentTypeId="DOCUMENT" contentName="Order Manager" templateDataResourceId="HELP_TEMPL"
-        dataResourceId="HELP_ORDERMGR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ORDERMGR" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Party Manager Help redirection</title>
+    <para>
+        The Party Manager application is used to manage the parties, i.e any legal entity your company has to deal with.
+    </para>
+    <para>Party Help has been migrated to a new system, you can access it by using
+      <link xl:href="https://ci.apache.org/projects/ofbiz/site/trunk/ofbizdoc/html5/user-manual.html#_party">OFBiz user documentation site / Party</link>
+    </para>
+</section>
 
-</entity-engine-xml>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+////
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -16,13 +15,18 @@ software distributed under the License is distributed on an
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
--->
-<entity-engine-xml>
-    <DataResource dataResourceId="HELP_ORDERMGR" localeString="en" dataResourceTypeId="OFBIZ_FILE"
-        objectInfo="applications/order/data/HELP_ORDERMGR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
-        dataResourceName="Order" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_ORDERMGR" contentTypeId="DOCUMENT" contentName="Order Manager" templateDataResourceId="HELP_TEMPL"
-        dataResourceId="HELP_ORDERMGR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ORDERMGR" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+////
 
-</entity-engine-xml>
+= Help for import contact list parties
+This is the initial screen to find an existing parties and select them for import to the contact list.
+
+== Find selection fields.
+* Party Id : The unique id of the party
+* Party Type Id : The type of the party
+* Role Type : The role of the party
+* Contact Mech Type Id : the contact type according to the contact meth type's ID of the contact list. +
+  There is a sub form for this field according to the contact mech type's ID.
+
+== Import the parties
+1. Select the parties in the search result list.
+2. Press the "Submit Query" button

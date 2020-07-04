@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+////
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -16,13 +15,22 @@ software distributed under the License is distributed on an
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
--->
-<entity-engine-xml>
-    <DataResource dataResourceId="HELP_ORDERMGR" localeString="en" dataResourceTypeId="OFBIZ_FILE"
-        objectInfo="applications/order/data/HELP_ORDERMGR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
-        dataResourceName="Order" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_ORDERMGR" contentTypeId="DOCUMENT" contentName="Order Manager" templateDataResourceId="HELP_TEMPL"
-        dataResourceId="HELP_ORDERMGR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ORDERMGR" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+////
+= Edit a contact list.
+This screen enables you to edit an existing contactlist or create a new one.
+Below an explanation of the fields
 
-</entity-engine-xml>
+== Contact list fields.
+* ContactList Id   : The unique id of the contact list
+* ContactList Name : The name of the contactlist
+* ContactList Type : The type of the contactlist
+* Is Public ?      :
+* Is Single Use ?  : If set to 'Y' all parties of this contactlist will be deleted after sending the email.
+* Contact Mech type: the contact type like email, postal address etc.
+* Marketing Campaign Name : The marketing campaign name
+* Owner Party Id:
+* Verify Email From:
+* Verify Email Screen:
+* Verify Email Subject:
+* Verify Email WebSite Id:
+* Opt Out Screen:

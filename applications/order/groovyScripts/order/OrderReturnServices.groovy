@@ -129,7 +129,7 @@ def updateReturnHeader() {
         List returnItems = from("ReturnItem").where(returnId: returnHeader.returnId).distinct().queryList()
         
         // this is used to make sure we don't return a negative amount
-        BigDecimal returnTotalAmount = 0 as BigDecimal
+        BigDecimal returnTotalAmount = BigDecimal.ZERO
         
         // check them all to make sure that the return total does not exceed order total.
         for (GenericValue returnItem : returnItems) {
@@ -144,7 +144,7 @@ def updateReturnHeader() {
                 // no adjustment needed: adjustment is passed in to calculate
                 // the effect of an additional item on return total.
                 Map serviceResult = run service:"getOrderAvailableReturnedTotal", with: [orderId: returnItem.orderId,
-                                                                                         adjustment : 0 as BigDecimal]
+                                                                                         adjustment : BigDecimal.ZERO]
                 BigDecimal availableReturnTotal = serviceResult.availableReturnTotal
                 BigDecimal returnTotal = serviceResult.returnTotal
                 BigDecimal orderTotal = serviceResult.returnTotal
@@ -205,13 +205,13 @@ def createReturnItem() {
         && ("RTN_CSREPLACE" == parameters.returnTypeId || "RTN_REPAIR_REPLACE" == parameters.returnTypeId)) {
         return informError("OrderReturnPaymentMethodNeededForThisTypeOfReturn")
     }
-    if (parameters.returnQuantity == (0 as BigDecimal)) {
+    if (parameters.returnQuantity == (BigDecimal.ZERO)) {
         return informError("OrderNoReturnQuantityAvailablePreviousReturnsMayExist")
     }
     
     // setup some default values for protection
-    BigDecimal returnableQuantity = 0 as BigDecimal
-    BigDecimal returnablePrice = 0 as BigDecimal
+    BigDecimal returnableQuantity = BigDecimal.ZERO
+    BigDecimal returnablePrice = BigDecimal.ZERO
     
     // if an orderItemSeqId is provided, then find the corresponding orderItem
     if (parameters.orderItemSeqId) {
@@ -232,7 +232,7 @@ def createReturnItem() {
         returnableQuantity = serviceResult.returnableQuantity ?: returnableQuantity
         returnablePrice = serviceResult.returnablePrice ?: returnablePrice
     }
-    if (returnableQuantity > (0 as BigDecimal)) {
+    if (returnableQuantity > (BigDecimal.ZERO)) {
         // the user is only allowed to set a returnPrice if he has ORDERMGR_CREATE privilege,
         // otherwise only the returnablePrice calculated by service is used
         if (!security.hasEntityPermission("ORDERMGR", "_CREATE", parameters.userLogin)) {
@@ -369,7 +369,7 @@ def updateReturnStatusFromReceipt() {
     Map totalsMap = [:]
     for (GenericValue receipt : shipmentReceipts) {
         if (!totalsMap[receipt?.returnItemSeqId]) {
-            totalsMap[receipt.returnItemSeqId] = 0 as BigDecimal
+            totalsMap[receipt.returnItemSeqId] = BigDecimal.ZERO
         }
         totalsMap[receipt.returnItemSeqId] += receipt.quantityAccepted + receipt.quantityRejected
     }
@@ -520,7 +520,7 @@ def quickReturnFromOrder() {
             logInfo("Found unexpected orderAdjustment: ${newItemCtx.orderAdjustmentId}")
             newItemCtx.orderAdjustmentId = null
         }
-        if (newItemCtx.returnQuantity > (0 as BigDecimal)) {
+        if (newItemCtx.returnQuantity > (BigDecimal.ZERO)) {
             // otherwise, items which have been fully returned would still get passed in and then come back with an error
             run service:"createReturnItem", with: newItemCtx
         } else {
@@ -551,7 +551,7 @@ def quickReturnFromOrder() {
     logInfo("OrderTotal [${orderTotal}] - ReturnTotal [${returnTotal}] = available Return Total [${}]")
     
     // create a manual balance adjustment based on the difference between order total and return total
-    if (availableReturnTotal != (0 as BigDecimal)) {
+    if (availableReturnTotal != (BigDecimal.ZERO)) {
         logWarning("Creating a balance adjustment of [" + availableReturnTotal + "] for return [" + returnId + "]")
         
         // create the balance adjustment return item
@@ -958,7 +958,7 @@ def createReturnItemForRental() {
         createReturnCtx.returnTypeId = "RTN_RENTAL"
         createReturnCtx.returnItemTypeId = "RET_FDPROD_ITEM"
         createReturnCtx.expectedItemStatus = "INV_RETURNED"
-        createReturnCtx.returnPrice = 0 as BigDecimal
+        createReturnCtx.returnPrice = BigDecimal.ZERO
         
         List orderItems = from("OrderItemAndProduct")
                 .where(orderId: orderHeader.orderId,

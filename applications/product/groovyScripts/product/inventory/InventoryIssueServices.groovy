@@ -116,7 +116,7 @@ def issueImmediatelyFulfilledOrderItem() {
         parameters.quantityNotIssued = orderItem.quantity
         // if quantityNotIssued is not 0, then pull it from the last non-serialized inventory item found,
         // in the quantityNotIssued field
-        if (parameters.quantityNotIssued != (0 as BigDecimal)) {
+        if (parameters.quantityNotIssued != (BigDecimal.ZERO)) {
             BigDecimal availableToPromiseDiff = - parameters.quantityNotIssued
             BigDecimal quantityOnHandDiff = - parameters.quantityNotIssued
             if (lastNonSerInventoryItem) {
@@ -175,7 +175,7 @@ def issueImmediatelyFulfilledOrderItem() {
 def issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
     GenericValue lastNonSerInventoryItem
     // only do something with this inventoryItem if there is more inventory to issue
-    if (parameters.quantityNotIssued > (0 as BigDecimal)) {
+    if (parameters.quantityNotIssued > (BigDecimal.ZERO)) {
         if ("SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId) {
             if ("INV_AVAILABLE" == inventoryItem.statusId) {
                 // change status on inventoryItem
@@ -186,9 +186,9 @@ def issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
                 run service: "createItemIssuance", with: [orderId: parameters.orderId,
                                                           orderItemSeqId: parameters.orderItemSeqId,
                                                           inventoryItemId: inventoryItem.inventoryItemId,
-                                                          quantity: 1 as BigDecimal]
+                                                          quantity: BigDecimal.ONE]
 
-                parameters.quantityNotIssued -= 1 as BigDecimal
+                parameters.quantityNotIssued -= BigDecimal.ONE
             }
         }
         if (inventoryItem.inventoryItemTypeId == "NON_SERIAL_INV_ITEM") {
@@ -196,7 +196,7 @@ def issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
             // if not the code at the end of this method will handle it
             if ((!inventoryItem.statusId || inventoryItem.statusId == "INV_AVAILABLE") &&
                     inventoryItem.availableToPromiseTotal &&
-                    inventoryItem.availableToPromiseTotal > 0 as BigDecimal) {
+                    inventoryItem.availableToPromiseTotal > BigDecimal.ZERO) {
                 parameters.deductAmount = parameters.quantityNotIssued > inventoryItem.availableToPromiseTotal ?
                         inventoryItem.availableToPromiseTotal :
                         parameters.quantityNotIssued
