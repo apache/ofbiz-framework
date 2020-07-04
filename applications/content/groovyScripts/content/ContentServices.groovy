@@ -386,3 +386,26 @@ def getContentAndDataResource () {
     resultMap.resultData = resultDataContent;
     return resultMap;
 }
+/* create content from data resource */
+/*This method will create a skeleton content record from a data resource */
+def createContentFromDataResource() {
+    dataResource = from("DataResource").where("dataResourceId", parameters.dataResourceId).queryOne()
+    if (dataResource == null) {
+            return error(UtilProperties.getMessage("ContentUiLabels", "ContentDataResourceNotFound", UtilMisc.toMap("parameters.dataResourceId", parameters.dataResourceId), parameters.locale))
+        }
+    Map createContentMap = dispatcher.getDispatchContext().makeValidContext('createContent', ModelService.IN_PARAM, parameters)
+    if (!(createContentMap.contentName)) {
+        createContentMap.contentName = dataResource.dataResourceName
+    }
+    if (!(createContentMap.contentTypeId)) {
+        createContentMap.contentTypeId = "DOCUMENT"
+    }
+    if (!(createContentMap.statusId)) {
+        createContentMap.statusId = "CTNT_INITIAL_DRAFT"
+    }
+    if (!(createContentMap.mimeTypeId)) {
+        createContentMap.mimeTypeId = dataResource.mimeTypeId
+    }
+    Map result = run service: "createContent", with: createContentMap
+    return result
+}

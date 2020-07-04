@@ -238,43 +238,6 @@
         </if-not-empty>
     </simple-method>
 
-    <!-- This method will create a skeleton content record from a data resource -->
-    <simple-method method-name="createContentFromDataResource" short-description="Create Content from DataResource Object">
-        <entity-one entity-name="DataResource" value-field="dataResource">
-            <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
-        </entity-one>
-        <if-empty field="dataResource">
-            <add-error>
-                <fail-property resource="ContentUiLabels" property="ContentDataResourceNotFound"/>
-            </add-error>
-        </if-empty>
-        <check-errors/>
-
-        <set-service-fields service-name="createContent" map="parameters" to-map="createContentMap"/>
-
-        <if-empty field="createContentMap.contentName">
-            <set field="createContentMap.contentName" from-field="dataResource.dataResourceName"/>
-        </if-empty>
-
-        <if-empty field="createContentMap.contentTypeId">
-            <set field="createContentMap.contentTypeId" value="DOCUMENT"/>
-        </if-empty>
-
-        <if-empty field="createContentMap.statusId">
-            <set field="createContentMap.statusId" value="CTNT_INITIAL_DRAFT"/>
-        </if-empty>
-
-        <if-empty field="createContentMap.mimeTypeId">
-            <set from-field="dataResource.mimeTypeId" field="createContentMap.mimeTypeId"/>
-        </if-empty>
-
-        <call-service service-name="createContent" in-map-name="createContentMap" break-on-error="false">
-            <result-to-field result-name="contentId" field="contentId"/>
-        </call-service>
-
-        <field-to-result field="contentId"/>
-    </simple-method>
-
     <!-- This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
          by calling persistContentAndAssoc.
 
