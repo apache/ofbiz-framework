@@ -1161,6 +1161,7 @@ public class DatabaseUtil {
                     if (pkCount == 0) {
                         Debug.logInfo("Searching in " + tableNames.size() + " tables for primary key fields ...", module);
                         for (String curTable: tableNames) {
+                            curTable = curTable.substring(curTable.indexOf('.') + 1); //cut off schema name
                             try (ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, curTable)) {
                                 pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
                             } catch (Exception e1) {
