@@ -50,7 +50,6 @@ def createTextAndUploadedContent(){
     result.contentId = parameters.parentContentId
     return result
 }
-
 def deactivateAllContentRoles() {
     List contentRoles = from("ContentRole").
             where("contentId", parameters.contentId, "partyId", parameters.partyId, "roleTypeId", parameters.roleTypeId)
@@ -63,7 +62,6 @@ def deactivateAllContentRoles() {
     }
     return success()
 }
-
 def createContentAlternativeUrl() {
     //create Content Alternative URLs.
     String contentCreated
@@ -173,7 +171,6 @@ def createContentAlternativeUrl() {
             }
         }
     }
-
     map = success()
     map.contentCreated = contentCreated
     return map
@@ -190,7 +187,6 @@ def updateEmailContent() {
         run service: "updateElectronicText", with: [dataResourceId: parameters.htmlBodyDataResourceId, textData: parameters.htmlBody]
     }
 }
-
 def createArticleContent() {
     // Post a new Content article Entry
     String origContentAssocTypeId = parameters.contentAssocTypeId
@@ -317,7 +313,6 @@ def createArticleContent() {
     result.contentId = contentId
     return result
 }
-
 def setContentStatus() {
     Map resultMap = new HashMap()
     content = from("Content").where("contentId", parameters.contentId).queryOne()
@@ -357,7 +352,6 @@ def updateDownloadContent() {
     }
     return result
 }
-
 def getDataResource() {
     Map result = success()
     resultData = [:]
@@ -374,4 +368,21 @@ def getDataResource() {
     }
     result.resultData = resultData
     return result
+}
+def getContentAndDataResource () {
+    resultMap = [:];
+    resultDataContent = [:];
+    content = from("Content").where("contentId", parameters.contentId).queryOne();
+    resultDataContent.content = content;
+    if (content && content.dataResourceId) {
+        result = runService("getDataResource", ["dataResourceId": content.dataResourceId, "userLogin": userLogin]);
+        if (result) {
+            resultData = result.resultData;
+            resultDataContent.dataResource = resultData.dataResource;
+            resultDataContent.electronicText = resultData.electronicText;
+            resultDataContent.imageDataResource = resultData.imageDataResource;
+        }
+    }
+    resultMap.resultData = resultDataContent;
+    return resultMap;
 }

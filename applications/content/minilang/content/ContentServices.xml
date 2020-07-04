@@ -394,40 +394,21 @@
         </if-not-empty>
     </simple-method-->
 
-    <!-- retrieve Data resource information -->
-    <simple-method method-name="getContentAndDataResource" short-description="get the content and related resource information" login-required="false">
-        <entity-one entity-name="Content" value-field="resultDataContent.content">
-            <field-map field-name="contentId" from-field="parameters.contentId"/>
-        </entity-one>
-        <if-not-empty field="resultDataContent.content">
-            <if-not-empty field="resultDataContent.content.dataResourceId">
-                <set field="parameters.dataResourceId" from-field="resultDataContent.content.dataResourceId"/>
-                <call-simple-method method-name="getDataResource"/>
-                <set field="resultDataContent.dataResource" from-field="resultData.dataResource"/>
-                <set field="resultDataContent.electronicText" from-field="resultData.electronicText"/>
-                <set field="resultDataContent.imageDataResource" from-field="resultData.imageDataResource"/>
-            </if-not-empty>
-            <field-to-result field="resultDataContent" result-name="resultData"/>
-        </if-not-empty>
-    </simple-method>
-
     <simple-method method-name="getPublicForumMessage" short-description="get the content and related resource information without security" login-required="false">
         <set field="publicForumMessage" value="true"/>
-        <call-simple-method method-name="getContentAndDataResource"/>
+        <set-service-fields service-name="getContentAndDataResource" map="parameters" to-map="getC"/>
+        <call-service service-name="getContentAndDataResource" in-map-name="getC"/>
     </simple-method>
-
     <simple-method method-name="forceIndexContentKeywords" short-description="induce all the keywords of a content">
         <entity-one entity-name="Content" value-field="content"/>
         <call-class-method class-name="org.apache.ofbiz.content.content.ContentKeywordIndex" method-name="forceIndexKeywords">
             <field field="content" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
-    
     <simple-method method-name="deleteContentKeywords" short-description="delete all the keywords of a content">
         <entity-one entity-name="Content" value-field="content"/>
         <remove-related value-field="content" relation-name="ContentKeyword"/>
     </simple-method>
-
     <simple-method method-name="indexContentKeywords" short-description="Index the Keywords for a Content" login-required="false">
         <!-- this service is meant to be called from an entity ECA for entities that include a contentId -->
         <!-- if it is the Content entity itself triggering this action, then a [contentInstance] parameter

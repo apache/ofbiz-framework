@@ -40,8 +40,8 @@
         <attribute mode="OUT" name="resultData" optional="true" type="java.util.Map"/>
     </service>
 
-    <service name="getContentAndDataResource" engine="simple" default-entity-name="Content" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="getContentAndDataResource">
+    <service name="getContentAndDataResource" engine="groovy" default-entity-name="Content" auth="true"
+            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="getContentAndDataResource">
         <description>Get Content and resource information</description>
         <permission-service service-name="genericContentPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
