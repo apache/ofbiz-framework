@@ -17,5 +17,5 @@ specific language governing permissions and limitations
 under the License.
 -->
 </body>
-<@scriptTemplateList/>
+<@scriptTagsFooter/>
 </html>

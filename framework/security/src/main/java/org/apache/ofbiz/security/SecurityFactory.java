@@ -46,7 +46,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class SecurityFactory {
 
-    public static final String MODULE = SecurityFactory.class.getName();
+    private static final String MODULE = SecurityFactory.class.getName();
     // The default implementation stores a Delegator reference, so we will cache by delegator name.
     // The goal is to remove Delegator references in the Security interface, then we can use a singleton
     // and eliminate the cache.

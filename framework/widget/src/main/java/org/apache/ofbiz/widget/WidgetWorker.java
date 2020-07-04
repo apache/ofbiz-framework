@@ -43,7 +43,7 @@ import org.jsoup.parser.Parser;
 
 public final class WidgetWorker {
 
-    public static final String MODULE = WidgetWorker.class.getName();
+    private static final String MODULE = WidgetWorker.class.getName();
 
     private WidgetWorker () {}
 

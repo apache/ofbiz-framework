@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class ReportHelper {
 
-    public static final String MODULE = ReportHelper.class.getName();
+    private static final String MODULE = ReportHelper.class.getName();
 
     private ReportHelper() {}
 

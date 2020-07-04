@@ -69,7 +69,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class GenericDAO {
 
-    public static final String MODULE = GenericDAO.class.getName();
+    private static final String MODULE = GenericDAO.class.getName();
 
     private static final ConcurrentHashMap<String, GenericDAO> genericDAOs = new ConcurrentHashMap<>();
     private final GenericHelperInfo helperInfo;

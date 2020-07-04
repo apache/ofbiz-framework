@@ -22,7 +22,7 @@ under the License.
           "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
           "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <!-- This configuration corresponds to the OFBiz coding conventions
-     which are simply “Sun Coding Standards” + “120 characters line length” -->
+     which are simply “Sun Coding Standards” + “150 characters line length” -->
 <module name="Checker">
     <module name="BeforeExecutionExclusionFileFilter">
         <property name="fileNamePattern" value="module\-info\.java$"/>
@@ -40,9 +40,9 @@ under the License.
        <property name="maximum" value="0"/>
        <property name="message" value="Line has trailing spaces."/>
     </module>
-        <module name="LineLength">
-            <property name="max" value="120"/>
-        </module>
+    <module name="LineLength">
+        <property name="max" value="150"/>
+    </module>
 
     <module name="TreeWalker">
         <!-- Naming conventions -->

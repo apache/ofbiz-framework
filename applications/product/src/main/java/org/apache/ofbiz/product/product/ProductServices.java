@@ -68,9 +68,9 @@ import org.jdom.JDOMException;
  */
 public class ProductServices {
 
-    public static final String MODULE = ProductServices.class.getName();
-    public static final String resource = "ProductUiLabels";
-    public static final String resourceError = "ProductErrorUiLabels";
+    private static final String MODULE = ProductServices.class.getName();
+    private static final String RESOURCE = "ProductUiLabels";
+    private static final String RES_ERROR = "ProductErrorUiLabels";
 
     /**
      * Creates a Collection of product entities which are variant products from the specified product ID.
@@ -121,7 +121,7 @@ public class ProductServices {
                     products.add(EntityQuery.use(delegator).from("Product").where("productId", oneVariant.getString("productIdTo")).queryOne());
                 } catch (GenericEntityException e) {
                     Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
-                    String errMsg = UtilProperties.getMessage(resourceError,"productservices.problem_reading_product_features_errors", messageMap, locale);
+                    String errMsg = UtilProperties.getMessage(RES_ERROR,"productservices.problem_reading_product_features_errors", messageMap, locale);
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
@@ -154,13 +154,13 @@ public class ProductServices {
             }
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
-            errMsg = UtilProperties.getMessage(resourceError,"productservices.problem_reading_product_features_errors", messageMap, locale);
+            errMsg = UtilProperties.getMessage(RES_ERROR,"productservices.problem_reading_product_features_errors", messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
         if (featureSet.size() == 0) {
-            errMsg = UtilProperties.getMessage(resourceError,"productservices.problem_reading_product_features", locale);
+            errMsg = UtilProperties.getMessage(RES_ERROR,"productservices.problem_reading_product_features", locale);
             // ToDo DO 2004-02-23 Where should the errMsg go?
             Debug.logWarning(errMsg + " for product " + productId, MODULE);
         }
@@ -182,7 +182,7 @@ public class ProductServices {
         List<String> featureOrder = UtilMisc.makeListWritable(UtilGenerics.cast(context.get("featureOrder")));
 
         if (UtilValidate.isEmpty(featureOrder)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductFeatureTreeCannotFindFeaturesList", locale));
         }
 
@@ -206,7 +206,7 @@ public class ProductServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("productIdTo", productIdTo, "errMessage", e.toString());
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "productservices.error_finding_associated_variant_with_ID_error", messageMap, locale));
             }
             if (productTo == null) {
@@ -244,7 +244,7 @@ public class ProductServices {
                 if (checkInventory) {
                     Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", BigDecimal.ONE));
                     if (ServiceUtil.isError(invReqResult)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                                 "ProductFeatureTreeCannotCallIsStoreInventoryRequired", locale), null, null, invReqResult);
                     } else if ("Y".equals(invReqResult.get("availableOrNotRequired"))) {
                         items.add(productIdTo);
@@ -262,7 +262,7 @@ public class ProductServices {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error calling the isStoreInventoryRequired when building the variant product tree: " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductFeatureTreeCannotCallIsStoreInventoryRequired", locale));
             }
         }
@@ -275,7 +275,7 @@ public class ProductServices {
             selectableFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE").orderBy("sequenceNum").cache(true).filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "productservices.empty_list_of_selectable_features_found", locale));
         }
         Map<String, List<String>> features = new HashMap<>();
@@ -303,7 +303,7 @@ public class ProductServices {
         }
         if (UtilValidate.isEmpty(tree)) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resourceError,
+            result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RES_ERROR,
                     "productservices.feature_grouping_came_back_empty", locale));
         } else {
             result.put("variantTree", tree);
@@ -356,7 +356,7 @@ public class ProductServices {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(RES_ERROR,
                     "productservices.problem_reading_product_feature_entity", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -375,7 +375,7 @@ public class ProductServices {
         String errMsg = null;
 
         if (UtilValidate.isEmpty(productId)) {
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(RES_ERROR,
                     "productservices.invalid_productId_passed", locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -398,7 +398,7 @@ public class ProductServices {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(RES_ERROR,
                     "productservices.problems_reading_product_entity", messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
@@ -430,7 +430,7 @@ public class ProductServices {
         sortDescending = sortDescending == null ? Boolean.FALSE : sortDescending;
 
         if (productId == null && productIdTo == null) {
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(RES_ERROR,
                     "productservices.both_productId_and_productIdTo_cannot_be_null", locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -438,7 +438,7 @@ public class ProductServices {
         }
 
         if (productId != null && productIdTo != null) {
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(RES_ERROR,
                     "productservices.both_productId_and_productIdTo_cannot_be_defined", locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -452,7 +452,7 @@ public class ProductServices {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(RES_ERROR,
                     "productservices.problems_reading_product_entity", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -460,7 +460,7 @@ public class ProductServices {
         }
 
         if (product == null) {
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(RES_ERROR,
                     "productservices.problems_getting_product_entity", locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -510,7 +510,7 @@ public class ProductServices {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(RES_ERROR,
                     "productservices.problems_product_association_relation_error", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -679,7 +679,7 @@ public class ProductServices {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             if (product == null) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(resourceError,
+                errMsg = UtilProperties.getMessage(RES_ERROR,
                         "productservices.product_not_found_with_ID", messageMap, locale);
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -745,7 +745,7 @@ public class ProductServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity error creating quick add variant data", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(RES_ERROR,
                     "productservices.entity_error_quick_add_variant_data", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -821,7 +821,7 @@ public class ProductServices {
                     List<GenericValue> goodIdentificationList = EntityQuery.use(delegator).from("GoodIdentification").where("idValue", variantProductId).queryList();
                     if (UtilValidate.isEmpty(goodIdentificationList)) {
                         // whoops, nothing found... return error
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                                 "ProductVirtualVariantCreation", UtilMisc.toMap("variantProductId", variantProductId), locale));
                     }
 
@@ -873,7 +873,7 @@ public class ProductServices {
                 productAssoc.create();
             }
         } catch (GenericEntityException e) {
-            String errMsg = UtilProperties.getMessage(resourceError, "ProductErrorCreatingNewVirtualProductFromVariantProducts", UtilMisc.toMap("errorString", e.toString()), locale);
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductErrorCreatingNewVirtualProductFromVariantProducts", UtilMisc.toMap("errorString", e.toString()), locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
@@ -1008,7 +1008,7 @@ public class ProductServices {
                 if (!targetDir.exists()) {
                     boolean created = targetDir.mkdirs();
                     if (!created) {
-                        String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
+                        String errMsg = UtilProperties.getMessage(RESOURCE, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
                         Debug.logFatal(errMsg, MODULE);
                         return ServiceUtil.returnError(errMsg);
                     }
@@ -1055,11 +1055,11 @@ public class ProductServices {
                     out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                             "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                             "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } catch (NullPointerException e) {
@@ -1072,11 +1072,11 @@ public class ProductServices {
                 resultResize.putAll(ScaleImage.scaleImageInAllSize(imageContext, filenameToUse, "additional", viewNumber));
             } catch (IOException e) {
                 Debug.logError(e, "Scale additional image in all different sizes is impossible : " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductImageViewScaleImpossible", UtilMisc.toMap("errorString", e.toString()), locale));
             } catch (JDOMException e) {
                 Debug.logError(e, "Errors occur in parsing ImageProperties.xml : " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductImageViewParsingError", UtilMisc.toMap("errorString", e.toString()), locale));
             }
 
@@ -1352,11 +1352,11 @@ public class ProductServices {
                 out.close();
             } catch (FileNotFoundException e) {
                 Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
 

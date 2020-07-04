@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("serial")
 public class ComponentResourceHandler implements ResourceHandler {
 
-    public static final String MODULE = ComponentResourceHandler.class.getName();
+    private static final String MODULE = ComponentResourceHandler.class.getName();
     protected String componentName;
     protected String loaderName;
     protected String location;

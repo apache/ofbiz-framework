@@ -28,13 +28,14 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindParty"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="findparty"/>
+                <set field="helpAnchor" value="_help_for_the_party_find_screen"/>
                 <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm" value="LookupParty"/>
                 <set field="asm_multipleSelect" value="LookupParty_partyClassificationGroupId"/>
                 <set field="asm_formSize" value="700"/>
                 <set field="asm_listItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
-                
+
                 <set field="initialyCollapsed" value="${groovy:'Y'.equals(parameters.hideFields)}" type="String"/>
                 <script location="component://party/groovyScripts/party/FindParty.groovy"/>
             </actions>
@@ -75,6 +76,7 @@ under the License.
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="partyId" from-field="parameters.partyId"/>
+                <set field="DONE_PAGE" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
                 <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
             </actions>
@@ -575,7 +577,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CreatePartyRelatedAccount">
         <section>
             <actions>
@@ -1417,5 +1419,5 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
 </screens>

@@ -66,25 +66,20 @@ public class ContentJsonEvents {
             nodes.add(getTreeNode(assoc));
         }
 
-        Collections.sort(nodes, new Comparator<Map<String, Object>>() {
-
-            @Override
-            public int compare(Map<String, Object> node1, Map<String, Object> node2) {
-                Map<String, Object> data1 = UtilGenerics.cast(node1.get("data"));
-                Map<String, Object> data2 = UtilGenerics.cast(node2.get("data"));
-                if (data1 == null || data2 == null) {
-                    return 0;
-                }
-
-                String title1 = (String) data1.get("title");
-                String title2 = (String) data2.get("title");
-                if (title1 == null || title2 == null) {
-                    return 0;
-                }
-
-                return title1.toLowerCase(Locale.getDefault()).compareTo(title2.toLowerCase(Locale.getDefault()));
+        nodes.sort((node1, node2) -> {
+            Map<String, Object> data1 = UtilGenerics.cast(node1.get("data"));
+            Map<String, Object> data2 = UtilGenerics.cast(node2.get("data"));
+            if (data1 == null || data2 == null) {
+                return 0;
             }
 
+            String title1 = (String) data1.get("title");
+            String title2 = (String) data2.get("title");
+            if (title1 == null || title2 == null) {
+                return 0;
+            }
+
+            return title1.toLowerCase(Locale.getDefault()).compareTo(title2.toLowerCase(Locale.getDefault()));
         });
         IOUtils.write(JSON.from(nodes).toString(), response.getOutputStream(), Charset.defaultCharset());
 

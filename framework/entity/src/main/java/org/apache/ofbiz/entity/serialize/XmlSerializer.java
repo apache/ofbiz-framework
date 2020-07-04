@@ -67,7 +67,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class XmlSerializer {
-    public static final String MODULE = XmlSerializer.class.getName();
+    private static final String MODULE = XmlSerializer.class.getName();
 
     private volatile static WeakReference<DateFormat> simpleDateFormatter;
 

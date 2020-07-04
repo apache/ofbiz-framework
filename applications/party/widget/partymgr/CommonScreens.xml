@@ -49,6 +49,7 @@ under the License.
                 <set field="activeApp" value="partymgr" global="true"/>
                 <set field="applicationMenuName" value="PartyAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://party/widget/partymgr/PartyMenus.xml" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_party"/>
                 <set field="applicationTitle" from-field="uiLabelMap.PartyManagerApplication" global="true"/>
             </actions>
             <widgets>

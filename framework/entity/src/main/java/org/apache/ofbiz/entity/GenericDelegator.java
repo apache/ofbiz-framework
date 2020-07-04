@@ -94,7 +94,7 @@ import org.xml.sax.SAXException;
  */
 public class GenericDelegator implements Delegator {
 
-    public static final String MODULE = GenericDelegator.class.getName();
+    private static final String MODULE = GenericDelegator.class.getName();
 
     protected ModelReader modelReader = null;
     protected ModelGroupReader modelGroupReader = null;
@@ -312,7 +312,7 @@ public class GenericDelegator implements Delegator {
             return;
         }
 
-        Callable<EntityEcaHandler<?>> creator = () -> createEntityEcaHandler();
+        Callable<EntityEcaHandler<?>> creator = this::createEntityEcaHandler;
         FutureTask<EntityEcaHandler<?>> futureTask = new FutureTask<>(creator);
         if (this.entityEcaHandler.compareAndSet(null, futureTask)) {
             // This needs to use BATCH, as the service engine might add it's own items into a thread pool.
@@ -1622,11 +1622,22 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
+     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
+     *  org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
      */
     @Override
     public long findCountByCondition(String entityName, EntityCondition whereEntityCondition,
             EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
+        return findCountByCondition(entityName, whereEntityCondition, null, havingEntityCondition, findOptions);
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
+     *  java.util.Set, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
+     */
+    @Override
+    public long findCountByCondition(String entityName, EntityCondition whereEntityCondition, Set<String> fieldsToSelect,
+                                     EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
 
         boolean beganTransaction = false;
         try {
@@ -1646,9 +1657,20 @@ public class GenericDelegator implements Delegator {
                 havingEntityCondition.checkCondition(modelEntity);
             }
 
+            List<ModelField> selectFields = new LinkedList<>();
+            if (UtilValidate.isNotEmpty(fieldsToSelect)) {
+                for (String fieldToSelect : fieldsToSelect) {
+                    ModelField curField = modelEntity.getField(fieldToSelect);
+                    if (curField != null) {
+                        selectFields.add(curField);
+                    }
+                }
+            }
+
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);
             GenericHelper helper = getEntityHelper(modelEntity.getEntityName());
-            long count = helper.findCountByCondition(this, modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
+            long count = helper.findCountByCondition(this, modelEntity, whereEntityCondition,
+                                            havingEntityCondition, selectFields, findOptions);
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
             TransactionUtil.commit(beganTransaction);
@@ -2198,7 +2220,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public <T> void setEntityEcaHandler(EntityEcaHandler<T> entityEcaHandler) {
-        this.entityEcaHandler.set(new ConstantFuture<EntityEcaHandler<?>>(entityEcaHandler));
+        this.entityEcaHandler.set(new ConstantFuture<>(entityEcaHandler));
         this.warnNoEcaHandler = false;
     }
 
@@ -2602,7 +2624,7 @@ public class GenericDelegator implements Delegator {
             return;
         }
 
-        Callable<DistributedCacheClear> creator = () -> createDistributedCacheClear();
+        Callable<DistributedCacheClear> creator = this::createDistributedCacheClear;
         FutureTask<DistributedCacheClear> futureTask = new FutureTask<>(creator);
         if (distributedCacheClear.compareAndSet(null, futureTask)) {
             ExecutionPool.GLOBAL_BATCH.submit(futureTask);

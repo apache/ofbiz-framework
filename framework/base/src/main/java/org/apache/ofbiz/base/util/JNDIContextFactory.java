@@ -33,7 +33,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
  */
 public class JNDIContextFactory {
 
-    public static final String MODULE = JNDIContextFactory.class.getName();
+    private static final String MODULE = JNDIContextFactory.class.getName();
     // FIXME: InitialContext instances are not thread-safe! They should not be cached.
     private static final UtilCache<String, InitialContext> contexts = UtilCache.createUtilCache("entity.JNDIContexts", 0, 0);
 

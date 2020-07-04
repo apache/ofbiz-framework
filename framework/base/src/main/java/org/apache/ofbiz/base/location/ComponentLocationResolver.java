@@ -35,7 +35,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public class ComponentLocationResolver implements LocationResolver {
 
-    public static final String MODULE = ComponentLocationResolver.class.getName();
+    private static final String MODULE = ComponentLocationResolver.class.getName();
 
     @Override
     public URL resolveLocation(String location) throws MalformedURLException {

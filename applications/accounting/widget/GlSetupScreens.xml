@@ -53,6 +53,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingAvailableInternalOrganizations"/>
                 <set field="headerItem" value="companies"/>
+                <set field="helpAnchor" value="_help_for_available_internal_organizations"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingAvailableInternalOrganizations"/>
                 <entity-condition entity-name="PartyAcctgPreference" list="parties"/>
                 <service service-name="acctgPrefPermissionCheck" result-map="permResult">
@@ -126,7 +127,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
-                <include-form name="ExportInvoiceCsv" location="component://accounting/widget/GlSetupForms.xml"/>           
+                <include-form name="ExportInvoiceCsv" location="component://accounting/widget/GlSetupForms.xml"/>
             </widgets>
         </section>
     </screen>
@@ -136,6 +137,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingChartOfAcctsMenu"/>
                 <set field="tabButtonItem" value="ListGlAccountOrganization"/>
+                <set field="helpAnchor" value="_help_for_chart_of_accounts"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingChartOfAcctsMenu"/>
             </actions>
             <widgets>
@@ -163,6 +165,7 @@ under the License.
                 <set field="titleProperty" value="AccountingTimePeriod"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingTimePeriod"/>
                 <set field="tabButtonItem" value="TimePeriods"/>
+                <set field="helpAnchor" value="_help_for_time_periods"/>
                 <entity-condition entity-name="CustomTimePeriod" list="openTimePeriods">
                     <condition-list>
                         <condition-expr field-name="organizationPartyId" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -204,6 +207,7 @@ under the License.
                 <set field="titleProperty" value="AccountingPreference"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingPreference"/>
                 <set field="tabButtonItem" value="PartyAcctgPreference"/>
+                <set field="helpAnchor" value="_help_for_accounting_preferences"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="organizationPartyId" value="${groovy:if(parameters.organizationPartyId!=null) return parameters.organizationPartyId else return parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <set field="partyId" from-field="organizationPartyId"/>
@@ -254,6 +258,7 @@ under the License.
                 <set field="titleProperty" value="AccountingGlJournals"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingGlJournals"/>
                 <set field="tabButtonItem" value="SetupGlJournals"/>
+                <set field="helpAnchor" value="_help_for_journals"/>
                 <entity-one entity-name="GlJournal" value-field="glJournal"/>
             </actions>
             <widgets>
@@ -276,6 +281,7 @@ under the License.
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingGlAccountTypeDefaults"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountTypeDefaults"/>
+                <set field="helpAnchor" value="_help_for_gl_account_type_defaults"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
@@ -297,6 +303,7 @@ under the License.
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingInvoiceSales"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountSalInvoice"/>
+                <set field="helpAnchor" value="_help_for_sales_invoice_default_account"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
@@ -317,6 +324,7 @@ under the License.
                 <set field="titleProperty" value="AccountingInvoicePurchase"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountPurInvoice"/>
+                <set field="helpAnchor" value="_help_for_purchase_invoice_default_account"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
@@ -337,6 +345,7 @@ under the License.
                 <set field="titleProperty" value="${uiLabelMap.AccountingPaymentType}/${uiLabelMap.FormFieldTitle_glAccountTypeId}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountTypePaymentType"/>
+                <set field="helpAnchor" value="_help_for_payment_type_gl_account_type"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
@@ -357,6 +366,7 @@ under the License.
                 <set field="titleProperty" value="${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountNrPaymentMethod"/>
+                <set field="helpAnchor" value="_help_for_payment_method_gl_account_type"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
@@ -378,6 +388,7 @@ under the License.
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingProductGlAccount"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="ProductGlAccounts"/>
+                <set field="helpAnchor" value="_help_for_product_gl_account"/>
 
                 <entity-condition entity-name="ProductGlAccount" list="productGlAccounts">
                     <condition-expr field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -404,6 +415,7 @@ under the License.
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingFinAccountTypeGlAccount"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="FinAccountTypeGlAccounts"/>
+                <set field="helpAnchor" value="_help_for_financial_account_gl_account_type_2"/>
 
                  <entity-condition entity-name="FinAccountTypeGlAccount" list="finAccountTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -434,6 +446,7 @@ under the License.
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingProductCategoryGlAccount"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="ProductCategoryGlAccounts"/>
+                <set field="helpAnchor" value="_help_for_product_category_gl_accounts"/>
 
                 <entity-condition entity-name="ProductCategoryGlAccount" list="productCategoryGlAccounts">
                     <condition-expr field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -459,6 +472,7 @@ under the License.
                 <set field="titleProperty" value="AccountingVarianceReasonGlAccounts"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="VarianceReasonGlAccounts"/>
+                <set field="helpAnchor" value="_help_for_variance_reason_gl_accounts"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingVarianceReasonGlAccounts"/>
 
                 <entity-condition entity-name="VarianceReasonGlAccount" list="varianceReasonGlAccounts">
@@ -485,6 +499,7 @@ under the License.
                 <set field="titleProperty" value="AccountingCreditCardTypeGlAccount"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="CreditCardTypeGlAccount"/>
+                <set field="helpAnchor" value="_help_for_credit_card_type_gl_accounts"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingCreditCardTypeGlAccount"/>
                 <entity-condition entity-name="CreditCardTypeGlAccount" list="creditCardTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -509,6 +524,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityGlAccounts"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="TaxAuthorityGlAccounts"/>
+                <set field="helpAnchor" value="_help_for_tax_authority_gl_accounts"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.PageTitleEditTaxAuthorityGlAccounts"/>
                 <entity-condition entity-name="TaxAuthorityGlAccount" list="taxAuthorityGlAccounts">
                     <condition-expr field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -537,6 +553,7 @@ under the License.
                 <set field="labelTitleProperty" from-field="uiLabelMap.PageTitleEditPartyGlAccounts"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="PartyGlAccounts"/>
+                <set field="helpAnchor" value="_help_for_party_gl_account_mapping"/>
                 <entity-condition entity-name="PartyGlAccount" list="partyGlAccounts">
                     <condition-expr field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                     <order-by field-name="partyId"/>

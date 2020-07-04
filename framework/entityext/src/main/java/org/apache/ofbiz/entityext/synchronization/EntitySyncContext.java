@@ -63,7 +63,7 @@ import org.xml.sax.SAXException;
  */
 public class EntitySyncContext {
 
-    public static final String MODULE = EntitySyncContext.class.getName();
+    private static final String MODULE = EntitySyncContext.class.getName();
 
     // set default split to 10 seconds, ie try not to get too much data moving over at once
     public static final long defaultSyncSplitMillis = 10000;

@@ -39,7 +39,7 @@ import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchC
 
 public class WorkEffortSearchSession {
 
-    public static final String MODULE = WorkEffortSearchSession.class.getName();
+    private static final String MODULE = WorkEffortSearchSession.class.getName();
 
     @SuppressWarnings("serial")
     public static class WorkEffortSearchOptions implements java.io.Serializable {

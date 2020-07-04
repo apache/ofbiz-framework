@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ModelService;
 @SuppressWarnings("serial")
 public class RemoteDispatcherImpl extends UnicastRemoteObject implements RemoteDispatcher {
 
-    public static final String MODULE = RemoteDispatcherImpl.class.getName();
+    private static final String MODULE = RemoteDispatcherImpl.class.getName();
     private static boolean exportAll = false;
 
     protected LocalDispatcher dispatcher = null;

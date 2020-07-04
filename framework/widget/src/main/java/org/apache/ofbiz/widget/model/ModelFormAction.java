@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
  */
 public abstract class ModelFormAction {
 
-    public static final String MODULE = ModelFormAction.class.getName();
+    private static final String MODULE = ModelFormAction.class.getName();
 
     public static List<ModelAction> readSubActions(ModelForm modelForm, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);

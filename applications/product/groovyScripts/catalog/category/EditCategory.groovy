@@ -21,8 +21,6 @@ import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-module = "EditCategory.groovy"
-
 if (productCategory) {
     context.productCategoryType = productCategory.getRelatedOne("ProductCategoryType", false)
 }
@@ -106,11 +104,11 @@ if (fileType) {
             try {
                 file1.delete()
             } catch (Exception e) {
-                Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
+                logError(e, "error deleting existing file (not neccessarily a problem)")
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            Debug.logError(e, module)
+            logError(e, module)
         }
 
         if (imageUrl) {

@@ -42,7 +42,7 @@ import junit.framework.TestResult;
 
 public class SimpleMethodTest extends OFBizTestCase {
 
-    public static final String MODULE = ServiceTest.class.getName();
+    private static final String MODULE = ServiceTest.class.getName();
 
     protected String methodLocation;
     protected String methodName;
@@ -107,9 +107,7 @@ public class SimpleMethodTest extends OFBizTestCase {
                 }
             }
 
-        } catch (MiniLangException e) {
-            result.addError(this, e);
-        } catch (SecurityConfigurationException e) {
+        } catch (MiniLangException | SecurityConfigurationException e) {
             result.addError(this, e);
         }
 

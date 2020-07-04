@@ -80,7 +80,7 @@ import com.thoughtworks.xstream.XStream;
  */
 public final class UtilXml {
 
-    public static final String MODULE = UtilXml.class.getName();
+    private static final String MODULE = UtilXml.class.getName();
     private static final XStream xstream = createXStream();
     private UtilXml () {}
 
@@ -325,14 +325,8 @@ public final class UtilXml {
             return;
         }
         File outFile = new File(filename);
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(outFile);
+        try (FileOutputStream fos = new FileOutputStream(outFile)) {
             writeXmlDocument(fos, node);
-        } finally {
-            if (fos != null) {
-                fos.close();
-            }
         }
     }
 

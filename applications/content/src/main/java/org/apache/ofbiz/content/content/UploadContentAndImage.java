@@ -63,7 +63,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class UploadContentAndImage {
 
-    public static final String MODULE = UploadContentAndImage.class.getName();
+    private static final String MODULE = UploadContentAndImage.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     public UploadContentAndImage() {}
@@ -102,8 +102,8 @@ public class UploadContentAndImage {
             FileItem fi = null;
             FileItem imageFi = null;
             byte[] imageBytes = {};
-            for (int i = 0; i < lst.size(); i++) {
-                fi = lst.get(i);
+            for (FileItem fileItem : lst) {
+                fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
                     String fieldStr = fi.getString();
@@ -369,8 +369,8 @@ public class UploadContentAndImage {
             FileItem imageFi = null;
             byte[] imageBytes;
             passedParams.put("userLogin", userLogin);
-            for (int i = 0; i < lst.size(); i++) {
-                fi = lst.get(i);
+            for (FileItem fileItem : lst) {
+                fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
                     String fieldStr = fi.getString();

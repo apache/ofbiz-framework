@@ -80,7 +80,7 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
  */
 public class RequestHandler {
 
-    public static final String MODULE = RequestHandler.class.getName();
+    private static final String MODULE = RequestHandler.class.getName();
     private final ViewFactory viewFactory;
     private final EventFactory eventFactory;
     private final URL controllerConfigURL;
@@ -323,12 +323,14 @@ public class RequestHandler {
             // Check if we SHOULD be secure and are not.
             boolean forwardedHTTPS = "HTTPS".equalsIgnoreCase(request.getHeader("X-Forwarded-Proto"));
             if (!request.isSecure() && !forwardedHTTPS && requestMap.securityHttps) {
-                // If the request method was POST then return an error to avoid problems with XSRF where the request may have come from another machine/program and had the same session ID but was not encrypted as it should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
+                // If the request method was POST then return an error to avoid problems with CSRF where the request 
+                // may have come from another machine/program and had the same session ID but was not encrypted as it 
+                // should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
                 if ("POST".equalsIgnoreCase(request.getMethod())) {
-                    // we can't redirect with the body parameters, and for better security from XSRF, just return an error message
+                    // we can't redirect with the body parameters, and for better security from CSRF, just return an error message
                     Locale locale = UtilHttp.getLocale(request);
                     String errMsg = UtilProperties.getMessage("WebappUiLabels", "requestHandler.InsecureFormPostToSecureRequest", locale);
-                    Debug.logError("Got a insecure (non-https) form POST to a secure (http) request [" + requestMap.uri + "], returning error", MODULE);
+                    Debug.logError("Got an insecure (non HTTPS) form POST to a secure (HTTPS) request [" + requestMap.uri + "], returning error", MODULE);
 
                     // see if HTTPS is enabled, if not then log a warning instead of throwing an exception
                     Boolean enableHttps = null;
@@ -346,7 +348,8 @@ public class RequestHandler {
                     }
 
                     if (Boolean.FALSE.equals(enableHttps)) {
-                        Debug.logWarning("HTTPS is disabled for this site, so we can't tell if this was encrypted or not which means if a form was POSTed and it was not over HTTPS we don't know, but it would be vulnerable to an XSRF and other attacks: " + errMsg, MODULE);
+                        Debug.logWarning("HTTPS is disabled for this site, so we can't tell if this was encrypted or not which means if a form was POSTed "
+                                + "and it was not over HTTPS we don't know, but it would be vulnerable to an CSRF and other attacks: " + errMsg, MODULE);
                     } else {
                         throw new RequestHandlerException(errMsg);
                     }
@@ -505,7 +508,7 @@ public class RequestHandler {
 
                     // set the default event return
                     if (eventReturn == null) {
-                        nextRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
+                        nextRequestResponse = ConfigXMLReader.getEmptyNoneRequestResponse();
                     }
                 } catch (EventHandlerException e) {
                     // check to see if there is an "error" response, if so go there and make an request error message
@@ -529,7 +532,7 @@ public class RequestHandler {
         } else {
             eventReturnBasedRequestResponse = requestMap.requestResponseMap.get(eventReturn);
             if (eventReturnBasedRequestResponse == null && "none".equals(eventReturn)) {
-                eventReturnBasedRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
+                eventReturnBasedRequestResponse = ConfigXMLReader.getEmptyNoneRequestResponse();
             }
         }
         if (eventReturnBasedRequestResponse != null) {
@@ -930,11 +933,8 @@ public class RequestHandler {
         // add in the attributes as well so everything needed for the rendering context will be in place if/when we get back to this view
         paramMap.putAll(UtilHttp.getAttributeMap(req));
         UtilMisc.makeMapSerializable(paramMap);
-        if (paramMap.containsKey("_LAST_VIEW_NAME_")) { // Used by lookups to keep the real view (request)
-            req.getSession().setAttribute("_LAST_VIEW_NAME_", paramMap.get("_LAST_VIEW_NAME_"));
-        } else {
-            req.getSession().setAttribute("_LAST_VIEW_NAME_", view);
-        }
+        // Used by lookups to keep the real view (request)
+        req.getSession().setAttribute("_LAST_VIEW_NAME_", paramMap.getOrDefault("_LAST_VIEW_NAME_", view));
         req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
 
         if ("SAVED".equals(saveName)) {

@@ -71,7 +71,7 @@ import org.apache.ofbiz.service.mail.MimeMessageWrapper;
 public class CommonServices {
 
     public final static String MODULE = CommonServices.class.getName();
-    public static final String resource = "CommonUiLabels";
+    private static final String RESOURCE = "CommonUiLabels";
 
     /**
      * Generic Test Service
@@ -143,7 +143,7 @@ public class CommonServices {
             Debug.logError(e, MODULE);
         }
         Locale locale = (Locale) context.get("locale");
-        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonTestRollingBack", locale));
+        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonTestRollingBack", locale));
     }
 
     public static Map<String, Object> testCommitListener(DispatchContext dctx, Map<String, ?> context) {
@@ -190,7 +190,7 @@ public class CommonServices {
 
             delegator.create(newValue);
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNoteCannotBeUpdated", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNoteCannotBeUpdated", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
@@ -238,7 +238,7 @@ public class CommonServices {
      */
     public static Map<String, Object> returnErrorService(DispatchContext dctx, Map<String, ?> context) {
         Locale locale = (Locale) context.get("locale");
-        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonServiceReturnError", locale));
+        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonServiceReturnError", locale));
     }
 
     /**
@@ -273,7 +273,7 @@ public class CommonServices {
             delegator.create(newEntity);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEntityTestFailure", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEntityTestFailure", locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -501,7 +501,7 @@ public class CommonServices {
             count = EntityQuery.use(delegator).from("SequenceValueItem").queryCount();
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonPingDatasourceCannotConnect", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonPingDatasourceCannotConnect", locale));
         }
 
         if (count != 0L) {
@@ -509,7 +509,7 @@ public class CommonServices {
             result.put("message", message);
             return result;
         }
-        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonPingDatasourceInvalidCount", locale));
+        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonPingDatasourceInvalidCount", locale));
     }
 
     public static Map<String, Object> getAllMetrics(DispatchContext dctx, Map<String, ?> context) {
@@ -533,13 +533,13 @@ public class CommonServices {
         Locale locale = (Locale)context.get("locale");
         String name = UtilCodec.getDecoder("url").decode(originalName);
         if (name == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonExceptionThrownWhileDecodingMetric", UtilMisc.toMap("originalName", originalName), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonExceptionThrownWhileDecodingMetric", UtilMisc.toMap("originalName", originalName), locale));
         }
         Metrics metric = MetricsFactory.getMetric(name);
         if (metric != null) {
             metric.reset();
             return ServiceUtil.returnSuccess();
         }
-        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonMetricNotFound", UtilMisc.toMap("name", name), locale));
+        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonMetricNotFound", UtilMisc.toMap("name", name), locale));
     }
 }

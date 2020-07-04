@@ -50,13 +50,15 @@ import org.apache.ofbiz.service.ServiceUtil;
 /**
  * Worker methods for BillingAccounts
  */
-public class BillingAccountWorker {
+public final class BillingAccountWorker {
 
-    public static final String MODULE = BillingAccountWorker.class.getName();
-    public static final String resourceError = "AccountingUiLabels";
-    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
-    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
+    private static final String MODULE = BillingAccountWorker.class.getName();
+    private static final String RES_ERROR = "AccountingUiLabels";
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
+    private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
+
+    protected BillingAccountWorker() { }
 
     public static List<Map<String, Object>> makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
         List<Map<String, Object>> billingAccountList = new LinkedList<>();
@@ -96,7 +98,7 @@ public class BillingAccountWorker {
                     billingAccountList.add(billingAccount);
                 }
             }
-            Collections.sort(billingAccountList, new BillingAccountComparator());
+            billingAccountList.sort(new BillingAccountComparator());
         }
         return billingAccountList;
     }
@@ -123,7 +125,7 @@ public class BillingAccountWorker {
     public static BigDecimal getBillingAccountAvailableBalance(GenericValue billingAccount) throws GenericEntityException {
         if ((billingAccount != null) && (billingAccount.get("accountLimit") != null)) {
             BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
-            BigDecimal availableBalance = accountLimit.subtract(OrderReadHelper.getBillingAccountBalance(billingAccount)).setScale(decimals, rounding);
+            BigDecimal availableBalance = accountLimit.subtract(OrderReadHelper.getBillingAccountBalance(billingAccount)).setScale(DECIMALS, ROUNDING);
             return availableBalance;
         }
         Debug.logWarning("Available balance requested for null billing account, returning zero", MODULE);
@@ -161,7 +163,7 @@ public class BillingAccountWorker {
             }
         }
 
-        balance = balance.setScale(decimals, rounding);
+        balance = balance.setScale(DECIMALS, ROUNDING);
         return balance;
     }
 
@@ -175,7 +177,7 @@ public class BillingAccountWorker {
         BigDecimal netBalance = getBillingAccountNetBalance(billingAccount.getDelegator(), billingAccount.getString("billingAccountId"));
         BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
 
-        return accountLimit.subtract(netBalance).setScale(decimals, rounding);
+        return accountLimit.subtract(netBalance).setScale(DECIMALS, ROUNDING);
     }
 
     public static Map<String, Object> calcBillingAccountBalance(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -187,7 +189,7 @@ public class BillingAccountWorker {
         try {
             GenericValue billingAccount = EntityQuery.use(delegator).from("BillingAccount").where("billingAccountId", billingAccountId).queryOne();
             if (billingAccount == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingBillingAccountNotFound",
                         UtilMisc.toMap("billingAccountId", billingAccountId), locale));
             }
@@ -201,7 +203,7 @@ public class BillingAccountWorker {
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingBillingAccountNotFound",
                     UtilMisc.toMap("billingAccountId", billingAccountId), locale));
         }

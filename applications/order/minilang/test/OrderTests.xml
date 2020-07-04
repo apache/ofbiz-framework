@@ -110,22 +110,6 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testCreateRequirementFromItemATP" short-description="Create Requirement From Item ATP" login-required="false">
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="serviceCtx.orderId" value="TEST_DEMO10090"/>
-        <set field="serviceCtx.orderItemSeqId" value="00001"/>
-        <set field="serviceCtx.shipGroupSeqId" value="00001"/>
-        <call-service service-name="createRequirementFromItemATP" in-map-name="serviceCtx">
-            <results-to-map map-name="serviceResult"/>
-        </call-service>
-        <assert>
-            <not><if-empty field="serviceResult"/></not>
-        </assert>
-        <check-errors/>
-    </simple-method>
     <simple-method method-name="testCreateAutoRequirementsForOrder" short-description="Create AutoRequirements For Order" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>

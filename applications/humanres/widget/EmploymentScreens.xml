@@ -25,6 +25,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResFindEmployment"/>
                 <set field="headerItem" value="Employment"/>
+                <set field="helpAnchor" value="_employments"/>
                 <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
                 <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
@@ -63,6 +64,7 @@
                 <set field="titleProperty" value="HumanResEditEmployment"/>
                 <set field="headerItem" value="Employment"/>
                 <set field="tabButtonItem" value="EditEmployment"/>
+                <set field="helpAnchor" value="_create_or_edit_employment"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <entity-one entity-name="Employment" value-field="employment"/>
             </actions>
@@ -82,6 +84,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResListEmployments"/>
                 <set field="tabButtonItem" value="ListEmployment"/>
+                <set field="helpAnchor" value="_list_employments"/>
                 <set field="employmentCtx.partyIdTo" from-field="parameters.partyId"/>
             </actions>
             <widgets>

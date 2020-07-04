@@ -105,7 +105,7 @@ public class ModelFormField {
      *
      */
 
-    public static final String MODULE = ModelFormField.class.getName();
+    private static final String MODULE = ModelFormField.class.getName();
 
     /**
      * Constructs a form field model from a builder specification.
@@ -163,6 +163,7 @@ public class ModelFormField {
     private final String parentFormName;
     private final String tabindex;
     private final String conditionGroup;
+    private final boolean disabled;
 
     private ModelFormField(ModelFormFieldBuilder builder) {
         this.action = builder.getAction();
@@ -217,6 +218,7 @@ public class ModelFormField {
         this.parentFormName = builder.getParentFormName();
         this.tabindex = builder.getTabindex();
         this.conditionGroup = builder.getConditionGroup();
+        this.disabled = builder.getDisabled();
     }
 
     public FlexibleStringExpander getAction() {
@@ -485,6 +487,10 @@ public class ModelFormField {
 
     public String getConditionGroup() {
         return conditionGroup;
+    }
+
+    public boolean getDisabled() {
+        return disabled;
     }
 
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
@@ -1034,30 +1040,25 @@ public class ModelFormField {
     public static class CheckField extends FieldInfoWithOptions {
         public final static String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
         private final FlexibleStringExpander allChecked;
-        private final boolean disabled;
 
         private CheckField(CheckField original, ModelFormField modelFormField) {
             super(original, modelFormField);
             this.allChecked = original.allChecked;
-            this.disabled = original.disabled;
         }
 
         public CheckField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             allChecked = FlexibleStringExpander.getInstance(element.getAttribute("all-checked"));
-            this.disabled = "true".equals(element.getAttribute("disabled"));
         }
 
         public CheckField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, FieldInfo.CHECK, modelFormField);
             this.allChecked = FlexibleStringExpander.getInstance("");
-            this.disabled = false;
         }
 
         public CheckField(ModelFormField modelFormField) {
             super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.CHECK, modelFormField);
             this.allChecked = FlexibleStringExpander.getInstance("");
-            this.disabled = false;
         }
 
         @Override
@@ -1080,10 +1081,6 @@ public class ModelFormField {
                 return "true".equals(allCheckedStr);
             }
             return null;
-        }
-
-        public boolean getDisabled() {
-            return this.disabled;
         }
 
         @Override
@@ -2152,11 +2149,12 @@ public class ModelFormField {
             List<? extends Element> childElements = UtilXml.childElementList(element);
             if (childElements.size() > 0) {
                 for (Element childElement : childElements) {
-                    if ("option".equals(childElement.getTagName())) {
+                    String childName = childElement.getLocalName();
+                    if ("option".equals(childName)) {
                         optionSources.add(new SingleOption(childElement, modelFormField));
-                    } else if ("list-options".equals(childElement.getTagName())) {
+                    } else if ("list-options".equals(childName)) {
                         optionSources.add(new ListOptions(childElement, modelFormField));
-                    } else if ("entity-options".equals(childElement.getTagName())) {
+                    } else if ("entity-options".equals(childName)) {
                         optionSources.add(new EntityOptions(childElement, modelFormField));
                     }
                 }
@@ -4146,7 +4144,6 @@ public class ModelFormField {
     public static class TextField extends FieldInfo {
         private final boolean clientAutocompleteField;
         private final FlexibleStringExpander defaultValue;
-        private final boolean disabled;
         private final String mask;
         private final Integer maxlength;
         private final FlexibleStringExpander placeholder;
@@ -4158,7 +4155,6 @@ public class ModelFormField {
             super(element, modelFormField);
             this.clientAutocompleteField = !"false".equals(element.getAttribute("client-autocomplete-field"));
             this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
-            this.disabled = "true".equals(element.getAttribute("disabled"));
             this.mask = element.getAttribute("mask");
             Integer maxlength = null;
             String maxlengthStr = element.getAttribute("maxlength");
@@ -4196,7 +4192,6 @@ public class ModelFormField {
             super(fieldSource, fieldType == -1 ? FieldInfo.TEXT : fieldType, modelFormField);
             this.clientAutocompleteField = true;
             this.defaultValue = FlexibleStringExpander.getInstance("");
-            this.disabled = false;
             this.mask = "";
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
@@ -4209,7 +4204,6 @@ public class ModelFormField {
             super(fieldSource, FieldInfo.TEXT, modelFormField);
             this.clientAutocompleteField = true;
             this.defaultValue = FlexibleStringExpander.getInstance("");
-            this.disabled = false;
             this.mask = "";
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
@@ -4222,7 +4216,6 @@ public class ModelFormField {
             super(fieldSource, fieldType, modelFormField);
             this.clientAutocompleteField = true;
             this.defaultValue = FlexibleStringExpander.getInstance("");
-            this.disabled = false;
             this.mask = "";
             this.maxlength = null;
             this.placeholder = FlexibleStringExpander.getInstance("");
@@ -4247,7 +4240,6 @@ public class ModelFormField {
             this.placeholder = original.placeholder;
             this.size = original.size;
             this.maxlength = original.maxlength;
-            this.disabled = original.disabled;
             this.readonly = original.readonly;
             if (original.subHyperlink != null) {
                 this.subHyperlink = new SubHyperlink(original.subHyperlink, modelFormField);
@@ -4279,10 +4271,6 @@ public class ModelFormField {
                 return this.defaultValue.expandString(context);
             }
             return "";
-        }
-
-        public boolean getDisabled() {
-            return this.disabled;
         }
 
         public String getMask() {

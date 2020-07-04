@@ -60,7 +60,7 @@ import org.apache.ofbiz.security.Security;
  */
 public final class ContentManagementWorker {
 
-    public static final String MODULE = ContentManagementWorker.class.getName();
+    private static final String MODULE = ContentManagementWorker.class.getName();
     private static Map<String, GenericValue> cachedWebSitePublishPoints = new HashMap<>();
     private static Map<String, Map<String, Object>> cachedStaticValues = new HashMap<>();
 
@@ -132,7 +132,7 @@ public final class ContentManagementWorker {
         StringBuilder sig = new StringBuilder("");
         Collection<String> keyColl = pk.getPrimaryKey().getAllKeys();
         List<String> keyList = UtilMisc.makeListWritable(keyColl);
-        Collections.sort(keyList);
+        keyList.sort(null);
         for (String ky : keyList) {
             String val = (String)pk.get(ky);
             if (UtilValidate.isNotEmpty(val)) {

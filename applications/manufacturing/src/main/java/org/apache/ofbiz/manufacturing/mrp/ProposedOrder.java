@@ -49,8 +49,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ProposedOrder {
 
-    public static final String MODULE = ProposedOrder.class.getName();
-    public static final String resource = "ManufacturingUiLabels";
+    private static final String MODULE = ProposedOrder.class.getName();
+    private static final String RESOURCE = "ManufacturingUiLabels";
 
     protected GenericValue product;
     protected boolean isBuilt;

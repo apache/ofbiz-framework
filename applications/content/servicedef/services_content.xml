@@ -63,8 +63,8 @@
         </group>
     </service>
 
-    <service name="createContentFromDataResource" engine="simple"
-             location="component://content/minilang/content/ContentServices.xml" invoke="createContentFromDataResource">
+    <service name="createContentFromDataResource" engine="groovy"
+             location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createContentFromDataResource">
         <description>Creates content record from data resource and allows all content fields to be set</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="createContent" optional="true"/>
@@ -288,8 +288,8 @@
     </service>
 
     <!-- content status services -->
-    <service name="setContentStatus" engine="simple" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="setContentStatus">
+    <service name="setContentStatus" engine="groovy" auth="true"
+            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="setContentStatus">
         <description>Set the Content Status</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false">

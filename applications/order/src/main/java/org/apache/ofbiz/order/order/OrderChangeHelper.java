@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class OrderChangeHelper {
 
-    public static final String MODULE = OrderChangeHelper.class.getName();
+    private static final String MODULE = OrderChangeHelper.class.getName();
 
     private OrderChangeHelper() {}
 

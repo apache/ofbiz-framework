@@ -115,6 +115,7 @@ public class ModelFormFieldTest {
      * property type is changed from String to FlexibleStringExpander.
      */
     @Test
+    @SuppressWarnings("deprecation")
     public void lookupFieldDeprecatedMethodTreatsTargetParameterAsString() {
         Element element = Mockito.mock(Element.class);
         when(element.getTagName()).thenReturn("lookup");

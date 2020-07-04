@@ -68,7 +68,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
      *
      */
 
-    public static final String MODULE = ModelTreeAction.class.getName();
+    private static final String MODULE = ModelTreeAction.class.getName();
 
     public static List<ModelAction> readNodeActions(ModelNode modelNode, Element actionsElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(actionsElement);

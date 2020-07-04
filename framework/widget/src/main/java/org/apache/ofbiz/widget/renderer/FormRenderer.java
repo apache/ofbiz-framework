@@ -74,7 +74,7 @@ public class FormRenderer {
      *
      */
 
-    public static final String MODULE = FormRenderer.class.getName();
+    private static final String MODULE = FormRenderer.class.getName();
 
     public static String getCurrentContainerId(ModelForm modelForm, Map<String, Object> context) {
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));

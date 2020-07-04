@@ -1,0 +1,53 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Routing Task
+Routing Tasks are the individual steps  or activities that are needed to turn the raw materials into a finished product.
+There are used in the manufacturing or assembling process of a  product.
+
+Examples include:
+
+* Weighing out Raw Materials
+* Assembling a Product
+* Machining or Processing Materials
+
+It's necessary to create the routing tasks before creating a Routing or a Production Run.
+
+== Routing Task management in UI
+=== Find routing task
+This screen displays an overview of all available routing tasks. +
+It's possible to select one to edit it. +
+From here you can also create a new routing task.
+
+=== Create / edit route task
+In this screen you can create a new routing task and modify an existing Routing Task.
+
+=== Create / edit route task cost
+In this screen you can associate a cost component and the related calculation method to the routing task. +
+You can also remove an existing associated cost component.
+
+=== Routing task deliverable products
+This screen displays an overview of all associated products deliverable to the routing task. +
+From here you can also connect new products to the routing task.
+
+=== Create / edit deliverable products
+In this screen you can add deliverable products to the routing task and modify existing deliverable products.
+
+=== Create / edit routing task equipment
+In this screen you can associate equipment to the task. +
+In the lower part of the screen all associated equipment is displayed.

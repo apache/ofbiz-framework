@@ -54,7 +54,7 @@ def productGWP() {
     Integer itemLoc = ProductPromoWorker.findPromoItem(productPromoAction, cart)
     if (!allowMultipleGwp && itemLoc != null) {
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Not adding promo item, already there action: " + productPromoAction, "ProductPromoActionServices.groovy")
+            logVerbose("Not adding promo item, already there action: " + productPromoAction)
         }
         actionResultInfo.ranAction = false
     } else {
@@ -83,7 +83,7 @@ def productGWP() {
             product = from("Product").where("productId", productId).cache().queryOne()
             if (product == null) {
                 String errMsg = "GWP Product not found with ID [" + productId + "] for ProductPromoAction [" + productPromoAction.get("productPromoId") + ":" + productPromoAction.get("productPromoRuleId") + ":" + productPromoAction.get("productPromoActionSeqId") + "]"
-                Debug.logError(errMsg, "ProductPromoActionServices.groovy")
+                logError(errMsg)
                 throw new CartItemModifyException(errMsg)
             }
             if ("Y" == product.getString("isVirtual")) {
@@ -105,16 +105,16 @@ def productGWP() {
                     }
                     Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object> toMap("productStoreId", productStoreId, "productId", productId, "product", product, "quantity", quantity.add(quantityAlreadyInCart)))
                     if (ServiceUtil.isError(invReqResult)) {
-                        Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, "ProductPromoActionServices.groovy")
+                        logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult)
                         throw new CartItemModifyException(ServiceUtil.getErrorMessage(invReqResult))
                     } else if ("Y" != invReqResult.get("available")) {
-                        Debug.logWarning(UtilProperties.getMessage(resource_error, "OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction", UtilMisc.toMap("productId", productId, "productPromoAction", productPromoAction), cart.getLocale()), "ProductPromoActionServices.groovy")
+                        logWarning(UtilProperties.getMessage(resource_error, "OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction", UtilMisc.toMap("productId", productId, "productPromoAction", productPromoAction), cart.getLocale()))
                         productId = null
                         product = null
                     }
                 } catch (GenericServiceException e) {
                     String errMsg = "Fatal error calling inventory checking services: " + e.toString()
-                    Debug.logError(e, errMsg, "ProductPromoActionServices.groovy")
+                    logError(e, errMsg)
                     throw new CartItemModifyException(errMsg)
                 }
             }
@@ -139,14 +139,14 @@ def productGWP() {
 
                 Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object> toMap("productStoreId", productStoreId, "productId", optionProductId, "product", product, "quantity", quantity.add(quantityAlreadyInCart)))
                 if (ServiceUtil.isError(invReqResult)) {
-                    Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, "ProductPromoActionServices.groovy")
+                    logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult)
                     throw new CartItemModifyException(ServiceUtil.getErrorMessage(invReqResult))
                 } else if ("Y" != invReqResult.get("available")) {
                     optionProductIdIter.remove()
                 }
             } catch (GenericServiceException e) {
                 String errMsg = "Fatal error calling inventory checking services: " + e.toString()
-                Debug.logError(e, errMsg, "ProductPromoActionServices.groovy")
+                logError(e, errMsg)
                 throw new CartItemModifyException(errMsg)
             }
         }
@@ -163,7 +163,7 @@ def productGWP() {
                 productId = alternateGwpProductId
                 product = from("Product").where("productId", productId).cache().queryOne()
             } else {
-                Debug.logWarning(UtilProperties.getMessage(resource_error, "OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId", UtilMisc.toMap("alternateGwpProductId", alternateGwpProductId), cart.getLocale()), "ProductPromoActionServices.groovy")
+                logWarning(UtilProperties.getMessage(resource_error, "OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId", UtilMisc.toMap("alternateGwpProductId", alternateGwpProductId), cart.getLocale()))
             }
         }
 
@@ -191,7 +191,7 @@ def productGWP() {
                 gwpItem.setAlternativeOptionProductIds(null)
             }
         } catch (CartItemModifyException e) {
-            Debug.logError(e.getMessage(), "ProductPromoActionServices.groovy")
+            logError(e.getMessage())
             throw e
         }
 
@@ -201,7 +201,7 @@ def productGWP() {
         // set promo after create note that to setQuantity we must clear this flag, setQuantity, then re-set the flag
         gwpItem.setIsPromo(true)
         if (Debug.verboseOn()) {
-            Debug.logVerbose("gwpItem adjustments: " + gwpItem.getAdjustments(), "ProductPromoActionServices.groovy")
+            logVerbose("gwpItem adjustments: " + gwpItem.getAdjustments())
         }
 
         actionResultInfo.ranAction = true
@@ -284,7 +284,7 @@ def productDISC() {
     } else {
         BigDecimal totalAmount = ProductPromoWorker.getCartItemsUsedTotalAmount(cart, productPromoAction)
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Applying promo [" + productPromoAction.getPrimaryKey() + "]\n totalAmount=" + totalAmount + ", discountAmountTotal=" + discountAmountTotal, "ProductPromoActionServices.groovy")
+            logVerbose("Applying promo [" + productPromoAction.getPrimaryKey() + "]\n totalAmount=" + totalAmount + ", discountAmountTotal=" + discountAmountTotal)
         }
         ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount, ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
         actionResultInfo.ranAction = true
@@ -345,7 +345,7 @@ def productAMDISC() {
     } else {
         BigDecimal totalAmount = ProductPromoWorker.getCartItemsUsedTotalAmount(cart, productPromoAction)
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Applying promo [" + productPromoAction.getPrimaryKey() + "]\n totalAmount=" + totalAmount + ", discountAmountTotal=" + discountAmountTotal, "ProductPromoActionServices.groovy")
+            logVerbose("Applying promo [" + productPromoAction.getPrimaryKey() + "]\n totalAmount=" + totalAmount + ", discountAmountTotal=" + discountAmountTotal)
         }
         ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount, ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
         actionResultInfo.ranAction = true

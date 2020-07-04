@@ -41,7 +41,7 @@ import org.w3c.dom.Node;
  */
 public class ObjectType {
 
-    public static final String MODULE = ObjectType.class.getName();
+    private static final String MODULE = ObjectType.class.getName();
 
     public static final Object NULL = new NullObject();
 

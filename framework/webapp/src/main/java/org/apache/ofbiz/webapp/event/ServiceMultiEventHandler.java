@@ -58,7 +58,7 @@ import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
  */
 public class ServiceMultiEventHandler implements EventHandler {
 
-    public static final String MODULE = ServiceMultiEventHandler.class.getName();
+    private static final String MODULE = ServiceMultiEventHandler.class.getName();
 
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";

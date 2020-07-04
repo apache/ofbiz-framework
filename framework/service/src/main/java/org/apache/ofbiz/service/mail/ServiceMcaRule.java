@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ServiceMcaRule implements java.io.Serializable {
 
-    public static final String MODULE = ServiceMcaRule.class.getName();
+    private static final String MODULE = ServiceMcaRule.class.getName();
 
     protected String ruleName = null;
     protected List<ServiceMcaCondition> conditions = new LinkedList<>();

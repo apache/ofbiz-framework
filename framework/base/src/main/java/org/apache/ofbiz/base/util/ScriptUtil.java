@@ -60,7 +60,7 @@ import org.codehaus.groovy.runtime.InvokerHelper;
  */
 public final class ScriptUtil {
 
-    public static final String MODULE = ScriptUtil.class.getName();
+    private static final String MODULE = ScriptUtil.class.getName();
     /** The screen widget context map bindings key. */
     public static final String WIDGET_CONTEXT_KEY = "widget";
     /** The service/servlet/request parameters map bindings key. */

@@ -54,9 +54,10 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public final class InvoiceWorker {
 
-    public static final String MODULE = InvoiceWorker.class.getName();
-    private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
+    private static final String MODULE = InvoiceWorker.class.getName();
+
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("invoice.rounding");
     private static final int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     private static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
 
@@ -114,7 +115,7 @@ public final class InvoiceWorker {
         if (amount == null) {
             amount = BigDecimal.ZERO;
         }
-        return quantity.multiply(amount).setScale(decimals, rounding);
+        return quantity.multiply(amount).setScale(DECIMALS, ROUNDING);
     }
 
     /**
@@ -223,12 +224,12 @@ public final class InvoiceWorker {
         }
         if (invoiceItems != null) {
             for (GenericValue invoiceItem : invoiceItems) {
-                invoiceTotal = invoiceTotal.add(getInvoiceItemTotal(invoiceItem)).setScale(decimals,rounding);
+                invoiceTotal = invoiceTotal.add(getInvoiceItemTotal(invoiceItem)).setScale(DECIMALS, ROUNDING);
             }
         }
-        invoiceTotal = invoiceTotal.add(invoiceTaxTotal).setScale(decimals, rounding);
+        invoiceTotal = invoiceTotal.add(invoiceTaxTotal).setScale(DECIMALS, ROUNDING);
         if (UtilValidate.isNotEmpty(invoiceTotal) && !actualCurrency) {
-            invoiceTotal = invoiceTotal.multiply(getInvoiceCurrencyConversionRate(invoice)).setScale(decimals,rounding);
+            invoiceTotal = invoiceTotal.multiply(getInvoiceCurrencyConversionRate(invoice)).setScale(DECIMALS, ROUNDING);
         }
         return invoiceTotal;
     }
@@ -499,11 +500,11 @@ public final class InvoiceWorker {
         }
         if (paymentApplications != null) {
             for (GenericValue paymentApplication : paymentApplications) {
-                invoiceApplied = invoiceApplied.add(paymentApplication.getBigDecimal("amountApplied")).setScale(decimals,rounding);
+                invoiceApplied = invoiceApplied.add(paymentApplication.getBigDecimal("amountApplied")).setScale(DECIMALS, ROUNDING);
             }
         }
         if (UtilValidate.isNotEmpty(invoiceApplied) && !actualCurrency) {
-            invoiceApplied = invoiceApplied.multiply(getInvoiceCurrencyConversionRate(delegator, invoiceId)).setScale(decimals,rounding);
+            invoiceApplied = invoiceApplied.multiply(getInvoiceCurrencyConversionRate(delegator, invoiceId)).setScale(DECIMALS, ROUNDING);
         }
         return invoiceApplied;
     }
@@ -569,7 +570,7 @@ public final class InvoiceWorker {
         }
         if (paymentApplications != null) {
             for (GenericValue paymentApplication : paymentApplications) {
-                invoiceItemApplied = invoiceItemApplied.add(paymentApplication.getBigDecimal("amountApplied")).setScale(decimals,rounding);
+                invoiceItemApplied = invoiceItemApplied.add(paymentApplication.getBigDecimal("amountApplied")).setScale(DECIMALS, ROUNDING);
             }
         }
         return invoiceItemApplied;
@@ -603,7 +604,7 @@ public final class InvoiceWorker {
                 GenericValue acctgTransEntry = (acctgTransEntries.get(0)).getRelated("AcctgTransEntry", null, null, false).get(0);
                 BigDecimal origAmount = acctgTransEntry.getBigDecimal("origAmount");
                 if (origAmount.compareTo(BigDecimal.ZERO) == 1) {
-                    conversionRate = acctgTransEntry.getBigDecimal("amount").divide(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100)).setScale(decimals,rounding);
+                    conversionRate = acctgTransEntry.getBigDecimal("amount").divide(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100)).setScale(DECIMALS, ROUNDING);
                 }
             }
             // check if a payment is applied and use the currency conversion from there
@@ -613,9 +614,10 @@ public final class InvoiceWorker {
                     GenericValue payment = paymentAppl.getRelatedOne("Payment", false);
                     if (UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
                         if (UtilValidate.isEmpty(conversionRate)) {
-                            conversionRate = payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100)).setScale(decimals,rounding);
+                            conversionRate = payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100)).setScale(DECIMALS, ROUNDING);
                         } else {
-                            conversionRate = conversionRate.add(payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100))).divide(new BigDecimal("2"),new MathContext(100)).setScale(decimals,rounding);
+                            conversionRate = conversionRate.add(payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),
+                                    new MathContext(100))).divide(new BigDecimal("2"),new MathContext(100)).setScale(DECIMALS, ROUNDING);
                         }
                     }
                 }
@@ -624,7 +626,7 @@ public final class InvoiceWorker {
             if (UtilValidate.isEmpty(conversionRate)) {
                 GenericValue rate = EntityQuery.use(delegator).from("UomConversionDated").where("uomIdTo", invoice.get("currencyUomId"), "uomId", otherCurrencyUomId).filterByDate(invoice.getTimestamp("invoiceDate")).queryFirst();
                 if (rate != null) {
-                    conversionRate = BigDecimal.ONE.divide(rate.getBigDecimal("conversionFactor"), new MathContext(100)).setScale(decimals,rounding);
+                    conversionRate = BigDecimal.ONE.divide(rate.getBigDecimal("conversionFactor"), new MathContext(100)).setScale(DECIMALS, ROUNDING);
                 } else {
                     Debug.logError("Could not find conversionrate for invoice: " + invoice.getString("invoiceId"), MODULE);
                     return new BigDecimal("1");
@@ -704,7 +706,7 @@ public final class InvoiceWorker {
                                 }
                                 totalAmount = totalAmount.add(amount).setScale(taxDecimals, taxRounding);
                             }
-                            totalAmount = totalAmount.setScale(UtilNumber.getBigDecimalScale("salestax.calc.decimals"), UtilNumber.getRoundingMode("salestax.rounding"));
+                            totalAmount = totalAmount.setScale(taxDecimals, taxRounding);
                             taxByTaxAuthGeoAndPartyList.add(UtilMisc.<String, Object>toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "totalAmount", totalAmount));
                             taxGrandTotal = taxGrandTotal.add(totalAmount);
                         }
@@ -825,6 +827,6 @@ public final class InvoiceWorker {
             amount = amount.setScale(taxDecimals, taxRounding);
             taxTotal = taxTotal.add(amount);
         }
-        return taxTotal.setScale(decimals, rounding);
+        return taxTotal.setScale(DECIMALS, ROUNDING);
     }
 }

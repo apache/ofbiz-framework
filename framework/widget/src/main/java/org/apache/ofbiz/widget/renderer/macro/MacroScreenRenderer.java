@@ -71,7 +71,7 @@ import freemarker.template.TemplateException;
 
 public class MacroScreenRenderer implements ScreenStringRenderer {
 
-    public static final String MODULE = MacroScreenRenderer.class.getName();
+    private static final String MODULE = MacroScreenRenderer.class.getName();
     private Template macroLibrary;
     private WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private String rendererName;

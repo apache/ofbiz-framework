@@ -38,7 +38,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class RecurrenceInfo {
 
-    public static final String MODULE = RecurrenceInfo.class.getName();
+    private static final String MODULE = RecurrenceInfo.class.getName();
 
     protected GenericValue info;
     protected Date startDate;
@@ -105,8 +105,8 @@ public class RecurrenceInfo {
         eDateList = RecurrenceUtil.parseDateList(StringUtil.split(info.getString("exceptionDateTimes"), ","));
 
         // Sort the lists.
-        Collections.sort(rDateList);
-        Collections.sort(eDateList);
+        rDateList.sort(null);
+        eDateList.sort(null);
     }
 
     /** Returns the primary key for this value object */

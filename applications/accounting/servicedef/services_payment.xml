@@ -37,8 +37,8 @@ under the License.
         <override name="amount" optional="false"/>
     </service>
 
-    <service name="updatePayment" engine="simple" default-entity-name="Payment"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="updatePayment" auth="true">
+    <service name="updatePayment" engine="groovy" default-entity-name="Payment"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="updatePayment" auth="true">
         <description>Update a Payment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -59,8 +59,8 @@ under the License.
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="quickSendPayment" engine="simple" default-entity-name="Payment"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="quickSendPayment">
+    <service name="quickSendPayment" engine="groovy" default-entity-name="Payment"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="quickSendPayment">
         <description>Updates a Payment and then marks it as PMNT_SENT</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -151,15 +151,15 @@ under the License.
         <attribute name="finAccountTransId" type="String" mode="OUT" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="getPaymentRunningTotal" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="getPaymentRunningTotal" auth="true">
+    <service name="getPaymentRunningTotal" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getPaymentRunningTotal" auth="true">
         <description>calculate running total for payments</description>
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentRunningTotal" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="cancelPaymentBatch" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="cancelPaymentBatch" auth="true">
+    <service name="cancelPaymentBatch" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="cancelPaymentBatch" auth="true">
         <description>cancel payment batch</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
@@ -174,8 +174,8 @@ under the License.
         <attribute name="paymentGroupId" type="String" mode="OUT" optional="true"/>
         <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
     </service>
-    <service name="createPaymentAndApplicationForParty" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentAndApplicationForParty" auth="true">
+    <service name="createPaymentAndApplicationForParty" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndApplicationForParty" auth="true">
         <description>create Payment and PaymentApplications for multiple invoices for one party</description>
         <attribute name="organizationPartyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -201,14 +201,14 @@ under the License.
         <description>Cancel all payments for payment group</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="createFinAccoutnTransFromPayment" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createFinAccoutnTransFromPayment" auth="true">
+    <service name="createFinAccoutnTransFromPayment" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createFinAccoutnTransFromPayment" auth="true">
         <auto-attributes entity-name="FinAccountTrans" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="FinAccountTrans" include="pk" mode="INOUT" optional="true"/>
         <attribute name="invoiceIds" type="List" mode="IN" optional="true"/>
     </service>
-    <service name="getPayments" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="getPayments" auth="true">
+    <service name="getPayments" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getPayments" auth="true">
         <description>Get list of payment</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
@@ -227,8 +227,8 @@ under the License.
         <implements service="createPaymentGroupAndMember"/>
     </service>
     
-    <service name="massChangePaymentStatus" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="massChangePaymentStatus" auth="true">
+    <service name="massChangePaymentStatus" engine="groovy"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="massChangePaymentStatus" auth="true">
         <description>Set status of Payments in bulk.</description>
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
@@ -253,16 +253,16 @@ under the License.
     </service>
 
     <!-- Payment content services -->
-    <service name="createPaymentContent" default-entity-name="PaymentContent" engine="simple"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentContent" auth="true">
+    <service name="createPaymentContent" default-entity-name="PaymentContent" engine="groovy"
+             location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentContent" auth="true">
         <description>Add Content To Payment</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updatePaymentContent" default-entity-name="PaymentContent" engine="simple"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="updatePaymentContent" auth="true">
+    <service name="updatePaymentContent" default-entity-name="PaymentContent" engine="groovy"
+             location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="updatePaymentContent" auth="true">
         <description>Update Content To Payment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

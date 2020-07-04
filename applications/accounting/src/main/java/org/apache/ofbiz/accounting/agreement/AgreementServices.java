@@ -44,12 +44,11 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class AgreementServices {
 
-    public static final String MODULE = AgreementServices.class.getName();
+    private static final String MODULE = AgreementServices.class.getName();
     // set some BigDecimal properties
-    public static final int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("finaccount.rounding");
-    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
-    public static final String resource = "AccountingUiLabels";
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("finaccount.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("finaccount.rounding");
+    private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
 
     /**
      * Determines commission receiving parties and amounts for the provided product, price, and quantity
@@ -125,7 +124,7 @@ public class AgreementServices {
                                 commission = commission.add(termValue);
                             } else if ("FIN_COMM_VARIABLE".equals(termTypeId)) {
                                 // if variable percentage commission, need to divide by 100, because 5% is stored as termValue of 5.0
-                                commission = commission.add(termValue.multiply(amount).divide(new BigDecimal("100"), 12, rounding));
+                                commission = commission.add(termValue.multiply(amount).divide(new BigDecimal("100"), 12, ROUNDING));
                             } else if ("FIN_COMM_MIN".equals(termTypeId)) {
                                 min = termValue;
                             } else if ("FIN_COMM_MAX".equals(termTypeId)) {
@@ -151,7 +150,7 @@ public class AgreementServices {
                     if (commission.compareTo(max) > 0)
                         commission = max;
                     commission = negative ? commission.negate() : commission;
-                    commission = commission.setScale(decimals, rounding);
+                    commission = commission.setScale(DECIMALS, ROUNDING);
 
                     Map<String, Object> partyCommissionResult = UtilMisc.toMap(
                             "partyIdFrom", agreementItem.getString("partyIdFrom"),

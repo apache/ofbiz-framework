@@ -44,6 +44,7 @@ under the License.
                 <set field="activeApp" value="ordermgr" global="true"/>
                 <set field="applicationMenuName" value="OrderAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://order/widget/ordermgr/OrderMenus.xml" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_order"/>
                 <set field="applicationTitle" from-field="uiLabelMap.OrderManagerApplication" global="true"/>
                 <!-- globally parameterize the link to a customer's detail information, to help with cases when such details are accessed via external application. -->
                 <set field="customerDetailLink" value="/partymgr/control/viewprofile?partyId=" global="true"/>

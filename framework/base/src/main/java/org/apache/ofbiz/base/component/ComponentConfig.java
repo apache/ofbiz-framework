@@ -56,7 +56,7 @@ import org.w3c.dom.Element;
  */
 public final class ComponentConfig {
 
-    public static final String MODULE = ComponentConfig.class.getName();
+    private static final String MODULE = ComponentConfig.class.getName();
     public static final String OFBIZ_COMPONENT_XML_FILENAME = "ofbiz-component.xml";
     // This map is not a UtilCache instance because there is no strategy or implementation for reloading components.
     private static final ComponentConfigCache componentConfigCache = new ComponentConfigCache();

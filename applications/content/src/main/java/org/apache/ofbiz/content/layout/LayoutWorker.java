@@ -44,7 +44,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class LayoutWorker {
 
-    public static final String MODULE = LayoutWorker.class.getName();
+    private static final String MODULE = LayoutWorker.class.getName();
     private static final String err_resource = "ContentErrorUiLabels";
 
     private LayoutWorker() {}
@@ -92,8 +92,8 @@ public final class LayoutWorker {
         // This code finds the idField and the upload FileItems
         FileItem fi = null;
         FileItem imageFi = null;
-        for (int i=0; i < lst.size(); i++) {
-            fi = lst.get(i);
+        for (FileItem fileItem : lst) {
+            fi = fileItem;
             String fieldName = fi.getFieldName();
             String fieldStr = fi.getString();
             if (fi.isFormField()) {

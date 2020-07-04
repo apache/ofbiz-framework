@@ -59,7 +59,7 @@ import org.xml.sax.SAXException;
  */
 public final class ICalWorker {
 
-    public static final String MODULE = ICalWorker.class.getName();
+    private static final String MODULE = ICalWorker.class.getName();
 
     private ICalWorker() {}
 

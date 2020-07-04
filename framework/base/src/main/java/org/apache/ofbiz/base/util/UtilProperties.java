@@ -63,7 +63,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class UtilProperties implements Serializable {
 
-    public static final String MODULE = UtilProperties.class.getName();
+    private static final String MODULE = UtilProperties.class.getName();
 
     private UtilProperties() {}
 

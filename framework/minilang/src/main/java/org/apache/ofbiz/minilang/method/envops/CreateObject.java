@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public final class CreateObject extends MethodOperation {
 
-    public static final String MODULE = CreateObject.class.getName();
+    private static final String MODULE = CreateObject.class.getName();
 
     private final String className;
     private final Class<?> targetClass;

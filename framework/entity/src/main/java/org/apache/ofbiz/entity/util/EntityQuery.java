@@ -51,7 +51,7 @@ import org.apache.ofbiz.entity.model.DynamicViewEntity;
  */
 public class EntityQuery {
 
-    public static final String MODULE = EntityQuery.class.getName();
+    private static final String MODULE = EntityQuery.class.getName();
 
     private Delegator delegator;
     private String entityName = null;
@@ -455,7 +455,8 @@ public class EntityQuery {
                 return iterator.getResultsSizeAfterPartialList();
             }
         }
-        return delegator.findCountByCondition(entityName, makeWhereCondition(false), havingEntityCondition, makeEntityFindOptions());
+        return delegator.findCountByCondition(entityName, makeWhereCondition(false), fieldsToSelect,
+                havingEntityCondition, makeEntityFindOptions());
     }
 
     private List<GenericValue> query(EntityFindOptions efo) throws GenericEntityException {
@@ -557,7 +558,7 @@ public class EntityQuery {
         cache(false);
         try (EntityListIterator genericValueEli = queryIterator()) {
             if (this.distinct) {
-                Set<T> distinctSet = new LinkedHashSet<T>();
+                Set<T> distinctSet = new LinkedHashSet<>();
                 GenericValue value = null;
                 while ((value = genericValueEli.next()) != null) {
                     T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));

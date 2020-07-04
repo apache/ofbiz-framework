@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class UtilTimer {
 
-    public static final String MODULE = UtilTimer.class.getName();
+    private static final String MODULE = UtilTimer.class.getName();
     protected static final ConcurrentHashMap<String, UtilTimer> staticTimers = new ConcurrentHashMap<>();
 
     protected String timerName = null;

@@ -39,7 +39,7 @@ import org.apache.ofbiz.entity.Delegator;
 
 public class ContentSearchSession {
 
-    public static final String MODULE = ContentSearchSession.class.getName();
+    private static final String MODULE = ContentSearchSession.class.getName();
     
     @SuppressWarnings("serial")
     public static class ContentSearchOptions implements java.io.Serializable {

@@ -43,7 +43,7 @@ import org.apache.ofbiz.service.DispatchContext;
  */
 public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
 
-    public static final String MODULE = DelegatorEcaHandler.class.getName();
+    private static final String MODULE = DelegatorEcaHandler.class.getName();
 
     protected Delegator delegator = null;
     protected String delegatorName = null;
@@ -74,9 +74,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         Future<DispatchContext> future = this.dctx.get();
         try {
             return future != null ? future.get() : null;
-        } catch (ExecutionException e) {
-            throw (GenericEntityException) new GenericEntityException(e.getMessage()).initCause(e);
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             throw (GenericEntityException) new GenericEntityException(e.getMessage()).initCause(e);
         }
     }

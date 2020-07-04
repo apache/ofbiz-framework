@@ -19,6 +19,9 @@ under the License.
 [[apache-ofbiz]]
 = Apache OFBiz®
 
+image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
+
+
 Welcome to *Apache OFBiz*! A powerful top level Apache software project. OFBiz
 is an Enterprise Resource Planning (ERP) System written in Java and houses a
 large set of libraries, entities, services and features to run all aspects of

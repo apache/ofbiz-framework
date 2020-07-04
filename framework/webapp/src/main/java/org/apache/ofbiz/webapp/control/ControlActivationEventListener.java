@@ -30,7 +30,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
  */
 public class ControlActivationEventListener implements HttpSessionActivationListener {
     // Debug MODULE name
-    public static final String MODULE = ControlActivationEventListener.class.getName();
+    private static final String MODULE = ControlActivationEventListener.class.getName();
 
     public ControlActivationEventListener() {}
 

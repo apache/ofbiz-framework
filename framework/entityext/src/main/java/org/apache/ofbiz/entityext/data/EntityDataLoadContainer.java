@@ -63,7 +63,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
  */
 public class EntityDataLoadContainer implements Container {
 
-    public static final String MODULE = EntityDataLoadContainer.class.getName();
+    private static final String MODULE = EntityDataLoadContainer.class.getName();
     private String name;
 
     // possible command line properties passed by user
@@ -91,7 +91,7 @@ public class EntityDataLoadContainer implements Container {
         // get the data-load properties passed by the user in the command line
         Map<String, String> loadDataProps = ofbizCommands.stream()
                 .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.LOAD_DATA.getName()))
-                .map(command -> command.getProperties())
+                .map(StartupCommand::getProperties)
                 .findFirst().get();
 
         /* disable job scheduler, JMS listener and startup services
@@ -557,7 +557,7 @@ public class EntityDataLoadContainer implements Container {
                         .filter(file -> file.getName().toLowerCase(Locale.getDefault()).endsWith(".xml"))
                         .map(file -> UtilURL.fromFilename(file.getPath()))
                         .collect(Collectors.toList()))
-                .orElse(new ArrayList<URL>());
+                .orElse(new ArrayList<>());
     }
 
     private static void logDataLoadingPlan(List<URL> urlList, String delegatorName) {

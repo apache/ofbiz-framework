@@ -49,7 +49,7 @@ import org.apache.shiro.crypto.hash.HashService;
 
 public final class EntityCrypto {
 
-    public static final String MODULE = EntityCrypto.class.getName();
+    private static final String MODULE = EntityCrypto.class.getName();
 
     private final Delegator delegator;
     private final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<>();
@@ -152,9 +152,7 @@ public final class EntityCrypto {
         byte[] decryptedBytes = handler.decryptValue(key, encryptMethod, encryptedString);
         try {
             return UtilObject.getObjectException(decryptedBytes);
-        } catch (ClassNotFoundException e) {
-            throw new GeneralException(e);
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             throw new GeneralException(e);
         }
     }

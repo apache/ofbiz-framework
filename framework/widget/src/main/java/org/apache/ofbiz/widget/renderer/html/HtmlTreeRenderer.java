@@ -50,7 +50,7 @@ import freemarker.template.TemplateException;
 public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRenderer {
 
     ScreenStringRenderer screenStringRenderer = null;
-    public static final String MODULE = HtmlTreeRenderer.class.getName();
+    private static final String MODULE = HtmlTreeRenderer.class.getName();
 
     public HtmlTreeRenderer() {}
 

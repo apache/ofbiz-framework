@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.config.model.Notify;
  */
 public class ModelNotification {
 
-    public static final String MODULE = ModelNotification.class.getName();
+    private static final String MODULE = ModelNotification.class.getName();
 
     public String notificationGroupName;
     public String notificationEvent;

@@ -36,7 +36,7 @@ import org.apache.ofbiz.base.component.ComponentConfig;
  */
 public final class UtilJavaParse {
 
-    public static final String MODULE = UtilJavaParse.class.getName();
+    private static final String MODULE = UtilJavaParse.class.getName();
 
     // FIXME: Not thread safe
     private static Set<String> serviceMethodNames = new HashSet<>();

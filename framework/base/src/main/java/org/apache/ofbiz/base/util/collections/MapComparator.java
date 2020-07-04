@@ -31,7 +31,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
  */
 public class MapComparator implements Comparator<Map<Object, Object>> {
 
-    public static final String MODULE = MapComparator.class.getName();
+    private static final String MODULE = MapComparator.class.getName();
 
     private List<? extends Object> keys;
 

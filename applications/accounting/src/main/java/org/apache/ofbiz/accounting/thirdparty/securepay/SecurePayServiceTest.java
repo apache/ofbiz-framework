@@ -39,7 +39,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
         super(name);
     }
     
-    public static final String MODULE = SecurePayServiceTest.class.getName();
+    private static final String MODULE = SecurePayServiceTest.class.getName();
 
     // test data
     protected GenericValue emailAddr = null;

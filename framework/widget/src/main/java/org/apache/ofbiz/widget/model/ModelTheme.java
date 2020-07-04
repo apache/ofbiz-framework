@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelTheme implements Serializable {
 
-    public static final String MODULE = ModelTheme.class.getName();
+    private static final String MODULE = ModelTheme.class.getName();
     //generic properties
     private final String name;
     private final Map<String, VisualTheme> visualThemes;

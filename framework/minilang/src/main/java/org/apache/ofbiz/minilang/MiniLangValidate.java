@@ -33,7 +33,7 @@ import org.w3c.dom.Node;
  */
 public final class MiniLangValidate {
 
-    public static final String MODULE = MiniLangValidate.class.getName();
+    private static final String MODULE = MiniLangValidate.class.getName();
 
     /**
      * Tests <code>element</code> for invalid attribute names.

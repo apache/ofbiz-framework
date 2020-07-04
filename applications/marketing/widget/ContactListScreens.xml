@@ -26,7 +26,8 @@ under the License.
            <actions>
                <set field="titleProperty" value="MarketingContactListFindContactLists"/>
                <set field="headerItem" value="ContactList"/>
-               <set field="tabButtonItem" value="ContactList"/>               
+               <set field="tabButtonItem" value="ContactList"/>
+               <set field="helpAnchor" value="_help_for_find_contact_list_screen"/>
                <set field="contactListTabButtonItem" value="ContactList"/>
                <set field="labelTitleProperty" value="PageTitleFindContactLists"/>
                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/FindContactList"/>
@@ -60,6 +61,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditContactList"/>
                 <set field="contactListTabButtonItem" value="ContactList"/>
+                <set field="helpAnchor" value="_edit_a_contact_list"/>
                 <set field="labelTitleProperty" value="PageTitleEditContactList"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactLists"/>
@@ -342,6 +344,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindImportContactListParties"/>
                 <set field="contactListTabButtonItem" value="ContactListImportParty"/>
+                <set field="helpAnchor" value="_help_for_import_contact_list_parties"/>
                 <set field="labelTitleProperty" value="PageTitleFindImportContactListParties"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindImportContactListParties?contactListId=${parameters.contactListId}"/>

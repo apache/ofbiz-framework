@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public final class FindByPrimaryKey extends EntityOperation {
 
-    public static final String MODULE = FindByPrimaryKey.class.getName();
+    private static final String MODULE = FindByPrimaryKey.class.getName();
 
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Collection<String>> fieldsToSelectListFma;

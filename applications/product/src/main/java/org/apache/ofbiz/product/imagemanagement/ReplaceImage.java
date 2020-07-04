@@ -44,9 +44,9 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class ReplaceImage{
 
-    public static final String MODULE = ReplaceImage.class.getName();
-    public static final String resourceError = "ProductErrorUiLabels";
-    public static final String resource = "ProductUiLabels";
+    private static final String MODULE = ReplaceImage.class.getName();
+    private static final String RES_ERROR = "ProductErrorUiLabels";
+    private static final String RESOURCE = "ProductUiLabels";
 
     public static Map<String, Object> replaceImageToExistImage(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -63,19 +63,19 @@ public class ReplaceImage{
         if (UtilValidate.isNotEmpty(dataResourceNameExist)) {
             if (UtilValidate.isNotEmpty(contentIdReplace)) {
                 if (contentIdExist.equals(contentIdReplace)) {
-                    String errMsg = UtilProperties.getMessage(resourceError, "ProductCannotReplaceBecauseBothImagesAreTheSameImage", locale);
+                    String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductCannotReplaceBecauseBothImagesAreTheSameImage", locale);
                     Debug.logError(errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
             }
             else{
-                 String errMsg = UtilProperties.getMessage(resourceError, "ProductPleaseChooseImageToReplace", locale);
+                 String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseChooseImageToReplace", locale);
                 Debug.logError(errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
         }
         else{
-            String errMsg = UtilProperties.getMessage(resourceError, "ProductPleaseChooseReplacementImage", locale);
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseChooseReplacementImage", locale);
             Debug.logError(errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
@@ -121,11 +121,11 @@ public class ReplaceImage{
                 }
             }
         } catch (IOException | IllegalArgumentException | GenericEntityException | GenericServiceException e) {
-            String errMsg = UtilProperties.getMessage(resourceError, "ProductCannotReplaceImage", locale);
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductCannotReplaceImage", locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
-        String successMsg = UtilProperties.getMessage(resource, "ProductReplaceImageSuccessfully", locale);
+        String successMsg = UtilProperties.getMessage(RESOURCE, "ProductReplaceImageSuccessfully", locale);
         return ServiceUtil.returnSuccess(successMsg);
     }
 

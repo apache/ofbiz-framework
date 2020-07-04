@@ -22,7 +22,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 
 public class ScreenCache extends AbstractCache {
-    public static final String MODULE = ScreenCache.class.getName();
+    private static final String MODULE = ScreenCache.class.getName();
 
     public ScreenCache() {
         super("screen");

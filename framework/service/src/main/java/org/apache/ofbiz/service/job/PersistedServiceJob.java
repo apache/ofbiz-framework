@@ -60,7 +60,7 @@ import com.ibm.icu.util.TimeZone;
 @SuppressWarnings("serial")
 public class PersistedServiceJob extends GenericServiceJob {
 
-    public static final String MODULE = PersistedServiceJob.class.getName();
+    private static final String MODULE = PersistedServiceJob.class.getName();
 
     private final transient Delegator delegator;
     private long nextRecurrence = -1;

@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ServiceEcaCondition implements java.io.Serializable {
 
-    public static final String MODULE = ServiceEcaCondition.class.getName();
+    private static final String MODULE = ServiceEcaCondition.class.getName();
 
     protected String conditionService = null;
     protected String lhsValueName = null;

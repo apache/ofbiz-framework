@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
  */
 public final class SOAPClientEngine extends GenericAsyncEngine {
 
-    public static final String MODULE = SOAPClientEngine.class.getName();
+    private static final String MODULE = SOAPClientEngine.class.getName();
 
     public SOAPClientEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);

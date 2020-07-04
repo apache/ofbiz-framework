@@ -54,8 +54,8 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 
 public class ContentSearch {
 
-    public static final String MODULE = ContentSearch.class.getName();
-    public static final String resource = "ContentUiLabels";
+    private static final String MODULE = ContentSearch.class.getName();
+    private static final String RESOURCE = "ContentUiLabels";
 
     public static ArrayList<String> searchContents(List<? extends ContentSearchConstraint> contentSearchConstraintList, ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
         ContentSearchContext contentSearchContext = new ContentSearchContext(delegator, visitId);
@@ -534,7 +534,7 @@ public class ContentSearch {
             }
 
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "ContentAssoc", locale) + ": ");
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "ContentAssoc", locale) + ": ");
             if (content != null) {
                 ppBuf.append(content.getString("contentName"));
             }
@@ -554,7 +554,7 @@ public class ContentSearch {
                 }
             }
             if (this.includeSubContents) {
-                ppBuf.append(" (").append(UtilProperties.getMessage(resource, "ContentIncludeAllSubContents", locale)).append(")");
+                ppBuf.append(" (").append(UtilProperties.getMessage(RESOURCE, "ContentIncludeAllSubContents", locale)).append(")");
             }
             return ppBuf.toString();
         }
@@ -685,9 +685,9 @@ public class ContentSearch {
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "ContentKeywords", locale)).append(": \"");
-            ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(resource, "ContentKeywordWhere", locale)).append(" ");
-            ppBuf.append(isAnd ? UtilProperties.getMessage(resource, "ContentKeywordAllWordsMatch", locale) : UtilProperties.getMessage(resource, "ContentKeywordAnyWordMatches", locale));
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "ContentKeywords", locale)).append(": \"");
+            ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "ContentKeywordWhere", locale)).append(" ");
+            ppBuf.append(isAnd ? UtilProperties.getMessage(RESOURCE, "ContentKeywordAllWordsMatch", locale) : UtilProperties.getMessage(RESOURCE, "ContentKeywordAnyWordMatches", locale));
             return ppBuf.toString();
         }
 
@@ -780,8 +780,8 @@ public class ContentSearch {
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "ContentLastModified", locale)).append(": \"");
-            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(resource, "ContentLastModified", locale)).append(" ");
+            ppBuf.append(UtilProperties.getMessage(RESOURCE, "ContentLastModified", locale)).append(": \"");
+            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(RESOURCE, "ContentLastModified", locale)).append(" ");
             return ppBuf.toString();
         }
 
@@ -861,7 +861,7 @@ public class ContentSearch {
 
         @Override
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(resource, "ContentKeywordRelevancy", locale);
+            return UtilProperties.getMessage(RESOURCE, "ContentKeywordRelevancy", locale);
         }
 
         @Override
@@ -908,13 +908,13 @@ public class ContentSearch {
         @Override
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
             if ("contentName".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "ContentName", locale);
+                return UtilProperties.getMessage(RESOURCE, "ContentName", locale);
             } else if ("totalQuantityOrdered".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "ContentPopularityByOrders", locale);
+                return UtilProperties.getMessage(RESOURCE, "ContentPopularityByOrders", locale);
             } else if ("totalTimesViewed".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "ContentPopularityByViews", locale);
+                return UtilProperties.getMessage(RESOURCE, "ContentPopularityByViews", locale);
             } else if ("averageCustomerRating".equals(this.fieldName)) {
-                return UtilProperties.getMessage(resource, "ContentCustomerRating", locale);
+                return UtilProperties.getMessage(RESOURCE, "ContentCustomerRating", locale);
             }
             return this.fieldName;
         }

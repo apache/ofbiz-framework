@@ -104,7 +104,7 @@ def getPartyNameForDate() {
         if (person.middleName) resultMap.middleName = person.middleName
         if (person.personalTitle) resultMap.personalTitle = person.personalTitle
         if (person.suffix) resultMap.suffix = person.suffix
-        if (person.gender) resultMap.gender = person.gender
+        if (!partyNameHistoryCurrent && person.gender) resultMap.gender = person.gender
 
         resultMap.fullName = PartyHelper.getPartyName(person, parameters.lastNameFirst == "Y")
     } else if (partyGroup) {

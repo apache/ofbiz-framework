@@ -58,7 +58,7 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
  */
 public final class UtilMisc {
 
-    public static final String MODULE = UtilMisc.class.getName();
+    private static final String MODULE = UtilMisc.class.getName();
 
     private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 
@@ -209,7 +209,7 @@ public final class UtilMisc {
         toSort.addAll(listOfMaps);
         try {
             MapComparator mc = new MapComparator(sortKeys);
-            Collections.sort(toSort, mc);
+            toSort.sort(mc);
         } catch (Exception e) {
             Debug.logError(e, "Problems sorting list of maps; returning null.", MODULE);
             return null;

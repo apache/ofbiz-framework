@@ -39,7 +39,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
  */
 public class ModelEntityChecker {
 
-    public static final String MODULE = ModelEntityChecker.class.getName();
+    private static final String MODULE = ModelEntityChecker.class.getName();
 
     public static void checkEntities(Delegator delegator, List<String> warningList) throws GenericEntityException {
         ModelReader reader = delegator.getModelReader();

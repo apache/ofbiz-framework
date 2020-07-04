@@ -49,7 +49,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class ContentMapFacade implements Map<Object, Object> {
 
-    public static final String MODULE = ContentMapFacade.class.getName();
+    private static final String MODULE = ContentMapFacade.class.getName();
 
     private static final Set<String> mapKeySet = new HashSet<>();
     static {
@@ -285,7 +285,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 return this.contentId;
             }
         } else if ("data".equalsIgnoreCase(name) || "dataresource".equalsIgnoreCase(name)) {
-            // data (resource) object
+            // data (RESOURCE) object
             return dataResource;
         } else if ("subcontent_all".equalsIgnoreCase(name)) {
             // subcontent list of ordered subcontent
@@ -351,10 +351,7 @@ public class ContentMapFacade implements Map<Object, Object> {
 
         try {
             return ContentWorker.renderContentAsText(dispatcher, contentId, renderCtx, locale, mimeType, cache);
-        } catch (GeneralException e) {
-            Debug.logError(e, MODULE);
-            return e.toString();
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, MODULE);
             return e.toString();
         }
@@ -541,7 +538,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             String name = (String) key;
 
             if ("fields".equalsIgnoreCase(name)) {
-                // get the data resource value object
+                // get the data RESOURCE value object
                 GenericValue dr = null;
                 try {
                     dr = value.getRelatedOne("DataResource", cache);
@@ -553,10 +550,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 // render just the dataresource
                 try {
                     return DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, value.getString("dataResourceId"), context, locale, mimeType, cache);
-                } catch (GeneralException e) {
-                    Debug.logError(e, MODULE);
-                    return e.toString();
-                } catch (IOException e) {
+                } catch (GeneralException | IOException e) {
                     Debug.logError(e, MODULE);
                     return e.toString();
                 }

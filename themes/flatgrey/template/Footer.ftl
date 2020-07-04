@@ -42,5 +42,5 @@ under the License.
   </#list>
 </#if>
 </body>
-<@scriptTemplateList/>
+<@scriptTagsFooter/>
 </html>

@@ -47,6 +47,7 @@ under the License.
                 <set field="tabButtonItem" value="calendar"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
+                <set field="helpAnchor" value="_createmodify_calendar"/>
 
                 <script location="component://manufacturing/groovyScripts/routing/EditCalendar.groovy"/>
             </actions>
@@ -71,6 +72,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindCalendar"/>
                 <set field="tabButtonItem" value="Calendar"/>
                 <set field="headerItem" value="calendar"/>
+                <set field="helpAnchor" value="_calendar"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -94,6 +96,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListCalendarWeek"/>
                 <set field="tabButtonItem" value="CalendarWeek"/>
                 <set field="headerItem" value="calendar"/>
+                <set field="helpAnchor" value="_find_calendar_weeks"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -117,6 +120,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditCalendarWeek"/>
                 <set field="tabButtonItem" value="CalendarWeek"/>
                 <set field="headerItem" value="calendar"/>
+                <set field="helpAnchor" value="_createedit_calendar_week"/>
 
                 <entity-one entity-name="TechDataCalendarWeek" value-field="calendarWeek"/>
             </actions>
@@ -141,6 +145,7 @@ under the License.
                 <set field="tabButtonItem" value="calendarExceptionWeek"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
+                <set field="helpAnchor" value="_calendar_exception_week"/>
 
                 <script location="component://manufacturing/groovyScripts/routing/EditCalendarExceptionWeek.groovy"/>
             </actions>
@@ -166,6 +171,7 @@ under the License.
                 <set field="tabButtonItem" value="calendarExceptionDay"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
+                <set field="helpAnchor" value="_calendar_exception_day"/>
 
                 <script location="component://manufacturing/groovyScripts/routing/EditCalendarExceptionDay.groovy"/>
             </actions>

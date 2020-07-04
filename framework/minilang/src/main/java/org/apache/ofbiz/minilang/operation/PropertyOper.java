@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
  */
 public class PropertyOper extends MakeInStringOperation {
 
-    public static final String MODULE = PropertyOper.class.getName();
+    private static final String MODULE = PropertyOper.class.getName();
 
     String property;
     String resource;

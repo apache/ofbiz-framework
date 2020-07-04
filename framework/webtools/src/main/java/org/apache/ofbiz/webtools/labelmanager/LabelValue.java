@@ -20,7 +20,7 @@ package org.apache.ofbiz.webtools.labelmanager;
 
 public class LabelValue {
 
-    public static final String MODULE = LabelValue.class.getName();
+    private static final String MODULE = LabelValue.class.getName();
 
     protected String labelValue = "";
     protected String labelComment = "";

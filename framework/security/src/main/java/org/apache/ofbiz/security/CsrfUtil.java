@@ -45,7 +45,7 @@ import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 
 public final class CsrfUtil {
 
-    public static final String MODULE = CsrfUtil.class.getName();
+    private static final String MODULE = CsrfUtil.class.getName();
     private static String tokenNameNonAjax = UtilProperties.getPropertyValue("security", "csrf.tokenName.nonAjax",
             "csrf");
     private static ICsrfDefenseStrategy strategy;
@@ -90,7 +90,7 @@ public final class CsrfUtil {
         if (UtilValidate.isNotEmpty(partyId)) {
             Map<String, Map<String, String>> partyTokenMap = csrfTokenCache.get(partyId);
             if (partyTokenMap == null) {
-                partyTokenMap = new HashMap<String, Map<String, String>>();
+                partyTokenMap = new HashMap<>();
                 csrfTokenCache.put(partyId, partyTokenMap);
             }
 

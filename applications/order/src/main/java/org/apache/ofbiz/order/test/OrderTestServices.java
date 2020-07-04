@@ -49,7 +49,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class OrderTestServices {
 
-    public static final String MODULE = OrderTestServices.class.getName();
+    private static final String MODULE = OrderTestServices.class.getName();
 
     public static Map<String, Object> createTestSalesOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -112,8 +112,6 @@ public class OrderTestServices {
             }
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError(gse.getMessage());
-        } catch (Exception e) {
-            return ServiceUtil.returnError(e.getMessage());
         }
         if (productsList.size() == 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage("OrderUiLabels",
@@ -172,8 +170,6 @@ public class OrderTestServices {
                 Debug.logInfo("Test sales order with id [" + orderId + "] has been shipped", MODULE);
             } catch (GenericServiceException gse) {
                 Debug.logWarning("Unable to quick ship test sales order with id [" + orderId + "] with error: " + gse.getMessage(), MODULE);
-            } catch (Exception exc) {
-                Debug.logWarning("Unable to quick ship test sales order with id [" + orderId + "] with error: " + exc.getMessage(), MODULE);
             }
         }
 

@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("serial")
 public final class EntityEcaAction implements java.io.Serializable {
-    public static final String MODULE = EntityEcaAction.class.getName();
+    private static final String MODULE = EntityEcaAction.class.getName();
 
     private final String serviceName;
     private final String serviceMode;

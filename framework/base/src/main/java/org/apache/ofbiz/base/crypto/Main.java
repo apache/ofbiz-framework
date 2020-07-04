@@ -24,7 +24,7 @@ import org.apache.shiro.crypto.AesCipherService;
 
 public class Main {
     
-    public static final String MODULE = Main.class.getName(); 
+    private static final String MODULE = Main.class.getName();
     public static void main(String[] args) throws Exception {
         if ("-crypt".equals(args[0])) {
             Debug.logInfo(HashCrypt.cryptUTF8(args[1], null, args[2]), MODULE);

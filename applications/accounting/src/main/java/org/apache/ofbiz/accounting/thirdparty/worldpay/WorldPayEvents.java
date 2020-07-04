@@ -55,10 +55,10 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class WorldPayEvents {
 
-    public static final String resource = "AccountingUiLabels";
-    public static final String resourceErr = "AccountingErrorUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
+    private static final String RES_ERROR = "AccountingErrorUiLabels";
     public static final String commonResource = "CommonUiLabels";
-    public static final String MODULE = WorldPayEvents.class.getName();
+    private static final String MODULE = WorldPayEvents.class.getName();
 
     public static String worldPayRequest(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
@@ -71,7 +71,7 @@ public class WorldPayEvents {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get the order header for order: " + orderId, MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingOrderHeader", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingOrderHeader", locale));
             return "error";
         }
         // get the order total
@@ -80,7 +80,7 @@ public class WorldPayEvents {
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
         if (productStore == null) {
             Debug.logError("ProductStore is null", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingMerchantConfiguration", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
         }
         // get the payment properties file
@@ -226,19 +226,19 @@ public class WorldPayEvents {
         // get the currency
         String defCur = UtilFormatOut.checkEmpty(productStore.getString("defaultCurrencyUomId"), "USD");
         // order description
-        String description = UtilProperties.getMessage(resource, "AccountingOrderNr", locale) + orderId + " " +
+        String description = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " " +
                                  (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
         // check the instId - very important
         if (instId == null || "NONE".equals(instId)) {
             Debug.logError("Worldpay InstId not found, cannot continue", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingInstId", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingInstId", locale));
             return "error";
         }
         try {
             Integer.parseInt(instId);
         } catch (NumberFormatException nfe) {
             Debug.logError(nfe, "Problem converting instId string to integer", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingInstIdToInteger", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingInstIdToInteger", locale));
             return "error";
         }
         // check the testMode
@@ -298,7 +298,7 @@ public class WorldPayEvents {
             response.sendRedirect(redirectString);
         } catch (IOException e) {
             Debug.logError(e, "Problems redirecting to WorldPay", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsConnectingWithWorldPay", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsConnectingWithWorldPay", locale));
             return "error";
         }
         return "success";
@@ -323,7 +323,7 @@ public class WorldPayEvents {
                 userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get UserLogin for: " + userLoginId + "; cannot continue", MODULE);
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingAuthenticationUser", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingAuthenticationUser", locale));
                 return "error";
             }
         }
@@ -334,17 +334,17 @@ public class WorldPayEvents {
                 orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get the order header for order: " + orderId, MODULE);
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingOrderHeader", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingOrderHeader", locale));
                 return "error";
             }
         } else {
             Debug.logError("WorldPay did not callback with a valid orderId!", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.noValidOrderIdReturned", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.noValidOrderIdReturned", locale));
             return "error";
         }
         if (orderHeader == null) {
             Debug.logError("Cannot get the order header for order: " + orderId, MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingOrderHeader", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingOrderHeader", locale));
             return "error";
         }
         // get the transaction status
@@ -474,12 +474,12 @@ public class WorldPayEvents {
         // create a payment record too
         Map<String, Object> results = null;
         try {
-            String comment = UtilProperties.getMessage(resource, "AccountingPaymentReceiveViaWorldPay", locale);
+            String comment = UtilProperties.getMessage(RESOURCE, "AccountingPaymentReceiveViaWorldPay", locale);
             results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("userLogin", userLogin,
                     "orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"), "comments", comment));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Failed to execute service createPaymentFromPreference", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference", locale));
             return false;
         }
 
@@ -492,7 +492,7 @@ public class WorldPayEvents {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String resource, String parameterName) {
+                                                       String RESOURCE, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -507,7 +507,7 @@ public class WorldPayEvents {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
@@ -516,8 +516,8 @@ public class WorldPayEvents {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String resource, String parameterName, String defaultValue) {
-        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
+                                                       String RESOURCE, String parameterName, String defaultValue) {
+        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, RESOURCE, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

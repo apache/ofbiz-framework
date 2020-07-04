@@ -42,8 +42,8 @@ import org.apache.ofbiz.service.config.ServiceConfigUtil;
 
 public class JobServices {
 
-    public static final String MODULE = JobServices.class.getName();
-    private static final String resource = "ServiceErrorUiLabels";
+    private static final String MODULE = JobServices.class.getName();
+    private static final String RESOURCE = "ServiceErrorUiLabels";
 
     public static Map<String, Object> cancelJob(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -62,7 +62,7 @@ public class JobServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            String errMsg = UtilProperties.getMessage(resource, "serviceUtil.unable_to_cancel_job", locale) + " : " + fields;
+            String errMsg = UtilProperties.getMessage(RESOURCE, "serviceUtil.unable_to_cancel_job", locale) + " : " + fields;
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -73,7 +73,7 @@ public class JobServices {
             result.put("statusId", "SERVICE_PENDING"); // To more easily see current pending jobs and possibly cancel some others
             return result;
         }
-        String errMsg = UtilProperties.getMessage(resource, "serviceUtil.unable_to_cancel_job", locale) + " : " + null;
+        String errMsg = UtilProperties.getMessage(RESOURCE, "serviceUtil.unable_to_cancel_job", locale) + " : " + null;
         return ServiceUtil.returnError(errMsg);
     }
 
@@ -83,7 +83,7 @@ public class JobServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = ServiceUtil.getLocale(context);
         if (!security.hasPermission("SERVICE_INVOKE_ANY", userLogin)) {
-            String errMsg = UtilProperties.getMessage(resource, "serviceUtil.no_permission_to_run", locale) + ".";
+            String errMsg = UtilProperties.getMessage(RESOURCE, "serviceUtil.no_permission_to_run", locale) + ".";
             return ServiceUtil.returnError(errMsg);
         }
 
@@ -99,14 +99,14 @@ public class JobServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            String errMsg = UtilProperties.getMessage(resource, "serviceUtil.unable_to_cancel_job_retries", locale) + " : " + fields;
+            String errMsg = UtilProperties.getMessage(RESOURCE, "serviceUtil.unable_to_cancel_job_retries", locale) + " : " + fields;
             return ServiceUtil.returnError(errMsg);
         }
 
         if (job != null) {
             return ServiceUtil.returnSuccess();
         }
-        String errMsg = UtilProperties.getMessage(resource, "serviceUtil.unable_to_cancel_job_retries", locale) + " : " + null;
+        String errMsg = UtilProperties.getMessage(RESOURCE, "serviceUtil.unable_to_cancel_job_retries", locale) + " : " + null;
         return ServiceUtil.returnError(errMsg);
     }
 
@@ -121,7 +121,7 @@ public class JobServices {
             if (limit == null) limit = ServiceConfigUtil.getServiceEngine().getThreadPool().getMaxThreads();
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Exception thrown while getting service configuration: ", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceExceptionThrownWhileGettingServiceConfiguration", UtilMisc.toMap("errorString", e), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceExceptionThrownWhileGettingServiceConfiguration", UtilMisc.toMap("errorString", e), locale));
         }
         Delegator delegator = dctx.getDelegator();
         Timestamp purgeTime = Timestamp.from(Instant.now().minus(Duration.ofDays(daysToKeep)));

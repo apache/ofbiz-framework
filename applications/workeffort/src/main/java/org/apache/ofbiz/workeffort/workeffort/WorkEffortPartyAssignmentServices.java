@@ -37,7 +37,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class WorkEffortPartyAssignmentServices {
 
-    public static final String MODULE = WorkEffortPartyAssignmentServices.class.getName();
+    private static final String MODULE = WorkEffortPartyAssignmentServices.class.getName();
 
     public static void updateWorkflowEngine(GenericValue wepa, GenericValue userLogin, LocalDispatcher dispatcher) {
         // if the WorkEffort is an ACTIVITY, check for accept or complete new status...

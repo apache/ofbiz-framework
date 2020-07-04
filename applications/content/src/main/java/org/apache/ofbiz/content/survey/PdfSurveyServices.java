@@ -69,8 +69,8 @@ import com.lowagie.text.pdf.PdfWriter;
 
 public class PdfSurveyServices {
 
-    public static final String MODULE = PdfSurveyServices.class.getName();
-    public static final String resource = "ContentUiLabels";
+    private static final String MODULE = PdfSurveyServices.class.getName();
+    private static final String RESOURCE = "ContentUiLabels";
 
     /**
      *
@@ -209,7 +209,7 @@ public class PdfSurveyServices {
             }
         } catch (GeneralException | DocumentException | IOException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -272,7 +272,7 @@ public class PdfSurveyServices {
             s.close();
         } catch (GeneralException | DocumentException | IOException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -530,7 +530,7 @@ public class PdfSurveyServices {
             }
         } catch (IOException | GenericServiceException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
     return results;

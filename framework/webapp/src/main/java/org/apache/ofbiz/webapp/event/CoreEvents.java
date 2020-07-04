@@ -60,7 +60,7 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
  */
 public class CoreEvents {
 
-    public static final String MODULE = CoreEvents.class.getName();
+    private static final String MODULE = CoreEvents.class.getName();
     public static final String err_resource = "WebappUiLabels";
 
     /**
@@ -498,9 +498,6 @@ public class CoreEvents {
                 FileInputStream fis = new FileInputStream(file);
                 UtilHttp.streamContentToBrowser(response, fis, length, null);
                 fis.close();
-            } catch (FileNotFoundException e) {
-                Debug.logError(e, MODULE);
-                return "error";
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
                 return "error";

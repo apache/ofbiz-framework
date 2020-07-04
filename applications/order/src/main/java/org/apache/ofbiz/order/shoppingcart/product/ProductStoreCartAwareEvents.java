@@ -39,7 +39,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class ProductStoreCartAwareEvents {
 
-    public static final String MODULE = ProductStoreCartAwareEvents.class.getName();
+    private static final String MODULE = ProductStoreCartAwareEvents.class.getName();
 
     public static String setSessionProductStore(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> parameters = UtilHttp.getParameterMap(request);

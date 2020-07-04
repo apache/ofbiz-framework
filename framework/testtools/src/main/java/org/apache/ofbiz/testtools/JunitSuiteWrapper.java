@@ -36,7 +36,7 @@ import junit.framework.TestSuite;
  */
 public class JunitSuiteWrapper {
 
-    public static final String MODULE = JunitSuiteWrapper.class.getName();
+    private static final String MODULE = JunitSuiteWrapper.class.getName();
 
     protected List<ModelTestSuite> modelTestSuiteList = new LinkedList<>();
 

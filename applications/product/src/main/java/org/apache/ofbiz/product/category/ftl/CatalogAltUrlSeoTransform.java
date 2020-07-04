@@ -52,7 +52,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
-    public static final String MODULE = CatalogUrlSeoTransform.class.getName();
+    private static final String MODULE = CatalogUrlSeoTransform.class.getName();
 
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);

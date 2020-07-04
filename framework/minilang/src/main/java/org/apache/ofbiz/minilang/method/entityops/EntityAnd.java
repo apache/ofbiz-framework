@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public final class EntityAnd extends EntityOperation {
 
-    public static final String MODULE = EntityAnd.class.getName();
+    private static final String MODULE = EntityAnd.class.getName();
 
     private final ByAndFinder finder;
 

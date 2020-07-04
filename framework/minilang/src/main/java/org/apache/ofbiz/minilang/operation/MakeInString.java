@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
  */
 public class MakeInString {
 
-    public static final String MODULE = MakeInString.class.getName();
+    private static final String MODULE = MakeInString.class.getName();
 
     String fieldName;
     List<MakeInStringOperation> operations = new ArrayList<>();

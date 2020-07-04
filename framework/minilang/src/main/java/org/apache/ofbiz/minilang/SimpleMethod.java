@@ -80,7 +80,7 @@ import org.w3c.dom.Element;
  */
 public final class SimpleMethod extends MiniLangElement {
 
-    public static final String MODULE = SimpleMethod.class.getName();
+    private static final String MODULE = SimpleMethod.class.getName();
     private static final String err_resource = "MiniLangErrorUiLabels";
     private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name", "dispatcher-name", "user-login-name"};
     private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;

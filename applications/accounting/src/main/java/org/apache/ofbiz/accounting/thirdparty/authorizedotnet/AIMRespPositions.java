@@ -39,11 +39,7 @@ public class AIMRespPositions extends AuthorizeResponse.RespPositions {
     
     @Override
     public int getPosition(String name) {
-        if (positions.containsKey(name)) {
-            return positions.get(name);
-        } else {
-            return -1;
-        }              
+        return positions.getOrDefault(name, -1);
     }
     
     @Override

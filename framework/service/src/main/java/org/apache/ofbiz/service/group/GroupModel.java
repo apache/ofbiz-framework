@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public class GroupModel {
 
-    public static final String MODULE = GroupModel.class.getName();
+    private static final String MODULE = GroupModel.class.getName();
 
     private String groupName, sendMode;
     private List<GroupServiceModel> services;

@@ -28,7 +28,7 @@ import org.apache.ofbiz.base.util.Debug;
 @SuppressWarnings("serial")
 public class GenericResultWaiter implements GenericRequester {
 
-    public static final String MODULE = GenericResultWaiter.class.getName();
+    private static final String MODULE = GenericResultWaiter.class.getName();
 
     /** Status code for a running service */
     public static final int SERVICE_RUNNING = -1;

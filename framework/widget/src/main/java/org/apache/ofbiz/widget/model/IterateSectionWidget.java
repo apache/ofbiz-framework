@@ -54,7 +54,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class IterateSectionWidget extends ModelScreenWidget {
 
-    public static final String MODULE = IterateSectionWidget.class.getName();
+    private static final String MODULE = IterateSectionWidget.class.getName();
     public static final int DEFAULT_PAGE_SIZE = 5;
     public static final int MAX_PAGE_SIZE = 10000;
 

@@ -36,7 +36,7 @@ import org.apache.ofbiz.service.config.model.ServiceLocation;
  */
 public abstract class AbstractEngine implements GenericEngine {
 
-    public static final String MODULE = AbstractEngine.class.getName();
+    private static final String MODULE = AbstractEngine.class.getName();
     /** Map containing aliases for service implementation locations. */
     protected static final Map<String, String> locationMap = createLocationMap();
 

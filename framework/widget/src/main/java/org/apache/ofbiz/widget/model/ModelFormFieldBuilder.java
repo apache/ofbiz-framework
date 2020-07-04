@@ -71,7 +71,7 @@ import org.w3c.dom.Element;
  */
 public class ModelFormFieldBuilder {
 
-    public static final String MODULE = ModelFormFieldBuilder.class.getName();
+    private static final String MODULE = ModelFormFieldBuilder.class.getName();
 
     private FlexibleStringExpander action = FlexibleStringExpander.getInstance("");
     private String attributeName = "";
@@ -114,6 +114,7 @@ public class ModelFormFieldBuilder {
     private String parentFormName = "";
     private String tabindex = "";
     private String conditionGroup = "";
+    private boolean disabled= false;
 
     protected static final List<String> numericFieldTypes = Collections.unmodifiableList(UtilMisc.toList(
             "floating-point", "numeric", "fixed-point",
@@ -203,6 +204,7 @@ public class ModelFormFieldBuilder {
         this.parentFormName = fieldElement.getAttribute("form-name");
         this.tabindex = fieldElement.getAttribute("tabindex");
         this.conditionGroup = fieldElement.getAttribute("condition-group");
+        this.disabled = "true".equals(fieldElement.getAttribute("disabled"));
         Element childElement = null;
         List<? extends Element> subElements = UtilXml.childElementList(fieldElement);
         for (Element subElement : subElements) {
@@ -319,6 +321,7 @@ public class ModelFormFieldBuilder {
         this.parentFormName = modelFormField.getParentFormName();
         this.tabindex = modelFormField.getTabindex();
         this.conditionGroup = modelFormField.getConditionGroup();
+        this.disabled = modelFormField.getDisabled();
     }
 
     public ModelFormFieldBuilder(ModelFormFieldBuilder builder) {
@@ -361,6 +364,7 @@ public class ModelFormFieldBuilder {
         this.parentFormName = builder.getParentFormName();
         this.tabindex = builder.getTabindex();
         this.conditionGroup = builder.getConditionGroup();
+        this.disabled = builder.getDisabled();
     }
 
     public ModelFormFieldBuilder addOnChangeUpdateArea(UpdateArea onChangeUpdateArea) {
@@ -539,6 +543,10 @@ public class ModelFormFieldBuilder {
 
     public String getConditionGroup() {
         return conditionGroup;
+    }
+
+    public boolean getDisabled() {
+        return disabled;
     }
 
     private boolean induceFieldInfo(ModelForm modelForm, String defaultFieldType, ModelReader entityModelReader, DispatchContext dispatchContext) {
@@ -825,6 +833,7 @@ public class ModelFormFieldBuilder {
         this.position = builder.getPosition();
         this.requiredField = builder.getRequiredField();
         this.separateColumn = builder.getSeparateColumn();
+        this.disabled = builder.getDisabled();
     }
 
     public ModelFormFieldBuilder setAction(String action) {

@@ -40,7 +40,7 @@ import org.apache.ofbiz.webapp.webdav.RequestHandlerFactory;
  */
 public class ICalHandlerFactory implements RequestHandlerFactory {
 
-    public static final String MODULE = ICalHandlerFactory.class.getName();
+    private static final String MODULE = ICalHandlerFactory.class.getName();
     protected final Map<String, RequestHandler> handlerMap;
 
     public ICalHandlerFactory() {

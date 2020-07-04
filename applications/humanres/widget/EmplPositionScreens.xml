@@ -25,6 +25,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResFindEmplPosition"/>
                 <set field="headerItem" value="EmplPosition"/>
+                <set field="helpAnchor" value="_employee_positions"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
@@ -65,6 +66,7 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditEmplPosition"/>
                 <set field="tabButtonItem" value="EditEmplPosition"/>
+                <set field="helpAnchor" value="_create_or_edit_employee_position"/>
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
                 <entity-one entity-name="EmplPosition" value-field="emplPosition"/>
             </actions>
@@ -201,6 +203,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResEmplPositionSummary"/>
                 <set field="tabButtonItem" value="EmplPositionView"/>
+                <set field="helpAnchor" value="_view_employee_position"/>
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
                 <entity-one entity-name="EmplPosition" value-field="emplPosition"/>
             </actions>

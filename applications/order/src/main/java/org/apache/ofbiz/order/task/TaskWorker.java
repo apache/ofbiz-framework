@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.GenericValue;
  */
 public final class TaskWorker {
 
-    public static final String MODULE = TaskWorker.class.getName();
+    private static final String MODULE = TaskWorker.class.getName();
     private static final Map<String, String> statusMapping = UtilMisc.toMap("WF_NOT_STARTED", "Waiting", "WF_RUNNING", "Active", "WF_COMPLETE", "Complete", "WF_SUSPENDED", "Hold");
 
     private TaskWorker() {}
