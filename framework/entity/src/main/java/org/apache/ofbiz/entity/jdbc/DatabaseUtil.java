@@ -320,7 +320,6 @@ public class DatabaseUtil {
                                         typeName = modelFieldType.getSqlTypeAlias();
                                     }
 
-                                    // NOTE: this may need a toUpperCase in some cases, keep an eye on it, okay just compare with ignore case
                                     if (!ccInfo.typeName.equalsIgnoreCase(typeName)) {
                                         String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] is of type [" + ccInfo.typeName + "] in the database, but is defined as type [" +
