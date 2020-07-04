@@ -368,10 +368,6 @@
             <field field="content" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
-    <simple-method method-name="deleteContentKeywords" short-description="delete all the keywords of a content">
-        <entity-one entity-name="Content" value-field="content"/>
-        <remove-related value-field="content" relation-name="ContentKeyword"/>
-    </simple-method>
     <simple-method method-name="indexContentKeywords" short-description="Index the Keywords for a Content" login-required="false">
         <!-- this service is meant to be called from an entity ECA for entities that include a contentId -->
         <!-- if it is the Content entity itself triggering this action, then a [contentInstance] parameter

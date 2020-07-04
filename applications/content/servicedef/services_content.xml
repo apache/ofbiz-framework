@@ -477,8 +477,8 @@
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteContentKeywords" engine="simple"
-            location="component://content/minilang/content/ContentServices.xml" invoke="deleteContentKeywords" auth="true">
+    <service name="deleteContentKeywords" engine="groovy"
+            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="deleteContentKeywords" auth="true">
         <description>Delete all the keywords of a content</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false">

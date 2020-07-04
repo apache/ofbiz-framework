@@ -409,3 +409,8 @@ def createContentFromDataResource() {
     Map result = run service: "createContent", with: createContentMap
     return result
 }
+def deleteContentKeywords() {
+    content = from('Content').where('contentId', contentId).queryOne()
+    content.removeRelated('ContentKeyword')
+    return success()
+}
