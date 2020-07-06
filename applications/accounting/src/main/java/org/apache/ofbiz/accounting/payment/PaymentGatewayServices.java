@@ -1842,7 +1842,7 @@ public class PaymentGatewayServices {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
         
-        if(authResult == null) {
+        if (authResult == null) {
             Debug.logError("No authentification result available. Payment preference can't be checked.", MODULE);
             return ServiceUtil
                     .returnError(UtilProperties.getMessage(RESOURCE, "AccountingProcessingAuthResultEmpty", locale));

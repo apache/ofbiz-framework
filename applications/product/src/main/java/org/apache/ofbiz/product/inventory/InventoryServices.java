@@ -912,7 +912,7 @@ public class InventoryServices {
             Debug.logError(e, MODULE);
         }
         //change this for product price
-        if(productPrices != null) {
+        if (productPrices != null) {
             for (GenericValue onePrice: productPrices) {
                 if ("DEFAULT_PRICE".equals(onePrice.getString("productPriceTypeId"))) { //defaultPrice
                     result.put("defaultPrice", onePrice.getBigDecimal("price"));

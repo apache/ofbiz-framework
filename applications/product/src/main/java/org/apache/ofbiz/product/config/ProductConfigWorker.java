@@ -92,7 +92,7 @@ public final class ProductConfigWorker {
             Object o = combinedMap.get(Integer.toString(k));
             if (o instanceof String) {
                 opts = new String[]{(String)o};
-            } else if(o instanceof List) {
+            } else if (o instanceof List) {
                 List<?> list = (List<?>)o;
                 opts = list.toArray(new String[list.size()]);
             }
@@ -218,7 +218,7 @@ public final class ProductConfigWorker {
                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
                 try {
-                    List<GenericValue> configs = EntityQuery.use(delegator).from("ProductConfigConfig").where("configItemId",configItemId,"sequenceNum", sequenceNum).queryList();
+                    List<GenericValue> configs = EntityQuery.use(delegator).from("ProductConfigConfig").where("configItemId", configItemId,"sequenceNum", sequenceNum).queryList();
                     for (GenericValue productConfigConfig: configs) {
                         for (ConfigOption oneOption: selectedOptions) {
                             String configOptionId = oneOption.configOption.getString("configOptionId");
@@ -271,7 +271,7 @@ public final class ProductConfigWorker {
                                                 Map<String, String> componentOptions = anOption.getComponentOptions();
                                                 String optionProductId = aComponent.getString("productId");
                                                 String optionProductOptionId = null;
-                                                if(UtilValidate.isNotEmpty(componentOptions)) {
+                                                if (UtilValidate.isNotEmpty(componentOptions)) {
                                                     optionProductOptionId = componentOptions.get(optionProductId);
                                                 }
                                                 String configOptionId = anOption.configOption.getString("configOptionId");
@@ -280,7 +280,7 @@ public final class ProductConfigWorker {
 
                                                 GenericValue configOptionProductOption = delegator.makeValue("ConfigOptionProductOption");
                                                 configOptionProductOption.set("configId", tempConfigId);
-                                                configOptionProductOption.set("configItemId",configItemId);
+                                                configOptionProductOption.set("configItemId", configItemId);
                                                 configOptionProductOption.set("sequenceNum", sequenceNum);
                                                 configOptionProductOption.set("configOptionId", configOptionId);
                                                 configOptionProductOption.set("productId", optionProductId);

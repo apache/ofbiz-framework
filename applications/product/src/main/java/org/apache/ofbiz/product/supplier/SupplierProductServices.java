@@ -82,7 +82,7 @@ public class SupplierProductServices {
                     supplierProducts = virtualProduct.getRelated("SupplierProduct", null, null, true);
                 }
             }
-            if(agreementId != null) {
+            if (agreementId != null) {
                 supplierProducts = EntityUtil.filterByAnd(supplierProducts, UtilMisc.toMap("agreementId", agreementId));
 
             }

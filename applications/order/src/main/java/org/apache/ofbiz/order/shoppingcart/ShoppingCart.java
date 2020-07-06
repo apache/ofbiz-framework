@@ -511,8 +511,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes, String prodCatalogId,
             ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
 
-       return addOrIncreaseItem(productId,selectedAmount,quantity,reservStart,reservLength,reservPersons, null,null,shipBeforeDate,shipAfterDate,features,attributes,prodCatalogId,
-                configWrapper,itemType,itemGroupNumber,parentProductId,dispatcher);
+       return addOrIncreaseItem(productId,selectedAmount,quantity,reservStart,reservLength,reservPersons, null,null,shipBeforeDate,shipAfterDate,features, attributes,prodCatalogId,
+                configWrapper,itemType,itemGroupNumber,parentProductId, dispatcher);
     }
 
     /** add rental (with accommodation) item to cart  */
@@ -556,7 +556,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 BigDecimal newQuantity = sci.getQuantity().add(quantity);
                 try {
                     BigDecimal minQuantity = getMinimumOrderQuantity(getDelegator(),sci.getBasePrice(), productId);
-                    if(newQuantity.compareTo(minQuantity) < 0) {
+                    if (newQuantity.compareTo(minQuantity) < 0) {
                         newQuantity = minQuantity;
                     }
                 } catch (GenericEntityException e) {
@@ -603,7 +603,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         } else {
             try {
                 BigDecimal minQuantity = getMinimumOrderQuantity(getDelegator(),null, productId);
-                if(quantity.compareTo(minQuantity) < 0) {
+                if (quantity.compareTo(minQuantity) < 0) {
                     quantity = minQuantity;
                 }
             } catch (GenericEntityException e) {
@@ -1132,7 +1132,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 String checkResult = ProductPromoWorker.checkCanUsePromoCode(promoCode, partyId, this.getDelegator(), locale);
                 if (checkResult != null) {
                     promoCodeIter.remove();
-                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderOnUserChangePromoCodeWasRemovedBecause", UtilMisc.toMap("checkResult",checkResult), locale), MODULE);
+                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderOnUserChangePromoCodeWasRemovedBecause", UtilMisc.toMap("checkResult", checkResult), locale), MODULE);
                 }
             }
 
@@ -2123,7 +2123,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public void setItemShipGroupQty(int itemIndex, BigDecimal quantity, int idx) {
         ShoppingCartItem itemIdx = this.findCartItem(itemIndex);
-        if(itemIdx != null) {
+        if (itemIdx != null) {
             this.setItemShipGroupQty(itemIdx, itemIndex, quantity, idx);
         }
     }
@@ -3537,7 +3537,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             serviceContext.put("internalName", internalName);
             serviceContext.put("productName", productName);
             serviceContext.put("description", description);
-            if(ProductWorker.isAggregateService(delegator, item.getProductId())) {
+            if (ProductWorker.isAggregateService(delegator, item.getProductId())) {
                 serviceContext.put("productTypeId", "AGGREGATEDSERV_CONF");
             }
             else {
@@ -4836,7 +4836,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 GenericValue shipAdj = delegator.makeValue("OrderAdjustment");
                 shipAdj.set("orderAdjustmentTypeId", "SHIPPING_CHARGES");
                 shipAdj.set("amount", shipEstimate);
-                if("PURCHASE_ORDER".equals(cart.getOrderType())) {
+                if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
                     shipAdj.set("isManual", "Y");
                 }
                 shipAdj.set("shipGroupSeqId", shipGroupSeqId);

@@ -414,7 +414,7 @@ public class ShoppingCartServices {
                 }
                 //BigDecimal quantity = item.getBigDecimal("quantity");
                 BigDecimal quantity = BigDecimal.ZERO;
-                if("ITEM_COMPLETED".equals(item.getString("statusId")) && "N".equals(createAsNewOrder)) {
+                if ("ITEM_COMPLETED".equals(item.getString("statusId")) && "N".equals(createAsNewOrder)) {
                     quantity = item.getBigDecimal("quantity");
                 } else {
                     quantity = OrderReadHelper.getOrderItemQuantity(item);
@@ -492,7 +492,7 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, productStoreId, prodCatalogId, website, currency, locale, userLogin);
                     }
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, unitPrice == null ? null : false, skipInventoryChecks, skipProductChecks);
+                        itemIndex = cart.addItemToEnd(productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, unitPrice == null ? null : false, skipInventoryChecks, skipProductChecks);
                     } catch (ItemNotFoundException | CartItemModifyException e) {
                         Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1142,7 +1142,7 @@ public class ShoppingCartServices {
                 cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex ,org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(), isoCode, locale));
                 cartItemData.put("displayItemAdjustment_" + cartLineIndex ,org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));
             }
-            result.put("cartItemData",cartItemData);
+            result.put("cartItemData", cartItemData);
         }
         return result;
     }

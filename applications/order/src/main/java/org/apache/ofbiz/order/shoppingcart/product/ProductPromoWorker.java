@@ -1222,7 +1222,7 @@ public final class ProductPromoWorker {
         List<GenericValue> adjustments = cartItem.getAdjustments();
         if (UtilValidate.isNotEmpty(adjustments)) {
             for(GenericValue adjustment : adjustments) {
-                if("PROMOTION_ADJUSTMENT".equals(adjustment.getString("orderAdjustmentTypeId")) &&
+                if ("PROMOTION_ADJUSTMENT".equals(adjustment.getString("orderAdjustmentTypeId")) &&
                         productPromoAction.get("productPromoId").equals(adjustment.getString("productPromoId")) &&
                         productPromoAction.get("productPromoRuleId").equals(adjustment.getString("productPromoRuleId")) &&
                         productPromoAction.get("productPromoActionSeqId").equals(adjustment.getString("productPromoActionSeqId"))) {

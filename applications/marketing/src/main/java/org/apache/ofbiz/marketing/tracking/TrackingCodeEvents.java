@@ -514,7 +514,7 @@ public class TrackingCodeEvents {
             GenericValue trackingCodeOrder = delegator.makeValue("TrackingCodeOrder",
                     UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"),
                     "trackingCodeId", trackingCodeId, "isBillable", isBillable, "siteId", siteId,
-                    "hasExported", "N", "affiliateReferredTimeStamp",affiliateReferredTimeStamp));
+                    "hasExported", "N", "affiliateReferredTimeStamp", affiliateReferredTimeStamp));
 
             Debug.logInfo(" trackingCodeOrder is " + trackingCodeOrder, MODULE);
             trackingCodeOrders.add(trackingCodeOrder);

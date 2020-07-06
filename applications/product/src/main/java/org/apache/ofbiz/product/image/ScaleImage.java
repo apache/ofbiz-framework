@@ -111,7 +111,7 @@ public class ScaleImage {
 
         Map<String, Object> imageContext = new HashMap<>();
         imageContext.putAll(context);
-        imageContext.put("tenantId",((Delegator)context.get("delegator")).getDelegatorTenantId());
+        imageContext.put("tenantId", ((Delegator)context.get("delegator")).getDelegatorTenantId());
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", (Delegator)context.get("delegator")), imageContext);
         String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", (Delegator)context.get("delegator")), imageContext);
         imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath;
@@ -289,11 +289,11 @@ public class ScaleImage {
         // paths
         Map<String, Object> imageContext = new HashMap<>();
         imageContext.putAll(context);
-        imageContext.put("tenantId",((Delegator)context.get("delegator")).getDelegatorTenantId());
+        imageContext.put("tenantId", ((Delegator)context.get("delegator")).getDelegatorTenantId());
         String mainFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", (Delegator) context.get("delegator"));
 
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", (Delegator)context.get("delegator")), imageContext);
-        String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",(Delegator)context.get("delegator")), imageContext);
+        String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", (Delegator)context.get("delegator")), imageContext);
         imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath;
         imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix;
         String id = null;

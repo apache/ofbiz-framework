@@ -274,7 +274,7 @@ public class ProductionRun {
         }
     }
     /**
-     * call recalculateEstimatedCompletionDate(0,estimatedStartDate), so recalculated for all the routing tasks.
+     * call recalculateEstimatedCompletionDate(0, estimatedStartDate), so recalculated for all the routing tasks.
      */
     public Timestamp recalculateEstimatedCompletionDate() {
         this.updateCompletionDate = false;

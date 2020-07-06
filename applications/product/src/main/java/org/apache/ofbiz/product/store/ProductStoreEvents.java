@@ -75,8 +75,8 @@ public class ProductStoreEvents {
                         josonMap.put("data", dataMap);
                         Map<String, String> attrMap = new HashMap<>();
                         attrMap.put("parentGroupId", productStoreGroupId);
-                        josonMap.put("attr",attrMap);
-                        josonMap.put("sequenceNum",child.get("sequenceNum"));
+                        josonMap.put("attr", attrMap);
+                        josonMap.put("sequenceNum", child.get("sequenceNum"));
                         josonMap.put("title", child.get("productStoreGroupName"));
 
                         productStoreGroupList.add(josonMap);

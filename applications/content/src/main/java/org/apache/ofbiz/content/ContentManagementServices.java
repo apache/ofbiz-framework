@@ -190,7 +190,7 @@ public class ContentManagementServices {
         dataResource.setNonPKFields(context);
         dataResource.setAllFields(context, false, "dr", null);
         String isPublic = (String) context.get("isPublic");
-        if(UtilValidate.isEmpty(isPublic)){
+        if (UtilValidate.isEmpty(isPublic)){
             dataResource.set("isPublic", "N");
         }
         context.putAll(dataResource);

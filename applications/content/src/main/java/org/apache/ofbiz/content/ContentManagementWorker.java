@@ -214,7 +214,7 @@ public final class ContentManagementWorker {
                 attrVal = (String)paramMap.get(attrName);
             }
             if (UtilValidate.isNotEmpty(attrVal)) {
-                passedPK.put(attrName,attrVal);
+                passedPK.put(attrName, attrVal);
             }
         }
 
@@ -575,7 +575,7 @@ public final class ContentManagementWorker {
             results = EntityPermissionChecker.checkPermission(content, statusId, userLogin, passedPurposes, targetOperationList, roles, delegator, security, entityAction);
             String permissionStatus = (String)results.get("permissionStatus");
             if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
-                String [] arr = {contentId,contentName};
+                String [] arr = {contentId, contentName};
                 permittedDepartmentPointList.add(arr);
             }
         }

@@ -77,7 +77,7 @@ public final class LayoutWorker {
             return ServiceUtil.returnError(e4.getMessage());
         }
 
-        if(lst.size() == 0 && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
+        if (lst.size() == 0 && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
             lst = UtilGenerics.cast(request.getAttribute("fileItems"));
         }
         if (lst.size() == 0) {

@@ -184,7 +184,7 @@ public class ProposedOrder {
                             // add the daysToShip at the end of the routing
                             totalTime += timeToShip;
                         }
-                        startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask),endDate, totalTime);
+                        startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask), endDate, totalTime);
                         // record the routingTask with the startDate associated
                         result.put(routingTask.getString("workEffortId"),startDate);
                         endDate = startDate;

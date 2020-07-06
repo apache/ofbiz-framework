@@ -570,7 +570,7 @@ public class InvoiceServices {
                     BigDecimal amount = BigDecimal.ZERO;
                     if (originalOrderItemQuantity.signum() != 0) {
                         if (adj.get("amount") != null) {
-                                if("PROMOTION_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId")) && adj.get("productPromoId") != null) {
+                                if ("PROMOTION_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId")) && adj.get("productPromoId") != null) {
                                     /* Find negative amountAlreadyIncluded in OrderAdjustment to subtract it from discounted amount.
                                                                           As we stored negative sales tax amount in order adjustment for discounted item.
                                      */
@@ -1565,7 +1565,7 @@ public class InvoiceServices {
                         billAvail = BigDecimal.ZERO;
                     } else {
                         // now have been billed
-                        if(issueQty == null){
+                        if (issueQty == null){
                             issueQty = BigDecimal.ZERO;
                         }
                         billAvail = billAvail.subtract(issueQty).setScale(DECIMALS, ROUNDING);
@@ -2417,7 +2417,7 @@ public class InvoiceServices {
 
             // pro-rate the amount
             BigDecimal amount = BigDecimal.ZERO;
-            if("DONATION_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId"))) {
+            if ("DONATION_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId"))) {
                 amount=baseAmount;
             } else if (divisor.signum() != 0) { // make sure the divisor is not 0 to avoid NaN problems; just leave the amount as 0 and skip it in essense
                 // multiply first then divide to avoid rounding errors

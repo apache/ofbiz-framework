@@ -119,7 +119,7 @@ public class HumanResEvents {
                         dataAttrMap.put("href", hrefStr);
                         dataMap.put("title", title);
                         dataMap.put("attr", dataAttrMap);
-                        josonMap.put("attr",attrMap);
+                        josonMap.put("attr", attrMap);
                         josonMap.put("data", dataMap);
                         responseList.add(josonMap) ;
                     }
@@ -157,7 +157,7 @@ public class HumanResEvents {
                     Map<String, Object> dataAttrMap = new HashMap<>();
                     Map<String, Object> attrMap = new HashMap<>();
                     catId = childOfCom.getString("partyIdTo");
-                    title = PartyHelper.getPartyName(delegator,catId, false);
+                    title = PartyHelper.getPartyName(delegator, catId, false);
                     josonMap.put("title",title);
                     //Check child existing
                     List<GenericValue> childOfSubComs = EntityQuery.use(delegator).from("PartyRelationship")
@@ -179,7 +179,7 @@ public class HumanResEvents {
                     dataAttrMap.put("href", hrefStr);
                     dataMap.put("attr", dataAttrMap);
                     dataMap.put("title", title);
-                    josonMap.put("attr",attrMap);
+                    josonMap.put("attr", attrMap);
                     josonMap.put("data", dataMap);
                     resultList.add(josonMap);
                 }  
@@ -231,7 +231,7 @@ public class HumanResEvents {
                     emplDataAttrMap.put("id", emplId);
                     emplDataAttrMap.put("rel", "N");
                     emplMap.put("data", empldataMap);
-                    emplMap.put("attr",emplDataAttrMap);
+                    emplMap.put("attr", emplDataAttrMap);
                     emplMap.put("title",title);
                     resultList.add(emplMap);
                 }

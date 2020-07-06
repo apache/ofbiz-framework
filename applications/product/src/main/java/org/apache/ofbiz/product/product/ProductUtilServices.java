@@ -497,9 +497,9 @@ public final class ProductUtilServices {
         if (UtilValidate.isEmpty(pattern)) {
             Map<String, Object> imageContext = new HashMap<>();
             imageContext.putAll(context);
-            imageContext.put("tenantId",delegator.getDelegatorTenantId());
+            imageContext.put("tenantId", delegator.getDelegatorTenantId());
             String imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", delegator);
-            String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator), imageContext);
+            String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", delegator), imageContext);
             imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix;
             pattern = imageUrlPrefix + "/" + imageFilenameFormat;
         }

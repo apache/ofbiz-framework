@@ -256,7 +256,7 @@ public class TechDataServices {
                 dayStart = (dayStart==7) ? 1 : dayStart +1;
             }
         }
-        result.put("capacity",capacity);
+        result.put("capacity", capacity);
         result.put("startTime",startTime);
         result.put("moveDay", moveDay);
         return result;
@@ -329,7 +329,7 @@ public class TechDataServices {
             if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
             dateTo.setTime(dateTo.getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
-        result.put("dateTo",dateTo);
+        result.put("dateTo", dateTo);
         result.put("nextCapacity",position.get("capacity"));
         return result;
     }
@@ -410,7 +410,7 @@ public class TechDataServices {
                 dayEnd = (dayEnd==1) ? 7 : dayEnd - 1;
             }
         }
-        result.put("capacity",capacity);
+        result.put("capacity", capacity);
         result.put("startTime",startTime);
         result.put("moveDay", moveDay);
         return result;
@@ -485,7 +485,7 @@ public class TechDataServices {
             if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
             dateTo.setTime(dateTo.getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
-        result.put("dateTo",dateTo);
+        result.put("dateTo", dateTo);
         result.put("previousCapacity",position.get("capacity"));
         return result;
     }

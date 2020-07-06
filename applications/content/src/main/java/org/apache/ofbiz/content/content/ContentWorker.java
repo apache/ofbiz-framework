@@ -743,7 +743,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
             try {
-                Object retVal = GroovyUtil.eval(newWhen,context);
+                Object retVal = GroovyUtil.eval(newWhen, context);
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
                     Boolean boolVal = (Boolean) retVal;

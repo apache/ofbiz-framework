@@ -595,7 +595,7 @@ public class LayoutEvents {
             if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrName:" + attrName,"");
             if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrVal:" + attrVal,"");
             if (UtilValidate.isNotEmpty(attrVal)) {
-                passedPK.put(attrName,attrVal);
+                passedPK.put(attrName, attrVal);
             } else {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.empty", locale);
                 request.setAttribute("_ERROR_MESSAGE_", attrName + " " + errMsg);

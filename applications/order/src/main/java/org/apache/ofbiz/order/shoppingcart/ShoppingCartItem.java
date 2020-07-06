@@ -297,8 +297,8 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         return makeItem(cartLocation,productId,selectedAmount,quantity,unitPrice,
                 reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate, null,
-                additionalProductFeatureAndAppls,attributes,prodCatalogId,configWrapper,
-                itemType,itemGroup,dispatcher,cart,triggerExternalOpsBool,triggerPriceRulesBool,
+                additionalProductFeatureAndAppls, attributes,prodCatalogId, configWrapper,
+                itemType,itemGroup, dispatcher, cart,triggerExternalOpsBool,triggerPriceRulesBool,
                 parentProductId,skipInventoryChecks,skipProductChecks);
 
     }
@@ -385,8 +385,8 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         return makeItem(cartLocation,product,selectedAmount,
                quantity,unitPrice,reservStart,reservLength,reservPersons,
-               null,null,shipBeforeDate,shipAfterDate, null, additionalProductFeatureAndAppls,attributes,
-               prodCatalogId,configWrapper,itemType,itemGroup,dispatcher,cart,
+               null,null,shipBeforeDate,shipAfterDate, null, additionalProductFeatureAndAppls, attributes,
+               prodCatalogId, configWrapper,itemType,itemGroup, dispatcher, cart,
                triggerExternalOpsBool,triggerPriceRulesBool,parentProduct,skipInventoryChecks,skipProductChecks);
     }
 
@@ -467,7 +467,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
 
              if ((accommodationMapId != null) && (accommodationSpotId != null)) {
-                newItem.setAccommodationId(accommodationMapId,accommodationSpotId);
+                newItem.setAccommodationId(accommodationMapId, accommodationSpotId);
              }
 
             // check to see if the related fixed asset is available for rent
@@ -1087,7 +1087,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 BigDecimal adjustmentAmount = depositAmount.getBigDecimal("price").multiply(this.getQuantity(), generalRounding);
                 // itemAdjustments is a reference so directly setting updated amount to the same.
                     for(GenericValue itemAdjustment : itemAdjustments) {
-                    if("DEPOSIT_ADJUSTMENT".equals(itemAdjustment.getString("orderAdjustmentTypeId"))) {
+                    if ("DEPOSIT_ADJUSTMENT".equals(itemAdjustment.getString("orderAdjustmentTypeId"))) {
                             itemAdjustment.set("amount", adjustmentAmount);
                             updatedDepositAmount = true;
                         }
@@ -1127,7 +1127,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 // check alternative packaging
                 boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, this.productId , this.getParentProductId());
                 BigDecimal pieces = BigDecimal.ONE;
-                if(isAlternativePacking && UtilValidate.isNotEmpty(this.getParentProduct())){
+                if (isAlternativePacking && UtilValidate.isNotEmpty(this.getParentProduct())){
                     GenericValue originalProduct = this.getParentProduct();
                     if (originalProduct != null) {
                         pieces = new BigDecimal(originalProduct.getLong("piecesIncluded"));
@@ -1155,7 +1155,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         throw new CartItemModifyException("Could not find a valid price for the product with ID [" + this.getProductId() + "] and supplier with ID [" + partyId + "], not adding to cart.");
                     }
 
-                    if(isAlternativePacking){
+                    if (isAlternativePacking){
                         this.setBasePrice(((BigDecimal) priceResult.get("price")).divide(pieces, RoundingMode.HALF_UP));
                     }else{
                         this.setBasePrice(((BigDecimal) priceResult.get("price")));
@@ -1210,7 +1210,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     }
 
                     //set alternative product price
-                    if(isAlternativePacking){
+                    if (isAlternativePacking){
                         int decimals = 2;
                         if (priceResult.get("listPrice") != null) {
                             this.listPrice = ((BigDecimal) priceResult.get("listPrice")).divide(pieces, decimals, RoundingMode.HALF_UP);

@@ -272,7 +272,7 @@ public class ProductionRunServices {
         serviceContext.put("workEffortPurposeTypeId", "WEPT_PRODUCTION_RUN");
         serviceContext.put("currentStatusId", "PRUN_CREATED");
         serviceContext.put("workEffortName", workEffortName);
-        serviceContext.put("description",description);
+        serviceContext.put("description", description);
         serviceContext.put("facilityId", facilityId);
         serviceContext.put("estimatedStartDate",startDate);
         serviceContext.put("quantityToProduce", pRQuantity);
@@ -336,7 +336,7 @@ public class ProductionRunServices {
                 serviceContext.put("facilityId", facilityId);
                 serviceContext.put("reservPersons", routingTask.get("reservPersons"));
                 serviceContext.put("estimatedStartDate",startDate);
-                serviceContext.put("estimatedCompletionDate",endDate);
+                serviceContext.put("estimatedCompletionDate", endDate);
                 serviceContext.put("estimatedSetupMillis", routingTask.get("estimatedSetupMillis"));
                 serviceContext.put("estimatedMilliSeconds", routingTask.get("estimatedMilliSeconds"));
                 serviceContext.put("quantityToProduce", pRQuantity);

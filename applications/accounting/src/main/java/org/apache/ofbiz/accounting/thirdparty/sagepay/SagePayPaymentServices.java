@@ -130,7 +130,7 @@ public class SagePayPaymentServices {
         }
 
         billingInfo.put("orderId", orderId);
-        if(processAmount != null){
+        if (processAmount != null){
             billingInfo.put("amount", processAmount.toString());
         } else {
             billingInfo.put("amount", "");
@@ -309,7 +309,7 @@ public class SagePayPaymentServices {
             Debug.logError(e, "Error getting CreditCard for OrderPaymentPreference : " + orderPaymentPreference, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingPaymentUnableToGetCCInfo", locale) + " " + orderPaymentPreference);
         }
-        context.put("creditCard",creditCard);
+        context.put("creditCard", creditCard);
         context.put("captureTransaction", captureTransaction);
 
         List<GenericValue> authTransactions = PaymentGatewayServices.getAuthTransactions(orderPaymentPreference);

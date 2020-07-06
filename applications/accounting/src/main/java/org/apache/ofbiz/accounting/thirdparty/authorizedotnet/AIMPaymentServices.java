@@ -166,8 +166,8 @@ public class AIMPaymentServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
-        context.put("creditCard",creditCard);
-        context.put("authTransaction",authTransaction);
+        context.put("creditCard", creditCard);
+        context.put("authTransaction", authTransaction);
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> request = new HashMap<>();
         Properties props = buildAIMProperties(context, delegator);

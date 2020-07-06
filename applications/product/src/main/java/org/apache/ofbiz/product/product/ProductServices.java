@@ -961,7 +961,7 @@ public class ProductServices {
             Map<String, Object> imageContext = new HashMap<>();
             imageContext.putAll(context);
             imageContext.put("delegator", delegator);
-            imageContext.put("tenantId",delegator.getDelegatorTenantId());
+            imageContext.put("tenantId", delegator.getDelegatorTenantId());
             String imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.additionalviewsize.format", delegator);
 
             String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), imageContext);
@@ -1084,7 +1084,7 @@ public class ProductServices {
             /* store the imageUrl version of the image, for backwards compatibility with code that does not use scaled versions */
             Map<String, Object> result = addImageResource(dispatcher, delegator, context, imageUrl, productContentTypeId);
 
-            if( ServiceUtil.isError(result)) {
+            if ( ServiceUtil.isError(result)) {
                 return result;
             }
 
@@ -1093,7 +1093,7 @@ public class ProductServices {
             Map<String,String> imageUrlMap = UtilGenerics.cast(resultResize.get("imageUrlMap"));
             for ( String sizeType : ScaleImage.sizeTypeList ) {
                 imageUrl = imageUrlMap.get(sizeType);
-                if( UtilValidate.isNotEmpty(imageUrl)) {
+                if ( UtilValidate.isNotEmpty(imageUrl)) {
                     try {
                         GenericValue productContentType = EntityQuery.use(delegator)
                                 .from("ProductContentType")
@@ -1102,7 +1102,7 @@ public class ProductServices {
                                 .queryOne();
                         if (UtilValidate.isNotEmpty(productContentType)) {
                             result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault()));
-                            if( ServiceUtil.isError(result)) {
+                            if ( ServiceUtil.isError(result)) {
                                 Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                                 return result;
                             }
@@ -1303,10 +1303,10 @@ public class ProductServices {
         if (UtilValidate.isNotEmpty(context.get("_uploadedFile_fileName"))) {
             Map<String, Object> imageContext = new HashMap<>();
             imageContext.putAll(context);
-            imageContext.put("tenantId",delegator.getDelegatorTenantId());
+            imageContext.put("tenantId", delegator.getDelegatorTenantId());
             String imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", delegator);
 
-            String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path",delegator), imageContext);
+            String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), imageContext);
             String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", delegator), imageContext);
             imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath;
             imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix;
