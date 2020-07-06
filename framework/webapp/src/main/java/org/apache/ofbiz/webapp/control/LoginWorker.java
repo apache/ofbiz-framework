@@ -412,7 +412,7 @@ public final class LoginWorker {
             Debug.logError(e1.getMessage(), MODULE);
         }
         
-        if(entityDeCrypto != null && "true".equals(forgotPwdFlag)) {
+        if (entityDeCrypto != null && "true".equals(forgotPwdFlag)) {
             try {
                 Object decryptedPwd = entityDeCrypto.decrypt(KEY_VALUE, ModelField.EncryptMethod.TRUE, password);
                 password = decryptedPwd.toString();

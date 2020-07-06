@@ -84,8 +84,8 @@ public class JWTManager {
     public static String checkJWTLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
-        if(!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
-            if(Debug.verboseOn()) {
+        if (!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
+            if (Debug.verboseOn()) {
                 Debug.logVerbose("Internal single sign on is disabled.", MODULE);
             }
             return "success";
@@ -107,7 +107,7 @@ public class JWTManager {
         // get userLoginId from the token and retrieve the corresponding userLogin from the database
         GenericValue userLogin = getUserlogin(delegator, claims);
 
-        if(UtilValidate.isNotEmpty(userLogin)) {
+        if (UtilValidate.isNotEmpty(userLogin)) {
             // check userLogin base permission and if it is enabled
             request.getSession().setAttribute("userLogin", userLogin);
             userLogin = LoginWorker.checkLogout(request, response);
@@ -220,7 +220,7 @@ public class JWTManager {
         String headerAuthValue = request.getHeader(HttpHeaders.AUTHORIZATION);
         String bearerPrefix = "Bearer ";
 
-        if(UtilValidate.isEmpty(headerAuthValue) || !headerAuthValue.startsWith(bearerPrefix)) {
+        if (UtilValidate.isEmpty(headerAuthValue) || !headerAuthValue.startsWith(bearerPrefix)) {
             return null;
         }
 
@@ -377,7 +377,7 @@ public class JWTManager {
     private static GenericValue getUserlogin(Delegator delegator, Map<String, Object> jwtMap) {
         String userLoginId = (String) jwtMap.get("userLoginId");
 
-        if(UtilValidate.isEmpty(userLoginId)) {
+        if (UtilValidate.isEmpty(userLoginId)) {
             Debug.logWarning("No userLoginId found in the JWT token.", MODULE);
             return null;
         }

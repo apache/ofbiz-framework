@@ -355,7 +355,7 @@ public final class UtilMisc {
      */
     @SafeVarargs
     public static <T> List<T> toList(T... data) {
-        if(data == null){
+        if (data == null){
             return null;
         }
 

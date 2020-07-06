@@ -117,7 +117,7 @@ public final class GroovyUtil {
                 //analyse expression to find variables by split non alpha, ignoring "_" to allow my_variable usage
                 String [] variables = expression.split("[\\P{Alpha}&&[^_]]+");
                 for (String variable: variables) {
-                    if(!vars.containsKey(variable)) {
+                    if (!vars.containsKey(variable)) {
                         vars.put(variable, null);
                     }
                 }

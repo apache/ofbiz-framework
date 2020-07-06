@@ -112,7 +112,7 @@ public final class CreateObject extends MethodOperation {
         }
         try {
             Constructor<?> constructor = targetClass.getConstructor(parameterTypes);
-            fieldFma.put(methodContext.getEnvMap(),constructor.newInstance(args));
+            fieldFma.put(methodContext.getEnvMap(), constructor.newInstance(args));
         } catch (Exception e) {
             throw new MiniLangRuntimeException(e, this);
         }

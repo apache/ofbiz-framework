@@ -545,7 +545,7 @@ public class EmailServices {
                 try (Writer writer = new StringWriter(); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                     // substitute the freemarker variables...
                     ScreenStringRenderer foScreenStringRenderer = null;
-                    if(MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)){
+                    if (MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)){
                         foScreenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screentext");
                     }else{
                         foScreenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screenfop");

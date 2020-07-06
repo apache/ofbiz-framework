@@ -551,7 +551,7 @@ public class FormRenderer {
                 boolean cellOpen = false;
                 ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
 
-                if(modelFormField.shouldIgnore(localContext)) {
+                if (modelFormField.shouldIgnore(localContext)) {
                     continue;
                 }
 
@@ -1204,7 +1204,7 @@ public class FormRenderer {
         if (iter instanceof EntityListIterator) {
             EntityListIterator eli = (EntityListIterator) iter;
             try {
-                if(eli.getResultsSizeAfterPartialList() > 0){
+                if (eli.getResultsSizeAfterPartialList() > 0){
                     itemIndex++;
                 }
             } catch (GenericEntityException gee) {

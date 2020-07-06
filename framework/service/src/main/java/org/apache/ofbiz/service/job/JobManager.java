@@ -381,7 +381,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -401,7 +401,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -423,7 +423,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param endTime
@@ -445,7 +445,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -488,7 +488,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -528,7 +528,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count

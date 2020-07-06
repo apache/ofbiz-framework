@@ -194,7 +194,7 @@ public class SOAPEventHandler implements EventHandler {
                 if (UtilProperties.getPropertyAsBoolean("service", "secureSoapAnswer", true)) {
                     sendError(response, "Problem processing the service, check your parameters.", serviceName);
                 } else {
-                    if(e.getMessageList() == null) {
+                    if (e.getMessageList() == null) {
                         sendError(response, e.getMessage(), serviceName);
                     } else {
                         sendError(response, e.getMessageList(), serviceName);

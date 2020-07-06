@@ -954,7 +954,7 @@ public final class UtilProperties implements Serializable {
                 // Support old way of specifying xml:lang value.
                 // Old way: en_AU, new way: en-AU
                 Element value = UtilXml.firstChildElement(property, "value", "xml:lang", correctedLocaleString);
-                if( value == null ) {
+                if ( value == null ) {
                     value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
                 }
                 if (value != null) {

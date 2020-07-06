@@ -283,7 +283,7 @@ public class ImageTransform {
 
     public static BufferedImage toBufferedImage(Image image, int bufImgType) {
         /** Check if the image isn't already a BufferedImage instance */
-        if( image instanceof BufferedImage ) {
+        if ( image instanceof BufferedImage ) {
                 return( (BufferedImage)image );
         }
         /** Full image loading */

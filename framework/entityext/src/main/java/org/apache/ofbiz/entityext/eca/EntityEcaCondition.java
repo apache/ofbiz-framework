@@ -184,10 +184,10 @@ public final class EntityEcaCondition implements java.io.Serializable {
     
     protected List<String> getFieldNames() {
         List<String> fieldNameList = new ArrayList<>();
-        if( UtilValidate.isNotEmpty(lhsValueName) ) {
+        if ( UtilValidate.isNotEmpty(lhsValueName) ) {
             fieldNameList.add(lhsValueName);
         }
-        if(!constant && UtilValidate.isNotEmpty(rhsValueName)) {
+        if (!constant && UtilValidate.isNotEmpty(rhsValueName)) {
             fieldNameList.add(rhsValueName);
         }
         return fieldNameList;

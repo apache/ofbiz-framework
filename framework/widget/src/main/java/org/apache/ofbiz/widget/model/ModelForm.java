@@ -582,7 +582,7 @@ public abstract class ModelForm extends ModelWidget {
         this.paginateViewSizeLabel = paginateViewSizeLabel;
         String paginateStyle = formElement.getAttribute("paginate-style");
         if (paginateStyle.isEmpty()) {
-            if(parentModel != null) {
+            if (parentModel != null) {
                 this.paginateStyle = parentModel.paginateStyle;
             } else {
                 this.paginateStyle = DEFAULT_PAG_STYLE;
@@ -1309,7 +1309,7 @@ public abstract class ModelForm extends ModelWidget {
         String styles = "";
         try {
             for (AltRowStyle altRowStyle : this.altRowStyles) {
-                Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(altRowStyle.useWhen),context);
+                Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(altRowStyle.useWhen), context);
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
                     Boolean boolVal = (Boolean) retVal;
@@ -1345,7 +1345,7 @@ public abstract class ModelForm extends ModelWidget {
         try {
             for (AltTarget altTarget : this.altTargets) {
                 String useWhen = FlexibleStringExpander.expandString(altTarget.useWhen, context);
-                Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen),context);
+                Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen), context);
                 boolean condTrue = false;
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {

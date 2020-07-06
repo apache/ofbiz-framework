@@ -931,7 +931,7 @@ public class ModelFormField {
         }
 
         try {
-            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhenStr),context);
+            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhenStr), context);
             boolean condTrue = false;
             // retVal should be a Boolean, if not something weird is up...
             if (retVal instanceof Boolean) {
@@ -1196,7 +1196,7 @@ public class ModelFormField {
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
-                if( parameters.containsKey(fieldName.concat("_fld1_value"))) {
+                if ( parameters.containsKey(fieldName.concat("_fld1_value"))) {
                     defaultOption = (String)parameters.get(fieldName.concat("_fld1_op"));
                 }
             }
@@ -3850,7 +3850,7 @@ public class ModelFormField {
             String useWhen = this.getUseWhen(context);
             if (UtilValidate.isNotEmpty(useWhen)) {
                 try {
-                    Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen),context);
+                    Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen), context);
 
                     // retVal should be a Boolean, if not something weird is up...
                     if (retVal instanceof Boolean) {
@@ -3878,7 +3878,7 @@ public class ModelFormField {
         }
 
         try {
-            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen),context);
+            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen), context);
 
             if (retVal instanceof Boolean) {
                 shouldIgnore =(Boolean) retVal;

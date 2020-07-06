@@ -133,15 +133,15 @@ public final class EntityEcaRule implements java.io.Serializable {
         // Are fields tested in a condition missing? If so, we need to load them
         List<String> fieldsToLoad = new ArrayList<>();
         for( String conditionFieldName : conditionFieldNames) {
-            if( value.get(conditionFieldName) == null) {
+            if ( value.get(conditionFieldName) == null) {
                 fieldsToLoad.add(conditionFieldName);
             }
         }
 
-        if(!fieldsToLoad.isEmpty()) {
+        if (!fieldsToLoad.isEmpty()) {
             Delegator delegator = dctx.getDelegator();
             GenericValue oldValue =  EntityQuery.use(delegator).from(entityName).where(value.getPrimaryKey()).queryOne();
-            if(UtilValidate.isNotEmpty(oldValue)) {
+            if (UtilValidate.isNotEmpty(oldValue)) {
                 for (String fieldName : fieldsToLoad) {
                     value.put(fieldName, oldValue.get(fieldName));
                 }

@@ -775,7 +775,7 @@ public class EntitySyncContext {
             Map<String, Object> updateEsRunResult = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "lastSuccessfulSynchTime", this.currentRunEndTime, "userLogin", userLogin),60,true);
 
             GenericValue entitySyncHistory = EntityQuery.use(delegator).from("EntitySyncHistory").where("startDate",startDate, "entitySyncId", entitySyncId).queryOne();
-            if(entitySyncHistory != null) {
+            if (entitySyncHistory != null) {
                 // store result of service call on history with results so far, should run in own tx
                 ModelService model = dispatcher.getDispatchContext().getModelService("updateEntitySyncHistory");
                 Map<String, Object> updateHistoryMap = model.makeValid(entitySyncHistory, ModelService.IN_PARAM);

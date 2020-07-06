@@ -133,19 +133,19 @@ public final class UrlServletHelper {
         }
 
         //Set query string parameters to url
-        if(UtilValidate.isNotEmpty(viewIndex)){
+        if (UtilValidate.isNotEmpty(viewIndex)){
             urlBuilder.append("/~VIEW_INDEX=" + viewIndex);
             request.setAttribute("VIEW_INDEX", viewIndex);
         }
-        if(UtilValidate.isNotEmpty(viewSize)){
+        if (UtilValidate.isNotEmpty(viewSize)){
             urlBuilder.append("/~VIEW_SIZE=" + viewSize);
             request.setAttribute("VIEW_SIZE", viewSize);
         }
-        if(UtilValidate.isNotEmpty(viewSort)){
+        if (UtilValidate.isNotEmpty(viewSort)){
             urlBuilder.append("/~VIEW_SORT=" + viewSort);
             request.setAttribute("VIEW_SORT", viewSort);
         }
-        if(UtilValidate.isNotEmpty(searchString)){
+        if (UtilValidate.isNotEmpty(searchString)){
             urlBuilder.append("/~SEARCH_STRING=" + searchString);
             request.setAttribute("SEARCH_STRING", searchString);
         }

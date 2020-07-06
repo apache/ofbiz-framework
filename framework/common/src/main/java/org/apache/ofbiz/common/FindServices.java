@@ -290,7 +290,7 @@ public class FindServices {
             }
             if (UtilValidate.isNotEmpty(currentGroup)){
                 List<EntityCondition> groupedConditions = new LinkedList<>();
-                if(savedGroups.get(currentGroup) != null) {
+                if (savedGroups.get(currentGroup) != null) {
                     groupedConditions.addAll(savedGroups.get(currentGroup));
                 }
                 groupedConditions.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
@@ -474,7 +474,7 @@ public class FindServices {
         }
         context.put("viewIndex", viewIndex);
 
-        Map<String, Object> result = performFind(dctx,context);
+        Map<String, Object> result = performFind(dctx, context);
 
         int start = viewIndex * viewSize;
         List<GenericValue> list = null;
@@ -795,7 +795,7 @@ public class FindServices {
     public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, Object> context) {
         context.put("viewSize", 1);
         context.put("viewIndex", 0);
-        Map<String, Object> result = org.apache.ofbiz.common.FindServices.performFind(dctx,context);
+        Map<String, Object> result = org.apache.ofbiz.common.FindServices.performFind(dctx, context);
 
         List<GenericValue> list = null;
         GenericValue item= null;
