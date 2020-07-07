@@ -32,7 +32,7 @@ under the License.
     </test-case>
 
     <test-case case-name="shipment-tests">
-        <simple-method-test location="component://product/minilang/shipment/test/ShipmentTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.ShipmentTests"/>
     </test-case>
 
     <test-case case-name="loadIssuanceTestData">

@@ -589,7 +589,7 @@ public class LoginServices {
                 .orderBy("-fromDate")
                 .cursorScrollInsensitive();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        
+
         try (EntityListIterator eli = eq.queryIterator()) {
             GenericValue pwdHist;
             if ((pwdHist = eli.next()) != null) {
@@ -1039,9 +1039,9 @@ public class LoginServices {
 
         String errMsg = null;
 
+        // if it's a system account (aka adminUser) don't bother checking the passwords
         if (!ignoreCurrentPassword) {
             // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
-            // if this is a system account don't bother checking the passwords
             boolean passwordMatches = checkPassword(userLogin.getString("currentPassword"), useEncryption, currentPassword);
             if ((currentPassword == null) || (!passwordMatches)) {
                 errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.old_password_not_correct_reenter", locale);
