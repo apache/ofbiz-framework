@@ -54,7 +54,7 @@ public interface Security {
 
     /**
      * Finds whether or not a SecurityGroupPermission row exists given a groupId and permission.
-     * The groupId,permission pair is cached instead of the userLoginId,permission pair to keep the cache small and to
+     * The groupId, permission pair is cached instead of the userLoginId, permission pair to keep the cache small and to
      * make it more changeable.
      *
      * @param groupId The ID of the group

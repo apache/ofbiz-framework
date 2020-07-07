@@ -296,7 +296,7 @@ public class ImageTransform {
                     bufImgType);
 
         Graphics2D g = bufferedImage.createGraphics();
-        g.drawImage(image,0,0,null);
+        g.drawImage(image, 0, 0, null);
         g.dispose();
 
         return( bufferedImage );

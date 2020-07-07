@@ -487,7 +487,7 @@ public class FindServices {
         }
 
         result.put("listSize", listSize);
-        result.put("list",list);
+        result.put("list", list);
         result.remove("listIt");
         return result;
     }
@@ -809,7 +809,7 @@ public class FindServices {
         }
 
         if (UtilValidate.isNotEmpty(item)) {
-            result.put("item",item);
+            result.put("item", item);
         }
         result.remove("listIt");
 

@@ -605,7 +605,7 @@ public final class UtilMisc {
     }
 
     /** List of domains or IP addresses to be checked to prevent Host Header Injection, 
-     * no spaces after commas,no wildcard, can be extended of course... 
+     * no spaces after commas, no wildcard, can be extended of course...
      * @return List of domains or IP addresses to be checked to prevent Host Header Injection,
      */
     public static List<String> getHostHeadersAllowed() {

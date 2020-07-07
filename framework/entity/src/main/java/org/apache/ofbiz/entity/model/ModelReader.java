@@ -409,7 +409,7 @@ public class ModelReader implements Serializable {
                                             if (Debug.infoOn() 
                                                     && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle() + modelRelation.getRelEntityName())) {
                                                 // String errorMsg = "Relation already exists to entity [] with title ["
-                                                // + targetTitle + "],from entity []";
+                                                // + targetTitle + "], from entity []";
                                                 String message = "Entity [" + relatedEnt.getPackageName() + ":" + relatedEnt.getEntityName()
                                                         + "] already has identical relationship to entity [" + curModelEntity.getEntityName() + "] title [" + title
                                                         + "]; would auto-create: type [" + newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";

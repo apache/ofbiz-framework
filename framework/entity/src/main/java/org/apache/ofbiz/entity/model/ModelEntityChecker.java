@@ -109,7 +109,7 @@ public class ModelEntityChecker {
                 Iterator<ModelField> fieldIter = entity.getFieldsIterator();
                 while (fieldIter.hasNext()) {
                     ModelField field = fieldIter.next();
-                    ModelFieldType type = delegator.getEntityFieldType(entity,field.getType());
+                    ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 
                     if (ufields.contains(field.getName())) {
                         warningList.add("[FieldNotUnique] Field [" + field.getName() + " of entity " + entity.getEntityName() + " is not unique for that entity.");

@@ -425,7 +425,7 @@ public final class EntityUtil {
                     }
                     entity.remove("thruDate");
                 } else {
-                    entity.set("thruDate",now);
+                    entity.set("thruDate", now);
                 }
                 entity.store();
             }
@@ -443,7 +443,7 @@ public final class EntityUtil {
         if (now.equals(search.get("fromDate"))) {
             return EntityUtil.getOnly(EntityQuery.use(delegator).from(entityName).where(search).queryList());
         } else {
-            search.put("fromDate",now);
+            search.put("fromDate", now);
             search.remove("thruDate");
             return delegator.makeValue(entityName, search);
         }
@@ -456,7 +456,7 @@ public final class EntityUtil {
     public static void delDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
         List<GenericValue> entities = findDatedInclusionEntity(delegator, entityName, search, now);
         for (GenericValue entity: entities) {
-            entity.set("thruDate",now);
+            entity.set("thruDate", now);
             entity.store();
         }
     }

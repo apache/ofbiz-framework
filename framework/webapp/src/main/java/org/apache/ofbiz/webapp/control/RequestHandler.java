@@ -602,7 +602,7 @@ public class RequestHandler {
                 String link = makeLink(request, response, redirectTarget);
 
                 // add / update csrf token to link when required
-                String tokenValue = CsrfUtil.generateTokenForNonAjax(request,redirectTarget);
+                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, redirectTarget);
                 link = CsrfUtil.addOrUpdateTokenInUrl(link, tokenValue);
 
                 callRedirect(link, response, request, ccfg.getStatusCode());

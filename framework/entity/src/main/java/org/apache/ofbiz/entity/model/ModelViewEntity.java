@@ -1405,7 +1405,7 @@ public class ModelViewEntity extends ModelEntity {
             if (!((this.operator == EntityOperator.IN || this.operator == EntityOperator.BETWEEN)
                     && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
-                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value,modelFieldTypeReader, new HashMap<>());
+                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, new HashMap<>());
             }
 
             if (Debug.verboseOn()) Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, MODULE);
