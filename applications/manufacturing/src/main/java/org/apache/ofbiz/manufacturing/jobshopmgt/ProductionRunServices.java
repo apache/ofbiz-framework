@@ -327,9 +327,9 @@ public class ProductionRunServices {
                 serviceContext.clear();
                 serviceContext.put("priority", routingTaskAssoc.get("sequenceNum"));
                 serviceContext.put("workEffortPurposeTypeId", "WEPT_PRODUCTION_RUN");
-                serviceContext.put("workEffortName",routingTask.get("workEffortName"));
-                serviceContext.put("description",routingTask.get("description"));
-                serviceContext.put("fixedAssetId",routingTask.get("fixedAssetId"));
+                serviceContext.put("workEffortName", routingTask.get("workEffortName"));
+                serviceContext.put("description", routingTask.get("description"));
+                serviceContext.put("fixedAssetId", routingTask.get("fixedAssetId"));
                 serviceContext.put("workEffortTypeId", "PROD_ORDER_TASK");
                 serviceContext.put("currentStatusId","PRUN_CREATED");
                 serviceContext.put("workEffortParentId", productionRunId);
@@ -416,7 +416,7 @@ public class ProductionRunServices {
 
         // update the estimatedCompletionDate field for the productionRun
         serviceContext.clear();
-        serviceContext.put("workEffortId",productionRunId);
+        serviceContext.put("workEffortId", productionRunId);
         serviceContext.put("estimatedCompletionDate",startDate);
         serviceContext.put("userLogin", userLogin);
         serviceResult = null;

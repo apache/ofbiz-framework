@@ -1240,7 +1240,7 @@ nextProd:
 
                 if ( UtilValidate.isNotEmpty(isMarketingPackage) && isMarketingPackage) {
                     Map<String, Object> resultOutput = new HashMap<>();
-                    resultOutput = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId" ,productId));
+                    resultOutput = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId" , productId));
                     Debug.logWarning("Error getting available marketing package.", MODULE);
 
                     BigDecimal availableInventory = (BigDecimal) resultOutput.get("availableToPromiseTotal");

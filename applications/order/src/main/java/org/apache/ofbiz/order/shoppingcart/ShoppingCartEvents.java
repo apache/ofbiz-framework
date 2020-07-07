@@ -1895,7 +1895,7 @@ public class ShoppingCartEvents {
                     result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
                                                   null, itemType, itemDescription, null,
                                                   amount, quantity, null, null, null, null, null, null,
-                                                  itemGroupNumber, itemAttributes,null);
+                                                  itemGroupNumber, itemAttributes, null);
                     // no values for price and paramMap (a context for adding attributes)
                     controlDirective = processResult(result, request);
                     if (controlDirective.equals(ERROR)) {    // if the add to cart failed, then get out of this loop right away

@@ -199,7 +199,7 @@ public class OrderReturnServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "OrderErrorUnableToGetReturnHeaderForID", UtilMisc.toMap("returnId",returnId), locale));
+                    "OrderErrorUnableToGetReturnHeaderForID", UtilMisc.toMap("returnId", returnId), locale));
         }
 
         // get the return items
@@ -2392,7 +2392,7 @@ public class OrderReturnServices {
                 }
                 if ((returnItemSeqId != null) && !("_NA_".equals(returnItemSeqId))) {
                     returnItem = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId, "returnItemSeqId", returnItemSeqId).queryOne();
-                    Debug.logInfo("returnId:" + returnId + ",returnItemSeqId:" + returnItemSeqId, MODULE);
+                    Debug.logInfo("returnId:" + returnId + ", returnItemSeqId:" + returnItemSeqId, MODULE);
                     orderItem = returnItem.getRelatedOne("OrderItem", false);
                 } else {
                     // we don't have the returnItemSeqId but before we consider this
@@ -2427,7 +2427,7 @@ public class OrderReturnServices {
         // calculate the returnAdjustment amount
         if (returnItem != null) {  // returnAdjustment for returnItem
             if (needRecalculate(returnAdjustmentTypeId)) {
-                Debug.logInfo("returnPrice:" + returnItem.getBigDecimal("returnPrice") + ",returnQuantity:" + returnItem.getBigDecimal("returnQuantity") + ",sourcePercentage:" + orderAdjustment.getBigDecimal("sourcePercentage"), MODULE);
+                Debug.logInfo("returnPrice:" + returnItem.getBigDecimal("returnPrice") + ", returnQuantity:" + returnItem.getBigDecimal("returnQuantity") + ",sourcePercentage:" + orderAdjustment.getBigDecimal("sourcePercentage"), MODULE);
                 BigDecimal returnTotal = returnItem.getBigDecimal("returnPrice").multiply(returnItem.getBigDecimal("returnQuantity"));
                 BigDecimal orderTotal = orderItem.getBigDecimal("quantity").multiply(orderItem.getBigDecimal("unitPrice"));
                 amount = getAdjustmentAmount("RET_SALES_TAX_ADJ".equals(returnAdjustmentTypeId), returnTotal, orderTotal, orderAdjustment.getBigDecimal("amount"));

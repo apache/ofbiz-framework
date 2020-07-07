@@ -511,8 +511,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes, String prodCatalogId,
             ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
 
-       return addOrIncreaseItem(productId,selectedAmount,quantity,reservStart,reservLength,reservPersons, null,null,shipBeforeDate,shipAfterDate,features, attributes,prodCatalogId,
-                configWrapper,itemType,itemGroupNumber,parentProductId, dispatcher);
+       return addOrIncreaseItem(productId,selectedAmount, quantity, reservStart, reservLength, reservPersons, null, null,shipBeforeDate,shipAfterDate, features, attributes, prodCatalogId,
+                configWrapper, itemType, itemGroupNumber, parentProductId, dispatcher);
     }
 
     /** add rental (with accommodation) item to cart  */
@@ -602,7 +602,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         } else {
             try {
-                BigDecimal minQuantity = getMinimumOrderQuantity(getDelegator(),null, productId);
+                BigDecimal minQuantity = getMinimumOrderQuantity(getDelegator(), null, productId);
                 if (quantity.compareTo(minQuantity) < 0) {
                     quantity = minQuantity;
                 }
@@ -3716,7 +3716,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 orderItem.set("selectedAmount", item.getSelectedAmount());
                 orderItem.set("unitPrice", item.getBasePrice());
                 orderItem.set("unitListPrice", item.getListPrice());
-                orderItem.set("isModifiedPrice",item.getIsModifiedPrice() ? "Y" : "N");
+                orderItem.set("isModifiedPrice", item.getIsModifiedPrice() ? "Y" : "N");
                 orderItem.set("isPromo", item.getIsPromo() ? "Y" : "N");
 
                 orderItem.set("shoppingListId", item.getShoppingListId());
@@ -3757,14 +3757,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         for (ShoppingCartItem item : cartLines) {
             if ("RENTAL_ORDER_ITEM".equals(item.getItemType())) {         // prepare workeffort when the order item is a rental item
                 GenericValue workEffort = getDelegator().makeValue("WorkEffort");
-                workEffort.set("workEffortId",item.getOrderItemSeqId());  // fill temporary with sequence number
-                workEffort.set("estimatedStartDate",item.getReservStart());
-                workEffort.set("estimatedCompletionDate",item.getReservStart(item.getReservLength()));
+                workEffort.set("workEffortId", item.getOrderItemSeqId());  // fill temporary with sequence number
+                workEffort.set("estimatedStartDate", item.getReservStart());
+                workEffort.set("estimatedCompletionDate", item.getReservStart(item.getReservLength()));
                 workEffort.set("reservPersons", item.getReservPersons());
                 workEffort.set("reserv2ndPPPerc", item.getReserv2ndPPPerc());
                 workEffort.set("reservNthPPPerc", item.getReservNthPPPerc());
                 workEffort.set("accommodationMapId", item.getAccommodationMapId());
-                workEffort.set("accommodationSpotId",item.getAccommodationSpotId());
+                workEffort.set("accommodationSpotId", item.getAccommodationSpotId());
                 allWorkEfforts.add(workEffort);
             }
         }

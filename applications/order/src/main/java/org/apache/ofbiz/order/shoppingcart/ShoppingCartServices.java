@@ -131,7 +131,7 @@ public class ShoppingCartServices {
                 cart.setIsGift(idx, isGift);
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex",groupIndex), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex", groupIndex), locale));
         }
         return ServiceUtil.returnSuccess();
     }
@@ -139,7 +139,7 @@ public class ShoppingCartServices {
     public static Map<String, Object>setPaymentOptions(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
 
-        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderServiceNotYetImplemented",locale));
+        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderServiceNotYetImplemented", locale));
     }
 
     public static Map<String, Object>setOtherOptions(DispatchContext dctx, Map<String, Object> context) {
@@ -770,7 +770,7 @@ public class ShoppingCartServices {
                     termDays = Long.parseLong(quoteTerm.getString("termDays").trim());
                 }
                 String orderItemSeqId = quoteTerm.getString("quoteItemSeqId");
-                cart.addOrderTerm(quoteTerm.getString("termTypeId"), orderItemSeqId,termValue, termDays, quoteTerm.getString("textValue"),quoteTerm.getString("description"));
+                cart.addOrderTerm(quoteTerm.getString("termTypeId"), orderItemSeqId,termValue, termDays, quoteTerm.getString("textValue"), quoteTerm.getString("description"));
             }
         }
 
@@ -885,7 +885,7 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, quoteItem.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
                     }
                     try {
-                            itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, !applyQuoteAdjustments, quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0, Boolean.FALSE, Boolean.FALSE);
+                            itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons, null, null, null, null, null, configWrapper, null, dispatcher, !applyQuoteAdjustments, quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0, Boolean.FALSE, Boolean.FALSE);
 
                     } catch (ItemNotFoundException | CartItemModifyException e) {
                         Debug.logError(e, MODULE);
@@ -1122,15 +1122,15 @@ public class ShoppingCartServices {
         if (shoppingCart != null) {
             String isoCode = shoppingCart.getCurrency();
             result.put("totalQuantity", shoppingCart.getTotalQuantity());
-            result.put("currencyIsoCode",isoCode);
+            result.put("currencyIsoCode", isoCode);
             result.put("subTotal", shoppingCart.getSubTotal());
-            result.put("subTotalCurrencyFormatted",org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getSubTotal(), isoCode, locale));
+            result.put("subTotalCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getSubTotal(), isoCode, locale));
             result.put("totalShipping", shoppingCart.getTotalShipping());
-            result.put("totalShippingCurrencyFormatted",org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalShipping(), isoCode, locale));
+            result.put("totalShippingCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalShipping(), isoCode, locale));
             result.put("totalSalesTax",shoppingCart.getTotalSalesTax());
-            result.put("totalSalesTaxCurrencyFormatted",org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalSalesTax(), isoCode, locale));
+            result.put("totalSalesTaxCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalSalesTax(), isoCode, locale));
             result.put("displayGrandTotal", shoppingCart.getDisplayGrandTotal());
-            result.put("displayGrandTotalCurrencyFormatted",org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));
+            result.put("displayGrandTotalCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));
             BigDecimal orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), shoppingCart.getSubTotal(), true, true, true);
             result.put("displayOrderAdjustmentsTotalCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
             Map<String, Object> cartItemData = new HashMap<>();
@@ -1139,8 +1139,8 @@ public class ShoppingCartServices {
                 cartItemData.put("displayItemQty_" + cartLineIndex, cartLine.getQuantity());
                 cartItemData.put("displayItemPrice_" + cartLineIndex, org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayPrice(), isoCode, locale));
                 cartItemData.put("displayItemSubTotal_" + cartLineIndex, cartLine.getDisplayItemSubTotal());
-                cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex ,org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(), isoCode, locale));
-                cartItemData.put("displayItemAdjustment_" + cartLineIndex ,org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));
+                cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex , org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(), isoCode, locale));
+                cartItemData.put("displayItemAdjustment_" + cartLineIndex , org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));
             }
             result.put("cartItemData", cartItemData);
         }

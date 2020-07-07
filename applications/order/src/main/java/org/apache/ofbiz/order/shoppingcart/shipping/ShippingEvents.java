@@ -146,7 +146,7 @@ public class ShippingEvents {
             BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
         return getShipGroupEstimate(dispatcher, delegator, orderTypeId, shipmentMethodTypeId, carrierPartyId,
                 carrierRoleTypeId, shippingContactMechId, productStoreId, null, itemInfo,
-                shippableWeight, shippableQuantity, shippableTotal, partyId,productStoreShipMethId);
+                shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId);
     }
 
     public static Map<String, Object> getShipGroupEstimate(LocalDispatcher dispatcher, Delegator delegator, String orderTypeId,

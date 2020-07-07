@@ -106,7 +106,7 @@ public final class ProductPromoWorker {
                 Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
             }
             if (productStore == null) {
-                Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), MODULE);
+                Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
                 return productPromos;
             }
 
@@ -172,7 +172,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
         }
         if (productStore == null) {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
             return promoCodes;
         }
         try {
@@ -212,7 +212,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
         }
         if (productStore == null) {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
             return productPromoList;
         }
 
@@ -994,7 +994,7 @@ public final class ProductPromoWorker {
                 } else if ("PPC_GTE".equals(operatorEnumId)) {
                     if (compare >= 0) return true;
                 } else {
-                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId",operatorEnumId) , cart.getLocale()), MODULE);
+                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), MODULE);
                     return false;
                 }
             }

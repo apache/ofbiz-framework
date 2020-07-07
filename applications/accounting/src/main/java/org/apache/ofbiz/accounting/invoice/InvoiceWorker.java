@@ -157,7 +157,7 @@ public final class InvoiceWorker {
             }
         }
         if (UtilValidate.isEmpty(description)) {
-            description = (String) invoiceItem.getRelatedOne("InvoiceItemType", true).get("description",locale);
+            description = (String) invoiceItem.getRelatedOne("InvoiceItemType", true).get("description", locale);
         }
         return description;
     }
@@ -614,10 +614,10 @@ public final class InvoiceWorker {
                     GenericValue payment = paymentAppl.getRelatedOne("Payment", false);
                     if (UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
                         if (UtilValidate.isEmpty(conversionRate)) {
-                            conversionRate = payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100)).setScale(DECIMALS, ROUNDING);
+                            conversionRate = payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"), new MathContext(100)).setScale(DECIMALS, ROUNDING);
                         } else {
                             conversionRate = conversionRate.add(payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),
-                                    new MathContext(100))).divide(new BigDecimal("2"),new MathContext(100)).setScale(DECIMALS, ROUNDING);
+                                    new MathContext(100))).divide(new BigDecimal("2"), new MathContext(100)).setScale(DECIMALS, ROUNDING);
                         }
                     }
                 }

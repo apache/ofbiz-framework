@@ -465,7 +465,7 @@ public class CheckOutEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
         Map<String, Object> callResult;
-        String result = checkoutValidation(request,response);
+        String result = checkoutValidation(request, response);
         if ("error".equals(result)) {
             return "error";
         }

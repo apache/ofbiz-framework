@@ -479,7 +479,7 @@ public final class ProductStoreWorker {
     }
 
     public static List<GenericValue> getProductSurveys(Delegator delegator, String productStoreId, String productId, String surveyApplTypeId, String parentProductId) {
-        return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId,parentProductId);
+        return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId, parentProductId);
     }
 
     public static List<GenericValue> getSurveys(Delegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {

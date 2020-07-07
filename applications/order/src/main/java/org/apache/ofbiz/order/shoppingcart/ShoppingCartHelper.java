@@ -107,10 +107,10 @@ public class ShoppingCartHelper {
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
 
-        return addToCart(catalogId,shoppingListId,shoppingListItemSeqId,productId,
-                productCategoryId,itemType,itemDescription,price, amount,quantity,
-                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,
-                configWrapper,itemGroupNumber, context,parentProductId);
+        return addToCart(catalogId,shoppingListId,shoppingListItemSeqId, productId,
+                productCategoryId, itemType, itemDescription, price, amount, quantity,
+                reservStart, reservLength, reservPersons, null, null,shipBeforeDate,shipAfterDate,
+                configWrapper, itemGroupNumber, context, parentProductId);
     }
 
     /** Overriden for reserveAfterDate. */
@@ -121,10 +121,10 @@ public class ShoppingCartHelper {
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
 
-        return addToCart(catalogId,shoppingListId,shoppingListItemSeqId,productId,
-                productCategoryId,itemType,itemDescription,price, amount,quantity,
-                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,null,
-                configWrapper,itemGroupNumber, context,parentProductId);
+        return addToCart(catalogId,shoppingListId,shoppingListItemSeqId, productId,
+                productCategoryId, itemType, itemDescription, price, amount, quantity,
+                reservStart, reservLength, reservPersons, null, null,shipBeforeDate,shipAfterDate, null,
+                configWrapper, itemGroupNumber, context, parentProductId);
     }
 
     /** Event to add an item to the shopping cart with accommodation. */
@@ -557,7 +557,7 @@ public class ShoppingCartHelper {
                         }
                         if (requirementAlreadyInCart) {
                             if (Debug.warningOn()) {
-                                Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId",requirementId), cart.getLocale()), MODULE);
+                                Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId", requirementId), cart.getLocale()), MODULE);
                             }
                             continue;
                         }

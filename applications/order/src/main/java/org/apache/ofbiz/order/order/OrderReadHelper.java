@@ -2798,7 +2798,7 @@ public class OrderReadHelper {
             adjustments = EntityQuery.use(delegator).from("ReturnAdjustment").where(condition).queryList();
             if (adjustments != null) {
                 for (GenericValue returnAdjustment : adjustments) {
-                    total = total.add(setScaleByType("RET_SALES_TAX_ADJ".equals(returnAdjustment.get("returnAdjustmentTypeId")),returnAdjustment.getBigDecimal("amount")));
+                    total = total.add(setScaleByType("RET_SALES_TAX_ADJ".equals(returnAdjustment.get("returnAdjustmentTypeId")), returnAdjustment.getBigDecimal("amount")));
                 }
             }
         } catch (GenericEntityException e) {

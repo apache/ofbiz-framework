@@ -69,7 +69,7 @@ public class SupplierProductServices {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             if (product == null) {
                 results = ServiceUtil.returnSuccess();
-                results.put("supplierProducts",null);
+                results.put("supplierProducts", null);
                 return results;
             }
             List<GenericValue> supplierProducts = product.getRelated("SupplierProduct", null, null, true);

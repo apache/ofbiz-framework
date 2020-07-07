@@ -111,7 +111,7 @@ public class RotateImage {
             BufferedImage bufNewImg = new BufferedImage(w, h, bufImgType);
             Graphics2D g = bufNewImg.createGraphics();
             g.rotate(Math.toRadians(Double.parseDouble(angle)), w / 2.0, h / 2.0);
-            g.drawImage(bufImg,0,0,null);
+            g.drawImage(bufImg,0,0, null);
             g.dispose();
 
             String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);

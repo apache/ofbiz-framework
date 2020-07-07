@@ -559,7 +559,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     public static boolean traverseSubContent(Map<String, Object> ctx) {
         boolean inProgress = false;
         List<Map <String, Object>> nodeTrail = UtilGenerics.cast(ctx.get("nodeTrail"));
-        ContentWorker.traceNodeTrail("11",nodeTrail);
+        ContentWorker.traceNodeTrail("11", nodeTrail);
         int sz = nodeTrail.size();
         if (sz == 0) {
             return false;
@@ -576,14 +576,14 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             int idx = 0;
             while (idx < kids.size()) {
                 currentNode = kids.get(idx);
-                ContentWorker.traceNodeTrail("12",nodeTrail);
+                ContentWorker.traceNodeTrail("12", nodeTrail);
                 Boolean isPick = (Boolean)currentNode.get("isPick");
 
                 if (isPick != null && isPick) {
                     nodeTrail.add(currentNode);
                     inProgress = true;
                     selectKids(currentNode, ctx);
-                    ContentWorker.traceNodeTrail("14",nodeTrail);
+                    ContentWorker.traceNodeTrail("14", nodeTrail);
                     break;
                 } else {
                     Boolean isFollow = (Boolean)currentNode.get("isFollow");
@@ -604,7 +604,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             // look for next sibling
             while (sz > 1) {
                 currentNode = nodeTrail.remove(--sz);
-                ContentWorker.traceNodeTrail("15",nodeTrail);
+                ContentWorker.traceNodeTrail("15", nodeTrail);
                 Map<String, Object> parentNode = nodeTrail.get(sz - 1);
                 kids = UtilGenerics.cast(parentNode.get("kids"));
                 if (kids == null) {
@@ -620,12 +620,12 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                         continue;
                     }
                     nodeTrail.add(currentNode);
-                    ContentWorker.traceNodeTrail("16",nodeTrail);
+                    ContentWorker.traceNodeTrail("16", nodeTrail);
                     Boolean isPick = (Boolean)currentNode.get("isPick");
                     if (isPick == null || !isPick) {
                         // If not a "pick" node, look at kids
                         inProgress = traverseSubContent(ctx);
-                        ContentWorker.traceNodeTrail("17",nodeTrail);
+                        ContentWorker.traceNodeTrail("17", nodeTrail);
                         if (inProgress) {
                             break;
                         }

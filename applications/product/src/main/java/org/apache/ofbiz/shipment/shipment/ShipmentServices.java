@@ -1152,7 +1152,7 @@ public class ShipmentServices {
             String carrierPartyId = primaryOrderItemShipGroup.getString("carrierPartyId");
             String carrierRoleTypeId = primaryOrderItemShipGroup.getString("carrierRoleTypeId");
             GenericValue productStoreShipmentMeth = EntityQuery.use(delegator).from("ProductStoreShipmentMeth")
-                    .where("productStoreId",productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
+                    .where("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
                              "partyId", carrierPartyId, "roleTypeId", carrierRoleTypeId)
                     .queryFirst();
             if (productStoreShipmentMeth != null) {

@@ -1100,7 +1100,7 @@ public class InvoiceServices {
                     resMap = dispatcher.runSync("createInvoiceItem", UtilMisc.toMap("invoiceId", invoiceId,
                             "productId", commissionMap.get("productId"),
                             "invoiceItemTypeId", "COMM_INV_ITEM",
-                            "quantity",quantity,
+                            "quantity", quantity,
                             "amount", elemAmount,
                             "userLogin", userLogin));
                     if (ServiceUtil.isError(resMap)) {
@@ -1133,7 +1133,7 @@ public class InvoiceServices {
                         "AccountingInvoiceCommissionEntityDataProblem",
                         UtilMisc.toMap("reason", e.toString()), locale));
             }
-            invoicesCreated.add(UtilMisc.<String, String>toMap("commissionInvoiceId",invoiceId, "salesRepresentative ",partyIdBillFrom));
+            invoicesCreated.add(UtilMisc.<String, String>toMap("commissionInvoiceId", invoiceId, "salesRepresentative ", partyIdBillFrom));
         }
         String invCreated = Integer.toString(invoicesCreated.size());
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
@@ -2007,7 +2007,7 @@ public class InvoiceServices {
 
         String returnId= (String) context.get("returnId");
         List<GenericValue> billItems = UtilGenerics.cast(context.get("billItems"));
-        String errorMsg = UtilProperties.getMessage(RESOURCE, "AccountingErrorCreatingInvoiceForReturn",UtilMisc.toMap("returnId",returnId),locale);
+        String errorMsg = UtilProperties.getMessage(RESOURCE, "AccountingErrorCreatingInvoiceForReturn",UtilMisc.toMap("returnId", returnId), locale);
         // List invoicesCreated = new ArrayList();
         try {
             String invoiceTypeId;
@@ -2856,7 +2856,7 @@ public class InvoiceServices {
                 if (currencyUomId != null && invoice.get("currencyUomId") != null &&
                         !currencyUomId.equals(invoice.getString("currencyUomId"))) {
                     Debug.logInfo(UtilProperties.getMessage(RESOURCE, "AccountingInvoicePaymentCurrencyProblem",
-                            UtilMisc.toMap("invoiceCurrency", invoice.getString("currencyUomId"), "paymentCurrency", payment.getString("currencyUomId")),locale), MODULE);
+                            UtilMisc.toMap("invoiceCurrency", invoice.getString("currencyUomId"), "paymentCurrency", payment.getString("currencyUomId")), locale), MODULE);
                     Debug.logInfo("will try to apply payment on the actualCurrency amount on payment", MODULE);
 
                     if (payment.get("actualCurrencyAmount") == null || payment.get("actualCurrencyUomId") == null) {
@@ -3226,7 +3226,7 @@ public class InvoiceServices {
             paymentApplication.set("amountApplied", amountApplied);
             paymentApplication.set("billingAccountId", billingAccountId);
             paymentApplication.set("taxAuthGeoId", taxAuthGeoId);
-            return storePaymentApplication(delegator, paymentApplication,locale);
+            return storePaymentApplication(delegator, paymentApplication, locale);
         }
 
         // if no invoice sequence number is provided it assumed the requested paymentAmount will be
@@ -3239,7 +3239,7 @@ public class InvoiceServices {
                     Debug.logInfo("Try to allocate the payment to the invoice as a whole", MODULE);
                 }
                 paymentApplication.set("paymentId", paymentId);
-                paymentApplication.set("toPaymentId",null);
+                paymentApplication.set("toPaymentId", null);
                 paymentApplication.set("invoiceId", invoiceId);
                 paymentApplication.set("invoiceItemSeqId", null);
                 paymentApplication.set("toPaymentId", null);
@@ -3249,7 +3249,7 @@ public class InvoiceServices {
                 if (debug) {
                     Debug.logInfo("creating new paymentapplication", MODULE);
                 }
-                return storePaymentApplication(delegator, paymentApplication,locale);
+                return storePaymentApplication(delegator, paymentApplication, locale);
             }
             if (debug) {
                 Debug.logInfo("Try to allocate the payment to the itemnumbers of the invoice", MODULE);
@@ -3336,7 +3336,7 @@ public class InvoiceServices {
                     paymentApplication.set("amountApplied", tobeApplied);
                     paymentApplication.set("billingAccountId", billingAccountId);
                     paymentApplication.set("taxAuthGeoId", taxAuthGeoId);
-                    storePaymentApplication(delegator, paymentApplication,locale);
+                    storePaymentApplication(delegator, paymentApplication, locale);
                 }
 
             }
@@ -3360,7 +3360,7 @@ public class InvoiceServices {
         paymentApplication.set("amountApplied", amountApplied);
         paymentApplication.set("billingAccountId", billingAccountId);
         paymentApplication.set("taxAuthGeoId", taxAuthGeoId);
-        return storePaymentApplication(delegator, paymentApplication,locale);
+        return storePaymentApplication(delegator, paymentApplication, locale);
 
     }
 
@@ -3476,7 +3476,7 @@ public class InvoiceServices {
             }
         } else {
             if (debug) {
-                Debug.logInfo("No records found with paymentId,invoiceid..etc probaly changed one of them...", MODULE);
+                Debug.logInfo("No records found with paymentId, invoiceid..etc probaly changed one of them...", MODULE);
             }
             // create record if ID null;
             if (paymentApplication.get("paymentApplicationId") == null) {

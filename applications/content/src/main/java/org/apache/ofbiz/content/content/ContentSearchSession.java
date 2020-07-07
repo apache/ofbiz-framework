@@ -189,7 +189,7 @@ public class ContentSearchSession {
             String contentId=(String) parameters.get("SEARCH_CONTENT_ID");
             String contentAssocTypeId=(String) parameters.get("contentAssocTypeId");
             boolean includeAllSubContents =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_CONTENTS"));
-            searchAddConstraint(new ContentSearch.ContentAssocConstraint(contentId, contentAssocTypeId,includeAllSubContents), session);
+            searchAddConstraint(new ContentSearch.ContentAssocConstraint(contentId, contentAssocTypeId, includeAllSubContents), session);
             constraintsChanged = true;
         }
 

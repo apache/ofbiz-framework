@@ -315,7 +315,7 @@ public class TechDataServices {
         Map<String, Object> position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         Time startTime = (Time) position.get("startTime");
         int moveDay = (Integer) position.get("moveDay");
-        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayStart(dateFrom,moveDay);
+        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayStart(dateFrom, moveDay);
         Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.before(startAvailablePeriod)) {
             dateTo = startAvailablePeriod;
@@ -326,11 +326,11 @@ public class TechDataServices {
             position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
             startTime = (Time) position.get("startTime");
             moveDay = (Integer) position.get("moveDay");
-            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
+            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo, moveDay);
             dateTo.setTime(dateTo.getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
         result.put("dateTo", dateTo);
-        result.put("nextCapacity",position.get("capacity"));
+        result.put("nextCapacity", position.get("capacity"));
         return result;
     }
     /** Used to move forward in a TechDataCalenda, start from the dateFrom and move forward only on available period.
@@ -482,11 +482,11 @@ public class TechDataServices {
             startTime = (Time) position.get("startTime");
             moveDay = (Integer) position.get("moveDay");
             capacity = (Double) position.get("capacity");
-            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
+            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo, moveDay);
             dateTo.setTime(dateTo.getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
         result.put("dateTo", dateTo);
-        result.put("previousCapacity",position.get("capacity"));
+        result.put("previousCapacity", position.get("capacity"));
         return result;
     }
     /** Used to move backward in a TechDataCalendar, start from the dateFrom and move backward only on available period.

@@ -295,10 +295,10 @@ public class ShoppingCartItem implements java.io.Serializable {
             String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks)
             throws CartItemModifyException, ItemNotFoundException {
 
-        return makeItem(cartLocation,productId,selectedAmount,quantity,unitPrice,
-                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate, null,
-                additionalProductFeatureAndAppls, attributes,prodCatalogId, configWrapper,
-                itemType,itemGroup, dispatcher, cart,triggerExternalOpsBool,triggerPriceRulesBool,
+        return makeItem(cartLocation, productId,selectedAmount, quantity,unitPrice,
+                reservStart, reservLength, reservPersons, null, null,shipBeforeDate,shipAfterDate, null,
+                additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper,
+                itemType, itemGroup, dispatcher, cart,triggerExternalOpsBool,triggerPriceRulesBool,
                 parentProductId,skipInventoryChecks,skipProductChecks);
 
     }
@@ -383,11 +383,11 @@ public class ShoppingCartItem implements java.io.Serializable {
             String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher,
             ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
 
-        return makeItem(cartLocation,product,selectedAmount,
-               quantity,unitPrice,reservStart,reservLength,reservPersons,
-               null,null,shipBeforeDate,shipAfterDate, null, additionalProductFeatureAndAppls, attributes,
-               prodCatalogId, configWrapper,itemType,itemGroup, dispatcher, cart,
-               triggerExternalOpsBool,triggerPriceRulesBool,parentProduct,skipInventoryChecks,skipProductChecks);
+        return makeItem(cartLocation, product,selectedAmount,
+               quantity,unitPrice, reservStart, reservLength, reservPersons,
+               null, null,shipBeforeDate,shipAfterDate, null, additionalProductFeatureAndAppls, attributes,
+               prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, cart,
+               triggerExternalOpsBool,triggerPriceRulesBool, parentProduct,skipInventoryChecks,skipProductChecks);
     }
 
     /**

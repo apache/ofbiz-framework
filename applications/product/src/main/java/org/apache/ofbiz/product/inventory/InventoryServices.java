@@ -907,7 +907,7 @@ public class InventoryServices {
         }
         List<GenericValue> productPrices = null;
         try {
-            productPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId",productId).orderBy("-fromDate").cache(true).queryList();
+            productPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId", productId).orderBy("-fromDate").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }

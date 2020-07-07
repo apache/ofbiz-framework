@@ -278,7 +278,7 @@ public final class PaymentWorker {
                 if (paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
                     GenericValue invoice = paymentApplication.getRelatedOne("Invoice", false);
                     if (payment.getString("actualCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
-                           appliedAmount = appliedAmount.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
+                           appliedAmount = appliedAmount.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"), new MathContext(100));
                     }
                 }
             }
@@ -320,7 +320,7 @@ public final class PaymentWorker {
                     if (actual.equals(Boolean.FALSE) && paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
                         GenericValue invoice = paymentApplication.getRelatedOne("Invoice", false);
                         if (payment.getString("actualCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
-                               amountApplied = amountApplied.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
+                               amountApplied = amountApplied.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"), new MathContext(100));
                         }
                     }
                     paymentApplied = paymentApplied.add(amountApplied).setScale(DECIMALS, ROUNDING_MODE);
@@ -347,7 +347,7 @@ public final class PaymentWorker {
     }
 
     public static BigDecimal getPaymentNotApplied(Delegator delegator, String paymentId) {
-        return getPaymentNotApplied(delegator,paymentId, false);
+        return getPaymentNotApplied(delegator, paymentId, false);
     }
 
     public static BigDecimal getPaymentNotApplied(Delegator delegator, String paymentId, Boolean actual) {
@@ -365,6 +365,6 @@ public final class PaymentWorker {
         if (payment == null) {
             throw new IllegalArgumentException("The paymentId passed does not match an existing payment");
         }
-        return payment.getBigDecimal("amount").subtract(getPaymentApplied(delegator,paymentId, actual)).setScale(DECIMALS, ROUNDING_MODE);
+        return payment.getBigDecimal("amount").subtract(getPaymentApplied(delegator, paymentId, actual)).setScale(DECIMALS, ROUNDING_MODE);
     }
 }

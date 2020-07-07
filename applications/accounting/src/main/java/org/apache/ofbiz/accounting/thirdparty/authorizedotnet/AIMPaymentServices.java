@@ -108,7 +108,7 @@ public class AIMPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
         try {
-            creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference, false);
+            creditCard = delegator.getRelatedOne("CreditCard", orderPaymentPreference, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -133,7 +133,7 @@ public class AIMPaymentServices {
         // CAPTURE_ONLY is a "force" transaction to be used if there is no prior authorization
         props.put("transType", "PRIOR_AUTH_CAPTURE");
         props.put("cardtype", creditCard.get("cardType"));
-        buildCaptureTransaction(context,props,request);
+        buildCaptureTransaction(context, props, request);
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
@@ -448,7 +448,7 @@ public class AIMPaymentServices {
             AIMRequest.put("x_Tran_Key", props.getProperty("trankey"));
         } else {
             // only send password if no tran key
-            AIMRequest.put("x_Password",props.getProperty("password"));
+            AIMRequest.put("x_Password", props.getProperty("password"));
         }
         
         // api version (non Card Present)
