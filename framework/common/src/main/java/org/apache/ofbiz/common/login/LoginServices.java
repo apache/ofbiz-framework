@@ -74,7 +74,6 @@ public class LoginServices {
     /** Login service to authenticate username and password
      * @return Map of results including (userLogin) GenericValue object
      */
-    @SuppressWarnings("checkstyle:LineLength")
     public static Map<String, Object> userLogin(DispatchContext ctx, Map<String, ?> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -121,9 +120,9 @@ public class LoginServices {
 
         String errMsg = "";
         if (UtilValidate.isEmpty(username)) {
-            errMsg = UtilProperties.getMessage(RESOURCE,"loginservices.username_missing", locale);
+            errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.username_missing", locale);
         } else if (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(jwtToken)) {
-            errMsg = UtilProperties.getMessage(RESOURCE,"loginservices.password_missing", locale);
+            errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.password_missing", locale);
         } else {
 
             if ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator))) {
@@ -278,8 +277,8 @@ public class LoginServices {
 
                             Debug.logInfo("[LoginServices.userLogin] : Password Incorrect", MODULE);
                             // password invalid...
-                            if (password != null) errMsg = UtilProperties.getMessage(RESOURCE,"loginservices.password_incorrect", locale);
-                            else if (jwtToken != null) errMsg = UtilProperties.getMessage(RESOURCE,"loginservices.token_incorrect", locale);
+                            if (password != null) errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.password_incorrect", locale);
+                            else if (jwtToken != null) errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.token_incorrect", locale);
 
                             // increment failed login count
                             Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
@@ -568,7 +567,7 @@ public class LoginServices {
         return null;
     }
 
-    public static void createUserLoginPasswordHistory(GenericValue userLogin) throws GenericEntityException{
+    public static void createUserLoginPasswordHistory(GenericValue userLogin) throws GenericEntityException {
         int passwordChangeHistoryLimit = 0;
         Delegator delegator = userLogin.getDelegator();
         String userLoginId = userLogin.getString("userLoginId");
