@@ -28,7 +28,7 @@ under the License.
         <junit-test-suite class-name="org.apache.ofbiz.product.test.InventoryItemTransferTest"/>
     </test-case>
     <test-case case-name="inventory-tests">
-        <simple-method-test location="component://product/minilang/product/test/InventoryTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.InventoryTests"/>
     </test-case>
 
     <test-case case-name="shipment-tests">
