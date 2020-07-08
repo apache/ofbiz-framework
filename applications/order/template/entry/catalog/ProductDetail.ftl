@@ -654,6 +654,7 @@ ${virtualJavaScript!}
     <h2>${beforeName!}<#if "Y" == showName>${productContentWrapper.get("PRODUCT_NAME", "html")!}</#if>${afterName!}</h2>
 
     <div class="productsummary-container">
+    <div class="row">
     <#list assocProducts as productAssoc>
         <div>
           <a href="<@ofbizUrl>${targetRequest}/<#if categoryId??>~category_id=${categoryId}/</#if>~product_id=${productAssoc.productIdTo!}</@ofbizUrl>" class="buttontext">
@@ -670,6 +671,7 @@ ${virtualJavaScript!}
           ${screens.render(productsummaryScreen)}
       <#local listIndex = listIndex + 1>
     </#list>
+    </div>
     </div>
 
     ${setRequestAttribute("optProductId", "")}
@@ -697,6 +699,7 @@ ${setRequestAttribute("productValue", productValue)}
     <h2>${uiLabelMap.ProductSimilarProducts}</h2>
 
     <div class="productsummary-container">
+        <div class="row">
         <#list commonFeatureResultIds as commonFeatureResultId>
             ${setRequestAttribute("optProductId", commonFeatureResultId)}
             ${setRequestAttribute("listIndex", commonFeatureResultId_index)}
@@ -704,6 +707,7 @@ ${setRequestAttribute("productValue", productValue)}
             <#-- ${setRequestAttribute("targetRequestName", targetRequestName)} -->
             ${screens.render(productsummaryScreen)}
         </#list>
+        </div>
     </div>
 </#if>
 </div>
