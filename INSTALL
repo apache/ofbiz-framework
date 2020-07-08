@@ -36,6 +36,16 @@ _______________________________________________________________________________
 MS Windows: gradlew cleanAll loadAll
 Unix-like OS: ./gradlew cleanAll loadAll
 
+=====Note:
+As the later step, to install without the demo data follow:
+(beware this is for development or production, not trying)
+
+Windows: gradlew cleanAll "ofbiz --load-data readers=seed,seed-initial" loadAdminUserLogin -PuserLoginId=admin
+Unix-like OS: ./gradlew cleanAll "ofbiz --load-data readers=seed,seed-initial" loadAdminUserLogin -PuserLoginId=admin
+
+The OFBiz install will be empty, there will be no chart of accounts, no transactions, no products, no customers and no suppliers.
+You can't log to the E-Commerce Store. You will get: "A Product Store has not been defined for this ecommerce site. A Product Store can be created using the ofbizsetup wizard."
+
 === Start OFBiz:
 
 MS Windows: gradlew ofbiz
