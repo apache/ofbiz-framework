@@ -20,8 +20,8 @@ the command line at the OFBiz top level directory (folder).
 
 === Download the Gradle wrapper:
 
-MS Windows: init-gradle-wrapper
-Unix-like OS: ./gradle/init-gradle-wrapper
+MS Windows: init-gradle
+Unix-like OS: ./init-gradle
 
 
 === Prepare OFBiz:
