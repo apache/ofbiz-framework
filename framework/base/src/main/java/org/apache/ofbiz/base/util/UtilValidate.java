@@ -176,7 +176,7 @@ public final class UtilValidate {
     }
 
     /** Check whether map m is empty. */
-    public static <K,E> boolean isEmpty(Map<K,E> m) {
+    public static <K, E> boolean isEmpty(Map<K, E> m) {
         return (m == null) || m.isEmpty();
     }
 

@@ -29,7 +29,7 @@ public class ScreenCache extends AbstractCache {
     }
 
     public GenericWidgetOutput get(String screenName, WidgetContextCacheKey wcck) {
-        UtilCache<WidgetContextCacheKey,GenericWidgetOutput> screenCache = getCache(screenName);
+        UtilCache<WidgetContextCacheKey, GenericWidgetOutput> screenCache = getCache(screenName);
         if (screenCache == null) {
             return null;
         }
@@ -42,7 +42,7 @@ public class ScreenCache extends AbstractCache {
     }
 
     public GenericWidgetOutput remove(String screenName, WidgetContextCacheKey wcck) {
-        UtilCache<WidgetContextCacheKey,GenericWidgetOutput> screenCache = getCache(screenName);
+        UtilCache<WidgetContextCacheKey, GenericWidgetOutput> screenCache = getCache(screenName);
         if (Debug.verboseOn()) {
             Debug.logVerbose("Removing from ScreenCache with key [" + wcck + "], will remove from this cache: " + (screenCache == null ? "[No cache found to remove from]" : screenCache.getName()), MODULE);
         }

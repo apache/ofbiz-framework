@@ -123,7 +123,7 @@ public class TestRunContainer implements Container {
         }
     }
 
-    private static JunitSuiteWrapper prepareJunitSuiteWrapper(Map<String,String> testProps) throws ContainerException {
+    private static JunitSuiteWrapper prepareJunitSuiteWrapper(Map<String, String> testProps) throws ContainerException {
         String component = testProps.get("component");
         String suiteName = testProps.get("suitename");
         String testCase = testProps.get("case");

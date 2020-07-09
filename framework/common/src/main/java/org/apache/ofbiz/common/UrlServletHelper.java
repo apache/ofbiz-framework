@@ -269,7 +269,7 @@ public final class UrlServletHelper {
             str = str.substring(1);
         }
         while(str.endsWith("-")){
-            str = str.substring(0,str.length() - 1);
+            str = str.substring(0, str.length() - 1);
         }
         while(str.indexOf("--") != -1){
             str = str.replace("--","-");

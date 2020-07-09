@@ -44,7 +44,7 @@ public abstract class AbstractCache {
         return getCacheNamePrefix() + widgetName;
     }
 
-    protected <K,V> UtilCache<K,V> getCache(String widgetName) {
+    protected <K, V> UtilCache<K, V> getCache(String widgetName) {
         return UtilCache.findCache(getCacheName(widgetName));
     }
 

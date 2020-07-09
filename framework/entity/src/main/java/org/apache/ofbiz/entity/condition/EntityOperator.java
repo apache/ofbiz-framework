@@ -61,22 +61,22 @@ public abstract class EntityOperator<L, R> implements Serializable {
 
     private static HashMap<String, EntityOperator<?,?>> registry = new HashMap<>();
 
-    private static <L,R> void registerCase(String name, EntityOperator<L,R> operator) {
+    private static <L, R> void registerCase(String name, EntityOperator<L, R> operator) {
         registry.put(name.toLowerCase(Locale.getDefault()), operator);
         registry.put(name.toUpperCase(Locale.getDefault()), operator);
     }
 
-    public static <L,R> void register(String name, EntityOperator<L,R> operator) {
+    public static <L, R> void register(String name, EntityOperator<L, R> operator) {
         registerCase(name, operator);
         registerCase(name.replaceAll("-", "_"), operator);
         registerCase(name.replaceAll("_", "-"), operator);
     }
 
-    public static <L,R> EntityOperator<L,R> lookup(String name) {
+    public static <L, R> EntityOperator<L, R> lookup(String name) {
         return UtilGenerics.cast(registry.get(name));
     }
 
-    public static <L,R> EntityComparisonOperator<L,R> lookupComparison(String name) {
+    public static <L, R> EntityComparisonOperator<L, R> lookupComparison(String name) {
         EntityOperator<?,?> operator = lookup(name);
         if (!(operator instanceof EntityComparisonOperator<?,?>)) {
             throw new IllegalArgumentException(name + " is not a comparison operator");

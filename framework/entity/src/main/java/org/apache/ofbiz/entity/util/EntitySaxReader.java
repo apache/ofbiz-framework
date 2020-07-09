@@ -155,7 +155,7 @@ public class EntitySaxReader extends DefaultHandler {
         this.continueOnFail = continueOnFail;
     }
 
-    public void setPlaceholderValues(Map<String,Object> placeholderValues) {
+    public void setPlaceholderValues(Map<String, Object> placeholderValues) {
         this.placeholderValues = placeholderValues;
     }
 
@@ -314,7 +314,7 @@ public class EntitySaxReader extends DefaultHandler {
                 throw new SAXException("Could not find transform template with resource path: " + templatePath);
             } else {
                 try {
-                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(),StandardCharsets.UTF_8));
+                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(), StandardCharsets.UTF_8));
 
                     StringWriter outWriter = new StringWriter();
                     Configuration config = FreeMarkerWorker.newConfiguration();

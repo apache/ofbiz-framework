@@ -72,7 +72,7 @@ public class QRCodeServices {
     private static final int WHITE = 0xFFFFFFFF;
 
     /** Streams QR Code to the result. */
-    public static Map<String, Object> generateQRCodeImage(DispatchContext ctx,Map<String, Object> context) {
+    public static Map<String, Object> generateQRCodeImage(DispatchContext ctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
         String message = (String) context.get("message");
         Integer width = (Integer) context.get("width");

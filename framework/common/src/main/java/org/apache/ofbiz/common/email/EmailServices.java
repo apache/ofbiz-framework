@@ -277,7 +277,7 @@ public class EmailServices {
                 // check for multipart message (with attachments)
                 // BodyParts contain a list of Maps items containing content(String) and type(String) of the attachement
                 MimeMultipart mp = new MimeMultipart();
-                Debug.logInfo(bodyParts.size() + " multiparts found",MODULE);
+                Debug.logInfo(bodyParts.size() + " multiparts found", MODULE);
                 for (Map<String, Object> bodyPart: bodyParts) {
                     Object bodyPartContent = bodyPart.get("content");
                     MimeBodyPart mbp = new MimeBodyPart();

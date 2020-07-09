@@ -1208,7 +1208,7 @@ public class FormRenderer {
                     itemIndex++;
                 }
             } catch (GenericEntityException gee) {
-                Debug.logError(gee,MODULE);
+                Debug.logError(gee, MODULE);
             }
         } else {
             while (iter.hasNext()) {

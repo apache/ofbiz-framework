@@ -66,7 +66,7 @@ public class StatusServices {
             }
         }
         Map<String, Object> ret =  new LinkedHashMap<>();
-        ret.put("statusItems",statusItems);
+        ret.put("statusItems", statusItems);
         return ret;
     }
 

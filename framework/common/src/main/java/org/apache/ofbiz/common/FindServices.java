@@ -805,7 +805,7 @@ public class FindServices {
                 item = list.get(0);
             }
         } catch (ClassCastException | NullPointerException | GenericEntityException e) {
-            Debug.logInfo("Problem getting list Item" + e,MODULE);
+            Debug.logInfo("Problem getting list Item" + e, MODULE);
         }
 
         if (UtilValidate.isNotEmpty(item)) {

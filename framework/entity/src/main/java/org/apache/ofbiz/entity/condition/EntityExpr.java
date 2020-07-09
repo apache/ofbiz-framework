@@ -58,7 +58,7 @@ public final class EntityExpr implements EntityCondition {
      * @throws IllegalArgumentException if {@code lhs} or {@code operator} are {@code null},
      *         or if {@code rhs} is null when the operator is not an equality check.
      */
-    public <L,R,LL,RR> EntityExpr(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
+    public <L, R, LL, RR> EntityExpr(L lhs, EntityComparisonOperator<LL, RR> operator, R rhs) {
         if (lhs == null) {
             throw new IllegalArgumentException("The field name/value cannot be null");
         }
@@ -120,7 +120,7 @@ public final class EntityExpr implements EntityCondition {
      *
      * @return the operator used to combine the two sides of the condition expression.
      */
-    public <L,R> EntityOperator<L,R> getOperator() {
+    public <L, R> EntityOperator<L, R> getOperator() {
         return UtilGenerics.cast(operator);
     }
 

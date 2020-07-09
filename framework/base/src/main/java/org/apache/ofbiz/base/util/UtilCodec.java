@@ -87,7 +87,7 @@ public class UtilCodec {
     public static interface SimpleEncoder {
         public String encode(String original);
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Deprecated
         public String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method
@@ -109,7 +109,7 @@ public class UtilCodec {
             return htmlCodec.encode(IMMUNE_HTML, original);
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -220,7 +220,7 @@ public class UtilCodec {
             return xmlCodec.encode(IMMUNE_XML, original);
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -244,7 +244,7 @@ public class UtilCodec {
             }
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -277,7 +277,7 @@ public class UtilCodec {
             return original;
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
