@@ -419,11 +419,11 @@ public final class ProductWorker {
      * @param product
      * @return list featureType and related featuresIds, description and feature price for this product ordered by type and sequence
      */
-    public static List<List<Map<String,String>>> getSelectableProductFeaturesByTypesAndSeq(GenericValue product) {
+    public static List<List<Map<String, String>>> getSelectableProductFeaturesByTypesAndSeq(GenericValue product) {
         if (product == null) {
             return null;
         }
-        List <List<Map<String,String>>> featureTypeFeatures = new LinkedList<>();
+        List <List<Map<String, String>>> featureTypeFeatures = new LinkedList<>();
         try {
             Delegator delegator = product.getDelegator();
             List<GenericValue> featuresSorted = EntityQuery.use(delegator)
@@ -433,7 +433,7 @@ public final class ProductWorker {
                                                     .cache(true)
                                                     .queryList();
             String oldType = null;
-            List<Map<String,String>> featureList = new LinkedList<>();
+            List<Map<String, String>> featureList = new LinkedList<>();
             for (GenericValue productFeatureAppl: featuresSorted) {
                 if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
                     // use first entry for type and description
@@ -447,7 +447,7 @@ public final class ProductWorker {
                     oldType = productFeatureAppl.getString("productFeatureTypeId");
                 }
                 // fill other entries with featureId, description and default price and currency
-                Map<String,String> featureData = UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"));
+                Map<String, String> featureData = UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"));
                 if (UtilValidate.isNotEmpty(productFeatureAppl.get("description"))) {
                     featureData.put("description", productFeatureAppl.getString("description"));
                 } else {

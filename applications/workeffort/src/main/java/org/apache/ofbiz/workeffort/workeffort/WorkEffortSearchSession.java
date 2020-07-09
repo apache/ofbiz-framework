@@ -196,7 +196,7 @@ public class WorkEffortSearchSession {
             String workEffortId=(String) parameters.get("SEARCH_WORK_EFFORT_ID");
             String workEffortAssocTypeId=(String) parameters.get("workEffortAssocTypeId");
             boolean includeAllSubWorkEfforts =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_WORK_EFFORTS"));
-            searchAddConstraint(new WorkEffortSearch.WorkEffortAssocConstraint(workEffortId,workEffortAssocTypeId, includeAllSubWorkEfforts), session);
+            searchAddConstraint(new WorkEffortSearch.WorkEffortAssocConstraint(workEffortId, workEffortAssocTypeId, includeAllSubWorkEfforts), session);
             constraintsChanged = true;
         }
 //      add a Work Effort Party Assignment to the search
@@ -229,7 +229,7 @@ public class WorkEffortSearchSession {
             if (UtilValidate.isNotEmpty(parameters.get("thruDate"))) {
                 thruDate = Timestamp.valueOf((String) parameters.get("thruDate"));
             }
-            searchAddConstraint(new WorkEffortSearch.LastUpdatedRangeConstraint(fromDate,thruDate), session);
+            searchAddConstraint(new WorkEffortSearch.LastUpdatedRangeConstraint(fromDate, thruDate), session);
             constraintsChanged = true;
         }
 

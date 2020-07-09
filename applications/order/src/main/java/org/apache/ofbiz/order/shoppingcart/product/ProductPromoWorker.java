@@ -814,7 +814,7 @@ public final class ProductPromoWorker {
     private static boolean runProductPromoRules(ShoppingCart cart, Long useLimit, boolean requireCode, String productPromoCodeId, Long codeUseLimit, long maxUseLimit,
         GenericValue productPromo, List<GenericValue> productPromoRules, LocalDispatcher dispatcher, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException, UseLimitException {
         boolean cartChanged = false;
-        Map<ShoppingCartItem,BigDecimal> usageInfoMap = prepareProductUsageInfoMap(cart);
+        Map<ShoppingCartItem, BigDecimal> usageInfoMap = prepareProductUsageInfoMap(cart);
         String productPromoId = productPromo.getString("productPromoId");
         while ((useLimit == null || useLimit > cart.getProductPromoUseCount(productPromoId)) &&
                 (!requireCode || UtilValidate.isNotEmpty(productPromoCodeId)) &&
@@ -878,8 +878,8 @@ public final class ProductPromoWorker {
 
             if (promoUsed) {
                 // Get product use information from the cart
-                Map<ShoppingCartItem,BigDecimal> newUsageInfoMap = prepareProductUsageInfoMap(cart);
-                Map<ShoppingCartItem,BigDecimal> deltaUsageInfoMap = prepareDeltaProductUsageInfoMap(usageInfoMap, newUsageInfoMap);
+                Map<ShoppingCartItem, BigDecimal> newUsageInfoMap = prepareProductUsageInfoMap(cart);
+                Map<ShoppingCartItem, BigDecimal> deltaUsageInfoMap = prepareDeltaProductUsageInfoMap(usageInfoMap, newUsageInfoMap);
                 usageInfoMap = newUsageInfoMap;
                 cart.addProductPromoUse(productPromo.getString("productPromoId"), productPromoCodeId, totalDiscountAmount, quantityLeftInActions, deltaUsageInfoMap);
             } else {
@@ -895,8 +895,8 @@ public final class ProductPromoWorker {
         return cartChanged;
     }
 
-    private static Map<ShoppingCartItem,BigDecimal> prepareProductUsageInfoMap(ShoppingCart cart) {
-        Map<ShoppingCartItem,BigDecimal> usageInfoMap = new HashMap<>();
+    private static Map<ShoppingCartItem, BigDecimal> prepareProductUsageInfoMap(ShoppingCart cart) {
+        Map<ShoppingCartItem, BigDecimal> usageInfoMap = new HashMap<>();
         List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false);
         for (ShoppingCartItem cartItem : lineOrderedByBasePriceList) {
             BigDecimal used = cartItem.getPromoQuantityUsed();
@@ -907,8 +907,8 @@ public final class ProductPromoWorker {
         return usageInfoMap;
     }
 
-    private static Map<ShoppingCartItem,BigDecimal> prepareDeltaProductUsageInfoMap(Map<ShoppingCartItem,BigDecimal> oldMap, Map<ShoppingCartItem,BigDecimal> newMap) {
-        Map<ShoppingCartItem,BigDecimal> deltaUsageInfoMap = new HashMap<>(newMap);
+    private static Map<ShoppingCartItem, BigDecimal> prepareDeltaProductUsageInfoMap(Map<ShoppingCartItem, BigDecimal> oldMap, Map<ShoppingCartItem, BigDecimal> newMap) {
+        Map<ShoppingCartItem, BigDecimal> deltaUsageInfoMap = new HashMap<>(newMap);
 
         for (Entry<ShoppingCartItem, BigDecimal> entry : oldMap.entrySet()) {
             ShoppingCartItem key = entry.getKey();

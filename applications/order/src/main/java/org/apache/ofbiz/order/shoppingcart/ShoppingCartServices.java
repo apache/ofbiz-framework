@@ -770,7 +770,7 @@ public class ShoppingCartServices {
                     termDays = Long.parseLong(quoteTerm.getString("termDays").trim());
                 }
                 String orderItemSeqId = quoteTerm.getString("quoteItemSeqId");
-                cart.addOrderTerm(quoteTerm.getString("termTypeId"), orderItemSeqId,termValue, termDays, quoteTerm.getString("textValue"), quoteTerm.getString("description"));
+                cart.addOrderTerm(quoteTerm.getString("termTypeId"), orderItemSeqId, termValue, termDays, quoteTerm.getString("textValue"), quoteTerm.getString("description"));
             }
         }
 
@@ -1127,7 +1127,7 @@ public class ShoppingCartServices {
             result.put("subTotalCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getSubTotal(), isoCode, locale));
             result.put("totalShipping", shoppingCart.getTotalShipping());
             result.put("totalShippingCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalShipping(), isoCode, locale));
-            result.put("totalSalesTax",shoppingCart.getTotalSalesTax());
+            result.put("totalSalesTax", shoppingCart.getTotalSalesTax());
             result.put("totalSalesTaxCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalSalesTax(), isoCode, locale));
             result.put("displayGrandTotal", shoppingCart.getDisplayGrandTotal());
             result.put("displayGrandTotalCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));

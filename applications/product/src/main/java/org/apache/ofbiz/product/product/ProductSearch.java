@@ -2277,7 +2277,7 @@ public class ProductSearch {
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
             productSearchContext.dynamicViewEntity.addAlias("PROD", productFieldName, null, null, null, null, null);
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(productFieldName ,EntityOperator.LIKE, keyword + "%"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(productFieldName , EntityOperator.LIKE, keyword + "%"));
             productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.keyword)));
         }
 

@@ -385,7 +385,7 @@ public class ContentServices {
         Map<String, Object> results = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
-        Map<String,Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
+        Map<String, Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
         String contentId = (String) context.get("contentId");
 
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
@@ -429,11 +429,11 @@ public class ContentServices {
      * matching content.
      */
     public static Map<String, Object> renderContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String,Object> results = new HashMap<>();
+        Map<String, Object> results = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
 
-        Map<String,Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
+        Map<String, Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
         String contentId = (String) context.get("contentId");
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
             contentId = (String) templateContext.get("contentId");

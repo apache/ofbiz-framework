@@ -1741,7 +1741,7 @@ public class OrderReadHelper {
     /**
      * Get the returned total by return type (credit, refund, etc.).  Specify returnTypeId = null to get sum over all
      * return types.  Specify includeAll = true to sum up over all return statuses except cancelled.  Specify includeAll
-     * = false to sum up over ACCEPTED,RECEIVED And COMPLETED returns.
+     * = false to sum up over ACCEPTED, RECEIVED And COMPLETED returns.
      */
     public BigDecimal getOrderReturnedTotalByTypeBd(String returnTypeId, boolean includeAll) {
         List<GenericValue> returnedItemsBase = getOrderReturnItems();
@@ -2519,7 +2519,7 @@ public class OrderReadHelper {
     public static BigDecimal getWorkEffortRentalLength(GenericValue workEffort) {
         BigDecimal length = null;
         if (workEffort.get("estimatedStartDate") != null && workEffort.get("estimatedCompletionDate") != null) {
-            length = new BigDecimal(UtilDateTime.getInterval(workEffort.getTimestamp("estimatedStartDate"),workEffort.getTimestamp("estimatedCompletionDate"))/86400000);
+            length = new BigDecimal(UtilDateTime.getInterval(workEffort.getTimestamp("estimatedStartDate"), workEffort.getTimestamp("estimatedCompletionDate"))/86400000);
         }
         return length;
     }

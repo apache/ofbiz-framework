@@ -312,7 +312,7 @@ public class OrderReturnServices {
     }
 
     // cancel replacement order if return not received within 30 days and send notification
-    public static Map<String,Object> autoCancelReplacementOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> autoCancelReplacementOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2296,7 +2296,7 @@ public class OrderReturnServices {
                 try {
                     GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse", false);
                     if ((returnItemResponse != null) && (orderId != null)) {
-                        // TODO should we filter on payment's status (PMNT_SENT,PMNT_RECEIVED)
+                        // TODO should we filter on payment's status (PMNT_SENT, PMNT_RECEIVED)
                         GenericValue payment = returnItemResponse.getRelatedOne("Payment", false);
                         if ((payment != null) && (payment.getBigDecimal("amount") != null) &&
                                 !paymentList.contains(payment.get("paymentId"))) {
@@ -2427,7 +2427,7 @@ public class OrderReturnServices {
         // calculate the returnAdjustment amount
         if (returnItem != null) {  // returnAdjustment for returnItem
             if (needRecalculate(returnAdjustmentTypeId)) {
-                Debug.logInfo("returnPrice:" + returnItem.getBigDecimal("returnPrice") + ", returnQuantity:" + returnItem.getBigDecimal("returnQuantity") + ",sourcePercentage:" + orderAdjustment.getBigDecimal("sourcePercentage"), MODULE);
+                Debug.logInfo("returnPrice:" + returnItem.getBigDecimal("returnPrice") + ", returnQuantity:" + returnItem.getBigDecimal("returnQuantity") + ", sourcePercentage:" + orderAdjustment.getBigDecimal("sourcePercentage"), MODULE);
                 BigDecimal returnTotal = returnItem.getBigDecimal("returnPrice").multiply(returnItem.getBigDecimal("returnQuantity"));
                 BigDecimal orderTotal = orderItem.getBigDecimal("quantity").multiply(orderItem.getBigDecimal("unitPrice"));
                 amount = getAdjustmentAmount("RET_SALES_TAX_ADJ".equals(returnAdjustmentTypeId), returnTotal, orderTotal, orderAdjustment.getBigDecimal("amount"));

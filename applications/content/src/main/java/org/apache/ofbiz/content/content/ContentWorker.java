@@ -184,7 +184,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return content;
     }
 
-    public static void renderContentAsText(LocalDispatcher dispatcher, GenericValue content, Appendable out, Map<String,Object>templateContext,
+    public static void renderContentAsText(LocalDispatcher dispatcher, GenericValue content, Appendable out, Map<String, Object>templateContext,
             Locale locale, String mimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
         // if the content has a service attached run the service
 
@@ -200,11 +200,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             ModelService service = dctx.getModelService(serviceName);
             if (service != null) {
                 //put all requestParameters into templateContext to use them as IN service parameters
-                Map<String,Object> tempTemplateContext = new HashMap<>();
+                Map<String, Object> tempTemplateContext = new HashMap<>();
                 tempTemplateContext.putAll(UtilGenerics.cast(templateContext.get("requestParameters")));
                 tempTemplateContext.putAll(templateContext);
-                Map<String,Object> serviceCtx = service.makeValid(tempTemplateContext, ModelService.IN_PARAM);
-                Map<String,Object> serviceRes;
+                Map<String, Object> serviceCtx = service.makeValid(tempTemplateContext, ModelService.IN_PARAM);
+                Map<String, Object> serviceRes;
                 try {
                     serviceRes = dispatcher.runSync(serviceName, serviceCtx);
                     if (ServiceUtil.isError(serviceRes)) {
@@ -375,7 +375,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return writer.toString();
     }
 
-    public static void renderSubContentAsText(LocalDispatcher dispatcher, String contentId, Appendable out, String mapKey, Map<String,Object> templateContext,
+    public static void renderSubContentAsText(LocalDispatcher dispatcher, String contentId, Appendable out, String mapKey, Map<String, Object> templateContext,
             Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         Delegator delegator = dispatcher.getDelegator();
 
@@ -927,7 +927,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 contentAncestorList.add(contentAssoc);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,MODULE);
+            Debug.logError(e, MODULE);
             return;
         }
     }
@@ -962,7 +962,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,MODULE);
+            Debug.logError(e, MODULE);
             return;
         }
     }
@@ -1009,7 +1009,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 contentAncestorList.add(content);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,MODULE);
+            Debug.logError(e, MODULE);
             return;
         }
     }

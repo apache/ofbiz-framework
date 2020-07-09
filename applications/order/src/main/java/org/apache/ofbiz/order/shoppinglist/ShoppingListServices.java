@@ -349,7 +349,7 @@ public class ShoppingListServices {
                         Debug.logError(e, MODULE);
                     }
                     if (serviceResult == null || ServiceUtil.isError(serviceResult)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToAddItemToShoppingList",UtilMisc.toMap("shoppingListId",shoppingListId), locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToAddItemToShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId), locale));
                     }
                 }
             }
@@ -381,7 +381,7 @@ public class ShoppingListServices {
                 }
 
                 if (slUpResp == null || ServiceUtil.isError(slUpResp)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToUpdateShoppingListInformation",UtilMisc.toMap("shoppingListId",shoppingListId), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToUpdateShoppingListInformation", UtilMisc.toMap("shoppingListId", shoppingListId), locale));
                 }
             }
 
@@ -574,7 +574,7 @@ public class ShoppingListServices {
         return result;
     }
 
-    public static Map<String,Object> autoDeleteAutoSaveShoppingList(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> autoDeleteAutoSaveShoppingList(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");

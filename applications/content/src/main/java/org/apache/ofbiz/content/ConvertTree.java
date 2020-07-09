@@ -229,7 +229,7 @@ In order to make this service active add the following to the service definition
         return ServiceUtil.returnSuccess(sucMsg);
     }
 
-    public static Map<String,Object> createSubContent(int index, String line, String rootContent, Map<String, ? extends Object> context, DispatchContext dctx) {
+    public static Map<String, Object> createSubContent(int index, String line, String rootContent, Map<String, ? extends Object> context, DispatchContext dctx) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -265,7 +265,7 @@ In order to make this service active add the following to the service definition
                     }
                     if (contentNameMatch == false) {
                         //create DataResource
-                        Map<String,Object> data = new HashMap<>();
+                        Map<String, Object> data = new HashMap<>();
                         data.put("userLogin", userLogin);
                         result = dispatcher.runSync("createDataResource", data);
                         if (ServiceUtil.isError(result)) {
@@ -289,7 +289,7 @@ In order to make this service active add the following to the service definition
                         delegator.create(Entity);
 
                         //Relation Content
-                        Map<String,Object> contentAssoc = new HashMap<>();
+                        Map<String, Object> contentAssoc = new HashMap<>();
                         contentAssoc.put("contentId", contentId);
                         contentAssoc.put("contentAssocTypeId", "SUB_CONTENT");
                         contentAssoc.put("contentIdTo", rootContent);
@@ -330,7 +330,7 @@ In order to make this service active add the following to the service definition
                     }
                     if (contentNameMatch == false) {
                         //create DataResource
-                        Map<String,Object> data = new HashMap<>();
+                        Map<String, Object> data = new HashMap<>();
                         data.put("userLogin", userLogin);
                         result = dispatcher.runSync("createDataResource", data);
                         if (ServiceUtil.isError(result)) {
@@ -354,7 +354,7 @@ In order to make this service active add the following to the service definition
                         delegator.create(Entity);
 
                         //create ContentAssoc
-                        Map<String,Object> contentAssoc = new HashMap<>();
+                        Map<String, Object> contentAssoc = new HashMap<>();
                         contentAssoc.put("contentId", contentId);
                         contentAssoc.put("contentAssocTypeId", "SUB_CONTENT");
                         contentAssoc.put("contentIdTo", rootContent);

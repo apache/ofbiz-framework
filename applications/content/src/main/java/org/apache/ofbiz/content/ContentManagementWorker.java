@@ -303,7 +303,7 @@ public final class ContentManagementWorker {
             results = EntityPermissionChecker.checkPermission(content, statusId, userLogin, passedPurposes, targetOperationList, roles, delegator, security, entityAction);
             String permissionStatus = (String)results.get("permissionStatus");
             if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
-                String [] arr = {contentId,templateTitle};
+                String [] arr = {contentId, templateTitle};
                 permittedPublishPointList.add(arr);
             }
         }

@@ -433,7 +433,7 @@ public class DataServices {
             // write the data to the file
             if (UtilValidate.isNotEmpty(textData)) {
                 try (
-                        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file),StandardCharsets.UTF_8);
+                        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
                 ) {
                     out.write(textData);
                 } catch (IOException e) {

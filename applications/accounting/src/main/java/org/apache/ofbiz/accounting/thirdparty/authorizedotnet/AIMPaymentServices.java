@@ -322,8 +322,8 @@ public class AIMPaymentServices {
         }
         if (isTestMode()) {
             Debug.logInfo("TEST Authorize.net using url [" + url + "]", MODULE);
-            Debug.logInfo("TEST Authorize.net request string " + request.toString(),MODULE);
-            Debug.logInfo("TEST Authorize.net properties string " + props.toString(),MODULE);
+            Debug.logInfo("TEST Authorize.net request string " + request.toString(), MODULE);
+            Debug.logInfo("TEST Authorize.net properties string " + props.toString(), MODULE);
         }
         
         // card present has a different layout from standard AIM; this determines how to parse the response
@@ -334,7 +334,7 @@ public class AIMPaymentServices {
             String certificateAlias = props.getProperty("certificateAlias");
             httpClient.setClientCertificateAlias(certificateAlias);
             String httpResponse = httpClient.post();
-            Debug.logInfo("transaction response: " + httpResponse,MODULE);
+            Debug.logInfo("transaction response: " + httpResponse, MODULE);
             AuthorizeResponse ar = new AuthorizeResponse(httpResponse, apiType);            
             if (ar.isApproved()) {            
                 result.put("authResult", Boolean.TRUE);
@@ -356,7 +356,7 @@ public class AIMPaymentServices {
             result.put("httpResponse", httpResponse);
             result.put("authorizeResponse", ar);
         } catch (HttpClientException e) {
-            Debug.logInfo(e, "Could not complete Authorize.Net transaction: " + e.toString(),MODULE);
+            Debug.logInfo(e, "Could not complete Authorize.Net transaction: " + e.toString(), MODULE);
         }
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
@@ -402,7 +402,7 @@ public class AIMPaymentServices {
         }
         if ("3.1".equals(ver)) {
             if (UtilValidate.isEmpty(tranKey)) {
-                Debug.logInfo("Trankey property required for version 3.1 reverting to 3.0",MODULE);
+                Debug.logInfo("Trankey property required for version 3.1 reverting to 3.0", MODULE);
                 ver = "3.0";
             }
         }
@@ -675,7 +675,7 @@ public class AIMPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", AuthorizeResponse.ERROR);
         }
-        Debug.logInfo("processAuthTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processAuthTransResult: " + results.toString(), MODULE);
     }
 
     private static void processCaptureTransResult(Map<String, Object> request, Map<String, Object> reply, Map<String, Object> results) {
@@ -700,7 +700,7 @@ public class AIMPaymentServices {
             Debug.logError(ex, MODULE);
             results.put("captureAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("captureRefNum: " + results.toString(),MODULE);
+        Debug.logInfo("captureRefNum: " + results.toString(), MODULE);
     }
 
     private static Map<String, Object> processRefundTransResult(Map<String, Object> request, Map<String, Object> reply) {
@@ -726,7 +726,7 @@ public class AIMPaymentServices {
             Debug.logError(ex, MODULE);
             results.put("refundAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processRefundTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processRefundTransResult: " + results.toString(), MODULE);
         return results;
     }
 
@@ -753,7 +753,7 @@ public class AIMPaymentServices {
             Debug.logError(ex, MODULE);
             results.put("releaseAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processReleaseTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processReleaseTransResult: " + results.toString(), MODULE);
         return results;
     }
 
@@ -789,7 +789,7 @@ public class AIMPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", AuthorizeResponse.ERROR);
         }
-        Debug.logInfo("processAuthTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processAuthTransResult: " + results.toString(), MODULE);
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,

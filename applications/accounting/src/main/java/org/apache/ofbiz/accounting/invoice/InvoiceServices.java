@@ -2007,7 +2007,7 @@ public class InvoiceServices {
 
         String returnId= (String) context.get("returnId");
         List<GenericValue> billItems = UtilGenerics.cast(context.get("billItems"));
-        String errorMsg = UtilProperties.getMessage(RESOURCE, "AccountingErrorCreatingInvoiceForReturn",UtilMisc.toMap("returnId", returnId), locale);
+        String errorMsg = UtilProperties.getMessage(RESOURCE, "AccountingErrorCreatingInvoiceForReturn", UtilMisc.toMap("returnId", returnId), locale);
         // List invoicesCreated = new ArrayList();
         try {
             String invoiceTypeId;
@@ -2763,7 +2763,7 @@ public class InvoiceServices {
                     if (amountApplied.compareTo(toPaymentApplyAvailable) > 0) {
                             errorMessageList.add(UtilProperties.getMessage(RESOURCE,
                                     "AccountingPaymentLessRequested",
-                                    UtilMisc.<String, Object>toMap("paymentId",toPaymentId,
+                                    UtilMisc.<String, Object>toMap("paymentId", toPaymentId,
                                                 "paymentApplyAvailable", toPaymentApplyAvailable,
                                                 "amountApplied", amountApplied, "isoCode", currencyUomId), locale));
                     }
@@ -3394,7 +3394,7 @@ public class InvoiceServices {
      * @param paymentApplication
      * @return map results
      */
-    private static Map<String, Object> storePaymentApplication(Delegator delegator, GenericValue paymentApplication,Locale locale) {
+    private static Map<String, Object> storePaymentApplication(Delegator delegator, GenericValue paymentApplication, Locale locale) {
         Map<String, Object> results = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                 "AccountingSuccessful", locale));
         boolean debug = true;

@@ -211,7 +211,7 @@ public class SagePayPaymentServices {
                 Debug.logInfo("SagePay - Payment authorized for order : " + vendorTxCode, MODULE);
                 result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.TRUE, txAuthNo, securityKey, new BigDecimal(amount), vpsTxId, vendorTxCode, statusDetail);
                 if ("PAYMENT".equals(transactionType)) {
-                    Map<String,Object> captureResult = SagePayUtil.buildCardCapturePaymentResponse(Boolean.TRUE, txAuthNo, securityKey, new BigDecimal(amount), vpsTxId, vendorTxCode, statusDetail);
+                    Map<String, Object> captureResult = SagePayUtil.buildCardCapturePaymentResponse(Boolean.TRUE, txAuthNo, securityKey, new BigDecimal(amount), vpsTxId, vendorTxCode, statusDetail);
                     result.putAll(captureResult);
                 }
             } else if (status != null && "INVALID".equals(status)) {

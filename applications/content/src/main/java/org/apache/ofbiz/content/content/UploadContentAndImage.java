@@ -135,7 +135,7 @@ public class UploadContentAndImage {
             ftlContext.put("statusId", passedParams.get("statusId"));
             ftlContext.put("contentPurposeList", UtilMisc.toList(passedParams.get("contentPurposeList")));
             ftlContext.put("contentPurposeList", contentPurposeList);
-            ftlContext.put("targetOperationList",targetOperationList);
+            ftlContext.put("targetOperationList", targetOperationList);
             ftlContext.put("contentName", passedParams.get("contentName"));
             ftlContext.put("dataTemplateTypeId", passedParams.get("dataTemplateTypeId"));
             ftlContext.put("description", passedParams.get("description"));
@@ -207,7 +207,7 @@ public class UploadContentAndImage {
                 sumContext.put("contentTypeId", "DOCUMENT");
                 sumContext.put("statusId", passedParams.get("statusId"));
                 sumContext.put("contentPurposeList", UtilMisc.toList("SUMMARY"));
-                sumContext.put("targetOperationList",targetOperationList);
+                sumContext.put("targetOperationList", targetOperationList);
                 sumContext.put("contentName", passedParams.get("contentName"));
                 sumContext.put("description", passedParams.get("description"));
                 sumContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
@@ -237,7 +237,7 @@ public class UploadContentAndImage {
                 txtContext.put("contentTypeId", "DOCUMENT");
                 txtContext.put("statusId", passedParams.get("statusId"));
                 txtContext.put("contentPurposeList", UtilMisc.toList("MAIN_ARTICLE"));
-                txtContext.put("targetOperationList",targetOperationList);
+                txtContext.put("targetOperationList", targetOperationList);
                 txtContext.put("contentName", passedParams.get("contentName"));
                 txtContext.put("description", passedParams.get("description"));
                 txtContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
@@ -270,7 +270,7 @@ public class UploadContentAndImage {
                 imgContext.put("description", passedParams.get("description"));
                 imgContext.put("contentPurposeList", contentPurposeList);
                 imgContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
-                imgContext.put("targetOperationList",targetOperationList);
+                imgContext.put("targetOperationList", targetOperationList);
                 imgContext.put("dataResourceId", passedParams.get("imgDataResourceId"));
                 String dataResourceTypeId = "IMAGE_OBJECT";
                 imgContext.put("dataResourceTypeId", dataResourceTypeId);
@@ -448,7 +448,7 @@ public class UploadContentAndImage {
             targetOperationString = (String)passedParams.get("targetOperationString");
         }
         List<String> targetOperationList = StringUtil.split(targetOperationString,"|");
-        ftlContext.put("targetOperationList",targetOperationList);
+        ftlContext.put("targetOperationList", targetOperationList);
 
         ftlContext.put("userLogin", userLogin);
         Object objSequenceNum = passedParams.get("caSequenceNum");

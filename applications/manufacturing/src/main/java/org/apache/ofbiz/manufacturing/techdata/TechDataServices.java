@@ -126,7 +126,7 @@ public class TechDataServices {
 
         try {
             listRoutingTaskAssoc = EntityQuery.use(delegator).from("WorkEffortAssoc")
-                    .where("workEffortIdFrom", workEffortIdFrom,"sequenceNum",sequenceNum)
+                    .where("workEffortIdFrom", workEffortIdFrom,"sequenceNum", sequenceNum)
                     .orderBy("fromDate")
                     .queryList();
         } catch (GenericEntityException e) {
@@ -257,7 +257,7 @@ public class TechDataServices {
             }
         }
         result.put("capacity", capacity);
-        result.put("startTime",startTime);
+        result.put("startTime", startTime);
         result.put("moveDay", moveDay);
         return result;
     }
@@ -411,7 +411,7 @@ public class TechDataServices {
             }
         }
         result.put("capacity", capacity);
-        result.put("startTime",startTime);
+        result.put("startTime", startTime);
         result.put("moveDay", moveDay);
         return result;
     }

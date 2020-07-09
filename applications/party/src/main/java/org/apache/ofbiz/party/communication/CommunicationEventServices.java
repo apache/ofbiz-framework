@@ -1410,7 +1410,7 @@ public class CommunicationEventServices {
      * Service to process incoming email and look for a bounce message. If the email is indeed a bounce message
      * the CommunicationEvent will be updated with the proper COM_BOUNCED status.
      */
-    public static Map<String,Object> processBouncedMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> processBouncedMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logInfo("Running process bounced message check...", MODULE);
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
 
@@ -1542,7 +1542,7 @@ public class CommunicationEventServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String,Object> logIncomingMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> logIncomingMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
         Debug.logInfo("Message recevied         : " + wrapper.getSubject(), MODULE);
         Debug.logInfo("-- Content Type          : " + wrapper.getContentType(), MODULE);

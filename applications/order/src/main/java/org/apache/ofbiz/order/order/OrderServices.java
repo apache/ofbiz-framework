@@ -212,7 +212,7 @@ public class OrderServices {
                 productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                        "OrderErrorCouldNotFindProductStoreWithID",UtilMisc.toMap("productStoreId", productStoreId), locale)  + e.toString());
+                        "OrderErrorCouldNotFindProductStoreWithID", UtilMisc.toMap("productStoreId", productStoreId), locale)  + e.toString());
             }
         }
 
@@ -396,7 +396,7 @@ public class OrderServices {
                             Debug.logError(excMsg, MODULE);
                             errorMessages.add(excMsg);
                             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                                    "OrderCouldNotFindRelatedFixedAssetForTheProduct",UtilMisc.toMap("productId", orderItem.getString("productId")), locale));
+                                    "OrderCouldNotFindRelatedFixedAssetForTheProduct", UtilMisc.toMap("productId", orderItem.getString("productId")), locale));
                         }
 
                         if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
@@ -675,27 +675,27 @@ public class OrderServices {
                 GenericValue workOrderItemFulfillment = delegator.makeValue("WorkOrderItemFulfillment");
                 // find fixed asset supplied on the workeffort map
                 GenericValue fixedAsset = null;
-                Debug.logInfo("find the fixedAsset",MODULE);
+                Debug.logInfo("find the fixedAsset", MODULE);
                 try {
                     fixedAsset = EntityQuery.use(delegator).from("FixedAsset").where("fixedAssetId", workEffort.get("fixedAssetId")).queryOne();
                 }
                 catch (GenericEntityException e) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "OrderFixedAssetNotFoundFixedAssetId",
-                            UtilMisc.toMap("fixedAssetId",workEffort.get("fixedAssetId")), locale));
+                            UtilMisc.toMap("fixedAssetId", workEffort.get("fixedAssetId")), locale));
                 }
                 if (fixedAsset == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "OrderFixedAssetNotFoundFixedAssetId",
-                            UtilMisc.toMap("fixedAssetId",workEffort.get("fixedAssetId")), locale));
+                            UtilMisc.toMap("fixedAssetId", workEffort.get("fixedAssetId")), locale));
                 }
                 // see if this fixed asset has a calendar, when no create one and attach to fixed asset
-                Debug.logInfo("find the techdatacalendar",MODULE);
+                Debug.logInfo("find the techdatacalendar", MODULE);
                 GenericValue techDataCalendar = null;
                 try { techDataCalendar = fixedAsset.getRelatedOne("TechDataCalendar", false);
                 }
                 catch (GenericEntityException e) {
-                    Debug.logInfo("TechData calendar does not exist yet so create for fixedAsset: " + fixedAsset.get("fixedAssetId") ,MODULE);
+                    Debug.logInfo("TechData calendar does not exist yet so create for fixedAsset: " + fixedAsset.get("fixedAssetId") , MODULE);
                 }
                 if (techDataCalendar == null) {
                     for (GenericValue currentValue : tempList) {
@@ -713,11 +713,11 @@ public class OrderServices {
                 }
                 if (techDataCalendar == null) {
                     techDataCalendar = delegator.makeValue("TechDataCalendar");
-                    Debug.logInfo("create techdata calendar because it does not exist",MODULE);
+                    Debug.logInfo("create techdata calendar because it does not exist", MODULE);
                     String calendarId = delegator.getNextSeqId("TechDataCalendar");
                     techDataCalendar.set("calendarId", calendarId);
                     tempList.add(techDataCalendar);
-                    Debug.logInfo("update fixed Asset",MODULE);
+                    Debug.logInfo("update fixed Asset", MODULE);
                     fixedAsset.set("calendarId", calendarId);
                     tempList.add(fixedAsset);
                 }
@@ -1534,7 +1534,7 @@ public class OrderServices {
                     if (resetResult != null && ServiceUtil.isError(resetResult)) {
                         Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
                                 "OrderErrorCannotResetOrderTotals",
-                                UtilMisc.toMap("orderId", orderId,"resetResult",ServiceUtil.getErrorMessage(resetResult)), locale), MODULE);
+                                UtilMisc.toMap("orderId", orderId,"resetResult", ServiceUtil.getErrorMessage(resetResult)), locale), MODULE);
                     } else {
                         Debug.logInfo("No orders found for reset processing", MODULE);
                     }
@@ -1898,7 +1898,7 @@ public class OrderServices {
         if (orderHeader == null) {
             Debug.logError("OrderHeader came back as null", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "OrderCannotUpdateNullOrderHeader",UtilMisc.toMap("orderId", orderId), locale));
+                    "OrderCannotUpdateNullOrderHeader", UtilMisc.toMap("orderId", orderId), locale));
         }
 
         // get the order items
@@ -2224,7 +2224,7 @@ public class OrderServices {
                     }
                 } else {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                            "OrderInvalidCancelQuantityCannotCancel", UtilMisc.toMap("thisCancelQty",thisCancelQty), locale));
+                            "OrderInvalidCancelQuantityCannotCancel", UtilMisc.toMap("thisCancelQty", thisCancelQty), locale));
                 }
             }
         } else {
@@ -2299,7 +2299,7 @@ public class OrderServices {
 
                     if (statusChange == null) {
                         Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
-                                "OrderItemStatusNotChangedIsNotAValidChange", UtilMisc.toMap("orderStatusId", orderItem.getString("statusId"),"statusId",statusId), locale), MODULE);
+                                "OrderItemStatusNotChangedIsNotAValidChange", UtilMisc.toMap("orderStatusId", orderItem.getString("statusId"),"statusId", statusId), locale), MODULE);
                         continue;
                     }
                 } catch (GenericEntityException e) {
@@ -2378,7 +2378,7 @@ public class OrderServices {
 
             if (orderHeader.getString("statusId").equals(statusId)) {
                 Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
-                        "OrderTriedToSetOrderStatusWithTheSameStatusIdforOrderWithId", UtilMisc.toMap("statusId",statusId,"orderId", orderId), locale),MODULE);
+                        "OrderTriedToSetOrderStatusWithTheSameStatusIdforOrderWithId", UtilMisc.toMap("statusId", statusId,"orderId", orderId), locale), MODULE);
                 return successResult;
             }
             try {
@@ -2689,7 +2689,7 @@ public class OrderServices {
         bodyParameters.put("note", note);
         bodyParameters.put("shipGroupSeqId", shipGroupSeqId);
         sendMap.put("bodyParameters", bodyParameters);
-        sendMap.put("userLogin",userLogin);
+        sendMap.put("userLogin", userLogin);
 
         String subjectString = productStoreEmail.getString("subject");
         sendMap.put("subject", subjectString);
@@ -3369,7 +3369,7 @@ public class OrderServices {
                         try {
                             content = productContentItem.getRelatedOne("Content", false);
                         } catch (GenericEntityException e) {
-                            Debug.logError(e,"ERROR: Cannot get Content entity: " + e.getMessage(),MODULE);
+                            Debug.logError(e,"ERROR: Cannot get Content entity: " + e.getMessage(), MODULE);
                             continue;
                         }
 
@@ -3382,7 +3382,7 @@ public class OrderServices {
                                 try {
                                     custMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", content.get("customMethodId")).cache().queryOne();
                                 } catch (GenericEntityException e) {
-                                    Debug.logError(e,"ERROR: Cannot get CustomMethod associate to Content entity: " + e.getMessage(),MODULE);
+                                    Debug.logError(e,"ERROR: Cannot get CustomMethod associate to Content entity: " + e.getMessage(), MODULE);
                                     continue;
                                 }
                             }
@@ -6191,7 +6191,7 @@ public class OrderServices {
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String shippingInstructions = (String) context.get("shippingInstructions");
         try {
-            GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId,"shipGroupSeqId",shipGroupSeqId).queryFirst();
+            GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId,"shipGroupSeqId", shipGroupSeqId).queryFirst();
             orderItemShipGroup.set("shippingInstructions", shippingInstructions);
             orderItemShipGroup.store();
         } catch (GenericEntityException e) {
@@ -6206,7 +6206,7 @@ public class OrderServices {
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String giftMessage = (String) context.get("giftMessage");
         try {
-            GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId,"shipGroupSeqId",shipGroupSeqId).queryFirst();
+            GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId,"shipGroupSeqId", shipGroupSeqId).queryFirst();
             orderItemShipGroup.set("giftMessage", giftMessage);
             orderItemShipGroup.set("isGift", "Y");
             orderItemShipGroup.store();

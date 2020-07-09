@@ -128,14 +128,14 @@ public class ProductionRun {
             if (updateCompletionDate) {
                 this.estimatedCompletionDate = recalculateEstimatedCompletionDate();
             }
-            productionRun.set("estimatedStartDate",this.estimatedStartDate);
-            productionRun.set("estimatedCompletionDate",this.estimatedCompletionDate);
-            productionRun.set("workEffortName",this.productionRunName);
-            productionRun.set("description",this.description);
+            productionRun.set("estimatedStartDate", this.estimatedStartDate);
+            productionRun.set("estimatedCompletionDate", this.estimatedCompletionDate);
+            productionRun.set("workEffortName", this.productionRunName);
+            productionRun.set("description", this.description);
             try {
                 if (quantityIsUpdated) {
                     productionRun.set("quantityToProduce", this.quantity);
-                    productionRunProduct.set("estimatedQuantity",this.quantity.doubleValue());
+                    productionRunProduct.set("estimatedQuantity", this.quantity.doubleValue());
                     productionRunProduct.store();
                     quantityIsUpdated = false;
                 }
@@ -353,7 +353,7 @@ public class ProductionRun {
         if (exist()) {
             if (productionRunRoutingTasks == null) {
                 try {
-                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),UtilMisc.toList("priority"), false);
+                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
                 }
@@ -371,7 +371,7 @@ public class ProductionRun {
         if (exist()) {
             if (productionRunRoutingTasks == null) {
                 try {
-                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),UtilMisc.toList("priority"), false);
+                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
                 }

@@ -521,7 +521,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
-        Debug.logInfo("processAuthTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processAuthTransResult: " + results.toString(), MODULE);
     }
 
     private static void processAuthCaptureTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -545,7 +545,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
-        Debug.logInfo("processAuthCaptureTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processAuthCaptureTransResult: " + results.toString(), MODULE);
     }
 
     private static void processCaptureTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -561,7 +561,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("captureAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processCaptureTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processCaptureTransResult: " + results.toString(), MODULE);
     }
 
     private static void processRefundTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -577,7 +577,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("refundAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processRefundTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processRefundTransResult: " + results.toString(), MODULE);
     }
 
     private static void processReleaseTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -593,7 +593,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("releaseAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processReleaseTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processReleaseTransResult: " + results.toString(), MODULE);
     }
 
     private static void printTransResult(ResponseIF response) {
@@ -611,7 +611,7 @@ public class OrbitalPaymentServices {
         generatedResponse.put("AVSCode",  response.getAVSResponseCode());
         generatedResponse.put("CVV2ResponseCode", response.getCVV2RespCode());
 
-        Debug.logInfo("printTransResult === " + generatedResponse.toString(),MODULE);
+        Debug.logInfo("printTransResult === " + generatedResponse.toString(), MODULE);
     }
 
     private static String formatExpDateForOrbital(String expDate) {

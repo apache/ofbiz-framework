@@ -247,7 +247,7 @@ public class TaxAuthorityServices {
         List<List<GenericValue>> itemAdjustments = new LinkedList<>();
 
         BigDecimal totalPrice = ZERO_BASE;
-        Map<GenericValue,BigDecimal> productWeight = new HashMap<>();
+        Map<GenericValue, BigDecimal> productWeight = new HashMap<>();
         // Loop through the products; get the taxCategory; and lookup each in the cache.
         for (int i = 0; i < itemProductList.size(); i++) {
             GenericValue product = itemProductList.get(i);

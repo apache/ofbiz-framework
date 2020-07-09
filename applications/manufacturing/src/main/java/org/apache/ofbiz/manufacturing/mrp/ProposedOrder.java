@@ -186,7 +186,7 @@ public class ProposedOrder {
                         }
                         startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask), endDate, totalTime);
                         // record the routingTask with the startDate associated
-                        result.put(routingTask.getString("workEffortId"),startDate);
+                        result.put(routingTask.getString("workEffortId"), startDate);
                         endDate = startDate;
                     }
                 }

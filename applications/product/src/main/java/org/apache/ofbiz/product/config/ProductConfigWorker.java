@@ -241,9 +241,9 @@ public final class ProductConfigWorker {
             for (GenericValue productConfigConfig: configsToCheck) {
                 String tempConfigId = productConfigConfig.getString("configId");
                 try {
-                    List<GenericValue> tempResult = EntityQuery.use(delegator).from("ProductConfigConfig").where("configId",tempConfigId).queryList();
+                    List<GenericValue> tempResult = EntityQuery.use(delegator).from("ProductConfigConfig").where("configId", tempConfigId).queryList();
                     if (tempResult.size() == selectedOptionSize && configsToCheck.containsAll(tempResult)) {
-                        List<GenericValue> configOptionProductOptions = EntityQuery.use(delegator).from("ConfigOptionProductOption").where("configId",tempConfigId).queryList();
+                        List<GenericValue> configOptionProductOptions = EntityQuery.use(delegator).from("ConfigOptionProductOption").where("configId", tempConfigId).queryList();
                         if (UtilValidate.isNotEmpty(configOptionProductOptions)) {
 
                             //  check for variant product equality

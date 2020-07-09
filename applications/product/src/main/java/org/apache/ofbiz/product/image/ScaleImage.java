@@ -202,11 +202,11 @@ public class ScaleImage {
                                     }
                                 }
                             } catch (SecurityException e) {
-                                Debug.logError(e,MODULE);
+                                Debug.logError(e, MODULE);
                             }
                         }
                     } catch (NullPointerException e) {
-                        Debug.logError(e,MODULE);
+                        Debug.logError(e, MODULE);
                     }
 
                     // write new image

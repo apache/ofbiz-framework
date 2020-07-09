@@ -989,7 +989,7 @@ public class ContactMechServices {
                     try {
                         delegator.create(emailAddressVerification);
                     } catch (GenericEntityException e) {
-                        Debug.logError(e.getMessage(),MODULE);
+                        Debug.logError(e.getMessage(), MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
                     break;

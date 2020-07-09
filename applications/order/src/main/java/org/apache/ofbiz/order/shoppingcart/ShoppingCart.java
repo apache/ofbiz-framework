@@ -511,7 +511,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes, String prodCatalogId,
             ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
 
-       return addOrIncreaseItem(productId,selectedAmount, quantity, reservStart, reservLength, reservPersons, null, null,shipBeforeDate,shipAfterDate, features, attributes, prodCatalogId,
+       return addOrIncreaseItem(productId, selectedAmount, quantity, reservStart, reservLength, reservPersons, null, null, shipBeforeDate, shipAfterDate, features, attributes, prodCatalogId,
                 configWrapper, itemType, itemGroupNumber, parentProductId, dispatcher);
     }
 
@@ -525,7 +525,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** add rental (with accommodation) item to cart and order item attributes*/
     // TODO change method signature, this one is really scary, above are not bad too :/ !
     public int addOrIncreaseItem(String productId, BigDecimal selectedAmount, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
-               String accommodationMapId, String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String,Object> attributes,
+               String accommodationMapId, String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes,
                Map<String, String> orderItemAttributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber,
                String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
         return addOrIncreaseItem(productId, selectedAmount, quantity, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, null, features, attributes, orderItemAttributes, prodCatalogId, configWrapper, itemType, itemGroupNumber, parentProductId, dispatcher);
@@ -534,7 +534,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** add rental (with accommodation) item to cart and order item attributes*/
     // TODO change method signature, this one is really scary, above are not bad too :/ !
     public int addOrIncreaseItem(String productId, BigDecimal selectedAmount, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
-               String accommodationMapId, String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, Timestamp reserveAfterDate, Map<String, GenericValue> features, Map<String,Object> attributes,
+               String accommodationMapId, String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, Timestamp reserveAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes,
                Map<String, String> orderItemAttributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber,
                String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
         if (isReadOnlyCart()) {
@@ -552,10 +552,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             ShoppingCartItem sci = cartLines.get(i);
 
 
-            if (sci.equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, features, attributes, orderItemAttributes, prodCatalogId,selectedAmount, configWrapper, itemType, itemGroup, false)) {
+            if (sci.equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, features, attributes, orderItemAttributes, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, false)) {
                 BigDecimal newQuantity = sci.getQuantity().add(quantity);
                 try {
-                    BigDecimal minQuantity = getMinimumOrderQuantity(getDelegator(),sci.getBasePrice(), productId);
+                    BigDecimal minQuantity = getMinimumOrderQuantity(getDelegator(), sci.getBasePrice(), productId);
                     if (newQuantity.compareTo(minQuantity) < 0) {
                         newQuantity = minQuantity;
                     }
@@ -694,7 +694,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Add an accommodation(rental/aggregated)item to the shopping cart. */
-    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersonsDbl,String accommodationMapId, String accommodationSpotId, HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersonsDbl, String accommodationMapId, String accommodationSpotId, HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
         return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersonsDbl, accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
     }
 
@@ -2932,7 +2932,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return addOrderTerm(orderTerm);
     }
 
-    public int addOrderTerm(String termTypeId, String orderItemSeqId,BigDecimal termValue, Long termDays, String textValue, String description) {
+    public int addOrderTerm(String termTypeId, String orderItemSeqId, BigDecimal termValue, Long termDays, String textValue, String description) {
         GenericValue orderTerm = this.getDelegator().makeValue("OrderTerm");
         orderTerm.put("termTypeId", termTypeId);
         if (UtilValidate.isEmpty(orderItemSeqId)) {
@@ -3247,7 +3247,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return new HashMap<>(this.desiredAlternateGiftByAction);
     }
 
-    public void addProductPromoUse(String productPromoId, String productPromoCodeId, BigDecimal totalDiscountAmount, BigDecimal quantityLeftInActions, Map<ShoppingCartItem,BigDecimal> usageInfoMap) {
+    public void addProductPromoUse(String productPromoId, String productPromoCodeId, BigDecimal totalDiscountAmount, BigDecimal quantityLeftInActions, Map<ShoppingCartItem, BigDecimal> usageInfoMap) {
         if (UtilValidate.isNotEmpty(productPromoCodeId) && !this.productPromoCodes.contains(productPromoCodeId)) {
             throw new IllegalStateException("Cannot add a use to a promo code use for a code that has not been entered.");
         }
@@ -4508,9 +4508,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public String productPromoCodeId = null;
         public BigDecimal totalDiscountAmount = BigDecimal.ZERO;
         public BigDecimal quantityLeftInActions = BigDecimal.ZERO;
-        private Map<ShoppingCartItem,BigDecimal> usageInfoMap = null;
+        private Map<ShoppingCartItem, BigDecimal> usageInfoMap = null;
 
-        public ProductPromoUseInfo(String productPromoId, String productPromoCodeId, BigDecimal totalDiscountAmount, BigDecimal quantityLeftInActions, Map<ShoppingCartItem,BigDecimal> usageInfoMap) {
+        public ProductPromoUseInfo(String productPromoId, String productPromoCodeId, BigDecimal totalDiscountAmount, BigDecimal quantityLeftInActions, Map<ShoppingCartItem, BigDecimal> usageInfoMap) {
             this.productPromoId = productPromoId;
             this.productPromoCodeId = productPromoCodeId;
             this.totalDiscountAmount = totalDiscountAmount;
@@ -4522,7 +4522,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public String getProductPromoCodeId() { return this.productPromoCodeId; }
         public BigDecimal getTotalDiscountAmount() { return this.totalDiscountAmount; }
         public BigDecimal getQuantityLeftInActions() { return this.quantityLeftInActions; }
-        public Map<ShoppingCartItem,BigDecimal> getUsageInfoMap() { return this.usageInfoMap; }
+        public Map<ShoppingCartItem, BigDecimal> getUsageInfoMap() { return this.usageInfoMap; }
         public BigDecimal getUsageWeight() {
             Iterator<Entry<ShoppingCartItem, BigDecimal>> lineItems = this.usageInfoMap.entrySet().iterator();
             BigDecimal totalAmount = BigDecimal.ZERO;

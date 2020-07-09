@@ -2895,8 +2895,8 @@ public class UpsServices {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
                         UtilMisc.toMap("errorString", e2.toString()), locale));
             }
-            Map<String,Object> upsResponse = handleUpsAlternateRatesInquireResponse(rateResponseDocument, locale);
-            Map<String,BigDecimal> upsRateCodeMap = UtilGenerics.cast(upsResponse.get("upsRateCodeMap"));
+            Map<String, Object> upsResponse = handleUpsAlternateRatesInquireResponse(rateResponseDocument, locale);
+            Map<String, BigDecimal> upsRateCodeMap = UtilGenerics.cast(upsResponse.get("upsRateCodeMap"));
             GenericValue carrierShipmentMethod = null;
             // Filtering out rates of shipping methods which are not configured in ProductStoreShipmentMeth entity.
             try {

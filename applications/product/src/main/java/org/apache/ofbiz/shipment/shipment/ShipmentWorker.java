@@ -199,7 +199,7 @@ public final class ShipmentWorker {
                 if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && UtilValidate.isNotEmpty(result.get("convertedValue"))) {
                     productWeight = (BigDecimal) result.get("convertedValue");
                 } else {
-                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",MODULE);
+                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb", MODULE);
                 }
             }
 

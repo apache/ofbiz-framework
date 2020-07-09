@@ -1026,7 +1026,7 @@ public class ProductServices {
 
                         }
                     } catch (SecurityException e) {
-                        Debug.logError(e,MODULE);
+                        Debug.logError(e, MODULE);
                     }
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id})
                 } else {
@@ -1040,11 +1040,11 @@ public class ProductServices {
                             }
                         }
                     } catch (SecurityException e) {
-                        Debug.logError(e,MODULE);
+                        Debug.logError(e, MODULE);
                     }
                 }
             } catch (NullPointerException e) {
-                Debug.logError(e,MODULE);
+                Debug.logError(e, MODULE);
             }
             // Write
             try {
@@ -1063,7 +1063,7 @@ public class ProductServices {
                             "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } catch (NullPointerException e) {
-                Debug.logError(e,MODULE);
+                Debug.logError(e, MODULE);
             }
 
             /* scale Image in different sizes */
@@ -1090,7 +1090,7 @@ public class ProductServices {
 
             /* now store the image versions created by ScaleImage.scaleImageInAllSize */
             /* have to shrink length of productContentTypeId, as otherwise value is too long for database field */
-            Map<String,String> imageUrlMap = UtilGenerics.cast(resultResize.get("imageUrlMap"));
+            Map<String, String> imageUrlMap = UtilGenerics.cast(resultResize.get("imageUrlMap"));
             for ( String sizeType : ScaleImage.sizeTypeList ) {
                 imageUrl = imageUrlMap.get(sizeType);
                 if ( UtilValidate.isNotEmpty(imageUrl)) {
@@ -1108,7 +1108,7 @@ public class ProductServices {
                             }
                         }
                     } catch(GenericEntityException e) {
-                        Debug.logError(e,MODULE);
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
                 }
@@ -1117,7 +1117,7 @@ public class ProductServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static Map<String,Object> addImageResource( LocalDispatcher dispatcher, Delegator delegator, Map<String, ? extends Object> context,
+    private static Map<String, Object> addImageResource( LocalDispatcher dispatcher, Delegator delegator, Map<String, ? extends Object> context,
             String imageUrl, String productContentTypeId ) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");

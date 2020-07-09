@@ -93,7 +93,7 @@ public class ZipSalesServices {
         // locate the file to be imported
         URL tUrl = UtilURL.fromResource(taxFileLocation);
         if (tUrl == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToLocateTaxFileAtLocation", UtilMisc.toMap("taxFileLocation",taxFileLocation), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToLocateTaxFileAtLocation", UtilMisc.toMap("taxFileLocation", taxFileLocation), locale));
         }
 
         RecordIterator tri = null;

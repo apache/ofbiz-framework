@@ -2659,7 +2659,7 @@ public class PaymentGatewayServices {
         EntityQuery eq = EntityQuery.use(delegator)
                 .from("OrderPaymentPreference")
                 .where(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
-                        EntityCondition.makeCondition("processAttempt",EntityOperator.GREATER_THAN, 0L))
+                        EntityCondition.makeCondition("processAttempt", EntityOperator.GREATER_THAN, 0L))
                 .orderBy("orderId");
 
         try (EntityListIterator eli = eq.queryIterator()) {

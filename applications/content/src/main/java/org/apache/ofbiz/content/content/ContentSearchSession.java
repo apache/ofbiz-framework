@@ -204,7 +204,7 @@ public class ContentSearchSession {
             if (UtilValidate.isNotEmpty(parameters.get("thruDate"))) {
                 thruDate = Timestamp.valueOf((String) parameters.get("thruDate"));
             }
-            searchAddConstraint(new ContentSearch.LastUpdatedRangeConstraint(fromDate,thruDate), session);
+            searchAddConstraint(new ContentSearch.LastUpdatedRangeConstraint(fromDate, thruDate), session);
             constraintsChanged = true;
         }
 

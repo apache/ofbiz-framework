@@ -159,7 +159,7 @@ public class ProductionRunServices {
                 Debug.logError(e, "Problem accessing WorkEffortGoodStandard entity", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusNotChanged", locale));
             }
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCannotBeCancelled", locale));
@@ -274,7 +274,7 @@ public class ProductionRunServices {
         serviceContext.put("workEffortName", workEffortName);
         serviceContext.put("description", description);
         serviceContext.put("facilityId", facilityId);
-        serviceContext.put("estimatedStartDate",startDate);
+        serviceContext.put("estimatedStartDate", startDate);
         serviceContext.put("quantityToProduce", pRQuantity);
         serviceContext.put("userLogin", userLogin);
         try {
@@ -322,7 +322,7 @@ public class ProductionRunServices {
                 }
                 // Calculate the estimatedCompletionDate
                 long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, pRQuantity, dispatcher);
-                Timestamp endDate = TechDataServices.addForward(TechDataServices.getTechDataCalendar(routingTask),startDate, totalTime);
+                Timestamp endDate = TechDataServices.addForward(TechDataServices.getTechDataCalendar(routingTask), startDate, totalTime);
 
                 serviceContext.clear();
                 serviceContext.put("priority", routingTaskAssoc.get("sequenceNum"));
@@ -335,7 +335,7 @@ public class ProductionRunServices {
                 serviceContext.put("workEffortParentId", productionRunId);
                 serviceContext.put("facilityId", facilityId);
                 serviceContext.put("reservPersons", routingTask.get("reservPersons"));
-                serviceContext.put("estimatedStartDate",startDate);
+                serviceContext.put("estimatedStartDate", startDate);
                 serviceContext.put("estimatedCompletionDate", endDate);
                 serviceContext.put("estimatedSetupMillis", routingTask.get("estimatedSetupMillis"));
                 serviceContext.put("estimatedMilliSeconds", routingTask.get("estimatedMilliSeconds"));
@@ -417,7 +417,7 @@ public class ProductionRunServices {
         // update the estimatedCompletionDate field for the productionRun
         serviceContext.clear();
         serviceContext.put("workEffortId", productionRunId);
-        serviceContext.put("estimatedCompletionDate",startDate);
+        serviceContext.put("estimatedCompletionDate", startDate);
         serviceContext.put("userLogin", userLogin);
         serviceResult = null;
         try {
@@ -430,7 +430,7 @@ public class ProductionRunServices {
         }
         result.put("productionRunId", productionRunId);
         result.put("estimatedCompletionDate", startDate);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated",UtilMisc.toMap("productionRunId", productionRunId), locale));
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated", UtilMisc.toMap("productionRunId", productionRunId), locale));
         return result;
     }
 
@@ -580,14 +580,14 @@ public class ProductionRunServices {
                     }
                     return ServiceUtil.returnSuccess();
                 } else {
-                    Debug.logError("productionRun.store() fail for productionRunId ="+productionRunId,MODULE);
+                    Debug.logError("productionRun.store() fail for productionRunId ="+productionRunId, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunNotUpdated", locale));
                 }
             }
-            Debug.logError("no productionRun for productionRunId ="+productionRunId,MODULE);
+            Debug.logError("no productionRun for productionRunId ="+productionRunId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunNotUpdated", locale));
         }
-        Debug.logError("service updateProductionRun call with productionRunId empty",MODULE);
+        Debug.logError("service updateProductionRun call with productionRunId empty", MODULE);
         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunNotUpdated", locale));
     }
 
@@ -609,7 +609,7 @@ public class ProductionRunServices {
 
         if (currentStatusId.equals(statusId)) {
             result.put("newStatusId", currentStatusId);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", currentStatusId), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", currentStatusId), locale));
             return result;
         }
 
@@ -647,7 +647,7 @@ public class ProductionRunServices {
                 }
             }
             result.put("newStatusId", statusId);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_CLOSED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", "PRUN_CLOSED"), locale));
             return result;
         }
 
@@ -685,7 +685,7 @@ public class ProductionRunServices {
                 }
             }
             result.put("newStatusId", "PRUN_DOC_PRINTED");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
 
@@ -727,7 +727,7 @@ public class ProductionRunServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusNotChanged", locale));
             }
             result.put("newStatusId", "PRUN_RUNNING");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
 
@@ -751,7 +751,7 @@ public class ProductionRunServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusNotChanged", locale));
             }
             result.put("newStatusId", "PRUN_COMPLETED");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
 
@@ -789,11 +789,11 @@ public class ProductionRunServices {
                 }
             }
             result.put("newStatusId", "PRUN_CLOSED");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_CLOSED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", "PRUN_CLOSED"), locale));
             return result;
         }
         result.put("newStatusId", currentStatusId);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", currentStatusId), locale));
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", currentStatusId), locale));
         return result;
     }
 
@@ -844,7 +844,7 @@ public class ProductionRunServices {
         if (statusId != null && currentStatusId.equals(statusId)) {
             result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", currentStatusId);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskStatusChanged",UtilMisc.toMap("newStatusId", currentStatusId), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskStatusChanged", UtilMisc.toMap("newStatusId", currentStatusId), locale));
             return result;
         }
 
@@ -891,7 +891,7 @@ public class ProductionRunServices {
             }
             result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", "PRUN_RUNNING");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
 
@@ -1053,12 +1053,12 @@ public class ProductionRunServices {
 
             result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", "PRUN_COMPLETED");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
         result.put("oldStatusId", oldStatusId);
         result.put("newStatusId", currentStatusId);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskStatusChanged",UtilMisc.toMap("newStatusId", currentStatusId), locale));
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskStatusChanged", UtilMisc.toMap("newStatusId", currentStatusId), locale));
         return result;
     }
 
@@ -1368,14 +1368,14 @@ public class ProductionRunServices {
                 if (productionRun.store()) {
                     return ServiceUtil.returnSuccess();
                 } else {
-                    Debug.logError("productionRun.store() fail for productionRunId ="+productionRunId,MODULE);
+                    Debug.logError("productionRun.store() fail for productionRunId ="+productionRunId, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunNotUpdated", locale));
                 }
             }
-            Debug.logError("no productionRun for productionRunId ="+productionRunId,MODULE);
+            Debug.logError("no productionRun for productionRunId ="+productionRunId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunNotUpdated", locale));
         }
-        Debug.logError("service updateProductionRun call with productionRunId empty",MODULE);
+        Debug.logError("service updateProductionRun call with productionRunId empty", MODULE);
         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunNotUpdated", locale));
     }
 
@@ -1449,7 +1449,7 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunComponentNotAdded", locale));
         }
         result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE,
-                "ManufacturingProductionRunComponentAdded",UtilMisc.toMap("productionRunId", productionRunId), locale));
+                "ManufacturingProductionRunComponentAdded", UtilMisc.toMap("productionRunId", productionRunId), locale));
         return result;
     }
 
@@ -1526,7 +1526,7 @@ public class ProductionRunServices {
             Debug.logError(e, "Problem calling the updateWorkEffortGoodStandard service", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunComponentNotAdded", locale));
         }
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunComponentUpdated",UtilMisc.toMap("productionRunId", productionRunId), locale));
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunComponentUpdated", UtilMisc.toMap("productionRunId", productionRunId), locale));
         return result;
     }
 
@@ -1866,7 +1866,7 @@ public class ProductionRunServices {
                     }
                     serviceContext.put("lotId", lotId);
                     serviceContext.put("locationSeqId", locationSeqId);
-                    serviceContext.put("uomId",uomId);
+                    serviceContext.put("uomId", uomId);
                     serviceContext.put("userLogin", userLogin);
                     Map<String, Object> serviceResult = dispatcher.runSync("createInventoryItem", serviceContext);
                     if (ServiceUtil.isError(serviceResult)) {
@@ -1914,7 +1914,7 @@ public class ProductionRunServices {
                 serviceContext.put("comments", "Created by production run " + productionRunId);
                 serviceContext.put("lotId", lotId);
                 serviceContext.put("locationSeqId", locationSeqId);
-                serviceContext.put("uomId",uomId);
+                serviceContext.put("uomId", uomId);
                 if (unitCost.compareTo(ZERO) != 0) {
                     serviceContext.put("unitCost", unitCost);
                 }
@@ -2149,7 +2149,7 @@ public class ProductionRunServices {
                     serviceContext.put("currencyUomId", currencyUomId);
                 }
                 serviceContext.put("lotId", lotId);
-                serviceContext.put("uomId",uomId);
+                serviceContext.put("uomId", uomId);
                 serviceContext.put("userLogin", userLogin);
                 serviceContext.put("isReturned", isReturned);
                 Map<String, Object> serviceResult = dispatcher.runSync("createInventoryItem", serviceContext);
@@ -2519,7 +2519,7 @@ public class ProductionRunServices {
         String productionRunId = (String)serviceResult.get("productionRunId");
         result.put("productionRunId", productionRunId);
 
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated",UtilMisc.toMap("productionRunId", productionRunId), locale));
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated", UtilMisc.toMap("productionRunId", productionRunId), locale));
         return result;
     }
 
@@ -2691,7 +2691,7 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingRequirementNotDeleted", locale));
         }
 
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated",UtilMisc.toMap("productionRunId", productionRunId), locale));
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated", UtilMisc.toMap("productionRunId", productionRunId), locale));
         return result;
     }
 

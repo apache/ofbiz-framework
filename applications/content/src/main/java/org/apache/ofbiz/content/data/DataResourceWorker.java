@@ -726,7 +726,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 modelTheme = visualTheme.getModelTheme();
                 String docbookStylesheet = modelTheme.getProperty("VT_DOCBOOKSTYLESHEET").toString();
                 File sourceFileLocation = new File(System.getProperty("ofbiz.home") + "/themes" + docbookStylesheet.substring(1, docbookStylesheet.length() - 1));
-                UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
+                UtilMisc.copyFile(sourceFileLocation, targetFileLocation);
                 // get the template data for rendering
                 String templateLocation = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).toString();
                 // render the XSLT template and file

@@ -718,7 +718,7 @@ public class ShipmentServices {
                         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                                 "ProductShipmentPackageNotFound", 
                                 UtilMisc.toMap("shipmentPackageSeqId", packageSeqId, 
-                                "shipmentId",shipmentId), locale));
+                                "shipmentId", shipmentId), locale));
                     }
 
                     pkg.set("weight", pkgInfo.get("packageWeight"));
@@ -1093,7 +1093,7 @@ public class ShipmentServices {
 
         Map<String, Object> bodyParameters = UtilMisc.<String, Object>toMap("partyId", partyId, "shipmentId", shipmentId, "orderId", shipment.getString("primaryOrderId"), "userLogin", userLogin, "locale", locale);
         sendMap.put("bodyParameters", bodyParameters);
-        sendMap.put("userLogin",userLogin);
+        sendMap.put("userLogin", userLogin);
 
         sendMap.put("subject", productStoreEmail.getString("subject"));
         sendMap.put("contentType", productStoreEmail.get("contentType"));
