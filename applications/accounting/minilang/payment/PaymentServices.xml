@@ -228,23 +228,6 @@ under the License.
         </if-compare-field>
     </simple-method>
 
-    <simple-method method-name="createPaymentAndApplication" short-description="Create a payment and a payment application for the full amount">
-        <set-service-fields service-name="createPayment" map="parameters" to-map="createPaymentInMap"/>
-        <call-service service-name="createPayment" in-map-name="createPaymentInMap">
-            <result-to-field result-name="paymentId" field="paymentId"/>
-        </call-service>
-        <check-errors/>
-        <set-service-fields service-name="createPaymentApplication" map="parameters" to-map="createPaymentAppInMap"/>
-        <set field="createPaymentAppInMap.paymentId" from-field="paymentId"/>
-        <set field="createPaymentAppInMap.amountApplied" from-field="parameters.amount"/>
-        <call-service service-name="createPaymentApplication" in-map-name="createPaymentAppInMap">
-            <result-to-field result-name="paymentApplicationId" field="paymentApplicationId"/>
-        </call-service>
-        <check-errors/>
-        <field-to-result field="paymentId" result-name="paymentId"/>
-        <field-to-result field="paymentApplicationId" result-name="paymentApplicationId"/>
-    </simple-method>
-
     <simple-method method-name="getInvoicePaymentInfoListByDueDateOffset" short-description="Select a list with information on payment due dates and amounts for invoices.">
         <now-timestamp field="nowTimestamp"/>
         <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field="asOfDate">
@@ -431,23 +414,6 @@ under the License.
         </if-compare>
     </simple-method>
 
-    <simple-method method-name="getPaymentGroupReconciliationId" short-description="Get ReconciliationId associated to paymentGroup">
-        <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
-        <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
-            <field-map field-name="paymentGroupId"/>
-        </entity-and>
-        <if-not-empty field="paymentGroupMembers">
-            <first-from-list list="paymentGroupMembers" entry="paymentGroupMember"/>
-            <get-related-one relation-name="Payment" value-field="paymentGroupMember" to-value-field="payment"/>
-            <get-related-one relation-name="FinAccountTrans" value-field="payment" to-value-field="finAccountTrans"/>
-            <if-not-empty field="finAccountTrans">
-                <if-not-empty field="finAccountTrans.glReconciliationId">
-                    <set field="glReconciliationId" from-field="finAccountTrans.glReconciliationId"/>
-                </if-not-empty>
-            </if-not-empty>
-        </if-not-empty>
-        <field-to-result field="glReconciliationId"/>
-    </simple-method>
     <simple-method method-name="checkAndCreateBatchForValidPayments" short-description="Check the valid(unbatched) payment and create batch for same">
         <set field="paymentIds" from-field="parameters.paymentIds"/>
         <entity-condition entity-name="Payment" list="payments">

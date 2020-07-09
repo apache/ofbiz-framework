@@ -320,6 +320,40 @@ def massChangePaymentStatus() {
     return serviceResult
 }
 
+def getPaymentGroupReconciliationId() {
+    paymentGroupMember = from("PaymentGroupMember").where("paymentGroupId", parameters.paymentGroupId).queryFirst()
+    glReconciliationId = null;
+    Map result = success()
+    if (paymentGroupMember) {
+        payment = paymentGroupMember.getRelatedOne('Payment', false)
+        finAccountTrans = payment.getRelatedOne('FinAccountTrans', false)
+        if (finAccountTrans) {
+            glReconciliationId = finAccountTrans.glReconciliationId
+        }
+    }
+    result.glReconciliationId = glReconciliationId
+    return result
+}
+
+def createPaymentAndApplication() {
+    Map result = success()
+    Map createPaymentCtx = dispatcher.getDispatchContext().makeValidContext('createPayment', 'IN', parameters)
+    Map createPaymentResp = dispatcher.runSync('createPayment', createPaymentCtx)
+
+    if (ServiceUtil.isError(createPaymentResp)) return createPaymentResp
+
+    Map createPaymentApplicationCtx = dispatcher.getDispatchContext().makeValidContext('createPaymentApplication', 'IN', parameters)
+    createPaymentApplicationCtx.paymentId = createPaymentResp.paymentId
+    createPaymentApplicationCtx.amountApplied = parameters.amount
+    Map createPaymentApplicationResp = dispatcher.runSync('createPaymentApplication', createPaymentApplicationCtx)
+
+    if (ServiceUtil.isError(createPaymentApplicationResp)) return createPaymentApplicationResp
+
+    result.put("paymentId", createPaymentResp.paymentId)
+    result.put("paymentApplicationId", createPaymentApplicationResp.paymentApplicationId)
+    return result
+
+}
 
 def createFinAccoutnTransFromPayment() {
     serviceResult = success()

@@ -108,8 +108,8 @@ under the License.
         <auto-attributes mode="OUT" include="nonpk" optional="true"/>
     </service>
 
-    <service name="createPaymentAndApplication" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentAndApplication" auth="true">
+    <service name="createPaymentAndApplication" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndApplication" auth="true">
         <description>Create a payment and a payment application for the full amount</description>
         <auto-attributes entity-name="Payment" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Payment" include="pk" mode="INOUT" optional="true"/>
@@ -214,8 +214,8 @@ under the License.
         <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
         <attribute name="payments" type="List" mode="OUT" optional="true"/>
     </service>
-    <service name="getPaymentGroupReconciliationId" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="getPaymentGroupReconciliationId" auth="true">
+    <service name="getPaymentGroupReconciliationId" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getPaymentGroupReconciliationId" auth="true">
         <description>Get ReconciliationId associated to paymentGroup</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="glReconciliationId" type="String" mode="OUT" optional="true"/>
