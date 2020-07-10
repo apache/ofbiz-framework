@@ -49,7 +49,7 @@ public class HumanResEvents {
         String additionParam = request.getParameter("additionParam");
         String hrefString = request.getParameter("hrefString");
         String hrefString2 = request.getParameter("hrefString2");
-        List<Map<String,Object>> categoryList = new ArrayList<>();
+        List<Map<String, Object>> categoryList = new ArrayList<>();
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("delegator", delegator);
         paramMap.put("partyId", partyId);
@@ -105,10 +105,10 @@ public class HumanResEvents {
                     for (GenericValue emlpfillCtx : emlpfillCtxs ) {
                         String memberId = emlpfillCtx.getString("partyId");
                         title = PartyHelper.getPartyName(delegator, memberId, false);
-                        Map<String,Object> josonMap = new HashMap<>();
-                        Map<String,Object> dataMap = new HashMap<>();
-                        Map<String,Object> dataAttrMap = new HashMap<>();
-                        Map<String,Object> attrMap = new HashMap<>();
+                        Map<String, Object> josonMap = new HashMap<>();
+                        Map<String, Object> dataMap = new HashMap<>();
+                        Map<String, Object> dataAttrMap = new HashMap<>();
+                        Map<String, Object> attrMap = new HashMap<>();
                         String hrefStr = hrefString + memberId;
                         if (UtilValidate.isNotEmpty(hrefString2)) {
                             hrefStr = hrefStr + hrefString2;
@@ -119,7 +119,7 @@ public class HumanResEvents {
                         dataAttrMap.put("href", hrefStr);
                         dataMap.put("title", title);
                         dataMap.put("attr", dataAttrMap);
-                        josonMap.put("attr",attrMap);
+                        josonMap.put("attr", attrMap);
                         josonMap.put("data", dataMap);
                         responseList.add(josonMap) ;
                     }
@@ -157,8 +157,8 @@ public class HumanResEvents {
                     Map<String, Object> dataAttrMap = new HashMap<>();
                     Map<String, Object> attrMap = new HashMap<>();
                     catId = childOfCom.getString("partyIdTo");
-                    title = PartyHelper.getPartyName(delegator,catId, false);
-                    josonMap.put("title",title);
+                    title = PartyHelper.getPartyName(delegator, catId, false);
+                    josonMap.put("title", title);
                     //Check child existing
                     List<GenericValue> childOfSubComs = EntityQuery.use(delegator).from("PartyRelationship")
                             .where("partyIdFrom", catId, 
@@ -179,7 +179,7 @@ public class HumanResEvents {
                     dataAttrMap.put("href", hrefStr);
                     dataMap.put("attr", dataAttrMap);
                     dataMap.put("title", title);
-                    josonMap.put("attr",attrMap);
+                    josonMap.put("attr", attrMap);
                     josonMap.put("data", dataMap);
                     resultList.add(josonMap);
                 }  
@@ -231,8 +231,8 @@ public class HumanResEvents {
                     emplDataAttrMap.put("id", emplId);
                     emplDataAttrMap.put("rel", "N");
                     emplMap.put("data", empldataMap);
-                    emplMap.put("attr",emplDataAttrMap);
-                    emplMap.put("title",title);
+                    emplMap.put("attr", emplDataAttrMap);
+                    emplMap.put("title", title);
                     resultList.add(emplMap);
                 }
             }

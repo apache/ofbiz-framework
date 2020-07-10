@@ -97,7 +97,7 @@ public class MultivaluedMapContextAdapter<K, V> implements Map<K, V> {
     @Override
     public Set<Entry<K, V>> entrySet() {
         return adaptee.keySet().stream()
-                .collect(Collectors.toMap(k -> k, k -> get(k)))
+                .collect(Collectors.toMap(k -> k, this::get))
                 .entrySet();
     }
 }

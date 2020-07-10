@@ -182,11 +182,7 @@ public class ValueLinkApi {
         try {
             byte[] encryptedEan = mwkCipher.doFinal(eanBlock);
             encryptedEanHex = StringUtil.toHexString(encryptedEan);
-        } catch (IllegalStateException e) {
-            Debug.logError(e, MODULE);
-        } catch (IllegalBlockSizeException e) {
-            Debug.logError(e, MODULE);
-        } catch (BadPaddingException e) {
+        } catch (IllegalStateException | BadPaddingException | IllegalBlockSizeException e) {
             Debug.logError(e, MODULE);
         }
 
@@ -212,11 +208,7 @@ public class ValueLinkApi {
             byte[] decryptedEan = mwkCipher.doFinal(StringUtil.fromHexString(pin));
             byte[] decryptedPin = getByteRange(decryptedEan, 8, 8);
             decryptedPinString = new String(decryptedPin, StandardCharsets.UTF_8);
-        } catch (IllegalStateException e) {
-            Debug.logError(e, MODULE);
-        } catch (IllegalBlockSizeException e) {
-            Debug.logError(e, MODULE);
-        } catch (BadPaddingException e) {
+        } catch (IllegalStateException | BadPaddingException | IllegalBlockSizeException e) {
             Debug.logError(e, MODULE);
         }
 
@@ -294,11 +286,7 @@ public class ValueLinkApi {
             KeyPair keyPair = null;
             try {
                 keyPair = this.createKeys();
-            } catch (NoSuchAlgorithmException e) {
-                Debug.logError(e, MODULE);
-            } catch (InvalidAlgorithmParameterException e) {
-                Debug.logError(e, MODULE);
-            } catch (InvalidKeySpecException e) {
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidAlgorithmParameterException e) {
                 Debug.logError(e, MODULE);
             }
 
@@ -327,11 +315,7 @@ public class ValueLinkApi {
         byte[] kekBytes = null;
         try {
             kekBytes = this.generateKek(privateKey);
-        } catch (NoSuchAlgorithmException e) {
-            Debug.logError(e, MODULE);
-        } catch (InvalidKeySpecException e) {
-            Debug.logError(e, MODULE);
-        } catch (InvalidKeyException e) {
+        } catch (NoSuchAlgorithmException | InvalidKeyException | InvalidKeySpecException e) {
             Debug.logError(e, MODULE);
         }
 
@@ -589,11 +573,7 @@ public class ValueLinkApi {
         byte[] encryptedZeros = new byte[0];
         try {
             encryptedZeros = cipher.doFinal(zeros);
-        } catch (IllegalStateException e) {
-            Debug.logError(e, MODULE);
-        } catch (IllegalBlockSizeException e) {
-            Debug.logError(e, MODULE);
-        } catch (BadPaddingException e) {
+        } catch (IllegalStateException | BadPaddingException | IllegalBlockSizeException e) {
             Debug.logError(e, MODULE);
         }
 
@@ -779,11 +759,7 @@ public class ValueLinkApi {
         byte[] dec = new byte[0];
         try {
             dec = cipher.doFinal(content);
-        } catch (IllegalStateException e) {
-            Debug.logError(e, MODULE);
-        } catch (IllegalBlockSizeException e) {
-            Debug.logError(e, MODULE);
-        } catch (BadPaddingException e) {
+        } catch (IllegalStateException | BadPaddingException | IllegalBlockSizeException e) {
             Debug.logError(e, MODULE);
         }
         return dec;
@@ -817,8 +793,8 @@ public class ValueLinkApi {
     protected byte[] getPinCheckSum(byte[] pinBytes) {
         byte[] checkSum = new byte[1];
         checkSum[0] = 0;
-        for (int i = 0; i < pinBytes.length; i++) {
-            checkSum[0] += pinBytes[i];
+        for (byte pinByte : pinBytes) {
+            checkSum[0] += pinByte;
         }
         return checkSum;
     }
@@ -996,8 +972,8 @@ public class ValueLinkApi {
 
         // create a List of Maps for each set of values
         List<Map<String, String>> valueMap = new LinkedList<>();
-        for (int i = 0; i < valueList.size(); i++) {
-            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(valueList.get(i), "|")));
+        for (String s : valueList) {
+            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(s, "|")));
         }
 
         if (debug) {

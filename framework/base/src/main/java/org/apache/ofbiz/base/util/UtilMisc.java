@@ -209,7 +209,7 @@ public final class UtilMisc {
         toSort.addAll(listOfMaps);
         try {
             MapComparator mc = new MapComparator(sortKeys);
-            Collections.sort(toSort, mc);
+            toSort.sort(mc);
         } catch (Exception e) {
             Debug.logError(e, "Problems sorting list of maps; returning null.", MODULE);
             return null;
@@ -355,7 +355,7 @@ public final class UtilMisc {
      */
     @SafeVarargs
     public static <T> List<T> toList(T... data) {
-        if(data == null){
+        if (data == null){
             return null;
         }
 
@@ -605,7 +605,7 @@ public final class UtilMisc {
     }
 
     /** List of domains or IP addresses to be checked to prevent Host Header Injection, 
-     * no spaces after commas,no wildcard, can be extended of course... 
+     * no spaces after commas, no wildcard, can be extended of course...
      * @return List of domains or IP addresses to be checked to prevent Host Header Injection,
      */
     public static List<String> getHostHeadersAllowed() {

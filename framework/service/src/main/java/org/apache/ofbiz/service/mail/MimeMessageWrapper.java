@@ -439,10 +439,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 mainIndex = Integer.parseInt(indexSplit[0]);
                 subIndex = Integer.parseInt(indexSplit[1]);
             }
-        } catch (NumberFormatException e) {
-            Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, MODULE);
-            return null;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, MODULE);
             return null;
         }

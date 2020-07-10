@@ -138,9 +138,10 @@ public class ContentServicesComplex {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
-        for (int i=0; i < relatedAssocs.size(); i++) {
-            GenericValue a = relatedAssocs.get(i);
-            if (Debug.verboseOn()) Debug.logVerbose(" contentId:" + a.get("contentId") + " To:" + a.get("caContentIdTo") + " fromDate:" + a.get("caFromDate") + " thruDate:" + a.get("caThruDate") + " AssocTypeId:" + a.get("caContentAssocTypeId"), null);
+        for (GenericValue a : relatedAssocs) {
+            if (Debug.verboseOn())
+                Debug.logVerbose(" contentId:" + a.get("contentId") + " To:" + a.get("caContentIdTo") + " fromDate:" + a.get("caFromDate") +
+                        " thruDate:" + a.get("caThruDate") + " AssocTypeId:" + a.get("caContentAssocTypeId"), null);
         }
         Map<String, Object> results = new HashMap<>();
         results.put("entityList", relatedAssocs);
@@ -185,10 +186,8 @@ public class ContentServicesComplex {
         Map<String, Object> results = null;
         try {
             results = getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, mapKey, direction, fromDate, fromDateStr, assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId, null);
-        } catch (GenericEntityException e) {
+        } catch (GenericEntityException | MiniLangException e) {
             return ServiceUtil.returnError(e.getMessage());
-        } catch (MiniLangException e2) {
-            return ServiceUtil.returnError(e2.getMessage());
         }
         return results;
     }

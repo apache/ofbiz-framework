@@ -100,14 +100,8 @@ public class PartyContentWrapper implements ContentWrapper {
     public List<String> getList(String contentTypeId) {
         try {
             return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher);
-        } catch (GeneralException ge) {
-            Debug.logError(ge, MODULE);
-            return null;
-        } catch (IOException ioe) {
+        } catch (GeneralException | IOException ioe) {
             Debug.logError(ioe, MODULE);
-            return null;
-        } catch (Exception e) {
-            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -124,7 +118,7 @@ public class PartyContentWrapper implements ContentWrapper {
     public static String getPartyContentAsText(GenericValue party, String partyContentId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         String mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", party.getDelegator());
-        return getPartyContentAsText(party, partyContentId, null, UtilHttp.getLocale(request), mimeTypeId, party.getDelegator(), dispatcher, true,encoderType);
+        return getPartyContentAsText(party, partyContentId, null, UtilHttp.getLocale(request), mimeTypeId, party.getDelegator(), dispatcher, true, encoderType);
     }
 
     public static String getPartyContentAsText(GenericValue party, String partyContentId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
@@ -174,11 +168,7 @@ public class PartyContentWrapper implements ContentWrapper {
                 partyContentCache.put(cacheKey, outString);
             }
             return outString;
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering PartyContent, inserting empty String", MODULE);
-            String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering PartyContent, inserting empty String", MODULE);
             String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);

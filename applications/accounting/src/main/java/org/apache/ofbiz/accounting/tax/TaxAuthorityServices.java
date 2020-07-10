@@ -55,13 +55,14 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class TaxAuthorityServices {
 
     private static final String MODULE = TaxAuthorityServices.class.getName();
-    public static final BigDecimal ZERO_BASE = BigDecimal.ZERO;
-    public static final BigDecimal ONE_BASE = BigDecimal.ONE;
-    public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
-    public static final int salestaxFinalDecimals = UtilNumber.getBigDecimalScale("salestax.final.decimals");
-    public static final int salestaxCalcDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    public static final RoundingMode salestaxRounding = UtilNumber.getRoundingMode("salestax.rounding");
     private static final String RESOURCE = "AccountingUiLabels";
+
+    private static final BigDecimal ZERO_BASE = BigDecimal.ZERO;
+    private static final BigDecimal ONE_BASE = BigDecimal.ONE;
+    private static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
+    private static final int TAX_FINAL_SCALE = UtilNumber.getBigDecimalScale("salestax.final.decimals");
+    private static final int TAX_SCALE = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    private static final RoundingMode TAX_ROUNDING = UtilNumber.getRoundingMode("salestax.rounding");
 
     public static Map<String, Object> rateProductTaxCalcForDisplay(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -137,10 +138,10 @@ public class TaxAuthorityServices {
                         taxPercentage = taxPercentage.add(taxAdjustment.getBigDecimal("sourcePercentage"));
                         BigDecimal adjAmount = taxAdjustment.getBigDecimal("amount");
                         taxTotal = taxTotal.add(adjAmount);
-                        priceWithTax = priceWithTax.add(adjAmount.divide(quantity, salestaxCalcDecimals,
-                                salestaxRounding));
+                        priceWithTax = priceWithTax.add(adjAmount.divide(quantity, TAX_SCALE,
+                                TAX_ROUNDING));
                         Debug.logInfo("For productId [" + productId + "] added [" + adjAmount.divide(quantity,
-                                salestaxCalcDecimals, salestaxRounding) + "] of tax to price for geoId ["
+                                TAX_SCALE, TAX_ROUNDING) + "] of tax to price for geoId ["
                                 + taxAdjustment.getString("taxAuthGeoId") + "], new price is [" + priceWithTax + "]",
                                 MODULE);
                     }
@@ -153,8 +154,8 @@ public class TaxAuthorityServices {
         }
 
         // round to 2 decimal places for display/etc
-        taxTotal = taxTotal.setScale(salestaxFinalDecimals, salestaxRounding);
-        priceWithTax = priceWithTax.setScale(salestaxFinalDecimals, salestaxRounding);
+        taxTotal = taxTotal.setScale(TAX_FINAL_SCALE, TAX_ROUNDING);
+        priceWithTax = priceWithTax.setScale(TAX_FINAL_SCALE, TAX_ROUNDING);
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("taxTotal", taxTotal);
@@ -246,7 +247,7 @@ public class TaxAuthorityServices {
         List<List<GenericValue>> itemAdjustments = new LinkedList<>();
 
         BigDecimal totalPrice = ZERO_BASE;
-        Map<GenericValue,BigDecimal> productWeight = new HashMap<>();
+        Map<GenericValue, BigDecimal> productWeight = new HashMap<>();
         // Loop through the products; get the taxCategory; and lookup each in the cache.
         for (int i = 0; i < itemProductList.size(); i++) {
             GenericValue product = itemProductList.get(i);
@@ -265,7 +266,7 @@ public class TaxAuthorityServices {
             itemAdjustments.add(taxList);
             
             //Calculates the TotalPrices for each Product in the Order
-            BigDecimal currentTotalPrice =  productWeight.containsKey(product) ? productWeight.get(product) : BigDecimal.ZERO;
+            BigDecimal currentTotalPrice = productWeight.getOrDefault(product, BigDecimal.ZERO);
             currentTotalPrice = currentTotalPrice.add(itemAmount);
             productWeight.put(product, currentTotalPrice);
         }
@@ -273,7 +274,7 @@ public class TaxAuthorityServices {
         for (GenericValue prod : productWeight.keySet()) {
             BigDecimal value = productWeight.get(prod);
             if (totalPrice.compareTo(BigDecimal.ZERO) > 0) {
-                BigDecimal weight = value.divide(totalPrice, 100, salestaxRounding);
+                BigDecimal weight = value.divide(totalPrice, 100, TAX_ROUNDING);
                 productWeight.put(prod, weight);
             }
         }
@@ -462,8 +463,8 @@ public class TaxAuthorityServices {
                 }
 
                 // taxRate is in percentage, so needs to be divided by 100
-                BigDecimal taxAmount = (taxable.multiply(taxRate)).divide(PERCENT_SCALE, salestaxCalcDecimals,
-                        salestaxRounding);
+                BigDecimal taxAmount = (taxable.multiply(taxRate)).divide(PERCENT_SCALE, TAX_SCALE,
+                        TAX_ROUNDING);
 
                 String taxAuthGeoId = taxAuthorityRateProduct.getString("taxAuthGeoId");
                 String taxAuthPartyId = taxAuthorityRateProduct.getString("taxAuthPartyId");
@@ -594,7 +595,7 @@ public class TaxAuthorityServices {
                     BigDecimal price = productPrice.getBigDecimal("price");
                     BigDecimal baseSubtotal = price.multiply(itemQuantity);
                     BigDecimal baseTaxAmount = (baseSubtotal.multiply(taxRate)).divide(PERCENT_SCALE,
-                            salestaxCalcDecimals, salestaxRounding);
+                            TAX_SCALE, TAX_ROUNDING);
 
                     // tax is not already in price so we want to add it in, but this is a VAT
                     // situation so adjust to make it as accurate as possible

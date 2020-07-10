@@ -386,7 +386,7 @@ public final class FileUtil {
        File inFile = new File(fileName);
        if (inFile.exists()) {
             try (
-           BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile),StandardCharsets.UTF_8));
+           BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile), StandardCharsets.UTF_8));
             ) {
                return containsString(in, searchString);
            }

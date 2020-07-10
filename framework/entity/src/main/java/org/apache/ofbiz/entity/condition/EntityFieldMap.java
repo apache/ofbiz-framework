@@ -50,7 +50,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
      * @param op the operator used to compared each entry in the condition field map.
      * @return a list of condition expression
      */
-    private static <V> List<EntityExpr> makeConditionList(Map<String, V> fieldMap, EntityComparisonOperator<?,V> op) {
+    private static <V> List<EntityExpr> makeConditionList(Map<String, V> fieldMap, EntityComparisonOperator<?, V> op) {
         return (fieldMap == null)
             ? Collections.emptyList()
             : fieldMap.entrySet().stream()

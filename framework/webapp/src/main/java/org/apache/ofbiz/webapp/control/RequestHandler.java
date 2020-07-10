@@ -602,7 +602,7 @@ public class RequestHandler {
                 String link = makeLink(request, response, redirectTarget);
 
                 // add / update csrf token to link when required
-                String tokenValue = CsrfUtil.generateTokenForNonAjax(request,redirectTarget);
+                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, redirectTarget);
                 link = CsrfUtil.addOrUpdateTokenInUrl(link, tokenValue);
 
                 callRedirect(link, response, request, ccfg.getStatusCode());
@@ -933,11 +933,8 @@ public class RequestHandler {
         // add in the attributes as well so everything needed for the rendering context will be in place if/when we get back to this view
         paramMap.putAll(UtilHttp.getAttributeMap(req));
         UtilMisc.makeMapSerializable(paramMap);
-        if (paramMap.containsKey("_LAST_VIEW_NAME_")) { // Used by lookups to keep the real view (request)
-            req.getSession().setAttribute("_LAST_VIEW_NAME_", paramMap.get("_LAST_VIEW_NAME_"));
-        } else {
-            req.getSession().setAttribute("_LAST_VIEW_NAME_", view);
-        }
+        // Used by lookups to keep the real view (request)
+        req.getSession().setAttribute("_LAST_VIEW_NAME_", paramMap.getOrDefault("_LAST_VIEW_NAME_", view));
         req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
 
         if ("SAVED".equals(saveName)) {
@@ -1050,7 +1047,7 @@ public class RequestHandler {
                 (requestResponse.redirectParameterMap.size() == 0 && requestResponse.redirectParameterValueMap.size() == 0)) {
             Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
             String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
-            if(UtilValidate.isEmpty(queryString)) {
+            if (UtilValidate.isEmpty(queryString)) {
                 return queryString;
             }
             return "?" + queryString;

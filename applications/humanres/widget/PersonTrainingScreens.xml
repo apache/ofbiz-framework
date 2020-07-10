@@ -33,6 +33,7 @@
                     <actions>
                         <set field="titleProperty" value="PageTitleCalendarDay"/>
                         <set field="tabButtonItem" value="day"/>
+                        <set field="helpAnchor" value="_training_calendar"/>
                         <script location="component://workeffort/groovyScripts/workeffort/calendar/Days.groovy"/>
                     </actions>
                     <widgets>
@@ -182,8 +183,8 @@
                                     <include-form name="ShowTrainingCalendar" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                                 </container>
                             </fail-widgets>
-                        </section>                
-                    </widgets>            
+                        </section>
+                    </widgets>
                 </section>
             </widgets>
         </section>

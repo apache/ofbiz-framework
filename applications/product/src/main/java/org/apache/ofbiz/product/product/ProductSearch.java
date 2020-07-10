@@ -2245,7 +2245,7 @@ public class ProductSearch {
             if (this == obj) {
                 return true;
             }
-            if(obj == null) {
+            if (obj == null) {
                 return false;
             }
             if (!(obj instanceof GoodIdentificationConstraint)) {
@@ -2277,7 +2277,7 @@ public class ProductSearch {
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
             productSearchContext.dynamicViewEntity.addAlias("PROD", productFieldName, null, null, null, null, null);
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(productFieldName ,EntityOperator.LIKE, keyword + "%"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(productFieldName , EntityOperator.LIKE, keyword + "%"));
             productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.keyword)));
         }
 
@@ -2358,7 +2358,7 @@ public class ProductSearch {
         public void setSortOrder(ProductSearchContext productSearchContext) {
             if (productSearchContext.includedKeywordSearch) {
                 // we have to check this in order to be sure that there is a totalRelevancy to sort by...
-                if(productSearchContext.keywordFixedOrSetAndList.size() > 0 || productSearchContext.andKeywordFixedSet.size() > 0) {
+                if (productSearchContext.keywordFixedOrSetAndList.size() > 0 || productSearchContext.andKeywordFixedSet.size() > 0) {
                     productSearchContext.orderByList.add("-totalRelevancy");
                     productSearchContext.fieldsToSelect.add("totalRelevancy");
                 }

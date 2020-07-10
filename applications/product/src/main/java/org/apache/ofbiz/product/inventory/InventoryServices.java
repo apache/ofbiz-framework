@@ -907,12 +907,12 @@ public class InventoryServices {
         }
         List<GenericValue> productPrices = null;
         try {
-            productPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId",productId).orderBy("-fromDate").cache(true).queryList();
+            productPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId", productId).orderBy("-fromDate").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
         //change this for product price
-        if(productPrices != null) {
+        if (productPrices != null) {
             for (GenericValue onePrice: productPrices) {
                 if ("DEFAULT_PRICE".equals(onePrice.getString("productPriceTypeId"))) { //defaultPrice
                     result.put("defaultPrice", onePrice.getBigDecimal("price"));

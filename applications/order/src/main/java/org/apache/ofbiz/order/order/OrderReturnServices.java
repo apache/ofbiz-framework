@@ -75,9 +75,9 @@ public class OrderReturnServices {
     private static final String RES_PRODUCT = "ProductUiLabels";
 
     //  set some BigDecimal properties
-    public static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
-    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("invoice.rounding");
+    private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
 
     // locate the return item's initial inventory item cost
     public static Map<String, Object> getReturnItemInitialCost(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -199,7 +199,7 @@ public class OrderReturnServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "OrderErrorUnableToGetReturnHeaderForID", UtilMisc.toMap("returnId",returnId), locale));
+                    "OrderErrorUnableToGetReturnHeaderForID", UtilMisc.toMap("returnId", returnId), locale));
         }
 
         // get the return items
@@ -312,7 +312,7 @@ public class OrderReturnServices {
     }
 
     // cancel replacement order if return not received within 30 days and send notification
-    public static Map<String,Object> autoCancelReplacementOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> autoCancelReplacementOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -435,7 +435,7 @@ public class OrderReturnServices {
                     }
                     String returnStatus = returnHeader.getString("statusId");
                     if (!"RETURN_CANCELLED".equals(returnStatus)) {
-                        if(UtilValidate.isNotEmpty(returnItem.getBigDecimal("returnQuantity"))){
+                        if (UtilValidate.isNotEmpty(returnItem.getBigDecimal("returnQuantity"))){
                             returnedQty = returnedQty.add(returnItem.getBigDecimal("returnQuantity"));
                         }
                     }
@@ -889,11 +889,11 @@ public class OrderReturnServices {
                 if (price == null) {
                     price = ZERO;
                 }
-                creditTotal = creditTotal.add(price.multiply(quantity).setScale(decimals, rounding));
+                creditTotal = creditTotal.add(price.multiply(quantity).setScale(DECIMALS, ROUNDING));
             }
 
             // add the adjustments to the total
-            creditTotal = creditTotal.add(adjustments.setScale(decimals, rounding));
+            creditTotal = creditTotal.add(adjustments.setScale(DECIMALS, ROUNDING));
 
             // create finAccountRole and finAccountTrans
             String finAccountTransId = null;
@@ -1285,7 +1285,7 @@ public class OrderReturnServices {
                     // See how much we can refund to the payment method
                     BigDecimal orderPayPrefReceivedTotal = ZERO;
                     if (receivedPaymentTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
-                        orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add(receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
+                        orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add(receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(DECIMALS, ROUNDING);
                     }
 
                     if (receivedPaymentTotalsByBillingAccount != null) {
@@ -1293,7 +1293,7 @@ public class OrderReturnServices {
                     }
                     BigDecimal orderPayPrefRefundedTotal = ZERO;
                     if (refundedTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
-                        orderPayPrefRefundedTotal = orderPayPrefRefundedTotal.add(refundedTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
+                        orderPayPrefRefundedTotal = orderPayPrefRefundedTotal.add(refundedTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(DECIMALS, ROUNDING);
                     }
                     BigDecimal orderPayPrefAvailableTotal = orderPayPrefReceivedTotal.subtract(orderPayPrefRefundedTotal);
 
@@ -1311,7 +1311,7 @@ public class OrderReturnServices {
                 }
 
                 // Keep a decreasing total of the amount remaining to refund
-                BigDecimal amountLeftToRefund = orderTotal.setScale(decimals, rounding);
+                BigDecimal amountLeftToRefund = orderTotal.setScale(DECIMALS, ROUNDING);
 
                 // This can be extended to support additional electronic types
                 List<String> electronicTypes = UtilMisc.<String>toList("CREDIT_CARD", "EFT_ACCOUNT", "FIN_ACCOUNT", "GIFT_CARD");
@@ -1376,7 +1376,7 @@ public class OrderReturnServices {
                                     serviceContext.put("paymentMethodId", orderPaymentPreference.getString("paymentMethodId"));
                                     serviceContext.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId"));
                                     serviceContext.put("statusId", orderPaymentPreference.getString("statusId"));
-                                    serviceContext.put("maxAmount", amountToRefund.setScale(decimals, rounding));
+                                    serviceContext.put("maxAmount", amountToRefund.setScale(DECIMALS, ROUNDING));
                                     String orderPaymentPreferenceNewId = null;
                                     Map<String, Object> result = dispatcher.runSync("createOrderPaymentPreference", serviceContext);
                                     if (ServiceUtil.isError(result)) {
@@ -1388,7 +1388,7 @@ public class OrderReturnServices {
                                     } catch (GenericEntityException e) {
                                         return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderProblemsWithTheRefundSeeLogs", locale));
                                     }
-                                    serviceResult = dispatcher.runSync("refundPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", refundOrderPaymentPreference, "refundAmount", amountToRefund.setScale(decimals, rounding), "userLogin", userLogin));
+                                    serviceResult = dispatcher.runSync("refundPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", refundOrderPaymentPreference, "refundAmount", amountToRefund.setScale(DECIMALS, ROUNDING), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
                                         Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), MODULE);
                                         continue;
@@ -1404,7 +1404,7 @@ public class OrderReturnServices {
                                     // for Billing Account refunds
                                     serviceResult = dispatcher.runSync("refundBillingAccountPayment",
                                             UtilMisc.<String, Object> toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount",
-                                                    amountToRefund.setScale(decimals, rounding), "userLogin", userLogin));
+                                                    amountToRefund.setScale(DECIMALS, ROUNDING), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
                                         Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), MODULE);
                                         continue;
@@ -1446,7 +1446,7 @@ public class OrderReturnServices {
                             } else {
                                 response.put("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
                             }
-                            response.put("responseAmount", amountRefunded.setScale(decimals, rounding));
+                            response.put("responseAmount", amountRefunded.setScale(DECIMALS, ROUNDING));
                             response.put("responseDate", now);
                             response.put("userLogin", userLogin);
                             response.put("paymentId", paymentId);
@@ -1620,7 +1620,7 @@ public class OrderReturnServices {
             if (response == null) {
                  return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderReturnItemResponseNotFound", UtilMisc.toMap("errorMsg", errorMsg,"responseId", responseId), locale));
             }
-            BigDecimal responseAmount = response.getBigDecimal("responseAmount").setScale(decimals, rounding);
+            BigDecimal responseAmount = response.getBigDecimal("responseAmount").setScale(DECIMALS, ROUNDING);
             String paymentId = response.getString("paymentId");
 
             // for each return item in the response, get the list of return item billings and then a list of invoices
@@ -1645,7 +1645,7 @@ public class OrderReturnServices {
                 List<GenericValue> billings = invoice.getRelated("ReturnItemBilling", null, null, false);
                 BigDecimal runningTotal = ZERO;
                 for (GenericValue billing : billings) {
-                    runningTotal = runningTotal.add(billing.getBigDecimal("amount").multiply(billing.getBigDecimal("quantity")).setScale(decimals, rounding));
+                    runningTotal = runningTotal.add(billing.getBigDecimal("amount").multiply(billing.getBigDecimal("quantity")).setScale(DECIMALS, ROUNDING));
                 }
 
                 invoiceTotals.put(invoice.getString("invoiceId"), runningTotal);
@@ -1657,7 +1657,7 @@ public class OrderReturnServices {
                 String invoiceId = invoice.getString("invoiceId");
                 BigDecimal invoiceTotal = invoiceTotals.get(invoiceId);
 
-                BigDecimal amountApplied = responseAmount.multiply(invoiceTotal).divide(grandTotal, decimals, rounding).setScale(decimals, rounding);
+                BigDecimal amountApplied = responseAmount.multiply(invoiceTotal).divide(grandTotal, DECIMALS, ROUNDING).setScale(DECIMALS, ROUNDING);
 
                 if (paymentId != null) {
                     // create a payment application for the invoice
@@ -2296,7 +2296,7 @@ public class OrderReturnServices {
                 try {
                     GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse", false);
                     if ((returnItemResponse != null) && (orderId != null)) {
-                        // TODO should we filter on payment's status (PMNT_SENT,PMNT_RECEIVED)
+                        // TODO should we filter on payment's status (PMNT_SENT, PMNT_RECEIVED)
                         GenericValue payment = returnItemResponse.getRelatedOne("Payment", false);
                         if ((payment != null) && (payment.getBigDecimal("amount") != null) &&
                                 !paymentList.contains(payment.get("paymentId"))) {
@@ -2392,7 +2392,7 @@ public class OrderReturnServices {
                 }
                 if ((returnItemSeqId != null) && !("_NA_".equals(returnItemSeqId))) {
                     returnItem = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId, "returnItemSeqId", returnItemSeqId).queryOne();
-                    Debug.logInfo("returnId:" + returnId + ",returnItemSeqId:" + returnItemSeqId, MODULE);
+                    Debug.logInfo("returnId:" + returnId + ", returnItemSeqId:" + returnItemSeqId, MODULE);
                     orderItem = returnItem.getRelatedOne("OrderItem", false);
                 } else {
                     // we don't have the returnItemSeqId but before we consider this
@@ -2427,7 +2427,7 @@ public class OrderReturnServices {
         // calculate the returnAdjustment amount
         if (returnItem != null) {  // returnAdjustment for returnItem
             if (needRecalculate(returnAdjustmentTypeId)) {
-                Debug.logInfo("returnPrice:" + returnItem.getBigDecimal("returnPrice") + ",returnQuantity:" + returnItem.getBigDecimal("returnQuantity") + ",sourcePercentage:" + orderAdjustment.getBigDecimal("sourcePercentage"), MODULE);
+                Debug.logInfo("returnPrice:" + returnItem.getBigDecimal("returnPrice") + ", returnQuantity:" + returnItem.getBigDecimal("returnQuantity") + ", sourcePercentage:" + orderAdjustment.getBigDecimal("sourcePercentage"), MODULE);
                 BigDecimal returnTotal = returnItem.getBigDecimal("returnPrice").multiply(returnItem.getBigDecimal("returnQuantity"));
                 BigDecimal orderTotal = orderItem.getBigDecimal("quantity").multiply(orderItem.getBigDecimal("unitPrice"));
                 amount = getAdjustmentAmount("RET_SALES_TAX_ADJ".equals(returnAdjustmentTypeId), returnTotal, orderTotal, orderAdjustment.getBigDecimal("amount"));

@@ -1139,7 +1139,7 @@ public final class UtilHttp {
         }
         // Default to sameorigin
         if (UtilValidate.isNotEmpty(xFrameOption)) {
-            if(!"none".equals(xFrameOption)) {
+            if (!"none".equals(xFrameOption)) {
                 resp.addHeader("x-frame-options", xFrameOption);
             }
         } else {

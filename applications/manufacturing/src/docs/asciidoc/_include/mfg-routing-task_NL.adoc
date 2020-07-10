@@ -1,0 +1,65 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Routing Task
+Routing Task are the individual steps that are needed to turn the raw materials into a finished product.
+
+It's necessary to create the routing tasks before creating a Routing or a Production Run.
+
+== Routing Task management in UI
+=== Werkplan taken aanmaken en vinden
+Dit scherm biedt de mogelijkheid om werkplan taken aan te maken en te vinden.
+
+==== Werkplan taak aanmaken
+Klik op de knop 'Nieuwe werkplan taak' om een nieuwe taak voor een werkplan aan te maken.
+
+==== Werkplan taak zoeken en vinden
+Vul de parameters in en klik op de 'zoek' knop. +
+Worden resultaten gevonden, dan worden deze getoond in de sectie onder het zoek deel.
+
+
+=== Werkplan taak aanpassen
+In dit scherm worden nieuwe werkplan taken gedefinieerd. +
+Ook kun je hiermee bestaande werkplan taken wijzigen.
+
+==== Invullen formulier
+Geef de werkplan taak een beschrijvende naam en omschrijving.
+
+
+=== Aanpassen/toevoegen kosten werkplan taak
+Met dit scherm kunnen bestaande kosten definities voor een werkplan taak aangepast worden en nieuwe gedefinieerd.
+
+
+=== Tonen producten van werkplan taak
+Dit scherm toont de producten die gekoppeld zijn aan de werkplan taak. +
+Vanaf dit scherm kunnen nieuwe koppeling worden aangemaakt en bestaand gewijzigd worden.
+
+==== Nieuwe koppelingen aanmaken
+Klik op de knop om het invulformulier om een nieuwe productkoppeling aan te maken.
+
+==== Overzicht gekoppelde producten
+Dit overzicht toont de gekoppelede producten. +
+Vanaf hier kan de koppeling aangepast en verwijderd worden.
+
+
+=== Product van werkplan taak aanmaken en aanpassen
+In dit scherm kun je een product aan een werkplan taak koppelen en een bestaande koppeling aanpassen.
+
+
+=== Werkplan taak Productiemiddel koppelen/aanpassen
+In dit scherm kun je een nieuwe productie middel aan een werkplan taak koppelen en een bestaande koppeling aanpassen.

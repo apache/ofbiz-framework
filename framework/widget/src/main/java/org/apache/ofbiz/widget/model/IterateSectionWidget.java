@@ -189,7 +189,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             contextMs.put("itemIndex", itemIndex);
 
             if (iterateIndex < listSize) {
-                contextMs.put("iterateId",String.valueOf(entryName+iterateIndex));
+                contextMs.put("iterateId", String.valueOf(entryName+iterateIndex));
                 iterateIndex++;
             }
             for (ModelScreenWidget.Section section: this.sectionList) {

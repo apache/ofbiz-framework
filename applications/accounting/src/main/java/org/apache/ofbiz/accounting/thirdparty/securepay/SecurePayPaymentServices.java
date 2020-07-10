@@ -477,7 +477,7 @@ public class SecurePayPaymentServices {
         return props;
     }
 
-    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,String RESOURCE, String parameterName) {
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName, String RESOURCE, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -500,7 +500,7 @@ public class SecurePayPaymentServices {
         return returnValue;
     }
 
-    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,String RESOURCE, String parameterName, String defaultValue) {
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName, String RESOURCE, String parameterName, String defaultValue) {
         String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, RESOURCE, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;

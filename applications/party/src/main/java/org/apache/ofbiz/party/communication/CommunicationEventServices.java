@@ -304,8 +304,8 @@ public class CommunicationEventServices {
             String contactMechId = communicationEvent.getString("contactMechIdTo");
 
             // Check contactMech type to FTP_ADDRESS
-            GenericValue contactMech = EntityQuery.use(delegator).from("ContactMech").cache().where("contactMechId",contactMechId).queryOne();
-            GenericValue ftpAddress = EntityQuery.use(delegator).from("FtpAddress").cache().where("contactMechId",contactMechId).queryOne();
+            GenericValue contactMech = EntityQuery.use(delegator).from("ContactMech").cache().where("contactMechId", contactMechId).queryOne();
+            GenericValue ftpAddress = EntityQuery.use(delegator).from("FtpAddress").cache().where("contactMechId", contactMechId).queryOne();
             if (null == contactMech || null == ftpAddress || !"FTP_ADDRESS".equals(contactMech.getString("contactMechTypeId"))) {
                 String errMsg = UtilProperties.getMessage(RESOURCE, "commeventservices.communication_event_to_contact_mech_must_be_ftp", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
@@ -620,12 +620,9 @@ public class CommunicationEventServices {
                         delegator.store(contactListCommStatusRecord);
 
                         // Don't return a service error just because of failure for one address - just log the error and continue
-                    } catch (GenericEntityException nonFatalGEE) {
+                    } catch (GenericEntityException | GenericServiceException nonFatalGEE) {
                         Debug.logError(nonFatalGEE, errorInSendEmailToContactListService, MODULE);
                         errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGEE.getMessage());
-                    } catch (GenericServiceException nonFatalGSE) {
-                        Debug.logError(nonFatalGSE, errorInSendEmailToContactListService, MODULE);
-                        errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGSE.getMessage());
                     }
                 }
             } catch (GenericEntityException fatalGEE) {
@@ -986,7 +983,7 @@ public class CommunicationEventServices {
             if (userLogin.get("partyId") == null && partyIdTo != null) {
                 int ch = 0;
                 for (ch=partyIdTo.length(); ch > 0 && Character.isDigit(partyIdTo.charAt(ch-1)); ch--) {}
-                userLogin.put("partyId", partyIdTo.substring(0,ch)); //allow services to be called to have prefix
+                userLogin.put("partyId", partyIdTo.substring(0, ch)); //allow services to be called to have prefix
             }
 
             // get the 'from' partyId
@@ -1413,7 +1410,7 @@ public class CommunicationEventServices {
      * Service to process incoming email and look for a bounce message. If the email is indeed a bounce message
      * the CommunicationEvent will be updated with the proper COM_BOUNCED status.
      */
-    public static Map<String,Object> processBouncedMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> processBouncedMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logInfo("Running process bounced message check...", MODULE);
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
 
@@ -1545,7 +1542,7 @@ public class CommunicationEventServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String,Object> logIncomingMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> logIncomingMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
         Debug.logInfo("Message recevied         : " + wrapper.getSubject(), MODULE);
         Debug.logInfo("-- Content Type          : " + wrapper.getContentType(), MODULE);
@@ -1614,8 +1611,6 @@ public class CommunicationEventServices {
             try (InputStream imageStream = imageUrl.openStream()) {
             UtilHttp.streamContentToBrowser(response, imageStream, 43, "image/gif", null);
             }
-        } catch (MalformedURLException e) {
-            Debug.logError(e, MODULE);
         } catch (IOException e) {
             Debug.logError(e, MODULE);
         }

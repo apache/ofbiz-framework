@@ -19,6 +19,7 @@
 package org.apache.ofbiz.accounting.thirdparty.orbital;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -26,7 +27,6 @@ import java.util.Map;
 import org.apache.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -34,7 +34,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -51,12 +50,13 @@ import com.paymentech.orbital.sdk.util.exceptions.InitializationException;
 
 public class OrbitalPaymentServices {
 
-    public static String MODULE = OrbitalPaymentServices.class.getName();
-    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String MODULE = OrbitalPaymentServices.class.getName();
+    private static final String RESOURCE = "AccountingUiLabels";
+    private static final String ERROR = "Error";
 
-    public static String ERROR    = "Error";
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("invoice.rounding");
+
 
     public static final String BIN_VALUE = "000002";
     public static TransactionProcessorIF tp = null;
@@ -252,7 +252,7 @@ public class OrbitalPaymentServices {
         //TODO: Will move this to property file and then will read it from there.
         String configFile = "/applications/accounting/config/linehandler.properties";
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
-        Map<String, Object> buildConfiguratorContext = new HashMap<String, Object>();
+        Map<String, Object> buildConfiguratorContext = new HashMap<>();
         try {
             buildConfiguratorContext.put("OrbitalConnectionUsername", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "username"));
             buildConfiguratorContext.put("OrbitalConnectionPassword", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "connectionPassword"));
@@ -300,7 +300,7 @@ public class OrbitalPaymentServices {
     private static void buildAuthOrAuthCaptureTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("processAmount");
-        String amountValue = amount.setScale(decimals, rounding).movePointRight(2).toPlainString();
+        String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         expDate = formatExpDateForOrbital(expDate);
@@ -382,7 +382,7 @@ public class OrbitalPaymentServices {
         GenericValue authTransaction = (GenericValue) params.get("authTransaction");
         GenericValue creditCard = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("captureAmount");
-        String amountValue = amount.setScale(decimals, rounding).movePointRight(2).toPlainString();
+        String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
         String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
         try {
             //If there were no errors preparing the template, we can now specify the data
@@ -420,7 +420,7 @@ public class OrbitalPaymentServices {
     private static void buildRefundTransaction(Map<String, Object> params, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("refundAmount");
-        String amountValue = amount.setScale(decimals, rounding).movePointRight(2).toPlainString();
+        String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         expDate = formatExpDateForOrbital(expDate);
@@ -487,7 +487,7 @@ public class OrbitalPaymentServices {
     }
 
     private static Map<String, Object> processCard(RequestIF request) {
-        Map<String, Object> processCardResult = new HashMap<String, Object>();
+        Map<String, Object> processCardResult = new HashMap<>();
         try {
             response = tp.process(request);
             if (response.isApproved()) {
@@ -521,7 +521,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
-        Debug.logInfo("processAuthTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processAuthTransResult: " + results.toString(), MODULE);
     }
 
     private static void processAuthCaptureTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -545,7 +545,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
-        Debug.logInfo("processAuthCaptureTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processAuthCaptureTransResult: " + results.toString(), MODULE);
     }
 
     private static void processCaptureTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -561,7 +561,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("captureAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processCaptureTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processCaptureTransResult: " + results.toString(), MODULE);
     }
 
     private static void processRefundTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -577,7 +577,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("refundAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processRefundTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processRefundTransResult: " + results.toString(), MODULE);
     }
 
     private static void processReleaseTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -593,11 +593,11 @@ public class OrbitalPaymentServices {
         } else {
             results.put("releaseAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processReleaseTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processReleaseTransResult: " + results.toString(), MODULE);
     }
 
     private static void printTransResult(ResponseIF response) {
-        Map<String, Object> generatedResponse = new HashMap<String, Object>();
+        Map<String, Object> generatedResponse = new HashMap<>();
         generatedResponse.put("isGood",  response.isGood());
         generatedResponse.put("isError", response.isError());
         generatedResponse.put("isQuickResponse",  response.isQuickResponse());
@@ -611,7 +611,7 @@ public class OrbitalPaymentServices {
         generatedResponse.put("AVSCode",  response.getAVSResponseCode());
         generatedResponse.put("CVV2ResponseCode", response.getCVV2RespCode());
 
-        Debug.logInfo("printTransResult === " + generatedResponse.toString(),MODULE);
+        Debug.logInfo("printTransResult === " + generatedResponse.toString(), MODULE);
     }
 
     private static String formatExpDateForOrbital(String expDate) {
@@ -641,7 +641,7 @@ public class OrbitalPaymentServices {
     }
 
     private static Map<String, Object> validateRequest(Map<String, Object> params, Map props, RequestIF request) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }

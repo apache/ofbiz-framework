@@ -48,7 +48,7 @@ import org.xml.sax.SAXException;
 public class LabelManagerFactory {
 
     private static final String MODULE = LabelManagerFactory.class.getName();
-    public static final String resource = "WebtoolsUiLabels";
+    private static final String RESOURCE = "WebtoolsUiLabels";
     public static final String keySeparator = "#";
 
     protected static Set<String> componentNamesFound = null;
@@ -146,7 +146,7 @@ public class LabelManagerFactory {
                             // No longer supporting old way of specifying xml:lang value.
                             // Old way: en_AU, new way: en-AU
                             String localeName = valueElem.getAttribute("xml:lang");
-                            if( localeName.contains("_")) {
+                            if ( localeName.contains("_")) {
                                 GeneralException e = new GeneralException("Confusion in labels with the separator used between languages and countries. Please use a dash instead of an underscore.");
                                 throw e;  
                             }

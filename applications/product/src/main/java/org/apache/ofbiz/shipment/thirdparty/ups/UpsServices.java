@@ -78,25 +78,24 @@ import org.xml.sax.SAXException;
  */
 public class UpsServices {
 
-    public final static String MODULE = UpsServices.class.getName();
-
-    private static final Map<String, String> unitsUpsToOfbiz = new HashMap<>();
-    private static final Map<String, String> unitsOfbizToUps = new HashMap<>();
-    static {
-        unitsUpsToOfbiz.put("LBS", "WT_lb");
-        unitsUpsToOfbiz.put("KGS", "WT_kg");
-
-        for (Map.Entry<String, String> entry: unitsUpsToOfbiz.entrySet()) {
-            unitsOfbizToUps.put(entry.getValue(), entry.getKey());
-        }
-    }
-    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
-    public static final MathContext generalRounding = new MathContext(10);
-    public static final int returnServiceCode = 8;
-    public static final String dateFormatString = "yyyyMMdd";
+    private static final String MODULE = UpsServices.class.getName();
     private static final String RES_ERROR = "ProductUiLabels";
     private static final String RES_ORDER = "OrderUiLabels";
+
+    private static final Map<String, String> UPS_TO_OFBIZ = new HashMap<>();
+    private static final Map<String, String> OFBIZ_TO_UPS = new HashMap<>();
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
+    private static final int RET_SERVICE_CODE = 8;
+    private static final String DATE_FORMAT = "yyyyMMdd";
+
+    static {
+        UPS_TO_OFBIZ.put("LBS", "WT_lb");
+        UPS_TO_OFBIZ.put("KGS", "WT_kg");
+        for (Map.Entry<String, String> entry: UPS_TO_OFBIZ.entrySet()) {
+            OFBIZ_TO_UPS.put(entry.getValue(), entry.getKey());
+        }
+    }
 
     public static Map<String, Object> upsShipmentConfirm(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -287,9 +286,9 @@ public class UpsServices {
                 if (codSurchargeApplyToNoPackages) {
                     codSurchargeAmount = "0";
                 }
-                codSurchargePackageAmount = new BigDecimal(codSurchargeAmount).setScale(decimals, rounding);
+                codSurchargePackageAmount = new BigDecimal(codSurchargeAmount).setScale(DECIMALS, ROUNDING);
                 if (codSurchargeSplitBetweenPackages) {
-                    codSurchargePackageAmount = codSurchargePackageAmount.divide(new BigDecimal(shipmentPackageRouteSegs.size()), decimals, rounding);
+                    codSurchargePackageAmount = codSurchargePackageAmount.divide(new BigDecimal(shipmentPackageRouteSegs.size()), DECIMALS, ROUNDING);
                 }
 
                 if (UtilValidate.isEmpty(destTelecomNumber)) {
@@ -466,7 +465,7 @@ public class UpsServices {
                     Element productElement = UtilXml.addChildElement(internationalFormsElement, "Product", shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(productElement, "Description", "Product Description", shipmentConfirmRequestDoc);
                     Element unitElement = UtilXml.addChildElement(productElement, "Unit", shipmentConfirmRequestDoc);
-                    BigDecimal productQuantity = shipmentItem.getBigDecimal("quantity").setScale(decimals, rounding);
+                    BigDecimal productQuantity = shipmentItem.getBigDecimal("quantity").setScale(DECIMALS, ROUNDING);
                     UtilXml.addChildElementValue(unitElement, "Number", String.valueOf(productQuantity.intValue()), shipmentConfirmRequestDoc);
                     List<GenericValue> shipmentItemIssuances = shipmentItem.getRelated("ItemIssuance", null, null, false);
                     GenericValue orderItem = EntityUtil.getFirst(shipmentItemIssuances).getRelatedOne("OrderItem", false);
@@ -475,7 +474,7 @@ public class UpsServices {
                     UtilXml.addChildElementValue(unitOfMeasurElement, "Code", "EA", shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(productElement, "OriginCountryCode", "US", shipmentConfirmRequestDoc);
                 }
-                SimpleDateFormat formatter = new SimpleDateFormat(dateFormatString);
+                SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
                 String invoiceDate = formatter.format(shipment.getTimestamp("createdDate"));
                 UtilXml.addChildElementValue(internationalFormsElement, "InvoiceDate", invoiceDate, shipmentConfirmRequestDoc);
                 UtilXml.addChildElementValue(internationalFormsElement, "ReasonForExport","SALE", shipmentConfirmRequestDoc);
@@ -538,7 +537,7 @@ public class UpsServices {
                 Element packageWeightUnitOfMeasurementElement = UtilXml.addChildElement(packageElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
                 String weightUomUps = null;
                 if (shipmentPackage.get("weightUomId") != null) {
-                    weightUomUps = unitsOfbizToUps.get(shipmentPackage.get("weightUomId"));
+                    weightUomUps = OFBIZ_TO_UPS.get(shipmentPackage.get("weightUomId"));
                 }
                 if (weightUomUps != null) {
                     UtilXml.addChildElementValue(packageWeightUnitOfMeasurementElement, "Code", weightUomUps, shipmentConfirmRequestDoc);
@@ -590,7 +589,7 @@ public class UpsServices {
                     Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", codSurchargeCurrencyUomId, "uomIdTo", currencyCode, "originalValue", codSurchargePackageAmount));
                     if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
                     if (convertUomResult.containsKey("convertedValue")) {
-                        codSurchargePackageAmount = ((BigDecimal) convertUomResult.get("convertedValue")).setScale(decimals, rounding);
+                        codSurchargePackageAmount = ((BigDecimal) convertUomResult.get("convertedValue")).setScale(DECIMALS, ROUNDING);
                     }
 
                     // Add the amount of the surcharge for the package, if the surcharge should be on all packages or the first and this is the first package
@@ -598,7 +597,7 @@ public class UpsServices {
                         packageValue = packageValue.add(codSurchargePackageAmount);
                     }
 
-                    UtilXml.addChildElementValue(codAmountElement, "MonetaryValue", packageValue.setScale(decimals, rounding).toString(), shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(codAmountElement, "MonetaryValue", packageValue.setScale(DECIMALS, ROUNDING).toString(), shipmentConfirmRequestDoc);
                 }
             }
             
@@ -663,17 +662,7 @@ public class UpsServices {
             Document shipmentConfirmResponseDocument = null;
             try {
                 shipmentConfirmResponseDocument = UtilXml.readXmlDocument(shipmentConfirmResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
@@ -773,7 +762,7 @@ public class UpsServices {
                 errorList.add(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingBillingWeight",
                         UtilMisc.toMap("billingWeight", billingWeight, "errorString", e.toString()), locale));
             }
-            shipmentRouteSegment.set("billingWeightUomId", unitsUpsToOfbiz.get(billingWeightUnitOfMeasurement));
+            shipmentRouteSegment.set("billingWeightUomId", UPS_TO_OFBIZ.get(billingWeightUnitOfMeasurement));
 
             // store the ShipmentIdentificationNumber and ShipmentDigest
             String shipmentIdentificationNumber = UtilXml.childElementValue(shipmentConfirmResponseElement, "ShipmentIdentificationNumber");
@@ -936,17 +925,7 @@ public class UpsServices {
             Document shipmentAcceptResponseDocument = null;
             try {
                 shipmentAcceptResponseDocument = UtilXml.readXmlDocument(shipmentAcceptResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the ShipmentAcceptResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentAcceptResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the ShipmentAcceptResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentAcceptResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the ShipmentAcceptResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentAcceptResponse",
@@ -1052,7 +1031,7 @@ public class UpsServices {
                 errorList.add(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingBillingWeight",
                         UtilMisc.toMap("billingWeight", billingWeight, "errorString", e.toString()), locale));
             }
-            shipmentRouteSegment.set("billingWeightUomId", unitsUpsToOfbiz.get(billingWeightUnitOfMeasurement));
+            shipmentRouteSegment.set("billingWeightUomId", UPS_TO_OFBIZ.get(billingWeightUnitOfMeasurement));
 
             // store the ShipmentIdentificationNumber and ShipmentDigest
             String shipmentIdentificationNumber = UtilXml.childElementValue(shipmentResultsElement, "ShipmentIdentificationNumber");
@@ -1318,17 +1297,7 @@ public class UpsServices {
             Document voidShipmentResponseDocument = null;
             try {
                 voidShipmentResponseDocument = UtilXml.readXmlDocument(voidShipmentResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the VoidShipmentResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingVoidShipmentResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the VoidShipmentResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingVoidShipmentResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the VoidShipmentResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingVoidShipmentResponse",
@@ -1514,17 +1483,7 @@ public class UpsServices {
             Document trackResponseDocument = null;
             try {
                 trackResponseDocument = UtilXml.readXmlDocument(trackResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the TrackResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingTrackResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the TrackResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingTrackResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the TrackResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingTrackResponse",
@@ -1655,7 +1614,7 @@ public class UpsServices {
         cxt.put("carrierPartyId", context.get("carrierPartyId"));
         cxt.put("shipmentMethodTypeId", context.get("shipmentMethodTypeId"));
         cxt.put("shippingPostalCode", shipToAddress.getString("postalCode"));
-        cxt.put("shippingCountryCode",destCountryGeo.getString("geoCode"));
+        cxt.put("shippingCountryCode", destCountryGeo.getString("geoCode"));
         cxt.put("packageWeights", context.get("packageWeights"));
         cxt.put("shippableItemInfo", context.get("shippableItemInfo"));
         cxt.put("shippableTotal", context.get("shippableTotal"));
@@ -1701,7 +1660,7 @@ public class UpsServices {
     }
 
     private static void addPackageElement(DispatchContext dctx, Document requestDoc, Element shipmentElement, List<Map<String, Object>> shippableItemInfo, Map<String, BigDecimal> packageMap, BigDecimal minWeight) {
-        BigDecimal packageWeight = checkForDefaultPackageWeight(ShipmentWorker.calcPackageWeight(dctx,packageMap, shippableItemInfo, BigDecimal.ZERO), minWeight);
+        BigDecimal packageWeight = checkForDefaultPackageWeight(ShipmentWorker.calcPackageWeight(dctx, packageMap, shippableItemInfo, BigDecimal.ZERO), minWeight);
         Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", requestDoc);
         Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", requestDoc);
         UtilXml.addChildElementValue(packagingTypeElement, "Code", "00", requestDoc);
@@ -1793,7 +1752,7 @@ public class UpsServices {
         String accessLicenseNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessLicenseNumber", serviceConfigProps, "shipment.ups.access.license.number", "");
         String userId = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessUserId", serviceConfigProps, "shipment.ups.access.user.id", "");
         String password = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessPassword", serviceConfigProps, "shipment.ups.access.password", "");
-        UtilXml.addChildElementValue(accessRequestElement, "AccessLicenseNumber",accessLicenseNumber, accessRequestDocument);
+        UtilXml.addChildElementValue(accessRequestElement, "AccessLicenseNumber", accessLicenseNumber, accessRequestDocument);
         UtilXml.addChildElementValue(accessRequestElement, "UserId", userId, accessRequestDocument);
         UtilXml.addChildElementValue(accessRequestElement, "Password", password, accessRequestDocument);
         return accessRequestDocument;
@@ -2100,17 +2059,7 @@ public class UpsServices {
         Document rateResponseDocument = null;
         try {
             rateResponseDocument = UtilXml.readXmlDocument(rateResponseString, false);
-        } catch (SAXException e2) {
-            String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
-            Debug.logError(e2, excErrMsg, MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
-                    UtilMisc.toMap("errorString", e2.toString()), locale));
-        } catch (ParserConfigurationException e2) {
-            String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
-            Debug.logError(e2, excErrMsg, MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
-                    UtilMisc.toMap("errorString", e2.toString()), locale));
-        } catch (IOException e2) {
+        } catch (SAXException | IOException | ParserConfigurationException e2) {
             String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
             Debug.logError(e2, excErrMsg, MODULE);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
@@ -2206,19 +2155,7 @@ public class UpsServices {
         Document avResponseDocument = null;
         try {
             avResponseDocument = UtilXml.readXmlDocument(avResponseString, false);
-        } catch (SAXException e2) {
-            String excErrMsg = "Error parsing the UPS response: " + e2.toString();
-            Debug.logError(e2, excErrMsg, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "FacilityShipmentUpsErrorParsingAddressVerificationResponse",
-                    UtilMisc.toMap("errorString", e2.toString()), locale));
-        } catch (ParserConfigurationException e2) {
-            String excErrMsg = "Error parsing the UPS response: " + e2.toString();
-            Debug.logError(e2, excErrMsg, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "FacilityShipmentUpsErrorParsingAddressVerificationResponse",
-                    UtilMisc.toMap("errorString", e2.toString()), locale));
-        } catch (IOException e2) {
+        } catch (SAXException | IOException | ParserConfigurationException e2) {
             String excErrMsg = "Error parsing the UPS response: " + e2.toString();
             Debug.logError(e2, excErrMsg, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -2416,7 +2353,7 @@ public class UpsServices {
 
             // Child of Shipment: ReturnService
             Element returnServiceElement = UtilXml.addChildElement(shipmentElement, "ReturnService", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(returnServiceElement, "Code", String.valueOf(returnServiceCode), shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(returnServiceElement, "Code", String.valueOf(RET_SERVICE_CODE), shipmentConfirmRequestDoc);
 
             // Child of Shipment: Shipper
             String shipperNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperNumber", RESOURCE, "shipment.ups.shipper.number", "");
@@ -2552,17 +2489,7 @@ public class UpsServices {
             Document shipmentConfirmResponseDocument = null;
             try {
                 shipmentConfirmResponseDocument = UtilXml.readXmlDocument(shipmentConfirmResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the ShipmentConfirmResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingShipmentConfirm",
@@ -2895,14 +2822,14 @@ public class UpsServices {
                         BigDecimal length = (BigDecimal) shipmentPackage.get("boxLength");
                         BigDecimal width = (BigDecimal) shipmentPackage.get("boxWidth");
                         BigDecimal height = (BigDecimal) shipmentPackage.get("boxHeight");
-                        UtilXml.addChildElementValue(dimensionsElement, "Length", length.setScale(decimals, rounding).toString(), rateRequestDoc);
-                        UtilXml.addChildElementValue(dimensionsElement, "Width", width.setScale(decimals, rounding).toString(), rateRequestDoc);
-                        UtilXml.addChildElementValue(dimensionsElement, "Height", height.setScale(decimals, rounding).toString(), rateRequestDoc);
+                        UtilXml.addChildElementValue(dimensionsElement, "Length", length.setScale(DECIMALS, ROUNDING).toString(), rateRequestDoc);
+                        UtilXml.addChildElementValue(dimensionsElement, "Width", width.setScale(DECIMALS, ROUNDING).toString(), rateRequestDoc);
+                        UtilXml.addChildElementValue(dimensionsElement, "Height", height.setScale(DECIMALS, ROUNDING).toString(), rateRequestDoc);
                 }
 
                 Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", rateRequestDoc);
                 Element packageWeightUnitOfMeasurementElement = UtilXml.addChildElement(packageElement, "UnitOfMeasurement", rateRequestDoc);
-                String weightUomUps = unitsOfbizToUps.get(shipmentPackage.get("weightUomId"));
+                String weightUomUps = OFBIZ_TO_UPS.get(shipmentPackage.get("weightUomId"));
                 if (weightUomUps != null) {
                     UtilXml.addChildElementValue(packageWeightUnitOfMeasurementElement, "Code", weightUomUps, rateRequestDoc);
                 } else {
@@ -2962,24 +2889,14 @@ public class UpsServices {
             Document rateResponseDocument = null;
             try {
                 rateResponseDocument = UtilXml.readXmlDocument(rateResponseString, false);
-            } catch (SAXException e2) {
-                String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
-                Debug.logError(e2, excErrMsg, MODULE);
-                return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
-                        UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (ParserConfigurationException e2) {
-                 String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
-                 Debug.logError(e2, excErrMsg, MODULE);
-                 return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
-                         UtilMisc.toMap("errorString", e2.toString()), locale));
-            } catch (IOException e2) {
+            } catch (SAXException | IOException | ParserConfigurationException e2) {
                 String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
                 Debug.logError(e2, excErrMsg, MODULE);
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse",
                         UtilMisc.toMap("errorString", e2.toString()), locale));
             }
-            Map<String,Object> upsResponse = handleUpsAlternateRatesInquireResponse(rateResponseDocument, locale);
-            Map<String,BigDecimal> upsRateCodeMap = UtilGenerics.cast(upsResponse.get("upsRateCodeMap"));
+            Map<String, Object> upsResponse = handleUpsAlternateRatesInquireResponse(rateResponseDocument, locale);
+            Map<String, BigDecimal> upsRateCodeMap = UtilGenerics.cast(upsResponse.get("upsRateCodeMap"));
             GenericValue carrierShipmentMethod = null;
             // Filtering out rates of shipping methods which are not configured in ProductStoreShipmentMeth entity.
             try {
@@ -2994,7 +2911,7 @@ public class UpsServices {
                         for (String thisServiceCode : upsRateCodeMap.keySet()) {
                             if (serviceCode.equals(thisServiceCode)) {
                                 BigDecimal newRate = upsRateCodeMap.get(serviceCode);
-                                thisUpsRateCodeMap.put(serviceCode,newRate);
+                                thisUpsRateCodeMap.put(serviceCode, newRate);
                                 shippingRates.add(thisUpsRateCodeMap);
                             }
                         }

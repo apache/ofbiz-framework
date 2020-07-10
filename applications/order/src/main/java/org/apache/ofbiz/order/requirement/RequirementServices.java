@@ -249,9 +249,7 @@ public class RequirementServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
                 }
             }
-        } catch (GenericEntityException e) {
-            Debug.logError(e, MODULE);
-        } catch (GenericServiceException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();
@@ -345,9 +343,7 @@ public class RequirementServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
                 }
             }
-        } catch (GenericEntityException e) {
-            Debug.logError(e, MODULE);
-        } catch (GenericServiceException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();
@@ -375,9 +371,7 @@ public class RequirementServices {
                     }
                 }
             }
-        } catch(GenericEntityException e){
-            Debug.logError(e, MODULE);
-        } catch(GenericServiceException e){
+        } catch(GenericEntityException | GenericServiceException e){
             Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();

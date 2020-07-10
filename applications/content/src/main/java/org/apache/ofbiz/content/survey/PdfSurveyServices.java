@@ -244,7 +244,7 @@ public class PdfSurveyServices {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
             PdfReader r = new PdfReader(byteBuffer.array());
-            PdfStamper s = new PdfStamper(r,os);
+            PdfStamper s = new PdfStamper(r, os);
             AcroFields fs = s.getAcroFields();
             Map<String, Object> hm = UtilGenerics.cast(fs.getFields());
             s.setFormFlattening(true);
@@ -289,7 +289,7 @@ public class PdfSurveyServices {
             Delegator delegator = dctx.getDelegator();
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
             PdfReader r = new PdfReader(byteBuffer.array());
-            PdfStamper s = new PdfStamper(r,os);
+            PdfStamper s = new PdfStamper(r, os);
             AcroFields fs = s.getAcroFields();
             Map<String, Object> map = UtilGenerics.cast(fs.getFields());
             s.setFormFlattening(true);

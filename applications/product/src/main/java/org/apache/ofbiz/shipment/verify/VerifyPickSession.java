@@ -211,7 +211,7 @@ public class VerifyPickSession implements Serializable {
         }
     }
 
-    protected void createVerifyPickRow(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String originGeoId,BigDecimal quantity, Locale locale) throws GeneralException {
+    protected void createVerifyPickRow(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String originGeoId, BigDecimal quantity, Locale locale) throws GeneralException {
         // process the result; add new item if necessary
         switch (checkCode) {
             case 0:

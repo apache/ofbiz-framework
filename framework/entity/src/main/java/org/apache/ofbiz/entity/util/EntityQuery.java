@@ -39,6 +39,7 @@ import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
+import org.apache.ofbiz.entity.util.EntityBatchIterator;
 
 /**
  * Used to setup various options for and subsequently execute entity queries.
@@ -419,6 +420,10 @@ public class EntityQuery {
         }
     }
 
+    public EntityBatchIterator queryBatchIterator() {
+        return new EntityBatchIterator(this);
+    }
+
     /** Executes the EntityQuery and returns the first result
      * 
      * @return GenericValue representing the first result record from the query
@@ -455,7 +460,8 @@ public class EntityQuery {
                 return iterator.getResultsSizeAfterPartialList();
             }
         }
-        return delegator.findCountByCondition(entityName, makeWhereCondition(false), havingEntityCondition, makeEntityFindOptions());
+        return delegator.findCountByCondition(entityName, makeWhereCondition(false), fieldsToSelect,
+                havingEntityCondition, makeEntityFindOptions());
     }
 
     private List<GenericValue> query(EntityFindOptions efo) throws GenericEntityException {
@@ -557,7 +563,7 @@ public class EntityQuery {
         cache(false);
         try (EntityListIterator genericValueEli = queryIterator()) {
             if (this.distinct) {
-                Set<T> distinctSet = new LinkedHashSet<T>();
+                Set<T> distinctSet = new LinkedHashSet<>();
                 GenericValue value = null;
                 while ((value = genericValueEli.next()) != null) {
                     T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));

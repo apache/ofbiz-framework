@@ -38,13 +38,13 @@ if (priceRuleId) {
     productPriceActions = productPriceRules[0].getRelated("ProductPriceAction", null, ["productPriceActionSeqId"], true)
     
     productPriceCondAdd = []
-    productPriceCondAdd.add(delegator.makeValue("ProductPriceCond"))
+    productPriceCondAdd.add(makeValue("ProductPriceCond"))
     productPriceCondAdd[0].productPriceRuleId = priceRuleId
     productPriceCondAdd[0].inputParamEnumId = context.inputParamEnums[0].enumId
     productPriceCondAdd[0].operatorEnumId = context.condOperEnums[0].enumId
     
     productPriceActionAdd = []
-    productPriceActionAdd.add(delegator.makeValue("ProductPriceAction"))
+    productPriceActionAdd.add(makeValue("ProductPriceAction"))
     productPriceActionAdd[0].productPriceRuleId = priceRuleId
     productPriceActionAdd[0].productPriceActionTypeId = context.productPriceActionTypes[0].productPriceActionTypeId
     productPriceActionAdd[0].amount = BigDecimal.ZERO

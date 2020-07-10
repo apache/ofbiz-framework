@@ -102,8 +102,8 @@ public class OfbizContentTransform implements TemplateTransformModel {
                         newURL.append('/');
                     }
 
-                    if(UtilValidate.isNotEmpty(imgSize)){
-                        if(!"/images/defaultImage.jpg".equals(requestUrl)){
+                    if (UtilValidate.isNotEmpty(imgSize)){
+                        if (!"/images/defaultImage.jpg".equals(requestUrl)){
                             int index = requestUrl.lastIndexOf(".");
                             if (index > 0) {
                                 String suffix = requestUrl.substring(index);

@@ -1169,11 +1169,11 @@ public class ProductEvents {
                 return "error";
             }
 
-            if(UtilValidate.isEmpty(statusId)) {
+            if (UtilValidate.isEmpty(statusId)) {
                 statusId = "KW_PENDING";
             }
 
-            if(UtilValidate.isNotEmpty(matchList)) {
+            if (UtilValidate.isNotEmpty(matchList)) {
                 for (String keywordStr : matchList) {
                     try {
                         dispatcher.runSync("createProductKeyword", UtilMisc.toMap("productId", productId, "keyword", keywordStr.trim(), "keywordTypeId", "KWT_TAG", "statusId", statusId, "userLogin", userLogin));

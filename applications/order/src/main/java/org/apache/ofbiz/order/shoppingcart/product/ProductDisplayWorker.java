@@ -271,7 +271,7 @@ public final class ProductDisplayWorker {
                 Integer quantity = entry.getValue();
                 BigDecimal occs = productQuantities.get(prodId);
                 //For quantity we should test if we allow to add decimal quantity for this product an productStore : if not then round to 0
-                if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, prodId, cart.getProductStoreId())){
+                if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, prodId, cart.getProductStoreId())){
                     occs = occs.setScale(0, UtilNumber.getRoundingMode("order.rounding"));
                 }
                 else {
@@ -307,7 +307,7 @@ public final class ProductDisplayWorker {
         }
 
         List<GenericValue> result = new LinkedList<>(values);
-        Collections.sort(result, new ProductByMapComparator(orderByMap, descending));
+        result.sort(new ProductByMapComparator(orderByMap, descending));
         return result;
     }
 

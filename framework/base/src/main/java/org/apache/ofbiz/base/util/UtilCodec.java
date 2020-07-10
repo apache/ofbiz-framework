@@ -87,7 +87,7 @@ public class UtilCodec {
     public static interface SimpleEncoder {
         public String encode(String original);
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Deprecated
         public String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method
@@ -109,7 +109,7 @@ public class UtilCodec {
             return htmlCodec.encode(IMMUNE_HTML, original);
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -220,7 +220,7 @@ public class UtilCodec {
             return xmlCodec.encode(IMMUNE_XML, original);
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -244,7 +244,7 @@ public class UtilCodec {
             }
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -259,7 +259,7 @@ public class UtilCodec {
         @Override
         public String decode(String original) {
             try {
-                canonicalize(original);
+                original = canonicalize(original);
                 return URLDecoder.decode(original, "UTF-8");
             } catch (UnsupportedEncodingException ee) {
                 Debug.logError(ee, MODULE);
@@ -277,7 +277,7 @@ public class UtilCodec {
             return original;
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -484,17 +484,19 @@ public class UtilCodec {
                     + "Beware: the result is not rightly checked!", MODULE);
         }
 
-        String filtered = policy.sanitize(value);
-        if (!value.equals(StringEscapeUtils.unescapeHtml4(filtered))) {
-            String issueMsg = null;
-            if (locale.equals(new Locale("test"))) {
-                issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
-                        + "for security reason. Please check and modify accordingly, thanks.";
-            } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicySafe", 
-                        UtilMisc.toMap("valueName", valueName), locale);
+        if (value != null) {
+            String filtered = policy.sanitize(value);
+            if (filtered != null && !value.equals(StringEscapeUtils.unescapeHtml4(filtered))) {
+                String issueMsg = null;
+                if (locale.equals(new Locale("test"))) {
+                    issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
+                            + "for security reason. Please check and modify accordingly, thanks.";
+                } else {
+                    issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicySafe", 
+                            UtilMisc.toMap("valueName", valueName), locale);
+                }
+                errorMessageList.add(issueMsg);
             }
-            errorMessageList.add(issueMsg);
         }
         
         return value;

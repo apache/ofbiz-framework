@@ -90,7 +90,7 @@ public class PayPalServices {
     // The weak key is a simple wrapper for the checkout token String and is stored as a cart attribute. The value
     // is a weak reference to the ShoppingCart itself.  Entries will be removed as carts are removed from the
     // session (i.e. on cart clear or successful checkout) or when the session is destroyed
-    private static Map<TokenWrapper, WeakReference<ShoppingCart>> tokenCartMap = new WeakHashMap<TokenWrapper, WeakReference<ShoppingCart>>();
+    private static Map<TokenWrapper, WeakReference<ShoppingCart>> tokenCartMap = new WeakHashMap<>();
 
     public static Map<String, Object> setExpressCheckout(DispatchContext dctx, Map<String, ? extends Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("cart");
@@ -166,7 +166,7 @@ public class PayPalServices {
         cart.setAttribute("payPalCheckoutToken", token);
         TokenWrapper tokenWrapper = new TokenWrapper(token);
         cart.setAttribute("payPalCheckoutTokenObj", tokenWrapper);
-        PayPalServices.tokenCartMap.put(tokenWrapper, new WeakReference<ShoppingCart>(cart));
+        PayPalServices.tokenCartMap.put(tokenWrapper, new WeakReference<>(cart));
         return ServiceUtil.returnSuccess();
     }
 
@@ -191,7 +191,7 @@ public class PayPalServices {
         // Since most if not all of the shipping estimate codes requires a persisted contactMechId we'll create one and
         // then delete once we're done, now is not the time to worry about updating everything
         String contactMechId = null;
-        Map<String, Object> inMap = new HashMap<String, Object>();
+        Map<String, Object> inMap = new HashMap<>();
         inMap.put("address1", paramMap.get("SHIPTOSTREET"));
         inMap.put("address2", paramMap.get("SHIPTOSTREET2"));
         inMap.put("city", paramMap.get("SHIPTOCITY"));
@@ -413,7 +413,7 @@ public class PayPalServices {
             }
         }
 
-        Map<String, Object> inMap = new HashMap<String, Object>();
+        Map<String, Object> inMap = new HashMap<>();
         Map<String, Object> outMap = null;
         // Create the person if necessary
         boolean newParty = false;
@@ -520,7 +520,7 @@ public class PayPalServices {
         boolean needsShippingPurpose = true;
         // if the cart for some reason already has a billing address, we'll leave it be
         boolean needsBillingPurpose = (cart.getContactMech("BILLING_LOCATION") == null);
-        Map<String, Object> postalMap = new HashMap<String, Object>();
+        Map<String, Object> postalMap = new HashMap<>();
         postalMap.put("toName", decoder.get("SHIPTONAME"));
         postalMap.put("address1", decoder.get("SHIPTOSTREET"));
         postalMap.put("address2", decoder.get("SHIPTOSTREET2"));
@@ -728,7 +728,7 @@ public class PayPalServices {
             return ServiceUtil.returnError(UtilMisc.toList(errorMessages.values()));
         }
 
-        Map<String, Object> inMap = new HashMap<String, Object>();
+        Map<String, Object> inMap = new HashMap<>();
         inMap.put("userLogin", userLogin);
         inMap.put("paymentMethodId", payPalPaymentMethod.get("paymentMethodId"));
         inMap.put("transactionId", decoder.get("TRANSACTIONID"));
@@ -1032,7 +1032,7 @@ public class PayPalServices {
 
     private static String parseStateProvinceGeoId(String payPalShipToState, String countryGeoId, Delegator delegator) {
         String lookupField = "geoName";
-        List<EntityCondition> conditionList = new LinkedList<EntityCondition>();
+        List<EntityCondition> conditionList = new LinkedList<>();
         conditionList.add(EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"));
         if ("USA".equals(countryGeoId) || "CAN".equals(countryGeoId)) {
             // PayPal returns two letter code for US and Canadian States/Provinces

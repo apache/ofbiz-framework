@@ -216,7 +216,7 @@ public class CatalinaContainer implements Container {
 
         if (UtilValidate.isEmpty(virtualHosts)) {
             host = (Host) tomcat.getEngine().findChild(tomcat.getEngine().getDefaultHost());
-            if(host == null) {
+            if (host == null) {
                 host = tomcat.getHost();
             }
         } else {
@@ -459,7 +459,7 @@ public class CatalinaContainer implements Container {
         webResourceInfos.forEach(appInfo -> webappsMounts.addAll(getWebappMounts(appInfo)));
 
         for (ComponentConfig.WebappInfo appInfo: webResourceInfos) {
-            if(webappsMounts.removeAll(getWebappMounts(appInfo))) {
+            if (webappsMounts.removeAll(getWebappMounts(appInfo))) {
                 // webapp is not yet loaded
                 if (!appInfo.location.isEmpty()) {
                     futures.add(executor.submit(createCallableContext(tomcat, appInfo, clusterProp, configuration)));

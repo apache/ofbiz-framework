@@ -970,7 +970,7 @@ public class ValueLinkServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem",MODULE);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
         }
@@ -1254,7 +1254,7 @@ public class ValueLinkServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem",MODULE);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
         }

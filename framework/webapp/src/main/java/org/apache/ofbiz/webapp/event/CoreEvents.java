@@ -99,7 +99,7 @@ public class CoreEvents {
      *
      *  SERVICE_NAME      - Name of the service to invoke
      *  SERVICE_TIME      - First time the service will occur
-     *  SERVICE_FREQUENCY - The type of recurrence (SECONDLY,MINUTELY,DAILY,etc)
+     *  SERVICE_FREQUENCY - The type of recurrence (SECONDLY, MINUTELY, DAILY,etc)
      *  SERVICE_INTERVAL  - The interval of the frequency (every 5 minutes, etc)
      *
      * @param request HttpServletRequest
@@ -368,7 +368,7 @@ public class CoreEvents {
             if (entry.getValue() != null && "on".equalsIgnoreCase(request.getParameter(key)) && !"_CLEAR_PREVIOUS_PARAMS_".equals(key)) {
                 String[] servicePath = key.split("\\|\\|");
                 String partialKey = servicePath[servicePath.length-1];
-                savedFields.put(partialKey, getObjectFromServicePath(key ,syncServiceResult));
+                savedFields.put(partialKey, getObjectFromServicePath(key , syncServiceResult));
             }
         }
         if (null!=session.getAttribute("_SAVED_SYNC_RESULT_")) {
@@ -498,9 +498,6 @@ public class CoreEvents {
                 FileInputStream fis = new FileInputStream(file);
                 UtilHttp.streamContentToBrowser(response, fis, length, null);
                 fis.close();
-            } catch (FileNotFoundException e) {
-                Debug.logError(e, MODULE);
-                return "error";
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
                 return "error";

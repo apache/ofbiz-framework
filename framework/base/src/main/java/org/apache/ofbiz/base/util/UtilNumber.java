@@ -216,7 +216,7 @@ public final class UtilNumber {
      * @param   file     - Name of the property file
      * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
-     * @deprecated Use {@link #getRoundingMode(String,String)} instead
+     * @deprecated Use {@link #getRoundingMode(String, String)} instead
      */
     @Deprecated
     public static int  getBigDecimalRoundingMode(String file, String property) {

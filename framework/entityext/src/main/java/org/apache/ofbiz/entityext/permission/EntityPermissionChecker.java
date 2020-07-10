@@ -435,7 +435,7 @@ public class EntityPermissionChecker {
 
                 /*
                    String ownedEntityId = entity.getString("owner" + entityName + "Id");
-                   GenericValue ownedEntity = delegator.findOne(entityName,UtilMisc.toMap(pkFieldName, ownedEntityId), true);
+                   GenericValue ownedEntity = delegator.findOne(entityName, UtilMisc.toMap(pkFieldName, ownedEntityId), true);
                    while (ownedEntity != null) {
                        if (!alreadyCheckedIds.contains(ownedEntityId)) {
                         // Decided to let the original purposes only be used in permission checking
@@ -456,7 +456,7 @@ public class EntityPermissionChecker {
                        //purposes.put(ownedEntityId, purposeList);
                         //roles.put(ownedEntityId, roleList);
                            ownedEntityId = ownedEntity.getString("owner" + entityName + "Id");
-                           ownedEntity = delegator.findOne(entityName,UtilMisc.toMap(pkFieldName, ownedEntityId), true);
+                           ownedEntity = delegator.findOne(entityName, UtilMisc.toMap(pkFieldName, ownedEntityId), true);
                        } else {
                           ownedEntity = null;
                        }

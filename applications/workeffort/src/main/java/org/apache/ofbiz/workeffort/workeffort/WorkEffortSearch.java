@@ -61,19 +61,19 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  *  Utilities for WorkEffort search based on various constraints including assocs, features and keywords.
  *
  *  Search:
- *      WorkEffort fields: workEffortTypeId,workEffortPurposeTypeId,scopeEnumId, ??others
+ *      WorkEffort fields: workEffortTypeId, workEffortPurposeTypeId, scopeEnumId, ??others
  *      WorkEffortKeyword - keyword search
- *      WorkEffortAssoc.workEffortIdTo,workEffortIdFrom,workEffortAssocTypeId
- *          Sub-tasks: WorkEffortAssoc.workEffortIdTo,workEffortIdFrom,workEffortAssocTypeId=WORK_EFF_BREAKDOWN for sub-tasks OR: (specific assoc and all sub-tasks)
+ *      WorkEffortAssoc.workEffortIdTo, workEffortIdFrom, workEffortAssocTypeId
+ *          Sub-tasks: WorkEffortAssoc.workEffortIdTo, workEffortIdFrom, workEffortAssocTypeId=WORK_EFF_BREAKDOWN for sub-tasks OR: (specific assoc and all sub-tasks)
  *          Sub-tasks: WorkEffort.workEffortParentId tree
  *      WorkEffortGoodStandard.productId
- *      WorkEffortPartyAssignment.partyId,roleTypeId
+ *      WorkEffortPartyAssignment.partyId, roleTypeId
  *  Planned for later:
  *      WorkEffortFixedAssetAssign.fixedAssetId
- *      WorkEffortContent.contentId,workEffortContentTypeId
- *      WorkEffortBilling.invoiceId,invoiceItemSeqId
+ *      WorkEffortContent.contentId, workEffortContentTypeId
+ *      WorkEffortBilling.invoiceId, invoiceItemSeqId
  *      CommunicationEventWorkEff.communicationEventId
- *      TimeEntry.partyId,rateTypeId,timesheetId,invoiceId,invoiceItemSeqId
+ *      TimeEntry.partyId, rateTypeId, timesheetId, invoiceId, invoiceItemSeqId
  */
 public class WorkEffortSearch {
 

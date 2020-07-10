@@ -118,7 +118,7 @@ public final class StartupCommandUtil {
                     + System.lineSeparator()
                     + "-l repair-columns"
                     + System.lineSeparator()
-                    + "-l continue-on-failure" )
+                    + "-l continue-on-failure")
             .numberOfArgs(2)
             .valueSeparator('=')
             .optionalArg(true)
@@ -194,12 +194,11 @@ public final class StartupCommandUtil {
 
     static final void highlightAndPrintErrorMessage(String errorMessage) {
         System.err.println(
-                "==============================================================================="
-                + System.lineSeparator()
-                + errorMessage
-                + System.lineSeparator()
-                + "==============================================================================="
-                );
+        "==============================================================================="
+        + System.lineSeparator()
+        + errorMessage
+        + System.lineSeparator()
+        + "===============================================================================");
     }
 
     private static final Options getOfbizStartupOptions() {
@@ -226,7 +225,7 @@ public final class StartupCommandUtil {
                 .collect(Collectors.toList());
     }
 
-    private static final Map<String,String> populateMapFromProperties(final Properties properties) {
+    private static final Map<String, String> populateMapFromProperties(final Properties properties) {
         return properties.entrySet().stream().collect(Collectors.toMap(
                 entry -> String.valueOf(entry.getKey()),
                 entry -> String.valueOf(entry.getValue())));
@@ -234,15 +233,15 @@ public final class StartupCommandUtil {
 
     private static final void validateAllCommandArguments(CommandLine commandLine) throws StartupException {
         // Make sure no extra options are passed
-        if(!commandLine.getArgList().isEmpty()) {
+        if (!commandLine.getArgList().isEmpty()) {
             throw new StartupException("unrecognized options / properties: " + commandLine.getArgList());
         }
         // PORTOFFSET validation
-        if(commandLine.hasOption(StartupOption.PORTOFFSET.getName())) {
+        if (commandLine.hasOption(StartupOption.PORTOFFSET.getName())) {
             Properties optionProperties = commandLine.getOptionProperties(StartupOption.PORTOFFSET.getName());
             try {
                 int portOffset = Integer.parseInt(optionProperties.keySet().iterator().next().toString());
-                if(portOffset < 0) {
+                if (portOffset < 0) {
                     throw new StartupException("you can only pass positive integers to the option --" + StartupOption.PORTOFFSET.getName());
                 }
             } catch (NumberFormatException e) {

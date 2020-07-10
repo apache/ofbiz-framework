@@ -105,8 +105,8 @@ public class RecurrenceInfo {
         eDateList = RecurrenceUtil.parseDateList(StringUtil.split(info.getString("exceptionDateTimes"), ","));
 
         // Sort the lists.
-        Collections.sort(rDateList);
-        Collections.sort(eDateList);
+        rDateList.sort(null);
+        eDateList.sort(null);
     }
 
     /** Returns the primary key for this value object */

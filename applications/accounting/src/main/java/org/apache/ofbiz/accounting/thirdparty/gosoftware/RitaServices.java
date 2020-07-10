@@ -48,10 +48,11 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class RitaServices {
 
     private static final String MODULE = RitaServices.class.getName();
-    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
     private static final String RES_ORDER = "OrderUiLabels";
+
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("invoice.rounding");
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
@@ -522,6 +523,6 @@ public class RitaServices {
 
     private static String getAmountString(Map<String, ? extends Object> context, String amountField) {
         BigDecimal processAmount = (BigDecimal) context.get(amountField);
-        return processAmount.setScale(decimals, rounding).toPlainString();
+        return processAmount.setScale(DECIMALS, ROUNDING).toPlainString();
     }
 }

@@ -245,6 +245,14 @@ public class OrderManagerEvents {
                     }
 
                     try {
+                        if (UtilValidate.isEmpty(paymentReference)) {
+                            // get the old order preference to copy the reference number and set it as paymentRefNumber for the payment
+                            GenericValue currentPref = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId).queryFirst();
+                            if (currentPref != null) {
+                                paymentReference = (String) currentPref.get("manualRefNum");
+                                paymentPreference.set("manualRefNum", paymentReference);
+                            }
+                        }
                         delegator.create(paymentPreference);
                     } catch (GenericEntityException ex) {
                         Debug.logError(ex, "Cannot create a new OrderPaymentPreference", MODULE);

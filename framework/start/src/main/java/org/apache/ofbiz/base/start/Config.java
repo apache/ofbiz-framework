@@ -107,10 +107,10 @@ public final class Config {
     }
 
     private static String determineOfbizPropertiesFileName(List<StartupCommand> ofbizCommands) {
-        if(ofbizCommands.stream().anyMatch(
+        if (ofbizCommands.stream().anyMatch(
                 option -> option.getName().equals(StartupCommandUtil.StartupOption.LOAD_DATA.getName()))) {
             return "load-data.properties";
-        } else if(ofbizCommands.stream().anyMatch(
+        } else if (ofbizCommands.stream().anyMatch(
                 option -> option.getName().equals(StartupCommandUtil.StartupOption.TEST.getName()))) {
             return "test.properties";
         } else {

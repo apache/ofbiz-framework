@@ -38,8 +38,8 @@ under the License.
     <screen name="ShowHelp">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/jquery-3.4.1.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/jquery-migrate-3.0.0.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/jquery-3.5.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/jquery-migrate-3.3.0.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js" global="true"/>
             </actions>

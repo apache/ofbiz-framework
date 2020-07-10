@@ -76,8 +76,6 @@ public class ContentUrlFilter implements Filter {
                     }
                 } catch (GenericEntityException gee) {
                     Debug.logWarning(gee.getMessage(), MODULE);
-                } catch (Exception e) {
-                    Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
             if (UtilValidate.isNotEmpty(urlContentId)) {

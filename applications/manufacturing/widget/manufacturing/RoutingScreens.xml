@@ -93,10 +93,11 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindRouting"/>
                 <set field="tabButtonItem" value="findRouting"/>
                 <set field="headerItem" value="routing"/>
+                <set field="helpAnchor" value="_routing"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                
+
                 <set field="asm_multipleSelectForm" value="FindRoutings"/>
                 <set field="asm_formSize" value="700"/>
                 <set field="asm_multipleSelect" value="FindRoutings_currentStatusId"/>
@@ -136,6 +137,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRouting"/>
                 <set field="headerItem" value="routing"/>
                 <set field="tabButtonItem" value="editRouting"/>
+                <set field="helpAnchor" value="_create_edit_routing"/>
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routing"/>
@@ -157,6 +159,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindRoutingTask"/>
                 <set field="tabButtonItem" value="routingTask"/>
                 <set field="headerItem" value="routingTask"/>
+                <set field="helpAnchor" value="_routing_task"/>
 
                 <set field="requestParameters.workEffortTypeId" to-scope="screen" default-value="ROU_TASK"/>
                 <set field="requestParameters.currentStatusId" to-scope="screen" default-value="ROU_ACTIVE"/>
@@ -192,6 +195,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRoutingTask"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="editRoutingTask"/>
+                <set field="helpAnchor" value="_create_edit_route_task"/>
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
@@ -216,6 +220,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRoutingTaskCosts"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="editRoutingTaskCosts"/>
+                <set field="helpAnchor" value="_create_edit_route_task_cost"/>
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
@@ -265,6 +270,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListRoutingTaskProducts"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="listRoutingTaskProducts"/>
+                <set field="helpAnchor" value="_routing_task_deliverable_products"/>
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
@@ -293,6 +299,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRoutingTaskProduct"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="listRoutingTaskProducts"/>
+                <set field="helpAnchor" value="_create_edit_deliverable_products"/>
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-and entity-name="WorkEffortGoodStandard" list="allRoutingProductLinks">
@@ -318,6 +325,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRoutingTaskAssoc"/>
                 <set field="tabButtonItem" value="routingTaskAssoc"/>
                 <set field="headerItem" value="routing"/>
+                <set field="helpAnchor" value="_create_edit_route_associated_task"/>
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
@@ -351,6 +359,7 @@ under the License.
                 <set field="tabButtonItem" value="routingProductLink"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="routing"/>
+                <set field="helpAnchor" value="_create_edit_routing_associated_product_link"/>
 
                 <set field="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
@@ -380,6 +389,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRoutingTaskFixedAsset"/>
                 <set field="tabButtonItem" value="editRoutingTaskFixedAssets"/>
                 <set field="headerItem" value="routingTask"/>
+                <set field="helpAnchor" value="_create_edit_routing_task_equipment"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-and entity-name="WorkEffortFixedAssetStd" list="allFixedAssets">
                     <field-map field-name="workEffortId" from-field="workEffortId"/>

@@ -211,8 +211,7 @@ public class PermissionRecorder {
         sb.append("Content Id");
         sb.append("</td>");
 
-        for (int i=0; i < fieldTitles.length; i++) {
-            String opField = fieldTitles[i];
+        for (String opField : fieldTitles) {
             sb.append("<td class=\"headr\">");
             sb.append(opField);
             sb.append("</td>");
@@ -251,10 +250,9 @@ public class PermissionRecorder {
         //if (Debug.infoOn()) Debug.logInfo("renderResultRowHtml, (1):" + sb.toString(), MODULE);
         String str = null;
         String s = null;
-        for (int i=0; i < opFields.length; i++) {
-            String opField = opFields[i];
+        for (String opField : opFields) {
             sb.append("<td class=\"target\">");
-            s = (String)currentContentResultMap.get(opField);
+            s = (String) currentContentResultMap.get(opField);
             if (s != null)
                 str = s;
             else
@@ -273,14 +271,13 @@ public class PermissionRecorder {
         sb.append("</td>");
 
         boolean isPass = true;
-        for (int i=0; i < opFields.length; i++) {
-            String opField = opFields[i];
-            Boolean bool = (Boolean)rMap.get(opField + "Cond");
+        for (String opField : opFields) {
+            Boolean bool = (Boolean) rMap.get(opField + "Cond");
             String cls = (bool) ? "pass" : "fail";
             if (!bool)
                 isPass = false;
             sb.append("<td class=\"" + cls + "\">");
-            s = (String)rMap.get(opField);
+            s = (String) rMap.get(opField);
             sb.append(s);
             sb.append("</td>");
         }

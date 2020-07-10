@@ -385,7 +385,7 @@ public class ContentServices {
         Map<String, Object> results = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
-        Map<String,Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
+        Map<String, Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
         String contentId = (String) context.get("contentId");
 
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
@@ -415,10 +415,7 @@ public class ContentServices {
             ContentWorker.renderSubContentAsText(dispatcher, contentId, outWriter, mapKey, templateContext, locale, mimeTypeId, true);
             out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering sub-content text", MODULE);
-            return ServiceUtil.returnError(e.toString());
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering sub-content text", MODULE);
             return ServiceUtil.returnError(e.toString());
         }
@@ -432,11 +429,11 @@ public class ContentServices {
      * matching content.
      */
     public static Map<String, Object> renderContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String,Object> results = new HashMap<>();
+        Map<String, Object> results = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
 
-        Map<String,Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
+        Map<String, Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
         String contentId = (String) context.get("contentId");
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
             contentId = (String) templateContext.get("contentId");
@@ -464,10 +461,7 @@ public class ContentServices {
             ContentWorker.renderContentAsText(dispatcher, contentId, outWriter, templateContext, locale, mimeTypeId, null, null, true);
             if (out != null) out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering sub-content text", MODULE);
-            return ServiceUtil.returnError(e.toString());
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering sub-content text", MODULE);
             return ServiceUtil.returnError(e.toString());
         }

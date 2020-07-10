@@ -120,7 +120,7 @@ public final class WidgetWorker {
         String tokenValue = CsrfUtil.generateTokenForNonAjax(request, target);
         if (UtilValidate.isNotEmpty(tokenValue)){
             String currentString = externalWriter.toString();
-            if(currentString.startsWith("<form")) {
+            if (currentString.startsWith("<form")) {
                 currentString = currentString.substring(currentString.lastIndexOf("\"")+1);
             }
             if (currentString.indexOf('?') == -1) {

@@ -74,8 +74,8 @@ public class CheckOutHelper {
     private static final String MODULE = CheckOutHelper.class.getName();
     private static final String RES_ERROR = "OrderErrorUiLabels";
 
-    public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
 
     protected LocalDispatcher dispatcher = null;
     protected Delegator delegator = null;
@@ -334,10 +334,13 @@ public class CheckOutHelper {
                 // get the selected amount to use
                 BigDecimal paymentAmount = null;
                 String securityCode = null;
+                String refNum = null;
+
                 if (selectedPaymentMethods.get(checkOutPaymentId) != null) {
                     Map<String, Object> checkOutPaymentInfo = selectedPaymentMethods.get(checkOutPaymentId);
                     paymentAmount = (BigDecimal) checkOutPaymentInfo.get("amount");
                     securityCode = (String) checkOutPaymentInfo.get("securityCode");
+                    refNum = (String) checkOutPaymentInfo.get("refNum");
                 }
 
                 boolean singleUse = singleUsePayments.contains(checkOutPaymentId);
@@ -347,6 +350,9 @@ public class CheckOutHelper {
                 }
                 if (securityCode != null) {
                     inf.securityCode = securityCode;
+                }
+                if (refNum != null) {
+                    inf.refNum[0] = refNum;
                 }
             }
         } else if (cart.getGrandTotal().compareTo(BigDecimal.ZERO) != 0) {
@@ -1631,8 +1637,8 @@ public class CheckOutHelper {
         BigDecimal reqAmtPreParse = cart.getGrandTotal().subtract(cart.getBillingAccountAmount());
         BigDecimal selectedPmnt = cart.getPaymentTotal();
 
-        BigDecimal selectedPaymentTotal = selectedPmnt.setScale(scale, rounding);
-        BigDecimal requiredAmount = reqAmtPreParse.setScale(scale, rounding);
+        BigDecimal selectedPaymentTotal = selectedPmnt.setScale(DECIMALS, ROUNDING);
+        BigDecimal requiredAmount = reqAmtPreParse.setScale(DECIMALS, ROUNDING);
 
         if (UtilValidate.isNotEmpty(paymentMethods) && requiredAmount.compareTo(selectedPaymentTotal) > 0) {
             Debug.logError("Required Amount : " + requiredAmount + " / Selected Amount : " + selectedPaymentTotal, MODULE);

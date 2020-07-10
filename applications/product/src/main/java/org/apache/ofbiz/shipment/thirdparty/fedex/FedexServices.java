@@ -959,16 +959,11 @@ public class FedexServices {
             // Pass the reply to the handler method
             return handleFedexShipReply(fDXShipReplyString, shipmentRouteSegment, shipmentPackageRouteSegs, locale);
 
-        } catch (GenericEntityException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentFedexShipmentTemplateServiceError", 
                     UtilMisc.toMap("errorString", e.toString()), locale));
-        } catch (GenericServiceException se) {
-            Debug.logError(se, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "FacilityShipmentFedexShipmentTemplateServiceError", 
-                    UtilMisc.toMap("errorString", se.toString()), locale));
         }
     }
 

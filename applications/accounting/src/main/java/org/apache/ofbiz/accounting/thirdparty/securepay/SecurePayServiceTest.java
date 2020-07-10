@@ -128,7 +128,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             serviceInput.put("processAmount", new BigDecimal("100.08"));
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("ofbScAuthorize",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScAuthorize", serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -173,7 +173,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             serviceInput.put("captureAmount", refundAmount);
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("ofbScCapture",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScCapture", serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -239,7 +239,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
            );
             serviceInput.put("creditAmount", creditAmount);
             // run the service
-            Map<String, Object> result = dispatcher.runSync("ofbScCCCredit",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScCCCredit", serviceInput);
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testdoCredit] responseMessage: " + responseMessage, MODULE);

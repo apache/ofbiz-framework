@@ -130,7 +130,7 @@ public class SagePayPaymentServices {
         }
 
         billingInfo.put("orderId", orderId);
-        if(processAmount != null){
+        if (processAmount != null){
             billingInfo.put("amount", processAmount.toString());
         } else {
             billingInfo.put("amount", "");
@@ -211,7 +211,7 @@ public class SagePayPaymentServices {
                 Debug.logInfo("SagePay - Payment authorized for order : " + vendorTxCode, MODULE);
                 result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.TRUE, txAuthNo, securityKey, new BigDecimal(amount), vpsTxId, vendorTxCode, statusDetail);
                 if ("PAYMENT".equals(transactionType)) {
-                    Map<String,Object> captureResult = SagePayUtil.buildCardCapturePaymentResponse(Boolean.TRUE, txAuthNo, securityKey, new BigDecimal(amount), vpsTxId, vendorTxCode, statusDetail);
+                    Map<String, Object> captureResult = SagePayUtil.buildCardCapturePaymentResponse(Boolean.TRUE, txAuthNo, securityKey, new BigDecimal(amount), vpsTxId, vendorTxCode, statusDetail);
                     result.putAll(captureResult);
                 }
             } else if (status != null && "INVALID".equals(status)) {
@@ -309,7 +309,7 @@ public class SagePayPaymentServices {
             Debug.logError(e, "Error getting CreditCard for OrderPaymentPreference : " + orderPaymentPreference, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingPaymentUnableToGetCCInfo", locale) + " " + orderPaymentPreference);
         }
-        context.put("creditCard",creditCard);
+        context.put("creditCard", creditCard);
         context.put("captureTransaction", captureTransaction);
 
         List<GenericValue> authTransactions = PaymentGatewayServices.getAuthTransactions(orderPaymentPreference);

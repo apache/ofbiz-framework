@@ -159,7 +159,7 @@ public final class ExecutionPool {
 
         @Override
         public final boolean equals(Object other) {
-            if(other instanceof Pulse) {
+            if (other instanceof Pulse) {
                 return timeDiff((Pulse) other) == 0;
             }
             return false;

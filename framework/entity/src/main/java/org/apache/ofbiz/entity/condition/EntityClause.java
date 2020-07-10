@@ -83,11 +83,11 @@ public class EntityClause {
         return value;
     }
 
-    public <L,R> EntityOperator<L,R> getInterFieldOperation() {
+    public <L, R> EntityOperator<L, R> getInterFieldOperation() {
         return UtilGenerics.cast(interFieldOperation);
     }
 
-    public <L,R> EntityOperator<L,R> getIntraFieldOperation() {
+    public <L, R> EntityOperator<L, R> getIntraFieldOperation() {
         return UtilGenerics.cast(intraFieldOperation);
     }
 
@@ -107,11 +107,11 @@ public class EntityClause {
         this.secondField = secondField;
     }
 
-    public <L,R> void setInterFieldOperation(EntityOperator<L,R> interFieldOperation) {
+    public <L, R> void setInterFieldOperation(EntityOperator<L, R> interFieldOperation) {
         this.interFieldOperation = interFieldOperation;
     }
 
-    public <L,R> void setIntraFieldOperation(EntityOperator<L,R> intraFieldOperation) {
+    public <L, R> void setIntraFieldOperation(EntityOperator<L, R> intraFieldOperation) {
         this.intraFieldOperation = intraFieldOperation;
     }
 

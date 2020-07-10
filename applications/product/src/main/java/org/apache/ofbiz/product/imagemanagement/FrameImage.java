@@ -395,7 +395,7 @@ public class FrameImage {
         
         if (UtilValidate.isNotEmpty(imageName)) {
             File file = new File(imageServerPath + "/preview/" +"/previewImage.jpg");
-            if(!file.delete()) {
+            if (!file.delete()) {
                 Debug.logError("File :" + file.getName() + ", couldn't be loaded", MODULE);
             }
             // Image Frame
@@ -429,7 +429,7 @@ public class FrameImage {
 
     public static String chooseFrameImage(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        if(UtilValidate.isEmpty(request.getParameter("frameContentId"))) {
+        if (UtilValidate.isEmpty(request.getParameter("frameContentId"))) {
             if (UtilValidate.isNotEmpty(request.getParameter("frameExistContentId")) && UtilValidate.isNotEmpty(request.getParameter("frameExistDataResourceId"))) {
                 session.setAttribute("frameExistContentId", request.getParameter("frameExistContentId"));
                 session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId"));

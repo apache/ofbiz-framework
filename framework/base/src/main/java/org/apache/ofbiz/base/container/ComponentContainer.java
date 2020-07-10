@@ -167,7 +167,7 @@ public class ComponentContainer implements Container {
                     .map(cmpnt -> directoryPath.resolve(cmpnt).toAbsolutePath().normalize())
                     .filter(Files::isDirectory)
                     .filter(dir -> Files.exists(dir.resolve(ComponentConfig.OFBIZ_COMPONENT_XML_FILENAME)))
-                    .forEach(componentDir -> retrieveComponentConfig(componentDir));
+                    .forEach(ComponentContainer::retrieveComponentConfig);
         }
     }
 

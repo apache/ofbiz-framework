@@ -3036,7 +3036,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sb.append(updateArea.getAreaId()).append(",");
             String ajaxTarget = updateArea.getAreaTarget(context);
             String urlPath = UtilHttp.removeQueryStringFromTarget(ajaxTarget);
-            sb.append(this.rh.makeLink(this.request, this.response,urlPath)).append(",");
+            sb.append(this.rh.makeLink(this.request, this.response, urlPath)).append(",");
             String queryString = UtilHttp.getQueryStringFromTarget(ajaxTarget).replace("?", "");
             Map<String, Object> parameters = UtilHttp.getQueryStringOnlyParameterMap(queryString);
             Map<String, Object> ctx = UtilGenerics.cast(context);

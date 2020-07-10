@@ -58,7 +58,7 @@ public class SagePayServices
                 GenericValue sagePay = EntityQuery.use(delegator).from("PaymentGatewaySagePay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (sagePay != null) {
                     for (Entry<String, Object> set : sagePay.entrySet()) {
-                        if(set.getValue() == null){
+                        if (set.getValue() == null){
                             sagePayConfig.put(set.getKey(), null);
                         } else {
                             sagePayConfig.put(set.getKey(), set.getValue().toString());
@@ -132,16 +132,16 @@ public class SagePayServices
         
         //start - required parameters
         StringBuilder errorRequiredParameters = new StringBuilder();
-        if(vpsProtocol == null){
+        if (vpsProtocol == null){
             errorRequiredParameters.append("Required transaction parameter 'protocolVersion' is missing. ");
         }
-        if(vendor == null){
+        if (vendor == null){
             errorRequiredParameters.append("Required transaction parameter 'vendor' is missing. ");
         }
-        if(txType == null){
+        if (txType == null){
             errorRequiredParameters.append("Required transaction parameter 'authenticationsTransType' is missing. ");
         }
-        if(errorRequiredParameters.length() > 0){
+        if (errorRequiredParameters.length() > 0){
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentAuthorisationException", UtilMisc.toMap("errorString", errorRequiredParameters), locale));
         }
         

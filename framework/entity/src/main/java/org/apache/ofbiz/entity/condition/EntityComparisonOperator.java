@@ -249,7 +249,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         }
     }
 
-    public static final <L,R> boolean compareLike(L lhs, R rhs) {
+    public static final <L, R> boolean compareLike(L lhs, R rhs) {
         PatternMatcher matcher = new Perl5Matcher();
         if (lhs == null) {
             if (rhs != null) {

@@ -74,7 +74,7 @@ public final class OrderMapList extends MethodOperation {
         }
         List<Map<Object, Object>> orderList = listFma.get(methodContext.getEnvMap());
         if (orderList != null) {
-            Collections.sort(orderList, mc);
+            orderList.sort(mc);
         }
         return true;
     }

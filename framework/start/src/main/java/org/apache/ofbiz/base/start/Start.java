@@ -72,7 +72,7 @@ public final class Start {
         }
 
         CommandType commandType = CommandType.valueOf(ofbizCommands);
-        if(!commandType.equals(CommandType.HELP)) {
+        if (!commandType.equals(CommandType.HELP)) {
             instance.config = StartupControlPanel.init(ofbizCommands);
         }
         switch (commandType) {

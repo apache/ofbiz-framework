@@ -96,7 +96,7 @@ public class ShoppingCartEvents {
         return "success";
     }
 
-    public static String removePromotion(HttpServletRequest request,HttpServletResponse response) {
+    public static String removePromotion(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = getCartObject(request);
         String promoCodeId = request.getParameter("promoCode");
@@ -127,7 +127,7 @@ public class ShoppingCartEvents {
                             if (!itemAdjustments.isEmpty()) {
                                 index = 0;
                                 for (GenericValue adjustment : itemAdjustments ) {
-                                    if(adjustment.get("productPromoId").equals(productPromoId)) {
+                                    if (adjustment.get("productPromoId").equals(productPromoId)) {
                                         checkItem.getAdjustments().remove(index);
                                         result = "success";
                                     }
@@ -466,7 +466,7 @@ public class ShoppingCartEvents {
             quantity = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantityStr, "BigDecimal", null, locale);
             //For quantity we should test if we allow to add decimal quantity for this product an productStore :
             // if not and if quantity is in decimal format then return error.
-            if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
+            if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
                 BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                 if (remainder.compareTo(BigDecimal.ZERO) != 0) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", locale));
@@ -640,7 +640,7 @@ public class ShoppingCartEvents {
         }
 
         // check for alternative packing
-        if(ProductWorker.isAlternativePacking(delegator, productId , parentProductId)){
+        if (ProductWorker.isAlternativePacking(delegator, productId , parentProductId)){
             GenericValue parentProduct = null;
             try {
                 parentProduct = EntityQuery.use(delegator).from("Product").where("productId", parentProductId).queryOne();
@@ -648,7 +648,7 @@ public class ShoppingCartEvents {
                 Debug.logError(e, "Error getting parent product", MODULE);
             }
             BigDecimal piecesIncluded = BigDecimal.ZERO;
-            if(parentProduct != null){
+            if (parentProduct != null){
                 piecesIncluded = new BigDecimal(parentProduct.getLong("piecesIncluded"));
                 quantity = quantity.multiply(piecesIncluded);
             }
@@ -1840,7 +1840,7 @@ public class ShoppingCartEvents {
                 try {
                     //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                     // if not and if quantity is in decimal format then return error.
-                    if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
+                    if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
                         BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                         if (remainder.compareTo(BigDecimal.ZERO) != 0) {
                             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", cart.getLocale()));
@@ -1895,7 +1895,7 @@ public class ShoppingCartEvents {
                     result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
                                                   null, itemType, itemDescription, null,
                                                   amount, quantity, null, null, null, null, null, null,
-                                                  itemGroupNumber, itemAttributes,null);
+                                                  itemGroupNumber, itemAttributes, null);
                     // no values for price and paramMap (a context for adding attributes)
                     controlDirective = processResult(result, request);
                     if (controlDirective.equals(ERROR)) {    // if the add to cart failed, then get out of this loop right away

@@ -205,7 +205,7 @@ public class DatabaseUtil {
 
         List<ModelEntity> modelEntityList = new ArrayList<>(modelEntities.values());
         // sort using compareTo method on ModelEntity
-        Collections.sort(modelEntityList);
+        modelEntityList.sort(null);
         int curEnt = 0;
         int totalEnt = modelEntityList.size();
         List<ModelEntity> entitiesAdded = new LinkedList<>();
@@ -961,37 +961,44 @@ public class DatabaseUtil {
                 Debug.logError(message, MODULE);
                 if (messages != null) messages.add(message);
             }
-            while (tableSet.next()) {
-                try {
-                    String tableName = tableSet.getString("TABLE_NAME");
-                    // for those databases which do not return the schema name with the table name (pgsql 7.3)
-                    boolean appendSchemaName = false;
-                    if (tableName != null && lookupSchemaName != null && !tableName.startsWith(lookupSchemaName + "\\.")) {
-                        appendSchemaName = true;
-                    }
-                    if (needsUpperCase && tableName != null) {
-                        tableName = tableName.toUpperCase();
-                    }
-                    if (appendSchemaName) {
-                        tableName = lookupSchemaName + "." + tableName;
-                    }
+            if (tableSet != null) {
+                while (tableSet.next()) {
+                    try {
+                        String tableName = tableSet.getString("TABLE_NAME");
+                        // for those databases which do not return the schema name with the table name (pgsql 7.3)
+                        boolean appendSchemaName = false;
+                        if (tableName != null && lookupSchemaName != null && !tableName.startsWith(lookupSchemaName + "\\.")) {
+                            appendSchemaName = true;
+                        }
+                        if (needsUpperCase && tableName != null) {
+                            tableName = tableName.toUpperCase();
+                        }
+                        if (appendSchemaName) {
+                            tableName = lookupSchemaName + "." + tableName;
+                        }
 
-                    // NOTE: this may need a toUpperCase in some cases, keep an eye on it, okay for now just do a compare with equalsIgnoreCase
-                    String tableType = tableSet.getString("TABLE_TYPE");
-                    // only allow certain table types
-                    if (tableType != null && !"TABLE".equalsIgnoreCase(tableType) && !"VIEW".equalsIgnoreCase(tableType)
-                            && !"ALIAS".equalsIgnoreCase(tableType) && !"SYNONYM".equalsIgnoreCase(tableType) && !"BASE TABLE".equalsIgnoreCase(tableType)) {
+                        // NOTE: this may need a toUpperCase in some cases, keep an eye on it, okay for now just do a compare with equalsIgnoreCase
+                        String tableType = tableSet.getString("TABLE_TYPE");
+                        // only allow certain table types
+                        if (tableType != null 
+                                && !"TABLE".equalsIgnoreCase(tableType)
+                                && !"VIEW".equalsIgnoreCase(tableType)
+                                && !"ALIAS".equalsIgnoreCase(tableType)
+                                && !"SYNONYM".equalsIgnoreCase(tableType)
+                                && !"BASE TABLE".equalsIgnoreCase(tableType)) {
+                            continue;
+                        }
+
+                        // String remarks = tableSet.getString("REMARKS");
+                        tableNames.add(tableName);
+                        // if (Debug.infoOn()) Debug.logInfo("Found table named [" + tableName + "] 
+                        // of type [" + tableType + "] with remarks: " + remarks, MODULE);
+                    } catch (SQLException e) {
+                        String message = "Error getting table information... Error was:" + e.toString();
+                        Debug.logError(message, MODULE);
+                        if (messages != null) messages.add(message);
                         continue;
                     }
-
-                    // String remarks = tableSet.getString("REMARKS");
-                    tableNames.add(tableName);
-                    // if (Debug.infoOn()) Debug.logInfo("Found table named [" + tableName + "] of type [" + tableType + "] with remarks: " + remarks, MODULE);
-                } catch (SQLException e) {
-                    String message = "Error getting table information... Error was:" + e.toString();
-                    Debug.logError(message, MODULE);
-                    if (messages != null) messages.add(message);
-                    continue;
                 }
             }
         } catch (SQLException e) {
@@ -1016,18 +1023,6 @@ public class DatabaseUtil {
             }
         }
         return tableNames;
-    }
-
-    private AbstractCountingCallable createPrimaryKeyFetcher(final DatabaseMetaData dbData, final String lookupSchemaName, final boolean needsUpperCase, final Map<String, Map<String, ColumnCheckInfo>> colInfo, final Collection<String> messages, final String curTable) {
-        return new AbstractCountingCallable(null, null) {
-            @Override
-            public AbstractCountingCallable call() throws Exception {
-                if (Debug.verboseOn()) Debug.logVerbose("Fetching primary keys for " + curTable, MODULE);
-                ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, curTable);
-                count = checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
-                return this;
-            }
-        };
     }
 
     private Map<String, Map<String, ColumnCheckInfo>> getColumnInfo(Set<String> tableNames, boolean getPks, Collection<String> messages, ExecutorService executor) {
@@ -1445,7 +1440,7 @@ public class DatabaseUtil {
                         if (needsUpperCase[0] && indexName != null) {
                             indexName = indexName.toUpperCase();
                         }
-                        if (indexName.startsWith("PK_") || indexName.startsWith("pk_")) continue;
+                        if (indexName != null && indexName.toUpperCase().startsWith("PK_")) continue;
 
                         Set<String> tableIndexList = indexInfo.get(tableName);
                         if (tableIndexList == null) {

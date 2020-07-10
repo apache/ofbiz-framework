@@ -288,7 +288,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 AbstractModelAction.runSubActions(this.actions, context);
 
                 try {
-                    MultiBlockHtmlTemplateUtil.addLinksToLayoutSettings(context);
+                    MultiBlockHtmlTemplateUtil.addLinksToLayoutSettingsWhenConditionsAreRight(context);
 
                     // section by definition do not themselves do anything, so this method will generally do nothing, but we'll call it anyway
                     screenStringRenderer.renderSectionBegin(writer, context, this);

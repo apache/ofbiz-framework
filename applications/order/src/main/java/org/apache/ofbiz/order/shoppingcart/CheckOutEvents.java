@@ -179,7 +179,7 @@ public class CheckOutEvents {
                 BigDecimal billingAccountAmt = null;
                 billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
                 if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), cart.getLocale()));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), cart.getLocale()));
                     return "error";
                 }
                 selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.<String, Object>toMap("amount", billingAccountAmt, "securityCode", null));
@@ -317,6 +317,10 @@ public class CheckOutEvents {
                 if (UtilValidate.isNotEmpty(securityCode)) {
                     paymentMethodInfo.put("securityCode", securityCode);
                 }
+                String paymentRefNumber = request.getParameter("paymentRefNumber");
+                if (UtilValidate.isNotEmpty(paymentRefNumber)) {
+                    paymentMethodInfo.put("refNum", paymentRefNumber);
+                }
                 String amountStr = request.getParameter("amount_" + paymentMethod);
                 BigDecimal amount = null;
                 if (UtilValidate.isNotEmpty(amountStr) && !"REMAINING".equals(amountStr)) {
@@ -354,7 +358,7 @@ public class CheckOutEvents {
             BigDecimal billingAccountAmt = null;
             billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
             if (billingAccountAmt == null) {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                 return "error";
             }
             selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.<String, Object>toMap("amount", billingAccountAmt, "securityCode", null));
@@ -439,14 +443,14 @@ public class CheckOutEvents {
             if (UtilValidate.isEmpty(paymentMethodTypes)) {
                 String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderNoPaymentMethodTypeSelected",
                         cart.getLocale());
-                request.setAttribute("_ERROR_MESSAGE_",errMsg);
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
             String shipmentMethod = cart.getShipmentMethodTypeId();
             if (UtilValidate.isEmpty(shipmentMethod)) {
                 String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderNoShipmentMethodSelected",
                         cart.getLocale());
-                request.setAttribute("_ERROR_MESSAGE_",errMsg);
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
         }
@@ -461,7 +465,7 @@ public class CheckOutEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
         Map<String, Object> callResult;
-        String result = checkoutValidation(request,response);
+        String result = checkoutValidation(request, response);
         if ("error".equals(result)) {
             return "error";
         }
@@ -828,9 +832,9 @@ public class CheckOutEvents {
                     String facilityId = request.getParameter(shipGroupIndex + "_shipGroupFacilityId");
                     if (shippingContactMechId == null) {
                         shippingContactMechId = (String) request.getAttribute("contactMechId");
-                    } else if("PURCHASE_ORDER".equals(cart.getOrderType())){
+                    } else if ("PURCHASE_ORDER".equals(cart.getOrderType())){
                         String[] shipInfo = shippingContactMechId.split("_@_");
-                        if(shipInfo.length > 1){
+                        if (shipInfo.length > 1){
                             shippingContactMechId = shipInfo[0];
                             facilityId = shipInfo[1];
                         }
@@ -931,7 +935,7 @@ public class CheckOutEvents {
                 BigDecimal billingAccountAmt = null;
                 billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
                 if (billingAccountAmt == null) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                     return "error";
                 }
                 selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.<String, Object>toMap("amount", billingAccountAmt, "securityCode", null));

@@ -1612,7 +1612,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 attributeMap.put("externalType", sqlType.substring(0, sqlType.indexOf('(')));
                 // since there is a field length set that
                 String widthStr = sqlType.substring(sqlType.indexOf('(') + 1, sqlType.indexOf(')'));
-                // if there is a comma split by it for width,precision
+                // if there is a comma split by it for width, precision
                 if (widthStr.indexOf(',') >= 0) {
                     attributeMap.put("width", widthStr.substring(0, widthStr.indexOf(',')));
                     // since there is a field precision set that

@@ -423,13 +423,13 @@ public class ModelTheme implements Serializable {
         return null;
     }
 
-    public Map<String,String> getModelCommonScreens() {
+    public Map<String, String> getModelCommonScreens() {
         return modelCommonScreensMap;
     }
-    public Map<String,String> getModelCommonForms() {
+    public Map<String, String> getModelCommonForms() {
         return modelCommonFormsMap;
     }
-    public Map<String,String> getModelCommonMenus() {
+    public Map<String, String> getModelCommonMenus() {
         return modelCommonMenusMap;
     }
 

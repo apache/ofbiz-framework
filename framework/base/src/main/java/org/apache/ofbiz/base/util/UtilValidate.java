@@ -176,7 +176,7 @@ public final class UtilValidate {
     }
 
     /** Check whether map m is empty. */
-    public static <K,E> boolean isEmpty(Map<K,E> m) {
+    public static <K, E> boolean isEmpty(Map<K, E> m) {
         return (m == null) || m.isEmpty();
     }
 
@@ -1082,7 +1082,7 @@ public final class UtilValidate {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
 
-        if(((Integer.compare(cc.length(), 16) == 0) && "35".equals(first2digs)) || ((Integer.compare(cc.length(), 15) == 0) && ("2131".equals(first4digs) || "1800".equals(first4digs)))) {
+        if (((Integer.compare(cc.length(), 16) == 0) && "35".equals(first2digs)) || ((Integer.compare(cc.length(), 15) == 0) && ("2131".equals(first4digs) || "1800".equals(first4digs)))) {
             return isCreditCard(cc);
         }
         return false;

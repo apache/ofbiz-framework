@@ -471,7 +471,7 @@ public class CategoryServices {
                     CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request, productCategoryId), true);
                     childOfCats = EntityUtil.filterByDate((List<GenericValue>) request.getAttribute("ChildCatalogList"));
                     
-                } else if("false".equals(isCatalog) && "false".equals(isCategoryType)){
+                } else if ("false".equals(isCatalog) && "false".equals(isCategoryType)){
                     childOfCats = EntityQuery.use(delegator).from("ProductCategoryRollupAndChild").where("parentProductCategoryId", productCategoryId).filterByDate().queryList();
                 } else {
                     childOfCats = EntityQuery.use(delegator).from("ProdCatalogCategory").where("prodCatalogId", productCategoryId).filterByDate().queryList();
@@ -493,7 +493,7 @@ public class CategoryServices {
                         childList = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", catId).filterByDate().queryList();
 
                         // Get the chosen category information for the categoryContentWrapper
-                        GenericValue cate = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId",catId).queryOne();
+                        GenericValue cate = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", catId).queryOne();
 
                         // If chosen category's child exists, then put the arrow before category icon
                         if (UtilValidate.isNotEmpty(childList)) {
