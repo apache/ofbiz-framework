@@ -36,6 +36,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.wsdl.Binding;
 import javax.wsdl.BindingInput;
@@ -461,6 +462,24 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
         return nameList;
     }
+    
+    /**
+     * Creates a map of service IN parameters using Name as key and Type as value.
+     * Skips internal parameters
+     * @return Map of IN parameters
+     */
+	public Map<String, String> getInParamNamesMap() {
+		return getInModelParamList().stream().filter(param -> !param.internal).collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
+	}
+
+	/**
+	 * Creates a map of service OUT parameters using Name as key and Type as value.
+	 * Skips internal parameters
+	 * @return Map of OUT parameters 
+	 */
+	public Map<String, String> getOutParamNamesMap() {
+		return getModelParamList().stream().filter(param -> param.isOut() && !param.internal).collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
+	}
 
     // only returns number of defined parameters (not internal)
     public int getDefinedInCount() {
