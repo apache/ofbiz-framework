@@ -1546,10 +1546,22 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
+     * @see org.apache.ofbiz.entity.Delegator#findList(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
+     *  org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.condition.EntityCondition, java.util.Set,
+     *  java.util.List, org.apache.ofbiz.entity.util.EntityFindOptions, boolean)
+     */
+    @Override
+    public List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy,
+                                       EntityFindOptions findOptions, boolean useCache) throws GenericEntityException {
+        return findList(entityName, entityCondition, null, fieldsToSelect, orderBy, findOptions, useCache);
+    }
+
+    /* (non-Javadoc)
      * @see org.apache.ofbiz.entity.Delegator#findList(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition, java.util.Set, java.util.List, org.apache.ofbiz.entity.util.EntityFindOptions, boolean)
      */
     @Override
-    public List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache) throws GenericEntityException {
+    public List<GenericValue> findList(String entityName, EntityCondition entityCondition, EntityCondition havingCondition,
+                  Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache) throws GenericEntityException {
 
         EntityEcaRuleRunner<?> ecaRunner = null;
         GenericValue dummyValue = null;
@@ -1572,7 +1584,7 @@ public class GenericDelegator implements Delegator {
             }
 
             List<GenericValue> list = null;
-            try (EntityListIterator eli = this.find(entityName, entityCondition, null, fieldsToSelect, orderBy, findOptions)) {
+            try (EntityListIterator eli = this.find(entityName, entityCondition, havingCondition, fieldsToSelect, orderBy, findOptions)) {
                 list = eli.getCompleteList();
             }
 

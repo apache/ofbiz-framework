@@ -472,8 +472,8 @@ public class EntityQuery {
             findOptions = efo;
         }
         List<GenericValue> result = null;
-        if (dynamicViewEntity == null && this.havingEntityCondition == null) {
-            result = delegator.findList(entityName, makeWhereCondition(useCache), fieldsToSelect, orderBy, findOptions, useCache);
+        if (dynamicViewEntity == null) {
+            result = delegator.findList(entityName, makeWhereCondition(useCache), havingEntityCondition, fieldsToSelect, orderBy, findOptions, useCache);
         } else {
             try (EntityListIterator it = queryIterator()) { 
                 result = it.getCompleteList();
