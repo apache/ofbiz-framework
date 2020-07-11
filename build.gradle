@@ -39,6 +39,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "at.bxm.svntools"
 apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'checkstyle'
 
 apply from: 'common.gradle'
 
@@ -66,6 +67,18 @@ javadoc.options {
         "http://docs.groovy-lang.org/docs/groovy-2.4.13/html/api",
         "https://commons.apache.org/proper/commons-cli/apidocs"
     )
+}
+// Checks OFBiz Java coding conventions.
+checkstyle {
+    // Defining a maximum number of “tolerated” errors ensures that
+    // this number cannot increase in the future. It corresponds to
+    // the sum of errors that were present before introducing the
+    // ‘checkstyle’ tool present in the framework and in the official
+    // plugins.
+    maxErrors = 38803
+    // Currently there are a lot of errors so we need to temporarily
+    // hide them to avoid polluting the terminal output.
+    showViolations = false
 }
 
 sourceCompatibility = '1.8'
