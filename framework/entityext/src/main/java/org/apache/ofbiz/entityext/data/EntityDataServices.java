@@ -468,11 +468,11 @@ public class EntityDataServices {
                     Debug.logInfo("Decrypting with old key: " + oldKey, MODULE);
                     try {
                         keyBytes = cipherService.decrypt(keyBytes, Base64.decodeBase64(oldKey)).getBytes();
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         Debug.logInfo("Failed to decrypt with Shiro cipher; trying with old cipher", MODULE);
                         try {
                             keyBytes = DesCrypt.decrypt(DesCrypt.getDesKey(Base64.decodeBase64(oldKey)), keyBytes);
-                        } catch(Exception e1) {
+                        } catch (Exception e1) {
                             Debug.logError(e1, MODULE);
                             return ServiceUtil.returnError(e1.getMessage());
                         }
@@ -489,7 +489,7 @@ public class EntityDataServices {
                 row.setString("keyText", newKeyText);
                 row.store();
             }
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             Debug.logError(gee, MODULE);
             return ServiceUtil.returnError(gee.getMessage());
         }
@@ -528,7 +528,7 @@ public class EntityDataServices {
                             row.setString(field.getName(), row.getString(field.getName()));
                             row.store();
                         }
-                    } catch(GenericEntityException gee) {
+                    } catch (GenericEntityException gee) {
                         return ServiceUtil.returnError(gee.getMessage());
                     }
                 }

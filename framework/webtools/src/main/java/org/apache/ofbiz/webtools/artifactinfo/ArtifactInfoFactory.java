@@ -385,7 +385,7 @@ public class ArtifactInfoFactory {
         return () -> {
             try {
                 getServiceArtifactInfo(serviceName);
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 Debug.logWarning(exc, "Error processing service: " + serviceName, MODULE);
             }
             return null;

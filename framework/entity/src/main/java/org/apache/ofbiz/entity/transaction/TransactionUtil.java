@@ -78,7 +78,7 @@ public final class TransactionUtil implements Status {
     private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<>());
     private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<>());
 
-    private TransactionUtil () {}
+    private TransactionUtil() { }
     public static <V> V doNewTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
         return noTransaction(inTransaction(callable, ifErrorMessage, timeout, printException)).call();
     }
@@ -565,7 +565,7 @@ public final class TransactionUtil implements Status {
             rollback();
             num++;
         }
-        // no transaction stamps to remember anymore ;-)
+        // no transaction stamps to remember anymore
         clearTransactionStartStampStack();
         return num;
     }

@@ -59,7 +59,7 @@ public final class EntityFinderUtil {
 
     private static final String MODULE = EntityFinderUtil.class.getName();
 
-    private EntityFinderUtil () {}
+    private EntityFinderUtil() { }
 
     public static Map<FlexibleMapAccessor<Object>, Object> makeFieldMap(Element element) {
         Map<FlexibleMapAccessor<Object>, Object> fieldMap = null;

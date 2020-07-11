@@ -39,7 +39,7 @@ public final class GeoWorker {
 
     private static final String MODULE = GeoWorker.class.getName();
 
-    private GeoWorker() {}
+    private GeoWorker() { }
 
     public static List<GenericValue> expandGeoGroup(String geoId, Delegator delegator) {
         GenericValue geo = null;

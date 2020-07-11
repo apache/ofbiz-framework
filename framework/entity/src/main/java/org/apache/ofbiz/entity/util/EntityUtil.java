@@ -61,7 +61,7 @@ public final class EntityUtil {
 
     private static final String MODULE = EntityUtil.class.getName();
 
-    private EntityUtil() {}
+    private EntityUtil() { }
 
     @SafeVarargs
     public static <V> Map<String, V> makeFields(V... args) {

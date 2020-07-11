@@ -52,7 +52,7 @@ public final class ServiceConfigUtil {
     private static final UtilCache<String, ServiceConfig> serviceConfigCache = UtilCache.createUtilCache("service.ServiceConfig", 0, 0, false);
     private static final List<ServiceConfigListener> configListeners = new CopyOnWriteArrayList<>();
 
-    private ServiceConfigUtil() {}
+    private ServiceConfigUtil() { }
 
     /**
      * Returns the specified parameter value from the specified engine, or <code>null</code>

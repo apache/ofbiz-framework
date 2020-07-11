@@ -275,5 +275,5 @@ public final class WebAppUtil {
         return result;
     }
 
-    private WebAppUtil() {}
+    private WebAppUtil() { }
 }

@@ -505,6 +505,6 @@ public class ModelEntityChecker {
 
             "ZEROFILL", "ZONE" };
 
-    private ModelEntityChecker() {}
+    private ModelEntityChecker() { }
 }
 

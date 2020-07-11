@@ -65,7 +65,7 @@ public final class UtilProperties implements Serializable {
 
     private static final String MODULE = UtilProperties.class.getName();
 
-    private UtilProperties() {}
+    private UtilProperties() { }
 
     /**
      * A cache for storing Properties instances. Each Properties instance is keyed by its URL.
@@ -996,7 +996,7 @@ public final class UtilProperties implements Serializable {
         protected Locale locale = null;
         protected int hashCode = hashCode();
 
-        protected UtilResourceBundle() {}
+        protected UtilResourceBundle() { }
 
         public UtilResourceBundle(Properties properties, Locale locale, UtilResourceBundle parent) {
             this.properties = properties;

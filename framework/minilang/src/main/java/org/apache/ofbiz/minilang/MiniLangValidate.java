@@ -357,6 +357,6 @@ public final class MiniLangValidate {
         return !"none".equals(UtilProperties.getPropertyValue("minilang", "validation.level"));
     }
 
-    private MiniLangValidate() {}
+    private MiniLangValidate() { }
 
 }

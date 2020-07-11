@@ -57,7 +57,7 @@ public final class FileUtil {
 
     private static final String MODULE = FileUtil.class.getName();
 
-    private FileUtil () {}
+    private FileUtil() { }
 
     private static class SearchTextFilesFilter implements FilenameFilter {
         String fileExtension;

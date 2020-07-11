@@ -66,7 +66,7 @@ public class HttpClient {
     private URLConnection con = null;
 
     /** Creates an empty HttpClient object. */
-    public HttpClient() {}
+    public HttpClient() { }
 
     /** Creates a new HttpClient object. */
     public HttpClient(URL url) {

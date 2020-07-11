@@ -91,7 +91,7 @@ public final class ApacheFopWorker {
     
     private static final String fopFontBaseProperty = UtilProperties.getPropertyValue("fop", "fop.font.base.url", "/framework/webapp/config/");
 
-    private ApacheFopWorker() {}
+    private ApacheFopWorker() { }
 
     /** Returns an instance of the FopFactory class. FOP documentation recommends
      * the reuse of the factory instance because of the startup time.
@@ -247,7 +247,7 @@ public final class ApacheFopWorker {
 
         private URIResolver defaultResolver;
 
-        private LocalResolver() {}
+        private LocalResolver() { }
 
         private LocalResolver(URIResolver defaultResolver) {
             this.defaultResolver = defaultResolver;

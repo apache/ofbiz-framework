@@ -230,7 +230,7 @@ public final class EntityExpr implements EntityCondition {
                     + " probably because there is no datasource (helper) setup for the entity group"
                     + " that this entity is in: [" + deleg.getEntityGroupName(entityName) + "]");
         }
-        if (value instanceof EntityConditionSubSelect){
+        if (value instanceof EntityConditionSubSelect) {
             ModelFieldType valueType = null;
             try {
                 ModelEntity valueModelEntity= ((EntityConditionSubSelect) value).getModelEntity();

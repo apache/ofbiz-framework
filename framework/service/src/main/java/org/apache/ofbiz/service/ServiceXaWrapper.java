@@ -56,7 +56,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     protected boolean commitAsync = false;
     protected boolean commitAsyncPersist = false;
 
-    protected ServiceXaWrapper() {}
+    protected ServiceXaWrapper() { }
     public ServiceXaWrapper(DispatchContext dctx) {
         this.dctx = dctx;
     }

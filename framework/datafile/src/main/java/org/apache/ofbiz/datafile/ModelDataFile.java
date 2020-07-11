@@ -62,7 +62,6 @@ public class ModelDataFile {
 
     /** A free form description of the file */
     public String description = "";
-    
     /** file enconding, by default UTF-8 is used */
     public String encodingType = "UTF-8";
     
@@ -172,7 +171,6 @@ public class ModelDataFile {
     public void setRecords(List<ModelRecord> records) {
         this.records = records;
     }
-    
     public String getEncodingType() {
         return encodingType;
     }

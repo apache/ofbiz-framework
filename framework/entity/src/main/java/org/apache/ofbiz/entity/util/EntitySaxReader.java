@@ -112,7 +112,7 @@ public class EntitySaxReader extends DefaultHandler {
     private Document documentForTemplate = null;
     private Map<String, Object> placeholderValues = null; //contains map of values for corresponding placeholders (eg. ${key}) in the entity xml data file.
 
-    protected EntitySaxReader() {}
+    protected EntitySaxReader() { }
 
     public EntitySaxReader(Delegator delegator, int transactionTimeout) {
         // clone the delegator right off so there is no chance of making change to the initial object
@@ -211,7 +211,7 @@ public class EntitySaxReader extends DefaultHandler {
         SAXParser parser;
         try {
             parser = SAXParserFactory.newInstance().newSAXParser();
-        } catch(ParserConfigurationException pce) {
+        } catch (ParserConfigurationException pce) {
             throw new SAXException("Unable to create the SAX parser", pce);
         }
         numberRead = 0;

@@ -55,7 +55,7 @@ public class HtmlMenuWrapper {
     protected MenuStringRenderer renderer;
     protected Map<String, Object> context;
 
-    protected HtmlMenuWrapper() {}
+    protected HtmlMenuWrapper() { }
 
     public HtmlMenuWrapper(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {

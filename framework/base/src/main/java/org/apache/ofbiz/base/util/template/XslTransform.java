@@ -105,14 +105,14 @@ public final class XslTransform {
         Document outputDocument = null;
         TransformerFactory tFactory = TransformerFactory.newInstance();
         Templates translet = null;
-        String templateName = (String)context.get("templateName");
+        String templateName = (String) context.get("templateName");
         if (UtilValidate.isNotEmpty(templateName)) {
             translet = xslTemplatesCache.get(templateName);
         }
 
         if (translet == null) {
-            String templateUrl = (String)context.get("templateUrl");
-            String templateString = (String)context.get("templateString");
+            String templateUrl = (String) context.get("templateUrl");
+            String templateString = (String) context.get("templateString");
             Document templateDocument = (Document)context.get("templateDocument");
             Source templateSource = getSource(templateDocument, templateUrl, templateString);
             translet = tFactory.newTemplates(templateSource);
@@ -132,8 +132,8 @@ public final class XslTransform {
 
             DOMResult outputResult = new DOMResult(UtilXml.makeEmptyXmlDocument());
 
-            String inputUrl = (String)context.get("inputUrl");
-            String inputString = (String)context.get("inputString");
+            String inputUrl = (String) context.get("inputUrl");
+            String inputString = (String) context.get("inputString");
             Document inputDocument = (Document)context.get("inputDocument");
             Source inputSource = getSource(inputDocument, inputUrl, inputString);
 

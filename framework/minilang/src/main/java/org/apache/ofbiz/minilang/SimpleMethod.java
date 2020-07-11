@@ -146,7 +146,6 @@ public final class SimpleMethod extends MiniLangElement {
         if (!"simple-methods".equalsIgnoreCase(rootElement.getTagName())) {
             rootElement = UtilXml.firstChildElement(rootElement, "simple-methods");
         }
-        
         compileAllSimpleMethods(rootElement, simpleMethods, xmlURL.toString());
         if (MiniLangUtil.isDocumentAutoCorrected(document)) {
             MiniLangUtil.writeMiniLangDocument(xmlURL, document);

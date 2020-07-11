@@ -105,7 +105,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         if (message == null) {
             // deserialize the message
             if (serializedBytes != null) {
-                try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedBytes)){
+                try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedBytes)) {
                     message = new MimeMessage(this.getSession(), bais);
                 } catch (MessagingException | IOException e) {
                     Debug.logError(e, MODULE);

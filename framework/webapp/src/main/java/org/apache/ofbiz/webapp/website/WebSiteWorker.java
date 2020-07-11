@@ -34,7 +34,7 @@ public final class WebSiteWorker {
 
     private static final String MODULE = WebSiteWorker.class.getName();
 
-    private WebSiteWorker() {}
+    private WebSiteWorker() { }
 
     public static String getWebSiteId(ServletRequest request) {
         ServletContext ctx = request.getServletContext();

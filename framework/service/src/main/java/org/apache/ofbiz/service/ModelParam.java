@@ -95,7 +95,7 @@ public class ModelParam implements Serializable {
     /** Is this Parameter set internally? */
     public boolean internal = false;
 
-    public ModelParam() {}
+    public ModelParam() { }
 
     public ModelParam(ModelParam param) {
         this.name = param.name;

@@ -63,7 +63,7 @@ public final class UtilDateTime {
      */
     private static final String TIME_FORMAT = "HH:mm:ss";
 
-    private UtilDateTime() {}
+    private UtilDateTime() { }
 
     public static double getInterval(Date from, Date thru) {
         return thru != null ? thru.getTime() - from.getTime() : 0;

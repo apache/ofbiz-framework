@@ -37,7 +37,7 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      * persistence classes. */
     protected String id = null;
 
-    protected TemporalExpression() {}
+    protected TemporalExpression() { }
 
     /** Handles a <code>TemporalExpressionVisitor</code> visit.
      * @param visitor

@@ -72,7 +72,7 @@ public final class UtilValidate {
 
     private static final String MODULE = UtilValidate.class.getName();
 
-    private UtilValidate() {}
+    private UtilValidate() { }
 
     /** boolean specifying by default whether or not it is okay for a String to be empty */
     private static final boolean defaultEmptyOK = true;

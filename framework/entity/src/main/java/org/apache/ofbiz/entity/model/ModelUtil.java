@@ -37,7 +37,7 @@ public final class ModelUtil {
     private static final String MODULE = ModelUtil.class.getName();
     private static final String vowelBag = "aeiouyAEIOUY";
 
-    private ModelUtil () {}
+    private ModelUtil() { }
 
     /**
      * Changes the first letter of the passed String to upper case.
@@ -100,7 +100,7 @@ public final class ModelUtil {
         StringBuilder fieldName = new StringBuilder(columnName.length());
 
         boolean toUpper = false;
-        for (int i=0; i < columnName.length(); i++) {
+        for (int i = 0; i < columnName.length(); i++) {
             char ch = columnName.charAt(i);
             if (ch == '_') {
                 toUpper = true;

@@ -225,7 +225,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
             results = dispatcher.runSync("testEntityAutoUpdateTestingStatus", testingStatusUpdateMap, 10, true);
             assertTrue(ServiceUtil.isError(results));
         } catch (GenericServiceException e) {
-            assertEquals(e.toString(), "You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+            assertEquals(e.toString(), "You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
         }
 
         //test delete testingStatus
@@ -234,7 +234,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
             results = dispatcher.runSync("testEntityAutoDeleteTestingStatus", testingStatusDeleteMap, 10, true);
             assertTrue(ServiceUtil.isError(results));
         } catch (GenericServiceException e) {
-            assertEquals(e.toString(), "You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+            assertEquals(e.toString(), "You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
         }
     }
 }

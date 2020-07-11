@@ -92,7 +92,7 @@ public final class UtilJavaParse {
         entityMethodNames.add("findCountByCondition");
     }
 
-    private UtilJavaParse () {}
+    private UtilJavaParse() { }
 
     public static String findRealPathAndFileForClass(String fullyQualifiedClassName) {
         // search through the component directories, in the src directory for each, using the class path as the path within it

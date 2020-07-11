@@ -189,7 +189,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /** Only allow creation through the factory method */
-    protected GenericDelegator() {}
+    protected GenericDelegator() { }
 
     /** Only allow creation through the factory method */
     protected GenericDelegator(String delegatorFullName) throws GenericEntityException {

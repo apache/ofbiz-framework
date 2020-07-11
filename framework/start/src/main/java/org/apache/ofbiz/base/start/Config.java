@@ -126,7 +126,7 @@ public final class Config {
                 .orElse(defaultOffset);
         try {
             return Integer.parseInt(extractedPortOffset);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new StartupException("invalid portoffset number: " + extractedPortOffset, e);
         }
     }

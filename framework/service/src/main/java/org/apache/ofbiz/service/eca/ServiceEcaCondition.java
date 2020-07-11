@@ -53,7 +53,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
     protected boolean isConstant = false;
     protected boolean isService = false;
 
-    protected ServiceEcaCondition() {}
+    protected ServiceEcaCondition() { }
 
     public ServiceEcaCondition(Element condition, boolean isConstant, boolean isService) {
         if (isService) {

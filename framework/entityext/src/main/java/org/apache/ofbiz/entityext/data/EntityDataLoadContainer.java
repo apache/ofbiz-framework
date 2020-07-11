@@ -150,7 +150,7 @@ public class EntityDataLoadContainer implements Container {
 
     private static void loadDataForDelegator(Map<String, String> loadDataProps, Configuration configuration,
             Configuration.Property delegatorNameProp, String overrideDelegator)
-                    throws ContainerException{
+                    throws ContainerException {
         // prepare command line properties passed by user
         boolean createPks = isPropertySet(loadDataProps, CREATE_P_KEYS);
         boolean dropPks = isPropertySet(loadDataProps, DROP_P_KEYS);
@@ -540,7 +540,7 @@ public class EntityDataLoadContainer implements Container {
 
     private static List<URL> retireveDataUrlsFromFileList(List<String> files) throws ContainerException {
         List<URL> fileUrls = new ArrayList<>();
-        for(String file: files) {
+        for (String file: files) {
             URL url = UtilURL.fromResource(file);
             if (url == null) {
                 throw new ContainerException("Unable to locate data file: " + file);

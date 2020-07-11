@@ -116,7 +116,7 @@ public class TestRunContainer implements Container {
         if (logLevel != null) {
             int selectedLogLevel = Debug.getLevelFromString(logLevel);
 
-            for(int level = Debug.ALWAYS; level <= Debug.FATAL; level++) {
+            for (int level = Debug.ALWAYS; level <= Debug.FATAL; level++) {
                 boolean isOn = level >= selectedLogLevel;
                 Debug.set(level, isOn);
             }

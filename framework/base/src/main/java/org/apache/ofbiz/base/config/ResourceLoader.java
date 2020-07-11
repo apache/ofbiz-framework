@@ -166,7 +166,7 @@ public abstract class ResourceLoader {
     private String prefix;
     private String envName;
 
-    protected ResourceLoader() {}
+    protected ResourceLoader() { }
 
     private void init(String name, String prefix, String envName) {
         this.prefix = prefix;

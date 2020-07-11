@@ -96,7 +96,7 @@ public final class UtilHttp {
     private static final String SESSION_KEY_TIMEZONE = "timeZone";
     private static final String SESSION_KEY_THEME = "visualTheme";
 
-    private UtilHttp () {}
+    private UtilHttp() { }
 
     /**
      * Create a combined map from servlet context, session, attributes and parameters
@@ -185,13 +185,11 @@ public final class UtilHttp {
             long maxUploadSize = getMaxUploadSize(delegator);
             int sizeThreshold = getSizeThreshold(delegator);
             File tmpUploadRepository = getTmpUploadRepository(delegator);
-            
             String encoding = request.getCharacterEncoding();
             // check for multipart content types which may have uploaded items
 
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             upload.setSizeMax(maxUploadSize);
-            
             // create the progress listener and add it to the session
             FileUploadProgressListener listener = new FileUploadProgressListener();
             upload.setProgressListener(listener);
@@ -334,7 +332,7 @@ public final class UtilHttp {
                     if (UtilValidate.isEmpty(paramMap.get(name))) {
                         paramMap.put(name, paramValue);
                     } else {
-                        if (paramMap.get(name) instanceof Collection<?>){
+                        if (paramMap.get(name) instanceof Collection<?>) {
                             List<String> valueList  = UtilGenerics.cast(paramMap.get(name));
                             valueList.add(paramValue);
                             paramMap.put(name, valueList);
@@ -1168,14 +1166,10 @@ public final class UtilHttp {
          https://wiki.mozilla.org/Security/Features/XSS_Filter
          https://bugzilla.mozilla.org/show_bug.cgi?id=528661
          **/
-        resp.addHeader("X-XSS-Protection","1; mode=block");
-        
+        resp.addHeader("X-XSS-Protection", "1; mode=block");
         resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
-        
         resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
-        
         SameSiteFilter.addSameSiteCookieAttribute(resp);
-        
         // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate is renewed every 3 months)
     }
     

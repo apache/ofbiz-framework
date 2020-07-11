@@ -35,7 +35,7 @@ public final class UtilHelpText {
 
     private static final String MODULE = UtilHelpText.class.getName();
 
-    private UtilHelpText () {}
+    private UtilHelpText() { }
 
     /**
      * Find the help text associated with an entity field.

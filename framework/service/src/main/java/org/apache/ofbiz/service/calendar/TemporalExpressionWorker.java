@@ -55,7 +55,7 @@ public final class TemporalExpressionWorker {
     private final static String EXCLUDE = "EXCLUDE";
     private final static String SUBSTITUTE = "SUBSTITUTE";
 
-    private TemporalExpressionWorker () {}
+    private TemporalExpressionWorker() { }
 
     /** Get a <code>TemporalExpression</code> from persistent storage.
      * @param delegator

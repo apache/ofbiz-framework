@@ -399,7 +399,7 @@ public final class ScriptUtil {
         return scriptClass;
     }
 
-    private ScriptUtil() {}
+    private ScriptUtil() { }
 
     private static final class ProtectedBindings implements Bindings {
         private final Map<String, Object> bindings;

@@ -442,7 +442,7 @@ public class EmailServices {
         if (visualTheme == null) {
             visualTheme = ThemeFactory.resolveVisualTheme(null);
         }
-        
+
         List<String> xslfoAttachScreenLocationList = new LinkedList<>();
         List<String> attachmentNameList = new LinkedList<>();
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationParam)) {
@@ -457,7 +457,7 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(attachmentNameListParam)) {
             attachmentNameList.addAll(attachmentNameListParam);
         }
-        
+
         List<String> attachmentTypeList = new LinkedList<>();
         String attachmentTypeParam = (String) serviceContext.remove("attachmentType");
         List<String> attachmentTypeListParam = UtilGenerics.cast(serviceContext.remove("attachmentTypeList"));
@@ -467,7 +467,7 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(attachmentTypeListParam)) {
             attachmentTypeList.addAll(attachmentTypeListParam);
         }
-        
+
         Locale locale = (Locale) serviceContext.get("locale");
         Map<String, Object> bodyParameters = UtilGenerics.cast(serviceContext.remove("bodyParameters"));
         if (bodyParameters == null) {
@@ -485,7 +485,7 @@ public class EmailServices {
         String orderId = (String) bodyParameters.get("orderId");
         String returnId = (String) serviceContext.get("returnId");
         String custRequestId = (String) bodyParameters.get("custRequestId");
-        
+
         bodyParameters.put("communicationEventId", serviceContext.get("communicationEventId"));
         NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         String contentType = (String) serviceContext.remove("contentType");
@@ -527,7 +527,6 @@ public class EmailServices {
             } else {
                 bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));
             }
-            
             for (int i = 0; i < xslfoAttachScreenLocationList.size(); i++) {
                 String xslfoAttachScreenLocation = xslfoAttachScreenLocationList.get(i);
                 String attachmentName = "Details.pdf";
@@ -539,17 +538,17 @@ public class EmailServices {
                 if (UtilValidate.isNotEmpty(attachmentTypeList) && attachmentTypeList.size() >= i) {
                     attachmentType = attachmentTypeList.get(i);
                 }
-                
+
                 isMultiPart = true;
                 // start processing fo pdf attachment
                 try (Writer writer = new StringWriter(); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                     // substitute the freemarker variables...
                     ScreenStringRenderer foScreenStringRenderer = null;
-                    if (MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)){
+                    if (MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)) {
                         foScreenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screentext");
-                    }else{
+                    } else {
                         foScreenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screenfop");
-                    } 
+                    }
                     ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenStringRenderer);
                     screensAtt.populateContextForService(dctx, bodyParameters);
                     screensAtt.render(xslfoAttachScreenLocation);
@@ -669,7 +668,6 @@ public class EmailServices {
         serviceContext.put("hideInLog", true);        
         return sendMailFromScreen(dctx, serviceContext);
     }
-    
     public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message, List<SMTPAddressFailedException> failures) {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> newContext = new LinkedHashMap<>();

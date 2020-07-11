@@ -251,7 +251,7 @@ public final class ModelRelation extends ModelChild {
             return "";
 
         StringBuilder returnString = new StringBuilder(keyMaps.size() * 10);
-        int i=0;
+        int i = 0;
         while (true) {
             ModelKeyMap kmap = keyMaps.get(i);
             returnString.append(ModelUtil.upperFirstChar(kmap.getFieldName()));
@@ -274,7 +274,7 @@ public final class ModelRelation extends ModelChild {
             return "";
 
         StringBuilder returnString = new StringBuilder(keyMaps.size() * 10);
-        int i=0;
+        int i = 0;
         while (true) {
             ModelKeyMap kmap = keyMaps.get(i);
             returnString.append(ModelUtil.upperFirstChar(kmap.getRelFieldName()));

@@ -71,7 +71,7 @@ public class NamingServiceContainer implements Container {
         // get the naming (JNDI) server
         Configuration.Property host = cfg.getProperty("host");
         if (host != null && host.value() != null) {
-            this.namingHost =  host.value() ;
+            this.namingHost =  host.value();
         }
 
         try {

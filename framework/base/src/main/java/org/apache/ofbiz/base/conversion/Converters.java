@@ -52,7 +52,7 @@ public class Converters {
         }
     }
 
-    private Converters() {}
+    private Converters() { }
 
     /** Returns an appropriate <code>Converter</code> instance for
      * <code>sourceClass</code> and <code>targetClass</code>. If no matching
@@ -197,7 +197,7 @@ OUTER:
         }
     }
 
-    protected static class PassThruConverterCreator implements ConverterCreator{
+    protected static class PassThruConverterCreator implements ConverterCreator {
         protected PassThruConverterCreator() {
         }
 

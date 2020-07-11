@@ -307,9 +307,9 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 selectedStyle = "selected";
             }
             if (UtilValidate.isNotEmpty(style)) {
-                style += " " ;
+                style += " ";
             }
-            style += selectedStyle ;
+            style += selectedStyle;
         }
         if (isDisableIfEmpty(menuItem, context)) {
             style = menuItem.getDisabledTitleStyle();

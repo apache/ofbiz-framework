@@ -42,7 +42,7 @@ public final class CommonWorkers {
 
     public final static String MODULE = CommonWorkers.class.getName();
 
-    private CommonWorkers() {}
+    private CommonWorkers() { }
 
     public static List<GenericValue> getCountryList(Delegator delegator) {
         List<GenericValue> geoList = new LinkedList<>();
@@ -156,7 +156,7 @@ public final class CommonWorkers {
                                       .cache(true)
                                       .queryList()
                           );
-        } catch (GenericEntityException e){
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", MODULE);
         }
 

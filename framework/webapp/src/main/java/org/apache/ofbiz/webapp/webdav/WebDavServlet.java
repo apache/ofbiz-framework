@@ -57,7 +57,7 @@ public class WebDavServlet extends GenericServlet {
     protected Security security = null;
 
     @Override
-    public void init(ServletConfig config) throws ServletException{
+    public void init(ServletConfig config) throws ServletException {
         try {
             super.init(config);
             ServletContext context = this.getServletContext();

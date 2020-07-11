@@ -385,9 +385,9 @@ public class CoreEvents {
         String[] sp = servicePath.split("\\|\\|");
         Object servicePathObject = null;
         Map<String, Object> servicePathMap = null;
-        for (int i=0;i<sp.length;i++) {
+        for (int i = 0; i < sp.length; i++) {
             String servicePathEntry = sp[i];
-            if (null==servicePathMap) {
+            if (null == servicePathMap) {
                 servicePathObject = serviceResult.get(servicePathEntry);
             } else {
                 servicePathObject = servicePathMap.get(servicePathEntry);
@@ -397,7 +397,7 @@ public class CoreEvents {
             if (servicePathObject instanceof Map<?, ?>) {
                 servicePathMap = UtilGenerics.cast(servicePathObject);
             } else if (servicePathObject instanceof GenericEntity) {
-                GenericEntity servicePathEntity = (GenericEntity)servicePathObject;
+                GenericEntity servicePathEntity = (GenericEntity) servicePathObject;
                 servicePathMap = new HashMap<>();
                 for (Map.Entry<String, Object> entry: servicePathEntity.entrySet()) {
                     servicePathMap.put(entry.getKey(), entry.getValue());
@@ -407,12 +407,12 @@ public class CoreEvents {
                 int count=0;
                 servicePathMap = new HashMap<>();
                 for (Object value: servicePathColl) {
-                    servicePathMap.put("_"+count+"_", value);
+                    servicePathMap.put("_" + count + "_", value);
                     count++;
                 }
             }
         }
-        if (null==servicePathMap) {
+        if (null == servicePathMap) {
             return servicePathObject;
         } else {
             return servicePathMap;
