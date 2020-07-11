@@ -531,6 +531,16 @@ task deleteAllPluginsDocumentation {
 }
 
 
+task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
+    doFirst { delete "${buildDir}/asciidoc/readme" }
+    description 'Generate OFBiz README files'
+    sourceDir "${rootDir}"
+    sources {
+        include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc'
+      }    
+    outputDir file("${buildDir}/asciidoc/readme/")
+}
+
 task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
     dependsOn deleteOfbizDocumentation
     description 'Generate OFBiz documentation manuals'
