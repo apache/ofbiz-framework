@@ -117,12 +117,12 @@ public class PartyRelationshipServices {
         try {
             List<GenericValue> partyRelationShipList = PartyRelationshipHelper.getActivePartyRelationships(delegator, context);
             if (UtilValidate.isEmpty(partyRelationShipList)) { // If already exists and active nothing to do: keep the current one
-                String partyId = (String) context.get("partyId") ;
-                String partyIdFrom = (String) context.get("partyIdFrom") ;
-                String partyIdTo = (String) context.get("partyIdTo") ;
-                String roleTypeIdFrom = (String) context.get("roleTypeIdFrom") ;
-                String roleTypeIdTo = (String) context.get("roleTypeIdTo") ;
-                String partyRelationshipTypeId = (String) context.get("partyRelationshipTypeId") ;
+                String partyId = (String) context.get("partyId");
+                String partyIdFrom = (String) context.get("partyIdFrom");
+                String partyIdTo = (String) context.get("partyIdTo");
+                String roleTypeIdFrom = (String) context.get("roleTypeIdFrom");
+                String roleTypeIdTo = (String) context.get("roleTypeIdTo");
+                String partyRelationshipTypeId = (String) context.get("partyRelationshipTypeId");
 
                 // Before creating the partyRelationShip, create the partyRoles if they don't exist
                 GenericValue partyToRole = null;

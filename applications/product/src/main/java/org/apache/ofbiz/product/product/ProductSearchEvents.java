@@ -78,7 +78,7 @@ public class ProductSearchEvents {
                 GenericValue searchResultView = null;
                 while ((searchResultView = eli.next()) != null) {
                     String productId = searchResultView.getString("mainProductId");
-                    numRemoved += delegator.removeByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId)) ;
+                    numRemoved += delegator.removeByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId));
                 }
                 Map<String, String> messageMap = UtilMisc.toMap("numRemoved", Integer.toString(numRemoved));
                 errMsg = UtilProperties.getMessage(RESOURCE,"productsearchevents.removed_x_items", messageMap, UtilHttp.getLocale(request));

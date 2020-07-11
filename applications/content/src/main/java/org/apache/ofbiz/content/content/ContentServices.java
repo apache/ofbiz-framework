@@ -130,9 +130,9 @@ public class ContentServices {
         List<Object> parentList = new LinkedList<>();
         results.put("parentList", parentList);
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        String contentId = (String)context.get("contentId");
-        String contentAssocTypeId = (String)context.get("contentAssocTypeId");
-        String direction = (String)context.get("direction");
+        String contentId = (String) context.get("contentId");
+        String contentAssocTypeId = (String) context.get("contentAssocTypeId");
+        String direction = (String) context.get("direction");
         if (UtilValidate.isEmpty(direction)) {
             direction="To";
         }
@@ -536,7 +536,7 @@ public class ContentServices {
         return results;
     }
 
-    public static Map<String, Object> publishContent(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
+    public static Map<String, Object> publishContent(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         GenericValue content = (GenericValue)context.get("content");
         
@@ -550,10 +550,10 @@ public class ContentServices {
         return result;
     }
 
-    public static Map<String, Object> getPrefixedMembers(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
+    public static Map<String, Object> getPrefixedMembers(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> mapIn = UtilGenerics.cast(context.get("mapIn"));
-        String prefix = (String)context.get("prefix");
+        String prefix = (String) context.get("prefix");
         Map<String, Object> mapOut = new HashMap<>();
         result.put("mapOut", mapOut);
         if (mapIn != null) {
@@ -569,11 +569,11 @@ public class ContentServices {
         return result;
     }
 
-    public static Map<String, Object> splitString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
+    public static Map<String, Object> splitString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         List<String> outputList = new LinkedList<>();
-        String delimiter = UtilFormatOut.checkEmpty((String)context.get("delimiter"), "|");
-        String inputString = (String)context.get("inputString");
+        String delimiter = UtilFormatOut.checkEmpty((String) context.get("delimiter"), "|");
+        String inputString = (String) context.get("inputString");
         if (UtilValidate.isNotEmpty(inputString)) {
             outputList = StringUtil.split(inputString, delimiter);
         }
@@ -581,10 +581,10 @@ public class ContentServices {
         return result;
     }
 
-    public static Map<String, Object> joinString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
+    public static Map<String, Object> joinString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         String outputString = null;
-        String delimiter = UtilFormatOut.checkEmpty((String)context.get("delimiter"), "|");
+        String delimiter = UtilFormatOut.checkEmpty((String) context.get("delimiter"), "|");
         List<String> inputList = UtilGenerics.cast(context.get("inputList"));
         if (inputList != null) {
             outputString = StringUtil.join(inputList, delimiter);
@@ -593,7 +593,7 @@ public class ContentServices {
         return result;
     }
 
-    public static Map<String, Object> urlEncodeArgs(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
+    public static Map<String, Object> urlEncodeArgs(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> mapFiltered = new HashMap<>();
         Map<String, Object> mapIn = UtilGenerics.cast(context.get("mapIn"));

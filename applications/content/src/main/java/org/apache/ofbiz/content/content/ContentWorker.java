@@ -184,7 +184,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return content;
     }
 
-    public static void renderContentAsText(LocalDispatcher dispatcher, GenericValue content, Appendable out, Map<String, Object>templateContext,
+    public static void renderContentAsText(LocalDispatcher dispatcher, GenericValue content, Appendable out, Map<String, Object> templateContext,
             Locale locale, String mimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
         // if the content has a service attached run the service
 
@@ -310,7 +310,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                             StringReader sr = new StringReader(textData);
                             try {
                                 NodeModel nodeModel = NodeModel.parse(new InputSource(sr));
-                                templateContext.put("doc", nodeModel) ;
+                                templateContext.put("doc", nodeModel);
                             } catch (SAXException | ParserConfigurationException e) {
                                 throw new GeneralException(e.getMessage());
                             }
@@ -1281,7 +1281,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static List<String> prepTargetOperationList(Map<String, ? extends Object> context, String md) {
         List<String> targetOperationList = UtilGenerics.cast(context.get("targetOperationList"));
-        String targetOperationString = (String)context.get("targetOperationString");
+        String targetOperationString = (String) context.get("targetOperationString");
         if (Debug.infoOn()) {
             Debug.logInfo("in prepTargetOperationList, targetOperationString(0):" + targetOperationString, "");
         }
@@ -1313,7 +1313,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
      */
     public static List<String> prepContentPurposeList(Map<String, Object> context) {
         List<String> contentPurposeList = UtilGenerics.cast(context.get("contentPurposeList"));
-        String contentPurposeString = (String)context.get("contentPurposeString");
+        String contentPurposeString = (String) context.get("contentPurposeString");
         if (Debug.infoOn()) {
             Debug.logInfo("in prepContentPurposeList, contentPurposeString(0):" + contentPurposeString, "");
         }
@@ -1555,7 +1555,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static String logMap(String lbl, Map<String, Object> map, int indentLevel) {
         StringBuilder indent = new StringBuilder();
-        for (int i=0; i<indentLevel; i++) {
+        for (int i = 0; i<indentLevel; i++) {
             indent.append(' ');
         }
         return logMap(new StringBuilder(), lbl, map, indent).toString();
@@ -1599,7 +1599,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static String logList(String lbl, List<Object> lst, int indentLevel) {
         StringBuilder indent = new StringBuilder();
-        for (int i=0; i<indentLevel; i++) {
+        for (int i = 0; i < indentLevel; i++) {
             indent.append(' ');
         }
         return logList(new StringBuilder(), lbl, lst, indent).toString();

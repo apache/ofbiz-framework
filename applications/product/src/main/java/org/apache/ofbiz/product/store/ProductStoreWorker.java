@@ -81,7 +81,7 @@ public final class ProductStoreWorker {
         defaultProductStoreEmailScreenLocation.put("PRDS_CUST_REGISTER", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
     }
 
-    private ProductStoreWorker() {}
+    private ProductStoreWorker() { }
 
     public static GenericValue getProductStore(String productStoreId, Delegator delegator) {
         if (productStoreId == null || delegator == null) {

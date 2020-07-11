@@ -42,7 +42,7 @@ public class HumanResEvents {
     private static final String RES_ERROR = "HumanResErrorUiLabels";
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
-    public static String getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response){
+    public static String getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String partyId = request.getParameter("partyId");
         String onclickFunction = request.getParameter("onclickFunction");
@@ -83,7 +83,7 @@ public class HumanResEvents {
         return "success";
     }
 
-    private static List<Map<String, Object>> getCurrentEmployeeDetails(Map<String, Object> params) throws GenericEntityException{
+    private static List<Map<String, Object>> getCurrentEmployeeDetails(Map<String, Object> params) throws GenericEntityException {
         Delegator delegator = (Delegator) params.get("delegator");
         List<Map<String, Object>> responseList = new ArrayList<>();
         long emplPosCount;
@@ -121,7 +121,7 @@ public class HumanResEvents {
                         dataMap.put("attr", dataAttrMap);
                         josonMap.put("attr", attrMap);
                         josonMap.put("data", dataMap);
-                        responseList.add(josonMap) ;
+                        responseList.add(josonMap);
                     }
                 }
             }
@@ -132,7 +132,7 @@ public class HumanResEvents {
         return responseList;
     }
 
-    private static List<Map<String, Object>> getChildComps(Map<String, Object> params) throws GenericEntityException{
+    private static List<Map<String, Object>> getChildComps(Map<String, Object> params) throws GenericEntityException {
         Delegator delegator = (Delegator) params.get("delegator");
         Map<String , Object> partyGroup = UtilGenerics.cast(params.get("partyGroup"));
         List<Map<String, Object>> resultList = new ArrayList<>();
@@ -191,7 +191,7 @@ public class HumanResEvents {
         return resultList;
     }
 
-    private static List<Map<String, Object>> getEmployeeInComp(Map<String, Object> params) throws GenericEntityException{
+    private static List<Map<String, Object>> getEmployeeInComp(Map<String, Object> params) throws GenericEntityException {
         List<GenericValue> isEmpls = null;
         Delegator delegator = (Delegator) params.get("delegator");
         String partyId = (String) params.get("partyId");

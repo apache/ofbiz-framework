@@ -52,7 +52,7 @@ public class PartyWorker {
 
     private static final String MODULE = PartyWorker.class.getName();
 
-    private PartyWorker() {}
+    private PartyWorker() { }
 
     public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");

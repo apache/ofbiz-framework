@@ -61,7 +61,7 @@ public final class ProductUtilServices {
     private static final String RESOURCE = "ProductUiLabels";
     private static final String RES_ERROR = "ProductErrorUiLabels";
 
-    private ProductUtilServices () {}
+    private ProductUtilServices() { }
 
     /** First expire all ProductAssocs for all disc variants, then disc all virtuals that have all expired variant ProductAssocs */
     public static Map<String, Object> discVirtualsWithDiscVariants(DispatchContext dctx, Map<String, ? extends Object> context) {

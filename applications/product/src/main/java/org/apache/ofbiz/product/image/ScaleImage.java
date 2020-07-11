@@ -315,7 +315,7 @@ public class ScaleImage {
             filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1); // adding 1 to include the trailing slash
         }
 
-        if (context.get("contentId") != null){
+        if (context.get("contentId") != null) {
             resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + context.get("productId") + "/" + context.get("clientFileName"), locale));
         } else {
             /* get original BUFFERED IMAGE */

@@ -78,34 +78,28 @@ public class GatewayConnector {
      * @throws Exception in case of networking and xml parsing errors 
      */
     public GatewayResponse sendRequest(GatewayRequest request) throws Exception {
-        
         // determine the gateway url to be used, based on the request type
         String serverurl = request.getUrl();
-        
         GatewayResponse response = null;
         InputStream in = null;
         HttpURLConnection connection = null;
         try {
             // connect to the gateway
             URL u = new URL(serverurl);
-            connection = (HttpURLConnection)(u.openConnection());
+            connection = (HttpURLConnection) (u.openConnection());
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestMethod("POST");
-            connection.setConnectTimeout(timeout*1000);
-            
+            connection.setConnectTimeout(timeout * 1000);
             try (OutputStream out = connection.getOutputStream();
                  Writer wout = new OutputStreamWriter(out, "UTF-8")) {
-                
                 wout.write(request.toXml());
                 wout.flush();
-
                 in = connection.getInputStream();
                 response = new GatewayResponse(in, request);
                 return response;
             }
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             // re-throws exception so that the caller knows what went wrong
             Debug.logError(e, e.getMessage(), MODULE);
             throw e;

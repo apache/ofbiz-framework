@@ -54,9 +54,9 @@ public class InventoryEventPlannedServices {
                                         "productId", context.get("productId"),
                                         "eventDate", context.get("eventDate"),
                                         "mrpEventTypeId", context.get("mrpEventTypeId"));
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         try {
-            createOrUpdateMrpEvent(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), false, delegator);
+            createOrUpdateMrpEvent(parameters, quantity, (String) context.get("facilityId"), (String) context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
             Debug.logError(e,"Error : findOne(\"MrpEvent\", parameters =)"+parameters, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));

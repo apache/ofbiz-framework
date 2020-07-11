@@ -71,7 +71,7 @@ public class SurveyWrapper {
     protected Map<String, Object> defaultValues = null;
     protected boolean edit = false;
 
-    protected SurveyWrapper() {}
+    protected SurveyWrapper() { }
 
     public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru, Map<String, Object> defaultValues) {
         this.delegator = delegator;
@@ -226,7 +226,7 @@ public class SurveyWrapper {
         try (
             InputStream templateStream = templateUrl.openStream();
             InputStreamReader templateReader = new InputStreamReader(templateStream, StandardCharsets.UTF_8);
-                ){
+                ) {
             template = new Template(templateUrl.toExternalForm(), templateReader, config);
         } catch (IOException e) {
             Debug.logError(e, "Unable to get template from URL :" + templateUrl.toExternalForm(), MODULE);

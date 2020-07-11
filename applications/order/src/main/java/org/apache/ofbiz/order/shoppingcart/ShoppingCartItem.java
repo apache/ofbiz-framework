@@ -709,7 +709,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** Cannot create shopping cart item with no parameters */
-    protected ShoppingCartItem() {}
+    protected ShoppingCartItem() { }
 
     /** Creates new ShoppingCartItem object.
      * @deprecated Use {@link #ShoppingCartItem(GenericValue, Map, Map, String, Locale, String, ShoppingCartItemGroup, LocalDispatcher)} instead*/
@@ -1086,11 +1086,11 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Boolean updatedDepositAmount = false;
                 BigDecimal adjustmentAmount = depositAmount.getBigDecimal("price").multiply(this.getQuantity(), generalRounding);
                 // itemAdjustments is a reference so directly setting updated amount to the same.
-                    for(GenericValue itemAdjustment : itemAdjustments) {
+                for (GenericValue itemAdjustment : itemAdjustments) {
                     if ("DEPOSIT_ADJUSTMENT".equals(itemAdjustment.getString("orderAdjustmentTypeId"))) {
-                            itemAdjustment.set("amount", adjustmentAmount);
-                            updatedDepositAmount = true;
-                        }
+                        itemAdjustment.set("amount", adjustmentAmount);
+                        updatedDepositAmount = true;
+                    }
                 }
                 if (!updatedDepositAmount) {
                     GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment");
@@ -1100,11 +1100,10 @@ public class ShoppingCartItem implements java.io.Serializable {
                     this.addAdjustment(orderAdjustment);
                 }
             }
-        } catch (GenericEntityException e){
+        } catch (GenericEntityException e) {
             Debug.logError("Error in fetching deposite price details!!", MODULE);
         }
     }
-
     public void updatePrice(LocalDispatcher dispatcher, ShoppingCart cart) throws CartItemModifyException {
         // set basePrice using the calculateProductPrice service
         if (_product != null && isModifiedPrice == false) {
@@ -1127,14 +1126,14 @@ public class ShoppingCartItem implements java.io.Serializable {
                 // check alternative packaging
                 boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, this.productId , this.getParentProductId());
                 BigDecimal pieces = BigDecimal.ONE;
-                if (isAlternativePacking && UtilValidate.isNotEmpty(this.getParentProduct())){
+                if (isAlternativePacking && UtilValidate.isNotEmpty(this.getParentProduct())) {
                     GenericValue originalProduct = this.getParentProduct();
                     if (originalProduct != null) {
                         pieces = new BigDecimal(originalProduct.getLong("piecesIncluded"));
                     }
                     priceContext.put("product", originalProduct);
                     this._parentProduct = null;
-                }else{
+                } else {
                     priceContext.put("product", this.getProduct());
                 }
 
@@ -1155,9 +1154,9 @@ public class ShoppingCartItem implements java.io.Serializable {
                         throw new CartItemModifyException("Could not find a valid price for the product with ID [" + this.getProductId() + "] and supplier with ID [" + partyId + "], not adding to cart.");
                     }
 
-                    if (isAlternativePacking){
+                    if (isAlternativePacking) {
                         this.setBasePrice(((BigDecimal) priceResult.get("price")).divide(pieces, RoundingMode.HALF_UP));
-                    }else{
+                    } else {
                         this.setBasePrice(((BigDecimal) priceResult.get("price")));
                     }
 
@@ -1180,7 +1179,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                             }
                         }
                     }
-                    if ("true".equals(EntityUtilProperties.getPropertyValue("catalog", "convertProductPriceCurrency", delegator))){
+                    if ("true".equals(EntityUtilProperties.getPropertyValue("catalog", "convertProductPriceCurrency", delegator))) {
                         priceContext.put("currencyUomIdTo", cart.getCurrency());
                     } else {
                         priceContext.put("currencyUomId", cart.getCurrency());
@@ -1210,7 +1209,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     }
 
                     //set alternative product price
-                    if (isAlternativePacking){
+                    if (isAlternativePacking) {
                         int decimals = 2;
                         if (priceResult.get("listPrice") != null) {
                             this.listPrice = ((BigDecimal) priceResult.get("listPrice")).divide(pieces, decimals, RoundingMode.HALF_UP);
@@ -1227,7 +1226,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         if (priceResult.get("specialPromoPrice") != null) {
                             this.setSpecialPromoPrice(((BigDecimal) priceResult.get("specialPromoPrice")).divide(pieces, decimals, RoundingMode.HALF_UP));
                         }
-                    }else{
+                    } else {
                         if (priceResult.get("listPrice") != null) {
                             this.listPrice = ((BigDecimal) priceResult.get("listPrice"));
                         }

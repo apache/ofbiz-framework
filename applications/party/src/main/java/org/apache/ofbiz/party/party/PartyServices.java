@@ -1463,7 +1463,7 @@ public class PartyServices {
             Debug.logInfo("In findParty mainCond=" + mainCond, MODULE);
 
             String sortField = (String) context.get("sortField");
-            if (UtilValidate.isNotEmpty(sortField)){
+            if (UtilValidate.isNotEmpty(sortField)) {
                 orderBy.add(sortField);
             }
 
@@ -1548,7 +1548,7 @@ public class PartyServices {
 
         List<String> orderBy = new ArrayList<>();
         String sortField = (String) context.get("sortField");
-        if (UtilValidate.isNotEmpty(sortField)){
+        if (UtilValidate.isNotEmpty(sortField)) {
             orderBy.add(sortField);
         }
         List<String> fieldsToSelect = new ArrayList<>();

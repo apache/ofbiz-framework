@@ -41,7 +41,7 @@ public final class ProductionRunHelper {
 
     private static final String MODULE = ProductionRunHelper.class.getName();
 
-    private ProductionRunHelper() {}
+    private ProductionRunHelper() { }
 
     /**
      * Get a Production Run.
@@ -53,7 +53,6 @@ public final class ProductionRunHelper {
      */
     public static Map<String, Object> getProductionRun(Delegator delegator, String productionRunId) {
         Map<String, Object> result = new HashMap<>();
-        
         try {
             if (productionRunId != null) {
                 GenericValue productionRun = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunId).queryOne();

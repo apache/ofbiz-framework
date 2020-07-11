@@ -42,7 +42,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
-public class ReplaceImage{
+public class ReplaceImage {
 
     private static final String MODULE = ReplaceImage.class.getName();
     private static final String RES_ERROR = "ProductErrorUiLabels";
@@ -67,14 +67,12 @@ public class ReplaceImage{
                     Debug.logError(errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
-            }
-            else{
+            } else {
                  String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseChooseImageToReplace", locale);
                 Debug.logError(errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
-        }
-        else{
+        } else {
             String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseChooseReplacementImage", locale);
             Debug.logError(errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
@@ -98,8 +96,7 @@ public class ReplaceImage{
                     if (UtilValidate.isNotEmpty(dataResourceAssocExist)) {
                         BufferedImage bufImgAssocReplace = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceAssocReplace.get("drDataResourceName")));
                         ImageIO.write(bufImgAssocReplace, "jpg", new File(imageServerPath + "/" + productId + "/" + dataResourceAssocExist.get("drDataResourceName")));
-                    }
-                    else{
+                    } else {
                         BufferedImage bufImgAssocReplace = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceAssocReplace.get("drDataResourceName")));
                         ImageIO.write(bufImgAssocReplace, "jpg", new File(imageServerPath + "/" + productId + "/" + dataResourceNameExist.substring(0, dataResourceNameExist.length() - 4) + "-" + contentAssocReplace.get("mapKey") + ".jpg"));
                     }

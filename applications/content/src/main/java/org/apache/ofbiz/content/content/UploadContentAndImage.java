@@ -66,7 +66,7 @@ public class UploadContentAndImage {
     private static final String MODULE = UploadContentAndImage.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
-    public UploadContentAndImage() {}
+    public UploadContentAndImage() { }
 
     public static String uploadContentAndImage(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -398,7 +398,7 @@ public class UploadContentAndImage {
                 rowCount = 1;
             }
             TransactionUtil.begin();
-            for (int i=0; i < rowCount; i++) {
+            for (int i = 0; i < rowCount; i++) {
                 String suffix = "_o_" + i;
                 if (i==0) {
                    suffix = "";

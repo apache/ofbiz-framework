@@ -69,7 +69,7 @@ public class ShipmentServices {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         List<GenericValue> storeAll = new LinkedList<>();
-        String productStoreShipMethId = (String)context.get("productStoreShipMethId");
+        String productStoreShipMethId = (String) context.get("productStoreShipMethId");
 
         GenericValue productStoreShipMeth = null;
         try {
@@ -594,7 +594,7 @@ public class ShipmentServices {
 
             List<GenericValue> packages = null;
             try {
-                packages = shipment.getRelated("ShipmentPackage", null, null, false) ;
+                packages = shipment.getRelated("ShipmentPackage", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
@@ -998,7 +998,7 @@ public class ShipmentServices {
 
                 // Get the value of the orderItem by calling the getOrderItemInvoicedAmountAndQuantity service
                 Map<String, Object> getOrderItemValueResult = dispatcher.runSync("getOrderItemInvoicedAmountAndQuantity", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", userLogin, "locale", locale));
-                if (ServiceUtil.isError(getOrderItemValueResult)){
+                if (ServiceUtil.isError(getOrderItemValueResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(getOrderItemValueResult));
                 }
                 BigDecimal invoicedAmount = (BigDecimal) getOrderItemValueResult.get("invoicedAmount");
@@ -1045,7 +1045,7 @@ public class ShipmentServices {
         
         // prepare the shipment information
         Map<String, Object> sendMap = new HashMap<>();
-        GenericValue shipment = null ;
+        GenericValue shipment = null;
         GenericValue orderHeader = null;
         try {
             shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();

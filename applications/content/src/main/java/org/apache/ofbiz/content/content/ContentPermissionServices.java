@@ -53,7 +53,7 @@ public class ContentPermissionServices {
     private static final String MODULE = ContentPermissionServices.class.getName();
     private static final String RESOURCE = "ContentUiLabels";
 
-    public ContentPermissionServices() {}
+    public ContentPermissionServices() { }
 
     /**
      * checkContentPermission
@@ -102,13 +102,13 @@ public class ContentPermissionServices {
         //TODO this parameters is still not used but this service need to be replaced by genericContentPermission
         // String privilegeEnumId = (String) context.get("privilegeEnumId");
         GenericValue content = (GenericValue) context.get("currentContent");
-        Boolean bDisplayFailCond = (Boolean)context.get("displayFailCond");
+        Boolean bDisplayFailCond = (Boolean) context.get("displayFailCond");
         boolean displayFailCond = false;
         if (bDisplayFailCond != null && bDisplayFailCond) {
              displayFailCond = true;
         }
                 Debug.logInfo("displayFailCond(0):" + displayFailCond, "");
-        Boolean bDisplayPassCond = (Boolean)context.get("displayPassCond");
+        Boolean bDisplayPassCond = (Boolean) context.get("displayPassCond");
         boolean displayPassCond = false;
         if (bDisplayPassCond != null && bDisplayPassCond) {
              displayPassCond = true;
@@ -118,7 +118,7 @@ public class ContentPermissionServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
-            String passedUserLoginId = (String)context.get("userLoginId");
+            String passedUserLoginId = (String) context.get("userLoginId");
             if (UtilValidate.isNotEmpty(passedUserLoginId)) {
                 try {
                     userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", passedUserLoginId).cache().queryOne();
@@ -254,7 +254,7 @@ public class ContentPermissionServices {
         // Security security = dctx.getSecurity();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Boolean bDisplayFailCond = (Boolean)context.get("displayFailCond");
+        Boolean bDisplayFailCond = (Boolean) context.get("displayFailCond");
         String contentIdFrom = (String) context.get("contentIdFrom");
         String contentIdTo = (String) context.get("contentIdTo");
         GenericValue userLogin = (GenericValue) context.get("userLogin");

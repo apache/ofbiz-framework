@@ -57,7 +57,7 @@ public class ContactMechWorker {
 
     private static final String MODULE = ContactMechWorker.class.getName();
 
-    private ContactMechWorker() {}
+    private ContactMechWorker() { }
 
     /**
      * Check the contactMechTypeId value on toAnalyzeFields map and if is a PostalAddress, a TelecomNumber or FtpAddress

@@ -214,7 +214,7 @@ public class AIMPaymentServices {
             if (canDoVoid) {
                 Debug.logWarning("Refund was unsuccessful; will now attempt a VOID transaction.", MODULE);
                 BigDecimal authAmountObj = authTransaction.getBigDecimal("amount");
-                BigDecimal refundAmountObj = (BigDecimal)context.get("refundAmount");
+                BigDecimal refundAmountObj = (BigDecimal) context.get("refundAmount");
                 BigDecimal authAmount = authAmountObj != null ? authAmountObj : BigDecimal.ZERO;
                 BigDecimal refundAmount = refundAmountObj != null ? refundAmountObj : BigDecimal.ZERO;
                 if (authAmount.compareTo(refundAmount) == 0) {
@@ -363,7 +363,7 @@ public class AIMPaymentServices {
     }
 
     private static boolean isTestMode() {
-        return "true".equalsIgnoreCase((String)AIMProperties.get("testReq"));
+        return "true".equalsIgnoreCase((String) AIMProperties.get("testReq"));
     }
 
     private static Properties buildAIMProperties(Map<String, Object> context, Delegator delegator) {
@@ -468,31 +468,28 @@ public class AIMPaymentServices {
         if (UtilValidate.isNotEmpty(duplicateWindow)) {
             AIMRequest.put("x_duplicate_window", props.getProperty("duplicateWindow"));
         }
-        
         // CP market type
         String cpMarketType = props.getProperty("cpMarketType");
         if (UtilValidate.isNotEmpty(cpMarketType)) {
             AIMRequest.put("x_market_type", cpMarketType);
-            
             // CP test mode
             if ("true".equalsIgnoreCase(props.getProperty("testReq"))) {
-                AIMRequest.put("x_test_request", props.getProperty("testReq"));                
+                AIMRequest.put("x_test_request", props.getProperty("testReq"));
             }
         }
-        
         // CP device typ
         String cpDeviceType = props.getProperty("cpDeviceType");
         if (UtilValidate.isNotEmpty(cpDeviceType)) {
             AIMRequest.put("x_device_type", cpDeviceType);
-        }                      
+        }
     }
 
     private static void buildGatewayResponeConfig(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         if (AIMRequest.get("x_market_type") != null) {
             // card present transaction
-            AIMRequest.put("x_response_format", "true".equalsIgnoreCase(props.getProperty("delimited")) ? "1" : "0");            
+            AIMRequest.put("x_response_format", "true".equalsIgnoreCase(props.getProperty("delimited")) ? "1" : "0");
         } else {
-            AIMRequest.put("x_Delim_Data", props.getProperty("delimited"));            
+            AIMRequest.put("x_Delim_Data", props.getProperty("delimited"));
         }
         AIMRequest.put("x_Delim_Char", props.getProperty("delimiter"));
     }
@@ -520,7 +517,7 @@ public class AIMPaymentServices {
                             AIMRequest.put("x_Zip", UtilFormatOut.checkNull(address.getString("postalCode")));
                             AIMRequest.put("x_Country", UtilFormatOut.checkNull(address.getString("countryGeoId")));
                         }
-                    }                    
+                    }
                 } else {
                     Debug.logWarning("Payment preference " + opp + " is not a credit card", MODULE);
                 }
@@ -573,7 +570,7 @@ public class AIMPaymentServices {
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         String cardSecurityCode = (String) params.get("cardSecurityCode");
         AIMRequest.put("x_Amount", amount);
-        AIMRequest.put("x_Currency_Code", currency);        
+        AIMRequest.put("x_Currency_Code", currency);
         AIMRequest.put("x_Method", props.getProperty("method"));
         AIMRequest.put("x_Type", props.getProperty("transType"));
         AIMRequest.put("x_Card_Num", number);
@@ -793,7 +790,7 @@ public class AIMPaymentServices {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String RESOURCE, String parameterName) {
+                                                       String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -808,24 +805,22 @@ public class AIMPaymentServices {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
         }
         return returnValue;
     }
-    
     private static String getCardType(String cardType) {
         if (("CCT_VISA".equalsIgnoreCase(cardType))) return "V";
         if (("CCT_MASTERCARD".equalsIgnoreCase(cardType))) return "M";
         if ((("CCT_AMERICANEXPRESS".equalsIgnoreCase(cardType)) || ("CCT_AMEX".equalsIgnoreCase(cardType)))) return "A";
         if (("CCT_DISCOVER".equalsIgnoreCase(cardType))) return "D";
         if (("CCT_JCB".equalsIgnoreCase(cardType))) return "J";
-        if ((("CCT_DINERSCLUB".equalsIgnoreCase(cardType)))) return "C";        
+        if ((("CCT_DINERSCLUB".equalsIgnoreCase(cardType)))) return "C";
         return "";
     }
-    
     private static BigDecimal getXAmount(Map<String, Object> request) {
         BigDecimal amt = BigDecimal.ZERO;
         if (request.get("x_Amount") != null) {

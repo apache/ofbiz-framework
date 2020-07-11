@@ -65,9 +65,9 @@ public class MrpServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
-        String facilityId = (String)context.get("facilityId");
+        String facilityId = (String) context.get("facilityId");
         Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
-        String mrpId = (String)context.get("mrpId");
+        String mrpId = (String) context.get("mrpId");
 
         //Erases the old table for the moment and initializes it with the new orders,
         //Does not modify the old one now.
@@ -286,7 +286,6 @@ public class MrpServices {
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, MODULE);
                 }
-    
                 GenericValue orderItemDeliverySchedule = null;
                 orderItemDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")).queryOne();
                 Timestamp estimatedShipDate = null;
@@ -598,10 +597,10 @@ public class MrpServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
-        String mrpName = (String)context.get("mrpName");
+        String mrpName = (String) context.get("mrpName");
         Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
-        String facilityGroupId = (String)context.get("facilityGroupId");
-        String facilityId = (String)context.get("facilityId");
+        String facilityGroupId = (String) context.get("facilityGroupId");
+        String facilityId = (String) context.get("facilityId");
         String manufacturingFacilityId = null;
         if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(facilityGroupId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityNotAvailable", locale));

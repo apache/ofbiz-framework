@@ -47,7 +47,7 @@ public final class ShipmentWorker {
     private static final String MODULE = ShipmentWorker.class.getName();
     private static final MathContext generalRounding = new MathContext(10);
 
-    private ShipmentWorker() {}
+    private ShipmentWorker() { }
 
     /*
      * Returns the value of a given ShipmentPackageContent record.  Calculated by working out the total value (from the OrderItems) of all ItemIssuances

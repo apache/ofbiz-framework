@@ -269,7 +269,7 @@ public class ShippingEvents {
         // Check if minimum price is set for any Shipping Option, if yes, 
         // compare it with total shipping and use greater of the two.
         BigDecimal minimumPrice = storeShipMethod.getBigDecimal("minimumPrice");
-        if (UtilValidate.isNotEmpty(minimumPrice) && shippingTotal.compareTo(minimumPrice) < 0){
+        if (UtilValidate.isNotEmpty(minimumPrice) && shippingTotal.compareTo(minimumPrice) < 0) {
              shippingTotal = minimumPrice;
         }
 

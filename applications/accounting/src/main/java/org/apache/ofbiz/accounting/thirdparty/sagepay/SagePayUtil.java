@@ -46,7 +46,7 @@ import org.apache.ofbiz.base.util.Debug;
 public final class SagePayUtil {
 
     private static final String MODULE = SagePayUtil.class.getName();
-    private SagePayUtil() {}
+    private SagePayUtil() { }
 
     public static Map<String, Object> buildCardAuthorisationPaymentResponse
     (Boolean authResult, String authCode, String authFlag, BigDecimal processAmount, String authRefNum, String authAltRefNum, String authMessage) {
@@ -127,7 +127,7 @@ public final class SagePayUtil {
         } else if ("TEST".equals(props.get("sagePayMode"))) {
             hostUrl = props.get("testingHost");
         }
-        if (hostUrl == null){
+        if (hostUrl == null) {
             throw new IllegalArgumentException("Could not find host-url via SagePay Properties");
         }
         String scheme = hostUrl.substring(0, 5);

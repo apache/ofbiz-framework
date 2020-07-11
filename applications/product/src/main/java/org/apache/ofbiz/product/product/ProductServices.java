@@ -1107,7 +1107,7 @@ public class ProductServices {
                                 return result;
                             }
                         }
-                    } catch(GenericEntityException e) {
+                    } catch (GenericEntityException e) {
                         Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }

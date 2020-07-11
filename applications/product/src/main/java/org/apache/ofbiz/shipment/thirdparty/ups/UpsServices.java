@@ -1877,7 +1877,7 @@ public class UpsServices {
         String shippingCountryCode = (String) context.get("shippingCountryCode");
         List<BigDecimal> packageWeights = UtilGenerics.cast(context.get("packageWeights"));
         List<Map<String, Object>> shippableItemInfo = UtilGenerics.cast(context.get("shippableItemInfo"));
-        String isResidentialAddress = (String)context.get("isResidentialAddress");
+        String isResidentialAddress = (String) context.get("isResidentialAddress");
 
         // Important: DO NOT returnError here or you could trigger a transaction rollback and break other services.
         if (UtilValidate.isEmpty(shippingPostalCode)) {

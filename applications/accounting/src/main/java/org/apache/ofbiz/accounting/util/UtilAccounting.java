@@ -39,7 +39,7 @@ public final class UtilAccounting {
     
     private static final String MODULE = UtilAccounting.class.getName();
 
-    private UtilAccounting() {}
+    private UtilAccounting() { }
 
     /**
      * Get the GL Account for a product or the default account type based on input. This replaces the simple-method service

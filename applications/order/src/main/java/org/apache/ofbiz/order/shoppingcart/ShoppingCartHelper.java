@@ -438,7 +438,7 @@ public class ShoppingCartHelper {
                 }
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                     // check for alternative packing
-                    if (ProductWorker.isAlternativePacking(delegator, null , productId)){
+                    if (ProductWorker.isAlternativePacking(delegator, null , productId)) {
                         GenericValue originalProduct = null;
                         originalProductId = productId;
                         productId = ProductWorker.getOriginalProductId(delegator, productId);
@@ -447,7 +447,7 @@ public class ShoppingCartHelper {
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "Error getting parent product", MODULE);
                         }
-                        if (originalProduct != null){
+                        if (originalProduct != null) {
                             BigDecimal piecesIncluded = new BigDecimal(originalProduct.getLong("piecesIncluded"));
                             quantity = quantity.multiply(piecesIncluded);
                         }
@@ -456,7 +456,7 @@ public class ShoppingCartHelper {
                     try {
                         //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                         // if not and if quantity is in decimal format then return error.
-                        if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
+                        if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
                             BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                             if (remainder.compareTo(BigDecimal.ZERO) != 0) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", this.cart.getLocale()));
@@ -465,7 +465,7 @@ public class ShoppingCartHelper {
                         } else {
                             quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
                         }
-                    } catch(GenericEntityException e) {
+                    } catch (GenericEntityException e) {
                         Debug.logError(e.getMessage(), MODULE);
                         quantity = BigDecimal.ONE;
                     }
@@ -496,7 +496,7 @@ public class ShoppingCartHelper {
         String itemGroupNumber = (String) context.get("itemGroupNumber");
         // check if we are using per row submit
         boolean useRowSubmit = (!context.containsKey("_useRowSubmit"))? false :
-                "Y".equalsIgnoreCase((String)context.get("_useRowSubmit"));
+                "Y".equalsIgnoreCase((String) context.get("_useRowSubmit"));
 
         // The number of multi form rows is retrieved
         int rowCount = UtilHttp.getMultiFormRowCount(context);
@@ -514,7 +514,7 @@ public class ShoppingCartHelper {
             String requirementId = null;
             String thisSuffix = UtilHttp.getMultiRowDelimiter() + i;
             boolean rowSelected = (!context.containsKey("_rowSubmit" + thisSuffix))? false :
-                    "Y".equalsIgnoreCase((String)context.get("_rowSubmit" + thisSuffix));
+                    "Y".equalsIgnoreCase((String) context.get("_rowSubmit" + thisSuffix));
 
             // make sure we are to process this row
             if (useRowSubmit && !rowSelected) {

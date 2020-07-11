@@ -187,8 +187,7 @@ public class ProductionRunServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        /* TODO: security management  and finishing cleaning (ex copy from PartyServices.java)        
-         */
+        // TODO: security management  and finishing cleaning (ex copy from PartyServices.java)
         // Mandatory input fields
         String productId = (String) context.get("productId");
         Timestamp  startDate =  (Timestamp) context.get("startDate");
@@ -1045,7 +1044,7 @@ public class ProductionRunServices {
                             }
                         }
                     }
-                } catch(GenericEntityException | GenericServiceException gse) {
+                } catch (GenericEntityException | GenericServiceException gse) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunUnableToFindOverheadCosts"
                             , UtilMisc.toMap("errorString", gse.getMessage()), locale));
                 }
@@ -1065,7 +1064,7 @@ public class ProductionRunServices {
     public static Map<String, Object> getWorkEffortCosts(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = ctx.getDelegator();
-        String workEffortId = (String)context.get("workEffortId");
+        String workEffortId = (String) context.get("workEffortId");
         Locale locale = (Locale) context.get("locale");
         try {
             GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
@@ -1101,7 +1100,7 @@ public class ProductionRunServices {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String workEffortId = (String)context.get("workEffortId");
+        String workEffortId = (String) context.get("workEffortId");
         Locale locale = (Locale) context.get("locale");
         try {
             List<GenericValue> tasks = EntityQuery.use(delegator).from("WorkEffort")
@@ -1139,7 +1138,7 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> serviceResult = new HashMap<>();
         // this is the id of the actual (real) production run task
-        String productionRunTaskId = (String)context.get("productionRunTaskId");
+        String productionRunTaskId = (String) context.get("productionRunTaskId");
         try {
             GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunTaskId).queryOne();
             if (UtilValidate.isEmpty(workEffort)) {
@@ -1387,11 +1386,11 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String productionRunId = (String)context.get("productionRunId");
-        String productId = (String)context.get("productId");
+        String productionRunId = (String) context.get("productionRunId");
+        String productId = (String) context.get("productId");
         BigDecimal quantity = (BigDecimal) context.get("estimatedQuantity");
         // Optional input fields
-        String workEffortId = (String)context.get("workEffortId");
+        String workEffortId = (String) context.get("workEffortId");
 
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
         List<GenericValue> tasks = productionRun.getProductionRunRoutingTasks();
@@ -1460,10 +1459,10 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String productionRunId = (String)context.get("productionRunId");
-        String productId = (String)context.get("productId");
+        String productionRunId = (String) context.get("productionRunId");
+        String productId = (String) context.get("productId");
         // Optional input fields
-        String workEffortId = (String)context.get("workEffortId"); // the production run task
+        String workEffortId = (String) context.get("workEffortId"); // the production run task
         BigDecimal quantity = (BigDecimal) context.get("estimatedQuantity");
 
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
@@ -1537,23 +1536,23 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String productionRunId = (String)context.get("productionRunId");
-        String routingTaskId = (String)context.get("routingTaskId");
+        String productionRunId = (String) context.get("productionRunId");
+        String routingTaskId = (String) context.get("routingTaskId");
         Long priority = (Long)context.get("priority");
 
         // Optional input fields
-        String workEffortName = (String)context.get("workEffortName");
-        String description = (String)context.get("description");
-        Timestamp estimatedStartDate = (Timestamp)context.get("estimatedStartDate");
-        Timestamp estimatedCompletionDate = (Timestamp)context.get("estimatedCompletionDate");
+        String workEffortName = (String) context.get("workEffortName");
+        String description = (String) context.get("description");
+        Timestamp estimatedStartDate = (Timestamp) context.get("estimatedStartDate");
+        Timestamp estimatedCompletionDate = (Timestamp) context.get("estimatedCompletionDate");
 
         Double estimatedSetupMillis = null;
         if (context.get("estimatedSetupMillis") != null) 
-        estimatedSetupMillis = ((BigDecimal)context.get("estimatedSetupMillis")).doubleValue();
+        estimatedSetupMillis = ((BigDecimal) context.get("estimatedSetupMillis")).doubleValue();
 
         Double estimatedMilliSeconds = null;
         if (context.get("estimatedMilliSeconds") != null) 
-        estimatedMilliSeconds = ((BigDecimal)context.get("estimatedMilliSeconds")).doubleValue();
+        estimatedMilliSeconds = ((BigDecimal) context.get("estimatedMilliSeconds")).doubleValue();
 
         // The production run is loaded
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
@@ -1687,16 +1686,16 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String productionRunId = (String)context.get("workEffortId");
+        String productionRunId = (String) context.get("workEffortId");
 
         // Optional input fields
         BigDecimal quantity = (BigDecimal) context.get("quantity");
-        String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
-        String lotId = (String)context.get("lotId");
+        String inventoryItemTypeId = (String) context.get("inventoryItemTypeId");
+        String lotId = (String) context.get("lotId");
         String uomId = (String) context.get("quantityUomId");
         String locationSeqId = (String) context.get("locationSeqId");
-        Boolean createLotIfNeeded = (Boolean)context.get("createLotIfNeeded");
-        Boolean autoCreateLot = (Boolean)context.get("autoCreateLot");
+        Boolean createLotIfNeeded = (Boolean) context.get("createLotIfNeeded");
+        Boolean autoCreateLot = (Boolean) context.get("autoCreateLot");
 
         // The default is non-serialized inventory item
         if (UtilValidate.isEmpty(inventoryItemTypeId)) {
@@ -1829,11 +1828,9 @@ public class ProductionRunServices {
                     unitCost = BigDecimal.ZERO;
                 }
             }
-            
          // Before creating InvntoryItem and InventoryItemDetails, check weather the record of ProductFacility exist in the system or not
-            GenericValue productFacility = EntityQuery.use(delegator). from("ProductFacility").where("productId", productionRun.getProductProduced().getString("productId")
-                    , "facilityId", facility.get("facilityId")).queryOne();
-            
+            GenericValue productFacility = EntityQuery.use(delegator). from("ProductFacility").where("productId", productionRun.getProductProduced().getString("productId"),
+                    "facilityId", facility.get("facilityId")).queryOne();
             if (productFacility == null) {
                 Map<String, Object> createProductFacilityCtx = new HashMap<>();
                 createProductFacilityCtx.put("productId", productionRun.getProductProduced().getString("productId"));
@@ -1849,7 +1846,7 @@ public class ProductionRunServices {
             Debug.logWarning(gse.getMessage(), MODULE);
             return ServiceUtil.returnError(gse.getMessage());
         }
-        
+
         if ("SERIALIZED_INV_ITEM".equals(inventoryItemTypeId)) {
             try {
                 int numOfItems = quantity.intValue();
@@ -1986,10 +1983,10 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String productionRunId = (String)context.get("workEffortId");
+        String productionRunId = (String) context.get("workEffortId");
 
         // Optional input fields
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         Map<GenericPK, Object> componentsLocationMap = UtilGenerics.cast(context.get("componentsLocationMap"));
 
         // The production run is loaded
@@ -2057,18 +2054,18 @@ public class ProductionRunServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String productionRunTaskId = (String)context.get("workEffortId");
-        String productId = (String)context.get("productId");
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
+        String productionRunTaskId = (String) context.get("workEffortId");
+        String productId = (String) context.get("productId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
 
         // Optional input fields
-        String facilityId = (String)context.get("facilityId");
-        String currencyUomId = (String)context.get("currencyUomId");
-        BigDecimal unitCost = (BigDecimal)context.get("unitCost");
-        String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
-        String lotId = (String)context.get("lotId");
+        String facilityId = (String) context.get("facilityId");
+        String currencyUomId = (String) context.get("currencyUomId");
+        BigDecimal unitCost = (BigDecimal) context.get("unitCost");
+        String inventoryItemTypeId = (String) context.get("inventoryItemTypeId");
+        String lotId = (String) context.get("lotId");
         String uomId = (String) context.get("quantityUomId");
-        String isReturned = (String)context.get("isReturned");
+        String isReturned = (String) context.get("isReturned");
 
         // The default is non-serialized inventory item
         if (UtilValidate.isEmpty(inventoryItemTypeId)) {
@@ -2198,11 +2195,11 @@ public class ProductionRunServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String productionRunTaskId = (String)context.get("workEffortId");
-        String productId = (String)context.get("productId");
+        String productionRunTaskId = (String) context.get("workEffortId");
+        String productId = (String) context.get("productId");
         // Optional input fields
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
-        String lotId = (String)context.get("lotId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        String lotId = (String) context.get("lotId");
         String uomId = (String) context.get("quantityUomId");
         Locale locale = (Locale) context.get("locale");
         if (quantity == null || quantity.compareTo(ZERO) == 0) {
@@ -2240,7 +2237,7 @@ public class ProductionRunServices {
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(gee.getMessage());
         }
-        String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
+        String inventoryItemTypeId = (String) context.get("inventoryItemTypeId");
 
         // TODO: if the task is not running, then return an error message.
 
@@ -2265,22 +2262,22 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String productionRunId = (String)context.get("productionRunId");
-        String workEffortId = (String)context.get("productionRunTaskId");
-        String partyId = (String)context.get("partyId");
+        String productionRunId = (String) context.get("productionRunId");
+        String workEffortId = (String) context.get("productionRunTaskId");
+        String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
             partyId = userLogin.getString("partyId");
         }
 
         // Optional input fields
-        Timestamp fromDate = (Timestamp)context.get("fromDate");
-        Timestamp toDate = (Timestamp)context.get("toDate");
-        BigDecimal addQuantityProduced = (BigDecimal)context.get("addQuantityProduced");
-        BigDecimal addQuantityRejected = (BigDecimal)context.get("addQuantityRejected");
-        BigDecimal addSetupTime = (BigDecimal)context.get("addSetupTime");
-        BigDecimal addTaskTime = (BigDecimal)context.get("addTaskTime");
-        String comments = (String)context.get("comments");
-        Boolean issueRequiredComponents = (Boolean)context.get("issueRequiredComponents");
+        Timestamp fromDate = (Timestamp) context.get("fromDate");
+        Timestamp toDate = (Timestamp) context.get("toDate");
+        BigDecimal addQuantityProduced = (BigDecimal) context.get("addQuantityProduced");
+        BigDecimal addQuantityRejected = (BigDecimal) context.get("addQuantityRejected");
+        BigDecimal addSetupTime = (BigDecimal) context.get("addSetupTime");
+        BigDecimal addTaskTime = (BigDecimal) context.get("addTaskTime");
+        String comments = (String) context.get("comments");
+        Boolean issueRequiredComponents = (Boolean) context.get("issueRequiredComponents");
         Map<GenericPK, Object> componentsLocationMap = UtilGenerics.cast(context.get("componentsLocationMap"));
 
         if (issueRequiredComponents == null) {
@@ -2430,7 +2427,7 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String requirementId = (String)context.get("requirementId");
+        String requirementId = (String) context.get("requirementId");
         GenericValue requirement = null;
         try {
             requirement = EntityQuery.use(delegator).from("Requirement").where("requirementId", requirementId).queryOne();
@@ -2464,9 +2461,9 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String requirementId = (String)context.get("requirementId");
+        String requirementId = (String) context.get("requirementId");
         // Optional input fields
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
 
         GenericValue requirement = null;
         try {
@@ -2530,13 +2527,13 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String facilityId = (String)context.get("facilityId");
+        String facilityId = (String) context.get("facilityId");
         // Optional input fields
-        String configId = (String)context.get("configId");
+        String configId = (String) context.get("configId");
         ProductConfigWrapper config = (ProductConfigWrapper)context.get("config");
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
-        String orderId = (String)context.get("orderId");
-        String orderItemSeqId = (String)context.get("orderItemSeqId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        String orderId = (String) context.get("orderId");
+        String orderItemSeqId = (String) context.get("orderItemSeqId");
 
         if (config == null && configId == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingConfigurationNotAvailable", locale));
@@ -2702,9 +2699,9 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
-        String facilityId = (String)context.get("facilityId");
-        String orderId = (String)context.get("orderId");
-        String orderItemSeqId = (String)context.get("orderItemSeqId");
+        String facilityId = (String) context.get("facilityId");
+        String orderId = (String) context.get("orderId");
+        String orderItemSeqId = (String) context.get("orderItemSeqId");
 
         // Check if the order is to be immediately fulfilled, in which case the inventory
         // hasn't been reserved and ATP not yet decreased
@@ -2911,7 +2908,7 @@ public class ProductionRunServices {
             if ("OrderItemShipGroupAssoc".equals(orderItemOrShipGroupAssoc.getEntityName())) {
                 try {
                     orderItem = orderItemOrShipGroupAssoc.getRelatedOne("OrderItem", false);
-                } catch(GenericEntityException gee) {
+                } catch (GenericEntityException gee) {
                     Debug.logInfo("Unable to find order item for " + orderItemOrShipGroupAssoc, MODULE);
                 }
             } else {
@@ -2935,7 +2932,6 @@ public class ProductionRunServices {
             }
             try {
                 List<GenericValue> existingProductionRuns = null;
-                
                 if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
                     existingProductionRuns = EntityQuery.use(delegator).from("WorkAndOrderItemFulfillment")
                             .where(
@@ -2980,13 +2976,13 @@ public class ProductionRunServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin =(GenericValue)context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
-        String productId = (String)context.get("productId");
-        Timestamp startDate = (Timestamp)context.get("startDate");
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
-        String facilityId = (String)context.get("facilityId");
-        String workEffortName = (String)context.get("workEffortName");
-        String description = (String)context.get("description");
-        String routingId = (String)context.get("routingId");
+        String productId = (String) context.get("productId");
+        Timestamp startDate = (Timestamp) context.get("startDate");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        String facilityId = (String) context.get("facilityId");
+        String workEffortName = (String) context.get("workEffortName");
+        String description = (String) context.get("description");
+        String routingId = (String) context.get("routingId");
         String workEffortId = null;
         if (quantity == null) {
             quantity = BigDecimal.ONE;
@@ -3285,7 +3281,7 @@ public class ProductionRunServices {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String inventoryItemId = (String)context.get("inventoryItemId");
+        String inventoryItemId = (String) context.get("inventoryItemId");
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> serviceResult = new HashMap<>();
         try {
@@ -3326,8 +3322,8 @@ public class ProductionRunServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         // Mandatory input fields
-        String inventoryItemId = (String)context.get("inventoryItemId");
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
+        String inventoryItemId = (String) context.get("inventoryItemId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         List<String> inventoryItemIds = new LinkedList<>();
         try {
             GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem")

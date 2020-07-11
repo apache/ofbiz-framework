@@ -94,7 +94,7 @@ public final class SeoConfigUtil {
     private static final String DEFAULT_CATEGORY_NAME_VALUE = "disable";
     private static final String ALLOWED_CONTEXT_PATHS_SEPERATOR = ":";
 
-    private SeoConfigUtil() {}
+    private SeoConfigUtil() { }
 
     /**
      * Initialize url regular express configuration.

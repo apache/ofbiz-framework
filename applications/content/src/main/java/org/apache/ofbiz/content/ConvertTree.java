@@ -41,7 +41,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
-public class ConvertTree{
+public class ConvertTree {
     private static final String MODULE = ConvertTree.class.getName();
 
 /*

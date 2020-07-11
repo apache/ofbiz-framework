@@ -224,7 +224,7 @@ public class InvoiceServices {
             GenericValue billingAccount = orderHeader.getRelatedOne("BillingAccount", false);
             String billingAccountId = billingAccount != null ? billingAccount.getString("billingAccountId") : null;
 
-            Timestamp invoiceDate = (Timestamp)context.get("eventDate");
+            Timestamp invoiceDate = (Timestamp) context.get("eventDate");
             if (UtilValidate.isEmpty(invoiceDate)) {
                 // TODO: ideally this should be the same time as when a shipment is sent and be passed in as a parameter
                 invoiceDate = UtilDateTime.nowTimestamp();
@@ -1565,7 +1565,7 @@ public class InvoiceServices {
                         billAvail = BigDecimal.ZERO;
                     } else {
                         // now have been billed
-                        if (issueQty == null){
+                        if (issueQty == null) {
                             issueQty = BigDecimal.ZERO;
                         }
                         billAvail = billAvail.subtract(issueQty).setScale(DECIMALS, ROUNDING);
@@ -2320,7 +2320,7 @@ public class InvoiceServices {
         }
 
         String invoiceId = (String) context.get("invoiceId");
-        GenericValue invoice = null ;
+        GenericValue invoice = null;
         try {
             invoice = EntityQuery.use(delegator).from("Invoice").where("invoiceId", invoiceId).queryOne();
         } catch (GenericEntityException e) {

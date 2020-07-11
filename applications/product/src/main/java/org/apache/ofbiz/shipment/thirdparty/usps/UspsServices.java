@@ -90,7 +90,6 @@ public class UspsServices {
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
         String RESOURCE = (String) context.get("configProps");
         Locale locale = (Locale) context.get("locale");
-        
         // check for 0 weight
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
         if (shippableWeight.compareTo(BigDecimal.ZERO) == 0) {
