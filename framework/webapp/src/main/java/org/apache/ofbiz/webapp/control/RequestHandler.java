@@ -128,7 +128,7 @@ public class RequestHandler {
 
         if (!hostHeadersAllowed.contains(request.getServerName())) {
             Debug.logError("Domain " + request.getServerName() + " not accepted to prevent host header injection."
-                    + " You need to set host-headers-allowed property in security.properties file.", MODULE);
+                    + " You need to set host-headers-allowed property in security.properties file.", module);
             throw new RequestHandlerException("Domain " + request.getServerName() + " not accepted to prevent host header injection."
                     + " You need to set host-headers-allowed property in security.properties file.");
         }
