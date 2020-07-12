@@ -84,7 +84,7 @@ public class PayPalServices {
 
     private static final String MODULE = PayPalServices.class.getName();
     public final static String RESOURCE = "AccountingErrorUiLabels";
-    
+
     // Used to maintain a weak reference to the ShoppingCart for customers who have gone to PayPal to checkout
     // so that we can quickly grab the cart, perform shipment estimates and send the info back to PayPal.
     // The weak key is a simple wrapper for the checkout token String and is stored as a cart attribute. The value
@@ -1046,7 +1046,6 @@ public class PayPalServices {
         GenericValue geoAssocAndGeoTo = null;
         try {
             geoAssocAndGeoTo = EntityQuery.use(delegator).from("GeoAssocAndGeoTo").where(cond).cache().queryFirst();
-            
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }

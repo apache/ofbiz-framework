@@ -49,7 +49,7 @@ public final class EntityUtilProperties implements Serializable {
 
     public final static String MODULE = EntityUtilProperties.class.getName();
 
-    private EntityUtilProperties () {}
+    private EntityUtilProperties() { }
 
     private static Map<String, String> getSystemPropertyValue(String resource, String name, Delegator delegator) {
         Map<String, String> results = new HashMap<>();

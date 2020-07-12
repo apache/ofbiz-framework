@@ -53,7 +53,7 @@ public final class CategoryWorker {
 
     private static final String MODULE = CategoryWorker.class.getName();
 
-    private CategoryWorker () {}
+    private CategoryWorker() { }
 
     public static String getCatalogTopCategory(ServletRequest request, String defaultTopCategory) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;

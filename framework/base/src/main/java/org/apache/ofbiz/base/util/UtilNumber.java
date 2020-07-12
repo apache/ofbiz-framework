@@ -31,7 +31,7 @@ public final class UtilNumber {
     private static final String MODULE = UtilNumber.class.getName();
 
     // properties file name for arithmetic configuration
-    private static final String arithmeticPropertiesFile = "arithmetic.properties";
+    private static final String ARITH_PROP_FILE = "arithmetic.properties";
 
     // default scale and rounding mode for BigDecimals
     private static final int DEFAULT_BD_SCALE = 2;
@@ -39,7 +39,7 @@ public final class UtilNumber {
 
     // ICU4J rule sets for the en_US locale. To add more rules, expand this string.
     // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
-    private static final String ruleSet_en_US =
+    private static final String RULE_SET_EN_US =
         /*
          * These rules format a number in one of the two styles often used
          * on checks.  %dollars-and-hundredths formats cents as hundredths of
@@ -78,7 +78,7 @@ public final class UtilNumber {
 
     // ICU4J rule sets for the th_TH locale. To add more rules, expand this string.
     // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
-    private static final String ruleSet_th_TH =
+    private static final String RULE_SET_TH_TH =
         /*
          * These rules format a number in one of the two styles often used
          * on checks.  %bahts-and-hundredths formats stangs as hundredths of
@@ -117,7 +117,7 @@ public final class UtilNumber {
 
         // ICU4J rule sets for the en_IN locale. To add more rules, expand this string.
         // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
-        public static final String ruleSet_en_IN =
+        public static final String RULE_SET_EN_IN =
              /*
              * These rules format a number in one of the two styles often used
              * on checks. %simplified formats paise as hundredths of
@@ -170,17 +170,17 @@ public final class UtilNumber {
     private static HashMap<Locale, String> rbnfRuleSets;
     static {
         rbnfRuleSets = new HashMap<>();
-        rbnfRuleSets.put(Locale.US, ruleSet_en_US);
-        rbnfRuleSets.put(new Locale("th"), ruleSet_th_TH);
-        rbnfRuleSets.put(new Locale("en", "IN"), ruleSet_en_IN);
+        rbnfRuleSets.put(Locale.US, RULE_SET_EN_US);
+        rbnfRuleSets.put(new Locale("th"), RULE_SET_TH_TH);
+        rbnfRuleSets.put(new Locale("en", "IN"), RULE_SET_EN_IN);
     }
 
-    private UtilNumber() {}
+    private UtilNumber() { }
 
     /**
      * Method to get BigDecimal scale factor from a property
      * @param   file     - Name of the property file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.decimals")
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.decimals")
      * @return  int - Scale factor to pass to BigDecimal's methods. Defaults to DEFAULT_BD_SCALE (2)
      */
     public static int getBigDecimalScale(String file, String property) {
@@ -203,18 +203,18 @@ public final class UtilNumber {
     }
 
     /**
-     * Method to get BigDecimal scale factor from a property. Use the default arithmeticPropertiesFile properties file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.decimals")
+     * Method to get BigDecimal scale factor from a property. Use the default ARITH_PROP_FILE properties file
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.decimals")
      * @return  int - Scale factor to pass to BigDecimal's methods. Defaults to DEFAULT_BD_SCALE (2)
      */
     public static int getBigDecimalScale(String property) {
-        return getBigDecimalScale(arithmeticPropertiesFile, property);
+        return getBigDecimalScale(ARITH_PROP_FILE, property);
     }
 
     /**
      * Method to get BigDecimal rounding mode from a property
      * @param   file     - Name of the property file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
      * @deprecated Use {@link #getRoundingMode(String, String)} instead
      */
@@ -224,20 +224,20 @@ public final class UtilNumber {
     }
 
     /**
-     * Method to get BigDecimal rounding mode from a property. Use the default arithmeticPropertiesFile properties file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * Method to get BigDecimal rounding mode from a property. Use the default ARITH_PROP_FILE properties file
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
      * @deprecated Use {@link #getRoundingMode(String)} instead
      */
     @Deprecated
     public static int getBigDecimalRoundingMode(String property) {
-        return getRoundingMode(arithmeticPropertiesFile, property).ordinal();
+        return getRoundingMode(ARITH_PROP_FILE, property).ordinal();
     }
 
     /**
      * Method to get BigDecimal rounding mode from a property
      * @param   file     - Name of the property file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
      * @return  RoundingMode - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
      */
     public static RoundingMode getRoundingMode(String file, String property) {
@@ -254,12 +254,12 @@ public final class UtilNumber {
         return mode;
     }
     /**
-     * Method to get BigDecimal rounding mode from a property. Use the default arithmeticPropertiesFile properties file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * Method to get BigDecimal rounding mode from a property. Use the default ARITH_PROP_FILE properties file
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
      * @return  RoundingMode - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
      */
     public static RoundingMode getRoundingMode(String property) {
-        return getRoundingMode(arithmeticPropertiesFile, property);
+        return getRoundingMode(ARITH_PROP_FILE, property);
     }
 
     /**

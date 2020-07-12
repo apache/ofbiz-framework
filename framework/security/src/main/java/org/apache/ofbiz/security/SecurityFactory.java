@@ -81,7 +81,7 @@ public final class SecurityFactory {
         return security;
     }
 
-    private SecurityFactory() {}
+    private SecurityFactory() { }
 
     private static final class OFBizSecurity implements Security {
 
@@ -92,7 +92,7 @@ public final class SecurityFactory {
             "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
             "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
 
-        private OFBizSecurity() {}
+        private OFBizSecurity() { }
 
         @Override
         public void clearUserData(GenericValue userLogin) {

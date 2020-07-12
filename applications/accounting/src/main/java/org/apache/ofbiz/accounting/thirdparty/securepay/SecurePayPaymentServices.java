@@ -112,7 +112,7 @@ public class SecurePayPaymentServices {
             if (payment.getCount() == 1) {
                 Txn resp = payment.getTxn(0);
                 boolean approved = resp.getApproved();
-                if (approved == false){
+                if (approved == false) {
                     result.put("authResult", Boolean.FALSE);
                     result.put("authRefNum", "N/A");
                     result.put("processAmount", BigDecimal.ZERO);
@@ -191,10 +191,10 @@ public class SecurePayPaymentServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
-            if (payment.getCount() == 1){
+            if (payment.getCount() == 1) {
                 Txn resp = payment.getTxn(0);
                 boolean approved = resp.getApproved();
-                if (approved == false){
+                if (approved == false) {
                     result.put("captureResult", false);
                     result.put("captureRefNum", authTransaction.getString("referenceNum"));
                     result.put("captureAmount", BigDecimal.ZERO);
@@ -270,10 +270,10 @@ public class SecurePayPaymentServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
-            if (payment.getCount() == 1){
+            if (payment.getCount() == 1) {
                 Txn resp = payment.getTxn(0);
                 boolean approved = resp.getApproved();
-                if (approved == false){
+                if (approved == false) {
                     result.put("releaseResult", false);
                     result.put("releaseRefNum", authTransaction.getString("referenceNum"));
                     result.put("releaseAmount", BigDecimal.ZERO);
@@ -357,10 +357,10 @@ public class SecurePayPaymentServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
-            if (payment.getCount() == 1){
+            if (payment.getCount() == 1) {
                 Txn resp = payment.getTxn(0);
                 boolean approved = resp.getApproved();
-                if (approved == false){
+                if (approved == false) {
                     result.put("refundResult", false);
                     result.put("refundRefNum", authTransaction.getString("referenceNum"));
                     result.put("refundAmount", BigDecimal.ZERO);
@@ -439,7 +439,7 @@ public class SecurePayPaymentServices {
             if (payment.getCount() == 1) {
                 Txn resp = payment.getTxn(0);
                 boolean approved = resp.getApproved();
-                if (approved == false){
+                if (approved == false) {
                     result.put("creditResult", false);
                     result.put("creditRefNum", "N/A");
                     result.put("creditAmount", BigDecimal.ZERO);

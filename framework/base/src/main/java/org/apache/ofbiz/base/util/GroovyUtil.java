@@ -125,7 +125,7 @@ public final class GroovyUtil {
             vars.put("context", context);
             if (vars.get(ScriptUtil.SCRIPT_HELPER_KEY) == null) {
                 ScriptContext scriptContext = ScriptUtil.createScriptContext(context);
-                ScriptHelper scriptHelper = (ScriptHelper)scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
+                ScriptHelper scriptHelper = (ScriptHelper) scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
                 if (scriptHelper != null) {
                     vars.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
                 }

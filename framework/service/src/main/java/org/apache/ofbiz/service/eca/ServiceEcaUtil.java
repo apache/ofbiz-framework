@@ -53,7 +53,7 @@ public final class ServiceEcaUtil {
     // using a cache is dangerous here because if someone clears it the ECAs won't run: public static UtilCache ecaCache = new UtilCache("service.ServiceECAs", 0, 0, false);
     private static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = new ConcurrentHashMap<>();
 
-    private ServiceEcaUtil() {}
+    private ServiceEcaUtil() { }
 
     public static void reloadConfig() {
         ecaCache.clear();

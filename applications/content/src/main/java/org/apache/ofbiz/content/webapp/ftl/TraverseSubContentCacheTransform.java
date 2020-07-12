@@ -151,7 +151,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 Map<String, Object> node = null;
                 List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
                 if (globalNodeTrail.size() > 0) {
-                    int sz = globalNodeTrail.size() ;
+                    int sz = globalNodeTrail.size();
                     nodeTrail = new LinkedList<>();
                     node = UtilGenerics.cast(globalNodeTrail.get(sz - 1));
                     Boolean checkedObj = (Boolean)node.get("checked");

@@ -47,7 +47,7 @@ public final class LayoutWorker {
     private static final String MODULE = LayoutWorker.class.getName();
     private static final String err_resource = "ContentErrorUiLabels";
 
-    private LayoutWorker() {}
+    private LayoutWorker() { }
 
     /**
      * Uploads image data from a form and stores it in ImageDataResource.

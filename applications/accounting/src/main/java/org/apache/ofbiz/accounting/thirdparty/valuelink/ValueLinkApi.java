@@ -89,7 +89,7 @@ public class ValueLinkApi {
     protected Long mwkIndex = null;
     protected boolean debug = false;
 
-    protected ValueLinkApi() {}
+    protected ValueLinkApi() { }
     protected ValueLinkApi(Delegator delegator, Properties props) {
         String mId = (String) props.get("payment.valuelink.merchantId");
         String tId = (String) props.get("payment.valuelink.terminalId");

@@ -356,7 +356,7 @@ public class RequirementServices {
         String orderId = (String) context.get("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         try {
-            for(GenericValue orderItem: orh.getOrderItems()){
+            for (GenericValue orderItem: orh.getOrderItems()) {
                 GenericValue orderRequirementCommitment = EntityQuery.use(delegator).from("OrderRequirementCommitment")
                         .where(UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId")))
                         .queryFirst();
@@ -371,7 +371,7 @@ public class RequirementServices {
                     }
                 }
             }
-        } catch(GenericEntityException | GenericServiceException e){
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();

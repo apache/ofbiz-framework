@@ -38,7 +38,7 @@ public class UomWorker {
 
     private static final String MODULE = UomWorker.class.getName();
 
-    private UomWorker () {}
+    private UomWorker() { }
 
     public static int[] uomTimeToCalTime(String uomId) {
         if ("TF_ms".equals(uomId)) {

@@ -1066,7 +1066,7 @@ public class ModelViewEntity extends ModelEntity {
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             if (UtilValidate.isEmpty(entityAlias)
                     && UtilValidate.isEmpty(field) 
-                    && UtilValidate.isNotEmpty(value)){
+                    && UtilValidate.isNotEmpty(value)) {
                 colNameBuffer.append(value);
             }
             else {

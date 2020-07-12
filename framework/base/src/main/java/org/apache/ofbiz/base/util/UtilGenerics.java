@@ -25,7 +25,7 @@ public final class UtilGenerics {
 
     private static final String MODULE = UtilMisc.class.getName();
 
-    private UtilGenerics() {}
+    private UtilGenerics() { }
 
     @SuppressWarnings("unchecked")
     public static <V> V cast(Object object) {

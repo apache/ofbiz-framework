@@ -162,7 +162,7 @@ public class HashCrypt {
         }
     }
 
-    public static String pbkdf2HashCrypt(String hashType, String salt, String value){
+    public static String pbkdf2HashCrypt(String hashType, String salt, String value) {
         char[] chars = value.toCharArray();
         if (UtilValidate.isEmpty(salt)) {
             salt = getSalt();
@@ -201,7 +201,7 @@ public class HashCrypt {
         }
     }
 
-    public static boolean doComparePbkdf2(String crypted, String password){
+    public static boolean doComparePbkdf2(String crypted, String password) {
         try {
             int typeEnd = crypted.indexOf("}");
             String hashType = crypted.substring(1, typeEnd);

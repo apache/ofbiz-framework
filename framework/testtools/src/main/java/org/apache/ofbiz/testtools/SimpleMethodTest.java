@@ -46,7 +46,6 @@ public class SimpleMethodTest extends OFBizTestCase {
 
     protected String methodLocation;
     protected String methodName;
-    
     public static MockHttpServletRequest request = new MockHttpServletRequest();
     public static MockHttpServletResponse response = new MockHttpServletResponse();
 
@@ -73,7 +72,6 @@ public class SimpleMethodTest extends OFBizTestCase {
     @Override
     public void run(TestResult result) {
         result.startTest(this);
-        
         try {
             // define request
             Security security = SecurityFactory.getInstance(delegator);

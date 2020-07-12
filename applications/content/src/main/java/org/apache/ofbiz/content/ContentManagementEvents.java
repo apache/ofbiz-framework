@@ -212,15 +212,15 @@ public class ContentManagementEvents {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         boolean statusIdUpdated = false;
         Map<String, Object> result = new HashMap<>();
-        for (Object [] arr : origPublishedLinkList) {
-            String contentId = (String)arr[0]; // main (2nd level) site id
+        for (Object[] arr : origPublishedLinkList) {
+            String contentId = (String) arr[0]; // main (2nd level) site id
             String origSubContentId = null;
-            List<Object []> origSubList = UtilGenerics.cast(arr[1]);
+            List<Object[]> origSubList = UtilGenerics.cast(arr[1]);
             Timestamp origFromDate = null;
-            for (Object [] pubArr : origSubList) {
-                Timestamp fromDate = (Timestamp)pubArr[2];
+            for (Object[] pubArr : origSubList) {
+                Timestamp fromDate = (Timestamp) pubArr[2];
                 if (fromDate != null) {
-                    origSubContentId = (String)pubArr[0];
+                    origSubContentId = (String) pubArr[0];
                     origFromDate = fromDate;
                     break;
                 }

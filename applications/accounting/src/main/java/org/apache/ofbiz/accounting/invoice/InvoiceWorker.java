@@ -61,7 +61,7 @@ public final class InvoiceWorker {
     private static final int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     private static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
 
-    private InvoiceWorker () {}
+    private InvoiceWorker() { }
 
     /**
      * Return the total amount of the invoice (including tax) using the the invoiceId as input.

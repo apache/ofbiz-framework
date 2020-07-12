@@ -47,7 +47,7 @@ public final class WebDavUtil {
     private static final TimeZone GMT_TIMEZONE = TimeZone.getTimeZone("GMT");
     private static final String RFC1123_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz";
 
-    private WebDavUtil() {}
+    private WebDavUtil() { }
 
     public static String formatDate(String formatString, Date date) {
         DateFormat df = new SimpleDateFormat(formatString);

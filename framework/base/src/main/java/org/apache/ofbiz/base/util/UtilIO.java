@@ -36,7 +36,7 @@ import java.nio.charset.StandardCharsets;
 public final class UtilIO {
     private static final String MODULE = UtilIO.class.getName();
 
-    private UtilIO () {}
+    private UtilIO() { }
 
     /** Copy a Reader to an Appendable.
      *

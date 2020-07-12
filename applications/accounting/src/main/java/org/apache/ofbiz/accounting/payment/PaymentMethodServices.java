@@ -307,7 +307,6 @@ public class PaymentMethodServices {
             // get the masked card number from the db
             String origCardNumber = creditCard.getString("cardNumber");
             int cardLength = origCardNumber.length() - 4;
-            
             // use builder for better performance 
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < cardLength; i++) {

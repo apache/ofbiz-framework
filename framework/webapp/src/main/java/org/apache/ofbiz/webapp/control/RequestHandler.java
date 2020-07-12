@@ -112,7 +112,6 @@ public class RequestHandler {
 
         this.trackServerHit = !"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"));
         this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
-        
         hostHeadersAllowed = UtilMisc.getHostHeadersAllowed();
 
     }
@@ -147,7 +146,7 @@ public class RequestHandler {
             if (requestMapMap.containsKey(requestUri)
                     // Ensure that overridden view exists.
                     && (overrideViewUri == null || viewMapMap.containsKey(overrideViewUri)
-                    || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))){
+                    || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))) {
                 rmaps = requestMapMap.get(requestUri);
                 req.setAttribute("overriddenView", overrideViewUri);
             } else if (defaultRequest != null) {
@@ -214,8 +213,10 @@ public class RequestHandler {
             GenericValue userLogin, Delegator delegator) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
 
         if (!hostHeadersAllowed.contains(request.getServerName())) {
-            Debug.logError("Domain " + request.getServerName() + " not accepted to prevent host header injection ", MODULE);
-            throw new RequestHandlerException("Domain " + request.getServerName() + " not accepted to prevent host header injection ");
+            Debug.logError("Domain " + request.getServerName() + " not accepted to prevent host header injection."
+                    + " You need to set host-headers-allowed property in security.properties file.", MODULE);
+            throw new RequestHandlerException("Domain " + request.getServerName() + " not accepted to prevent host header injection."
+                    + " You need to set host-headers-allowed property in security.properties file.");
         }
                 
         final boolean throwRequestHandlerExceptionOnMissingLocalRequest = EntityUtilProperties.propertyValueEqualsIgnoreCase(

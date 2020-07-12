@@ -1927,7 +1927,7 @@ public class PaymentGatewayServices {
             // save the response and respective messages
             savePgrAndMsgs(dctx, response, messageEntities);
 
-            if (response.getBigDecimal("amount").compareTo((BigDecimal)context.get("processAmount")) != 0) {
+            if (response.getBigDecimal("amount").compareTo((BigDecimal) context.get("processAmount")) != 0) {
                 Debug.logWarning("The authorized amount does not match the max amount : Response - " + response + " : result - " + context, MODULE);
             }
 

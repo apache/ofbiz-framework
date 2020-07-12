@@ -468,13 +468,13 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         if (modelEntity.getField("changeByUserLoginId") != null ) {
             if (modelEntity.getEntityName().endsWith("Status")) {
                 //Oh update on EntityStatus concept detected ... not possible, return invalid request
-                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
             }
             GenericValue userLogin = (GenericValue) parameters.get("userLogin");
             if (userLogin != null) {
                 lookedUpValue.set("changeByUserLoginId", userLogin.get("userLoginId"));
             } else {
-                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
             }
         }
 
@@ -502,7 +502,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         if (modelEntity.getField("changeByUserLoginId") != null ) {
             if (modelEntity.getEntityName().endsWith("Status")) {
                 //Oh update on EntityStatus concept detected ... not possible, return invalid request
-                throw new GenericServiceException("You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+                throw new GenericServiceException("You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
             }
         }
 

@@ -48,7 +48,7 @@ public final class CatalogWorker {
 
     private static final String MODULE = CatalogWorker.class.getName();
 
-    private CatalogWorker () {}
+    private CatalogWorker() { }
 
     
     /**

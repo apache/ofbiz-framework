@@ -88,7 +88,7 @@ public class OrderReadHelper {
     protected List<GenericValue> orderItemAttributes = null;
     protected BigDecimal totalPrice = null;
 
-    protected OrderReadHelper() {}
+    protected OrderReadHelper() { }
 
     public OrderReadHelper(GenericValue orderHeader, List<GenericValue> adjustments, List<GenericValue> orderItems) {
         this.orderHeader = orderHeader;

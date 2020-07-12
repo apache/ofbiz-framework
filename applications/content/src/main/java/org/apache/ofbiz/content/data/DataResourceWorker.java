@@ -434,7 +434,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         return prefix;
     }
 
-    public static File getContentFile(String dataResourceTypeId, String objectInfo, String contextRoot)  throws GeneralException, FileNotFoundException{
+    public static File getContentFile(String dataResourceTypeId, String objectInfo, String contextRoot)  throws GeneralException, FileNotFoundException {
         File file = null;
 
         if ("LOCAL_FILE".equals(dataResourceTypeId) || "LOCAL_FILE_BIN".equals(dataResourceTypeId)) {
@@ -786,7 +786,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 } catch (TemplateException e) {
                     throw new GeneralException("Error creating Screen renderer", e);
                 }
-            } else if ("FORM_COMBINED".equals(dataTemplateTypeId)){
+            } else if ("FORM_COMBINED".equals(dataTemplateTypeId)) {
                 try {
                     Map<String, Object> context = UtilGenerics.cast(templateContext.get("globalContext"));
                     context.put("locale", locale);

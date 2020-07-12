@@ -33,12 +33,11 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
-public class SecurePayServiceTest extends OFBizTestCase{
+public class SecurePayServiceTest extends OFBizTestCase {
 
     public SecurePayServiceTest(String name) {
         super(name);
     }
-    
     private static final String MODULE = SecurePayServiceTest.class.getName();
 
     // test data
@@ -103,14 +102,13 @@ public class SecurePayServiceTest extends OFBizTestCase{
             "paymentMethodTypeId", "CREDIT_CARD", 
             "maxAmount", new BigDecimal("200.00"), 
             "statusId", "PAYMENT_AUTHORIZED"));
-        
         GenericValue checkOrderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", "testOrder1000_01").queryOne();
         if (UtilValidate.isEmpty(checkOrderPaymentPreference)) {
             orderPaymentPreference.create();
         }
     }
 
-    public void testAuth() throws Exception{
+    public void testAuth() throws Exception {
         Debug.logInfo("=====[testAuth] starting....", MODULE);
         try {
             Map<String, Object> serviceInput = UtilMisc.<String, Object>toMap(
@@ -190,7 +188,6 @@ public class SecurePayServiceTest extends OFBizTestCase{
                 checkPaymentGatewayResponse.store();
                 Debug.logInfo("[testdoCapture] Result from SecurePay: " + result, MODULE);
             }
-            
         } catch (GenericServiceException ex) {
             TestCase.fail(ex.getMessage());
         }
@@ -224,7 +221,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
         }
     }
 
-    public void testdoCredit() throws Exception{
+    public void testdoCredit() throws Exception {
         Debug.logInfo("=====[testdoCredit] starting....", MODULE);
         try {
             Map<String, Object> serviceInput = UtilMisc.toMap(

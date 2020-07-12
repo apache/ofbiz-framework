@@ -52,7 +52,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     ScreenStringRenderer screenStringRenderer = null;
     private static final String MODULE = HtmlTreeRenderer.class.getName();
 
-    public HtmlTreeRenderer() {}
+    public HtmlTreeRenderer() { }
 
     @Override
     public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth) throws IOException {

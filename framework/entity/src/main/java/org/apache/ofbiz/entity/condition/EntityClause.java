@@ -41,7 +41,7 @@ public class EntityClause {
     private EntityOperator<?,?> intraFieldOperation = null;
 
     private Object value = null;
-    public EntityClause() {}
+    public EntityClause() { }
 
     public EntityClause(String firstEntity, String secondEntity, String firstField, String secondField, EntityOperator<?, ?> interFieldOperation, EntityOperator<?, ?> intraFieldOperation) {
         this.firstEntity = firstEntity;

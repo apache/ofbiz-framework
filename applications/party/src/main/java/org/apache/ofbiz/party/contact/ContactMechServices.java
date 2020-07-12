@@ -883,7 +883,7 @@ public class ContactMechServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String partyId = (String)context.get("partyId");
+        String partyId = (String) context.get("partyId");
         Locale locale = (Locale) context.get("locale");
         if (UtilValidate.isEmpty(partyId)) {
             if (userLogin != null) {
@@ -893,9 +893,9 @@ public class ContactMechServices {
                         "PartyCannotGetPartyContactMech", locale));
             }
         }
-        Boolean bShowOld = (Boolean)context.get("showOld");
+        Boolean bShowOld = (Boolean) context.get("showOld");
         boolean showOld = (bShowOld != null && bShowOld) ? true : false;
-        String contactMechTypeId = (String)context.get("contactMechTypeId");
+        String contactMechTypeId = (String) context.get("contactMechTypeId");
         List<Map<String, Object>> valueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld, contactMechTypeId);
         result.put("valueMaps", valueMaps);
         return result;

@@ -64,7 +64,7 @@ public final class ContentManagementWorker {
     private static Map<String, GenericValue> cachedWebSitePublishPoints = new HashMap<>();
     private static Map<String, Map<String, Object>> cachedStaticValues = new HashMap<>();
 
-    private ContentManagementWorker() {}
+    private ContentManagementWorker() { }
 
     public static void mruAdd(HttpServletRequest request, GenericEntity pk, String suffix) {
         HttpSession session = request.getSession();

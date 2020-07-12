@@ -287,7 +287,7 @@ checkstyle {
     // the sum of errors found last time it was changed after using the
     // ‘checkstyle’ tool present in the framework and in the official
     // plugins.
-    tasks.checkstyleMain.maxErrors = 25829
+    tasks.checkstyleMain.maxErrors = 24550
     // Currently there are a lot of errors so we need to temporarily
     // hide them to avoid polluting the terminal output.
     showViolations = false
@@ -530,6 +530,16 @@ task deleteAllPluginsDocumentation {
     doFirst { delete "${buildDir}/asciidoc/plugins" }
 }
 
+
+task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
+    doFirst { delete "${buildDir}/asciidoc/readme" }
+    description 'Generate OFBiz README files'
+    sourceDir "${rootDir}"
+    sources {
+        include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc'
+      }    
+    outputDir file("${buildDir}/asciidoc/readme/")
+}
 
 task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
     dependsOn deleteOfbizDocumentation

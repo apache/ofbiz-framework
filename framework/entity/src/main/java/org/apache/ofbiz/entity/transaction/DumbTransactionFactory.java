@@ -138,5 +138,5 @@ public class DumbTransactionFactory implements TransactionFactory {
     }
 
     @Override
-    public void shutdown() {}
+    public void shutdown() { }
 }

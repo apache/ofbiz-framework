@@ -143,7 +143,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
-    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException{
+    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
@@ -160,7 +160,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
         }
     }
-    protected void populateTargetedRequests(Set<String> allRequestUniqueId) throws GeneralException{
+    protected void populateTargetedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {

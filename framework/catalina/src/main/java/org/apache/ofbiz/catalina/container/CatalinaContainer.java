@@ -106,10 +106,10 @@ public class CatalinaContainer implements Container {
         Host host = prepareHost(tomcat, null);
 
         // add realm and valve for Tomcat SSO
-        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")){
+        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")) {
             boolean useEncryption = EntityUtilProperties.propertyValueEquals("security", "password.encrypt", "true");
             OFBizRealm ofBizRealm = new OFBizRealm();
-            if (useEncryption){
+            if (useEncryption) {
                 ofBizRealm.setCredentialHandler(new HashedCredentialHandler());
             } else {
                 ofBizRealm.setCredentialHandler(new SimpleCredentialHandler());

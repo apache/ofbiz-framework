@@ -581,7 +581,7 @@ public class DataServices {
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
         byte [] imageData = (byte []) context.get("imageData");
-        String rootDir = (String)context.get("rootDir");
+        String rootDir = (String) context.get("rootDir");
         File file = null;
         if (Debug.infoOn()) {
             Debug.logInfo("in createBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, MODULE);
@@ -634,7 +634,7 @@ public class DataServices {
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
         byte [] imageData = (byte []) context.get("imageData");
-        String rootDir = (String)context.get("rootDir");
+        String rootDir = (String) context.get("rootDir");
         File file = null;
         if (Debug.infoOn()) {
             Debug.logInfo("in updateBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, MODULE);
@@ -654,7 +654,7 @@ public class DataServices {
         if (imageData != null && imageData.length > 0) {
             try (
                     FileOutputStream out = new FileOutputStream(file);
-                    ){
+                    ) {
                 out.write(imageData);
                 if (Debug.infoOn()) {
                     Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), MODULE);

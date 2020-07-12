@@ -678,8 +678,8 @@ public class InventoryServices {
     public static Map<String, Object> getProductInventoryAvailableFromAssocProducts(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List<GenericValue> productAssocList = UtilGenerics.cast(context.get("assocProducts"));
-        String facilityId = (String)context.get("facilityId");
-        String statusId = (String)context.get("statusId");
+        String facilityId = (String) context.get("facilityId");
+        String statusId = (String) context.get("statusId");
 
         BigDecimal availableToPromiseTotal = BigDecimal.ZERO;
         BigDecimal quantityOnHandTotal = BigDecimal.ZERO;
@@ -852,11 +852,11 @@ public class InventoryServices {
     public static Map<String, Object> getProductInventoryAndFacilitySummary(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Timestamp checkTime = (Timestamp)context.get("checkTime");
-        String facilityId = (String)context.get("facilityId");
-        String productId = (String)context.get("productId");
-        BigDecimal minimumStock = (BigDecimal)context.get("minimumStock");
-        String statusId = (String)context.get("statusId");
+        Timestamp checkTime = (Timestamp) context.get("checkTime");
+        String facilityId = (String) context.get("facilityId");
+        String productId = (String) context.get("productId");
+        BigDecimal minimumStock = (BigDecimal) context.get("minimumStock");
+        String statusId = (String) context.get("statusId");
 
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> resultOutput = new HashMap<>();

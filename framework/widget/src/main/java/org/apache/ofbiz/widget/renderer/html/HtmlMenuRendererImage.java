@@ -39,7 +39,7 @@ import org.apache.ofbiz.widget.model.ModelMenuItem;
 
 public class HtmlMenuRendererImage extends HtmlMenuRenderer {
 
-    protected HtmlMenuRendererImage() {}
+    protected HtmlMenuRendererImage() { }
 
     public HtmlMenuRendererImage(HttpServletRequest request, HttpServletResponse response) {
         super(request, response);

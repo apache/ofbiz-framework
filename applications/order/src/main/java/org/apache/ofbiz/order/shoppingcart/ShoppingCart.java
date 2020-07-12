@@ -199,7 +199,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     protected Timestamp cancelBackOrderDate = null;
 
     /** don't allow empty constructor */
-    protected ShoppingCart() {}
+    protected ShoppingCart() { }
 
     /** Creates a new cloned ShoppingCart Object. */
     public ShoppingCart(ShoppingCart cart) {
@@ -796,7 +796,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         List<ShoppingCartItem> localList = new LinkedList<>();
         localList.addAll(multipleItems);
         // the ones to keep...
-        for (int i=0; i<maxItems; i++) {
+        for (int i = 0; i < maxItems; i++) {
             localList.remove(0);
         }
         for (ShoppingCartItem item : localList) {
@@ -2238,7 +2238,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public int getShipInfoIndex (String shipGroupSeqId) {
         int idx = -1;
-        for (int i=0; i<shipInfo.size(); i++) {
+        for (int i = 0; i < shipInfo.size(); i++) {
             CartShipInfo csi = shipInfo.get(i);
             if (shipGroupSeqId.equals(csi.shipGroupSeqId)) {
                 idx = i;
@@ -4260,14 +4260,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 GenericValue productFacility = null;
                 try {
                     productFacility = EntityQuery.use(delegator).from("ProductFacility").where("productId", productId, "facilityId", shipInfo.getFacilityId()).queryOne();
-                } catch(GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     Debug.logError("Error :" +e.getMessage(), MODULE);
                     e.printStackTrace();
                 }
 
                 String requirementMethodEnumId = storeRequirementMethodEnumId;
 
-                if (productFacility != null && UtilValidate.isNotEmpty(productFacility.getString("requirementMethodEnumId"))){
+                if (productFacility != null && UtilValidate.isNotEmpty(productFacility.getString("requirementMethodEnumId"))) {
                     requirementMethodEnumId = productFacility.getString("requirementMethodEnumId");
                 }
 
@@ -4357,7 +4357,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         for (Entry<String, Map<ShoppingCartItem, Map<Integer, BigDecimal>>> supplierPartyEntry : dropShipItems.entrySet()) {
             String supplierPartyId = supplierPartyEntry.getKey();
             CartShipInfo shipInfo = null;
-            int newShipGroupIndex = -1 ;
+            int newShipGroupIndex = -1;
 
             // Attempt to get the first ship group for the supplierPartyId
             TreeMap<Integer, CartShipInfo> supplierShipGroups = this.getShipGroupsBySupplier(supplierPartyId);
@@ -4426,7 +4426,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         // don't allow empty constructor
         @SuppressWarnings("unused")
-        private ShoppingCartItemGroup() {}
+        private ShoppingCartItemGroup() { }
 
         protected ShoppingCartItemGroup(long groupNumber, String groupName) {
             this(groupNumber, groupName, null);

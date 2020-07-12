@@ -87,7 +87,7 @@ public class FindServices {
         entityOperators.put("notEqual", EntityOperator.NOT_EQUAL);
     }
 
-    public FindServices() {}
+    public FindServices() { }
 
     /**
      * prepareField, analyse inputFields to created normalizedFields a map with field name and operator.
@@ -288,7 +288,7 @@ public class FindServices {
             if (ObjectType.isEmpty(fieldValue) && !"empty".equals(operation)) {
                 continue;
             }
-            if (UtilValidate.isNotEmpty(currentGroup)){
+            if (UtilValidate.isNotEmpty(currentGroup)) {
                 List<EntityCondition> groupedConditions = new LinkedList<>();
                 if (savedGroups.get(currentGroup) != null) {
                     groupedConditions.addAll(savedGroups.get(currentGroup));

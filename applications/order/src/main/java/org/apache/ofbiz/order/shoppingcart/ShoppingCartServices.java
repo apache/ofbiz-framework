@@ -313,7 +313,7 @@ public class ShoppingCartServices {
         if (UtilValidate.isNotEmpty(orderTerms)) {
             for (GenericValue orderTerm : orderTerms) {
                 BigDecimal termValue = BigDecimal.ZERO;
-                if (UtilValidate.isNotEmpty(orderTerm.getString("termValue"))){
+                if (UtilValidate.isNotEmpty(orderTerm.getString("termValue"))) {
                     termValue = new BigDecimal(orderTerm.getString("termValue"));
                 }
                 long termDays = 0;
@@ -511,7 +511,7 @@ public class ShoppingCartServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 // attach surveyResponseId for each item
-                if (UtilValidate.isNotEmpty(surveyResponseResult)){
+                if (UtilValidate.isNotEmpty(surveyResponseResult)) {
                     cartItem.setAttribute("surveyResponses", UtilMisc.toList(surveyResponseResult.get("surveyResponseId")));
                 }
                 // attach addition item information
@@ -762,7 +762,7 @@ public class ShoppingCartServices {
             // create order term from quote term
             for (GenericValue quoteTerm : quoteTerms) {
                 BigDecimal termValue = BigDecimal.ZERO;
-                if (UtilValidate.isNotEmpty(quoteTerm.getString("termValue"))){
+                if (UtilValidate.isNotEmpty(quoteTerm.getString("termValue"))) {
                     termValue = new BigDecimal(quoteTerm.getString("termValue"));
                 }
                 long termDays = 0;
@@ -783,7 +783,7 @@ public class ShoppingCartServices {
 
         // Convert the quote adjustment to order header adjustments and
         // put them in a map: the key/values pairs are quoteItemSeqId/List of adjs
-        Map<String, List<GenericValue>> orderAdjsMap = new HashMap<>() ;
+        Map<String, List<GenericValue>> orderAdjsMap = new HashMap<>();
         for (GenericValue quoteAdj : quoteAdjs) {
             List<GenericValue> orderAdjs = orderAdjsMap.get(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId);
             if (orderAdjs == null) {

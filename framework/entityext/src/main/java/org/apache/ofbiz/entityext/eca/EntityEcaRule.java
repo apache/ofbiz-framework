@@ -132,8 +132,8 @@ public final class EntityEcaRule implements java.io.Serializable {
         }
         // Are fields tested in a condition missing? If so, we need to load them
         List<String> fieldsToLoad = new ArrayList<>();
-        for( String conditionFieldName : conditionFieldNames) {
-            if ( value.get(conditionFieldName) == null) {
+        for (String conditionFieldName : conditionFieldNames) {
+            if (value.get(conditionFieldName) == null) {
                 fieldsToLoad.add(conditionFieldName);
             }
         }

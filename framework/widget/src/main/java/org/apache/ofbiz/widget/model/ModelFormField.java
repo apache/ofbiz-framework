@@ -690,7 +690,7 @@ public class ModelFormField {
         // For English, ID is correct abbreviation for identity.
         // So if a label ends with " Id", replace with " ID".
         // If there is another locale that doesn't follow this rule, we can add condition for this locale to exempt from the change.
-        if (autoTitlewriterString.endsWith(" Id")){
+        if (autoTitlewriterString.endsWith(" Id")) {
                 autoTitlewriterString = autoTitlewriterString.subSequence(0, autoTitlewriterString.length() - 3) + " ID";
         }
 
@@ -1179,7 +1179,7 @@ public class ModelFormField {
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
-                if (parameters.containsKey(fieldName.concat("_fld0_value"))){
+                if (parameters.containsKey(fieldName.concat("_fld0_value"))) {
                     defaultOption = (String)parameters.get(fieldName.concat("_fld0_op"));
                 }
             }

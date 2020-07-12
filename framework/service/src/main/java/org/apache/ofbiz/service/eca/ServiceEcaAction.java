@@ -56,7 +56,7 @@ public class ServiceEcaAction implements java.io.Serializable {
     protected boolean ignoreError = false;
     protected boolean persist = false;
 
-    protected ServiceEcaAction() {}
+    protected ServiceEcaAction() { }
 
     public ServiceEcaAction(Element action, String event) {
         this.eventName = event;

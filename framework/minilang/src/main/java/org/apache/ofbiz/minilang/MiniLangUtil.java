@@ -68,7 +68,7 @@ public final class MiniLangUtil {
         SCRIPT_PREFIXES = Collections.unmodifiableSet(scriptPrefixes);
     }
 
-    private MiniLangUtil() {}
+    private MiniLangUtil() { }
 
     /**
      * Returns <code>true</code> if <code>str</code> contains a script.
@@ -301,6 +301,6 @@ public final class MiniLangUtil {
         }
     }
 
-    public static class PlainString {}
+    public static class PlainString { }
 
 }

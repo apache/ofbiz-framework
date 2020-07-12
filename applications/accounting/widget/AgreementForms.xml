@@ -93,7 +93,7 @@ under the License.
         <field name="agreementDate" title="${uiLabelMap.AccountingAgreementDate}"><hidden/></field>
         <field name="textData" title="${uiLabelMap.AccountingTextData}"><hidden/></field>
         <field name="description" sort-field="true"></field>
-        <field name="cancelLink" title=" " widget-style="buttontext">
+        <field name="cancelLink" title=" " widget-style="buttontext" ignore-when="${thruDate != ''}">
             <hyperlink description="${uiLabelMap.CommonCancel}" target="cancelAgreement" also-hidden="false">
                 <parameter param-name="agreementId"/>
             </hyperlink>

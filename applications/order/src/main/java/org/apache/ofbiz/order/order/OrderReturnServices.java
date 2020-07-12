@@ -435,7 +435,7 @@ public class OrderReturnServices {
                     }
                     String returnStatus = returnHeader.getString("statusId");
                     if (!"RETURN_CANCELLED".equals(returnStatus)) {
-                        if (UtilValidate.isNotEmpty(returnItem.getBigDecimal("returnQuantity"))){
+                        if (UtilValidate.isNotEmpty(returnItem.getBigDecimal("returnQuantity"))) {
                             returnedQty = returnedQty.add(returnItem.getBigDecimal("returnQuantity"));
                         }
                     }
@@ -1264,8 +1264,8 @@ public class OrderReturnServices {
                 // Assemble a map of orderPaymentPreferenceId -> list of maps of (OPP and availableAmountForRefunding)
                 //     where availableAmountForRefunding = receivedAmount - alreadyRefundedAmount
                 // We break the OPPs down this way because we need to process the refunds to payment methods in a particular order
-                Map<String, BigDecimal> receivedPaymentTotalsByPaymentMethod = orderReadHelper.getReceivedPaymentTotalsByPaymentMethod() ;
-                Map<String, BigDecimal> refundedTotalsByPaymentMethod = orderReadHelper.getReturnedTotalsByPaymentMethod() ;
+                Map<String, BigDecimal> receivedPaymentTotalsByPaymentMethod = orderReadHelper.getReceivedPaymentTotalsByPaymentMethod();
+                Map<String, BigDecimal> refundedTotalsByPaymentMethod = orderReadHelper.getReturnedTotalsByPaymentMethod();
 
                 // getOrderPaymentPreferenceTotalByType has been called because getReceivedPaymentTotalsByPaymentMethod does not
                 // return payments captured from Billing Account.This is because when payment is captured from Billing Account

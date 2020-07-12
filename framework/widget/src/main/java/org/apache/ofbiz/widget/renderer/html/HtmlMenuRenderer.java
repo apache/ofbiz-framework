@@ -55,7 +55,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
 
     public static final String MODULE = HtmlMenuRenderer.class.getName();
 
-    protected HtmlMenuRenderer() {}
+    protected HtmlMenuRenderer() { }
 
     public HtmlMenuRenderer(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;

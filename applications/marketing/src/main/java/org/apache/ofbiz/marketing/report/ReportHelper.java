@@ -34,7 +34,7 @@ public final class ReportHelper {
 
     private static final String MODULE = ReportHelper.class.getName();
 
-    private ReportHelper() {}
+    private ReportHelper() { }
 
 /**
  * Calculate conversion rates based on a List of visits and orders.  Designed to be used for reporting on

@@ -35,7 +35,7 @@ public final class WidgetContextCacheKey {
 
     private static Set<String> fieldNamesToSkip = createFieldNamesToSkip();
 
-    private static Set<String> createFieldNamesToSkip(){
+    private static Set<String> createFieldNamesToSkip() {
         Set<String> fieldNamesToSkip = new HashSet<>();
         fieldNamesToSkip.add("globalContext");
         fieldNamesToSkip.add("delegator");

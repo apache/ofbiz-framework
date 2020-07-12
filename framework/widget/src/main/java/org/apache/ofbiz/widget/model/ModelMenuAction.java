@@ -102,7 +102,7 @@ public abstract class ModelMenuAction {
             if (this.fromScope != null && "user".equals(this.fromScope)) {
                 if (!this.fromField.isEmpty()) {
                     String originalName = this.fromField.getOriginalName();
-                    String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
+                    String currentWidgetTrail = (String) context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
                     HttpSession session = (HttpSession)context.get("session");
                     newValue = session.getAttribute(newKey);
@@ -116,9 +116,9 @@ public abstract class ModelMenuAction {
             } else if (this.fromScope != null && "application".equals(this.fromScope)) {
                 if (!this.fromField.isEmpty()) {
                     String originalName = this.fromField.getOriginalName();
-                    String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
+                    String currentWidgetTrail = (String) context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
-                    ServletContext servletContext = (ServletContext)context.get("application");
+                    ServletContext servletContext = (ServletContext) context.get("application");
                     newValue = servletContext.getAttribute(newKey);
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
@@ -162,9 +162,9 @@ public abstract class ModelMenuAction {
             }
             if (this.toScope != null && "user".equals(this.toScope)) {
                     String originalName = this.field.getOriginalName();
-                    String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
+                    String currentWidgetTrail = (String) context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
-                    HttpSession session = (HttpSession)context.get("session");
+                    HttpSession session = (HttpSession) context.get("session");
                     session.setAttribute(newKey, newValue);
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
@@ -172,9 +172,9 @@ public abstract class ModelMenuAction {
 
             } else if (this.toScope != null && "application".equals(this.toScope)) {
                     String originalName = this.field.getOriginalName();
-                    String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
+                    String currentWidgetTrail = (String) context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
-                    ServletContext servletContext = (ServletContext)context.get("application");
+                    ServletContext servletContext = (ServletContext) context.get("application");
                     servletContext.setAttribute(newKey, newValue);
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);

@@ -1067,7 +1067,7 @@ public final class ProductPromoWorker {
         return res;
     }
 
-    public static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException{
+    public static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException {
         List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate(nowTimestamp).queryList();
         for (GenericValue genericValue : partyRelationshipList) {
             String partyIdFrom = (String)genericValue.get("partyIdFrom");
@@ -1221,7 +1221,7 @@ public final class ProductPromoWorker {
         boolean addNewAdjustment = true;
         List<GenericValue> adjustments = cartItem.getAdjustments();
         if (UtilValidate.isNotEmpty(adjustments)) {
-            for(GenericValue adjustment : adjustments) {
+            for (GenericValue adjustment : adjustments) {
                 if ("PROMOTION_ADJUSTMENT".equals(adjustment.getString("orderAdjustmentTypeId")) &&
                         productPromoAction.get("productPromoId").equals(adjustment.getString("productPromoId")) &&
                         productPromoAction.get("productPromoRuleId").equals(adjustment.getString("productPromoRuleId")) &&

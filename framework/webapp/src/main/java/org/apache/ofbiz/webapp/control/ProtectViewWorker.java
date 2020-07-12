@@ -47,7 +47,7 @@ public final class ProtectViewWorker {
     private static final Map<String, Long> durationByViewAccessed = new ConcurrentHashMap<>();
     private static final Long one = 1L;
 
-    private ProtectViewWorker () {}
+    private ProtectViewWorker() { }
 
     /**
      * An HTTP WebEvent handler that checks to see if an userLogin should be tarpitted

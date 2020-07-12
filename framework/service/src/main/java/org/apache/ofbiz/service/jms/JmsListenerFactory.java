@@ -58,7 +58,7 @@ public class JmsListenerFactory implements Runnable {
     protected Thread thread;
 
 
-    public static JmsListenerFactory getInstance(Delegator delegator){
+    public static JmsListenerFactory getInstance(Delegator delegator) {
         JmsListenerFactory instance = jlFactoryRef.get();
         if (instance == null) {
             instance = new JmsListenerFactory(delegator);

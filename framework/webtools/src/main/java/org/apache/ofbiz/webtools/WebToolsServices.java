@@ -111,13 +111,13 @@ public class WebToolsServices {
         Locale locale = (Locale) context.get("locale");
         List<String> messages = new LinkedList<>();
 
-        String filename = (String)context.get("filename");
-        String fmfilename = (String)context.get("fmfilename");
-        String fulltext = (String)context.get("fulltext");
-        boolean isUrl = (String)context.get("isUrl") != null;
-        String onlyInserts = (String)context.get("onlyInserts");
-        String maintainTimeStamps = (String)context.get("maintainTimeStamps");
-        String createDummyFks = (String)context.get("createDummyFks");
+        String filename = (String) context.get("filename");
+        String fmfilename = (String) context.get("fmfilename");
+        String fulltext = (String) context.get("fulltext");
+        boolean isUrl = (String) context.get("isUrl") != null;
+        String onlyInserts = (String) context.get("onlyInserts");
+        String maintainTimeStamps = (String) context.get("maintainTimeStamps");
+        String createDummyFks = (String) context.get("createDummyFks");
         String checkDataOnly = (String) context.get("checkDataOnly");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
@@ -461,8 +461,8 @@ public class WebToolsServices {
     public static Map<String, Object> entityExportAll(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        String outpath = (String)context.get("outpath"); // mandatory
-        Timestamp fromDate = (Timestamp)context.get("fromDate");
+        String outpath = (String) context.get("outpath"); // mandatory
+        Timestamp fromDate = (Timestamp) context.get("fromDate");
         Integer txTimeout = (Integer)context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = 7200;

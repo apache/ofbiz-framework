@@ -911,7 +911,7 @@ public class FormRenderer {
         if (!modelForm.getHideHeader() && containsData) {
             numOfColumns = this.renderHeaderRow(writer, context);
         }
-        if (!containsData){
+        if (!containsData) {
             formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
         }
         // ===== render the item rows =====
@@ -940,7 +940,7 @@ public class FormRenderer {
         if (!modelForm.getHideHeader() && containsData) {
             numOfColumns = this.renderHeaderRow(writer, context);
         }
-        if (!containsData){
+        if (!containsData) {
             formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
         }
         // ===== render the item rows =====
@@ -1204,7 +1204,7 @@ public class FormRenderer {
         if (iter instanceof EntityListIterator) {
             EntityListIterator eli = (EntityListIterator) iter;
             try {
-                if (eli.getResultsSizeAfterPartialList() > 0){
+                if (eli.getResultsSizeAfterPartialList() > 0) {
                     itemIndex++;
                 }
             } catch (GenericEntityException gee) {

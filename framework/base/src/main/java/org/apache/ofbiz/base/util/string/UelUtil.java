@@ -62,7 +62,7 @@ public final class UelUtil {
         }
     };
 
-    private UelUtil () {}
+    private UelUtil() { }
 
     public static String getLocalizedMapLocaleKey() {
         return localizedMapLocaleKey;

@@ -223,8 +223,7 @@ public class FrameImage {
                 result =  ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
-        }
-         else{
+        } else {
              String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseSelectImage", locale);
              Debug.logFatal(errMsg, MODULE);
              result =  ServiceUtil.returnError(errMsg);
@@ -418,8 +417,7 @@ public class FrameImage {
             String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/preview/" + "/previewImage.jpg"));
 
-        }
-         else{
+        } else {
              String errMsg = "Please select Image.";
              request.setAttribute("_EVENT_MESSAGE_", errMsg);
             return "error";

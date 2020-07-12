@@ -305,7 +305,6 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             ContentWorker.renderContentAsText(dispatcher, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
             return;
         }
-        
         // check for workeffort field
         String candidateFieldName = ModelUtil.dbNameToVarName(workEffortContentTypeId);
         ModelEntity workEffortModel = delegator.getModelEntity("WorkEffort");
@@ -322,7 +321,6 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             }
         }
     }
-
     public static List<String> getWorkEffortContentTextList(GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
         List<GenericValue> partyContentList = EntityQuery.use(delegator).from("WorkEffortContent")
                 .where("workEffortId", workEffort.getString("partyId"), "workEffortContentTypeId", workEffortContentTypeId)

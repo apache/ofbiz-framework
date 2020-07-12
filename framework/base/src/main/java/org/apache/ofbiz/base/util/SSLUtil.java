@@ -61,7 +61,7 @@ public final class SSLUtil {
 
     private static boolean loadedProps = false;
 
-    private SSLUtil () {}
+    private SSLUtil() { }
 
     static {
         SSLUtil.loadJsseProperties();

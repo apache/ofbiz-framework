@@ -832,9 +832,9 @@ public class CheckOutEvents {
                     String facilityId = request.getParameter(shipGroupIndex + "_shipGroupFacilityId");
                     if (shippingContactMechId == null) {
                         shippingContactMechId = (String) request.getAttribute("contactMechId");
-                    } else if ("PURCHASE_ORDER".equals(cart.getOrderType())){
+                    } else if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
                         String[] shipInfo = shippingContactMechId.split("_@_");
-                        if (shipInfo.length > 1){
+                        if (shipInfo.length > 1) {
                             shippingContactMechId = shipInfo[0];
                             facilityId = shipInfo[1];
                         }

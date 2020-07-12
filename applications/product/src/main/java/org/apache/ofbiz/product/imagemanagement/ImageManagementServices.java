@@ -276,7 +276,7 @@ public class ImageManagementServices {
         return result;
     }
 
-    public static Map<String, Object> removeImageFileForImageManagement(DispatchContext dctx, Map<String, ? extends Object> context){
+    public static Map<String, Object> removeImageFileForImageManagement(DispatchContext dctx, Map<String, ? extends Object> context) {
         String productId = (String) context.get("productId");
         String contentId = (String) context.get("contentId");
         String dataResourceName = (String) context.get("dataResourceName");
@@ -415,7 +415,7 @@ public class ImageManagementServices {
         return ServiceUtil.returnError(errMsg);
     }
 
-    public static Map<String, Object> createContentAndDataResource(DispatchContext dctx, GenericValue userLogin, String filenameToUse, String imageUrl, String contentId, String fileContentType){
+    public static Map<String, Object> createContentAndDataResource(DispatchContext dctx, GenericValue userLogin, String filenameToUse, String imageUrl, String contentId, String fileContentType) {
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -492,7 +492,7 @@ public class ImageManagementServices {
         return result;
     }
 
-    public static Map<String, Object> createContentThumbnail(DispatchContext dctx, Map<String, ? extends Object> context, GenericValue userLogin, ByteBuffer imageData, String productId, String imageName){
+    public static Map<String, Object> createContentThumbnail(DispatchContext dctx, Map<String, ? extends Object> context, GenericValue userLogin, ByteBuffer imageData, String productId, String imageName) {
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();

@@ -225,9 +225,9 @@ public class PdfSurveyServices {
         Locale locale = (Locale) context.get("locale");
         try {
             Delegator delegator = dctx.getDelegator();
-            String partyId = (String)context.get("partyId");
-            String surveyId = (String)context.get("surveyId");
-            surveyResponseId = (String)context.get("surveyResponseId");
+            String partyId = (String) context.get("partyId");
+            String surveyId = (String) context.get("surveyId");
+            surveyResponseId = (String) context.get("surveyResponseId");
             if (UtilValidate.isNotEmpty(surveyResponseId)) {
                 GenericValue surveyResponse = EntityQuery.use(delegator).from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne();
                 if (surveyResponse != null) {
@@ -363,8 +363,8 @@ public class PdfSurveyServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
-        String surveyResponseId = (String)context.get("surveyResponseId");
-        String contentId = (String)context.get("contentId");
+        String surveyResponseId = (String) context.get("surveyResponseId");
+        String contentId = (String) context.get("contentId");
         String surveyId = null;
 
         Document document = new Document();
@@ -429,7 +429,7 @@ public class PdfSurveyServices {
     public static Map<String, Object> buildSurveyQuestionsAndAnswers(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
-        String surveyResponseId = (String)context.get("surveyResponseId");
+        String surveyResponseId = (String) context.get("surveyResponseId");
         List<Object> qAndA = new LinkedList<>();
 
         try {
@@ -456,7 +456,7 @@ public class PdfSurveyServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> acroFieldMap = new HashMap<>();
-        String surveyResponseId = (String)context.get("surveyResponseId");
+        String surveyResponseId = (String) context.get("surveyResponseId");
         String acroFormContentId = null;
 
         try {
@@ -540,8 +540,8 @@ public class PdfSurveyServices {
         ByteBuffer inputByteBuffer = (ByteBuffer)context.get("inputByteBuffer");
 
         if (inputByteBuffer == null) {
-            String pdfFileNameIn = (String)context.get("pdfFileNameIn");
-            String contentId = (String)context.get("contentId");
+            String pdfFileNameIn = (String) context.get("pdfFileNameIn");
+            String contentId = (String) context.get("contentId");
             if (UtilValidate.isNotEmpty(pdfFileNameIn)) {
                 try (FileInputStream fis = new FileInputStream(pdfFileNameIn)) {
                     int c;
@@ -556,9 +556,9 @@ public class PdfSurveyServices {
             } else if (UtilValidate.isNotEmpty(contentId)) {
                 try {
                     Locale locale = (Locale)context.get("locale");
-                    String https = (String)context.get("https");
-                    String webSiteId = (String)context.get("webSiteId");
-                    String rootDir = (String)context.get("rootDir");
+                    String https = (String) context.get("https");
+                    String webSiteId = (String) context.get("webSiteId");
+                    String rootDir = (String) context.get("rootDir");
                     GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
                     String dataResourceId = content.getString("dataResourceId");
                     inputByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);

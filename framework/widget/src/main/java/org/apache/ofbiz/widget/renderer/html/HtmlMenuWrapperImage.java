@@ -41,7 +41,7 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
 
     private static final String MODULE = HtmlMenuWrapperImage.class.getName();
 
-    protected HtmlMenuWrapperImage() {}
+    protected HtmlMenuWrapperImage() { }
 
     public HtmlMenuWrapperImage(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {

@@ -50,7 +50,7 @@ public final class ProductConfigWorker {
     private static final String MODULE = ProductConfigWorker.class.getName();
     private static final String SEPARATOR = "::";    // cache key separator
 
-    private ProductConfigWorker () {}
+    private ProductConfigWorker() { }
 
     private static final UtilCache<String, ProductConfigWrapper> productConfigCache = UtilCache.createUtilCache("product.config", true);     // use soft reference to free up memory if needed
 

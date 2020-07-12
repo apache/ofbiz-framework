@@ -71,10 +71,10 @@ public final class Paginator {
         } else if (entryList instanceof List<?>) {
             List<?> items = (List<?>) entryList;
             listSize = items.size();
-            if (context.containsKey("result")){
+            if (context.containsKey("result")) {
                 Map<String, Object> resultMap = UtilGenerics.cast(context.get("result"));
-                if (resultMap.containsKey("listSize")){
-                    listSize = (int)resultMap.get("listSize");
+                if (resultMap.containsKey("listSize")) {
+                    listSize = (int) resultMap.get("listSize");
                 }
             }
         } else if (entryList instanceof PagedList) {

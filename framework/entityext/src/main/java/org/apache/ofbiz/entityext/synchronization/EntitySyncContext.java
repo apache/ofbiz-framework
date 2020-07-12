@@ -409,7 +409,6 @@ public class EntitySyncContext {
                         }
                         throw new SyncDataErrorException("Error getting values to create from the datasource", e);
                     }
-                    
                     Timestamp nextTxTime;
                     if (firstVal != null) {
                         nextTxTime = firstVal.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD);
@@ -421,7 +420,6 @@ public class EntitySyncContext {
                         this.nextCreateTxTime = nextTxTime;
                         Debug.logInfo("EntitySync: Set nextCreateTxTime to [" + nextTxTime + "]", MODULE);
                     }
-                    
                     Timestamp curEntityNextTxTime = this.nextEntityCreateTxTime.get(modelEntity.getEntityName());
                     if (curEntityNextTxTime == null || nextTxTime.before(curEntityNextTxTime)) {
                         this.nextEntityCreateTxTime.put(modelEntity.getEntityName(), nextTxTime);
@@ -436,14 +434,12 @@ public class EntitySyncContext {
                 }
                 throw new SyncDataErrorException("Caught runtime error while getting values to create", t);
             }
-            
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
                 throw new SyncDataErrorException("Commit transaction failed", e);
             }
         }
-
         if (entitiesSkippedForKnownNext > 0) {
             if (Debug.infoOn()) Debug.logInfo("In assembleValuesToCreate skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known create times", MODULE);
         }

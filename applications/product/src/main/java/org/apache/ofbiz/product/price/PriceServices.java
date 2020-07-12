@@ -1184,7 +1184,7 @@ public class PriceServices {
         return false;
     }
 
-    private static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException{
+    private static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException {
         List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate(nowTimestamp).queryList();
         for (GenericValue genericValue : partyRelationshipList) {
             String partyIdFrom = (String)genericValue.get("partyIdFrom");
@@ -1213,10 +1213,10 @@ public class PriceServices {
 
         GenericValue product = (GenericValue)context.get("product");
         String productId = product.getString("productId");
-        String agreementId = (String)context.get("agreementId");
-        String currencyUomId = (String)context.get("currencyUomId");
-        String partyId = (String)context.get("partyId");
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
+        String agreementId = (String) context.get("agreementId");
+        String currencyUomId = (String) context.get("currencyUomId");
+        String partyId = (String) context.get("partyId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         Locale locale = (Locale)context.get("locale");
 
         // a) Get the Price from the Agreement* data model

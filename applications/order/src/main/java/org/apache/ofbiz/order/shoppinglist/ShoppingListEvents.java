@@ -619,7 +619,7 @@ public class ShoppingListEvents {
     /**
      * Create the guest cookies for a shopping list
      */
-    public static String createGuestShoppingListCookies (HttpServletRequest request, HttpServletResponse response){
+    public static String createGuestShoppingListCookies (HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession(true);
@@ -689,7 +689,7 @@ public class ShoppingListEvents {
     /**
      * Clear the guest cookies for a shopping list
      */
-    public static String clearGuestShoppingListCookies (HttpServletRequest request, HttpServletResponse response){
+    public static String clearGuestShoppingListCookies (HttpServletRequest request, HttpServletResponse response) {
         Properties systemProps = System.getProperties();
         String guestShoppingUserName = "GuestShoppingListId_" + systemProps.getProperty("user.name").replace(" ", "_");
         Cookie guestShoppingListCookie = new Cookie(guestShoppingUserName, null);

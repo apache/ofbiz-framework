@@ -77,12 +77,12 @@ public class ImageTransform {
         try {
             bufImg = ImageIO.read(new File(fileLocation));
         } catch (IllegalArgumentException e) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.input_is_null", locale) + " : " + fileLocation + " ; " + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.input_is_null", locale) + " : " + fileLocation + "; " + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         } catch (IOException e) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + " ; " + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + "; " + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
@@ -126,7 +126,7 @@ public class ImageTransform {
             defaultWidth = -1;
         }
         if (defaultHeight == 0.0 || defaultWidth == 0.0) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + " ; defaultWidth = " + defaultWidth;
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + "; defaultWidth = " + defaultWidth;
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;

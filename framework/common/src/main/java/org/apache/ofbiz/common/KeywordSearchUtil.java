@@ -57,7 +57,7 @@ public final class KeywordSearchUtil {
         thesaurusRelsForReplace.add("KWTR_CS");
     }
 
-    private KeywordSearchUtil () {}
+    private KeywordSearchUtil() { }
 
     public static String getSeparators() {
         String seps = UtilProperties.getPropertyValue("keywordsearch", "index.keyword.separators", ";: ,.!?\t\"\'\r\n\\/()[]{}*%<>-+_");

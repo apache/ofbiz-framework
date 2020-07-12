@@ -82,7 +82,7 @@ public final class UtilXml {
 
     private static final String MODULE = UtilXml.class.getName();
     private static final XStream xstream = createXStream();
-    private UtilXml () {}
+    private UtilXml() { }
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
@@ -828,7 +828,7 @@ public final class UtilXml {
         if (node != null) {
             do {
                 String nodeName = node.getLocalName();
-                if (nodeName == null){
+                if (nodeName == null) {
                     nodeName = UtilXml.getNodeNameIgnorePrefix(node);
                 }
                 if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
@@ -1172,12 +1172,12 @@ public final class UtilXml {
      * @param node
      * @return nodeName
      */
-    public static String getNodeNameIgnorePrefix(Node node){
+    public static String getNodeNameIgnorePrefix(Node node) {
         if (node==null) {
             return null;
         }
         String nodeName = node.getNodeName();
-        if (nodeName.contains(":")){
+        if (nodeName.contains(":")) {
             // remove any possible prefix
             nodeName = nodeName.split(":")[1];
         }
@@ -1189,12 +1189,12 @@ public final class UtilXml {
      * @param element
      * @return tagName
      */ 
-    public static String getTagNameIgnorePrefix(Element element){
+    public static String getTagNameIgnorePrefix(Element element) {
         if (element==null) {
             return null;
         }
         String tagName = element.getTagName();
-        if (tagName.contains(":")){
+        if (tagName.contains(":")) {
             // remove any possible prefix
             tagName = tagName.split(":")[1];
         }
@@ -1206,19 +1206,18 @@ public final class UtilXml {
      * @param element
      * @return The value of the node, depending on its type; see the table Node class
      */
-    public static String getAttributeValueIgnorePrefix(Element element, String attributeName){
+    public static String getAttributeValueIgnorePrefix(Element element, String attributeName) {
         if (element==null) {
             return "";
         }
 
         NamedNodeMap attributes = element.getAttributes();
-        if (attributes != null){
-            for (int i = 0, size = attributes.getLength(); i < size; i++)
-            {
+        if (attributes != null) {
+            for (int i = 0, size = attributes.getLength(); i < size; i++) {
                 Node node = attributes.item(i);
-                if (node.getNodeType() == Node.ATTRIBUTE_NODE){
+                if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
                     String nodeName = UtilXml.getNodeNameIgnorePrefix(node);
-                    if (nodeName.equals(attributeName)){
+                    if (nodeName.equals(attributeName)) {
                         return node.getNodeValue();
                     }
                 }

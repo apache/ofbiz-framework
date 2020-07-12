@@ -59,7 +59,7 @@ public final class ProductWorker {
 
     private static final MathContext generalRounding = new MathContext(10);
 
-    private ProductWorker () {}
+    private ProductWorker() { }
 
     public static boolean shippingApplies(GenericValue product) {
         String errMsg = "";
@@ -1151,7 +1151,7 @@ nextProd:
 
     public static boolean isAlternativePacking(Delegator delegator, String productId, String virtualVariantId) {
         boolean isAlternativePacking = false;
-        if (productId != null || virtualVariantId != null){
+        if (productId != null || virtualVariantId != null) {
             List<GenericValue> alternativePackingProds = null;
             try {
                 List<EntityCondition> condList = new LinkedList<>();
@@ -1174,7 +1174,7 @@ nextProd:
         return isAlternativePacking;
     }
 
-    public static String getOriginalProductId(Delegator delegator, String productId){
+    public static String getOriginalProductId(Delegator delegator, String productId) {
         boolean isAlternativePacking = isAlternativePacking(delegator, null, productId);
         if (isAlternativePacking) {
             List<GenericValue> productAssocs = null;
@@ -1201,15 +1201,15 @@ nextProd:
      * @return true if it can be ordered by decimal quantity
      * @throws GenericEntityException to catch
      */
-    public static Boolean isDecimalQuantityOrderAllowed(Delegator delegator, String productId, String productStoreId) throws GenericEntityException{
+    public static Boolean isDecimalQuantityOrderAllowed(Delegator delegator, String productId, String productStoreId) throws GenericEntityException {
         //sometime productStoreId may be null (ie PO), then return default value which is TRUE
-        if (UtilValidate.isEmpty(productStoreId)){
+        if (UtilValidate.isEmpty(productStoreId)) {
             return Boolean.TRUE;
         }
         String allowDecimalStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache(true).queryOne().getString("orderDecimalQuantity");
         String allowDecimalProduct = EntityQuery.use(delegator).from("Product").where("productId", productId).cache(true).queryOne().getString("orderDecimalQuantity");
 
-        if ("N".equals(allowDecimalProduct) || (UtilValidate.isEmpty(allowDecimalProduct) && "N".equals(allowDecimalStore))){
+        if ("N".equals(allowDecimalProduct) || (UtilValidate.isEmpty(allowDecimalProduct) && "N".equals(allowDecimalStore))) {
             return Boolean.FALSE;
         }
         return Boolean.TRUE;

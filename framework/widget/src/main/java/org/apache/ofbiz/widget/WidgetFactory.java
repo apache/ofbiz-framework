@@ -133,5 +133,5 @@ public class WidgetFactory {
         }
     }
 
-    private WidgetFactory() {}
+    private WidgetFactory() { }
 }

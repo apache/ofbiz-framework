@@ -137,7 +137,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
-    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException{
+    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {

@@ -856,13 +856,13 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     }
                 }
             }
-            if (!setIfNull && newValue == null){
+            if (!setIfNull && newValue == null) {
                 if (Debug.warningOn()) {
                     Debug.logWarning("Field value not found (null) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", MODULE);
                 }
                 return;
             }
-            if (!setIfEmpty && ObjectType.isEmpty(newValue)){
+            if (!setIfEmpty && ObjectType.isEmpty(newValue)) {
                 if (Debug.warningOn()) {
                     Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", MODULE);
                 }

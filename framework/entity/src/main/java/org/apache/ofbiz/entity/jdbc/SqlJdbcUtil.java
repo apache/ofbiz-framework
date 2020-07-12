@@ -116,7 +116,7 @@ public final class SqlJdbcUtil {
         fieldTypeMap.put("java.util.LinkedList", 15);
     }
 
-    private SqlJdbcUtil () {}
+    private SqlJdbcUtil() { }
     /** Makes the FROM clause and when necessary the JOIN clause(s) as well */
     public static String makeFromClause(ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader, Datasource datasourceInfo) throws GenericEntityException {
         StringBuilder sql = new StringBuilder(" FROM ");

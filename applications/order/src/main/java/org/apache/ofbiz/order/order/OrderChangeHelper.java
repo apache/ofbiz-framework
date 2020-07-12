@@ -40,7 +40,7 @@ public final class OrderChangeHelper {
 
     private static final String MODULE = OrderChangeHelper.class.getName();
 
-    private OrderChangeHelper() {}
+    private OrderChangeHelper() { }
 
     public static boolean approveOrder(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) {
         return approveOrder(dispatcher, userLogin, orderId, false);
