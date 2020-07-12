@@ -19,6 +19,12 @@ under the License.
 [[apache-ofbiz]]
 = Apache OFBiz®
 
+If you are reading this file in AsciiDoc format you may want to see it in
+https://ci.apache.org/projects/ofbiz/site/stable/readme/html5/README.html[HTML] 
+or https://ci.apache.org/projects/ofbiz/site/stable/readme/pdf/README.pdf[PDF] format
+
+---
+
 Welcome to *Apache OFBiz*! A powerful top level Apache software project. OFBiz
 is an Enterprise Resource Planning (ERP) System written in Java and houses a
 large set of libraries, entities, services and features to run all aspects of
