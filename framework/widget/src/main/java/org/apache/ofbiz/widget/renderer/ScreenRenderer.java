@@ -227,7 +227,7 @@ public class ScreenRenderer {
         VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
         if (visualTheme == null) {
             String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", (Delegator) request.getAttribute("delegator"));
-            visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);  
+            visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);
         }
         context.put("visualTheme", visualTheme);
         context.put("modelTheme", visualTheme.getModelTheme());

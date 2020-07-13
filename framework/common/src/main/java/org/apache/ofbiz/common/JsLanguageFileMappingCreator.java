@@ -225,7 +225,7 @@ public class JsLanguageFileMappingCreator {
         }
         catch (IOException | TemplateException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated", UtilMisc.toMap("errorString", e.getMessage()), (Locale)context.get("locale")));
+            return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated", UtilMisc.toMap("errorString", e.getMessage()), (Locale) context.get("locale")));
         }
 
         return result;

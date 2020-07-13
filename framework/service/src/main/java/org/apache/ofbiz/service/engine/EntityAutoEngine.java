@@ -136,7 +136,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         } catch (GeneralException e) {
             Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service [" + modelService.name + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name,"errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name, "errorString", e.toString()), locale));
         }
         result.put(ModelService.SUCCESS_MESSAGE, ServiceUtil.makeSuccessMessage(result, "", "", "", ""));
         return result;
@@ -224,7 +224,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 if (pkValue instanceof String) {
                     StringBuffer errorDetails = new StringBuffer();
                     if (!UtilValidate.isValidDatabaseId((String) pkValue, errorDetails)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceParameterValueNotValid", UtilMisc.toMap("parameterName", singlePkModelParam.name,"errorDetails", errorDetails), locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceParameterValueNotValid", UtilMisc.toMap("parameterName", singlePkModelParam.name, "errorDetails", errorDetails), locale));
                     }
                 }
             }

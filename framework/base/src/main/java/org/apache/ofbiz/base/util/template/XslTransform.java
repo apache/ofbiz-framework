@@ -113,7 +113,7 @@ public final class XslTransform {
         if (translet == null) {
             String templateUrl = (String) context.get("templateUrl");
             String templateString = (String) context.get("templateString");
-            Document templateDocument = (Document)context.get("templateDocument");
+            Document templateDocument = (Document) context.get("templateDocument");
             Source templateSource = getSource(templateDocument, templateUrl, templateString);
             translet = tFactory.newTemplates(templateSource);
             if (UtilValidate.isNotEmpty(templateName)) {
@@ -134,7 +134,7 @@ public final class XslTransform {
 
             String inputUrl = (String) context.get("inputUrl");
             String inputString = (String) context.get("inputString");
-            Document inputDocument = (Document)context.get("inputDocument");
+            Document inputDocument = (Document) context.get("inputDocument");
             Source inputSource = getSource(inputDocument, inputUrl, inputString);
 
             transformer.transform(inputSource, outputResult);

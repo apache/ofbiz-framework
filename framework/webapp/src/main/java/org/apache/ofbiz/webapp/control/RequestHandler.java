@@ -218,7 +218,7 @@ public class RequestHandler {
             throw new RequestHandlerException("Domain " + request.getServerName() + " not accepted to prevent host header injection."
                     + " You need to set host-headers-allowed property in security.properties file.");
         }
-                
+
         final boolean throwRequestHandlerExceptionOnMissingLocalRequest = EntityUtilProperties.propertyValueEqualsIgnoreCase(
                 "requestHandler", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y", delegator);
         long startTime = System.currentTimeMillis();
@@ -446,7 +446,7 @@ public class RequestHandler {
         request.setAttribute("requestMapMap", getControllerConfig().getRequestMapMap());
 
         // Perform CSRF token check when request not on chain
-        if (chain==null && originalRequestMap.securityCsrfToken) {
+        if (chain == null && originalRequestMap.securityCsrfToken) {
                 CsrfUtil.checkToken(request, path);
         }
 
@@ -496,7 +496,7 @@ public class RequestHandler {
 
                     // run the request event
                     eventReturn = this.runEvent(request, response, requestMap.event, requestMap, "request");
-                                        
+
                     if (requestMap.event.metrics != null) {
                         requestMap.event.metrics.recordServiceRate(1, System.currentTimeMillis() - startTime);
                     }
@@ -1004,10 +1004,10 @@ public class RequestHandler {
         } else {
             resp.setHeader("Cache-Control", "Set-Cookie");
         }
-        
+
         //Security Headers
         UtilHttp.setResponseBrowserDefaultSecurityHeaders(resp, viewMap);
-        
+
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", MODULE);
             ViewHandler vh = viewFactory.getViewHandler(viewMap.type);
@@ -1320,7 +1320,7 @@ public class RequestHandler {
     public boolean trackVisit(HttpServletRequest request) {
         return track(request, trackVisit, rmap -> rmap.trackVisit);
     }
-    
+
     private static String showSessionId(HttpServletRequest request) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         boolean showSessionIdInLog = EntityUtilProperties.propertyValueEqualsIgnoreCase("requestHandler", "show-sessionId-in-log", "Y", delegator);

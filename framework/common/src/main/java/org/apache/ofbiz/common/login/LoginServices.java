@@ -607,7 +607,7 @@ public class LoginServices {
         }
 
         // save this password in history
-        GenericValue userLoginPwdHistToCreate = delegator.makeValue("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userLoginId,"fromDate", nowTimestamp));
+        GenericValue userLoginPwdHistToCreate = delegator.makeValue("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userLoginId, "fromDate", nowTimestamp));
         userLoginPwdHistToCreate.set("currentPassword", currentPassword);
         userLoginPwdHistToCreate.create();
     }

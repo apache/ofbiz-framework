@@ -89,7 +89,7 @@ public class RmiServiceContainer implements Container {
             Integer portValue = Integer.valueOf(port);
             portValue += Start.getInstance().getConfig().portOffset;
             port = portValue.toString();
-        }                
+        }
         String keystore = ContainerConfig.getPropertyValue(cfg, "ssl-keystore", null);
         String ksType = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-type", "JKS");
         String ksPass = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-pass", null);

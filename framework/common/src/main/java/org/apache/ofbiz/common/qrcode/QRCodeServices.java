@@ -98,7 +98,7 @@ public class QRCodeServices {
             height = Integer.parseInt(EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.height", "200", delegator));
         }
         if (height < MIN_SIZE || height > MAX_SIZE) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError", 
+            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError",
                     new Object[] { "height", String.valueOf(height), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE) }, locale));
         }
         if (UtilValidate.isEmpty(format)) {
@@ -214,7 +214,6 @@ public class QRCodeServices {
     /**
      * Renders a {@link BitMatrix} as an image, where "false" bits are rendered
      * as white, and "true" bits are rendered as black.
-     * 
      * This is to replace MatrixToImageWriter.toBufferedImage(bitMatrix) if you
      * find the output image is not right, you can change BufferedImage image =
      * new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB); to

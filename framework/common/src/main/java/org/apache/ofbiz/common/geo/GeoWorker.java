@@ -76,7 +76,7 @@ public final class GeoWorker {
                 }
                 geoList.addAll(expandGeoGroup(nextGeo));
             }
-        } 
+        }
         return geoList;
     }
 

@@ -121,7 +121,7 @@ public class WebToolsServices {
         String checkDataOnly = (String) context.get("checkDataOnly");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
-        Integer txTimeout = (Integer)context.get("txTimeout");
+        Integer txTimeout = (Integer) context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = 7200;
         }
@@ -222,8 +222,8 @@ public class WebToolsServices {
         String checkDataOnly = (String) context.get("checkDataOnly");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
-        Integer txTimeout = (Integer)context.get("txTimeout");
-        Long filePause = (Long)context.get("filePause");
+        Integer txTimeout = (Integer) context.get("txTimeout");
+        Long filePause = (Long) context.get("filePause");
 
         if (txTimeout == null) {
             txTimeout = 7200;
@@ -463,7 +463,7 @@ public class WebToolsServices {
         Locale locale = (Locale) context.get("locale");
         String outpath = (String) context.get("outpath"); // mandatory
         Timestamp fromDate = (Timestamp) context.get("fromDate");
-        Integer txTimeout = (Integer)context.get("txTimeout");
+        Integer txTimeout = (Integer) context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = 7200;
         }

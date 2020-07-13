@@ -155,7 +155,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             }
         }
         final int rounding = roundingNumber;
-        
+
         return new Writer(out) {
             @Override
             public void write(char cbuf[], int off, int len) {

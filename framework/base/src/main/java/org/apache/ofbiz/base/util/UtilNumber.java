@@ -187,7 +187,7 @@ public final class UtilNumber {
         if (UtilValidate.isEmpty(file) || UtilValidate.isEmpty(property)) {
             return DEFAULT_BD_SCALE;
         }
-        
+
         int scale = -1;
         String value = UtilProperties.getPropertyValue(file, property);
             try {
@@ -336,13 +336,11 @@ public final class UtilNumber {
 
     /**
      * Method to turn a number such as "0.9853" into a nicely formatted percent, "98.53%".
-     *
      * @param number    The number object to format
      * @param scale     How many places after the decimal to include
      * @param roundingMode  The BigDecimal rounding mode to apply
      * @return          The formatted string or "" if there were errors.
      * @deprecated Use {@link #toPercentString(Number number, int scale, RoundingMode roundingMode)} instead
-     * 
      */
     @Deprecated
     public static String toPercentString(Number number, int scale, int roundingMode) {

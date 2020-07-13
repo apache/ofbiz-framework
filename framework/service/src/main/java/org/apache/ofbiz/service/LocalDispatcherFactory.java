@@ -27,7 +27,6 @@ public interface LocalDispatcherFactory {
     /**
      * Creates a <code>LocalDispatcher</code> instance based on <code>name</code> and <code>delegator</code>.
      * If a matching <code>LocalDispatcher</code> was already created, then it will be returned.
-     * 
      * @param name
      * @param delegator
      */

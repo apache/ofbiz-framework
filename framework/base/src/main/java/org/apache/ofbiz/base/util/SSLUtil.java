@@ -310,7 +310,7 @@ public final class SSLUtil {
             }
 
             if (debug) {
-                System.setProperty("javax.net.debug","ssl:handshake");
+                System.setProperty("javax.net.debug", "ssl:handshake");
             }
             loadedProps = true;
         }

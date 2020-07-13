@@ -98,7 +98,6 @@ public final class ContextHelper {
      * Map members and the "[]" (bracket) syntax to access List entries. This value is
      * expanded, supporting the insertion of other environment values using the "${}"
      * notation.
-     * 
      * @param key
      *            The name of the environment value to get. Can contain "." and "[]"
      *            syntax elements as described above.
@@ -221,7 +220,6 @@ public final class ContextHelper {
      * sign) is included inside the square brackets before the index number the value will
      * inserted/added at that index instead of set at that index. This value is expanded,
      * supporting the insertion of other environment values using the "${}" notation.
-     * 
      * @param key
      *            The name of the environment value to get. Can contain "." syntax
      *            elements as described above.
@@ -259,7 +257,6 @@ public final class ContextHelper {
      * access Map members and the "[]" (bracket) syntax to access List entries. This value
      * is expanded, supporting the insertion of other environment values using the "${}"
      * notation.
-     * 
      * @param key
      *            The name of the environment value to get. Can contain "." syntax
      *            elements as described above.

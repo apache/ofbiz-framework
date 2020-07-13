@@ -491,7 +491,6 @@ public class ModelReader implements Serializable {
 
     /**
      * Gets an Entity object based on a definition from the specified XML Entity descriptor file.
-     * 
      * @param entityName
      *            The entityName of the Entity definition to use.
      * @return An Entity object describing the specified entity of the specified descriptor file.
@@ -529,7 +528,6 @@ public class ModelReader implements Serializable {
 
     /**
      * Creates a Iterator with the entityName of each Entity defined in the specified XML Entity Descriptor file.
-     * 
      * @return A Iterator of entityName Strings
      */
     public Iterator<String> getEntityNamesIterator() throws GenericEntityException {
@@ -543,7 +541,6 @@ public class ModelReader implements Serializable {
 
     /**
      * Creates a Set with the entityName of each Entity defined in the specified XML Entity Descriptor file.
-     * 
      * @return A Set of entityName Strings
      */
     public Set<String> getEntityNames() throws GenericEntityException {
@@ -602,7 +599,6 @@ public class ModelReader implements Serializable {
      * characters are stripped from the beginning of the name until a valid entity
      * name is found. It is intended to be used to determine the entity name from a
      * relation name.
-     * 
      * @return A valid entityName or null
      */
     public String validateEntityName(String entityName) throws GenericEntityException {

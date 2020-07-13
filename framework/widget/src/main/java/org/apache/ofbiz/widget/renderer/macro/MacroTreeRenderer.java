@@ -364,7 +364,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
 
     @Override
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
-        ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
+        ScreenRenderer screenRenderer = (ScreenRenderer) context.get("screens");
         if (screenRenderer != null) {
             return screenRenderer.getScreenStringRenderer();
         }

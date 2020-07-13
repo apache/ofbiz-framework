@@ -181,7 +181,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
             return false;
         }
     }
-    
+
     protected List<String> getFieldNames() {
         List<String> fieldNameList = new ArrayList<>();
         if ( UtilValidate.isNotEmpty(lhsValueName) ) {
@@ -192,5 +192,4 @@ public final class EntityEcaCondition implements java.io.Serializable {
         }
         return fieldNameList;
     }
-
 }

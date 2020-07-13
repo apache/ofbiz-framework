@@ -2317,8 +2317,8 @@ public class ModelFormField {
             String location = this.getFormLocation(context);
             ModelForm modelForm = null;
             try {
-                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
-                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
+                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator")).getModelReader();
+                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher")).getDispatchContext();
                 VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
                 modelForm = FormFactory.getFormFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
@@ -2399,8 +2399,8 @@ public class ModelFormField {
             String location = this.getGridLocation(context);
             ModelForm modelForm = null;
             try {
-                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
-                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
+                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator")).getModelReader();
+                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher")).getDispatchContext();
                 VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
                 modelForm = GridFactory.getGridFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
@@ -3614,7 +3614,7 @@ public class ModelFormField {
             String name = this.getScreenName(context);
             String location = this.getScreenLocation(context);
             try {
-                ScreenRenderer renderer = (ScreenRenderer)context.get("screens");
+                ScreenRenderer renderer = (ScreenRenderer) context.get("screens");
                 if (renderer != null) {
                     MapStack<String> mapStack = UtilGenerics.cast(context);
                     ScreenRenderer subRenderer = new ScreenRenderer(writer, mapStack, renderer.getScreenStringRenderer());

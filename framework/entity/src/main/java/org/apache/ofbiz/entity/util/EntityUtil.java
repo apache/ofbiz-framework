@@ -308,7 +308,7 @@ public final class EntityUtil {
                 .filter(value -> exprs.stream().anyMatch(condition -> condition.entityMatches(value)))
                 .collect(toList());
     }
-    
+
     /**
      *returns the values in the order specified after with localized value 
      *

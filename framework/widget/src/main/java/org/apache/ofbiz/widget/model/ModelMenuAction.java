@@ -104,7 +104,7 @@ public abstract class ModelMenuAction {
                     String originalName = this.fromField.getOriginalName();
                     String currentWidgetTrail = (String) context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
-                    HttpSession session = (HttpSession)context.get("session");
+                    HttpSession session = (HttpSession) context.get("session");
                     newValue = session.getAttribute(newKey);
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);

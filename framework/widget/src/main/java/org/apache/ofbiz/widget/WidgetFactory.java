@@ -61,7 +61,6 @@ public class WidgetFactory {
     /**
      * Returns a <code>ModelScreenWidget</code> instance that implements the specified
      * XML element.
-     * 
      * @param modelScreen The containing screen for the widget
      * @param element The widget XML element
      * @return a <code>ModelScreenWidget</code> instance that implements the specified
@@ -119,7 +118,6 @@ public class WidgetFactory {
      * registered, the new widget replaces the existing one.<p>The class supplied
      * to the method must have a public two-argument constructor that takes a
      * <code>ModelScreen</code> instance and an <code>Element</code> instance.</p>
-     * 
      * @param tagName The XML element tag name for this widget
      * @param widgetClass The class that implements the widget element
      * @throws SecurityException

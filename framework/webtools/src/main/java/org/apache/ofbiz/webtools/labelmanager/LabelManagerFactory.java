@@ -93,7 +93,7 @@ public class LabelManagerFactory {
         }
     }
 
-    public void findMatchingLabels(String component, String fileName, String key, String locale, boolean onlyNotUsedLabels) 
+    public void findMatchingLabels(String component, String fileName, String key, String locale, boolean onlyNotUsedLabels)
             throws MalformedURLException, SAXException, ParserConfigurationException, IOException, GeneralException {
         if (UtilValidate.isEmpty(component) && UtilValidate.isEmpty(fileName) && UtilValidate.isEmpty(key) && UtilValidate.isEmpty(locale)) {
             // Important! Don't allow unparameterized queries - doing so will result in loading the entire project into memory
@@ -116,8 +116,8 @@ public class LabelManagerFactory {
                 if (propertyNode instanceof Element) {
                     Element propertyElem = (Element) propertyNode;
                     String labelKey = UtilCodec.canonicalize(propertyElem.getAttribute("key"));
-                    if (onlyNotUsedLabels 
-                            && (labelKey.contains(".description.") 
+                    if (onlyNotUsedLabels
+                            && (labelKey.contains(".description.")
                                     || labelKey.contains(".transitionName.")
                                     || labelKey.contains(".partyRelationshipName.")
                                     || labelKey.contains(".geoName.")
@@ -136,7 +136,7 @@ public class LabelManagerFactory {
                                     || (labelKey.length() == 2) // These are languages Ids
                                     || labelKey.contains("pt_") // These are languages Ids
                                     || labelKey.contains("en_") // These are languages Ids
-                                    )) { 
+                                    )) {
                         continue; // OFBIZ-8154 WIP
                     }
                     String labelComment = "";
@@ -148,7 +148,7 @@ public class LabelManagerFactory {
                             String localeName = valueElem.getAttribute("xml:lang");
                             if ( localeName.contains("_")) {
                                 GeneralException e = new GeneralException("Confusion in labels with the separator used between languages and countries. Please use a dash instead of an underscore.");
-                                throw e;  
+                                throw e;
                             }
                             String labelValue = UtilCodec.canonicalize(UtilXml.nodeValue(valueElem.getFirstChild()));
                             LabelInfo label = labels.get(labelKey + keySeparator + fileInfo.getFileName());

@@ -113,7 +113,7 @@ public class EntityPermissionChecker {
             entityIdList = new LinkedList<>();
         }
         String entityName = entityNameExdr.expandString(context);
-        HttpServletRequest request = (HttpServletRequest)context.get("request");
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
         GenericValue userLogin = null;
         String partyId = null;
         Delegator delegator = null;
@@ -655,7 +655,7 @@ public class EntityPermissionChecker {
 
     public static boolean hasMatch(String entityName, List<GenericValue> targetOperations, List<String> roles, boolean hasPurposeOp, List<String> purposes, boolean hasStatusOp, String targStatusId) {
         boolean isMatch = false;
-        
+
     //    if (UtilValidate.isNotEmpty(targPrivilegeEnumId) && !targPrivilegeEnumId.equals("_NA_") && !targPrivilegeEnumId.equals("_00_")) {
             // need to do a lookup here to find the seq value of targPrivilegeEnumId.
             // The lookup could be a static store or it could be done on Enumeration entity.

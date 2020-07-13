@@ -127,7 +127,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Executes the actions contained in <code>actions</code>.
-     * 
      * @param actions
      * @param context
      */
@@ -163,7 +162,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Returns the <code>ModelWidget</code> that contains the &lt;actions&gt; element.
-     * 
      * @return The <code>ModelWidget</code> that contains the &lt;actions&gt; element
      */
     public ModelWidget getModelWidget() {

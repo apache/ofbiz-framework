@@ -61,9 +61,9 @@ public class CustomSafePolicy implements SanitizerCustomPolicy {
                 .matching(true, "center", "left", "right", "justify", "char")
                 .onElements("p")
             // These elements are allowed.
-            .allowElements("a", "p", "div", "i", "b", "em", "blockquote", "tt", "strong","br", "ul", "ol", "li")
+            .allowElements("a", "p", "div", "i", "b", "em", "blockquote", "tt", "strong", "br", "ul", "ol", "li")
             .toFactory();
-    
+
     @Override
     public PolicyFactory getSanitizerPolicy() {
         return POLICY_DEFINITION;

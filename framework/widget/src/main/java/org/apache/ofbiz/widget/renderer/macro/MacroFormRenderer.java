@@ -433,7 +433,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
         sr.append("\" delegatorName=\"");
-        sr.append(((HttpSession)context.get("session")).getAttribute("delegatorName").toString());
+        sr.append(((HttpSession) context.get("session")).getAttribute("delegatorName").toString());
         sr.append("\" />");
         executeMacro(writer, sr.toString());
         ModelFormField.SubHyperlink subHyperlink = textField.getSubHyperlink();
@@ -2379,7 +2379,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
         sr.append("\" delegatorName=\"");
-        sr.append(((HttpSession)context.get("session")).getAttribute("delegatorName").toString());
+        sr.append(((HttpSession) context.get("session")).getAttribute("delegatorName").toString());
         sr.append("\" />");
         executeMacro(writer, sr.toString());
         this.addAsterisks(writer, context, modelFormField);

@@ -488,7 +488,6 @@ public final class FileUtil {
         zis.closeEntry();
         zis.close();
     }
-    
     /**
      * Creates a File with a normalized file path
      * This useful to prevent path traversal security issues 
@@ -498,9 +497,8 @@ public final class FileUtil {
      * @return A File with a normalized file path
      */
     public static File createFileWithNormalizedPath(String filePath) {
-        return new File(filePath).toPath().normalize().toFile(); 
+        return new File(filePath).toPath().normalize().toFile();
     }
-    
     /**
      * Normalizes a file path
      * This useful to prevent path traversal security issues 
@@ -509,7 +507,7 @@ public final class FileUtil {
      * @return A normalized file path
      */
     public static String normalizeFilePath(String filePath) {
-        return createFileWithNormalizedPath(filePath).toString(); 
+        return createFileWithNormalizedPath(filePath).toString();
     }
-    
+
 }

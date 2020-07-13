@@ -324,7 +324,7 @@ public class FormRenderer {
             for (ModelFormField modelFormField : mainFieldList) {
                 FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
-                // if the field's title is explicitly set to "" (title="") then
+                // if the field's title is explicitly set to "" (title= "") then
                 // the header is not created for it; this is useful for position list
                 // where one line can be rendered with more than one row, and we
                 // only want to display the title header for the main row

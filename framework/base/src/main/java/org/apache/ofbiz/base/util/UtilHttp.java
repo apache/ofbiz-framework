@@ -1125,7 +1125,7 @@ public final class UtilHttp {
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private"); // HTTP/1.1
         response.setHeader("Pragma", "no-cache"); // HTTP/1.0
     }
-    
+
     public static void setResponseBrowserDefaultSecurityHeaders(HttpServletResponse resp, ConfigXMLReader.ViewMap viewMap) {
         // See https://cwiki.apache.org/confluence/display/OFBIZ/How+to+Secure+HTTP+Headers for details and how to test
         String xFrameOption = null;
@@ -1154,11 +1154,11 @@ public final class UtilHttp {
                 resp.addHeader("strict-transport-security", "max-age=31536000; includeSubDomains");
             }
         }
-        
+
         /** The only x-content-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type.
          This also applies to Google Chrome, when downloading extensions. */
         resp.addHeader("x-content-type-options", "nosniff");
-        
+
          /** This header enables the Cross-site scripting (XSS) filter built into most recent web browsers.
          It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user.
          This header is supported in IE 8+, and in Chrome (not sure which versions). The anti-XSS filter was added in Chrome 4. Its unknown if that version honored this header.

@@ -41,7 +41,6 @@ public final class ModelRelation extends ModelChild {
 
     /**
      * Returns a new <code>ModelRelation</code> instance, initialized with the specified values.
-     * 
      * @param modelEntity The <code>ModelEntity</code> this relation is a member of.
      * @param description The relation description.
      * @param type The relation type.
@@ -77,7 +76,6 @@ public final class ModelRelation extends ModelChild {
 
     /**
      * Returns a new <code>ModelRelation</code> instance, initialized with the specified values.
-     * 
      * @param modelEntity The <code>ModelEntity</code> this relation is a member of.
      * @param relationElement The <code>&lt;relation&gt;</code> element containing the values for this relation.
      * @param isAutoRelation <code>true</code> if this relation was generated automatically by the entity engine.

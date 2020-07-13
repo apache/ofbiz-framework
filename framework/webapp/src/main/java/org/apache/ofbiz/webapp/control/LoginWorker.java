@@ -620,7 +620,7 @@ public final class LoginWorker {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         LocalDispatcher dispatcher;
 
-        if (UtilProperties.getPropertyAsBoolean("security","security.disable.impersonation", true)) {
+        if (UtilProperties.getPropertyAsBoolean("security", "security.disable.impersonation", true)) {
             String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.impersonation_disabled", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -672,7 +672,7 @@ public final class LoginWorker {
             String visitId = VisitHandler.getVisitId(session);
             result = dispatcher.runSync("userImpersonate",
                     UtilMisc.toMap("userLoginIdToImpersonate", userLoginIdToImpersonate,
-                            "userLogin", userLogin,"visitId", visitId, "locale", UtilHttp.getLocale(request)));
+                            "userLogin", userLogin, "visitId", visitId, "locale", UtilHttp.getLocale(request)));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userImpersonate service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
