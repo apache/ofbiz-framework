@@ -75,7 +75,7 @@ public class ContentManagementServices {
         String contentId = (String) context.get("contentId");
         String subContentId = (String) context.get("subContentId");
         String mapKey = (String) context.get("mapKey");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
         List<String> assocTypes = UtilGenerics.cast(context.get("assocTypes"));
         String assocTypesString = (String) context.get("assocTypesString");
@@ -166,21 +166,21 @@ public class ContentManagementServices {
         }
         context.put("contentPurposeList", contentPurposeList);
         context.put("contentPurposeString", null);
-        
+
         if (Debug.infoOn()) {
             Debug.logInfo("in persist... contentPurposeList(0):" + contentPurposeList, MODULE);
             Debug.logInfo("in persist... textData(0):" + context.get("textData"), MODULE);
         }
 
         GenericValue content = delegator.makeValue("Content");
-        
+
         content.setPKFields(context);
         content.setNonPKFields(context);
         String contentId = (String) content.get("contentId");
         String contentTypeId = (String) content.get("contentTypeId");
         String origContentId = (String) content.get("contentId");
         String origDataResourceId = (String) content.get("dataResourceId");
-        
+
         if (Debug.infoOn()) {
             Debug.logInfo("in persist... contentId(0):" + contentId, MODULE);
         }
@@ -397,7 +397,7 @@ public class ContentManagementServices {
     public static Map<String, Object> updateSiteRoles(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
       Map<String, Object> results = new HashMap<>();
       String siteContentId = (String) context.get("contentId");
       String partyId = (String) context.get("partyId");
@@ -800,7 +800,7 @@ public class ContentManagementServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         String contentIdTo = (String) context.get("contentIdTo");
-        Integer seqInc = (Integer)context.get("seqInc");
+        Integer seqInc = (Integer) context.get("seqInc");
         if (seqInc == null) {
             seqInc = 100;
         }
@@ -882,7 +882,7 @@ public class ContentManagementServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> thisResult = new HashMap<>();
         String contentId = (String) context.get("contentId");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String userLoginId = userLogin.getString("userLoginId");
         Locale locale = (Locale) context.get("locale");
         try {
@@ -1179,7 +1179,7 @@ public class ContentManagementServices {
     public static Map<String, Object> initContentChildCounts(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         Locale locale = (Locale) context.get("locale");
-        GenericValue content = (GenericValue)context.get("content");
+        GenericValue content = (GenericValue) context.get("content");
         if (content == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", ""), locale));
         }
@@ -1463,7 +1463,7 @@ public class ContentManagementServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Security security = dctx.getSecurity();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         if (!security.hasEntityPermission("CONTENTMGR", "_ADMIN", userLogin)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPermissionNotGranted", locale));
@@ -1509,7 +1509,7 @@ public class ContentManagementServices {
             }
         }
 
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         result = dispatcher.runSync(serviceName, UtilMisc.toMap("content", content, "userLogin", userLogin));
         if (ServiceUtil.isError(result)) {
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));

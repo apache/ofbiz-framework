@@ -77,7 +77,7 @@ public class ShoppingListServices {
         Locale locale = (Locale) context.get("locale");
 
         if (frequency == null || interval == null) {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderFrequencyOrIntervalWasNotSpecified", locale), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderFrequencyOrIntervalWasNotSpecified", locale), MODULE);
             return ServiceUtil.returnSuccess();
         }
 
@@ -93,7 +93,7 @@ public class ShoppingListServices {
                     startDate = UtilDateTime.getYearStart(UtilDateTime.nowTimestamp(), 0, interval);
                     break;
                 default:
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderInvalidFrequencyForShoppingListRecurrence", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderInvalidFrequencyForShoppingListRecurrence", locale));
             }
         }
 
@@ -108,7 +108,7 @@ public class ShoppingListServices {
             recInfo = RecurrenceInfo.makeInfo(delegator, startTime, frequency, interval, -1, endTime);
         } catch (RecurrenceInfoException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToCreateShoppingListRecurrenceInformation", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToCreateShoppingListRecurrenceInformation", locale));
         }
 
         Debug.logInfo("Next Recurrence - " + UtilDateTime.getTimestamp(recInfo.next()), MODULE);
@@ -271,7 +271,7 @@ public class ShoppingListServices {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
             if (orderHeader == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToLocateOrder", UtilMisc.toMap("orderId", orderId), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateOrder", UtilMisc.toMap("orderId", orderId), locale));
             }
             String productStoreId = orderHeader.getString("productStoreId");
 
@@ -294,7 +294,7 @@ public class ShoppingListServices {
                     newListResult = dispatcher.runSync("createShoppingList", serviceCtx, 90, true);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problems creating new ShoppingList", MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToCreateNewShoppingList", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToCreateNewShoppingList", locale));
                 }
 
                 // check for errors
@@ -312,7 +312,7 @@ public class ShoppingListServices {
             shoppingList = EntityQuery.use(delegator).from("ShoppingList").where("shoppingListId", shoppingListId).queryOne();
 
             if (shoppingList == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderNoShoppingListAvailable", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderNoShoppingListAvailable", locale));
             }
             shoppingListTypeId = shoppingList.getString("shoppingListTypeId");
 
@@ -321,7 +321,7 @@ public class ShoppingListServices {
                 orh = new OrderReadHelper(orderHeader);
             } catch (IllegalArgumentException e) {
                 Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToLoadOrderReadHelper", UtilMisc.toMap("orderId", orderId), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLoadOrderReadHelper", UtilMisc.toMap("orderId", orderId), locale));
             }
 
             List<GenericValue> orderItems = orh.getOrderItems();
@@ -349,7 +349,7 @@ public class ShoppingListServices {
                         Debug.logError(e, MODULE);
                     }
                     if (serviceResult == null || ServiceUtil.isError(serviceResult)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToAddItemToShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId), locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToAddItemToShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId), locale));
                     }
                 }
             }
@@ -381,7 +381,7 @@ public class ShoppingListServices {
                 }
 
                 if (slUpResp == null || ServiceUtil.isError(slUpResp)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToUpdateShoppingListInformation", UtilMisc.toMap("shoppingListId", shoppingListId), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToUpdateShoppingListInformation", UtilMisc.toMap("shoppingListId", shoppingListId), locale));
                 }
             }
 

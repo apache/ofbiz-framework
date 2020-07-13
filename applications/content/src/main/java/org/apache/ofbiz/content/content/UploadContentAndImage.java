@@ -79,7 +79,7 @@ public class UploadContentAndImage {
             long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
             int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
             File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-            
+
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             upload.setSizeMax(maxUploadSize);
             List<FileItem> lst = null;
@@ -124,7 +124,7 @@ public class UploadContentAndImage {
             String passedContentId = (String)passedParams.get("ftlContentId");
             List<String> targetOperationList = ContentWorker.prepTargetOperationList(passedParams, entityOperation);
             passedParams.put("targetOperationList", targetOperationList);
-            
+
             // Create or update FTL template
             Map<String, Object> ftlContext = new HashMap<>();
             ftlContext.put("userLogin", userLogin);
@@ -345,7 +345,6 @@ public class UploadContentAndImage {
             long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
             int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
             File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-            
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             upload.setSizeMax(maxUploadSize);
 
@@ -400,7 +399,7 @@ public class UploadContentAndImage {
             TransactionUtil.begin();
             for (int i = 0; i < rowCount; i++) {
                 String suffix = "_o_" + i;
-                if (i==0) {
+                if (i == 0) {
                    suffix = "";
                 }
                 String returnMsg = processContentUpload(passedParams, suffix, request);

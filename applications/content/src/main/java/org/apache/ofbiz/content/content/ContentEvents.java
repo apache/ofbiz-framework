@@ -64,7 +64,7 @@ public class ContentEvents {
         // check permissions before moving on...
         if (!security.hasEntityPermission("CONTENTMGR", "_" + updateMode, request.getSession())) {
             Map<String, String> messageMap = UtilMisc.toMap("updateMode", updateMode);
-            errMsg = UtilProperties.getMessage(RESOURCE,"contentevents.not_sufficient_permissions", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE, "contentevents.not_sufficient_permissions", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -74,7 +74,7 @@ public class ContentEvents {
 
         boolean beganTx = false;
         EntityQuery contentQuery = EntityQuery.use(delegator).from("Content");
-        
+
         try {
             // begin the transaction
             beganTx = TransactionUtil.begin(7200);
@@ -100,7 +100,7 @@ public class ContentEvents {
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, gee.getMessage(), MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("gee", gee.toString());
-            errMsg = UtilProperties.getMessage(RESOURCE,"contentevents.error_getting_content_list", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE, "contentevents.error_getting_content_list", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             try {
                 TransactionUtil.rollback(beganTx, gee.getMessage(), gee);
@@ -119,13 +119,13 @@ public class ContentEvents {
 
         if (errConts == 0) {
             Map<String, String> messageMap = UtilMisc.toMap("numConts", Integer.toString(numConts));
-            errMsg = UtilProperties.getMessage(RESOURCE,"contentevents.keyword_creation_complete_for_contents", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE, "contentevents.keyword_creation_complete_for_contents", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_EVENT_MESSAGE_", errMsg);
             return "success";
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("numConts", Integer.toString(numConts));
             messageMap.put("errConts", Integer.toString(errConts));
-            errMsg = UtilProperties.getMessage(RESOURCE,"contentevents.keyword_creation_complete_for_contents_with_errors", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE, "contentevents.keyword_creation_complete_for_contents_with_errors", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }

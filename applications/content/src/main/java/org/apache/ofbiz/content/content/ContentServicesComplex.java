@@ -271,7 +271,7 @@ public class ContentServicesComplex {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+
         if (UtilValidate.isNotEmpty(orderBy)) {
             List<String> orderByList = StringUtil.split(orderBy, "|");
            contentAssocDataResourceList = EntityUtil.orderBy(contentAssocDataResourceList, orderByList);

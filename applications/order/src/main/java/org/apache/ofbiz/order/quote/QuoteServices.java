@@ -163,7 +163,7 @@ public class QuoteServices {
         List<GenericValue> quoteAdjustments = UtilGenerics.cast(context.get("quoteAdjustments"));
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> serviceResult = new HashMap<>();
-        
+
         //TODO create Quote Terms still to be implemented
         //TODO create Quote Term Attributes still to be implemented
         Map<String, Object> result = new HashMap<>();

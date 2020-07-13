@@ -150,7 +150,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             ContentWorker.renderContentAsText(dispatcher, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
             return;
         }
-        
+
         String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
         ModelEntity categoryModel = delegator.getModelEntity("ProductCategory");
         if (categoryModel.isField(candidateFieldName)) {

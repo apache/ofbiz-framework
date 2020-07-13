@@ -111,9 +111,9 @@ public class ScaleImage {
 
         Map<String, Object> imageContext = new HashMap<>();
         imageContext.putAll(context);
-        imageContext.put("tenantId", ((Delegator)context.get("delegator")).getDelegatorTenantId());
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", (Delegator)context.get("delegator")), imageContext);
-        String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", (Delegator)context.get("delegator")), imageContext);
+        imageContext.put("tenantId", ((Delegator) context.get("delegator")).getDelegatorTenantId());
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", (Delegator) context.get("delegator")), imageContext);
+        String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", (Delegator) context.get("delegator")), imageContext);
         imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath;
         imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix;
         FlexibleStringExpander filenameExpander;
@@ -289,11 +289,11 @@ public class ScaleImage {
         // paths
         Map<String, Object> imageContext = new HashMap<>();
         imageContext.putAll(context);
-        imageContext.put("tenantId", ((Delegator)context.get("delegator")).getDelegatorTenantId());
+        imageContext.put("tenantId", ((Delegator) context.get("delegator")).getDelegatorTenantId());
         String mainFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", (Delegator) context.get("delegator"));
 
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", (Delegator)context.get("delegator")), imageContext);
-        String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", (Delegator)context.get("delegator")), imageContext);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", (Delegator) context.get("delegator")), imageContext);
+        String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", (Delegator) context.get("delegator")), imageContext);
         imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath;
         imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix;
         String id = null;
@@ -354,7 +354,7 @@ public class ScaleImage {
                     if (viewType.toLowerCase(Locale.getDefault()).contains("main")) {
                         newFileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "type", sizeType));
                     } else if (viewType.toLowerCase(Locale.getDefault()).contains("additional")) {
-                        newFileLocation = addFilenameExpander.expandString(UtilMisc.toMap("location", "products","id", id, "viewtype", viewType, "sizetype", sizeType));
+                        newFileLocation = addFilenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "viewtype", viewType, "sizetype", sizeType));
                     }
                     String newFilePathPrefix = "";
                     if (newFileLocation != null && newFileLocation.lastIndexOf('/') != -1) {

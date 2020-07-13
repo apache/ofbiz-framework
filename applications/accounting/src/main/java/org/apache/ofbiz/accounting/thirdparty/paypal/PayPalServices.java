@@ -533,7 +533,7 @@ public class PayPalServices {
             // We want an exact match only
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition(postalMap),
-                    EntityCondition.makeCondition(UtilMisc.toMap("attnName", null, "directions", null, "postalCodeExt", null,"postalCodeGeoId", null)),
+                    EntityCondition.makeCondition(UtilMisc.toMap("attnName", null, "directions", null, "postalCodeExt", null, "postalCodeGeoId", null)),
                     EntityCondition.makeCondition("partyId", partyId)
            ));
             try {

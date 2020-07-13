@@ -615,7 +615,7 @@ public class InvoiceServices {
                                         amount = adj.getBigDecimal("amount").divide(originalOrderItemQuantity, 100, ROUNDING);
                                         amount = amount.multiply(billingQuantity);
                                     }
-                                }                            
+                                }
                             // Tax needs to be rounded differently from other order adjustments
                             if ("SALES_TAX".equals(adj.getString("orderAdjustmentTypeId"))) {
                                 amount = amount.setScale(TAX_DECIMALS, TAX_ROUNDING);
@@ -1199,7 +1199,7 @@ public class InvoiceServices {
         // Either no orderShipment exists, or there's a null invoicePerShipment in the OrderHeader.
         // In either case, use the default value from the properties
         if (invoicePerShipment == null) {
-            invoicePerShipment = EntityUtilProperties.getPropertyValue("accounting","create.invoice.per.shipment", delegator);
+            invoicePerShipment = EntityUtilProperties.getPropertyValue("accounting", "create.invoice.per.shipment", delegator);
         }
 
         if ("Y".equals(invoicePerShipment)) {
@@ -2570,7 +2570,7 @@ public class InvoiceServices {
      */
     public static Map<String, Object> updatePaymentApplication(DispatchContext dctx, Map<String, Object> context) {
         if (!context.containsKey("useHighestAmount")) {
-            context.put("useHighestAmount","N");
+            context.put("useHighestAmount", "N");
         }
         BigDecimal amountApplied = (BigDecimal) context.get("amountApplied");
         if (amountApplied != null) {
@@ -2592,7 +2592,7 @@ public class InvoiceServices {
      */
     public static Map<String, Object> updatePaymentApplicationDef(DispatchContext dctx, Map<String, Object> context) {
         if (!context.containsKey("useHighestAmount")) {
-            context.put("useHighestAmount","Y");
+            context.put("useHighestAmount", "Y");
         }
         return updatePaymentApplication(dctx, context);
     }
@@ -2607,10 +2607,10 @@ public class InvoiceServices {
         }
 
         if (!context.containsKey("useHighestAmount")) {
-            context.put("useHighestAmount","Y");
+            context.put("useHighestAmount", "Y");
         }
 
-        String defaultInvoiceProcessing = EntityUtilProperties.getPropertyValue("accounting","invoiceProcessing", delegator);
+        String defaultInvoiceProcessing = EntityUtilProperties.getPropertyValue("accounting", "invoiceProcessing", delegator);
 
         boolean debug = true; // show processing messages in the log..or not....
 
@@ -2965,7 +2965,7 @@ public class InvoiceServices {
                     errorMessageList.add(UtilProperties.getMessage(RESOURCE, "AccountingPaymentLessRequested",
                             UtilMisc.<String, Object>toMap("paymentId", paymentId,
                                         "paymentApplyAvailable", paymentApplyAvailable,
-                                        "amountApplied", amountApplied,"isoCode", currencyUomId), locale));
+                                        "amountApplied", amountApplied, "isoCode", currencyUomId), locale));
                 }
             }
         }
@@ -3537,18 +3537,15 @@ public class InvoiceServices {
             return ServiceUtil.returnError(se.getMessage());
         }
     }
-    
     public static Map<String, Object> importInvoice(DispatchContext dctx, Map<String, Object> context) {
          Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
-        
         if (fileBytes == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingUploadedFileDataNotFound", locale));
         }
-        
         String organizationPartyId = (String) context.get("organizationPartyId");
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();

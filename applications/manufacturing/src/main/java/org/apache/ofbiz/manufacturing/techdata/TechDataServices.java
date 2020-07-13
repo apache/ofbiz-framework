@@ -94,12 +94,12 @@ public class TechDataServices {
         }
         if (listRoutingTask.size() == 0) {
             //FIXME is it correct ?
-            // listRoutingTask.add(UtilMisc.toMap("label","no Match","value","NO_MATCH"));
+            // listRoutingTask.add(UtilMisc.toMap("label", "no Match", "value", "NO_MATCH"));
         }
         result.put("lookupResult", listRoutingTask);
         return result;
     }
-    
+
     /**
      *
      * Used to check if there is not two routing task with the same SeqId valid at the same period
@@ -126,7 +126,7 @@ public class TechDataServices {
 
         try {
             listRoutingTaskAssoc = EntityQuery.use(delegator).from("WorkEffortAssoc")
-                    .where("workEffortIdFrom", workEffortIdFrom,"sequenceNum", sequenceNum)
+                    .where("workEffortIdFrom", workEffortIdFrom, "sequenceNum", sequenceNum)
                     .orderBy("fromDate")
                     .queryList();
         } catch (GenericEntityException e) {
@@ -220,7 +220,7 @@ public class TechDataServices {
         int moveDay = 0;
         Double capacity = null;
         Time startTime = null;
-        while (capacity == null || capacity ==0) {
+        while (capacity == null || capacity == 0) {
             switch (dayStart) {
                 case Calendar.MONDAY:
                     capacity =  techDataCalendarWeek.getDouble("mondayCapacity");
@@ -252,8 +252,8 @@ public class TechDataServices {
                     break;
             }
             if (capacity == null || capacity == 0) {
-                moveDay +=1;
-                dayStart = (dayStart==7) ? 1 : dayStart +1;
+                moveDay += 1;
+                dayStart = (dayStart == 7) ? 1 : dayStart + 1;
             }
         }
         result.put("capacity", capacity);
@@ -406,8 +406,8 @@ public class TechDataServices {
                     break;
             }
             if (capacity == null || capacity == 0) {
-                moveDay -=1;
-                dayEnd = (dayEnd==1) ? 7 : dayEnd - 1;
+                moveDay -= 1;
+                dayEnd = (dayEnd == 1) ? 7 : dayEnd - 1;
             }
         }
         result.put("capacity", capacity);

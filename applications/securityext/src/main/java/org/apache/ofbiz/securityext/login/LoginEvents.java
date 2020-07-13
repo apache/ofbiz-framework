@@ -149,7 +149,6 @@ public class LoginEvents {
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, "", MODULE);
         }
-        
         if (supposedUserLogin != null) {
             passwordHint = supposedUserLogin.getString("passwordHint");
         }

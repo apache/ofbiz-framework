@@ -90,7 +90,7 @@ public class CategoryServices {
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
         Locale locale = (Locale) context.get("locale");
-        
+
         if (index == null && productId == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.problems_getting_next_products", locale));
         }
@@ -275,7 +275,6 @@ public class CategoryServices {
             lowIndex = 0;
             highIndex = 0;
         }
-        
         boolean filterOutOfStock = false;
         try {
             String productStoreId = (String) context.get("productStoreId");
@@ -309,7 +308,6 @@ public class CategoryServices {
                     if (!filterConditions.isEmpty()) {
                         productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
                     }
-                    
                     // filter out of stock products
                     if (filterOutOfStock) {
                         try {
@@ -324,7 +322,7 @@ public class CategoryServices {
                     }
 
                     // set the index and size
-                    listSize = productCategoryMembers.size();         
+                    listSize = productCategoryMembers.size();
                     if (limitView) {
                         // limit high index to (filtered) listSize
                         if (highIndex > listSize) {
@@ -366,7 +364,6 @@ public class CategoryServices {
                             .orderBy(orderByFields)
                             .cursorScrollInsensitive()
                             .maxRows(highIndex);
-                    
                     try (EntityListIterator pli = eq.queryIterator()) {
                         // get the partial list for this page
                         if (limitView) {
@@ -376,7 +373,7 @@ public class CategoryServices {
                                 GenericValue nextValue;
                                 int chunkSize = 0;
                                 listSize = 0;
-    
+
                                 while ((nextValue = pli.next()) != null) {
                                     String productId = nextValue.getString("productId");
                                     if (CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
@@ -397,7 +394,6 @@ public class CategoryServices {
                                 // filter out the view allow
                                 productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
                             }
-    
                             listSize = productCategoryMembers.size();
                             lowIndex = 1;
                             highIndex = listSize;
@@ -470,19 +466,17 @@ public class CategoryServices {
                 if ("true".equals(isCatalog) && "false".equals(isCategoryType)) {
                     CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request, productCategoryId), true);
                     childOfCats = EntityUtil.filterByDate((List<GenericValue>) request.getAttribute("ChildCatalogList"));
-                    
+
                 } else if ("false".equals(isCatalog) && "false".equals(isCategoryType)) {
                     childOfCats = EntityQuery.use(delegator).from("ProductCategoryRollupAndChild").where("parentProductCategoryId", productCategoryId).filterByDate().queryList();
                 } else {
                     childOfCats = EntityQuery.use(delegator).from("ProdCatalogCategory").where("prodCatalogId", productCategoryId).filterByDate().queryList();
                 }
                 if (UtilValidate.isNotEmpty(childOfCats)) {
-                        
                     for (GenericValue childOfCat : childOfCats ) {
-                        
                         Object catId = null;
                         String catNameField = null;
-                        
+
                         catId = childOfCat.get("productCategoryId");
                         catNameField = "CATEGORY_NAME";
 

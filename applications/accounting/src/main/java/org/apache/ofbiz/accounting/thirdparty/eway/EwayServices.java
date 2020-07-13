@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class EwayServices {
 
     private static final String MODULE = EwayServices.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
 
     // eway charge (auth w/ capture)
     public static Map<String, Object> ewayCharge(DispatchContext dctx, Map<String, Object> context) {
@@ -233,7 +233,7 @@ public class EwayServices {
 
         String customerId = getPaymentGatewayConfigValue(delegator, pgcId, "customerId", cfgStr, "payment.eway.customerId");
         String refundPwd = getPaymentGatewayConfigValue(delegator, pgcId, "refundPwd", cfgStr, "payment.eway.refundPwd");
-        Boolean testMode = "Y".equalsIgnoreCase(getPaymentGatewayConfigValue(delegator, pgcId, "testMode", cfgStr, "payment.eway.testMode"));
+        boolean testMode = "Y".equalsIgnoreCase(getPaymentGatewayConfigValue(delegator, pgcId, "testMode", cfgStr, "payment.eway.testMode"));
         Boolean beagle = "Y".equalsIgnoreCase(getPaymentGatewayConfigValue(delegator, pgcId, "enableBeagle", cfgStr, "payment.eway.enableBeagle"));
         Boolean cvn = "Y".equalsIgnoreCase(getPaymentGatewayConfigValue(delegator, pgcId, "enableCvn", cfgStr, "payment.eway.enableCvn"));
 
@@ -251,7 +251,7 @@ public class EwayServices {
         return req;
     }
     private static String getPaymentGatewayConfigValue(Delegator delegator, String cfgId, String cfgParamName,
-            String RESOURCE, String resParamName) {
+            String resource, String resParamName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(cfgId)) {
             try {
@@ -267,7 +267,7 @@ public class EwayServices {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, resParamName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(resource, resParamName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }

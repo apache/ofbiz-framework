@@ -67,7 +67,7 @@ public class HumanResEvents {
         }
         try {
             GenericValue partyGroup = EntityQuery.use(delegator).from("PartyGroup").where("partyId", partyId).queryOne();
-            if (partyGroup != null) {    
+            if (partyGroup != null) {
                 paramMap.put("partyGroup", partyGroup);
                 /* get the child departments of company or party */
                 categoryList.addAll(getChildComps(paramMap));
@@ -182,7 +182,7 @@ public class HumanResEvents {
                     josonMap.put("attr", attrMap);
                     josonMap.put("data", dataMap);
                     resultList.add(josonMap);
-                }  
+                }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);

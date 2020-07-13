@@ -511,7 +511,7 @@ public class DataServices {
         Delegator delegator = dctx.getDelegator();
         //Locale locale = (Locale) context.get("locale");
         String dataResourceId = (String) context.get("dataResourceId");
-        ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
+        ByteBuffer byteBuffer = (ByteBuffer) context.get("imageData");
         if (byteBuffer != null) {
             byte[] imageBytes = byteBuffer.array();
             try {
@@ -544,7 +544,7 @@ public class DataServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         String dataResourceId = (String) context.get("dataResourceId");
-        ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
+        ByteBuffer byteBuffer = (ByteBuffer) context.get("imageData");
         if (byteBuffer != null) {
             byte[] imageBytes = byteBuffer.array();
             try {

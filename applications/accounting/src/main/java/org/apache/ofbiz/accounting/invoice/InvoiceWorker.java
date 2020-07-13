@@ -543,7 +543,7 @@ public final class InvoiceWorker {
 
         GenericValue invoiceItem = null;
         try {
-            invoiceItem = EntityQuery.use(delegator).from("Invoice").where("invoiceId", invoiceId,"invoiceItemSeqId", invoiceItemSeqId).queryOne();
+            invoiceItem = EntityQuery.use(delegator).from("Invoice").where("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting InvoiceItem", MODULE);
         }
@@ -688,7 +688,7 @@ public final class InvoiceWorker {
                 invoiceItems = null;
             }
             if (UtilValidate.isNotEmpty(invoiceItems)) {
-                invoiceItems = EntityUtil.orderBy(invoiceItems, UtilMisc.toList("taxAuthGeoId","taxAuthPartyId"));
+                invoiceItems = EntityUtil.orderBy(invoiceItems, UtilMisc.toList("taxAuthGeoId", "taxAuthPartyId"));
                 // get the list of all distinct taxAuthGeoId and taxAuthPartyId. It is for getting the number of taxAuthGeoId and taxAuthPartyId in invoiceItems.
                 List<String> distinctTaxAuthGeoIdList = EntityUtil.getFieldListFromEntityList(invoiceItems, "taxAuthGeoId", true);
                 List<String> distinctTaxAuthPartyIdList = EntityUtil.getFieldListFromEntityList(invoiceItems, "taxAuthPartyId", true);

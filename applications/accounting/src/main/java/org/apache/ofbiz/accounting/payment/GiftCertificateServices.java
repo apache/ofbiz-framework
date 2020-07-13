@@ -114,7 +114,6 @@ public class GiftCertificateServices {
                 if (ServiceUtil.isError(acctResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(acctResult));
                 }
-                
             } else {
                 Map<String, Object> createAccountCtx = new HashMap<>();
                 createAccountCtx.put("ownerPartyId", partyId);
@@ -619,7 +618,6 @@ public class GiftCertificateServices {
             BigDecimal amount, String currency, String resultPrefix, Locale locale) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        
         // get the orderId for tracking
         String orderId = paymentPref.getString("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
@@ -1236,9 +1234,7 @@ public class GiftCertificateServices {
             if (ServiceUtil.isError(returnHeaderResp)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(returnHeaderResp));
             }
-            
             String returnId = (String) returnHeaderResp.get("returnId");
-            
             if (UtilValidate.isEmpty(returnId)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDERError,
                         "OrderErrorCreateReturnHeaderWithoutId", locale));

@@ -72,12 +72,12 @@ public class ProductionRunEvents {
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-            GenericPK key = delegator.makePK("WorkEffortGoodStandard", 
-                    UtilMisc.<String, Object>toMap("workEffortId", (String)componentRow.get("productionRunTaskId"), 
+            GenericPK key = delegator.makePK("WorkEffortGoodStandard",
+                    UtilMisc.<String, Object>toMap("workEffortId", (String)componentRow.get("productionRunTaskId"),
                             "productId", (String)componentRow.get("productId"),
                             "fromDate", fromDate,
                             "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"));
-            componentsLocationMap.put(key, 
+            componentsLocationMap.put(key,
                     UtilMisc.<String, Object>toMap("locationSeqId", (String)componentRow.get("locationSeqId"),
                             "secondaryLocationSeqId", (String)componentRow.get("secondaryLocationSeqId"),
                             "failIfItemsAreNotAvailable", (String)componentRow.get("failIfItemsAreNotAvailable")));

@@ -390,7 +390,7 @@ public class OrderServices {
                     if (workEffort.getString("workEffortId").equals(orderItem.getString("orderItemSeqId")))    {
                         List<GenericValue> selFixedAssetProduct = null;
                         try {
-                            selFixedAssetProduct = EntityQuery.use(delegator).from("FixedAssetProduct").where("productId", orderItem.getString("productId"),"fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate", "thruDate").queryList();
+                            selFixedAssetProduct = EntityQuery.use(delegator).from("FixedAssetProduct").where("productId", orderItem.getString("productId"), "fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate", "thruDate").queryList();
                         } catch (GenericEntityException e) {
                             String excMsg = "Could not find related Fixed Asset for the product: " + orderItem.getString("productId");
                             Debug.logError(excMsg, MODULE);
@@ -546,16 +546,14 @@ public class OrderServices {
         if (userLogin != null && userLogin.get("userLoginId") != null) {
             orderHeader.set("createdBy", userLogin.getString("userLoginId"));
         }
-        
         if (UtilValidate.isNotEmpty(context.get("isRushOrder"))) {
             orderHeader.set("isRushOrder", context.get("isRushOrder"));
         }
-        
         if (UtilValidate.isNotEmpty(context.get("priority"))) {
             orderHeader.set("priority", context.get("priority"));
         }
 
-        String invoicePerShipment = EntityUtilProperties.getPropertyValue("accounting","create.invoice.per.shipment", delegator);
+        String invoicePerShipment = EntityUtilProperties.getPropertyValue("accounting", "create.invoice.per.shipment", delegator);
         if (UtilValidate.isNotEmpty(invoicePerShipment)) {
             orderHeader.set("invoicePerShipment", invoicePerShipment);
         }
@@ -1079,7 +1077,7 @@ public class OrderServices {
                             ripCtx.put("productId", productId);
                             ripCtx.put("facilityId", inventoryFacilityId);
                             ripCtx.put("inventoryItemTypeId", "SERIALIZED_INV_ITEM");
-                            ripCtx.put("statusId","INV_AVAILABLE");
+                            ripCtx.put("statusId", "INV_AVAILABLE");
                             ripCtx.put("quantityAccepted", orderItem.getBigDecimal("quantity"));
                             ripCtx.put("quantityRejected", 0.0);
                             // do something tricky here: run as the "system" user
@@ -1534,7 +1532,7 @@ public class OrderServices {
                     if (resetResult != null && ServiceUtil.isError(resetResult)) {
                         Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
                                 "OrderErrorCannotResetOrderTotals",
-                                UtilMisc.toMap("orderId", orderId,"resetResult", ServiceUtil.getErrorMessage(resetResult)), locale), MODULE);
+                                UtilMisc.toMap("orderId", orderId, "resetResult", ServiceUtil.getErrorMessage(resetResult)), locale), MODULE);
                     } else {
                         Debug.logInfo("No orders found for reset processing", MODULE);
                     }
@@ -2198,7 +2196,7 @@ public class OrderServices {
                                 dispatcher.runSyncIgnore("cancelOrderItemInvResQty", cancelOrderItemInvResCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, MODULE);
-                                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderUnableToUpdateInventoryReservations", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToUpdateInventoryReservations", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                             }
                         }
                         // all items are cancelled -- mark the item as cancelled
@@ -2299,7 +2297,7 @@ public class OrderServices {
 
                     if (statusChange == null) {
                         Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
-                                "OrderItemStatusNotChangedIsNotAValidChange", UtilMisc.toMap("orderStatusId", orderItem.getString("statusId"),"statusId", statusId), locale), MODULE);
+                                "OrderItemStatusNotChangedIsNotAValidChange", UtilMisc.toMap("orderStatusId", orderItem.getString("statusId"), "statusId", statusId), locale), MODULE);
                         continue;
                     }
                 } catch (GenericEntityException e) {
@@ -2378,7 +2376,7 @@ public class OrderServices {
 
             if (orderHeader.getString("statusId").equals(statusId)) {
                 Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
-                        "OrderTriedToSetOrderStatusWithTheSameStatusIdforOrderWithId", UtilMisc.toMap("statusId", statusId,"orderId", orderId), locale), MODULE);
+                        "OrderTriedToSetOrderStatusWithTheSameStatusIdforOrderWithId", UtilMisc.toMap("statusId", statusId, "orderId", orderId), locale), MODULE);
                 return successResult;
             }
             try {
@@ -3369,7 +3367,7 @@ public class OrderServices {
                         try {
                             content = productContentItem.getRelatedOne("Content", false);
                         } catch (GenericEntityException e) {
-                            Debug.logError(e,"ERROR: Cannot get Content entity: " + e.getMessage(), MODULE);
+                            Debug.logError(e, "ERROR: Cannot get Content entity: " + e.getMessage(), MODULE);
                             continue;
                         }
 
@@ -3382,7 +3380,7 @@ public class OrderServices {
                                 try {
                                     custMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", content.get("customMethodId")).cache().queryOne();
                                 } catch (GenericEntityException e) {
-                                    Debug.logError(e,"ERROR: Cannot get CustomMethod associate to Content entity: " + e.getMessage(), MODULE);
+                                    Debug.logError(e, "ERROR: Cannot get CustomMethod associate to Content entity: " + e.getMessage(), MODULE);
                                     continue;
                                 }
                             }
@@ -6191,7 +6189,7 @@ public class OrderServices {
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String shippingInstructions = (String) context.get("shippingInstructions");
         try {
-            GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId,"shipGroupSeqId", shipGroupSeqId).queryFirst();
+            GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryFirst();
             orderItemShipGroup.set("shippingInstructions", shippingInstructions);
             orderItemShipGroup.store();
         } catch (GenericEntityException e) {
@@ -6206,7 +6204,7 @@ public class OrderServices {
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String giftMessage = (String) context.get("giftMessage");
         try {
-            GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId,"shipGroupSeqId", shipGroupSeqId).queryFirst();
+            GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryFirst();
             orderItemShipGroup.set("giftMessage", giftMessage);
             orderItemShipGroup.set("isGift", "Y");
             orderItemShipGroup.store();
@@ -6386,7 +6384,7 @@ public class OrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String contactMechId = (String) context.get("contactMechId");
@@ -6480,11 +6478,11 @@ public class OrderServices {
         }
         return ServiceUtil.returnSuccess();
     }
-    
+
     public static Map<String, Object> associateOrderWithAllocationPlans(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         Map<String, String> productPlanMap = new HashMap<>();
         Map<String, Object> serviceResult = new HashMap<>();
@@ -6603,7 +6601,7 @@ public class OrderServices {
     public static Map<String, Object> approveAllocationPlanItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         String planId = (String) context.get("planId");
         Map<String, Object> serviceCtx = new HashMap<>();
         Map<String, Object> serviceResult = new HashMap<>();
@@ -6667,7 +6665,7 @@ public class OrderServices {
     public static Map<String, Object> cancelAllocationPlanItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         String planId = (String) context.get("planId");
         Map<String, Object> serviceCtx = new HashMap<>();
         Map<String, Object> serviceResult = new HashMap<>();
@@ -6704,7 +6702,7 @@ public class OrderServices {
     public static Map<String, Object> changeAllocationPlanStatus(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String planId = (String) context.get("planId");
         String statusId = (String) context.get("statusId");
@@ -6755,7 +6753,7 @@ public class OrderServices {
     public static Map<String, Object> changeAllocationPlanItemStatus(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String planId = (String) context.get("planId");
         String planItemSeqId = (String) context.get("planItemSeqId");
@@ -6805,7 +6803,7 @@ public class OrderServices {
     public static Map<String, Object> completeAllocationPlanItemByOrderItem(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         try {
@@ -6871,7 +6869,7 @@ public class OrderServices {
     public static Map<String, Object> cancelAllocationPlanItemByOrderItem(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         try {
@@ -6936,7 +6934,7 @@ public class OrderServices {
     public static Map<String, Object> updateAllocatedQuantityOnOrderItemChange(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         try {
             OrderReadHelper orderReadHelper = new OrderReadHelper(delegator, orderId);
@@ -6983,7 +6981,7 @@ public class OrderServices {
     public static Map<String, Object> createAllocationPlanAndItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        GenericValue userLogin  = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         Integer itemListSize = (Integer) context.get("itemListSize");

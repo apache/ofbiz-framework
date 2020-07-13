@@ -69,7 +69,7 @@ public class IssuanceTest extends OFBizTestCase {
         assertEquals(shipmentId, orderShipment.getString("shipmentId"));
         assertEquals(shipmentItemSeqId, orderShipment.getString("shipmentItemSeqId"));
         BigDecimal actual = orderShipment.getBigDecimal("quantity");
-        assertTrue("Incorrect quantity in OrderShipment. Expected 6.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(6L))==0);
+        assertTrue("Incorrect quantity in OrderShipment. Expected 6.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(6L)) == 0);
 
         // Test the ItemIssuances are correct
         List<GenericValue> itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("inventoryItemId"), false);
@@ -83,7 +83,7 @@ public class IssuanceTest extends OFBizTestCase {
         assertEquals(shipmentItemSeqId, itemIssuance.getString("shipmentItemSeqId"));
         assertEquals("9001", itemIssuance.getString("inventoryItemId"));
         actual = itemIssuance.getBigDecimal("quantity");
-        assertTrue("Incorrect quantity in ItemIssuance. Expected 5.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(5L))==0);
+        assertTrue("Incorrect quantity in ItemIssuance. Expected 5.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(5L)) == 0);
 
         itemIssuance = itemIssuances.get(1);
         assertEquals(orderItemSeqId, itemIssuance.getString("orderItemSeqId"));
@@ -92,7 +92,7 @@ public class IssuanceTest extends OFBizTestCase {
         assertEquals(shipmentItemSeqId, itemIssuance.getString("shipmentItemSeqId"));
         assertEquals("9025", itemIssuance.getString("inventoryItemId"));
         actual = itemIssuance.getBigDecimal("quantity");
-        assertTrue("Incorrect quantity in ItemIssuance. Expected 1.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(1L))==0);
+        assertTrue("Incorrect quantity in ItemIssuance. Expected 1.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(1L)) == 0);
 
         // Test reservations have been removed
         List<GenericValue> reservations = orderHeader.getRelated("OrderItemShipGrpInvRes", null, null, false);

@@ -107,12 +107,12 @@ public class UpsServices {
 
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) shipmentGatewayConfig.get("configProps");
-        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(RESOURCE)) {
+        String resource = (String) shipmentGatewayConfig.get("configProps");
+        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsGatewayNotAvailable", locale));
         }
-        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", RESOURCE, "shipment.ups.save.certification.info", "true"));
-        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", RESOURCE, "shipment.ups.save.certification.path", ""), context);
+        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", resource, "shipment.ups.save.certification.info", "true"));
+        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", resource, "shipment.ups.save.certification.path", ""), context);
         File shipmentUpsSaveCertificationFile = null;
         if (shipmentUpsSaveCertificationInfo) {
             shipmentUpsSaveCertificationFile = new File(shipmentUpsSaveCertificationPath);
@@ -138,7 +138,7 @@ public class UpsServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsNotRouteSegmentCarrier",
                         UtilMisc.toMap("shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentId", shipmentId), locale));
             }
-            
+
             // add ShipmentRouteSegment carrierServiceStatusId, check before all UPS services
             if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("carrierServiceStatusId")) && !"SHRSCS_NOT_STARTED".equals(shipmentRouteSegment.getString("carrierServiceStatusId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsRouteSegmentStatusNotStarted",
@@ -220,7 +220,7 @@ public class UpsServices {
             }
             String ordersDescription = "";
             if (orderIdSet.size() > 1) {
-                
+
                 StringBuilder odBuf = new StringBuilder(UtilProperties.getMessage(RES_ORDER, "OrderOrders", locale) + " ");
                 for (String orderId: orderIdSet) {
                     if (odBuf.length() > 0) {
@@ -234,7 +234,7 @@ public class UpsServices {
             }
 
             // COD Support
-            boolean allowCOD = "true".equalsIgnoreCase(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codAllowCod", RESOURCE, "shipment.ups.cod.allowCOD", "true"));
+            boolean allowCOD = "true".equalsIgnoreCase(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codAllowCod", resource, "shipment.ups.cod.allowCOD", "true"));
 
             // COD only applies if all orders involved with the shipment were paid only with EXT_COD - anything else becomes too complicated
             if (allowCOD) {
@@ -261,19 +261,19 @@ public class UpsServices {
             BigDecimal codSurchargePackageAmount = null;
 
             if (allowCOD) {
-                codSurchargeAmount = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeAmount", RESOURCE, "shipment.ups.cod.surcharge.amount", "");
+                codSurchargeAmount = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeAmount", resource, "shipment.ups.cod.surcharge.amount", "");
                 if (UtilValidate.isEmpty(codSurchargeAmount)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsSurchargeAmountIsNotConfigurated", locale));
                 }
-                codSurchargeCurrencyUomId = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeCurrencyUomId", RESOURCE, "shipment.ups.cod.surcharge.currencyUomId", "");
+                codSurchargeCurrencyUomId = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeCurrencyUomId", resource, "shipment.ups.cod.surcharge.currencyUomId", "");
                 if (UtilValidate.isEmpty(codSurchargeCurrencyUomId)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsSurchargeCurrencyIsNotConfigurated", locale));
                 }
-                String codSurchargeApplyToPackages = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeApplyToPackage", RESOURCE, "shipment.ups.cod.surcharge.applyToPackages", "");
+                String codSurchargeApplyToPackages = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeApplyToPackage", resource, "shipment.ups.cod.surcharge.applyToPackages", "");
                 if (UtilValidate.isEmpty(codSurchargeApplyToPackages)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsApplyToPackagesIsNotConfigured", locale));
                 }
-                codFundsCode = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codFundsCode", RESOURCE, "shipment.ups.cod.codFundsCode", "");
+                codFundsCode = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codFundsCode", resource, "shipment.ups.cod.codFundsCode", "");
                 if (UtilValidate.isEmpty(codFundsCode)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsCodFundsCodeIsNotConfigured", locale));
                 }
@@ -340,7 +340,7 @@ public class UpsServices {
             UtilXml.addChildElementValue(shipmentElement, "Description", "Goods for Shipment " + shipment.get("shipmentId") + " from " + ordersDescription, shipmentConfirmRequestDoc);
 
             // Child of Shipment: Shipper
-            String shipperNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperNumber", RESOURCE, "shipment.ups.shipper.number", "");
+            String shipperNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperNumber", resource, "shipment.ups.shipper.number", "");
             Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ? originPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ? originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
@@ -422,7 +422,7 @@ public class UpsServices {
                 Element billShipperElement = UtilXml.addChildElement(prepaidElement, "BillShipper", shipmentConfirmRequestDoc);
 
                 // fill in BillShipper AccountNumber element
-                String billShipperAccountNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "billShipperAccountNumber", RESOURCE, "shipment.ups.bill.shipper.account.number", "");
+                String billShipperAccountNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "billShipperAccountNumber", resource, "shipment.ups.bill.shipper.account.number", "");
                 UtilXml.addChildElementValue(billShipperElement, "AccountNumber", billShipperAccountNumber, shipmentConfirmRequestDoc);
             } else {
 
@@ -477,7 +477,7 @@ public class UpsServices {
                 SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
                 String invoiceDate = formatter.format(shipment.getTimestamp("createdDate"));
                 UtilXml.addChildElementValue(internationalFormsElement, "InvoiceDate", invoiceDate, shipmentConfirmRequestDoc);
-                UtilXml.addChildElementValue(internationalFormsElement, "ReasonForExport","SALE", shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(internationalFormsElement, "ReasonForExport", "SALE", shipmentConfirmRequestDoc);
                 UtilXml.addChildElementValue(internationalFormsElement, "CurrencyCode", currencyCode, shipmentConfirmRequestDoc);
             }
 
@@ -600,7 +600,7 @@ public class UpsServices {
                     UtilXml.addChildElementValue(codAmountElement, "MonetaryValue", packageValue.setScale(DECIMALS, ROUNDING).toString(), shipmentConfirmRequestDoc);
                 }
             }
-            
+
             String shipmentConfirmRequestString = null;
             try {
                 shipmentConfirmRequestString = UtilXml.writeXmlDocument(shipmentConfirmRequestDoc);
@@ -612,7 +612,7 @@ public class UpsServices {
             }
 
             // create AccessRequest XML doc
-            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, RESOURCE);
+            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, resource);
             String accessRequestString = null;
             try {
                 accessRequestString = UtilXml.writeXmlDocument(accessRequestDocument);
@@ -641,7 +641,7 @@ public class UpsServices {
             }
 
             try {
-                shipmentConfirmResponseString = sendUpsRequest("ShipConfirm", xmlString.toString(), shipmentGatewayConfigId, RESOURCE, delegator, locale);
+                shipmentConfirmResponseString = sendUpsRequest("ShipConfirm", xmlString.toString(), shipmentGatewayConfigId, resource, delegator, locale);
             } catch (UpsConnectException e) {
                 String uceErrMsg = "Error sending UPS request for UPS Service ShipConfirm: " + e.toString();
                 Debug.logError(e, uceErrMsg, MODULE);
@@ -779,7 +779,7 @@ public class UpsServices {
             // -=-=-=- Okay, now done with that, just return any extra info...
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUpsShipmentConfirmSucceeded", locale));
-        
+
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentConfirmError", locale));
@@ -806,12 +806,12 @@ public class UpsServices {
 
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) shipmentGatewayConfig.get("configProps");
-        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(RESOURCE)) {
+        String resource = (String) shipmentGatewayConfig.get("configProps");
+        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsGatewayNotAvailable", locale));
         }
-        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", RESOURCE, "shipment.ups.save.certification.info", "true"));
-        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", RESOURCE, "shipment.ups.save.certification.path", ""), context);
+        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", resource, "shipment.ups.save.certification.info", "true"));
+        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", resource, "shipment.ups.save.certification.path", ""), context);
         File shipmentUpsSaveCertificationFile = null;
         if (shipmentUpsSaveCertificationInfo) {
             shipmentUpsSaveCertificationFile = new File(shipmentUpsSaveCertificationPath);
@@ -875,7 +875,7 @@ public class UpsServices {
             }
 
             // create AccessRequest XML doc
-            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, RESOURCE);
+            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, resource);
             String accessRequestString = null;
             try {
                 accessRequestString = UtilXml.writeXmlDocument(accessRequestDocument);
@@ -904,7 +904,7 @@ public class UpsServices {
             }
 
             try {
-                shipmentAcceptResponseString = sendUpsRequest("ShipAccept", xmlString.toString(), shipmentGatewayConfigId, RESOURCE, delegator, locale);
+                shipmentAcceptResponseString = sendUpsRequest("ShipAccept", xmlString.toString(), shipmentGatewayConfigId, resource, delegator, locale);
             } catch (UpsConnectException e) {
                 String uceErrMsg = "Error sending UPS request for UPS Service ShipAccept: " + e.toString();
                 Debug.logError(e, uceErrMsg, MODULE);
@@ -933,7 +933,7 @@ public class UpsServices {
             }
 
             return handleUpsShipmentAcceptResponse(shipmentAcceptResponseDocument, shipmentRouteSegment, shipmentPackageRouteSegs, delegator, 
-                    shipmentGatewayConfigId, RESOURCE, context, locale);
+                    shipmentGatewayConfigId, resource, context, locale);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorDataShipmentAccept",
@@ -942,9 +942,9 @@ public class UpsServices {
     }
 
     public static Map<String, Object> handleUpsShipmentAcceptResponse(Document shipmentAcceptResponseDocument, GenericValue shipmentRouteSegment, List<GenericValue> shipmentPackageRouteSegs, 
-            Delegator delegator, String shipmentGatewayConfigId, String RESOURCE, Map<String, ? extends Object> context, Locale locale) throws GenericEntityException {
-        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", RESOURCE, "shipment.ups.save.certification.info", "true"));
-        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", RESOURCE, "shipment.ups.save.certification.path", ""), context);
+            Delegator delegator, String shipmentGatewayConfigId, String resource, Map<String, ? extends Object> context, Locale locale) throws GenericEntityException {
+        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", resource, "shipment.ups.save.certification.info", "true"));
+        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", resource, "shipment.ups.save.certification.path", ""), context);
         File shipmentUpsSaveCertificationFile = null;
         if (shipmentUpsSaveCertificationInfo) {
             shipmentUpsSaveCertificationFile = new File(shipmentUpsSaveCertificationPath);
@@ -1185,12 +1185,12 @@ public class UpsServices {
 
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) shipmentGatewayConfig.get("configProps");
-        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(RESOURCE)) {
+        String resource = (String) shipmentGatewayConfig.get("configProps");
+        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsGatewayNotAvailable", locale));
         }
-        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", RESOURCE, "shipment.ups.save.certification.info", "true"));
-        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", RESOURCE, "shipment.ups.save.certification.path", ""), context);
+        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", resource, "shipment.ups.save.certification.info", "true"));
+        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", resource, "shipment.ups.save.certification.path", ""), context);
         File shipmentUpsSaveCertificationFile = null;
         if (shipmentUpsSaveCertificationInfo) {
             shipmentUpsSaveCertificationFile = new File(shipmentUpsSaveCertificationPath);
@@ -1247,7 +1247,7 @@ public class UpsServices {
             }
 
             // create AccessRequest XML doc
-            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, RESOURCE);
+            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, resource);
             String accessRequestString = null;
             try {
                 accessRequestString = UtilXml.writeXmlDocument(accessRequestDocument);
@@ -1276,7 +1276,7 @@ public class UpsServices {
             }
 
             try {
-                voidShipmentResponseString = sendUpsRequest("Void", xmlString.toString(), shipmentGatewayConfigId, RESOURCE, delegator, locale);
+                voidShipmentResponseString = sendUpsRequest("Void", xmlString.toString(), shipmentGatewayConfigId, resource, delegator, locale);
             } catch (UpsConnectException e) {
                 String uceErrMsg = "Error sending UPS request for UPS Service Void: " + e.toString();
                 Debug.logError(e, uceErrMsg, MODULE);
@@ -1370,12 +1370,12 @@ public class UpsServices {
 
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) shipmentGatewayConfig.get("configProps");
-        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(RESOURCE)) {
+        String resource = (String) shipmentGatewayConfig.get("configProps");
+        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsGatewayNotAvailable", locale));
         }
-        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", RESOURCE, "shipment.ups.save.certification.info", "true"));
-        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", RESOURCE, "shipment.ups.save.certification.path", ""), context);
+        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", resource, "shipment.ups.save.certification.info", "true"));
+        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", resource, "shipment.ups.save.certification.path", ""), context);
         File shipmentUpsSaveCertificationFile = null;
         if (shipmentUpsSaveCertificationInfo) {
             shipmentUpsSaveCertificationFile = new File(shipmentUpsSaveCertificationPath);
@@ -1433,7 +1433,7 @@ public class UpsServices {
             }
 
             // create AccessRequest XML doc
-            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, RESOURCE);
+            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, resource);
             String accessRequestString = null;
             try {
                 accessRequestString = UtilXml.writeXmlDocument(accessRequestDocument);
@@ -1462,7 +1462,7 @@ public class UpsServices {
             }
 
             try {
-                trackResponseString = sendUpsRequest("Track", xmlString.toString(), shipmentGatewayConfigId, RESOURCE, delegator, locale);
+                trackResponseString = sendUpsRequest("Track", xmlString.toString(), shipmentGatewayConfigId, resource, delegator, locale);
             } catch (UpsConnectException e) {
                 String uceErrMsg = "Error sending UPS request for UPS Service Track: " + e.toString();
                 Debug.logError(e, uceErrMsg, MODULE);
@@ -1546,11 +1546,8 @@ public class UpsServices {
         </Package>
  *
  */
-
-
             // -=-=-=- Okay, now done with that, just return any extra info...
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentTrackSucceeded", locale));
-  
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentTrackError", locale));
@@ -1669,7 +1666,7 @@ public class UpsServices {
         Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", requestDoc);
         UtilXml.addChildElementValue(packageWeightElement, "Weight", packageWeight.toPlainString(), requestDoc);
         //If product is in shippable Package then it we should have one product per packagemap
-        if (packageMap.size() ==1) {
+        if (packageMap.size() == 1) {
             Iterator<String> i = packageMap.keySet().iterator();
             String productId = i.next();
             Map<String, Object> productInfo = ShipmentWorker.getProductItemInfo(shippableItemInfo, productId);
@@ -1767,7 +1764,7 @@ public class UpsServices {
             String errorCode = UtilXml.childElementValue(errorElement, "ErrorCode");
             String errorDescription = UtilXml.childElementValue(errorElement, "ErrorDescription");
             String minimumRetrySeconds = UtilXml.childElementValue(errorElement, "MinimumRetrySeconds");
-            
+
             errorMessageBuf.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorMessage",
                     UtilMisc.toMap("errorCode", errorCode, "errorSeverity", errorSeverity, "errorDescription", errorDescription), locale));
             if (UtilValidate.isNotEmpty(minimumRetrySeconds)) {
@@ -1784,7 +1781,7 @@ public class UpsServices {
 
                 errorMessageBuf.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorWasAtElement",
                         UtilMisc.toMap("errorLocationElementName", errorLocationElementName), locale));
-                
+
                 if (UtilValidate.isNotEmpty(errorLocationAttributeName)) {
                     errorMessageBuf.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorWasAtElementAttribute",
                             UtilMisc.toMap("errorLocationAttributeName", errorLocationAttributeName), locale));
@@ -1809,7 +1806,7 @@ public class UpsServices {
      * @throws UpsConnectException
      */
     public static String sendUpsRequest(String upsService, String xmlString, String shipmentGatewayConfigId, 
-            String RESOURCE, Delegator delegator, Locale locale) throws UpsConnectException {
+            String resource, Delegator delegator, Locale locale) throws UpsConnectException {
 
         // need a ups service to call
         if (upsService == null) {
@@ -1822,7 +1819,7 @@ public class UpsServices {
             throw new UpsConnectException(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsXmlMessageCannotBeNull", locale));
         }
 
-        String conStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrl", RESOURCE, "shipment.ups.connect.url");
+        String conStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrl", resource, "shipment.ups.connect.url");
         if (UtilValidate.isEmpty(conStr)) {
             throw new UpsConnectException(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsIncompleteConnectionURL", locale));
         }
@@ -1834,7 +1831,7 @@ public class UpsServices {
         }
         conStr = conStr + upsService;
 
-        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout", RESOURCE, "shipment.ups.connect.timeout", "60");
+        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout", resource, "shipment.ups.connect.timeout", "60");
         int timeout = 60;
         try {
             timeout = Integer.parseInt(timeOutStr);
@@ -1895,7 +1892,7 @@ public class UpsServices {
 
         // grab the pickup type; if none is defined we will assume daily pickup
         String pickupType = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperPickupType", serviceConfigProps, "shipment.ups.shipper.pickup.type", "01");
-        
+
         // if we're drop shipping from a supplier, then the address is given to us
         GenericValue shipFromAddress = (GenericValue) context.get("shipFromAddress");
         if (shipFromAddress == null) {
@@ -2039,7 +2036,7 @@ public class UpsServices {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorAccessRequestXmlToString",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
-        
+
         // prepare the access/inquire request string
         StringBuilder xmlString = new StringBuilder();
         xmlString.append(accessRequestString);
@@ -2076,8 +2073,8 @@ public class UpsServices {
         String postalCode = (String) context.get("postalCode");
 
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) context.get("serviceConfigProps");
-        
+        String resource = (String) context.get("serviceConfigProps");
+
         if (UtilValidate.isEmpty(city) && UtilValidate.isEmpty(postalCode)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUpsAddressValidationRequireCityOrPostalCode", locale));
@@ -2119,7 +2116,7 @@ public class UpsServices {
         }
 
         // create AccessRequest XML doc
-        Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, RESOURCE);
+        Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, resource);
 
         String accessRequestString = null;
         try {
@@ -2141,7 +2138,7 @@ public class UpsServices {
         // send the request
         String avResponseString = null;
         try {
-            avResponseString = sendUpsRequest("AV", xmlString.toString(), shipmentGatewayConfigId, RESOURCE, delegator, locale);
+            avResponseString = sendUpsRequest("AV", xmlString.toString(), shipmentGatewayConfigId, resource, delegator, locale);
         } catch (UpsConnectException e) {
             String uceErrMsg = "Error sending UPS request: " + e.toString();
             Debug.logError(e, uceErrMsg, MODULE);
@@ -2218,12 +2215,12 @@ public class UpsServices {
 
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) shipmentGatewayConfig.get("configProps");
-        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(RESOURCE)) {
+        String resource = (String) shipmentGatewayConfig.get("configProps");
+        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsGatewayNotAvailable", locale));
         }
-        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", RESOURCE, "shipment.ups.save.certification.info", "true"));
-        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", RESOURCE, "shipment.ups.save.certification.path", ""), context);
+        boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo", resource, "shipment.ups.save.certification.info", "true"));
+        String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertPath", resource, "shipment.ups.save.certification.path", ""), context);
         File shipmentUpsSaveCertificationFile = null;
         if (shipmentUpsSaveCertificationInfo) {
             shipmentUpsSaveCertificationFile = new File(shipmentUpsSaveCertificationPath);
@@ -2356,7 +2353,7 @@ public class UpsServices {
             UtilXml.addChildElementValue(returnServiceElement, "Code", String.valueOf(RET_SERVICE_CODE), shipmentConfirmRequestDoc);
 
             // Child of Shipment: Shipper
-            String shipperNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperNumber", RESOURCE, "shipment.ups.shipper.number", "");
+            String shipperNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperNumber", resource, "shipment.ups.shipper.number", "");
             Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ? originPostalAddress.getString("toName"): "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ? originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
@@ -2419,7 +2416,7 @@ public class UpsServices {
                 Element billShipperElement = UtilXml.addChildElement(prepaidElement, "BillShipper", shipmentConfirmRequestDoc);
 
                 // fill in BillShipper AccountNumber element from properties file
-                String billShipperAccountNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "billShipperAccountNumber", RESOURCE, "shipment.ups.bill.shipper.account.number", "");
+                String billShipperAccountNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "billShipperAccountNumber", resource, "shipment.ups.bill.shipper.account.number", "");
                 UtilXml.addChildElementValue(billShipperElement, "AccountNumber", billShipperAccountNumber, shipmentConfirmRequestDoc);
             }
 
@@ -2428,8 +2425,8 @@ public class UpsServices {
             UtilXml.addChildElementValue(serviceElement, "Code", carrierShipmentMethod.getString("carrierServiceCode"), shipmentConfirmRequestDoc);
 
             // Child of Shipment: ShipmentServiceOptions
-            String defaultReturnLabelMemo = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "defaultReturnLabelMemo", RESOURCE, "shipment.ups.default.returnLabel.memo", "");
-            String defaultReturnLabelSubject = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "defaultReturnLabelSubject", RESOURCE, "shipment.ups.default.returnLabel.subject", "");
+            String defaultReturnLabelMemo = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "defaultReturnLabelMemo", resource, "shipment.ups.default.returnLabel.memo", "");
+            String defaultReturnLabelSubject = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "defaultReturnLabelSubject", resource, "shipment.ups.default.returnLabel.subject", "");
             Element shipmentServiceOptionsElement = UtilXml.addChildElement(shipmentElement, "ShipmentServiceOptions", shipmentConfirmRequestDoc);
             Element labelDeliveryElement = UtilXml.addChildElement(shipmentServiceOptionsElement, "LabelDelivery", shipmentConfirmRequestDoc);
             Element emailMessageElement = UtilXml.addChildElement(labelDeliveryElement, "EMailMessage", shipmentConfirmRequestDoc);
@@ -2438,7 +2435,7 @@ public class UpsServices {
             UtilXml.addChildElementValue(emailMessageElement, "FromName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ? originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(emailMessageElement, "Memo", defaultReturnLabelMemo, shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(emailMessageElement, "Subject", defaultReturnLabelSubject, shipmentConfirmRequestDoc);
-            
+
             // Child of Shipment: Package
             Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", shipmentConfirmRequestDoc);
             Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", shipmentConfirmRequestDoc);
@@ -2460,7 +2457,7 @@ public class UpsServices {
             }
 
             // create AccessRequest XML doc
-            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, RESOURCE);
+            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, resource);
             String accessRequestString = null;
             try {
                 accessRequestString = UtilXml.writeXmlDocument(accessRequestDocument);
@@ -2478,7 +2475,7 @@ public class UpsServices {
             xmlString.append(accessRequestString);
             xmlString.append(shipmentConfirmRequestString);
             try {
-                shipmentConfirmResponseString = sendUpsRequest("ShipConfirm", xmlString.toString(), shipmentGatewayConfigId, RESOURCE, delegator, locale);
+                shipmentConfirmResponseString = sendUpsRequest("ShipConfirm", xmlString.toString(), shipmentGatewayConfigId, resource, delegator, locale);
             } catch (UpsConnectException e) {
                 String uceErrMsg = "Error sending UPS request for UPS Service ShipConfirm: " + e.toString();
                 Debug.logError(e, uceErrMsg, MODULE);
@@ -2550,7 +2547,7 @@ public class UpsServices {
             }
 
             // create AccessRequest XML doc
-            Document acceptAccessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, RESOURCE);
+            Document acceptAccessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, resource);
             String acceptAccessRequestString = null;
             try {
                 acceptAccessRequestString = UtilXml.writeXmlDocument(acceptAccessRequestDocument);
@@ -2577,7 +2574,7 @@ public class UpsServices {
                 }
             }
             try {
-                sendUpsRequest("ShipAccept", acceptXmlString.toString(), shipmentGatewayConfigId, RESOURCE, delegator, locale);
+                sendUpsRequest("ShipAccept", acceptXmlString.toString(), shipmentGatewayConfigId, resource, delegator, locale);
             } catch (UpsConnectException e) {
                 String uceErrMsg = "Error sending UPS request for UPS Service ShipAccept: " + e.toString();
                 Debug.logError(e, uceErrMsg, MODULE);
@@ -2610,8 +2607,8 @@ public class UpsServices {
         GenericValue shipmentRouteSegment = null;
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) shipmentGatewayConfig.get("configProps");
-        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(RESOURCE)) {
+        String resource = (String) shipmentGatewayConfig.get("configProps");
+        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsGatewayNotAvailable", locale));
         }
 
@@ -2689,11 +2686,11 @@ public class UpsServices {
             }
 
             // grab the pickup type; if none is defined we will assume daily pickup
-            String pickupType = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperPickupType", RESOURCE, "shipment.ups.shipper.pickup.type", "01");
-            
+            String pickupType = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperPickupType", resource, "shipment.ups.shipper.pickup.type", "01");
+
             // grab the customer classification; if none is defined we will assume daily pickup
-            String customerClassification = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "customerClassification", RESOURCE, "shipment.ups.customerclassification", "01");
-            
+            String customerClassification = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "customerClassification", resource, "shipment.ups.customerclassification", "01");
+
             // should be shop to get estimates for all the possible shipping method of UPS
             upsRateInquireMode = "Shop";
 
@@ -2859,7 +2856,7 @@ public class UpsServices {
             }
 
             // create AccessRequest XML doc
-            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, RESOURCE);
+            Document accessRequestDocument = createAccessRequestDocument(delegator, shipmentGatewayConfigId, resource);
             String accessRequestString = null;
             try {
                 accessRequestString = UtilXml.writeXmlDocument(accessRequestDocument);
@@ -2878,7 +2875,7 @@ public class UpsServices {
             if (Debug.verboseOn()) Debug.logVerbose(xmlString.toString(), MODULE);
             // send the request
             try {
-                rateResponseString = sendUpsRequest("Rate", xmlString.toString(), shipmentGatewayConfigId, RESOURCE, delegator, locale);
+                rateResponseString = sendUpsRequest("Rate", xmlString.toString(), shipmentGatewayConfigId, resource, delegator, locale);
             } catch (UpsConnectException e) {
                 String uceErrMsg = "Error sending UPS request for UPS Service Rate: " + e.toString();
                 Debug.logError(e, uceErrMsg, MODULE);
@@ -2977,7 +2974,7 @@ public class UpsServices {
     }
 
     private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String shipmentGatewayConfigParameterName, 
-            String RESOURCE, String parameterName) {
+            String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(shipmentGatewayConfigId)) {
             try {
@@ -2992,17 +2989,17 @@ public class UpsServices {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
         }
         return returnValue;
     }
-        
+
     private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String shipmentGatewayConfigParameterName, 
-            String RESOURCE, String parameterName, String defaultValue) {
-        String returnValue = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, shipmentGatewayConfigParameterName, RESOURCE, parameterName);
+            String resource, String parameterName, String defaultValue) {
+        String returnValue = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, shipmentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

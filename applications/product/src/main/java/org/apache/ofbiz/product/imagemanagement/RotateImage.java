@@ -51,7 +51,7 @@ public class RotateImage {
 
     public static Map<String, Object> imageRotate(DispatchContext dctx, Map<String, ? extends Object> context)
             throws IOException {
-    	 Locale locale = (Locale)context.get("locale");
+    	 Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");

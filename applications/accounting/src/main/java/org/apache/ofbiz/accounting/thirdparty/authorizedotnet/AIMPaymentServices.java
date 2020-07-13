@@ -128,14 +128,14 @@ public class AIMPaymentServices {
         buildGatewayResponeConfig(context, props, request);
         buildCustomerBillingInfo(context, props, request);
         buildEmailSettings(context, props, request);
-        request.put("x_Invoice_Num","Order " + orderPaymentPreference.getString("orderId"));
+        request.put("x_Invoice_Num", "Order " + orderPaymentPreference.getString("orderId"));
         // PRIOR_AUTH_CAPTURE is the right one to use, since we already have an authorization from the authTransaction.
         // CAPTURE_ONLY is a "force" transaction to be used if there is no prior authorization
         props.put("transType", "PRIOR_AUTH_CAPTURE");
         props.put("cardtype", creditCard.get("cardType"));
         buildCaptureTransaction(context, props, request);
         Map<String, Object> validateResults = validateRequest(context, props, request);
-        String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
+        String respMsg = (String) validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
@@ -229,7 +229,7 @@ public class AIMPaymentServices {
                     // TODO: Modify the code to (a) do a void of the whole transaction, and (b)
                     // create a new auth-capture of the difference.
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                            "AccountingAuthorizeNetCannotPerformVoidTransaction", 
+                            "AccountingAuthorizeNetCannotPerformVoidTransaction",
                             UtilMisc.toMap("authAmount", authAmount, "refundAmount", refundAmount), locale));
                 }
             }
@@ -298,7 +298,7 @@ public class AIMPaymentServices {
         props.put("transType", "AUTH_CAPTURE");
         buildAuthTransaction(context, props, request);
         Map<String, Object> validateResults = validateRequest(context, props, request);
-        String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
+        String respMsg = (String) validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
@@ -325,18 +325,18 @@ public class AIMPaymentServices {
             Debug.logInfo("TEST Authorize.net request string " + request.toString(), MODULE);
             Debug.logInfo("TEST Authorize.net properties string " + props.toString(), MODULE);
         }
-        
+
         // card present has a different layout from standard AIM; this determines how to parse the response
         int apiType = UtilValidate.isEmpty(props.get("cpMarketType")) ? AuthorizeResponse.AIM_RESPONSE : AuthorizeResponse.CP_RESPONSE;
-        
+
         try {
             HttpClient httpClient = new HttpClient(url, request);
             String certificateAlias = props.getProperty("certificateAlias");
             httpClient.setClientCertificateAlias(certificateAlias);
             String httpResponse = httpClient.post();
             Debug.logInfo("transaction response: " + httpResponse, MODULE);
-            AuthorizeResponse ar = new AuthorizeResponse(httpResponse, apiType);            
-            if (ar.isApproved()) {            
+            AuthorizeResponse ar = new AuthorizeResponse(httpResponse, apiType);
+            if (ar.isApproved()) {
                 result.put("authResult", Boolean.TRUE);
             }
             //When the transaction is already expired in Authorize.net, then the response is an error message with reason code 16 (i.e. "The transaction cannot be found");
@@ -372,7 +372,7 @@ public class AIMPaymentServices {
         if (configStr == null) {
             configStr = "payment.properties";
         }
-        GenericValue cc = (GenericValue)context.get("creditCard");
+        GenericValue cc = (GenericValue) context.get("creditCard");
         String url = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "transactionUrl", configStr, "payment.authorizedotnet.url");
         String certificateAlias = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "certificateAlias", configStr, "payment.authorizedotnet.certificateAlias");
         String ver = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "apiVersion", configStr, "payment.authorizedotnet.version");
@@ -390,7 +390,7 @@ public class AIMPaymentServices {
         String login = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "userId", configStr, "payment.authorizedotnet.login");
         String password = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "pwd", configStr, "payment.authorizedotnet.password");
         String transDescription = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "transDescription", configStr, "payment.authorizedotnet.transdescription");
-        String duplicateWindow = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "duplicateWindow", configStr, "payment.authorizedotnet.duplicateWindow");        
+        String duplicateWindow = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "duplicateWindow", configStr, "payment.authorizedotnet.duplicateWindow");
         if (UtilValidate.isEmpty(ver)) {
             ver = "3.0";
         }
@@ -409,7 +409,7 @@ public class AIMPaymentServices {
         if (UtilValidate.isNotEmpty(cpMarketType) && UtilValidate.isEmpty(cpVersion)) {
             cpVersion = "1.0";
         }
-        
+
         Properties props = new Properties();
         props.put("url", url);
         props.put("certificateAlias", certificateAlias);
@@ -450,13 +450,11 @@ public class AIMPaymentServices {
             // only send password if no tran key
             AIMRequest.put("x_Password", props.getProperty("password"));
         }
-        
         // api version (non Card Present)
         String apiVersion = props.getProperty("ver");
         if (UtilValidate.isNotEmpty(apiVersion)) {
             AIMRequest.put("x_Version", props.getProperty("ver"));
         }
-        
         // CP version
         String cpVersion = props.getProperty("cpver");
         if (UtilValidate.isNotEmpty(cpVersion)) {

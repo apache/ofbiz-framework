@@ -81,7 +81,7 @@ public class ContentServices {
         List<String> targetOperations = UtilGenerics.cast(context.get("targetOperationList"));
         List<String> contentTypes = UtilGenerics.cast(context.get("contentTypeList"));
         List<GenericValue> contentList = null;
-        
+
         try {
             contentList = ContentWorker.getAssociatedContent(currentContent, toFrom, assocTypes, contentTypes, fromDate, thruDate);
         } catch (GenericEntityException e) {
@@ -452,7 +452,7 @@ public class ContentServices {
         }
 
         Writer outWriter = new StringWriter();
-        GenericValue view = (GenericValue)context.get("subContentDataResourceView");
+        GenericValue view = (GenericValue) context.get("subContentDataResourceView");
         if (view != null && view.containsKey("contentId")) {
             contentId = view.getString("contentId");
         }
@@ -538,8 +538,8 @@ public class ContentServices {
 
     public static Map<String, Object> publishContent(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
-        GenericValue content = (GenericValue)context.get("content");
-        
+        GenericValue content = (GenericValue) context.get("content");
+
         try {
             content.put("statusId", "CTNT_PUBLISHED");
             content.store();

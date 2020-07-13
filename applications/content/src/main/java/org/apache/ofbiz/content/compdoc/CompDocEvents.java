@@ -154,7 +154,7 @@ public class CompDocEvents {
         String contentId = (String)paramMap.get("contentId");
         Locale locale = UtilHttp.getLocale(request);
         String webSiteId = WebSiteWorker.getWebSiteId(request);
-        
+
         String rootDir = servletContext.getRealPath("/");
         String https = (String) servletContext.getAttribute("https");
 

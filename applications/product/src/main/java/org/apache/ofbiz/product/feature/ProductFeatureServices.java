@@ -216,7 +216,7 @@ public class ProductFeatureServices {
                 // product feature and add it to the id code and product feature applications
                 // of the next variant.  just a matter of whether we're starting with an
                 // existing list of features and id code or from scratch.
-                if (combinations.size()==0) {
+                if (combinations.size() == 0) {
                     for (GenericValue currentFeature: currentFeatures) {
                         if ("SELECTABLE_FEATURE".equals(currentFeature.getString("productFeatureApplTypeId"))) {
                             Map<String, Object> newCombination = new HashMap<>();

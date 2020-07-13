@@ -172,12 +172,12 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                     templateRoot.put("context", templateCtx);
 
                     String mimeTypeId = (String) templateCtx.get("mimeTypeId");
-                    
+
                     Locale locale = (Locale) templateCtx.get("locale");
                     if (locale == null) {
                         locale = Locale.getDefault();
                     }
-                    
+
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (IOException | GeneralException e) {

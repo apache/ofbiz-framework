@@ -297,7 +297,7 @@ public class ShipmentServices {
         for (GenericValue thisEstimate: estimates) {
             try {
                 String toGeo = thisEstimate.getString("geoIdTo");
-                if (UtilValidate.isNotEmpty(toGeo) && shipAddress ==null) {
+                if (UtilValidate.isNotEmpty(toGeo) && shipAddress == null) {
                     // This estimate requires shipping address details. We don't have it so we cannot use this estimate.
                     continue;
                 }
@@ -672,7 +672,7 @@ public class ShipmentServices {
         EntityQuery eq = EntityQuery.use(delegator)
                 .from("OdbcPackageIn")
                 .orderBy("shipmentId", "shipmentPackageSeqId", "voidIndicator");
-        
+
         try (EntityListIterator eli = eq.queryIterator()) {
             GenericValue pkgInfo;
             while ((pkgInfo = eli.next()) != null) {
@@ -1042,7 +1042,6 @@ public class ShipmentServices {
         String sendTo = (String) context.get("sendTo");
         String screenUri = (String) context.get("screenUri");
         Locale localePar = (Locale) context.get("locale");
-        
         // prepare the shipment information
         Map<String, Object> sendMap = new HashMap<>();
         GenericValue shipment = null;
@@ -1100,7 +1099,7 @@ public class ShipmentServices {
         sendMap.put("sendFrom", productStoreEmail.get("fromAddress"));
         sendMap.put("sendCc", productStoreEmail.get("ccAddress"));
         sendMap.put("sendBcc", productStoreEmail.get("bccAddress"));
-        
+
         if ((sendTo != null) && UtilValidate.isEmail(sendTo)) {
             sendMap.put("sendTo", sendTo);
         } else {
@@ -1121,7 +1120,6 @@ public class ShipmentServices {
         }
         return sendResp;
     }
-    
     public static Map<String, Object> getShipmentGatewayConfigFromShipment(Delegator delegator, String shipmentId, Locale locale) {
         Map<String, Object> shipmentGatewayConfig = ServiceUtil.returnSuccess();
         try {

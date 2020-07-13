@@ -66,7 +66,7 @@ public final class LayoutWorker {
         long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
         int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
         File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-        
+
         ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
         upload.setSizeMax(maxUploadSize);
 

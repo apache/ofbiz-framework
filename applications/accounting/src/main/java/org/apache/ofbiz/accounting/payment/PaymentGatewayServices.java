@@ -973,7 +973,7 @@ public class PaymentGatewayServices {
         try {
             releaseResult = dispatcher.runSync(serviceName, releaseContext, TX_TIME, true);
         } catch (GenericServiceException e) {
-            Debug.logError(e,"Problem releasing payment", MODULE);
+            Debug.logError(e, "Problem releasing payment", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                     "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale));
         }
@@ -1841,7 +1841,6 @@ public class PaymentGatewayServices {
         String currencyUomId = (String) context.get("currencyUomId");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
-        
         if (authResult == null) {
             Debug.logError("No authentification result available. Payment preference can't be checked.", MODULE);
             return ServiceUtil
@@ -1933,7 +1932,7 @@ public class PaymentGatewayServices {
 
             // set the status of the OrderPaymentPreference
             boolean authResultOk = authResult;
-            
+
             if (authResultOk) {
                 orderPaymentPreference.set("statusId", "PAYMENT_AUTHORIZED");
             } else {
@@ -2582,7 +2581,7 @@ public class PaymentGatewayServices {
             return result;
         } else {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingPaymentRefundError", locale));            
+                    "AccountingPaymentRefundError", locale));
         }
     }
 
@@ -2703,7 +2702,6 @@ public class PaymentGatewayServices {
                 .where(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), 
                         EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo))
                 .orderBy("orderId");
-        
         try (EntityListIterator eli = eq.queryIterator()) {
             List<String> processList = new LinkedList<>();
             if (eli != null) {
@@ -3101,7 +3099,7 @@ public class PaymentGatewayServices {
                     orderPaymentPreferenceId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingProblemGettingOrderPaymentPreferences", locale) + " " + 
-                    orderPaymentPreferenceId);            
+                    orderPaymentPreferenceId);
         }
         // Get the OrderHeader
         GenericValue orderHeader = null;
@@ -3667,7 +3665,6 @@ public class PaymentGatewayServices {
         result.put("refundRefNum", UtilDateTime.nowAsString());
         result.put("refundFlag", "R");
         result.put("refundMessage", UtilProperties.getMessage(RESOURCE, "AccountingPaymentTestRefund", locale));
-        
         return result;
     }
 
@@ -3681,7 +3678,6 @@ public class PaymentGatewayServices {
         result.put("refundRefNum", UtilDateTime.nowAsString());
         result.put("refundFlag", "R");
         result.put("refundMessage", UtilProperties.getMessage(RESOURCE, "AccountingPaymentTestRefundFailure", locale));
-        
         return result;
     }
 

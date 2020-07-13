@@ -1372,7 +1372,7 @@ public class OrderReturnServices {
                             // Call the refund service to refund the payment
                             if (electronicTypes.contains(paymentMethodTypeId)) {
                                 try {
-                                    Map<String, Object> serviceContext = UtilMisc.toMap("orderId", orderId,"userLogin", context.get("userLogin"));
+                                    Map<String, Object> serviceContext = UtilMisc.toMap("orderId", orderId, "userLogin", context.get("userLogin"));
                                     serviceContext.put("paymentMethodId", orderPaymentPreference.getString("paymentMethodId"));
                                     serviceContext.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId"));
                                     serviceContext.put("statusId", orderPaymentPreference.getString("statusId"));
@@ -1386,7 +1386,7 @@ public class OrderReturnServices {
                                     try {
                                         refundOrderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceNewId).queryOne();
                                     } catch (GenericEntityException e) {
-                                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderProblemsWithTheRefundSeeLogs", locale));
+                                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderProblemsWithTheRefundSeeLogs", locale));
                                     }
                                     serviceResult = dispatcher.runSync("refundPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", refundOrderPaymentPreference, "refundAmount", amountToRefund.setScale(DECIMALS, ROUNDING), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
@@ -1397,7 +1397,7 @@ public class OrderReturnServices {
                                     paymentId = (String) serviceResult.get("paymentId");
                                     amountRefunded = (BigDecimal) serviceResult.get("refundAmount");
                                 } catch (GenericServiceException e) {
-                                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderProblemsWithTheRefundSeeLogs", locale));
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderProblemsWithTheRefundSeeLogs", locale));
                                 }
                             } else if ("EXT_BILLACT".equals(paymentMethodTypeId)) {
                                 try {
@@ -1618,7 +1618,7 @@ public class OrderReturnServices {
         try {
             GenericValue response = EntityQuery.use(delegator).from("ReturnItemResponse").where("returnItemResponseId", responseId).queryOne();
             if (response == null) {
-                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderReturnItemResponseNotFound", UtilMisc.toMap("errorMsg", errorMsg,"responseId", responseId), locale));
+                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderReturnItemResponseNotFound", UtilMisc.toMap("errorMsg", errorMsg, "responseId", responseId), locale));
             }
             BigDecimal responseAmount = response.getBigDecimal("responseAmount").setScale(DECIMALS, ROUNDING);
             String paymentId = response.getString("paymentId");
