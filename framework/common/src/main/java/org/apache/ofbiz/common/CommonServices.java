@@ -530,7 +530,7 @@ public class CommonServices {
 
     public static Map<String, Object> resetMetric(DispatchContext dctx, Map<String, ?> context) {
         String originalName = (String) context.get("name");
-        Locale locale = (Locale)context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         String name = UtilCodec.getDecoder("url").decode(originalName);
         if (name == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonExceptionThrownWhileDecodingMetric", UtilMisc.toMap("originalName", originalName), locale));

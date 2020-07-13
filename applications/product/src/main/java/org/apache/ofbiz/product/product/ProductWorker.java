@@ -1016,7 +1016,7 @@ public final class ProductWorker {
             for (String paramValue: selectedFeatures) {
                 // find incompatibilities..
                 List<GenericValue> incompatibilityVariants = EntityQuery.use(delegator).from("ProductFeatureIactn")
-                        .where("productId", productId, "productFeatureIactnTypeId","FEATURE_IACTN_INCOMP").cache(true).queryList();
+                        .where("productId", productId, "productFeatureIactnTypeId", "FEATURE_IACTN_INCOMP").cache(true).queryList();
                 for (GenericValue incompatibilityVariant: incompatibilityVariants) {
                     String featur = incompatibilityVariant.getString("productFeatureId");
                     if (paramValue.equals(featur)) {
@@ -1032,7 +1032,7 @@ public final class ProductWorker {
                 }
                 // find dependencies..
                 List<GenericValue> dependenciesVariants = EntityQuery.use(delegator).from("ProductFeatureIactn")
-                        .where("productId", productId, "productFeatureIactnTypeId","FEATURE_IACTN_DEPEND").cache(true).queryList();
+                        .where("productId", productId, "productFeatureIactnTypeId", "FEATURE_IACTN_DEPEND").cache(true).queryList();
                 for (GenericValue dpVariant: dependenciesVariants) {
                     String featur = dpVariant.getString("productFeatureId");
                     if (paramValue.equals(featur)) {
@@ -1052,12 +1052,12 @@ public final class ProductWorker {
                 }
             }
             // find variant
-            List<GenericValue> productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId","PRODUCT_VARIANT").filterByDate().queryList();
+            List<GenericValue> productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
             boolean productFound = false;
 nextProd:
             for (GenericValue productAssoc: productAssocs) {
                 for (String featureId: selectedFeatures) {
-                    List<GenericValue> pAppls = EntityQuery.use(delegator).from("ProductFeatureAppl").where("productId", productAssoc.getString("productIdTo"), "productFeatureId", featureId, "productFeatureApplTypeId","STANDARD_FEATURE").cache(true).queryList();
+                    List<GenericValue> pAppls = EntityQuery.use(delegator).from("ProductFeatureAppl").where("productId", productAssoc.getString("productIdTo"), "productFeatureId", featureId, "productFeatureApplTypeId", "STANDARD_FEATURE").cache(true).queryList();
                     if (UtilValidate.isEmpty(pAppls)) {
                         continue nextProd;
                     }

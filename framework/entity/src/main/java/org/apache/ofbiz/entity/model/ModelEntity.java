@@ -462,7 +462,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     /**
      * An indicator to specific if this entity should ignore automatic DB checks.
      * This should be set when the entity is mapped to a database view to prevent
-     * warnings and attempts to modify the schema.     
+     * warnings and attempts to modify the schema.
      */
     public boolean getNeverCheck() {
         return neverCheck;

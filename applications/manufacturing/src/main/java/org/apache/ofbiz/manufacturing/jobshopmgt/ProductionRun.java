@@ -353,7 +353,7 @@ public class ProductionRun {
         if (exist()) {
             if (productionRunRoutingTasks == null) {
                 try {
-                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
+                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId", "PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
                 }
@@ -371,7 +371,7 @@ public class ProductionRun {
         if (exist()) {
             if (productionRunRoutingTasks == null) {
                 try {
-                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
+                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId", "PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
                 }
@@ -411,7 +411,7 @@ public class ProductionRun {
             taskTime = task.getDouble("estimatedMilliSeconds");
         }
         totalTaskTime = (setupTime + taskTime * quantity.doubleValue());
-        
+
         if (task.get("estimateCalcMethod") != null) {
             String serviceName = null;
             try {

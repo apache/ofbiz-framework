@@ -64,7 +64,6 @@ public abstract class Compare {
 
     /**
      * Returns a <code>Compare</code> instance for the specified operator.
-     * 
      * @param operator
      * @return A <code>Compare</code> instance for the specified operator
      */
@@ -75,7 +74,7 @@ public abstract class Compare {
 
     /**
      * Returns the result of this comparison.
-     *  
+     *
      * @param lValue The object being compared
      * @param rValue The object being compared to
      * @param type The Java class to be used in the comparison

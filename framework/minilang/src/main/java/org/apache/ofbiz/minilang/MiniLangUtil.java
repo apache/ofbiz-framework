@@ -202,7 +202,6 @@ public final class MiniLangUtil {
      * suitable for use with the conversion framework. If the argument is
      * <code>null</code> or a <code>String</code>, the method returns the
      * {@link PlainString} class.
-     * 
      * @param object
      * @return A <code>Class</code> that is
      * suitable for use with the conversion framework
@@ -226,7 +225,6 @@ public final class MiniLangUtil {
     /**
      * Returns <code>true</code> if <code>attributeValue</code> is a
      * constant value (it does not contain an expression).
-     * 
      * @param attributeValue The value to test
      * @return <code>true</code> if <code>attributeValue</code> is a
      * constant value
@@ -242,7 +240,6 @@ public final class MiniLangUtil {
      * Returns <code>true</code> if <code>attributeValue</code> is a
      * constant value (it does not contain an expression) or a constant
      * plus expression value.
-     * 
      * @param attributeValue The value to test
      * @return <code>true</code> if <code>attributeValue</code> is a
      * constant value or a constant plus expression value
@@ -265,7 +262,6 @@ public final class MiniLangUtil {
 
     /**
      * Returns <code>true</code> if <code>document</code> contains corrections.
-     * 
      * @param document The document to test
      * @return  <code>true</code> if <code>document</code> contains corrections
      */
@@ -276,7 +272,6 @@ public final class MiniLangUtil {
     /**
      * Writes a Mini-language <code>Document</code> to disk. The XML file is styled by the
      * config/MiniLang.xslt style sheet.
-     * 
      * @param xmlURL
      * @param document
      */

@@ -55,7 +55,7 @@ public class ContentUrlFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         Delegator delegator = (Delegator) httpRequest.getSession().getServletContext().getAttribute("delegator");
-        
+
         String urlContentId = null;
         String pathInfo = UtilHttp.getFullRequestUrl(httpRequest);
         if (UtilValidate.isNotEmpty(pathInfo)) {
@@ -90,7 +90,7 @@ public class ContentUrlFilter implements Filter {
                 dispatch.forward(request, response);
                 return;
             }
-            
+
             //Check path alias
             UrlServletHelper.checkPathAlias(request, httpResponse, delegator, pathInfo);
         }

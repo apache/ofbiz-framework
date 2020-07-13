@@ -61,7 +61,7 @@ import com.lowagie.text.pdf.PdfReader;
 public class CompDocServices {
     private static final String MODULE = CompDocServices.class.getName();
     private static final String RESOURCE = "ContentUiLabels";
-    
+
     /**
      *
      * Creates the topmost Content entity of a Composite Document tree.
@@ -76,8 +76,8 @@ public class CompDocServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale)context.get("locale");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String contentId = (String) context.get("contentId");
 
         if (UtilValidate.isNotEmpty(contentId)) {

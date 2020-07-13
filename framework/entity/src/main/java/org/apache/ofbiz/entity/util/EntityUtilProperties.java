@@ -100,7 +100,7 @@ public final class EntityUtilProperties implements Serializable {
             return UtilProperties.getPropertyValue(resource, name, defaultValue);
         }
     }
-    
+
     public static String getPropertyValueFromDelegatorName(String resource, String name, String defaultValue, String delegatorName) {
         Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
         if (delegator == null) { // This should not happen, but in case...

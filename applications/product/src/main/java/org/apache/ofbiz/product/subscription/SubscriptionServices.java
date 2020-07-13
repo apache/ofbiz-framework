@@ -308,7 +308,7 @@ public class SubscriptionServices {
     public static Map<String, Object> runServiceOnSubscriptionExpiry( DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        Locale locale =(Locale)context.get("locale");
+        Locale locale =(Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> expiryMap = new HashMap<>();
@@ -395,7 +395,7 @@ public class SubscriptionServices {
 
     public static Map<String, Object> runSubscriptionExpired(
             DispatchContext dctx, Map<String, ? extends Object> context) {
-    	 Locale locale = (Locale)context.get("locale");
+    	 Locale locale = (Locale) context.get("locale");
         String subscriptionId = (String) context.get("subscriptionId");
         Map<String, Object> result = new HashMap<>();
         if (subscriptionId != null) {

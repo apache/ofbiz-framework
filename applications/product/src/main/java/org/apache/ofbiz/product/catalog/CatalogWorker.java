@@ -50,7 +50,7 @@ public final class CatalogWorker {
 
     private CatalogWorker() { }
 
-    
+
     /**
      * @deprecated - Use WebSiteWorker.getWebSiteId(ServletRequest) instead
      */

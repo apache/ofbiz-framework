@@ -216,7 +216,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
             results = dispatcher.runSync("testEntityAutoCreateTestingStatus", testingStatusCreateMap, 10, true);
             assertTrue(ServiceUtil.isError(results));
         } catch (GenericServiceException e) {
-            assertEquals(e.toString(),"You call a creation on entity that require the userLogin to track the activity, please controle that your service definition has auth='true'");
+            assertEquals(e.toString(), "You call a creation on entity that require the userLogin to track the activity, please controle that your service definition has auth='true'");
         }
 
         //test update testingStatus

@@ -296,7 +296,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         StringWriter sr = new StringWriter();
         sr.append("<@renderLink ");
         sr.append("parameterList=");
-        sr.append(parameters.length()==0?"\"\"":parameters.toString());
+        sr.append(parameters.length() == 0 ? "\"\"" : parameters.toString());
         sr.append(" targetWindow=\"");
         sr.append(targetWindow);
         sr.append("\" target=\"");

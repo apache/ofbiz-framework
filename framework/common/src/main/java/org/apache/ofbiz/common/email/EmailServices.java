@@ -118,7 +118,7 @@ public class EmailServices {
         results.put("communicationEventId", communicationEventId);
         results.put("partyId", partyId);
         results.put("subject", subject);
-        
+
         if (UtilValidate.isNotEmpty(orderId)) {
             results.put("orderId", orderId);
         }
@@ -566,12 +566,12 @@ public class EmailServices {
 
                     // store in the list of maps for sendmail....
                     bodyParts.add(UtilMisc.<String, Object>toMap("content", baos.toByteArray(), "type", attachmentType, "filename", attachmentName));
-                    
+
                 } catch (GeneralException|IOException|SAXException|ParserConfigurationException |TemplateException ge) {
                     Debug.logError(ge, "Error rendering PDF attachment for email: " + ge.toString(), MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenPdfError", UtilMisc.toMap("errorString", ge.toString()), locale));
                 }
-                
+
                 serviceContext.put("bodyParts", bodyParts);
             }
         } else {
@@ -603,14 +603,13 @@ public class EmailServices {
         serviceContext.put("partyId", partyId);
         if (UtilValidate.isNotEmpty(orderId)) {
             serviceContext.put("orderId", orderId);
-        }            
+        }
         if (UtilValidate.isNotEmpty(returnId)) {
             serviceContext.put("returnId", returnId);
         }
         if (UtilValidate.isNotEmpty(custRequestId)) {
             serviceContext.put("custRequestId", custRequestId);
-        }            
-        
+        }
         if (Debug.verboseOn()) {
             Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, MODULE);
         }
@@ -646,13 +645,13 @@ public class EmailServices {
         result.put("communicationEventId", sendMailResult.get("communicationEventId"));
         if (UtilValidate.isNotEmpty(orderId)) {
             result.put("orderId", orderId);
-        }            
+        }
         if (UtilValidate.isNotEmpty(returnId)) {
             result.put("returnId", returnId);
         }
         if (UtilValidate.isNotEmpty(custRequestId)) {
             result.put("custRequestId", custRequestId);
-        }            
+        }
         return result;
     }
 
@@ -665,7 +664,7 @@ public class EmailServices {
      */
     public static Map<String, Object> sendMailHiddenInLogFromScreen(DispatchContext dctx, Map<String, ? extends Object> rServiceContext) {
         Map<String, Object> serviceContext = UtilMisc.makeMapWritable(rServiceContext);
-        serviceContext.put("hideInLog", true);        
+        serviceContext.put("hideInLog", true);
         return sendMailFromScreen(dctx, serviceContext);
     }
     public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message, List<SMTPAddressFailedException> failures) {

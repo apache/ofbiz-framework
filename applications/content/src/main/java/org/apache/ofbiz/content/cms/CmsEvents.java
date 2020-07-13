@@ -300,7 +300,7 @@ public class CmsEvents {
                     // TODO: replace "screen" to support dynamic rendering of different output
                     if (visualTheme == null) {
                         String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
-                        visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);  
+                        visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);
                     }
                     FormStringRenderer formStringRenderer = new MacroFormRenderer(visualTheme.getModelTheme().getFormRendererLocation("screen"), request, response);
                     templateMap.put("formStringRenderer", formStringRenderer);

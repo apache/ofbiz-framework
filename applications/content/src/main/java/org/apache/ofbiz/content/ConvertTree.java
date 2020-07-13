@@ -113,7 +113,7 @@ In order to make this service active add the following to the service definition
                 if (ServiceUtil.isError(result)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                 }
-                while ((line = input.readLine()) != null) {//start line
+                while ((line = input.readLine()) != null) { //start line
                     boolean hasFolder = true;
                     String rootContent = null, contentId = null; counterLine++;
                     if (counterLine > 1) {
@@ -121,11 +121,11 @@ In order to make this service active add the following to the service definition
                         String check = "\\", checkSubContent = ",", contentName = "", contentNameInprogress = "", data = line.substring(3, size);
                         size = data.length();
 
-                        for (int index = 0; index< size; index++) {//start character in line
+                        for (int index = 0; index< size; index++) { //start character in line
                             boolean contentNameMatch = false;
                             int contentAssocSize = 0;
                             List<GenericValue> contentAssocs = null;
-                            if (data.charAt(index) == check.charAt(0) || data.charAt(index) == checkSubContent.charAt(0)) {//store data
+                            if (data.charAt(index) == check.charAt(0) || data.charAt(index) == checkSubContent.charAt(0)) { //store data
                                 contentName = contentName + contentNameInprogress;
                                 if (contentName.length() > 100) {
                                     contentName = contentName.substring(0, 100);
@@ -135,7 +135,7 @@ In order to make this service active add the following to the service definition
                                 if (content != null) {
                                     contentId = content.getString("contentId");
                                 }
-                                if (content != null && hasFolder==true) {
+                                if (content != null && hasFolder == true) {
                                     if (rootContent != null) {
                                         contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
                                                 .where("contentId", contentId, "contentIdTo", rootContent)
@@ -146,7 +146,7 @@ In order to make this service active add the following to the service definition
                                         while (contentAssChecks.hasNext() && contentNameMatch == false) {
                                             GenericValue contentAss = contentAssChecks.next();
                                             GenericValue contentcheck = EntityQuery.use(delegator).from("Content").where("contentId", contentAss.get("contentId")).queryOne();
-                                            if (contentcheck!=null) {
+                                            if (contentcheck != null) {
                                                 if (contentcheck.get("contentName").equals(contentName) && contentNameMatch == false) {
                                                     contentNameMatch = true;
                                                     contentId = contentcheck.get("contentId").toString();
@@ -162,7 +162,7 @@ In order to make this service active add the following to the service definition
                                     contentAssocSize = contentAssocs.size();
                                 }
 
-                                if (contentAssocSize == 0 && contentNameMatch == false) {//New Root Content
+                                if (contentAssocSize == 0 && contentNameMatch == false) { //New Root Content
                                     contentId = delegator.getNextSeqId("Content");
                                     Entity = delegator.makeValue("Content");
                                     Entity.set("contentId", contentId);
@@ -199,12 +199,12 @@ In order to make this service active add the following to the service definition
                                     rootContent = contentId;
                                 } else {
                                     //Debug.logInfo("ContentAssoc [contentId= " + contentId + ", contentIdTo=" + rootContent + "] already exist.");//ShoW log file
-                                    rootContent=contentId;
+                                    rootContent = contentId;
                                 }
                                 contentName = "";
-                                contentNameInprogress ="";
+                                contentNameInprogress = "";
                             }
-                            if (data.charAt(index)== checkSubContent.charAt(0)) {//Have sub content
+                            if (data.charAt(index) == checkSubContent.charAt(0)) {
                                 createSubContent(index, data, rootContent, context, dctx);
                                 index = size;
                                 continue;
@@ -213,12 +213,12 @@ In order to make this service active add the following to the service definition
                                 contentNameInprogress = contentNameInprogress.concat(Character.toString(data.charAt(index)));
                                 if (contentNameInprogress.length() > 99) {
                                     contentName = contentName + contentNameInprogress;
-                                    contentNameInprogress ="";
+                                    contentNameInprogress = "";
                                 }
                             }
-                        }//end character in line
+                        } //end character in line
                     }
-                }//end line
+                } //end line
                 sucMsg = UtilProperties.getMessage("ContentUiLabels", "ContentConvertDocumentsTreeSuccessful", UtilMisc.toMap("counterLine", counterLine), locale);
             } catch (IOException | GenericServiceException | GenericEntityException e) {
                 errMsg = "Exception " + UtilMisc.toMap("errMessage", e.toString());
@@ -236,14 +236,14 @@ In order to make this service active add the following to the service definition
         Map<String, Object> result = new HashMap<>();
         String subContents = null, check = ",", oldChar = "\"", newChar = "", contentNameInprogress = "", contentName = "", contentId = null;
         GenericValue Entity = null;
-        String errMsg = "", sucMsg= "";
+        String errMsg = "", sucMsg = "";
         subContents = line.substring(index + 1, line.length());
         subContents = subContents.replace(oldChar, newChar);
         int size = subContents.length();
         try {
-            for (index = 0; index < size; index++) {//start character in line
+            for (index = 0; index < size; index++) { //start character in line
                 boolean contentNameMatch = false;
-                if (subContents.charAt(index) == check.charAt(0)) {//store data
+                if (subContents.charAt(index) == check.charAt(0)) { //store data
                     contentName = contentName + contentNameInprogress;
                     if (contentName.length()>100) {
                         contentName = contentName.substring(0,100);
@@ -299,11 +299,11 @@ In order to make this service active add the following to the service definition
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                         }
                     }
-                    contentName ="";
-                    contentNameInprogress="";
+                    contentName = "";
+                    contentNameInprogress= "";
                 }
 
-                if ((subContents.charAt(index) )!= check.charAt(0)) {
+                if ((subContents.charAt(index)) != check.charAt(0)) {
                     contentNameInprogress = contentNameInprogress.concat(Character.toString(subContents.charAt(index)));
                     if (contentNameInprogress.length() > 99) {
                         contentName = contentName + contentNameInprogress;
@@ -328,7 +328,7 @@ In order to make this service active add the following to the service definition
                             }
                         }
                     }
-                    if (contentNameMatch == false) {
+                    if (!contentNameMatch) {
                         //create DataResource
                         Map<String, Object> data = new HashMap<>();
                         data.put("userLogin", userLogin);

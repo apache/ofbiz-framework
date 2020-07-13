@@ -342,7 +342,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
         VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
         ModelTheme modelTheme = visualTheme.getModelTheme();
-        ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
+        ScreenRenderer screenRenderer = (ScreenRenderer) context.get("screens");
         if (screenRenderer != null) {
             screenStringRenderer = screenRenderer.getScreenStringRenderer();
         } else {

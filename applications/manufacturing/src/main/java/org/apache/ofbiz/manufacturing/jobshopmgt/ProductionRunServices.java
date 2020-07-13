@@ -118,7 +118,7 @@ public class ProductionRunServices {
                 }
                 // Cancel the product promised
                 List<GenericValue> products = EntityQuery.use(delegator).from("WorkEffortGoodStandard")
-                        .where("workEffortId", productionRunId, 
+                        .where("workEffortId", productionRunId,
                                 "workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
                                 "statusId", "WEGS_CREATED")
                         .queryList();
@@ -144,8 +144,8 @@ public class ProductionRunServices {
                     }
                     // cancel all the components
                     List<GenericValue> components = EntityQuery.use(delegator).from("WorkEffortGoodStandard")
-                            .where("workEffortId", taskId, 
-                                    "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", 
+                            .where("workEffortId", taskId,
+                                    "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED",
                                     "statusId", "WEGS_CREATED")
                             .queryList();
                     if (UtilValidate.isNotEmpty(components)) {
@@ -176,7 +176,7 @@ public class ProductionRunServices {
      *  <li> for each valid routingTask of the routing create a workeffort-task</li>
      *  <li> for the first routingTask, create for all the valid productIdTo with no associateRoutingTask  a WorkEffortGoodStandard</li>
      *  <li> for each valid routingTask of the routing and valid productIdTo associate with this RoutingTask create a WorkEffortGoodStandard</li>
-     * </ul> 
+     * </ul>
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId, routingId, pRQuantity, startDate, workEffortName, description
      * @return Map with the result of the service, the output parameters.
@@ -330,7 +330,7 @@ public class ProductionRunServices {
                 serviceContext.put("description", routingTask.get("description"));
                 serviceContext.put("fixedAssetId", routingTask.get("fixedAssetId"));
                 serviceContext.put("workEffortTypeId", "PROD_ORDER_TASK");
-                serviceContext.put("currentStatusId","PRUN_CREATED");
+                serviceContext.put("currentStatusId", "PRUN_CREATED");
                 serviceContext.put("workEffortParentId", productionRunId);
                 serviceContext.put("facilityId", facilityId);
                 serviceContext.put("reservPersons", routingTask.get("reservPersons"));
@@ -436,7 +436,7 @@ public class ProductionRunServices {
     /**
      * Make a copy of the party assignments that were defined on the template routing task to the new production run task.
      */
-    private static void cloneWorkEffortPartyAssignments(DispatchContext dctx, GenericValue userLogin, 
+    private static void cloneWorkEffortPartyAssignments(DispatchContext dctx, GenericValue userLogin,
             String routingTaskId, String productionRunTaskId) throws GeneralException {
         List<GenericValue> workEffortPartyAssignments = null;
         try {
@@ -695,7 +695,7 @@ public class ProductionRunServices {
             // First check if there are production runs with precedence not still completed
             try {
                 List<GenericValue> mandatoryWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAssoc")
-                        .where("workEffortIdTo", productionRunId, 
+                        .where("workEffortIdTo", productionRunId,
                                 "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")
                         .filterByDate().queryList();
                 for (GenericValue mandatoryWorkEffortAssoc : mandatoryWorkEfforts) {
@@ -992,8 +992,8 @@ public class ProductionRunServices {
                 try {
                     // get the currency
                     GenericValue facility = productionRun.getGenericValue().getRelatedOne("Facility", false);
-                    Map<String, Object> outputMap = dispatcher.runSync("getPartyAccountingPreferences", 
-                            UtilMisc.<String, Object>toMap("userLogin", userLogin, 
+                    Map<String, Object> outputMap = dispatcher.runSync("getPartyAccountingPreferences",
+                            UtilMisc.<String, Object>toMap("userLogin", userLogin,
                                     "organizationPartyId", facility.getString("ownerPartyId")));
                     if (ServiceUtil.isError(outputMap)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(outputMap));
@@ -1108,7 +1108,7 @@ public class ProductionRunServices {
                     .orderBy("workEffortId")
                     .queryList();
             BigDecimal totalCost = ZERO;
-            Map<String, Object> outputMap = dispatcher.runSync("getWorkEffortCosts", 
+            Map<String, Object> outputMap = dispatcher.runSync("getWorkEffortCosts",
                     UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", workEffortId));
             if (ServiceUtil.isError(outputMap)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(outputMap));
@@ -1116,7 +1116,7 @@ public class ProductionRunServices {
             BigDecimal productionRunHeaderCost = (BigDecimal)outputMap.get("totalCost");
             totalCost = totalCost.add(productionRunHeaderCost);
             for (GenericValue task : tasks) {
-                outputMap = dispatcher.runSync("getWorkEffortCosts", 
+                outputMap = dispatcher.runSync("getWorkEffortCosts",
                         UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", task.getString("workEffortId")));
                 if (ServiceUtil.isError(outputMap)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(outputMap));
@@ -1220,7 +1220,7 @@ public class ProductionRunServices {
                 fixedAsset = routingTask.getRelatedOne("FixedAsset", false);
             }
             if (fixedAsset != null) {
-                List<GenericValue> setupCosts = fixedAsset.getRelated("FixedAssetStdCost", 
+                List<GenericValue> setupCosts = fixedAsset.getRelated("FixedAssetStdCost",
                         UtilMisc.toMap("fixedAssetStdCostTypeId", "SETUP_COST"), null, false);
                 GenericValue setupCost = EntityUtil.getFirst(EntityUtil.filterByDate(setupCosts));
                 List<GenericValue> usageCosts = fixedAsset.getRelated("FixedAssetStdCost", UtilMisc.toMap("fixedAssetStdCostTypeId", "USAGE_COST"), null, false);
@@ -1238,7 +1238,7 @@ public class ProductionRunServices {
                     BigDecimal fixedAssetCost = setupCostAmount.add(usageCostAmount).setScale(DECIMALS, ROUNDING);
                     fixedAssetCost = fixedAssetCost.divide(BigDecimal.valueOf(3600000), DECIMALS, ROUNDING);
                     // store the cost
-                    Map<String, Object> inMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, 
+                    Map<String, Object> inMap = UtilMisc.<String, Object>toMap("userLogin", userLogin,
                             "workEffortId", productionRunTaskId);
                     inMap.put("costComponentTypeId", "ACTUAL_ROUTE_COST");
                     inMap.put("costUomId", currencyUomId);
@@ -1298,7 +1298,7 @@ public class ProductionRunServices {
      *  <li> if estimatedStartDate is not before Production Run estimatedStartDate.</li>
      *  <li> if there is not a another routingTask with the same priority</li>
      *  <li>If priority or estimatedStartDate has changed recalculated data for routingTask after that one.</li>
-     * </ul> 
+     * </ul>
      * Update the productionRun
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId, routingId, priority, estimatedStartDate, estimatedSetupMillis, estimatedMilliSeconds
@@ -1538,7 +1538,7 @@ public class ProductionRunServices {
         // Mandatory input fields
         String productionRunId = (String) context.get("productionRunId");
         String routingTaskId = (String) context.get("routingTaskId");
-        Long priority = (Long)context.get("priority");
+        Long priority = (Long) context.get("priority");
 
         // Optional input fields
         String workEffortName = (String) context.get("workEffortName");
@@ -1614,7 +1614,7 @@ public class ProductionRunServices {
         serviceContext.put("description", description);
         serviceContext.put("fixedAssetId", routingTask.get("fixedAssetId"));
         serviceContext.put("workEffortTypeId", "PROD_ORDER_TASK");
-        serviceContext.put("currentStatusId","PRUN_CREATED");
+        serviceContext.put("currentStatusId", "PRUN_CREATED");
         serviceContext.put("workEffortParentId", productionRunId);
         serviceContext.put("facilityId", productionRun.getGenericValue().getString("facilityId"));
         serviceContext.put("estimatedStartDate", estimatedStartDate);
@@ -2016,7 +2016,7 @@ public class ProductionRunServices {
                 }
                 if (minimumQuantityProducedByTask.compareTo(quantityDeclared) > 0) {
                     try {
-                        Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productionRunId", productionRunId, 
+                        Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productionRunId", productionRunId,
                                 "productionRunTaskId", taskId);
                         serviceContext.put("addQuantityProduced", minimumQuantityProducedByTask.subtract(quantityDeclared));
                         serviceContext.put("issueRequiredComponents", Boolean.TRUE);
@@ -2242,7 +2242,7 @@ public class ProductionRunServices {
         // TODO: if the task is not running, then return an error message.
 
         try {
-            Map<String, Object> inventoryResult = dispatcher.runSync("productionRunTaskProduce", 
+            Map<String, Object> inventoryResult = dispatcher.runSync("productionRunTaskProduce",
                     UtilMisc.<String, Object>toMap("workEffortId", productionRunTaskId,
                             "productId", productId, "quantity", quantity, "lotId", lotId, "currencyUomId", uomId, "isReturned", "Y",
                             "inventoryItemTypeId", inventoryItemTypeId, "userLogin", userLogin));
@@ -2346,7 +2346,7 @@ public class ProductionRunServices {
                         BigDecimal totalRequiredMaterialQuantity = component.getBigDecimal("estimatedQuantity").multiply(totalQuantityProduced).divide(quantityToProduce, ROUNDING);
                         // now get the units that have been already issued and subtract them
                         List<GenericValue> issuances = EntityQuery.use(delegator).from("WorkEffortAndInventoryAssign")
-                                .where("workEffortId", workEffortId, 
+                                .where("workEffortId", workEffortId,
                                         "productId", component.get("productId"))
                                 .queryList();
                         BigDecimal totalIssued = BigDecimal.ZERO;
@@ -2364,7 +2364,7 @@ public class ProductionRunServices {
                                 componentsLocation = UtilGenerics.cast(componentsLocationMap.get(key));
                             }
                             Map<String, Object> serviceContext = UtilMisc.toMap("workEffortId", workEffortId,
-                                    "productId", component.getString("productId"), 
+                                    "productId", component.getString("productId"),
                                     "fromDate", component.getTimestamp("fromDate"));
                             serviceContext.put("quantity", requiredQuantity);
                             if (componentsLocation != null) {
@@ -2373,7 +2373,7 @@ public class ProductionRunServices {
                                 serviceContext.put("failIfItemsAreNotAvailable", componentsLocation.get("failIfItemsAreNotAvailable"));
                             }
                             serviceContext.put("userLogin", userLogin);
-                            Map<String, Object> serviceResult = dispatcher.runSync("issueProductionRunTaskComponent", 
+                            Map<String, Object> serviceResult = dispatcher.runSync("issueProductionRunTaskComponent",
                                     serviceContext);
                             if (ServiceUtil.isError(serviceResult)) {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
@@ -2442,8 +2442,8 @@ public class ProductionRunServices {
         }
         try {
             Map<String, Object> serviceResult = dispatcher.runSync("updateRequirement",
-                    UtilMisc.<String, Object>toMap("requirementId", requirementId, 
-                            "statusId", "REQ_APPROVED", "requirementTypeId", requirement.getString("requirementTypeId"), 
+                    UtilMisc.<String, Object>toMap("requirementId", requirementId,
+                            "statusId", "REQ_APPROVED", "requirementTypeId", requirement.getString("requirementTypeId"),
                             "userLogin", userLogin));
             if (ServiceUtil.isError(serviceResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
@@ -2530,7 +2530,7 @@ public class ProductionRunServices {
         String facilityId = (String) context.get("facilityId");
         // Optional input fields
         String configId = (String) context.get("configId");
-        ProductConfigWrapper config = (ProductConfigWrapper)context.get("config");
+        ProductConfigWrapper config = (ProductConfigWrapper) context.get("config");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
@@ -2731,8 +2731,8 @@ public class ProductionRunServices {
         try {
             // first figure out how much of this product we already have in stock (ATP)
             BigDecimal existingAtp = BigDecimal.ZERO;
-            Map<String, Object> tmpResults = dispatcher.runSync("getInventoryAvailableByFacility", 
-                    UtilMisc.<String, Object>toMap("productId", orderItem.getString("productId"), 
+            Map<String, Object> tmpResults = dispatcher.runSync("getInventoryAvailableByFacility",
+                    UtilMisc.<String, Object>toMap("productId", orderItem.getString("productId"),
                             "facilityId", facilityId, "userLogin", userLogin));
             if (ServiceUtil.isError(tmpResults)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResults));
@@ -2849,7 +2849,7 @@ public class ProductionRunServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String shipmentId = (String) context.get("shipmentId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
@@ -2974,7 +2974,7 @@ public class ProductionRunServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin =(GenericValue)context.get("userLogin");
+        GenericValue userLogin =(GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         Timestamp startDate = (Timestamp) context.get("startDate");
@@ -3122,7 +3122,7 @@ public class ProductionRunServices {
                     "PRUN_SCHEDULED".equals(oneTask.getString("currentStatusId")) ||
                     "PRUN_DOC_PRINTED".equals(oneTask.getString("currentStatusId"))) {
                 try {
-                    Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productionRunId", productionRunId, 
+                    Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productionRunId", productionRunId,
                             "workEffortId", taskId);
                     serviceContext.put("statusId", "PRUN_RUNNING");
                     serviceContext.put("issueAllComponents", Boolean.FALSE);
@@ -3160,7 +3160,6 @@ public class ProductionRunServices {
         try {
             Map<String, Object> serviceContext = new HashMap<>();
             // Change the task status to running
-            
             if ("PRUN_DOC_PRINTED".equals(statusId) ||
                     "PRUN_RUNNING".equals(statusId) ||
                     "PRUN_COMPLETED".equals(statusId) ||
@@ -3444,7 +3443,7 @@ public class ProductionRunServices {
         try {
             List<GenericValue> resultList = EntityQuery.use(delegator).from("WorkEffortAndGoods")
                     .where("workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
-                            "statusId", "WEGS_CREATED", 
+                            "statusId", "WEGS_CREATED",
                             "workEffortTypeId", "PROD_ORDER_HEADER")
                     .queryList();
             for (GenericValue genericResult : resultList) {
@@ -3474,7 +3473,7 @@ public class ProductionRunServices {
                 }
                 TreeMap<Timestamp, Object> productMap = products.get(productId);
                 if (!productMap.containsKey(estimatedShipDate)) {
-                    productMap.put(estimatedShipDate, 
+                    productMap.put(estimatedShipDate,
                             UtilMisc.toMap("remainingQty", BigDecimal.ZERO, "reservations", new LinkedList<>()));
                 }
                 Map<String, Object> dateMap = UtilGenerics.cast(productMap.get(estimatedShipDate));
@@ -3485,7 +3484,7 @@ public class ProductionRunServices {
 
             // Approved purchase orders
             resultList = EntityQuery.use(delegator).from("OrderHeaderAndItems")
-                    .where("orderTypeId", "PURCHASE_ORDER", 
+                    .where("orderTypeId", "PURCHASE_ORDER",
                             "itemStatusId", "ITEM_APPROVED")
                     .orderBy("orderId").queryList();
             String orderId = null;

@@ -263,7 +263,7 @@ public class PdfSurveyServices {
                 String surveyQuestionId = (String)surveyQuestionAndAppl.get("surveyQuestionId");
                 String surveyQuestionTypeId = (String)surveyQuestionAndAppl.get("surveyQuestionTypeId");
                 GenericValue surveyResponseAnswer = delegator.makeValue("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyQuestionId", surveyQuestionId));
-                if (surveyQuestionTypeId ==null || "TEXT_SHORT".equals(surveyQuestionTypeId)) {
+                if (surveyQuestionTypeId == null || "TEXT_SHORT".equals(surveyQuestionTypeId)) {
                     surveyResponseAnswer.set("textResponse", value);
                 }
 
@@ -537,7 +537,7 @@ public class PdfSurveyServices {
     }
 
     public static ByteBuffer getInputByteBuffer(Map<String, ? extends Object> context, Delegator delegator) throws GeneralException {
-        ByteBuffer inputByteBuffer = (ByteBuffer)context.get("inputByteBuffer");
+        ByteBuffer inputByteBuffer = (ByteBuffer) context.get("inputByteBuffer");
 
         if (inputByteBuffer == null) {
             String pdfFileNameIn = (String) context.get("pdfFileNameIn");
@@ -555,7 +555,7 @@ public class PdfSurveyServices {
                 }
             } else if (UtilValidate.isNotEmpty(contentId)) {
                 try {
-                    Locale locale = (Locale)context.get("locale");
+                    Locale locale = (Locale) context.get("locale");
                     String https = (String) context.get("https");
                     String webSiteId = (String) context.get("webSiteId");
                     String rootDir = (String) context.get("rootDir");

@@ -139,7 +139,7 @@ public final class ProductStoreWorker {
             return UtilHttp.getLocale(request, request.getSession(), productStore.getString("defaultLocaleString"));
         }
     }
-    
+
     public static TimeZone getStoreTimeZone(HttpServletRequest request) {
         GenericValue productStore = getProductStore(request);
         if (UtilValidate.isEmpty(productStore)) {

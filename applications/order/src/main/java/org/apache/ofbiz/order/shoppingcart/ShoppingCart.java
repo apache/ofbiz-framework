@@ -494,7 +494,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 supplierProduct = productSuppliers.get(0);
             }
         } catch (GenericServiceException  e) {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), MODULE);
         }
         return supplierProduct;
     }
@@ -1132,7 +1132,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 String checkResult = ProductPromoWorker.checkCanUsePromoCode(promoCode, partyId, this.getDelegator(), locale);
                 if (checkResult != null) {
                     promoCodeIter.remove();
-                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderOnUserChangePromoCodeWasRemovedBecause", UtilMisc.toMap("checkResult", checkResult), locale), MODULE);
+                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderOnUserChangePromoCodeWasRemovedBecause", UtilMisc.toMap("checkResult", checkResult), locale), MODULE);
                 }
             }
 
@@ -1260,7 +1260,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
    public Timestamp getDefaultShipAfterDate() {
        return this.defaultShipAfterDate != null ? (Timestamp) this.defaultShipAfterDate.clone() : null;
    }
-   
    public void setDefaultReserveAfterDate(Timestamp defaultReserveAfterDate) {
        this.defaultReserveAfterDate = defaultReserveAfterDate != null ? (Timestamp) defaultReserveAfterDate.clone() : null;
    }
@@ -4218,7 +4217,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 facilityId = productStore.getString("inventoryFacilityId");
                 storeRequirementMethodEnumId = productStore.getString("requirementMethodEnumId");
             } catch (GenericEntityException gee) {
-                Debug.logError(UtilProperties.getMessage(RES_ERROR,"OrderProblemGettingProductStoreRecords", locale) + gee.getMessage(), MODULE);
+                Debug.logError(UtilProperties.getMessage(RES_ERROR, "OrderProblemGettingProductStoreRecords", locale) + gee.getMessage(), MODULE);
                 return;
             }
         }
@@ -4301,7 +4300,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         }
 
                     } catch (GenericServiceException gee) {
-                        Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderRunServiceGetInventoryAvailableByFacilityError", locale) + gee.getMessage(), MODULE);
+                        Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderRunServiceGetInventoryAvailableByFacilityError", locale) + gee.getMessage(), MODULE);
                     }
                 } else {
 
@@ -4331,7 +4330,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         supplierPartyId = supplierProduct.getString("partyId");
                     }
                 } catch (GenericServiceException e) {
-                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), MODULE);
+                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), MODULE);
                 }
 
                 // Leave the items untouched if we couldn't find a supplier

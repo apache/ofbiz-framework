@@ -684,17 +684,19 @@ public class PayflowPro {
         }
         return parameters;
     }
-    private static void parseAuthResponse(Delegator delegator, String paymentGatewayConfigId, String resp, Map<String, Object> result, String RESOURCE, boolean isReAuth, boolean isPayPal) {
+    private static void parseAuthResponse(Delegator delegator, String paymentGatewayConfigId, String resp, Map<String, Object> result,
+                                          String resource, boolean isReAuth, boolean isPayPal) {
         Map<String, String> parameters = parseResponse(resp);
 
         // txType
-        boolean isSale = !comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "preAuth", RESOURCE, "payment.verisign.preAuth", "Y");
+        boolean isSale = !comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "preAuth", resource, "payment.verisign.preAuth", "Y");
 
         // avs checking - ignore on re-auth
         boolean avsCheckOkay = true;
         String avsCode = null;
         if (!isReAuth) {
-            boolean checkAvs = comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "checkAvs", RESOURCE, "payment.verisign.checkAvs", "Y");
+            boolean checkAvs = comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "checkAvs", resource,
+                    "payment.verisign.checkAvs", "Y");
             if (checkAvs && !isSale) {
                 String addAvs = (String) parameters.get("AVSADDR");
                 String zipAvs = (String) parameters.get("AVSZIP");
@@ -709,7 +711,7 @@ public class PayflowPro {
         boolean cvv2CheckOkay = true;
         String cvvCode = null;
         if (!isReAuth && !isPayPal) {
-            boolean checkCvv2 = comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "checkCvv2", RESOURCE, "payment.verisign.checkCvv2", "Y");
+            boolean checkCvv2 = comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "checkCvv2", resource, "payment.verisign.checkCvv2", "Y");
             if (checkCvv2 && !isSale) {
                 cvvCode = (String) parameters.get("CVV2MATCH");
                 if (cvvCode == null || "N".equals(cvvCode)) {
@@ -893,20 +895,20 @@ public class PayflowPro {
         return buf;
     }
 
-    private static PayflowAPI init(Delegator delegator, String paymentGatewayConfigId, String RESOURCE, Map<String, ? extends Object> context) {
+    private static PayflowAPI init(Delegator delegator, String paymentGatewayConfigId, String resource, Map<String, ? extends Object> context) {
         // No more used
         // String certsPath = FlexibleStringExpander.expandString(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "certsPath", RESOURCE, "payment.verisign.certsPath", "pfcerts"), context);
-        String hostAddress = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostAddress", RESOURCE, "payment.verisign.hostAddress", "pilot-payflowpro.paypal.com");
-        Integer hostPort = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostPort", RESOURCE, "payment.verisign.hostPort", "443"));
-        Integer timeout = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "timeout", RESOURCE, "payment.verisign.timeout", "80"));
-        String proxyAddress = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "proxyAddress", RESOURCE, "payment.verisign.proxyAddress", "");
-        Integer proxyPort = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "proxyPort", RESOURCE, "payment.verisign.proxyPort", "80"));
-        String proxyLogon = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "proxyLogon", RESOURCE, "payment.verisign.proxyLogon", "");
-        String proxyPassword = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "proxyPassword", RESOURCE, "payment.verisign.proxyPassword", "");
-        String logFileName = FlexibleStringExpander.expandString(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "logFileName", RESOURCE, "payment.verisign.logFileName", ""), context);
-        Integer loggingLevel = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "loggingLevel", RESOURCE, "payment.verisign.loggingLevel", "6"));
-        Integer maxLogFileSize = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "maxLogFileSize", RESOURCE, "payment.verisign.maxLogFileSize", "1000000"));
-        boolean stackTraceOn = "Y".equalsIgnoreCase(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "stackTraceOn", RESOURCE, "payment.verisign.stackTraceOn", "N"));
+        String hostAddress = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostAddress", resource, "payment.verisign.hostAddress", "pilot-payflowpro.paypal.com");
+        Integer hostPort = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostPort", resource, "payment.verisign.hostPort", "443"));
+        Integer timeout = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "timeout", resource, "payment.verisign.timeout", "80"));
+        String proxyAddress = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "proxyAddress", resource, "payment.verisign.proxyAddress", "");
+        Integer proxyPort = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "proxyPort", resource, "payment.verisign.proxyPort", "80"));
+        String proxyLogon = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "proxyLogon", resource, "payment.verisign.proxyLogon", "");
+        String proxyPassword = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "proxyPassword", resource, "payment.verisign.proxyPassword", "");
+        String logFileName = FlexibleStringExpander.expandString(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "logFileName", resource, "payment.verisign.logFileName", ""), context);
+        Integer loggingLevel = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "loggingLevel", resource, "payment.verisign.loggingLevel", "6"));
+        Integer maxLogFileSize = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "maxLogFileSize", resource, "payment.verisign.maxLogFileSize", "1000000"));
+        boolean stackTraceOn = "Y".equalsIgnoreCase(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "stackTraceOn", resource, "payment.verisign.stackTraceOn", "N"));
 
         PayflowAPI pfp = new PayflowAPI(hostAddress, hostPort, timeout, proxyAddress,
                 proxyPort, proxyLogon, proxyPassword);
@@ -918,7 +920,7 @@ public class PayflowPro {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String RESOURCE, String parameterName) {
+                                                       String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -933,7 +935,7 @@ public class PayflowPro {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
@@ -942,8 +944,8 @@ public class PayflowPro {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String RESOURCE, String parameterName, String defaultValue) {
-        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, RESOURCE, parameterName);
+                                                       String resource, String parameterName, String defaultValue) {
+        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }
@@ -951,10 +953,10 @@ public class PayflowPro {
     }
 
     private static boolean comparePaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                        String RESOURCE, String parameterName, String compareValue) {
+                                                        String resource, String parameterName, String compareValue) {
         boolean returnValue = false;
 
-        String value = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, RESOURCE, parameterName, compareValue);
+        String value = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName, compareValue);
         if (UtilValidate.isNotEmpty(value)) {
             returnValue = value.trim().equalsIgnoreCase(compareValue);
         }

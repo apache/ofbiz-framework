@@ -63,34 +63,34 @@ public class SecurePayServiceTest extends OFBizTestCase {
         configFile = "paymentTest.properties";
         creditAmount = new BigDecimal("234.51");
         emailAddr = delegator.makeValue("ContactMech", UtilMisc.toMap(
-                "infoString","test@hansbakker.com"));
+                "infoString", "test@hansbakker.com"));
         orderId = "Demo1002";
         creditCard = delegator.makeValue("CreditCard", UtilMisc.toMap(
-                "cardType","CCT_VISA",
-                "expireDate","10/2011",  // mm/yyyy, gets converted to mm/yy
-                "cardNumber","4444333322221111"));
+                "cardType", "CCT_VISA",
+                "expireDate", "10/2011",  // mm/yyyy, gets converted to mm/yy
+                "cardNumber", "4444333322221111"));
         billingAddress = delegator.makeValue("PostalAddress", UtilMisc.toMap(
-                "toName","The customer Name",
-                "address1","The customer billingAddress1",
-                "address2","The customer billingAddress2",
-                "city","The customer city",
+                "toName", "The customer Name",
+                "address1", "The customer billingAddress1",
+                "address2", "The customer billingAddress2",
+                "city", "The customer city",
                 "stateProvinceGeoId", "NLD"));
         shippingAddress = delegator.makeValue("PostalAddress", UtilMisc.toMap(
-                "toName","The customer Name",
-                "address1","The customer shippingStreet1",
-                "address2","The customer shippingStreet2",
-                "city","The customer city",
+                "toName", "The customer Name",
+                "address1", "The customer shippingStreet1",
+                "address2", "The customer shippingStreet2",
+                "city", "The customer city",
                 "stateProvinceGeoId", "NLD",
-                "postalCode","12345"));
+                "postalCode", "12345"));
         orderItemMap = UtilMisc.<String, Object>toMap(
-                "orderId", "Demo1002", 
-                "orderItemSeqId", "00001", 
-                "orderItemTypeId", "PRODUCT_ORDER_ITEM", 
+                "orderId", "Demo1002",
+                "orderItemSeqId", "00001",
+                "orderItemTypeId", "PRODUCT_ORDER_ITEM",
                 "productId", "GZ-1000",
-                "prodCatalogId", "DemoCatalog", 
-                "quantity" , new BigDecimal("2.000000"), 
+                "prodCatalogId", "DemoCatalog",
+                "quantity", new BigDecimal("2.000000"),
                 "unitPrice", new BigDecimal("59.00"),
-                "statusId" ,"ITEM_COMPLETED"
+                "statusId", "ITEM_COMPLETED"
                 );
         orderItems = UtilMisc.<Object>toList(orderItemMap);
         billToParty = delegator.makeValue("Party" , UtilMisc.toMap("partyId", "DemoCustomer"));

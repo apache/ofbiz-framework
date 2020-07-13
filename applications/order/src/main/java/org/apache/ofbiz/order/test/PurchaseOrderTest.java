@@ -72,7 +72,7 @@ public class PurchaseOrderTest extends OFBizTestCase {
         ctx.put("orderItemContactMechs", orderItemContactMechs);
 
         GenericValue orderItemShipGroup = delegator.makeValue("OrderItemShipGroup", UtilMisc.toMap("carrierPartyId", "UPS", "contactMechId", "9000", "isGift", "N", "maySplit", "N", "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
-        orderItemShipGroup.set("carrierRoleTypeId","CARRIER");
+        orderItemShipGroup.set("carrierRoleTypeId", "CARRIER");
         List <GenericValue> orderItemShipGroupInfo = new LinkedList<>();
         orderItemShipGroupInfo.add(orderItemShipGroup);
         ctx.put("orderItemShipGroupInfo", orderItemShipGroupInfo);

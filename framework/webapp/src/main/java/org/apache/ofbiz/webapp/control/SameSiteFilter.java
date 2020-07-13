@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 
 public class SameSiteFilter implements javax.servlet.Filter {
-    
+
     private static final String SameSiteCookieAttribute = EntityUtilProperties.getPropertyValueFromDelegatorName("security.properties", "SameSiteCookieAttribute", "strict", "default");
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

@@ -123,7 +123,7 @@ public class SecurePayPaymentServices {
                 }
                 result.put("authCode", resp.getResponseCode());
                 result.put("authMessage", resp.getResponseText());
-            } 
+            }
         }
         return result;
     }
@@ -477,7 +477,7 @@ public class SecurePayPaymentServices {
         return props;
     }
 
-    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName, String RESOURCE, String parameterName) {
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName, String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -492,7 +492,7 @@ public class SecurePayPaymentServices {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
@@ -500,8 +500,8 @@ public class SecurePayPaymentServices {
         return returnValue;
     }
 
-    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName, String RESOURCE, String parameterName, String defaultValue) {
-        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, RESOURCE, parameterName);
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName, String resource, String parameterName, String defaultValue) {
+        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

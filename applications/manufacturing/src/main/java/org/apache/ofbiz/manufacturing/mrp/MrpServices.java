@@ -66,7 +66,7 @@ public class MrpServices {
         Timestamp now = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
         String facilityId = (String) context.get("facilityId");
-        Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
+        Integer defaultYearsOffset = (Integer) context.get("defaultYearsOffset");
         String mrpId = (String) context.get("mrpId");
 
         //Erases the old table for the moment and initializes it with the new orders,
@@ -76,14 +76,14 @@ public class MrpServices {
         try {
             listResult = EntityQuery.use(delegator).from("MrpEvent").queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e,"Error : findList(\"MrpEvent\", null, null, null, null, false)", MODULE);
+            Debug.logError(e, "Error : findList(\"MrpEvent\", null, null, null, null, false)", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         if (listResult != null) {
             try {
                 delegator.removeAll(listResult);
             } catch (GenericEntityException e) {
-                Debug.logError(e,"Error : removeAll(listResult), listResult ="+listResult, MODULE);
+                Debug.logError(e, "Error : removeAll(listResult), listResult ="+listResult, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventRemoveError", locale));
             }
         }
@@ -92,7 +92,7 @@ public class MrpServices {
         List<GenericValue> listResultRoles = new LinkedList<>();
         try {
             listResult = EntityQuery.use(delegator).from("Requirement")
-                    .where("requirementTypeId", "PRODUCT_REQUIREMENT","facilityId", facilityId,
+                    .where("requirementTypeId", "PRODUCT_REQUIREMENT", "facilityId", facilityId,
                             "statusId", "REQ_PROPOSED")
                     .queryList();
         } catch (GenericEntityException e) {
@@ -114,7 +114,7 @@ public class MrpServices {
         }
         try {
             listResult = EntityQuery.use(delegator).from("Requirement")
-                    .where("requirementTypeId", "INTERNAL_REQUIREMENT","facilityId", facilityId,
+                    .where("requirementTypeId", "INTERNAL_REQUIREMENT", "facilityId", facilityId,
                             "statusId", "REQ_PROPOSED")
                     .queryList();
         } catch (GenericEntityException e) {
@@ -267,7 +267,6 @@ public class MrpServices {
                     orderDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", "_NA_").queryOne();
                 }
                 String productId =  genericResult.getString("productId");
-    
                 BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
                 BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
                 if (UtilValidate.isEmpty(shipGroupQuantity)) {
@@ -299,7 +298,7 @@ public class MrpServices {
                 if (estimatedShipDate == null) {
                     estimatedShipDate = now;
                 }
-    
+
                 parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "PUR_ORDER_RECP");
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, shipGroupQuantity, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
@@ -598,7 +597,7 @@ public class MrpServices {
         Timestamp now = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
         String mrpName = (String) context.get("mrpName");
-        Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
+        Integer defaultYearsOffset = (Integer) context.get("defaultYearsOffset");
         String facilityGroupId = (String) context.get("facilityGroupId");
         String facilityId = (String) context.get("facilityId");
         String manufacturingFacilityId = null;
@@ -714,8 +713,8 @@ public class MrpServices {
                         stockTmp = findProductMrpQoh(mrpId, product, facilityId, dispatcher, delegator);
                         try {
                             InventoryEventPlannedServices.createOrUpdateMrpEvent(UtilMisc.<String, Object>toMap("mrpId", mrpId,
-                                    "productId", product.getString("productId"), 
-                                    "mrpEventTypeId", "INITIAL_QOH", "eventDate", now), 
+                                    "productId", product.getString("productId"),
+                                    "mrpEventTypeId", "INITIAL_QOH", "eventDate", now),
                                     stockTmp, facilityId, null, false, delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));

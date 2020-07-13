@@ -102,7 +102,7 @@ public class BOMTree {
         String productIdForRules = productId;
         // The selected product features are loaded
         List<GenericValue> productFeaturesAppl = EntityQuery.use(delegator).from("ProductFeatureAppl")
-                .where("productId", productId, 
+                .where("productId", productId,
                         "productFeatureApplTypeId", "STANDARD_FEATURE")
                 .queryList();
         List<GenericValue> productFeatures = new LinkedList<>();

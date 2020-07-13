@@ -502,7 +502,7 @@ public class ContentSearch {
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentAssocTypeId", "contentAssocTypeId", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
-            contentSearchContext.dynamicViewEntity.addViewLink("CNT", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("contentId","contentIdTo"));
+            contentSearchContext.dynamicViewEntity.addViewLink("CNT", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("contentId", "contentIdTo"));
 
             List<EntityExpr> assocConditionToFrom = new LinkedList<>();
             assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "ContentIdFrom", EntityOperator.IN, contentIdSet));
@@ -773,7 +773,7 @@ public class ContentSearch {
             contentSearchContext.entityConditionList.add(conditions);
 
             // add in contentSearchConstraint, don't worry about the contentSearchResultId or constraintSeqId, those will be fill in later
-            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString","fromDate : " + fromDate + " thruDate : " + thruDate)));
+            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", "fromDate : " + fromDate + " thruDate : " + thruDate)));
         }
 
         /** pretty print for log messages and even UI stuff */

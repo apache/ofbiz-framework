@@ -194,7 +194,7 @@ public class BOMNode {
         return oneChildNode;
     }
 
-    private BOMNode configurator(GenericValue node, List<GenericValue> productFeatures, 
+    private BOMNode configurator(GenericValue node, List<GenericValue> productFeatures,
             String productIdForRules, Date inDate) throws GenericEntityException {
         BOMNode oneChildNode = new BOMNode((String)node.get("productIdTo"), delegator, dispatcher, userLogin);
         oneChildNode.setTree(tree);

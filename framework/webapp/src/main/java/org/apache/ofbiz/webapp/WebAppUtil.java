@@ -73,7 +73,6 @@ public final class WebAppUtil {
      * Returns the control servlet path. The path consists of the web application's mount-point
      * specified in the <code>ofbiz-component.xml</code> file and the servlet mapping specified
      * in the web application's <code>web.xml</code> file.
-     * 
      * @param webAppInfo
      * @throws IOException
      * @throws SAXException
@@ -112,7 +111,6 @@ public final class WebAppUtil {
     /**
      * Returns the <code>WebappInfo</code> instance associated to the specified web site ID.
      * Throws <code>IllegalArgumentException</code> if the web site ID was not found.
-     * 
      * @param webSiteId
      * @throws IOException
      * @throws SAXException
@@ -130,7 +128,6 @@ public final class WebAppUtil {
     /**
      * Returns the web site ID - as configured in the web application's <code>web.xml</code> file,
      * or <code>null</code> if no web site ID was found.
-     * 
      * @param webAppInfo
      * @throws IOException
      * @throws SAXException
@@ -229,7 +226,6 @@ public final class WebAppUtil {
 
     /**
      * Returns a <code>WebXml</code> instance that models the web application's <code>web.xml</code> file.
-     * 
      * @param webAppInfo
      * @throws IOException
      * @throws SAXException
@@ -242,7 +238,6 @@ public final class WebAppUtil {
 
     /**
      * Parses the specified <code>web.xml</code> file into a <code>WebXml</code> instance.
-     * 
      * @param webXmlLocation
      * @param validate
      * @throws IOException

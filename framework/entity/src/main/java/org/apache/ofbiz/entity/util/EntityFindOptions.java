@@ -50,7 +50,7 @@ public class EntityFindOptions implements java.io.Serializable {
 
     /** LIMIT option */
     protected int limit = -1;
-    
+
     /** OFFSET option */
     protected int offset = -1;
 

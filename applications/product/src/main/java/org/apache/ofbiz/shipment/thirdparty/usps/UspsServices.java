@@ -88,7 +88,7 @@ public class UspsServices {
     public static Map<String, Object> uspsRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) context.get("configProps");
+        String resource = (String) context.get("configProps");
         Locale locale = (Locale) context.get("locale");
         // check for 0 weight
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
@@ -161,12 +161,12 @@ public class UspsServices {
         }
 
         // create the request document
-        Document requestDocument = createUspsRequestDocument("RateV2Request", true, delegator, shipmentGatewayConfigId, RESOURCE);
+        Document requestDocument = createUspsRequestDocument("RateV2Request", true, delegator, shipmentGatewayConfigId, resource);
 
         // TODO: 70 lb max is valid for Express, Priority and Parcel only - handle other methods
         BigDecimal maxWeight;
-        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight", 
-                RESOURCE, "shipment.usps.max.estimate.weight", "70");
+        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight",
+                resource, "shipment.usps.max.estimate.weight", "70");
         try {
             maxWeight = new BigDecimal(maxWeightStr);
         } catch (NumberFormatException e) {
@@ -201,7 +201,7 @@ public class UspsServices {
             }
             // (packageWeight % 1) * 16 (Rounded up to 0 dp)
             BigDecimal weightOunces = packageWeight.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, RoundingMode.CEILING);
-            
+
             UtilXml.addChildElementValue(packageElement, "Pounds", weightPounds.toPlainString(), requestDocument);
             UtilXml.addChildElementValue(packageElement, "Ounces", weightOunces.toPlainString(), requestDocument);
 
@@ -222,7 +222,7 @@ public class UspsServices {
         // send the request
         Document responseDocument = null;
         try {
-            responseDocument = sendUspsRequest("RateV2", requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+            responseDocument = sendUspsRequest("RateV2", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -278,7 +278,7 @@ public class UspsServices {
     public static Map<String, Object> uspsInternationalRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) context.get("configProps");
+        String resource = (String) context.get("configProps");
         Locale locale = (Locale) context.get("locale");
 
         // check for 0 weight
@@ -332,8 +332,8 @@ public class UspsServices {
         }
 
         BigDecimal maxWeight;
-        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight", 
-                RESOURCE, "shipment.usps.max.estimate.weight", "70");
+        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight",
+                resource, "shipment.usps.max.estimate.weight", "70");
         try {
             maxWeight = new BigDecimal(maxWeightStr);
         } catch (NumberFormatException e) {
@@ -346,7 +346,7 @@ public class UspsServices {
         boolean isOnePackage = packages.size() == 1; // use shippableWeight if there's only one package
 
         // create the request document
-        Document requestDocument = createUspsRequestDocument("IntlRateRequest", false, delegator, shipmentGatewayConfigId, RESOURCE);
+        Document requestDocument = createUspsRequestDocument("IntlRateRequest", false, delegator, shipmentGatewayConfigId, resource);
 
         // TODO: Up to 25 packages can be included per request - handle more than 25
         for (ListIterator<Map<String, BigDecimal>> li = packages.listIterator(); li.hasNext();) {
@@ -379,7 +379,7 @@ public class UspsServices {
         // send the request
         Document responseDocument = null;
         try {
-            responseDocument = sendUspsRequest("IntlRate", requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+            responseDocument = sendUspsRequest("IntlRate", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -453,17 +453,17 @@ public class UspsServices {
     public static Map<String, Object> uspsTrackConfirm(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) context.get("configProps");
+        String resource = (String) context.get("configProps");
         Locale locale = (Locale) context.get("locale");
 
-        Document requestDocument = createUspsRequestDocument("TrackRequest", true, delegator, shipmentGatewayConfigId, RESOURCE);
+        Document requestDocument = createUspsRequestDocument("TrackRequest", true, delegator, shipmentGatewayConfigId, resource);
 
         Element trackingElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "TrackID", requestDocument);
         trackingElement.setAttribute("ID", (String) context.get("trackingId"));
 
         Document responseDocument = null;
         try {
-            responseDocument = sendUspsRequest("TrackV2", requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+            responseDocument = sendUspsRequest("TrackV2", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -529,7 +529,7 @@ public class UspsServices {
     public static Map<String, Object> uspsAddressValidation(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) context.get("configProps");
+        String resource = (String) context.get("configProps");
         String state = (String) context.get("state");
         String city = (String) context.get("city");
         String zip5 = (String) context.get("zip5");
@@ -541,7 +541,7 @@ public class UspsServices {
                     "FacilityShipmentUspsAddressValidationStateAndCityOrZipRqd", locale));
         }
 
-        Document requestDocument = createUspsRequestDocument("AddressValidateRequest", true, delegator, shipmentGatewayConfigId, RESOURCE);
+        Document requestDocument = createUspsRequestDocument("AddressValidateRequest", true, delegator, shipmentGatewayConfigId, resource);
 
         Element addressElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Address", requestDocument);
         addressElement.setAttribute("ID", "0");
@@ -561,7 +561,7 @@ public class UspsServices {
 
         Document responseDocument = null;
         try {
-            responseDocument = sendUspsRequest("Verify", requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+            responseDocument = sendUspsRequest("Verify", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -632,10 +632,10 @@ public class UspsServices {
     public static Map<String, Object> uspsCityStateLookup(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) context.get("configProps");
+        String resource = (String) context.get("configProps");
         Locale locale = (Locale) context.get("locale");
 
-        Document requestDocument = createUspsRequestDocument("CityStateLookupRequest", true, delegator, shipmentGatewayConfigId, RESOURCE);
+        Document requestDocument = createUspsRequestDocument("CityStateLookupRequest", true, delegator, shipmentGatewayConfigId, resource);
 
         Element zipCodeElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "ZipCode", requestDocument);
         zipCodeElement.setAttribute("ID", "0");
@@ -647,7 +647,7 @@ public class UspsServices {
 
         Document responseDocument = null;
         try {
-            responseDocument = sendUspsRequest("CityStateLookup", requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+            responseDocument = sendUspsRequest("CityStateLookup", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -743,7 +743,7 @@ public class UspsServices {
     private static Map<String, Object> uspsServiceStandards(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) context.get("configProps");
+        String resource = (String) context.get("configProps");
         String type = (String) context.get("serviceType");
         Locale locale = (Locale) context.get("locale");
         if (!type.matches("PriorityMail|StandardB")) {
@@ -752,7 +752,7 @@ public class UspsServices {
                     UtilMisc.toMap("serviceType", type), locale));
         }
 
-        Document requestDocument = createUspsRequestDocument(type + "Request", true, delegator, shipmentGatewayConfigId, RESOURCE);
+        Document requestDocument = createUspsRequestDocument(type + "Request", true, delegator, shipmentGatewayConfigId, resource);
 
         UtilXml.addChildElementValue(requestDocument.getDocumentElement(), "OriginZip",
                 (String) context.get("originZip"), requestDocument);
@@ -761,7 +761,7 @@ public class UspsServices {
 
         Document responseDocument = null;
         try {
-            responseDocument = sendUspsRequest(type, requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+            responseDocument = sendUspsRequest(type, requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -832,10 +832,10 @@ public class UspsServices {
     public static Map<String, Object> uspsDomesticRate(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) context.get("configProps");
+        String resource = (String) context.get("configProps");
         Locale locale = (Locale) context.get("locale");
  
-        Document requestDocument = createUspsRequestDocument("RateRequest", true, delegator, shipmentGatewayConfigId, RESOURCE);
+        Document requestDocument = createUspsRequestDocument("RateRequest", true, delegator, shipmentGatewayConfigId, resource);
 
         Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
         packageElement.setAttribute("ID", "0");
@@ -866,7 +866,7 @@ public class UspsServices {
 
         Document responseDocument = null;
         try {
-            responseDocument = sendUspsRequest("Rate", requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+            responseDocument = sendUspsRequest("Rate", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -926,11 +926,11 @@ public class UspsServices {
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
         Locale locale = (Locale) context.get("locale");
-        
+
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) shipmentGatewayConfig.get("configProps");
-        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(RESOURCE)) {
+        String resource = (String) shipmentGatewayConfig.get("configProps");
+        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsGatewayNotAvailable", locale));
         }
@@ -991,7 +991,7 @@ public class UspsServices {
             // get the service type from the CarrierShipmentMethod
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
             String partyId = shipmentRouteSegment.getString("carrierPartyId");
-           
+
             GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod").where("partyId", partyId, "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId).queryOne();
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -1023,7 +1023,7 @@ public class UspsServices {
             for (Iterator<GenericValue> i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
 
                 GenericValue shipmentPackageRouteSeg = i.next();
-                Document requestDocument = createUspsRequestDocument("RateRequest", true, delegator, shipmentGatewayConfigId, RESOURCE);
+                Document requestDocument = createUspsRequestDocument("RateRequest", true, delegator, shipmentGatewayConfigId, resource);
 
                 Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
                 packageElement.setAttribute("ID", "0");
@@ -1120,7 +1120,7 @@ public class UspsServices {
 
                 Document responseDocument = null;
                 try {
-                    responseDocument = sendUspsRequest("Rate", requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+                    responseDocument = sendUspsRequest("Rate", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
                 } catch (UspsRequestException e) {
                     Debug.logInfo(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -1224,11 +1224,11 @@ public class UspsServices {
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
         Locale locale = (Locale) context.get("locale");
-        
+
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) shipmentGatewayConfig.get("configProps");
-        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(RESOURCE)) {
+        String resource = (String) shipmentGatewayConfig.get("configProps");
+        if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsGatewayNotAvailable", locale));
         }
@@ -1266,7 +1266,7 @@ public class UspsServices {
                         "FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
-            
+
             // get the destination address
             GenericValue destinationAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
             if (destinationAddress == null) {
@@ -1305,7 +1305,7 @@ public class UspsServices {
             }
 
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegList) {
-                Document requestDocument = createUspsRequestDocument("DeliveryConfirmationV2.0Request", true, delegator, shipmentGatewayConfigId, RESOURCE);
+                Document requestDocument = createUspsRequestDocument("DeliveryConfirmationV2.0Request", true, delegator, shipmentGatewayConfigId, resource);
                 Element requestElement = requestDocument.getDocumentElement();
 
                 UtilXml.addChildElementValue(requestElement, "Option", "3", requestDocument);
@@ -1342,13 +1342,13 @@ public class UspsServices {
                 UtilXml.addChildElement(requestElement, "ToZip4", requestDocument);
 
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage", false);
-                
+
                 // WeightInOunces
                 String weightStr = shipmentPackage.getString("weight");
                 if (UtilValidate.isEmpty(weightStr)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "FacilityShipmentUspsWeightNotFound", 
-                            UtilMisc.toMap("shipmentId", shipmentPackage.getString("shipmentId"), 
+                            UtilMisc.toMap("shipmentId", shipmentPackage.getString("shipmentId"),
                                     "shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId")), locale));
                 }
 
@@ -1386,7 +1386,7 @@ public class UspsServices {
 
                 Document responseDocument = null;
                 try {
-                    responseDocument = sendUspsRequest("DeliveryConfirmationV2", requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+                    responseDocument = sendUspsRequest("DeliveryConfirmationV2", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
                 } catch (UspsRequestException e) {
                     Debug.logInfo(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -1469,18 +1469,18 @@ public class UspsServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        String RESOURCE = (String) context.get("configProps");
+        String resource = (String) context.get("configProps");
         GenericValue shipmentRouteSegment = (GenericValue) context.get("shipmentRouteSegment");
         Locale locale = (Locale) context.get("locale");
 
         // Start the document
         Document requestDocument;
         boolean certify = false;
-        String test = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "test", RESOURCE, "shipment.usps.test");
+        String test = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "test", resource, "shipment.usps.test");
         if (!"Y".equalsIgnoreCase(test)) {
-            requestDocument = createUspsRequestDocument("PriorityMailIntlRequest", false, delegator, shipmentGatewayConfigId, RESOURCE);
+            requestDocument = createUspsRequestDocument("PriorityMailIntlRequest", false, delegator, shipmentGatewayConfigId, resource);
         } else {
-            requestDocument = createUspsRequestDocument("PriorityMailIntlCertifyRequest", false, delegator, shipmentGatewayConfigId, RESOURCE);
+            requestDocument = createUspsRequestDocument("PriorityMailIntlCertifyRequest", false, delegator, shipmentGatewayConfigId, resource);
             certify = true;
         }
         Element rootElement = requestDocument.getDocumentElement();
@@ -1633,7 +1633,7 @@ public class UspsServices {
             Document responseDocument = null;
             String api = certify ? "PriorityMailIntlCertify" : "PriorityMailIntl";
             try {
-                responseDocument = sendUspsRequest(api, requestDocument, delegator, shipmentGatewayConfigId, RESOURCE, locale);
+                responseDocument = sendUspsRequest(api, requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
             } catch (UspsRequestException e) {
                 Debug.logInfo(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -1666,26 +1666,26 @@ public class UspsServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static Document createUspsRequestDocument(String rootElement, boolean passwordRequired, Delegator delegator, String shipmentGatewayConfigId, String RESOURCE) {
+    private static Document createUspsRequestDocument(String rootElement, boolean passwordRequired, Delegator delegator, String shipmentGatewayConfigId, String resource) {
         Document requestDocument = UtilXml.makeEmptyXmlDocument(rootElement);
         Element requestElement = requestDocument.getDocumentElement();
         requestElement.setAttribute("USERID", getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, 
-                "accessUserId", RESOURCE, "shipment.usps.access.userid", ""));
+                "accessUserId", resource, "shipment.usps.access.userid", ""));
         if (passwordRequired) {
             requestElement.setAttribute("PASSWORD", getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, 
-                    "accessPassword", RESOURCE, "shipment.usps.access.password", ""));
+                    "accessPassword", resource, "shipment.usps.access.password", ""));
         }
         return requestDocument;
     }
 
     private static Document sendUspsRequest(String requestType, Document requestDocument, Delegator delegator,
-            String shipmentGatewayConfigId, String RESOURCE, Locale locale) throws UspsRequestException {
+            String shipmentGatewayConfigId, String resource, Locale locale) throws UspsRequestException {
         String conUrl = null;
         List<String> labelRequestTypes = UtilMisc.toList("PriorityMailIntl", "PriorityMailIntlCertify");
         if (labelRequestTypes.contains(requestType)) {
-            conUrl = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrlLabels", RESOURCE, "shipment.usps.connect.url.labels");
+            conUrl = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrlLabels", resource, "shipment.usps.connect.url.labels");
         } else {
-            conUrl = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrl", RESOURCE, "shipment.usps.connect.url");
+            conUrl = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrl", resource, "shipment.usps.connect.url");
         }
         if (UtilValidate.isEmpty(conUrl)) {
             throw new UspsRequestException(UtilProperties.getMessage(RES_ERROR,
@@ -1707,8 +1707,8 @@ public class UspsServices {
 
         Debug.logInfo("USPS XML request string: " + xmlString, MODULE);
 
-        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout", 
-                RESOURCE, "shipment.usps.connect.timeout", "60");
+        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout",
+                resource, "shipment.usps.connect.timeout", "60");
         int timeout = 60;
         try {
             timeout = Integer.parseInt(timeOutStr);
@@ -1764,9 +1764,9 @@ public class UspsServices {
         poundsOunces[1] = Integer.valueOf(decimalPounds.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, RoundingMode.CEILING).toPlainString());
         return poundsOunces;
     }
-    
-    private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String shipmentGatewayConfigParameterName, 
-            String RESOURCE, String parameterName) {
+
+    private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String shipmentGatewayConfigParameterName,
+            String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(shipmentGatewayConfigId)) {
             try {
@@ -1781,17 +1781,17 @@ public class UspsServices {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
         }
         return returnValue;
     }
-        
+
     private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String shipmentGatewayConfigParameterName, 
-            String RESOURCE, String parameterName, String defaultValue) {
-        String returnValue = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, shipmentGatewayConfigParameterName, RESOURCE, parameterName);
+            String resource, String parameterName, String defaultValue) {
+        String returnValue = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, shipmentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

@@ -121,7 +121,7 @@ public class ProductServices {
                     products.add(EntityQuery.use(delegator).from("Product").where("productId", oneVariant.getString("productIdTo")).queryOne());
                 } catch (GenericEntityException e) {
                     Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
-                    String errMsg = UtilProperties.getMessage(RES_ERROR,"productservices.problem_reading_product_features_errors", messageMap, locale);
+                    String errMsg = UtilProperties.getMessage(RES_ERROR, "productservices.problem_reading_product_features_errors", messageMap, locale);
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
@@ -154,13 +154,13 @@ public class ProductServices {
             }
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR,"productservices.problem_reading_product_features_errors", messageMap, locale);
+            errMsg = UtilProperties.getMessage(RES_ERROR, "productservices.problem_reading_product_features_errors", messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
         if (featureSet.size() == 0) {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"productservices.problem_reading_product_features", locale);
+            errMsg = UtilProperties.getMessage(RES_ERROR, "productservices.problem_reading_product_features", locale);
             // ToDo DO 2004-02-23 Where should the errMsg go?
             Debug.logWarning(errMsg + " for product " + productId, MODULE);
         }

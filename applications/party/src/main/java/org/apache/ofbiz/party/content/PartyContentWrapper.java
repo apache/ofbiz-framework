@@ -135,7 +135,7 @@ public class PartyContentWrapper implements ContentWrapper {
         if (party == null) {
             return null;
         }
-        
+
         UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
         String candidateFieldName = ModelUtil.dbNameToVarName(partyContentTypeId);
         String cacheKey;
@@ -211,7 +211,7 @@ public class PartyContentWrapper implements ContentWrapper {
             ContentWorker.renderContentAsText(dispatcher, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
             return;
         }
-        
+
         if (partyContentTypeId != null) {
             String candidateFieldName = ModelUtil.dbNameToVarName(partyContentTypeId);
 

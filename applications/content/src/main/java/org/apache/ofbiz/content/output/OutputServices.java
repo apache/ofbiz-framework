@@ -92,7 +92,7 @@ public class OutputServices {
         VisualTheme visualTheme = (VisualTheme) serviceContext.get("visualTheme");
         if (visualTheme == null) {
             visualTheme = ThemeFactory.resolveVisualTheme(null);
-        }        
+        }
         String screenLocation = (String) serviceContext.remove("screenLocation");
         Map<String, Object> screenContext = UtilGenerics.cast(serviceContext.remove("screenContext"));
         String contentType = (String) serviceContext.remove("contentType");
@@ -210,7 +210,7 @@ public class OutputServices {
         VisualTheme visualTheme = (VisualTheme) serviceContext.get("visualTheme");
         if (visualTheme == null) {
             visualTheme = ThemeFactory.resolveVisualTheme(null);
-        }        
+        }
         String screenLocation = (String) serviceContext.remove("screenLocation");
         Map<String, Object> screenContext = UtilGenerics.cast(serviceContext.remove("screenContext"));
         String contentType = (String) serviceContext.remove("contentType");

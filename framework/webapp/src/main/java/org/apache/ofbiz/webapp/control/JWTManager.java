@@ -137,13 +137,13 @@ public class JWTManager {
     public static String getJWTKey(Delegator delegator) {
         return getJWTKey(delegator, null);
     }
-    
+
     /**
      * Get the JWT secret key from database or security.properties.
      * @param delegator the delegator
      * @return the JWT secret key
      */
-    
+
     public static String getJWTKey(Delegator delegator, String salt) {
         String key = EntityUtilProperties.getPropertyValue("security", "security.token.key", delegator);
         if (salt != null) {

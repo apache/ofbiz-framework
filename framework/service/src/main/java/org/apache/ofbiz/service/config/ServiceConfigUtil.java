@@ -57,7 +57,7 @@ public final class ServiceConfigUtil {
     /**
      * Returns the specified parameter value from the specified engine, or <code>null</code>
      * if the engine or parameter are not found.
-     *  
+     *
      * @param engineName
      * @param parameterName
      * @return
@@ -104,7 +104,6 @@ public final class ServiceConfigUtil {
     /**
      * Returns the specified <code>ServiceEngine</code> configuration instance,
      * or <code>null</code> if the configuration does not exist.
-     * 
      * @throws GenericConfigException
      */
     public static ServiceEngine getServiceEngine(String name) throws GenericConfigException {
@@ -126,18 +125,17 @@ public final class ServiceConfigUtil {
     /**
      * Register a <code>ServiceConfigListener</code> instance. The instance will be notified
      * when the <code>serviceengine.xml</code> file is reloaded.
-     * 
      * @param listener
      */
     public static void registerServiceConfigListener(ServiceConfigListener listener) {
         Assert.notNull("listener", listener);
         configListeners.add(listener);
     }
-    
+
     public static String getEngine() {
         return engine;
     }
-    
+
     public static String getServiceEngineXmlFileName() {
         return SERVICE_ENGINE_XML_FILENAME;
     }

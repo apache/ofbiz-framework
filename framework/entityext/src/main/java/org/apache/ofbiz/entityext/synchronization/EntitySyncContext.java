@@ -610,7 +610,7 @@ public class EntitySyncContext {
             }
             Debug.logInfo(toStoreInfo.toString(), MODULE);
         }
-        
+
         // As the this.nextUpdateTxTime calculation is only based on entities without values to store, if there at least one value to store returned
         // this calculation is false, so it needs to be nullified
         if (valuesToStore.size() > 0) {
@@ -733,7 +733,6 @@ public class EntitySyncContext {
         if (keysToRemove.size() > 0) {
             this.nextRemoveTxTime = null;
         }
-        
         return keysToRemove;
     }
 

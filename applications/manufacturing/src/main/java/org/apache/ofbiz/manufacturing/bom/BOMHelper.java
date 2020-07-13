@@ -68,7 +68,7 @@ public final class BOMHelper {
         if (inDate == null) inDate = new Date();
         int maxDepth = 0;
         List<GenericValue> productNodesList = EntityQuery.use(delegator).from("ProductAssoc")
-                .where("productIdTo", productId, 
+                .where("productIdTo", productId,
                         "productAssocTypeId", bomType)
                 .cache().filterByDate(inDate).queryList();
         int depth = 0;
@@ -112,7 +112,7 @@ public final class BOMHelper {
             productIdKeys.add(productIdKey);
         }
         List<GenericValue> productNodesList = EntityQuery.use(delegator).from("ProductAssoc")
-                .where("productIdTo", productId, 
+                .where("productIdTo", productId,
                         "productAssocTypeId", bomType)
                 .cache().filterByDate(inDate).queryList();
         GenericValue duplicatedNode = null;
@@ -152,8 +152,8 @@ public final class BOMHelper {
                 Debug.logError("Production Run for order item (" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + ") not created.", MODULE);
                 continue;
             }
-            Map<String, Object> result = dispatcher.runSync("createProductionRunsForOrder", UtilMisc.<String, Object>toMap("quantity", shipmentPlan.getBigDecimal("quantity"), "orderId", 
-                    shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId"), "shipmentId", 
+            Map<String, Object> result = dispatcher.runSync("createProductionRunsForOrder", UtilMisc.<String, Object>toMap("quantity", shipmentPlan.getBigDecimal("quantity"), "orderId",
+                    shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId"), "shipmentId",
                     shipmentId, "userLogin", userLogin));
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);

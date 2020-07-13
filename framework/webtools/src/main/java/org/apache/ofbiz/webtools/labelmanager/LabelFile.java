@@ -43,4 +43,8 @@ public class LabelFile {
     public String getFilePath() {
         return this.file.getPath();
     }
+
+    public String getComponentName() {
+        return componentName;
+    }
 }

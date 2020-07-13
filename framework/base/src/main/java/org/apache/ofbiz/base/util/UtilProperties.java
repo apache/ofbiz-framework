@@ -530,7 +530,7 @@ public final class UtilProperties implements Serializable {
         if (bundle.containsKey(name)) {
             value = bundle.getString(name);
         } else {
-            if (Debug.warningOn()) { 
+            if (Debug.warningOn()) {
                 Debug.logWarning(name + " is missing in " + resource + " for locale " + locale, MODULE);
             }
             return name;

@@ -916,9 +916,9 @@ public class InventoryServices {
             for (GenericValue onePrice: productPrices) {
                 if ("DEFAULT_PRICE".equals(onePrice.getString("productPriceTypeId"))) { //defaultPrice
                     result.put("defaultPrice", onePrice.getBigDecimal("price"));
-                } else if ("WHOLESALE_PRICE".equals(onePrice.getString("productPriceTypeId"))) {//
+                } else if ("WHOLESALE_PRICE".equals(onePrice.getString("productPriceTypeId"))) { //
                     result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
-                } else if ("LIST_PRICE".equals(onePrice.getString("productPriceTypeId"))) {//listPrice
+                } else if ("LIST_PRICE".equals(onePrice.getString("productPriceTypeId"))) { //listPrice
                     result.put("listPrice", onePrice.getBigDecimal("price"));
                 } else {
                     result.put("defaultPrice", onePrice.getBigDecimal("price"));

@@ -114,7 +114,7 @@ public class ProposedOrder {
             List<GenericValue> listRoutingTaskAssoc = null;
             if (routing == null) {
                 try {
-                    Map<String, Object> routingInMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"), 
+                    Map<String, Object> routingInMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"),
                             "ignoreDefaultRouting", "Y", "userLogin", userLogin);
                     Map<String, Object> routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
                     if (ServiceUtil.isError(routingOutMap)) {
@@ -243,7 +243,7 @@ public class ProposedOrder {
                 tree.print(bom);
                 requirementStartDate = tree.getRoot().getStartDate(manufacturingFacilityId, requiredByDate, true);
             } catch (Exception e) {
-                Debug.logError(e,"Error : computing the requirement start date. " + e.getMessage(), MODULE);
+                Debug.logError(e, "Error : computing the requirement start date. " + e.getMessage(), MODULE);
             }
         }
         parameters.put("productId", productId);
@@ -267,7 +267,7 @@ public class ProposedOrder {
             }
             return (String) result.get("requirementId");
         } catch (GenericServiceException e) {
-            Debug.logError(e,"Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), MODULE);
+            Debug.logError(e, "Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), MODULE);
             return null;
         }
     }

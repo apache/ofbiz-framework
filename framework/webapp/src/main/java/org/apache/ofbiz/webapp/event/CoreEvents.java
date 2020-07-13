@@ -351,7 +351,7 @@ public class CoreEvents {
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> syncServiceResult = checkMap(session.getAttribute("_RUN_SYNC_RESULT_"), String.class, Object.class);
-        if (null==syncServiceResult) {
+        if (null == syncServiceResult) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_fields_in_session", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";

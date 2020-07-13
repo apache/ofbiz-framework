@@ -218,7 +218,7 @@ public final class ProductConfigWorker {
                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
                 try {
-                    List<GenericValue> configs = EntityQuery.use(delegator).from("ProductConfigConfig").where("configItemId", configItemId,"sequenceNum", sequenceNum).queryList();
+                    List<GenericValue> configs = EntityQuery.use(delegator).from("ProductConfigConfig").where("configItemId", configItemId, "sequenceNum", sequenceNum).queryList();
                     for (GenericValue productConfigConfig: configs) {
                         for (ConfigOption oneOption: selectedOptions) {
                             String configOptionId = oneOption.configOption.getString("configOptionId");

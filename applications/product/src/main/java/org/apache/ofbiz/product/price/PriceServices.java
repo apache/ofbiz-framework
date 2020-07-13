@@ -102,7 +102,7 @@ public class PriceServices {
         String productStoreId = (String) context.get("productStoreId");
         String productStoreGroupId = (String) context.get("productStoreGroupId");
         Locale locale = (Locale) context.get("locale");
-        
+
         GenericValue productStore = null;
         try {
             // we have a productStoreId, if the corresponding ProductStore.primaryStoreGroupId is not empty, use that
@@ -533,7 +533,7 @@ public class PriceServices {
                         default:
                             tempPrice = BigDecimal.ZERO;
                         }
-                        
+
                         if (tempPrice != null && tempPrice != BigDecimal.ZERO) {
                             Map<String, Object> priceResults = new HashMap<>();
                             try {
@@ -557,7 +557,6 @@ public class PriceServices {
                 }
             }
         }
-        
         return result;
     }
 
@@ -940,7 +939,7 @@ public class PriceServices {
                     // add a orderItemPriceInfo element too, without orderId or orderItemId
                     StringBuilder priceInfoDescription = new StringBuilder();
 
-                    
+
                     priceInfoDescription.append(condsDescription.toString());
                     priceInfoDescription.append("[");
                     priceInfoDescription.append(UtilProperties.getMessage(RESOURCE, "ProductPriceConditionType", locale));
@@ -1195,7 +1194,6 @@ public class PriceServices {
                 return 0;
             }
         }
-        
         return 1;
     }
 
@@ -1211,13 +1209,13 @@ public class PriceServices {
         boolean validPriceFound = false;
         BigDecimal price = BigDecimal.ZERO;
 
-        GenericValue product = (GenericValue)context.get("product");
+        GenericValue product = (GenericValue) context.get("product");
         String productId = product.getString("productId");
         String agreementId = (String) context.get("agreementId");
         String currencyUomId = (String) context.get("currencyUomId");
         String partyId = (String) context.get("partyId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
-        Locale locale = (Locale)context.get("locale");
+        Locale locale = (Locale) context.get("locale");
 
         // a) Get the Price from the Agreement* data model
         if (Debug.infoOn()) Debug.logInfo("Try to resolve purchase price from agreement " + agreementId, MODULE);

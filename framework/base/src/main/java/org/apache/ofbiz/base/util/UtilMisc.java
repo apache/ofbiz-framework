@@ -189,7 +189,7 @@ public final class UtilMisc {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), MODULE);
                 }
-                
+
             }
         }
         for (String keyToRemove: keysToRemove) { map.remove(keyToRemove); }

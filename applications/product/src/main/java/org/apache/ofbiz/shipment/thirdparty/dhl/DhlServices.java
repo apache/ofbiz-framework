@@ -88,14 +88,14 @@ public class DhlServices {
      * @param xmlString Name of the DHL service to invoke
      * @param delegator the delegator
      * @param shipmentGatewayConfigId the shipment gateway config id
-     * @param RESOURCE the RESOURCE file (i.e. shipment.properties)
+     * @param resource the RESOURCE file (i.e. shipment.properties)
      * @param locale locale in use
      * @return XML string response from DHL
      * @throws DhlConnectException
      */
-    public static String sendDhlRequest(String xmlString, Delegator delegator, String shipmentGatewayConfigId, 
-            String RESOURCE, Locale locale) throws DhlConnectException {
-        String conStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrl", RESOURCE, "shipment.dhl.connect.url");
+    public static String sendDhlRequest(String xmlString, Delegator delegator, String shipmentGatewayConfigId,
+            String resource, Locale locale) throws DhlConnectException {
+        String conStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrl", resource, "shipment.dhl.connect.url");
         if (conStr.isEmpty()) {
             throw new DhlConnectException(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentDhlConnectUrlIncomplete", locale));
@@ -111,8 +111,8 @@ public class DhlServices {
         // prepare the connect string
         conStr = conStr.trim();
 
-        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout", 
-                RESOURCE, "shipment.dhl.connect.timeout", "60");
+        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout",
+                resource, "shipment.dhl.connect.timeout", "60");
         int timeout = 60;
         try {
             timeout = Integer.parseInt(timeOutStr);
@@ -187,7 +187,7 @@ public class DhlServices {
 
         String RESOURCE = (String) context.get("serviceConfigProps");
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
-        
+
         // shipping credentials (configured in properties)
         String userid = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessUserId", RESOURCE, "shipment.dhl.access.userid");
         String password = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessPassword", RESOURCE, "shipment.dhl.access.password");
@@ -321,7 +321,7 @@ public class DhlServices {
         if (UtilValidate.isNotEmpty(errorList)) {
             return ServiceUtil.returnError(errorList);
         }
-        
+
         String dateGenerated = UtilXml.childElementValue(
                 responseEstimateDetailElement, "DateGenerated");
 
@@ -458,7 +458,7 @@ public class DhlServices {
         if (UtilValidate.isNotEmpty(errorList)) {
             return ServiceUtil.returnError(errorList);
         }
-        String responseShippingKey = UtilXml.childElementValue(responseElement,"ShippingKey");
+        String responseShippingKey = UtilXml.childElementValue(responseElement, "ShippingKey");
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shippingKey", responseShippingKey);
         return result;
@@ -476,7 +476,7 @@ public class DhlServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
-        
+
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
         String RESOURCE = (String) shipmentGatewayConfig.get("configProps");
@@ -484,7 +484,7 @@ public class DhlServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentDhlGatewayNotAvailable", locale));
         }
-        
+
         try {
             GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             if (shipment == null) {
@@ -722,7 +722,7 @@ public class DhlServices {
             inContext.put("streetLine2", destPostalAddress.getString("address2"));
             inContext.put("city", destPostalAddress.getString("city"));
             inContext.put("state", destPostalAddress.getString("stateProvinceGeoId"));
-            
+
             // DHL ShipIT API does not accept ZIP+4
             if ((destPostalAddress.getString("postalCode") != null) && (destPostalAddress.getString("postalCode").length() > 5)) {
                 inContext.put("postalCode", destPostalAddress.getString("postalCode").substring(0,5));
@@ -846,7 +846,7 @@ public class DhlServices {
                 eCommerceRequestDocument);
         return eCommerceRequestDocument;
     }
-    
+
     public static void handleErrors(Element responseElement, List<Object> errorList, Locale locale) {
         Element faultsElement = UtilXml.firstChildElement(responseElement,
                 "Faults");
@@ -872,9 +872,9 @@ public class DhlServices {
             }
         }
     }
-    
+
     private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String shipmentGatewayConfigParameterName,
-                                                        String RESOURCE, String parameterName) {
+                                                        String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(shipmentGatewayConfigId)) {
             try {
@@ -889,25 +889,22 @@ public class DhlServices {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
         }
         return returnValue;
     }
-    
     private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String shipmentGatewayConfigParameterName,
-                                                        String RESOURCE, String parameterName, String defaultValue) {
-        String returnValue = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, shipmentGatewayConfigParameterName, RESOURCE, parameterName);
+                                                        String resource, String parameterName, String defaultValue) {
+        String returnValue = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, shipmentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }
         return returnValue;
     }
 }
-
-
 @SuppressWarnings("serial")
 class DhlConnectException extends GeneralException {
     DhlConnectException() {

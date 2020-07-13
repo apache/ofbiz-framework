@@ -95,7 +95,7 @@ public class CheckOutHelper {
         if (UtilValidate.isNotEmpty(this.cart)) {
             errorMessages.addAll(setCheckOutShippingAddressInternal(shippingContactMechId));
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
         }
         if (errorMessages.size() == 1) {
@@ -118,7 +118,7 @@ public class CheckOutHelper {
             this.cart.setAllShippingContactMechId(shippingContactMechId);
         } else if (cart.shippingApplies()) {
             // only return an error if shipping is required for this purchase
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_shipping_destination", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_shipping_destination", cart.getLocale());
             errorMessages.add(errMsg);
         }
 
@@ -135,7 +135,7 @@ public class CheckOutHelper {
             errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions,
                     orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
         }
 
@@ -170,7 +170,7 @@ public class CheckOutHelper {
             this.cart.setAllCarrierPartyId(carrierPartyId);
         } else if (cart.shippingApplies()) {
             // only return an error if shipping is required for this purchase
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_shipping_method", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_shipping_method", cart.getLocale());
             errorMessages.add(errMsg);
         }
 
@@ -180,7 +180,7 @@ public class CheckOutHelper {
         if (UtilValidate.isNotEmpty(maySplit)) {
             cart.setAllMaySplit(Boolean.valueOf(maySplit));
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_splitting_preference", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_splitting_preference", cart.getLocale());
             errorMessages.add(errMsg);
         }
 
@@ -229,7 +229,7 @@ public class CheckOutHelper {
         if (UtilValidate.isNotEmpty(this.cart)) {
             errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId));
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
         }
 
@@ -288,7 +288,7 @@ public class CheckOutHelper {
 
                 // if an amount was entered, check that it doesn't exceed available amount
                 if (amountToUse.compareTo(BigDecimal.ZERO) > 0 && amountToUse.compareTo(accountCredit) > 0) {
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.insufficient_credit_available_on_account",
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.insufficient_credit_available_on_account",
                             cart.getLocale());
                     errorMessages.add(errMsg);
                 } else {
@@ -300,7 +300,7 @@ public class CheckOutHelper {
                 BigDecimal grandTotal = cart.getGrandTotal();
                 if (grandTotal.compareTo(amountToUse) > 0) {
                     cart.setBillingAccount(null, BigDecimal.ZERO); // erase existing billing account data
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.insufficient_credit_available_on_account",
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.insufficient_credit_available_on_account",
                             cart.getLocale());
                     errorMessages.add(errMsg);
                 } else {
@@ -357,7 +357,7 @@ public class CheckOutHelper {
             }
         } else if (cart.getGrandTotal().compareTo(BigDecimal.ZERO) != 0) {
             // only return an error if the order total is not 0.00
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_method_of_payment",
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_method_of_payment",
                     cart.getLocale());
             errorMessages.add(errMsg);
         }
@@ -374,7 +374,7 @@ public class CheckOutHelper {
               this.cart.setShipBeforeDate(shipBefore);
               this.cart.setShipAfterDate(shipAfter);
           } else {
-              errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart",
+              errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart",
                                                      (cart != null ? cart.getLocale() : Locale.getDefault()));
               errorMessages.add(errMsg);
           }
@@ -425,7 +425,7 @@ public class CheckOutHelper {
             errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId));
 
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
         }
 
@@ -454,14 +454,14 @@ public class CheckOutHelper {
 
             boolean gcFieldsOkay = true;
             if (UtilValidate.isEmpty(gcNum)) {
-                errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.enter_gift_card_number", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_gift_card_number", (cart != null ? cart.getLocale() : Locale.getDefault()));
                 errorMessages.add(errMsg);
                 gcFieldsOkay = false;
             }
             if (cart.isPinRequiredForGC(delegator)) {
                 //  if a PIN is required, make sure the PIN is valid
                 if (UtilValidate.isEmpty(gcPin)) {
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.enter_gift_card_pin_number", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_gift_card_pin_number", cart.getLocale());
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
                 }
@@ -473,13 +473,13 @@ public class CheckOutHelper {
                     if (!cart.isPinRequiredForGC(delegator)) {
                         GenericValue finAccount = FinAccountHelper.getFinAccountFromCode(gcNum, delegator);
                         if (finAccount == null) {
-                            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.gift_card_does_not_exist", cart.getLocale());
+                            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.gift_card_does_not_exist", cart.getLocale());
                             errorMessages.add(errMsg);
                             gcFieldsOkay = false;
                         } else if ((finAccount.getBigDecimal("availableBalance") == null) ||
                                 !((finAccount.getBigDecimal("availableBalance")).compareTo(FinAccountHelper.getZero()) > 0)) {
                             // if account's available balance (including authorizations) is not greater than zero, then return an error
-                            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.gift_card_has_no_value", cart.getLocale());
+                            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.gift_card_has_no_value", cart.getLocale());
                             errorMessages.add(errMsg);
                             gcFieldsOkay = false;
                         }
@@ -493,7 +493,7 @@ public class CheckOutHelper {
 
             if (UtilValidate.isNotEmpty(selectedPaymentMethods)) {
                 if (UtilValidate.isEmpty(gcAmt)) {
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.enter_amount_to_place_on_gift_card", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_amount_to_place_on_gift_card", cart.getLocale());
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
                 }
@@ -503,7 +503,7 @@ public class CheckOutHelper {
                     gcAmount = new BigDecimal(gcAmt);
                 } catch (NumberFormatException e) {
                     Debug.logError(e, MODULE);
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.invalid_amount_for_gift_card", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.invalid_amount_for_gift_card", cart.getLocale());
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
                 }
@@ -543,7 +543,7 @@ public class CheckOutHelper {
                         result.put("amount", giftCardAmount);
                     }
                 } else {
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problem_with_gift_card_information", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problem_with_gift_card_information", cart.getLocale());
                     errorMessages.add(errMsg);
                 }
             }
@@ -725,7 +725,7 @@ public class CheckOutHelper {
         try {
             party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR,"OrderProblemsGettingPartyRecord", cart.getLocale()), MODULE);
+            Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsGettingPartyRecord", cart.getLocale()), MODULE);
         }
 
         // create order contact mechs for the email address(s)
@@ -769,7 +769,7 @@ public class CheckOutHelper {
                 this.delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 // not a fatal error; so just print a message
-                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR,"OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), MODULE);
+                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), MODULE);
             }
         }
 
@@ -1134,7 +1134,7 @@ public class CheckOutHelper {
                     return ServiceUtil.returnError(messages);
                 } else {
                     // should never happen
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderPleaseContactCustomerServicePaymentReturnCodeUnknown", Locale.getDefault()));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderPleaseContactCustomerServicePaymentReturnCodeUnknown", Locale.getDefault()));
                 }
             } else {
                 // result returned null == service failed
@@ -1257,7 +1257,7 @@ public class CheckOutHelper {
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems getting credit card from payment method", MODULE);
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problems_reading_database", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_reading_database", cart.getLocale());
                     return ServiceUtil.returnError(errMsg);
                 }
                 if (creditCard != null) {
@@ -1283,13 +1283,13 @@ public class CheckOutHelper {
                 blacklistFound = EntityQuery.use(this.delegator).from("OrderBlacklist").where(exprs).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems with OrderBlacklist lookup.", MODULE);
-                errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problems_reading_database", cart.getLocale());
+                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_reading_database", cart.getLocale());
                 return ServiceUtil.returnError(errMsg);
             }
         }
 
         if (UtilValidate.isNotEmpty(blacklistFound)) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR,"OrderFailed", cart.getLocale()));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "OrderFailed", cart.getLocale()));
         }
         return ServiceUtil.returnSuccess("success");
     }
@@ -1315,7 +1315,7 @@ public class CheckOutHelper {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.database_error", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.database_error", cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -1340,7 +1340,7 @@ public class CheckOutHelper {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting order header", MODULE);
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problems_getting_order_header", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_getting_order_header", (cart != null ? cart.getLocale() : Locale.getDefault()));
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -1350,7 +1350,7 @@ public class CheckOutHelper {
                 paymentPrefs = orderHeader.getRelated("OrderPaymentPreference", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems getting order payments", MODULE);
-                errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problems_getting_payment_preference", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_getting_payment_preference", (cart != null ? cart.getLocale() : Locale.getDefault()));
                 result = ServiceUtil.returnError(errMsg);
                 return result;
             }
@@ -1406,7 +1406,7 @@ public class CheckOutHelper {
             }
             result = ServiceUtil.returnSuccess();
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.enter_shipping_address", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_shipping_address", (cart != null ? cart.getLocale() : Locale.getDefault()));
             result = ServiceUtil.returnError(errMsg);
         }
 
@@ -1457,7 +1457,7 @@ public class CheckOutHelper {
             this.cart.setShipmentMethodTypeId(shipGroupIndex, shipmentMethodTypeId);
             this.cart.setCarrierPartyId(shipGroupIndex, carrierPartyId);
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_shipping_method", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_shipping_method", cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
         }
 
@@ -1494,7 +1494,7 @@ public class CheckOutHelper {
            }
 
            try {
-               this.cart.setShipAfterDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipAfterDate,"Timestamp", null, null));
+               this.cart.setShipAfterDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipAfterDate, "Timestamp", null, null));
             } catch (Exception e) {
               errMsg = "Ship After Date must be a valid date formed ";
               result = ServiceUtil.returnError(errMsg);

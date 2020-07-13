@@ -106,7 +106,7 @@ public final class ProductPromoWorker {
                 Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
             }
             if (productStore == null) {
-                Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
+                Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
                 return productPromos;
             }
 
@@ -172,7 +172,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
         }
         if (productStore == null) {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
             return promoCodes;
         }
         try {
@@ -212,7 +212,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
         }
         if (productStore == null) {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
             return productPromoList;
         }
 
@@ -257,7 +257,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up agreement with id " + agreementId, MODULE);
         }
         if (agreement == null) {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoAgreementFoundWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoAgreementFoundWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
             return productPromoList;
         }
         GenericValue agreementItem = null;
@@ -267,7 +267,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up agreement items for agreement with id " + agreementId, MODULE);
         }
         if (agreementItem == null) {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
             return productPromoList;
         }
 
@@ -963,7 +963,7 @@ public final class ProductPromoWorker {
                 }
             }
         }
-        
+
         if (serviceName != null) {
             Map<String, Object> serviceCtx = UtilMisc.<String, Object>toMap("productPromoCond", productPromoCond, "shoppingCart", cart, "nowTimestamp", nowTimestamp);
             Map<String, Object> condResult = null;
@@ -977,7 +977,6 @@ public final class ProductPromoWorker {
             if (condResult.containsKey("operatorEnumId")) {
                 operatorEnumId = (String) condResult.get("operatorEnumId");
             }
-            
             if (Debug.verboseOn()) Debug.logVerbose("Condition compare done, compareBase=" + compareBase, MODULE);
             if (compareBase != null) {
                 int compare = compareBase;
@@ -994,7 +993,7 @@ public final class ProductPromoWorker {
                 } else if ("PPC_GTE".equals(operatorEnumId)) {
                     if (compare >= 0) return true;
                 } else {
-                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), MODULE);
+                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), MODULE);
                     return false;
                 }
             }
@@ -1061,7 +1060,7 @@ public final class ProductPromoWorker {
                 || ("PPC_GT".equals(operatorEnumId) && compare > 0)
                 || ("PPC_GTE".equals(operatorEnumId) && compare >= 0);
         if (!res) {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,"OrderAnUnSupportedProductPromoCondCondition",
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderAnUnSupportedProductPromoCondCondition",
                     UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), MODULE);
         }
         return res;
@@ -1098,7 +1097,6 @@ public final class ProductPromoWorker {
         String productPromoActionEnumId = productPromoAction.getString("productPromoActionEnumId");
         String serviceName = null;
         GenericValue customMethod = productPromoAction.getRelatedOne("CustomMethod", true);
-        
         if (customMethod != null) {
             serviceName = customMethod.getString("customMethodName");
         } else {

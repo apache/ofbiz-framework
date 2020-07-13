@@ -60,9 +60,7 @@ public final class ApacheFopWorker {
     private static final String tempFilePrefix = "org.apache.ofbiz.webapp.view.ApacheFopWorker-";
 
     private static FopFactory fopFactory = null;
-    
     private static final int encryptionLengthBitsDefault = 128;
-    
     private static final String encryptionLengthDefault = UtilProperties.getPropertyValue("fop", "fop.encryption-length.default", String.valueOf(encryptionLengthBitsDefault));
 
     private static final String userPasswordDefault = UtilProperties.getPropertyValue("fop", "fop.userPassword.default");
@@ -86,9 +84,7 @@ public final class ApacheFopWorker {
     private static final String allowPrintHqDefault = UtilProperties.getPropertyValue("fop", "fop.allowPrintHq.default", "true");
 
     private static final String encryptMetadataDefault = UtilProperties.getPropertyValue("fop", "fop.encrypt-metadata.default", "true");
-    
     private static final String fopPath = UtilProperties.getPropertyValue("fop", "fop.path", "/framework/webapp/config");
-    
     private static final String fopFontBaseProperty = UtilProperties.getPropertyValue("fop", "fop.font.base.url", "/framework/webapp/config/");
 
     private ApacheFopWorker() { }

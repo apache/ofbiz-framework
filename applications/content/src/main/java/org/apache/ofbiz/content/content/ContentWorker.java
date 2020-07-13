@@ -131,7 +131,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             GenericValue relContent = EntityQuery.use(delegator)
                     .from("ContentAssocDataResourceViewTo")
                     .where("contentIdStart", content.get("contentId"),
-                            "statusId","CTNT_PUBLISHED",
+                            "statusId", "CTNT_PUBLISHED",
                             "caContentAssocTypeId", "PUBLISH_LINK")
                     .orderBy("caFromDate")
                     .filterByDate("caFromDate", "caThruDate")
@@ -277,7 +277,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     Debug.logError("No content ID found.", MODULE);
                     return;
                 }
-                
+
                 if (UtilValidate.isNotEmpty(webAnalytics)) {
                     DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, dataResourceId, out, templateContext, locale, mimeTypeId, cache, webAnalytics);
                 } else {
@@ -884,7 +884,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             EntityExpr thruExpr2 = EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null);
             exprList.add(thruExpr2);
         }
-        
+
         return EntityQuery.use(delegator).from("ContentAssoc").where(exprList).orderBy("-fromDate").queryList();
     }
 

@@ -775,7 +775,7 @@ public class ShoppingCartEvents {
             if (thisOrder == null) {
                 cart.setOrderId(orderId);
             } else {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderIdAlreadyExistsPleaseChooseAnother", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderIdAlreadyExistsPleaseChooseAnother", locale));
                 return "error";
             }
         }
@@ -1091,11 +1091,11 @@ public class ShoppingCartEvents {
         Locale locale = UtilHttp.getLocale(request);
 
         if (UtilValidate.isEmpty(alternateGwpProductId)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderCouldNotSelectAlternateGiftNoAlternateGwpProductIdPassed", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotSelectAlternateGiftNoAlternateGwpProductIdPassed", locale));
             return "error";
         }
         if (UtilValidate.isEmpty(alternateGwpLineStr)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderCouldNotSelectAlternateGiftNoAlternateGwpLinePassed", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotSelectAlternateGiftNoAlternateGwpLinePassed", locale));
             return "error";
         }
 
@@ -1103,7 +1103,7 @@ public class ShoppingCartEvents {
         try {
             alternateGwpLine = Integer.parseInt(alternateGwpLineStr);
         } catch (Exception e) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderCouldNotSelectAlternateGiftAlternateGwpLineIsNotAValidNumber", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotSelectAlternateGiftAlternateGwpLineIsNotAValidNumber", locale));
             return "error";
         }
 
@@ -1145,7 +1145,7 @@ public class ShoppingCartEvents {
         int i;
 
         if (UtilValidate.isEmpty(partyId) || UtilValidate.isEmpty(roleTypeId) || roleTypeId.length < 1) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
             return "error";
         }
 
@@ -1177,7 +1177,7 @@ public class ShoppingCartEvents {
         int i;
 
         if (UtilValidate.isEmpty(partyId) || roleTypeId.length < 1) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
             return "error";
         }
 
@@ -1620,7 +1620,7 @@ public class ShoppingCartEvents {
             cart.setOrderType(orderMode);
             session.setAttribute("orderMode", orderMode);
         } else {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderPleaseSelectEitherSaleOrPurchaseOrder", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderPleaseSelectEitherSaleOrPurchaseOrder", locale));
             return "error";
         }
 
@@ -1658,7 +1658,7 @@ public class ShoppingCartEvents {
                 if (hasPermission) {
                     cart = getCartObject(request, null, productStore.getString("defaultCurrencyUomId"));
                 } else {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderYouDoNotHavePermissionToTakeOrdersForThisStore", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderYouDoNotHavePermissionToTakeOrdersForThisStore", locale));
                     cart.clear();
                     session.removeAttribute("orderMode");
                     return "error";
@@ -1670,7 +1670,7 @@ public class ShoppingCartEvents {
         }
 
         if ("SALES_ORDER".equals(cart.getOrderType()) && UtilValidate.isEmpty(cart.getProductStoreId())) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderAProductStoreMustBeSelectedForASalesOrder", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderAProductStoreMustBeSelectedForASalesOrder", locale));
             cart.clear();
             session.removeAttribute("orderMode");
             return "error";
@@ -1715,7 +1715,7 @@ public class ShoppingCartEvents {
                     return "error";
                 }
                 if (thisParty == null) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderCouldNotLocateTheSelectedParty", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotLocateTheSelectedParty", locale));
                     return "error";
                 }
                 cart.setOrderPartyId(partyId);
@@ -1955,7 +1955,7 @@ public class ShoppingCartEvents {
             if (thisOrder == null) {
                 cart.setOrderId(orderId);
             } else {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderIdAlreadyExistsPleaseChooseAnother", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderIdAlreadyExistsPleaseChooseAnother", locale));
                 return "error";
             }
         }
@@ -2077,9 +2077,9 @@ public class ShoppingCartEvents {
                     try {
                         itemDesiredDeliveryDate = Timestamp.valueOf(itemDesiredDeliveryDateStr);
                     } catch (Exception e) {
-                        Debug.logWarning(e,"Problems parsing Reservation start string: " + itemDesiredDeliveryDateStr, MODULE);
+                        Debug.logWarning(e, "Problems parsing Reservation start string: " + itemDesiredDeliveryDateStr, MODULE);
                         itemDesiredDeliveryDate = null;
-                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string", locale));
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string", locale));
                     }
                 }
                 if (paramMap.containsKey("itemType" + thisSuffix)) {

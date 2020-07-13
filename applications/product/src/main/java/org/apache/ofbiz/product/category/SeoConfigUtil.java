@@ -132,7 +132,7 @@ public final class SeoConfigUtil {
                     } else {
                         categoryUrlEnabled = false;
                     }
-                    
+
                     if (categoryUrlEnabled) {
                         String allowedContextValue = UtilXml.childElementValue(categoryUrlElement, ELEMENT_ALLOWED_CONTEXT_PATHS, null);
                         allowedContextPaths = new HashSet<>();
@@ -148,7 +148,7 @@ public final class SeoConfigUtil {
                                 }
                             }
                         }
-                        
+
                         String categoryNameValue = UtilXml.childElementValue(categoryUrlElement, ELEMENT_CATEGORY_NAME, DEFAULT_CATEGORY_NAME_VALUE);
                         if (DEFAULT_CATEGORY_NAME_VALUE.equalsIgnoreCase(categoryNameValue)) {
                             categoryNameEnabled = false;
@@ -189,7 +189,6 @@ public final class SeoConfigUtil {
                         jSessionIdAnonEnabled = Boolean.valueOf(DEFAULT_ANONYMOUS_VALUE);
                     }
                     Debug.logInfo("  " + ELEMENT_ANONYMOUS + ": " + jSessionIdAnonEnabled, MODULE);
-                    
                     Element user = UtilXml.firstChildElement(jSessionId, ELEMENT_USER);
                     if (user != null) {
                         String userValue = UtilXml.childElementValue(user, ELEMENT_VALUE, DEFAULT_USER_VALUE);
@@ -225,7 +224,6 @@ public final class SeoConfigUtil {
             } catch (NullPointerException e) {
                 Debug.logWarning("No jsessionid element found in " + seoConfigFilename.toString(), MODULE);
             }
-            
             // parse url-config elements
             try {
                 NodeList configs = rootElement.getElementsByTagName(ELEMENT_URL_CONFIG);
@@ -246,7 +244,6 @@ public final class SeoConfigUtil {
                         Debug.logWarning("Error while creating parttern for seo url-pattern: " + urlpattern, MODULE);
                         continue;
                     }
-                    
                     // construct seo patterns
                     Element seo = UtilXml.firstChildElement(config, ELEMENT_SEO);
                     if (UtilValidate.isNotEmpty(seo)) {
@@ -324,37 +321,30 @@ public final class SeoConfigUtil {
             isInitialed = true;
         }
     }
-    
     /**
      * Check whether the configuration file has been read.
-     * 
      * @return a boolean value to indicate whether the configuration file has been read.
      */
     public static boolean isInitialed() {
         return isInitialed;
     }
-
     /**
      * Check whether url regexp should be used.
-     * 
      * @return a boolean value to indicate whether url regexp should be used.
      */
     public static boolean checkUseUrlRegexp() {
         return useUrlRegexp;
     }
-
     /**
      * Get the general regexp pattern.
-     * 
      * @return the general regexp pattern.
      */
     public static Pattern getGeneralRegexpPattern() {
         return regexpIfMatch;
     }
-    
+
     /**
      * Check whether category url is enabled.
-     * 
      * @return a boolean value to indicate whether category url is enabled.
      */
     public static boolean checkCategoryUrl() {
@@ -363,7 +353,6 @@ public final class SeoConfigUtil {
 
     /**
      * Check whether the context path is enabled.
-     * 
      * @return a boolean value to indicate whether the context path is enabled.
      */
     public static boolean isCategoryUrlEnabled(String contextPath) {
@@ -381,7 +370,6 @@ public final class SeoConfigUtil {
 
     /**
      * Check whether category name is enabled.
-     * 
      * @return a boolean value to indicate whether category name is enabled.
      */
     public static boolean isCategoryNameEnabled() {
@@ -390,7 +378,6 @@ public final class SeoConfigUtil {
 
     /**
      * Get category url suffix.
-     * 
      * @return String category url suffix.
      */
     public static String getCategoryUrlSuffix() {
@@ -399,7 +386,6 @@ public final class SeoConfigUtil {
 
     /**
      * Check whether jsessionid is enabled for anonymous.
-     * 
      * @return a boolean value to indicate whether jsessionid is enabled for anonymous.
      */
     public static boolean isJSessionIdAnonEnabled() {
@@ -408,7 +394,6 @@ public final class SeoConfigUtil {
 
     /**
      * Check whether jsessionid is enabled for user.
-     * 
      * @return a boolean value to indicate whether jsessionid is enabled for user.
      */
     public static boolean isJSessionIdUserEnabled() {
@@ -417,7 +402,6 @@ public final class SeoConfigUtil {
 
     /**
      * Get user exception url pattern configures.
-     * 
      * @return user exception url pattern configures (java.util.List&lt;Pattern&gt;)
      */
     public static List<Pattern> getUserExceptionPatterns() {
@@ -426,7 +410,6 @@ public final class SeoConfigUtil {
 
     /**
      * Get char filters.
-     * 
      * @return char filters (java.util.Map&lt;String, String&gt;)
      */
     public static Map<String, String> getCharFilters() {
@@ -435,7 +418,6 @@ public final class SeoConfigUtil {
 
     /**
      * Get seo url pattern configures.
-     * 
      * @return seo url pattern configures (java.util.Map&lt;String, Pattern&gt;)
      */
     public static Map<String, Pattern> getSeoPatterns() {
@@ -444,7 +426,6 @@ public final class SeoConfigUtil {
 
     /**
      * Get seo replacement configures.
-     * 
      * @return seo replacement configures (java.util.Map&lt;String, String&gt;)
      */
     public static Map<String, String> getSeoReplacements() {
@@ -453,7 +434,6 @@ public final class SeoConfigUtil {
 
     /**
      * Get forward replacement configures.
-     * 
      * @return forward replacement configures (java.util.Map&lt;String, String&gt;)
      */
     public static Map<String, String> getForwardReplacements() {
@@ -462,7 +442,6 @@ public final class SeoConfigUtil {
 
     /**
      * Get forward response codes.
-     * 
      * @return forward response code configures (java.util.Map&lt;String, Integer&gt;)
      */
     public static Map<String, Integer> getForwardResponseCodes() {
@@ -472,7 +451,6 @@ public final class SeoConfigUtil {
     /**
      * Check whether a product id is in the special list. If we cannot get a product from a lower cased
      * or upper cased product id, then it's special.
-     * 
      * @return boolean to indicate whether the product id is special.
      */
     @Deprecated
@@ -482,7 +460,6 @@ public final class SeoConfigUtil {
 
     /**
      * Add a special product id to the special list.
-     * 
      * @param productId a product id get from database.
      * @return true to indicate it has been added to special product id; false to indicate it's not special.
      * @throws Exception to indicate there's already same lower cased product id in the list but value is a different product id.
@@ -502,10 +479,9 @@ public final class SeoConfigUtil {
         specialProductIds.put(productId.toLowerCase(Locale.getDefault()), productId);
         return true;
     }
-    
+
     /**
      * Get a product id is in the special list.
-     * 
      * @return String of the original product id
      */
     @Deprecated

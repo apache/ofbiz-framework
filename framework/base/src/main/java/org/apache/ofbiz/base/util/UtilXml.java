@@ -86,15 +86,15 @@ public final class UtilXml {
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
-        /* This method is a pure helper method for XStream 1.4.x. 
+        /* This method is a pure helper method for XStream 1.4.x.
          * It initializes an XStream instance with a white list of well-known and simple types of the Java runtime
          *  as it is done in XStream 1.5.x by default. This method will do therefore nothing in XStream 1.5
-         *  and could be removed them  
-         */ 
-        XStream.setupDefaultSecurity(xstream); 
-        /* You may want to enhance the white list created by XStream::setupDefaultSecurity (or by default with XStream 1.5) 
+         *  and could be removed them
+         */
+        XStream.setupDefaultSecurity(xstream);
+        /* You may want to enhance the white list created by XStream::setupDefaultSecurity (or by default with XStream 1.5)
          * using xstream::allowTypesByWildcard with your own classes
-         */  
+         */
         return xstream;
     }
 
@@ -110,7 +110,7 @@ public final class UtilXml {
      */
     public static DOMImplementationLS getDomLsImplementation() throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-        return (DOMImplementationLS)registry.getDOMImplementation("LS");
+        return (DOMImplementationLS) registry.getDOMImplementation("LS");
     }
 
     /** Returns a <code>LSOutput</code> instance.
@@ -1173,7 +1173,7 @@ public final class UtilXml {
      * @return nodeName
      */
     public static String getNodeNameIgnorePrefix(Node node) {
-        if (node==null) {
+        if (node == null) {
             return null;
         }
         String nodeName = node.getNodeName();
@@ -1188,9 +1188,9 @@ public final class UtilXml {
      * get tag name without any prefix
      * @param element
      * @return tagName
-     */ 
+     */
     public static String getTagNameIgnorePrefix(Element element) {
-        if (element==null) {
+        if (element == null) {
             return null;
         }
         String tagName = element.getTagName();
@@ -1207,7 +1207,7 @@ public final class UtilXml {
      * @return The value of the node, depending on its type; see the table Node class
      */
     public static String getAttributeValueIgnorePrefix(Element element, String attributeName) {
-        if (element==null) {
+        if (element == null) {
             return "";
         }
 

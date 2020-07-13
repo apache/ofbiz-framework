@@ -111,7 +111,7 @@ public class JobServices {
     }
 
     public static Map<String, Object> purgeOldJobs(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Locale locale = (Locale)context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         String sendPool = (String) context.get("poolId");
         Integer daysToKeep = (Integer) context.get("daysToKeep");
         Integer limit = (Integer) context.get("limit");

@@ -391,7 +391,7 @@ public class FrameImage {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
-        
+
         if (UtilValidate.isNotEmpty(imageName)) {
             File file = new File(imageServerPath + "/preview/" +"/previewImage.jpg");
             if (!file.delete()) {

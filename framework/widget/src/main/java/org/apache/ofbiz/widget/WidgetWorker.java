@@ -354,7 +354,7 @@ public final class WidgetWorker {
     public static int getPaginatorNumber(Map<String, Object> context) {
         int paginator_number = 0;
         if (context != null) {
-            Integer paginateNumberInt= (Integer)context.get("PAGINATOR_NUMBER");
+            Integer paginateNumberInt= (Integer) context.get("PAGINATOR_NUMBER");
             if (paginateNumberInt == null) {
                 paginateNumberInt = 0;
                 context.put("PAGINATOR_NUMBER", paginateNumberInt);

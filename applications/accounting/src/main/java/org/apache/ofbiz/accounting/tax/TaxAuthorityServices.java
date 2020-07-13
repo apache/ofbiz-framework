@@ -255,16 +255,16 @@ public class TaxAuthorityServices {
             BigDecimal itemPrice = itemPriceList.get(i);
             BigDecimal itemQuantity = itemQuantityList != null ? itemQuantityList.get(i) : null;
             BigDecimal shippingAmount = itemShippingList != null ? itemShippingList.get(i) : null;
-            
+
             totalPrice = totalPrice.add(itemAmount);
-            
+
             List<GenericValue> taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId,
                     billToPartyId, taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, ZERO_BASE);
 
             // this is an add and not an addAll because we want a List of Lists of
             // GenericValues, one List of Adjustments per item
             itemAdjustments.add(taxList);
-            
+
             //Calculates the TotalPrices for each Product in the Order
             BigDecimal currentTotalPrice = productWeight.getOrDefault(product, BigDecimal.ZERO);
             currentTotalPrice = currentTotalPrice.add(itemAmount);
@@ -348,11 +348,10 @@ public class TaxAuthorityServices {
             BigDecimal shippingAmount, BigDecimal orderPromotionsAmount, BigDecimal weight) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         List<GenericValue> adjustments = new LinkedList<>();
-        
         if (weight == null) {
             weight = BigDecimal.ONE;
         }
-        
+
         if (payToPartyId == null) {
             if (productStore != null) {
                 payToPartyId = productStore.getString("payToPartyId");

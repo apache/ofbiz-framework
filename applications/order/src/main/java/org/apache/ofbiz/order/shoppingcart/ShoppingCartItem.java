@@ -1059,7 +1059,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 try {
                     ShoppingListEvents.fillAutoSaveList(cart, dispatcher);
                 } catch (GeneralException e) {
-                    Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR,"OrderUnableToStoreAutoSaveCart", locale));
+                    Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderUnableToStoreAutoSaveCart", locale));
                 }
             }
         }
@@ -1489,7 +1489,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             try {
                 return Timestamp.valueOf(ddDate);
             } catch (IllegalArgumentException e) {
-                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR,"OrderProblemGettingItemDesiredDeliveryDateFor", UtilMisc.toMap("productId", this.getProductId()), locale));
+                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemGettingItemDesiredDeliveryDateFor", UtilMisc.toMap("productId", this.getProductId()), locale));
                 return null;
             }
         }
@@ -1593,7 +1593,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             try {
                 orderItemType = this.getDelegator().findOne("OrderItemType", UtilMisc.toMap("orderItemTypeId", this.getItemType()), true);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR,"OrderProblemsGettingOrderItemTypeFor", UtilMisc.toMap("orderItemTypeId", this.getItemType()), locale));
+                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsGettingOrderItemTypeFor", UtilMisc.toMap("orderItemTypeId", this.getItemType()), locale));
             }
         }
         if (orderItemType != null) {
@@ -1885,7 +1885,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (product != null) {
             try {
                 List<GenericValue> featureAppls = product.getRelated("ProductFeatureAndAppl", null, null, false);
-                features=EntityUtil.filterByAnd(featureAppls, UtilMisc.toMap("productFeatureApplTypeId","STANDARD_FEATURE"));
+                features=EntityUtil.filterByAnd(featureAppls, UtilMisc.toMap("productFeatureApplTypeId", "STANDARD_FEATURE"));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get features from product : " + product.get("productId"), MODULE);
             }

@@ -49,7 +49,6 @@ public final class WebSiteProperties {
      * in the application's WebSite entity value. If the application does not have a
      * WebSite entity value then the instance is initialized to the settings found
      * in the <code>url.properties</code> file.
-     * 
      * @param request
      * @throws GenericEntityException
      */
@@ -130,7 +129,6 @@ public final class WebSiteProperties {
     /**
      * Returns a <code>WebSiteProperties</code> instance initialized to the settings found
      * in the WebSite entity value.
-     * 
      * @param webSiteValue
      */
     public static WebSiteProperties from(GenericValue webSiteValue) {
