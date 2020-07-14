@@ -45,7 +45,7 @@ import org.xml.sax.SAXException;
  */
 public class HtmlMenuWrapper {
 
-    public static final String MODULE = HtmlMenuWrapper.class.getName();
+    private static final String MODULE = HtmlMenuWrapper.class.getName();
 
     protected String resourceName;
     protected String menuName;
@@ -55,7 +55,7 @@ public class HtmlMenuWrapper {
     protected MenuStringRenderer renderer;
     protected Map<String, Object> context;
 
-    protected HtmlMenuWrapper() {}
+    protected HtmlMenuWrapper() { }
 
     public HtmlMenuWrapper(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {

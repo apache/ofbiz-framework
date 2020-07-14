@@ -61,7 +61,7 @@ import org.apache.ofbiz.entity.jdbc.CursorConnection;
  */
 public final class TransactionUtil implements Status {
     // Debug MODULE name
-    public static final String MODULE = TransactionUtil.class.getName();
+    private static final String MODULE = TransactionUtil.class.getName();
 
     private static ThreadLocal<List<Transaction>> suspendedTxStack = new ThreadLocal<>();
     private static ThreadLocal<List<Exception>> suspendedTxLocationStack = new ThreadLocal<>();
@@ -75,10 +75,10 @@ public final class TransactionUtil implements Status {
     private static final boolean debugResources = readDebugResources();
     public static final Map<Xid, DebugXaResource> debugResMap = Collections.<Xid, DebugXaResource>synchronizedMap(new HashMap<Xid, DebugXaResource>());
     // in order to improve performance allThreadsTransactionBeginStack and allThreadsTransactionBeginStackSave are only maintained when logging level INFO is on
-    private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<Long, Exception>());
-    private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<Long, List<Exception>>());
+    private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<>());
+    private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<>());
 
-    private TransactionUtil () {}
+    private TransactionUtil() { }
     public static <V> V doNewTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
         return noTransaction(inTransaction(callable, ifErrorMessage, timeout, printException)).call();
     }
@@ -565,7 +565,7 @@ public final class TransactionUtil implements Status {
             rollback();
             num++;
         }
-        // no transaction stamps to remember anymore ;-)
+        // no transaction stamps to remember anymore
         clearTransactionStartStampStack();
         return num;
     }

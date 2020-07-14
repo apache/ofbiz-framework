@@ -33,9 +33,9 @@ import org.apache.ofbiz.entity.GenericValue;
  */
 public final class EntityTypeUtil {
 
-    public static final String MODULE = EntityTypeUtil.class.getName();
+    private static final String MODULE = EntityTypeUtil.class.getName();
 
-    private EntityTypeUtil() {}
+    private EntityTypeUtil() { }
 
     public static boolean isType(Collection<GenericValue> thisCollection, String typeRelation, GenericValue targetType) {
         for (GenericValue value: thisCollection) {

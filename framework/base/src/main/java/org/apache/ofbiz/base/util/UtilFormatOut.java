@@ -33,14 +33,14 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public final class UtilFormatOut {
 
-    public static final String MODULE = UtilFormatOut.class.getName();
+    private static final String MODULE = UtilFormatOut.class.getName();
     public static final String DEFAULT_FORMAT = "default";
     public static final String AMOUNT_FORMAT = "amount";
     public static final String QUANTITY_FORMAT = "quantity";
     public static final String PERCENTAGE_FORMAT = "percentage";
     public static final String SPELLED_OUT_FORMAT = "spelled-out";
 
-    private UtilFormatOut() {}
+    private UtilFormatOut() { }
 
     public static String safeToString(Object obj) {
         if (obj != null) {
@@ -574,7 +574,7 @@ public final class UtilFormatOut {
         }
 
         StringBuilder buffer = new StringBuilder();
-        for (int i=0; i < original.length()-4 ; i++) {
+        for (int i = 0; i < original.length()-4; i++) {
             buffer.append('*');
         }
         buffer.append(original.substring(original.length()-4));

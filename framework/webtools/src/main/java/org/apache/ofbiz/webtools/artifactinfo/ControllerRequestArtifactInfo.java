@@ -36,7 +36,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
  *
  */
 public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
-    public static final String MODULE = ControllerRequestArtifactInfo.class.getName();
+    private static final String MODULE = ControllerRequestArtifactInfo.class.getName();
 
     protected URL controllerXmlUrl;
     protected String requestUri;

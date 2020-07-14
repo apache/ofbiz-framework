@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.calendar.TemporalExpressions.Frequency;
 @SuppressWarnings("serial")
 public class ResourceBundleMapWrapper implements Map<String, Object>, Serializable {
 
-    public static final String MODULE = Frequency.class.getName();
+    private static final String MODULE = Frequency.class.getName();
     protected MapStack<String> rbmwStack;
     protected ResourceBundle initialResourceBundle;
     protected Map<String, Object> context;
@@ -203,7 +203,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
 
         @Override
         public int size() {
-            if(isMapInitialized) {
+            if (isMapInitialized) {
                 // this is an approximate size, won't include elements from parent bundles
                 return topLevelMap.size() -1;
             }
@@ -248,7 +248,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         @Override
         public Object get(Object arg0) {
             Object value = null;
-            if(isMapInitialized) {
+            if (isMapInitialized) {
                 value = this.topLevelMap.get(arg0);
             }
 

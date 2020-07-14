@@ -31,12 +31,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;entity-one&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class EntityOne extends EntityOperation {
 
-    public static final String MODULE = EntityOne.class.getName();
+    private static final String MODULE = EntityOne.class.getName();
 
     private final PrimaryKeyFinder finder;
 

@@ -73,7 +73,7 @@ import freemarker.template.TemplateHashModel;
  * SAX XML Parser Content Handler for Entity Engine XML files
  */
 public class EntitySaxReader extends DefaultHandler {
-    public static final String MODULE = EntitySaxReader.class.getName();
+    private static final String MODULE = EntitySaxReader.class.getName();
     public static final int DEFAULT_TX_TIMEOUT = 7200;
 
     protected org.xml.sax.Locator locator;
@@ -112,7 +112,7 @@ public class EntitySaxReader extends DefaultHandler {
     private Document documentForTemplate = null;
     private Map<String, Object> placeholderValues = null; //contains map of values for corresponding placeholders (eg. ${key}) in the entity xml data file.
 
-    protected EntitySaxReader() {}
+    protected EntitySaxReader() { }
 
     public EntitySaxReader(Delegator delegator, int transactionTimeout) {
         // clone the delegator right off so there is no chance of making change to the initial object
@@ -155,7 +155,7 @@ public class EntitySaxReader extends DefaultHandler {
         this.continueOnFail = continueOnFail;
     }
 
-    public void setPlaceholderValues(Map<String,Object> placeholderValues) {
+    public void setPlaceholderValues(Map<String, Object> placeholderValues) {
         this.placeholderValues = placeholderValues;
     }
 
@@ -211,7 +211,7 @@ public class EntitySaxReader extends DefaultHandler {
         SAXParser parser;
         try {
             parser = SAXParserFactory.newInstance().newSAXParser();
-        } catch(ParserConfigurationException pce) {
+        } catch (ParserConfigurationException pce) {
             throw new SAXException("Unable to create the SAX parser", pce);
         }
         numberRead = 0;
@@ -314,7 +314,7 @@ public class EntitySaxReader extends DefaultHandler {
                 throw new SAXException("Could not find transform template with resource path: " + templatePath);
             } else {
                 try {
-                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(),StandardCharsets.UTF_8));
+                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(), StandardCharsets.UTF_8));
 
                     StringWriter outWriter = new StringWriter();
                     Configuration config = FreeMarkerWorker.newConfiguration();

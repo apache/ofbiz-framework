@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelTheme implements Serializable {
 
-    public static final String MODULE = ModelTheme.class.getName();
+    private static final String MODULE = ModelTheme.class.getName();
     //generic properties
     private final String name;
     private final Map<String, VisualTheme> visualThemes;
@@ -423,13 +423,13 @@ public class ModelTheme implements Serializable {
         return null;
     }
 
-    public Map<String,String> getModelCommonScreens() {
+    public Map<String, String> getModelCommonScreens() {
         return modelCommonScreensMap;
     }
-    public Map<String,String> getModelCommonForms() {
+    public Map<String, String> getModelCommonForms() {
         return modelCommonFormsMap;
     }
-    public Map<String,String> getModelCommonMenus() {
+    public Map<String, String> getModelCommonMenus() {
         return modelCommonMenusMap;
     }
 

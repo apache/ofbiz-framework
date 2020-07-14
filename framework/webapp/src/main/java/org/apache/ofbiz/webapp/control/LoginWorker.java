@@ -91,25 +91,22 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
 /**
  * Common Workers
  */
-public class LoginWorker {
+public final class LoginWorker {
 
-    public final static String MODULE = LoginWorker.class.getName();
-    public static final String resourceWebapp = "SecurityextUiLabels";
+    private static final String MODULE = LoginWorker.class.getName();
+    private static final String RESOURCE = "SecurityextUiLabels";
+    private static final String SEC_PROPERTIES = "security.properties";
+    private static final String KEY_VALUE = UtilProperties.getPropertyValue(SEC_PROPERTIES, "login.secret_key_string");
+    private static final WebAppCache WEBAPPS = WebAppCache.getShared();
 
-    public static final String X509_CERT_ATTR = "SSLx509Cert";
-    public static final String securityProperties = "security.properties";
-
-    private static final String keyValue = UtilProperties.getPropertyValue(securityProperties, "login.secret_key_string");
-    private static final WebAppCache webapps = WebAppCache.getShared();
+    protected LoginWorker() { }
 
     public static StringWrapper makeLoginUrl(PageContext pageContext) {
         return makeLoginUrl(pageContext, "checkLogin");
     }
-
     public static StringWrapper makeLoginUrl(HttpServletRequest request) {
         return makeLoginUrl(request, "checkLogin");
     }
-
     public static StringWrapper makeLoginUrl(PageContext pageContext, String requestName) {
         return makeLoginUrl((HttpServletRequest) pageContext.getRequest(), requestName);
     }
@@ -260,7 +257,7 @@ public class LoginWorker {
             }
             HashMap<String, Object> messageMap = new HashMap<>();
             messageMap.putAll(userLoginHistory.getAllFields());
-            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.impersonation_in_process", messageMap, UtilHttp.getLocale(request));
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.impersonation_in_process", messageMap, UtilHttp.getLocale(request));
             errorMessageList.add(errMsg);
         }
         return userLoginHistory;
@@ -395,12 +392,10 @@ public class LoginWorker {
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        
         // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie). 
         if (!session.isNew()) {  // Only do when really signing in. 
             request.changeSessionId();
         }
-        
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
@@ -414,10 +409,9 @@ public class LoginWorker {
         } catch (EntityCryptoException e1) {
             Debug.logError(e1.getMessage(), MODULE);
         }
-        
-        if(entityDeCrypto != null && "true".equals(forgotPwdFlag)) {
+        if (entityDeCrypto != null && "true".equals(forgotPwdFlag)) {
             try {
-                Object decryptedPwd = entityDeCrypto.decrypt(keyValue, ModelField.EncryptMethod.TRUE, password);
+                Object decryptedPwd = entityDeCrypto.decrypt(KEY_VALUE, ModelField.EncryptMethod.TRUE, password);
                 password = decryptedPwd.toString();
             } catch (GeneralException e) {
                 Debug.logError(e, "Current Password Decryption failed", MODULE);
@@ -441,10 +435,10 @@ public class LoginWorker {
 
         List<String> unpwErrMsgList = new LinkedList<>();
         if (UtilValidate.isEmpty(username)) {
-            unpwErrMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
+            unpwErrMsgList.add(UtilProperties.getMessage(RESOURCE, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
         }
         if (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(token)) {
-            unpwErrMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.password_was_empty_reenter", UtilHttp.getLocale(request)));
+            unpwErrMsgList.add(UtilProperties.getMessage(RESOURCE, "loginevents.password_was_empty_reenter", UtilHttp.getLocale(request)));
         }
         boolean requirePasswordChange = "Y".equals(request.getParameter("requirePasswordChange"));
         if (!unpwErrMsgList.isEmpty()) {
@@ -483,7 +477,7 @@ public class LoginWorker {
                 } catch (NullPointerException e) {
                     Debug.logError(e, "Error getting tenant delegator", MODULE);
                     Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Tenant [" + tenantId + "]  not found...");
-                    String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                    String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
                 }
@@ -504,7 +498,7 @@ public class LoginWorker {
             } catch (NullPointerException e) {
                 Debug.logError(e, "Error getting default delegator", MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Error getting default delegator");
-                String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
@@ -525,7 +519,7 @@ public class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -548,7 +542,7 @@ public class LoginWorker {
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error calling updatePassword service", MODULE);
                     Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-                    String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                    String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "requirePasswordChange";
                 }
@@ -556,7 +550,7 @@ public class LoginWorker {
                     String errorMessage = (String) resultPasswordChange.get(ModelService.ERROR_MESSAGE);
                     if (UtilValidate.isNotEmpty(errorMessage)) {
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", errorMessage);
-                        String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     }
                     request.setAttribute("_ERROR_MESSAGE_LIST_", resultPasswordChange.get(ModelService.ERROR_MESSAGE_LIST));
@@ -568,7 +562,7 @@ public class LoginWorker {
                     catch (GenericEntityException e) {
                         Debug.logError(e, "Error refreshing userLogin value", MODULE);
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-                        String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "requirePasswordChange";
                     }
@@ -605,7 +599,7 @@ public class LoginWorker {
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
-            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return requirePasswordChange ? "requirePasswordChange" : "error";
         }
@@ -626,8 +620,8 @@ public class LoginWorker {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         LocalDispatcher dispatcher;
 
-        if (UtilProperties.getPropertyAsBoolean("security","security.disable.impersonation", true)) {
-            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.impersonation_disabled", UtilHttp.getLocale(request));
+        if (UtilProperties.getPropertyAsBoolean("security", "security.disable.impersonation", true)) {
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.impersonation_disabled", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -635,23 +629,23 @@ public class LoginWorker {
         //Check if user has impersonate permission
         Security security = (Security) request.getAttribute("security");
         if (!security.hasEntityPermission("IMPERSONATE", "_ADMIN", userLogin)) {
-            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request));
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
         List<String> errMsgList = new LinkedList<>();
         if (UtilValidate.isNotEmpty(session.getAttribute("originUserLogin"))) {
-            errMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.origin_username_is_present", UtilHttp.getLocale(request)));
+            errMsgList.add(UtilProperties.getMessage(RESOURCE, "loginevents.origin_username_is_present", UtilHttp.getLocale(request)));
         }
         if (UtilValidate.isEmpty(userLoginIdToImpersonate)) {
-            errMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
+            errMsgList.add(UtilProperties.getMessage(RESOURCE, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
         }
 
         try {
             GenericValue userLoginToImpersonate = delegator.findOne("UserLogin", false, "userLoginId", userLoginIdToImpersonate);
             if (!hasBasePermission(userLoginToImpersonate, request)) {
-                errMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request)));
+                errMsgList.add(UtilProperties.getMessage(RESOURCE, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request)));
             }
         } catch (GenericEntityException e) {
             String errMsg ="Error impersonating the userLoginId" + userLoginIdToImpersonate;
@@ -678,11 +672,11 @@ public class LoginWorker {
             String visitId = VisitHandler.getVisitId(session);
             result = dispatcher.runSync("userImpersonate",
                     UtilMisc.toMap("userLoginIdToImpersonate", userLoginIdToImpersonate,
-                            "userLogin", userLogin,"visitId", visitId, "locale", UtilHttp.getLocale(request)));
+                            "userLogin", userLogin, "visitId", visitId, "locale", UtilHttp.getLocale(request)));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userImpersonate service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -711,7 +705,7 @@ public class LoginWorker {
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
-            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -732,7 +726,7 @@ public class LoginWorker {
 
         List<String> errMsgList = new LinkedList<>();
         if (null == originUserLogin) {
-            errMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
+            errMsgList.add(UtilProperties.getMessage(RESOURCE, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
         }
         if (!errMsgList.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
@@ -748,7 +742,7 @@ public class LoginWorker {
         try {
             //check impersonation process existence to avoid depersonation abuse
             if (EntityQuery.use(originUserLogin.getDelegator()).from("UserLoginHistory").where(conditions).queryCount() == 0) {
-                String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.impersonate_NotInProcess", UtilHttp.getLocale(request));
+                String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.impersonate_NotInProcess", UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
@@ -800,7 +794,7 @@ public class LoginWorker {
         if (userLogin != null && hasBasePermission(userLogin, request)) {
             doBasicLogin(userLogin, request);
         } else {
-            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request));
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -822,7 +816,6 @@ public class LoginWorker {
         autoLoginSet(request, response);
 
         return autoLoginCheck(request, response);
-        
     }
 
     public static void doBasicLogin(GenericValue userLogin, HttpServletRequest request) {
@@ -877,7 +870,6 @@ public class LoginWorker {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
         doBasicLogout(userLogin, request, response);
-        
         if (request.getAttribute("_AUTO_LOGIN_LOGOUT_") == null) {
             return autoLoginCheck(request, response);
         }
@@ -916,7 +908,7 @@ public class LoginWorker {
         session.invalidate();
         session = request.getSession(true);
 
-        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")){
+        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")) {
             try {
                 // log out from Tomcat SSO
                 request.logout();
@@ -952,8 +944,7 @@ public class LoginWorker {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String serverId = (String) request.getServletContext().getAttribute("_serverId");
         String applicationName = UtilHttp.getApplicationName(request);
-        Optional<WebappInfo> webappInfo = webapps.getWebappInfo(serverId, applicationName);
-                
+        Optional<WebappInfo> webappInfo = WEBAPPS.getWebappInfo(serverId, applicationName);
         if (userLogin != null && 
                 // When using an empty mountpoint, ie using root as mountpoint. Beware: works only for 1 webapp!
                 webappInfo.map(WebappInfo::isAutologinCookieUsed).orElse(!webappInfo.isPresent())) {
@@ -977,7 +968,6 @@ public class LoginWorker {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String applicationName = UtilHttp.getApplicationName(request);
-        
         if (userLogin != null) {
             Cookie securedLoginIdCookie = new Cookie(getSecuredLoginIdCookieName(request), userLogin.getString("userLoginId"));
             securedLoginIdCookie.setMaxAge(-1);
@@ -996,7 +986,6 @@ public class LoginWorker {
     protected static String getSecuredLoginIdCookieName(HttpServletRequest request) {
         return UtilHttp.getApplicationName(request) + ".securedLoginId";
     }
-    
     public static String getAutoUserLoginId(HttpServletRequest request) {
         String autoUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -1013,7 +1002,6 @@ public class LoginWorker {
         }
         return autoUserLoginId;
     }
-    
     public static String getSecuredUserLoginId(HttpServletRequest request) {
         String securedUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -1032,16 +1020,13 @@ public class LoginWorker {
         return securedUserLoginId;
     }
 
-
     public static String autoLoginCheck(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
-        
         GenericValue autoUserLogin = (GenericValue) session.getAttribute("autoUserLogin");
-        if (autoUserLogin != null){
+        if (autoUserLogin != null) {
             return "success";
         }
-
         return autoLoginCheck(delegator, session, getAutoUserLoginId(request));
     }
 
@@ -1099,7 +1084,6 @@ public class LoginWorker {
         }
         return "success";
     }
-    
     public static boolean isUserLoggedIn(HttpServletRequest request) {
         HttpSession session = request.getSession();
         GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
@@ -1205,7 +1189,6 @@ public class LoginWorker {
 
         return "success";
     }
-    
     // preprocessor method to login a user w/ client certificate see security.properties to configure the pattern of CN
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1396,7 +1379,7 @@ public class LoginWorker {
      * user is authorized to access
      */
     public static Collection<ComponentConfig.WebappInfo> getAppBarWebInfos(Security security, GenericValue userLogin, String serverName, String menuName) {
-        Collection<ComponentConfig.WebappInfo> allInfos = webapps.getAppBarWebInfos(serverName, menuName);
+        Collection<ComponentConfig.WebappInfo> allInfos = WEBAPPS.getAppBarWebInfos(serverName, menuName);
         Collection<ComponentConfig.WebappInfo> allowedInfos = new ArrayList<>(allInfos.size());
         for (ComponentConfig.WebappInfo info : allInfos) {
             if (hasApplicationPermission(info, security, userLogin)) {
@@ -1451,12 +1434,12 @@ public class LoginWorker {
                 if (now.after(startNotificationFromDate)) {
                     if (now.after(passwordExpirationDate)) {
                         Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
-                        String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.password_expired_message", messageMap, UtilHttp.getLocale(request));
+                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.password_expired_message", messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "requirePasswordChange";
                     } else {
                         Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
-                        String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.password_expiration_alert", messageMap, UtilHttp.getLocale(request));
+                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.password_expiration_alert", messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_EVENT_MESSAGE_", errMsg);
                         return "success";
                     }

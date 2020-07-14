@@ -63,9 +63,9 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class UtilProperties implements Serializable {
 
-    public static final String MODULE = UtilProperties.class.getName();
+    private static final String MODULE = UtilProperties.class.getName();
 
-    private UtilProperties() {}
+    private UtilProperties() { }
 
     /**
      * A cache for storing Properties instances. Each Properties instance is keyed by its URL.
@@ -530,7 +530,7 @@ public final class UtilProperties implements Serializable {
         if (bundle.containsKey(name)) {
             value = bundle.getString(name);
         } else {
-            if (Debug.warningOn()) { 
+            if (Debug.warningOn()) {
                 Debug.logWarning(name + " is missing in " + resource + " for locale " + locale, MODULE);
             }
             return name;
@@ -954,7 +954,7 @@ public final class UtilProperties implements Serializable {
                 // Support old way of specifying xml:lang value.
                 // Old way: en_AU, new way: en-AU
                 Element value = UtilXml.firstChildElement(property, "value", "xml:lang", correctedLocaleString);
-                if( value == null ) {
+                if ( value == null ) {
                     value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
                 }
                 if (value != null) {
@@ -996,7 +996,7 @@ public final class UtilProperties implements Serializable {
         protected Locale locale = null;
         protected int hashCode = hashCode();
 
-        protected UtilResourceBundle() {}
+        protected UtilResourceBundle() { }
 
         public UtilResourceBundle(Properties properties, Locale locale, UtilResourceBundle parent) {
             this.properties = properties;

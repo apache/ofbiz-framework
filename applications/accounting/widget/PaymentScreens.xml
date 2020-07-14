@@ -66,6 +66,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindPayment"/>
                 <set field="headerItem" value="payments"/>
                 <set field="tabButtonItem" value="findPayment"/>
+                <set field="helpAnchor" value="_help_for_find_payments"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -115,6 +116,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditPayment"/>
                 <set field="headerItem" value="payments"/>
                 <set field="tabButtonItem" value="editPayment"/>
+                <set field="helpAnchor" value="_help_for_new_payment"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
@@ -141,6 +143,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditPayment"/>
                 <set field="tabButtonItem" value="editPayment"/>
+                <set field="helpAnchor" value="_help_for_payment_header"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <entity-one entity-name="Payment" value-field="payment">
                     <field-map field-name="paymentId" from-field="parameters.paymentId"/>
@@ -166,6 +169,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListPaymentApplications"/>
                 <set field="tabButtonItem" value="editPaymentApplications"/>
+                <set field="helpAnchor" value="_help_for_payment_applications"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <entity-one entity-name="Payment" value-field="payment"/>
                 <set field="appliedAmount" type="String" value="${groovy:
@@ -345,6 +349,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitlePaymentOverview"/>
                 <set field="tabButtonItem" value="paymentOverview"/>
+                <set field="helpAnchor" value="_help_for_payment_overview"/>
                 <set field="labelTitleProperty" value="PageTitlePaymentOverview"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
@@ -437,6 +442,7 @@ under the License.
                 <set field="titleProperty" value="AccountingManualTransaction"/>
                 <set field="headerItem" value="transaction"/>
                 <set field="tabButtonItem" value="manualtransactiontab"/>
+                <set field="helpAnchor" value="_help_for_manual_transaction"/>
                 <script location="component://accounting/groovyScripts/payment/ManualTx.groovy"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
@@ -513,6 +519,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingFindSalesInvoicesByDueDate"/>
                 <set field="headerItem" value="payments"/>
+                <set field="helpAnchor" value="_help_for_find_sales_invoices_by_due_date"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -544,6 +551,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingFindPurchaseInvoicesByDueDate"/>
                 <set field="headerItem" value="payments"/>
+                <set field="helpAnchor" value="_help_for_find_purchase_invoices_by_due_date"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>

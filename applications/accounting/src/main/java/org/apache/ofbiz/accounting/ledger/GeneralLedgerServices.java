@@ -33,7 +33,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class GeneralLedgerServices {
 
-    public static final String MODULE = GeneralLedgerServices.class.getName();
+    private static final String MODULE = GeneralLedgerServices.class.getName();
 
     public static Map<String, Object> createUpdateCostCenter(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();

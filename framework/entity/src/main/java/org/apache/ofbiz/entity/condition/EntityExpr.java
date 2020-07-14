@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.model.ModelFieldType;
  */
 @SuppressWarnings("serial")
 public final class EntityExpr implements EntityCondition {
-    public static final String MODULE = EntityExpr.class.getName();
+    private static final String MODULE = EntityExpr.class.getName();
     /** The left hand side of the expression.  */
     private final Object lhs;
     /** The operator used to combine the two sides of the expression.  */
@@ -58,7 +58,7 @@ public final class EntityExpr implements EntityCondition {
      * @throws IllegalArgumentException if {@code lhs} or {@code operator} are {@code null},
      *         or if {@code rhs} is null when the operator is not an equality check.
      */
-    public <L,R,LL,RR> EntityExpr(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
+    public <L, R, LL, RR> EntityExpr(L lhs, EntityComparisonOperator<LL, RR> operator, R rhs) {
         if (lhs == null) {
             throw new IllegalArgumentException("The field name/value cannot be null");
         }
@@ -120,7 +120,7 @@ public final class EntityExpr implements EntityCondition {
      *
      * @return the operator used to combine the two sides of the condition expression.
      */
-    public <L,R> EntityOperator<L,R> getOperator() {
+    public <L, R> EntityOperator<L, R> getOperator() {
         return UtilGenerics.cast(operator);
     }
 
@@ -230,7 +230,7 @@ public final class EntityExpr implements EntityCondition {
                     + " probably because there is no datasource (helper) setup for the entity group"
                     + " that this entity is in: [" + deleg.getEntityGroupName(entityName) + "]");
         }
-        if (value instanceof EntityConditionSubSelect){
+        if (value instanceof EntityConditionSubSelect) {
             ModelFieldType valueType = null;
             try {
                 ModelEntity valueModelEntity= ((EntityConditionSubSelect) value).getModelEntity();

@@ -54,7 +54,7 @@ import freemarker.template.TemplateException;
 
 public class MacroMenuRenderer implements MenuStringRenderer {
 
-    public static final String MODULE = MacroMenuRenderer.class.getName();
+    private static final String MODULE = MacroMenuRenderer.class.getName();
     private int macroCount = 999;
     private final Map<Appendable, Environment> environments = new HashMap<>();
     private final Template macroLibrary;
@@ -307,9 +307,9 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 selectedStyle = "selected";
             }
             if (UtilValidate.isNotEmpty(style)) {
-                style += " " ;
+                style += " ";
             }
-            style += selectedStyle ;
+            style += selectedStyle;
         }
         if (isDisableIfEmpty(menuItem, context)) {
             style = menuItem.getDisabledTitleStyle();

@@ -70,9 +70,9 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
  */
 public class ShoppingCartEvents {
 
-    public static final String MODULE = ShoppingCartEvents.class.getName();
-    public static final String resource = "OrderUiLabels";
-    public static final String resource_error = "OrderErrorUiLabels";
+    private static final String MODULE = ShoppingCartEvents.class.getName();
+    private static final String RESOURCE = "OrderUiLabels";
+    private static final String RES_ERROR = "OrderErrorUiLabels";
 
     private static final String NO_ERROR = "noerror";
     private static final String NON_CRITICAL_ERROR = "noncritical";
@@ -92,11 +92,11 @@ public class ShoppingCartEvents {
                 return "error";
             }
         }
-        request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "OrderPromoAppliedSuccessfully", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale));
+        request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RESOURCE, "OrderPromoAppliedSuccessfully", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale));
         return "success";
     }
 
-    public static String removePromotion(HttpServletRequest request,HttpServletResponse response) {
+    public static String removePromotion(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = getCartObject(request);
         String promoCodeId = request.getParameter("promoCode");
@@ -127,7 +127,7 @@ public class ShoppingCartEvents {
                             if (!itemAdjustments.isEmpty()) {
                                 index = 0;
                                 for (GenericValue adjustment : itemAdjustments ) {
-                                    if(adjustment.get("productPromoId").equals(productPromoId)) {
+                                    if (adjustment.get("productPromoId").equals(productPromoId)) {
                                         checkItem.getAdjustments().remove(index);
                                         result = "success";
                                     }
@@ -251,7 +251,7 @@ public class ShoppingCartEvents {
         if (UtilValidate.isEmpty(productId)) {
             // before returning error; check make sure we aren't adding a special item type
             if (UtilValidate.isEmpty(itemType)) {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.noProductInfoPassed", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.noProductInfoPassed", locale));
                 return "success"; // not critical return to same page
             }
         } else {
@@ -293,7 +293,7 @@ public class ShoppingCartEvents {
             if (!configWrapper.isCompleted()) {
                 // The configuration is not valid
                 request.setAttribute("product_id", productId);
-                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.configureProductBeforeAddingToCart", locale));
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.configureProductBeforeAddingToCart", locale));
                 return "product";
             }
             // load the Config Id
@@ -317,7 +317,7 @@ public class ShoppingCartEvents {
                 if (UtilValidate.isEmpty(selectedFeatures)) {
                     request.setAttribute("paramMap", paramMap);
                     request.setAttribute("product_id", productId);
-                    request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
+                    request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
                     return "product";
                 }
 
@@ -327,14 +327,14 @@ public class ShoppingCartEvents {
                 } else {
                     request.setAttribute("paramMap", paramMap);
                     request.setAttribute("product_id", productId);
-                    request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.incompatibilityVariantFeature", locale));
+                    request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.incompatibilityVariantFeature", locale));
                     return "product";
                 }
 
             } else {
                 request.setAttribute("paramMap", paramMap);
                 request.setAttribute("product_id", productId);
-                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
                 return "product";
             }
         }
@@ -372,7 +372,7 @@ public class ShoppingCartEvents {
                         Debug.logWarning(e, "Problems parsing Reservation start string: "
                                 + reservStartStr, MODULE);
                         reservStart = null;
-                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.rental.startDate", locale));
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.rental.startDate", locale));
                         return "error";
                     }
                 } else {
@@ -392,7 +392,7 @@ public class ShoppingCartEvents {
                     } catch (Exception e) {
                         Debug.logWarning(e, "Problems parsing Reservation end string: " + reservEndStr, MODULE);
                         reservEnd = null;
-                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.rental.endDate", locale));
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.rental.endDate", locale));
                         return "error";
                     }
                 } else {
@@ -412,7 +412,7 @@ public class ShoppingCartEvents {
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing reservation length string: "
                             + reservLengthStr, MODULE);
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderReservationLengthShouldBeAPositiveNumber", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderReservationLengthShouldBeAPositiveNumber", locale));
                     return "error";
                 }
             }
@@ -424,7 +424,7 @@ public class ShoppingCartEvents {
                     reservPersons = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(reservPersonsStr, "BigDecimal", null, locale);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing reservation number of persons string: " + reservPersonsStr, MODULE);
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderNumberOfPersonsShouldBeOneOrLarger", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderNumberOfPersonsShouldBeOneOrLarger", locale));
                     return "error";
                 }
             }
@@ -432,7 +432,7 @@ public class ShoppingCartEvents {
             //check for valid rental parameters
             if (UtilValidate.isEmpty(reservStart) && UtilValidate.isEmpty(reservLength) && UtilValidate.isEmpty(reservPersons)) {
                 request.setAttribute("product_id", productId);
-                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
                 return "product";
             }
 
@@ -466,10 +466,10 @@ public class ShoppingCartEvents {
             quantity = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantityStr, "BigDecimal", null, locale);
             //For quantity we should test if we allow to add decimal quantity for this product an productStore :
             // if not and if quantity is in decimal format then return error.
-            if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
+            if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
                 BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                 if (remainder.compareTo(BigDecimal.ZERO) != 0) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.quantityInDecimalNotAllowed", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", locale));
                     return "error";
                 }
                 quantity = quantity.setScale(0, UtilNumber.getRoundingMode("order.rounding"));
@@ -506,7 +506,7 @@ public class ShoppingCartEvents {
         // check for required amount
         if ((ProductWorker.isAmountRequired(delegator, productId)) && (amount == null || amount.doubleValue() == 0.0)) {
             request.setAttribute("product_id", productId);
-            request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.enterAmountBeforeAddingToCart", locale));
+            request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.enterAmountBeforeAddingToCart", locale));
             return "product";
         }
 
@@ -640,7 +640,7 @@ public class ShoppingCartEvents {
         }
 
         // check for alternative packing
-        if(ProductWorker.isAlternativePacking(delegator, productId , parentProductId)){
+        if (ProductWorker.isAlternativePacking(delegator, productId , parentProductId)) {
             GenericValue parentProduct = null;
             try {
                 parentProduct = EntityQuery.use(delegator).from("Product").where("productId", parentProductId).queryOne();
@@ -648,7 +648,7 @@ public class ShoppingCartEvents {
                 Debug.logError(e, "Error getting parent product", MODULE);
             }
             BigDecimal piecesIncluded = BigDecimal.ZERO;
-            if(parentProduct != null){
+            if (parentProduct != null) {
                 piecesIncluded = new BigDecimal(parentProduct.getLong("piecesIncluded"));
                 quantity = quantity.multiply(piecesIncluded);
             }
@@ -760,7 +760,7 @@ public class ShoppingCartEvents {
         // TODO: the code below here needs some cleanups
         String billToCustomerPartyId = request.getParameter("billToCustomerPartyId_o_0");
         if (UtilValidate.isEmpty(billToCustomerPartyId) && UtilValidate.isEmpty(supplierPartyId)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderCouldNotInitPurchaseOrder", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotInitPurchaseOrder", locale));
             return "error";
         }
         String orderId = request.getParameter("orderId_o_0");
@@ -775,7 +775,7 @@ public class ShoppingCartEvents {
             if (thisOrder == null) {
                 cart.setOrderId(orderId);
             } else {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderIdAlreadyExistsPleaseChooseAnother", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderIdAlreadyExistsPleaseChooseAnother", locale));
                 return "error";
             }
         }
@@ -860,7 +860,7 @@ public class ShoppingCartEvents {
                 totalQuantity.doubleValue()));
 
         request.setAttribute("_EVENT_MESSAGE_",
-                UtilProperties.getMessage(resource_error, "cart.add_category_defaults",
+                UtilProperties.getMessage(RES_ERROR, "cart.add_category_defaults",
                         messageMap, locale));
 
         return "success";
@@ -1091,11 +1091,11 @@ public class ShoppingCartEvents {
         Locale locale = UtilHttp.getLocale(request);
 
         if (UtilValidate.isEmpty(alternateGwpProductId)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotSelectAlternateGiftNoAlternateGwpProductIdPassed", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotSelectAlternateGiftNoAlternateGwpProductIdPassed", locale));
             return "error";
         }
         if (UtilValidate.isEmpty(alternateGwpLineStr)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotSelectAlternateGiftNoAlternateGwpLinePassed", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotSelectAlternateGiftNoAlternateGwpLinePassed", locale));
             return "error";
         }
 
@@ -1103,7 +1103,7 @@ public class ShoppingCartEvents {
         try {
             alternateGwpLine = Integer.parseInt(alternateGwpLineStr);
         } catch (Exception e) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotSelectAlternateGiftAlternateGwpLineIsNotAValidNumber", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotSelectAlternateGiftAlternateGwpLineIsNotAValidNumber", locale));
             return "error";
         }
 
@@ -1145,7 +1145,7 @@ public class ShoppingCartEvents {
         int i;
 
         if (UtilValidate.isEmpty(partyId) || UtilValidate.isEmpty(roleTypeId) || roleTypeId.length < 1) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
             return "error";
         }
 
@@ -1177,7 +1177,7 @@ public class ShoppingCartEvents {
         int i;
 
         if (UtilValidate.isEmpty(partyId) || roleTypeId.length < 1) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
             return "error";
         }
 
@@ -1315,7 +1315,7 @@ public class ShoppingCartEvents {
         Long termDays = null;
 
         if (UtilValidate.isEmpty(termTypeId)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermTypeIsRequired", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderOrderTermTypeIsRequired", locale));
             return "error";
         }
 
@@ -1327,7 +1327,7 @@ public class ShoppingCartEvents {
         }
 
         if (("FIN_PAYMENT_TERM".equals(termTypeId) && UtilValidate.isEmpty(termDaysStr)) || (UtilValidate.isNotEmpty(termType) && "FIN_PAYMENT_TERM".equals(termType.get("parentTypeId")) && UtilValidate.isEmpty(termDaysStr))) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermDaysIsRequired", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderOrderTermDaysIsRequired", locale));
             return "error";
         }
 
@@ -1335,7 +1335,7 @@ public class ShoppingCartEvents {
             try {
                 termValue = new BigDecimal(termValueStr);
             } catch (NumberFormatException e) {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermValueError", UtilMisc.toMap("orderTermValue", termValueStr), locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderOrderTermValueError", UtilMisc.toMap("orderTermValue", termValueStr), locale));
                 return "error";
             }
         }
@@ -1344,7 +1344,7 @@ public class ShoppingCartEvents {
             try {
                 termDays = Long.valueOf(termDaysStr);
             } catch (NumberFormatException e) {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermDaysError", UtilMisc.toMap("orderTermDays", termDaysStr), locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderOrderTermDaysError", UtilMisc.toMap("orderTermDays", termDaysStr), locale));
                 return "error";
             }
         }
@@ -1620,7 +1620,7 @@ public class ShoppingCartEvents {
             cart.setOrderType(orderMode);
             session.setAttribute("orderMode", orderMode);
         } else {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderPleaseSelectEitherSaleOrPurchaseOrder", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderPleaseSelectEitherSaleOrPurchaseOrder", locale));
             return "error";
         }
 
@@ -1658,7 +1658,7 @@ public class ShoppingCartEvents {
                 if (hasPermission) {
                     cart = getCartObject(request, null, productStore.getString("defaultCurrencyUomId"));
                 } else {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToTakeOrdersForThisStore", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderYouDoNotHavePermissionToTakeOrdersForThisStore", locale));
                     cart.clear();
                     session.removeAttribute("orderMode");
                     return "error";
@@ -1670,7 +1670,7 @@ public class ShoppingCartEvents {
         }
 
         if ("SALES_ORDER".equals(cart.getOrderType()) && UtilValidate.isEmpty(cart.getProductStoreId())) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderAProductStoreMustBeSelectedForASalesOrder", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderAProductStoreMustBeSelectedForASalesOrder", locale));
             cart.clear();
             session.removeAttribute("orderMode");
             return "error";
@@ -1715,7 +1715,7 @@ public class ShoppingCartEvents {
                     return "error";
                 }
                 if (thisParty == null) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotLocateTheSelectedParty", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotLocateTheSelectedParty", locale));
                     return "error";
                 }
                 cart.setOrderPartyId(partyId);
@@ -1764,7 +1764,7 @@ public class ShoppingCartEvents {
         Map<String, Object> context = UtilHttp.getParameterMap(request);
         String keyPrefix = "productPromoId_";
         for (int i = 1; i <= 50; i++) {
-            String productPromoId = (String)context.get(keyPrefix + i);
+            String productPromoId = (String) context.get(keyPrefix + i);
             if (UtilValidate.isNotEmpty(productPromoId)) {
                 try {
                     GenericValue promo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", productPromoId).queryOne();
@@ -1840,10 +1840,10 @@ public class ShoppingCartEvents {
                 try {
                     //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                     // if not and if quantity is in decimal format then return error.
-                    if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
+                    if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
                         BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                         if (remainder.compareTo(BigDecimal.ZERO) != 0) {
-                            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.quantityInDecimalNotAllowed", cart.getLocale()));
+                            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", cart.getLocale()));
                             return "error";
                         }
                         quantity = quantity.setScale(0, UtilNumber.getRoundingMode("order.rounding"));
@@ -1895,7 +1895,7 @@ public class ShoppingCartEvents {
                     result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
                                                   null, itemType, itemDescription, null,
                                                   amount, quantity, null, null, null, null, null, null,
-                                                  itemGroupNumber, itemAttributes,null);
+                                                  itemGroupNumber, itemAttributes, null);
                     // no values for price and paramMap (a context for adding attributes)
                     controlDirective = processResult(result, request);
                     if (controlDirective.equals(ERROR)) {    // if the add to cart failed, then get out of this loop right away
@@ -1955,7 +1955,7 @@ public class ShoppingCartEvents {
             if (thisOrder == null) {
                 cart.setOrderId(orderId);
             } else {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderIdAlreadyExistsPleaseChooseAnother", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderIdAlreadyExistsPleaseChooseAnother", locale));
                 return "error";
             }
         }
@@ -2077,9 +2077,9 @@ public class ShoppingCartEvents {
                     try {
                         itemDesiredDeliveryDate = Timestamp.valueOf(itemDesiredDeliveryDateStr);
                     } catch (Exception e) {
-                        Debug.logWarning(e,"Problems parsing Reservation start string: " + itemDesiredDeliveryDateStr, MODULE);
+                        Debug.logWarning(e, "Problems parsing Reservation start string: " + itemDesiredDeliveryDateStr, MODULE);
                         itemDesiredDeliveryDate = null;
-                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string", locale));
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string", locale));
                     }
                 }
                 if (paramMap.containsKey("itemType" + thisSuffix)) {

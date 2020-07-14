@@ -43,7 +43,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public class ContentKeywordIndex {
 
-    public static final String MODULE = ContentKeywordIndex.class.getName();
+    private static final String MODULE = ContentKeywordIndex.class.getName();
 
     public static void forceIndexKeywords(GenericValue content) throws GenericEntityException {
         ContentKeywordIndex.indexKeywords(content, true);
@@ -55,7 +55,7 @@ public class ContentKeywordIndex {
 
     public static void indexKeywords(GenericValue content, boolean doAll) throws GenericEntityException {
         if (content == null) return;
-        
+
         Delegator delegator = content.getDelegator();
         String contentId = content.getString("contentId");
 
@@ -213,9 +213,7 @@ public class ContentKeywordIndex {
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }
-        } catch (IOException e1) {
-            Debug.logError(e1, "Error getting content text to index", MODULE);
-        } catch (GeneralException e1) {
+        } catch (IOException | GeneralException e1) {
             Debug.logError(e1, "Error getting content text to index", MODULE);
         }
     }

@@ -35,8 +35,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class InventoryEventPlannedServices {
 
-    public static final String MODULE = InventoryEventPlannedServices.class.getName();
-    public static final String resource = "ManufacturingUiLabels";
+    private static final String MODULE = InventoryEventPlannedServices.class.getName();
+    private static final String RESOURCE = "ManufacturingUiLabels";
 
     /**
      *
@@ -54,12 +54,12 @@ public class InventoryEventPlannedServices {
                                         "productId", context.get("productId"),
                                         "eventDate", context.get("eventDate"),
                                         "mrpEventTypeId", context.get("mrpEventTypeId"));
-        BigDecimal quantity = (BigDecimal)context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         try {
-            createOrUpdateMrpEvent(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), false, delegator);
+            createOrUpdateMrpEvent(parameters, quantity, (String) context.get("facilityId"), (String) context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
-            Debug.logError(e,"Error : findOne(\"MrpEvent\", parameters =)"+parameters, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
+            Debug.logError(e, "Error : findOne(\"MrpEvent\", parameters =)"+parameters, MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
         }
         return ServiceUtil.returnSuccess();
     }

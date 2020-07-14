@@ -52,7 +52,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class CategoryContentWrapper implements ContentWrapper {
 
-    public static final String MODULE = CategoryContentWrapper.class.getName();
+    private static final String MODULE = CategoryContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
     private static final UtilCache<String, String> categoryContentCache = UtilCache.createUtilCache("category.content", true); // use soft reference to free up memory if needed
 
@@ -113,10 +113,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             outString = encoder.sanitize(outString, null);
             categoryContentCache.put(cacheKey, outString);
             return outString;
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering CategoryContent, inserting empty String", MODULE);
-            return productCategory.getString(candidateFieldName);
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering CategoryContent, inserting empty String", MODULE);
             return productCategory.getString(candidateFieldName);
         }
@@ -153,7 +150,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             ContentWorker.renderContentAsText(dispatcher, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
             return;
         }
-        
+
         String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
         ModelEntity categoryModel = delegator.getModelEntity("ProductCategory");
         if (categoryModel.isField(candidateFieldName)) {

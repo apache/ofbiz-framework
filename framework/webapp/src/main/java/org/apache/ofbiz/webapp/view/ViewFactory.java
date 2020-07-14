@@ -36,16 +36,16 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
  */
 public class ViewFactory {
 
-    public static final String MODULE = ViewFactory.class.getName();
+    private static final String MODULE = ViewFactory.class.getName();
 
     private final Map<String, ViewHandler> handlers = new HashMap<>();
 
     public ViewFactory(ServletContext context, URL controllerConfigURL) {
         // load all the view handlers
         try {
-            Set<Map.Entry<String,String>> handlerEntries = ConfigXMLReader.getControllerConfig(controllerConfigURL).getViewHandlerMap().entrySet();
+            Set<Map.Entry<String, String>> handlerEntries = ConfigXMLReader.getControllerConfig(controllerConfigURL).getViewHandlerMap().entrySet();
             if (handlerEntries != null) {
-                for (Map.Entry<String,String> handlerEntry: handlerEntries) {
+                for (Map.Entry<String, String> handlerEntry: handlerEntries) {
                     ViewHandler handler = (ViewHandler) ObjectType.getInstance(handlerEntry.getValue());
                     handler.setName(handlerEntry.getKey());
                     handler.init(context);

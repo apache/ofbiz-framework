@@ -61,7 +61,7 @@ import freemarker.template.utility.StringUtil;
  */
 public class QRCodeServices {
 
-    public static final String MODULE = QRCodeServices.class.getName();
+    private static final String MODULE = QRCodeServices.class.getName();
 
     public static final int MIN_SIZE = 20;
 
@@ -72,7 +72,7 @@ public class QRCodeServices {
     private static final int WHITE = 0xFFFFFFFF;
 
     /** Streams QR Code to the result. */
-    public static Map<String, Object> generateQRCodeImage(DispatchContext ctx,Map<String, Object> context) {
+    public static Map<String, Object> generateQRCodeImage(DispatchContext ctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
         String message = (String) context.get("message");
         Integer width = (Integer) context.get("width");
@@ -98,7 +98,7 @@ public class QRCodeServices {
             height = Integer.parseInt(EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.height", "200", delegator));
         }
         if (height < MIN_SIZE || height > MAX_SIZE) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError", 
+            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError",
                     new Object[] { "height", String.valueOf(height), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE) }, locale));
         }
         if (UtilValidate.isEmpty(format)) {
@@ -145,7 +145,6 @@ public class QRCodeServices {
                 }
                 logoBufferedImage = defaultLogoImage;
             }
-            
             BufferedImage newBufferedImage = null;
             if (UtilValidate.isNotEmpty(logoBufferedImage)) {
                 if (UtilValidate.isNotEmpty(logoImageMaxWidth) && UtilValidate.isNotEmpty(logoImageMaxHeight) && (logoBufferedImage.getWidth() > logoImageMaxWidth || logoBufferedImage.getHeight() > logoImageMaxHeight)) {
@@ -165,7 +164,6 @@ public class QRCodeServices {
                 graphics.drawImage(logoBufferedImage, new AffineTransformOp(AffineTransform.getTranslateInstance(1, 1), null), (newBufferedImage.getWidth() - logoBufferedImage.getWidth())/2, (newBufferedImage.getHeight() - logoBufferedImage.getHeight())/2);
                 graphics.dispose();
             }
-            
             if (UtilValidate.isNotEmpty(verifyOutput) && verifyOutput) {
                 Decoder decoder = new Decoder();
                 Map<DecodeHintType, Object> decodeHints = new EnumMap<>(DecodeHintType.class);
@@ -216,7 +214,6 @@ public class QRCodeServices {
     /**
      * Renders a {@link BitMatrix} as an image, where "false" bits are rendered
      * as white, and "true" bits are rendered as black.
-     * 
      * This is to replace MatrixToImageWriter.toBufferedImage(bitMatrix) if you
      * find the output image is not right, you can change BufferedImage image =
      * new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB); to

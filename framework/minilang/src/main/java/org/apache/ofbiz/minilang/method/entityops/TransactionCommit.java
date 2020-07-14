@@ -31,12 +31,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;transaction-commit&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class TransactionCommit extends MethodOperation {
 
-    public static final String MODULE = TransactionCommit.class.getName();
+    private static final String MODULE = TransactionCommit.class.getName();
 
     private final FlexibleMapAccessor<Boolean> beganTransactionFma;
 

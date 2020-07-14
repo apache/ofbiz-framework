@@ -50,13 +50,10 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 public class CatalogUrlFilter implements Filter {
 
     public final static String MODULE = CatalogUrlFilter.class.getName();
-    
     public static final String PRODUCT_REQUEST = "product";
     public static final String CATEGORY_REQUEST = "category";
-    
     private static String defaultLocaleString;
     private static String redirectUrl;
-
 
     protected FilterConfig config;
 
@@ -70,18 +67,17 @@ public class CatalogUrlFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         Delegator delegator = (Delegator) httpRequest.getSession().getServletContext().getAttribute("delegator");
-        
+
         // set initial parameters
         String initDefaultLocalesString = config.getInitParameter("defaultLocaleString");
         String initRedirectUrl = config.getInitParameter("redirectUrl");
         setDefaultLocaleString(UtilValidate.isNotEmpty(initDefaultLocalesString) ? initDefaultLocalesString : "");
         setRedirectUrl(UtilValidate.isNotEmpty(initRedirectUrl) ? initRedirectUrl : "");
-        
         String pathInfo = httpRequest.getServletPath();
         if (UtilValidate.isNotEmpty(pathInfo)) {
             List<String> pathElements = StringUtil.split(pathInfo, "/");
             String alternativeUrl = pathElements.get(0);
-            
+
             String productId = null;
             String productCategoryId = null;
             String urlContentId = null;
@@ -140,7 +136,7 @@ public class CatalogUrlFilter implements Filter {
                         }
                     }
                 }
-                
+
                 // look for productCategoryId
                 if (alternativeUrl.endsWith("-c")) {
                     List<EntityCondition> productCategoryContentConds = new LinkedList<>();
@@ -201,11 +197,10 @@ public class CatalogUrlFilter implements Filter {
             } catch (GenericEntityException e) {
                 Debug.logWarning("Cannot look for product and product category", MODULE);
             }
-            
+
             // generate forward URL
             StringBuilder urlBuilder = new StringBuilder();
             urlBuilder.append("/" + WebAppUtil.CONTROL_MOUNT_POINT);
-            
             if (UtilValidate.isNotEmpty(productId)) {
                 try {
                     List<EntityCondition> conds = new LinkedList<>();
@@ -220,7 +215,6 @@ public class CatalogUrlFilter implements Filter {
                     Debug.logError(e, "Cannot find product category for product: " + productId, MODULE);
                 }
                 urlBuilder.append("/" + PRODUCT_REQUEST);
-                
             } else {
                 urlBuilder.append("/" + CATEGORY_REQUEST);
             }
@@ -229,7 +223,7 @@ public class CatalogUrlFilter implements Filter {
             String topCategoryId = CategoryWorker.getCatalogTopCategory(httpRequest, null);
             List<GenericValue> trailCategories = CategoryWorker.getRelatedCategoriesRet(httpRequest, "trailCategories", topCategoryId, false, false, true);
             List<String> trailCategoryIds = EntityUtil.getFieldListFromEntityList(trailCategories, "productCategoryId", true);
-            
+
             // look for productCategoryId from productId
             if (UtilValidate.isNotEmpty(productId)) {
                 try {
@@ -279,7 +273,7 @@ public class CatalogUrlFilter implements Filter {
                     }
                 }
                 Collections.reverse(trailElements);
-                
+
                 List<String> trail = CategoryWorker.getTrail(httpRequest);
                 if (trail == null) {
                     trail = new LinkedList<>();
@@ -291,7 +285,7 @@ public class CatalogUrlFilter implements Filter {
                     previousCategoryId = trail.get(trail.size() - 1);
                 }
                 trail = CategoryWorker.adjustTrail(trail, productCategoryId, previousCategoryId);
-                
+
                 if (trailElements.size() == 1) {
                     CategoryWorker.setTrail(request, trailElements.get(0), null);
                 } else if (trailElements.size() == 2) {
@@ -313,13 +307,12 @@ public class CatalogUrlFilter implements Filter {
                 }
 
                 request.setAttribute("productCategoryId", productCategoryId);
-                
+
                 if (productId != null) {
                     request.setAttribute("product_id", productId);
                     request.setAttribute("productId", productId);
                 }
             }
-            
             //Set view query parameters
             UrlServletHelper.setViewQueryParameters(request, urlBuilder);
             if (UtilValidate.isNotEmpty(productId) || UtilValidate.isNotEmpty(productCategoryId) || UtilValidate.isNotEmpty(urlContentId)) {
@@ -328,11 +321,9 @@ public class CatalogUrlFilter implements Filter {
                 dispatch.forward(request, response);
                 return;
             }
-            
             //Check path alias
             UrlServletHelper.checkPathAlias(request, httpResponse, delegator, pathInfo);
         }
-        
         // we're done checking; continue on
         chain.doFilter(request, response);
     }
@@ -360,7 +351,7 @@ public class CatalogUrlFilter implements Filter {
     public static String makeCategoryUrl(Delegator delegator, CategoryContentWrapper wrapper, List<String> trail, String contextPath, String previousCategoryId, String productCategoryId, String productId, String viewSize, String viewIndex, String viewSort, String searchString) {
         String url = "";
         StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
-        
+
         if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
             StringBuilder urlBuilder = new StringBuilder();
             urlBuilder.append(contextPath);
@@ -406,7 +397,7 @@ public class CatalogUrlFilter implements Filter {
             if (urlBuilder.toString().endsWith("&")) {
                 return urlBuilder.toString().substring(0, urlBuilder.toString().length()-1);
             }
-            
+
             url = urlBuilder.toString();
         } else {
             if (UtilValidate.isEmpty(trail)) {
@@ -414,10 +405,8 @@ public class CatalogUrlFilter implements Filter {
             }
             url = CatalogUrlServlet.makeCatalogUrl(contextPath, trail, productId, productCategoryId, previousCategoryId);
         }
-        
         return url;
     }
-    
     public static String makeProductUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId, String productId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String url = null;

@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  */
 public final class StoreValue extends MethodOperation {
 
-    public static final String MODULE = StoreValue.class.getName();
+    private static final String MODULE = StoreValue.class.getName();
     private final FlexibleMapAccessor<GenericValue> valueFma;
 
     public StoreValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {

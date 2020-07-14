@@ -41,7 +41,7 @@ import java.util.Map;
  */
 public class HttpClient {
 
-    public static final String MODULE = HttpClient.class.getName();
+    private static final String MODULE = HttpClient.class.getName();
 
     private int hostVerification = SSLUtil.getHostCertNormalCheck();
     private int timeout = 30000;
@@ -66,7 +66,7 @@ public class HttpClient {
     private URLConnection con = null;
 
     /** Creates an empty HttpClient object. */
-    public HttpClient() {}
+    public HttpClient() { }
 
     /** Creates a new HttpClient object. */
     public HttpClient(URL url) {

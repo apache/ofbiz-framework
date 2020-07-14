@@ -47,13 +47,13 @@ import org.apache.ofbiz.base.util.UtilGenerics;
  */
 public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
 
-    public static final String MODULE = MapContext.class.getName();
+    private static final String MODULE = MapContext.class.getName();
 
     protected Deque<Map<K, V>> contexts = new LinkedList<>();
 
     /** Puts a new Map on the top of the stack */
     public void push() {
-        contexts.addFirst(new HashMap<K, V>());
+        contexts.addFirst(new HashMap<>());
     }
 
     /** Puts an existing Map on the top of the stack (top meaning will override lower layers on the stack) */

@@ -48,7 +48,7 @@ import freemarker.template.TransformControl;
  */
 public class TraverseSubContentCacheTransform implements TemplateTransformModel {
 
-    public static final String MODULE = TraverseSubContentCacheTransform.class.getName();
+    private static final String MODULE = TraverseSubContentCacheTransform.class.getName();
     static final String [] upSaveKeyNames = {"globalNodeTrail"};
     static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
@@ -151,7 +151,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 Map<String, Object> node = null;
                 List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
                 if (globalNodeTrail.size() > 0) {
-                    int sz = globalNodeTrail.size() ;
+                    int sz = globalNodeTrail.size();
                     nodeTrail = new LinkedList<>();
                     node = UtilGenerics.cast(globalNodeTrail.get(sz - 1));
                     Boolean checkedObj = (Boolean)node.get("checked");

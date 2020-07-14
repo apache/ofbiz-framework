@@ -69,7 +69,7 @@ import org.apache.ofbiz.entity.model.ModelViewEntity;
  *
  */
 public final class SqlJdbcUtil {
-    public static final String MODULE = SqlJdbcUtil.class.getName();
+    private static final String MODULE = SqlJdbcUtil.class.getName();
 
     private static final int CHAR_BUFFER_SIZE = 4096;
     private static Map<String, Integer> fieldTypeMap = new HashMap<>();
@@ -116,7 +116,7 @@ public final class SqlJdbcUtil {
         fieldTypeMap.put("java.util.LinkedList", 15);
     }
 
-    private SqlJdbcUtil () {}
+    private SqlJdbcUtil() { }
     /** Makes the FROM clause and when necessary the JOIN clause(s) as well */
     public static String makeFromClause(ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader, Datasource datasourceInfo) throws GenericEntityException {
         StringBuilder sql = new StringBuilder(" FROM ");

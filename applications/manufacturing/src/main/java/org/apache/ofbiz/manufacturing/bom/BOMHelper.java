@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class BOMHelper {
 
-    public static final String MODULE = BOMHelper.class.getName();
+    private static final String MODULE = BOMHelper.class.getName();
 
     /** Creates a new instance of BOMHelper */
     private BOMHelper() {
@@ -68,7 +68,7 @@ public final class BOMHelper {
         if (inDate == null) inDate = new Date();
         int maxDepth = 0;
         List<GenericValue> productNodesList = EntityQuery.use(delegator).from("ProductAssoc")
-                .where("productIdTo", productId, 
+                .where("productIdTo", productId,
                         "productAssocTypeId", bomType)
                 .cache().filterByDate(inDate).queryList();
         int depth = 0;
@@ -112,13 +112,13 @@ public final class BOMHelper {
             productIdKeys.add(productIdKey);
         }
         List<GenericValue> productNodesList = EntityQuery.use(delegator).from("ProductAssoc")
-                .where("productIdTo", productId, 
+                .where("productIdTo", productId,
                         "productAssocTypeId", bomType)
                 .cache().filterByDate(inDate).queryList();
         GenericValue duplicatedNode = null;
         for (GenericValue oneNode : productNodesList) {
-            for (int i = 0; i < productIdKeys.size(); i++) {
-                if (oneNode.getString("productId").equals(productIdKeys.get(i))) {
+            for (String idKey : productIdKeys) {
+                if (oneNode.getString("productId").equals(idKey)) {
                     return oneNode;
                 }
             }
@@ -152,8 +152,8 @@ public final class BOMHelper {
                 Debug.logError("Production Run for order item (" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + ") not created.", MODULE);
                 continue;
             }
-            Map<String, Object> result = dispatcher.runSync("createProductionRunsForOrder", UtilMisc.<String, Object>toMap("quantity", shipmentPlan.getBigDecimal("quantity"), "orderId", 
-                    shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId"), "shipmentId", 
+            Map<String, Object> result = dispatcher.runSync("createProductionRunsForOrder", UtilMisc.<String, Object>toMap("quantity", shipmentPlan.getBigDecimal("quantity"), "orderId",
+                    shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId"), "shipmentId",
                     shipmentId, "userLogin", userLogin));
             if (ServiceUtil.isError(result)) {
                 String errorMessage = ServiceUtil.getErrorMessage(result);
@@ -162,11 +162,8 @@ public final class BOMHelper {
                 return "error";
             }
         }
-        } catch (GenericEntityException|GenericServiceException ge) {
+        } catch (GenericEntityException | GenericServiceException ge) {
             Debug.logWarning(ge, MODULE);
-        } catch (Exception e) {
-            // if there is an exception for either, the other probably wont work
-            Debug.logWarning(e, MODULE);
         }
 
         return "success";

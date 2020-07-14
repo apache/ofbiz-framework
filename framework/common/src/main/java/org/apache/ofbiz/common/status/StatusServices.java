@@ -40,15 +40,15 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class StatusServices {
 
-    public static final String MODULE = StatusServices.class.getName();
-    public static final String resource = "CommonUiLabels";
+    private static final String MODULE = StatusServices.class.getName();
+    private static final String RESOURCE = "CommonUiLabels";
 
     public static Map<String, Object> getStatusItems(DispatchContext ctx, Map<String, ?> context) {
         Delegator delegator = ctx.getDelegator();
         List<String> statusTypes = checkCollection(context.get("statusTypeIds"), String.class);
         Locale locale = (Locale) context.get("locale");
         if (UtilValidate.isEmpty(statusTypes)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonStatusMandatory", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonStatusMandatory", locale));
         }
 
         List<GenericValue> statusItems = new LinkedList<>();
@@ -66,7 +66,7 @@ public class StatusServices {
             }
         }
         Map<String, Object> ret =  new LinkedHashMap<>();
-        ret.put("statusItems",statusItems);
+        ret.put("statusItems", statusItems);
         return ret;
     }
 

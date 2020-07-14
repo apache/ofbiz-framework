@@ -24,8 +24,8 @@ import org.apache.ofbiz.base.util.Debug;
  * WidgetContentWorker Class
  */
 public final class WidgetDataResourceWorker {
-    public static final String MODULE = WidgetDataResourceWorker.class.getName();
-    private WidgetDataResourceWorker() {}
+    private static final String MODULE = WidgetDataResourceWorker.class.getName();
+    private WidgetDataResourceWorker() { }
     private static DataResourceWorkerInterface dataresourceWorker = null;
     static {
         try {

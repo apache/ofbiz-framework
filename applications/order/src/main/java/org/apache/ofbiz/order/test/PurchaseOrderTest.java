@@ -32,7 +32,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
 import org.apache.ofbiz.service.ServiceUtil;
 
 public class PurchaseOrderTest extends OFBizTestCase {
-    public static final String MODULE = OFBizTestCase.class.getName();
+    private static final String MODULE = OFBizTestCase.class.getName();
 
     protected String orderId = null;
     protected String statusId = null;
@@ -72,7 +72,7 @@ public class PurchaseOrderTest extends OFBizTestCase {
         ctx.put("orderItemContactMechs", orderItemContactMechs);
 
         GenericValue orderItemShipGroup = delegator.makeValue("OrderItemShipGroup", UtilMisc.toMap("carrierPartyId", "UPS", "contactMechId", "9000", "isGift", "N", "maySplit", "N", "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
-        orderItemShipGroup.set("carrierRoleTypeId","CARRIER");
+        orderItemShipGroup.set("carrierRoleTypeId", "CARRIER");
         List <GenericValue> orderItemShipGroupInfo = new LinkedList<>();
         orderItemShipGroupInfo.add(orderItemShipGroup);
         ctx.put("orderItemShipGroupInfo", orderItemShipGroupInfo);

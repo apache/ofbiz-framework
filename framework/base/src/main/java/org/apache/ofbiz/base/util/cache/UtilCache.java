@@ -64,7 +64,7 @@ import com.googlecode.concurrentlinkedhashmap.EvictionListener;
 @SuppressWarnings("serial")
 public class UtilCache<K, V> implements Serializable, EvictionListener<Object, CacheLine<V>> {
 
-    public static final String MODULE = UtilCache.class.getName();
+    private static final String MODULE = UtilCache.class.getName();
 
     /** A static Map to keep track of all of the UtilCache instances. */
     private static final ConcurrentHashMap<String, UtilCache<?, ?>> utilCacheTable = new ConcurrentHashMap<>();
@@ -754,32 +754,32 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         return storeCache(new UtilCache<>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, long expireTime, boolean useSoftReference) {
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, long expireTime, boolean useSoftReference) {
         String cacheName = name + getNextDefaultIndex(name);
         return storeCache(new UtilCache<>(cacheName, sizeLimit, sizeLimit, expireTime, useSoftReference, name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, long expireTime) {
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, long expireTime) {
         String cacheName = name + getNextDefaultIndex(name);
         return storeCache(new UtilCache<>(cacheName, sizeLimit, sizeLimit, expireTime, false, name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(int sizeLimit, long expireTime) {
+    public static <K, V> UtilCache<K, V> createUtilCache(int sizeLimit, long expireTime) {
         String cacheName = "specified" + getNextDefaultIndex("specified");
         return storeCache(new UtilCache<>(cacheName, sizeLimit, sizeLimit, expireTime, false, "specified"));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String name, boolean useSoftReference) {
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, boolean useSoftReference) {
         String cacheName = name + getNextDefaultIndex(name);
         return storeCache(new UtilCache<>(cacheName, 0, 0, 0, useSoftReference, "default", name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String name) {
+    public static <K, V> UtilCache<K, V> createUtilCache(String name) {
         String cacheName = name + getNextDefaultIndex(name);
         return storeCache(new UtilCache<>(cacheName, 0, 0, 0, false, "default", name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache() {
+    public static <K, V> UtilCache<K, V> createUtilCache() {
         String cacheName = "default" + getNextDefaultIndex("default");
         return storeCache(new UtilCache<>(cacheName, 0, 0, 0, false, "default"));
     }

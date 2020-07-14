@@ -31,9 +31,9 @@ import org.apache.ofbiz.entity.util.EntityTypeUtil;
  */
 public final class PartyTypeHelper {
 
-    public static final String MODULE = PartyTypeHelper.class.getName();
+    private static final String MODULE = PartyTypeHelper.class.getName();
 
-    private PartyTypeHelper () {}
+    private PartyTypeHelper() { }
 
     /** Check if a related party is of the right party type (PERSON or PARTY_GROUP)
      *@param delegator needed Delegator

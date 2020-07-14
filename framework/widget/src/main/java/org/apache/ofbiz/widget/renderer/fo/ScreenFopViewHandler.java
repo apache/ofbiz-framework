@@ -60,7 +60,7 @@ import freemarker.template.TemplateException;
  * This handler will use JPublish to generate the XSL-FO
  */
 public class ScreenFopViewHandler extends AbstractViewHandler {
-    public static final String MODULE = ScreenFopViewHandler.class.getName();
+    private static final String MODULE = ScreenFopViewHandler.class.getName();
     protected static final String DEFAULT_ERROR_TEMPLATE = "component://common/widget/CommonScreens.xml#FoError";
 
     protected ServletContext servletContext = null;
@@ -112,7 +112,6 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         if (UtilValidate.isEmpty(contentType)) {
             contentType = modelTheme.getContentType(getName());
         }
-        
         // get encryption related parameters
         FOUserAgent foUserAgent = null;
         String userPassword = request.getParameter("userPassword");
@@ -132,13 +131,12 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
                     // ignore
                 }
             }
-            
+
             boolean encryptMetadata = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("encrypt-metadata")) ? ApacheFopWorker.getEncryptMetadataDefault() : request.getParameter("encrypt-metadata"));
             boolean allowFillInForms = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowFillInForms")) ? ApacheFopWorker.getAllowFillInFormsDefault() : request.getParameter("allowFillInForms"));
             boolean allowAccessContent = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowAccessContent")) ? ApacheFopWorker.getAllowAccessContentDefault() : request.getParameter("allowAccessContent"));
             boolean allowAssembleDocument = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowAssembleDocument")) ? ApacheFopWorker.getAllowAssembleDocumentDefault() : request.getParameter("allowAssembleDocument"));
             boolean allowPrintHq = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowPrintHq")) ? ApacheFopWorker.getAllowPrintHqDefault() : request.getParameter("allowPrintHq"));
-            
             FopFactory fopFactory = ApacheFopWorker.getFactoryInstance();
             foUserAgent = fopFactory.newFOUserAgent();
             PDFEncryptionParams pdfEncryptionParams = new PDFEncryptionParams(userPassword, ownerPassword, allowPrint, allowCopyContent, allowEditContent, allowEditAnnotations, encryptMetadata);
@@ -149,13 +147,13 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             pdfEncryptionParams.setEncryptionLengthInBits(encryptionLength);
             foUserAgent.getRendererOptions().put(PDFEncryptionOption.ENCRYPTION_PARAMS, pdfEncryptionParams);
         }
-        
+
         Reader reader = new StringReader(screenOutString);
         StreamSource src = new StreamSource(reader);
         ByteArrayOutputStream out = new ByteArrayOutputStream(); 
         /* Debug area, uncomment this to view the xml file generate before analyse by fop
         try { 
-                java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/temp.xsl.fo"));
+                java.io.FileWriter fw = new java.io.FileWriter(new java.io.File(System.getProperty("ofbiz.home")+"/runtime/tempfiles/temp.xsl.fo"));
                 fw.write(screenOutString);
                 fw.close();
             } catch (IOException e) {

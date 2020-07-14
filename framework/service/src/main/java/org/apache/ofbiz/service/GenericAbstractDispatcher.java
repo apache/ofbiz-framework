@@ -44,7 +44,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     protected ServiceDispatcher dispatcher = null;
     protected String name = null;
 
-    public GenericAbstractDispatcher() {}
+    public GenericAbstractDispatcher() { }
 
     @Override
     public void schedule(String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {

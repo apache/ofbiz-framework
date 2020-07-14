@@ -47,7 +47,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class TrackingCodeEvents {
 
-    public static final String MODULE = TrackingCodeEvents.class.getName();
+    private static final String MODULE = TrackingCodeEvents.class.getName();
 
     /** If TrackingCode monitoring is desired this event should be added to the list
      * of events that run on every request. This event looks for the parameter
@@ -307,7 +307,7 @@ public class TrackingCodeEvents {
         String prodCatalogId = trackingCode.getString("prodCatalogId");
         if (UtilValidate.isNotEmpty(prodCatalogId)) {
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
-            CategoryWorker.setTrail(request, new LinkedList<String>());
+            CategoryWorker.setTrail(request, new LinkedList<>());
         }
 
         // if forward/redirect is needed, do a response.sendRedirect and return null to tell the control servlet to not do any other requests/views
@@ -514,7 +514,7 @@ public class TrackingCodeEvents {
             GenericValue trackingCodeOrder = delegator.makeValue("TrackingCodeOrder",
                     UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"),
                     "trackingCodeId", trackingCodeId, "isBillable", isBillable, "siteId", siteId,
-                    "hasExported", "N", "affiliateReferredTimeStamp",affiliateReferredTimeStamp));
+                    "hasExported", "N", "affiliateReferredTimeStamp", affiliateReferredTimeStamp));
 
             Debug.logInfo(" trackingCodeOrder is " + trackingCodeOrder, MODULE);
             trackingCodeOrders.add(trackingCodeOrder);

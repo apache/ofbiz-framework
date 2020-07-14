@@ -24,8 +24,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -37,6 +40,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
@@ -55,14 +59,17 @@ import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Widget Library - Screen model HTML class.
  */
 @SuppressWarnings("serial")
 public class HtmlWidget extends ModelScreenWidget {
-    public static final String MODULE = HtmlWidget.class.getName();
+    private static final String MODULE = HtmlWidget.class.getName();
 
-    private static final UtilCache<String, Template> specialTemplateCache = UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
+    private static final UtilCache<String, Template> specialTemplateCache =
+            UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
     protected static final Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
 
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
@@ -138,7 +145,8 @@ public class HtmlWidget extends ModelScreenWidget {
     }
 
     @Override
-    public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+    public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer)
+            throws GeneralException, IOException {
         for (ModelScreenWidget subWidget : subWidgets) {
             subWidget.renderWidgetString(writer, context, screenStringRenderer);
         }
@@ -179,6 +187,88 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
+    public static void renderHtmlTemplateWithMultiBlock(Appendable writer, FlexibleStringExpander locationExdr,
+                                                        Map<String, Object> context) throws IOException {
+        String location = locationExdr.expandString(context);
+
+        StringWriter stringWriter = new StringWriter();
+        Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER));
+        if (stringWriterStack == null) {
+            stringWriterStack = new Stack<>();
+        }
+        stringWriterStack.push(stringWriter);
+        // we use stack because a freemarker template may render a sub screen widget
+        context.put(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER, stringWriterStack);
+        renderHtmlTemplate(stringWriter, locationExdr, context);
+        stringWriterStack.pop();
+        // check if no more parent freemarker template before removing from context
+        if (stringWriterStack.empty()) {
+            context.remove(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
+        }
+        String data = stringWriter.toString();
+        stringWriter.close();
+
+        Document doc = Jsoup.parseBodyFragment(data);
+
+        // extract scripts
+        Elements scriptElements = doc.select("script");
+        if (scriptElements != null && scriptElements.size() > 0) {
+            StringBuilder scripts = new StringBuilder();
+            for (org.jsoup.nodes.Element script : scriptElements) {
+                String type = script.attr("type");
+                String src = script.attr("src");
+                if (UtilValidate.isEmpty(src)) {
+                    if (UtilValidate.isEmpty(type) || type.equals("application/javascript")) {
+                        scripts.append(script.data());
+                        script.remove();
+                    }
+                } else {
+                    String dataImport = script.attr("data-import");
+                    if ("head".equals(dataImport)) {
+                        // remove external script in the template that is meant to be imported in the html header
+                        script.remove();
+                    }
+                }
+            }
+
+            if (scripts.length() > 0) {
+                // store script for retrieval by the browser
+                String fileName = location;
+                fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+                if (fileName.endsWith(".ftl")) {
+                    fileName = fileName.substring(0, fileName.length() - 4);
+                }
+                MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
+
+                // construct script link
+                String webappName = (String) context.get("webappName");
+                String url = "/" + webappName + "/control/getJs?name=" + fileName;
+
+                // add csrf token to script link
+                HttpServletRequest request = (HttpServletRequest) context.get("request");
+                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
+                url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
+
+                // store script link to be output by scriptTagsFooter freemarker macro
+                MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
+            }
+        }
+        Elements csslinkElements = doc.select("link");
+        if (csslinkElements != null && csslinkElements.size() > 0) {
+            for (org.jsoup.nodes.Element link : csslinkElements) {
+                String src = link.attr("href");
+                if (UtilValidate.isNotEmpty(src)) {
+                    // remove external style sheet in the template that will be added to the html header
+                    link.remove();
+                }
+            }
+        }
+
+        // the 'template' block
+        String body = doc.body().html();
+        writer.append(body);
+    }
+
     // TODO: We can make this more fancy, but for now this is very functional
     public static void writeError(Appendable writer, String message) {
         try {
@@ -195,6 +285,23 @@ public class HtmlWidget extends ModelScreenWidget {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
             this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
+
+            if (this.isMultiBlock()) {
+                String origLoc = this.locationExdr.getOriginal();
+                Set<String> urls = null;
+                if (origLoc.contains("${")) {
+                    urls = new LinkedHashSet<>();
+                    urls.add(origLoc);
+                } else {
+                    try {
+                        urls = MultiBlockHtmlTemplateUtil.extractHtmlLinksFromRawHtmlTemplate(origLoc);
+                    } catch (IOException e) {
+                        String errMsg = "Error getting html imports from template at location [" + origLoc + "]: " + e.toString();
+                        Debug.logError(e, errMsg, MODULE);
+                    }
+                }
+                MultiBlockHtmlTemplateUtil.addHtmlLinksToHtmlLinksForScreenCache(modelScreen.getSourceLocation(), modelScreen.getName(), urls);
+            }
         }
 
         public String getLocation(Map<String, Object> context) {
@@ -208,54 +315,8 @@ public class HtmlWidget extends ModelScreenWidget {
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
 
-            if (false && isMultiBlock()) {
-
-                StringWriter stringWriter = new StringWriter();
-                context.put("MultiBlockWriter", stringWriter);
-                renderHtmlTemplate(stringWriter, this.locationExdr, context);
-                context.remove("MultiBlockWriter");
-                String data = stringWriter.toString();
-                stringWriter.close();
-
-                Document doc = Jsoup.parseBodyFragment(data);
-
-                // extract scripts
-                Elements scriptElements = doc.select("script");
-                if (scriptElements != null && scriptElements.size()>0) {
-                    StringBuilder scripts = new StringBuilder();
-
-                    for (org.jsoup.nodes.Element script : scriptElements) {
-                        String type = script.attr("type");
-                        String src = script.attr("src");
-                        if (UtilValidate.isEmpty(src)) {
-                            if (UtilValidate.isEmpty(type) || type.equals("application/javascript")) {
-                                scripts.append(script.data());
-                                script.remove();
-                            }
-                        }
-                    }
-
-                    // store script for retrieval by the browser
-                    String fileName = this.getLocation(context);
-                    fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
-                    if (fileName.endsWith(".ftl")) {
-                        fileName = fileName.substring(0, fileName.length() - 4);
-                    }
-                    ScriptTemplateUtil.putScriptInSession(context, fileName, scripts.toString());
-
-                    // store value to be used by ScriptTemplateList freemarker macro
-                    String webappName = (String) context.get("webappName");
-                    ScriptTemplateUtil.addScriptSrcToRequest(context, "/" + webappName + "/control/getJs?name="
-                            + fileName);
-                }
-
-                // check for external script
-                String externalScripts = doc.body().select("script").toString();
-                writer.append(externalScripts);
-
-                // the 'template' block
-                String body = doc.body().html();
-                writer.append(body);
+            if (isMultiBlock()) {
+                renderHtmlTemplateWithMultiBlock(writer, this.locationExdr, context);
             } else {
                 renderHtmlTemplate(writer, this.locationExdr, context);
             }
@@ -279,7 +340,8 @@ public class HtmlWidget extends ModelScreenWidget {
             super(modelScreen, htmlTemplateDecoratorElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateDecoratorElement.getAttribute("location"));
 
-            List<? extends Element> htmlTemplateDecoratorSectionElementList = UtilXml.childElementList(htmlTemplateDecoratorElement, "html-template-decorator-section");
+            List<? extends Element> htmlTemplateDecoratorSectionElementList = UtilXml.childElementList(
+                    htmlTemplateDecoratorElement, "html-template-decorator-section");
             for (Element htmlTemplateDecoratorSectionElement: htmlTemplateDecoratorSectionElementList) {
                 String name = htmlTemplateDecoratorSectionElement.getAttribute("name");
                 this.sectionMap.put(name, new HtmlTemplateDecoratorSection(modelScreen, htmlTemplateDecoratorSectionElement));
@@ -297,7 +359,8 @@ public class HtmlWidget extends ModelScreenWidget {
                 contextMs = UtilGenerics.cast(context);
             }
 
-            // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
+            // create a standAloneStack, basically a "save point" for this SectionsRenderer,
+            // and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
             MapStack<String> standAloneStack = contextMs.standAloneChildStack();
             standAloneStack.put("screens", new ScreenRenderer(writer, standAloneStack, screenStringRenderer));
             SectionsRenderer sections = new SectionsRenderer(this.sectionMap, standAloneStack, writer, screenStringRenderer);
@@ -334,7 +397,8 @@ public class HtmlWidget extends ModelScreenWidget {
         }
 
         @Override
-        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context,
+                                       ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // render sub-widgets
             renderSubWidgetsString(this.subWidgets, writer, context, screenStringRenderer);
         }

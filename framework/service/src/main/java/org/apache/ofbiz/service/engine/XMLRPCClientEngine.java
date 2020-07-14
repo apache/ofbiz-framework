@@ -45,7 +45,7 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
  */
 public class XMLRPCClientEngine extends GenericAsyncEngine {
 
-    public static final String MODULE = XMLRPCClientEngine.class.getName();
+    private static final String MODULE = XMLRPCClientEngine.class.getName();
 
     public XMLRPCClientEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -143,7 +143,7 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
             }
         }
 
-        List<Map<String,Object>> listParams = UtilMisc.toList(params);
+        List<Map<String, Object>> listParams = UtilMisc.toList(params);
         try {
             result = UtilGenerics.cast(client.execute(serviceName, listParams.toArray()));
         } catch (XmlRpcException e) {

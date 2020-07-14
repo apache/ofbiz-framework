@@ -36,10 +36,10 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class ProductStoreEvents {
 
-    public static final String MODULE = ProductStoreWorker.class.getName();
+    private static final String MODULE = ProductStoreWorker.class.getName();
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
-    public static String getChildProductStoreGroupTree(HttpServletRequest request, HttpServletResponse response){
+    public static String getChildProductStoreGroupTree(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String parentGroupId = request.getParameter("parentGroupId");
         String onclickFunction = request.getParameter("onclickFunction");
@@ -75,8 +75,8 @@ public class ProductStoreEvents {
                         josonMap.put("data", dataMap);
                         Map<String, String> attrMap = new HashMap<>();
                         attrMap.put("parentGroupId", productStoreGroupId);
-                        josonMap.put("attr",attrMap);
-                        josonMap.put("sequenceNum",child.get("sequenceNum"));
+                        josonMap.put("attr", attrMap);
+                        josonMap.put("sequenceNum", child.get("sequenceNum"));
                         josonMap.put("title", child.get("productStoreGroupName"));
 
                         productStoreGroupList.add(josonMap);

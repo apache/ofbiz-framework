@@ -58,11 +58,11 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
  */
 public final class UtilMisc {
 
-    public static final String MODULE = UtilMisc.class.getName();
+    private static final String MODULE = UtilMisc.class.getName();
 
     private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 
-    private UtilMisc () {}
+    private UtilMisc() { }
 
     public static final <T extends Throwable> T initCause(T throwable, Throwable cause) {
         throwable.initCause(cause);
@@ -189,7 +189,7 @@ public final class UtilMisc {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), MODULE);
                 }
-                
+
             }
         }
         for (String keyToRemove: keysToRemove) { map.remove(keyToRemove); }
@@ -209,7 +209,7 @@ public final class UtilMisc {
         toSort.addAll(listOfMaps);
         try {
             MapComparator mc = new MapComparator(sortKeys);
-            Collections.sort(toSort, mc);
+            toSort.sort(mc);
         } catch (Exception e) {
             Debug.logError(e, "Problems sorting list of maps; returning null.", MODULE);
             return null;
@@ -355,13 +355,13 @@ public final class UtilMisc {
      */
     @SafeVarargs
     public static <T> List<T> toList(T... data) {
-        if(data == null){
+        if (data == null) {
             return null;
         }
 
         List<T> list = new LinkedList<>();
 
-        for(T t : data){
+        for (T t : data) {
             list.add(t);
         }
 
@@ -605,7 +605,7 @@ public final class UtilMisc {
     }
 
     /** List of domains or IP addresses to be checked to prevent Host Header Injection, 
-     * no spaces after commas,no wildcard, can be extended of course... 
+     * no spaces after commas, no wildcard, can be extended of course...
      * @return List of domains or IP addresses to be checked to prevent Host Header Injection,
      */
     public static List<String> getHostHeadersAllowed() {
@@ -625,7 +625,7 @@ public final class UtilMisc {
 
     public static void copyFile(File sourceLocation , File targetLocation) throws IOException {
         if (sourceLocation.isDirectory()) {
-            throw new IOException("File is a directory, not a file, cannot copy") ;
+            throw new IOException("File is a directory, not a file, cannot copy");
         }
         try (
                 InputStream in = new FileInputStream(sourceLocation);

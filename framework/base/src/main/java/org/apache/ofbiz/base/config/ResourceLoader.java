@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
  */
 public abstract class ResourceLoader {
 
-    public static final String MODULE = ResourceLoader.class.getName();
+    private static final String MODULE = ResourceLoader.class.getName();
     private static final UtilCache<String, ResourceLoader> loaderCache = UtilCache.createUtilCache("resource.ResourceLoaders", 0, 0);
     // This cache is temporary - we will use it until the framework has been refactored to eliminate DOM tree caching, then it can be removed.
     private static final UtilCache<String, Document> domCache = UtilCache.createUtilCache("resource.DomTrees", 0, 0);
@@ -166,7 +166,7 @@ public abstract class ResourceLoader {
     private String prefix;
     private String envName;
 
-    protected ResourceLoader() {}
+    protected ResourceLoader() { }
 
     private void init(String name, String prefix, String envName) {
         this.prefix = prefix;

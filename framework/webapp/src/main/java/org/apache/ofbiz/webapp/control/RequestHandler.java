@@ -80,7 +80,7 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
  */
 public class RequestHandler {
 
-    public static final String MODULE = RequestHandler.class.getName();
+    private static final String MODULE = RequestHandler.class.getName();
     private final ViewFactory viewFactory;
     private final EventFactory eventFactory;
     private final URL controllerConfigURL;
@@ -112,7 +112,6 @@ public class RequestHandler {
 
         this.trackServerHit = !"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"));
         this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
-        
         hostHeadersAllowed = UtilMisc.getHostHeadersAllowed();
 
     }
@@ -147,7 +146,7 @@ public class RequestHandler {
             if (requestMapMap.containsKey(requestUri)
                     // Ensure that overridden view exists.
                     && (overrideViewUri == null || viewMapMap.containsKey(overrideViewUri)
-                    || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))){
+                    || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))) {
                 rmaps = requestMapMap.get(requestUri);
                 req.setAttribute("overriddenView", overrideViewUri);
             } else if (defaultRequest != null) {
@@ -214,10 +213,12 @@ public class RequestHandler {
             GenericValue userLogin, Delegator delegator) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
 
         if (!hostHeadersAllowed.contains(request.getServerName())) {
-            Debug.logError("Domain " + request.getServerName() + " not accepted to prevent host header injection ", MODULE);
-            throw new RequestHandlerException("Domain " + request.getServerName() + " not accepted to prevent host header injection ");
+            Debug.logError("Domain " + request.getServerName() + " not accepted to prevent host header injection."
+                    + " You need to set host-headers-allowed property in security.properties file.", MODULE);
+            throw new RequestHandlerException("Domain " + request.getServerName() + " not accepted to prevent host header injection."
+                    + " You need to set host-headers-allowed property in security.properties file.");
         }
-                
+
         final boolean throwRequestHandlerExceptionOnMissingLocalRequest = EntityUtilProperties.propertyValueEqualsIgnoreCase(
                 "requestHandler", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y", delegator);
         long startTime = System.currentTimeMillis();
@@ -445,7 +446,7 @@ public class RequestHandler {
         request.setAttribute("requestMapMap", getControllerConfig().getRequestMapMap());
 
         // Perform CSRF token check when request not on chain
-        if (chain==null && originalRequestMap.securityCsrfToken) {
+        if (chain == null && originalRequestMap.securityCsrfToken) {
                 CsrfUtil.checkToken(request, path);
         }
 
@@ -495,7 +496,7 @@ public class RequestHandler {
 
                     // run the request event
                     eventReturn = this.runEvent(request, response, requestMap.event, requestMap, "request");
-                                        
+
                     if (requestMap.event.metrics != null) {
                         requestMap.event.metrics.recordServiceRate(1, System.currentTimeMillis() - startTime);
                     }
@@ -508,7 +509,7 @@ public class RequestHandler {
 
                     // set the default event return
                     if (eventReturn == null) {
-                        nextRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
+                        nextRequestResponse = ConfigXMLReader.getEmptyNoneRequestResponse();
                     }
                 } catch (EventHandlerException e) {
                     // check to see if there is an "error" response, if so go there and make an request error message
@@ -532,7 +533,7 @@ public class RequestHandler {
         } else {
             eventReturnBasedRequestResponse = requestMap.requestResponseMap.get(eventReturn);
             if (eventReturnBasedRequestResponse == null && "none".equals(eventReturn)) {
-                eventReturnBasedRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
+                eventReturnBasedRequestResponse = ConfigXMLReader.getEmptyNoneRequestResponse();
             }
         }
         if (eventReturnBasedRequestResponse != null) {
@@ -602,7 +603,7 @@ public class RequestHandler {
                 String link = makeLink(request, response, redirectTarget);
 
                 // add / update csrf token to link when required
-                String tokenValue = CsrfUtil.generateTokenForNonAjax(request,redirectTarget);
+                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, redirectTarget);
                 link = CsrfUtil.addOrUpdateTokenInUrl(link, tokenValue);
 
                 callRedirect(link, response, request, ccfg.getStatusCode());
@@ -933,11 +934,8 @@ public class RequestHandler {
         // add in the attributes as well so everything needed for the rendering context will be in place if/when we get back to this view
         paramMap.putAll(UtilHttp.getAttributeMap(req));
         UtilMisc.makeMapSerializable(paramMap);
-        if (paramMap.containsKey("_LAST_VIEW_NAME_")) { // Used by lookups to keep the real view (request)
-            req.getSession().setAttribute("_LAST_VIEW_NAME_", paramMap.get("_LAST_VIEW_NAME_"));
-        } else {
-            req.getSession().setAttribute("_LAST_VIEW_NAME_", view);
-        }
+        // Used by lookups to keep the real view (request)
+        req.getSession().setAttribute("_LAST_VIEW_NAME_", paramMap.getOrDefault("_LAST_VIEW_NAME_", view));
         req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
 
         if ("SAVED".equals(saveName)) {
@@ -1006,10 +1004,10 @@ public class RequestHandler {
         } else {
             resp.setHeader("Cache-Control", "Set-Cookie");
         }
-        
+
         //Security Headers
         UtilHttp.setResponseBrowserDefaultSecurityHeaders(resp, viewMap);
-        
+
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", MODULE);
             ViewHandler vh = viewFactory.getViewHandler(viewMap.type);
@@ -1050,7 +1048,7 @@ public class RequestHandler {
                 (requestResponse.redirectParameterMap.size() == 0 && requestResponse.redirectParameterValueMap.size() == 0)) {
             Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
             String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
-            if(UtilValidate.isEmpty(queryString)) {
+            if (UtilValidate.isEmpty(queryString)) {
                 return queryString;
             }
             return "?" + queryString;
@@ -1322,7 +1320,7 @@ public class RequestHandler {
     public boolean trackVisit(HttpServletRequest request) {
         return track(request, trackVisit, rmap -> rmap.trackVisit);
     }
-    
+
     private static String showSessionId(HttpServletRequest request) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         boolean showSessionIdInLog = EntityUtilProperties.propertyValueEqualsIgnoreCase("requestHandler", "show-sessionId-in-log", "Y", delegator);

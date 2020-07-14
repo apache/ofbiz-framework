@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ServiceEcaAction implements java.io.Serializable {
 
-    public static final String MODULE = ServiceEcaAction.class.getName();
+    private static final String MODULE = ServiceEcaAction.class.getName();
 
     protected String eventName = null;
     protected String serviceName = null;
@@ -56,7 +56,7 @@ public class ServiceEcaAction implements java.io.Serializable {
     protected boolean ignoreError = false;
     protected boolean persist = false;
 
-    protected ServiceEcaAction() {}
+    protected ServiceEcaAction() { }
 
     public ServiceEcaAction(Element action, String event) {
         this.eventName = event;

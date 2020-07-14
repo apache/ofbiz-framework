@@ -50,8 +50,8 @@ import com.ibm.icu.util.Calendar;
  */
 public class TechDataServices {
 
-    public static final String MODULE = TechDataServices.class.getName();
-    public static final String resource = "ManufacturingUiLabels";
+    private static final String MODULE = TechDataServices.class.getName();
+    private static final String RESOURCE = "ManufacturingUiLabels";
 
     /**
      *
@@ -87,19 +87,19 @@ public class TechDataServices {
                     .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingTechDataWorkEffortNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (listRoutingTask == null) {
             listRoutingTask = new LinkedList<>();
         }
         if (listRoutingTask.size() == 0) {
             //FIXME is it correct ?
-            // listRoutingTask.add(UtilMisc.toMap("label","no Match","value","NO_MATCH"));
+            // listRoutingTask.add(UtilMisc.toMap("label", "no Match", "value", "NO_MATCH"));
         }
         result.put("lookupResult", listRoutingTask);
         return result;
     }
-    
+
     /**
      *
      * Used to check if there is not two routing task with the same SeqId valid at the same period
@@ -126,12 +126,12 @@ public class TechDataServices {
 
         try {
             listRoutingTaskAssoc = EntityQuery.use(delegator).from("WorkEffortAssoc")
-                    .where("workEffortIdFrom", workEffortIdFrom,"sequenceNum",sequenceNum)
+                    .where("workEffortIdFrom", workEffortIdFrom, "sequenceNum", sequenceNum)
                     .orderBy("fromDate")
                     .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingTechDataWorkEffortAssocNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortAssocNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         if (listRoutingTaskAssoc != null) {
@@ -220,7 +220,7 @@ public class TechDataServices {
         int moveDay = 0;
         Double capacity = null;
         Time startTime = null;
-        while (capacity == null || capacity ==0) {
+        while (capacity == null || capacity == 0) {
             switch (dayStart) {
                 case Calendar.MONDAY:
                     capacity =  techDataCalendarWeek.getDouble("mondayCapacity");
@@ -252,12 +252,12 @@ public class TechDataServices {
                     break;
             }
             if (capacity == null || capacity == 0) {
-                moveDay +=1;
-                dayStart = (dayStart==7) ? 1 : dayStart +1;
+                moveDay += 1;
+                dayStart = (dayStart == 7) ? 1 : dayStart + 1;
             }
         }
-        result.put("capacity",capacity);
-        result.put("startTime",startTime);
+        result.put("capacity", capacity);
+        result.put("startTime", startTime);
         result.put("moveDay", moveDay);
         return result;
     }
@@ -315,7 +315,7 @@ public class TechDataServices {
         Map<String, Object> position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         Time startTime = (Time) position.get("startTime");
         int moveDay = (Integer) position.get("moveDay");
-        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayStart(dateFrom,moveDay);
+        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayStart(dateFrom, moveDay);
         Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.before(startAvailablePeriod)) {
             dateTo = startAvailablePeriod;
@@ -326,11 +326,11 @@ public class TechDataServices {
             position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
             startTime = (Time) position.get("startTime");
             moveDay = (Integer) position.get("moveDay");
-            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
+            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo, moveDay);
             dateTo.setTime(dateTo.getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
-        result.put("dateTo",dateTo);
-        result.put("nextCapacity",position.get("capacity"));
+        result.put("dateTo", dateTo);
+        result.put("nextCapacity", position.get("capacity"));
         return result;
     }
     /** Used to move forward in a TechDataCalenda, start from the dateFrom and move forward only on available period.
@@ -406,12 +406,12 @@ public class TechDataServices {
                     break;
             }
             if (capacity == null || capacity == 0) {
-                moveDay -=1;
-                dayEnd = (dayEnd==1) ? 7 : dayEnd - 1;
+                moveDay -= 1;
+                dayEnd = (dayEnd == 1) ? 7 : dayEnd - 1;
             }
         }
-        result.put("capacity",capacity);
-        result.put("startTime",startTime);
+        result.put("capacity", capacity);
+        result.put("startTime", startTime);
         result.put("moveDay", moveDay);
         return result;
     }
@@ -482,11 +482,11 @@ public class TechDataServices {
             startTime = (Time) position.get("startTime");
             moveDay = (Integer) position.get("moveDay");
             capacity = (Double) position.get("capacity");
-            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
+            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo, moveDay);
             dateTo.setTime(dateTo.getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
-        result.put("dateTo",dateTo);
-        result.put("previousCapacity",position.get("capacity"));
+        result.put("dateTo", dateTo);
+        result.put("previousCapacity", position.get("capacity"));
         return result;
     }
     /** Used to move backward in a TechDataCalendar, start from the dateFrom and move backward only on available period.

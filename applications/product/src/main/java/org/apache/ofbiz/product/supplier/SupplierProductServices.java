@@ -45,8 +45,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class SupplierProductServices {
 
-    public static final String MODULE = SupplierProductServices.class.getName();
-    public static final String resource = "ProductUiLabels";
+    private static final String MODULE = SupplierProductServices.class.getName();
+    private static final String RESOURCE = "ProductUiLabels";
 
     /*
      * Parameters: productId, partyId, currencyUomId, quantity
@@ -69,7 +69,7 @@ public class SupplierProductServices {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             if (product == null) {
                 results = ServiceUtil.returnSuccess();
-                results.put("supplierProducts",null);
+                results.put("supplierProducts", null);
                 return results;
             }
             List<GenericValue> supplierProducts = product.getRelated("SupplierProduct", null, null, true);
@@ -82,7 +82,7 @@ public class SupplierProductServices {
                     supplierProducts = virtualProduct.getRelated("SupplierProduct", null, null, true);
                 }
             }
-            if(agreementId != null) {
+            if (agreementId != null) {
                 supplierProducts = EntityUtil.filterByAnd(supplierProducts, UtilMisc.toMap("agreementId", agreementId));
 
             }

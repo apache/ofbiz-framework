@@ -36,7 +36,7 @@ import org.apache.ofbiz.base.component.ComponentConfig;
  */
 public final class UtilJavaParse {
 
-    public static final String MODULE = UtilJavaParse.class.getName();
+    private static final String MODULE = UtilJavaParse.class.getName();
 
     // FIXME: Not thread safe
     private static Set<String> serviceMethodNames = new HashSet<>();
@@ -92,7 +92,7 @@ public final class UtilJavaParse {
         entityMethodNames.add("findCountByCondition");
     }
 
-    private UtilJavaParse () {}
+    private UtilJavaParse() { }
 
     public static String findRealPathAndFileForClass(String fullyQualifiedClassName) {
         // search through the component directories, in the src directory for each, using the class path as the path within it

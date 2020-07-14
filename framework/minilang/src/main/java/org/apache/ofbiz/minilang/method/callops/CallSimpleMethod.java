@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
  */
 public final class CallSimpleMethod extends MethodOperation {
 
-    public static final String MODULE = CallSimpleMethod.class.getName();
+    private static final String MODULE = CallSimpleMethod.class.getName();
 
     private final String methodName;
     private final String xmlResource;

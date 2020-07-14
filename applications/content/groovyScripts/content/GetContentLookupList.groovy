@@ -18,7 +18,6 @@
  */
 
 import org.apache.ofbiz.entity.GenericEntityException
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.entity.transaction.TransactionUtil
@@ -26,8 +25,6 @@ import org.apache.ofbiz.entity.GenericEntity
 import org.apache.ofbiz.entity.model.ModelField
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelReader
-
-module = "GetContentLookupList.groovy"
 
 viewIndex = parameters.VIEW_INDEX ? Integer.valueOf(parameters.VIEW_INDEX) : 0
 viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE) : 20
@@ -43,7 +40,7 @@ String curFindString=""
 
 ModelReader reader = delegator.getModelReader()
 ModelEntity modelEntity = reader.getModelEntity("ContentAssocViewTo")
-GenericEntity findByEntity = delegator.makeValue("ContentAssocViewTo")
+GenericEntity findByEntity = makeValue("ContentAssocViewTo")
 List errMsgList = new ArrayList()
 Iterator fieldIterator = modelEntity.getFieldsIterator()
 while (fieldIterator.hasNext()) {
@@ -55,7 +52,7 @@ while (fieldIterator.hasNext()) {
             try {
                 findByEntity.setString(field.getName(), fval)
             } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Caught an exception : " + nfe.toString(), module)
+                logError(nfe, "Caught an exception : " + nfe.toString())
                 errMsgList.add("Entered value is non-numeric for numeric field: " + field.getName())
             }
         }
@@ -85,12 +82,12 @@ if ((highIndex - lowIndex + 1) > 0) {
             highIndex = arraySize
         }
     } catch (GenericEntityException e) {
-        Debug.logError(e, "Failure in operation, rolling back transaction", module)
+        logError(e, "Failure in operation, rolling back transaction")
         try {
             // only rollback the transaction if we started one...
             TransactionUtil.rollback(beganTransaction, "Error looking up entity values in WebTools Entity Data Maintenance", e)
         } catch (GenericEntityException e2) {
-            Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module)
+            logError(e2, "Could not rollback transaction: " + e2.toString())
         }
         // after rolling back, rethrow the exception
         throw e

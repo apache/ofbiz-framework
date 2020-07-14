@@ -96,7 +96,7 @@ public class ContextFilter implements Filter {
         httpRequest.setAttribute("servletContext", config.getServletContext());
 
         // set the webSiteId in the session
-        if (UtilValidate.isEmpty(httpRequest.getSession().getAttribute("webSiteId"))){
+        if (UtilValidate.isEmpty(httpRequest.getSession().getAttribute("webSiteId"))) {
             httpRequest.getSession().setAttribute("webSiteId", WebSiteWorker.getWebSiteId(httpRequest));
         }
 
@@ -127,14 +127,13 @@ public class ContextFilter implements Filter {
                 Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
                 GenericValue tenantDomainName = EntityQuery.use(baseDelegator).from("TenantDomainName").where("domainName", serverName).queryOne();
                 String tenantId = null;
-                if(UtilValidate.isNotEmpty(tenantDomainName)) {
+                if (UtilValidate.isNotEmpty(tenantDomainName)) {
                     tenantId = tenantDomainName.getString("tenantId");
                 }
-                
-                if(UtilValidate.isEmpty(tenantId)) {
+                if (UtilValidate.isEmpty(tenantId)) {
                     tenantId = (String) httpRequest.getAttribute("userTenantId");
                 }
-                if(UtilValidate.isEmpty(tenantId)) {
+                if (UtilValidate.isEmpty(tenantId)) {
                     tenantId = httpRequest.getParameter("userTenantId");
                 }
                 if (UtilValidate.isNotEmpty(tenantId)) {
@@ -169,7 +168,6 @@ public class ContextFilter implements Filter {
                     request.setAttribute("delegator", delegator);
                     request.setAttribute("dispatcher", dispatcher);
                     request.setAttribute("security", security);
-                    
                     request.setAttribute("userTenantId", tenantId);
                 }
 

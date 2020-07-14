@@ -57,17 +57,17 @@ import com.ibm.icu.util.Calendar;
  */
 public class MrpServices {
 
-    public static final String MODULE = MrpServices.class.getName();
-    public static final String resource = "ManufacturingUiLabels";
+    private static final String MODULE = MrpServices.class.getName();
+    private static final String RESOURCE = "ManufacturingUiLabels";
 
     public static Map<String, Object> initMrpEvents(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
-        String facilityId = (String)context.get("facilityId");
-        Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
-        String mrpId = (String)context.get("mrpId");
+        String facilityId = (String) context.get("facilityId");
+        Integer defaultYearsOffset = (Integer) context.get("defaultYearsOffset");
+        String mrpId = (String) context.get("mrpId");
 
         //Erases the old table for the moment and initializes it with the new orders,
         //Does not modify the old one now.
@@ -76,15 +76,15 @@ public class MrpServices {
         try {
             listResult = EntityQuery.use(delegator).from("MrpEvent").queryList();
         } catch (GenericEntityException e) {
-            Debug.logError(e,"Error : findList(\"MrpEvent\", null, null, null, null, false)", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
+            Debug.logError(e, "Error : findList(\"MrpEvent\", null, null, null, null, false)", MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         if (listResult != null) {
             try {
                 delegator.removeAll(listResult);
             } catch (GenericEntityException e) {
-                Debug.logError(e,"Error : removeAll(listResult), listResult ="+listResult, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventRemoveError", locale));
+                Debug.logError(e, "Error : removeAll(listResult), listResult ="+listResult, MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventRemoveError", locale));
             }
         }
 
@@ -92,11 +92,11 @@ public class MrpServices {
         List<GenericValue> listResultRoles = new LinkedList<>();
         try {
             listResult = EntityQuery.use(delegator).from("Requirement")
-                    .where("requirementTypeId", "PRODUCT_REQUIREMENT","facilityId", facilityId,
+                    .where("requirementTypeId", "PRODUCT_REQUIREMENT", "facilityId", facilityId,
                             "statusId", "REQ_PROPOSED")
                     .queryList();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         List<GenericValue> requirementStatus = new ArrayList<>();
         if (listResult != null) {
@@ -109,16 +109,16 @@ public class MrpServices {
                 delegator.removeAll(requirementStatus);
                 delegator.removeAll(listResult);
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventRemoveError", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventRemoveError", locale));
             }
         }
         try {
             listResult = EntityQuery.use(delegator).from("Requirement")
-                    .where("requirementTypeId", "INTERNAL_REQUIREMENT","facilityId", facilityId,
+                    .where("requirementTypeId", "INTERNAL_REQUIREMENT", "facilityId", facilityId,
                             "statusId", "REQ_PROPOSED")
                     .queryList();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         if (listResult != null) {
             try {
@@ -128,7 +128,7 @@ public class MrpServices {
                 delegator.removeAll(requirementStatus);
                 delegator.removeAll(listResult);
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventRemoveError", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventRemoveError", locale));
             }
         }
 
@@ -154,7 +154,7 @@ public class MrpServices {
                             "facilityId", facilityId)
                     .orderBy("orderId").queryList();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         for (GenericValue genericResult : resultList) {
             String productId =  genericResult.getString("productId");
@@ -201,7 +201,7 @@ public class MrpServices {
             try {
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "SALES_ORDER_SHIP"), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "SALES_ORDER_SHIP"), locale));
             }
         }
         // ----------------------------------------
@@ -214,7 +214,7 @@ public class MrpServices {
                             "facilityId", facilityId)
                     .queryList();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         for (GenericValue genericResult : resultList) {
             String productId =  genericResult.getString("productId");
@@ -231,7 +231,7 @@ public class MrpServices {
             try {
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("requirementId"), false, delegator);
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "PROD_REQ_RECP"), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "PROD_REQ_RECP"), locale));
             }
         }
 
@@ -256,7 +256,7 @@ public class MrpServices {
                     .queryList();
 
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         for (GenericValue genericResult : resultList) {
             try {
@@ -267,7 +267,6 @@ public class MrpServices {
                     orderDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", "_NA_").queryOne();
                 }
                 String productId =  genericResult.getString("productId");
-    
                 BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
                 BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
                 if (UtilValidate.isEmpty(shipGroupQuantity)) {
@@ -286,7 +285,6 @@ public class MrpServices {
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, MODULE);
                 }
-    
                 GenericValue orderItemDeliverySchedule = null;
                 orderItemDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")).queryOne();
                 Timestamp estimatedShipDate = null;
@@ -300,11 +298,11 @@ public class MrpServices {
                 if (estimatedShipDate == null) {
                     estimatedShipDate = now;
                 }
-    
+
                 parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "PUR_ORDER_RECP");
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, shipGroupQuantity, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "PUR_ORDER_RECP"), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "PUR_ORDER_RECP"), locale));
             }
         }
 
@@ -343,7 +341,7 @@ public class MrpServices {
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, eventName, false, delegator);
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "MANUF_ORDER_REQ"), locale) + " " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "MANUF_ORDER_REQ"), locale) + " " + e.getMessage());
         }
 
         // ----------------------------------------
@@ -385,7 +383,7 @@ public class MrpServices {
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("workEffortId"), false, delegator);
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "MANUF_ORDER_RECP"), locale) + " " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "MANUF_ORDER_RECP"), locale) + " " + e.getMessage());
         }
 
         // ----------------------------------------
@@ -397,7 +395,7 @@ public class MrpServices {
                     .queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to retrieve ProductFacility records.", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindProductFacility", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductFacility", locale));
         }
         for (GenericValue genericResult : resultList) {
             String productId = genericResult.getString("productId");
@@ -414,7 +412,7 @@ public class MrpServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to count MrpEvent records.", MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotCountRecords", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotCountRecords", locale));
             }
             BigDecimal qoh = findProductMrpQoh(mrpId, productId, facilityId, dispatcher, delegator);
             if (qoh.compareTo(minimumStock) >= 0) {
@@ -424,7 +422,7 @@ public class MrpServices {
             try {
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, BigDecimal.ZERO, null, null, false, delegator);
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "REQUIRED_MRP"), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "REQUIRED_MRP"), locale));
             }
         }
 
@@ -435,7 +433,7 @@ public class MrpServices {
         try {
             facility = EntityQuery.use(delegator).from("Facility").where("facilityId", facilityId).queryOne();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         String partyId =  (String)facility.get("ownerPartyId");
         try {
@@ -443,7 +441,7 @@ public class MrpServices {
                     .where("organizationPartyId", partyId)
                     .queryList();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindSalesForecasts", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindSalesForecasts", locale));
         }
         for (GenericValue genericResult : resultList) {
             String customTimePeriodId =  genericResult.getString("customTimePeriodId");
@@ -451,7 +449,7 @@ public class MrpServices {
             try {
                 customTimePeriod = EntityQuery.use(delegator).from("CustomTimePeriod").where("customTimePeriodId", customTimePeriodId).queryOne();
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindCustomTimePeriod", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindCustomTimePeriod", locale));
             }
             if (customTimePeriod != null) {
                 if (UtilValidate.isNotEmpty(customTimePeriod.getTimestamp("thruDate")) && customTimePeriod.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp())) {
@@ -463,7 +461,7 @@ public class MrpServices {
                                 .where("salesForecastId", genericResult.get("salesForecastId"))
                                 .queryList();
                     } catch (GenericEntityException e) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindSalesForecastDetails", locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindSalesForecastDetails", locale));
                     }
                     for (GenericValue sfd : salesForecastDetails) {
                         String productId =  sfd.getString("productId");
@@ -476,7 +474,7 @@ public class MrpServices {
                         try {
                             InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, sfd.getString("salesForecastDetailId"), false, delegator);
                         } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "SALES_FORECAST"), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "SALES_FORECAST"), locale));
                         }
                     }
                 }
@@ -598,23 +596,23 @@ public class MrpServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
-        String mrpName = (String)context.get("mrpName");
-        Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
-        String facilityGroupId = (String)context.get("facilityGroupId");
-        String facilityId = (String)context.get("facilityId");
+        String mrpName = (String) context.get("mrpName");
+        Integer defaultYearsOffset = (Integer) context.get("defaultYearsOffset");
+        String facilityGroupId = (String) context.get("facilityGroupId");
+        String facilityId = (String) context.get("facilityId");
         String manufacturingFacilityId = null;
         if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(facilityGroupId)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpFacilityNotAvailable", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityNotAvailable", locale));
         }
         if (UtilValidate.isEmpty(facilityId)) {
             try {
                 GenericValue facilityGroup = EntityQuery.use(delegator).from("FacilityGroup").where("facilityGroupId", facilityGroupId).queryOne();
                 if (UtilValidate.isEmpty(facilityGroup)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpFacilityGroupIsNotValid", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityGroupIsNotValid", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
                 }
                 List<GenericValue> facilities = facilityGroup.getRelated("FacilityGroupMember", null, UtilMisc.toList("sequenceNum"), false);
                 if (UtilValidate.isEmpty(facilities)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpFacilityGroupIsNotAssociatedToFacility", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityGroupIsNotAssociatedToFacility", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
                 }
                 for (GenericValue facilityMember : facilities) {
                     GenericValue facility = facilityMember.getRelatedOne("Facility", false);
@@ -626,14 +624,14 @@ public class MrpServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpFacilityGroupCannotBeLoad", UtilMisc.toMap("errorString", e.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityGroupCannotBeLoad", UtilMisc.toMap("errorString", e.getMessage()), locale));
             }
         } else {
             manufacturingFacilityId = facilityId;
         }
 
         if (UtilValidate.isEmpty(facilityId) || UtilValidate.isEmpty(manufacturingFacilityId)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable", locale));
         }
 
         int bomLevelWithNoEvent = 0;
@@ -668,7 +666,7 @@ public class MrpServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
             }
         } catch (GenericServiceException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorRunningInitMrpEvents", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorRunningInitMrpEvents", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         long bomLevel = 0;
         do {
@@ -688,7 +686,7 @@ public class MrpServices {
                         .queryList();
             } catch (GenericEntityException e) {
                 Long bomLevelToString = bomLevel;
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorForBomLevel", UtilMisc.toMap("bomLevel", bomLevelToString.toString(), "errorString", e.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorForBomLevel", UtilMisc.toMap("bomLevel", bomLevelToString.toString(), "errorString", e.getMessage()), locale));
             }
 
             if (UtilValidate.isNotEmpty(listInventoryEventForMRP)) {
@@ -710,16 +708,16 @@ public class MrpServices {
                             product = inventoryEventForMRP.getRelatedOne("Product", true);
                             productFacility = EntityUtil.getFirst(product.getRelated("ProductFacility", UtilMisc.toMap("facilityId", facilityId), null, true));
                         } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindProductForEvent", locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductForEvent", locale));
                         }
                         stockTmp = findProductMrpQoh(mrpId, product, facilityId, dispatcher, delegator);
                         try {
                             InventoryEventPlannedServices.createOrUpdateMrpEvent(UtilMisc.<String, Object>toMap("mrpId", mrpId,
-                                    "productId", product.getString("productId"), 
-                                    "mrpEventTypeId", "INITIAL_QOH", "eventDate", now), 
+                                    "productId", product.getString("productId"),
+                                    "mrpEventTypeId", "INITIAL_QOH", "eventDate", now),
                                     stockTmp, facilityId, null, false, delegator);
                         } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
                         }
                         // days to ship is only relevant for sales order to plan for preparatory days to ship.  Otherwise MRP will push event dates for manufacturing parts
                         // as well and cause problems
@@ -743,9 +741,8 @@ public class MrpServices {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
                             }
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
-                        } catch (Exception e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct"
+                                    , UtilMisc.toMap("productId", product.getString("productId")), locale));
                         }
                         components = UtilGenerics.cast(serviceResponse.get("components"));
                         if (UtilValidate.isNotEmpty(components)) {
@@ -780,9 +777,8 @@ public class MrpServices {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
                             }
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
-                        } catch (Exception e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct"
+                                    , UtilMisc.toMap("productId", product.getString("productId")), locale));
                         }
                         components = UtilGenerics.cast(serviceResponse.get("components"));
                         String routingId = (String)serviceResponse.get("workEffortId");
@@ -790,7 +786,7 @@ public class MrpServices {
                             try {
                                 routing = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", routingId).queryOne();
                             } catch (GenericEntityException e) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindProductForEvent", locale));
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductForEvent", locale));
                             }
                         } else {
                             routing = null;
@@ -828,7 +824,7 @@ public class MrpServices {
                         try {
                             InventoryEventPlannedServices.createOrUpdateMrpEvent(eventMap, proposedOrder.getQuantity(), null, eventName, (proposedOrder.getRequirementStartDate().compareTo(now) < 0), delegator);
                         } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
                         }
                         //
                         stockTmp = stockTmp.add(proposedOrder.getQuantity());

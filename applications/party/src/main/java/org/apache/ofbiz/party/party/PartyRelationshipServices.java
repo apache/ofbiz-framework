@@ -46,9 +46,9 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class PartyRelationshipServices {
 
-    public static final String MODULE = PartyRelationshipServices.class.getName();
-    public static final String resource = "PartyUiLabels";
-    public static final String resourceError = "PartyErrorUiLabels";
+    private static final String MODULE = PartyRelationshipServices.class.getName();
+    private static final String RESOURCE = "PartyUiLabels";
+    private static final String RES_ERROR = "PartyErrorUiLabels";
 
     /** Creates a PartyRelationshipType
      *@param ctx The DispatchContext that this service is operating in
@@ -79,12 +79,12 @@ public class PartyRelationshipServices {
 
         try {
             if ((EntityQuery.use(delegator).from(partyRelationshipType.getEntityName()).where(partyRelationshipType.getPrimaryKey()).queryOne()) != null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "PartyRelationshipTypeAlreadyExists", locale));
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "PartyRelationshipTypeReadFailure",
                     UtilMisc.toMap("errorString", e.getMessage()),    locale));
         }
@@ -93,7 +93,7 @@ public class PartyRelationshipServices {
             partyRelationshipType.create();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "PartyRelationshipTypeWriteFailure",
                     UtilMisc.toMap("errorString", e.getMessage()),    locale));
         }
@@ -117,12 +117,12 @@ public class PartyRelationshipServices {
         try {
             List<GenericValue> partyRelationShipList = PartyRelationshipHelper.getActivePartyRelationships(delegator, context);
             if (UtilValidate.isEmpty(partyRelationShipList)) { // If already exists and active nothing to do: keep the current one
-                String partyId = (String) context.get("partyId") ;
-                String partyIdFrom = (String) context.get("partyIdFrom") ;
-                String partyIdTo = (String) context.get("partyIdTo") ;
-                String roleTypeIdFrom = (String) context.get("roleTypeIdFrom") ;
-                String roleTypeIdTo = (String) context.get("roleTypeIdTo") ;
-                String partyRelationshipTypeId = (String) context.get("partyRelationshipTypeId") ;
+                String partyId = (String) context.get("partyId");
+                String partyIdFrom = (String) context.get("partyIdFrom");
+                String partyIdTo = (String) context.get("partyIdTo");
+                String roleTypeIdFrom = (String) context.get("roleTypeIdFrom");
+                String roleTypeIdTo = (String) context.get("roleTypeIdTo");
+                String partyRelationshipTypeId = (String) context.get("partyRelationshipTypeId");
 
                 // Before creating the partyRelationShip, create the partyRoles if they don't exist
                 GenericValue partyToRole = null;
@@ -157,14 +157,14 @@ public class PartyRelationshipServices {
                     }
                 } catch (GenericServiceException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "partyrelationshipservices.could_not_create_party_role_write",
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
                 }
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "partyrelationshipservices.could_not_create_party_role_write",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }

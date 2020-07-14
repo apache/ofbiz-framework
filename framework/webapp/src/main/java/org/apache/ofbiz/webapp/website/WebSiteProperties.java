@@ -49,7 +49,6 @@ public final class WebSiteProperties {
      * in the application's WebSite entity value. If the application does not have a
      * WebSite entity value then the instance is initialized to the settings found
      * in the <code>url.properties</code> file.
-     * 
      * @param request
      * @throws GenericEntityException
      */
@@ -121,7 +120,6 @@ public final class WebSiteProperties {
                     httpsPort = httpsPortValue.toString();
                 }
             }
-            
             webSiteProps = new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, webappPath, enableHttps);
             request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
         }
@@ -131,7 +129,6 @@ public final class WebSiteProperties {
     /**
      * Returns a <code>WebSiteProperties</code> instance initialized to the settings found
      * in the WebSite entity value.
-     * 
      * @param webSiteValue
      */
     public static WebSiteProperties from(GenericValue webSiteValue) {
@@ -155,7 +152,6 @@ public final class WebSiteProperties {
             httpsPortValue += Start.getInstance().getConfig().portOffset; // Here unlike above we trust the user and don't rely on the request, no dontAddPortoffset.
             httpsPort = httpsPortValue.toString();
         }
-        
         return new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, webappPath, enableHttps);
     }
 

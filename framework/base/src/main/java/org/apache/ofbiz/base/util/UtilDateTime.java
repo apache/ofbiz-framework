@@ -39,7 +39,7 @@ import com.ibm.icu.util.Calendar;
  */
 public final class UtilDateTime {
 
-    public static final String MODULE = UtilDateTime.class.getName();
+    private static final String MODULE = UtilDateTime.class.getName();
 
     private static final String[][] timevals = {
         {"1000", "millisecond"},
@@ -63,7 +63,7 @@ public final class UtilDateTime {
      */
     private static final String TIME_FORMAT = "HH:mm:ss";
 
-    private UtilDateTime() {}
+    private UtilDateTime() { }
 
     public static double getInterval(Date from, Date thru) {
         return thru != null ? thru.getTime() - from.getTime() : 0;

@@ -50,10 +50,10 @@ import org.apache.ofbiz.service.job.JobUtil;
  */
 public final class ServiceUtil {
 
-    public static final String MODULE = ServiceUtil.class.getName();
+    private static final String MODULE = ServiceUtil.class.getName();
     private static final String resource = "ServiceErrorUiLabels";
 
-    private ServiceUtil () {}
+    private ServiceUtil() { }
 
     /** A little short-cut method to check to see if a service returned an error */
     public static boolean isError(Map<String, ? extends Object> results) {

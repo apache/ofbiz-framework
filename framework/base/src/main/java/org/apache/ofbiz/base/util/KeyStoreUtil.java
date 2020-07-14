@@ -60,18 +60,15 @@ import org.apache.ofbiz.base.config.GenericConfigException;
  */
 public final class KeyStoreUtil {
 
-    public static final String MODULE = KeyStoreUtil.class.getName();
+    private static final String MODULE = KeyStoreUtil.class.getName();
 
-    private KeyStoreUtil () {}
+    private KeyStoreUtil() { }
 
     public static void storeComponentKeyStore(String componentName, String keyStoreName, KeyStore store) throws IOException, GenericConfigException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
         File file = FileUtil.getFile(ks.createResourceHandler().getFullLocation());
-        FileOutputStream out = new FileOutputStream(file);
-        try {
+        try (FileOutputStream out = new FileOutputStream(file)) {
             store.store(out, ks.getPassword().toCharArray());
-        } finally {
-            out.close();
         }
     }
 
@@ -89,11 +86,8 @@ public final class KeyStoreUtil {
             throw new IOException("Invalid keystore type; null");
         }
         KeyStore ks = KeyStore.getInstance(type);
-        InputStream in = url.openStream();
-        try {
+        try (InputStream in = url.openStream()) {
             ks.load(in, password.toCharArray());
-        } finally {
-            in.close();
         }
         return ks;
     }
@@ -118,11 +112,8 @@ public final class KeyStoreUtil {
         }
 
         if (keyFile.exists() && keyFile.canRead()) {
-            InputStream in = new FileInputStream(keyFile);
-            try {
+            try (InputStream in = new FileInputStream(keyFile)) {
                 ks.load(in, password.toCharArray());
-            } finally {
-                in.close();
             }
         } else {
             ks.load(null, "changeit".toCharArray());

@@ -44,7 +44,7 @@ import org.w3c.dom.Node;
 
 public class SaveLabelsToXmlFile {
 
-    private static final String resource = "WebtoolsUiLabels";
+    private static final String RESOURCE = "WebtoolsUiLabels";
     private static final String MODULE = SaveLabelsToXmlFile.class.getName();
 
     public static Map<String, Object> saveLabelsToXmlFile(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -52,7 +52,7 @@ public class SaveLabelsToXmlFile {
         String fileName = (String) context.get("fileName");
         if (UtilValidate.isEmpty(fileName)) {
             Debug.logError("labelFileName cannot be empty", MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
         }
         String key = (String) context.get("key");
         String keyComment = (String) context.get("keyComment");
@@ -74,7 +74,7 @@ public class SaveLabelsToXmlFile {
             LabelFile labelFile = factory.getLabelFile(fileName);
             if (labelFile == null) {
                 Debug.logError("Invalid file name: " + fileName, MODULE);
-                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
             }
             synchronized(SaveLabelsToXmlFile.class) {
                 factory.findMatchingLabels(null, fileName, null, null, false);
@@ -97,14 +97,14 @@ public class SaveLabelsToXmlFile {
                         // Insert a new Label
                     } else {
                         if (UtilValidate.isNotEmpty(label)) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsLabelManagerNewLabelExisting", UtilMisc.toMap("key", key, "fileName", fileName), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelExisting", UtilMisc.toMap("key", key, "fileName", fileName), locale));
                         } else {
                             if (UtilValidate.isEmpty(key)) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsLabelManagerNewLabelEmptyKey", locale));
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelEmptyKey", locale));
                             } else {
                                 int notEmptyLabels = factory.updateLabelValue(localeNames, localeValues, localeComments, null, key, keyComment, fileName);
                                 if (notEmptyLabels == 0) {
-                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsLabelManagerNewLabelEmpty", locale));
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelEmpty", locale));
                                 }
                             }
                         }
@@ -113,7 +113,7 @@ public class SaveLabelsToXmlFile {
                 Document resourceDocument = UtilXml.makeEmptyXmlDocument("resource");
                 Element resourceElem = resourceDocument.getDocumentElement();
                 resourceElem.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-                resourceElem.setAttribute("xsi:noNamespaceSchemaLocation","http://ofbiz.apache.org/dtds/ofbiz-properties.xsd");
+                resourceElem.setAttribute("xsi:noNamespaceSchemaLocation", "http://ofbiz.apache.org/dtds/ofbiz-properties.xsd");
                 for (String labelKey : labelsList) {
                     LabelInfo labelInfo = labels.get(labelKey);
                     if (!(labelInfo.getFileName().equalsIgnoreCase(fileName))) {
@@ -143,14 +143,12 @@ public class SaveLabelsToXmlFile {
                             }
                         }
                     }
-                    FileOutputStream fos = new FileOutputStream(labelFile.file);
-                    try {
+                    try (FileOutputStream fos = new FileOutputStream(labelFile.file)) {
                         if (apacheLicenseText != null) {
                             fos.write(apacheLicenseText.getBytes());
                         }
                         UtilXml.writeXmlDocument(resourceElem, fos, "UTF-8", !(apacheLicenseText == null), true, 4);
                     } finally {
-                        fos.close();
                         // clear cache to see immediately the new labels and
                         // translations in OFBiz
                         UtilCache.clearCache("properties.UtilPropertiesBundleCache");
@@ -159,7 +157,7 @@ public class SaveLabelsToXmlFile {
             }
         } catch (Exception e) {
             Debug.logError(e, "Exception during save labels to xml file:", MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
         }
         return ServiceUtil.returnSuccess();
     }

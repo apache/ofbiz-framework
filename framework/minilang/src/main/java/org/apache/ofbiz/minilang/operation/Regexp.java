@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  */
 public class Regexp extends SimpleMapOperation {
 
-    public static final String MODULE = Regexp.class.getName();
+    private static final String MODULE = Regexp.class.getName();
     private Pattern pattern = null;
     String expr;
 

@@ -1,0 +1,63 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Edit Production Run
+This screen displays the details of a Production Run. +
+Through this screen you can:
+
+* Edit the basic details of the Production Run
+* Create tasks that will be performed as part of the Production Run by clicking 'Tasks'
+* Add materials that the Production Run will use to make the manufactured product by clicking 'Materials'
+* Associate equipment that will be used as part of Production by clicking 'Equipment'
+* View any associated (or dependent) Production Runs by clicking 'Assocs'
+* View any associated content by clicking 'Content'
+* View the actual cost of the Production Run by click 'Actual Costs'
+
+== Basic Production Run Details
+This section displays the basic details of the Production Run. +
+This includes information about the Facility where the Production Run will take place, the quantity of product
+ to be produced and the proposed start and  completion date.
+
+The majority of these fields are editable, the exception being the "Calculated completion date".
+
+This section also allows you to change the Production Run status as follows:
+
+* "Cancel" - To cancel the Production Run.
+* "Quick Close" - To close the Production Run
+* "Quick complete" - To mark the Production Run as 'complete'
+* "Confirm" - To confirm the Production Run
+* "Schedule" -To schedule the Production Run in the calendar
+* "Print" - To create a pdf file of the Production Run
+
+== Order Items
+This section displays an overview of associated order items if the Production Run will be used  to fulfill an order.
+
+== Tasks
+This section displays an overview of associated tasks that will be performed as part of the Production Run.
+These are also called "Routing Tasks"
+
+== Materials
+This section displays an overview of the required materials that will be used during the Production Run.
+This information is taken from the Bill of Materials.
+
+== Equipment/Production Run Fixed Assets
+This section displays the required equipment or machinery to be used in the Production Pun.
+
+== Notes
+This section displays an overview of any associated Production Run notes.

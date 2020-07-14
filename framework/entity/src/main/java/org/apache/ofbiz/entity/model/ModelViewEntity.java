@@ -54,7 +54,7 @@ import org.w3c.dom.NodeList;
  */
 @SuppressWarnings("serial")
 public class ModelViewEntity extends ModelEntity {
-    public static final String MODULE = ModelViewEntity.class.getName();
+    private static final String MODULE = ModelViewEntity.class.getName();
 
     private static final Map<String, String> functionPrefixMap = new HashMap<>();
     private static final Set<String> numericFunctionsSet = new HashSet<>(); // names of functions that return a numeric type
@@ -1064,9 +1064,9 @@ public class ModelViewEntity extends ModelEntity {
          */
         @Override
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
-            if(UtilValidate.isEmpty(entityAlias) 
+            if (UtilValidate.isEmpty(entityAlias)
                     && UtilValidate.isEmpty(field) 
-                    && UtilValidate.isNotEmpty(value)){
+                    && UtilValidate.isNotEmpty(value)) {
                 colNameBuffer.append(value);
             }
             else {
@@ -1305,7 +1305,7 @@ public class ModelViewEntity extends ModelEntity {
         public EntityCondition getWhereCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
 
             List<EntityCondition> conditionList = new LinkedList<>();
-            if(this.filterByDate) {
+            if (this.filterByDate) {
                 conditionList.add(EntityUtil.getFilterByDateExpr());
             }
             if (this.whereCondition != null) {
@@ -1405,7 +1405,7 @@ public class ModelViewEntity extends ModelEntity {
             if (!((this.operator == EntityOperator.IN || this.operator == EntityOperator.BETWEEN)
                     && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
-                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value,modelFieldTypeReader, new HashMap<>());
+                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, new HashMap<>());
             }
 
             if (Debug.verboseOn()) Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, MODULE);
@@ -1444,7 +1444,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
 
-            if(this.viewEntityCondition.filterByDate) {
+            if (this.viewEntityCondition.filterByDate) {
                 List<EntityCondition> conditionList = new LinkedList<>();
                 conditionList.add(entityCondition);
                 conditionList.add(EntityUtil.getFilterByDateExpr());
@@ -1512,11 +1512,11 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
 
-            if(this.viewEntityCondition.filterByDate) {
+            if (this.viewEntityCondition.filterByDate) {
                 entityConditionList.add(EntityUtil.getFilterByDateExpr());
             }
 
-            if(this.viewEntityCondition.filterByDate) {
+            if (this.viewEntityCondition.filterByDate) {
                 entityConditionList.add(EntityUtil.getFilterByDateExpr());
             }
 

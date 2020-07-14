@@ -44,7 +44,7 @@ import org.apache.ofbiz.service.ServiceContainer;
  */
 public class RmiServiceContainer implements Container {
 
-    public static final String MODULE = RmiServiceContainer.class.getName();
+    private static final String MODULE = RmiServiceContainer.class.getName();
 
     protected RemoteDispatcherImpl remote = null;
     protected String configFile = null;
@@ -89,7 +89,7 @@ public class RmiServiceContainer implements Container {
             Integer portValue = Integer.valueOf(port);
             portValue += Start.getInstance().getConfig().portOffset;
             port = portValue.toString();
-        }                
+        }
         String keystore = ContainerConfig.getPropertyValue(cfg, "ssl-keystore", null);
         String ksType = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-type", "JKS");
         String ksPass = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-pass", null);

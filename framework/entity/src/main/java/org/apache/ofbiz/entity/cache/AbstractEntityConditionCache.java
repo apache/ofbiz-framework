@@ -35,7 +35,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 
 public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<EntityCondition, ConcurrentMap<K, V>> {
 
-    public static final String MODULE = AbstractEntityConditionCache.class.getName();
+    private static final String MODULE = AbstractEntityConditionCache.class.getName();
 
     protected AbstractEntityConditionCache(String delegatorName, String id) {
         super(delegatorName, id);
@@ -117,7 +117,7 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         return conditionCache;
     }
 
-    protected static final <K,V> boolean isNull(Map<K,V> value) {
+    protected static final <K, V> boolean isNull(Map<K, V> value) {
         return value == null || value == GenericEntity.NULL_ENTITY || value == GenericValue.NULL_VALUE;
     }
 

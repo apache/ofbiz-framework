@@ -83,12 +83,12 @@ if (andCondition.size() > 1) {
         inventoryItemsEli.close()
     } catch (GenericEntityException e) {
         errMsg = "Failure in operation, rolling back transaction"
-        Debug.logError(e, errMsg, "findInventoryItemsByLabels")
+        logError(e, errMsg)
         try {
             // only rollback the transaction if we started one...
             TransactionUtil.rollback(beganTransaction, errMsg, e)
         } catch (GenericEntityException e2) {
-            Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "findInventoryItemsByLabels")
+            logError(e2, "Could not rollback transaction: " + e2.toString())
         }
         // after rolling back, rethrow the exception
         throw e

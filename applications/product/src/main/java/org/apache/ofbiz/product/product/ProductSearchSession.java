@@ -72,7 +72,7 @@ import org.apache.ofbiz.webapp.stats.VisitHandler;
  */
 public class ProductSearchSession {
 
-    public static final String MODULE = ProductSearchSession.class.getName();
+    private static final String MODULE = ProductSearchSession.class.getName();
 
     @SuppressWarnings("serial")
     public static class ProductSearchOptions implements java.io.Serializable {
@@ -306,7 +306,7 @@ public class ProductSearchSession {
             for (ProductSearchConstraint productSearchConstraint: productSearchConstraintList) {
                 if (productSearchConstraint == null) {
                     continue;
-                }                
+                }
                 String constraintString = productSearchConstraint.prettyPrintConstraint(dispatcher, detailed, locale);
                 if (UtilValidate.isNotEmpty(constraintString)) {
                     constraintStrings.add(constraintString);
@@ -892,7 +892,7 @@ public class ProductSearchSession {
         List<String> keywordTypeIds = new LinkedList<>();
         if (requestParams.get("keywordTypeId") instanceof String) {
             keywordTypeIds.add((String) requestParams.get("keywordTypeId"));
-        } else if (requestParams.get("keywordTypeId") instanceof List){
+        } else if (requestParams.get("keywordTypeId") instanceof List) {
             keywordTypeIds = (List<String>) requestParams.get("keywordTypeId");
         }
         String statusId = (String) requestParams.get("statusId");

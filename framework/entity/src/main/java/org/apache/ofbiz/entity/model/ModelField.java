@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
 @ThreadSafe
 @SuppressWarnings("serial")
 public final class ModelField extends ModelChild {
-    public static final String MODULE = ModelField.class.getName();
+    private static final String MODULE = ModelField.class.getName();
 
     public enum EncryptMethod {
         FALSE,
@@ -51,7 +51,6 @@ public final class ModelField extends ModelChild {
 
     /**
      * Returns a new <code>ModelField</code> instance, initialized with the specified values.
-     * 
      * @param modelEntity The <code>ModelEntity</code> this field is a member of.
      * @param name The field name.
      * @param type The field type.
@@ -63,7 +62,6 @@ public final class ModelField extends ModelChild {
 
     /**
      * Returns a new <code>ModelField</code> instance, initialized with the specified values.
-     * 
      * @param modelEntity The <code>ModelEntity</code> this field is a member of.
      * @param description The field description.
      * @param name The field name.
@@ -115,7 +113,6 @@ public final class ModelField extends ModelChild {
 
     /**
      * Returns a new <code>ModelField</code> instance, initialized with the specified values.
-     * 
      * @param modelEntity The <code>ModelEntity</code> this field is a member of.
      * @param fieldElement The <code>&lt;field&gt;</code> element containing the values for this field.
      * @param isPk <code>true</code> if this field is part of the primary key.
@@ -153,7 +150,6 @@ public final class ModelField extends ModelChild {
 
     /**
      * Returns a new <code>ModelField</code> instance, initialized with the specified values.
-     * 
      * @param modelEntity The <code>ModelEntity</code> this field is a member of.
      * @param ccInfo The <code>ColumnCheckInfo</code> containing the values for this field.
      * @param modelFieldTypeReader

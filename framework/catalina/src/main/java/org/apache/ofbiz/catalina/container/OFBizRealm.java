@@ -33,14 +33,14 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class OFBizRealm extends RealmBase
 {
-    public static final String MODULE = OFBizRealm.class.getName();
+    private static final String MODULE = OFBizRealm.class.getName();
 
     @Override
     protected String getPassword(String username) {
         Delegator delegator = DelegatorFactory.getDelegator(null);
         try {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).queryOne();
-            if (userLogin!=null){
+            if (userLogin!=null) {
                 return userLogin.getString("currentPassword");
             }
         } catch (GenericEntityException e) {

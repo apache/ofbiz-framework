@@ -32,9 +32,9 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public class PartyHelper {
 
-    public static final String MODULE = PartyHelper.class.getName();
+    private static final String MODULE = PartyHelper.class.getName();
 
-    private PartyHelper() {}
+    private PartyHelper() { }
 
     public static String getPartyName(GenericValue partyObject) {
         return getPartyName(partyObject, false);

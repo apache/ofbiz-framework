@@ -37,12 +37,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;get-related&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class GetRelated extends MethodOperation {
 
-    public static final String MODULE = GetRelated.class.getName();
+    private static final String MODULE = GetRelated.class.getName();
 
     private final FlexibleMapAccessor<Object> listFma;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;

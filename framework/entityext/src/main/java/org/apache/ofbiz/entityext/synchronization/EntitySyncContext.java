@@ -63,7 +63,7 @@ import org.xml.sax.SAXException;
  */
 public class EntitySyncContext {
 
-    public static final String MODULE = EntitySyncContext.class.getName();
+    private static final String MODULE = EntitySyncContext.class.getName();
 
     // set default split to 10 seconds, ie try not to get too much data moving over at once
     public static final long defaultSyncSplitMillis = 10000;
@@ -309,7 +309,7 @@ public class EntitySyncContext {
             }
             this.startDate = (Timestamp) initialHistoryRes.get("startDate");
 
-            Map<String, Object> result = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "lastHistoryStartDate", this.startDate, "userLogin", userLogin),60,true);
+            Map<String, Object> result = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "lastHistoryStartDate", this.startDate, "userLogin", userLogin),60, true);
             if (ServiceUtil.isError(result)) {
                 throw new SyncDataErrorException(errorMsg, null, null, result, null);
             }
@@ -409,7 +409,6 @@ public class EntitySyncContext {
                         }
                         throw new SyncDataErrorException("Error getting values to create from the datasource", e);
                     }
-                    
                     Timestamp nextTxTime;
                     if (firstVal != null) {
                         nextTxTime = firstVal.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD);
@@ -421,7 +420,6 @@ public class EntitySyncContext {
                         this.nextCreateTxTime = nextTxTime;
                         Debug.logInfo("EntitySync: Set nextCreateTxTime to [" + nextTxTime + "]", MODULE);
                     }
-                    
                     Timestamp curEntityNextTxTime = this.nextEntityCreateTxTime.get(modelEntity.getEntityName());
                     if (curEntityNextTxTime == null || nextTxTime.before(curEntityNextTxTime)) {
                         this.nextEntityCreateTxTime.put(modelEntity.getEntityName(), nextTxTime);
@@ -436,14 +434,12 @@ public class EntitySyncContext {
                 }
                 throw new SyncDataErrorException("Caught runtime error while getting values to create", t);
             }
-            
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
                 throw new SyncDataErrorException("Commit transaction failed", e);
             }
         }
-
         if (entitiesSkippedForKnownNext > 0) {
             if (Debug.infoOn()) Debug.logInfo("In assembleValuesToCreate skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known create times", MODULE);
         }
@@ -614,7 +610,7 @@ public class EntitySyncContext {
             }
             Debug.logInfo(toStoreInfo.toString(), MODULE);
         }
-        
+
         // As the this.nextUpdateTxTime calculation is only based on entities without values to store, if there at least one value to store returned
         // this calculation is false, so it needs to be nullified
         if (valuesToStore.size() > 0) {
@@ -737,7 +733,6 @@ public class EntitySyncContext {
         if (keysToRemove.size() > 0) {
             this.nextRemoveTxTime = null;
         }
-        
         return keysToRemove;
     }
 
@@ -772,10 +767,10 @@ public class EntitySyncContext {
             this.totalRowsToRemove += this.toRemoveAlreadyDeleted + this.toRemoveDeleted;
 
             // store latest result on EntitySync, ie update lastSuccessfulSynchTime, should run in own tx
-            Map<String, Object> updateEsRunResult = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "lastSuccessfulSynchTime", this.currentRunEndTime, "userLogin", userLogin),60,true);
+            Map<String, Object> updateEsRunResult = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "lastSuccessfulSynchTime", this.currentRunEndTime, "userLogin", userLogin),60, true);
 
-            GenericValue entitySyncHistory = EntityQuery.use(delegator).from("EntitySyncHistory").where("startDate",startDate, "entitySyncId", entitySyncId).queryOne();
-            if(entitySyncHistory != null) {
+            GenericValue entitySyncHistory = EntityQuery.use(delegator).from("EntitySyncHistory").where("startDate", startDate, "entitySyncId", entitySyncId).queryOne();
+            if (entitySyncHistory != null) {
                 // store result of service call on history with results so far, should run in own tx
                 ModelService model = dispatcher.getDispatchContext().getModelService("updateEntitySyncHistory");
                 Map<String, Object> updateHistoryMap = model.makeValid(entitySyncHistory, ModelService.IN_PARAM);
@@ -832,7 +827,7 @@ public class EntitySyncContext {
         // the lastSuccessfulSynchTime on EntitySync will already be set, so just set status as completed
         String esErrMsg = "Could not mark Entity Sync as complete, but all synchronization was successful";
         try {
-            Map<String, Object> completeEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", newStatusId, "userLogin", userLogin), 60,true);
+            Map<String, Object> completeEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", newStatusId, "userLogin", userLogin), 60, true);
             if (ServiceUtil.isError(completeEntitySyncRes)) {
                 // what to do here? try again?
                 throw new SyncDataErrorException(esErrMsg, null, null, completeEntitySyncRes, null);
@@ -925,7 +920,7 @@ public class EntitySyncContext {
     public void saveSyncErrorInfo(String runStatusId, List<Object> errorMessages) {
         // set error statuses on the EntitySync and EntitySyncHistory entities
         try {
-            Map<String, Object> errorEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", runStatusId, "userLogin", userLogin), 60,true);
+            Map<String, Object> errorEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", runStatusId, "userLogin", userLogin), 60, true);
             if (ServiceUtil.isError(errorEntitySyncRes)) {
                 errorMessages.add("Could not save error run status [" + runStatusId + "] on EntitySync with ID [" + entitySyncId + "]: " + errorEntitySyncRes.get(ModelService.ERROR_MESSAGE));
             }
@@ -959,7 +954,7 @@ public class EntitySyncContext {
         try {
             // not running, get started NOW
             // set running status on entity sync, run in its own tx
-            Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "userLogin", userLogin), 60,true);
+            Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "userLogin", userLogin), 60, true);
             if (ModelService.RESPOND_ERROR.equals(startEntitySyncRes.get(ModelService.RESPONSE_MESSAGE))) {
                 throw new SyncDataErrorException(markErrorMsg, null, null, startEntitySyncRes, null);
             }
@@ -1039,7 +1034,7 @@ public class EntitySyncContext {
             try {
                 // not running, get started NOW
                 // set running status on entity sync, run in its own tx
-                Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "userLogin", userLogin),60,true);
+                Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "userLogin", userLogin),60, true);
                 if (ModelService.RESPOND_ERROR.equals(startEntitySyncRes.get(ModelService.RESPONSE_MESSAGE))) {
                     throw new SyncDataErrorException(markErrorMsg, null, null, startEntitySyncRes, null);
                 }
@@ -1111,7 +1106,7 @@ public class EntitySyncContext {
         try {
             // not running, get started NOW
             // set running status on entity sync, run in its own tx
-            Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "preOfflineSynchTime", this.lastSuccessfulSynchTime, "userLogin", userLogin),60,true);
+            Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "preOfflineSynchTime", this.lastSuccessfulSynchTime, "userLogin", userLogin),60, true);
             if (ModelService.RESPOND_ERROR.equals(startEntitySyncRes.get(ModelService.RESPONSE_MESSAGE))) {
                 throw new SyncDataErrorException(markErrorMsg, null, null, startEntitySyncRes, null);
             }

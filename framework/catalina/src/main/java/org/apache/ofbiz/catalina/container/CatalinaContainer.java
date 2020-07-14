@@ -88,7 +88,7 @@ import org.xml.sax.SAXException;
  */
 public class CatalinaContainer implements Container {
 
-    public static final String MODULE = CatalinaContainer.class.getName();
+    private static final String MODULE = CatalinaContainer.class.getName();
 
     private String name;
     private Tomcat tomcat;
@@ -106,10 +106,10 @@ public class CatalinaContainer implements Container {
         Host host = prepareHost(tomcat, null);
 
         // add realm and valve for Tomcat SSO
-        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")){
+        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")) {
             boolean useEncryption = EntityUtilProperties.propertyValueEquals("security", "password.encrypt", "true");
             OFBizRealm ofBizRealm = new OFBizRealm();
-            if (useEncryption){
+            if (useEncryption) {
                 ofBizRealm.setCredentialHandler(new HashedCredentialHandler());
             } else {
                 ofBizRealm.setCredentialHandler(new SimpleCredentialHandler());
@@ -216,7 +216,7 @@ public class CatalinaContainer implements Container {
 
         if (UtilValidate.isEmpty(virtualHosts)) {
             host = (Host) tomcat.getEngine().findChild(tomcat.getEngine().getDefaultHost());
-            if(host == null) {
+            if (host == null) {
                 host = tomcat.getHost();
             }
         } else {
@@ -459,7 +459,7 @@ public class CatalinaContainer implements Container {
         webResourceInfos.forEach(appInfo -> webappsMounts.addAll(getWebappMounts(appInfo)));
 
         for (ComponentConfig.WebappInfo appInfo: webResourceInfos) {
-            if(webappsMounts.removeAll(getWebappMounts(appInfo))) {
+            if (webappsMounts.removeAll(getWebappMounts(appInfo))) {
                 // webapp is not yet loaded
                 if (!appInfo.location.isEmpty()) {
                     futures.add(executor.submit(createCallableContext(tomcat, appInfo, clusterProp, configuration)));

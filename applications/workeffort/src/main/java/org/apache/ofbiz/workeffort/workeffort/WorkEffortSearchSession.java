@@ -39,7 +39,7 @@ import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchC
 
 public class WorkEffortSearchSession {
 
-    public static final String MODULE = WorkEffortSearchSession.class.getName();
+    private static final String MODULE = WorkEffortSearchSession.class.getName();
 
     @SuppressWarnings("serial")
     public static class WorkEffortSearchOptions implements java.io.Serializable {
@@ -196,14 +196,14 @@ public class WorkEffortSearchSession {
             String workEffortId=(String) parameters.get("SEARCH_WORK_EFFORT_ID");
             String workEffortAssocTypeId=(String) parameters.get("workEffortAssocTypeId");
             boolean includeAllSubWorkEfforts =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_WORK_EFFORTS"));
-            searchAddConstraint(new WorkEffortSearch.WorkEffortAssocConstraint(workEffortId,workEffortAssocTypeId,includeAllSubWorkEfforts), session);
+            searchAddConstraint(new WorkEffortSearch.WorkEffortAssocConstraint(workEffortId, workEffortAssocTypeId, includeAllSubWorkEfforts), session);
             constraintsChanged = true;
         }
 //      add a Work Effort Party Assignment to the search
         if (UtilValidate.isNotEmpty(parameters.get("partyId"))) {
             String partyId=(String) parameters.get("partyId");
             String roleTypeId=(String) parameters.get("roleTypeId");
-            searchAddConstraint(new WorkEffortSearch.PartyAssignmentConstraint(partyId,roleTypeId), session);
+            searchAddConstraint(new WorkEffortSearch.PartyAssignmentConstraint(partyId, roleTypeId), session);
             constraintsChanged = true;
         }
 
@@ -229,7 +229,7 @@ public class WorkEffortSearchSession {
             if (UtilValidate.isNotEmpty(parameters.get("thruDate"))) {
                 thruDate = Timestamp.valueOf((String) parameters.get("thruDate"));
             }
-            searchAddConstraint(new WorkEffortSearch.LastUpdatedRangeConstraint(fromDate,thruDate), session);
+            searchAddConstraint(new WorkEffortSearch.LastUpdatedRangeConstraint(fromDate, thruDate), session);
             constraintsChanged = true;
         }
 

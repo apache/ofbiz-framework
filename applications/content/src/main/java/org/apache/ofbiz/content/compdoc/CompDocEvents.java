@@ -52,7 +52,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  * CompDocEvents Class
  */
 public class CompDocEvents {
-    public static final String MODULE = CompDocEvents.class.getName();
+    private static final String MODULE = CompDocEvents.class.getName();
 
     /**
      *
@@ -154,7 +154,7 @@ public class CompDocEvents {
         String contentId = (String)paramMap.get("contentId");
         Locale locale = UtilHttp.getLocale(request);
         String webSiteId = WebSiteWorker.getWebSiteId(request);
-        
+
         String rootDir = servletContext.getRealPath("/");
         String https = (String) servletContext.getAttribute("https");
 

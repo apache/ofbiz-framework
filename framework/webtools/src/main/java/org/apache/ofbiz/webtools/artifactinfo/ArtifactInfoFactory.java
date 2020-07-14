@@ -62,7 +62,7 @@ import org.xml.sax.SAXException;
 
 public class ArtifactInfoFactory {
 
-    public static final String MODULE = ArtifactInfoFactory.class.getName();
+    private static final String MODULE = ArtifactInfoFactory.class.getName();
 
     private static final UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = UtilCache.createUtilCache("ArtifactInfoFactory");
 
@@ -321,9 +321,7 @@ public class ArtifactInfoFactory {
             } else if ("view".equals(type)) {
                 return this.getControllerViewArtifactInfo(new URL(artifactLocation), artifactName);
             }
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error getting artifact info: " + e.toString(), MODULE);
-        } catch (MalformedURLException e) {
+        } catch (GeneralException | MalformedURLException e) {
             Debug.logError(e, "Error getting artifact info: " + e.toString(), MODULE);
         }
         return null;
@@ -387,7 +385,7 @@ public class ArtifactInfoFactory {
         return () -> {
             try {
                 getServiceArtifactInfo(serviceName);
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 Debug.logWarning(exc, "Error processing service: " + serviceName, MODULE);
             }
             return null;

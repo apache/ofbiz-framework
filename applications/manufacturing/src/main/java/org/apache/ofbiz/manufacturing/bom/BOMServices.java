@@ -50,8 +50,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class BOMServices {
 
-    public static final String MODULE = BOMServices.class.getName();
-    public static final String resource = "ManufacturingUiLabels";
+    private static final String MODULE = BOMServices.class.getName();
+    private static final String RESOURCE = "ManufacturingUiLabels";
 
     /** Returns the product's low level code (llc) i.e. the maximum depth
      * in which the productId can be found in any of the
@@ -88,7 +88,7 @@ public class BOMServices {
                     bomTypes.add(bomTypesValue.getString("productAssocTypeId"));
                 }
             } catch (GenericEntityException gee) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningMaxDethAlgorithm", UtilMisc.toMap("errorString", gee.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningMaxDethAlgorithm", UtilMisc.toMap("errorString", gee.getMessage()), locale));
             }
         } else {
             bomTypes.add(bomType);
@@ -104,7 +104,7 @@ public class BOMServices {
                 }
             }
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningMaxDethAlgorithm", UtilMisc.toMap("errorString", gee.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningMaxDethAlgorithm", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         result.put("depth", (long) maxDepth);
 
@@ -137,7 +137,7 @@ public class BOMServices {
         Long llc = null;
         try {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-            Map<String, Object> depthResult = dispatcher.runSync("getMaxDepth", 
+            Map<String, Object> depthResult = dispatcher.runSync("getMaxDepth",
                     UtilMisc.toMap("productId", productId, "bomType", "MANUF_COMPONENT"));
             if (ServiceUtil.isError(depthResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depthResult));
@@ -175,8 +175,7 @@ public class BOMServices {
                 BOMTree tree = (BOMTree)treeResult.get("tree");
                 List<BOMNode> products = new LinkedList<>();
                 tree.print(products, llc.intValue());
-                for (int i = 0; i < products.size(); i++) {
-                    BOMNode oneNode = products.get(i);
+                for (BOMNode oneNode : products) {
                     GenericValue oneProduct = oneNode.getProduct();
                     int lev = 0;
                     if (oneProduct.get("billOfMaterialLevel") != null) {
@@ -190,7 +189,7 @@ public class BOMServices {
             }
             if (alsoVariants) {
                 List<GenericValue> variantProducts = EntityQuery.use(delegator).from("ProductAssoc")
-                        .where("productId", productId, 
+                        .where("productId", productId,
                                 "productAssocTypeId", "PRODUCT_VARIANT")
                         .filterByDate().queryList();
                 for (GenericValue oneVariantProductAssoc : variantProducts) {
@@ -199,10 +198,9 @@ public class BOMServices {
                     variantProduct.store();
                 }
             }
-        } catch (GenericEntityException|GenericServiceException ge) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningUpdateLowLevelCode", UtilMisc.toMap("errorString", ge.getMessage()), locale));
-        } catch (Exception e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningUpdateLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
+        } catch (GenericEntityException | GenericServiceException ge) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningUpdateLowLevelCode"
+                    , UtilMisc.toMap("errorString", ge.getMessage()), locale));
         }
         result.put("lowLevelCode", llc);
         return result;
@@ -238,15 +236,14 @@ public class BOMServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depthResult));
                     }
                     Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", MODULE);
-                } catch (Exception exc) {
+                } catch (GenericServiceException exc) {
                     Debug.logWarning(exc.getMessage(), MODULE);
                 }
             }
             // FIXME: also all the variants llc should be updated?
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningInitLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
-        } catch (Exception e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningInitLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningInitLowLevelCode"
+                    , UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
     }
@@ -263,7 +260,7 @@ public class BOMServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         String productIdKey = (String) context.get("productIdTo");
@@ -276,7 +273,7 @@ public class BOMServices {
         try {
             duplicatedProductAssoc = BOMHelper.searchDuplicatedAncestor(productId, productIdKey, bomType, fromDate, delegator, dispatcher, userLogin);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningDuplicatedAncestorSearch", UtilMisc.toMap("errorString", gee.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningDuplicatedAncestorSearch", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         result.put("duplicatedProductAssoc", duplicatedProductAssoc);
         return result;
@@ -296,7 +293,7 @@ public class BOMServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
         String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
@@ -323,7 +320,7 @@ public class BOMServices {
         try {
             tree = new BOMTree(productId, bomType, fromDate, type, delegator, dispatcher, userLogin);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         if (quantity != null) {
             tree.setRootQuantity(quantity);
@@ -347,7 +344,7 @@ public class BOMServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         BigDecimal amount = (BigDecimal) context.get("amount");
@@ -388,7 +385,7 @@ public class BOMServices {
             tree.print(components, excludeWIPs);
             if (components.size() > 0) components.remove(0);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         //
         // Product routing
@@ -441,7 +438,7 @@ public class BOMServices {
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         BigDecimal amount = (BigDecimal) context.get("amount");
         String fromDateStr = (String) context.get("fromDate");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
         if (quantity == null) {
@@ -471,7 +468,7 @@ public class BOMServices {
             tree.setRootAmount(amount);
             tree.print(components);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         for (BOMNode oneComponent : components) {
             if (!oneComponent.isManufactured()) {
@@ -490,23 +487,23 @@ public class BOMServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shipmentId = (String) context.get("shipmentId");
 
         try {
             List<GenericValue> packages = EntityQuery.use(delegator).from("ShipmentPackage").where("shipmentId", shipmentId).queryList();
             if (UtilValidate.isNotEmpty(packages)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomPackageAlreadyFound", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomPackageAlreadyFound", locale));
             }
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorLoadingShipmentPackages", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorLoadingShipmentPackages", locale));
         }
         // ShipmentItems are loaded
         List<GenericValue> shipmentItems = null;
         try {
             shipmentItems = EntityQuery.use(delegator).from("ShipmentItem").where("shipmentId", shipmentId).queryList();
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorLoadingShipmentItems", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorLoadingShipmentItems", locale));
         }
         Map<String, Object> orderReadHelpers = new HashMap<>();
         Map<String, Object> partyOrderShipments = new HashMap<>();
@@ -515,11 +512,11 @@ public class BOMServices {
             GenericValue orderShipment = null;
             try {
                 orderShipment = EntityQuery.use(delegator).from("OrderShipment")
-                        .where("shipmentId", shipmentId, 
+                        .where("shipmentId", shipmentId,
                                 "shipmentItemSeqId", shipmentItem.get("shipmentItemSeqId"))
                         .queryFirst();
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
             }
             if (orderShipment != null && !orderReadHelpers.containsKey(orderShipment.getString("orderId"))) {
                 orderReadHelpers.put(orderShipment.getString("orderId"), new OrderReadHelper(delegator, orderShipment.getString("orderId")));
@@ -542,10 +539,10 @@ public class BOMServices {
         // (search for components that needs to be packaged).
         for (Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
             List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.cast(partyOrderShipment.getValue());
-            for (int i = 0; i < orderShipmentReadMapList.size(); i++) {
-                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(orderShipmentReadMapList.get(i));
-                GenericValue orderShipment = (GenericValue)orderShipmentReadMap.get("orderShipment");
-                OrderReadHelper orderReadHelper = (OrderReadHelper)orderShipmentReadMap.get("orderReadHelper");
+            for (Map<String, Object> stringObjectMap : orderShipmentReadMapList) {
+                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(stringObjectMap);
+                GenericValue orderShipment = (GenericValue) orderShipmentReadMap.get("orderShipment");
+                OrderReadHelper orderReadHelper = (OrderReadHelper) orderShipmentReadMap.get("orderReadHelper");
                 GenericValue orderItem = orderReadHelper.getOrderItem(orderShipment.getString("orderItemSeqId"));
                 // getProductsInPackages
                 Map<String, Object> serviceContext = new HashMap<>();
@@ -555,15 +552,16 @@ public class BOMServices {
                 try {
                     serviceResult = dispatcher.runSync("getProductsInPackages", serviceContext);
                     if (ServiceUtil.isError(serviceResult)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                     }
                 } catch (GenericServiceException e) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                 }
                 List<BOMNode> productsInPackages = UtilGenerics.cast(serviceResult.get("productsInPackages"));
                 if (productsInPackages.size() == 1) {
                     BOMNode root = productsInPackages.get(0);
-                    String rootProductId = (root.getSubstitutedNode() != null? root.getSubstitutedNode().getProduct().getString("productId"): root.getProduct().getString("productId"));
+                    String rootProductId = (root.getSubstitutedNode() != null ? root.getSubstitutedNode().getProduct().getString("productId")
+                            : root.getProduct().getString("productId"));
                     if (orderItem.getString("productId").equals(rootProductId)) {
                         productsInPackages = null;
                     }
@@ -582,10 +580,10 @@ public class BOMServices {
         for (Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
             Map<String, List<Map<String, Object>>> boxTypeContent = new HashMap<>();
             List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.cast(partyOrderShipment.getValue());
-            for (int i = 0; i < orderShipmentReadMapList.size(); i++) {
-                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(orderShipmentReadMapList.get(i));
-                GenericValue orderShipment = (GenericValue)orderShipmentReadMap.get("orderShipment");
-                OrderReadHelper orderReadHelper = (OrderReadHelper)orderShipmentReadMap.get("orderReadHelper");
+            for (Map<String, Object> objectMap : orderShipmentReadMapList) {
+                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(objectMap);
+                GenericValue orderShipment = (GenericValue) orderShipmentReadMap.get("orderShipment");
+                OrderReadHelper orderReadHelper = (OrderReadHelper) orderShipmentReadMap.get("orderReadHelper");
                 List<BOMNode> productsInPackages = UtilGenerics.cast(orderShipmentReadMap.get("productsInPackages"));
                 if (productsInPackages != null) {
                     // there are subcomponents:
@@ -603,7 +601,7 @@ public class BOMServices {
                                 try {
                                     boxType = EntityQuery.use(delegator).from("ShipmentBoxType").where("shipmentBoxTypeId", boxTypeId).queryOne();
                                 } catch (GenericEntityException e) {
-                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                                 }
                                 boxTypes.put(boxTypeId, boxType);
                                 List<Map<String, Object>> box = new LinkedList<>();
@@ -623,7 +621,7 @@ public class BOMServices {
                     try {
                         product = orderItem.getRelatedOne("Product", false);
                     } catch (GenericEntityException e) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                     }
                     String boxTypeId = product.getString("shipmentBoxTypeId");
                     if (boxTypeId != null) {
@@ -632,7 +630,7 @@ public class BOMServices {
                             try {
                                 boxType = EntityQuery.use(delegator).from("ShipmentBoxType").where("shipmentBoxTypeId", boxTypeId).queryOne();
                             } catch (GenericEntityException e) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                             }
 
                             boxTypes.put(boxTypeId, boxType);
@@ -655,19 +653,19 @@ public class BOMServices {
                     boxWidth = BigDecimal.ZERO;
                 }
                 String shipmentPackageSeqId = null;
-                for (int i = 0; i < contentList.size(); i++) {
-                    Map<String, Object> contentMap = UtilGenerics.cast(contentList.get(i));
+                for (Map<String, Object> stringObjectMap : contentList) {
+                    Map<String, Object> contentMap = UtilGenerics.cast(stringObjectMap);
                     Map<String, Object> content = UtilGenerics.cast(contentMap.get("content"));
-                    OrderReadHelper orderReadHelper = (OrderReadHelper)content.get("orderReadHelper");
+                    OrderReadHelper orderReadHelper = (OrderReadHelper) content.get("orderReadHelper");
                     List<BOMNode> productsInPackages = UtilGenerics.cast(content.get("productsInPackages"));
-                    GenericValue orderShipment = (GenericValue)content.get("orderShipment");
+                    GenericValue orderShipment = (GenericValue) content.get("orderShipment");
 
                     GenericValue product = null;
                     BigDecimal quantity = BigDecimal.ZERO;
                     boolean subProduct = contentMap.containsKey("componentIndex");
                     if (subProduct) {
                         // multi package
-                        Integer index = (Integer)contentMap.get("componentIndex");
+                        Integer index = (Integer) contentMap.get("componentIndex");
                         BOMNode component = productsInPackages.get(index);
                         product = component.getProduct();
                         quantity = component.getQuantity();
@@ -677,7 +675,7 @@ public class BOMServices {
                         try {
                             product = orderItem.getRelatedOne("Product", false);
                         } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                         }
                         quantity = orderShipment.getBigDecimal("quantity");
                     }
@@ -714,9 +712,9 @@ public class BOMServices {
                                 if (ServiceUtil.isError(serviceResult)) {
                                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                                 }
-                                shipmentPackageSeqId = (String)serviceResult.get("shipmentPackageSeqId");
+                                shipmentPackageSeqId = (String) serviceResult.get("shipmentPackageSeqId");
                             } catch (GenericServiceException e) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                             }
                             totalWidth = BigDecimal.ZERO;
                         }
@@ -724,24 +722,24 @@ public class BOMServices {
                             Map<String, Object> inputMap = null;
                             if (subProduct) {
                                 inputMap = UtilMisc.toMap("shipmentId", orderShipment.getString("shipmentId"),
-                                "shipmentPackageSeqId", shipmentPackageSeqId,
-                                "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
-                                "subProductId", product.getString("productId"),
-                                "userLogin", userLogin,
-                                "subProductQuantity", qty);
+                                        "shipmentPackageSeqId", shipmentPackageSeqId,
+                                        "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
+                                        "subProductId", product.getString("productId"),
+                                        "userLogin", userLogin,
+                                        "subProductQuantity", qty);
                             } else {
                                 inputMap = UtilMisc.toMap("shipmentId", orderShipment.getString("shipmentId"),
-                                "shipmentPackageSeqId", shipmentPackageSeqId,
-                                "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
-                                "userLogin", userLogin,
-                                "quantity", qty);
+                                        "shipmentPackageSeqId", shipmentPackageSeqId,
+                                        "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
+                                        "userLogin", userLogin,
+                                        "quantity", qty);
                             }
                             Map<String, Object> serviceResult = dispatcher.runSync("createShipmentPackageContent", inputMap);
                             if (ServiceUtil.isError(serviceResult)) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                             }
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                         }
                         totalWidth = totalWidth.add(qty.multiply(productDepth));
                         if (qty.compareTo(maxQuantity) == 0) shipmentPackageSeqId = null;
@@ -764,7 +762,7 @@ public class BOMServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
@@ -794,7 +792,7 @@ public class BOMServices {
             tree.setRootQuantity(quantity);
             tree.getProductsInPackages(components);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
 
         result.put("productsInPackages", components);

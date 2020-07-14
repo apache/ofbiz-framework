@@ -35,7 +35,7 @@ import junit.framework.TestResult;
 
 public class EntityXmlAssertTest extends OFBizTestCase {
 
-    public static final String MODULE = ServiceTest.class.getName();
+    private static final String MODULE = ServiceTest.class.getName();
 
     protected String entityXmlUrlString;
     protected String action;
@@ -43,7 +43,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
     /**
      * Tests of entity xml
      * @param caseName test case name
-     * @param mainElement DOM main element 
+     * @param mainElement DOM main element
      */
     public EntityXmlAssertTest(String caseName, Element mainElement) {
         super(caseName);

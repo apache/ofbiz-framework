@@ -347,7 +347,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
             character-set="utf8"
-            collate="utf8_general_ci">
+            collate="utf8_general_ci"
+            offset-style="limit">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -380,7 +381,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
             character-set="utf8"
-            collate="utf8_general_ci">
+            collate="utf8_general_ci"
+            offset-style="limit">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -413,7 +415,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
             character-set="utf8"
-            collate="utf8_general_ci">
+            collate="utf8_general_ci"
+            offset-style="limit">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -446,7 +449,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
             character-set="utf8"
-            collate="utf8_general_ci">
+            collate="utf8_general_ci"
+            offset-style="limit">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <inline-jdbc
@@ -472,6 +476,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             join-style="ansi"
             use-binary-type-for-blob="true"
             use-order-by-nulls="true"
+            offset-style="limit"
             result-fetch-size="50"> <!-- Comment out the result-fetch-size attribute for jdbc driver versions older than 8.0.
             Not recommended to use those though. They are archived unsupported versions: http://jdbc.postgresql.org/download.html -->
         
@@ -510,7 +515,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             join-style="ansi"
             result-fetch-size="50"
             use-binary-type-for-blob="true"
-            use-order-by-nulls="true">
+            use-order-by-nulls="true"
+            offset-style="limit">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -546,7 +552,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             join-style="ansi"
             result-fetch-size="50"
             use-binary-type-for-blob="true"
-            use-order-by-nulls="true">
+            use-order-by-nulls="true"
+            offset-style="limit">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>

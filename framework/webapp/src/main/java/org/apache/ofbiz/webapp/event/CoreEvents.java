@@ -60,7 +60,7 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
  */
 public class CoreEvents {
 
-    public static final String MODULE = CoreEvents.class.getName();
+    private static final String MODULE = CoreEvents.class.getName();
     public static final String err_resource = "WebappUiLabels";
 
     /**
@@ -99,7 +99,7 @@ public class CoreEvents {
      *
      *  SERVICE_NAME      - Name of the service to invoke
      *  SERVICE_TIME      - First time the service will occur
-     *  SERVICE_FREQUENCY - The type of recurrence (SECONDLY,MINUTELY,DAILY,etc)
+     *  SERVICE_FREQUENCY - The type of recurrence (SECONDLY, MINUTELY, DAILY,etc)
      *  SERVICE_INTERVAL  - The interval of the frequency (every 5 minutes, etc)
      *
      * @param request HttpServletRequest
@@ -351,7 +351,7 @@ public class CoreEvents {
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> syncServiceResult = checkMap(session.getAttribute("_RUN_SYNC_RESULT_"), String.class, Object.class);
-        if (null==syncServiceResult) {
+        if (null == syncServiceResult) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_fields_in_session", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -368,7 +368,7 @@ public class CoreEvents {
             if (entry.getValue() != null && "on".equalsIgnoreCase(request.getParameter(key)) && !"_CLEAR_PREVIOUS_PARAMS_".equals(key)) {
                 String[] servicePath = key.split("\\|\\|");
                 String partialKey = servicePath[servicePath.length-1];
-                savedFields.put(partialKey, getObjectFromServicePath(key ,syncServiceResult));
+                savedFields.put(partialKey, getObjectFromServicePath(key , syncServiceResult));
             }
         }
         if (null!=session.getAttribute("_SAVED_SYNC_RESULT_")) {
@@ -385,9 +385,9 @@ public class CoreEvents {
         String[] sp = servicePath.split("\\|\\|");
         Object servicePathObject = null;
         Map<String, Object> servicePathMap = null;
-        for (int i=0;i<sp.length;i++) {
+        for (int i = 0; i < sp.length; i++) {
             String servicePathEntry = sp[i];
-            if (null==servicePathMap) {
+            if (null == servicePathMap) {
                 servicePathObject = serviceResult.get(servicePathEntry);
             } else {
                 servicePathObject = servicePathMap.get(servicePathEntry);
@@ -397,7 +397,7 @@ public class CoreEvents {
             if (servicePathObject instanceof Map<?, ?>) {
                 servicePathMap = UtilGenerics.cast(servicePathObject);
             } else if (servicePathObject instanceof GenericEntity) {
-                GenericEntity servicePathEntity = (GenericEntity)servicePathObject;
+                GenericEntity servicePathEntity = (GenericEntity) servicePathObject;
                 servicePathMap = new HashMap<>();
                 for (Map.Entry<String, Object> entry: servicePathEntity.entrySet()) {
                     servicePathMap.put(entry.getKey(), entry.getValue());
@@ -407,12 +407,12 @@ public class CoreEvents {
                 int count=0;
                 servicePathMap = new HashMap<>();
                 for (Object value: servicePathColl) {
-                    servicePathMap.put("_"+count+"_", value);
+                    servicePathMap.put("_" + count + "_", value);
                     count++;
                 }
             }
         }
-        if (null==servicePathMap) {
+        if (null == servicePathMap) {
             return servicePathObject;
         } else {
             return servicePathMap;
@@ -498,9 +498,6 @@ public class CoreEvents {
                 FileInputStream fis = new FileInputStream(file);
                 UtilHttp.streamContentToBrowser(response, fis, length, null);
                 fis.close();
-            } catch (FileNotFoundException e) {
-                Debug.logError(e, MODULE);
-                return "error";
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
                 return "error";

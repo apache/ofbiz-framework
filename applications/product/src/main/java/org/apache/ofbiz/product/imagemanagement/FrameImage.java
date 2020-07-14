@@ -62,9 +62,9 @@ import org.jdom.JDOMException;
 
 public class FrameImage {
 
-    public static final String MODULE = FrameImage.class.getName();
-    public static final String resourceError = "ProductErrorUiLabels";
-    public static final String resource = "ProductUiLabels";
+    private static final String MODULE = FrameImage.class.getName();
+    private static final String RES_ERROR = "ProductErrorUiLabels";
+    private static final String RESOURCE = "ProductUiLabels";
 
     public static Map<String, Object> addImageFrame(DispatchContext dctx, Map<String, ? extends Object> context)
             throws IOException {
@@ -83,12 +83,12 @@ public class FrameImage {
         Locale locale = (Locale) context.get("locale");
 
         if (UtilValidate.isEmpty(context.get("frameContentId")) || UtilValidate.isEmpty(context.get("frameDataResourceId"))) {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "ProductImageFrameContentIdRequired", locale));
             result.putAll(context);
         }
         if (UtilValidate.isEmpty(context.get("imageWidth")) || UtilValidate.isEmpty(context.get("imageHeight"))) {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "ProductImageWidthAndHeightRequired", locale));
             result.putAll(context);
         }
@@ -223,14 +223,13 @@ public class FrameImage {
                 result =  ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
-        }
-         else{
-             String errMsg = UtilProperties.getMessage(resourceError, "ProductPleaseSelectImage", locale);
+        } else {
+             String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseSelectImage", locale);
              Debug.logFatal(errMsg, MODULE);
              result =  ServiceUtil.returnError(errMsg);
              result.putAll(context);
         }
-        String successMsg = UtilProperties.getMessage(resource, "ProductFrameImageSuccessfully", locale);
+        String successMsg = UtilProperties.getMessage(RESOURCE, "ProductFrameImageSuccessfully", locale);
         result = ServiceUtil.returnSuccess(successMsg);
         return result;
     }
@@ -392,10 +391,10 @@ public class FrameImage {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
-        
+
         if (UtilValidate.isNotEmpty(imageName)) {
             File file = new File(imageServerPath + "/preview/" +"/previewImage.jpg");
-            if(!file.delete()) {
+            if (!file.delete()) {
                 Debug.logError("File :" + file.getName() + ", couldn't be loaded", MODULE);
             }
             // Image Frame
@@ -418,8 +417,7 @@ public class FrameImage {
             String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/preview/" + "/previewImage.jpg"));
 
-        }
-         else{
+        } else {
              String errMsg = "Please select Image.";
              request.setAttribute("_EVENT_MESSAGE_", errMsg);
             return "error";
@@ -429,7 +427,7 @@ public class FrameImage {
 
     public static String chooseFrameImage(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        if(UtilValidate.isEmpty(request.getParameter("frameContentId"))) {
+        if (UtilValidate.isEmpty(request.getParameter("frameContentId"))) {
             if (UtilValidate.isNotEmpty(request.getParameter("frameExistContentId")) && UtilValidate.isNotEmpty(request.getParameter("frameExistDataResourceId"))) {
                 session.setAttribute("frameExistContentId", request.getParameter("frameExistContentId"));
                 session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId"));

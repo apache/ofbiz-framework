@@ -43,7 +43,7 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 @SuppressWarnings("serial")
 public class CatalogUrlServlet extends HttpServlet {
 
-    public static final String MODULE = CatalogUrlServlet.class.getName();
+    private static final String MODULE = CatalogUrlServlet.class.getName();
 
     public static final String CATALOG_URL_MOUNT_POINT = "products";
     public static final String PRODUCT_REQUEST = "product";

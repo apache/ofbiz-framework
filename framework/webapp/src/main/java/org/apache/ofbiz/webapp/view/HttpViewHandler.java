@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 public class HttpViewHandler extends AbstractViewHandler {
 
-    public static final String MODULE = HttpViewHandler.class.getName();
+    private static final String MODULE = HttpViewHandler.class.getName();
 
     @Override
     public void init(ServletContext context) throws ViewHandlerException {

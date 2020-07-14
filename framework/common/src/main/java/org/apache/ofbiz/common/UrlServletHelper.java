@@ -45,7 +45,7 @@ public final class UrlServletHelper {
 
     public final static String MODULE = UrlServletHelper.class.getName();
 
-    private UrlServletHelper() {}
+    private UrlServletHelper() { }
 
     public static void setRequestAttributes(ServletRequest request, Delegator delegator, ServletContext servletContext) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -83,7 +83,7 @@ public final class UrlServletHelper {
         request.setAttribute("delegator", delegator);
 
         // set the webSiteId in the session
-        if (UtilValidate.isEmpty(httpRequest.getSession().getAttribute("webSiteId"))){
+        if (UtilValidate.isEmpty(httpRequest.getSession().getAttribute("webSiteId"))) {
             httpRequest.getSession().setAttribute("webSiteId", httpRequest.getSession().getServletContext().getAttribute("webSiteId"));
         }
     }
@@ -133,19 +133,19 @@ public final class UrlServletHelper {
         }
 
         //Set query string parameters to url
-        if(UtilValidate.isNotEmpty(viewIndex)){
+        if (UtilValidate.isNotEmpty(viewIndex)) {
             urlBuilder.append("/~VIEW_INDEX=" + viewIndex);
             request.setAttribute("VIEW_INDEX", viewIndex);
         }
-        if(UtilValidate.isNotEmpty(viewSize)){
+        if (UtilValidate.isNotEmpty(viewSize)) {
             urlBuilder.append("/~VIEW_SIZE=" + viewSize);
             request.setAttribute("VIEW_SIZE", viewSize);
         }
-        if(UtilValidate.isNotEmpty(viewSort)){
+        if (UtilValidate.isNotEmpty(viewSort)) {
             urlBuilder.append("/~VIEW_SORT=" + viewSort);
             request.setAttribute("VIEW_SORT", viewSort);
         }
-        if(UtilValidate.isNotEmpty(searchString)){
+        if (UtilValidate.isNotEmpty(searchString)) {
             urlBuilder.append("/~SEARCH_STRING=" + searchString);
             request.setAttribute("SEARCH_STRING", searchString);
         }
@@ -265,13 +265,13 @@ public final class UrlServletHelper {
         str = str.replace("‘", "-");
         str = str.replace("？", "-");
         str = str.replace("–", "");
-        while(str.startsWith("-")){
+        while(str.startsWith("-")) {
             str = str.substring(1);
         }
-        while(str.endsWith("-")){
-            str = str.substring(0,str.length() - 1);
+        while(str.endsWith("-")) {
+            str = str.substring(0, str.length() - 1);
         }
-        while(str.indexOf("--") != -1){
+        while(str.indexOf("--") != -1) {
             str = str.replace("--","-");
         }
         return str;

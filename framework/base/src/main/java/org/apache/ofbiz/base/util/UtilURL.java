@@ -30,10 +30,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class UtilURL {
 
-    public static final String MODULE = UtilURL.class.getName();
+    private static final String MODULE = UtilURL.class.getName();
     private static final Map<String, URL> urlMap = new ConcurrentHashMap<>();
 
-    private UtilURL() {}
+    private UtilURL() { }
 
     public static <C> URL fromClass(Class<C> contextClass) {
         String resourceName = contextClass.getName();

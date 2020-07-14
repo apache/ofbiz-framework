@@ -55,9 +55,9 @@ import org.apache.ofbiz.base.location.ComponentLocationResolver;
  */
 public final class FileUtil {
 
-    public static final String MODULE = FileUtil.class.getName();
+    private static final String MODULE = FileUtil.class.getName();
 
-    private FileUtil () {}
+    private FileUtil() { }
 
     private static class SearchTextFilesFilter implements FilenameFilter {
         String fileExtension;
@@ -386,7 +386,7 @@ public final class FileUtil {
        File inFile = new File(fileName);
        if (inFile.exists()) {
             try (
-           BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile),StandardCharsets.UTF_8));
+           BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile), StandardCharsets.UTF_8));
             ) {
                return containsString(in, searchString);
            }
@@ -488,7 +488,6 @@ public final class FileUtil {
         zis.closeEntry();
         zis.close();
     }
-    
     /**
      * Creates a File with a normalized file path
      * This useful to prevent path traversal security issues 
@@ -498,9 +497,8 @@ public final class FileUtil {
      * @return A File with a normalized file path
      */
     public static File createFileWithNormalizedPath(String filePath) {
-        return new File(filePath).toPath().normalize().toFile(); 
+        return new File(filePath).toPath().normalize().toFile();
     }
-    
     /**
      * Normalizes a file path
      * This useful to prevent path traversal security issues 
@@ -509,7 +507,7 @@ public final class FileUtil {
      * @return A normalized file path
      */
     public static String normalizeFilePath(String filePath) {
-        return createFileWithNormalizedPath(filePath).toString(); 
+        return createFileWithNormalizedPath(filePath).toString();
     }
-    
+
 }

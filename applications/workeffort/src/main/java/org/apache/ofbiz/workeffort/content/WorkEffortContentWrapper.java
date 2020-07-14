@@ -53,7 +53,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
  */
 public class WorkEffortContentWrapper implements ContentWrapper {
 
-    public static final String MODULE = WorkEffortContentWrapper.class.getName();
+    private static final String MODULE = WorkEffortContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
 
     private static final UtilCache<String, String> workEffortContentCache = UtilCache.createUtilCache("workeffort.content.rendered", true);
@@ -262,11 +262,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
                 workEffortContentCache.put(cacheKey, outString);
             }
             return outString;
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", MODULE);
-            String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", MODULE);
             String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
@@ -309,7 +305,6 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             ContentWorker.renderContentAsText(dispatcher, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
             return;
         }
-        
         // check for workeffort field
         String candidateFieldName = ModelUtil.dbNameToVarName(workEffortContentTypeId);
         ModelEntity workEffortModel = delegator.getModelEntity("WorkEffort");
@@ -326,7 +321,6 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             }
         }
     }
-
     public static List<String> getWorkEffortContentTextList(GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
         List<GenericValue> partyContentList = EntityQuery.use(delegator).from("WorkEffortContent")
                 .where("workEffortId", workEffort.getString("partyId"), "workEffortContentTypeId", workEffortContentTypeId)

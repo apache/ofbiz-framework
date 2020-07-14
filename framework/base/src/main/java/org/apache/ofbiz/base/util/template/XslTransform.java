@@ -53,7 +53,7 @@ import org.xml.sax.XMLReader;
 
 public final class XslTransform {
 
-    public static final String MODULE = XslTransform.class.getName();
+    private static final String MODULE = XslTransform.class.getName();
     private static final UtilCache<String, Templates> xslTemplatesCache = UtilCache.createUtilCache("XsltTemplates", 0, 0);
 
     /**
@@ -105,15 +105,15 @@ public final class XslTransform {
         Document outputDocument = null;
         TransformerFactory tFactory = TransformerFactory.newInstance();
         Templates translet = null;
-        String templateName = (String)context.get("templateName");
+        String templateName = (String) context.get("templateName");
         if (UtilValidate.isNotEmpty(templateName)) {
             translet = xslTemplatesCache.get(templateName);
         }
 
         if (translet == null) {
-            String templateUrl = (String)context.get("templateUrl");
-            String templateString = (String)context.get("templateString");
-            Document templateDocument = (Document)context.get("templateDocument");
+            String templateUrl = (String) context.get("templateUrl");
+            String templateString = (String) context.get("templateString");
+            Document templateDocument = (Document) context.get("templateDocument");
             Source templateSource = getSource(templateDocument, templateUrl, templateString);
             translet = tFactory.newTemplates(templateSource);
             if (UtilValidate.isNotEmpty(templateName)) {
@@ -132,9 +132,9 @@ public final class XslTransform {
 
             DOMResult outputResult = new DOMResult(UtilXml.makeEmptyXmlDocument());
 
-            String inputUrl = (String)context.get("inputUrl");
-            String inputString = (String)context.get("inputString");
-            Document inputDocument = (Document)context.get("inputDocument");
+            String inputUrl = (String) context.get("inputUrl");
+            String inputString = (String) context.get("inputString");
+            Document inputDocument = (Document) context.get("inputDocument");
             Source inputSource = getSource(inputDocument, inputUrl, inputString);
 
             transformer.transform(inputSource, outputResult);

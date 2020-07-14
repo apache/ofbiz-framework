@@ -61,7 +61,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
-    public static final String MODULE = ModelEntity.class.getName();
+    private static final String MODULE = ModelEntity.class.getName();
 
     /** The name of the time stamp field for locking/synchronization */
     public static final String STAMP_FIELD = "lastUpdatedStamp";
@@ -462,7 +462,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     /**
      * An indicator to specific if this entity should ignore automatic DB checks.
      * This should be set when the entity is mapped to a database view to prevent
-     * warnings and attempts to modify the schema.     
+     * warnings and attempts to modify the schema.
      */
     public boolean getNeverCheck() {
         return neverCheck;
@@ -1612,7 +1612,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 attributeMap.put("externalType", sqlType.substring(0, sqlType.indexOf('(')));
                 // since there is a field length set that
                 String widthStr = sqlType.substring(sqlType.indexOf('(') + 1, sqlType.indexOf(')'));
-                // if there is a comma split by it for width,precision
+                // if there is a comma split by it for width, precision
                 if (widthStr.indexOf(',') >= 0) {
                     attributeMap.put("width", widthStr.substring(0, widthStr.indexOf(',')));
                     // since there is a field precision set that

@@ -40,8 +40,8 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class PartyRelationshipHelper {
 
-    public static final String MODULE = PartyRelationshipHelper.class.getName();
-    private PartyRelationshipHelper() {}
+    private static final String MODULE = PartyRelationshipHelper.class.getName();
+    private PartyRelationshipHelper() { }
 
     /** Return A List of the active Party Relationships (ie with valid from and thru dates)
      *@param delegator needed Delegator
@@ -49,11 +49,11 @@ public final class PartyRelationshipHelper {
      *@return List of the active Party Relationships
      */
     public static List<GenericValue> getActivePartyRelationships(Delegator delegator, Map<String, ?> partyRelationshipValues) {
-        String partyIdFrom = (String) partyRelationshipValues.get("partyIdFrom") ;
-        String partyIdTo = (String) partyRelationshipValues.get("partyIdTo") ;
-        String roleTypeIdFrom = (String) partyRelationshipValues.get("roleTypeIdFrom") ;
-        String roleTypeIdTo = (String) partyRelationshipValues.get("roleTypeIdTo") ;
-        String partyRelationshipTypeId = (String) partyRelationshipValues.get("partyRelationshipTypeId") ;
+        String partyIdFrom = (String) partyRelationshipValues.get("partyIdFrom");
+        String partyIdTo = (String) partyRelationshipValues.get("partyIdTo");
+        String roleTypeIdFrom = (String) partyRelationshipValues.get("roleTypeIdFrom");
+        String roleTypeIdTo = (String) partyRelationshipValues.get("roleTypeIdTo");
+        String partyRelationshipTypeId = (String) partyRelationshipValues.get("partyRelationshipTypeId");
         Timestamp fromDate = UtilDateTime.nowTimestamp();
 
         List<EntityCondition> condList = new LinkedList<>();

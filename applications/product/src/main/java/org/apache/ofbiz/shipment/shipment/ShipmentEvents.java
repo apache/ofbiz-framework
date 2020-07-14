@@ -41,7 +41,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ShipmentEvents {
 
-    public static final String MODULE = ShipmentEvents.class.getName();
+    private static final String MODULE = ShipmentEvents.class.getName();
 
     public static String viewShipmentPackageRouteSegLabelImage(HttpServletRequest request, HttpServletResponse response) {
 

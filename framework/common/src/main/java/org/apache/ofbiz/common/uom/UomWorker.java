@@ -36,9 +36,9 @@ import com.ibm.icu.util.Calendar;
  */
 public class UomWorker {
 
-    public static final String MODULE = UomWorker.class.getName();
+    private static final String MODULE = UomWorker.class.getName();
 
-    private UomWorker () {}
+    private UomWorker() { }
 
     public static int[] uomTimeToCalTime(String uomId) {
         if ("TF_ms".equals(uomId)) {
@@ -115,7 +115,7 @@ public class UomWorker {
         if (svcOutMap.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && svcOutMap.get("convertedValue") != null) {
             return (BigDecimal) svcOutMap.get("convertedValue");
         }
-        Debug.logError("Failed to perform conversion for value [" + originalValue.toPlainString() + "] from Uom [" + uomId + "] to Uom [" + uomIdTo + "]",MODULE);
+        Debug.logError("Failed to perform conversion for value [" + originalValue.toPlainString() + "] from Uom [" + uomId + "] to Uom [" + uomIdTo + "]", MODULE);
         return null;
     }
 }

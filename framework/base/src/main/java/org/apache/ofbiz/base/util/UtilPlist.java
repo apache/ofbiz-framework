@@ -35,9 +35,9 @@ import java.util.Map;
  */
 public final class UtilPlist {
 
-    public static final String MODULE = UtilPlist.class.getName();
+    private static final String MODULE = UtilPlist.class.getName();
 
-    private UtilPlist() {}
+    private UtilPlist() { }
 
     /** simple 4 char indentation */
     private static final String indentFourString = "    ";

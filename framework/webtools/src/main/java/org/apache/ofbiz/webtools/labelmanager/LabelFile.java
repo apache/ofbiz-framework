@@ -21,7 +21,7 @@ package org.apache.ofbiz.webtools.labelmanager;
 import java.io.File;
 
 public class LabelFile {
-    public static final String MODULE = LabelFile.class.getName();
+    private static final String MODULE = LabelFile.class.getName();
 
     protected final boolean fileLoaded = false;
     protected final File file;
@@ -42,5 +42,9 @@ public class LabelFile {
 
     public String getFilePath() {
         return this.file.getPath();
+    }
+
+    public String getComponentName() {
+        return componentName;
     }
 }

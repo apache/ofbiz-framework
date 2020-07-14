@@ -32,7 +32,7 @@ import java.util.List;
 
 public class EntityUtilTestSuite extends EntityTestCase {
 
-    public static final String MODULE = EntityUtilTestSuite.class.getName();
+    private static final String MODULE = EntityUtilTestSuite.class.getName();
 
     public static final long TEST_COUNT = 1000;
 

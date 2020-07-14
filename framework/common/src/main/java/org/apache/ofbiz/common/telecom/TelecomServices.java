@@ -52,7 +52,6 @@ public class TelecomServices {
         String telecomGatewayConfigId = (String) context.get("telecomGatewayConfigId");
         List<String> numbers = checkCollection(context.get("numbers"), String.class);
         String message = (String) context.get("message");
-        
         String telecomEnabled = EntityUtilProperties.getPropertyValue("general", "telecom.notifications.enabled", delegator);
         if (!"Y".equals(telecomEnabled)) {
             Debug.logImportant("Telecom message not sent to " + numbers.toString() +" because telecom.notifications.enabled property is set to N or empty", MODULE);
@@ -64,7 +63,6 @@ public class TelecomServices {
             numbers.clear();
             numbers.add(redirectNumber);
         }
-
 
         try {
             Map<String, Object> createCommEventCtx = new HashMap<>();

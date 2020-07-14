@@ -44,7 +44,7 @@ import org.apache.ofbiz.base.util.Debug;
  *
  */
 public abstract class JdbcValueHandler<T> {
-    public static final String MODULE = JdbcValueHandler.class.getName();
+    private static final String MODULE = JdbcValueHandler.class.getName();
     private static final Map<String, JdbcValueHandler<?>> JdbcValueHandlerMap = createJdbcValueHandlerMap();
     private static final Map<String, Integer> SqlTypeMap = createSqlTypeMap();
 
@@ -164,7 +164,6 @@ public abstract class JdbcValueHandler<T> {
 
     /** Returns the <code>JdbcValueHandler</code> that corresponds to a field
      * type.
-     *  
      * @param javaType The Java type specified in fieldtype*.xml
      * @param sqlType The SQL type specified in fieldtype*.xml
      * @return A <code>JdbcValueHandler</code> instance
@@ -214,7 +213,6 @@ public abstract class JdbcValueHandler<T> {
      * type. Subclasses override this method to cast <code>obj</code>
      * to the correct data type and call the appropriate
      * <code>PreparedStatement.setXxx</code> method.
-     * 
      * @param ps
      * @param parameterIndex
      * @param obj
@@ -241,7 +239,6 @@ public abstract class JdbcValueHandler<T> {
     /** Returns a value from a <code>ResultSet</code>. The returned
      * object is converted to the Java data type specified in the fieldtype
      * file.
-     * 
      * @param rs the ResultSet object
      * @param columnIndex the column index
      * @return get value from result set
@@ -262,7 +259,6 @@ public abstract class JdbcValueHandler<T> {
     /** Sets a value in a <code>PreparedStatement</code>. The
      * <code>obj</code> argument is converted to the correct data
      * type.
-     * 
      * @param ps
      * @param parameterIndex
      * @param obj
@@ -441,7 +437,7 @@ public abstract class JdbcValueHandler<T> {
                 return null;
             }
             try (Reader clobReader = clob.getCharacterStream()) {
-                
+
                 int clobLength = (int) clob.length();
                 char[] charBuffer = new char[clobLength];
                 int offset = 0;
@@ -612,7 +608,7 @@ public abstract class JdbcValueHandler<T> {
         public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
             ObjectInputStream in = null;
             try (InputStream bis = rs.getBinaryStream(columnIndex)) {
-                
+
                 if (bis == null) {
                     return null;
                 }

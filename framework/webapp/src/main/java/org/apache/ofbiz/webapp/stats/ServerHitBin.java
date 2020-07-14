@@ -47,7 +47,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class ServerHitBin {
     // Debug MODULE name
-    public static final String MODULE = ServerHitBin.class.getName();
+    private static final String MODULE = ServerHitBin.class.getName();
 
     public static final int REQUEST = 1;
     public static final int EVENT = 2;
@@ -143,7 +143,7 @@ public class ServerHitBin {
         if (delegator == null) {
             throw new IllegalArgumentException("In countHit could not find a delegator or delegatorName to work from");
         }
-        
+
         String id = makeIdTenantAware(baseId, delegator);
 
         ServerHitBin bin = null;
@@ -496,9 +496,9 @@ public class ServerHitBin {
                 Debug.logInfo("The Visit GenericValue stored in the client session does not exist in the database, not storing server hit.", MODULE);
                 return;
             }
-            
+
             Debug.logInfo("Visit delegatorName=" + visit.getDelegator().getDelegatorName() + ", ServerHitBin delegatorName=" + this.delegator.getDelegatorName(), MODULE);
-            
+
             GenericValue serverHit = delegator.makeValue("ServerHit");
 
             serverHit.set("visitId", visitId);

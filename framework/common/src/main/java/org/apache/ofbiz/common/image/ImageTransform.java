@@ -50,8 +50,8 @@ import org.xml.sax.SAXException;
  */
 public class ImageTransform {
 
-    public static final String MODULE = ImageTransform.class.getName();
-    public static final String resource = "CommonErrorUiLabels";
+    private static final String MODULE = ImageTransform.class.getName();
+    private static final String RESOURCE = "CommonErrorUiLabels";
 
     public ImageTransform() {
     }
@@ -77,12 +77,12 @@ public class ImageTransform {
         try {
             bufImg = ImageIO.read(new File(fileLocation));
         } catch (IllegalArgumentException e) {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.input_is_null", locale) + " : " + fileLocation + " ; " + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.input_is_null", locale) + " : " + fileLocation + "; " + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         } catch (IOException e) {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + " ; " + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + "; " + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
@@ -126,7 +126,7 @@ public class ImageTransform {
             defaultWidth = -1;
         }
         if (defaultHeight == 0.0 || defaultWidth == 0.0) {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + " ; defaultWidth = " + defaultWidth;
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + "; defaultWidth = " + defaultWidth;
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
@@ -137,7 +137,7 @@ public class ImageTransform {
         if (defaultHeight == -1) {
             scaleFactor = defaultWidth / imgWidth;
             if (scaleFactor == 0.0) {
-                String errMsg = UtilProperties.getMessage(resource, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
+                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
@@ -145,7 +145,7 @@ public class ImageTransform {
         } else if (defaultWidth == -1) {
             scaleFactor = defaultHeight / imgHeight;
             if (scaleFactor == 0.0) {
-                String errMsg = UtilProperties.getMessage(resource, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
+                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
                 Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
@@ -153,7 +153,7 @@ public class ImageTransform {
         } else if (imgHeight > imgWidth) {
             scaleFactor = defaultHeight / imgHeight;
             if (scaleFactor == 0.0) {
-                String errMsg = UtilProperties.getMessage(resource, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
+                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
                 Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
@@ -165,7 +165,7 @@ public class ImageTransform {
         } else {
             scaleFactor = defaultWidth / imgWidth;
             if (scaleFactor == 0.0) {
-                String errMsg = UtilProperties.getMessage(resource, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
+                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
@@ -177,14 +177,14 @@ public class ImageTransform {
         }
 
         if (scaleFactor == 0.0) {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.final_scale_factor_is_null", locale) + " = " + scaleFactor;
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.final_scale_factor_is_null", locale) + " = " + scaleFactor;
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         }
         int bufImgType;
         if (BufferedImage.TYPE_CUSTOM == bufImg.getType()) {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.unknown_buffered_image_type", locale);
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.unknown_buffered_image_type", locale);
             Debug.logWarning(errMsg, MODULE);
             // apply a type for image majority
             bufImgType = BufferedImage.TYPE_INT_ARGB_PRE;
@@ -225,12 +225,12 @@ public class ImageTransform {
         try {
             document = UtilXml.readXmlDocument(new FileInputStream(fileFullPath), fileFullPath);
         } catch (ParserConfigurationException | SAXException e) {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.errors_occurred_during_parsing", locale) +  " ImageProperties.xml " + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.errors_occurred_during_parsing", locale) +  " ImageProperties.xml " + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, "error");
             return result;
         } catch (IOException e) {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_prevents_the document_from_being_fully_parsed", locale) + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_prevents_the document_from_being_fully_parsed", locale) + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, "error");
             return result;
@@ -239,7 +239,7 @@ public class ImageTransform {
         try {
             rootElt = document.getDocumentElement();
         } catch (IllegalStateException e) {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.root_element_has_not_been_set", locale) + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.root_element_has_not_been_set", locale) + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, "error");
             return result;
@@ -283,7 +283,7 @@ public class ImageTransform {
 
     public static BufferedImage toBufferedImage(Image image, int bufImgType) {
         /** Check if the image isn't already a BufferedImage instance */
-        if( image instanceof BufferedImage ) {
+        if ( image instanceof BufferedImage ) {
                 return( (BufferedImage)image );
         }
         /** Full image loading */
@@ -296,7 +296,7 @@ public class ImageTransform {
                     bufImgType);
 
         Graphics2D g = bufferedImage.createGraphics();
-        g.drawImage(image,0,0,null);
+        g.drawImage(image, 0, 0, null);
         g.dispose();
 
         return( bufferedImage );

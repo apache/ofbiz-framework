@@ -22,27 +22,6 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- order requirement methods -->
-    <simple-method method-name="createRequirementAndCommitment" short-description="create a requirement and commitment for it">
-        <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
-
-        <!-- Include the facilityId corresponding to this order by looking up the ProductStore -->
-        <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
-        <get-related-one value-field="orderHeader" relation-name="ProductStore" to-value-field="productStore" use-cache="true"/>
-        <if-not-empty field="productStore.inventoryFacilityId">
-            <set from-field="productStore.inventoryFacilityId" field="inputMap.facilityId"/>
-        </if-not-empty>
-
-        <call-service service-name="createRequirement" in-map-name="inputMap">
-            <result-to-field result-name="requirementId" field="parameters.requirementId"/>
-        </call-service>
-
-        <!-- create the OrderRequirementCommitment to record the Requirement created for an order item -->
-        <set-service-fields service-name="createOrderRequirementCommitment" map="parameters" to-map="orderReqCommitParams"/>
-        <call-service service-name="createOrderRequirementCommitment" in-map-name="orderReqCommitParams"/>
-
-        <field-to-result field="parameters.requirementId" result-name="requirementId"/>
-    </simple-method>
-
     <simple-method method-name="getProductFacilityAndQuantities" short-description="finds ProductFacility and QOH, ATP inventory for an inventoryItem">
         <!-- Get the ProductFacility for the minimum stock level -->
         <entity-one entity-name="ProductFacility" value-field="productFacility">
@@ -84,22 +63,6 @@ under the License.
                 </then>
             </if>
         </if-empty>
-    </simple-method>
-
-    <simple-method method-name="checkCreateOrderRequirement" short-description="Create OrderRequirementCommitment and Requirement">
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCheckCreateOrderRequirement"/>
-        </check-permission>
-        <check-errors/>
-        <call-simple-method method-name="getProductRequirementMethod"/>
-        <if-compare field="order.orderTypeId" operator="equals" value="SALES_ORDER">
-            <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_AUTO">
-                <!-- create the requirement -->
-                <set from-field="parameters.productId" field="inputMap.productId"/>
-                <set from-field="parameters.quantity" field="inputMap.quantity"/>
-                <call-simple-method method-name="createRequirementAndCommitment"/>
-            </if-compare>
-        </if-compare>
     </simple-method>
 
     <simple-method method-name="checkCreateStockRequirementQoh" short-description="Create a Requirement if QOH goes under the minimum stock level">
@@ -199,85 +162,6 @@ under the License.
                     </if-compare-field>
                 </if-compare-field>
             </if-not-empty>
-        </if-compare>
-    </simple-method>
-
-    <simple-method method-name="createRequirementFromItemATP" short-description="Create a Requirement for an item based on ATP inventory quantity and minimum">
-        <!-- NOTE DEJ20090902: this service is not called anywhere, instead the createATPRequirementsForOrder service (written in Java) is called; why this is the case I don't know... -->
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateRequirementFromItemATP"/>
-        </check-permission>
-        <check-errors/>
-
-        <!-- assumes that inventoryItemId is one of the parameters and get the inventory item of the reservation -->
-        <entity-one entity-name="InventoryItem" value-field="inventoryItem" auto-field-map="true"/>
-
-        <!-- find the requirement method for this product -->
-        <set from-field="inventoryItem.productId" field="parameters.productId"/>
-        <call-simple-method method-name="getProductRequirementMethod"/>
-
-        <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_ATP">
-            <!-- get the ATP, QOH quantities and the product facility's minimum stock -->
-            <call-simple-method method-name="getProductFacilityAndQuantities"/>
-
-            <if-empty field="productFacility">
-                <set field="minimumStock" value="0"/>
-                <else>
-                    <set field="minimumStock" from-field="productFacility.minimumStock"/>
-                </else>
-            </if-empty>
-            <!-- are we below minimum stock?  this service is supposed to be called after inventory is reserved, so inventory should have been updated already -->
-            <if-compare-field field="availableToPromiseTotal" to-field="minimumStock" operator="less" type="BigDecimal">
-                <!-- what is the right quantity?  It is the lesser of the actual quantity and the quantity required to bring us back up to minimum stock -->
-                <calculate field="quantityShortfall">
-                    <calcop operator="subtract" field="minimumStock">
-                        <calcop operator="get" field="availableToPromiseTotal"/>
-                    </calcop>
-                </calculate>
-                <if-compare-field field="quantityShortfall" operator="less" to-field="parameters.quantity" type="BigDecimal">
-                    <set from-field="quantityShortfall" field="inputMap.quantity"/>
-                <else>
-                    <set from-field="parameters.quantity" field="inputMap.quantity"/>
-                </else>
-                </if-compare-field>
-
-                <!-- TODO: we're not supporting the reorderQuantity of the productFacility.  It seems that altering the requirement quantity
-                    due to reorder quantities would affect the ability to link requirements and hence PO items back to the original order.
-                    If we can support it while at the same time linking requirements back to the original sales order, that would be better. -->
-                <set from-field="parameters.productId" field="inputMap.productId"/>
-                <set from-field="inventoryItem.facilityId" field="inputMap.facilityId"/>
-
-                <!-- Retrieve and total the quantities of existing requirements for the product/facility -->
-                <entity-condition entity-name="Requirement" list="requirements">
-                    <condition-list combine="and">
-                        <condition-expr field-name="productId" operator="equals" from-field="parameters.productId"/>
-                        <condition-expr field-name="requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT"/>
-                        <condition-expr field-name="facilityId" operator="equals" from-field="facilityId"/>
-                        <condition-expr field-name="statusId" operator="not-equals" value="REQ_ORDERED"/>
-                        <condition-expr field-name="statusId" operator="not-equals" value="REQ_REJECTED"/>
-                    </condition-list>
-                </entity-condition>
-                <iterate list="requirements" entry="requirement">
-                    <calculate field="existingRequirementTotal">
-                        <calcop operator="get" field="existingRequirementTotal"/>
-                        <calcop operator="get" field="requirement.quantity"/>
-                    </calculate>
-                </iterate>
-
-                <!-- Subtract the total quantity of existing requirements from the required quantity to determine if a new requirement needs to be created -->
-                <calculate field="newRequirementTotal">
-                    <calcop operator="subtract" field="inputMap.quantity">
-                        <calcop operator="get" field="existingRequirementTotal"/>
-                    </calcop>
-                </calculate>
-
-                <!-- If a new requirement needs to be created, create it for the difference between the required quantity and the total quantity of existing requirements -->
-                <if-compare field="newRequirementTotal" operator="greater-equals" value="0">
-                    <set from-field="inputMap.quantity" field="newRequirementTotal"/>
-                    <call-simple-method method-name="createRequirementAndCommitment"/>
-                </if-compare>
-
-            </if-compare-field>
         </if-compare>
     </simple-method>
 
@@ -1300,7 +1184,7 @@ under the License.
         </entity-one>
         <if-empty field="orderItemShipGroupAssoc">
             <add-error>
-                <fail-message message="The orderItemShipGroupAssoc qualified by orderId=${parameters.orderId} orderItemSeqId=${parameters.orderItemSeqId} shipGroupSeqId=${parameters.fromGroupIndex} does not exist"/>
+                <fail-property resource="OrderErrorUiLabels" property="OrderServiceOrderItemShipGroupAssocNotExist"/>
             </add-error>
         </if-empty>
         <check-errors/>

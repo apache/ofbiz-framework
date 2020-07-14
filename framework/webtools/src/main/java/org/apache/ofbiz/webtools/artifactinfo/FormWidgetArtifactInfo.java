@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class FormWidgetArtifactInfo extends ArtifactInfoBase {
-    public static final String MODULE = FormWidgetArtifactInfo.class.getName();
+    private static final String MODULE = FormWidgetArtifactInfo.class.getName();
 
     protected ModelForm modelForm;
 
@@ -61,11 +61,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         this.formLocation = formLocation;
         try {
             this.modelForm = aif.getModelForm(formName, formLocation);
-        } catch (ParserConfigurationException e) {
-            throw new GeneralException(e);
-        } catch (SAXException e) {
-            throw new GeneralException(e);
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | IOException | SAXException e) {
             throw new GeneralException(e);
         }
     }
@@ -147,7 +143,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
-    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException{
+    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
@@ -164,7 +160,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
         }
     }
-    protected void populateTargetedRequests(Set<String> allRequestUniqueId) throws GeneralException{
+    protected void populateTargetedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {

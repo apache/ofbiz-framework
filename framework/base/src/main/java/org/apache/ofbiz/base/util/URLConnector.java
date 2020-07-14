@@ -35,7 +35,7 @@ import org.apache.ofbiz.base.config.GenericConfigException;
  */
 public class URLConnector {
 
-    public static final String MODULE = URLConnector.class.getName();
+    private static final String MODULE = URLConnector.class.getName();
 
     private URLConnection connection = null;
     private URL url = null;
@@ -44,7 +44,7 @@ public class URLConnector {
     private boolean trustAnyCert = false;
     private int hostCertLevel = 2;
 
-    protected URLConnector() {}
+    protected URLConnector() { }
     protected URLConnector(URL url, String clientCertAlias, int hostCertLevel, boolean trustAnyCert) {
         this.clientCertAlias = clientCertAlias;
         this.url = url;

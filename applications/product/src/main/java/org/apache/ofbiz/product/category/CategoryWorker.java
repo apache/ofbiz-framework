@@ -51,9 +51,9 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class CategoryWorker {
 
-    public static final String MODULE = CategoryWorker.class.getName();
+    private static final String MODULE = CategoryWorker.class.getName();
 
-    private CategoryWorker () {}
+    private CategoryWorker() { }
 
     public static String getCatalogTopCategory(ServletRequest request, String defaultTopCategory) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -386,17 +386,14 @@ public final class CategoryWorker {
             getCategoryContentWrappers(catContentWrappers, subCat, request);
         }
     }
-    
     /**
-     * Returns a complete category trail - can be used for exporting proper category trees. 
-     * This is mostly useful when used in combination with bread-crumbs,  for building a 
+     * Returns a complete category trail - can be used for exporting proper category trees.
+     * This is mostly useful when used in combination with bread-crumbs,  for building a
      * faceted index tree, or to export a category tree for migration to another system.
      * Will create the tree from root point to categoryId.
-     * 
      * This method is not meant to be run on every request.
-     * Its best use is to generate the trail every so often and store somewhere 
-     * (a lucene/solr tree, entities, cache or so). 
-     * 
+     * Its best use is to generate the trail every so often and store somewhere
+     * (a lucene/solr tree, entities, cache or so).
      * @param dctx The DispatchContext that this service is operating in
      * @param context Map containing the input parameters
      * @return Map organized trail from root point to categoryId.

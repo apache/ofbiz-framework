@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
  */
 public final class CreateObject extends MethodOperation {
 
-    public static final String MODULE = CreateObject.class.getName();
+    private static final String MODULE = CreateObject.class.getName();
 
     private final String className;
     private final Class<?> targetClass;
@@ -112,7 +112,7 @@ public final class CreateObject extends MethodOperation {
         }
         try {
             Constructor<?> constructor = targetClass.getConstructor(parameterTypes);
-            fieldFma.put(methodContext.getEnvMap(),constructor.newInstance(args));
+            fieldFma.put(methodContext.getEnvMap(), constructor.newInstance(args));
         } catch (Exception e) {
             throw new MiniLangRuntimeException(e, this);
         }

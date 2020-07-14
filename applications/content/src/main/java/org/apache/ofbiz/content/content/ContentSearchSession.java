@@ -39,8 +39,8 @@ import org.apache.ofbiz.entity.Delegator;
 
 public class ContentSearchSession {
 
-    public static final String MODULE = ContentSearchSession.class.getName();
-    
+    private static final String MODULE = ContentSearchSession.class.getName();
+
     @SuppressWarnings("serial")
     public static class ContentSearchOptions implements java.io.Serializable {
         protected List<ContentSearchConstraint> constraintList = null;
@@ -189,7 +189,7 @@ public class ContentSearchSession {
             String contentId=(String) parameters.get("SEARCH_CONTENT_ID");
             String contentAssocTypeId=(String) parameters.get("contentAssocTypeId");
             boolean includeAllSubContents =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_CONTENTS"));
-            searchAddConstraint(new ContentSearch.ContentAssocConstraint(contentId,contentAssocTypeId,includeAllSubContents), session);
+            searchAddConstraint(new ContentSearch.ContentAssocConstraint(contentId, contentAssocTypeId, includeAllSubContents), session);
             constraintsChanged = true;
         }
 
@@ -204,7 +204,7 @@ public class ContentSearchSession {
             if (UtilValidate.isNotEmpty(parameters.get("thruDate"))) {
                 thruDate = Timestamp.valueOf((String) parameters.get("thruDate"));
             }
-            searchAddConstraint(new ContentSearch.LastUpdatedRangeConstraint(fromDate,thruDate), session);
+            searchAddConstraint(new ContentSearch.LastUpdatedRangeConstraint(fromDate, thruDate), session);
             constraintsChanged = true;
         }
 

@@ -43,13 +43,10 @@ public abstract class MethodOperation extends MiniLangElement {
      * Executes the operation.
      * Returns <code>true</code> if script execution should continue, or
      * <code>false</code> if script execution should stop.
-     * 
      * @throws MiniLangException */
     public abstract boolean exec(MethodContext methodContext) throws MiniLangException;
 
-    /** Create a string representation of the operation, using the current context.
-     * @deprecated No replacement.
-     */
+    /** Create a string representation of the operation, using the current context.*/
     @Deprecated
     public String expandedString(MethodContext methodContext) {
         return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());

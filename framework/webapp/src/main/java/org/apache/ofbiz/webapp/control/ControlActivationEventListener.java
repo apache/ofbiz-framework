@@ -30,9 +30,9 @@ import org.apache.ofbiz.base.util.UtilProperties;
  */
 public class ControlActivationEventListener implements HttpSessionActivationListener {
     // Debug MODULE name
-    public static final String MODULE = ControlActivationEventListener.class.getName();
+    private static final String MODULE = ControlActivationEventListener.class.getName();
 
-    public ControlActivationEventListener() {}
+    public ControlActivationEventListener() { }
 
     @Override
     public void sessionWillPassivate(HttpSessionEvent event) {
@@ -45,7 +45,6 @@ public class ControlActivationEventListener implements HttpSessionActivationList
         ControlEventListener.countActivateSession();
         Debug.logInfo("Activating session: " + showSessionId(event.getSession()), MODULE);
     }
-    
     public static String showSessionId(HttpSession session) {
         boolean showSessionIdInLog = UtilProperties.propertyValueEqualsIgnoreCase("requestHandler", "show-sessionId-in-log", "Y");
         if (showSessionIdInLog) {

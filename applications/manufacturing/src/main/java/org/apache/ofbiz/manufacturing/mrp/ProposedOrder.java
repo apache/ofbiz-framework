@@ -49,8 +49,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ProposedOrder {
 
-    public static final String MODULE = ProposedOrder.class.getName();
-    public static final String resource = "ManufacturingUiLabels";
+    private static final String MODULE = ProposedOrder.class.getName();
+    private static final String RESOURCE = "ManufacturingUiLabels";
 
     protected GenericValue product;
     protected boolean isBuilt;
@@ -114,7 +114,7 @@ public class ProposedOrder {
             List<GenericValue> listRoutingTaskAssoc = null;
             if (routing == null) {
                 try {
-                    Map<String, Object> routingInMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"), 
+                    Map<String, Object> routingInMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"),
                             "ignoreDefaultRouting", "Y", "userLogin", userLogin);
                     Map<String, Object> routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
                     if (ServiceUtil.isError(routingOutMap)) {
@@ -184,9 +184,9 @@ public class ProposedOrder {
                             // add the daysToShip at the end of the routing
                             totalTime += timeToShip;
                         }
-                        startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask),endDate, totalTime);
+                        startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask), endDate, totalTime);
                         // record the routingTask with the startDate associated
-                        result.put(routingTask.getString("workEffortId"),startDate);
+                        result.put(routingTask.getString("workEffortId"), startDate);
                         endDate = startDate;
                     }
                 }
@@ -243,7 +243,7 @@ public class ProposedOrder {
                 tree.print(bom);
                 requirementStartDate = tree.getRoot().getStartDate(manufacturingFacilityId, requiredByDate, true);
             } catch (Exception e) {
-                Debug.logError(e,"Error : computing the requirement start date. " + e.getMessage(), MODULE);
+                Debug.logError(e, "Error : computing the requirement start date. " + e.getMessage(), MODULE);
             }
         }
         parameters.put("productId", productId);
@@ -267,7 +267,7 @@ public class ProposedOrder {
             }
             return (String) result.get("requirementId");
         } catch (GenericServiceException e) {
-            Debug.logError(e,"Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), MODULE);
+            Debug.logError(e, "Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), MODULE);
             return null;
         }
     }

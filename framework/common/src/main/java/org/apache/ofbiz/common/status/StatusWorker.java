@@ -34,9 +34,9 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class StatusWorker {
 
-    public static final String MODULE = StatusWorker.class.getName();
+    private static final String MODULE = StatusWorker.class.getName();
 
-    private StatusWorker() {}
+    private StatusWorker() { }
 
     public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeId) {
         Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");

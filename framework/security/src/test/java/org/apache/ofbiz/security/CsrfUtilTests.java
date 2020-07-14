@@ -49,7 +49,7 @@ public class CsrfUtilTests {
         when(request.getSession()).thenReturn(session);
 
         // prepare the token map to be retrieved from session
-        Map<String, String> tokenMap = new LinkedHashMap<String, String>();
+        Map<String, String> tokenMap = new LinkedHashMap<>();
         tokenMap.put("uri_1", "abcd");
         when(session.getAttribute("CSRF-Token")).thenReturn(tokenMap);
 

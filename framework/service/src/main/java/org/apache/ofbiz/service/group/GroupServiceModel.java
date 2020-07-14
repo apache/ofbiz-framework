@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
  */
 public class GroupServiceModel {
 
-    public static final String MODULE = GroupServiceModel.class.getName();
+    private static final String MODULE = GroupServiceModel.class.getName();
 
     private String serviceName, serviceMode;
     private boolean resultToContext = false;

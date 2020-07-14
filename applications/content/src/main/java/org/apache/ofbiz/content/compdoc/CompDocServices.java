@@ -59,9 +59,9 @@ import com.lowagie.text.pdf.PdfReader;
  */
 
 public class CompDocServices {
-    public static final String MODULE = CompDocServices.class.getName();
-    public static final String resource = "ContentUiLabels";
-    
+    private static final String MODULE = CompDocServices.class.getName();
+    private static final String RESOURCE = "ContentUiLabels";
+
     /**
      *
      * Creates the topmost Content entity of a Composite Document tree.
@@ -76,9 +76,9 @@ public class CompDocServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale)context.get("locale");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
-        String contentId = (String)context.get("contentId");
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String contentId = (String) context.get("contentId");
 
         if (UtilValidate.isNotEmpty(contentId)) {
             try {
@@ -101,7 +101,7 @@ public class CompDocServices {
         try {
             Map<String, Object> persistContentResult = dispatcher.runSync("persistContentAndAssoc", persistMap);
             if (ServiceUtil.isError(persistContentResult)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, persistContentResult);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, persistContentResult);
             }
 
             contentId = (String) persistContentResult.get("contentId");
@@ -114,14 +114,14 @@ public class CompDocServices {
 
             Map<String, Object> persistRevResult = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
             if (ServiceUtil.isError(persistRevResult)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentRevisionAndItem"), locale), null, null, persistRevResult);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentRevisionAndItem"), locale), null, null, persistRevResult);
             }
 
             result.putAll(persistRevResult);
             return result;
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error running serviceName, 'persistContentAndAssoc'. " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale) + e.toString());
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale) + e.toString());
         }
     }
 
@@ -165,7 +165,7 @@ public class CompDocServices {
                 if (dataResource != null) {
                     inputMimeType = dataResource.getString("mimeTypeId");
                 }
-                byte [] inputByteArray = null;
+                byte[] inputByteArray = null;
                 PdfReader reader = null;
                 if (inputMimeType != null && "application/pdf".equals(inputMimeType)) {
                     ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
@@ -202,7 +202,7 @@ public class CompDocServices {
                             // Create AcroForm PDF
                             Map<String, Object> survey2PdfResults = dispatcher.runSync("buildPdfFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyId));
                             if (ServiceUtil.isError(survey2PdfResults)) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentSurveyErrorBuildingPDF", locale), null, null, survey2PdfResults);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorBuildingPDF", locale), null, null, survey2PdfResults);
                             }
 
                             ByteBuffer outByteBuffer = (ByteBuffer) survey2PdfResults.get("outByteBuffer");
@@ -212,7 +212,7 @@ public class CompDocServices {
                             // Fill in acroForm
                             Map<String, Object> survey2AcroFieldResults = dispatcher.runSync("setAcroFieldsFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
                             if (ServiceUtil.isError(survey2AcroFieldResults)) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentSurveyErrorSettingAcroFields", locale), null, null, survey2AcroFieldResults);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorSettingAcroFields", locale), null, null, survey2AcroFieldResults);
                             }
 
                             ByteBuffer outByteBuffer = (ByteBuffer) survey2AcroFieldResults.get("outByteBuffer");
@@ -221,11 +221,11 @@ public class CompDocServices {
                         }
                     }
                 } else {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentMimeTypeNotSupported", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentMimeTypeNotSupported", locale));
                 }
                 if (reader != null) {
                     int n = reader.getNumberOfPages();
-                    for (int i=0; i < n; i++) {
+                    for (int i = 0; i < n; i++) {
                         PdfImportedPage pg = writer.getImportedPage(reader, i + 1);
                         writer.addPage(pg);
                     }
@@ -323,16 +323,16 @@ public class CompDocServices {
                         // Create AcroForm PDF
                         Map<String, Object> survey2PdfResults = dispatcher.runSync("buildPdfFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
                         if (ServiceUtil.isError(survey2PdfResults)) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentSurveyErrorBuildingPDF", locale), null, null, survey2PdfResults);
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorBuildingPDF", locale), null, null, survey2PdfResults);
                         }
 
-                        ByteBuffer outByteBuffer = (ByteBuffer)survey2PdfResults.get("outByteBuffer");
+                        ByteBuffer outByteBuffer = (ByteBuffer) survey2PdfResults.get("outByteBuffer");
                         inputByteArray = outByteBuffer.array();
                     } else {
                         // Fill in acroForm
                         Map<String, Object> survey2AcroFieldResults = dispatcher.runSync("setAcroFieldsFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
                         if (ServiceUtil.isError(survey2AcroFieldResults)) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentSurveyErrorSettingAcroFields", locale), null, null, survey2AcroFieldResults);
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorSettingAcroFields", locale), null, null, survey2AcroFieldResults);
                         }
 
                         ByteBuffer outByteBuffer = (ByteBuffer) survey2AcroFieldResults.get("outByteBuffer");
@@ -340,7 +340,7 @@ public class CompDocServices {
                     }
                 }
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentMimeTypeNotSupported", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentMimeTypeNotSupported", locale));
             }
 
             if (inputByteArray == null) {

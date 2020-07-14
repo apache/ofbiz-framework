@@ -32,7 +32,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 public class DebugManagedDataSource<C extends Connection> extends ManagedDataSource<C> {
 
-    public static final String MODULE = DebugManagedDataSource.class.getName();
+    private static final String MODULE = DebugManagedDataSource.class.getName();
 
     public DebugManagedDataSource(ObjectPool<C> pool, TransactionRegistry transactionRegistry) {
         super(pool, transactionRegistry);

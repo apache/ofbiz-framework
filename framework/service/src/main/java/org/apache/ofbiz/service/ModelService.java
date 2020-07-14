@@ -94,7 +94,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             MODEL_SERVICE_FIELD_MAP.put(field.getName(), field);
         }
     }
-    public static final String MODULE = ModelService.class.getName();
+    private static final String MODULE = ModelService.class.getName();
 
     public static final String XSD = "http://www.w3.org/2001/XMLSchema";
     public static final String TNS = "http://ofbiz.apache.org/service/";
@@ -112,7 +112,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public static final String SUCCESS_MESSAGE = "successMessage";
     public static final String SUCCESS_MESSAGE_LIST = "successMessageList";
 
-    public static final String resource = "ServiceErrorUiLabels";
+    private static final String RESOURCE = "ServiceErrorUiLabels";
 
     /** The name of this service */
     public String name;
@@ -214,7 +214,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public Metrics metrics = null;
 
-    public ModelService() {}
+    public ModelService() { }
 
     public ModelService(ModelService model) {
         this.name = model.name;
@@ -670,7 +670,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             for (String key: missing) {
                 String msg = model.getParam(key).getPrimaryFailMessage(locale);
                 if (msg == null) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing", locale) ;
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing", locale);
                     msg = errMsg + " [" + mode + "] [" + model.name + "." + key + "]";
                 }
                 missingMsgs.add(msg);
@@ -1006,7 +1006,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         } else {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("hasPermission", Boolean.FALSE);
-            result.put("failMessage", UtilProperties.getMessage(resource, "ServicePermissionErrorDefinitionProblem", (Locale) context.get("locale")));
+            result.put("failMessage", UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorDefinitionProblem", (Locale) context.get("locale")));
             return result;
         }
     }

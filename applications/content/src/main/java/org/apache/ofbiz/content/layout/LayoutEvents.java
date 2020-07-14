@@ -55,7 +55,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class LayoutEvents {
 
-    public static final String MODULE = LayoutEvents.class.getName();
+    private static final String MODULE = LayoutEvents.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
     public static String createLayoutImage(HttpServletRequest request, HttpServletResponse response) {
@@ -161,11 +161,8 @@ public class LayoutEvents {
                 imageDataResource.set("imageData", byteWrap.array());
                 imageDataResource.store();
             }
-        } catch (GenericEntityException e3) {
+        } catch (GenericEntityException | GenericServiceException e3) {
             request.setAttribute("_ERROR_MESSAGE_", e3.getMessage());
-            return "error";
-        } catch (GenericServiceException e) {
-            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
         return "success";
@@ -393,18 +390,14 @@ public class LayoutEvents {
 
         // Can't count on records being unique
         Map<String, GenericValue> beenThere = new HashMap<>();
-        for (int i=0; i<entityList.size(); i++) {
-            GenericValue view = entityList.get(i);
+        for (GenericValue view : entityList) {
             List<Object> errorMessages = new LinkedList<>();
             if (locale == null) {
                 locale = Locale.getDefault();
             }
             try {
                 SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", view, serviceIn, errorMessages, locale);
-            } catch (IllegalArgumentException e) {
-                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                return "error";
-            } catch (MiniLangException e) {
+            } catch (IllegalArgumentException | MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -412,7 +405,9 @@ public class LayoutEvents {
             String mapKey = (String) view.get("caMapKey");
             Timestamp fromDate = (Timestamp) view.get("caFromDate");
             Timestamp thruDate = (Timestamp) view.get("caThruDate");
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, contentIdFrom:" + contentIdFrom + " fromDate:" + fromDate + " thruDate:" + thruDate + " mapKey:" + mapKey, "");
+            if (Debug.verboseOn())
+                Debug.logVerbose("in cloneLayout, contentIdFrom:" + contentIdFrom + " fromDate:" + fromDate + " thruDate:" + thruDate +
+                        " mapKey:" + mapKey, "");
             if (beenThere.get(contentIdFrom) == null) {
                 serviceIn.put("contentIdFrom", contentIdFrom);
                 serviceIn.put("contentIdTo", newId);
@@ -600,7 +595,7 @@ public class LayoutEvents {
             if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrName:" + attrName,"");
             if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrVal:" + attrVal,"");
             if (UtilValidate.isNotEmpty(attrVal)) {
-                passedPK.put(attrName,attrVal);
+                passedPK.put(attrName, attrVal);
             } else {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.empty", locale);
                 request.setAttribute("_ERROR_MESSAGE_", attrName + " " + errMsg);

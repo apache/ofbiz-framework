@@ -57,9 +57,9 @@ import org.w3c.dom.Element;
  */
 public final class EntityFinderUtil {
 
-    public static final String MODULE = EntityFinderUtil.class.getName();
+    private static final String MODULE = EntityFinderUtil.class.getName();
 
-    private EntityFinderUtil () {}
+    private EntityFinderUtil() { }
 
     public static Map<FlexibleMapAccessor<Object>, Object> makeFieldMap(Element element) {
         Map<FlexibleMapAccessor<Object>, Object> fieldMap = null;

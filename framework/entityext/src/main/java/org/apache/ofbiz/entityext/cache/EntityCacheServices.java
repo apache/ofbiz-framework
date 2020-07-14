@@ -41,13 +41,13 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class EntityCacheServices implements DistributedCacheClear {
 
-    public static final String MODULE = EntityCacheServices.class.getName();
+    private static final String MODULE = EntityCacheServices.class.getName();
 
     protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;
     protected String userLoginId = null;
 
-    public EntityCacheServices() {}
+    public EntityCacheServices() { }
 
     @Override
     public void setDelegator(Delegator delegator, String userLoginId) {

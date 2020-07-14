@@ -760,25 +760,14 @@ def updateProductGroupOrder() {
  */
 def deleteProductGroupOrder() {
     GenericValue productGroupOrder = from("ProductGroupOrder").where(parameters).queryOne()
-    if (!productGroupOrder) {
-        return error("ProductGroupOrder not found with id ${parameters.groupOrderId}")
-    }
-    delegator.removeByCondition("OrderItemGroupOrder", groupOrderId: parameters.groupOrderId)
     productGroupOrder.remove()
+    productGroupOrder.removeRelated("OrderItemGroupOrder")
 
     GenericValue jobSandbox = from("JobSandbox").where(jobId: productGroupOrder.jobId).queryOne()
-    if (!jobSandbox) {
-        return error("JobSandbox not found with id ${productGroupOrder.jobId}")
+    if (jobSandbox) {
+        jobSandbox.remove()
+        jobSandbox.removeRelated("RuntimeData")
     }
-    delegator.removeByCondition("JobSandbox", runtimeDataId: jobSandbox.runtimeDataId)
-    jobSandbox.remove()
-
-    GenericValue runtimeData = from("RuntimeData").where(runtimeDataId: jobSandbox.runtimeDataId).queryOne()
-    if (!runtimeData) {
-        return error("RuntimeData not found with id: ${jobSandbox.runtimeDataId}")
-    }
-    runtimeData.remove()
-
     return success()
 }
 

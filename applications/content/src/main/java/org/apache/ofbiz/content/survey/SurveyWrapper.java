@@ -60,7 +60,7 @@ import freemarker.template.TemplateException;
  */
 public class SurveyWrapper {
 
-    public static final String MODULE = SurveyWrapper.class.getName();
+    private static final String MODULE = SurveyWrapper.class.getName();
 
     protected Delegator delegator = null;
     protected String responseId = null;
@@ -71,7 +71,7 @@ public class SurveyWrapper {
     protected Map<String, Object> defaultValues = null;
     protected boolean edit = false;
 
-    protected SurveyWrapper() {}
+    protected SurveyWrapper() { }
 
     public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru, Map<String, Object> defaultValues) {
         this.delegator = delegator;
@@ -225,8 +225,8 @@ public class SurveyWrapper {
         Template template = null;
         try (
             InputStream templateStream = templateUrl.openStream();
-            InputStreamReader templateReader = new InputStreamReader(templateStream,StandardCharsets.UTF_8);
-                ){
+            InputStreamReader templateReader = new InputStreamReader(templateStream, StandardCharsets.UTF_8);
+                ) {
             template = new Template(templateUrl.toExternalForm(), templateReader, config);
         } catch (IOException e) {
             Debug.logError(e, "Unable to get template from URL :" + templateUrl.toExternalForm(), MODULE);

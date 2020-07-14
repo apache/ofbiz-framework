@@ -47,7 +47,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderSubContentAsText implements TemplateTransformModel {
 
-    public static final String MODULE = RenderSubContentAsText.class.getName();
+    private static final String MODULE = RenderSubContentAsText.class.getName();
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 

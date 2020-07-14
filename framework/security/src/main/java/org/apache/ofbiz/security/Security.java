@@ -36,17 +36,9 @@ import org.apache.ofbiz.entity.GenericValue;
  */
 public interface Security {
 
-    /**
-     *
-     * @deprecated No replacement.
-     */
     @Deprecated
     public Delegator getDelegator();
 
-    /**
-    *
-    * @deprecated No replacement.
-    */
     @Deprecated
     public void setDelegator(Delegator delegator);
 
@@ -56,22 +48,18 @@ public interface Security {
      * @param userLoginId The userLoginId to find security groups by
      * @return An iterator made from the Collection either cached or retrieved from the database through the
      *            UserLoginSecurityGroup Delegator.
-     *
-     * @deprecated No replacement.
      */
     @Deprecated
     public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId);
 
     /**
      * Finds whether or not a SecurityGroupPermission row exists given a groupId and permission.
-     * The groupId,permission pair is cached instead of the userLoginId,permission pair to keep the cache small and to
+     * The groupId, permission pair is cached instead of the userLoginId, permission pair to keep the cache small and to
      * make it more changeable.
      *
      * @param groupId The ID of the group
      * @param permission The name of the permission
      * @return boolean specifying whether or not a SecurityGroupPermission row exists
-     *
-     * @deprecated No replacement.
      */
     @Deprecated
     public boolean securityGroupPermissionExists(String groupId, String permission);

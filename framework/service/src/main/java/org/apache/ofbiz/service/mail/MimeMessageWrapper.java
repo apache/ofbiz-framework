@@ -48,7 +48,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 @SuppressWarnings("serial")
 public class MimeMessageWrapper implements java.io.Serializable {
 
-    public static final String MODULE = MimeMessageWrapper.class.getName();
+    private static final String MODULE = MimeMessageWrapper.class.getName();
     protected transient MimeMessage message = null;
     protected transient Session session = null;
     protected Properties mailProperties = null;
@@ -105,7 +105,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         if (message == null) {
             // deserialize the message
             if (serializedBytes != null) {
-                try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedBytes)){
+                try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedBytes)) {
                     message = new MimeMessage(this.getSession(), bais);
                 } catch (MessagingException | IOException e) {
                     Debug.logError(e, MODULE);
@@ -439,10 +439,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 mainIndex = Integer.parseInt(indexSplit[0]);
                 subIndex = Integer.parseInt(indexSplit[1]);
             }
-        } catch (NumberFormatException e) {
-            Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, MODULE);
-            return null;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, MODULE);
             return null;
         }

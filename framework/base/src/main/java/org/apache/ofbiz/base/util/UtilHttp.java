@@ -85,7 +85,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
  */
 public final class UtilHttp {
 
-    public static final String MODULE = UtilHttp.class.getName();
+    private static final String MODULE = UtilHttp.class.getName();
 
     private static final String MULTI_ROW_DELIMITER = "_o_";
     private static final String ROW_SUBMIT_PREFIX = "_rowSubmit_o_";
@@ -96,7 +96,7 @@ public final class UtilHttp {
     private static final String SESSION_KEY_TIMEZONE = "timeZone";
     private static final String SESSION_KEY_THEME = "visualTheme";
 
-    private UtilHttp () {}
+    private UtilHttp() { }
 
     /**
      * Create a combined map from servlet context, session, attributes and parameters
@@ -185,13 +185,11 @@ public final class UtilHttp {
             long maxUploadSize = getMaxUploadSize(delegator);
             int sizeThreshold = getSizeThreshold(delegator);
             File tmpUploadRepository = getTmpUploadRepository(delegator);
-            
             String encoding = request.getCharacterEncoding();
             // check for multipart content types which may have uploaded items
 
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             upload.setSizeMax(maxUploadSize);
-            
             // create the progress listener and add it to the session
             FileUploadProgressListener listener = new FileUploadProgressListener();
             upload.setProgressListener(listener);
@@ -334,7 +332,7 @@ public final class UtilHttp {
                     if (UtilValidate.isEmpty(paramMap.get(name))) {
                         paramMap.put(name, paramValue);
                     } else {
-                        if (paramMap.get(name) instanceof Collection<?>){
+                        if (paramMap.get(name) instanceof Collection<?>) {
                             List<String> valueList  = UtilGenerics.cast(paramMap.get(name));
                             valueList.add(paramValue);
                             paramMap.put(name, valueList);
@@ -1127,7 +1125,7 @@ public final class UtilHttp {
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private"); // HTTP/1.1
         response.setHeader("Pragma", "no-cache"); // HTTP/1.0
     }
-    
+
     public static void setResponseBrowserDefaultSecurityHeaders(HttpServletResponse resp, ConfigXMLReader.ViewMap viewMap) {
         // See https://cwiki.apache.org/confluence/display/OFBIZ/How+to+Secure+HTTP+Headers for details and how to test
         String xFrameOption = null;
@@ -1139,7 +1137,7 @@ public final class UtilHttp {
         }
         // Default to sameorigin
         if (UtilValidate.isNotEmpty(xFrameOption)) {
-            if(!"none".equals(xFrameOption)) {
+            if (!"none".equals(xFrameOption)) {
                 resp.addHeader("x-frame-options", xFrameOption);
             }
         } else {
@@ -1156,11 +1154,11 @@ public final class UtilHttp {
                 resp.addHeader("strict-transport-security", "max-age=31536000; includeSubDomains");
             }
         }
-        
+
         /** The only x-content-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type.
          This also applies to Google Chrome, when downloading extensions. */
         resp.addHeader("x-content-type-options", "nosniff");
-        
+
          /** This header enables the Cross-site scripting (XSS) filter built into most recent web browsers.
          It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user.
          This header is supported in IE 8+, and in Chrome (not sure which versions). The anti-XSS filter was added in Chrome 4. Its unknown if that version honored this header.
@@ -1168,14 +1166,10 @@ public final class UtilHttp {
          https://wiki.mozilla.org/Security/Features/XSS_Filter
          https://bugzilla.mozilla.org/show_bug.cgi?id=528661
          **/
-        resp.addHeader("X-XSS-Protection","1; mode=block");
-        
+        resp.addHeader("X-XSS-Protection", "1; mode=block");
         resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
-        
         resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
-        
         SameSiteFilter.addSameSiteCookieAttribute(resp);
-        
         // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate is renewed every 3 months)
     }
     

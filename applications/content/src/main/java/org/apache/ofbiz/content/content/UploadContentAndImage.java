@@ -63,10 +63,10 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class UploadContentAndImage {
 
-    public static final String MODULE = UploadContentAndImage.class.getName();
+    private static final String MODULE = UploadContentAndImage.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
 
-    public UploadContentAndImage() {}
+    public UploadContentAndImage() { }
 
     public static String uploadContentAndImage(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -79,7 +79,7 @@ public class UploadContentAndImage {
             long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
             int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
             File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-            
+
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             upload.setSizeMax(maxUploadSize);
             List<FileItem> lst = null;
@@ -102,8 +102,8 @@ public class UploadContentAndImage {
             FileItem fi = null;
             FileItem imageFi = null;
             byte[] imageBytes = {};
-            for (int i = 0; i < lst.size(); i++) {
-                fi = lst.get(i);
+            for (FileItem fileItem : lst) {
+                fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
                     String fieldStr = fi.getString();
@@ -124,7 +124,7 @@ public class UploadContentAndImage {
             String passedContentId = (String)passedParams.get("ftlContentId");
             List<String> targetOperationList = ContentWorker.prepTargetOperationList(passedParams, entityOperation);
             passedParams.put("targetOperationList", targetOperationList);
-            
+
             // Create or update FTL template
             Map<String, Object> ftlContext = new HashMap<>();
             ftlContext.put("userLogin", userLogin);
@@ -135,7 +135,7 @@ public class UploadContentAndImage {
             ftlContext.put("statusId", passedParams.get("statusId"));
             ftlContext.put("contentPurposeList", UtilMisc.toList(passedParams.get("contentPurposeList")));
             ftlContext.put("contentPurposeList", contentPurposeList);
-            ftlContext.put("targetOperationList",targetOperationList);
+            ftlContext.put("targetOperationList", targetOperationList);
             ftlContext.put("contentName", passedParams.get("contentName"));
             ftlContext.put("dataTemplateTypeId", passedParams.get("dataTemplateTypeId"));
             ftlContext.put("description", passedParams.get("description"));
@@ -207,7 +207,7 @@ public class UploadContentAndImage {
                 sumContext.put("contentTypeId", "DOCUMENT");
                 sumContext.put("statusId", passedParams.get("statusId"));
                 sumContext.put("contentPurposeList", UtilMisc.toList("SUMMARY"));
-                sumContext.put("targetOperationList",targetOperationList);
+                sumContext.put("targetOperationList", targetOperationList);
                 sumContext.put("contentName", passedParams.get("contentName"));
                 sumContext.put("description", passedParams.get("description"));
                 sumContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
@@ -237,7 +237,7 @@ public class UploadContentAndImage {
                 txtContext.put("contentTypeId", "DOCUMENT");
                 txtContext.put("statusId", passedParams.get("statusId"));
                 txtContext.put("contentPurposeList", UtilMisc.toList("MAIN_ARTICLE"));
-                txtContext.put("targetOperationList",targetOperationList);
+                txtContext.put("targetOperationList", targetOperationList);
                 txtContext.put("contentName", passedParams.get("contentName"));
                 txtContext.put("description", passedParams.get("description"));
                 txtContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
@@ -270,7 +270,7 @@ public class UploadContentAndImage {
                 imgContext.put("description", passedParams.get("description"));
                 imgContext.put("contentPurposeList", contentPurposeList);
                 imgContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
-                imgContext.put("targetOperationList",targetOperationList);
+                imgContext.put("targetOperationList", targetOperationList);
                 imgContext.put("dataResourceId", passedParams.get("imgDataResourceId"));
                 String dataResourceTypeId = "IMAGE_OBJECT";
                 imgContext.put("dataResourceTypeId", dataResourceTypeId);
@@ -345,7 +345,6 @@ public class UploadContentAndImage {
             long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
             int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
             File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-            
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             upload.setSizeMax(maxUploadSize);
 
@@ -369,8 +368,8 @@ public class UploadContentAndImage {
             FileItem imageFi = null;
             byte[] imageBytes;
             passedParams.put("userLogin", userLogin);
-            for (int i = 0; i < lst.size(); i++) {
-                fi = lst.get(i);
+            for (FileItem fileItem : lst) {
+                fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
                     String fieldStr = fi.getString();
@@ -398,9 +397,9 @@ public class UploadContentAndImage {
                 rowCount = 1;
             }
             TransactionUtil.begin();
-            for (int i=0; i < rowCount; i++) {
+            for (int i = 0; i < rowCount; i++) {
                 String suffix = "_o_" + i;
-                if (i==0) {
+                if (i == 0) {
                    suffix = "";
                 }
                 String returnMsg = processContentUpload(passedParams, suffix, request);
@@ -448,7 +447,7 @@ public class UploadContentAndImage {
             targetOperationString = (String)passedParams.get("targetOperationString");
         }
         List<String> targetOperationList = StringUtil.split(targetOperationString,"|");
-        ftlContext.put("targetOperationList",targetOperationList);
+        ftlContext.put("targetOperationList", targetOperationList);
 
         ftlContext.put("userLogin", userLogin);
         Object objSequenceNum = passedParams.get("caSequenceNum");

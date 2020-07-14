@@ -32,9 +32,9 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class ReportHelper {
 
-    public static final String MODULE = ReportHelper.class.getName();
+    private static final String MODULE = ReportHelper.class.getName();
 
-    private ReportHelper() {}
+    private ReportHelper() { }
 
 /**
  * Calculate conversion rates based on a List of visits and orders.  Designed to be used for reporting on

@@ -195,10 +195,14 @@ under the License.
             <#else>
               <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
             </#if>
-            <#--if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
-            <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
-              <#include "component://common-theme/template/includes/HelpLink.ftl" />
-              <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('<@ofbizUrl>showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}</@ofbizUrl>','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
+            <#if helpAnchor??>
+              <li><a class="help-link alert" href="${userDocUri!Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "userDocUri", delegator)}#${helpAnchor}" target="help" title="${uiLabelMap.CommonHelp}"></a></li>
+            <#else>
+              <#--if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
+              <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
+                <#include "component://common-theme/template/includes/HelpLink.ftl" />
+                <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('<@ofbizUrl>showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}</@ofbizUrl>','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
+              </#if>
             </#if>
             <#if userLogin??>
               <#if "Y" == (userPreferences.COMPACT_HEADER)?default("N")>

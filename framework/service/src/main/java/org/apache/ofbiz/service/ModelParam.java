@@ -40,7 +40,7 @@ import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 @SuppressWarnings("serial")
 public class ModelParam implements Serializable {
 
-    public static final String MODULE = ModelParam.class.getName();
+    private static final String MODULE = ModelParam.class.getName();
 
     /** Parameter name */
     public String name;
@@ -95,7 +95,7 @@ public class ModelParam implements Serializable {
     /** Is this Parameter set internally? */
     public boolean internal = false;
 
-    public ModelParam() {}
+    public ModelParam() { }
 
     public ModelParam(ModelParam param) {
         this.name = param.name;

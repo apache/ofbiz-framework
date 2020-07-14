@@ -31,7 +31,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class SalesOrderTest extends OFBizTestCase {
-    public static final String MODULE = OFBizTestCase.class.getName();
+    private static final String MODULE = OFBizTestCase.class.getName();
 
 
     public SalesOrderTest(String name) {

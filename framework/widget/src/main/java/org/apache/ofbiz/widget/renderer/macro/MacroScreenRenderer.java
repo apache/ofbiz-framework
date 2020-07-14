@@ -71,7 +71,7 @@ import freemarker.template.TemplateException;
 
 public class MacroScreenRenderer implements ScreenStringRenderer {
 
-    public static final String MODULE = MacroScreenRenderer.class.getName();
+    private static final String MODULE = MacroScreenRenderer.class.getName();
     private Template macroLibrary;
     private WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private String rendererName;
@@ -296,7 +296,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         StringWriter sr = new StringWriter();
         sr.append("<@renderLink ");
         sr.append("parameterList=");
-        sr.append(parameters.length()==0?"\"\"":parameters.toString());
+        sr.append(parameters.length() == 0 ? "\"\"" : parameters.toString());
         sr.append(" targetWindow=\"");
         sr.append(targetWindow);
         sr.append("\" target=\"");
@@ -334,7 +334,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     @Override
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenImage image) throws IOException {
         if (image == null) {
-            return ;
+            return;
         }
         String src = image.getSrc(context);
 
@@ -378,7 +378,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     public void renderContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
          String editRequest = content.getEditRequest(context);
          String enableEditName = content.getEnableEditName(context);
-         String enableEditValue = (String)context.get(enableEditName);
+         String enableEditValue = (String) context.get(enableEditName);
 
          if (Debug.verboseOn()) {
             Debug.logVerbose("directEditRequest:" + editRequest, MODULE);
@@ -458,7 +458,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String editMode = "Edit";
         String editRequest = content.getEditRequest(context);
         String enableEditName = content.getEnableEditName(context);
-        String enableEditValue = (String)context.get(enableEditName);
+        String enableEditValue = (String) context.get(enableEditName);
         String urlString = "";
         if (editRequest != null && editRequest.toUpperCase(Locale.getDefault()).indexOf("IMAGE") < 0) {
             editMode += " Image";
@@ -511,7 +511,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     @Override
     public void renderSubContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
          String enableEditName = content.getEnableEditName(context);
-         String enableEditValue = (String)context.get(enableEditName);
+         String enableEditValue = (String) context.get(enableEditName);
 
          Map<String, Object> parameters = new HashMap<>();
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
@@ -567,7 +567,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          String editMode = "Edit";
          String editRequest = content.getEditRequest(context);
          String enableEditName = content.getEnableEditName(context);
-         String enableEditValue = (String)context.get(enableEditName);
+         String enableEditValue = (String) context.get(enableEditName);
          String expandedContentId = content.getContentId(context);
          String expandedMapKey = content.getMapKey(context);
          String urlString = "";
@@ -662,12 +662,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         parameters.put("title", title);
         parameters.put("collapsible", collapsible);
         parameters.put("saveCollapsed", screenlet.saveCollapsed());
-        if (UtilValidate.isNotEmpty (screenlet.getId(context))) {
+        if (UtilValidate.isNotEmpty(screenlet.getId(context))) {
             parameters.put("id", screenlet.getId(context));
             parameters.put("collapsibleAreaId", screenlet.getId(context) + "_col");
         } else {
             parameters.put("id", "screenlet_" + screenLetsIdCounter);
-            parameters.put("collapsibleAreaId","screenlet_" + screenLetsIdCounter + "_col");
+            parameters.put("collapsibleAreaId", "screenlet_" + screenLetsIdCounter + "_col");
             screenLetsIdCounter++;
         }
         parameters.put("expandToolTip", expandToolTip);

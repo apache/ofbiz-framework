@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class EntityEcaRule implements java.io.Serializable {
 
-    public static final String MODULE = EntityEcaRule.class.getName();
+    private static final String MODULE = EntityEcaRule.class.getName();
 
     private final String entityName;
     private final String operationName;
@@ -132,16 +132,16 @@ public final class EntityEcaRule implements java.io.Serializable {
         }
         // Are fields tested in a condition missing? If so, we need to load them
         List<String> fieldsToLoad = new ArrayList<>();
-        for( String conditionFieldName : conditionFieldNames) {
-            if( value.get(conditionFieldName) == null) {
+        for (String conditionFieldName : conditionFieldNames) {
+            if (value.get(conditionFieldName) == null) {
                 fieldsToLoad.add(conditionFieldName);
             }
         }
 
-        if(!fieldsToLoad.isEmpty()) {
+        if (!fieldsToLoad.isEmpty()) {
             Delegator delegator = dctx.getDelegator();
             GenericValue oldValue =  EntityQuery.use(delegator).from(entityName).where(value.getPrimaryKey()).queryOne();
-            if(UtilValidate.isNotEmpty(oldValue)) {
+            if (UtilValidate.isNotEmpty(oldValue)) {
                 for (String fieldName : fieldsToLoad) {
                     value.put(fieldName, oldValue.get(fieldName));
                 }

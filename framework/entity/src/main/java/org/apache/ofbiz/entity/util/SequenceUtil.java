@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  */
 public class SequenceUtil {
 
-    public static final String MODULE = SequenceUtil.class.getName();
+    private static final String MODULE = SequenceUtil.class.getName();
 
     private final ConcurrentMap<String, SequenceBank> sequences = new ConcurrentHashMap<>();
     private final GenericHelperInfo helperInfo;

@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 public class WorkEffortKeywordIndex {
-    public static final String MODULE = WorkEffortKeywordIndex.class.getName();
+    private static final String MODULE = WorkEffortKeywordIndex.class.getName();
     public static void indexKeywords(GenericValue workEffort) throws GenericEntityException {
         if (workEffort == null) {
             return;

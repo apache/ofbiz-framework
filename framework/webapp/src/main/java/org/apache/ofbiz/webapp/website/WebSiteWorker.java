@@ -32,9 +32,9 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class WebSiteWorker {
 
-    public static final String MODULE = WebSiteWorker.class.getName();
+    private static final String MODULE = WebSiteWorker.class.getName();
 
-    private WebSiteWorker() {}
+    private WebSiteWorker() { }
 
     public static String getWebSiteId(ServletRequest request) {
         ServletContext ctx = request.getServletContext();

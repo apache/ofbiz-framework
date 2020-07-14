@@ -34,14 +34,14 @@ import junit.framework.TestResult;
 
 public class ServiceTest extends OFBizTestCase {
 
-    public static final String MODULE = ServiceTest.class.getName();
+    private static final String MODULE = ServiceTest.class.getName();
 
     protected String serviceName;
 
     /**
      * Tests of Service
      * @param caseName test case name
-     * @param mainElement DOM main element 
+     * @param mainElement DOM main element
      */
     public ServiceTest(String caseName, Element mainElement) {
         super(caseName);

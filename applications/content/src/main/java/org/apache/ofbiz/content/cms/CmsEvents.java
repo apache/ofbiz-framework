@@ -59,7 +59,7 @@ import freemarker.template.TemplateException;
  */
 public class CmsEvents {
 
-    public static final String MODULE = CmsEvents.class.getName();
+    private static final String MODULE = CmsEvents.class.getName();
 
     public static String cms(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -300,7 +300,7 @@ public class CmsEvents {
                     // TODO: replace "screen" to support dynamic rendering of different output
                     if (visualTheme == null) {
                         String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
-                        visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);  
+                        visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);
                     }
                     FormStringRenderer formStringRenderer = new MacroFormRenderer(visualTheme.getModelTheme().getFormRendererLocation("screen"), request, response);
                     templateMap.put("formStringRenderer", formStringRenderer);

@@ -36,12 +36,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-validate-method&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class ValidateMethodCondition extends MethodOperation implements Conditional {
 
-    public static final String MODULE = ValidateMethodCondition.class.getName();
+    private static final String MODULE = ValidateMethodCondition.class.getName();
     private static final Class<?>[] paramTypes = new Class<?>[] { String.class };
 
     private final String className;

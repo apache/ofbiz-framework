@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
  */
 public class TreeFactory {
 
-    public static final String MODULE = TreeFactory.class.getName();
+    private static final String MODULE = TreeFactory.class.getName();
 
     public static final UtilCache<String, Map<String, ModelTree>> treeLocationCache = UtilCache.createUtilCache("widget.tree.locationResource", 0, 0, false);
 

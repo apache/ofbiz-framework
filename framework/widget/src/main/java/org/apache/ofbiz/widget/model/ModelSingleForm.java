@@ -52,7 +52,7 @@ public class ModelSingleForm extends ModelForm {
      *
      */
 
-    public static final String MODULE = ModelSingleForm.class.getName();
+    private static final String MODULE = ModelSingleForm.class.getName();
 
     /** XML Constructor */
     public ModelSingleForm(Element formElement, String formLocation, ModelReader entityModelReader,

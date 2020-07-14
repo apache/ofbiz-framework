@@ -51,7 +51,7 @@ import freemarker.template.TransformControl;
  */
 public class TraverseSubContentTransform implements TemplateTransformModel {
 
-    public static final String MODULE = TraverseSubContentTransform.class.getName();
+    private static final String MODULE = TraverseSubContentTransform.class.getName();
     public static final String [] saveKeyNames = {"contentId", "subContentId", "mimeType", "subContentDataResourceView", "wrapTemplateId", "templateContentId", "pickWhen", "followWhen", "returnAfterPickWhen", "returnBeforePickWhen", "indent"};
     public static final String [] removeKeyNames = {"templateContentId", "subDataResourceTypeId", "mapKey", "wrappedFTL", "nodeTrail"};
 
@@ -181,12 +181,12 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             @Override
             public int afterBody() throws TemplateModelException, IOException {
                 List<Map<String, Object>> nodeTrail = UtilGenerics.cast(traverseContext.get("nodeTrail"));
-                ContentWorker.traceNodeTrail("6",nodeTrail);
+                ContentWorker.traceNodeTrail("6", nodeTrail);
                 boolean inProgress = ContentWorker.traverseSubContent(traverseContext);
-                ContentWorker.traceNodeTrail("7",nodeTrail);
+                ContentWorker.traceNodeTrail("7", nodeTrail);
                 if (inProgress) {
                     populateContext(traverseContext, templateCtx);
-                    ContentWorker.traceNodeTrail("8",nodeTrail);
+                    ContentWorker.traceNodeTrail("8", nodeTrail);
                     return TransformControl.REPEAT_EVALUATION;
                 } else
                     return TransformControl.END_EVALUATION;

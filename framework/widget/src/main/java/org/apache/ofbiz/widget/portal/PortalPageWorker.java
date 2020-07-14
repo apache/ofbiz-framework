@@ -42,7 +42,7 @@ import org.apache.ofbiz.widget.WidgetWorker;
  */
 public class PortalPageWorker {
 
-    public static final String MODULE = PortalPageWorker.class.getName();
+    private static final String MODULE = PortalPageWorker.class.getName();
 
     public PortalPageWorker() { }
 
@@ -72,7 +72,7 @@ public class PortalPageWorker {
                 portalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
                 List<GenericValue> userPortalPages = new ArrayList<>();
                 if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
-                    String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
+                    String userLoginId = ((GenericValue) context.get("userLogin")).getString("userLoginId");
                     // replace with private pages
                     for (GenericValue portalPage : portalPages) {
                         List<GenericValue> privatePortalPages = EntityQuery.use(delegator)
@@ -111,9 +111,9 @@ public class PortalPageWorker {
                 // Get the current userLoginId
                 String userLoginId = "_NA_";
                 if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
-                    userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
+                    userLoginId = ((GenericValue) context.get("userLogin")).getString("userLoginId");
                 }
-                
+
                 // Get the PortalPage ensuring that it is either owned by the user or a system page
                 EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, portalPageId),
@@ -126,7 +126,6 @@ public class PortalPageWorker {
                 if (UtilValidate.isNotEmpty(portalPages)) {
                     portalPage = EntityUtil.getFirst(portalPages);
                 }
-                
                 // If a derived PortalPage private to the user exists, returns this instead of the system one
                 cond = EntityCondition.makeCondition(UtilMisc.toList(
                         EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPageId),
@@ -171,7 +170,6 @@ public class PortalPageWorker {
             }
         }
 
-        return userIsAllowed;       
+        return userIsAllowed;
     }
-    
 }

@@ -245,10 +245,10 @@ public class EntityQueryTestSuite extends EntityTestCase {
         delegator.create("TestingNode", "testingNodeId", "testingNode-3");
         delegator.create("TestingNode", "testingNodeId", "testingNode-4");
 
-        delegator.create("TestingNodeMember", "testingNodeId", "testingNode-1","testingId", "testing-1", "fromDate", UtilDateTime.nowTimestamp(), "thruDate", UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()));
-        delegator.create("TestingNodeMember", "testingNodeId", "testingNode-2","testingId", "testing-2", "fromDate", UtilDateTime.nowTimestamp(), "thruDate", UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()));
-        delegator.create("TestingNodeMember", "testingNodeId", "testingNode-3","testingId", "testing-3", "fromDate", UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()), "thruDate", UtilDateTime.getWeekEnd(UtilDateTime.nowTimestamp()));
-        delegator.create("TestingNodeMember", "testingNodeId", "testingNode-4","testingId", "testing-4", "fromDate", UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp()), "thruDate", UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp()));
+        delegator.create("TestingNodeMember", "testingNodeId", "testingNode-1", "testingId", "testing-1", "fromDate", UtilDateTime.nowTimestamp(), "thruDate", UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()));
+        delegator.create("TestingNodeMember", "testingNodeId", "testingNode-2", "testingId", "testing-2", "fromDate", UtilDateTime.nowTimestamp(), "thruDate", UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()));
+        delegator.create("TestingNodeMember", "testingNodeId", "testingNode-3", "testingId", "testing-3", "fromDate", UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()), "thruDate", UtilDateTime.getWeekEnd(UtilDateTime.nowTimestamp()));
+        delegator.create("TestingNodeMember", "testingNodeId", "testingNode-4", "testingId", "testing-4", "fromDate", UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp()), "thruDate", UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp()));
 
         List<GenericValue> filteredByEntityUtil = EntityUtil.filterByDate(delegator.findList("TestingNodeMember", null, null, UtilMisc.toList("testingNodeId"), null, false));
         List<GenericValue> filteredByEntityQuery = EntityQuery.use(delegator).from("TestingNodeMember").filterByDate().orderBy("testingNodeId").queryList();

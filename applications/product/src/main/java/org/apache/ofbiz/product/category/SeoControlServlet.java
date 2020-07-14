@@ -39,11 +39,10 @@ import org.apache.ofbiz.webapp.control.ControlServlet;
 @SuppressWarnings("serial")
 public class SeoControlServlet extends ControlServlet {
 
-    public static final String MODULE = SeoControlServlet.class.getName();
+    private static final String MODULE = SeoControlServlet.class.getName();
 
     private static String defaultPage = null;
     private static String controlServlet = null;
-    
     public static final String REQUEST_IN_ALLOW_LIST = "_REQUEST_IN_ALLOW_LIST_";
 
     public SeoControlServlet() {
@@ -69,7 +68,7 @@ public class SeoControlServlet extends ControlServlet {
 
         SeoConfigUtil.init();
     }
-    
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = URLEncoder.encode(request.getRequestURI(), "UTF-8");

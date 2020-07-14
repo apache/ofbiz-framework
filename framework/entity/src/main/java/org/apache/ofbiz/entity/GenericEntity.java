@@ -77,7 +77,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable {
 
-    public static final String MODULE = GenericEntity.class.getName();
+    private static final String MODULE = GenericEntity.class.getName();
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
     public static final NullField NULL_FIELD = new NullField();
 
@@ -878,7 +878,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         keyBuffer.append('.');
         keyBuffer.append(name);
         // finish off by adding the values of all PK fields
-        if (modelEntity instanceof ModelViewEntity){
+        if (modelEntity instanceof ModelViewEntity) {
             // retrieve pkNames of realEntity
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
             List<String> pkNamesToUse = new LinkedList<>();
@@ -891,7 +891,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 //search aliasName for pkField of realEntity
                 while (iterAlias != null && iterAlias.hasNext()) {
                     ModelAlias aliasField = iterAlias.next();
-                    if (aliasField.getField().equals(curField.getName())){
+                    if (aliasField.getField().equals(curField.getName())) {
                         ModelEntity memberModelEntity = modelViewEntity.getMemberModelEntity(aliasField.getEntityAlias());
                         if (memberModelEntity.getEntityName().equals(modelEntityToUse.getEntityName())) {
                             pkName = aliasField.getName();

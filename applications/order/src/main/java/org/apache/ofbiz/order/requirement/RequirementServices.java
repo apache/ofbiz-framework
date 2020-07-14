@@ -55,8 +55,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class RequirementServices {
 
-    public static final String MODULE = RequirementServices.class.getName();
-    public static final String resource_error = "OrderErrorUiLabels";
+    private static final String MODULE = RequirementServices.class.getName();
+    private static final String RES_ERROR = "OrderErrorUiLabels";
 
     public static Map<String, Object> getRequirementsForSupplier(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
@@ -201,10 +201,10 @@ public class RequirementServices {
             return results;
         } catch (GenericServiceException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderServiceExceptionSeeLogs", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderServiceExceptionSeeLogs", locale));
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderEntityExceptionSeeLogs", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderEntityExceptionSeeLogs", locale));
         }
     }
 
@@ -249,9 +249,7 @@ public class RequirementServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
                 }
             }
-        } catch (GenericEntityException e) {
-            Debug.logError(e, MODULE);
-        } catch (GenericServiceException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();
@@ -345,9 +343,7 @@ public class RequirementServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
                 }
             }
-        } catch (GenericEntityException e) {
-            Debug.logError(e, MODULE);
-        } catch (GenericServiceException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();
@@ -360,7 +356,7 @@ public class RequirementServices {
         String orderId = (String) context.get("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         try {
-            for(GenericValue orderItem: orh.getOrderItems()){
+            for (GenericValue orderItem: orh.getOrderItems()) {
                 GenericValue orderRequirementCommitment = EntityQuery.use(delegator).from("OrderRequirementCommitment")
                         .where(UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId")))
                         .queryFirst();
@@ -375,9 +371,7 @@ public class RequirementServices {
                     }
                 }
             }
-        } catch(GenericEntityException e){
-            Debug.logError(e, MODULE);
-        } catch(GenericServiceException e){
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();

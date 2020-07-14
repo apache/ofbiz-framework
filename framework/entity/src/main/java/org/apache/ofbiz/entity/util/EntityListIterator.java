@@ -45,7 +45,7 @@ import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
 public class EntityListIterator implements AutoCloseable, ListIterator<GenericValue> {
 
     /** Module Name Used for debugging */
-    public static final String MODULE = EntityListIterator.class.getName();
+    private static final String MODULE = EntityListIterator.class.getName();
 
     protected SQLProcessor sqlp;
     protected ResultSet resultSet;
@@ -91,7 +91,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the cursor position to just after the last result so that previous() will return the last result.
-     * 
      * @throws GenericEntityException
      *             if a database error occurs.
      */
@@ -106,7 +105,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the cursor position to just before the first result so that next() will return the first result.
-     * 
      * @throws GenericEntityException
      *             if a database error occurs.
      */
@@ -121,7 +119,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the cursor position to last result.
-     * 
      * @return true if the result set is not empty.
      * @throws GenericEntityException
      *             if a database error occurs.
@@ -137,7 +134,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the cursor position to first result.
-     * 
      * @return true if the result set is not empty.
      * @throws GenericEntityException
      *             in case of a database error.
@@ -253,7 +249,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      * performs the same function as the {@link ResultSet#relative(int)} method.
      * if rows is positive, goes forward relative to the current position;
      * if rows is negative, goes backward relative to the current position;
-     * 
      * @param rows
      *            the amount of rows to move.
      * @return true if the cursor is on a row.
@@ -387,7 +382,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the fetch size of the result set to the given value.
-     * 
      * @param rows
      *            the fetch size
      * @throws GenericEntityException

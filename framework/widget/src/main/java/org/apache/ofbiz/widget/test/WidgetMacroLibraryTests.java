@@ -34,7 +34,7 @@ import org.apache.tika.sax.BodyContentHandler;
 
 public class WidgetMacroLibraryTests extends OFBizTestCase {
 
-    protected String screenUrl = "https://localhost:8443/webtools/control/WebtoolsLayoutDemo" ; //use existing screen to present most of layout use case
+    protected String screenUrl = "https://localhost:8443/webtools/control/WebtoolsLayoutDemo"; //use existing screen to present most of layout use case
     protected final String authentificationQuery = "?USERNAME=admin&PASSWORD=ofbiz";
 
     public WidgetMacroLibraryTests(String name) {

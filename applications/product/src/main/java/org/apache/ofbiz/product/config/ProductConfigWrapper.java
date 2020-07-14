@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class ProductConfigWrapper implements Serializable {
 
-    public static final String MODULE = ProductConfigWrapper.class.getName();
+    private static final String MODULE = ProductConfigWrapper.class.getName();
 
     protected transient LocalDispatcher dispatcher;
     protected String dispatcherName;
@@ -572,7 +572,7 @@ public class ProductConfigWrapper implements Serializable {
                 BigDecimal listPrice = BigDecimal.ZERO;
                 BigDecimal price = BigDecimal.ZERO;
                 // Get the component's price
-                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponent.getRelatedOne("ProductProduct", false), "prodCatalogId", catalogId, "webSiteId", webSiteId, "currencyUomId", currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", autoUserLogin, "productStoreId",productStoreId);
+                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponent.getRelatedOne("ProductProduct", false), "prodCatalogId", catalogId, "webSiteId", webSiteId, "currencyUomId", currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", autoUserLogin, "productStoreId", productStoreId);
                 Map<String, Object> priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
                 if (ServiceUtil.isError(priceMap)) {
                     String errorMessage = ServiceUtil.getErrorMessage(priceMap);
@@ -646,7 +646,7 @@ public class ProductConfigWrapper implements Serializable {
                 }
 
                 // Get the component's price
-                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponentProduct, "prodCatalogId", pcw.catalogId, "webSiteId", pcw.webSiteId, "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", pcw.autoUserLogin, "productStoreId",productStoreId);
+                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponentProduct, "prodCatalogId", pcw.catalogId, "webSiteId", pcw.webSiteId, "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", pcw.autoUserLogin, "productStoreId", productStoreId);
                 Map<String, Object> priceMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
                 Map<String, Object> purchasePriceResultMap = dispatcher.runSync("calculateProductPrice", fieldMap);
                 if (ServiceUtil.isError(purchasePriceResultMap)) {

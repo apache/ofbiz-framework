@@ -38,9 +38,9 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class OrderChangeHelper {
 
-    public static final String MODULE = OrderChangeHelper.class.getName();
+    private static final String MODULE = OrderChangeHelper.class.getName();
 
-    private OrderChangeHelper() {}
+    private OrderChangeHelper() { }
 
     public static boolean approveOrder(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) {
         return approveOrder(dispatcher, userLogin, orderId, false);
@@ -93,7 +93,7 @@ public final class OrderChangeHelper {
         try {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, null, ITEM_STATUS, null);
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
-            OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
+            OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, MODULE);
             return false;
@@ -127,7 +127,7 @@ public final class OrderChangeHelper {
         try {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, null, ITEM_STATUS, null);
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
-            OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
+            OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, MODULE);
             return false;

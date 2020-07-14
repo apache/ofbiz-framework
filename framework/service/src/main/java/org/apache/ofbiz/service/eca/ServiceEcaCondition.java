@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ServiceEcaCondition implements java.io.Serializable {
 
-    public static final String MODULE = ServiceEcaCondition.class.getName();
+    private static final String MODULE = ServiceEcaCondition.class.getName();
 
     protected String conditionService = null;
     protected String lhsValueName = null;
@@ -53,7 +53,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
     protected boolean isConstant = false;
     protected boolean isService = false;
 
-    protected ServiceEcaCondition() {}
+    protected ServiceEcaCondition() { }
 
     public ServiceEcaCondition(Element condition, boolean isConstant, boolean isService) {
         if (isService) {

@@ -54,7 +54,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public final class ProductStoreWorker {
 
-    public static final String MODULE = ProductStoreWorker.class.getName();
+    private static final String MODULE = ProductStoreWorker.class.getName();
     private static Map<String, String> defaultProductStoreEmailScreenLocation = new HashMap<>();
 
     static {
@@ -81,7 +81,7 @@ public final class ProductStoreWorker {
         defaultProductStoreEmailScreenLocation.put("PRDS_CUST_REGISTER", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
     }
 
-    private ProductStoreWorker() {}
+    private ProductStoreWorker() { }
 
     public static GenericValue getProductStore(String productStoreId, Delegator delegator) {
         if (productStoreId == null || delegator == null) {
@@ -139,7 +139,7 @@ public final class ProductStoreWorker {
             return UtilHttp.getLocale(request, request.getSession(), productStore.getString("defaultLocaleString"));
         }
     }
-    
+
     public static TimeZone getStoreTimeZone(HttpServletRequest request) {
         GenericValue productStore = getProductStore(request);
         if (UtilValidate.isEmpty(productStore)) {
@@ -479,7 +479,7 @@ public final class ProductStoreWorker {
     }
 
     public static List<GenericValue> getProductSurveys(Delegator delegator, String productStoreId, String productId, String surveyApplTypeId, String parentProductId) {
-        return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId,parentProductId);
+        return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId, parentProductId);
     }
 
     public static List<GenericValue> getSurveys(Delegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {
@@ -500,7 +500,7 @@ public final class ProductStoreWorker {
             storeSurveys = EntityUtil.filterByAnd(storeSurveys, UtilMisc.toMap("groupName", groupName));
         }
 
-         Debug.logInfo("getSurvey for product " + productId,MODULE);
+         Debug.logInfo("getSurvey for product " + productId, MODULE);
         // limit by product
         if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(storeSurveys)) {
             for (GenericValue surveyAppl: storeSurveys) {
@@ -517,7 +517,7 @@ public final class ProductStoreWorker {
                         else {
                             virtualProductId = ProductWorker.getVariantVirtualId(product);
                         }
-                        Debug.logInfo("getSurvey for virtual product " + virtualProductId,MODULE);
+                        Debug.logInfo("getSurvey for virtual product " + virtualProductId, MODULE);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problem finding product from productId " + productId, MODULE);

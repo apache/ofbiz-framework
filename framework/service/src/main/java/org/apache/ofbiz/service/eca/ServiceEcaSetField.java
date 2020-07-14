@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public class ServiceEcaSetField {
 
-    public static final String MODULE = ServiceEcaSetField.class.getName();
+    private static final String MODULE = ServiceEcaSetField.class.getName();
 
     protected String fieldName = null;
     protected String mapName = null;

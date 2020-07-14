@@ -55,8 +55,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class CategoryServices {
 
-    public static final String MODULE = CategoryServices.class.getName();
-    public static final String resourceError = "ProductErrorUiLabels";
+    private static final String MODULE = CategoryServices.class.getName();
+    private static final String RES_ERROR = "ProductErrorUiLabels";
 
     public static Map<String, Object> getCategoryMembers(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -71,7 +71,7 @@ public class CategoryServices {
             if (Debug.verboseOn()) Debug.logVerbose("Category: " + productCategory + " Member Size: " + members.size() + " Members: " + members, MODULE);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem reading product categories: " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "categoryservices.problems_reading_category_entity", 
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
@@ -90,9 +90,9 @@ public class CategoryServices {
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
         Locale locale = (Locale) context.get("locale");
-        
+
         if (index == null && productId == null) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.problems_getting_next_products", locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.problems_getting_next_products", locale));
         }
 
         List<String> orderByFields = UtilGenerics.cast(context.get("orderByFields"));
@@ -106,7 +106,7 @@ public class CategoryServices {
             productCategoryMembers = EntityQuery.use(delegator).from(entityName).where("productCategoryId", categoryId).orderBy(orderByFields).cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logInfo(e, "Error finding previous/next product info: " + e.toString(), MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.error_find_next_products", UtilMisc.toMap("errMessage", e.getMessage()), locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.error_find_next_products", UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
@@ -134,7 +134,7 @@ public class CategoryServices {
 
         if (index == null) {
             // this is not going to be an error condition because we don't want it to be so critical, ie rolling back the transaction and such
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.product_not_found", locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.product_not_found", locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -275,7 +275,6 @@ public class CategoryServices {
             lowIndex = 0;
             highIndex = 0;
         }
-        
         boolean filterOutOfStock = false;
         try {
             String productStoreId = (String) context.get("productStoreId");
@@ -309,7 +308,6 @@ public class CategoryServices {
                     if (!filterConditions.isEmpty()) {
                         productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
                     }
-                    
                     // filter out of stock products
                     if (filterOutOfStock) {
                         try {
@@ -324,7 +322,7 @@ public class CategoryServices {
                     }
 
                     // set the index and size
-                    listSize = productCategoryMembers.size();         
+                    listSize = productCategoryMembers.size();
                     if (limitView) {
                         // limit high index to (filtered) listSize
                         if (highIndex > listSize) {
@@ -366,7 +364,6 @@ public class CategoryServices {
                             .orderBy(orderByFields)
                             .cursorScrollInsensitive()
                             .maxRows(highIndex);
-                    
                     try (EntityListIterator pli = eq.queryIterator()) {
                         // get the partial list for this page
                         if (limitView) {
@@ -376,7 +373,7 @@ public class CategoryServices {
                                 GenericValue nextValue;
                                 int chunkSize = 0;
                                 listSize = 0;
-    
+
                                 while ((nextValue = pli.next()) != null) {
                                     String productId = nextValue.getString("productId");
                                     if (CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
@@ -397,7 +394,6 @@ public class CategoryServices {
                                 // filter out the view allow
                                 productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
                             }
-    
                             listSize = productCategoryMembers.size();
                             lowIndex = 1;
                             highIndex = listSize;
@@ -440,7 +436,7 @@ public class CategoryServices {
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
     @SuppressWarnings("unchecked")
-    public static String getChildCategoryTree(HttpServletRequest request, HttpServletResponse response){
+    public static String getChildCategoryTree(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productCategoryId = request.getParameter("productCategoryId");
         String isCatalog = request.getParameter("isCatalog");
@@ -470,19 +466,17 @@ public class CategoryServices {
                 if ("true".equals(isCatalog) && "false".equals(isCategoryType)) {
                     CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request, productCategoryId), true);
                     childOfCats = EntityUtil.filterByDate((List<GenericValue>) request.getAttribute("ChildCatalogList"));
-                    
-                } else if("false".equals(isCatalog) && "false".equals(isCategoryType)){
+
+                } else if ("false".equals(isCatalog) && "false".equals(isCategoryType)) {
                     childOfCats = EntityQuery.use(delegator).from("ProductCategoryRollupAndChild").where("parentProductCategoryId", productCategoryId).filterByDate().queryList();
                 } else {
                     childOfCats = EntityQuery.use(delegator).from("ProdCatalogCategory").where("prodCatalogId", productCategoryId).filterByDate().queryList();
                 }
                 if (UtilValidate.isNotEmpty(childOfCats)) {
-                        
                     for (GenericValue childOfCat : childOfCats ) {
-                        
                         Object catId = null;
                         String catNameField = null;
-                        
+
                         catId = childOfCat.get("productCategoryId");
                         catNameField = "CATEGORY_NAME";
 
@@ -493,7 +487,7 @@ public class CategoryServices {
                         childList = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", catId).filterByDate().queryList();
 
                         // Get the chosen category information for the categoryContentWrapper
-                        GenericValue cate = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId",catId).queryOne();
+                        GenericValue cate = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", catId).queryOne();
 
                         // If chosen category's child exists, then put the arrow before category icon
                         if (UtilValidate.isNotEmpty(childList)) {

@@ -80,21 +80,21 @@ import com.thoughtworks.xstream.XStream;
  */
 public final class UtilXml {
 
-    public static final String MODULE = UtilXml.class.getName();
+    private static final String MODULE = UtilXml.class.getName();
     private static final XStream xstream = createXStream();
-    private UtilXml () {}
+    private UtilXml() { }
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
-        /* This method is a pure helper method for XStream 1.4.x. 
+        /* This method is a pure helper method for XStream 1.4.x.
          * It initializes an XStream instance with a white list of well-known and simple types of the Java runtime
          *  as it is done in XStream 1.5.x by default. This method will do therefore nothing in XStream 1.5
-         *  and could be removed them  
-         */ 
-        XStream.setupDefaultSecurity(xstream); 
-        /* You may want to enhance the white list created by XStream::setupDefaultSecurity (or by default with XStream 1.5) 
+         *  and could be removed them
+         */
+        XStream.setupDefaultSecurity(xstream);
+        /* You may want to enhance the white list created by XStream::setupDefaultSecurity (or by default with XStream 1.5)
          * using xstream::allowTypesByWildcard with your own classes
-         */  
+         */
         return xstream;
     }
 
@@ -110,7 +110,7 @@ public final class UtilXml {
      */
     public static DOMImplementationLS getDomLsImplementation() throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-        return (DOMImplementationLS)registry.getDOMImplementation("LS");
+        return (DOMImplementationLS) registry.getDOMImplementation("LS");
     }
 
     /** Returns a <code>LSOutput</code> instance.
@@ -325,14 +325,8 @@ public final class UtilXml {
             return;
         }
         File outFile = new File(filename);
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(outFile);
+        try (FileOutputStream fos = new FileOutputStream(outFile)) {
             writeXmlDocument(fos, node);
-        } finally {
-            if (fos != null) {
-                fos.close();
-            }
         }
     }
 
@@ -834,7 +828,7 @@ public final class UtilXml {
         if (node != null) {
             do {
                 String nodeName = node.getLocalName();
-                if (nodeName == null){
+                if (nodeName == null) {
                     nodeName = UtilXml.getNodeNameIgnorePrefix(node);
                 }
                 if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
@@ -1178,12 +1172,12 @@ public final class UtilXml {
      * @param node
      * @return nodeName
      */
-    public static String getNodeNameIgnorePrefix(Node node){
-        if (node==null) {
+    public static String getNodeNameIgnorePrefix(Node node) {
+        if (node == null) {
             return null;
         }
         String nodeName = node.getNodeName();
-        if (nodeName.contains(":")){
+        if (nodeName.contains(":")) {
             // remove any possible prefix
             nodeName = nodeName.split(":")[1];
         }
@@ -1194,13 +1188,13 @@ public final class UtilXml {
      * get tag name without any prefix
      * @param element
      * @return tagName
-     */ 
-    public static String getTagNameIgnorePrefix(Element element){
-        if (element==null) {
+     */
+    public static String getTagNameIgnorePrefix(Element element) {
+        if (element == null) {
             return null;
         }
         String tagName = element.getTagName();
-        if (tagName.contains(":")){
+        if (tagName.contains(":")) {
             // remove any possible prefix
             tagName = tagName.split(":")[1];
         }
@@ -1212,19 +1206,18 @@ public final class UtilXml {
      * @param element
      * @return The value of the node, depending on its type; see the table Node class
      */
-    public static String getAttributeValueIgnorePrefix(Element element, String attributeName){
-        if (element==null) {
+    public static String getAttributeValueIgnorePrefix(Element element, String attributeName) {
+        if (element == null) {
             return "";
         }
 
         NamedNodeMap attributes = element.getAttributes();
-        if (attributes != null){
-            for (int i = 0, size = attributes.getLength(); i < size; i++)
-            {
+        if (attributes != null) {
+            for (int i = 0, size = attributes.getLength(); i < size; i++) {
                 Node node = attributes.item(i);
-                if (node.getNodeType() == Node.ATTRIBUTE_NODE){
+                if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
                     String nodeName = UtilXml.getNodeNameIgnorePrefix(node);
-                    if (nodeName.equals(attributeName)){
+                    if (nodeName.equals(attributeName)) {
                         return node.getNodeValue();
                     }
                 }

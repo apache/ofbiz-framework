@@ -34,12 +34,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;get-related-one&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class GetRelatedOne extends MethodOperation {
 
-    public static final String MODULE = GetRelatedOne.class.getName();
+    private static final String MODULE = GetRelatedOne.class.getName();
 
     private final FlexibleStringExpander relationNameFse;
     private final FlexibleMapAccessor<GenericValue> toValueFma;

@@ -39,7 +39,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
  */
 public class ModelEntityChecker {
 
-    public static final String MODULE = ModelEntityChecker.class.getName();
+    private static final String MODULE = ModelEntityChecker.class.getName();
 
     public static void checkEntities(Delegator delegator, List<String> warningList) throws GenericEntityException {
         ModelReader reader = delegator.getModelReader();
@@ -109,7 +109,7 @@ public class ModelEntityChecker {
                 Iterator<ModelField> fieldIter = entity.getFieldsIterator();
                 while (fieldIter.hasNext()) {
                     ModelField field = fieldIter.next();
-                    ModelFieldType type = delegator.getEntityFieldType(entity,field.getType());
+                    ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 
                     if (ufields.contains(field.getName())) {
                         warningList.add("[FieldNotUnique] Field [" + field.getName() + " of entity " + entity.getEntityName() + " is not unique for that entity.");
@@ -505,6 +505,6 @@ public class ModelEntityChecker {
 
             "ZEROFILL", "ZONE" };
 
-    private ModelEntityChecker() {}
+    private ModelEntityChecker() { }
 }
 

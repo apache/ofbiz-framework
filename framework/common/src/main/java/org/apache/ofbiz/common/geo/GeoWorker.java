@@ -37,9 +37,9 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class GeoWorker {
 
-    public static final String MODULE = GeoWorker.class.getName();
+    private static final String MODULE = GeoWorker.class.getName();
 
-    private GeoWorker() {}
+    private GeoWorker() { }
 
     public static List<GenericValue> expandGeoGroup(String geoId, Delegator delegator) {
         GenericValue geo = null;
@@ -76,7 +76,7 @@ public final class GeoWorker {
                 }
                 geoList.addAll(expandGeoGroup(nextGeo));
             }
-        } 
+        }
         return geoList;
     }
 

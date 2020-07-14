@@ -33,7 +33,7 @@ import org.apache.ofbiz.entity.config.model.EntityConfig;
  */
 public class GenericHelperFactory {
 
-    public static final String MODULE = GenericHelperFactory.class.getName();
+    private static final String MODULE = GenericHelperFactory.class.getName();
 
     // protected static UtilCache helperCache = new UtilCache("entity.GenericHelpers", 0, 0);
     protected static final Map<String, GenericHelper> helperCache = new HashMap<>();

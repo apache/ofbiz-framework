@@ -44,8 +44,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class SagePayServices
 {
-    public static final String MODULE = SagePayServices.class.getName();
-    public static final String resource = "AccountingUiLabels";
+    private static final String MODULE = SagePayServices.class.getName();
+    private static final String RESOURCE = "AccountingUiLabels";
 
     private static Map<String, String> buildSagePayProperties(Map<String, Object> context, Delegator delegator) {
 
@@ -58,7 +58,7 @@ public class SagePayServices
                 GenericValue sagePay = EntityQuery.use(delegator).from("PaymentGatewaySagePay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (sagePay != null) {
                     for (Entry<String, Object> set : sagePay.entrySet()) {
-                        if(set.getValue() == null){
+                        if (set.getValue() == null) {
                             sagePayConfig.put(set.getKey(), null);
                         } else {
                             sagePayConfig.put(set.getKey(), set.getValue().toString());
@@ -83,7 +83,7 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
+        String vendorTxCode = (String) context.get("vendorTxCode");
         String cardHolder = (String) context.get("cardHolder");
         String cardNumber = (String) context.get("cardNumber");
         String expiryDate = (String) context.get("expiryDate");
@@ -129,22 +129,20 @@ public class SagePayServices
         String vpsProtocol = props.get("protocolVersion");
         String vendor = props.get("vendor");
         String txType = props.get("authenticationTransType");
-        
         //start - required parameters
         StringBuilder errorRequiredParameters = new StringBuilder();
-        if(vpsProtocol == null){
+        if (vpsProtocol == null) {
             errorRequiredParameters.append("Required transaction parameter 'protocolVersion' is missing. ");
         }
-        if(vendor == null){
+        if (vendor == null) {
             errorRequiredParameters.append("Required transaction parameter 'vendor' is missing. ");
         }
-        if(txType == null){
+        if (txType == null) {
             errorRequiredParameters.append("Required transaction parameter 'authenticationsTransType' is missing. ");
         }
-        if(errorRequiredParameters.length() > 0){
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayPaymentAuthorisationException", UtilMisc.toMap("errorString", errorRequiredParameters), locale));
+        if (errorRequiredParameters.length() > 0) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentAuthorisationException", UtilMisc.toMap("errorString", errorRequiredParameters), locale));
         }
-        
         parameters.put("VPSProtocol", vpsProtocol);
         parameters.put("TxType", txType);
         parameters.put("Vendor", vendor);
@@ -278,18 +276,18 @@ public class SagePayServices
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
-        } catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
         return resultMap;
     }
@@ -303,7 +301,7 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
+        String vendorTxCode = (String) context.get("vendorTxCode");
         String vpsTxId = (String) context.get("vpsTxId");
         String securityKey = (String) context.get("securityKey");
         String txAuthNo = (String) context.get("txAuthNo");
@@ -345,43 +343,43 @@ public class SagePayServices
 
             //start - payment refunded
             if ("OK".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentReleased", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentReleased", locale);
             }
             //end - payment refunded
 
             //start - refund request not formed properly or parameters missing
             if ("MALFORMED".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentReleaseRequestMalformed", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentReleaseRequestMalformed", locale);
             }
             //end - refund request not formed properly or parameters missing
 
             //start - invalid information passed in parameters
             if ("INVALID".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentInvalidInformationPassed", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentInvalidInformationPassed", locale);
             }
             //end - invalid information passed in parameters
 
             //start - problem at Sagepay
             if ("ERROR".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentError", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentError", locale);
             }
             //end - problem at Sagepay
 
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
-        } catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
         return resultMap;
     }
@@ -395,7 +393,7 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
+        String vendorTxCode = (String) context.get("vendorTxCode");
         String vpsTxId = (String) context.get("vpsTxId");
         String securityKey = (String) context.get("securityKey");
         String txAuthNo = (String) context.get("txAuthNo");
@@ -434,43 +432,43 @@ public class SagePayServices
 
             //start - payment released
             if ("OK".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentReleased", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentReleased", locale);
             }
             //end - payment released
 
             //start - release request not formed properly or parameters missing
             if ("MALFORMED".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentReleaseRequestMalformed", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentReleaseRequestMalformed", locale);
             }
             //end - release request not formed properly or parameters missing
 
             //start - invalid information passed in parameters
             if ("INVALID".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentInvalidInformationPassed", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentInvalidInformationPassed", locale);
             }
             //end - invalid information passed in parameters
 
             //start - problem at Sagepay
             if ("ERROR".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentError", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentError", locale);
             }
             //end - problem at Sagepay
 
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
-        }  catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
         return resultMap;
     }
@@ -484,7 +482,7 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
+        String vendorTxCode = (String) context.get("vendorTxCode");
         String vpsTxId = (String) context.get("vpsTxId");
         String securityKey = (String) context.get("securityKey");
         String txAuthNo = (String) context.get("txAuthNo");
@@ -521,43 +519,42 @@ public class SagePayServices
 
             //start - payment void
             if ("OK".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentVoided", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentVoided", locale);
             }
             //end - payment void
 
             //start - void request not formed properly or parameters missing
             if ("MALFORMED".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentVoidRequestMalformed", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentVoidRequestMalformed", locale);
             }
             //end - void request not formed properly or parameters missing
 
             //start - invalid information passed in parameters
             if ("INVALID".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentInvalidInformationPassed", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentInvalidInformationPassed", locale);
             }
             //end - invalid information passed in parameters
 
             //start - problem at Sagepay
             if ("ERROR".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentError", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentError", locale);
             }
             //end - problem at Sagepay
 
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
-
-        }  catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
         return resultMap;
     }
@@ -571,10 +568,10 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
-        String amount = (String)context.get("amount");
-        String currency = (String)context.get("currency");
-        String description = (String)context.get("description");
+        String vendorTxCode = (String) context.get("vendorTxCode");
+        String amount = (String) context.get("amount");
+        String currency = (String) context.get("currency");
+        String description = (String) context.get("description");
 
         String relatedVPSTxId = (String) context.get("relatedVPSTxId");
         String relatedVendorTxCode = (String) context.get("relatedVendorTxCode");
@@ -605,7 +602,6 @@ public class SagePayServices
 
         try (CloseableHttpClient httpClient = SagePayUtil.getHttpClient()) {
             String successMessage = null;
-            
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("refundUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
             Map<String, String> responseData = SagePayUtil.getResponseData(response);
@@ -622,49 +618,49 @@ public class SagePayServices
             if ("OK".equals(status)) {
                 resultMap.put("vpsTxId", responseData.get("VPSTxId"));
                 resultMap.put("txAuthNo", responseData.get("TxAuthNo"));
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentRefunded", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentRefunded", locale);
             }
             //end - payment refunded
 
             //start - refund not authorized by the acquiring bank
             if ("NOTAUTHED".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentRefundNotAuthorized", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentRefundNotAuthorized", locale);
             }
             //end - refund not authorized by the acquiring bank
 
             //start - refund request not formed properly or parameters missing
             if ("MALFORMED".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentRefundRequestMalformed", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentRefundRequestMalformed", locale);
             }
             //end - refund request not formed properly or parameters missing
 
             //start - invalid information passed in parameters
             if ("INVALID".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentInvalidInformationPassed", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentInvalidInformationPassed", locale);
             }
             //end - invalid information passed in parameters
 
             //start - problem at Sagepay
             if ("ERROR".equals(status)) {
-                successMessage = UtilProperties.getMessage(resource, "AccountingSagePayPaymentError", locale);
+                successMessage = UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentError", locale);
             }
             //end - problem at Sagepay
 
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
-        }  catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
 
         return resultMap;

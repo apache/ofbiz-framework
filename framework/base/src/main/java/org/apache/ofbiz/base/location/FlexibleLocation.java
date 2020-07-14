@@ -36,7 +36,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 public final class FlexibleLocation {
 
-    public static final String MODULE = FlexibleLocation.class.getName();
+    private static final String MODULE = FlexibleLocation.class.getName();
     private static final Map<String, LocationResolver> locationResolvers;
 
     static {
@@ -140,5 +140,5 @@ public final class FlexibleLocation {
         return strippedSoFar.toString();
     }
 
-    private FlexibleLocation() {}
+    private FlexibleLocation() { }
 }

@@ -54,7 +54,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class IterateSectionWidget extends ModelScreenWidget {
 
-    public static final String MODULE = IterateSectionWidget.class.getName();
+    private static final String MODULE = IterateSectionWidget.class.getName();
     public static final int DEFAULT_PAGE_SIZE = 5;
     public static final int MAX_PAGE_SIZE = 10000;
 
@@ -189,7 +189,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             contextMs.put("itemIndex", itemIndex);
 
             if (iterateIndex < listSize) {
-                contextMs.put("iterateId",String.valueOf(entryName+iterateIndex));
+                contextMs.put("iterateId", String.valueOf(entryName+iterateIndex));
                 iterateIndex++;
             }
             for (ModelScreenWidget.Section section: this.sectionList) {

@@ -41,7 +41,7 @@ public final class InventoryWorker {
 
     public final static String MODULE = InventoryWorker.class.getName();
 
-    private InventoryWorker () {}
+    private InventoryWorker() { }
 
     /**
      * Finds all outstanding Purchase orders for a productId.  The orders and the items cannot be completed, cancelled, or rejected

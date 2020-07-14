@@ -31,8 +31,8 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public final class ImportProductHelper {
 
-    public static final String MODULE = ImportProductHelper.class.getName();
-    private ImportProductHelper() {}
+    private static final String MODULE = ImportProductHelper.class.getName();
+    private ImportProductHelper() { }
 
     // prepare the product map
     public static Map<String, Object> prepareProduct(String productId) {

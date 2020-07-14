@@ -71,7 +71,7 @@ import org.w3c.dom.Element;
  */
 public class ModelFormFieldBuilder {
 
-    public static final String MODULE = ModelFormFieldBuilder.class.getName();
+    private static final String MODULE = ModelFormFieldBuilder.class.getName();
 
     private FlexibleStringExpander action = FlexibleStringExpander.getInstance("");
     private String attributeName = "";

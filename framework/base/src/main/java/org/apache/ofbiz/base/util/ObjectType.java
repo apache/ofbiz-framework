@@ -41,7 +41,7 @@ import org.w3c.dom.Node;
  */
 public class ObjectType {
 
-    public static final String MODULE = ObjectType.class.getName();
+    private static final String MODULE = ObjectType.class.getName();
 
     public static final Object NULL = new NullObject();
 
@@ -155,7 +155,7 @@ public class ObjectType {
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
-     * @throws NoSuchMethodException 
+     * @throws NoSuchMethodException
      * @throws InvocationTargetException
      */
     public static Object getInstance(String className) throws ClassNotFoundException, InstantiationException,
@@ -256,19 +256,14 @@ public class ObjectType {
     }
 
     /**
-     * Converts the passed object to the named type. 
+     * Converts the passed object to the named type.
      * Initially created for only simple types but actually handle more types and not all simple types.
      * See ObjectTypeTests class for more, and (normally) up to date information
-     * 
-     * Supported types: 
+     * Supported types:
      * - All primitives
-     * 
      * - Simple types: String, Boolean, Double, Float, Long, Integer, BigDecimal.
-     * 
      * - Other Objects: List, Map, Set, Calendar, Date (java.sql.Date), Time, Timestamp, TimeZone, Date (util.Date and sql.Date)
-     * 
      * - Simple types (maybe) not handled: Short, BigInteger, Byte, Character, ObjectName and Void...
-     * 
      * @param obj Object to convert
      * @param type Optional Java class name of type to convert to. A <code>null</code> or empty <code>String</code> will return the original object.
      * @param format Optional (can be null) format string for Date, Time, Timestamp

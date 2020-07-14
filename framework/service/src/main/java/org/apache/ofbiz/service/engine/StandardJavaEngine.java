@@ -35,7 +35,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
  */
 public final class StandardJavaEngine extends GenericAsyncEngine {
 
-    public static final String MODULE = StandardJavaEngine.class.getName();
+    private static final String MODULE = StandardJavaEngine.class.getName();
 
     public StandardJavaEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);

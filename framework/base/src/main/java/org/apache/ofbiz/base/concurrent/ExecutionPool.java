@@ -40,7 +40,7 @@ import org.apache.ofbiz.base.util.Debug;
 
 @SourceMonitored
 public final class ExecutionPool {
-    public static final String MODULE = ExecutionPool.class.getName();
+    private static final String MODULE = ExecutionPool.class.getName();
     public static final ExecutorService GLOBAL_BATCH = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5, TimeUnit.SECONDS, new SynchronousQueue<>(), new ExecutionPoolThreadFactory(null, "OFBiz-batch"));
     public static final ForkJoinPool GLOBAL_FORK_JOIN = new ForkJoinPool();
     private static final ExecutorService pulseExecutionPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors(), new ExecutionPoolThreadFactory(null, "OFBiz-ExecutionPoolPulseWorker"));
@@ -159,7 +159,7 @@ public final class ExecutionPool {
 
         @Override
         public final boolean equals(Object other) {
-            if(other instanceof Pulse) {
+            if (other instanceof Pulse) {
                 return timeDiff((Pulse) other) == 0;
             }
             return false;

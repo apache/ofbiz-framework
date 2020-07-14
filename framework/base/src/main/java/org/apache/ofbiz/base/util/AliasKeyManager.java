@@ -30,12 +30,12 @@ import javax.net.ssl.X509KeyManager;
  *
  */
 public class AliasKeyManager implements X509KeyManager {
-    public static final String MODULE = X509KeyManager.class.getName();
+    private static final String MODULE = X509KeyManager.class.getName();
 
     protected X509KeyManager keyManager = null;
     protected String alias = null;
 
-    protected AliasKeyManager() {}
+    protected AliasKeyManager() { }
 
     public AliasKeyManager(X509KeyManager keyManager, String alias) {
         this.keyManager = keyManager;

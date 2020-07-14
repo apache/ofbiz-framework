@@ -48,7 +48,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class EditRenderSubContentTransform implements TemplateTransformModel {
 
-    public static final String MODULE = EditRenderSubContentTransform.class.getName();
+    private static final String MODULE = EditRenderSubContentTransform.class.getName();
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()

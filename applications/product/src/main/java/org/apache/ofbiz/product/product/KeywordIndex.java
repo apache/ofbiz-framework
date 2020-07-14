@@ -46,7 +46,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public class KeywordIndex {
 
-    public static final String MODULE = KeywordIndex.class.getName();
+    private static final String MODULE = KeywordIndex.class.getName();
 
     public static void forceIndexKeywords(GenericValue product) throws GenericEntityException {
         KeywordIndex.indexKeywords(product, true);

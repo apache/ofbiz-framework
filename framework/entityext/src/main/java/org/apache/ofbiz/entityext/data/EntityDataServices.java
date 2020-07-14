@@ -64,12 +64,12 @@ import org.apache.shiro.crypto.AesCipherService;
  */
 public class EntityDataServices {
 
-    public static final String MODULE = EntityDataServices.class.getName();
-    public static final String resource = "EntityExtUiLabels";
+    private static final String MODULE = EntityDataServices.class.getName();
+    private static final String RESOURCE = "EntityExtUiLabels";
 
     public static Map<String, Object> exportDelimitedToDirectory(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
-        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtThisServiceIsNotYetImplemented", locale));
+        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtThisServiceIsNotYetImplemented", locale));
     }
 
     public static Map<String, Object> importDelimitedFromDirectory(DispatchContext dctx, Map<String, Object> context) {
@@ -80,14 +80,14 @@ public class EntityDataServices {
         // check permission
          GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtServicePermissionNotGranted", locale));
         }
 
         // get the directory & delimiter
         String rootDirectory = (String) context.get("rootDirectory");
         URL rootDirectoryUrl = UtilURL.fromResource(rootDirectory);
         if (rootDirectoryUrl == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtUnableToLocateRootDirectory", UtilMisc.toMap("rootDirectory", rootDirectory), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtUnableToLocateRootDirectory", UtilMisc.toMap("rootDirectory", rootDirectory), locale));
         }
 
         String delimiter = (String) context.get("delimiter");
@@ -100,11 +100,11 @@ public class EntityDataServices {
         try {
             root = new File(new URI(rootDirectoryUrl.toExternalForm()));
         } catch (URISyntaxException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtUnableToLocateRootDirectoryURI", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtUnableToLocateRootDirectoryURI", locale));
         }
 
         if (!root.exists() || !root.isDirectory() || !root.canRead()) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtRootDirectoryDoesNotExists", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtRootDirectoryDoesNotExists", locale));
         }
 
         // get the file list
@@ -119,7 +119,7 @@ public class EntityDataServices {
                 }
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtNoFileAvailableInTheRootDirectory", UtilMisc.toMap("rootDirectory", rootDirectory), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtNoFileAvailableInTheRootDirectory", UtilMisc.toMap("rootDirectory", rootDirectory), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -133,7 +133,7 @@ public class EntityDataServices {
         // check permission
          GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtServicePermissionNotGranted", locale));
         }
 
         String delimiter = (String) context.get("delimiter");
@@ -151,10 +151,10 @@ public class EntityDataServices {
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         } catch (FileNotFoundException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtFileNotFound", UtilMisc.toMap("fileName", file.getName()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtFileNotFound", UtilMisc.toMap("fileName", file.getName()), locale));
         } catch (IOException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtProblemReadingFile", UtilMisc.toMap("fileName", file.getName()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtProblemReadingFile", UtilMisc.toMap("fileName", file.getName()), locale));
         }
 
         long endTime = System.currentTimeMillis();
@@ -331,7 +331,7 @@ public class EntityDataServices {
         // check permission
          GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtServicePermissionNotGranted", locale));
         }
 
         String groupName = (String) context.get("groupName");
@@ -346,7 +346,7 @@ public class EntityDataServices {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting list of entities in group: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         // step 1 - remove FK indices
@@ -440,7 +440,7 @@ public class EntityDataServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error unwrapping ByteWrapper records: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorUnwrappingRecords", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorUnwrappingRecords", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -454,7 +454,7 @@ public class EntityDataServices {
         // check permission
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtServicePermissionNotGranted", locale));
         }
         String oldKey = (String) context.get("oldKey");
         String newKey = (String) context.get("newKey");
@@ -468,11 +468,11 @@ public class EntityDataServices {
                     Debug.logInfo("Decrypting with old key: " + oldKey, MODULE);
                     try {
                         keyBytes = cipherService.decrypt(keyBytes, Base64.decodeBase64(oldKey)).getBytes();
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         Debug.logInfo("Failed to decrypt with Shiro cipher; trying with old cipher", MODULE);
                         try {
                             keyBytes = DesCrypt.decrypt(DesCrypt.getDesKey(Base64.decodeBase64(oldKey)), keyBytes);
-                        } catch(Exception e1) {
+                        } catch (Exception e1) {
                             Debug.logError(e1, MODULE);
                             return ServiceUtil.returnError(e1.getMessage());
                         }
@@ -489,7 +489,7 @@ public class EntityDataServices {
                 row.setString("keyText", newKeyText);
                 row.store();
             }
-        } catch(GenericEntityException gee) {
+        } catch (GenericEntityException gee) {
             Debug.logError(gee, MODULE);
             return ServiceUtil.returnError(gee.getMessage());
         }
@@ -505,7 +505,7 @@ public class EntityDataServices {
         // check permission
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtServicePermissionNotGranted", locale));
         }
 
         String groupName = (String) context.get("groupName");
@@ -515,7 +515,7 @@ public class EntityDataServices {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting list of entities in group: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         for (ModelEntity modelEntity: modelEntities.values()) {
@@ -528,7 +528,7 @@ public class EntityDataServices {
                             row.setString(field.getName(), row.getString(field.getName()));
                             row.store();
                         }
-                    } catch(GenericEntityException gee) {
+                    } catch (GenericEntityException gee) {
                         return ServiceUtil.returnError(gee.getMessage());
                     }
                 }

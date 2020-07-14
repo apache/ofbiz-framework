@@ -29,7 +29,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 
 public class Cache {
 
-    public static final String MODULE = Cache.class.getName();
+    private static final String MODULE = Cache.class.getName();
 
     protected EntityCache entityCache;
     protected EntityListCache entityListCache;

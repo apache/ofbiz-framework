@@ -36,16 +36,18 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import com.ibm.icu.util.Calendar;
 
 /** TemporalExpression UI artifacts worker. */
-public class ExpressionUiHelper {
+public final class ExpressionUiHelper {
 
     /** An array of valid DayInMonth occurrence values. */
-    private static final int Occurrence[] = {1, 2, 3, 4, 5, -1, -2, -3, -4 -5};
+    private static final int OCCURRENCE[] = {1, 2, 3, 4, 5, -1, -2, -3, -4, -5};
+
+    protected ExpressionUiHelper() { }
 
     /** Returns a List of valid DayInMonth occurrence int values.
      * @return returns a List of valid DayInMonth occurrence int values
      */
     public static List<?> getOccurrenceList() {
-        return Arrays.asList(Occurrence);
+        return Arrays.asList(OCCURRENCE);
     }
 
     /** Returns a List of Maps containing day of the week values.
@@ -59,7 +61,7 @@ public class ExpressionUiHelper {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", locale);
         List<Map<String, Object>> result = new ArrayList<>(7);
         for (int i = 0; i < 7; i++) {
-            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", tempCal.get(Calendar.DAY_OF_WEEK)));
+            result.add(UtilMisc.toMap("description", (Object) dateFormat.format(tempCal.getTime()), "value", tempCal.get(Calendar.DAY_OF_WEEK)));
             tempCal.roll(Calendar.DAY_OF_WEEK, 1);
         }
         return result;
@@ -96,7 +98,7 @@ public class ExpressionUiHelper {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", locale);
         List<Map<String, Object>> result = new ArrayList<>(13);
         for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
-            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", i));
+            result.add(UtilMisc.toMap("description", (Object) dateFormat.format(tempCal.getTime()), "value", i));
             tempCal.roll(Calendar.MONTH, 1);
         }
         return result;

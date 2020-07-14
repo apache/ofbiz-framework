@@ -46,32 +46,6 @@
         </if-not-empty>
     </simple-method>
 
-    <!-- update content; just status -->
-    <simple-method method-name="setContentStatus" short-description="Set The Content Status">
-
-        <entity-one entity-name="Content" value-field="content"/>
-        <field-to-result field="content.statusId" result-name="oldStatusId"/>
-
-       <if-compare-field field="content.statusId" to-field="parameters.statusId" operator="not-equals">
-            <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
-                <field-map field-name="statusId" from-field="content.statusId"/>
-                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
-            </entity-one>
-
-            <if-empty field="statusChange">
-                <add-error>
-                    <fail-property resource="ContentUiLabels" property="ContentCannotChangeStatus"/>
-                </add-error>
-                <log level="error" message="Cannot change from ${content.statusId} to ${parameters.statusId}"/>
-                <check-errors/>
-                <else>
-                    <set from-field="parameters.statusId" field="content.statusId"/>
-                    <store-value value-field="content"/>
-                </else>
-            </if-empty>
-        </if-compare-field>
-    </simple-method>
-
     <simple-method method-name="copyContentAndElectronicTextandAssoc" short-description="copy a content, electronic text and assocs and set status in progress">
         <set-service-fields service-name="getContent" map="parameters" to-map="getC"/>
         <call-service service-name="getContent" in-map-name="getC">
@@ -235,25 +209,6 @@
 
         <field-to-result field="createBodyAssoc.contentId" result-name="contentId"/>
     </simple-method>
-
-    <simple-method method-name="createDownloadContent" short-description="Create Download as Content">
-        <set-service-fields service-name="createContent" map="parameters" to-map="createDownloadContent"/>
-        <set from-field="parameters.file" field="createDownload.dataResourceContent"/>
-        <call-service service-name="createOtherDataResource" in-map-name="createDownload">
-            <result-to-field result-name="dataResourceId" field="createDownloadContent.dataResourceId"/>
-        </call-service>
-        <call-service service-name="createContent" in-map-name="createDownloadContent">
-            <result-to-result result-name="contentId"/>
-        </call-service>
-    </simple-method>
-    <simple-method method-name="updateDownloadContent" short-description="Update Download Content">
-        <if-not-empty field="parameters.fileDataResourceId">
-            <set from-field="parameters.fileDataResourceId" field="updateFile.dataResourceId"/>
-            <set from-field="parameters.file" field="updateFile.dataResourceContent"/>
-            <call-service service-name="updateOtherDataResource" in-map-name="updateFile"/>
-        </if-not-empty>
-    </simple-method>
-
     <simple-method method-name="createSimpleTextContent" short-description="Create Simple Text Content">
         <set-service-fields service-name="createContent" map="parameters" to-map="createSimpleTextContent"/>
         <set value="DOCUMENT" field="createSimpleTextContent.contentTypeId"/>
@@ -281,43 +236,6 @@
             <set from-field="parameters.text" field="updateSimpleText.textData"/>
             <call-service service-name="updateElectronicText" in-map-name="updateSimpleText"/>
         </if-not-empty>
-    </simple-method>
-
-    <!-- This method will create a skeleton content record from a data resource -->
-    <simple-method method-name="createContentFromDataResource" short-description="Create Content from DataResource Object">
-        <entity-one entity-name="DataResource" value-field="dataResource">
-            <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
-        </entity-one>
-        <if-empty field="dataResource">
-            <add-error>
-                <fail-property resource="ContentUiLabels" property="ContentDataResourceNotFound"/>
-            </add-error>
-        </if-empty>
-        <check-errors/>
-
-        <set-service-fields service-name="createContent" map="parameters" to-map="createContentMap"/>
-
-        <if-empty field="createContentMap.contentName">
-            <set field="createContentMap.contentName" from-field="dataResource.dataResourceName"/>
-        </if-empty>
-
-        <if-empty field="createContentMap.contentTypeId">
-            <set field="createContentMap.contentTypeId" value="DOCUMENT"/>
-        </if-empty>
-
-        <if-empty field="createContentMap.statusId">
-            <set field="createContentMap.statusId" value="CTNT_INITIAL_DRAFT"/>
-        </if-empty>
-
-        <if-empty field="createContentMap.mimeTypeId">
-            <set from-field="dataResource.mimeTypeId" field="createContentMap.mimeTypeId"/>
-        </if-empty>
-
-        <call-service service-name="createContent" in-map-name="createContentMap" break-on-error="false">
-            <result-to-field result-name="contentId" field="contentId"/>
-        </call-service>
-
-        <field-to-result field="contentId"/>
     </simple-method>
 
     <!-- This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
@@ -439,55 +357,17 @@
         </if-not-empty>
     </simple-method-->
 
-    <!-- retrieve Data resource information -->
-    <simple-method method-name="getDataResource" short-description="get the content and relasted resource information" login-required="false">
-        <entity-one entity-name="DataResource" value-field="resultData.dataResource"/>
-        <if-not-empty field="resultData.dataResource">
-            <if-compare field="resultData.dataResource.dataResourceTypeId" value="ELECTRONIC_TEXT" operator="equals">
-                <get-related-one value-field="resultData.dataResource" relation-name="ElectronicText"
-                    to-value-field="resultData.electronicText"/>
-            </if-compare>
-            <if-compare field="resultData.dataResource.dataResourceTypeId" value="IMAGE_OBJECT" operator="equals">
-                <get-related-one value-field="resultData.dataResource" relation-name="ImageDataResource"
-                    to-value-field="resultData.imageDataResource"/>
-            </if-compare>
-        </if-not-empty>
-        <field-to-result field="resultData" result-name="resultData"/>
-    </simple-method>
-
-    <simple-method method-name="getContentAndDataResource" short-description="get the content and related resource information" login-required="false">
-        <entity-one entity-name="Content" value-field="resultDataContent.content">
-            <field-map field-name="contentId" from-field="parameters.contentId"/>
-        </entity-one>
-        <if-not-empty field="resultDataContent.content">
-            <if-not-empty field="resultDataContent.content.dataResourceId">
-                <set field="parameters.dataResourceId" from-field="resultDataContent.content.dataResourceId"/>
-                <call-simple-method method-name="getDataResource"/>
-                <set field="resultDataContent.dataResource" from-field="resultData.dataResource"/>
-                <set field="resultDataContent.electronicText" from-field="resultData.electronicText"/>
-                <set field="resultDataContent.imageDataResource" from-field="resultData.imageDataResource"/>
-            </if-not-empty>
-            <field-to-result field="resultDataContent" result-name="resultData"/>
-        </if-not-empty>
-    </simple-method>
-
     <simple-method method-name="getPublicForumMessage" short-description="get the content and related resource information without security" login-required="false">
         <set field="publicForumMessage" value="true"/>
-        <call-simple-method method-name="getContentAndDataResource"/>
+        <set-service-fields service-name="getContentAndDataResource" map="parameters" to-map="getC"/>
+        <call-service service-name="getContentAndDataResource" in-map-name="getC"/>
     </simple-method>
-
     <simple-method method-name="forceIndexContentKeywords" short-description="induce all the keywords of a content">
         <entity-one entity-name="Content" value-field="content"/>
         <call-class-method class-name="org.apache.ofbiz.content.content.ContentKeywordIndex" method-name="forceIndexKeywords">
             <field field="content" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
-    
-    <simple-method method-name="deleteContentKeywords" short-description="delete all the keywords of a content">
-        <entity-one entity-name="Content" value-field="content"/>
-        <remove-related value-field="content" relation-name="ContentKeyword"/>
-    </simple-method>
-
     <simple-method method-name="indexContentKeywords" short-description="Index the Keywords for a Content" login-required="false">
         <!-- this service is meant to be called from an entity ECA for entities that include a contentId -->
         <!-- if it is the Content entity itself triggering this action, then a [contentInstance] parameter

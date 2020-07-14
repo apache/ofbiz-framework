@@ -48,7 +48,7 @@ import junit.framework.TestSuite;
  * Use this class in a JUnit test runner to bootstrap the Test Suite runner.
  */
 public class ModelTestSuite {
-    public static final String MODULE = ModelTestSuite.class.getName();
+    private static final String MODULE = ModelTestSuite.class.getName();
     public static final String DELEGATOR_NAME = "test";
     public static final String DISPATCHER_NAME = "test-dispatcher";
 

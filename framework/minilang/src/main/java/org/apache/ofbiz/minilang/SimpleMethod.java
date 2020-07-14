@@ -80,7 +80,7 @@ import org.w3c.dom.Element;
  */
 public final class SimpleMethod extends MiniLangElement {
 
-    public static final String MODULE = SimpleMethod.class.getName();
+    private static final String MODULE = SimpleMethod.class.getName();
     private static final String err_resource = "MiniLangErrorUiLabels";
     private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name", "dispatcher-name", "user-login-name"};
     private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
@@ -146,7 +146,6 @@ public final class SimpleMethod extends MiniLangElement {
         if (!"simple-methods".equalsIgnoreCase(rootElement.getTagName())) {
             rootElement = UtilXml.firstChildElement(rootElement, "simple-methods");
         }
-        
         compileAllSimpleMethods(rootElement, simpleMethods, xmlURL.toString());
         if (MiniLangUtil.isDocumentAutoCorrected(document)) {
             MiniLangUtil.writeMiniLangDocument(xmlURL, document);
@@ -212,7 +211,6 @@ public final class SimpleMethod extends MiniLangElement {
      * The ordering in the List is the same as the XML file.
      * <p>This method is used by unit test framework to run tests in the order they appear in the XML file.
      * Method caching is bypassed since the methods are executed only once.</p>
-     * 
      * @param xmlResource
      * @param loader
      * @return

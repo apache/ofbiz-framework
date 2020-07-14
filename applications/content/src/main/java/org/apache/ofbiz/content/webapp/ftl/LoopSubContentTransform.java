@@ -51,10 +51,10 @@ import freemarker.template.TransformControl;
  */
 public class LoopSubContentTransform implements TemplateTransformModel {
 
-    public static final String MODULE = LoopSubContentTransform.class.getName();
+    private static final String MODULE = LoopSubContentTransform.class.getName();
 
     static final String[] saveKeyNames = {"contentId", "subContentId", "mimeType", "subContentDataResourceView", "wrapTemplateId", "contentTemplateId"};
-    static final String[] removeKeyNames = {"wrapTemplateId", "entityList", "entityIndex", "textData", "dataResourceId","drDataResourceId", "subContentIdSub", "parentContent", "wrappedFTL"};
+    static final String[] removeKeyNames = {"wrapTemplateId", "entityList", "entityIndex", "textData", "dataResourceId", "drDataResourceId", "subContentIdSub", "parentContent", "wrappedFTL"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()

@@ -33,13 +33,12 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
-public class SecurePayServiceTest extends OFBizTestCase{
+public class SecurePayServiceTest extends OFBizTestCase {
 
     public SecurePayServiceTest(String name) {
         super(name);
     }
-    
-    public static final String MODULE = SecurePayServiceTest.class.getName();
+    private static final String MODULE = SecurePayServiceTest.class.getName();
 
     // test data
     protected GenericValue emailAddr = null;
@@ -64,34 +63,34 @@ public class SecurePayServiceTest extends OFBizTestCase{
         configFile = "paymentTest.properties";
         creditAmount = new BigDecimal("234.51");
         emailAddr = delegator.makeValue("ContactMech", UtilMisc.toMap(
-                "infoString","test@hansbakker.com"));
+                "infoString", "test@hansbakker.com"));
         orderId = "Demo1002";
         creditCard = delegator.makeValue("CreditCard", UtilMisc.toMap(
-                "cardType","CCT_VISA",
-                "expireDate","10/2011",  // mm/yyyy, gets converted to mm/yy
-                "cardNumber","4444333322221111"));
+                "cardType", "CCT_VISA",
+                "expireDate", "10/2011",  // mm/yyyy, gets converted to mm/yy
+                "cardNumber", "4444333322221111"));
         billingAddress = delegator.makeValue("PostalAddress", UtilMisc.toMap(
-                "toName","The customer Name",
-                "address1","The customer billingAddress1",
-                "address2","The customer billingAddress2",
-                "city","The customer city",
+                "toName", "The customer Name",
+                "address1", "The customer billingAddress1",
+                "address2", "The customer billingAddress2",
+                "city", "The customer city",
                 "stateProvinceGeoId", "NLD"));
         shippingAddress = delegator.makeValue("PostalAddress", UtilMisc.toMap(
-                "toName","The customer Name",
-                "address1","The customer shippingStreet1",
-                "address2","The customer shippingStreet2",
-                "city","The customer city",
+                "toName", "The customer Name",
+                "address1", "The customer shippingStreet1",
+                "address2", "The customer shippingStreet2",
+                "city", "The customer city",
                 "stateProvinceGeoId", "NLD",
-                "postalCode","12345"));
+                "postalCode", "12345"));
         orderItemMap = UtilMisc.<String, Object>toMap(
-                "orderId", "Demo1002", 
-                "orderItemSeqId", "00001", 
-                "orderItemTypeId", "PRODUCT_ORDER_ITEM", 
+                "orderId", "Demo1002",
+                "orderItemSeqId", "00001",
+                "orderItemTypeId", "PRODUCT_ORDER_ITEM",
                 "productId", "GZ-1000",
-                "prodCatalogId", "DemoCatalog", 
-                "quantity" , new BigDecimal("2.000000"), 
+                "prodCatalogId", "DemoCatalog",
+                "quantity", new BigDecimal("2.000000"),
                 "unitPrice", new BigDecimal("59.00"),
-                "statusId" ,"ITEM_COMPLETED"
+                "statusId", "ITEM_COMPLETED"
                 );
         orderItems = UtilMisc.<Object>toList(orderItemMap);
         billToParty = delegator.makeValue("Party" , UtilMisc.toMap("partyId", "DemoCustomer"));
@@ -103,14 +102,13 @@ public class SecurePayServiceTest extends OFBizTestCase{
             "paymentMethodTypeId", "CREDIT_CARD", 
             "maxAmount", new BigDecimal("200.00"), 
             "statusId", "PAYMENT_AUTHORIZED"));
-        
         GenericValue checkOrderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", "testOrder1000_01").queryOne();
         if (UtilValidate.isEmpty(checkOrderPaymentPreference)) {
             orderPaymentPreference.create();
         }
     }
 
-    public void testAuth() throws Exception{
+    public void testAuth() throws Exception {
         Debug.logInfo("=====[testAuth] starting....", MODULE);
         try {
             Map<String, Object> serviceInput = UtilMisc.<String, Object>toMap(
@@ -128,7 +126,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             serviceInput.put("processAmount", new BigDecimal("100.08"));
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("ofbScAuthorize",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScAuthorize", serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -173,7 +171,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             serviceInput.put("captureAmount", refundAmount);
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("ofbScCapture",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScCapture", serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -190,7 +188,6 @@ public class SecurePayServiceTest extends OFBizTestCase{
                 checkPaymentGatewayResponse.store();
                 Debug.logInfo("[testdoCapture] Result from SecurePay: " + result, MODULE);
             }
-            
         } catch (GenericServiceException ex) {
             TestCase.fail(ex.getMessage());
         }
@@ -224,7 +221,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
         }
     }
 
-    public void testdoCredit() throws Exception{
+    public void testdoCredit() throws Exception {
         Debug.logInfo("=====[testdoCredit] starting....", MODULE);
         try {
             Map<String, Object> serviceInput = UtilMisc.toMap(
@@ -239,7 +236,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
            );
             serviceInput.put("creditAmount", creditAmount);
             // run the service
-            Map<String, Object> result = dispatcher.runSync("ofbScCCCredit",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScCCCredit", serviceInput);
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testdoCredit] responseMessage: " + responseMessage, MODULE);

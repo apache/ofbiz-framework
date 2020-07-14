@@ -105,7 +105,7 @@ public class ModelFormField {
      *
      */
 
-    public static final String MODULE = ModelFormField.class.getName();
+    private static final String MODULE = ModelFormField.class.getName();
 
     /**
      * Constructs a form field model from a builder specification.
@@ -690,7 +690,7 @@ public class ModelFormField {
         // For English, ID is correct abbreviation for identity.
         // So if a label ends with " Id", replace with " ID".
         // If there is another locale that doesn't follow this rule, we can add condition for this locale to exempt from the change.
-        if (autoTitlewriterString.endsWith(" Id")){
+        if (autoTitlewriterString.endsWith(" Id")) {
                 autoTitlewriterString = autoTitlewriterString.subSequence(0, autoTitlewriterString.length() - 3) + " ID";
         }
 
@@ -931,7 +931,7 @@ public class ModelFormField {
         }
 
         try {
-            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhenStr),context);
+            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhenStr), context);
             boolean condTrue = false;
             // retVal should be a Boolean, if not something weird is up...
             if (retVal instanceof Boolean) {
@@ -1179,7 +1179,7 @@ public class ModelFormField {
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
-                if (parameters.containsKey(fieldName.concat("_fld0_value"))){
+                if (parameters.containsKey(fieldName.concat("_fld0_value"))) {
                     defaultOption = (String)parameters.get(fieldName.concat("_fld0_op"));
                 }
             }
@@ -1196,7 +1196,7 @@ public class ModelFormField {
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
-                if( parameters.containsKey(fieldName.concat("_fld1_value"))) {
+                if ( parameters.containsKey(fieldName.concat("_fld1_value"))) {
                     defaultOption = (String)parameters.get(fieldName.concat("_fld1_op"));
                 }
             }
@@ -2149,11 +2149,12 @@ public class ModelFormField {
             List<? extends Element> childElements = UtilXml.childElementList(element);
             if (childElements.size() > 0) {
                 for (Element childElement : childElements) {
-                    if ("option".equals(childElement.getTagName())) {
+                    String childName = childElement.getLocalName();
+                    if ("option".equals(childName)) {
                         optionSources.add(new SingleOption(childElement, modelFormField));
-                    } else if ("list-options".equals(childElement.getTagName())) {
+                    } else if ("list-options".equals(childName)) {
                         optionSources.add(new ListOptions(childElement, modelFormField));
-                    } else if ("entity-options".equals(childElement.getTagName())) {
+                    } else if ("entity-options".equals(childName)) {
                         optionSources.add(new EntityOptions(childElement, modelFormField));
                     }
                 }
@@ -2316,8 +2317,8 @@ public class ModelFormField {
             String location = this.getFormLocation(context);
             ModelForm modelForm = null;
             try {
-                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
-                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
+                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator")).getModelReader();
+                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher")).getDispatchContext();
                 VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
                 modelForm = FormFactory.getFormFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
@@ -2398,8 +2399,8 @@ public class ModelFormField {
             String location = this.getGridLocation(context);
             ModelForm modelForm = null;
             try {
-                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
-                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
+                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator")).getModelReader();
+                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher")).getDispatchContext();
                 VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
                 modelForm = GridFactory.getGridFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
@@ -3613,7 +3614,7 @@ public class ModelFormField {
             String name = this.getScreenName(context);
             String location = this.getScreenLocation(context);
             try {
-                ScreenRenderer renderer = (ScreenRenderer)context.get("screens");
+                ScreenRenderer renderer = (ScreenRenderer) context.get("screens");
                 if (renderer != null) {
                     MapStack<String> mapStack = UtilGenerics.cast(context);
                     ScreenRenderer subRenderer = new ScreenRenderer(writer, mapStack, renderer.getScreenStringRenderer());
@@ -3849,7 +3850,7 @@ public class ModelFormField {
             String useWhen = this.getUseWhen(context);
             if (UtilValidate.isNotEmpty(useWhen)) {
                 try {
-                    Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen),context);
+                    Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen), context);
 
                     // retVal should be a Boolean, if not something weird is up...
                     if (retVal instanceof Boolean) {
@@ -3877,7 +3878,7 @@ public class ModelFormField {
         }
 
         try {
-            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen),context);
+            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen), context);
 
             if (retVal instanceof Boolean) {
                 shouldIgnore =(Boolean) retVal;

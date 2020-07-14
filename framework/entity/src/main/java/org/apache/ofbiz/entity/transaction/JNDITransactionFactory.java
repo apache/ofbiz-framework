@@ -49,7 +49,7 @@ import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
 public class JNDITransactionFactory implements TransactionFactory {
 
     // Debug MODULE name
-    public static final String MODULE = JNDITransactionFactory.class.getName();
+    private static final String MODULE = JNDITransactionFactory.class.getName();
 
     volatile TransactionManager transactionManager = null;
     volatile UserTransaction userTransaction = null;
@@ -212,5 +212,5 @@ public class JNDITransactionFactory implements TransactionFactory {
     }
 
     @Override
-    public void shutdown() {}
+    public void shutdown() { }
 }

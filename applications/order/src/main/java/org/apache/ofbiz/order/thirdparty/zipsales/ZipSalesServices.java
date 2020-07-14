@@ -55,11 +55,11 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ZipSalesServices {
 
-    public static final String MODULE = ZipSalesServices.class.getName();
+    private static final String MODULE = ZipSalesServices.class.getName();
     public static final String dataFile = "org/apache/ofbiz/order/thirdparty/zipsales/ZipSalesTaxTables.xml";
     public static final String flatTable = "FlatTaxTable";
     public static final String ruleTable = "FreightRuleTable";
-    public static final String resource_error = "OrderErrorUiLabels";
+    private static final String RES_ERROR = "OrderErrorUiLabels";
 
     // date formatting
     private static final String DATE_PATTERN = "yyyyMMdd";
@@ -75,7 +75,7 @@ public class ZipSalesServices {
 
         // do security check
         if (!security.hasPermission("SERVICE_INVOKE_ANY", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToLoadTaxTables",locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderYouDoNotHavePermissionToLoadTaxTables", locale));
         }
 
         // get a now stamp (we'll use 2000-01-01)
@@ -87,13 +87,13 @@ public class ZipSalesServices {
             tdf = DataFile.makeDataFile(UtilURL.fromResource(dataFile), flatTable);
         } catch (DataFileException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToReadZipSalesDataFile",locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToReadZipSalesDataFile", locale));
         }
 
         // locate the file to be imported
         URL tUrl = UtilURL.fromResource(taxFileLocation);
         if (tUrl == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToLocateTaxFileAtLocation", UtilMisc.toMap("taxFileLocation",taxFileLocation), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateTaxFileAtLocation", UtilMisc.toMap("taxFileLocation", taxFileLocation), locale));
         }
 
         RecordIterator tri = null;
@@ -101,7 +101,7 @@ public class ZipSalesServices {
             tri = tdf.makeRecordIterator(tUrl);
         } catch (DataFileException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemGettingTheRecordIterator",locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderProblemGettingTheRecordIterator", locale));
         }
         if (tri != null) {
             while (tri.hasNext()) {
@@ -142,7 +142,7 @@ public class ZipSalesServices {
                     delegator.createOrStore(newValue);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWritingRecordsToTheDatabase",locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderErrorWritingRecordsToTheDatabase", locale));
                 }
 
                 // console log
@@ -156,13 +156,13 @@ public class ZipSalesServices {
             rdf = DataFile.makeDataFile(UtilURL.fromResource(dataFile), ruleTable);
         } catch (DataFileException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToReadZipSalesDataFile",locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToReadZipSalesDataFile", locale));
         }
 
         // locate the file to be imported
         URL rUrl = UtilURL.fromResource(ruleFileLocation);
         if (rUrl == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToLocateRuleFileFromLocation", UtilMisc.toMap("ruleFileLocation",ruleFileLocation), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateRuleFileFromLocation", UtilMisc.toMap("ruleFileLocation", ruleFileLocation), locale));
         }
 
         RecordIterator rri = null;
@@ -170,7 +170,7 @@ public class ZipSalesServices {
             rri = rdf.makeRecordIterator(rUrl);
         } catch (DataFileException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemGettingTheRecordIterator",locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderProblemGettingTheRecordIterator", locale));
         }
         if (rri != null) {
             while (rri.hasNext()) {
@@ -198,7 +198,7 @@ public class ZipSalesServices {
                         delegator.storeAll(UtilMisc.toList(newValue));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, MODULE);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWritingRecordsToTheDatabase",locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderErrorWritingRecordsToTheDatabase", locale));
                     }
 
                     // console log

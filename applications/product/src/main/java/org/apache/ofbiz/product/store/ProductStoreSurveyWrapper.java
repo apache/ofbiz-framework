@@ -30,14 +30,14 @@ import org.apache.ofbiz.entity.GenericValue;
  */
 public class ProductStoreSurveyWrapper extends SurveyWrapper {
 
-    public static final String MODULE = ProductStoreSurveyWrapper.class.getName();
+    private static final String MODULE = ProductStoreSurveyWrapper.class.getName();
 
     protected GenericValue productStoreSurveyAppl = null;
     protected String surveyTemplate = null;
     protected String resultTemplate = null;
     protected boolean callResult = false;
 
-    protected ProductStoreSurveyWrapper() {}
+    protected ProductStoreSurveyWrapper() { }
 
     public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map<String, Object> passThru, Map<String, Object> defaultValues) {
         this.productStoreSurveyAppl = productStoreSurveyAppl;

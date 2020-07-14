@@ -38,7 +38,7 @@ public final class UtilObject {
     private UtilObject() {
     }
 
-    public static final String MODULE = UtilObject.class.getName();
+    private static final String MODULE = UtilObject.class.getName();
 
     /** Serialize an object to a byte array */
     public static byte[] getBytes(Object obj) {

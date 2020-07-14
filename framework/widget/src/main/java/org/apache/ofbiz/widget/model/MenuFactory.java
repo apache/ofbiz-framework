@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
  */
 public class MenuFactory {
 
-    public static final String MODULE = MenuFactory.class.getName();
+    private static final String MODULE = MenuFactory.class.getName();
 
     public static final UtilCache<String, Map<String, ModelMenu>> menuWebappCache = UtilCache.createUtilCache("widget.menu.webappResource", 0, 0, false);
     public static final UtilCache<String, Map<String, ModelMenu>> menuLocationCache = UtilCache.createUtilCache("widget.menu.locationResource", 0, 0, false);
@@ -89,7 +89,7 @@ public class MenuFactory {
             if (!"menus".equalsIgnoreCase(rootElement.getTagName())) {
                 rootElement = UtilXml.firstChildElement(rootElement, "menus");
             }
-            for (Element menuElement: UtilXml.childElementList(rootElement, "menu")){
+            for (Element menuElement: UtilXml.childElementList(rootElement, "menu")) {
                 ModelMenu modelMenu = new ModelMenu(menuElement, menuLocation, visualTheme);
                 modelMenuMap.put(modelMenu.getName(), modelMenu);
             }

@@ -44,10 +44,10 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class ShipmentWorker {
 
-    public static final String MODULE = ShipmentWorker.class.getName();
+    private static final String MODULE = ShipmentWorker.class.getName();
     private static final MathContext generalRounding = new MathContext(10);
 
-    private ShipmentWorker() {}
+    private ShipmentWorker() { }
 
     /*
      * Returns the value of a given ShipmentPackageContent record.  Calculated by working out the total value (from the OrderItems) of all ItemIssuances
@@ -134,7 +134,7 @@ public final class ShipmentWorker {
                         } else if (totalWeight.compareTo(BigDecimal.ZERO) > 0) {
                             // create the first package
                             if (packages.size() == 0) {
-                                packages.add(new HashMap<String, BigDecimal>());
+                                packages.add(new HashMap<>());
                             }
 
                             // package loop
@@ -199,7 +199,7 @@ public final class ShipmentWorker {
                 if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && UtilValidate.isNotEmpty(result.get("convertedValue"))) {
                     productWeight = (BigDecimal) result.get("convertedValue");
                 } else {
-                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",MODULE);
+                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb", MODULE);
                 }
             }
 

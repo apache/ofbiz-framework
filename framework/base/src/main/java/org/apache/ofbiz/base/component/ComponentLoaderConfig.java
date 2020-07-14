@@ -52,7 +52,7 @@ import org.xml.sax.SAXException;
  */
 public final class ComponentLoaderConfig {
 
-    public static final String MODULE = ComponentLoaderConfig.class.getName();
+    private static final String MODULE = ComponentLoaderConfig.class.getName();
     public static final String COMPONENT_LOAD_XML_FILENAME = "component-load.xml";
 
     public enum ComponentType { SINGLE_COMPONENT, COMPONENT_DIRECTORY }

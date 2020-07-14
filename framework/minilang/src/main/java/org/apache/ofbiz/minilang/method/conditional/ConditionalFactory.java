@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
  */
 public abstract class ConditionalFactory<C extends Conditional> {
 
-    public static final String MODULE = ConditionalFactory.class.getName();
+    private static final String MODULE = ConditionalFactory.class.getName();
     private static final Map<String, ConditionalFactory<?>> conditionalFactories;
 
     static {

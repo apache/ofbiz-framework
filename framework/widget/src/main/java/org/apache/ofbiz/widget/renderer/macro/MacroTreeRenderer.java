@@ -53,7 +53,7 @@ import freemarker.template.TemplateException;
  */
 public class MacroTreeRenderer implements TreeStringRenderer {
 
-    public static final String MODULE = MacroTreeRenderer.class.getName();
+    private static final String MODULE = MacroTreeRenderer.class.getName();
     private Template macroLibrary;
     private Environment environment;
 
@@ -364,7 +364,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
 
     @Override
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
-        ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
+        ScreenRenderer screenRenderer = (ScreenRenderer) context.get("screens");
         if (screenRenderer != null) {
             return screenRenderer.getScreenStringRenderer();
         }

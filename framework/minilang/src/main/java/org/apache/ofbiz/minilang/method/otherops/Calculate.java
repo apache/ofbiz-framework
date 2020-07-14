@@ -44,7 +44,7 @@ import org.w3c.dom.Element;
  */
 public final class Calculate extends MethodOperation {
 
-    public static final String MODULE = Calculate.class.getName();
+    private static final String MODULE = Calculate.class.getName();
 
     public static final int TYPE_DOUBLE = 1;
     public static final int TYPE_FLOAT = 2;
@@ -202,7 +202,6 @@ public final class Calculate extends MethodOperation {
 
     /**
      * Implements the &lt;calcop&gt; element.
-     * 
      * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
      */
     public final class CalcOp extends MiniLangElement implements SubCalc {
@@ -306,7 +305,6 @@ public final class Calculate extends MethodOperation {
 
     /**
      * Implements the &lt;number&gt; element.
-     * 
      * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
      */
     public final class NumberOp extends MiniLangElement implements SubCalc {

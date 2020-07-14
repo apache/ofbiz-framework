@@ -33,8 +33,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class PackingServices {
 
-    public static final String MODULE = PackingServices.class.getName();
-    public static final String resource = "ProductUiLabels";
+    private static final String MODULE = PackingServices.class.getName();
+    private static final String RESOURCE = "ProductUiLabels";
 
     public static Map<String, Object> addPackLine(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
@@ -147,7 +147,7 @@ public class PackingServices {
 
                 // check to make sure there is at least one package
                 if (packages.length == 0) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                             "ProductPackBulkNoPackagesDefined", locale));
                 }
 
@@ -158,7 +158,7 @@ public class PackingServices {
                         quantities[p] = qtyInfo.get(rowKey + ":" + packages[p]);
                     }
                     if (quantities.length != packages.length) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                                 "ProductPackBulkPackagesAndQuantitiesDoNotMatch", locale));
                     }
                 } else {
@@ -240,7 +240,7 @@ public class PackingServices {
         if (line != null) {
             session.clearLine(line);
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPackLineNotFound", locale));
         }
 
@@ -278,7 +278,6 @@ public class PackingServices {
     public static Map<String, Object> completePack(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
         Locale locale = (Locale) context.get("locale");
-        
         // set the instructions -- will clear out previous if now null
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
@@ -308,10 +307,10 @@ public class PackingServices {
 
         Map<String, Object> resp;
         if ("EMPTY".equals(shipmentId)) {
-            resp = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            resp = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPackCompleteNoItems", locale));
         } else {
-            resp = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
+            resp = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                     "ProductPackComplete", UtilMisc.toMap("shipmentId", shipmentId), locale));
         }
 

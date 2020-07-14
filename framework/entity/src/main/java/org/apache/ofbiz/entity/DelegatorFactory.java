@@ -32,7 +32,7 @@ import org.apache.ofbiz.base.util.UtilObject;
 
 /** <code>Delegator</code> factory abstract class. */
 public abstract class DelegatorFactory implements Factory<Delegator, String> {
-    public static final String MODULE = DelegatorFactory.class.getName();
+    private static final String MODULE = DelegatorFactory.class.getName();
     private static final ConcurrentHashMap<String, Future<Delegator>> delegators = new ConcurrentHashMap<>();
     private static final ThreadGroup DELEGATOR_THREAD_GROUP = new ThreadGroup("DelegatorFactory");
     private static final ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(DELEGATOR_THREAD_GROUP, "delegator-startup", Runtime.getRuntime().availableProcessors(), 10, true);

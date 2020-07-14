@@ -120,7 +120,7 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                             url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                         }
                         // make the link
-                        if (fullPath){
+                        if (fullPath) {
                             OfbizUrlBuilder builder = OfbizUrlBuilder.from(request);
                             builder.buildHostPart(newURL, url, secure);
                         }

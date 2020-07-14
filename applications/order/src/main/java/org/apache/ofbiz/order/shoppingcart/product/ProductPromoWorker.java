@@ -67,16 +67,15 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class ProductPromoWorker {
 
-    public static final String MODULE = ProductPromoWorker.class.getName();
-    private static final String resource = "OrderUiLabels";
-    private static final String resource_error = "OrderErrorUiLabels";
+    private static final String MODULE = ProductPromoWorker.class.getName();
+    private static final String RESOURCE = "OrderUiLabels";
+    private static final String RES_ERROR = "OrderErrorUiLabels";
 
-    private static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    private static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
+    private static final MathContext GEN_ROUNDING = new MathContext(10);
 
-    private static final MathContext generalRounding = new MathContext(10);
-
-    private ProductPromoWorker() {}
+    private ProductPromoWorker() { }
 
     public static List<GenericValue> getStoreProductPromos(Delegator delegator, LocalDispatcher dispatcher, ServletRequest request) {
         List<GenericValue> productPromos = new LinkedList<>();
@@ -107,7 +106,7 @@ public final class ProductPromoWorker {
                 Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
             }
             if (productStore == null) {
-                Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), MODULE);
+                Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
                 return productPromos;
             }
 
@@ -173,7 +172,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
         }
         if (productStore == null) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
             return promoCodes;
         }
         try {
@@ -213,7 +212,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up store with id " + productStoreId, MODULE);
         }
         if (productStore == null) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId", productStoreId), cart.getLocale()), MODULE);
             return productPromoList;
         }
 
@@ -258,7 +257,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up agreement with id " + agreementId, MODULE);
         }
         if (agreement == null) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoAgreementFoundWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoAgreementFoundWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
             return productPromoList;
         }
         GenericValue agreementItem = null;
@@ -268,7 +267,7 @@ public final class ProductPromoWorker {
             Debug.logError(e, "Error looking up agreement items for agreement with id " + agreementId, MODULE);
         }
         if (agreementItem == null) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions", UtilMisc.toMap("agreementId", agreementId), cart.getLocale()), MODULE);
             return productPromoList;
         }
 
@@ -335,7 +334,7 @@ public final class ProductPromoWorker {
                 ProductPromoUseInfo promoUse = promoUses.next();
                 sortedPromoUses.add(promoUse);
             }
-            Collections.sort(sortedPromoUses);
+            sortedPromoUses.sort(null);
             List<GenericValue> sortedExplodedProductPromoList = new ArrayList<>(sortedPromoUses.size());
             Map<String, Long> usesPerPromo = new HashMap<>();
             int indexOfFirstOrderTotalPromo = -1;
@@ -597,25 +596,25 @@ public final class ProductPromoWorker {
         try {
             GenericValue productPromoCode = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoCodeId", productPromoCodeId).queryOne();
             if (productPromoCode == null) {
-                return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_not_valid", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
+                return UtilProperties.getMessage(RES_ERROR, "productpromoworker.promotion_code_not_valid", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
             }
             if (cart != null) {
                 Set<String> promoCodes = ProductPromoWorker.getStoreProductPromoCodes(cart);
                 if (UtilValidate.isEmpty(promoCodes) || !promoCodes.contains(productPromoCodeId)) {
-                    return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_not_valid", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
+                    return UtilProperties.getMessage(RES_ERROR, "productpromoworker.promotion_code_not_valid", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
                 }
             }
             Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
             Timestamp thruDate = productPromoCode.getTimestamp("thruDate");
             if (thruDate != null) {
                 if (nowTimestamp.after(thruDate)) {
-                    return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_is_expired_at", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "thruDate", thruDate), locale);
+                    return UtilProperties.getMessage(RES_ERROR, "productpromoworker.promotion_code_is_expired_at", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "thruDate", thruDate), locale);
                 }
             }
             Timestamp fromDate = productPromoCode.getTimestamp("fromDate");
             if (fromDate != null) {
                 if (nowTimestamp.before(fromDate)) {
-                    return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_will_be_activated_at", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "fromDate", fromDate), locale);
+                    return UtilProperties.getMessage(RES_ERROR, "productpromoworker.promotion_code_will_be_activated_at", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "fromDate", fromDate), locale);
                 }
             }
 
@@ -644,20 +643,20 @@ public final class ProductPromoWorker {
                 }
 
                 if (!hasEmailOrParty) {
-                    return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_no_account_or_email", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
+                    return UtilProperties.getMessage(RES_ERROR, "productpromoworker.promotion_code_no_account_or_email", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
                 }
             }
 
             // check per customer and per promotion code use limits
             Long useLimit = getProductPromoCodeUseLimit(productPromoCode, partyId, delegator);
             if (useLimit != null && useLimit <= 0) {
-                return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_maximum_limit", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
+                return UtilProperties.getMessage(RES_ERROR, "productpromoworker.promotion_code_maximum_limit", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
             }
 
             return null;
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up ProductPromoCode", MODULE);
-            return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_error_lookup", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "errorMsg", e.toString()), locale);
+            return UtilProperties.getMessage(RES_ERROR, "productpromoworker.promotion_code_error_lookup", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "errorMsg", e.toString()), locale);
         }
     }
 
@@ -782,18 +781,18 @@ public final class ProductPromoWorker {
         }
 
         if ("Y".equals(productPromo.getString("requireCode"))) {
-            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderRequiresCodeToUse", locale));
+            promoDescBuf.append(UtilProperties.getMessage(RESOURCE, "OrderRequiresCodeToUse", locale));
         }
         if (productPromo.getLong("useLimitPerOrder") != null) {
-            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerOrder",
+            promoDescBuf.append(UtilProperties.getMessage(RESOURCE, "OrderLimitPerOrder",
                     UtilMisc.toMap("limit", productPromo.getLong("useLimitPerOrder")), locale));
         }
         if (productPromo.getLong("useLimitPerCustomer") != null) {
-            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerCustomer",
+            promoDescBuf.append(UtilProperties.getMessage(RESOURCE, "OrderLimitPerCustomer",
                     UtilMisc.toMap("limit", productPromo.getLong("useLimitPerCustomer")), locale));
         }
         if (productPromo.getLong("useLimitPerPromotion") != null) {
-            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerPromotion",
+            promoDescBuf.append(UtilProperties.getMessage(RESOURCE, "OrderLimitPerPromotion",
                     UtilMisc.toMap("limit", productPromo.getLong("useLimitPerPromotion")), locale));
         }
 
@@ -815,7 +814,7 @@ public final class ProductPromoWorker {
     private static boolean runProductPromoRules(ShoppingCart cart, Long useLimit, boolean requireCode, String productPromoCodeId, Long codeUseLimit, long maxUseLimit,
         GenericValue productPromo, List<GenericValue> productPromoRules, LocalDispatcher dispatcher, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException, UseLimitException {
         boolean cartChanged = false;
-        Map<ShoppingCartItem,BigDecimal> usageInfoMap = prepareProductUsageInfoMap(cart);
+        Map<ShoppingCartItem, BigDecimal> usageInfoMap = prepareProductUsageInfoMap(cart);
         String productPromoId = productPromo.getString("productPromoId");
         while ((useLimit == null || useLimit > cart.getProductPromoUseCount(productPromoId)) &&
                 (!requireCode || UtilValidate.isNotEmpty(productPromoCodeId)) &&
@@ -879,8 +878,8 @@ public final class ProductPromoWorker {
 
             if (promoUsed) {
                 // Get product use information from the cart
-                Map<ShoppingCartItem,BigDecimal> newUsageInfoMap = prepareProductUsageInfoMap(cart);
-                Map<ShoppingCartItem,BigDecimal> deltaUsageInfoMap = prepareDeltaProductUsageInfoMap(usageInfoMap, newUsageInfoMap);
+                Map<ShoppingCartItem, BigDecimal> newUsageInfoMap = prepareProductUsageInfoMap(cart);
+                Map<ShoppingCartItem, BigDecimal> deltaUsageInfoMap = prepareDeltaProductUsageInfoMap(usageInfoMap, newUsageInfoMap);
                 usageInfoMap = newUsageInfoMap;
                 cart.addProductPromoUse(productPromo.getString("productPromoId"), productPromoCodeId, totalDiscountAmount, quantityLeftInActions, deltaUsageInfoMap);
             } else {
@@ -896,8 +895,8 @@ public final class ProductPromoWorker {
         return cartChanged;
     }
 
-    private static Map<ShoppingCartItem,BigDecimal> prepareProductUsageInfoMap(ShoppingCart cart) {
-        Map<ShoppingCartItem,BigDecimal> usageInfoMap = new HashMap<>();
+    private static Map<ShoppingCartItem, BigDecimal> prepareProductUsageInfoMap(ShoppingCart cart) {
+        Map<ShoppingCartItem, BigDecimal> usageInfoMap = new HashMap<>();
         List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false);
         for (ShoppingCartItem cartItem : lineOrderedByBasePriceList) {
             BigDecimal used = cartItem.getPromoQuantityUsed();
@@ -908,8 +907,8 @@ public final class ProductPromoWorker {
         return usageInfoMap;
     }
 
-    private static Map<ShoppingCartItem,BigDecimal> prepareDeltaProductUsageInfoMap(Map<ShoppingCartItem,BigDecimal> oldMap, Map<ShoppingCartItem,BigDecimal> newMap) {
-        Map<ShoppingCartItem,BigDecimal> deltaUsageInfoMap = new HashMap<>(newMap);
+    private static Map<ShoppingCartItem, BigDecimal> prepareDeltaProductUsageInfoMap(Map<ShoppingCartItem, BigDecimal> oldMap, Map<ShoppingCartItem, BigDecimal> newMap) {
+        Map<ShoppingCartItem, BigDecimal> deltaUsageInfoMap = new HashMap<>(newMap);
 
         for (Entry<ShoppingCartItem, BigDecimal> entry : oldMap.entrySet()) {
             ShoppingCartItem key = entry.getKey();
@@ -964,7 +963,7 @@ public final class ProductPromoWorker {
                 }
             }
         }
-        
+
         if (serviceName != null) {
             Map<String, Object> serviceCtx = UtilMisc.<String, Object>toMap("productPromoCond", productPromoCond, "shoppingCart", cart, "nowTimestamp", nowTimestamp);
             Map<String, Object> condResult = null;
@@ -978,7 +977,6 @@ public final class ProductPromoWorker {
             if (condResult.containsKey("operatorEnumId")) {
                 operatorEnumId = (String) condResult.get("operatorEnumId");
             }
-            
             if (Debug.verboseOn()) Debug.logVerbose("Condition compare done, compareBase=" + compareBase, MODULE);
             if (compareBase != null) {
                 int compare = compareBase;
@@ -995,7 +993,7 @@ public final class ProductPromoWorker {
                 } else if ("PPC_GTE".equals(operatorEnumId)) {
                     if (compare >= 0) return true;
                 } else {
-                    Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId",operatorEnumId) , cart.getLocale()), MODULE);
+                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), MODULE);
                     return false;
                 }
             }
@@ -1062,13 +1060,13 @@ public final class ProductPromoWorker {
                 || ("PPC_GT".equals(operatorEnumId) && compare > 0)
                 || ("PPC_GTE".equals(operatorEnumId) && compare >= 0);
         if (!res) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondCondition",
+            Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderAnUnSupportedProductPromoCondCondition",
                     UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), MODULE);
         }
         return res;
     }
 
-    public static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException{
+    public static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException {
         List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate(nowTimestamp).queryList();
         for (GenericValue genericValue : partyRelationshipList) {
             String partyIdFrom = (String)genericValue.get("partyIdFrom");
@@ -1099,7 +1097,6 @@ public final class ProductPromoWorker {
         String productPromoActionEnumId = productPromoAction.getString("productPromoActionEnumId");
         String serviceName = null;
         GenericValue customMethod = productPromoAction.getRelatedOne("CustomMethod", true);
-        
         if (customMethod != null) {
             serviceName = customMethod.getString("customMethodName");
         } else {
@@ -1179,7 +1176,7 @@ public final class ProductPromoWorker {
             // to minimize rounding issues use the remaining total for the last one, otherwise use a calculated value
             if (cartItemsUsedIter.hasNext()) {
                 BigDecimal quantityUsed = cartItem.getPromoQuantityCandidateUseActionAndAllConds(productPromoAction);
-                BigDecimal ratioOfTotal = quantityUsed.multiply(cartItem.getBasePrice()).divide(totalAmount, generalRounding);
+                BigDecimal ratioOfTotal = quantityUsed.multiply(cartItem.getBasePrice()).divide(totalAmount, GEN_ROUNDING);
                 BigDecimal weightedAmount = ratioOfTotal.multiply(discountAmountTotal);
                 // round the weightedAmount to 3 decimal places, we don't want an exact number cents/whatever because this will be added up as part of a subtotal which will be rounded to 2 decimal places
                 weightedAmount = weightedAmount.setScale(3, RoundingMode.HALF_UP);
@@ -1218,12 +1215,12 @@ public final class ProductPromoWorker {
     public static void doOrderItemPromoAction(GenericValue productPromoAction, ShoppingCartItem cartItem, BigDecimal amount, String amountField, Delegator delegator) {
         // round the amount before setting to make sure we don't get funny numbers in there
         // only round to 3 places, we need more specific amounts in adjustments so that they add up cleaner as part of the item subtotal, which will then be rounded
-        amount = amount.setScale(3, rounding);
+        amount = amount.setScale(3, ROUNDING);
         boolean addNewAdjustment = true;
         List<GenericValue> adjustments = cartItem.getAdjustments();
         if (UtilValidate.isNotEmpty(adjustments)) {
-            for(GenericValue adjustment : adjustments) {
-                if("PROMOTION_ADJUSTMENT".equals(adjustment.getString("orderAdjustmentTypeId")) &&
+            for (GenericValue adjustment : adjustments) {
+                if ("PROMOTION_ADJUSTMENT".equals(adjustment.getString("orderAdjustmentTypeId")) &&
                         productPromoAction.get("productPromoId").equals(adjustment.getString("productPromoId")) &&
                         productPromoAction.get("productPromoRuleId").equals(adjustment.getString("productPromoRuleId")) &&
                         productPromoAction.get("productPromoActionSeqId").equals(adjustment.getString("productPromoActionSeqId"))) {
@@ -1252,7 +1249,7 @@ public final class ProductPromoWorker {
 
     public static void doOrderPromoAction(GenericValue productPromoAction, ShoppingCart cart, BigDecimal amount, String amountField, Delegator delegator) {
         // round the amount before setting to make sure we don't get funny numbers in there
-        amount = amount.setScale(decimals, rounding);
+        amount = amount.setScale(DECIMALS, ROUNDING);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
                 UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, amount,
                         "productPromoId", productPromoAction.get("productPromoId"),

@@ -50,9 +50,9 @@ import freemarker.template.TemplateException;
 public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRenderer {
 
     ScreenStringRenderer screenStringRenderer = null;
-    public static final String MODULE = HtmlTreeRenderer.class.getName();
+    private static final String MODULE = HtmlTreeRenderer.class.getName();
 
-    public HtmlTreeRenderer() {}
+    public HtmlTreeRenderer() { }
 
     @Override
     public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth) throws IOException {
@@ -342,7 +342,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
         VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
         ModelTheme modelTheme = visualTheme.getModelTheme();
-        ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
+        ScreenRenderer screenRenderer = (ScreenRenderer) context.get("screens");
         if (screenRenderer != null) {
             screenStringRenderer = screenRenderer.getScreenStringRenderer();
         } else {

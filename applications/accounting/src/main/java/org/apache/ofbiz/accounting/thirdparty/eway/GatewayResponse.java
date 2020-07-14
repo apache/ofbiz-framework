@@ -143,7 +143,7 @@ public class GatewayResponse {
         NodeList list = doc.getElementsByTagName("*");
         int length = list.getLength();
         for (int i = 0; i < length; i++) {
-            Node node = list.item(i);                        
+            Node node = list.item(i);
             String name = node.getNodeName();
             if (name == "ewayResponse") {
                 continue;
@@ -195,12 +195,10 @@ public class GatewayResponse {
                 throw new Exception("Unknown field in response: " + name);
             }
         }
-            
         if (req.isTestMode()) {
             Debug.logInfo("[eWay Reply]\n" + this.toString(), MODULE);
         }
     }
-    
     @Override
     public String toString() {
         StringBuffer buf = new StringBuffer();

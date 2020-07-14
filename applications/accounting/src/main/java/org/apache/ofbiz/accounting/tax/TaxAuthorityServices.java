@@ -54,14 +54,15 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class TaxAuthorityServices {
 
-    public static final String MODULE = TaxAuthorityServices.class.getName();
-    public static final BigDecimal ZERO_BASE = BigDecimal.ZERO;
-    public static final BigDecimal ONE_BASE = BigDecimal.ONE;
-    public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
-    public static final int salestaxFinalDecimals = UtilNumber.getBigDecimalScale("salestax.final.decimals");
-    public static final int salestaxCalcDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    public static final RoundingMode salestaxRounding = UtilNumber.getRoundingMode("salestax.rounding");
-    public static final String resource = "AccountingUiLabels";
+    private static final String MODULE = TaxAuthorityServices.class.getName();
+    private static final String RESOURCE = "AccountingUiLabels";
+
+    private static final BigDecimal ZERO_BASE = BigDecimal.ZERO;
+    private static final BigDecimal ONE_BASE = BigDecimal.ONE;
+    private static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
+    private static final int TAX_FINAL_SCALE = UtilNumber.getBigDecimalScale("salestax.final.decimals");
+    private static final int TAX_SCALE = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    private static final RoundingMode TAX_ROUNDING = UtilNumber.getRoundingMode("salestax.rounding");
 
     public static Map<String, Object> rateProductTaxCalcForDisplay(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -137,10 +138,10 @@ public class TaxAuthorityServices {
                         taxPercentage = taxPercentage.add(taxAdjustment.getBigDecimal("sourcePercentage"));
                         BigDecimal adjAmount = taxAdjustment.getBigDecimal("amount");
                         taxTotal = taxTotal.add(adjAmount);
-                        priceWithTax = priceWithTax.add(adjAmount.divide(quantity, salestaxCalcDecimals,
-                                salestaxRounding));
+                        priceWithTax = priceWithTax.add(adjAmount.divide(quantity, TAX_SCALE,
+                                TAX_ROUNDING));
                         Debug.logInfo("For productId [" + productId + "] added [" + adjAmount.divide(quantity,
-                                salestaxCalcDecimals, salestaxRounding) + "] of tax to price for geoId ["
+                                TAX_SCALE, TAX_ROUNDING) + "] of tax to price for geoId ["
                                 + taxAdjustment.getString("taxAuthGeoId") + "], new price is [" + priceWithTax + "]",
                                 MODULE);
                     }
@@ -148,13 +149,13 @@ public class TaxAuthorityServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
 
         // round to 2 decimal places for display/etc
-        taxTotal = taxTotal.setScale(salestaxFinalDecimals, salestaxRounding);
-        priceWithTax = priceWithTax.setScale(salestaxFinalDecimals, salestaxRounding);
+        taxTotal = taxTotal.setScale(TAX_FINAL_SCALE, TAX_ROUNDING);
+        priceWithTax = priceWithTax.setScale(TAX_FINAL_SCALE, TAX_ROUNDING);
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("taxTotal", taxTotal);
@@ -192,7 +193,7 @@ public class TaxAuthorityServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
 
@@ -212,15 +213,15 @@ public class TaxAuthorityServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                         .toMap("errorString", e.toString()), locale));
             }
         }
         if (shippingAddress == null || (shippingAddress.get("countryGeoId") == null && shippingAddress.get(
                 "stateProvinceGeoId") == null && shippingAddress.get("postalCodeGeoId") == null)) {
-            String errMsg = UtilProperties.getMessage(resource, "AccountingTaxNoAddressSpecified", locale);
+            String errMsg = UtilProperties.getMessage(RESOURCE, "AccountingTaxNoAddressSpecified", locale);
             if (shippingAddress != null) {
-                errMsg += UtilProperties.getMessage(resource, "AccountingTaxNoAddressSpecifiedDetails", UtilMisc.toMap(
+                errMsg += UtilProperties.getMessage(RESOURCE, "AccountingTaxNoAddressSpecifiedDetails", UtilMisc.toMap(
                         "contactMechId", shippingAddress.getString("contactMechId"), "address1", shippingAddress.get(
                                 "address1"), "postalCodeGeoId", shippingAddress.get("postalCodeGeoId"),
                         "stateProvinceGeoId", shippingAddress.get("stateProvinceGeoId"), "countryGeoId", shippingAddress
@@ -237,7 +238,7 @@ public class TaxAuthorityServices {
             getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingTaxSettingError", UtilMisc
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
 
@@ -246,7 +247,7 @@ public class TaxAuthorityServices {
         List<List<GenericValue>> itemAdjustments = new LinkedList<>();
 
         BigDecimal totalPrice = ZERO_BASE;
-        Map<GenericValue,BigDecimal> productWeight = new HashMap<>();
+        Map<GenericValue, BigDecimal> productWeight = new HashMap<>();
         // Loop through the products; get the taxCategory; and lookup each in the cache.
         for (int i = 0; i < itemProductList.size(); i++) {
             GenericValue product = itemProductList.get(i);
@@ -254,18 +255,18 @@ public class TaxAuthorityServices {
             BigDecimal itemPrice = itemPriceList.get(i);
             BigDecimal itemQuantity = itemQuantityList != null ? itemQuantityList.get(i) : null;
             BigDecimal shippingAmount = itemShippingList != null ? itemShippingList.get(i) : null;
-            
+
             totalPrice = totalPrice.add(itemAmount);
-            
+
             List<GenericValue> taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId,
                     billToPartyId, taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, ZERO_BASE);
 
             // this is an add and not an addAll because we want a List of Lists of
             // GenericValues, one List of Adjustments per item
             itemAdjustments.add(taxList);
-            
+
             //Calculates the TotalPrices for each Product in the Order
-            BigDecimal currentTotalPrice =  productWeight.containsKey(product) ? productWeight.get(product) : BigDecimal.ZERO;
+            BigDecimal currentTotalPrice = productWeight.getOrDefault(product, BigDecimal.ZERO);
             currentTotalPrice = currentTotalPrice.add(itemAmount);
             productWeight.put(product, currentTotalPrice);
         }
@@ -273,7 +274,7 @@ public class TaxAuthorityServices {
         for (GenericValue prod : productWeight.keySet()) {
             BigDecimal value = productWeight.get(prod);
             if (totalPrice.compareTo(BigDecimal.ZERO) > 0) {
-                BigDecimal weight = value.divide(totalPrice, 100, salestaxRounding);
+                BigDecimal weight = value.divide(totalPrice, 100, TAX_ROUNDING);
                 productWeight.put(prod, weight);
             }
         }
@@ -347,11 +348,10 @@ public class TaxAuthorityServices {
             BigDecimal shippingAmount, BigDecimal orderPromotionsAmount, BigDecimal weight) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         List<GenericValue> adjustments = new LinkedList<>();
-        
         if (weight == null) {
             weight = BigDecimal.ONE;
         }
-        
+
         if (payToPartyId == null) {
             if (productStore != null) {
                 payToPartyId = productStore.getString("payToPartyId");
@@ -462,8 +462,8 @@ public class TaxAuthorityServices {
                 }
 
                 // taxRate is in percentage, so needs to be divided by 100
-                BigDecimal taxAmount = (taxable.multiply(taxRate)).divide(PERCENT_SCALE, salestaxCalcDecimals,
-                        salestaxRounding);
+                BigDecimal taxAmount = (taxable.multiply(taxRate)).divide(PERCENT_SCALE, TAX_SCALE,
+                        TAX_ROUNDING);
 
                 String taxAuthGeoId = taxAuthorityRateProduct.getString("taxAuthGeoId");
                 String taxAuthPartyId = taxAuthorityRateProduct.getString("taxAuthPartyId");
@@ -594,7 +594,7 @@ public class TaxAuthorityServices {
                     BigDecimal price = productPrice.getBigDecimal("price");
                     BigDecimal baseSubtotal = price.multiply(itemQuantity);
                     BigDecimal baseTaxAmount = (baseSubtotal.multiply(taxRate)).divide(PERCENT_SCALE,
-                            salestaxCalcDecimals, salestaxRounding);
+                            TAX_SCALE, TAX_ROUNDING);
 
                     // tax is not already in price so we want to add it in, but this is a VAT
                     // situation so adjust to make it as accurate as possible
