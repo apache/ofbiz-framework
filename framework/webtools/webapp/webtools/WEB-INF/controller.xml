@@ -505,6 +505,14 @@ under the License.
         <response name="success" type="view" value="viewbrowsercerts"/>
     </request-map>
 
+    <!-- csp-report -->
+    <request-map uri="csp-report">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.webtools.CSPEvents" invoke="CSPReport"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none" />
+    </request-map>
+
     <!-- Temporal expression view mapping -->
     <request-map uri="editTemporalExpression">
         <security https="true" auth="true"/>
