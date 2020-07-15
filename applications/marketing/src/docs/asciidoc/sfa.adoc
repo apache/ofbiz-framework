@@ -26,6 +26,11 @@ The main purpose of the SFA application is to support the process of creating or
 The SFA application is for a specific user to list his leads, contacts accounts and opportunities. +
 He can create new parties or he can assign existing parties to himself.
 
+It is very much based on the party application as its source. +
+Records from the party application are selected with only one basic reason: a possible sale in the future. +
+That also means that records in the party manager should be complete, especially the role is pretty important.
+Not All roles, but at least 'lead' 'contact' and 'Account' should be defined.
+
 == SFA in User Interface
 
 === Main screen

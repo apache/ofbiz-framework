@@ -481,6 +481,7 @@ parameters are passed:
 [[testing-tasks]]
 === Testing tasks
 
+# tag::testingtasks[]
 [[execute-all-unit-tests]]
 ==== Execute all unit tests
 
@@ -540,6 +541,7 @@ listens on port *5005*
 
 `gradlew "ofbiz --test component=entity --test suitename=entitytests" --debug-jvm`
 
+# end::testingtasks[]
 
 
 [[miscellaneous-tasks]]

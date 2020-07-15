@@ -199,7 +199,7 @@ include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
 
 ==== Views
 
-== Entity Engine
+include::../../framework/entity/src/docs/asciidoc/entity-engine.adoc[leveloffset=+1]
 
 === Entities
 
@@ -213,6 +213,8 @@ include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
 
 === XML Data
 
+include::../../framework/datafile/src/docs/asciidoc/datafiles.adoc[leveloffset=+2]
+
 === Entity engine configuration
 
 === Supported databases
@@ -220,6 +222,8 @@ include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
 include::../../applications/datamodel/DATAMODEL_CHANGES.adoc[leveloffset=+2]
 
 == Service Engine
+A description of the service engine can be found at the
+https://cwiki.apache.org/confluence/display/OFBIZ/Service+Engine+Guide[OFBiz wiki Service Engine Guide]
 
 === Declaration and Implementation
 
@@ -264,17 +268,30 @@ include::../../themes/docs/themes.adoc[leveloffset=+2]
 ==== Database
 
 === Web tools
+The Webtools application is the UI-gateway to all the framework functions.
+
+include::../../framework/webtools/src/docs/asciidoc/_include/webtools-main.adoc[leveloffset=+3]
+
+include::../../framework/minilang/src/docs/asciidoc/minilang-to-groovy-manual.adoc[leveloffset=+1]
 
 == Testing
 
-=== Unit Tests
+include::../../framework/testtools/src/docs/asciidoc/unit-tests.adoc[leveloffset=+2]
 
 === Integration Tests
 
 == Deployment
 
+For a core configuration guide check
+https://cwiki.apache.org/confluence/display/OFBIZ/Framework+Configuration+Guide[the OFBiz configuration Guide]
+ (some points are not up to date).
+
+
+include::../../framework/base/src/docs/asciidoc/email.adoc[leveloffset=+2]
+
+include::../../plugins/ldap/src/docs/asciidoc/SingleSignOn.adoc[leveloffset=+2]
+
 include::../../framework/security/src/docs/asciidoc/security.adoc[leveloffset=+1]
 
 == Appendices
 
-include::../../framework/minilang/docs/asciidoc/minilang-to-groovy-manual.adoc[leveloffset=+1]

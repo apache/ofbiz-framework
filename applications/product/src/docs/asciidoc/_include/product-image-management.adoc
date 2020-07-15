@@ -1,0 +1,149 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Image Management
+The Image Management module manages many kind of image what user want. +
+There are various functions including 'Gallery', 'Upload', 'Approved', 'Manage' etc.
+
+Go to Catalog Component > tab Image Management.
+
+
+== How To Add Security Group For Image Management User
+There are three security groups related in the Image Management including 'IMAGEADMIN', 'IMAGEAPPROVE' and ' IMAGEUPLOAD'.
+
+=== Howto add a security group
+. Go to 'Party' component.
+. Search 'UserLogin' or 'Party Id'.
+. Click 'UserLogin' or 'Party Id'.
+. At 'User Name(s)', click 'Security Groups' button.
+. At 'Add UserLogin go to Security Group',
+  * select group 'IMAGEADMIN Image Management Admin' for use all operations in the Image Management.
+  * select 'IMAGEUPLOAD Image Management Upload': To add party's permission for uploading,
+  * select 'IMAGEAPPROVE Image Management Approve': To add party's permission for approving.
+
+=== Howto Add Role For Approve Image To Party Id
+Click partyId into party's screen already present. +
+Select the submenu 'Role(s)' to add the role to party
+
+There is Add To Role screenlet, select role 'Image Approver'(on the combobox role type Id) then click 'add' button.
+
+== Gallery
+Gallery shows all images which have approved.
+
+[NOTE]
+Everybody can access Gallery function.
+
+. Click 'Gallery' button, then choose a 'Product Id' by type or click a find icon.
+. Click 'Submit' button, then you will see all images which have approved.
+. You can click 'Share' button that generates any codes to share your images to any people.
+
+== Upload
+In this function, you can upload image files into system. +
+You can upload many image files up to 10 files.
+
+[NOTE]
+You must have Image Management Upload permission for access Upload function.
+
+. Go to 'Upload' section, Enter 'Product Id' by type or click a find icon.
+. Optional, you can specify the size of images.
+. Then click 'Browse' button to choose image file(s).
+. Click 'Upload' button.
+
+== Recently Approved
+In this function, you can see the images which have been approved for 14 days recently.
+
+[NOTE]
+You must have Image Management Admin permission for access this function.
+
+. Click 'Recently Approved' Button, then you will see the lists of recently approved product which are separated by date.
+. Click on product id to see its images with details.
+
+== Approve
+In this function, you can set the status of each image including 'Approve', 'Pending' and 'Rejected'.
+
+[NOTE]
+You must have Image Management Admin permission for access this function.
+
+. Click 'Approve' Button, then specify the status of each image.
+. Choose 'Approve' status for approve image.
+. Choose 'Reject' status for reject image..
+. Choose 'Pending' status for pending image..
+. Click 'Submit' button.
+
+The images will be approved if all image administrators approved them. +
+But if only one person rejects an image then that image will be rejected.
+
+== Rejected
+The Rejected function shows the images which have rejected.
+
+[NOTE]
+You must have Image Management Admin permission for access this function.
+
+. Click 'Rejected' button, then you specify the reason of rejection each image.
+. Then click 'Submit' button.
+
+== Manage
+You can edit image such as add frame, crop image etc. +
+You can also add caption, sort order, enable image and choose thumbnail in this function.
+
+[NOTE]
+You must have Image Management Admin permission for access this function.
+
+. Click 'Manage' Button, then you can choose action including 'Frame', 'Crop' and 'Rotate' (see below for more details).
+. Enter your image caption.
+. Sort order of image by enter order number.
+. Enable image by tick enable checkbox.
+. Select image thumbnail of product.
+. Click 'Submit' button.
+
+=== Frame
+In Frame function, you can merge your image with the frame image (transparent image file e.g.
+PNG type) together.
+
+The frame image should be larger than selected image.
+
+. Choose 'Frame' then choose the image you want to merge frame.
+. Select the frame image by browsing transparent image file, such as PNG type.
+. Click 'Upload' button to upload the frame image.
+. Enter width and height of image.
+. Optional, you click 'Preview' to see example image.
+. Click 'Create' button.
+
+=== Crop
+You can crop any images in this function.
+
+. Choose 'Crop' then choose your image.
+. Move your cursor on the image, then drag your mouse to crop image.
+. You can see the preview image in the right hand side.
+. Finally, you click 'Crop' button.
+
+=== Rotate
+You can rotate images in this function.
+
+. Choose 'Rotate' then click clockwise or counterclockwise button for ratating image.
+. 'Submit' button
+
+== Replace
+In this function, you can replace the selected image with other image.
+
+The image which you want to replace must be approved first.
+
+. Click 'Replace' button, Enter 'Product Id' by type or click a find icon.
+. Then choose the image which you want to replace.
+. Choose the other image to replace with the selected image.
+. Click 'Submit' button.

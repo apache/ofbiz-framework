@@ -40,6 +40,7 @@ under the License.
                 <set field="activeApp" value="catalogmgr" global="true"/>
                 <set field="applicationMenuName" value="CatalogAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://product/widget/catalog/CatalogMenus.xml" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_catalog"/>
                 <set field="applicationTitle" from-field="uiLabelMap.ProductCatalogManagerApplication" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js" global="true"/>
             </actions>
@@ -233,7 +234,7 @@ under the License.
                     </decorator-section>-->
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for CATALOG, _VIEW permission -->
@@ -302,7 +303,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <container style="button-bar">
                             <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext create"/>
@@ -325,7 +326,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://product/template/FastLoadCache.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -333,7 +334,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="categorytree">
         <section>
             <actions>
@@ -371,6 +372,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
+                <set field="helpAnchor" value="_help_for_the_party_find_screen"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -400,6 +402,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="Imagemanagement"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_image_management"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

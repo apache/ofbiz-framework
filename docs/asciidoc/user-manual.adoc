@@ -168,3 +168,5 @@ include::../../applications/marketing/src/docs/asciidoc/sfa.adoc[leveloffset=+2]
 include::../../applications/order/src/docs/asciidoc/order.adoc[leveloffset=+2]
 
 include::../../applications/party/src/docs/asciidoc/party.adoc[leveloffset=+2]
+
+include::../../applications/product/src/docs/asciidoc/product.adoc[leveloffset=+2]
