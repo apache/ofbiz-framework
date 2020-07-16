@@ -18,7 +18,7 @@ under the License.
 -->
 <#if product?? && mainProducts??>
     <select name="parentProductId" onchange="javascript:displayProductVirtualVariantId(this.value);">
-        <option value="">Select Unit Of Measure</option>
+        <option value="">${uiLabelMap.CommonSelect} ${uiLabelMap.ProductUnitOfMeasure}</option>
         <#list mainProducts as mainProduct>
             <option value="${mainProduct.productId}">${mainProduct.uomDesc} : ${mainProduct.piecesIncluded}</option>
         </#list>
