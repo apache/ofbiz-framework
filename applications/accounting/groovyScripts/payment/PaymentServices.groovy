@@ -483,10 +483,6 @@ def createPaymentApplication() {
     if (parameters.toPaymentId) {
         // get the to payment and check the parent types are compatible
         GenericValue toPayment = from("Payment").where("paymentId", parameters.toPaymentId).queryOne()
-        if (toPayment) {
-            toPaymentType = toPayment.getRelatedOne("PaymentType", true)
-        }
-        paymentType = payment.getRelatedOne("PaymentType", true)
         //  when amount not provided use the the lowest value available
         if (!parameters.amountApplied) {
             notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment)
