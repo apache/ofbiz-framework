@@ -130,8 +130,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /** The namespace of this service */
     public String nameSpace;
 
-    /** The corresponding REST verb behavior for this service */
-    public String verb;
+    /** The corresponding REST verb behaviour for this service */
+    public String action;
 
     /** The package name or location of this service */
     public String location;
@@ -237,7 +237,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.defaultEntityName = model.defaultEntityName;
         this.auth = model.auth;
         this.export = model.export;
-        this.verb = model.verb;
+        this.action = model.action;
         this.validate = model.validate;
         this.useTransaction = model.useTransaction;
         this.requireNewTransaction = model.requireNewTransaction;
@@ -373,7 +373,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         buf.append(defaultEntityName).append("::");
         buf.append(auth).append("::");
         buf.append(export).append("::");
-        buf.append(verb).append("::");
+        buf.append(action).append("::");
         buf.append(validate).append("::");
         buf.append(useTransaction).append("::");
         buf.append(requireNewTransaction).append("::");
