@@ -291,42 +291,6 @@
 
     </simple-method>
 
-    <!-- This method first updates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
-         by calling persistContentAndAssoc.    It then takes the passed in contentId, communicationEventId and fromDate primary keys
-         and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
-        -->
-    <simple-method method-name="updateCommContentDataResource" short-description="Update CommunicationEvent and Content">
-
-        <!--
-        <check-permission permission="CONTENTMGR" action="_DELETE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-            -->
-        <set-service-fields service-name="persistContentAndAssoc" map="parameters" to-map="persistIn"/>
-        <call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
-            <results-to-map map-name="persistOut"/>
-        </call-service>
-
-        <set field="mapIn.contentId"  from-field="persistOut.contentId"/>
-        <set field="mapIn.fromDate"  from-field="parameters.fromDate"/>
-        <set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
-        <set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
-        <call-service service-name="updateCommEventContentAssoc" in-map-name="mapIn">
-        </call-service>
-
-        <field-to-result field="persistOut.contentId" result-name="contentId"/>
-        <field-to-result field="persistOut.dataResourceId" result-name="dataResourceId"/>
-        <field-to-result field="persistOut.drDataResourceId" result-name="drDataResourceId"/>
-        <field-to-result field="persistOut.caContentIdTo" result-name="caContentIdTo"/>
-        <field-to-result field="persistOut.caContentId" result-name="caContentId"/>
-        <field-to-result field="persistOut.caContentAssocTypeId" result-name="caContentAssocTypeId"/>
-        <field-to-result field="persistOut.caFromDate" result-name="caFromDate"/>
-        <field-to-result field="persistOut.caSequenceNum" result-name="caSequenceNum"/>
-        <field-to-result field="persistOut.roleTypeList" result-name="roleTypeList"/>
-
-    </simple-method>
-
     <!-- This service ties CommunicationEvent and Content entities together along with the standard from/thruDate fields.
         -->
     <simple-method method-name="createCommEventContentAssoc" short-description="Create CommEventContentAssoc">

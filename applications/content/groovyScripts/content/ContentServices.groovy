@@ -414,3 +414,27 @@ def deleteContentKeywords() {
     content.removeRelated('ContentKeyword')
     return success()
 }
+
+// This method first updates Content, DataResource and ElectronicText,
+// ImageDataResource, etc. entities (if needed) by calling persistContentAndAssoc.
+// It then takes the passed in contentId, communicationEventId and fromDate primary keys
+// and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
+def updateCommContentDataResource() {
+    Map serviceResult = run service: 'persistContentAndAssoc', with: parameters
+    run service: 'updateCommEventContentAssoc', with: [contentId           : serviceResult.contentId,
+                                                       fromDate            : parameters.fromDate,
+                                                       communicationEventId: parameters.communicationEventId,
+                                                       sequenceNum         : parameters.sequenceNum,
+                                                       userLogin           : userLogin]
+
+    return [*                   : success(),
+            contentId           : serviceResult.contentId,
+            dataResourceId      : serviceResult.dataResourceId,
+            drDataResourceId    : serviceResult.drDataResourceId,
+            caContentIdTo       : serviceResult.caContentIdTo,
+            caContentId         : serviceResult.caContentId,
+            caContentAssocTypeId: serviceResult.caContentAssocTypeId,
+            caFromDate          : serviceResult.caFromDate,
+            caSequenceNum       : serviceResult.caSequenceNum,
+            roleTypeList        : serviceResult.roleTypeList]
+}
