@@ -19,6 +19,7 @@
 
 import java.sql.Timestamp
 
+import org.apache.ofbiz.content.content.ContentKeywordIndex
 import org.apache.ofbiz.common.UrlServletHelper
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
@@ -437,4 +438,22 @@ def updateCommContentDataResource() {
             caFromDate          : serviceResult.caFromDate,
             caSequenceNum       : serviceResult.caSequenceNum,
             roleTypeList        : serviceResult.roleTypeList]
+}
+
+def indexContentKeywords() {
+    // this service is meant to be called from an entity ECA for entities that include a contentId
+    // if it is the Content entity itself triggering this action, then a [contentInstance] parameter
+    // will be passed and we can save a few cycles looking that up
+    contentInstance = parameters.contentInstance
+    if (!contentInstance) {
+        contentInstance = from("Content").where("contentId", parameters.contentId).queryOne()
+    }
+    ContentKeywordIndex.indexKeywords(contentInstance)
+    return success()
+}
+
+def forceIndexContentKeywords() {
+    content = from("Content").where("contentId", parameters.contentId).queryOne()
+    ContentKeywordIndex.forceIndexKeywords(content)
+    return success()
 }

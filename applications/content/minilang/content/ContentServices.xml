@@ -326,27 +326,6 @@
         <set-service-fields service-name="getContentAndDataResource" map="parameters" to-map="getC"/>
         <call-service service-name="getContentAndDataResource" in-map-name="getC"/>
     </simple-method>
-    <simple-method method-name="forceIndexContentKeywords" short-description="induce all the keywords of a content">
-        <entity-one entity-name="Content" value-field="content"/>
-        <call-class-method class-name="org.apache.ofbiz.content.content.ContentKeywordIndex" method-name="forceIndexKeywords">
-            <field field="content" type="org.apache.ofbiz.entity.GenericValue"/>
-        </call-class-method>
-    </simple-method>
-    <simple-method method-name="indexContentKeywords" short-description="Index the Keywords for a Content" login-required="false">
-        <!-- this service is meant to be called from an entity ECA for entities that include a contentId -->
-        <!-- if it is the Content entity itself triggering this action, then a [contentInstance] parameter
-            will be passed and we can save a few cycles looking that up -->
-        <set from-field="parameters.contentInstance" field="contentInstance"/>
-        <if-empty field="contentInstance">
-            <set from-field="parameters.contentId" field="findContentMap.contentId"/>
-            <find-by-primary-key entity-name="Content" map="findContentMap" value-field="contentInstance"/>
-        </if-empty>
-
-        <!-- induce keywords-->
-        <call-class-method class-name="org.apache.ofbiz.content.content.ContentKeywordIndex" method-name="indexKeywords">
-            <field field="contentInstance" type="org.apache.ofbiz.entity.GenericValue"/>
-        </call-class-method>
-    </simple-method>
 
     <simple-method method-name="createMissingContentAltUrls" short-description="create missing content alternative urls.">
         <now-timestamp field="now"/>
