@@ -1578,7 +1578,7 @@ public final class UtilHttp {
                 paramMapStore.remove(paramMapId);
                 for (Map.Entry<String, Object> paramEntry : paramMap.entrySet()) {
                     if (request.getAttribute(paramEntry.getKey()) != null) {
-                        Debug.logWarning("Skipped loading parameter [" + paramEntry.getKey() + "] because it would have overwritten a request attribute" , MODULE);
+                        Debug.logWarning("Skipped loading parameter [" + paramEntry.getKey() + "] because it would have overwritten a request attribute", MODULE);
                         continue;
                     }
                     request.setAttribute(paramEntry.getKey(), paramEntry.getValue());
@@ -1593,7 +1593,7 @@ public final class UtilHttp {
      * @return String
      */
     public static String getNextUniqueId(HttpServletRequest request) {
-        Integer uniqueIdNumber= (Integer)request.getAttribute("UNIQUE_ID");
+        Integer uniqueIdNumber= (Integer) request.getAttribute("UNIQUE_ID");
         if (uniqueIdNumber == null) {
             uniqueIdNumber = 1;
         }

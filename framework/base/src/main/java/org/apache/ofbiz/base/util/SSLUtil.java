@@ -184,7 +184,7 @@ public final class SSLUtil {
         if (alias != null) {
             for (int i = 0; i < keyManagers.length; i++) {
                 if (keyManagers[i] instanceof X509KeyManager) {
-                    keyManagers[i] = new AliasKeyManager((X509KeyManager)keyManagers[i], alias);
+                    keyManagers[i] = new AliasKeyManager((X509KeyManager) keyManagers[i], alias);
                 }
             }
         }

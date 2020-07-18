@@ -209,13 +209,13 @@ public final class EntityFinderUtil {
             if ((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN) || operator.equals(EntityOperator.NOT_IN))
                     && value instanceof String) {
                 String delim = null;
-                if (((String)value).indexOf('|') >= 0) {
+                if (((String) value).indexOf('|') >= 0) {
                     delim = "|";
-                } else if (((String)value).indexOf(',') >= 0) {
+                } else if (((String) value).indexOf(',') >= 0) {
                     delim = ",";
                 }
                 if (delim != null) {
-                    value = StringUtil.split((String)value, delim);
+                    value = StringUtil.split((String) value, delim);
                 }
             }
 

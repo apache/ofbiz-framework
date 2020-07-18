@@ -145,8 +145,8 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
             boolean optionSelected = false;
             for (ModelFormField.OptionValue optionValue : allOptionValues) {
                 String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
-                if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) ||
-                        (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
+                if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent()))
+                        || (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
                     makeBlockString(writer, modelFormField.getWidgetStyle(), optionValue.getDescription());
                     optionSelected = true;
                     break;

@@ -112,7 +112,7 @@ public class CommonServices {
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
         List<GenericValue> testingNodes = new LinkedList<>();
-        for (int i = 0; i < 3; i ++) {
+        for (int i = 0; i < 3; i++) {
             GenericValue testingNode = delegator.makeValue("TestingNode");
             testingNode.put("testingNodeId", "TESTING_NODE" + i);
             testingNode.put("description", "Testing Node " + i);
@@ -128,7 +128,7 @@ public class CommonServices {
         if (duration == null) {
             duration = 30000l;
         }
-        Debug.logInfo("-----SERVICE BLOCKING----- : " + duration/1000d +" seconds", MODULE);
+        Debug.logInfo("-----SERVICE BLOCKING----- : " + duration / 1000d + " seconds", MODULE);
         try {
             Thread.sleep(duration);
         } catch (InterruptedException e) {

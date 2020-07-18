@@ -207,8 +207,8 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof FormWidgetArtifactInfo) {
-            return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName()) &&
-                    this.modelForm.getFormLocation().equals(((FormWidgetArtifactInfo) obj).modelForm.getFormLocation()));
+            return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName())
+                    && this.modelForm.getFormLocation().equals(((FormWidgetArtifactInfo) obj).modelForm.getFormLocation()));
         } else {
             return false;
         }

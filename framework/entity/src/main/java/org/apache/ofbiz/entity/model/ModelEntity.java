@@ -689,7 +689,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
      */
     public List<String> getAutomaticFieldNames() {
         List<String> nameList = new LinkedList<>();
-        if (! this.noAutoStamp) {
+        if (!this.noAutoStamp) {
             nameList.add(STAMP_FIELD);
             nameList.add(STAMP_TX_FIELD);
             nameList.add(CREATE_STAMP_FIELD);
@@ -1439,8 +1439,8 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
         Element root = document.createElement("entity");
         root.setAttribute("entity-name", this.getEntityName());
-        if (!this.getEntityName().equals(ModelUtil.dbNameToClassName(this.getPlainTableName())) ||
-                !ModelUtil.javaNameToDbName(this.getEntityName()).equals(this.getPlainTableName())) {
+        if (!this.getEntityName().equals(ModelUtil.dbNameToClassName(this.getPlainTableName()))
+                || !ModelUtil.javaNameToDbName(this.getEntityName()).equals(this.getPlainTableName())) {
                 root.setAttribute("table-name", this.getPlainTableName());
         }
         root.setAttribute("package-name", packageName);

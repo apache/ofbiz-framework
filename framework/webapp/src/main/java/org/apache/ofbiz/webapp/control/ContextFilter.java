@@ -142,7 +142,7 @@ public class ContextFilter implements Filter {
                         GenericValue tenant = EntityQuery.use(baseDelegator).from("Tenant").where("tenantId", tenantId).queryOne();
                         String initialPath = tenant.getString("initialPath");
                         if (UtilValidate.isNotEmpty(initialPath) && !"/".equals(initialPath)) {
-                            ((HttpServletResponse)response).sendRedirect(initialPath);
+                            ((HttpServletResponse) response).sendRedirect(initialPath);
                             return;
                         }
                     }

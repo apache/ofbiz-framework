@@ -115,12 +115,12 @@ public class CatalinaContainer implements Container {
                 ofBizRealm.setCredentialHandler(new SimpleCredentialHandler());
             }
             host.setRealm(ofBizRealm);
-            ((StandardHost)host).addValve(new SingleSignOn());
+            ((StandardHost) host).addValve(new SingleSignOn());
         }
 
         // clustering, valves and connectors setup
         Configuration.Property clusterProps = prepareTomcatClustering(host, engineConfig);
-        prepareTomcatEngineValves(engineConfig).forEach(valve -> ((StandardEngine)engine).addValve(valve));
+        prepareTomcatEngineValves(engineConfig).forEach(valve -> ((StandardEngine) engine).addValve(valve));
         prepareTomcatConnectors(configuration).forEach(connector -> tomcat.getService().addConnector(connector));
 
         loadWebapps(tomcat, configuration, clusterProps);
@@ -227,7 +227,7 @@ public class CatalinaContainer implements Container {
         host.setDeployOnStartup(false);
         host.setBackgroundProcessorDelay(5);
         host.setAutoDeploy(false);
-        ((StandardHost)host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP),
+        ((StandardHost) host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP),
                 "work" + File.separator + host.getName()).getAbsolutePath());
 
         return host;
@@ -310,7 +310,7 @@ public class CatalinaContainer implements Container {
             throws ContainerException {
         ReplicationTransmitter trans = new ReplicationTransmitter();
         try {
-            MultiPointSender mps = (MultiPointSender)Class.forName(ContainerConfig.getPropertyValue(clusterProp,
+            MultiPointSender mps = (MultiPointSender) Class.forName(ContainerConfig.getPropertyValue(clusterProp,
                     "replication-mode", "org.apache.catalina.tribes.transport.bio.PooledMultiSender")).getDeclaredConstructor().newInstance();
             trans.setTransport(mps);
         } catch (Exception exc) {
@@ -348,7 +348,7 @@ public class CatalinaContainer implements Container {
     private static ClusterManager prepareClusterManager(Configuration.Property clusterProp) throws ContainerException {
         String mgrClassName = ContainerConfig.getPropertyValue(clusterProp, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
         try {
-            return (ClusterManager)Class.forName(mgrClassName).getDeclaredConstructor().newInstance();
+            return (ClusterManager) Class.forName(mgrClassName).getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
             throw new ContainerException("Cluster configuration requires a valid manager-class property", e);
         }

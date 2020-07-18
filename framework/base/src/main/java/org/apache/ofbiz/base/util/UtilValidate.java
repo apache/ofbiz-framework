@@ -1096,15 +1096,15 @@ public final class UtilValidate {
         String first4digs = cc.substring(0, 4);
         String first6digs = cc.substring(0, 6);
 
-        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) &&
-            ("4903".equals(first4digs) ||
-                "4905".equals(first4digs) ||
-                "4911".equals(first4digs) ||
-                "4936".equals(first4digs) ||
-                "564182".equals(first6digs) ||
-                "633110".equals(first6digs) ||
-                "6333".equals(first4digs) ||
-                "6759".equals(first4digs))) {
+        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19))
+            && ("4903".equals(first4digs)
+            || "4905".equals(first4digs)
+            || "4911".equals(first4digs)
+            || "4936".equals(first4digs)
+            || "564182".equals(first6digs)
+            || "633110".equals(first6digs)
+            || "6333".equals(first4digs)
+            || "6759".equals(first4digs))) {
             return isCreditCard(cc);
         }
         return false;
@@ -1132,18 +1132,16 @@ public final class UtilValidate {
         String first6digs = cc.substring(0, 6);
         String first4digs = cc.substring(0, 4);
 
-        if ((cc.length() == 16) &&
-            ("417500".equals(first6digs) ||
-                "4917".equals(first4digs) ||
-                "4913".equals(first4digs) ||
-                "4508".equals(first4digs) ||
-                "4844".equals(first4digs) ||
-                "4027".equals(first4digs))) {
+        if ((cc.length() == 16) && ("417500".equals(first6digs)
+                || "4917".equals(first4digs)
+                || "4913".equals(first4digs)
+                || "4508".equals(first4digs)
+                || "4844".equals(first4digs)
+                || "4027".equals(first4digs))) {
             return isCreditCard(cc);
         }
         return false;
     }
-
 
     /** Checks to see if the cc number is a valid number for any accepted credit card
      *   @param     ccPassed - a string representing a credit card number
@@ -1153,10 +1151,9 @@ public final class UtilValidate {
         if (isEmpty(ccPassed)) {
             return defaultEmptyOK;
         }
-
         String cc = stripCharsInBag(ccPassed, creditCardDelimiters);
-        return isCreditCard(cc) && (isMasterCard(cc) || isVisa(cc) || isAmericanExpress(cc) || isDinersClub(cc) ||
-                        isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc)|| isSwitch (cc)|| isVisaElectron(cc));
+        return isCreditCard(cc) && (isMasterCard(cc) || isVisa(cc) || isAmericanExpress(cc) || isDinersClub(cc)
+                        || isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc) || isSwitch(cc) || isVisaElectron(cc));
     }
 
     /** Checks to see if the cc number is a valid number for any accepted credit card, and return the name of that type
@@ -1197,7 +1194,7 @@ public final class UtilValidate {
         if (isSolo(cc)) {
             return "CCT_SOLO";
         }
-        if (isSwitch (cc)) {
+        if (isSwitch(cc)) {
             return "CCT_SWITCH";
         }
         if (isVisaElectron(cc)) {

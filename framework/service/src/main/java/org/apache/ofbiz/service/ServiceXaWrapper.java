@@ -246,7 +246,7 @@ public class ServiceXaWrapper extends GenericXaResource {
             Debug.logError(e, MODULE);
             throw e;
         }
-        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#prepare() : " + rtn + " / " + (rtn == XA_OK) , MODULE);
+        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#prepare() : " + rtn + " / " + (rtn == XA_OK), MODULE);
         return rtn;
     }
 

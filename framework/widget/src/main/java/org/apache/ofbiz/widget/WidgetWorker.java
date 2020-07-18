@@ -375,7 +375,7 @@ public final class WidgetWorker {
             if (UtilValidate.isNotEmpty(NO_PAGINATOR)) {
                 globalCtx.remove("NO_PAGINATOR");
             } else {
-                Integer paginateNumberInt= (Integer)globalCtx.get("PAGINATOR_NUMBER");
+                Integer paginateNumberInt= (Integer) globalCtx.get("PAGINATOR_NUMBER");
                 if (paginateNumberInt == null) {
                     paginateNumberInt = 0;
                 }

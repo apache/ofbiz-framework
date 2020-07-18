@@ -368,7 +368,7 @@ public class CoreEvents {
             if (entry.getValue() != null && "on".equalsIgnoreCase(request.getParameter(key)) && !"_CLEAR_PREVIOUS_PARAMS_".equals(key)) {
                 String[] servicePath = key.split("\\|\\|");
                 String partialKey = servicePath[servicePath.length-1];
-                savedFields.put(partialKey, getObjectFromServicePath(key , syncServiceResult));
+                savedFields.put(partialKey, getObjectFromServicePath(key, syncServiceResult));
             }
         }
         if (null!=session.getAttribute("_SAVED_SYNC_RESULT_")) {

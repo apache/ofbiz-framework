@@ -404,7 +404,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         // make a new map for content rendering; so our current map does not get clobbered
         Map<String, Object> contentContext = new HashMap<>();
         contentContext.putAll(context);
-        String dataResourceId = (String)contentContext.get("dataResourceId");
+        String dataResourceId = (String) contentContext.get("dataResourceId");
         if (Debug.verboseOn()) {
             Debug.logVerbose("expandedContentId:" + expandedContentId, MODULE);
         }

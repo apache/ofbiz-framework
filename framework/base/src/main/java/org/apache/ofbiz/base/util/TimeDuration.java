@@ -245,9 +245,9 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @return <code>true</code> if this duration is zero
      */
     public boolean isZero() {
-        return this.milliseconds == 0 && this.seconds == 0 &&
-                this.minutes == 0 && this.hours == 0 && this.days == 0 &&
-                this.months == 0 && this.years == 0;
+        return this.milliseconds == 0 && this.seconds == 0
+                &&  this.minutes == 0 && this.hours == 0 && this.days == 0
+                && this.months == 0 && this.years == 0;
     }
 
     /** Returns the milliseconds in this time duration. */

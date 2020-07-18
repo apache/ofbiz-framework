@@ -176,9 +176,9 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
             return false;
         }
         EntityFunction<?> otherFunc = UtilGenerics.cast(obj);
-        return (this.function == otherFunc.function &&
-            (this.nested != null ? nested.equals(otherFunc.nested) : otherFunc.nested == null) &&
-            (this.value != null ? value.equals(otherFunc.value) : otherFunc.value == null));
+        return (this.function == otherFunc.function
+            && (this.nested != null ? nested.equals(otherFunc.nested) : otherFunc.nested == null)
+            && (this.value != null ? value.equals(otherFunc.value) : otherFunc.value == null));
     }
 
     @Override

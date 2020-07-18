@@ -42,7 +42,7 @@ public class DebugManagedDataSource<C extends Connection> extends ManagedDataSou
     public Connection getConnection() throws SQLException {
         if (Debug.verboseOn()) {
             if (super.getPool() instanceof GenericObjectPool) {
-                GenericObjectPool<?> objectPool = (GenericObjectPool<?>)super.getPool();
+                GenericObjectPool<?> objectPool = (GenericObjectPool<?>) super.getPool();
                 Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + objectPool.getNumActive() + "/" + objectPool.getNumIdle() + "/" + (objectPool.getNumActive() + objectPool.getNumIdle()) + "; min idle/max idle/max total: " + objectPool.getMinIdle() + "/" + objectPool.getMaxIdle() + "/" + objectPool.getMaxTotal(), MODULE);
             } else {
                 if (Debug.verboseOn()) Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + super.getPool().getNumActive() + "/" + super.getPool().getNumIdle() + "/" + (super.getPool().getNumActive() + super.getPool().getNumIdle()), MODULE);
@@ -57,7 +57,7 @@ public class DebugManagedDataSource<C extends Connection> extends ManagedDataSou
         dataSourceInfo.put("poolNumIdle", super.getPool().getNumIdle());
         dataSourceInfo.put("poolNumTotal", (super.getPool().getNumIdle() + super.getPool().getNumActive()));
         if (super.getPool() instanceof GenericObjectPool) {
-            GenericObjectPool<?> objectPool = (GenericObjectPool<?>)super.getPool();
+            GenericObjectPool<?> objectPool = (GenericObjectPool<?>) super.getPool();
             dataSourceInfo.put("poolMaxActive", objectPool.getMaxTotal());
             dataSourceInfo.put("poolMaxIdle", objectPool.getMaxIdle());
             dataSourceInfo.put("poolMaxWait", objectPool.getMaxWaitMillis());

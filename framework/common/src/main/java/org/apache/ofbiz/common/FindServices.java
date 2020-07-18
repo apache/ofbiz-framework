@@ -198,7 +198,7 @@ public class FindServices {
                 origList = new LinkedList<>();
                 origValueMap.put(fieldNameRoot, origList);
             }
-            Object [] origValues = {fieldNameRaw, fieldValue};
+            Object[] origValues = {fieldNameRaw, fieldValue};
             origList.add(origValues);
         }
         return normalizedFields;
@@ -374,7 +374,7 @@ public class FindServices {
             }
         }
         Object fieldObject = fieldValue;
-        if ((fieldOp != EntityOperator.IN && fieldOp != EntityOperator.NOT_IN ) || !(fieldValue instanceof Collection<?>)) {
+        if ((fieldOp != EntityOperator.IN && fieldOp != EntityOperator.NOT_IN) || !(fieldValue instanceof Collection<?>)) {
             fieldObject = modelField.getModelEntity().convertFieldValue(modelField, fieldValue, delegator, context);
         }
         if (ignoreCase && fieldObject instanceof String) {

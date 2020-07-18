@@ -200,14 +200,11 @@ public class LoginServices {
                     if ((UtilValidate.isEmpty(userLogin.getString("enabled")) || "Y".equals(userLogin.getString("enabled"))
                             || (reEnableTime != null && reEnableTime.before(UtilDateTime.nowTimestamp())) || (isSystem))
                             && UtilValidate.isEmpty(userLogin.getString("disabledBy"))) {
-
                         String successfulLogin;
-
                         if (!isSystem) {
                             userLogin.set("enabled", "Y");
                             userLogin.set("disabledBy", null);
                         }
-
                         // attempt to authenticate with Authenticator class(es)
                         boolean authFatalError = false;
                         boolean externalAuth = false;
@@ -233,7 +230,7 @@ public class LoginServices {
                         // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
                         // if this is a system account don't bother checking the passwords
                         // if externalAuth passed; this is run as well
-                        if ((!authFatalError && externalAuth) || (useTomcatSSO && TomcatSSOLogin(request, username, password))
+                        if ((!authFatalError && externalAuth) || (useTomcatSSO && tomcatSSOLogin(request, username, password))
                                 || (jwtToken != null && jwtTokenValid)
                                 || (password != null && checkPassword(userLogin.getString("currentPassword"), useEncryption, password))) {
                             Debug.logVerbose("[LoginServices.userLogin] : Password Matched or Token Validated", MODULE);
@@ -275,7 +272,6 @@ public class LoginServices {
                                 repeat = true;
                                 continue;
                             }
-
                             Debug.logInfo("[LoginServices.userLogin] : Password Incorrect", MODULE);
                             // password invalid...
                             if (password != null) {
@@ -283,7 +279,6 @@ public class LoginServices {
                             } else if (jwtToken != null) {
                                 errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.token_incorrect", locale);
                             }
-
                             // increment failed login count
                             Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
 
@@ -402,18 +397,17 @@ public class LoginServices {
                             repeat = true;
                             continue;
                         }
-
-                        Map<String, Object> messageMap = UtilMisc.<String, Object> toMap("username", username);
+                        Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("username", username);
                         errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.account_for_user_login_id_disabled", messageMap, locale);
                         if (disabledDateTime != null) {
-                            messageMap = UtilMisc.<String, Object> toMap("disabledDateTime", disabledDateTime);
+                            messageMap = UtilMisc.<String, Object>toMap("disabledDateTime", disabledDateTime);
                             errMsg += " " + UtilProperties.getMessage(RESOURCE, "loginservices.since_datetime", messageMap, locale);
                         } else {
                             errMsg += ".";
                         }
 
                         if (loginDisableMinutes > 0 && reEnableTime != null) {
-                            messageMap = UtilMisc.<String, Object> toMap("reEnableTime", reEnableTime);
+                            messageMap = UtilMisc.<String, Object>toMap("reEnableTime", reEnableTime);
                             errMsg += " " + UtilProperties.getMessage(RESOURCE, "loginservices.will_be_reenabled", messageMap, locale);
                         } else {
                             errMsg += " " + UtilProperties.getMessage(RESOURCE, "loginservices.not_scheduled_to_be_reenabled", locale);
@@ -1056,7 +1050,7 @@ public class LoginServices {
         return result;
     }
 
-    public static void checkNewPassword(GenericValue userLogin, String currentPassword, String newPassword, String newPasswordVerify, 
+    public static void checkNewPassword(GenericValue userLogin, String currentPassword, String newPassword, String newPasswordVerify,
             String passwordHint, List<String> errorMessageList, boolean ignoreCurrentPassword, Locale locale) {
         Delegator delegator = userLogin.getDelegator();
         boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
@@ -1184,7 +1178,7 @@ public class LoginServices {
         return passwordMatches;
     }
 
-    private static boolean TomcatSSOLogin(HttpServletRequest request, String userName, String currentPassword) {
+    private static boolean tomcatSSOLogin(HttpServletRequest request, String userName, String currentPassword) {
         try {
             request.login(userName, currentPassword);
         } catch (ServletException e) {

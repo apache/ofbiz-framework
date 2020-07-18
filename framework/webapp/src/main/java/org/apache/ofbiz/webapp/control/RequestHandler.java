@@ -573,9 +573,9 @@ public class RequestHandler {
             if (UtilValidate.isNotEmpty(preRequestMap)) {
                 for (Map.Entry<String, Object> entry: preRequestMap.entrySet()) {
                     String key = entry.getKey();
-                    if ("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key) ||
-                            "_WARNING_MESSAGE_LIST_".equals(key) || "_WARNING_MESSAGE_".equals(key) ||
-                            "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key)) {
+                    if ("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key)
+                            || "_WARNING_MESSAGE_LIST_".equals(key) || "_WARNING_MESSAGE_".equals(key)
+                            || "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key)) {
                         request.setAttribute(key, entry.getValue());
                    }
                 }
@@ -1044,8 +1044,8 @@ public class RequestHandler {
      * @return return the query string
      */
     public String makeQueryString(HttpServletRequest request, ConfigXMLReader.RequestResponse requestResponse) {
-        if (requestResponse == null ||
-                (requestResponse.redirectParameterMap.size() == 0 && requestResponse.redirectParameterValueMap.size() == 0)) {
+        if (requestResponse == null
+                || (requestResponse.redirectParameterMap.size() == 0 && requestResponse.redirectParameterValueMap.size() == 0)) {
             Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
             String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
             if (UtilValidate.isEmpty(queryString)) {

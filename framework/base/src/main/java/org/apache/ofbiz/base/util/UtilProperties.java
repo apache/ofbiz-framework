@@ -144,7 +144,7 @@ public final class UtilProperties implements Serializable {
             return defaultNumber;
         }
         try {
-            return (Number)(ObjectType.simpleTypeOrObjectConvert(str, type, null, null));
+            return (Number) (ObjectType.simpleTypeOrObjectConvert(str, type, null, null));
         } catch (GeneralException e) {
             Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", MODULE);
         }
@@ -179,7 +179,7 @@ public final class UtilProperties implements Serializable {
      * @return An Integer-Object of the property; or if not found the defaultNumber
      */
     public static Integer getPropertyAsInteger(String resource, String name, int defaultNumber) {
-        return (Integer)getPropertyNumber(resource, name, defaultNumber, "Integer");
+        return (Integer) getPropertyNumber(resource, name, defaultNumber, "Integer");
     }
 
     /**
@@ -191,7 +191,7 @@ public final class UtilProperties implements Serializable {
      * @return A Long-Object of the property; or if not found the defaultNumber
      */
     public static Long getPropertyAsLong(String resource, String name, long defaultNumber) {
-        return (Long)getPropertyNumber(resource, name, defaultNumber, "Long");
+        return (Long) getPropertyNumber(resource, name, defaultNumber, "Long");
     }
 
     /**
@@ -203,7 +203,7 @@ public final class UtilProperties implements Serializable {
      * @return A Long-Object of the property; or if not found the defaultNumber
      */
     public static Float getPropertyAsFloat(String resource, String name, float defaultNumber) {
-        return (Float)getPropertyNumber(resource, name, defaultNumber, "Float");
+        return (Float) getPropertyNumber(resource, name, defaultNumber, "Float");
     }
 
     /**
@@ -215,7 +215,7 @@ public final class UtilProperties implements Serializable {
      * @return A Double-Object of the property; or if not found the defaultNumber
      */
     public static Double getPropertyAsDouble(String resource, String name, double defaultNumber) {
-        return (Double)getPropertyNumber(resource, name, defaultNumber, "Double");
+        return (Double) getPropertyNumber(resource, name, defaultNumber, "Double");
     }
 
     /**
@@ -954,7 +954,7 @@ public final class UtilProperties implements Serializable {
                 // Support old way of specifying xml:lang value.
                 // Old way: en_AU, new way: en-AU
                 Element value = UtilXml.firstChildElement(property, "value", "xml:lang", correctedLocaleString);
-                if ( value == null ) {
+                if ( value == null) {
                     value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
                 }
                 if (value != null) {

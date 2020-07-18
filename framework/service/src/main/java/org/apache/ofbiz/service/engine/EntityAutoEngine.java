@@ -278,7 +278,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 newEntity.setPKFields(parameters, true);
                 String pkFieldName = pkFieldNameOutOnly.get(0);
                 //if it's a fromDate, don't update it now, it's will be done next step
-                if (! "fromDate".equals(pkFieldName)) {
+                if (!"fromDate".equals(pkFieldName)) {
                     String pkValue = dctx.getDelegator().getNextSeqId(modelEntity.getEntityName());
                     newEntity.set(pkFieldName, pkValue);
                 }
@@ -465,7 +465,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
 
-        if (modelEntity.getField("changeByUserLoginId") != null ) {
+        if (modelEntity.getField("changeByUserLoginId") != null) {
             if (modelEntity.getEntityName().endsWith("Status")) {
                 //Oh update on EntityStatus concept detected ... not possible, return invalid request
                 throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
@@ -499,7 +499,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the delete invoke option not all pk fields have the mode IN");
         }
 
-        if (modelEntity.getField("changeByUserLoginId") != null ) {
+        if (modelEntity.getField("changeByUserLoginId") != null) {
             if (modelEntity.getEntityName().endsWith("Status")) {
                 //Oh update on EntityStatus concept detected ... not possible, return invalid request
                 throw new GenericServiceException("You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");

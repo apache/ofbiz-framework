@@ -101,7 +101,7 @@ public final class JSON {
             return true;
         }
         if (obj instanceof JSON) {
-            return jsonString.equals(((JSON)obj).jsonString);
+            return jsonString.equals(((JSON) obj).jsonString);
         }
         return false;
     }

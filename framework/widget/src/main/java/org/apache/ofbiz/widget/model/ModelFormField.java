@@ -1180,7 +1180,7 @@ public class ModelFormField {
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
                 if (parameters.containsKey(fieldName.concat("_fld0_value"))) {
-                    defaultOption = (String)parameters.get(fieldName.concat("_fld0_op"));
+                    defaultOption = (String) parameters.get(fieldName.concat("_fld0_op"));
                 }
             }
             return defaultOption;
@@ -1197,7 +1197,7 @@ public class ModelFormField {
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
                 if ( parameters.containsKey(fieldName.concat("_fld1_value"))) {
-                    defaultOption = (String)parameters.get(fieldName.concat("_fld1_op"));
+                    defaultOption = (String) parameters.get(fieldName.concat("_fld1_op"));
                 }
             }
             return defaultOption;
@@ -1677,14 +1677,13 @@ public class ModelFormField {
                     // create default date/time value from timestamp string
                     retVal = retVal.substring(0, 16);
                 }
-            } else if ("number".equals(this.type) ||
-                    (this.type != null && this.type.endsWith("-number"))) {
+            } else if ("number".equals(this.type) || (this.type != null && this.type.endsWith("-number"))) {
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) {
                     locale = Locale.getDefault();
                 }
                 String formatVal;
-                if (! this.format.isEmpty()) {
+                if (!this.format.isEmpty()) {
                     formatVal = this.format.expandString(context);
                 } else {
                     formatVal = this.type.endsWith("-number")?

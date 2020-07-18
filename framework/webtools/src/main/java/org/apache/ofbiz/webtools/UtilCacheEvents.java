@@ -198,7 +198,7 @@ public final class UtilCacheEvents {
         int rowCount = UtilHttp.getMultiFormRowCount(ctx);
         for (int i = 0; i < rowCount; i++) {
             String suffix = UtilHttp.getMultiRowDelimiter() + i;
-            isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String)ctx.get("_rowSubmit" + suffix)));
+            isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String) ctx.get("_rowSubmit" + suffix)));
             if (!isSelected) {
                 continue;
             }

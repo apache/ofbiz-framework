@@ -78,7 +78,7 @@ public class HtmlMenuWrapper {
         context.put("parameters", parameterMap);
 
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         context.put("userLogin", userLogin);
 
         //make sure the locale is in the context
@@ -102,20 +102,20 @@ public class HtmlMenuWrapper {
     }
 
     public String renderMenuString() throws IOException {
-        HttpServletRequest req = ((HtmlMenuRenderer)renderer).request;
+        HttpServletRequest req = ((HtmlMenuRenderer) renderer).request;
         if (req.getServletContext() == null) {
             if (Debug.infoOn()) {
-                Debug.logInfo("in renderMenuString, ctx is null(0)" , "");
+                Debug.logInfo("in renderMenuString, ctx is null(0)", "");
             }
         }
 
         Writer writer = new StringWriter();
         modelMenu.renderMenuString(writer, context, renderer);
 
-        HttpServletRequest req2 = ((HtmlMenuRenderer)renderer).request;
+        HttpServletRequest req2 = ((HtmlMenuRenderer) renderer).request;
         if (req2.getServletContext() == null) {
             if (Debug.infoOn()) {
-                Debug.logInfo("in renderMenuString, ctx is null(2)" , "");
+                Debug.logInfo("in renderMenuString, ctx is null(2)", "");
             }
         }
 
@@ -188,20 +188,20 @@ public class HtmlMenuWrapper {
 
     public void setRequest(HttpServletRequest request) {
         this.request = request;
-        ((HtmlMenuRenderer)renderer).setRequest(request);
+        ((HtmlMenuRenderer) renderer).setRequest(request);
     }
 
     public void setResponse(HttpServletResponse response) {
         this.response = response;
-        ((HtmlMenuRenderer)renderer).setResponse(response);
+        ((HtmlMenuRenderer) renderer).setResponse(response);
     }
 
     public HttpServletRequest getRequest() {
-        return ((HtmlMenuRenderer)renderer).request;
+        return ((HtmlMenuRenderer) renderer).request;
     }
 
     public HttpServletResponse getResponse() {
-        return ((HtmlMenuRenderer)renderer).response;
+        return ((HtmlMenuRenderer) renderer).response;
     }
 
     public static HtmlMenuWrapper getMenuWrapper(HttpServletRequest request, HttpServletResponse response, HttpSession session, String menuDefFile, String menuName, String menuWrapperClassName) {
@@ -210,13 +210,13 @@ public class HtmlMenuWrapper {
 
         String menuSig = menuDefFile + "__" + menuName;
         if (session != null) {
-             menuWrapper = (HtmlMenuWrapper)session.getAttribute(menuSig);
+             menuWrapper = (HtmlMenuWrapper) session.getAttribute(menuSig);
         }
 
         if (menuWrapper == null) {
             try {
                 Class<?> cls = Class.forName("org.apache.ofbiz.widget.html." + menuWrapperClassName);
-                menuWrapper = (HtmlMenuWrapper)cls.getDeclaredConstructor().newInstance();
+                menuWrapper = (HtmlMenuWrapper) cls.getDeclaredConstructor().newInstance();
                 menuWrapper.init(menuDefFile, menuName, request, response);
             } catch (InstantiationException | IllegalAccessException | IOException | SAXException | ParserConfigurationException e) {
                 throw new RuntimeException(e.getMessage());
@@ -229,7 +229,7 @@ public class HtmlMenuWrapper {
             Map<String, Object> parameterMap = UtilHttp.getParameterMap(request);
             menuWrapper.setParameters(parameterMap);
 
-            GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
             menuWrapper.putInContext("userLogin", userLogin);
 
         }

@@ -157,8 +157,8 @@ public final class UtilFormatOut {
     public static String formatDecimalNumber(double number, String pattern, Locale locale) {
         com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getNumberInstance(locale);
         String nbParsing = "";
-        ((com.ibm.icu.text.DecimalFormat)nf).applyPattern( pattern );
-        ((com.ibm.icu.text.DecimalFormat)nf).toPattern();
+        ((com.ibm.icu.text.DecimalFormat) nf).applyPattern(pattern);
+        ((com.ibm.icu.text.DecimalFormat) nf).toPattern();
         nbParsing = nf.format(number);
         return nbParsing;
     }

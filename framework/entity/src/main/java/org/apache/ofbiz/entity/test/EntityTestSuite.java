@@ -765,7 +765,7 @@ public class EntityTestSuite extends EntityTestCase {
                     item = iterator.next();
                     i++;
                 }
-                assertEquals("Test if EntitlyListIterator iterates exactly " + TEST_COUNT + " times: " , TEST_COUNT, i);
+                assertEquals("Test if EntitlyListIterator iterates exactly " + TEST_COUNT + " times: ", TEST_COUNT, i);
                 iterator.close();
             } catch (GenericEntityException e) {
                 TransactionUtil.rollback(beganTransaction, "GenericEntityException occurred while iterating with EntityListIterator", e);
@@ -1040,14 +1040,14 @@ public class EntityTestSuite extends EntityTestCase {
      */
     public void testEntitySaxReaderCreation() throws Exception {
         String xmlContentLoad =
-                "<entity-engine-xml>" +
-                "<TestingType testingTypeId=\"JUNIT-TEST\" description=\"junit test\"/>" +
-                "<create>" +
-                "    <TestingType testingTypeId=\"JUNIT-TEST2\" description=\"junit test\"/>" +
-                "    <Testing testingId=\"T1\" testingTypeId=\"JUNIT-TEST\" testingName=\"First test\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>" +
-                "</create>" +
-                "<Testing testingId=\"T2\" testingTypeId=\"JUNIT-TEST2\" testingName=\"Second test\" testingSize=\"20\" testingDate=\"2010-02-01 00:00:00\"/>" +
-                "</entity-engine-xml>";
+                "<entity-engine-xml>"
+                + "<TestingType testingTypeId=\"JUNIT-TEST\" description=\"junit test\"/>"
+                + "<create>"
+                + "    <TestingType testingTypeId=\"JUNIT-TEST2\" description=\"junit test\"/>"
+                + "    <Testing testingId=\"T1\" testingTypeId=\"JUNIT-TEST\" testingName=\"First test\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>"
+                + "</create>"
+                + "<Testing testingId=\"T2\" testingTypeId=\"JUNIT-TEST2\" testingName=\"Second test\" testingSize=\"20\" testingDate=\"2010-02-01 00:00:00\"/>"
+                + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
         assertEquals("Create Entity loaded ", 4, numberLoaded);
@@ -1068,16 +1068,16 @@ public class EntityTestSuite extends EntityTestCase {
 
     public void testEntitySaxReaderCreateSkip() throws Exception {
         String xmlContentLoad =
-                "<entity-engine-xml>" +
-                "<TestingType testingTypeId=\"reader-create-skip\" description=\"reader create skip\"/>" +
-                "<Testing testingId=\"reader-create-skip\" testingTypeId=\"reader-create-skip\" testingName=\"reader create skip\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>" +
-                "</entity-engine-xml>";
+                "<entity-engine-xml>"
+                + "<TestingType testingTypeId=\"reader-create-skip\" description=\"reader create skip\"/>"
+                + "<Testing testingId=\"reader-create-skip\" testingTypeId=\"reader-create-skip\" testingName=\"reader create skip\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>"
+                + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
         xmlContentLoad =
-                "<create>" +
-                "    <Testing testingId=\"reader-create-skip\" testingName=\"reader create skip updated\" testingSize=\"20\" testingDate=\"2012-02-02 02:02:02\"/>" +
-                "</create>";
+                "<create>"
+                + "    <Testing testingId=\"reader-create-skip\" testingName=\"reader create skip updated\" testingSize=\"20\" testingDate=\"2012-02-02 02:02:02\"/>"
+                + "</create>";
         reader = new EntitySaxReader(delegator);
         numberLoaded += reader.parse(xmlContentLoad);
         assertEquals("Create Skip Entity loaded ", 3, numberLoaded);
@@ -1091,15 +1091,15 @@ public class EntityTestSuite extends EntityTestCase {
 
     public void testEntitySaxReaderUpdate() throws Exception {
         String xmlContentLoad =
-                "<entity-engine-xml>" +
-                "<TestingType testingTypeId=\"create-update\" description=\"create update\"/>" +
-                "<TestingType testingTypeId=\"create-updated\" description=\"create update updated\"/>" +
-                "<Testing testingId=\"create-update-T3\" testingTypeId=\"create-update\" testingName=\"Test 3\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>" +
-                "<create-update>" +
-                "    <Testing testingId=\"create-update-T1\" testingTypeId=\"create-update\" testingName=\"First test update\" testingSize=\"20\" testingDate=\"2010-01-01 00:00:00\"/>" +
-                "    <Testing testingId=\"create-update-T3\" testingTypeId=\"create-updated\" testingName=\"Third test\" testingSize=\"30\" testingDate=\"2010-03-01 00:00:00\"/>" +
-                "</create-update>" +
-                "</entity-engine-xml>";
+                "<entity-engine-xml>"
+                + "<TestingType testingTypeId=\"create-update\" description=\"create update\"/>"
+                + "<TestingType testingTypeId=\"create-updated\" description=\"create update updated\"/>"
+                + "<Testing testingId=\"create-update-T3\" testingTypeId=\"create-update\" testingName=\"Test 3\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>"
+                + "<create-update>"
+                + "    <Testing testingId=\"create-update-T1\" testingTypeId=\"create-update\" testingName=\"First test update\" testingSize=\"20\" testingDate=\"2010-01-01 00:00:00\"/>"
+                + "    <Testing testingId=\"create-update-T3\" testingTypeId=\"create-updated\" testingName=\"Third test\" testingSize=\"30\" testingDate=\"2010-03-01 00:00:00\"/>"
+                + "</create-update>"
+                + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
         assertEquals("Update Entity loaded ", 5, numberLoaded);
@@ -1120,14 +1120,14 @@ public class EntityTestSuite extends EntityTestCase {
 
     public void testEntitySaxReaderReplace() throws Exception {
         String xmlContentLoad =
-                "<entity-engine-xml>" +
-                "<TestingType testingTypeId=\"create-replace\" description=\"reader create skip\"/>" +
-                "<Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T1\" testingName=\"First test\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>" +
-                "<create-replace>" +
-                "    <Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T1\" testingName=\"First test replace\" />" +
-                "</create-replace>" +
-                "<Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T2\" testingName=\"Second test update\" testingSize=\"20\" testingDate=\"2010-02-01 00:00:00\"/>" +
-                "</entity-engine-xml>";
+                "<entity-engine-xml>"
+                + "<TestingType testingTypeId=\"create-replace\" description=\"reader create skip\"/>"
+                + "<Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T1\" testingName=\"First test\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>"
+                + "<create-replace>"
+                + "    <Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T1\" testingName=\"First test replace\" />"
+                + "</create-replace>"
+                + "<Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T2\" testingName=\"Second test update\" testingSize=\"20\" testingDate=\"2010-02-01 00:00:00\"/>"
+                + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
         assertEquals("Replace Entity loaded ", 4, numberLoaded);
@@ -1148,13 +1148,13 @@ public class EntityTestSuite extends EntityTestCase {
 
     public void testEntitySaxReaderDelete() throws Exception {
         String xmlContentLoad =
-                        "<delete>" +
-                        "    <Testing testingId=\"T1\"/>" +
-                        "    <Testing testingId=\"T2\"/>" +
-                        "    <Testing testingId=\"T3\"/>" +
-                        "    <TestingType testingTypeId=\"JUNIT-TEST\"/>" +
-                        "    <TestingType testingTypeId=\"JUNIT-TEST2\"/>" +
-                        "</delete>";
+                        "<delete>"
+                        + "    <Testing testingId=\"T1\"/>"
+                        + "    <Testing testingId=\"T2\"/>"
+                        + "    <Testing testingId=\"T3\"/>"
+                        + "    <TestingType testingTypeId=\"JUNIT-TEST\"/>"
+                        + "    <TestingType testingTypeId=\"JUNIT-TEST2\"/>"
+                        + "</delete>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
         assertEquals("Delete Entity loaded ", 5, numberLoaded);

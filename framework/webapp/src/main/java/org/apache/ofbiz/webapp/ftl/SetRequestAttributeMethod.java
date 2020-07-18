@@ -47,7 +47,7 @@ public class SetRequestAttributeMethod implements TemplateMethodModelEx {
             throw new TemplateModelException("Second argument not an instance of BeanModel nor TemplateNumberModel nor TemplateScalarModel");
 
         Environment env = Environment.getCurrentEnvironment();
-        BeanModel req = (BeanModel)env.getVariable("request");
+        BeanModel req = (BeanModel) env.getVariable("request");
         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
 
         String name = ((TemplateScalarModel) args.get(0)).getAsString();

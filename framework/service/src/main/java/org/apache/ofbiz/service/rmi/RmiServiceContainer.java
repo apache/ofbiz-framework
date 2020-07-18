@@ -148,7 +148,7 @@ public class RmiServiceContainer implements Container {
             try {
                 Naming.rebind("//" + host + ":" + port + "/" + name, remote);
             } catch (RemoteException e) {
-                throw new ContainerException("Unable to bind RMIDispatcher to RMI on " + "//host[" + host + "]:port[" + port + "]/name[" + name + "] - with remote=" + remote , e);
+                throw new ContainerException("Unable to bind RMIDispatcher to RMI on " + "//host[" + host + "]:port[" + port + "]/name[" + name + "] - with remote=" + remote, e);
             } catch (java.net.MalformedURLException e) {
                 throw new ContainerException("Invalid URL for binding", e);
             }

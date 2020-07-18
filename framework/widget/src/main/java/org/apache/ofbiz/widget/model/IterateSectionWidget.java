@@ -131,11 +131,11 @@ public class IterateSectionWidget extends ModelScreenWidget {
         List<?> theList = null;
         if (obj instanceof Map<?, ?>) {
             Set<Map.Entry<String, Object>> entrySet = UtilGenerics.<Map<String, Object>>cast(obj).entrySet();
-            Object [] a = entrySet.toArray();
+            Object[] a = entrySet.toArray();
             theList = Arrays.asList(a);
             isEntrySet = true;
         } else if (obj instanceof List<?>) {
-            theList = (List<?>)obj;
+            theList = (List<?>) obj;
         } else {
             Debug.logError("Object not list or map type", MODULE);
             return;
@@ -206,7 +206,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 Integer lastPageNumber = null;
                 Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 if (globalCtx != null) {
-                    lastPageNumber = (Integer)globalCtx.get("PAGINATOR_NUMBER");
+                    lastPageNumber = (Integer) globalCtx.get("PAGINATOR_NUMBER");
                     globalCtx.put("PAGINATOR_NUMBER", startPageNumber);
                 }
                 renderNextPrev(writer, context, listSize, actualPageSize);

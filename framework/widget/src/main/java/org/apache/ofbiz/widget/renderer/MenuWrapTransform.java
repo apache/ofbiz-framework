@@ -69,8 +69,8 @@ import freemarker.template.TransformControl;
 public class MenuWrapTransform implements TemplateTransformModel {
 
     private static final String MODULE = MenuWrapTransform.class.getName();
-    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
-    public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
+    public static final String[] upSaveKeyNames = {"globalNodeTrail"};
+    public static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
 
 
     @Override
@@ -93,8 +93,8 @@ public class MenuWrapTransform implements TemplateTransformModel {
         Map<String, Object> checkedArgs = UtilGenerics.cast(args);
         FreeMarkerWorker.overrideWithArgs(templateCtx, checkedArgs);
         List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateCtx.get("globalNodeTrail"));
-        String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
-        String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
+        String contentAssocPredicateId = (String) templateCtx.get("contentAssocPredicateId");
+        String strNullThruDatesOnly = (String) templateCtx.get("nullThruDatesOnly");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
         GenericValue val = null;
         try {
@@ -116,7 +116,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         }
         String subContentIdSub = (String) view.get("contentId");
         // This order is taken so that the dataResourceType can be overridden in the transform arguments.
-        String subDataResourceTypeId = (String)templateCtx.get("subDataResourceTypeId");
+        String subDataResourceTypeId = (String) templateCtx.get("subDataResourceTypeId");
         if (UtilValidate.isEmpty(subDataResourceTypeId)) {
             try {
                 subDataResourceTypeId = (String) view.get("drDataResourceTypeId");
@@ -148,7 +148,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
 
             @Override
             public int onStart() throws TemplateModelException, IOException {
-                String renderOnStart = (String)templateCtx.get("renderOnStart");
+                String renderOnStart = (String) templateCtx.get("renderOnStart");
                 if (renderOnStart != null && "true".equalsIgnoreCase(renderOnStart)) {
                     renderMenu();
                 }
@@ -170,7 +170,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
                 FreeMarkerWorker.reloadValues(templateCtx, savedValues, env);
                 String wrappedContent = buf.toString();
                 out.write(wrappedContent);
-                String renderOnClose = (String)templateCtx.get("renderOnClose");
+                String renderOnClose = (String) templateCtx.get("renderOnClose");
                 if (renderOnClose == null || !"false".equalsIgnoreCase(renderOnClose)) {
                     renderMenu();
                 }
@@ -179,16 +179,16 @@ public class MenuWrapTransform implements TemplateTransformModel {
 
             public void renderMenu() throws IOException {
 
-                String menuDefFile = (String)templateCtx.get("menuDefFile");
-                String menuName = (String)templateCtx.get("menuName");
-                String menuWrapperClassName = (String)templateCtx.get("menuWrapperClassName");
+                String menuDefFile = (String) templateCtx.get("menuDefFile");
+                String menuName = (String) templateCtx.get("menuName");
+                String menuWrapperClassName = (String) templateCtx.get("menuWrapperClassName");
                 HtmlMenuWrapper menuWrapper = HtmlMenuWrapper.getMenuWrapper(request, response, session, menuDefFile, menuName, menuWrapperClassName);
 
                 if (menuWrapper == null) {
                     throw new IOException("HtmlMenuWrapper with def file:" + menuDefFile + " menuName:" + menuName + " and HtmlMenuWrapper class:" + menuWrapperClassName + " could not be instantiated.");
                 }
 
-                String associatedContentId = (String)templateCtx.get("associatedContentId");
+                String associatedContentId = (String) templateCtx.get("associatedContentId");
                 menuWrapper.putInContext("defaultAssociatedContentId", associatedContentId);
                 menuWrapper.putInContext("currentValue", view);
 

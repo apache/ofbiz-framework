@@ -283,8 +283,8 @@ public class ImageTransform {
 
     public static BufferedImage toBufferedImage(Image image, int bufImgType) {
         /** Check if the image isn't already a BufferedImage instance */
-        if ( image instanceof BufferedImage ) {
-                return( (BufferedImage)image );
+        if (image instanceof BufferedImage) {
+            return ((BufferedImage) image);
         }
         /** Full image loading */
         image = new ImageIcon(image).getImage();
@@ -299,6 +299,6 @@ public class ImageTransform {
         g.drawImage(image, 0, 0, null);
         g.dispose();
 
-        return( bufferedImage );
+        return (bufferedImage);
     }
 }

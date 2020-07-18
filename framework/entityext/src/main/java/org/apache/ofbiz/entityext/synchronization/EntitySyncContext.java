@@ -213,8 +213,8 @@ public class EntitySyncContext {
      * @return boolean representing if the EntitySync should be considered running
      */
     public boolean isEntitySyncRunning() {
-        boolean isInRunning = ("ESR_RUNNING".equals(this.entitySync.getString("runStatusId")) ||
-                "ESR_PENDING".equals(this.entitySync.getString("runStatusId")));
+        boolean isInRunning = ("ESR_RUNNING".equals(this.entitySync.getString("runStatusId"))
+                || "ESR_PENDING".equals(this.entitySync.getString("runStatusId")));
 
         if (!isInRunning) {
             return false;

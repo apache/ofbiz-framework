@@ -49,7 +49,7 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
      *
      * @param inetAddress The <code>InetAddress</code> of the network interface.
      */
-    public RMIExtendedSocketFactory( InetAddress inetAddress ) {
+    public RMIExtendedSocketFactory(InetAddress inetAddress) {
         this.hostInetAddress = inetAddress;
     }
 
@@ -60,26 +60,26 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
      * @param hostIpAddress The IP address of the interface to bind the server sockets to.
      * @throws UnknownHostException If an invalid IP address is provided.
      */
-    public RMIExtendedSocketFactory( String hostIpAddress ) throws UnknownHostException {
+    public RMIExtendedSocketFactory(String hostIpAddress) throws UnknownHostException {
 
         // check if host length is at least equal to "0.0.0.0"
-        if ( hostIpAddress != null && hostIpAddress.length() >= 7 ) {
-            String[] octets = hostIpAddress.split( "\\." );
+        if (hostIpAddress != null && hostIpAddress.length() >= 7) {
+            String[] octets = hostIpAddress.split("\\.");
 
             if (octets.length != 4) {
-                throw new UnknownHostException( "Invalid IP address: " + hostIpAddress );
+                throw new UnknownHostException("Invalid IP address: " + hostIpAddress);
             }
 
             byte[] ipAddr = new byte[4];
-            for ( int i = 0; i < octets.length; i++ ) {
+            for (int i = 0; i < octets.length; i++) {
                 try {
-                    ipAddr[i] = ( byte ) Integer.parseInt( octets[i] );
-                } catch ( NumberFormatException nfEx ) {
-                    throw new UnknownHostException( "Invalid IP address: " + hostIpAddress );
+                    ipAddr[i] = (byte) Integer.parseInt(octets[i]);
+                } catch (NumberFormatException nfEx) {
+                    throw new UnknownHostException("Invalid IP address: " + hostIpAddress);
                 }
             }
 
-            hostInetAddress = InetAddress.getByAddress( ipAddr );
+            hostInetAddress = InetAddress.getByAddress(ipAddr);
 
         }
 
@@ -87,16 +87,16 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
 
     @Override
     public ServerSocket createServerSocket(int port) throws IOException {
-        if ( hostInetAddress !=  null ) {
-            return new ServerSocket( port, 0, hostInetAddress );
+        if (hostInetAddress !=  null) {
+            return new ServerSocket(port, 0, hostInetAddress);
         }
-        return new ServerSocket( port );
+        return new ServerSocket(port);
     }
 
     @Override
     public Socket createSocket(String host, int port) throws IOException {
 
-        return new Socket( host, port );
+        return new Socket(host, port);
     }
 
 }

@@ -464,7 +464,7 @@ public final class UtilMisc {
             return (Integer) obj;
         }
         if (obj instanceof Number) {
-            return ((Number)obj).intValue();
+            return ((Number) obj).intValue();
         }
         Integer result = null;
         try {
@@ -623,7 +623,7 @@ public final class UtilMisc {
         Thread.sleep(timeout);
     }
 
-    public static void copyFile(File sourceLocation , File targetLocation) throws IOException {
+    public static void copyFile(File sourceLocation, File targetLocation) throws IOException {
         if (sourceLocation.isDirectory()) {
             throw new IOException("File is a directory, not a file, cannot copy");
         }
@@ -641,7 +641,7 @@ public final class UtilMisc {
     }
 
     public static int getViewLastIndex(int listSize, int viewSize) {
-        return (int)Math.ceil(listSize / (float) viewSize) - 1;
+        return (int) Math.ceil(listSize / (float) viewSize) - 1;
     }
 
     public static Map<String, String> splitPhoneNumber(String phoneNumber, Delegator delegator) {

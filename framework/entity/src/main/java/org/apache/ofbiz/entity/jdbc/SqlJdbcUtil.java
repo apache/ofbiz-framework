@@ -462,7 +462,7 @@ public final class SqlJdbcUtil {
             }
             sql.append(makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
             String viewWhereClause = makeViewWhereClause(modelEntity, datasourceInfo.getJoinStyle());
-            ModelViewEntity modelViewEntity = (ModelViewEntity)modelEntity;
+            ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
             List<EntityCondition> whereConditions = new LinkedList<>();
             List<EntityCondition> havingConditions = new LinkedList<>();
             List<String> orderByList = new LinkedList<>();

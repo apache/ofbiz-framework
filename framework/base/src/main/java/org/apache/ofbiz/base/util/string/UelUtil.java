@@ -111,7 +111,7 @@ public final class UelUtil {
      */
     public static void removeValue(Map<String, Object> context, String expression) {
         if (Debug.verboseOn()) {
-            Debug.logVerbose("UelUtil.removeValue invoked, expression = " + expression , MODULE);
+            Debug.logVerbose("UelUtil.removeValue invoked, expression = " + expression, MODULE);
         }
         ELContext elContext = new BasicContext(context);
         ValueExpression ve = exprFactory.createValueExpression(elContext, expression, Object.class);

@@ -150,8 +150,7 @@ public final class JobManager {
                     EntityCondition.makeConditionDate("fromDate", "thruDate"),
                     EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("instanceId", instanceId),
-                            EntityCondition.makeCondition("instanceId", "_NA_"))
-                            , EntityJoinOperator.OR)
+                            EntityCondition.makeCondition("instanceId", "_NA_")), EntityJoinOperator.OR)
                     ), EntityJoinOperator.AND);
             return delegator.findCountByCondition("JobManagerLock", condition, null, null) == 0;
         } catch (GenericEntityException e) {

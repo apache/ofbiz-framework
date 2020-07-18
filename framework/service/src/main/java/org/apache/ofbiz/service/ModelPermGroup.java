@@ -54,7 +54,7 @@ public class ModelPermGroup implements Serializable {
                     }
                 }
             }
-            if (! foundOne) {
+            if (!foundOne) {
                 return ServiceUtil.returnError(permissionErrors);
             }
         }

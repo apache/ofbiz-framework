@@ -121,7 +121,7 @@ public class ScreenFactory {
                     Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true, true);
                     modelScreenMap = readScreenDocument(screenFileDoc, resourceName);
                     screenLocationCache.put(resourceName, modelScreenMap);
-                    double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
+                    double totalSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
                     Debug.logInfo("Got " + modelScreenMap.size() + " screens in " + totalSeconds + "s from: " + screenFileUrl.toExternalForm(), MODULE);
                 }
             }

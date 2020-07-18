@@ -193,7 +193,7 @@ public class WebToolsServices {
                 if (ServiceUtil.isError(outputMap)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsErrorParsingFile", UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(outputMap)), locale));
                 } else {
-                    Long numberRead = (Long)outputMap.get("rowProcessed");
+                    Long numberRead = (Long) outputMap.get("rowProcessed");
                     messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportRowProcessed", UtilMisc.toMap("numberRead", numberRead.toString()), locale));
                 }
             } catch (GenericServiceException gsex) {

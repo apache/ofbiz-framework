@@ -50,7 +50,7 @@ public class HtmlMenuRendererImage extends HtmlMenuRenderer {
 
         StringBuilder imgStr = new StringBuilder("<img src=\"");
         String contentId = menuItem.getAssociatedContentId(context);
-        Delegator delegator = (Delegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue webSitePublishPoint = null;
         try {
             if (WidgetContentWorker.getContentWorker() != null) {

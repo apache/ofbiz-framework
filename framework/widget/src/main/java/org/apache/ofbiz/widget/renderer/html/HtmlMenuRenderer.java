@@ -264,7 +264,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         appendWhitespace(writer);
         renderEndingBoundaryComment(writer, "Menu Widget", modelMenu);
 
-        GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         if (userLogin != null) {
             String userLoginId = userLogin.getString("userLoginId");
             setUserLoginIdAtPermGrant(userLoginId);
@@ -312,7 +312,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
 
     public boolean userLoginIdHasChanged() {
         boolean hasChanged = false;
-        GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         userLoginIdAtPermGrant = getUserLoginIdAtPermGrant();
         String userLoginId = null;
         if (userLogin != null) {

@@ -128,7 +128,7 @@ public class SequenceUtil {
         private Long getNextSeqId(long staggerMax) {
             long stagger = 1;
             if (staggerMax > 1) {
-                stagger = (long)Math.ceil(Math.random() * staggerMax);
+                stagger = (long) Math.ceil(Math.random() * staggerMax);
                 if (stagger == 0) stagger = 1;
             }
             synchronized (this) {

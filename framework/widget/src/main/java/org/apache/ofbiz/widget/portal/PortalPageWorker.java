@@ -122,7 +122,7 @@ public class PortalPageWorker {
                         EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId)),
                         EntityOperator.OR)),
                     EntityOperator.AND);
-                List <GenericValue> portalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
+                List<GenericValue> portalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
                 if (UtilValidate.isNotEmpty(portalPages)) {
                     portalPage = EntityUtil.getFirst(portalPages);
                 }
@@ -131,7 +131,7 @@ public class PortalPageWorker {
                         EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPageId),
                         EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId)),
                         EntityOperator.AND);
-                List <GenericValue> privateDerivedPortalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
+                List<GenericValue> privateDerivedPortalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
                 if (UtilValidate.isNotEmpty(privateDerivedPortalPages)) {
                     portalPage = EntityUtil.getFirst(privateDerivedPortalPages);
                 }

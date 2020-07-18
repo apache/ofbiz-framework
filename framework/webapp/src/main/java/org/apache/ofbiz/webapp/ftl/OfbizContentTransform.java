@@ -81,7 +81,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
             public void close() throws IOException {
                 try {
                     Environment env = Environment.getCurrentEnvironment();
-                    BeanModel req = (BeanModel)env.getVariable("request");
+                    BeanModel req = (BeanModel) env.getVariable("request");
                     HttpServletRequest request = req == null ? null : (HttpServletRequest) req.getWrappedObject();
 
                     String requestUrl = buf.toString();

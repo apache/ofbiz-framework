@@ -182,7 +182,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 boolean rowSelected = false;
                 if (UtilValidate.isNotEmpty(request.getAttribute(UtilHttp.getRowSubmitPrefix() + i))) {
                     rowSelected = request.getAttribute(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
-                    "Y".equalsIgnoreCase((String)request.getAttribute(UtilHttp.getRowSubmitPrefix() + i));
+                    "Y".equalsIgnoreCase((String) request.getAttribute(UtilHttp.getRowSubmitPrefix() + i));
                 } else {
                     rowSelected = request.getParameter(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
                     "Y".equalsIgnoreCase(request.getParameter(UtilHttp.getRowSubmitPrefix() + i));
@@ -332,7 +332,7 @@ public class ServiceMultiEventHandler implements EventHandler {
 
                     // get the success messages
                     if (UtilValidate.isNotEmpty(result.get(ModelService.SUCCESS_MESSAGE))) {
-                        String newSuccessMessage = (String)result.get(ModelService.SUCCESS_MESSAGE);
+                        String newSuccessMessage = (String) result.get(ModelService.SUCCESS_MESSAGE);
                         if (!successMessages.contains(newSuccessMessage)) {
                             successMessages.add(newSuccessMessage);
                         }
@@ -353,9 +353,9 @@ public class ServiceMultiEventHandler implements EventHandler {
                         String resultKey = rme.getKey();
                         Object resultValue = rme.getValue();
 
-                        if (resultKey != null && !ModelService.RESPONSE_MESSAGE.equals(resultKey) && !ModelService.ERROR_MESSAGE.equals(resultKey) &&
-                                !ModelService.ERROR_MESSAGE_LIST.equals(resultKey) && !ModelService.ERROR_MESSAGE_MAP.equals(resultKey) &&
-                                !ModelService.SUCCESS_MESSAGE.equals(resultKey) && !ModelService.SUCCESS_MESSAGE_LIST.equals(resultKey)) {
+                        if (resultKey != null && !ModelService.RESPONSE_MESSAGE.equals(resultKey) && !ModelService.ERROR_MESSAGE.equals(resultKey)
+                                && !ModelService.ERROR_MESSAGE_LIST.equals(resultKey) && !ModelService.ERROR_MESSAGE_MAP.equals(resultKey)
+                                && !ModelService.SUCCESS_MESSAGE.equals(resultKey) && !ModelService.SUCCESS_MESSAGE_LIST.equals(resultKey)) {
                             //set the result to request w/ and w/o a suffix to handle both cases: to have the result in each iteration and to prevent its overriding
                             request.setAttribute(resultKey + curSuffix, resultValue);
                             request.setAttribute(resultKey, resultValue);

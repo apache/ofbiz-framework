@@ -115,7 +115,7 @@ public class ModelTheme implements Serializable {
             // resolve all decicate properties from origin and sucharge by the present dedicate properties
             if (originTheme.themePropertiesMap != null) {
                 for (String key : originTheme.themePropertiesMap.keySet()) {
-                    initThemePropertiesMap.put(key, SerializationUtils.clone((Serializable)originTheme.themePropertiesMap.get(key)));
+                    initThemePropertiesMap.put(key, SerializationUtils.clone((Serializable) originTheme.themePropertiesMap.get(key)));
                 }
             }
 
@@ -336,7 +336,7 @@ public class ModelTheme implements Serializable {
         }
     }
     public Object getProperty(String propertyName) {
-        if (! themePropertiesMap.containsKey(propertyName)
+        if (!themePropertiesMap.containsKey(propertyName)
                 || themePropertiesMap.get(propertyName) == null) {
             return "";
         }

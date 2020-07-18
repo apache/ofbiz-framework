@@ -57,8 +57,8 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             throw new GeneralException("Controller view with name [" + viewUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
         }
         // populate screenCalledByThisView and reverse in aif.allViewInfosReferringToScreen
-        if ("screen".equals(this.viewInfoMap.type) || "screenfop".equals(this.viewInfoMap.type) ||
-                "screentext".equals(this.viewInfoMap.type) || "screenxml".equals(this.viewInfoMap.type)) {
+        if ("screen".equals(this.viewInfoMap.type) || "screenfop".equals(this.viewInfoMap.type)
+                || "screentext".equals(this.viewInfoMap.type) || "screenxml".equals(this.viewInfoMap.type)) {
             String fullScreenName = this.viewInfoMap.page;
             if (UtilValidate.isNotEmpty(fullScreenName)) {
                 int poundIndex = fullScreenName.indexOf('#');

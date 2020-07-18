@@ -444,7 +444,7 @@ public final class UtilXml {
         }
         document = builder.parse(is);
 
-        double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
+        double totalSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
         if (Debug.verboseOn()) {
             Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, MODULE);
         }
@@ -569,7 +569,7 @@ public final class UtilXml {
         parser.parse(inputSource);
         document = parser.getDocument();
 
-        double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
+        double totalSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
         if (Debug.verboseOn()) {
             Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, MODULE);
         }
@@ -688,8 +688,7 @@ public final class UtilXml {
         if (node != null) {
             do {
                 String nodeName = UtilXml.getNodeNameIgnorePrefix(node);
-                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                    childElementName.equals(nodeName))) {
+                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null || childElementName.equals(nodeName))) {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
@@ -831,8 +830,7 @@ public final class UtilXml {
                 if (nodeName == null) {
                     nodeName = UtilXml.getNodeNameIgnorePrefix(node);
                 }
-                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                    childElementName.equals(nodeName))) {
+                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null || childElementName.equals(nodeName))) {
                     Element childElement = (Element) node;
                     return childElement;
                 }
@@ -852,8 +850,8 @@ public final class UtilXml {
 
         if (node != null) {
             do {
-                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                        childElementName.equals(node.getLocalName() != null ? node.getLocalName() : node.getNodeName()))) {
+                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null
+                        || childElementName.equals(node.getLocalName() != null ? node.getLocalName() : node.getNodeName()))) {
                     Element childElement = (Element) node;
 
                     String value = childElement.getAttribute(attrName);

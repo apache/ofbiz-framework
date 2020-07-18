@@ -59,7 +59,7 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
 
         super.init(resourceName, menuName, request, response);
         Map<String, Object> dummyMap = new HashMap<>();
-        Delegator delegator = (Delegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
             for (ModelMenuItem menuItem : modelMenu.getMenuItemList()) {
                String contentId = menuItem.getAssociatedContentId(dummyMap);

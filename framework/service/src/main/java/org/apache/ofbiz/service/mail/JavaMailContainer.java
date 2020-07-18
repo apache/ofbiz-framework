@@ -350,7 +350,7 @@ public class JavaMailContainer implements Container {
                     } else {
                         this.processMessage(message, session);
                         if (Debug.verboseOn()) {
-                            Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject() + "]  has been processed." , MODULE);
+                            Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject() + "]  has been processed.", MODULE);
                         }
                         message.setFlag(Flags.Flag.SEEN, true);
                         if (Debug.verboseOn()) {

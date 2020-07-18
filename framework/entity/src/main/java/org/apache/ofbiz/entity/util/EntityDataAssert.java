@@ -94,8 +94,8 @@ public class EntityDataAssert {
             ModelEntity modelEntity = checkValue.getModelEntity();
             for (String nonpkFieldName: modelEntity.getNoPkFieldNames()) {
                 // skip the fields the entity engine maintains
-                if (ModelEntity.CREATE_STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.CREATE_STAMP_TX_FIELD.equals(nonpkFieldName) ||
-                        ModelEntity.STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.STAMP_TX_FIELD.equals(nonpkFieldName)) {
+                if (ModelEntity.CREATE_STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.CREATE_STAMP_TX_FIELD.equals(nonpkFieldName)
+                        || ModelEntity.STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.STAMP_TX_FIELD.equals(nonpkFieldName)) {
                     continue;
                 }
 

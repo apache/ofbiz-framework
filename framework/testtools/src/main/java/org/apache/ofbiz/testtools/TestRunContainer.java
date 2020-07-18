@@ -217,7 +217,7 @@ public class TestRunContainer implements Container {
 
         private String getTestName(Test test) {
             if (test instanceof TestCase) {
-                return ((TestCase)test).getName();
+                return ((TestCase) test).getName();
             } else {
                 return test.getClass().getName();
             }

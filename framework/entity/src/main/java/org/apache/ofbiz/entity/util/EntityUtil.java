@@ -74,8 +74,8 @@ public final class EntityUtil {
                 i++;
                 V value = args[i];
                 if (value != null) {
-                    if (! (value instanceof Comparable<?>)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Comparable.");
-                    if (! (value instanceof Serializable)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Serializable.");
+                    if (!(value instanceof Comparable<?>)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Comparable.");
+                    if (!(value instanceof Serializable)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Serializable.");
                 }
                 fields.put(key, value);
                 i++;

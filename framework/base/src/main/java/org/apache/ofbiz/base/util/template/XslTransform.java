@@ -139,7 +139,7 @@ public final class XslTransform {
 
             transformer.transform(inputSource, outputResult);
             Node nd = outputResult.getNode();
-            outputDocument = (Document)nd;
+            outputDocument = (Document) nd;
         }
 
         return outputDocument;

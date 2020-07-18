@@ -802,7 +802,7 @@ public class TemporalExpressions implements Serializable {
             }
             long units = deltaMillis / divisor;
             units -= units % this.freqCount;
-            skip.add(this.freqType, (int)units);
+            skip.add(this.freqType, (int) units);
             while (skip.after(cal)) {
                 skip.add(this.freqType, -this.freqCount);
             }

@@ -1192,9 +1192,9 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             String type = modelField.getType();
             if (type != null && "blob".equals(type)) {
                 Object obj = get(name);
-                boolean b1 = obj instanceof byte [];
+                boolean b1 = obj instanceof byte[];
                 if (b1) {
-                    byte [] binData = (byte [])obj;
+                    byte[] binData = (byte[]) obj;
                     String strData = new String(Base64.getMimeEncoder().encode(binData), StandardCharsets.UTF_8);
                     cdataMap.put(name, strData);
                 } else {

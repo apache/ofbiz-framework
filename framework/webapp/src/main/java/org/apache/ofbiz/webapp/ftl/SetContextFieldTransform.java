@@ -48,7 +48,7 @@ public class SetContextFieldTransform implements TemplateMethodModelEx {
             throw new TemplateModelException("Second argument not an instance of BeanModel nor TemplateNumberModel nor TemplateScalarModel");
 
         Environment env = Environment.getCurrentEnvironment();
-        BeanModel req = (BeanModel)env.getVariable("context");
+        BeanModel req = (BeanModel) env.getVariable("context");
         Map<String, Object> context = UtilGenerics.cast(req.getWrappedObject());
 
         String name = ((TemplateScalarModel) args.get(0)).getAsString();

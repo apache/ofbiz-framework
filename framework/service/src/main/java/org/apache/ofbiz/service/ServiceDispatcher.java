@@ -104,7 +104,7 @@ public final class ServiceDispatcher {
             try {
                 int rn = delegator.removeByAnd("ServiceSemaphore", "lockedByInstanceId", JobManager.instanceId);
                 if (rn > 0) {
-                    Debug.logInfo("[ServiceDispatcher.init] : Clean up " + rn + " service semaphors." , MODULE);
+                    Debug.logInfo("[ServiceDispatcher.init] : Clean up " + rn + " service semaphors.", MODULE);
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
@@ -480,8 +480,8 @@ public final class ServiceDispatcher {
                             // look for lock wait timeout error, retry in a different way by running after the parent transaction finishes, ie attach to parent tx
                             // - Derby 10.2.2.0 lock wait timeout string: "A lock could not be obtained within the time requested"
                             // - MySQL ? lock wait timeout string: "Lock wait timeout exceeded; try restarting transaction"
-                            if (errMsg.indexOf("A lock could not be obtained within the time requested") >= 0 ||
-                                    errMsg.indexOf("Lock wait timeout exceeded") >= 0) {
+                            if (errMsg.indexOf("A lock could not be obtained within the time requested") >= 0
+                                    || errMsg.indexOf("Lock wait timeout exceeded") >= 0) {
                                 // TODO: add to run after parent tx
                             }
                         }
@@ -549,7 +549,7 @@ public final class ServiceDispatcher {
                 } else if (t instanceof GenericServiceException) {
                     throw (GenericServiceException) t;
                 } else {
-                    throw new GenericServiceException("Service [" + modelService.name + "] Failed" + modelService.debugInfo() , t);
+                    throw new GenericServiceException("Service [" + modelService.name + "] Failed" + modelService.debugInfo(), t);
                 }
             } finally {
                 // if there was an error, rollback transaction, otherwise commit
@@ -771,7 +771,7 @@ public final class ServiceDispatcher {
                 } else if (t instanceof GenericServiceException) {
                     throw (GenericServiceException) t;
                 } else {
-                    throw new GenericServiceException("Service [" + service.name + "] Failed" + service.debugInfo() , t);
+                    throw new GenericServiceException("Service [" + service.name + "] Failed" + service.debugInfo(), t);
                 }
             } finally {
                 // always try to commit the transaction since we don't know in this case if its was an error or not

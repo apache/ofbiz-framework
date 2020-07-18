@@ -184,8 +184,8 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof ScreenWidgetArtifactInfo) {
-            return (this.modelScreen.getName().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getName()) &&
-                    this.modelScreen.getSourceLocation().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getSourceLocation()));
+            return (this.modelScreen.getName().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getName())
+                    && this.modelScreen.getSourceLocation().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getSourceLocation()));
         } else {
             return false;
         }

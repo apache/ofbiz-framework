@@ -1091,7 +1091,7 @@ public class GenericDelegator implements Delegator {
                 : Collections.emptyList();
 
             int rowsAffected = 0;
-            if (! removedEntities.isEmpty()) {
+            if (!removedEntities.isEmpty()) {
                 for (GenericValue entity : removedEntities) {
                     rowsAffected += removeValue(entity);
                 }

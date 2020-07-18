@@ -283,11 +283,11 @@ public class EmailServices {
                     MimeBodyPart mbp = new MimeBodyPart();
 
                     if (bodyPartContent instanceof String) {
-                        Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + bodyPart.get("content").toString().length() , MODULE);
+                        Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + bodyPart.get("content").toString().length(), MODULE);
                         mbp.setText((String) bodyPartContent, "UTF-8", ((String) bodyPart.get("type")).substring(5));
                     } else if (bodyPartContent instanceof byte[]) {
                         ByteArrayDataSource bads = new ByteArrayDataSource((byte[]) bodyPartContent, (String) bodyPart.get("type"));
-                        Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + ((byte[]) bodyPartContent).length , MODULE);
+                        Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + ((byte[]) bodyPartContent).length, MODULE);
                         mbp.setDataHandler(new DataHandler(bads));
                     } else if (bodyPartContent instanceof DataHandler) {
                         mbp.setDataHandler((DataHandler) bodyPartContent);
