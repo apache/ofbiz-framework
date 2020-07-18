@@ -796,8 +796,9 @@ public class RequestHandler {
         return eventReturn;
     }
 
-    /** Returns the default error page for this request. */
-    public String getDefaultErrorPage(HttpServletRequest request) {
+    /** Returns the default error page for this request. 
+     * @throws MalformedURLException */
+    public String getDefaultErrorPage(HttpServletRequest request) throws MalformedURLException {
         URL errorPage = null;
         try {
             String errorPageLocation = getControllerConfig().getErrorpage();
@@ -806,7 +807,7 @@ public class RequestHandler {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", MODULE);
         }
         if (errorPage == null) {
-            return "/error/error.jsp";
+            return FlexibleLocation.resolveLocation("component://common/webcommon/error/Error.ftl").toString();
         }
         return errorPage.toString();
     }
