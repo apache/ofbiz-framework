@@ -246,7 +246,7 @@ public class ScaleImage {
         }
     }
 
-    public static Map<String, Object> scaleImageManageInAllSize(Map<String, ? extends Object> context, String filenameToUse, String viewType, String viewNumber , String imageType)
+    public static Map<String, Object> scaleImageManageInAllSize(Map<String, ? extends Object> context, String filenameToUse, String viewType, String viewNumber, String imageType)
         throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
 
         /* VARIABLES */

@@ -55,20 +55,20 @@ public class ContentManagementEvents {
 
     public static String updateStaticValues(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        Security security = (Security)request.getAttribute("security");
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        Security security = (Security) request.getAttribute("security");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String webSiteId = WebSiteWorker.getWebSiteId(request);
-        Delegator delegator = (Delegator)request.getAttribute("delegator");
-        LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         Map<String, Object> result = new HashMap<>();
-        String parentPlaceholderId = (String)paramMap.get("ph");
+        String parentPlaceholderId = (String) paramMap.get("ph");
         if (UtilValidate.isEmpty(parentPlaceholderId)) {
             request.setAttribute("_ERROR_MESSAGE_", "ParentPlaceholder is empty.");
             return "error";
         }
         List<GenericValue> allPublishPointList = null;
-        List<String []> permittedPublishPointList = null;
+        List<String[]> permittedPublishPointList = null;
         List<Map<String, Object>> valueList = null;
         try {
             allPublishPointList = ContentManagementWorker.getAllPublishPoints(delegator, webSiteId);
@@ -82,12 +82,12 @@ public class ContentManagementEvents {
 
         int counter = 0;
         for (Map<String, Object> map : valueList) {
-            String contentId = (String)map.get("contentId");
-            for (String [] pubArr : permittedPublishPointList) {
+            String contentId = (String) map.get("contentId");
+            for (String[] pubArr : permittedPublishPointList) {
                 String pubContentId = pubArr[0];
-                String pubValue = (String)map.get(pubContentId);
+                String pubValue = (String) map.get(pubContentId);
                 String paramName = Integer.toString(counter)  + "_" + pubContentId;
-                String paramValue = (String)paramMap.get(paramName);
+                String paramValue = (String) paramMap.get(paramName);
                 Map<String, Object> serviceIn = new HashMap<>();
                 serviceIn.put("userLogin", userLogin);
                 serviceIn.put("contentIdTo", contentId);
@@ -107,7 +107,7 @@ public class ContentManagementEvents {
                                 }
                             } else if ("N".equalsIgnoreCase(paramValue) && "Y".equalsIgnoreCase(pubValue)) {
                                 serviceIn.put("thruDate", UtilDateTime.nowTimestamp());
-                                Timestamp fromDate = (Timestamp)map.get(pubContentId + "FromDate");
+                                Timestamp fromDate = (Timestamp) map.get(pubContentId + "FromDate");
                                 serviceIn.put("fromDate", fromDate);
                                 result = dispatcher.runSync("updateContentAssoc", serviceIn);
                                 if (ServiceUtil.isError(result)) {
@@ -121,7 +121,7 @@ public class ContentManagementEvents {
                     } else if (UtilValidate.isNotEmpty(pubValue)) {
                         if ("Y".equalsIgnoreCase(pubValue)) {
                                 serviceIn.put("thruDate", UtilDateTime.nowTimestamp());
-                                Timestamp fromDate = (Timestamp)map.get(pubContentId + "FromDate");
+                                Timestamp fromDate = (Timestamp) map.get(pubContentId + "FromDate");
                                 serviceIn.put("fromDate", fromDate);
                                 result = dispatcher.runSync("updateContentAssoc", serviceIn);
                                 if (ServiceUtil.isError(result)) {
@@ -150,13 +150,13 @@ public class ContentManagementEvents {
 
     public static String updatePublishLinks(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        Security security = (Security)request.getAttribute("security");
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        Security security = (Security) request.getAttribute("security");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String webSiteId = WebSiteWorker.getWebSiteId(request);
-        Delegator delegator = (Delegator)request.getAttribute("delegator");
-        LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        String targContentId = (String)paramMap.get("contentId"); // The content to be linked to one or more sites
+        String targContentId = (String) paramMap.get("contentId"); // The content to be linked to one or more sites
         String roles = null;
         String authorId = null;
         GenericValue authorContent = ContentManagementWorker.getAuthorContent(delegator, targContentId);
@@ -177,15 +177,15 @@ public class ContentManagementEvents {
         List<String> targetOperationList = UtilMisc.<String>toList("CONTENT_PUBLISH");
         // TODO check the purpose of this list and if we want to make use of it. Else remove
         List<String> contentPurposeList = null; //UtilMisc.toList("ARTICLE");
-        String permittedAction = (String)paramMap.get("permittedAction"); // The content to be linked to one or more sites
-        String permittedOperations = (String)paramMap.get("permittedOperations"); // The content to be linked to one or more sites
+        String permittedAction = (String) paramMap.get("permittedAction"); // The content to be linked to one or more sites
+        String permittedOperations = (String) paramMap.get("permittedOperations"); // The content to be linked to one or more sites
         if (UtilValidate.isEmpty(targContentId)) {
             request.setAttribute("_ERROR_MESSAGE_", "targContentId is empty.");
             return "error";
         }
 
         // Get all the subSites that the user is permitted to link to
-        List<Object []> origPublishedLinkList = null;
+        List<Object[]> origPublishedLinkList = null;
         try {
             // TODO: this needs to be given author userLogin
             EntityQuery.use(delegator).from("UserLogin").where("userLoginId", authorId).cache().queryOne();
@@ -203,7 +203,7 @@ public class ContentManagementEvents {
             int pos = param.indexOf("select_");
             if (pos >= 0) {
                 String siteId = param.substring(7);
-                String subSiteVal = (String)paramMap.get(param);
+                String subSiteVal = (String) paramMap.get(param);
                 siteIdLookup.put(siteId, subSiteVal);
             }
         }

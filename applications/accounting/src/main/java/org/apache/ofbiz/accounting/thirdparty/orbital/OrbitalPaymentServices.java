@@ -305,7 +305,7 @@ public class OrbitalPaymentServices {
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         expDate = formatExpDateForOrbital(expDate);
         String cardSecurityCode = (String) params.get("cardSecurityCode");
-        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
+        String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         String transType = props.get("transType").toString();
         String messageType = null;
         if ("AUTH_ONLY".equals(transType)) {
@@ -330,7 +330,7 @@ public class OrbitalPaymentServices {
                 if ("CREDIT_CARD".equals(opp.getString("paymentMethodTypeId"))) {
                     // sometimes the ccAuthCapture interface is used, in which case the creditCard is passed directly
                      creditCard = (GenericValue) params.get("creditCard");
-                    if (creditCard == null || ! (opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
+                    if (creditCard == null || !(opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
                         creditCard = opp.getRelatedOne("CreditCard", false);
                     }
                 }
@@ -347,8 +347,8 @@ public class OrbitalPaymentServices {
                 }
             } else {
                 // this would be the case for an authorization
-                GenericValue cp = (GenericValue)params.get("billToParty");
-                GenericValue ba = (GenericValue)params.get("billingAddress");
+                GenericValue cp = (GenericValue) params.get("billToParty");
+                GenericValue ba = (GenericValue) params.get("billingAddress");
                 request.setFieldValue("AVSname", UtilFormatOut.checkNull(cp.getString("firstName")) + UtilFormatOut.checkNull(cp.getString("lastName")));
                 request.setFieldValue("AVSaddress1", UtilFormatOut.checkNull(ba.getString("address1")));
                 request.setFieldValue("AVScity", UtilFormatOut.checkNull(ba.getString("city")));
@@ -383,7 +383,7 @@ public class OrbitalPaymentServices {
         GenericValue creditCard = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("captureAmount");
         String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
-        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
+        String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         try {
             //If there were no errors preparing the template, we can now specify the data
             //Basic Auth Fields
@@ -424,7 +424,7 @@ public class OrbitalPaymentServices {
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         expDate = formatExpDateForOrbital(expDate);
-        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
+        String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         try {
             //If there were no errors preparing the template, we can now specify the data
             //Basic Auth Fields
@@ -452,7 +452,7 @@ public class OrbitalPaymentServices {
     private static void buildReleaseTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
         BigDecimal amount = (BigDecimal) params.get("releaseAmount");
         GenericValue authTransaction = (GenericValue) params.get("authTransaction");
-        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
+        String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         try {
             //If there were no errors preparing the template, we can now specify the data
             //Basic Auth Fields

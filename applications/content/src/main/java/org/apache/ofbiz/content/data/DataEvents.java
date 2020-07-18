@@ -286,7 +286,7 @@ public class DataEvents {
             }
             OutputStream os = response.getOutputStream();
             Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
-            os.write(IOUtils.toByteArray((InputStream)resourceData.get("stream")));
+            os.write(IOUtils.toByteArray((InputStream) resourceData.get("stream")));
             os.flush();
         } catch (GeneralException | IOException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
@@ -314,7 +314,7 @@ public class DataEvents {
         dataResource.setNonPKFields(paramMap);
         Map<String, Object> serviceInMap = UtilMisc.makeMapWritable(dataResource);
         serviceInMap.put("userLogin", userLogin);
-        String mode = (String)paramMap.get("mode");
+        String mode = (String) paramMap.get("mode");
         Locale locale = UtilHttp.getLocale(request);
 
         try {
@@ -337,7 +337,7 @@ public class DataEvents {
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
                 }
-                dataResourceId = (String)result.get("dataResourceId");
+                dataResourceId = (String) result.get("dataResourceId");
                 dataResource.set("dataResourceId", dataResourceId);
             }
         } catch (GenericServiceException e) {
@@ -350,7 +350,7 @@ public class DataEvents {
         if ("CREATE".equals(mode)) {
             // Set up return message to guide selection of follow on view
             request.setAttribute("dataResourceId", result.get("dataResourceId"));
-            String dataResourceTypeId = (String)serviceInMap.get("dataResourceTypeId");
+            String dataResourceTypeId = (String) serviceInMap.get("dataResourceTypeId");
             if (dataResourceTypeId != null) {
                  if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)
                      || "IMAGE_OBJECT".equals(dataResourceTypeId)) {

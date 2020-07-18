@@ -98,7 +98,7 @@ public class VCard {
                     String refCardId = formattedName.getValue();
                     GenericValue partyIdentification = EntityQuery.use(delegator).from("PartyIdentification").where("partyIdentificationTypeId", "VCARD_FN_ORIGIN", "idValue", refCardId).queryFirst();
                     if (partyIdentification != null) {
-                        partiesExist.add(UtilMisc.toMap("partyId", (String)partyIdentification.get("partyId")));
+                        partiesExist.add(UtilMisc.toMap("partyId", (String) partyIdentification.get("partyId")));
                         continue;
                     }
                     //TODO manage update
@@ -123,7 +123,7 @@ public class VCard {
                             break;
                         }
                     }
-                    if (! workAddress) continue;
+                    if (!workAddress) continue;
 
                     serviceCtx.put("address1", address.getStreetAddressFull());
                     serviceCtx.put("city", address.getLocality());
@@ -154,7 +154,7 @@ public class VCard {
                                 break;
                             }
                         }
-                        if (! workEmail) continue;
+                        if (!workEmail) continue;
                     }
                     String emailAddr = email.getValue();
                     if (UtilValidate.isEmail(emailAddr)) {
@@ -176,7 +176,7 @@ public class VCard {
                                 break;
                             }
                         }
-                        if (! workPhone) continue;
+                        if (!workPhone) continue;
                     }
                     String phoneAddr = phone.getText();
                     boolean internationalPhone = phoneAddr.startsWith("+") || phoneAddr.startsWith("00");

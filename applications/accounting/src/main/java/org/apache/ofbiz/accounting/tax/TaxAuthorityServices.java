@@ -587,9 +587,9 @@ public class TaxAuthorityServices {
                 }
                 adjustments.add(taxAdjValue);
 
-                if (productPrice != null && itemQuantity != null &&
-                        productPrice.getBigDecimal("priceWithTax") != null &&
-                        !"Y".equals(productPrice.getString("taxInPrice"))) {
+                if (productPrice != null && itemQuantity != null
+                        && productPrice.getBigDecimal("priceWithTax") != null
+                        && !"Y".equals(productPrice.getString("taxInPrice"))) {
                     BigDecimal priceWithTax = productPrice.getBigDecimal("priceWithTax");
                     BigDecimal price = productPrice.getBigDecimal("price");
                     BigDecimal baseSubtotal = price.multiply(itemQuantity);

@@ -74,7 +74,7 @@ public class TechDataServices {
         if (UtilValidate.isNotEmpty(workEffortName)) {
             constraints.add(EntityCondition.makeCondition("workEffortName", EntityOperator.GREATER_THAN_EQUAL_TO, workEffortName));
         }
-        if (UtilValidate.isNotEmpty(fixedAssetId) && ! "ANY".equals(fixedAssetId)) {
+        if (UtilValidate.isNotEmpty(fixedAssetId) && !"ANY".equals(fixedAssetId)) {
             constraints.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
         }
         constraints.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "ROU_ACTIVE"));
@@ -136,10 +136,10 @@ public class TechDataServices {
 
         if (listRoutingTaskAssoc != null) {
             for (GenericValue routingTaskAssoc : listRoutingTaskAssoc) {
-                if (! workEffortIdFrom.equals(routingTaskAssoc.getString("workEffortIdFrom")) ||
-                ! workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo")) ||
-                ! workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId")) ||
-                ! sequenceNum.equals(routingTaskAssoc.getLong("sequenceNum"))
+                if (!workEffortIdFrom.equals(routingTaskAssoc.getString("workEffortIdFrom"))
+                || !workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo"))
+                || !workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId"))
+                || !sequenceNum.equals(routingTaskAssoc.getLong("sequenceNum"))
                ) {
                     if (routingTaskAssoc.getTimestamp("thruDate") == null && routingTaskAssoc.getTimestamp("fromDate") == null) sequenceNumNotOk = "Y";
                     else if (routingTaskAssoc.getTimestamp("thruDate") == null) {

@@ -176,7 +176,7 @@ public class ContentSearch {
             }
 
             long endMillis = System.currentTimeMillis();
-            double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
+            double totalSeconds = ((double) endMillis - (double) startMillis) / 1000.0;
 
             // store info about results in the database, attached to the user's visitId, if specified
             this.saveSearchResultInfo((long) contentIds.size(), totalSeconds);

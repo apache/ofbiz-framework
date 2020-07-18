@@ -134,7 +134,7 @@ public class InvoiceServices {
             }
 
             Map<String, Object> result = dispatcher.runSync("createInvoiceForOrder", context);
-            if (ServiceUtil.isError(result )) {
+            if (ServiceUtil.isError(result)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
             }
             result.remove("invoiceTypeId");  //remove extra parameter
@@ -1090,10 +1090,10 @@ public class InvoiceServices {
             }
             // create the item records
             for (Map<String, Object> commissionMap : commList) {
-                BigDecimal elemAmount = ((BigDecimal)commissionMap.get("commission")).multiply(appliedFraction);
-                BigDecimal quantity = (BigDecimal)commissionMap.get("quantity");
-                String invoiceIdFrom = (String)commissionMap.get("invoiceId");
-                String invoiceItemSeqIdFrom = (String)commissionMap.get("invoiceItemSeqId");
+                BigDecimal elemAmount = ((BigDecimal) commissionMap.get("commission")).multiply(appliedFraction);
+                BigDecimal quantity = (BigDecimal) commissionMap.get("quantity");
+                String invoiceIdFrom = (String) commissionMap.get("invoiceId");
+                String invoiceItemSeqIdFrom = (String) commissionMap.get("invoiceItemSeqId");
                 elemAmount = elemAmount.setScale(DECIMALS, ROUNDING);
                 Map<String, Object> resMap = null;
                 try {
@@ -1613,7 +1613,7 @@ public class InvoiceServices {
                         }
 
                         // Get the list of shipments which are associated with the filtered purchase orders
-                        if (! UtilValidate.isEmpty(invoiceablePrimaryOrderIds)) {
+                        if (!UtilValidate.isEmpty(invoiceablePrimaryOrderIds)) {
                             invoiceableShipments = EntityQuery.use(delegator).from("Shipment").where(
                                     UtilMisc.toList(
                                             EntityCondition.makeCondition("primaryOrderId", EntityOperator.IN, invoiceablePrimaryOrderIds),
@@ -1764,7 +1764,7 @@ public class InvoiceServices {
                             //  all at once.
                             BigDecimal totalNewAuthAmount = totalAdditionalShippingCharges.setScale(DECIMALS, ROUNDING);
                             for (GenericValue orderPaymentPreference : orderPaymentPreferences) {
-                                if (! ("PAYMENT_SETTLED".equals(orderPaymentPreference.getString("statusId")) || "PAYMENT_CANCELLED".equals(orderPaymentPreference.getString("statusId")))) {
+                                if (!("PAYMENT_SETTLED".equals(orderPaymentPreference.getString("statusId")) || "PAYMENT_CANCELLED".equals(orderPaymentPreference.getString("statusId")))) {
                                     GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
                                     if (authTransaction != null && authTransaction.get("amount") != null) {
 
@@ -1824,7 +1824,7 @@ public class InvoiceServices {
                             // If the authorization fails, create the invoice anyway, but make a note of it
                             boolean authFinished = (Boolean) authResult.get("finished");
                             boolean authErrors = (Boolean) authResult.get("errors");
-                            if (authErrors || ! authFinished) {
+                            if (authErrors || !authFinished) {
                                 String errMsg = UtilProperties.getMessage(RESOURCE, "AccountingUnableToAuthAdditionalShipCharges", UtilMisc.toMap("shipmentId", shipmentId, "paymentMethodId", paymentMethodId, "orderPaymentPreferenceId", orderPaymentPreferenceId), locale);
                                 Debug.logError(errMsg, MODULE);
                             }
@@ -2330,7 +2330,7 @@ public class InvoiceServices {
         }
 
         // Ignore invoices that aren't ready yet
-        if (! "INVOICE_READY".equals(invoice.getString("statusId"))) {
+        if (!"INVOICE_READY".equals(invoice.getString("statusId"))) {
             return ServiceUtil.returnSuccess();
         }
 
@@ -2771,8 +2771,8 @@ public class InvoiceServices {
             }
 
             // check if at least one send is the same as one receiver on the other payment
-            if (!payment.getString("partyIdFrom").equals(toPayment.getString("partyIdTo")) &&
-                    !payment.getString("partyIdTo").equals(toPayment.getString("partyIdFrom")))    {
+            if (!payment.getString("partyIdFrom").equals(toPayment.getString("partyIdTo"))
+                    && !payment.getString("partyIdTo").equals(toPayment.getString("partyIdFrom")))    {
                 errorMessageList.add(UtilProperties.getMessage(RESOURCE,
                         "AccountingFromPartySameToParty", locale));
             }
@@ -2895,8 +2895,8 @@ public class InvoiceServices {
                 }
 
                 // check if at least one sender is the same as one receiver on the invoice
-                if (!payment.getString("partyIdFrom").equals(invoice.getString("partyId")) &&
-                        !payment.getString("partyIdTo").equals(invoice.getString("partyIdFrom")))    {
+                if (!payment.getString("partyIdFrom").equals(invoice.getString("partyId"))
+                        && !payment.getString("partyIdTo").equals(invoice.getString("partyIdFrom")))    {
                     errorMessageList.add(UtilProperties.getMessage(RESOURCE,
                             "AccountingFromPartySameToParty", locale));
                 }

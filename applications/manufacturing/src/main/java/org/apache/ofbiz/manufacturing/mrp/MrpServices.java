@@ -316,9 +316,9 @@ public class MrpServices {
                             "facilityId", facilityId)
                     .queryList();
             for (GenericValue genericResult : resultList) {
-                if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
-                    "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
-                    "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
+                if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId"))
+                    || "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId"))
+                    || "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
                     continue;
                 }
                 String productId =  genericResult.getString("productId");
@@ -355,9 +355,9 @@ public class MrpServices {
                             "facilityId", facilityId)
                     .queryList();
             for (GenericValue genericResult : resultList) {
-                if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
-                    "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
-                    "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
+                if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId"))
+                    || "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId"))
+                    || "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
                     continue;
                 }
                 BigDecimal qtyToProduce = genericResult.getBigDecimal("quantityToProduce");
@@ -435,7 +435,7 @@ public class MrpServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
-        String partyId =  (String)facility.get("ownerPartyId");
+        String partyId =  (String) facility.get("ownerPartyId");
         try {
             resultList = EntityQuery.use(delegator).from("SalesForecast")
                     .where("organizationPartyId", partyId)
@@ -516,7 +516,7 @@ public class MrpServices {
             logMrpError(mrpId, productId, "Unable to count inventory", delegator);
             return BigDecimal.ZERO;
         }
-        return ((BigDecimal)resultMap.get("quantityOnHandTotal"));
+        return ((BigDecimal) resultMap.get("quantityOnHandTotal"));
     }
 
     public static void logMrpError(String mrpId, String productId, String errorMessage, Delegator delegator) {
@@ -741,8 +741,8 @@ public class MrpServices {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
                             }
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct"
-                                    , UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct",
+                                    UtilMisc.toMap("productId", product.getString("productId")), locale));
                         }
                         components = UtilGenerics.cast(serviceResponse.get("components"));
                         if (UtilValidate.isNotEmpty(components)) {
@@ -777,11 +777,11 @@ public class MrpServices {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
                             }
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct"
-                                    , UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct",
+                                    UtilMisc.toMap("productId", product.getString("productId")), locale));
                         }
                         components = UtilGenerics.cast(serviceResponse.get("components"));
-                        String routingId = (String)serviceResponse.get("workEffortId");
+                        String routingId = (String) serviceResponse.get("workEffortId");
                         if (routingId != null) {
                             try {
                                 routing = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", routingId).queryOne();

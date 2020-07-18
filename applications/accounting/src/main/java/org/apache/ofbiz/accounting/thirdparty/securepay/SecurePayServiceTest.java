@@ -93,7 +93,7 @@ public class SecurePayServiceTest extends OFBizTestCase {
                 "statusId", "ITEM_COMPLETED"
                 );
         orderItems = UtilMisc.<Object>toList(orderItemMap);
-        billToParty = delegator.makeValue("Party" , UtilMisc.toMap("partyId", "DemoCustomer"));
+        billToParty = delegator.makeValue("Party", UtilMisc.toMap("partyId", "DemoCustomer"));
         paymentGatewayConfigId = "SECUREPAY_CONFIG";
         refundAmount = new BigDecimal("100.08");
         orderPaymentPreference = delegator.makeValue("OrderPaymentPreference", UtilMisc.toMap(
@@ -140,10 +140,10 @@ public class SecurePayServiceTest extends OFBizTestCase {
                 Debug.logInfo("[testAuth] Result from SecurePay: " + result, MODULE);
                 String authRefNum = (String) result.get("authRefNum");
                 BigDecimal processAmount =  (BigDecimal) result.get("processAmount");
-                paymentGatewayResponse = delegator.makeValue("PaymentGatewayResponse" , UtilMisc.toMap(
+                paymentGatewayResponse = delegator.makeValue("PaymentGatewayResponse", UtilMisc.toMap(
                         "paymentGatewayResponseId", "testOrder1000_01",
                         "orderPaymentPreferenceId", "testOrder1000_01",
-                        "amount" , processAmount,
+                        "amount", processAmount,
                         "referenceNum", authRefNum,
                         "paymentMethodTypeId", "CREDIT_CARD",
                         "paymentServiceTypeEnumId", "PRDS_PAY_AUTH",

@@ -262,7 +262,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 Delegator delegator = (Delegator) request.getAttribute("delegator");
 
                 String contentUri = this.contentId;
-                // Try and find a WebSitePathAlias record to use, it isn't very feasible to find an alias by (parent)contentId/mapKey
+                // Try and find a WebSitePathAlias record to use, it isn't very feasible to find an alias by (parent) contentId/mapKey
                 // so we're only looking for a direct alias using contentId
                 if (webSiteId != null && delegator != null) {
                     try {

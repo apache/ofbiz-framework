@@ -76,7 +76,7 @@ public class ProductionRun {
 
     public ProductionRun(String productionRunId, Delegator delegator, LocalDispatcher dispatcher) {
         try {
-            if (! UtilValidate.isEmpty(productionRunId)) {
+            if (!UtilValidate.isEmpty(productionRunId)) {
                 this.dispatcher = dispatcher;
                 GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunId).queryOne();
                 if (workEffort != null) {
@@ -333,8 +333,8 @@ public class ProductionRun {
                         GenericValue routingTask;
                         for (GenericValue productionRunRoutingTask : productionRunRoutingTasks) {
                             routingTask = productionRunRoutingTask;
-                            productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard"
-                                    , UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"), null, false));
+                            productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard",
+                                    UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"), null, false));
                         }
                     } catch (GenericEntityException e) {
                         Debug.logWarning(e.getMessage(), MODULE);
@@ -427,7 +427,7 @@ public class ProductionRun {
                         String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
                         Debug.logError(errorMessage, MODULE);
                     }
-                    totalTaskTime = ((BigDecimal)serviceResult.get("totalTime")).doubleValue();
+                    totalTaskTime = ((BigDecimal) serviceResult.get("totalTime")).doubleValue();
                 }
             } catch (GenericEntityException | GenericServiceException exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);

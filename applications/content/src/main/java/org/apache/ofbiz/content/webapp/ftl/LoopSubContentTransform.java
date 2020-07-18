@@ -114,7 +114,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         String mimeTypeId = (String) ctx.get("mimeTypeId");
         if (UtilValidate.isEmpty(mimeTypeId)) {
             mimeTypeId = (String) subContentDataResourceView.get("mimeTypeId");
-            String parentContentId = (String)ctx.get("contentId");
+            String parentContentId = (String) ctx.get("contentId");
             if (UtilValidate.isEmpty(mimeTypeId) && UtilValidate.isNotEmpty(parentContentId)) { // will need these below
                 try {
                     GenericValue parentContent = EntityQuery.use(delegator).from("Content").where("contentId", parentContentId).queryOne();
@@ -184,7 +184,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         String thisContentId = (String) templateCtx.get("contentId");
 
         //DEJ20080730 Should always use contentId, not subContentId since we're searching for that and it is confusing
-        String thisMapKey = (String)templateCtx.get("mapKey");
+        String thisMapKey = (String) templateCtx.get("mapKey");
         Map<String, Object> results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, thisContentId, thisMapKey, null, fromDate, null, null, null, assocTypes, null);
         List<GenericValue> entityList = UtilGenerics.cast(results.get("entityList"));
         templateCtx.put("entityList", entityList);
@@ -228,7 +228,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                     out.write(wrappedFTL);
                     wrappedFTL = ""; // So it won't get written again below.
                 }
-                String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
+                String wrapTemplateId = (String) templateCtx.get("wrapTemplateId");
                 if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                     templateCtx.put("wrappedFTL", wrappedFTL);
 

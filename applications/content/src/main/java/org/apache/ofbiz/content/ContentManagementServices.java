@@ -243,7 +243,7 @@ public class ContentManagementServices {
             if (UtilValidate.isNotEmpty(errorMsg)) {
                 return ServiceUtil.returnError(errorMsg);
             }
-            dataResourceId = (String)dataResourceResult.get("dataResourceId");
+            dataResourceId = (String) dataResourceResult.get("dataResourceId");
             results.put("dataResourceId", dataResourceId);
             results.put("drDataResourceId", dataResourceId);
             context.put("dataResourceId", dataResourceId);
@@ -323,7 +323,7 @@ public class ContentManagementServices {
                 Map<String, Object> r = dispatcher.runSync("updateContent", map);
                 boolean isError = ModelService.RESPOND_ERROR.equals(r.get(ModelService.RESPONSE_MESSAGE));
                 if (isError)
-                    return ServiceUtil.returnError((String)r.get(ModelService.ERROR_MESSAGE));
+                    return ServiceUtil.returnError((String) r.get(ModelService.ERROR_MESSAGE));
             }
         }
 
@@ -418,7 +418,7 @@ public class ContentManagementServices {
           serviceContext.put("contentId", siteContentId);
           serviceContext.put("userLogin", userLogin);
           Debug.logInfo("updateSiteRoles, serviceContext(0):" + serviceContext, MODULE);
-          String siteRole = (String)roleType.get("roleTypeId"); // BLOG_EDITOR, BLOG_ADMIN, etc.
+          String siteRole = (String) roleType.get("roleTypeId"); // BLOG_EDITOR, BLOG_ADMIN, etc.
           String cappedSiteRole = ModelUtil.dbNameToVarName(siteRole);
           if (Debug.infoOn()) {
               Debug.logInfo("updateSiteRoles, cappediteRole(1):" + cappedSiteRole, MODULE);
@@ -492,7 +492,7 @@ public class ContentManagementServices {
           if (ServiceUtil.isError(thisResult)) {
               return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
           }
-          String permissionStatus = (String)thisResult.get("permissionStatus");
+          String permissionStatus = (String) thisResult.get("permissionStatus");
           if (UtilValidate.isNotEmpty(permissionStatus) && "granted".equalsIgnoreCase(permissionStatus)) {
               result = persistDataResourceAndDataMethod(dctx, context);
           }
@@ -525,11 +525,11 @@ public class ContentManagementServices {
       GenericValue electronicText = delegator.makeValue("ElectronicText");
       electronicText.setPKFields(context);
       electronicText.setNonPKFields(context);
-      String textData = (String)electronicText.get("textData");
+      String textData = (String) electronicText.get("textData");
 
 
-      String dataResourceId = (String)dataResource.get("dataResourceId");
-      String dataResourceTypeId = (String)dataResource.get("dataResourceTypeId");
+      String dataResourceId = (String) dataResource.get("dataResourceId");
+      String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
       if (Debug.infoOn()) {
           Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, MODULE);
       }
@@ -569,11 +569,11 @@ public class ContentManagementServices {
           if (ServiceUtil.isError(thisResult)) {
               throw(new GenericServiceException(ServiceUtil.getErrorMessage(thisResult)));
           }
-          dataResourceId = (String)thisResult.get("dataResourceId");
+          dataResourceId = (String) thisResult.get("dataResourceId");
           if (Debug.infoOn()) {
               Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, MODULE);
           }
-          dataResource = (GenericValue)thisResult.get("dataResource");
+          dataResource = (GenericValue) thisResult.get("dataResource");
           Map<String, Object> fileContext = new HashMap<>();
           fileContext.put("userLogin", userLogin);
           if ("IMAGE_OBJECT".equals(dataResourceTypeId)) {
@@ -696,7 +696,7 @@ public class ContentManagementServices {
           return ServiceUtil.returnError(e.toString());
         }
         for (GenericValue roleType : siteRoles) {
-            String siteRole = (String)roleType.get("roleTypeId"); // BLOG_EDITOR, BLOG_ADMIN, etc.
+            String siteRole = (String) roleType.get("roleTypeId"); // BLOG_EDITOR, BLOG_ADMIN, etc.
             String cappedSiteRole = ModelUtil.dbNameToVarName(siteRole);
 
             String siteRoleVal = (String) context.get(cappedSiteRole);
@@ -838,7 +838,7 @@ public class ContentManagementServices {
                                 // Swap with previous entry
                                 try {
                                     GenericValue prevValue = listAll.get(i-1);
-                                    Long prevSeqNum = (Long)prevValue.get("sequenceNum");
+                                    Long prevSeqNum = (Long) prevValue.get("sequenceNum");
                                     prevValue.put("sequenceNum", (long) seqNum);
                                     prevValue.store();
                                     contentAssoc.put("sequenceNum", prevSeqNum);
@@ -900,7 +900,7 @@ public class ContentManagementServices {
 
             if (UtilValidate.isNotEmpty(dataResourceId)) {
                 // add previous DataResource as part of new subcontent
-                GenericValue contentClone = (GenericValue)content.clone();
+                GenericValue contentClone = (GenericValue) content.clone();
                 contentClone.set("dataResourceId", dataResourceId);
                 content.set("lastModifiedDate", UtilDateTime.nowTimestamp());
                 content.set("lastModifiedByUserLogin", userLoginId);
@@ -1117,7 +1117,7 @@ public class ContentManagementServices {
         String contentTypeId = content.getString("contentTypeId");
         String newContentTypeId = contentTypeId;
         String dataResourceId = content.getString("dataResourceId");
-        Long branchCount = (Long)content.get("childBranchCount");
+        Long branchCount = (Long) content.get("childBranchCount");
         if (forceOutline) {
             newContentTypeId = "OUTLINE_NODE";
         } else if (contentTypeId == null || "DOCUMENT".equals(contentTypeId)) {
@@ -1183,11 +1183,11 @@ public class ContentManagementServices {
         if (content == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", ""), locale));
         }
-        Long leafCount = (Long)content.get("childLeafCount");
+        Long leafCount = (Long) content.get("childLeafCount");
         if (leafCount == null) {
             content.set("childLeafCount", 0L);
         }
-        Long branchCount = (Long)content.get("childBranchCount");
+        Long branchCount = (Long) content.get("childBranchCount");
         if (branchCount == null) {
             content.set("childBranchCount", 0L);
         }
@@ -1207,7 +1207,7 @@ public class ContentManagementServices {
             if (content == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
             }
-            Long leafCount = (Long)content.get("childLeafCount");
+            Long leafCount = (Long) content.get("childLeafCount");
             if (leafCount == null) {
                 leafCount = 0L;
             }
@@ -1233,7 +1233,7 @@ public class ContentManagementServices {
             if (content == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
             }
-            Long leafCount = (Long)content.get("childLeafCount");
+            Long leafCount = (Long) content.get("childLeafCount");
             if (leafCount == null) {
                 leafCount = 0L;
             }
@@ -1552,7 +1552,7 @@ public class ContentManagementServices {
           if (ServiceUtil.isError(result)) {
               return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
           }
-          String contentId = (String)result.get("contentId");
+          String contentId = (String) result.get("contentId");
           List<String> parentList = new LinkedList<>();
           if (UtilValidate.isEmpty(masterRevisionContentId)) {
               Map<String, Object> traversMap = new HashMap<>();

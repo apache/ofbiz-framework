@@ -566,7 +566,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         }
 
         Map<String, Object> currentNode = nodeTrail.get(sz - 1);
-        Boolean isReturnAfter = (Boolean)currentNode.get("isReturnAfter");
+        Boolean isReturnAfter = (Boolean) currentNode.get("isReturnAfter");
         if (isReturnAfter != null && isReturnAfter) {
             return false;
         }
@@ -577,7 +577,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             while (idx < kids.size()) {
                 currentNode = kids.get(idx);
                 ContentWorker.traceNodeTrail("12", nodeTrail);
-                Boolean isPick = (Boolean)currentNode.get("isPick");
+                Boolean isPick = (Boolean) currentNode.get("isPick");
 
                 if (isPick != null && isPick) {
                     nodeTrail.add(currentNode);
@@ -586,7 +586,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     ContentWorker.traceNodeTrail("14", nodeTrail);
                     break;
                 } else {
-                    Boolean isFollow = (Boolean)currentNode.get("isFollow");
+                    Boolean isFollow = (Boolean) currentNode.get("isFollow");
                     if (isFollow != null && isFollow) {
                         nodeTrail.add(currentNode);
                         boolean foundPick = traverseSubContent(ctx);
@@ -614,14 +614,14 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 int idx = kids.indexOf(currentNode);
                 while (idx < (kids.size() - 1)) {
                     currentNode = kids.get(idx + 1);
-                    Boolean isFollow = (Boolean)currentNode.get("isFollow");
+                    Boolean isFollow = (Boolean) currentNode.get("isFollow");
                     if (isFollow == null || !isFollow) {
                         idx++;
                         continue;
                     }
                     nodeTrail.add(currentNode);
                     ContentWorker.traceNodeTrail("16", nodeTrail);
-                    Boolean isPick = (Boolean)currentNode.get("isPick");
+                    Boolean isPick = (Boolean) currentNode.get("isPick");
                     if (isPick == null || !isPick) {
                         // If not a "pick" node, look at kids
                         inProgress = traverseSubContent(ctx);
@@ -791,7 +791,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             }
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("contentList:" + contentList.size() , "");
+            Debug.logInfo("contentList:" + contentList.size(), "");
         }
         return contentList;
     }
@@ -1130,9 +1130,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static GenericValue getCurrentContent(Delegator delegator, List<Map<String, ? extends Object>> trail, GenericValue userLogin, Map<String, Object> ctx, Boolean nullThruDatesOnly, String contentAssocPredicateId)  throws GeneralException {
-        String contentId = (String)ctx.get("contentId");
-        String subContentId = (String)ctx.get("subContentId");
-        String mapKey = (String)ctx.get("mapKey");
+        String contentId = (String) ctx.get("contentId");
+        String subContentId = (String) ctx.get("subContentId");
+        String mapKey = (String) ctx.get("mapKey");
         Timestamp fromDate = UtilDateTime.nowTimestamp();
         List<String> assocTypes = null;
         List<Map<String, Object>> passedGlobalNodeTrail = null;
@@ -1147,9 +1147,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         if (sz > 0) {
             Map<String, Object> nd = passedGlobalNodeTrail.get(sz - 1);
             if (nd != null)
-                currentContent = (GenericValue)nd.get("value");
+                currentContent = (GenericValue) nd.get("value");
             if (currentContent != null)
-                viewContentId = (String)currentContent.get("contentId");
+                viewContentId = (String) currentContent.get("contentId");
         }
 
         if (UtilValidate.isNotEmpty(subContentId)) {
@@ -1226,7 +1226,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static void checkConditions(Delegator delegator, Map<String, Object> trailNode, Map<String, Object> contentAssoc, Map<String, Object> whenMap) {
         Map<String, Object> context = new HashMap<>();
-        GenericValue content = (GenericValue)trailNode.get("value");
+        GenericValue content = (GenericValue) trailNode.get("value");
         if (content != null) {
             context.put("content", content);
             List<Object> purposes = getPurposes(content);
@@ -1235,7 +1235,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             context.put("sections", sections);
             List<Object> topics = getTopics(content);
             context.put("topics", topics);
-            String contentTypeId = (String)content.get("contentTypeId");
+            String contentTypeId = (String) content.get("contentTypeId");
             List<String> contentTypeAncestry = new LinkedList<>();
             try {
                 getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);
@@ -1260,13 +1260,13 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 context.put("mapKey", null);
             }
         }
-        boolean isReturnBefore = checkWhen(context, (String)whenMap.get("returnBeforePickWhen"), false);
+        boolean isReturnBefore = checkWhen(context, (String) whenMap.get("returnBeforePickWhen"), false);
         trailNode.put("isReturnBefore", isReturnBefore);
-        boolean isPick = checkWhen(context, (String)whenMap.get("pickWhen"), true);
+        boolean isPick = checkWhen(context, (String) whenMap.get("pickWhen"), true);
         trailNode.put("isPick", isPick);
-        boolean isFollow = checkWhen(context, (String)whenMap.get("followWhen"), true);
+        boolean isFollow = checkWhen(context, (String) whenMap.get("followWhen"), true);
         trailNode.put("isFollow", isFollow);
-        boolean isReturnAfter = checkWhen(context, (String)whenMap.get("returnAfterPickWhen"), false);
+        boolean isReturnAfter = checkWhen(context, (String) whenMap.get("returnAfterPickWhen"), false);
         trailNode.put("isReturnAfter", isReturnAfter);
         trailNode.put("checked", Boolean.TRUE);
     }
@@ -1334,10 +1334,10 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static String prepPermissionErrorMsg(Map<String, Object> permResults) {
-        String permissionStatus = (String)permResults.get("permissionStatus");
+        String permissionStatus = (String) permResults.get("permissionStatus");
         String errorMessage = "Permission is denied." + permissionStatus;
         errorMessage += ServiceUtil.getErrorMessage(permResults);
-        PermissionRecorder recorder = (PermissionRecorder)permResults.get("permissionRecorder");
+        PermissionRecorder recorder = (PermissionRecorder) permResults.get("permissionRecorder");
         Debug.logInfo("recorder(0):" + recorder, "");
         if (recorder != null && recorder.isOn()) {
             String permissionMessage = recorder.toHtml();
@@ -1398,7 +1398,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
         thisNode = new HashMap<>();
         thisNode.put("value", thisContent);
-        String contentId = (String)thisContent.get("contentId");
+        String contentId = (String) thisContent.get("contentId");
         thisNode.put("contentId", contentId);
         thisNode.put("contentTypeId", thisContent.get("contentTypeId"));
         thisNode.put("isReturnBeforePick", Boolean.FALSE);
@@ -1425,7 +1425,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             if (node == null) {
                 break;
             }
-            String contentId = (String)node.get("contentId");
+            String contentId = (String) node.get("contentId");
             csv.append(contentId);
         }
         return csv.toString();
@@ -1443,7 +1443,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 Debug.logError(e.getMessage(), MODULE);
                 return new LinkedList<>();
             }
-            contentName = (String)content.get("contentName");
+            contentName = (String) content.get("contentName");
             outList.add(UtilMisc.toList(contentId, contentName));
         }
         return outList;
@@ -1483,10 +1483,10 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static String getMimeTypeId(Delegator delegator, GenericValue view, Map<String, Object> ctx) {
         // This order is taken so that the mimeType can be overridden in the transform arguments.
-        String mimeTypeId = (String)ctx.get("mimeTypeId");
+        String mimeTypeId = (String) ctx.get("mimeTypeId");
         if (UtilValidate.isEmpty(mimeTypeId) && view != null) {
             mimeTypeId = (String) view.get("mimeTypeId");
-            String parentContentId = (String)ctx.get("contentId");
+            String parentContentId = (String) ctx.get("contentId");
             if (UtilValidate.isEmpty(mimeTypeId) && UtilValidate.isNotEmpty(parentContentId)) { // will need these below
                 try {
                     GenericValue parentContent = EntityQuery.use(delegator).from("Content").where("contentId", parentContentId).queryOne();
@@ -1574,14 +1574,14 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 Object obj = map.get(key);
                 s.append(spc).append(key).append(sep);
                 if (obj instanceof GenericValue) {
-                    GenericValue gv = (GenericValue)obj;
+                    GenericValue gv = (GenericValue) obj;
                     GenericPK pk = gv.getPrimaryKey();
                     indent.append(' ');
                     logMap(s, "GMAP[" + key + " name:" + pk.getEntityName()+ "]", pk, indent);
                     indent.setLength(indent.length() - 1);
                 } else if (obj instanceof List<?>) {
                     indent.append(' ');
-                    logList(s, "LIST[" + ((List<?>)obj).size() + "]", UtilGenerics.cast(obj), indent);
+                    logList(s, "LIST[" + ((List<?>) obj).size() + "]", UtilGenerics.cast(obj), indent);
                     indent.setLength(indent.length() - 1);
                 } else if (obj instanceof Map<?, ?>) {
                     indent.append(' ');
@@ -1618,14 +1618,14 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         for (Object obj : lst) {
             s.append(spc);
             if (obj instanceof GenericValue) {
-                GenericValue gv = (GenericValue)obj;
+                GenericValue gv = (GenericValue) obj;
                 GenericPK pk = gv.getPrimaryKey();
                 indent.append(' ');
                 logMap(s, "MAP[name:" + pk.getEntityName() + "]", pk, indent);
                 indent.setLength(indent.length() - 1);
             } else if (obj instanceof List<?>) {
                 indent.append(' ');
-                logList(s, "LIST[" + ((List<?>)obj).size() + "]", UtilGenerics.cast(obj), indent);
+                logList(s, "LIST[" + ((List<?>) obj).size() + "]", UtilGenerics.cast(obj), indent);
                 indent.setLength(indent.length() - 1);
             } else if (obj instanceof Map<?, ?>) {
                 indent.append(' ');

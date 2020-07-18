@@ -101,7 +101,7 @@ public class FedexServices {
 
         // xmlString should contain the auth document at the beginning
         // all documents require an <?xml version="1.0" encoding="UTF-8" ?> header
-        if (! xmlString.matches("^(?s)<\\?xml\\s+version=\"1\\.0\"\\s+encoding=\"UTF-8\"\\s*\\?>.*")) {
+        if (!xmlString.matches("^(?s)<\\?xml\\s+version=\"1\\.0\"\\s+encoding=\"UTF-8\"\\s*\\?>.*")) {
             throw new FedexConnectException(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentFedexXmlHeaderMalformed", locale));
         }
@@ -539,10 +539,10 @@ public class FedexServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentRouteSegmentOriginPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
-            } else if (UtilValidate.isEmpty(originPostalAddress.getString("address1"))      ||
-                       UtilValidate.isEmpty(originPostalAddress.getString("city"))          ||
-                       UtilValidate.isEmpty(originPostalAddress.getString("postalCode"))    ||
-                       UtilValidate.isEmpty(originPostalAddress.getString("countryGeoId"))) {
+            } else if (UtilValidate.isEmpty(originPostalAddress.getString("address1"))
+                       || UtilValidate.isEmpty(originPostalAddress.getString("city"))
+                       || UtilValidate.isEmpty(originPostalAddress.getString("postalCode"))
+                       || UtilValidate.isEmpty(originPostalAddress.getString("countryGeoId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentRouteSegmentOriginPostalAddressNotComplete",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -615,10 +615,10 @@ public class FedexServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentRouteSegmentDestPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
-            } else if (UtilValidate.isEmpty(destinationPostalAddress.getString("address1"))      ||
-                       UtilValidate.isEmpty(destinationPostalAddress.getString("city"))          ||
-                       UtilValidate.isEmpty(destinationPostalAddress.getString("postalCode"))    ||
-                       UtilValidate.isEmpty(destinationPostalAddress.getString("countryGeoId"))) {
+            } else if (UtilValidate.isEmpty(destinationPostalAddress.getString("address1"))
+                       || UtilValidate.isEmpty(destinationPostalAddress.getString("city"))
+                       || UtilValidate.isEmpty(destinationPostalAddress.getString("postalCode"))
+                       || UtilValidate.isEmpty(destinationPostalAddress.getString("countryGeoId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentRouteSegmentDestPostalAddressIncomplete",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -771,7 +771,7 @@ public class FedexServices {
                 if (!billingWeightUomId.equals(weightUomId)) {
                     Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", billingWeightUomId, "uomIdTo", weightUomId, "originalValue", billingWeight));
                     if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                        Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId , MODULE);
+                        Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId, MODULE);
 
                         // Try getting the weight from package instead
                         hasBillingWeight = false;
@@ -837,7 +837,7 @@ public class FedexServices {
                         if (!boxDimensionsUomId.equals(dimensionsUomId)) {
                             Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsLength));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                                Debug.logWarning("Unable to convert length for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , MODULE);
+                                Debug.logWarning("Unable to convert length for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId, MODULE);
                                 dimensionsLength = null;
                             } else {
                                 dimensionsLength = (BigDecimal) results.get("convertedValue");
@@ -849,7 +849,7 @@ public class FedexServices {
                         if (!boxDimensionsUomId.equals(dimensionsUomId)) {
                             Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsWidth));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                                Debug.logWarning("Unable to convert width for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , MODULE);
+                                Debug.logWarning("Unable to convert width for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId, MODULE);
                                 dimensionsWidth = null;
                             } else {
                                 dimensionsWidth = (BigDecimal) results.get("convertedValue");
@@ -861,7 +861,7 @@ public class FedexServices {
                         if (!boxDimensionsUomId.equals(dimensionsUomId)) {
                             Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsHeight));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                                Debug.logWarning("Unable to convert height for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , MODULE);
+                                Debug.logWarning("Unable to convert height for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId, MODULE);
                                 dimensionsHeight = null;
                             } else {
                                 dimensionsHeight = (BigDecimal) results.get("convertedValue");
@@ -882,7 +882,7 @@ public class FedexServices {
                         try {
                             packageWeight = EntityUtilProperties.getPropertyAsBigDecimal(shipmentPropertiesFile, "shipment.default.weight.value", BigDecimal.ZERO);
                         } catch (NumberFormatException ne) {
-                            Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value), assuming 1.0" + weightUomId , MODULE);
+                            Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value), assuming 1.0" + weightUomId, MODULE);
                             packageWeight = BigDecimal.ONE;
                         }
                     }
@@ -917,10 +917,10 @@ public class FedexServices {
                 shipRequestContext.put("CustomerReference", shipmentId + ":" + shipmentRouteSegmentId + ":" + shipmentPackage.getString("shipmentPackageSeqId"));
                 shipRequestContext.put("DropoffType", dropoffType);
                 shipRequestContext.put("Packaging", packaging);
-                if (UtilValidate.isNotEmpty(dimensionsUomId) &&
-                    dimensionsLength != null && dimensionsLength.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0 &&
-                    dimensionsWidth != null && dimensionsWidth.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0   &&
-                    dimensionsHeight != null && dimensionsHeight.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0) {
+                if (UtilValidate.isNotEmpty(dimensionsUomId)
+                    && dimensionsLength != null && dimensionsLength.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0
+                    && dimensionsWidth != null && dimensionsWidth.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0
+                    && dimensionsHeight != null && dimensionsHeight.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0) {
                         shipRequestContext.put("DimensionsUnits", "LEN_in".equals(dimensionsUomId) ? "IN" : "CM");
                         shipRequestContext.put("DimensionsLength", dimensionsLength.setScale(0, RoundingMode.HALF_UP).toString());
                         shipRequestContext.put("DimensionsWidth", dimensionsWidth.setScale(0, RoundingMode.HALF_UP).toString());

@@ -188,7 +188,7 @@ public class QuoteServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(quoteOut));
             }
             if (UtilValidate.isNotEmpty(quoteOut) && UtilValidate.isNotEmpty(quoteOut.get("quoteId"))) {
-                String quoteId = (String)quoteOut.get("quoteId");
+                String quoteId = (String) quoteOut.get("quoteId");
                 result.put("quoteId", quoteId);
 
                 // create Quote Items

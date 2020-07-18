@@ -99,9 +99,9 @@ public class CommunicationEventServices {
             }
 
             // make sure the from contact mech is an email if it is specified
-            if ((communicationEvent.getRelatedOne("FromContactMech", false) == null) ||
-                 (!("EMAIL_ADDRESS".equals(communicationEvent.getRelatedOne("FromContactMech", false).getString("contactMechTypeId"))) ||
-                 (communicationEvent.getRelatedOne("FromContactMech", false).getString("infoString") == null))) {
+            if ((communicationEvent.getRelatedOne("FromContactMech", false) == null)
+                 || (!("EMAIL_ADDRESS".equals(communicationEvent.getRelatedOne("FromContactMech", false).getString("contactMechTypeId")))
+                 || (communicationEvent.getRelatedOne("FromContactMech", false).getString("infoString") == null))) {
                 String errMsg = UtilProperties.getMessage(RESOURCE, "commeventservices.communication_event_from_contact_mech_must_be_email", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
@@ -125,7 +125,7 @@ public class CommunicationEventServices {
 
             // check for attachments
             boolean isMultiPart = false;
-            List <GenericValue> comEventContents = EntityQuery.use(delegator).from("CommEventContentAssoc").where("communicationEventId", communicationEventId).filterByDate().queryList();
+            List<GenericValue> comEventContents = EntityQuery.use(delegator).from("CommEventContentAssoc").where("communicationEventId", communicationEventId).filterByDate().queryList();
             if (UtilValidate.isNotEmpty(comEventContents)) {
                 isMultiPart = true;
                 List<Map<String, ? extends Object>> bodyParts = new LinkedList<>();
@@ -162,7 +162,7 @@ public class CommunicationEventServices {
                 // add other parties from roles
                 String sendCc = null;
                 String sendBcc = null;
-                List <GenericValue> commRoles = communicationEvent.getRelated("CommunicationEventRole", null, null, false);
+                List<GenericValue> commRoles = communicationEvent.getRelated("CommunicationEventRole", null, null, false);
                 if (UtilValidate.isNotEmpty(commRoles)) {
                     for (GenericValue commRole : commRoles) { // 'from' and 'to' already defined on communication event
                         if (commRole.getString("partyId").equals(communicationEvent.getString("partyIdFrom")) || commRole.getString("partyId").equals(communicationEvent.getString("partyIdTo"))) {
@@ -459,7 +459,7 @@ public class CommunicationEventServices {
                         }
                         emailAddress = emailAddress.trim();
 
-                        if (! UtilValidate.isEmail(emailAddress)) {
+                        if (!UtilValidate.isEmail(emailAddress)) {
 
                             // If validation fails, just log and skip the email address
                             Debug.logError(skippingInvalidEmailAddress + ": " + emailAddress, MODULE);
@@ -958,8 +958,8 @@ public class CommunicationEventServices {
             //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
             if (!toParties.isEmpty()) {
                 Map<String, Object> firstAddressTo = toParties.get(0);
-                partyIdTo = (String)firstAddressTo.get("partyId");
-                contactMechIdTo = (String)firstAddressTo.get("contactMechId");
+                partyIdTo = (String) firstAddressTo.get("partyId");
+                contactMechIdTo = (String) firstAddressTo.get("contactMechId");
             }
 
             String deliveredTo = wrapper.getFirstHeader("Delivered-To");
@@ -1108,7 +1108,7 @@ public class CommunicationEventServices {
             if (ServiceUtil.isError(result)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
             }
-            communicationEventId = (String)result.get("communicationEventId");
+            communicationEventId = (String) result.get("communicationEventId");
             Debug.logInfo("Persisting New Email: " + aboutThisEmail + " into CommunicationEventId: " + communicationEventId, MODULE);
 
             // handle the attachments
@@ -1309,7 +1309,7 @@ public class CommunicationEventServices {
     /*
      * Helper method to retrieve the party information from the first email address of the Address[] specified.
      */
-    private static Map<String, Object> getParyInfoFromEmailAddress(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
+    private static Map<String, Object> getParyInfoFromEmailAddress(Address[] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
         InternetAddress emailAddress = null;
         Map<String, Object> map = null;
         Map<String, Object> result = null;

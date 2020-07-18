@@ -192,7 +192,7 @@ public class WorkEffortSearch {
             try (EntityListIterator eli = this.doQuery(delegator)) {
                 ArrayList<String> workEffortIds = this.makeWorkEffortIdList(eli);
                 long endMillis = System.currentTimeMillis();
-                double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
+                double totalSeconds = ((double) endMillis - (double) startMillis) / 1000.0;
 
                 // store info about results in the database, attached to the user's visitId, if specified
                 this.saveSearchResultInfo((long) workEffortIds.size(), totalSeconds);

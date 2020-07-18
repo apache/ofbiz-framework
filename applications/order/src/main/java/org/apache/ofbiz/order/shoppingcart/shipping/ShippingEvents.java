@@ -279,7 +279,7 @@ public class ShippingEvents {
         return responseResult;
     }
 
-    public static BigDecimal getGenericShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map <String, ? extends Object>context) throws GeneralException {
+    public static BigDecimal getGenericShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map<String, ? extends Object>context) throws GeneralException {
         // invoke the generic estimate service next -- append to estimate amount
         Map<String, Object> genericEstimate = null;
         BigDecimal genericShipAmt = null;

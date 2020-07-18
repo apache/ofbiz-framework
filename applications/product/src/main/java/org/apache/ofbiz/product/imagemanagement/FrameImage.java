@@ -157,8 +157,8 @@ public class FrameImage {
             String filenameToUse = (String) contentResult.get("contentId") + ".jpg";
             String filenameTouseThumb = (String) contentResult.get("contentId") + nameOfThumb + ".jpg";
 
-            Image newImg1 = bufImg1.getScaledInstance(width, height , Image.SCALE_SMOOTH);
-            Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
+            Image newImg1 = bufImg1.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            Image newImg2 = bufImg2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
@@ -257,14 +257,14 @@ public class FrameImage {
         g.drawImage(bufferedImage, 0, 0, null);
         g.dispose();
 
-        return( bufferedImage );
+        return (bufferedImage);
     }
 
     public static String uploadFrame(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = dispatcher.getDelegator();
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
@@ -411,8 +411,8 @@ public class FrameImage {
             int width = Integer.parseInt(request.getParameter("imageWidth"));
             int height= Integer.parseInt(request.getParameter("imageHeight"));
 
-            Image newImg1 = bufImg1.getScaledInstance(width, height , Image.SCALE_SMOOTH);
-            Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
+            Image newImg1 = bufImg1.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            Image newImg2 = bufImg2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/preview/" + "/previewImage.jpg"));

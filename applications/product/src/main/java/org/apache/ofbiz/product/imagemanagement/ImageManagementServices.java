@@ -517,7 +517,7 @@ public class ImageManagementServices {
 
         String contentIdThumb = (String) contentThumbResult.get("contentId");
         result.put("contentIdThumb", contentIdThumb);
-        String filenameToUseThumb = imageName.substring(0 , imageName.indexOf('.')) + nameOfThumb;
+        String filenameToUseThumb = imageName.substring(0, imageName.indexOf('.')) + nameOfThumb;
         String fileContentType = (String) context.get("_uploadedFile_contentType");
         if ("image/pjpeg".equals(fileContentType)) {
             fileContentType = "image/jpeg";

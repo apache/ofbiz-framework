@@ -243,7 +243,7 @@ public class ProductConfigWrapper implements Serializable {
         if (!(obj instanceof ProductConfigWrapper)) {
             return false;
         }
-        ProductConfigWrapper cw = (ProductConfigWrapper)obj;
+        ProductConfigWrapper cw = (ProductConfigWrapper) obj;
         if (!product.getString("productId").equals(cw.getProduct().getString("productId"))) {
             return false;
         }
@@ -580,7 +580,7 @@ public class ProductConfigWrapper implements Serializable {
                 }
                 BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
-                Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound");
+                Boolean validPriceFound = (Boolean) priceMap.get("validPriceFound");
                 BigDecimal mult = BigDecimal.ONE;
                 if (oneComponent.getBigDecimal("quantity") != null) {
                     mult = oneComponent.getBigDecimal("quantity");
@@ -655,7 +655,7 @@ public class ProductConfigWrapper implements Serializable {
                 }
                 BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
-                Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound");
+                Boolean validPriceFound = (Boolean) priceMap.get("validPriceFound");
                 BigDecimal mult = BigDecimal.ONE;
                 if (oneComponent.getBigDecimal("quantity") != null) {
                     mult = oneComponent.getBigDecimal("quantity");
@@ -752,7 +752,7 @@ public class ProductConfigWrapper implements Serializable {
         }
 
         public boolean hasVirtualComponent () {
-           List <GenericValue> components = getComponents();
+           List<GenericValue> components = getComponents();
            if (UtilValidate.isNotEmpty(components)) {
                for (GenericValue component : components) {
                    if (isVirtualComponent(component)) {

@@ -613,9 +613,9 @@ public class ShoppingCartServices {
                         // reservation, tax calculation, etc.
                         ShoppingCart.CartShipInfo csi = cart.getShipInfo(cartShipGroupIndex);
                         ShoppingCartItem cartItem = cart.findCartItem(itemIndex);
-                        if (cartItem == null || cartItem.getQuantity() == null ||
-                                BigDecimal.ZERO.equals(cartItem.getQuantity()) ||
-                                shipGroupQty.equals(cartItem.getQuantity())) {
+                        if (cartItem == null || cartItem.getQuantity() == null
+                                || BigDecimal.ZERO.equals(cartItem.getQuantity())
+                                || shipGroupQty.equals(cartItem.getQuantity())) {
                             Debug.logInfo("In loadCartFromOrder not adding item [" + item.getString("orderItemSeqId") +
                                     "] to ship group with index [" + itemIndex + "]; group quantity is [" + shipGroupQty +
                                     "] item quantity is [" + (cartItem != null ? cartItem.getQuantity() : "no cart item") +
@@ -921,7 +921,7 @@ public class ShoppingCartServices {
 
             if (adjs != null) {
                 for (GenericValue adj : adjs) {
-                    if (isTaxAdjustment( adj )) {
+                    if (isTaxAdjustment(adj)) {
                         shipInfo.shipTaxAdj.add(adj);
                     } else {
                         cartAdjs.add(adj);
@@ -940,7 +940,7 @@ public class ShoppingCartServices {
                     }
                     if (adjs != null) {
                         for (GenericValue adj : adjs) {
-                            if (isTaxAdjustment( adj )) {
+                            if (isTaxAdjustment(adj)) {
                                 CartShipItemInfo csii = shipInfo.getShipItemInfo(item);
 
                                 if (csii.itemTaxAdj == null) {
@@ -1139,8 +1139,8 @@ public class ShoppingCartServices {
                 cartItemData.put("displayItemQty_" + cartLineIndex, cartLine.getQuantity());
                 cartItemData.put("displayItemPrice_" + cartLineIndex, org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayPrice(), isoCode, locale));
                 cartItemData.put("displayItemSubTotal_" + cartLineIndex, cartLine.getDisplayItemSubTotal());
-                cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex , org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(), isoCode, locale));
-                cartItemData.put("displayItemAdjustment_" + cartLineIndex , org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));
+                cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex, org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(), isoCode, locale));
+                cartItemData.put("displayItemAdjustment_" + cartLineIndex, org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));
             }
             result.put("cartItemData", cartItemData);
         }

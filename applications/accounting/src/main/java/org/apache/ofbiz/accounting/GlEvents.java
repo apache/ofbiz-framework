@@ -41,7 +41,7 @@ public class GlEvents {
 private static final String MODULE = GlEvents.class.getName();
 public static String createReconcileAccount(HttpServletRequest request, HttpServletResponse response) {
     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-    final Delegator delegator = (Delegator)request.getAttribute("delegator");
+    final Delegator delegator = (Delegator) request.getAttribute("delegator");
     GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
     Map<String, Object> ctx = UtilHttp.getParameterMap(request);
     String acctgTransId;
@@ -55,7 +55,7 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
     int rowCount = UtilHttp.getMultiFormRowCount(ctx);
     for (int i = 0; i < rowCount; i++) {  //for calculating amount per glAccountId
         String suffix = UtilHttp.getMultiRowDelimiter() + i;
-        isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String)ctx.get("_rowSubmit" + suffix)));
+        isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String) ctx.get("_rowSubmit" + suffix)));
         if (!isSelected) {
             continue;
         }
@@ -95,7 +95,7 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
     String reconciledAmount;
     for (int i = 0; i < rowCount; i++) {
         String suffix = UtilHttp.getMultiRowDelimiter() + i;
-        isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String)ctx.get("_rowSubmit" + suffix)));
+        isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String) ctx.get("_rowSubmit" + suffix)));
         if (!isSelected) {
             continue;
         }
@@ -103,7 +103,7 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
         acctgTransEntrySeqId = (String) ctx.get("acctgTransEntrySeqId" + suffix);
         try {
             GenericValue acctgTransEntry = EntityQuery.use(delegator).from("AcctgTransEntry").where("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId).queryOne();
-            if (acctgTransEntry != null ) {
+            if (acctgTransEntry != null) {
                 reconciledAmount = acctgTransEntry.getString("amount");
                 acctgTransId = acctgTransEntry.getString("acctgTransId");
                 acctgTransEntrySeqId = acctgTransEntry.getString("acctgTransEntrySeqId");

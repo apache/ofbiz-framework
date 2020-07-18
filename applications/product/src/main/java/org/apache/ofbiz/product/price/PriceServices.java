@@ -110,7 +110,7 @@ public class PriceServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()) , locale));
+                    "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (UtilValidate.isEmpty(productStoreGroupId)) {
             if (productStore != null) {
@@ -129,7 +129,7 @@ public class PriceServices {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                            "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()) , locale));
+                            "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()), locale));
                 }
             }
 
@@ -168,7 +168,7 @@ public class PriceServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting virtual product id from the database while calculating price" + e.toString(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "ProductPriceCannotRetrieveVirtualProductId", UtilMisc.toMap("errorString", e.toString()) , locale));
+                        "ProductPriceCannotRetrieveVirtualProductId", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
@@ -245,7 +245,7 @@ public class PriceServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting agreement info from the database while calculating price" + e.toString(), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "ProductPriceCannotRetrieveAgreementInfo", UtilMisc.toMap("errorString", e.toString()) , locale));
+                        "ProductPriceCannotRetrieveAgreementInfo", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
@@ -358,7 +358,7 @@ public class PriceServices {
                     try {
                         Map<String, Object> outMap = dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
                         if (ServiceUtil.isSuccess(outMap)) {
-                            BigDecimal calculatedDefaultPrice = (BigDecimal)outMap.get("price");
+                            BigDecimal calculatedDefaultPrice = (BigDecimal) outMap.get("price");
                             orderItemPriceInfos = UtilGenerics.cast(outMap.get("orderItemPriceInfos"));
                             if (UtilValidate.isNotEmpty(calculatedDefaultPrice)) {
                                 defaultPrice = calculatedDefaultPrice;
@@ -508,7 +508,7 @@ public class PriceServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting rules from the database while calculating price", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "ProductPriceCannotRetrievePriceRules", UtilMisc.toMap("errorString", e.toString()) , locale));
+                        "ProductPriceCannotRetrievePriceRules", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
@@ -1186,7 +1186,7 @@ public class PriceServices {
     private static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException {
         List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate(nowTimestamp).queryList();
         for (GenericValue genericValue : partyRelationshipList) {
-            String partyIdFrom = (String)genericValue.get("partyIdFrom");
+            String partyIdFrom = (String) genericValue.get("partyIdFrom");
             if (partyIdFrom.equals(groupPartyId)) {
                 return 0;
             }
@@ -1242,10 +1242,10 @@ public class PriceServices {
                         priceFound = EntityUtil.getFirst(agreementPrices);
                         try {
                             Map<String, Object> priceConvertMap = UtilMisc.toMap("uomId", priceFound.getString("currencyUomId"), "uomIdTo", currencyUomId,
-                                    "originalValue", priceFound.getBigDecimal("price"), "defaultDecimalScale" , 2L, "defaultRoundingMode" , "HalfUp");
+                                    "originalValue", priceFound.getBigDecimal("price"), "defaultDecimalScale", 2L, "defaultRoundingMode", "HalfUp");
                             Map<String, Object> priceResults = dispatcher.runSync("convertUom", priceConvertMap);
                             if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
-                                Debug.logWarning("Unable to convert " + priceFound + " for product  " + productId , MODULE);
+                                Debug.logWarning("Unable to convert " + priceFound + " for product  " + productId, MODULE);
                             } else {
                                 price = (BigDecimal) priceResults.get("convertedValue");
                                 validPriceFound = true;
@@ -1300,7 +1300,7 @@ public class PriceServices {
             if (productSuppliers != null) {
                 for (GenericValue productSupplier: productSuppliers) {
                     if (!validPriceFound) {
-                        price = ((BigDecimal)productSupplier.get("lastPrice"));
+                        price = ((BigDecimal) productSupplier.get("lastPrice"));
                         validPriceFound = true;
                     }
                     // add a orderItemPriceInfo element too, without orderId or orderItemId

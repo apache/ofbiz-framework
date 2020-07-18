@@ -438,7 +438,7 @@ public class ShoppingCartHelper {
                 }
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                     // check for alternative packing
-                    if (ProductWorker.isAlternativePacking(delegator, null , productId)) {
+                    if (ProductWorker.isAlternativePacking(delegator, null, productId)) {
                         GenericValue originalProduct = null;
                         originalProductId = productId;
                         productId = ProductWorker.getOriginalProductId(delegator, productId);
@@ -456,7 +456,7 @@ public class ShoppingCartHelper {
                     try {
                         //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                         // if not and if quantity is in decimal format then return error.
-                        if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
+                        if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
                             BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                             if (remainder.compareTo(BigDecimal.ZERO) != 0) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", this.cart.getLocale()));

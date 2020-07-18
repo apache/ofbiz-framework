@@ -2663,9 +2663,9 @@ public class OrderReadHelper {
             for (GenericValue orderAdjustment : adjustments) {
                 boolean includeAdjustment = false;
 
-                if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) ||
-                        "VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) ||
-                        "VAT_PRICE_CORRECT".equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
+                if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId"))
+                        || "VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId"))
+                        || "VAT_PRICE_CORRECT".equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
                     if (includeTax) {
                         includeAdjustment = true;
                     }
@@ -3006,8 +3006,8 @@ public class OrderReadHelper {
                             if (amount != null) {
                                 totalAmount = totalAmount.add(amount);
                             }
-                            if ("VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) &&
-                                    orderAdjustment.get("amountAlreadyIncluded") != null) {
+                            if ("VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId"))
+                                    && orderAdjustment.get("amountAlreadyIncluded") != null) {
                                 // this is the only case where the VAT_TAX amountAlreadyIncluded should be added in, and should just be for display and not to calculate the order grandTotal
                                 totalAmount = totalAmount.add(orderAdjustment.getBigDecimal("amountAlreadyIncluded"));
                             }

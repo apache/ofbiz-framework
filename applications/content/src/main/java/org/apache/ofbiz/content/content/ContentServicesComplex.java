@@ -249,7 +249,7 @@ public class ContentServicesComplex {
                     "fromDate", contentAssocView.getTimestamp("caFromDate"))).queryOne();
             content = contentAssoc.getRelatedOne(assocRelationName, true);
             if (UtilValidate.isNotEmpty(contentTypes)) {
-                String contentTypeId = (String)content.get("contentTypeId");
+                String contentTypeId = (String) content.get("contentTypeId");
                 if (contentTypes.contains(contentTypeId)) {
                     contentAssocDataResourceView = delegator.makeValue(viewName);
                     contentAssocDataResourceView.setAllFields(content, true, null, null);

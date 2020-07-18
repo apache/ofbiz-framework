@@ -59,7 +59,7 @@ public final class ProductConfigWorker {
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         String webSiteId = WebSiteWorker.getWebSiteId(request);
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
-        GenericValue autoUserLogin = (GenericValue)request.getSession().getAttribute("autoUserLogin");
+        GenericValue autoUserLogin = (GenericValue) request.getSession().getAttribute("autoUserLogin");
         try {
             /* caching: there is one cache created, "product.config"  Each product's config wrapper is cached with a key of
              * productId::catalogId::webSiteId::currencyUomId, or whatever the SEPARATOR is defined above to be.
@@ -68,8 +68,8 @@ public final class ProductConfigWorker {
             String cacheKey = productId + SEPARATOR + productStoreId + SEPARATOR + catalogId + SEPARATOR + webSiteId + SEPARATOR + currencyUomId + SEPARATOR + delegator;
             configWrapper = productConfigCache.get(cacheKey);
             if (configWrapper == null) {
-                configWrapper = new ProductConfigWrapper((Delegator)request.getAttribute("delegator"),
-                                                         (LocalDispatcher)request.getAttribute("dispatcher"),
+                configWrapper = new ProductConfigWrapper((Delegator) request.getAttribute("delegator"),
+                                                         (LocalDispatcher) request.getAttribute("dispatcher"),
                                                          productId, productStoreId, catalogId, webSiteId,
                                                          currencyUomId, UtilHttp.getLocale(request),
                                                          autoUserLogin);
@@ -91,9 +91,9 @@ public final class ProductConfigWorker {
             String[] opts = new String[0];
             Object o = combinedMap.get(Integer.toString(k));
             if (o instanceof String) {
-                opts = new String[]{(String)o};
+                opts = new String[]{(String) o};
             } else if (o instanceof List) {
-                List<?> list = (List<?>)o;
+                List<?> list = (List<?>) o;
                 opts = list.toArray(new String[list.size()]);
             }
             if (opts == null) {
@@ -145,8 +145,8 @@ public final class ProductConfigWorker {
                                 } else {
 
                                     //  handle also feature tree virtual variant methods
-                                    if (ProductWorker.isVirtual((Delegator)request.getAttribute("delegator"), selectedProductId)) {
-                                        if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod((Delegator)request.getAttribute("delegator"), selectedProductId))) {
+                                    if (ProductWorker.isVirtual((Delegator) request.getAttribute("delegator"), selectedProductId)) {
+                                        if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod((Delegator) request.getAttribute("delegator"), selectedProductId))) {
                                             // get the selected features
                                             List<String> selectedFeatures = new LinkedList<>();
                                             String prefix = "FT" + k + "_" + cnt + "_" + variantIndex;
@@ -161,7 +161,7 @@ public final class ProductConfigWorker {
                                                 Debug.logWarning("ERROR: No features selected for productId [" + selectedProductId+ "]", MODULE);
                                             }
 
-                                            String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProductId, selectedFeatures, (Delegator)request.getAttribute("delegator"));
+                                            String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProductId, selectedFeatures, (Delegator) request.getAttribute("delegator"));
                                             if (UtilValidate.isNotEmpty(variantProductId)) {
                                                 selectedProductId = variantProductId;
                                             } else {

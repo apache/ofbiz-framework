@@ -56,7 +56,7 @@ public final class PaymentWorker {
 
     // to be able to use in minilanguage where Boolean cannot be used
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId) {
-        return(getPartyPaymentMethodValueMaps(delegator, partyId, false));
+        return (getPartyPaymentMethodValueMaps(delegator, partyId, false));
     }
 
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId, Boolean showOld) {

@@ -84,7 +84,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
 
         try {
             if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
-            Delegator delegator = (Delegator)request.getAttribute("delegator");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
                     if (UtilValidate.isEmpty(mapKey) && UtilValidate.isEmpty(contentAssocTypeId)) {

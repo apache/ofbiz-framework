@@ -133,7 +133,7 @@ public final class BOMHelper {
     public static String createProductionRunsForShipment(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
         String shipmentId = request.getParameter("shipmentId");
 

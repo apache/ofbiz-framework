@@ -264,8 +264,7 @@ public final class CatalogWorker {
 
     public static String getProdCatalogCategoryId(Delegator delegator, String prodCatalogId, String prodCatalogCategoryTypeId) {
         if (UtilValidate.isNotEmpty(prodCatalogId) && UtilValidate.isNotEmpty(prodCatalogCategoryTypeId)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(getProdCatalogCategories(delegator, prodCatalogId
-                                                            , prodCatalogCategoryTypeId));
+            GenericValue prodCatalogCategory = EntityUtil.getFirst(getProdCatalogCategories(delegator, prodCatalogId, prodCatalogCategoryTypeId));
 
             if (prodCatalogCategory != null) {
                 return prodCatalogCategory.getString("productCategoryId");

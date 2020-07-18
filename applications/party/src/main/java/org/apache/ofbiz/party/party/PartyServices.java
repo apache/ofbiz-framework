@@ -236,7 +236,7 @@ public class PartyServices {
                             EntityCondition.makeCondition("partyId", partyId),
                             EntityCondition.makeCondition("enabled", EntityOperator.NOT_EQUAL, "N")
                             );
-                    List <GenericValue> userLogins = EntityQuery.use(delegator).from("UserLogin").where(cond).queryList();
+                    List<GenericValue> userLogins = EntityQuery.use(delegator).from("UserLogin").where(cond).queryList();
                     for (GenericValue userLogin : userLogins) {
                         userLogin.set("enabled", "N");
                         userLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
@@ -650,11 +650,11 @@ public class PartyServices {
             try {
                 GenericValue value = EntityQuery.use(delegator).from("NoteData").where("noteId", noteId).queryOne();
                 if (value == null) {
-                    Debug.logError("ERROR: Note id does not exist for : " + noteId + ", autogenerating." , MODULE);
+                    Debug.logError("ERROR: Note id does not exist for : " + noteId + ", autogenerating.", MODULE);
                     noteId = null;
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "ERROR: Note id does not exist for : " + noteId + ", autogenerating." , MODULE);
+                Debug.logError(e, "ERROR: Note id does not exist for : " + noteId + ", autogenerating.", MODULE);
                 noteId = null;
             }
         }
@@ -1304,10 +1304,9 @@ public class PartyServices {
                 String inventoryItemId = (String) context.get("inventoryItemId");
                 String serialNumber = (String) context.get("serialNumber");
                 String softIdentifier = (String) context.get("softIdentifier");
-                if (UtilValidate.isNotEmpty(inventoryItemId) ||
-                    UtilValidate.isNotEmpty(serialNumber) ||
-                    UtilValidate.isNotEmpty(softIdentifier)) {
-
+                if (UtilValidate.isNotEmpty(inventoryItemId)
+                    || UtilValidate.isNotEmpty(serialNumber)
+                    || UtilValidate.isNotEmpty(softIdentifier)) {
                     // add role to view
                     dynamicView.addMemberEntity("II", "InventoryItem");
                     dynamicView.addAlias("II", "ownerPartyId");
@@ -1715,10 +1714,7 @@ public class PartyServices {
 
         String idValue = (String) context.get("idValue");
         String partyIdentificationTypeId = (String) context.get("partyIdentificationTypeId");
-        if ("I".equals(extInfo) ||
-                UtilValidate.isNotEmpty(idValue) ||
-                UtilValidate.isNotEmpty(partyIdentificationTypeId)) {
-
+        if ("I".equals(extInfo) || UtilValidate.isNotEmpty(idValue) || UtilValidate.isNotEmpty(partyIdentificationTypeId)) {
             // add role to view
             dynamicView.addMemberEntity("PAI", "PartyIdentification");
             dynamicView.addAlias("PAI", "idValue");
@@ -1742,9 +1738,9 @@ public class PartyServices {
         String inventoryItemId = (String) context.get("inventoryItemId");
         String serialNumber = (String) context.get("serialNumber");
         String softIdentifier = (String) context.get("softIdentifier");
-        if (UtilValidate.isNotEmpty(inventoryItemId) ||
-                UtilValidate.isNotEmpty(serialNumber) ||
-                UtilValidate.isNotEmpty(softIdentifier)) {
+        if (UtilValidate.isNotEmpty(inventoryItemId)
+                || UtilValidate.isNotEmpty(serialNumber)
+                || UtilValidate.isNotEmpty(softIdentifier)) {
 
             // add role to view
             dynamicView.addMemberEntity("II", "InventoryItem");
@@ -1774,10 +1770,10 @@ public class PartyServices {
         // PostalAddress fields
         // ----
         String stateProvinceGeoId = (String) context.get("stateProvinceGeoId");
-        if ( "P".equals(extInfo) ||
-                UtilValidate.isNotEmpty(context.get("address1"))|| UtilValidate.isNotEmpty(context.get("address2"))||
-                UtilValidate.isNotEmpty(context.get("city"))|| UtilValidate.isNotEmpty(context.get("postalCode"))||
-                UtilValidate.isNotEmpty(context.get("countryGeoId"))|| (UtilValidate.isNotEmpty(stateProvinceGeoId))) {
+        if ("P".equals(extInfo)
+                || UtilValidate.isNotEmpty(context.get("address1")) || UtilValidate.isNotEmpty(context.get("address2"))
+                || UtilValidate.isNotEmpty(context.get("city")) || UtilValidate.isNotEmpty(context.get("postalCode"))
+                || UtilValidate.isNotEmpty(context.get("countryGeoId")) || (UtilValidate.isNotEmpty(stateProvinceGeoId))) {
             // add address to dynamic view
             dynamicView.addMemberEntity("PC", "PartyContactMech");
             dynamicView.addMemberEntity("PA", "PostalAddress");
@@ -1930,8 +1926,7 @@ public class PartyServices {
      * @return the result of the service execution
      */
     public static Map<String, Object> linkParty(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Delegator _delegator = dctx.getDelegator();
-        Delegator delegator = _delegator.cloneDelegator();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         delegator.setEntityEcaHandler(null);
 
@@ -2241,8 +2236,6 @@ public class PartyServices {
         }
         return partyId;
     }
-
-
     /**
      * Finds partyId(s) corresponding to a party reference, partyId or a GoodIdentification idValue
      * @param ctx the dispatch context
@@ -2316,7 +2309,7 @@ public class PartyServices {
         String lastContactMechPurposeTypeId = null;
         String currentContactMechPurposeTypeId = null;
 
-        Boolean addParty = false; // when modify party, contact mech not added again
+        boolean addParty = false; // when modify party, contact mech not added again
 
 
         try (BufferedReader csvReader = new BufferedReader(new StringReader(csvString))) {
@@ -2339,7 +2332,7 @@ public class PartyServices {
                     lastContactNumber = null;
 
                     // party validation
-                    List <GenericValue> currencyCheck = EntityQuery.use(delegator).from("Uom")
+                    List<GenericValue> currencyCheck = EntityQuery.use(delegator).from("Uom")
                             .where("abbreviation", rec.get("preferredCurrencyUomId"), "uomTypeId", "CURRENCY_MEASURE")
                             .queryList();
                     if (UtilValidate.isNotEmpty(rec.get("preferredCurrencyUomId")) && currencyCheck.size() == 0) {
@@ -2352,13 +2345,14 @@ public class PartyServices {
                         newErrMsgs.add("Line number " + rec.getRecordNumber() + ": RoletypeId is not valid: " + rec.get("roleTypeId") );
                     }
 
-                    if (UtilValidate.isNotEmpty(rec.get("contactMechTypeId")) &&
-                            EntityQuery.use(delegator).from("ContactMechType").where("contactMechTypeId", rec.get("contactMechTypeId")).cache().queryOne() == null) {
+                    if (UtilValidate.isNotEmpty(rec.get("contactMechTypeId"))
+                            && EntityQuery.use(delegator).from("ContactMechType").where("contactMechTypeId", rec.get("contactMechTypeId")).cache().queryOne() == null) {
                         newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + " contactMechTypeId code not found for: " + rec.get("contactMechTypeId"));
                     }
 
-                    if (UtilValidate.isNotEmpty(rec.get("contactMechPurposeTypeId")) &&
-                            EntityQuery.use(delegator).from("ContactMechPurposeType").where("contactMechPurposeTypeId", rec.get("contactMechPurposeTypeId")).cache().queryOne() == null) {
+                    if (UtilValidate.isNotEmpty(rec.get("contactMechPurposeTypeId"))
+                            && EntityQuery.use(delegator).from("ContactMechPurposeType").where("contactMechPurposeTypeId",
+                            rec.get("contactMechPurposeTypeId")).cache().queryOne() == null) {
                         newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + "contactMechPurposeTypeId code not found for: " + rec.get("contactMechPurposeTypeId"));
                     }
 
@@ -2366,7 +2360,7 @@ public class PartyServices {
                         if (UtilValidate.isEmpty(rec.get("countryGeoId"))) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + "Country code missing");
                         } else {
-                            List <GenericValue> countryCheck = EntityQuery.use(delegator).from("Geo")
+                            List<GenericValue> countryCheck = EntityQuery.use(delegator).from("Geo")
                                     .where("geoTypeId", "COUNTRY", "abbreviation", rec.get("countryGeoId"))
                                     .queryList();
                             if (countryCheck.size() == 0) {
@@ -2379,7 +2373,7 @@ public class PartyServices {
                         }
 
                         if (UtilValidate.isNotEmpty(rec.get("stateProvinceGeoId"))) {
-                            List <GenericValue> stateCheck = EntityQuery.use(delegator).from("Geo")
+                            List<GenericValue> stateCheck = EntityQuery.use(delegator).from("Geo")
                                     .where("geoTypeId", "STATE", "abbreviation", rec.get("stateProvinceGeoId"))
                                     .queryList();
                             if (stateCheck.size() == 0) {
@@ -2401,7 +2395,7 @@ public class PartyServices {
                     }
 
                     if (errMsgs.size() == 0) {
-                        List <GenericValue> partyCheck = EntityQuery.use(delegator).from("PartyIdentification")
+                        List<GenericValue> partyCheck = EntityQuery.use(delegator).from("PartyIdentification")
                                 .where("partyIdentificationTypeId", "PARTY_IMPORT", "idValue", rec.get("partyId"))
                                 .queryList();
                         addParty = partyCheck.size() == 0;
@@ -2485,7 +2479,7 @@ public class PartyServices {
                             }
 
                             if (UtilValidate.isNotEmpty(rec.get("companyPartyId"))) {
-                                List <GenericValue> companyCheck = EntityQuery.use(delegator).from("PartyIdentification")
+                                List<GenericValue> companyCheck = EntityQuery.use(delegator).from("PartyIdentification")
                                         .where("partyIdentificationTypeId", "PARTY_IMPORT", "idValue", rec.get("partyId"))
                                         .queryList();
                                 if (companyCheck.size() == 0) { // update party group
@@ -2546,7 +2540,7 @@ public class PartyServices {
                             "contactMechTypeId", "EMAIL_ADDRESS",
                             "userLogin", userLogin
                             );
-                    Boolean emailAddressChanged = false;
+                    boolean emailAddressChanged = false;
                     if ("EMAIL_ADDRESS".equals(currentContactMechTypeId)) {
                         emailAddress.put("infoString", rec.get("emailAddress"));
                         emailAddressChanged = lastEmailAddress == null || !lastEmailAddress.equals(rec.get("emailAddress"));
@@ -2555,7 +2549,7 @@ public class PartyServices {
 
                     Map<String, Object> postalAddress = UtilMisc.toMap("userLogin", (Object) userLogin); // casting is here necessary for some compiler versions
 
-                    Boolean postalAddressChanged = false;
+                    boolean postalAddressChanged = false;
                     if ("POSTAL_ADDRESS".equals(currentContactMechTypeId)) {
                         postalAddress.put("address1", rec.get("address1"));
                         postalAddress.put("address2", rec.get("address2"));
@@ -2564,10 +2558,10 @@ public class PartyServices {
                         postalAddress.put("countryGeoId", rec.get("countryGeoId"));
                         postalAddress.put("postalCode", rec.get("postalCode"));
                         postalAddressChanged =
-                                lastAddress1 == null || !lastAddress1.equals(postalAddress.get("address1")) ||
-                                lastAddress2 == null || !lastAddress2.equals(postalAddress.get("address2")) ||
-                                lastCity == null || !lastCity.equals(postalAddress.get("city")) ||
-                                lastCountryGeoId == null || !lastCountryGeoId.equals(postalAddress.get("countryGeoId"));
+                                lastAddress1 == null || !lastAddress1.equals(postalAddress.get("address1"))
+                                || lastAddress2 == null || !lastAddress2.equals(postalAddress.get("address2"))
+                                || lastCity == null || !lastCity.equals(postalAddress.get("city"))
+                                || lastCountryGeoId == null || !lastCountryGeoId.equals(postalAddress.get("countryGeoId"));
                         lastAddress1 = (String) postalAddress.get("address1");
                         lastAddress2 = (String) postalAddress.get("address2");
                         lastCity = (String) postalAddress.get("city");
@@ -2576,22 +2570,22 @@ public class PartyServices {
 
                     Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", (Object) userLogin); // casting is here necessary for some compiler versions
 
-                    Boolean telecomNumberChanged = false;
+                    boolean telecomNumberChanged = false;
                     if ("TELECOM_NUMBER".equals(currentContactMechTypeId)) {
                         telecomNumber.put("countryCode", rec.get("telCountryCode"));
                         telecomNumber.put("areaCode", rec.get("telAreaCode"));
                         telecomNumber.put("contactNumber", rec.get("telContactNumber"));
                         telecomNumberChanged =
-                                lastCountryCode == null || !lastCountryCode.equals(telecomNumber.get("countryCode")) ||
-                                lastAreaCode == null || !lastAreaCode.equals(telecomNumber.get("areaCode")) ||
-                                lastContactNumber == null || !lastContactNumber.equals(telecomNumber.get("contactNumber"));
+                                lastCountryCode == null || !lastCountryCode.equals(telecomNumber.get("countryCode"))
+                                || lastAreaCode == null || !lastAreaCode.equals(telecomNumber.get("areaCode"))
+                                || lastContactNumber == null || !lastContactNumber.equals(telecomNumber.get("contactNumber"));
                         lastCountryCode = (String) telecomNumber.get("countryCode");
                         lastAreaCode = (String) telecomNumber.get("areaCode");
                         lastContactNumber = (String) telecomNumber.get("contactNumber");
                     }
 
                     Map<String, Object> partyContactMechPurpose = UtilMisc.toMap("partyId", newPartyId, "userLogin", userLogin);
-                    Boolean partyContactMechPurposeChanged = false;
+                    boolean partyContactMechPurposeChanged = false;
                     currentContactMechPurposeTypeId = rec.get("contactMechPurposeTypeId");
                     if (currentContactMechPurposeTypeId != null && ("TELECOM_NUMBER".equals(currentContactMechTypeId) || "POSTAL_ADDRESS".equals(currentContactMechTypeId) ||"EMAIL_ADDRESS".equals(currentContactMechTypeId))) {
                         partyContactMechPurpose.put("contactMechPurposeTypeId", currentContactMechPurposeTypeId);

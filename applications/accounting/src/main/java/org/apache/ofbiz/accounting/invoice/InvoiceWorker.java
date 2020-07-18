@@ -636,7 +636,7 @@ public final class InvoiceWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting database records....", MODULE);
         }
-        return(conversionRate);
+        return (conversionRate);
     }
 
     public static BigDecimal getInvoiceCurrencyConversionRate(Delegator delegator, String invoiceId) {
@@ -692,7 +692,7 @@ public final class InvoiceWorker {
                 // get the list of all distinct taxAuthGeoId and taxAuthPartyId. It is for getting the number of taxAuthGeoId and taxAuthPartyId in invoiceItems.
                 List<String> distinctTaxAuthGeoIdList = EntityUtil.getFieldListFromEntityList(invoiceItems, "taxAuthGeoId", true);
                 List<String> distinctTaxAuthPartyIdList = EntityUtil.getFieldListFromEntityList(invoiceItems, "taxAuthPartyId", true);
-                for (String taxAuthGeoId : distinctTaxAuthGeoIdList ) {
+                for (String taxAuthGeoId : distinctTaxAuthGeoIdList) {
                     for (String taxAuthPartyId : distinctTaxAuthPartyIdList) {
                         //get all records for invoices filtered by taxAuthGeoId and taxAurhPartyId
                         List<GenericValue> invoiceItemsByTaxAuthGeoAndPartyIds = EntityUtil.filterByAnd(invoiceItems, UtilMisc.toMap("taxAuthGeoId", taxAuthGeoId, "taxAuthPartyId", taxAuthPartyId));

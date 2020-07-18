@@ -178,7 +178,7 @@ public class PayPalServices {
 
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
 
-        String token = (String)paramMap.get("TOKEN");
+        String token = (String) paramMap.get("TOKEN");
         WeakReference<ShoppingCart> weakCart = tokenCartMap.get(new TokenWrapper(token));
         ShoppingCart cart = null;
         if (weakCart != null) {
@@ -201,7 +201,7 @@ public class PayPalServices {
             return ServiceUtil.returnSuccess();
         }
         inMap.put("countryGeoId", countryGeoId);
-        inMap.put("stateProvinceGeoId", parseStateProvinceGeoId((String)paramMap.get("SHIPTOSTATE"), countryGeoId, delegator));
+        inMap.put("stateProvinceGeoId", parseStateProvinceGeoId((String) paramMap.get("SHIPTOSTATE"), countryGeoId, delegator));
         inMap.put("postalCode", paramMap.get("SHIPTOZIP"));
 
         try {

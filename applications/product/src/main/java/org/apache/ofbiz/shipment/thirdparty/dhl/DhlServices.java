@@ -603,7 +603,7 @@ public class DhlServices {
                 // convert
                 results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", billingWeightUomId, "uomIdTo", DHL_WEIGHT_UOM_ID, "originalValue", billingWeight));
                 if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                    Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId , MODULE);
+                    Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId, MODULE);
                     // try getting the weight from package instead
                     hasBillingWeight = false;
                 } else {
@@ -647,7 +647,7 @@ public class DhlServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
                 }
                 if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) || (results.get("convertedValue") == null)) {
-                    Debug.logWarning("Unable to convert weights for shipmentId " + shipmentId , MODULE);
+                    Debug.logWarning("Unable to convert weights for shipmentId " + shipmentId, MODULE);
                     packageWeight = BigDecimal.ONE;
                 } else {
                     packageWeight = (BigDecimal) results.get("convertedValue");

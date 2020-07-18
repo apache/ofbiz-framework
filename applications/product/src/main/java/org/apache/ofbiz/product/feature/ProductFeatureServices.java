@@ -270,7 +270,7 @@ public class ProductFeatureServices {
             for (Map<String, Object> combination: oldCombinations) {
                 // Verify if the default code is already used, if so add a numeric suffix
                 if (defaultVariantProductIds.contains(combination.get("defaultVariantProductId"))) {
-                    combination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + "-" + (defaultCodeCounter < 10? "0" + defaultCodeCounter: "" + defaultCodeCounter));
+                    combination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + "-" + (defaultCodeCounter < 10 ? "0" + defaultCodeCounter : "" + defaultCodeCounter));
                     defaultCodeCounter++;
                 }
                 defaultVariantProductIds.add((String) combination.get("defaultVariantProductId"));

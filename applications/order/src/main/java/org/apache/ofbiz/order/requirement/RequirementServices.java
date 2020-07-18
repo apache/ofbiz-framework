@@ -227,10 +227,10 @@ public class RequirementServices {
                 GenericValue item = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderItemAndShipGroup.getString("orderId"), "orderItemSeqId", orderItemAndShipGroup.getString("orderItemSeqId")).queryOne();
                 GenericValue product = item.getRelatedOne("Product", false);
                 if (product == null) continue;
-                if ((!"PRODRQM_AUTO".equals(product.get("requirementMethodEnumId")) &&
-                        !"PRODRQM_AUTO".equals(productStore.get("requirementMethodEnumId"))) ||
-                        (product.get("requirementMethodEnumId") == null &&
-                           !"PRODRQM_AUTO".equals(productStore.get("requirementMethodEnumId")))) continue;
+                if ((!"PRODRQM_AUTO".equals(product.get("requirementMethodEnumId"))
+                        && !"PRODRQM_AUTO".equals(productStore.get("requirementMethodEnumId")))
+                        || (product.get("requirementMethodEnumId") == null
+                        && !"PRODRQM_AUTO".equals(productStore.get("requirementMethodEnumId")))) continue;
                 BigDecimal quantity = item.getBigDecimal("quantity");
                 BigDecimal cancelQuantity = item.getBigDecimal("cancelQuantity");
                 BigDecimal required = quantity.subtract(cancelQuantity == null ? BigDecimal.ZERO : cancelQuantity);
@@ -289,8 +289,8 @@ public class RequirementServices {
                 GenericValue product = item.getRelatedOne("Product", false);
                 if (product == null) continue;
 
-                if (!("PRODRQM_ATP".equals(product.get("requirementMethodEnumId")) ||
-                        ("PRODRQM_ATP".equals(productStore.get("requirementMethodEnumId")) && product.get("requirementMethodEnumId") == null))) continue;
+                if (!("PRODRQM_ATP".equals(product.get("requirementMethodEnumId"))
+                    || ("PRODRQM_ATP".equals(productStore.get("requirementMethodEnumId")) && product.get("requirementMethodEnumId") == null))) continue;
 
                 BigDecimal quantity = item.getBigDecimal("quantity");
                 BigDecimal cancelQuantity = item.getBigDecimal("cancelQuantity");

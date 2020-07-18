@@ -142,7 +142,7 @@ public class BOMServices {
             if (ServiceUtil.isError(depthResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depthResult));
             }
-            llc = (Long)depthResult.get("depth");
+            llc = (Long) depthResult.get("depth");
             // If the product is a variant of a virtual, then the billOfMaterialLevel cannot be
             // lower than the billOfMaterialLevel of the virtual product.
             List<GenericValue> virtualProducts = EntityQuery.use(delegator).from("ProductAssoc")
@@ -172,7 +172,7 @@ public class BOMServices {
                 if (ServiceUtil.isError(treeResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(treeResult));
                 }
-                BOMTree tree = (BOMTree)treeResult.get("tree");
+                BOMTree tree = (BOMTree) treeResult.get("tree");
                 List<BOMNode> products = new LinkedList<>();
                 tree.print(products, llc.intValue());
                 for (BOMNode oneNode : products) {
@@ -199,8 +199,8 @@ public class BOMServices {
                 }
             }
         } catch (GenericEntityException | GenericServiceException ge) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningUpdateLowLevelCode"
-                    , UtilMisc.toMap("errorString", ge.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningUpdateLowLevelCode",
+                    UtilMisc.toMap("errorString", ge.getMessage()), locale));
         }
         result.put("lowLevelCode", llc);
         return result;
@@ -397,7 +397,7 @@ public class BOMServices {
             if (ServiceUtil.isError(routingOutMap)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(routingOutMap));
             }
-            GenericValue routing = (GenericValue)routingOutMap.get("routing");
+            GenericValue routing = (GenericValue) routingOutMap.get("routing");
             if (routing == null) {
                 // try to find a routing linked to the virtual product
                 routingInMap = UtilMisc.toMap("productId", tree.getRoot().getProduct().getString("productId"), "userLogin", userLogin);
@@ -405,7 +405,7 @@ public class BOMServices {
                 if (ServiceUtil.isError(routingOutMap)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(routingOutMap));
                 }
-                routing = (GenericValue)routingOutMap.get("routing");
+                routing = (GenericValue) routingOutMap.get("routing");
             }
             if (routing != null) {
                 workEffortId = routing.getString("workEffortId");
@@ -475,7 +475,7 @@ public class BOMServices {
                 notAssembledComponents.add(oneComponent);
             }
         }
-        result.put("notAssembledComponents" , notAssembledComponents);
+        result.put("notAssembledComponents", notAssembledComponents);
         return result;
     }
 
@@ -521,7 +521,7 @@ public class BOMServices {
             if (orderShipment != null && !orderReadHelpers.containsKey(orderShipment.getString("orderId"))) {
                 orderReadHelpers.put(orderShipment.getString("orderId"), new OrderReadHelper(delegator, orderShipment.getString("orderId")));
             }
-            OrderReadHelper orderReadHelper = (OrderReadHelper)orderReadHelpers.get(orderShipment.getString("orderId"));
+            OrderReadHelper orderReadHelper = (OrderReadHelper) orderReadHelpers.get(orderShipment.getString("orderId"));
             if (orderReadHelper != null) {
                 Map<String, Object> orderShipmentReadMap = UtilMisc.toMap("orderShipment", orderShipment, "orderReadHelper", orderReadHelper);
                 String partyId = (orderReadHelper.getPlacingParty() != null? orderReadHelper.getPlacingParty().getString("partyId"): null); // FIXME: is it the customer?

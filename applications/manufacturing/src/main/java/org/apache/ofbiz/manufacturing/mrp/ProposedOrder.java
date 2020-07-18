@@ -107,7 +107,7 @@ public class ProposedOrder {
      **/
     public Map<String, Object> calculateStartDate(int daysToShip, GenericValue routing, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
         Map<String, Object> result = null;
-        Timestamp endDate = (Timestamp)requiredByDate.clone();
+        Timestamp endDate = (Timestamp) requiredByDate.clone();
         Timestamp startDate = endDate;
         long timeToShip = daysToShip * 8 * 60 * 60 * 1000;
         if (isBuilt) {
@@ -121,7 +121,7 @@ public class ProposedOrder {
                             String errorMessage = ServiceUtil.getErrorMessage(routingOutMap);
                             Debug.logError(errorMessage, MODULE);
                     }
-                    routing = (GenericValue)routingOutMap.get("routing");
+                    routing = (GenericValue) routingOutMap.get("routing");
                     listRoutingTaskAssoc = UtilGenerics.cast(routingOutMap.get("tasks"));
                     if (routing == null) {
                         // try to find a routing linked to the virtual product
@@ -143,7 +143,7 @@ public class ProposedOrder {
                                 String errorMessage = ServiceUtil.getErrorMessage(routingOutMap);
                                 Debug.logError(errorMessage, MODULE);
                             }
-                            routing = (GenericValue)routingOutMap.get("routing");
+                            routing = (GenericValue) routingOutMap.get("routing");
                         }
                     }
                 } catch (GenericServiceException gse) {

@@ -63,7 +63,7 @@ public class OrderTestServices {
                 if (ServiceUtil.isError(outputMap)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(outputMap));
                 }
-                String orderId = (String)outputMap.get("orderId");
+                String orderId = (String) outputMap.get("orderId");
                 Debug.logInfo("Test sales order with id [" + orderId + "] has been processed.", MODULE);
             } catch (GenericServiceException e) {
                 String errMsg = "Error calling createTestSalesOrderSingle: " + e.toString();

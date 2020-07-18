@@ -237,12 +237,12 @@ public class PackingSession implements java.io.Serializable {
 
     public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
         for (PackingSessionLine line: this.getLines()) {
-            if (orderId.equals(line.getOrderId()) &&
-                    orderItemSeqId.equals(line.getOrderItemSeqId()) &&
-                    shipGroupSeqId.equals(line.getShipGroupSeqId()) &&
-                    productId.equals(line.getProductId()) &&
-                    inventoryItemId.equals(line.getInventoryItemId()) &&
-                    packageSeq == line.getPackageSeq()) {
+            if (orderId.equals(line.getOrderId())
+                && orderItemSeqId.equals(line.getOrderItemSeqId())
+                && shipGroupSeqId.equals(line.getShipGroupSeqId())
+                && productId.equals(line.getProductId())
+                && inventoryItemId.equals(line.getInventoryItemId())
+                && packageSeq == line.getPackageSeq()) {
                 return line;
             }
         }
@@ -850,7 +850,7 @@ public class PackingSession implements java.io.Serializable {
         BigDecimal shipmentWeight = getTotalWeight();
         if (shipmentWeight.compareTo(BigDecimal.ZERO) <= 0) return;
         List<GenericValue> shipmentRouteSegments = getDelegator().findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", this.getShipmentId()), null, false);
-        if (! UtilValidate.isEmpty(shipmentRouteSegments)) {
+        if (!UtilValidate.isEmpty(shipmentRouteSegments)) {
             for (GenericValue shipmentRouteSegment: shipmentRouteSegments) {
                 shipmentRouteSegment.set("billingWeight", shipmentWeight);
                 shipmentRouteSegment.set("billingWeightUomId", getWeightUomId());
@@ -932,7 +932,7 @@ public class PackingSession implements java.io.Serializable {
         BigDecimal total = BigDecimal.ZERO;
         for (int i = 0; i < packageSeq; i++) {
             BigDecimal packageWeight = getPackageWeight(i);
-            if (! UtilValidate.isEmpty(packageWeight)) {
+            if (!UtilValidate.isEmpty(packageWeight)) {
                 total = total.add(packageWeight);
             }
         }
@@ -1020,7 +1020,7 @@ public class PackingSession implements java.io.Serializable {
 
     public List<Integer> getPackageSeqIds() {
         Set<Integer> packageSeqIds = new TreeSet<>();
-        if (! UtilValidate.isEmpty(this.getLines())) {
+        if (!UtilValidate.isEmpty(this.getLines())) {
             for (PackingSessionLine line: this.getLines()) {
                 packageSeqIds.add(line.getPackageSeq());
             }
@@ -1131,9 +1131,9 @@ public class PackingSession implements java.io.Serializable {
                 } else if (d.getOrderItem().getString("productId") != null || orderItem.getString("productId") != null) {
                     sameOrderItemProduct = false;
                 }
-                return (d.productId.equals(productId) &&
-                        d.getOrderItem().getString("orderItemSeqId").equals(orderItem.getString("orderItemSeqId")) &&
-                        sameOrderItemProduct);
+                return (d.productId.equals(productId)
+                        && d.getOrderItem().getString("orderItemSeqId").equals(orderItem.getString("orderItemSeqId"))
+                        && sameOrderItemProduct);
             } else {
                 return false;
             }

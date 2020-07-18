@@ -87,7 +87,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
 
         return new LoopWriter(out) {
 
-            final String passedCsv = (String)templateCtx.get("nodeTrailCsv");
+            final String passedCsv = (String) templateCtx.get("nodeTrailCsv");
 
             @Override
             public void write(char cbuf[], int off, int len) {
@@ -110,18 +110,18 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                 }
                 // This will build a nodeTrail if none exists
                 // Maybe only contentId or subContentId are passed in
-                String redo = (String)templateCtx.get("redo");
+                String redo = (String) templateCtx.get("redo");
 
                 if (UtilValidate.isEmpty(trail) || (redo != null && "true".equalsIgnoreCase(redo))) {
-                    String subContentId = (String)templateCtx.get("subContentId");
+                    String subContentId = (String) templateCtx.get("subContentId");
                     if (Debug.infoOn()) {
                         Debug.logInfo("in InjectNodeTrailCsv(0), subContentId:"+subContentId, MODULE);
                     }
-                    String contentId = (String)templateCtx.get("contentId");
+                    String contentId = (String) templateCtx.get("contentId");
                     if (Debug.infoOn()) {
                         Debug.logInfo("in InjectNodeTrailCsv(0), contentId:"+contentId, MODULE);
                     }
-                    String contentAssocTypeId = (String)templateCtx.get("contentAssocTypeId");
+                    String contentAssocTypeId = (String) templateCtx.get("contentAssocTypeId");
                     if (Debug.infoOn()) {
                         Debug.logInfo("in InjectNodeTrailCsv(0), contentAssocTypeId:"+contentAssocTypeId, MODULE);
                     }
@@ -160,7 +160,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                         if (UtilValidate.isNotEmpty(lastPassedContentId)) {
                             if (UtilValidate.isNotEmpty(trail)) {
                                 Map<String, ? extends Object> nd = trail.get(0);
-                                String firstTrailContentId = (String)nd.get("contentId");
+                                String firstTrailContentId = (String) nd.get("contentId");
                                 if (UtilValidate.isNotEmpty(firstTrailContentId)
                                     && UtilValidate.isNotEmpty(lastPassedContentId)
                                     && firstTrailContentId.equals(lastPassedContentId)) {

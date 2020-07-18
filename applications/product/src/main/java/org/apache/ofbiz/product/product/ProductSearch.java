@@ -233,7 +233,7 @@ public class ProductSearch {
             }
 
             long endMillis = System.currentTimeMillis();
-            double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
+            double totalSeconds = ((double) endMillis - (double) startMillis) / 1000.0;
 
             // store info about results in the database, attached to the user's visitId, if specified
             this.saveSearchResultInfo((long) productIds.size(), totalSeconds);
@@ -356,12 +356,12 @@ public class ProductSearch {
         }
 
         public void finishCategoryAndFeatureConstraints() {
-            if (includeCategoryIds.size() == 0 && excludeCategoryIds.size() == 0 && alwaysIncludeCategoryIds.size() == 0 &&
-                    includeCategoryIdOrSetAndList.size() == 0 && alwaysIncludeCategoryIdOrSetAndList.size() == 0 &&
-                    includeFeatureIds.size() == 0 && excludeFeatureIds.size() == 0 && alwaysIncludeFeatureIds.size() == 0 &&
-                    includeFeatureIdOrSetAndList.size() == 0 && alwaysIncludeFeatureIdOrSetAndList.size() == 0 &&
-                    includeFeatureCategoryIds.size() == 0 && excludeFeatureCategoryIds.size() == 0 && alwaysIncludeFeatureCategoryIds.size() == 0 &&
-                    includeFeatureGroupIds.size() == 0 && excludeFeatureGroupIds.size() == 0 && alwaysIncludeFeatureGroupIds.size() == 0) {
+            if (includeCategoryIds.size() == 0 && excludeCategoryIds.size() == 0 && alwaysIncludeCategoryIds.size() == 0
+                && includeCategoryIdOrSetAndList.size() == 0 && alwaysIncludeCategoryIdOrSetAndList.size() == 0
+                && includeFeatureIds.size() == 0 && excludeFeatureIds.size() == 0 && alwaysIncludeFeatureIds.size() == 0
+                && includeFeatureIdOrSetAndList.size() == 0 && alwaysIncludeFeatureIdOrSetAndList.size() == 0
+                && includeFeatureCategoryIds.size() == 0 && excludeFeatureCategoryIds.size() == 0 && alwaysIncludeFeatureCategoryIds.size() == 0
+                && includeFeatureGroupIds.size() == 0 && excludeFeatureGroupIds.size() == 0 && alwaysIncludeFeatureGroupIds.size() == 0) {
                 return;
             }
 
@@ -2164,9 +2164,8 @@ public class ProductSearch {
 
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
-            if (UtilValidate.isNotEmpty(goodIdentificationTypeId) ||
-                UtilValidate.isNotEmpty(goodIdentificationValue) ||
-                UtilValidate.isNotEmpty(include)) {
+            if (UtilValidate.isNotEmpty(goodIdentificationTypeId)
+                || UtilValidate.isNotEmpty(goodIdentificationValue) || UtilValidate.isNotEmpty(include)) {
 
                 // make index based values and increment
                 String entityAlias = "GI" + productSearchContext.index;
@@ -2201,9 +2200,8 @@ public class ProductSearch {
 
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
-            if (UtilValidate.isEmpty(goodIdentificationTypeId) &&
-                UtilValidate.isEmpty(goodIdentificationValue) &&
-                UtilValidate.isEmpty(include)) {
+            if (UtilValidate.isEmpty(goodIdentificationTypeId)
+                && UtilValidate.isEmpty(goodIdentificationValue) && UtilValidate.isEmpty(include)) {
                 return null;
             }
 
@@ -2277,7 +2275,7 @@ public class ProductSearch {
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
             productSearchContext.dynamicViewEntity.addAlias("PROD", productFieldName, null, null, null, null, null);
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(productFieldName , EntityOperator.LIKE, keyword + "%"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(productFieldName, EntityOperator.LIKE, keyword + "%"));
             productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.keyword)));
         }
 

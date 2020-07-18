@@ -53,7 +53,7 @@ public class ProductStoreEvents {
             if (productStoreGroup != null) {
                 children = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId", parentGroupId).cache(true).filterByDate().queryList();
                 if (UtilValidate.isNotEmpty(children)) {
-                    for (GenericValue child : children ) {
+                    for (GenericValue child : children) {
                         String productStoreGroupId = child.getString("productStoreGroupId");
                         Map<Object, Object> josonMap = new HashMap<>();
                         List<GenericValue> childList = null;

@@ -476,8 +476,8 @@ public class CheckOutHelper {
                             errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.gift_card_does_not_exist", cart.getLocale());
                             errorMessages.add(errMsg);
                             gcFieldsOkay = false;
-                        } else if ((finAccount.getBigDecimal("availableBalance") == null) ||
-                                !((finAccount.getBigDecimal("availableBalance")).compareTo(FinAccountHelper.getZero()) > 0)) {
+                        } else if ((finAccount.getBigDecimal("availableBalance") == null)
+                                || !((finAccount.getBigDecimal("availableBalance")).compareTo(FinAccountHelper.getZero()) > 0)) {
                             // if account's available balance (including authorizations) is not greater than zero, then return an error
                             errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.gift_card_has_no_value", cart.getLocale());
                             errorMessages.add(errMsg);
@@ -1159,9 +1159,9 @@ public class CheckOutHelper {
                                            EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
             List<GenericValue> cashCodPcBaPaymentPreferences = EntityUtil.filterByOr(allPaymentPreferences, cashCodPcBaExpr);
 
-            if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences) &&
-                    UtilValidate.isNotEmpty(allPaymentPreferences) &&
-                    cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
+            if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences)
+                    && UtilValidate.isNotEmpty(allPaymentPreferences)
+                    && cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
 
                 //if there are Check type, approve the order only if it is face to face
                 List<GenericValue> checkPreferences = EntityUtil.filterByAnd(cashCodPcBaPaymentPreferences, UtilMisc.toMap("paymentMethodTypeId", "PERSONAL_CHECK"));

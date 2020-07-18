@@ -244,7 +244,7 @@ public class UpsServices {
                                               .where(EntityCondition.makeCondition("orderId", EntityOperator.IN, orderIdSet)).queryList();
                 List<String> paymentMethodTypeIds = EntityUtil.getFieldListFromEntityList(opps, "paymentMethodTypeId", true);
 
-                if (paymentMethodTypeIds.size() > 1 || ! paymentMethodTypeIds.contains("EXT_COD")) {
+                if (paymentMethodTypeIds.size() > 1 || !paymentMethodTypeIds.contains("EXT_COD")) {
                     allowCOD = false;
                 }
             }
@@ -566,7 +566,7 @@ public class UpsServices {
 
                 // Package insured value
                 BigDecimal insuredValue = shipmentPackage.getBigDecimal("insuredValue");
-                if (! UtilValidate.isEmpty(insuredValue)) {
+                if (!UtilValidate.isEmpty(insuredValue)) {
 
                     Element insuredValueElement = UtilXml.addChildElement(packageServiceOptionsElement, "InsuredValue", shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(insuredValueElement, "MonetaryValue", insuredValue.setScale(2, RoundingMode.HALF_UP).toString(), shipmentConfirmRequestDoc);
@@ -2897,7 +2897,7 @@ public class UpsServices {
             GenericValue carrierShipmentMethod = null;
             // Filtering out rates of shipping methods which are not configured in ProductStoreShipmentMeth entity.
             try {
-                List <GenericValue> productStoreShipmentMethods = EntityQuery.use(delegator).from("ProductStoreShipmentMethView").where("productStoreId", productStoreId).queryList();
+                List<GenericValue> productStoreShipmentMethods = EntityQuery.use(delegator).from("ProductStoreShipmentMethView").where("productStoreId", productStoreId).queryList();
                 for (GenericValue productStoreShipmentMethod :productStoreShipmentMethods) {
                     if ("UPS".equals(productStoreShipmentMethod.get("partyId"))) {
                         Map<String, Object> thisUpsRateCodeMap = new HashMap<>();

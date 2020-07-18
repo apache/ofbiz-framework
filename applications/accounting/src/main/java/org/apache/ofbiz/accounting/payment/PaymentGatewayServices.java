@@ -785,7 +785,7 @@ public class PaymentGatewayServices {
             if (ServiceUtil.isError(releaseResult)) {
                 Debug.logError(ServiceUtil.getErrorMessage(releaseResult), MODULE);
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResult));
-            } else if (! ServiceUtil.isFailure(releaseResult)) {
+            } else if (!ServiceUtil.isFailure(releaseResult)) {
                 finished.add(paymentPref);
             }
         }
@@ -1437,7 +1437,7 @@ public class PaymentGatewayServices {
             GenericValue productStore = orh.getProductStore();
             if (UtilValidate.isNotEmpty(productStore)) {
                 boolean shipIfCaptureFails = UtilValidate.isEmpty(productStore.get("shipIfCaptureFails")) || "Y".equalsIgnoreCase(productStore.getString("shipIfCaptureFails"));
-                if (! shipIfCaptureFails) {
+                if (!shipIfCaptureFails) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                             "AccountingPaymentCannotBeCaptured", locale));
                 } else {
@@ -2732,7 +2732,7 @@ public class PaymentGatewayServices {
             List<String> order = UtilMisc.toList("-transactionDate");
             List<GenericValue> transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order, false);
             List<EntityExpr> exprs = UtilMisc.toList(
-                    EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, CAPTURE_SERVICE_TYPE) ,
+                    EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, CAPTURE_SERVICE_TYPE),
                     EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("referenceNum"), EntityComparisonOperator.NOT_EQUAL, EntityFunction.UPPER("ERROR")));
             List<GenericValue> capTransactions = EntityUtil.filterByAnd(transactions, exprs);
             capTrans = EntityUtil.getFirst(capTransactions);
@@ -3057,7 +3057,7 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnSuccess();
         } else {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingPaymentAuthorizationFailed",    locale));
+                    "AccountingPaymentAuthorizationFailed", locale));
         }
     }
 
@@ -3121,7 +3121,7 @@ public class PaymentGatewayServices {
         // check valid implemented types
         if (!transactionType.equals(CREDIT_SERVICE_TYPE)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingPaymentTransactionNotYetSupported",    locale));
+                    "AccountingPaymentTransactionNotYetSupported", locale));
         }
         // transaction request context
         Map<String, Object> requestContext = new HashMap<>();

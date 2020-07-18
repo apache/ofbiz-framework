@@ -580,7 +580,7 @@ public class DataServices {
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
-        byte [] imageData = (byte []) context.get("imageData");
+        byte[] imageData = (byte[]) context.get("imageData");
         String rootDir = (String) context.get("rootDir");
         File file = null;
         if (Debug.infoOn()) {
@@ -633,7 +633,7 @@ public class DataServices {
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
-        byte [] imageData = (byte []) context.get("imageData");
+        byte[] imageData = (byte[]) context.get("imageData");
         String rootDir = (String) context.get("rootDir");
         File file = null;
         if (Debug.infoOn()) {

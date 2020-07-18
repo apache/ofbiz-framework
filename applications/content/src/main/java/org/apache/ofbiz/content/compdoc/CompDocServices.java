@@ -288,7 +288,7 @@ public class CompDocServices {
             if (dataResource != null) {
                 inputMimeType = dataResource.getString("mimeTypeId");
             }
-            byte [] inputByteArray = null;
+            byte[] inputByteArray = null;
             if (inputMimeType != null && "application/pdf".equals(inputMimeType)) {
                 ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 inputByteArray = byteBuffer.array();

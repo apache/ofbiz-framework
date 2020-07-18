@@ -320,7 +320,7 @@ public class PackingServices {
 
     public static BigDecimal setSessionPackageWeights(PackingSession session, Map<String, String> packageWeights) {
         BigDecimal shippableWeight = BigDecimal.ZERO;
-        if (! UtilValidate.isEmpty(packageWeights)) {
+        if (!UtilValidate.isEmpty(packageWeights)) {
             for (Map.Entry<String, String> entry: packageWeights.entrySet()) {
                 String packageSeqId = entry.getKey();
                 String packageWeightStr = entry.getValue();

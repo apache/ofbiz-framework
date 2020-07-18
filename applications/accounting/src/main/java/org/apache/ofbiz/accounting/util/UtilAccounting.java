@@ -173,8 +173,8 @@ public final class UtilAccounting {
         String parentClassId = glAccountClass.getString("parentClassId");
 
         // otherwise, we have to go to the grandparent (recurse)
-        return !(parentClassId == null) &&
-                (parentClassId.equals(parentGlAccountClassId) || isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId));
+        return !(parentClassId == null)
+                && (parentClassId.equals(parentGlAccountClassId) || isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId));
     }
 
     /**
@@ -237,8 +237,8 @@ public final class UtilAccounting {
         String parentTypeId = invoiceType.getString("parentTypeId");
 
         // otherwise, we have to go to the grandparent (recurse)
-        return !(parentTypeId == null || invoiceTypeId.equals(parentTypeId)) &&
-                (parentTypeId.equals(inputTypeId) || isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType", false), inputTypeId));
+        return !(parentTypeId == null || invoiceTypeId.equals(parentTypeId))
+                && (parentTypeId.equals(inputTypeId) || isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType", false), inputTypeId));
     }
 
     /**

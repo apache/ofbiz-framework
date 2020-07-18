@@ -69,10 +69,10 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
-        String contentAssocPredicateId = (String)templateRoot.get("contentAssocPredicateId");
-        String strNullThruDatesOnly = (String)templateRoot.get("nullThruDatesOnly");
+        String contentAssocPredicateId = (String) templateRoot.get("contentAssocPredicateId");
+        String strNullThruDatesOnly = (String) templateRoot.get("nullThruDatesOnly");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
-        String thisSubContentId =  (String)templateRoot.get("subContentId");
+        String thisSubContentId =  (String) templateRoot.get("subContentId");
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisSubContentId) ? true : false;
         GenericValue val = null;
         try {
@@ -93,9 +93,9 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
             subContentIdSub = (String) view.get("contentId");
         }
         // This order is taken so that the dataResourceType can be overridden in the transform arguments.
-        String subDataResourceTypeId = (String)templateRoot.get("subDataResourceTypeId");
+        String subDataResourceTypeId = (String) templateRoot.get("subDataResourceTypeId");
 
-        if (UtilValidate.isEmpty(subDataResourceTypeId) && view != null ) {
+        if (UtilValidate.isEmpty(subDataResourceTypeId) && view != null) {
             try {
                 subDataResourceTypeId = (String) view.get("drDataResourceTypeId");
             } catch (IllegalArgumentException e) {
@@ -135,17 +135,17 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
 
             public void renderSubContent() throws IOException {
                 List<Map<String, ? extends Object>> passedGlobalNodeTrail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
-                String editRequestName = (String)templateRoot.get("editRequestName");
+                String editRequestName = (String) templateRoot.get("editRequestName");
                 GenericValue thisView = null;
                 if (view != null) {
                     thisView = view;
                 } else if (passedGlobalNodeTrail.size() > 0) {
                     Map<String, ? extends Object> map = UtilGenerics.cast(passedGlobalNodeTrail.get(passedGlobalNodeTrail.size() - 1));
                     if (Debug.infoOn()) {
-                        Debug.logInfo("in Render(3), map ." + map , MODULE);
+                        Debug.logInfo("in Render(3), map ." + map, MODULE);
                     }
                     if (map != null) {
-                        thisView = (GenericValue)map.get("value");
+                        thisView = (GenericValue) map.get("value");
                     }
                 }
 
@@ -190,11 +190,11 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 String fromDate = null;
 
                 if (!directAssocMode) {
-                    contentIdTo = (String)templateRoot.get("contentId");
-                    contentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
-                    mapKey = (String)templateRoot.get("mapKey");
-                    fromDate = (String)templateRoot.get("fromDate");
-                    if (Debug.infoOn()) Debug.logInfo("in Render(0), view ." + view , MODULE);
+                    contentIdTo = (String) templateRoot.get("contentId");
+                    contentAssocTypeId = (String) templateRoot.get("contentAssocTypeId");
+                    mapKey = (String) templateRoot.get("mapKey");
+                    fromDate = (String) templateRoot.get("fromDate");
+                    if (Debug.infoOn()) Debug.logInfo("in Render(0), view ." + view, MODULE);
                     if (view != null) {
                         ModelEntity modelEntity = view.getModelEntity();
                         if (UtilValidate.isEmpty(contentId) && modelEntity.getField("caContentId") != null)
@@ -219,9 +219,9 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                             fromDate = view.getString("fromDate");
                     }
                 } else {
-                    contentId = (String)templateRoot.get("subContentId");
+                    contentId = (String) templateRoot.get("subContentId");
                 }
-                if (Debug.infoOn()) Debug.logInfo("in Render(0), contentIdTo ." + contentIdTo , MODULE);
+                if (Debug.infoOn()) Debug.logInfo("in Render(0), contentIdTo ." + contentIdTo, MODULE);
                 String delim = "?";
                 if (UtilValidate.isNotEmpty(contentId)) {
                     fullRequest += delim + "contentId=" + contentId;
@@ -244,7 +244,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     delim = "&";
                 }
 
-                if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo , MODULE);
+                if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo, MODULE);
                 out.write("<a href=\"");
                 ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
@@ -254,7 +254,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
             }
 
             public String getEditStyle() {
-                String editStyle = (String)templateRoot.get("editStyle");
+                String editStyle = (String) templateRoot.get("editStyle");
                 if (UtilValidate.isEmpty(editStyle)) {
                     editStyle = UtilProperties.getPropertyValue("content", "defaultEditStyle");
                 }

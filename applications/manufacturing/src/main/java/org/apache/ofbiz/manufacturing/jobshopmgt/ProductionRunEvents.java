@@ -52,7 +52,7 @@ public class ProductionRunEvents {
 
         BigDecimal quantity = null;
         try {
-            quantity = new BigDecimal((String)parameters.get("quantity"));
+            quantity = new BigDecimal((String) parameters.get("quantity"));
         } catch (NumberFormatException nfe) {
             String errMsg = "Invalid format for quantity field: " + nfe.toString();
             Debug.logError(nfe, errMsg, MODULE);
@@ -65,7 +65,7 @@ public class ProductionRunEvents {
         for (Map<String, Object>componentRow : componentRows) {
             Timestamp fromDate = null;
             try {
-                fromDate = Timestamp.valueOf((String)componentRow.get("fromDate"));
+                fromDate = Timestamp.valueOf((String) componentRow.get("fromDate"));
             } catch (IllegalArgumentException iae) {
                 String errMsg = "Invalid format for date field: " + iae.toString();
                 Debug.logError(iae, errMsg, MODULE);
@@ -73,14 +73,14 @@ public class ProductionRunEvents {
                 return "error";
             }
             GenericPK key = delegator.makePK("WorkEffortGoodStandard",
-                    UtilMisc.<String, Object>toMap("workEffortId", (String)componentRow.get("productionRunTaskId"),
-                            "productId", (String)componentRow.get("productId"),
+                    UtilMisc.<String, Object>toMap("workEffortId", (String) componentRow.get("productionRunTaskId"),
+                            "productId", (String) componentRow.get("productId"),
                             "fromDate", fromDate,
                             "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"));
             componentsLocationMap.put(key,
-                    UtilMisc.<String, Object>toMap("locationSeqId", (String)componentRow.get("locationSeqId"),
-                            "secondaryLocationSeqId", (String)componentRow.get("secondaryLocationSeqId"),
-                            "failIfItemsAreNotAvailable", (String)componentRow.get("failIfItemsAreNotAvailable")));
+                    UtilMisc.<String, Object>toMap("locationSeqId", (String) componentRow.get("locationSeqId"),
+                            "secondaryLocationSeqId", (String) componentRow.get("secondaryLocationSeqId"),
+                            "failIfItemsAreNotAvailable", (String) componentRow.get("failIfItemsAreNotAvailable")));
         }
 
         try {

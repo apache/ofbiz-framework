@@ -61,7 +61,7 @@ public final class LayoutWorker {
         Map<String, String> formInput = new HashMap<>();
         results.put("formInput", formInput);
 
-        Delegator delegator = (Delegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
         int sizeThreshold = UtilHttp.getSizeThreshold(delegator);

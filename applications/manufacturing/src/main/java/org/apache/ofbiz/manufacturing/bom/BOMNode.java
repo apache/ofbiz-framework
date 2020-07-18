@@ -196,7 +196,7 @@ public class BOMNode {
 
     private BOMNode configurator(GenericValue node, List<GenericValue> productFeatures,
             String productIdForRules, Date inDate) throws GenericEntityException {
-        BOMNode oneChildNode = new BOMNode((String)node.get("productIdTo"), delegator, dispatcher, userLogin);
+        BOMNode oneChildNode = new BOMNode((String) node.get("productIdTo"), delegator, dispatcher, userLogin);
         oneChildNode.setTree(tree);
         oneChildNode.setProductAssoc(node);
         try {
@@ -436,7 +436,7 @@ public class BOMNode {
                     String errorMessage = ServiceUtil.getErrorMessage(resultContext);
                     Debug.logError(errorMessage, MODULE);
                 }
-                BigDecimal calcQuantity = (BigDecimal)resultContext.get("quantity");
+                BigDecimal calcQuantity = (BigDecimal) resultContext.get("quantity");
                 if (calcQuantity != null) {
                     this.quantity = calcQuantity;
                 }
@@ -570,8 +570,8 @@ public class BOMNode {
                     String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
                     Debug.logError(errorMessage, MODULE);
                 }
-                productionRunId = (String)serviceResult.get("productionRunId");
-                endDate = (Timestamp)serviceResult.get("estimatedCompletionDate");
+                productionRunId = (String) serviceResult.get("productionRunId");
+                endDate = (Timestamp) serviceResult.get("estimatedCompletionDate");
             } catch (GenericServiceException e) {
                 Debug.logError("Problem calling the createProductionRun service", MODULE);
             }
@@ -581,8 +581,8 @@ public class BOMNode {
                         delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId));
                     }
                     for (String childProductionRun : childProductionRuns) {
-                        delegator.create("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", childProductionRun
-                                , "workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY", "fromDate", startDate));
+                        delegator.create("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", childProductionRun,
+                                "workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY", "fromDate", startDate));
                     }
                 }
             } catch (GenericEntityException e) {

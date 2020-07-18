@@ -1858,7 +1858,7 @@ public class OrderReturnServices {
                                     if (orderItemShipGroupAssoc != null) {
                                         if (!orderItemShipGroupIds.contains(orderItemShipGroupAssoc.getString("shipGroupSeqId"))) {
                                             GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup", false);
-                                            GenericValue newOrderItemShipGroup = (GenericValue)orderItemShipGroup.clone();
+                                            GenericValue newOrderItemShipGroup = (GenericValue) orderItemShipGroup.clone();
                                             newOrderItemShipGroup.set("orderId", null);
                                             orderItemShipGroupInfo.add(newOrderItemShipGroup);
                                             orderItemShipGroupIds.add(orderItemShipGroupAssoc.getString("shipGroupSeqId"));
@@ -1941,7 +1941,7 @@ public class OrderReturnServices {
 
                                                 BigDecimal repairUnitPrice = null;
                                                 if (priceResult.get("basePrice") != null) {
-                                                    repairUnitPrice = (BigDecimal)priceResult.get("basePrice");
+                                                    repairUnitPrice = (BigDecimal) priceResult.get("basePrice");
                                                 } else {
                                                     repairUnitPrice = BigDecimal.ZERO;
                                                 }
@@ -2571,10 +2571,8 @@ public class OrderReturnServices {
      * @return returns if the returnn adjustment need to be recalculated
      */
     public static boolean needRecalculate(String returnAdjustmentTypeId) {
-        return "RET_PROMOTION_ADJ".equals(returnAdjustmentTypeId) ||
-                "RET_DISCOUNT_ADJ".equals(returnAdjustmentTypeId) ||
-                "RET_SALES_TAX_ADJ".equals(returnAdjustmentTypeId);
-
+        return "RET_PROMOTION_ADJ".equals(returnAdjustmentTypeId)
+                || "RET_DISCOUNT_ADJ".equals(returnAdjustmentTypeId) || "RET_SALES_TAX_ADJ".equals(returnAdjustmentTypeId);
     }
 
     /**

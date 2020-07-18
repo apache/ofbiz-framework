@@ -303,10 +303,10 @@ public class ShipmentServices {
                 }
                 List<GenericValue> toGeoList = GeoWorker.expandGeoGroup(toGeo, delegator);
                 // Make sure we have a valid GEOID.
-                if (UtilValidate.isEmpty(toGeoList) ||
-                        GeoWorker.containsGeo(toGeoList, shipAddress.getString("countryGeoId"), delegator) ||
-                        GeoWorker.containsGeo(toGeoList, shipAddress.getString("stateProvinceGeoId"), delegator) ||
-                        GeoWorker.containsGeo(toGeoList, shipAddress.getString("postalCodeGeoId"), delegator)) {
+                if (UtilValidate.isEmpty(toGeoList)
+                        || GeoWorker.containsGeo(toGeoList, shipAddress.getString("countryGeoId"), delegator)
+                        || GeoWorker.containsGeo(toGeoList, shipAddress.getString("stateProvinceGeoId"), delegator)
+                        || GeoWorker.containsGeo(toGeoList, shipAddress.getString("postalCodeGeoId"), delegator)) {
                     GenericValue wv = thisEstimate.getRelatedOne("WeightQuantityBreak", false);
                     GenericValue qv = thisEstimate.getRelatedOne("QuantityQuantityBreak", false);
                     GenericValue pv = thisEstimate.getRelatedOne("PriceQuantityBreak", false);
@@ -823,7 +823,7 @@ public class ShipmentServices {
 
             // If there are shipment receipts, the shipment must have been shipped, so set the shipment status to PURCH_SHIP_SHIPPED if it's only PURCH_SHIP_CREATED
             GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
-            if ((! UtilValidate.isEmpty(shipment)) && "PURCH_SHIP_CREATED".equals(shipment.getString("statusId"))) {
+            if ((!UtilValidate.isEmpty(shipment)) && "PURCH_SHIP_CREATED".equals(shipment.getString("statusId"))) {
                 Map<String, Object> updateShipmentMap = dispatcher.runSync("updateShipment", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED", "userLogin", userLogin));
                 if (ServiceUtil.isError(updateShipmentMap)) {
                     return updateShipmentMap;

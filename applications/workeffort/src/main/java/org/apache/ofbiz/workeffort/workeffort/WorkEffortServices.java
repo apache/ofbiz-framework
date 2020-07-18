@@ -381,7 +381,7 @@ public class WorkEffortServices {
             dateBoundaries.add(inDateRange.end());
         }
         for (Map<String, Object>calendarEntry: calendarEntries) {
-            DateRange calEntryRange = (DateRange)calendarEntry.get("calEntryRange");
+            DateRange calEntryRange = (DateRange) calendarEntry.get("calEntryRange");
             dateBoundaries.add(calEntryRange.start());
             dateBoundaries.add(calEntryRange.end());
         }
@@ -390,7 +390,7 @@ public class WorkEffortServices {
             if (prevDateBoundary != null) {
                 DateRange dateRange = new DateRange(prevDateBoundary, dateBoundary);
                 for (Map<String, Object>calendarEntry: calendarEntries) {
-                    DateRange calEntryRange = (DateRange)calendarEntry.get("calEntryRange");
+                    DateRange calEntryRange = (DateRange) calendarEntry.get("calEntryRange");
                     if (calEntryRange.intersectsRange(dateRange) && !(calEntryRange.end().equals(dateRange.start()) || calEntryRange.start().equals(dateRange.end()))) {
                         List<Map<String, Object>> calendarEntryByDateRangeList = calendarEntriesByDateRange.get(dateRange);
                         if (calendarEntryByDateRangeList == null) {
@@ -822,7 +822,7 @@ public class WorkEffortServices {
                     quantitySummary.put("facilityId", weFacilityId);
                     summaryInByFacility.put(weFacilityId, quantitySummary);
                 }
-                Double remainingQuantityTot = (Double)quantitySummary.get("estimatedQuantityTotal");
+                Double remainingQuantityTot = (Double) quantitySummary.get("estimatedQuantityTotal");
                 if (remainingQuantityTot == null) {
                     quantitySummary.put("estimatedQuantityTotal", remainingQuantity);
                 } else {
@@ -870,7 +870,7 @@ public class WorkEffortServices {
                     quantitySummary.put("facilityId", weFacilityId);
                     summaryOutByFacility.put(weFacilityId, quantitySummary);
                 }
-                Double remainingQuantityTot = (Double)quantitySummary.get("estimatedQuantityTotal");
+                Double remainingQuantityTot = (Double) quantitySummary.get("estimatedQuantityTotal");
                 if (remainingQuantityTot == null) {
                     quantitySummary.put("estimatedQuantityTotal", neededQuantity);
                 } else {

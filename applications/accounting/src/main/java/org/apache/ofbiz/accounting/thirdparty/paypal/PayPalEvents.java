@@ -224,7 +224,7 @@ public class PayPalEvents {
         }
 
         // first verify this is valid from PayPal
-        Map <String, Object> parametersMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> parametersMap = UtilHttp.getParameterMap(request);
         parametersMap.put("cmd", "_notify-validate");
 
         // send off the confirm request
@@ -250,8 +250,8 @@ public class PayPalEvents {
         for (String name : parametersMap.keySet()) {
             String value = request.getParameter(name);
             Debug.logError("### Param: " + name + " => " + value, MODULE);
-            if (UtilValidate.isNotEmpty(name) && "payer_status".equalsIgnoreCase(name) &&
-                UtilValidate.isNotEmpty(value) && "verified".equalsIgnoreCase(value)) {
+            if (UtilValidate.isNotEmpty(name) && "payer_status".equalsIgnoreCase(name)
+                && UtilValidate.isNotEmpty(value) && "verified".equalsIgnoreCase(value)) {
                 verified = true;
             }
         }
@@ -336,18 +336,15 @@ public class PayPalEvents {
                 }
             }
         }
-
-
         if (okay) {
             // call the email confirm service
-            Map <String, String> emailContext = UtilMisc.toMap("orderId", orderId);
+            Map<String, String> emailContext = UtilMisc.toMap("orderId", orderId);
             try {
                 dispatcher.runSync("sendOrderConfirmation", emailContext);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problems sending email confirmation", MODULE);
             }
         }
-
         return "success";
     }
 
@@ -391,7 +388,7 @@ public class PayPalEvents {
 
     private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
         Debug.logVerbose("Setting payment prefrences..", MODULE);
-        List <GenericValue> paymentPrefs = null;
+        List<GenericValue> paymentPrefs = null;
         try {
             paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED").queryList();
         } catch (GenericEntityException e) {
@@ -468,7 +465,7 @@ public class PayPalEvents {
         }
 
         // create a payment record too
-        Map <String, Object> results = null;
+        Map<String, Object> results = null;
         try {
             String comment = UtilProperties.getMessage(RESOURCE, "AccountingPaymentReceiveViaPayPal", locale);
             results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("userLogin", userLogin,

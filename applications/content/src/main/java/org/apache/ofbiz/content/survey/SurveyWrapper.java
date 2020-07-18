@@ -484,8 +484,8 @@ public class SurveyWrapper {
                 resultMap.put("_a_type", "option");
         } else if ("BOOLEAN".equals(questionType)) {
             long[] thisResult = getBooleanResult(question);
-            long yesPercent = thisResult[1] > 0 ? (long)(((double)thisResult[1] / (double)thisResult[0]) * 100) : 0;
-            long noPercent = thisResult[2] > 0 ? (long)(((double)thisResult[2] / (double)thisResult[0]) * 100) : 0;
+            long yesPercent = thisResult[1] > 0 ? (long) (((double) thisResult[1] / (double) thisResult[0]) * 100) : 0;
+            long noPercent = thisResult[2] > 0 ? (long) (((double) thisResult[2] / (double) thisResult[0]) * 100) : 0;
 
             resultMap.put("_total", thisResult[0]);
             resultMap.put("_yes_total", thisResult[1]);

@@ -229,7 +229,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         String imageFileName = null;
         Map<String, Object> passedParams = new HashMap<>();
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         passedParams.put("userLogin", userLogin);
         byte[] imageBytes = null;
         for (FileItem fileItem : lst) {

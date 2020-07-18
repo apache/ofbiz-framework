@@ -3292,9 +3292,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         List<GenericValue> cartAdjustments = this.getAdjustments();
         if (cartAdjustments != null) {
             for (GenericValue checkOrderAdjustment : cartAdjustments) {
-                if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
-                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
-                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
+                if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId"))
+                        && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId"))
+                        && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
                     if (checkOrderAdjustment.get("amount") != null) {
                         totalDiscount = totalDiscount.add(checkOrderAdjustment.getBigDecimal("amount"));
                     }
@@ -3307,9 +3307,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Iterator<GenericValue> checkOrderAdjustments = UtilMisc.toIterator(checkItem.getAdjustments());
             while (checkOrderAdjustments != null && checkOrderAdjustments.hasNext()) {
                 GenericValue checkOrderAdjustment = checkOrderAdjustments.next();
-                if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
-                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
-                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
+                if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId"))
+                        && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId"))
+                        && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
                     if (checkOrderAdjustment.get("amount") != null) {
                         totalDiscount = totalDiscount.add(checkOrderAdjustment.getBigDecimal("amount"));
                     }
@@ -3372,9 +3372,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         // remove cart adjustments from promo actions
         List<GenericValue> cartAdjustments = this.getAdjustments();
         if (cartAdjustments != null) {
-            cartAdjustments.removeIf(checkOrderAdjustment -> UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
-                    UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
-                    UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId")));
+            cartAdjustments.removeIf(checkOrderAdjustment -> UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId"))
+                    && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId"))
+                    && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId")));
         }
 
         // remove cart lines that are promos (ie GWPs) and cart line adjustments from promo actions
@@ -3389,8 +3389,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 List<GenericValue> checkOrderAdjustments = checkItem.getAdjustments();
                 if (!checkOrderAdjustments.isEmpty()) {
                     checkOrderAdjustments.removeIf(checkOrderAdjustment -> UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId"))
-                            && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
-                            UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId")));
+                            && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId"))
+                            && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId")));
                 }
             }
         }
@@ -4193,8 +4193,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         TreeMap<Integer, CartShipInfo> shipGroups = new TreeMap<>();
         for (int i = 0; i < this.shipInfo.size(); i++) {
             CartShipInfo csi = shipInfo.get(i);
-            if ((csi.supplierPartyId == null && supplierPartyId == null) ||
-                (UtilValidate.isNotEmpty(csi.supplierPartyId) && csi.supplierPartyId.equals(supplierPartyId))) {
+            if ((csi.supplierPartyId == null && supplierPartyId == null)
+                || (UtilValidate.isNotEmpty(csi.supplierPartyId) && csi.supplierPartyId.equals(supplierPartyId))) {
                     shipGroups.put(i, csi);
             }
         }
@@ -4326,7 +4326,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     // Order suppliers by supplierPrefOrderId so that preferred suppliers are used first
                     supplierProducts = EntityUtil.orderBy(supplierProducts, UtilMisc.toList("supplierPrefOrderId"));
                     GenericValue supplierProduct = EntityUtil.getFirst(supplierProducts);
-                    if (! UtilValidate.isEmpty(supplierProduct)) {
+                    if (!UtilValidate.isEmpty(supplierProduct)) {
                         supplierPartyId = supplierProduct.getString("partyId");
                     }
                 } catch (GenericServiceException e) {
@@ -4338,12 +4338,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     continue;
                 }
 
-                if (! dropShipItems.containsKey(supplierPartyId)) {
+                if (!dropShipItems.containsKey(supplierPartyId)) {
                     dropShipItems.put(supplierPartyId, new HashMap<ShoppingCartItem, Map<Integer, BigDecimal>>());
                 }
                 Map<ShoppingCartItem, Map<Integer, BigDecimal>> supplierCartItems = UtilGenerics.cast(dropShipItems.get(supplierPartyId));
 
-                if (! supplierCartItems.containsKey(cartItem)) {
+                if (!supplierCartItems.containsKey(cartItem)) {
                     supplierCartItems.put(cartItem, new HashMap<>());
                 }
                 Map<Integer, BigDecimal> cartItemGroupQuantities = UtilGenerics.cast(supplierCartItems.get(cartItem));
@@ -4360,7 +4360,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             // Attempt to get the first ship group for the supplierPartyId
             TreeMap<Integer, CartShipInfo> supplierShipGroups = this.getShipGroupsBySupplier(supplierPartyId);
-            if (! UtilValidate.isEmpty(supplierShipGroups)) {
+            if (!UtilValidate.isEmpty(supplierShipGroups)) {
                 newShipGroupIndex = supplierShipGroups.firstKey();
                 shipInfo = supplierShipGroups.get(supplierShipGroups.firstKey());
             }

@@ -73,8 +73,7 @@ public class AIMPaymentServices {
     // ccRefund service to attempt to void the refund's associated authorization transaction
     private static boolean isVoidableResponse(String responseCode) {
         return
-            VOIDABLE_RESPONSES_NO_TIME_LIMIT.contains(responseCode) ||
-            VOIDABLE_RESPONSES_TIME_LIMIT.contains(responseCode);
+            VOIDABLE_RESPONSES_NO_TIME_LIMIT.contains(responseCode) || VOIDABLE_RESPONSES_TIME_LIMIT.contains(responseCode);
     }
 
     public static Map<String, Object> ccAuth(DispatchContext ctx, Map<String, Object> context) {
@@ -91,7 +90,7 @@ public class AIMPaymentServices {
         props.put("transType", "AUTH_ONLY");
         buildAuthTransaction(context, props, request);
         Map<String, Object> validateResults = validateRequest(context, props, request);
-        String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
+        String respMsg = (String) validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
@@ -180,7 +179,7 @@ public class AIMPaymentServices {
         props.put("cardtype", creditCard.get("cardType"));
         buildRefundTransaction(context, props, request);
         Map<String, Object> validateResults = validateRequest(context, props, request);
-        String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
+        String respMsg = (String) validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
@@ -188,7 +187,7 @@ public class AIMPaymentServices {
         Map<String, Object> reply = processCard(request, props, locale);
         results.putAll(processRefundTransResult(request, reply));
         boolean refundResult = (Boolean) results.get("refundResult");
-        String refundFlag = (String)results.get("refundFlag");
+        String refundFlag = (String) results.get("refundFlag");
         // Since the refund failed, we are going to void the previous authorization against
         // which ccRefunds attempted to issue the refund.  This happens because Authorize.NET requires
         // that settled transactions need to be voided the same day.  unfortunately they provide no method for
@@ -268,7 +267,7 @@ public class AIMPaymentServices {
         props.put("transType", "VOID");
         buildVoidTransaction(context, props, request);
         Map<String, Object> validateResults = validateRequest(context, props, request);
-        String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
+        String respMsg = (String) validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
             results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingValidationFailedInvalidValues", locale));
             return results;
@@ -500,7 +499,7 @@ public class AIMPaymentServices {
                 if ("CREDIT_CARD".equals(opp.getString("paymentMethodTypeId"))) {
                     // sometimes the ccAuthCapture interface is used, in which case the creditCard is passed directly
                     GenericValue creditCard = (GenericValue) params.get("creditCard");
-                    if (creditCard == null || ! (opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
+                    if (creditCard == null || !(opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
                         creditCard = opp.getRelatedOne("CreditCard", false);
                     }
                     AIMRequest.put("x_First_Name", UtilFormatOut.checkNull(creditCard.getString("firstNameOnCard")));
@@ -521,8 +520,8 @@ public class AIMPaymentServices {
                 }
             } else {
                 // this would be the case for an authorization
-                GenericValue cp = (GenericValue)params.get("billToParty");
-                GenericValue ba = (GenericValue)params.get("billingAddress");
+                GenericValue cp = (GenericValue) params.get("billToParty");
+                GenericValue ba = (GenericValue) params.get("billingAddress");
                 AIMRequest.put("x_First_Name", UtilFormatOut.checkNull(cp.getString("firstName")));
                 AIMRequest.put("x_Last_Name", UtilFormatOut.checkNull(cp.getString("lastName")));
                 AIMRequest.put("x_Address", UtilFormatOut.checkNull(ba.getString("address1")));
@@ -539,7 +538,7 @@ public class AIMPaymentServices {
     }
 
     private static void buildEmailSettings(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
-        GenericValue ea = (GenericValue)params.get("billToEmail");
+        GenericValue ea = (GenericValue) params.get("billToEmail");
         AIMRequest.put("x_Email_Customer", props.getProperty("emailCustomer"));
         AIMRequest.put("x_Email_Merchant", props.getProperty("emailMerchant"));
         if (ea != null) {
@@ -549,7 +548,7 @@ public class AIMPaymentServices {
 
     private static void buildInvoiceInfo(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         String description = UtilFormatOut.checkNull(props.getProperty("transDescription"));
-        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
+        String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         if (UtilValidate.isEmpty(orderId)) {
             GenericValue orderPaymentPreference = (GenericValue) params.get("orderPaymentPreference");
             if (orderPaymentPreference != null) {
@@ -563,7 +562,7 @@ public class AIMPaymentServices {
     private static void buildAuthTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         String currency = (String) params.get("currency");
-        String amount = ((BigDecimal)params.get("processAmount")).toString();
+        String amount = ((BigDecimal) params.get("processAmount")).toString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         String cardSecurityCode = (String) params.get("cardSecurityCode");

@@ -67,13 +67,13 @@ public class CompDocEvents {
 
     public static String persistRootCompDoc(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        Delegator delegator = (Delegator)request.getAttribute("delegator");
-        LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Locale locale = UtilHttp.getLocale(request);
         HttpSession session = request.getSession();
         //Security security = (Security)request.getAttribute("security");
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-        String contentId = (String)paramMap.get("contentId");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        String contentId = (String) paramMap.get("contentId");
         //String instanceContentId = null;
 
         if (UtilValidate.isNotEmpty(contentId)) {
@@ -106,7 +106,7 @@ public class CompDocEvents {
                 Debug.logError(errMsg, MODULE);
                 return "error";
             }
-            contentId = (String)persistResult.get("contentId");
+            contentId = (String) persistResult.get("contentId");
             //request.setAttribute("contentId", contentId);
             for (Entry<String, Object> entry : persistResult.entrySet()) {
                 Object obj = entry.getValue();
@@ -147,11 +147,11 @@ public class CompDocEvents {
     public static String genCompDocPdf(HttpServletRequest request, HttpServletResponse response) {
         String responseStr = "success";
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
-        LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        String contentId = (String)paramMap.get("contentId");
+        String contentId = (String) paramMap.get("contentId");
         Locale locale = UtilHttp.getLocale(request);
         String webSiteId = WebSiteWorker.getWebSiteId(request);
 
@@ -196,11 +196,11 @@ public class CompDocEvents {
     public static String genContentPdf(HttpServletRequest request, HttpServletResponse response) {
         String responseStr = "success";
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
-        LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        String contentId = (String)paramMap.get("contentId");
+        String contentId = (String) paramMap.get("contentId");
         Locale locale = UtilHttp.getLocale(request);
         String webSiteId = WebSiteWorker.getWebSiteId(request);
 

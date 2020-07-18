@@ -68,8 +68,8 @@ public final class ReportHelper {
                 } else {
                     reportValue.put("orderAmount", orderValue.getDouble("grandTotal"));
                 }
-                if ((orderValue.getLong("orderId") == null) || (visit.getLong("visitId") == null) ||
-                    (visit.getLong("visitId").intValue() == 0)) {
+                if ((orderValue.getLong("orderId") == null) || (visit.getLong("visitId") == null)
+                    || (visit.getLong("visitId").intValue() == 0)) {
                     reportValue.put("conversionRate", (double) 0);
                 } else {
                     reportValue.put("conversionRate", orderValue.getLong("orderId").doubleValue() / visit.getLong("visitId").doubleValue());

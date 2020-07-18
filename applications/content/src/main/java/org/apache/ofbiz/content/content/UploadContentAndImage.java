@@ -71,10 +71,10 @@ public class UploadContentAndImage {
     public static String uploadContentAndImage(HttpServletRequest request, HttpServletResponse response) {
         try {
             Locale locale = UtilHttp.getLocale(request);
-            LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
+            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             HttpSession session = request.getSession();
-            GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
             long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
             int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
@@ -120,8 +120,8 @@ public class UploadContentAndImage {
             TransactionUtil.begin();
             List<String> contentPurposeList = ContentWorker.prepContentPurposeList(passedParams);
             passedParams.put("contentPurposeList", contentPurposeList);
-            String entityOperation = (String)passedParams.get("entityOperation");
-            String passedContentId = (String)passedParams.get("ftlContentId");
+            String entityOperation = (String) passedParams.get("entityOperation");
+            String passedContentId = (String) passedParams.get("ftlContentId");
             List<String> targetOperationList = ContentWorker.prepTargetOperationList(passedParams, entityOperation);
             passedParams.put("targetOperationList", targetOperationList);
 
@@ -130,7 +130,7 @@ public class UploadContentAndImage {
             ftlContext.put("userLogin", userLogin);
             ftlContext.put("contentId", passedParams.get("ftlContentId"));
             ftlContext.put("ownerContentId", passedParams.get("ownerContentId"));
-            String contentTypeId = (String)passedParams.get("contentTypeId");
+            String contentTypeId = (String) passedParams.get("contentTypeId");
             ftlContext.put("contentTypeId", contentTypeId);
             ftlContext.put("statusId", passedParams.get("statusId"));
             ftlContext.put("contentPurposeList", UtilMisc.toList(passedParams.get("contentPurposeList")));
@@ -140,12 +140,12 @@ public class UploadContentAndImage {
             ftlContext.put("dataTemplateTypeId", passedParams.get("dataTemplateTypeId"));
             ftlContext.put("description", passedParams.get("description"));
             ftlContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
-            String drid = (String)passedParams.get("dataResourceId");
+            String drid = (String) passedParams.get("dataResourceId");
             ftlContext.put("dataResourceId", drid);
             ftlContext.put("dataResourceTypeId", null); // inhibits persistence of DataResource, because it already exists
-            String contentIdTo = (String)passedParams.get("contentIdTo");
+            String contentIdTo = (String) passedParams.get("contentIdTo");
             ftlContext.put("contentIdTo", contentIdTo);
-            String contentAssocTypeId = (String)passedParams.get("contentAssocTypeId");
+            String contentAssocTypeId = (String) passedParams.get("contentAssocTypeId");
             ftlContext.put("contentAssocTypeId", null); // Don't post assoc at this time
             Map<String, Object> ftlResults = dispatcher.runSync("persistContentAndAssoc", ftlContext);
             if (ServiceUtil.isError(ftlResults)) {
@@ -155,7 +155,7 @@ public class UploadContentAndImage {
                 TransactionUtil.rollback();
                 return "error";
             }
-            String ftlContentId = (String)ftlResults.get("contentId");
+            String ftlContentId = (String) ftlResults.get("contentId");
             if (UtilValidate.isNotEmpty(contentIdTo)) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("fromDate", UtilDateTime.nowTimestamp());
@@ -170,7 +170,7 @@ public class UploadContentAndImage {
                     map.put("contentAssocTypeId", "PUBLISH_RELEASE");
                 } else if ("PUBLISH_LINK".equals(contentAssocTypeId)) {
                     map.put("contentAssocTypeId", "PUBLISH_LINK");
-                    String publishOperation = (String)passedParams.get("publishOperation");
+                    String publishOperation = (String) passedParams.get("publishOperation");
                     if (UtilValidate.isEmpty(publishOperation)) {
                         publishOperation = "CONTENT_PUBLISH";
                     }
@@ -323,7 +323,7 @@ public class UploadContentAndImage {
             request.setAttribute("passedParams", passedParams);
             TransactionUtil.commit();
         } catch (GenericEntityException | GenericServiceException e) {
-            Debug.logError(e, "[UploadContentAndImage] " , MODULE);
+            Debug.logError(e, "[UploadContentAndImage]", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
                 TransactionUtil.rollback();
@@ -339,8 +339,8 @@ public class UploadContentAndImage {
     public static String uploadContentStuff(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
-            GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-            Delegator delegator = (Delegator)request.getAttribute("delegator");
+            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
 
             long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
             int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
@@ -415,7 +415,7 @@ public class UploadContentAndImage {
             }
             TransactionUtil.commit();
         } catch (GenericTransactionException | GenericServiceException e) {
-            Debug.logError(e, "[UploadContentAndImage] " , MODULE);
+            Debug.logError(e, "[UploadContentAndImage]", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
                 TransactionUtil.rollback();
@@ -429,22 +429,22 @@ public class UploadContentAndImage {
     }
 
     public static String processContentUpload(Map<String, Object> passedParams, String suffix, HttpServletRequest request) throws GenericServiceException {
-        LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
-        Delegator delegator = (Delegator)request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Map<String, Object> ftlContext = new HashMap<>();
 
-        String contentPurposeString = (String)passedParams.get("contentPurposeString" + suffix);
+        String contentPurposeString = (String) passedParams.get("contentPurposeString" + suffix);
         if (UtilValidate.isEmpty(contentPurposeString)) {
-            contentPurposeString = (String)passedParams.get("contentPurposeString");
+            contentPurposeString = (String) passedParams.get("contentPurposeString");
         }
         List<String> contentPurposeList = StringUtil.split(contentPurposeString,"|");
         ftlContext.put("contentPurposeList", contentPurposeList);
 
-        String targetOperationString = (String)passedParams.get("targetOperationString" + suffix);
+        String targetOperationString = (String) passedParams.get("targetOperationString" + suffix);
         if (UtilValidate.isEmpty(targetOperationString)) {
-            targetOperationString = (String)passedParams.get("targetOperationString");
+            targetOperationString = (String) passedParams.get("targetOperationString");
         }
         List<String> targetOperationList = StringUtil.split(targetOperationString,"|");
         ftlContext.put("targetOperationList", targetOperationList);
@@ -455,7 +455,7 @@ public class UploadContentAndImage {
             if (objSequenceNum instanceof String) {
                 Long sequenceNum = null;
                 try {
-                    sequenceNum = Long.valueOf((String)objSequenceNum);
+                    sequenceNum = Long.valueOf((String) objSequenceNum);
                 } catch (NumberFormatException e) {
                     String msg = "Caught an exception : " + e.toString();
                     Debug.logError(e, msg);
@@ -501,7 +501,7 @@ public class UploadContentAndImage {
         }
 
         ftlContext.put("textData", passedParams.get("textData" + suffix));
-        byte[] bytes = (byte[])passedParams.get("imageData" + suffix);
+        byte[] bytes = (byte[]) passedParams.get("imageData" + suffix);
         ftlContext.put("imageData", bytes);
         if (Debug.infoOn()) {
             Debug.logInfo("[UploadContentStuff]ftlContext:" + ftlContext, MODULE);
@@ -537,7 +537,7 @@ public class UploadContentAndImage {
             errorMsgList.add(msg);
             return "error";
         }
-        String returnedContentId = (String)ftlResults.get("contentId");
+        String returnedContentId = (String) ftlResults.get("contentId");
         if (Debug.infoOn()) {
             Debug.logInfo("returnedContentId:" + returnedContentId, MODULE);
         }
@@ -549,7 +549,7 @@ public class UploadContentAndImage {
         request.setAttribute("drDataResourceId" + suffix, ftlResults.get("dataResourceId"));
         request.setAttribute("caContentId" + suffix, ftlResults.get("contentId"));
 
-        String caContentIdTo = (String)passedParams.get("caContentIdTo");
+        String caContentIdTo = (String) passedParams.get("caContentIdTo");
         if (UtilValidate.isNotEmpty(caContentIdTo)) {
             Map<String, Object> resequenceContext = new HashMap<>();
             resequenceContext.put("contentIdTo", caContentIdTo);

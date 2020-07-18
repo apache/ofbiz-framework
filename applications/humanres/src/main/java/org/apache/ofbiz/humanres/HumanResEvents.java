@@ -102,7 +102,7 @@ public class HumanResEvents {
                         .where("emplPositionId", emplId)
                         .filterByDate().queryList();
                 if (UtilValidate.isNotEmpty(emlpfillCtxs)) {
-                    for (GenericValue emlpfillCtx : emlpfillCtxs ) {
+                    for (GenericValue emlpfillCtx : emlpfillCtxs) {
                         String memberId = emlpfillCtx.getString("partyId");
                         title = PartyHelper.getPartyName(delegator, memberId, false);
                         Map<String, Object> josonMap = new HashMap<>();
@@ -134,7 +134,7 @@ public class HumanResEvents {
 
     private static List<Map<String, Object>> getChildComps(Map<String, Object> params) throws GenericEntityException {
         Delegator delegator = (Delegator) params.get("delegator");
-        Map<String , Object> partyGroup = UtilGenerics.cast(params.get("partyGroup"));
+        Map<String, Object> partyGroup = UtilGenerics.cast(params.get("partyGroup"));
         List<Map<String, Object>> resultList = new ArrayList<>();
         List<GenericValue> childOfComs = null;
         String onclickFunction = (String) params.get("onclickFunction");
@@ -143,11 +143,11 @@ public class HumanResEvents {
         String hrefString2 = (String) params.get("hrefString2");
         try {
             childOfComs = EntityQuery.use(delegator).from("PartyRelationship")
-                    .where("partyIdFrom", partyGroup.get("partyId"), 
+                    .where("partyIdFrom", partyGroup.get("partyId"),
                             "partyRelationshipTypeId", "GROUP_ROLLUP")
                             .filterByDate().queryList();
             if (UtilValidate.isNotEmpty(childOfComs)) {
-                for (GenericValue childOfCom : childOfComs ) {
+                for (GenericValue childOfCom : childOfComs) {
                     String catId = null;
                     String childPartyId = null;
                     String catNameField = null;
@@ -203,7 +203,7 @@ public class HumanResEvents {
                             .filterByDate("actualFromDate", "actualThruDate")
                             .queryList();
             if (UtilValidate.isNotEmpty(isEmpls)) {
-                for (GenericValue childOfEmpl : isEmpls ) {
+                for (GenericValue childOfEmpl : isEmpls) {
                     Map<String, Object> emplMap = new HashMap<>();
                     Map<String, Object> emplAttrMap = new HashMap<>();
                     Map<String, Object> empldataMap = new HashMap<>();

@@ -214,7 +214,7 @@ public class ContentPermissionServices {
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
-            permissionStatus = (String)results.get("permissionStatus");
+            permissionStatus = (String) results.get("permissionStatus");
             errBuf.append("\n    permissionStatus:");
             errBuf.append(permissionStatus);
         }
@@ -297,10 +297,10 @@ public class ContentPermissionServices {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
         }
-        permissionStatus = (String)permResults.get("permissionStatus");
+        permissionStatus = (String) permResults.get("permissionStatus");
         if (permissionStatus == null || !"granted".equals(permissionStatus)) {
             if (bDisplayFailCond != null && bDisplayFailCond) {
-                String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
+                String errMsg = (String) permResults.get(ModelService.ERROR_MESSAGE);
                 results.put(ModelService.ERROR_MESSAGE, errMsg);
             }
             return results;
@@ -316,12 +316,12 @@ public class ContentPermissionServices {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
         }
-        permissionStatus = (String)permResults.get("permissionStatus");
+        permissionStatus = (String) permResults.get("permissionStatus");
         if (permissionStatus != null && "granted".equals(permissionStatus)) {
             results.put("permissionStatus", "granted");
         } else {
             if (bDisplayFailCond != null && bDisplayFailCond) {
-                String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
+                String errMsg = (String) permResults.get(ModelService.ERROR_MESSAGE);
                 results.put(ModelService.ERROR_MESSAGE, errMsg);
             }
         }

@@ -443,7 +443,7 @@ public class ProductSearchSession {
                             } else if ("KOTT_AURL".equals(targetTypeEnumId)) {
                                 // do nothing, is absolute URL
                             } else {
-                                Debug.logError("The targetTypeEnumId [] is not recognized, not doing keyword override", MODULE);
+                                Debug.logError("The targetTypeEnumId[] is not recognized, not doing keyword override", MODULE);
                                 // might as well see if there are any others...
                                 continue;
                             }
@@ -808,8 +808,8 @@ public class ProductSearchSession {
             constraintsChanged = true;
         }
 
-        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE")) ||
-            UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"))
+            || UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
             String include = (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_INCL");
             if (UtilValidate.isEmpty(include)) {
                 include = "Y";
@@ -819,7 +819,7 @@ public class ProductSearchSession {
                 inc =  Boolean.FALSE;
             }
 
-            searchAddConstraint(new ProductSearch.GoodIdentificationConstraint((String)parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"),
+            searchAddConstraint(new ProductSearch.GoodIdentificationConstraint((String) parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"),
                                 (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"), inc), session);
             constraintsChanged = true;
         }

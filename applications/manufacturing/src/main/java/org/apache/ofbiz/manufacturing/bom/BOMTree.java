@@ -346,7 +346,7 @@ public class BOMTree {
                 }
             }
             Map<String, Object> tmpMap = root.createManufacturingOrder(facilityId, date, workEffortName, description, routingId, orderId, orderItemSeqId, shipGroupSeqId, shipmentId, true, true);
-            workEffortId = (String)tmpMap.get("productionRunId");
+            workEffortId = (String) tmpMap.get("productionRunId");
         }
         return workEffortId;
     }

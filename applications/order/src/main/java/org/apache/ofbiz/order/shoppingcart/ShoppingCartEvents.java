@@ -126,7 +126,7 @@ public class ShoppingCartEvents {
                             List<GenericValue> itemAdjustments = checkItem.getAdjustments();
                             if (!itemAdjustments.isEmpty()) {
                                 index = 0;
-                                for (GenericValue adjustment : itemAdjustments ) {
+                                for (GenericValue adjustment : itemAdjustments) {
                                     if (adjustment.get("productPromoId").equals(productPromoId)) {
                                         checkItem.getAdjustments().remove(index);
                                         result = "success";
@@ -466,7 +466,7 @@ public class ShoppingCartEvents {
             quantity = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantityStr, "BigDecimal", null, locale);
             //For quantity we should test if we allow to add decimal quantity for this product an productStore :
             // if not and if quantity is in decimal format then return error.
-            if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
+            if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
                 BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                 if (remainder.compareTo(BigDecimal.ZERO) != 0) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", locale));
@@ -640,7 +640,7 @@ public class ShoppingCartEvents {
         }
 
         // check for alternative packing
-        if (ProductWorker.isAlternativePacking(delegator, productId , parentProductId)) {
+        if (ProductWorker.isAlternativePacking(delegator, productId, parentProductId)) {
             GenericValue parentProduct = null;
             try {
                 parentProduct = EntityQuery.use(delegator).from("Product").where("productId", parentProductId).queryOne();
@@ -661,7 +661,7 @@ public class ShoppingCartEvents {
                 shipBeforeDate, shipAfterDate, reserveAfterDate, configWrapper, itemGroupNumber, paramMap, parentProductId);
         controlDirective = processResult(result, request);
 
-        Integer itemId = (Integer)result.get("itemId");
+        Integer itemId = (Integer) result.get("itemId");
         if (UtilValidate.isNotEmpty(itemId)) {
             request.setAttribute("itemId", itemId);
         }
@@ -1118,9 +1118,9 @@ public class ShoppingCartEvents {
             Iterator<GenericValue> checkOrderAdjustments = UtilMisc.toIterator(cartLine.getAdjustments());
             while (checkOrderAdjustments != null && checkOrderAdjustments.hasNext()) {
                 GenericValue checkOrderAdjustment = checkOrderAdjustments.next();
-                if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
-                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
-                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
+                if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId"))
+                        && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId"))
+                        && UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
                     GenericPK productPromoActionPk = delegator.makeValidValue("ProductPromoAction", checkOrderAdjustment).getPrimaryKey();
                     cart.setDesiredAlternateGiftByAction(productPromoActionPk, alternateGwpProductId);
                     if ("SALES_ORDER".equals(cart.getOrderType())) {
@@ -1385,7 +1385,7 @@ public class ShoppingCartEvents {
     public static String loadCartFromShoppingList(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
         String shoppingListId = request.getParameter("shoppingListId");
 
@@ -1400,7 +1400,7 @@ public class ShoppingCartEvents {
                 Debug.logError(errorMessage, MODULE);
                 return "error";
             }
-            cart = (ShoppingCart)outMap.get("shoppingCart");
+            cart = (ShoppingCart) outMap.get("shoppingCart");
         } catch (GenericServiceException exc) {
             request.setAttribute("_ERROR_MESSAGE_", exc.getMessage());
             return "error";
@@ -1418,7 +1418,7 @@ public class ShoppingCartEvents {
     public static String loadCartFromQuote(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
         String quoteId = request.getParameter("quoteId");
 
@@ -1457,7 +1457,7 @@ public class ShoppingCartEvents {
     public static String loadCartFromOrder(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         String orderId = request.getParameter("orderId");
@@ -1509,9 +1509,9 @@ public class ShoppingCartEvents {
                 }
                 for (GenericValue orderAdjustment: orderAdjustments) {
                     if ("OrderAdjustment".equals(orderAdjustment.getEntityName())) {
-                        if (("SHIPPING_CHARGES".equals(orderAdjustment.get("orderAdjustmentTypeId"))) &&
-                                orderAdjustment.get("orderId").equals(orderId) &&
-                                orderAdjustment.get("shipGroupSeqId").equals(shipGroupSeqId) && orderAdjustment.get("comments") == null) {
+                        if (("SHIPPING_CHARGES".equals(orderAdjustment.get("orderAdjustmentTypeId")))
+                                && orderAdjustment.get("orderId").equals(orderId)
+                                && orderAdjustment.get("shipGroupSeqId").equals(shipGroupSeqId) && orderAdjustment.get("comments") == null) {
                             // Removing objects from list for old Shipping and Handling Charges Adjustment and Sales Tax Adjustment.
                             duplicateAdjustmentList.add(orderAdjustment);
                         }
@@ -1538,7 +1538,7 @@ public class ShoppingCartEvents {
     public static String createQuoteFromCart(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String destroyCart = request.getParameter("destroyCart");
 
         ShoppingCart cart = getCartObject(request);
@@ -1570,7 +1570,7 @@ public class ShoppingCartEvents {
     public static String createCustRequestFromCart(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String destroyCart = request.getParameter("destroyCart");
 
         ShoppingCart cart = getCartObject(request);
@@ -1604,7 +1604,7 @@ public class ShoppingCartEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         Security security = (Security) request.getAttribute("security");
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Locale locale = UtilHttp.getLocale(request);
 
         String productStoreId = request.getParameter("productStoreId");
@@ -1840,7 +1840,7 @@ public class ShoppingCartEvents {
                 try {
                     //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                     // if not and if quantity is in decimal format then return error.
-                    if (! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
+                    if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
                         BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                         if (remainder.compareTo(BigDecimal.ZERO) != 0) {
                             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", cart.getLocale()));

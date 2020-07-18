@@ -260,8 +260,8 @@ public class PdfSurveyServices {
                     continue;
                 }
 
-                String surveyQuestionId = (String)surveyQuestionAndAppl.get("surveyQuestionId");
-                String surveyQuestionTypeId = (String)surveyQuestionAndAppl.get("surveyQuestionTypeId");
+                String surveyQuestionId = (String) surveyQuestionAndAppl.get("surveyQuestionId");
+                String surveyQuestionTypeId = (String) surveyQuestionAndAppl.get("surveyQuestionTypeId");
                 GenericValue surveyResponseAnswer = delegator.makeValue("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyQuestionId", surveyQuestionId));
                 if (surveyQuestionTypeId == null || "TEXT_SHORT".equals(surveyQuestionTypeId)) {
                     surveyResponseAnswer.set("textResponse", value);
@@ -328,16 +328,16 @@ public class PdfSurveyServices {
                 String fieldValue = fs.getField(fieldName);
                 Object obj = acroFieldMap.get(fieldName);
                 if (obj instanceof Date) {
-                    Date d=(Date)obj;
-                    fieldValue=UtilDateTime.toDateString(d);
+                    Date d = (Date) obj;
+                    fieldValue = UtilDateTime.toDateString(d);
                 } else if (obj instanceof Long) {
-                    Long lg=(Long)obj;
-                    fieldValue=lg.toString();
+                    Long lg = (Long) obj;
+                    fieldValue = lg.toString();
                 } else if (obj instanceof Integer) {
-                    Integer ii=(Integer)obj;
-                    fieldValue=ii.toString();
+                    Integer ii = (Integer) obj;
+                    fieldValue = ii.toString();
                 }   else {
-                    fieldValue=(String)obj;
+                    fieldValue = (String) obj;
                 }
 
                 if (UtilValidate.isNotEmpty(fieldValue)) {

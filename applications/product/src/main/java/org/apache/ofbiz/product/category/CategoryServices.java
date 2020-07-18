@@ -473,7 +473,7 @@ public class CategoryServices {
                     childOfCats = EntityQuery.use(delegator).from("ProdCatalogCategory").where("prodCatalogId", productCategoryId).filterByDate().queryList();
                 }
                 if (UtilValidate.isNotEmpty(childOfCats)) {
-                    for (GenericValue childOfCat : childOfCats ) {
+                    for (GenericValue childOfCat : childOfCats) {
                         Object catId = null;
                         String catNameField = null;
 

@@ -310,7 +310,7 @@ public class WorldPayEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        Map <String, Object> parametersMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> parametersMap = UtilHttp.getParameterMap(request);
         String orderId = request.getParameter("cartId");
         for (String name : parametersMap.keySet()) {
             String value = request.getParameter(name);

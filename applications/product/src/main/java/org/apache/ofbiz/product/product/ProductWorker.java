@@ -103,9 +103,9 @@ public final class ProductWorker {
             // exclusion
             for (GenericValue productGeo: excludeGeos) {
                 List<GenericValue> excludeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
-                if (GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("countryGeoId"), delegator) ||
-                      GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator) ||
-                      GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
+                if (GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("countryGeoId"), delegator)
+                      || GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator)
+                      || GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
                     return false;
                 }
             }
@@ -116,9 +116,9 @@ public final class ProductWorker {
             // inclusion
             for (GenericValue productGeo: includeGeos) {
                 List<GenericValue> includeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
-                if (GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("countryGeoId"), delegator) ||
-                      GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator) ||
-                      GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
+                if (GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("countryGeoId"), delegator)
+                      || GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator)
+                      || GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
                     return true;
                 }
             }
@@ -423,7 +423,7 @@ public final class ProductWorker {
         if (product == null) {
             return null;
         }
-        List <List<Map<String, String>>> featureTypeFeatures = new LinkedList<>();
+        List<List<Map<String, String>>> featureTypeFeatures = new LinkedList<>();
         try {
             Delegator delegator = product.getDelegator();
             List<GenericValue> featuresSorted = EntityQuery.use(delegator)
@@ -893,7 +893,7 @@ public final class ProductWorker {
             productsFound = EntityQuery.use(delegator).from("GoodIdentificationAndProduct").where(conditions).orderBy("productId").cache(true).queryList();
         }
 
-        if (! searchProductFirst) {
+        if (!searchProductFirst) {
             product = EntityQuery.use(delegator).from("Product").where("productId", idToFind).cache().queryOne();
         }
 
@@ -941,7 +941,7 @@ public final class ProductWorker {
             for (GenericValue product : productsByIds) {
                 GenericValue productToAdd = product;
                 //retreive product GV if the actual genericValue came from viewEntity
-                if (! "Product".equals(product.getEntityName())) {
+                if (!"Product".equals(product.getEntityName())) {
                     productToAdd = EntityQuery.use(delegator).from("Product").where("productId", product.get("productId")).cache().queryOne();
                 }
 
@@ -1179,7 +1179,7 @@ nextProd:
         if (isAlternativePacking) {
             List<GenericValue> productAssocs = null;
             try {
-                productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE").filterByDate().queryList();
+                productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "ALTERNATIVE_PACKAGE").filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
             }
@@ -1240,7 +1240,7 @@ nextProd:
 
                 if ( UtilValidate.isNotEmpty(isMarketingPackage) && isMarketingPackage) {
                     Map<String, Object> resultOutput = new HashMap<>();
-                    resultOutput = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId" , productId));
+                    resultOutput = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId", productId));
                     Debug.logWarning("Error getting available marketing package.", MODULE);
 
                     BigDecimal availableInventory = (BigDecimal) resultOutput.get("availableToPromiseTotal");

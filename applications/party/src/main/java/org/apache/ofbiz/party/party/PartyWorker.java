@@ -509,7 +509,7 @@ public class PartyWorker {
             partiesFound = EntityQuery.use(delegator).from("PartyIdentificationAndParty").where(conditions).orderBy("partyId").cache(true).queryList();
         }
 
-        if (! searchPartyFirst) {
+        if (!searchPartyFirst) {
             party = EntityQuery.use(delegator).from("Party").where("partyId", idToFind).cache().queryOne();
         }
 
@@ -557,7 +557,7 @@ public class PartyWorker {
             for (GenericValue party : partiesByIds) {
                 GenericValue partyToAdd = party;
                 //retreive party GV if the actual genericValue came from viewEntity
-                if (! "Party".equals(party.getEntityName())) {
+                if (!"Party".equals(party.getEntityName())) {
                     partyToAdd = EntityQuery.use(delegator).from("Party").where("partyId", party.get("partyId")).cache().queryOne();
                 }
 

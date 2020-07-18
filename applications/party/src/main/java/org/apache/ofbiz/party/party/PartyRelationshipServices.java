@@ -86,7 +86,7 @@ public class PartyRelationshipServices {
             Debug.logWarning(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "PartyRelationshipTypeReadFailure",
-                    UtilMisc.toMap("errorString", e.getMessage()),    locale));
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         try {
@@ -95,7 +95,7 @@ public class PartyRelationshipServices {
             Debug.logWarning(e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "PartyRelationshipTypeWriteFailure",
-                    UtilMisc.toMap("errorString", e.getMessage()),    locale));
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);

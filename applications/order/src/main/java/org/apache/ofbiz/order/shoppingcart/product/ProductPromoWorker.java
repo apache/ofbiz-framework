@@ -340,7 +340,7 @@ public final class ProductPromoWorker {
             int indexOfFirstOrderTotalPromo = -1;
             for (ProductPromoUseInfo promoUse: sortedPromoUses) {
                 GenericValue productPromo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", promoUse.getProductPromoId()).cache().queryOne();
-                GenericValue newProductPromo = (GenericValue)productPromo.clone();
+                GenericValue newProductPromo = (GenericValue) productPromo.clone();
                 if (!usesPerPromo.containsKey(promoUse.getProductPromoId())) {
                     usesPerPromo.put(promoUse.getProductPromoId(), 0l);
                 }
@@ -816,9 +816,9 @@ public final class ProductPromoWorker {
         boolean cartChanged = false;
         Map<ShoppingCartItem, BigDecimal> usageInfoMap = prepareProductUsageInfoMap(cart);
         String productPromoId = productPromo.getString("productPromoId");
-        while ((useLimit == null || useLimit > cart.getProductPromoUseCount(productPromoId)) &&
-                (!requireCode || UtilValidate.isNotEmpty(productPromoCodeId)) &&
-                (codeUseLimit == null || codeUseLimit > cart.getProductPromoCodeUse(productPromoCodeId))) {
+        while ((useLimit == null || useLimit > cart.getProductPromoUseCount(productPromoId))
+                && (!requireCode || UtilValidate.isNotEmpty(productPromoCodeId))
+                && (codeUseLimit == null || codeUseLimit > cart.getProductPromoCodeUse(productPromoCodeId))) {
             boolean promoUsed = false;
             BigDecimal totalDiscountAmount = BigDecimal.ZERO;
             BigDecimal quantityLeftInActions = BigDecimal.ZERO;
@@ -993,7 +993,7 @@ public final class ProductPromoWorker {
                 } else if ("PPC_GTE".equals(operatorEnumId)) {
                     if (compare >= 0) return true;
                 } else {
-                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), MODULE);
+                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId", operatorEnumId), cart.getLocale()), MODULE);
                     return false;
                 }
             }
@@ -1061,7 +1061,7 @@ public final class ProductPromoWorker {
                 || ("PPC_GTE".equals(operatorEnumId) && compare >= 0);
         if (!res) {
             Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderAnUnSupportedProductPromoCondCondition",
-                    UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), MODULE);
+                    UtilMisc.toMap("operatorEnumId", operatorEnumId), cart.getLocale()), MODULE);
         }
         return res;
     }
@@ -1069,7 +1069,7 @@ public final class ProductPromoWorker {
     public static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException {
         List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate(nowTimestamp).queryList();
         for (GenericValue genericValue : partyRelationshipList) {
-            String partyIdFrom = (String)genericValue.get("partyIdFrom");
+            String partyIdFrom = (String) genericValue.get("partyIdFrom");
             if (partyIdFrom.equals(groupPartyId)) {
                 return 0;
             }
@@ -1201,9 +1201,9 @@ public final class ProductPromoWorker {
                 Iterator<GenericValue> checkOrderAdjustments = UtilMisc.toIterator(checkItem.getAdjustments());
                 while (checkOrderAdjustments != null && checkOrderAdjustments.hasNext()) {
                     GenericValue checkOrderAdjustment = checkOrderAdjustments.next();
-                    if (productPromoAction.getString("productPromoId").equals(checkOrderAdjustment.get("productPromoId")) &&
-                        productPromoAction.getString("productPromoRuleId").equals(checkOrderAdjustment.get("productPromoRuleId")) &&
-                        productPromoAction.getString("productPromoActionSeqId").equals(checkOrderAdjustment.get("productPromoActionSeqId"))) {
+                    if (productPromoAction.getString("productPromoId").equals(checkOrderAdjustment.get("productPromoId"))
+                        && productPromoAction.getString("productPromoRuleId").equals(checkOrderAdjustment.get("productPromoRuleId"))
+                        && productPromoAction.getString("productPromoActionSeqId").equals(checkOrderAdjustment.get("productPromoActionSeqId"))) {
                         return i;
                     }
                 }
@@ -1220,10 +1220,10 @@ public final class ProductPromoWorker {
         List<GenericValue> adjustments = cartItem.getAdjustments();
         if (UtilValidate.isNotEmpty(adjustments)) {
             for (GenericValue adjustment : adjustments) {
-                if ("PROMOTION_ADJUSTMENT".equals(adjustment.getString("orderAdjustmentTypeId")) &&
-                        productPromoAction.get("productPromoId").equals(adjustment.getString("productPromoId")) &&
-                        productPromoAction.get("productPromoRuleId").equals(adjustment.getString("productPromoRuleId")) &&
-                        productPromoAction.get("productPromoActionSeqId").equals(adjustment.getString("productPromoActionSeqId"))) {
+                if ("PROMOTION_ADJUSTMENT".equals(adjustment.getString("orderAdjustmentTypeId"))
+                        && productPromoAction.get("productPromoId").equals(adjustment.getString("productPromoId"))
+                        && productPromoAction.get("productPromoRuleId").equals(adjustment.getString("productPromoRuleId"))
+                        && productPromoAction.get("productPromoActionSeqId").equals(adjustment.getString("productPromoActionSeqId"))) {
                     BigDecimal newAmount = amount.add(adjustment.getBigDecimal(amountField));
                     adjustment.set(amountField, newAmount);
                     addNewAdjustment = false;
