@@ -170,45 +170,6 @@
         </if>
     </simple-method>
 
-    <!-- Generic content services -->
-    <simple-method method-name="createEmailContent" short-description="Create Email as Content">
-        <!-- Create subject -->
-        <set-service-fields service-name="createContent" map="parameters" to-map="createSubjectContent"/>
-        <set from-field="parameters.subject" field="createSubjectEtext.textData"/>
-        <call-service service-name="createElectronicText" in-map-name="createSubjectEtext">
-            <result-to-field result-name="dataResourceId" field="createSubjectContent.dataResourceId"/>
-        </call-service>
-        <call-service service-name="createContent" in-map-name="createSubjectContent">
-            <result-to-field result-name="contentId" field="createBodyAssoc.contentId"/>
-        </call-service>
-
-        <!-- Create plain body -->
-        <set from-field="parameters.plainBody" field="createPlainBodyEtext.textData"/>
-        <call-service service-name="createElectronicText" in-map-name="createPlainBodyEtext">
-            <result-to-field result-name="dataResourceId" field="createPlainBodyContent.dataResourceId"/>
-        </call-service>
-        <call-service service-name="createContent" in-map-name="createPlainBodyContent">
-            <result-to-field result-name="contentId" field="createBodyAssoc.contentIdTo"/>
-        </call-service>
-        <!-- Create content assoc between subject and plain body -->
-        <set value="TREE_CHILD" field="createBodyAssoc.contentAssocTypeId"/>
-        <set value="plainBody" field="createBodyAssoc.mapKey"/>
-        <call-service service-name="createContentAssoc" in-map-name="createBodyAssoc"/>
-
-        <!-- Create HTML body -->
-        <set from-field="parameters.htmlBody" field="createHtmlBodyEtext.textData"/>
-        <call-service service-name="createElectronicText" in-map-name="createHtmlBodyEtext">
-            <result-to-field result-name="dataResourceId" field="createHtmlBodyContent.dataResourceId"/>
-        </call-service>
-        <call-service service-name="createContent" in-map-name="createHtmlBodyContent">
-            <result-to-field result-name="contentId" field="createBodyAssoc.contentIdTo"/>
-        </call-service>
-        <!-- Create content assoc between subject and html body -->
-        <set value="htmlBody" field="createBodyAssoc.mapKey"/>
-        <call-service service-name="createContentAssoc" in-map-name="createBodyAssoc"/>
-
-        <field-to-result field="createBodyAssoc.contentId" result-name="contentId"/>
-    </simple-method>
     <simple-method method-name="createSimpleTextContent" short-description="Create Simple Text Content">
         <set-service-fields service-name="createContent" map="parameters" to-map="createSimpleTextContent"/>
         <set value="DOCUMENT" field="createSimpleTextContent.contentTypeId"/>

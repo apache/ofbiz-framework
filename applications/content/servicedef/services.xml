@@ -117,7 +117,7 @@
     </service>
 
     <!-- Generic Content Services -->
-    <service name="createEmailContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createEmailContent">
+    <service name="createEmailContent" engine="groovy" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createEmailContent">
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="false">

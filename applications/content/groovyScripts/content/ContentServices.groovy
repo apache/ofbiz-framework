@@ -51,6 +51,43 @@ def createTextAndUploadedContent(){
     result.contentId = parameters.parentContentId
     return result
 }
+
+def createEmailContent() {
+    Map result = success()
+    Map createContentMap = dispatcher.getDispatchContext()
+            .makeValidContext('createContent', ModelService.IN_PARAM, parameters)
+
+    //Create subject
+    Map serviceResult = run service: 'createElectronicText', with: [textData: parameters.subject]
+    createContentMap.dataResourceId = serviceResult.dataResourceId
+    serviceResult = run service: 'createContent', with: createContentMap
+
+    //Create plain body and assoc with subject
+    Map createBodyAssoc = [contentId: serviceResult.contentId,
+                           contentAssocTypeId: 'TREE_CHILD',
+                           mapKey: 'plainBody']
+
+    serviceResult = run service: 'createElectronicText', with: [textData: parameters.plainBody]
+    createContentMap.dataResourceId = serviceResult.dataResourceId
+    serviceResult = run service: 'createContent', with: createContentMap
+
+    createBodyAssoc.contentIdTo = serviceResult.contentId
+
+    run service: 'createContentAssoc', with: createBodyAssoc
+    result.contentId = createBodyAssoc.contentId
+
+    if (parameters.htmlBody) {
+        serviceResult = run service: 'createElectronicText', with: [textData: parameters.htmlBody]
+        createContentMap.dataResourceId = serviceResult.dataResourceId
+        serviceResult = run service: 'createContent', with: createContentMap
+        createBodyAssoc.contentIdTo = serviceResult.contentId
+        createBodyAssoc.mapKey = 'htmlBody'
+        run service: 'createContentAssoc', with: createBodyAssoc
+    }
+
+    return result
+}
+
 def deactivateAllContentRoles() {
     List contentRoles = from("ContentRole").
             where("contentId", parameters.contentId, "partyId", parameters.partyId, "roleTypeId", parameters.roleTypeId)
