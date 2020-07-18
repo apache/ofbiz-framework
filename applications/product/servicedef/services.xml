@@ -213,7 +213,7 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="findProductById" engine="java"  auth="true" export="true"
+    <service name="findProductById" engine="java"  auth="true" export="true" action="get"
         location="org.apache.ofbiz.product.product.ProductServices" invoke="findProductById">
         <description>Finds productId(s) corresponding to a product reference, productId or a GoodIdentification idValue</description>
         <attribute type="String" mode="IN" name="idToFind" optional="false"/>

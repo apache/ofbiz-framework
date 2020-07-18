@@ -36,6 +36,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.wsdl.Binding;
 import javax.wsdl.BindingInput;
@@ -128,6 +129,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** The namespace of this service */
     public String nameSpace;
+
+    /** The corresponding REST verb behaviour for this service */
+    public String action;
 
     /** The package name or location of this service */
     public String location;
@@ -233,6 +237,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.defaultEntityName = model.defaultEntityName;
         this.auth = model.auth;
         this.export = model.export;
+        this.action = model.action;
         this.validate = model.validate;
         this.useTransaction = model.useTransaction;
         this.requireNewTransaction = model.requireNewTransaction;
@@ -368,6 +373,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         buf.append(defaultEntityName).append("::");
         buf.append(auth).append("::");
         buf.append(export).append("::");
+        buf.append(action).append("::");
         buf.append(validate).append("::");
         buf.append(useTransaction).append("::");
         buf.append(requireNewTransaction).append("::");
@@ -455,6 +461,28 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             }
         }
         return nameList;
+    }
+    
+    /**
+     * Creates a map of service IN parameters using Name as key and Type as value.
+     * Skips internal parameters
+     * @return Map of IN parameters
+     */
+    public Map<String, String> getInParamNamesMap() {
+        // TODO : Does not yet support getting nested parameters
+        return getInModelParamList().stream().filter(param -> !param.internal)
+                .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
+    }
+
+    /**
+     * Creates a map of service OUT parameters using Name as key and Type as value.
+     * Skips internal parameters
+     * @return Map of OUT parameters
+     */
+    public Map<String, String> getOutParamNamesMap() {
+        // TODO : Does not yet support getting nested parameters
+        return getModelParamList().stream().filter(param -> param.isOut() && !param.internal)
+                .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
     }
 
     // only returns number of defined parameters (not internal)
@@ -972,7 +1000,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();
             if (key.startsWith(param.stringMapPrefix)) {
-                key=key.replace(param.stringMapPrefix,"");
+                key = key.replace(param.stringMapPrefix, "");
                 paramMap.put(key, entry.getValue());
             }
         }
@@ -1034,7 +1062,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             for (ModelPermGroup group: this.permissionGroups) {
                 if (Debug.verboseOn()) Debug.logVerbose(" Permission : Analyse " + group.toString(), MODULE);
                 Map<String, Object> permResult = group.evalPermissions(dctx, context);
-                if (! ServiceUtil.isSuccess(permResult)) {
+                if (!ServiceUtil.isSuccess(permResult)) {
                     ServiceUtil.addErrors(permGroupErrors, null, permResult);
                 }
             }
@@ -1208,7 +1236,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public void informIfDeprecated() {
         if (this.deprecatedUseInstead != null) {
             StringBuilder informMsg = new StringBuilder("DEPRECATED: the service ")
-                    .append(name).append( " has been deprecated and replaced by ").append(deprecatedUseInstead);
+                    .append(name).append(" has been deprecated and replaced by ").append(deprecatedUseInstead);
             if (this.deprecatedSince != null) {
                 informMsg.append(", since ").append(deprecatedSince);
             }
