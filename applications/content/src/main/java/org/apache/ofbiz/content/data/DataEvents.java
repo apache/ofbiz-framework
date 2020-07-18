@@ -79,6 +79,13 @@ public class DataEvents {
         // get the permission service required for streaming data; default is always the genericContentPermission
         String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service", "genericContentPermission", delegator);
 
+        // This is counterintuitive but it works, for OFBIZ-11840
+        // It could be improved by checking for possible events associated with svg
+        // As listed at https://portswigger.net/web-security/cross-site-scripting/cheat-sheet
+        if (contentId.contains("<svg")) {
+            return "success";
+        }
+
         // get the content record
         GenericValue content;
         try {
