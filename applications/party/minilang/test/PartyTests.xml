@@ -780,8 +780,11 @@ under the License.
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
         <call-service service-name="createRoleType" in-map-name="serviceCtx">
-            <result-to-field result-name="roleType"/>
+            <result-to-field result-name="roleTypeId"/>
         </call-service>
+        <entity-one entity-name="RoleType" value-field="roleType">
+            <field-map field-name="roleTypeId" from-field="roleTypeId"/>
+        </entity-one>
         <assert>
             <not><if-empty field="roleType"/></not>
             <if-compare field="roleType.roleTypeId" operator="equals" value="TEST_ROLE"/>

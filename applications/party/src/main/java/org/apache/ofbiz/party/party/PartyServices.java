@@ -992,29 +992,6 @@ public class PartyServices {
         return result;
     }
 
-    public static Map<String, Object> createRoleType(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<>();
-        Delegator delegator = dctx.getDelegator();
-        Locale locale = (Locale) context.get("locale");
-        GenericValue roleType = null;
-
-        try {
-            roleType = delegator.makeValue("RoleType");
-            roleType.setPKFields(context);
-            roleType.setNonPKFields(context);
-            roleType = delegator.create(roleType);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "PartyCannotCreateRoleTypeEntity",
-                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
-        }
-        if (roleType != null) {
-            result.put("roleType", roleType);
-        }
-        return result;
-    }
-
     @Deprecated // migration from ftl to widget in process.
     public static Map<String, Object> findParty(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();

@@ -246,13 +246,11 @@ under the License.
         <attribute name="note" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createRoleType" engine="java"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="createRoleType" auth="true">
+    <service name="createRoleType" default-entity-name="RoleType" engine="entity-auto" invoke="create" auth="true">
         <description>Create a new role type</description>
-        <attribute name="roleTypeId" type="String" mode="IN"/>
-        <attribute name="parentTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="description" type="String" mode="IN"/>
-        <attribute name="roleType" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="description" optional="false"/>
     </service>
 
     <service name="setPartyProfileDefaults" engine="groovy"
