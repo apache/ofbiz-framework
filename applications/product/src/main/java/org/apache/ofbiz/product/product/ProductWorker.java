@@ -1197,7 +1197,7 @@ nextProd:
      * worker to test if product can be order with a decimal quantity
      * @param delegator : access to DB
      * @param productId : ref. of product
-     * * @param productStoreId : ref. of store
+     * @param productStoreId : ref. of store
      * @return true if it can be ordered by decimal quantity
      * @throws GenericEntityException to catch
      */
