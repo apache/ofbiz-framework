@@ -772,27 +772,6 @@ under the License.
         <check-errors/>
     </simple-method>
 
-    <simple-method method-name="testCreateRoleType" short-description="Test the service createRoleType" login-required="false">
-        <set field="serviceCtx.roleTypeId" value="TEST_ROLE"/>
-        <set field="serviceCtx.description" value="Test Role to test service createRoleType"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="createRoleType" in-map-name="serviceCtx">
-            <result-to-field result-name="roleTypeId"/>
-        </call-service>
-        <entity-one entity-name="RoleType" value-field="roleType">
-            <field-map field-name="roleTypeId" from-field="roleTypeId"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="roleType"/></not>
-            <if-compare field="roleType.roleTypeId" operator="equals" value="TEST_ROLE"/>
-            <if-compare field="roleType.description" operator="equals" value="Test Role to test service createRoleType"/>
-        </assert>
-        <check-errors/>
-    </simple-method>
-
     <simple-method method-name="testCreateTelecomNumber" short-description="Test the service createTelecomNumber" login-required="false">
         <set field="serviceCtx.contactMechId" value="TestTelecomNumber"/>
         <set field="serviceCtx.areaCode" value="801"/>
