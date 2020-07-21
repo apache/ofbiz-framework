@@ -117,7 +117,7 @@ public class SagePayPaymentServices {
 
                     //getting order details
                     orderId = UtilFormatOut.checkNull((String) context.get("orderId"));
-                    processAmount =  (BigDecimal) context.get("processAmount");
+                    processAmount = (BigDecimal) context.get("processAmount");
                     currency = (String) context.get("currency");
 
                 } else {

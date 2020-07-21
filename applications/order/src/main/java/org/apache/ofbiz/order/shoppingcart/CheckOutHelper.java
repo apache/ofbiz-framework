@@ -259,7 +259,7 @@ public class CheckOutHelper {
 
             if (UtilValidate.isNotEmpty(billingAccountId)) {
                 Map<String, Object> billingAccountMap = selectedPaymentMethods.get("EXT_BILLACT");
-                BigDecimal billingAccountAmt = (BigDecimal)billingAccountMap.get("amount");
+                BigDecimal billingAccountAmt = (BigDecimal) billingAccountMap.get("amount");
                 // set cart billing account data and generate a payment method containing the amount we will be charging
                 cart.setBillingAccount(billingAccountId, (billingAccountAmt != null ? billingAccountAmt: BigDecimal.ZERO));
                 // copy the billing account terms as order terms

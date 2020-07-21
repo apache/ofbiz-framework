@@ -319,7 +319,9 @@ public class ContentSearch {
                     hasResults = true;
                 }
                 if (resultOffset != null && resultOffset > 1) {
-                    if (Debug.infoOn()) Debug.logInfo("Before relative, current index=" + eli.currentIndex(), MODULE);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Before relative, current index=" + eli.currentIndex(), MODULE);
+                    }
                     hasResults = eli.relative(resultOffset - 1);
                     initialResult = null;
                 }

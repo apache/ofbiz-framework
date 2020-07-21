@@ -83,7 +83,9 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         String webSiteId = WebSiteWorker.getWebSiteId(request);
 
         try {
-            if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+            }
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
@@ -92,7 +94,9 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
                             dataResourceId = content.getString("dataResourceId");
                         }
-                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                        }
                     } else {
                         Timestamp fromDate = null;
                         if (UtilValidate.isNotEmpty(fromDateStr)) {
@@ -108,7 +112,9 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                         }
                         GenericValue content = ContentWorker.getSubContent(delegator, contentId, mapKey, null, null, assocList, fromDate);
                         dataResourceId = content.getString("dataResourceId");
-                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                        }
                     }
                 } else {
                     GenericValue contentRevisionItem = EntityQuery.use(delegator)
@@ -121,9 +127,15 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                                 + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
                     }
                     dataResourceId = contentRevisionItem.getString("newDataResourceId");
-                    if (Debug.verboseOn()) Debug.logVerbose("contentRevisionItem:" + contentRevisionItem, MODULE);
-                    if (Debug.verboseOn()) Debug.logVerbose("contentId=" + rootContentId + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, MODULE);
-                    if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("contentRevisionItem:" + contentRevisionItem, MODULE);
+                    }
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("contentId=" + rootContentId + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, MODULE);
+                    }
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                    }
                 }
             }
             if (UtilValidate.isNotEmpty(dataResourceId)) {

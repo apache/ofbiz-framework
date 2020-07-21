@@ -68,7 +68,9 @@ public class CategoryServices {
         try {
             productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", categoryId).cache().queryOne();
             members = EntityUtil.filterByDate(productCategory.getRelated("ProductCategoryMember", null, UtilMisc.toList("sequenceNum"), true), true);
-            if (Debug.verboseOn()) Debug.logVerbose("Category: " + productCategory + " Member Size: " + members.size() + " Members: " + members, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Category: " + productCategory + " Member Size: " + members.size() + " Members: " + members, MODULE);
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem reading product categories: " + e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,

@@ -190,7 +190,7 @@ public class ProductionRunServices {
         // TODO: security management  and finishing cleaning (ex copy from PartyServices.java)
         // Mandatory input fields
         String productId = (String) context.get("productId");
-        Timestamp  startDate =  (Timestamp) context.get("startDate");
+        Timestamp  startDate = (Timestamp) context.get("startDate");
         BigDecimal pRQuantity = (BigDecimal) context.get("pRQuantity");
         String facilityId = (String) context.get("facilityId");
         // Optional input fields
@@ -263,7 +263,7 @@ public class ProductionRunServices {
         if (workEffortName == null) {
             String prdName = UtilValidate.isNotEmpty(product.getString("productName"))? product.getString("productName"): product.getString("productId");
             String wefName = UtilValidate.isNotEmpty(routing.getString("workEffortName"))? routing.getString("workEffortName"): routing.getString("workEffortId");
-            workEffortName =  prdName + "-" + wefName;
+            workEffortName = prdName + "-" + wefName;
         }
 
         serviceContext.clear();
@@ -350,7 +350,9 @@ public class ProductionRunServices {
                     Debug.logError(e, "Problem calling the createWorkEffort service", MODULE);
                 }
                 String productionRunTaskId = (String) serviceResult.get("workEffortId");
-                if (Debug.infoOn()) Debug.logInfo("ProductionRunTaskId created: " + productionRunTaskId, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("ProductionRunTaskId created: " + productionRunTaskId, MODULE);
+                }
 
                 // The newly created production run task is associated to the routing task
                 // to keep track of the template used to generate it.
@@ -405,7 +407,9 @@ public class ProductionRunServices {
                         } catch (GenericServiceException e) {
                             Debug.logError(e, "Problem calling the createWorkEffortGoodStandard service", MODULE);
                         }
-                        if (Debug.infoOn()) Debug.logInfo("ProductLink created for productId: " + productBom.getString("productIdTo"), MODULE);
+                        if (Debug.infoOn()) {
+                            Debug.logInfo("ProductLink created for productId: " + productBom.getString("productIdTo"), MODULE);
+                        }
                     }
                 }
                 first = false;
@@ -466,7 +470,9 @@ public class ProductionRunServices {
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem calling the assignPartyToWorkEffort service", MODULE);
                 }
-                if (Debug.infoOn()) Debug.logInfo("ProductionRunPartyassigment for party: " + workEffortPartyAssignment.get("partyId") + " created", MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("ProductionRunPartyassigment for party: " + workEffortPartyAssignment.get("partyId") + " created", MODULE);
+                }
             }
         }
     }
@@ -504,7 +510,9 @@ public class ProductionRunServices {
                 } catch (GenericServiceException gse) {
                     Debug.logError(gse, "Problem calling the createWorkEffortCostCalc service", MODULE);
                 }
-                if (Debug.infoOn()) Debug.logInfo("ProductionRun CostCalc for cost calc: " + costCalc.getString("costComponentCalcId") + " created", MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("ProductionRun CostCalc for cost calc: " + costCalc.getString("costComponentCalcId") + " created", MODULE);
+                }
             }
         }
     }
@@ -543,7 +551,7 @@ public class ProductionRunServices {
                     productionRun.setQuantity(quantity);
                 }
 
-                Timestamp  estimatedStartDate =  (Timestamp) context.get("estimatedStartDate");
+                Timestamp  estimatedStartDate = (Timestamp) context.get("estimatedStartDate");
                 if (estimatedStartDate != null && !estimatedStartDate.equals(productionRun.getEstimatedStartDate())) {
                     productionRun.setEstimatedStartDate(estimatedStartDate);
                 }
@@ -1634,7 +1642,9 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingAddProductionRunRoutingTaskNotCreated", locale));
         }
         String productionRunTaskId = (String) serviceResult.get("workEffortId");
-        if (Debug.infoOn()) Debug.logInfo("ProductionRunTaskId created: " + productionRunTaskId, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("ProductionRunTaskId created: " + productionRunTaskId, MODULE);
+        }
 
 
         productionRun.setEstimatedCompletionDate(productionRun.recalculateEstimatedCompletionDate());
@@ -1669,7 +1679,9 @@ public class ProductionRunServices {
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem calling the assignPartyToWorkEffort service", MODULE);
                 }
-                if (Debug.infoOn()) Debug.logInfo("ProductionRunPartyassigment for party: " + workEffortPartyAssignment.get("partyId") + " created", MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("ProductionRunPartyassigment for party: " + workEffortPartyAssignment.get("partyId") + " created", MODULE);
+                }
             }
         }
 
@@ -3462,7 +3474,7 @@ public class ProductionRunServices {
                     continue;
                 }
                 BigDecimal qtyDiff = qtyToProduce.subtract(qtyProduced);
-                String productId =  genericResult.getString("productId");
+                String productId = genericResult.getString("productId");
                 Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedCompletionDate");
                 if (estimatedShipDate == null) {
                     estimatedShipDate = now;
@@ -3489,13 +3501,13 @@ public class ProductionRunServices {
             String orderId = null;
             GenericValue orderDeliverySchedule = null;
             for (GenericValue genericResult : resultList) {
-                String newOrderId =  genericResult.getString("orderId");
+                String newOrderId = genericResult.getString("orderId");
                 if (!newOrderId.equals(orderId)) {
                     orderDeliverySchedule = null;
                     orderId = newOrderId;
                     orderDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", "_NA_").queryOne();
                 }
-                String productId =  genericResult.getString("productId");
+                String productId = genericResult.getString("productId");
                 BigDecimal orderQuantity = genericResult.getBigDecimal("quantity");
                 GenericValue orderItemDeliverySchedule = null;
                 orderItemDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")).queryOne();

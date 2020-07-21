@@ -447,7 +447,7 @@ public final class ProductPromoWorker {
                             Set<String> enteredCodes = cart.getProductPromoCodesEntered();
                             // Check whether any promotion code is applied on order.
                             if (cart.getOrderId() != null) {
-                                List<GenericValue> orderproductPromoCodes =  EntityQuery.use(delegator).from("OrderProductPromoCode").where("orderId", cart.getOrderId()).queryList();
+                                List<GenericValue> orderproductPromoCodes = EntityQuery.use(delegator).from("OrderProductPromoCode").where("orderId", cart.getOrderId()).queryList();
                                 Iterator<GenericValue> orderproductPromoCodesItr = UtilMisc.toIterator(orderproductPromoCodes);
                                 while (orderproductPromoCodesItr != null && orderproductPromoCodesItr.hasNext()) {
                                     GenericValue orderproductPromoCode = orderproductPromoCodesItr.next();
@@ -977,7 +977,9 @@ public final class ProductPromoWorker {
             if (condResult.containsKey("operatorEnumId")) {
                 operatorEnumId = (String) condResult.get("operatorEnumId");
             }
-            if (Debug.verboseOn()) Debug.logVerbose("Condition compare done, compareBase=" + compareBase, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Condition compare done, compareBase=" + compareBase, MODULE);
+            }
             if (compareBase != null) {
                 int compare = compareBase;
                 if ("PPC_EQ".equals(operatorEnumId)) {

@@ -685,7 +685,7 @@ public class PackingSession implements java.io.Serializable {
     protected void checkReservations(boolean ignore) throws GeneralException {
         List<String> errors = new LinkedList<>();
         for (PackingSessionLine line: this.getLines()) {
-            BigDecimal reservedQty =  this.getCurrentReservedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
+            BigDecimal reservedQty = this.getCurrentReservedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
             BigDecimal packedQty = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
 
             if (packedQty.compareTo(reservedQty) != 0) {

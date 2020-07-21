@@ -115,8 +115,12 @@ public class TaxwareUTL {
             outBuffer.append(outItem.writeDataFile());
 
             // print out the datafile
-            if (Debug.verboseOn()) Debug.logVerbose("::Out String::", MODULE);
-            if (Debug.verboseOn()) Debug.logVerbose("\"" + outBuffer.toString() + "\"", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("::Out String::", MODULE);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("\"" + outBuffer.toString() + "\"", MODULE);
+            }
 
             File outFile = new File("TAXWARE-TEST.IN");
             FileOutputStream fos = null;
@@ -240,12 +244,18 @@ public class TaxwareUTL {
         StringBuilder inBuffer = new StringBuilder();
         int result = callTaxware(outBuffer.toString(), inBuffer);
 
-        if (Debug.verboseOn()) Debug.logVerbose("Taxware Return: " + result, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Taxware Return: " + result, MODULE);
+        }
         if (result != 1)
             throw new TaxwareException("Taxware processing failed (" + result + ")");
 
-        if (Debug.verboseOn()) Debug.logVerbose("::Return String::", MODULE);
-        if (Debug.verboseOn()) Debug.logVerbose("\"" + inBuffer.toString() + "\"", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("::Return String::", MODULE);
+        }
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("\"" + inBuffer.toString() + "\"", MODULE);
+        }
         return inBuffer;
     }
 
@@ -272,7 +282,9 @@ public class TaxwareUTL {
         String headStr = retBuffer.toString().substring(0, 283);
         String itemStr = retBuffer.toString().substring(284);
 
-        if (Debug.verboseOn()) Debug.logVerbose("Return Size: " + retBuffer.length(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Return Size: " + retBuffer.length(), MODULE);
+        }
         Delegator delegator = shipToAddress.getDelegator();
 
         retHead.readDataFile(headStr);
@@ -281,8 +293,12 @@ public class TaxwareUTL {
         List retRecords = retItem.getRecords();
         Iterator i = retRecords.iterator();
 
-        if (Debug.verboseOn()) Debug.logVerbose("Returned Records: " + retRecords.size(), MODULE);
-        if (Debug.verboseOn()) Debug.logVerbose("Sent Items: " + records.size(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Returned Records: " + retRecords.size(), MODULE);
+        }
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sent Items: " + records.size(), MODULE);
+        }
 
         while (i.hasNext()) {
             Record rec = (Record) i.next();
@@ -293,7 +309,9 @@ public class TaxwareUTL {
                 List currentItem = new ArrayList();
 
                 if (rec.getBigDecimal("TAX_AMT_COUNTRY").compareTo(BigDecimal.ZERO) > 0) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Country Tax Amount: " + rec.getBigDecimal("TAX_AMT_COUNTRY"), MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("Country Tax Amount: " + rec.getBigDecimal("TAX_AMT_COUNTRY"), MODULE);
+                    }
                     BigDecimal rate = rec.getBigDecimal("TAX_RATE_COUNTRY").movePointRight(2);
                     String type = "S".equals(rec.getString("TAX_TYPE_COUNTRY")) ? "SALES TAX" : "USE TAX";
                     String jur = rec.get("JUR_COUNTRY") != null ? rec.getString("JUR_COUNTRY").trim() : "";
@@ -460,7 +478,9 @@ public class TaxwareUTL {
                 String name = mf.name;
                 String value = rec.getString(name);
 
-                if (Debug.verboseOn()) Debug.logVerbose("Field: " + name + " => " + value, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Field: " + name + " => " + value, MODULE);
+                }
             }
         }
         return retRecords.size();

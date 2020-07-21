@@ -182,7 +182,7 @@ public class ShoppingListEvents {
 
         String shoppingListId = request.getParameter("shoppingListId");
         String includeChild = request.getParameter("includeChild");
-        String prodCatalogId =  CatalogWorker.getCurrentCatalogId(request);
+        String prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
 
         try {
             addListToCart(delegator, dispatcher, cart, prodCatalogId, shoppingListId, (includeChild != null), true, true);

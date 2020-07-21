@@ -480,8 +480,12 @@ public class ContentServices {
         String privilegeEnumId = (String) context.get("privilegeEnumId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
-        if (Debug.infoOn()) Debug.logInfo("in publishContent, statusId:" + statusId, MODULE);
-        if (Debug.infoOn()) Debug.logInfo("in publishContent, userLogin:" + userLogin, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in publishContent, statusId:" + statusId, MODULE);
+        }
+        if (Debug.infoOn()) {
+            Debug.logInfo("in publishContent, userLogin:" + userLogin, MODULE);
+        }
 
         Map<String, Object> mapIn = new HashMap<>();
         mapIn.put("contentId", contentId);
@@ -494,13 +498,17 @@ public class ContentServices {
             GenericValue contentAssocViewFrom = ContentWorker.getContentAssocViewFrom(delegator, contentIdTo, contentId, contentAssocTypeId, statusId, privilegeEnumId);
             if (contentAssocViewFrom != null)
                 isPublished = true;
-            if (Debug.infoOn()) Debug.logInfo("in publishContent, contentId:" + contentId + " contentIdTo:" + contentIdTo + " contentAssocTypeId:" + contentAssocTypeId + " publish:" + publish + " isPublished:" + isPublished, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("in publishContent, contentId:" + contentId + " contentIdTo:" + contentIdTo + " contentAssocTypeId:" + contentAssocTypeId + " publish:" + publish + " isPublished:" + isPublished, MODULE);
+            }
             if (UtilValidate.isNotEmpty(publish) && "Y".equalsIgnoreCase(publish)) {
                 GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
                 String contentStatusId = (String) content.get("statusId");
                 String contentPrivilegeEnumId = (String) content.get("privilegeEnumId");
 
-                if (Debug.infoOn()) Debug.logInfo("in publishContent, statusId:" + statusId + " contentStatusId:" + contentStatusId + " privilegeEnumId:" + privilegeEnumId + " contentPrivilegeEnumId:" + contentPrivilegeEnumId, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("in publishContent, statusId:" + statusId + " contentStatusId:" + contentStatusId + " privilegeEnumId:" + privilegeEnumId + " contentPrivilegeEnumId:" + contentPrivilegeEnumId, MODULE);
+                }
                 // Don't do anything if link was already there
                 if (!isPublished) {
                     content.put("privilegeEnumId", privilegeEnumId);

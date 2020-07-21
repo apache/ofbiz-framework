@@ -140,7 +140,7 @@ public class PartyWorker {
         GenericValue latestPostalAddress = findPartyLatestPostalAddress(partyId, delegator);
         if (latestPostalAddress  != null) {
             try {
-                GenericValue latestGeoPoint =  latestPostalAddress.getRelatedOne("GeoPoint", false);
+                GenericValue latestGeoPoint = latestPostalAddress.getRelatedOne("GeoPoint", false);
                 if (latestGeoPoint  != null) {
                     return latestGeoPoint;
                 }

@@ -78,7 +78,7 @@ public class ShoppingCartEvents {
     private static final String NON_CRITICAL_ERROR = "noncritical";
     private static final String ERROR = "error";
 
-    public static final MathContext generalRounding = new MathContext(10);
+    public static final MathContext GEN_ROUNDING = new MathContext(10);
 
     public static String addProductPromoCode(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
@@ -401,7 +401,7 @@ public class ShoppingCartEvents {
             }
 
             if (reservStart != null && reservEnd != null) {
-                reservLength = new BigDecimal(UtilDateTime.getInterval(reservStart, reservEnd)).divide(new BigDecimal("86400000"), generalRounding);
+                reservLength = new BigDecimal(UtilDateTime.getInterval(reservStart, reservEnd)).divide(new BigDecimal("86400000"), GEN_ROUNDING);
             }
 
             if (reservStart != null && paramMap.containsKey("reservLength")) {
@@ -1251,8 +1251,8 @@ public class ShoppingCartEvents {
         String agreementId = request.getParameter("agreementId");
         Map<String, Object> result = cartHelper.selectAgreement(agreementId);
         if (ServiceUtil.isError(result)) {
-           request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
-           return "error";
+            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
+            return "error";
         }
         return "success";
     }
@@ -1266,8 +1266,8 @@ public class ShoppingCartEvents {
         String currencyUomId = request.getParameter("currencyUomId");
         Map<String, Object> result = cartHelper.setCurrency(currencyUomId);
         if (ServiceUtil.isError(result)) {
-           request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
-           return "error";
+            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
+            return "error";
         }
         return "success";
     }
@@ -1499,7 +1499,7 @@ public class ShoppingCartEvents {
                     }
                     if ("SALES_TAX".equals(adjustment.get("orderAdjustmentTypeId"))) {
                         if (adjustment.get("description") != null
-                                    && ((String)adjustment.get("description")).startsWith("Tax adjustment due")) {
+                                    && ((String) adjustment.get("description")).startsWith("Tax adjustment due")) {
                                 cart.addAdjustment(adjustment);
                             }
                         if ("Y".equals(adjustment.getString("isManual"))) {

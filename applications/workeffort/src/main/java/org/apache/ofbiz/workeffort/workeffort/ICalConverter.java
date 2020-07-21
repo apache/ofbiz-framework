@@ -370,7 +370,9 @@ public class ICalConverter {
                     alarm.validate(true);
                     Debug.logVerbose("iCalendar alarm passes validation", MODULE);
                 } catch (ValidationException e) {
-                    if (Debug.verboseOn()) Debug.logVerbose("iCalendar alarm fails validation: " + e, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("iCalendar alarm fails validation: " + e, MODULE);
+                    }
                 }
             }
         }
@@ -415,7 +417,9 @@ public class ICalConverter {
                 calendar.validate(true);
                 Debug.logVerbose("iCalendar passes validation", MODULE);
             } catch (ValidationException e) {
-                if (Debug.verboseOn()) Debug.logVerbose("iCalendar fails validation: " + e, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("iCalendar fails validation: " + e, MODULE);
+                }
             }
         }
         return ICalWorker.createOkResponse(calendar.toString());
@@ -578,10 +582,14 @@ public class ICalConverter {
         boolean newCalendar = true;
         Calendar calendar = null;
         if (iCalData == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data not found, creating new Calendar", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("iCalendar Data not found, creating new Calendar", MODULE);
+            }
             calendar = new Calendar();
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data found, using saved Calendar", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("iCalendar Data found, using saved Calendar", MODULE);
+            }
             try (StringReader reader = new StringReader(iCalData)) {
             CalendarBuilder builder = new CalendarBuilder();
                 calendar = builder.build(reader);

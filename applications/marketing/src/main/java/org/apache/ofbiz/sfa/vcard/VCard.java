@@ -252,7 +252,7 @@ public class VCard {
 
             GenericValue postalAddress = PartyWorker.findPartyLatestPostalAddress(partyId, delegator);
             if (postalAddress != null) {
-                Address address =  new Address();
+                Address address = new Address();
                 address.setStreetAddress(postalAddress.getString("address1"));
                 address.setLocality(postalAddress.getString("city"));
                 address.setPostalCode(postalAddress.getString("postalCode"));

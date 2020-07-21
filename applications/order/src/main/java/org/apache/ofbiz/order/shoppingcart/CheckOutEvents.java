@@ -158,7 +158,7 @@ public class CheckOutEvents {
             String giftMessage = request.getParameter("gift_message");
             String isGift = request.getParameter("is_gift");
             String internalCode = request.getParameter("internalCode");
-            String shipBeforeDate =  request.getParameter("shipBeforeDate");
+            String shipBeforeDate = request.getParameter("shipBeforeDate");
             String shipAfterDate = request.getParameter("shipAfterDate");
             Map<String, ? extends Object> callResult = ServiceUtil.returnSuccess();
 

@@ -168,7 +168,9 @@ public class FtpServices {
 
             //test if the file is correctly sent
             if (forceTransferControlSuccess) {
-                if (Debug.infoOn()) Debug.logInfo(" Control if service really success the transfer", MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo(" Control if service really success the transfer", MODULE);
+                }
 
                 //recreate the connection
                 ftpClient.closeConnection();
@@ -179,7 +181,9 @@ public class FtpServices {
 
                 //check the file name previously copy
                 List<String> fileNames = ftpClient.list(path);
-                if (Debug.infoOn()) Debug.logInfo(" For the path " + path + " we found " + fileNames, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo(" For the path " + path + " we found " + fileNames, MODULE);
+                }
 
                 if (fileNames == null || !fileNames.contains(remoteFileName)) {
                     return ServiceUtil.returnError("DataResource " + content.getString("dataResourceId") + " return an empty stream");

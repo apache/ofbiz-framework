@@ -139,7 +139,7 @@ public class SecurePayServiceTest extends OFBizTestCase {
             } else {
                 Debug.logInfo("[testAuth] Result from SecurePay: " + result, MODULE);
                 String authRefNum = (String) result.get("authRefNum");
-                BigDecimal processAmount =  (BigDecimal) result.get("processAmount");
+                BigDecimal processAmount = (BigDecimal) result.get("processAmount");
                 paymentGatewayResponse = delegator.makeValue("PaymentGatewayResponse", UtilMisc.toMap(
                         "paymentGatewayResponseId", "testOrder1000_01",
                         "orderPaymentPreferenceId", "testOrder1000_01",

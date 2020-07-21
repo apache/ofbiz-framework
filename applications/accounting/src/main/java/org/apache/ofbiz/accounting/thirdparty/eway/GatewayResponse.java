@@ -154,7 +154,7 @@ public class GatewayResponse {
                 value = textnode.getNodeValue();
             }
 
-            switch(name) {
+            switch (name) {
             case "ewayTrxnError":
                 txTrxnError = value;
                 break;

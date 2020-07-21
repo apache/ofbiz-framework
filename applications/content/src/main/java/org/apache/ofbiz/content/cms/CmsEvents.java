@@ -198,9 +198,13 @@ public class CmsEvents {
 
             // get the contentId/mapKey from URL
             if (contentId == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Current PathInfo: " + pathInfo, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Current PathInfo: " + pathInfo, MODULE);
+                }
                 String[] pathSplit = pathInfo.split("/");
-                if (Debug.verboseOn()) Debug.logVerbose("Split pathinfo: " + pathSplit.length, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Split pathinfo: " + pathSplit.length, MODULE);
+                }
                 contentId = pathSplit[0];
                 if (pathSplit.length > 1) {
                     mapKey = pathSplit[1];
@@ -235,7 +239,9 @@ public class CmsEvents {
                 }
 
                 if (errorContainer != null) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Found error containers: " + errorContainer, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("Found error containers: " + errorContainer, MODULE);
+                    }
 
                     GenericValue errorPage = null;
                     try {
@@ -267,7 +273,9 @@ public class CmsEvents {
                     try {
                         GenericValue errorPage = EntityQuery.use(delegator).from("Content").where("contentId", "CONTENT_ERROR_" + statusCode).cache().queryOne();
                         if (errorPage != null) {
-                            if (Debug.verboseOn()) Debug.logVerbose("Found generic page " + statusCode, MODULE);
+                            if (Debug.verboseOn()) {
+                                Debug.logVerbose("Found generic page " + statusCode, MODULE);
+                            }
                             contentId = errorPage.getString("contentId");
                             mapKey = null;
                             hasErrorPage = true;
@@ -382,7 +390,9 @@ public class CmsEvents {
         }
         publishPoints = EntityUtil.filterByDate(publishPoints);
         if (UtilValidate.isNotEmpty(publishPoints)) {
-            if (Debug.verboseOn()) Debug.logVerbose("Found publish points: " + publishPoints, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Found publish points: " + publishPoints, MODULE);
+            }
             return HttpServletResponse.SC_OK;
         } else {
             // the passed in contentId is not a publish point for the web site;
@@ -435,7 +445,9 @@ public class CmsEvents {
                 }
             }
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("Found assocs: " + contentAssoc, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Found assocs: " + contentAssoc, MODULE);
+            }
             return HttpServletResponse.SC_OK;
         }
         if (hadContent) return HttpServletResponse.SC_GONE;

@@ -1854,7 +1854,9 @@ public class UpsServices {
         if (response == null) {
             throw new UpsConnectException(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsReceivedNullResponse", locale));
         }
-        if (Debug.verboseOn()) Debug.logVerbose("UPS Response : " + response, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("UPS Response : " + response, MODULE);
+        }
 
         return response;
     }
@@ -2041,7 +2043,9 @@ public class UpsServices {
         StringBuilder xmlString = new StringBuilder();
         xmlString.append(accessRequestString);
         xmlString.append(rateRequestString);
-        if (Debug.verboseOn()) Debug.logVerbose(xmlString.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose(xmlString.toString(), MODULE);
+        }
         // send the request
         String rateResponseString = null;
         try {
@@ -2872,7 +2876,9 @@ public class UpsServices {
             StringBuilder xmlString = new StringBuilder();
             xmlString.append(accessRequestString);
             xmlString.append(rateRequestString);
-            if (Debug.verboseOn()) Debug.logVerbose(xmlString.toString(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose(xmlString.toString(), MODULE);
+            }
             // send the request
             try {
                 rateResponseString = sendUpsRequest("Rate", xmlString.toString(), shipmentGatewayConfigId, resource, delegator, locale);

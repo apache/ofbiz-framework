@@ -2072,7 +2072,7 @@ public class OrderServices {
                             "OrderErrorCannotCancelItemItemNotFound", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                 }
 
-                BigDecimal aisgaCancelQuantity =  orderItemShipGroupAssoc.getBigDecimal("cancelQuantity");
+                BigDecimal aisgaCancelQuantity = orderItemShipGroupAssoc.getBigDecimal("cancelQuantity");
                 if (aisgaCancelQuantity == null) {
                     aisgaCancelQuantity = BigDecimal.ZERO;
                 }
@@ -2891,8 +2891,8 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         Locale locale = (Locale) context.get("locale");
         //appears to not be used: GenericValue v = null;
-        String purpose[] = { "BILLING_LOCATION", "SHIPPING_LOCATION" };
-        String outKey[] = { "billingAddress", "shippingAddress" };
+        String purpose[] = {"BILLING_LOCATION", "SHIPPING_LOCATION" };
+        String outKey[] = {"billingAddress", "shippingAddress" };
         GenericValue orderHeader = null;
 
         try {
@@ -3825,7 +3825,7 @@ public class OrderServices {
         // Create Estimated Delivery dates
         if (null != itemEstimatedDeliveryDateMap) {
             for (Map.Entry<String, String> entry : itemEstimatedDeliveryDateMap.entrySet()) {
-                String itemSeqId =  entry.getKey();
+                String itemSeqId = entry.getKey();
 
                 // ignore internationalised variant of dates
                 if (!itemSeqId.endsWith("_i18n")) {
@@ -3842,7 +3842,7 @@ public class OrderServices {
         // Create Estimated ship dates
         if (null != itemEstimatedShipDateMap) {
             for (Map.Entry<String, String> entry : itemEstimatedShipDateMap.entrySet()) {
-                String itemSeqId =  entry.getKey();
+                String itemSeqId = entry.getKey();
 
                 // ignore internationalised variant of dates
                 if (!itemSeqId.endsWith("_i18n")) {
@@ -3858,7 +3858,7 @@ public class OrderServices {
         //Update Reserve After Date
         if (null != itemReserveAfterDateMap) {
             for (Map.Entry<String, String> entry : itemReserveAfterDateMap.entrySet()) {
-                String itemSeqId =  entry.getKey();
+                String itemSeqId = entry.getKey();
                 // ignore internationalised variant of dates
                 if (!itemSeqId.endsWith("_i18n")) {
                     String reserveAfterDateStr = entry.getValue();
@@ -6493,7 +6493,7 @@ public class OrderServices {
             }
             //Get the list of associated products
             OrderReadHelper orderReadHelper = new OrderReadHelper(delegator, orderId);
-            List<GenericValue> orderItems =  orderReadHelper.getOrderItems();
+            List<GenericValue> orderItems = orderReadHelper.getOrderItems();
             Map<String, Object> serviceCtx = new HashMap<>();
             for (GenericValue orderItem : orderItems) {
                 String orderItemSeqId = orderItem.getString("orderItemSeqId");

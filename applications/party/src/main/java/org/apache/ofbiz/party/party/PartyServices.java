@@ -2315,7 +2315,7 @@ public class PartyServices {
         try (BufferedReader csvReader = new BufferedReader(new StringReader(csvString))) {
             for (final CSVRecord rec : fmt.parse(csvReader)) {
                 if (UtilValidate.isNotEmpty(rec.get("partyId"))) {
-                    currentPartyId =  rec.get("partyId");
+                    currentPartyId = rec.get("partyId");
                 }
                 if (lastPartyId == null || !currentPartyId.equals(lastPartyId)) {
                     newPartyId = null;

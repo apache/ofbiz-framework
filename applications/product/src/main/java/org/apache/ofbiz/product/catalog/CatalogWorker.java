@@ -174,7 +174,9 @@ public final class CatalogWorker {
         }
 
         if (!fromSession) {
-            if (Debug.verboseOn()) Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, MODULE);
+            }
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
             CategoryWorker.setTrail(request, new LinkedList<>());
         }

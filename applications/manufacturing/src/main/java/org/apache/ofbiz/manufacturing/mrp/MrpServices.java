@@ -157,7 +157,7 @@ public class MrpServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         for (GenericValue genericResult : resultList) {
-            String productId =  genericResult.getString("productId");
+            String productId = genericResult.getString("productId");
             BigDecimal reservedQuantity = genericResult.getBigDecimal("reservedQuantity");
             BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
             BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
@@ -217,7 +217,7 @@ public class MrpServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
         for (GenericValue genericResult : resultList) {
-            String productId =  genericResult.getString("productId");
+            String productId = genericResult.getString("productId");
             BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
             if (productId == null || eventQuantityTmp == null) {
                 continue;
@@ -260,13 +260,13 @@ public class MrpServices {
         }
         for (GenericValue genericResult : resultList) {
             try {
-                String newOrderId =  genericResult.getString("orderId");
+                String newOrderId = genericResult.getString("orderId");
                 if (!newOrderId.equals(orderId)) {
                     orderDeliverySchedule = null;
                     orderId = newOrderId;
                     orderDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", "_NA_").queryOne();
                 }
-                String productId =  genericResult.getString("productId");
+                String productId = genericResult.getString("productId");
                 BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
                 BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
                 if (UtilValidate.isEmpty(shipGroupQuantity)) {
@@ -321,7 +321,7 @@ public class MrpServices {
                     || "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
                     continue;
                 }
-                String productId =  genericResult.getString("productId");
+                String productId = genericResult.getString("productId");
                 // get the inventory already consumed
                 BigDecimal consumedInventoryTotal = BigDecimal.ZERO;
                 List<GenericValue> consumedInventoryItems = EntityQuery.use(delegator).from("WorkEffortAndInventoryAssign")
@@ -372,7 +372,7 @@ public class MrpServices {
                     continue;
                 }
                 BigDecimal qtyDiff = qtyToProduce.subtract(qtyProduced);
-                String productId =  genericResult.getString("productId");
+                String productId = genericResult.getString("productId");
                 BigDecimal eventQuantityTmp = qtyDiff;
                 Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedCompletionDate");
                 if (estimatedShipDate == null) {
@@ -435,7 +435,7 @@ public class MrpServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventFindError", locale));
         }
-        String partyId =  (String) facility.get("ownerPartyId");
+        String partyId = (String) facility.get("ownerPartyId");
         try {
             resultList = EntityQuery.use(delegator).from("SalesForecast")
                     .where("organizationPartyId", partyId)
@@ -444,7 +444,7 @@ public class MrpServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindSalesForecasts", locale));
         }
         for (GenericValue genericResult : resultList) {
-            String customTimePeriodId =  genericResult.getString("customTimePeriodId");
+            String customTimePeriodId = genericResult.getString("customTimePeriodId");
             GenericValue customTimePeriod = null;
             try {
                 customTimePeriod = EntityQuery.use(delegator).from("CustomTimePeriod").where("customTimePeriodId", customTimePeriodId).queryOne();
@@ -464,7 +464,7 @@ public class MrpServices {
                         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindSalesForecastDetails", locale));
                     }
                     for (GenericValue sfd : salesForecastDetails) {
-                        String productId =  sfd.getString("productId");
+                        String productId = sfd.getString("productId");
                         BigDecimal eventQuantityTmp = sfd.getBigDecimal("quantity");
                         if (productId == null || eventQuantityTmp == null) {
                             continue;

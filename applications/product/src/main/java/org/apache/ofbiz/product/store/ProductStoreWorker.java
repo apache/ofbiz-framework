@@ -196,7 +196,7 @@ public final class ProductStoreWorker {
 
         String payProps = "payment.properties";
         if (setting != null && setting.get("paymentPropertiesPath") != null) {
-            payProps =  setting.getString("paymentPropertiesPath");
+            payProps = setting.getString("paymentPropertiesPath");
         }
         return payProps;
     }
@@ -679,7 +679,9 @@ public final class ProductStoreWorker {
         // if prodCatalog is set to not check inventory break here
         if ("N".equals(productStore.getString("checkInventory"))) {
             // note: if not set, defaults to yes, check inventory
-            if (Debug.verboseOn()) Debug.logVerbose("ProductStore with id " + productStoreId + ", is set to NOT check inventory, returning true for inventory available check", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("ProductStore with id " + productStoreId + ", is set to NOT check inventory, returning true for inventory available check", MODULE);
+            }
             return true;
         }
         boolean isInventoryAvailable = false;

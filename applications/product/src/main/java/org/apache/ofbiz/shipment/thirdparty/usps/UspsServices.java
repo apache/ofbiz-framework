@@ -1554,8 +1554,7 @@ public class UspsServices {
                     UtilMisc.toList(
                             shipmentRouteSegment.get("shipmentId"),
                             shipmentPackageRouteSeg.get("shipmentPackageSeqId"),
-                            shipmentRouteSegment.get("shipmentRouteSegementId")
-                   ), ':');
+                            shipmentRouteSegment.get("shipmentRouteSegementId")), ':');
             UtilXml.addChildElementValue(rootElement, "FromCustomsReference", fromCustomsReference, packageDocument);
             // Determine the container type for this package
             String container = "VARIABLE";

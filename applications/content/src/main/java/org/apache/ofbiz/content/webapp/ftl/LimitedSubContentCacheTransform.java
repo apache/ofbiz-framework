@@ -56,8 +56,8 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = LimitedSubContentCacheTransform.class.getName();
 
-    static final String[] upSaveKeyNames = { "globalNodeTrail" };
-    static final String[] saveKeyNames = { "contentId", "subContentId", "entityList", "entityIndex",
+    static final String[] upSaveKeyNames = {"globalNodeTrail" };
+    static final String[] saveKeyNames = {"contentId", "subContentId", "entityList", "entityIndex",
             "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "entityList", "viewSize", "viewIndex",
             "highIndex", "lowIndex", "listSize", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly",
             "globalNodeTrail", "outputIndex" };

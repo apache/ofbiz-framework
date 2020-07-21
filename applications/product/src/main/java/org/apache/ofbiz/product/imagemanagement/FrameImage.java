@@ -133,7 +133,7 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
 
@@ -148,7 +148,7 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
 
@@ -188,7 +188,7 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
 
@@ -206,7 +206,7 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
 
@@ -220,13 +220,13 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
         } else {
              String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseSelectImage", locale);
              Debug.logFatal(errMsg, MODULE);
-             result =  ServiceUtil.returnError(errMsg);
+             result = ServiceUtil.returnError(errMsg);
              result.putAll(context);
         }
         String successMsg = UtilProperties.getMessage(RESOURCE, "ProductFrameImageSuccessfully", locale);

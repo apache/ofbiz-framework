@@ -52,7 +52,7 @@ import freemarker.template.TemplateTransformModel;
 public class RenderSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = RenderSubContentCacheTransform.class.getName();
-    static final String[] upSaveKeyNames = { "globalNodeTrail" };
+    static final String[] upSaveKeyNames = {"globalNodeTrail" };
 
     @Override
     @SuppressWarnings("unchecked")
@@ -72,7 +72,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         String contentAssocPredicateId = (String) templateRoot.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String) templateRoot.get("nullThruDatesOnly");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
-        String thisSubContentId =  (String) templateRoot.get("subContentId");
+        String thisSubContentId = (String) templateRoot.get("subContentId");
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisSubContentId) ? true : false;
         GenericValue val = null;
         try {
@@ -194,7 +194,9 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     contentAssocTypeId = (String) templateRoot.get("contentAssocTypeId");
                     mapKey = (String) templateRoot.get("mapKey");
                     fromDate = (String) templateRoot.get("fromDate");
-                    if (Debug.infoOn()) Debug.logInfo("in Render(0), view ." + view, MODULE);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("in Render(0), view ." + view, MODULE);
+                    }
                     if (view != null) {
                         ModelEntity modelEntity = view.getModelEntity();
                         if (UtilValidate.isEmpty(contentId) && modelEntity.getField("caContentId") != null)
@@ -221,7 +223,9 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 } else {
                     contentId = (String) templateRoot.get("subContentId");
                 }
-                if (Debug.infoOn()) Debug.logInfo("in Render(0), contentIdTo ." + contentIdTo, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("in Render(0), contentIdTo ." + contentIdTo, MODULE);
+                }
                 String delim = "?";
                 if (UtilValidate.isNotEmpty(contentId)) {
                     fullRequest += delim + "contentId=" + contentId;
@@ -244,7 +248,9 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     delim = "&";
                 }
 
-                if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo, MODULE);
+                }
                 out.write("<a href=\"");
                 ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");

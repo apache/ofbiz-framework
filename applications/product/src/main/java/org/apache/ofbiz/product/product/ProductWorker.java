@@ -56,8 +56,7 @@ import org.apache.ofbiz.service.ModelService;
 public final class ProductWorker {
 
     private static final String MODULE = ProductWorker.class.getName();
-
-    private static final MathContext generalRounding = new MathContext(10);
+    private static final MathContext GEN_ROUNDING = new MathContext(10);
 
     private ProductWorker() { }
 
@@ -665,7 +664,7 @@ public final class ProductWorker {
                 }
             }
             if (ratingTally.compareTo(BigDecimal.ZERO) > 0 && numRatings.compareTo(BigDecimal.ZERO) > 0) {
-                productRating = ratingTally.divide(numRatings, generalRounding);
+                productRating = ratingTally.divide(numRatings, GEN_ROUNDING);
             }
 
             if ("PRDR_MIN".equals(entityFieldType)) {

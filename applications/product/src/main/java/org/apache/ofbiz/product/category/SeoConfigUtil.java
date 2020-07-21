@@ -46,7 +46,6 @@ import org.xml.sax.SAXException;
 
 /**
  * SeoConfigUtil - SEO Configuration file utility.
- * 
  */
 public final class SeoConfigUtil {
     private static final String MODULE = SeoConfigUtil.class.getName();

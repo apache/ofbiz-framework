@@ -182,7 +182,9 @@ public class LayoutEvents {
                 return "error";
             }
             String imageFileName = (String) uploadResults.get("imageFileName");
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), context:" + context, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createLayoutImage(java), context:" + context, "");
+            }
             context.put("userLogin", session.getAttribute("userLogin"));
             context.put("dataResourceTypeId", "IMAGE_OBJECT");
             context.put("contentAssocTypeId", "SUB_CONTENT");
@@ -194,13 +196,19 @@ public class LayoutEvents {
             context.put("drDataResourceTypeId", null);
 
             String dataResourceId = (String) context.get("drDataResourceId");
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
+            }
 
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
+            }
             // Use objectInfo field to store the name of the file, since there is no
             // place in ImageDataResource for it.
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), imageFileName:" + imageFileName, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createLayoutImage(java), imageFileName:" + imageFileName, "");
+            }
             if (dataResource != null) {
                 dataResource.setNonPKFields(context);
                 dataResource.store();
@@ -229,7 +237,9 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> context = new HashMap<>();
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        if (Debug.verboseOn()) Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, MODULE);
+        }
         String dataResourceId = (String) paramMap.get("dataResourceId");
         if (UtilValidate.isEmpty(dataResourceId)) {
             String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.data_ressource_id_null", locale);
@@ -297,14 +307,18 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String contentId = (String) paramMap.get("contentId");
-        if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, contentId:" + contentId, "");
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in cloneLayout, contentId:" + contentId, "");
+        }
         if (UtilValidate.isEmpty(contentId)) {
             String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_id_empty", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         String contentIdTo = (String) paramMap.get("contentIdTo");
-        if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, contentIdTo:" + contentIdTo, "");
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in cloneLayout, contentIdTo:" + contentIdTo, "");
+        }
         GenericValue content = null;
         GenericValue newContent = null;
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
@@ -314,14 +328,18 @@ public class LayoutEvents {
         String newDataResourceId = null;
         try {
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, content:" + content, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in cloneLayout, content:" + content, "");
+            }
             if (content == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_empty", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
             newContent = delegator.makeValue("Content", content);
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            }
             String oldName = (String) content.get("contentName");
             newId = delegator.getNextSeqId("Content");
             newContent.set("contentId", newId);
@@ -329,7 +347,9 @@ public class LayoutEvents {
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
             if (dataResource != null) {
                 GenericValue newDataResource = delegator.makeValue("DataResource", dataResource);
-                if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");
+                }
                 String dataResourceName = "Copy:" + (String) dataResource.get("dataResourceName");
                 newDataResource.set("dataResourceName", dataResourceName);
                 newDataResourceId = delegator.getNextSeqId("DataResource");
@@ -346,7 +366,9 @@ public class LayoutEvents {
             newContent.set("createdByUserLogin", userLoginId);
             newContent.set("lastModifiedByUserLogin", userLoginId);
             newContent.create();
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            }
 
             GenericValue newContentAssoc = delegator.makeValue("ContentAssoc");
             newContentAssoc.set("contentId", newId);
@@ -354,7 +376,9 @@ public class LayoutEvents {
             newContentAssoc.set("contentAssocTypeId", "SUB_CONTENT");
             newContentAssoc.set("fromDate", UtilDateTime.nowTimestamp());
             newContentAssoc.create();
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newContentAssoc:" + newContentAssoc, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in cloneLayout, newContentAssoc:" + newContentAssoc, "");
+            }
         } catch (GenericEntityException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -432,7 +456,9 @@ public class LayoutEvents {
         GenericValue view = delegator.makeValue("ContentDataResourceView");
         view.set("contentId", newId);
         view.set("drDataResourceId", newDataResourceId);
-        if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, view:" + view, "");
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in cloneLayout, view:" + view, "");
+        }
         ContentManagementWorker.setCurrentEntityMap(request, view);
         request.setAttribute("contentId", view.get("contentId"));
         request.setAttribute("drDataResourceId", view.get("drDataResourceId"));
@@ -592,8 +618,12 @@ public class LayoutEvents {
             if (attrVal == null) {
                 attrVal = (String) paramMap.get(attrName);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrName:" + attrName,"");
-            if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrVal:" + attrVal,"");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in copyToClip, attrName:" + attrName,"");
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in copyToClip, attrVal:" + attrVal,"");
+            }
             if (UtilValidate.isNotEmpty(attrVal)) {
                 passedPK.put(attrName, attrVal);
             } else {

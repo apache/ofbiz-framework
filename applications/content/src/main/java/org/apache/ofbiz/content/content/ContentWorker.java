@@ -779,7 +779,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         String contentTypeId = null;
         for (GenericValue assoc : assocList) {
             String contentId = (String) assoc.get(contentIdName);
-            if (Debug.infoOn()) Debug.logInfo("contentId:" + contentId, "");
+            if (Debug.infoOn()) {
+                Debug.logInfo("contentId:" + contentId, "");
+            }
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             if (UtilValidate.isNotEmpty(contentTypes)) {
                 contentTypeId = content.getString("contentTypeId");
@@ -943,7 +945,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             contentIdOtherField = "contentId";
         }
 
-        if (Debug.infoOn()) Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
+        if (Debug.infoOn()) {
+            Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
+        }
         try {
             List<GenericValue> contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
                     .where(contentIdField, contentId)

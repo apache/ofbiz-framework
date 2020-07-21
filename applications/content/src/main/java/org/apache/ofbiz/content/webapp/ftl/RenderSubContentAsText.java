@@ -68,9 +68,9 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         if (Debug.infoOn()) {
             Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), MODULE);
         }
-        final String thisContentId =  (String) templateRoot.get("contentId");
-        final String thisMapKey =  (String) templateRoot.get("mapKey");
-        final String xmlEscape =  (String) templateRoot.get("xmlEscape");
+        final String thisContentId = (String) templateRoot.get("contentId");
+        final String thisMapKey = (String) templateRoot.get("mapKey");
+        final String xmlEscape = (String) templateRoot.get("xmlEscape");
         if (Debug.infoOn()) {
             Debug.logInfo("in Render(0), thisSubContentId ." + thisContentId, MODULE);
         }
@@ -112,7 +112,9 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                 }
 
                 String editRequestName = (String) templateRoot.get("editRequestName");
-                if (Debug.infoOn()) Debug.logInfo("in Render(3), editRequestName ." + editRequestName, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("in Render(3), editRequestName ." + editRequestName, MODULE);
+                }
 
                 if (UtilValidate.isNotEmpty(editRequestName)) {
                     String editStyle = getEditStyle();
@@ -128,7 +130,9 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
                     out.write(txt);
 
-                    if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", MODULE);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", MODULE);
+                    }
                 } catch (GeneralException e) {
                     String errMsg = "Error rendering thisContentId:" + thisContentId + " msg:" + e.toString();
                     Debug.logError(e, errMsg, MODULE);

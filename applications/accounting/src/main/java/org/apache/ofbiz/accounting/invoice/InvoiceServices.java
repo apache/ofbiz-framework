@@ -165,7 +165,9 @@ public class InvoiceServices {
         String invoiceId = (String) context.get("invoiceId");
 
         if (UtilValidate.isEmpty(billItems)) {
-            if (Debug.verboseOn()) Debug.logVerbose("No order items to invoice; not creating invoice; returning success", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("No order items to invoice; not creating invoice; returning success", MODULE);
+            }
             return ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                     "AccountingNoOrderItemsToInvoice", locale));
         }
@@ -579,7 +581,7 @@ public class InvoiceServices {
                                             EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "VAT_TAX"),
                                             EntityCondition.makeCondition("amountAlreadyIncluded", EntityOperator.LESS_THAN, BigDecimal.ZERO));
                                     EntityCondition andCondition = EntityCondition.makeCondition(exprs, EntityOperator.AND);
-                                    GenericValue orderAdjustment =  EntityUtil.getFirst(delegator.findList("OrderAdjustment", andCondition, null, null, null, false));
+                                    GenericValue orderAdjustment = EntityUtil.getFirst(delegator.findList("OrderAdjustment", andCondition, null, null, null, false));
                                     if (UtilValidate.isNotEmpty(orderAdjustment)) {
                                         amount = adj.getBigDecimal("amount").subtract(orderAdjustment.getBigDecimal("amountAlreadyIncluded")).setScale(100, ROUNDING);
                                     } else {
@@ -921,7 +923,7 @@ public class InvoiceServices {
         Map<String, List<Map<String, Object>>> commissionParties = new HashMap<>();
         for (String salesInvoiceId : salesInvoiceIds) {
             List<String> salesRepPartyIds = UtilGenerics.cast(context.get("partyIds"));
-            BigDecimal amountTotal =  InvoiceWorker.getInvoiceTotal(delegator, salesInvoiceId);
+            BigDecimal amountTotal = InvoiceWorker.getInvoiceTotal(delegator, salesInvoiceId);
             if (amountTotal.signum() == 0) {
                 Debug.logWarning("Invoice [" + salesInvoiceId + "] has an amount total of [" + amountTotal + "], so no commission invoice will be created", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -3560,7 +3562,7 @@ public class InvoiceServices {
 
         try {
             for (final CSVRecord rec : fmt.parse(csvReader)) {
-                currentInvoiceId =  rec.get("invoiceId");
+                currentInvoiceId = rec.get("invoiceId");
                 if (lastInvoiceId == null || !currentInvoiceId.equals(lastInvoiceId)) {
                     newInvoiceId = null;
                     Map<String, Object> invoice = UtilMisc.toMap(

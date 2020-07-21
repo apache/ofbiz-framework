@@ -730,7 +730,7 @@ public class PaymentGatewayServices {
                 orderId = paymentPref.getString("orderId");
             }
             else {
-                orderId =  (String) context.get("orderId");
+                orderId = (String) context.get("orderId");
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,

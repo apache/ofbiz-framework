@@ -135,7 +135,7 @@ public class ProductSearchEvents {
                }
 
                GenericValue searchResultView = null;
-               int numExpired=0;
+               int numExpired = 0;
                while ((searchResultView = eli.next()) != null) {
                    String productId = searchResultView.getString("mainProductId");
                    //get all tuples that match product and category

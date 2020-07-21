@@ -73,8 +73,8 @@ public class RenderContentAsText implements TemplateTransformModel {
         if (Debug.verboseOn()) {
             Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), MODULE);
         }
-        final String thisContentId =  (String) templateRoot.get("contentId");
-        final String xmlEscape =  (String) templateRoot.get("xmlEscape");
+        final String thisContentId = (String) templateRoot.get("contentId");
+        final String xmlEscape = (String) templateRoot.get("xmlEscape");
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId) ? true : false;
         if (Debug.verboseOn()) {
             Debug.logVerbose("in Render(0), directAssocMode ." + directAssocMode, MODULE);

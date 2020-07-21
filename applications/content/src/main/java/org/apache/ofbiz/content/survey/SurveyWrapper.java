@@ -584,24 +584,24 @@ public class SurveyWrapper {
                 GenericValue value;
                 while (((value = eli.next()) != null)) {
                     switch (type) {
-                        case 1:
-                            Long n = value.getLong("numericResponse");
-                            if (UtilValidate.isNotEmpty(n)) {
-                                result[1] += n;
-                            }
-                            break;
-                        case 2:
-                            Double c = value.getDouble("currencyResponse");
-                            if (UtilValidate.isNotEmpty(c)) {
-                                result[1] += (((double) Math.round((c - c) * 100)) / 100);
-                            }
-                            break;
-                        case 3:
-                            Double f = value.getDouble("floatResponse");
-                            if (UtilValidate.isNotEmpty(f)) {
-                                result[1] += f;
-                            }
-                            break;
+                    case 1:
+                        Long n = value.getLong("numericResponse");
+                        if (UtilValidate.isNotEmpty(n)) {
+                            result[1] += n;
+                        }
+                        break;
+                    case 2:
+                        Double c = value.getDouble("currencyResponse");
+                        if (UtilValidate.isNotEmpty(c)) {
+                            result[1] += (((double) Math.round((c - c) * 100)) / 100);
+                        }
+                        break;
+                    case 3:
+                        Double f = value.getDouble("floatResponse");
+                        if (UtilValidate.isNotEmpty(f)) {
+                            result[1] += f;
+                        }
+                        break;
                     }
                     result[0]++; // increment the count
                 }
@@ -626,21 +626,21 @@ public class SurveyWrapper {
 
         // average
         switch (type) {
-            case 1:
-                if (result[0] > 0) {
-                    result[2] = result[1] / ((long) result[0]);
-                }
-                break;
-            case 2:
-                if (result[0] > 0) {
-                    result[2] = (((double) Math.round((result[1] / result[0]) * 100)) / 100);
-                }
-                break;
-            case 3:
-                if (result[0] > 0) {
-                    result[2] = result[1] / (long) result[0];
-                }
-                break;
+        case 1:
+            if (result[0] > 0) {
+                result[2] = result[1] / ((long) result[0]);
+            }
+            break;
+        case 2:
+            if (result[0] > 0) {
+                result[2] = (((double) Math.round((result[1] / result[0]) * 100)) / 100);
+            }
+            break;
+        case 3:
+            if (result[0] > 0) {
+                result[2] = result[1] / (long) result[0];
+            }
+            break;
         }
 
         return result;

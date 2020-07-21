@@ -475,8 +475,7 @@ public class OrderReturnServices {
             // OrderItems which have been issued may be returned.
             EntityConditionList<EntityExpr> whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderHeader.getString("orderId")),
-                    EntityCondition.makeCondition("orderItemStatusId", EntityOperator.IN, UtilMisc.toList("ITEM_APPROVED", "ITEM_COMPLETED"))
-               ), EntityOperator.AND);
+                    EntityCondition.makeCondition("orderItemStatusId", EntityOperator.IN, UtilMisc.toList("ITEM_APPROVED", "ITEM_COMPLETED"))), EntityOperator.AND);
             List<GenericValue> orderItemQuantitiesIssued = null;
             try {
                 orderItemQuantitiesIssued = EntityQuery.use(delegator).select("orderId", "orderItemSeqId", "quantityIssued").from("OrderItemQuantityReportGroupByItem").where(whereConditions).orderBy("orderItemSeqId").queryList();

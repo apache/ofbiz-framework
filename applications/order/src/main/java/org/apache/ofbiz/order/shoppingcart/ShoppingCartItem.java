@@ -77,10 +77,10 @@ public class ShoppingCartItem implements java.io.Serializable {
     private static final String MODULE = ShoppingCartItem.class.getName();
     private static final String RESOURCE = "OrderUiLabels";
     private static final String RES_ERROR = "OrderErrorUiLabels";
-    protected static final String[] attributeNames = { "shoppingListId", "shoppingListItemSeqId", "surveyResponses",
+    protected static final String[] attributeNames = {"shoppingListId", "shoppingListItemSeqId", "surveyResponses",
                                               "itemDesiredDeliveryDate", "itemComment", "fromInventoryItemId"};
 
-    public static final MathContext generalRounding = new MathContext(10);
+    public static final MathContext GEN_ROUNDING = new MathContext(10);
 
     private transient Delegator delegator = null;
     /** the actual or variant product */
@@ -1084,7 +1084,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     .filterByDate().queryFirst();
             if (UtilValidate.isNotEmpty(depositAmount)) {
                 Boolean updatedDepositAmount = false;
-                BigDecimal adjustmentAmount = depositAmount.getBigDecimal("price").multiply(this.getQuantity(), generalRounding);
+                BigDecimal adjustmentAmount = depositAmount.getBigDecimal("price").multiply(this.getQuantity(), GEN_ROUNDING);
                 // itemAdjustments is a reference so directly setting updated amount to the same.
                 for (GenericValue itemAdjustment : itemAdjustments) {
                     if ("DEPOSIT_ADJUSTMENT".equals(itemAdjustment.getString("orderAdjustmentTypeId"))) {
@@ -2564,7 +2564,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
                             // we use != because adjustments can be +/-
                             if (adjAmount != null && adjAmount.compareTo(BigDecimal.ZERO) != 0) {
-                                newAdjustment.set("amount", adjAmount.divide(baseQuantity, generalRounding));
+                                newAdjustment.set("amount", adjAmount.divide(baseQuantity, GEN_ROUNDING));
                             }
                             Debug.logInfo("Cloned adj: " + newAdjustment, MODULE);
                             item.addAdjustment(newAdjustment);
@@ -2594,7 +2594,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
                         // we use != becuase adjustments can be +/-
                         if (adjAmount != null && adjAmount.compareTo(BigDecimal.ZERO) != 0) {
-                            newAdjustment.set("amount", adjAmount.divide(baseQuantity, generalRounding));
+                            newAdjustment.set("amount", adjAmount.divide(baseQuantity, GEN_ROUNDING));
                         }
                         Debug.logInfo("Updated adj: " + newAdjustment, MODULE);
                         this.addAdjustment(newAdjustment);

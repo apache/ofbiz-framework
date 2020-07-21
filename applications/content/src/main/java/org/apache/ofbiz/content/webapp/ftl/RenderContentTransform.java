@@ -61,7 +61,7 @@ public class RenderContentTransform implements TemplateTransformModel {
 
         final MapStack<String> templateRoot = MapStack.create(FreeMarkerWorker.createEnvironmentMap(env));
         templateRoot.push(args);
-        final String xmlEscape =  (String) templateRoot.get("xmlEscape");
+        final String xmlEscape = (String) templateRoot.get("xmlEscape");
         final String thisContentId = (String) templateRoot.get("contentId");
 
         return new Writer(out) {

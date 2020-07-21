@@ -814,9 +814,9 @@ public class ProductSearchSession {
             if (UtilValidate.isEmpty(include)) {
                 include = "Y";
             }
-            Boolean inc =  Boolean.TRUE;
+            Boolean inc = Boolean.TRUE;
             if ("N".equalsIgnoreCase(include)) {
-                inc =  Boolean.FALSE;
+                inc = Boolean.FALSE;
             }
 
             searchAddConstraint(new ProductSearch.GoodIdentificationConstraint((String) parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"),

@@ -35,12 +35,10 @@ import freemarker.template.utility.DeepUnwrap;
 
 /**
  * CatalogUrlDirective - Freemarker Template Directive for generating URLs suitable for use by the CatalogUrlServlet
- * 
  * Accepts the following arguments (see CatalogUrlServlet for their definition):
  * productId
  * currentCategoryId
  * previousCategoryId
- * 
  */
 public class CatalogUrlDirective implements TemplateDirectiveModel {
 

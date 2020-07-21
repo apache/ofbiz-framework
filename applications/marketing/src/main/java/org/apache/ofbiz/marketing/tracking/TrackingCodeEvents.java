@@ -178,11 +178,15 @@ public class TrackingCodeEvents {
         //check effective dates
         java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
         if (trackingCode.get("fromDate") != null && nowStamp.before(trackingCode.getTimestamp("fromDate"))) {
-            if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has not yet gone into effect, ignoring this trackingCodeId", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has not yet gone into effect, ignoring this trackingCodeId", MODULE);
+            }
             return "success";
         }
         if (trackingCode.get("thruDate") != null && nowStamp.after(trackingCode.getTimestamp("thruDate"))) {
-            if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", MODULE);
+            }
             return "success";
         }
 
@@ -355,11 +359,15 @@ public class TrackingCodeEvents {
 
                         //check effective dates
                         if (trackingCode.get("fromDate") != null && nowStamp.before(trackingCode.getTimestamp("fromDate"))) {
-                            if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has not yet gone into effect, ignoring this trackingCodeId", MODULE);
+                            if (Debug.infoOn()) {
+                                Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has not yet gone into effect, ignoring this trackingCodeId", MODULE);
+                            }
                             continue;
                         }
                         if (trackingCode.get("thruDate") != null && nowStamp.after(trackingCode.getTimestamp("thruDate"))) {
-                            if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", MODULE);
+                            if (Debug.infoOn()) {
+                                Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", MODULE);
+                            }
                             continue;
                         }
 
@@ -506,10 +514,14 @@ public class TrackingCodeEvents {
         if (trackingCode != null) {
             //check effective dates
             if (trackingCode.get("fromDate") != null && nowStamp.before(trackingCode.getTimestamp("fromDate"))) {
-                if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has not yet gone into effect, ignoring this trackingCodeId", MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has not yet gone into effect, ignoring this trackingCodeId", MODULE);
+                }
             }
             if (trackingCode.get("thruDate") != null && nowStamp.after(trackingCode.getTimestamp("thruDate"))) {
-                if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", MODULE);
+                }
             }
             GenericValue trackingCodeOrder = delegator.makeValue("TrackingCodeOrder",
                     UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"),

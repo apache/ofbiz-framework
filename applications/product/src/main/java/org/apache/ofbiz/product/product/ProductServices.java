@@ -481,8 +481,7 @@ public class ProductServices {
                 EntityCondition cond = EntityCondition.makeCondition(
                         UtilMisc.toList(
                                 EntityCondition.makeCondition("productId", productId),
-                                EntityCondition.makeCondition("productIdTo", productId)
-                       ), EntityJoinOperator.OR);
+                                EntityCondition.makeCondition("productIdTo", productId)), EntityJoinOperator.OR);
                 productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where(EntityCondition.makeCondition(cond, EntityCondition.makeCondition("productAssocTypeId", type))).orderBy(orderBy).cache(true).queryList();
             } else {
                 if (productIdTo == null) {

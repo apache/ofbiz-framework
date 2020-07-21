@@ -106,7 +106,9 @@ public final class ContentManagementWorker {
             lookupCaches.put(cacheEntityName, lkupCache);
         }
         lkupCache.add(pk.getPrimaryKey());
-        if (Debug.infoOn()) Debug.logInfo("in mruAddByEntityName, entityName:" + entityName + " lifoSet.size()" + lkupCache.size(), MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in mruAddByEntityName, entityName:" + entityName + " lifoSet.size()" + lkupCache.size(), MODULE);
+        }
     }
 
     public static Iterator<Object> mostRecentlyViewedIterator(String entityName, Map<String, LifoSet<Object>> lookupCaches) {
@@ -196,7 +198,7 @@ public final class ContentManagementWorker {
         GenericPK cachedPK = null;
         if (UtilValidate.isNotEmpty(entityName)) {
             cachedPK = currentEntityMap.get(entityName);
-        } 
+        }
         getCurrentValueWithCachedPK(request, delegator, cachedPK, entityName);
         GenericPK currentPK = (GenericPK) request.getAttribute("currentPK");
         currentEntityMap.put(entityName, currentPK);
@@ -243,7 +245,6 @@ public final class ContentManagementWorker {
                             sCached = oCached.toString();
                             if (UtilValidate.isEmpty(sCached)) {
                                 useCached = false;
-                            } else {
                             }
                         } else {
                             useCached = false;
@@ -388,7 +389,7 @@ public final class ContentManagementWorker {
                 if (filteredList.size() > 0) {
                     map.put(publishPointId, "Y");
                     GenericValue assoc = filteredList.get(0);
-                    Timestamp fromDate = (Timestamp)assoc.get("fromDate");
+                    Timestamp fromDate = (Timestamp) assoc.get("fromDate");
                     map.put(publishPointId + "FromDate", fromDate);
                 } else {
                     map.put(publishPointId, "N");
@@ -437,14 +438,14 @@ public final class ContentManagementWorker {
         return webSitePublishPoint;
     }
 
-    public static GenericValue getParentWebSitePublishPointValue(Delegator delegator, String  contentId) throws GenericEntityException {
+    public static GenericValue getParentWebSitePublishPointValue(Delegator delegator, String contentId) throws GenericEntityException {
 
         String contentIdTo = getParentWebSitePublishPointId(delegator, contentId);
         GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentIdTo).cache().queryOne();
         return content;
     }
 
-    public static String getParentWebSitePublishPointId(Delegator delegator, String  contentId) throws GenericEntityException {
+    public static String getParentWebSitePublishPointId(Delegator delegator, String contentId) throws GenericEntityException {
         String contentIdTo = null;
         GenericValue contentAssoc = EntityQuery.use(delegator).from("ContentAssoc")
                 .where("contentId", contentId, "contentAssocTypeId", "SUBSITE")
@@ -468,7 +469,7 @@ public final class ContentManagementWorker {
         return webSitePublishPoint;
     }
 
-    public static List<Object[]> getPublishedLinks(Delegator delegator,  String targContentId, String rootPubId, GenericValue userLogin, Security security, String permittedAction, String permittedOperations, String passedRoles) throws GeneralException {
+    public static List<Object[]> getPublishedLinks(Delegator delegator, String targContentId, String rootPubId, GenericValue userLogin, Security security, String permittedAction, String permittedOperations, String passedRoles) throws GeneralException {
         // Set up one map with all the top-level publish points (to which only one sub point can be attached to)
         // and another map (publishPointMapAll) that points to one of the top-level points.
         List<GenericValue> allPublishPointList = getAllPublishPoints(delegator, rootPubId);
@@ -504,7 +505,7 @@ public final class ContentManagementWorker {
             String topContentId = (String) publishPointMapAll.get(contentIdTo);
             Object[] subArr = (Object[]) publishPointMap.get(topContentId);
             if (contentIdTo.equals(topContentId)) {
-                subArr[3] =  contentAssoc.get("fromDate");
+                subArr[3] = contentAssoc.get("fromDate");
             } else {
                 if (subArr != null) {
                     List<Object[]> subPointList = UtilGenerics.cast(subArr[1]);
@@ -513,10 +514,11 @@ public final class ContentManagementWorker {
                     while (it5.hasNext()) {
                         subArr2 = it5.next();
                         String contentId5 = (String) subArr2[0];
-                        if (contentId5.equals(contentIdTo))
+                        if (contentId5.equals(contentIdTo)) {
                             break;
+                        }
                     }
-                    subArr2[2] =  contentAssoc.get("fromDate");
+                    subArr2[2] = contentAssoc.get("fromDate");
                 }
             }
         }
@@ -536,7 +538,7 @@ public final class ContentManagementWorker {
             List<String> assocTypes = UtilMisc.toList("AUTHOR");
             // TODO check if we want contentTypes to be filled/used, else this should be removed
             List<String> contentTypes = null;
-            Map<String, Object> results =  ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To", null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
+            Map<String, Object> results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To", null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
             List<GenericValue> valueList = UtilGenerics.cast(results.get("entityList"));
             if (valueList.size() > 0) {
                 GenericValue value = valueList.get(0);

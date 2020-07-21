@@ -152,7 +152,9 @@ public class ContentManagementServices {
         String deactivateString = (String) context.get("deactivateExisting");
         boolean deactivateExisting = "true".equalsIgnoreCase(deactivateString);
 
-        if (Debug.infoOn()) Debug.logInfo("in persist... mapKey(0):" + mapKey, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in persist... mapKey(0):" + mapKey, MODULE);
+        }
 
         // ContentPurposes can get passed in as a delimited string or a list. Combine.
         List<String> contentPurposeList = UtilGenerics.cast(context.get("contentPurposeList"));
@@ -319,7 +321,9 @@ public class ContentManagementServices {
                 map.put("userLogin", userLogin);
                 map.put("dataResourceId", dataResourceId);
                 map.put("contentId", contentId);
-                if (Debug.infoOn()) Debug.logInfo("in persist... context:" + context, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("in persist... context:" + context, MODULE);
+                }
                 Map<String, Object> r = dispatcher.runSync("updateContent", map);
                 boolean isError = ModelService.RESPOND_ERROR.equals(r.get(ModelService.RESPONSE_MESSAGE));
                 if (isError)
@@ -336,9 +340,13 @@ public class ContentManagementServices {
             Debug.logInfo("CREATING contentASSOC contentAssocTypeId:" + contentAssocTypeId, MODULE);
         }
         // create content assoc if the key values are present....
-        if (Debug.infoOn()) Debug.logInfo("contentAssoc: " + contentAssoc.toString(), MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("contentAssoc: " + contentAssoc.toString(), MODULE);
+        }
         if (UtilValidate.isNotEmpty(contentAssocTypeId) && contentAssoc.get("contentId") != null && contentAssoc.get("contentIdTo") != null) {
-            if (Debug.infoOn()) Debug.logInfo("in persistContentAndAssoc, deactivateExisting:" + deactivateExisting, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("in persistContentAndAssoc, deactivateExisting:" + deactivateExisting, MODULE);
+            }
             Map<String, Object> contentAssocContext = new HashMap<>();
             contentAssocContext.put("userLogin", userLogin);
             contentAssocContext.put("displayFailCond", bDisplayFailCond);
@@ -447,7 +455,9 @@ public class ContentManagementServices {
                           return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
                       }
                       serviceContext.put("fromDate", UtilDateTime.nowTimestamp());
-                      if (Debug.infoOn()) Debug.logInfo("updateSiteRoles, serviceContext(1):" + serviceContext, MODULE);
+                      if (Debug.infoOn()) {
+                          Debug.logInfo("updateSiteRoles, serviceContext(1):" + serviceContext, MODULE);
+                      }
                       permResults = dispatcher.runSync("createContentRole", serviceContext);
                       if (ServiceUtil.isError(permResults)) {
                           return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
@@ -587,7 +597,7 @@ public class ContentManagementServices {
               }
           } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
           } else if ("SURVEY".startsWith(dataResourceTypeId)) {
-          } else if ("_FILE".indexOf(dataResourceTypeId) >=0) {
+          } else if ("_FILE".indexOf(dataResourceTypeId) >= 0) {
               Map<String, Object> uploadImage = new HashMap<>();
               uploadImage.put("userLogin", userLogin);
               uploadImage.put("dataResourceId", dataResourceId);
@@ -630,7 +640,7 @@ public class ContentManagementServices {
               }
           } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
           } else if ("SURVEY".startsWith(dataResourceTypeId)) {
-          } else if ("_FILE".indexOf(dataResourceTypeId) >=0) {
+          } else if ("_FILE".indexOf(dataResourceTypeId) >= 0) {
               Map<String, Object> uploadImage = new HashMap<>();
               uploadImage.put("userLogin", userLogin);
               uploadImage.put("dataResourceId", dataResourceId);

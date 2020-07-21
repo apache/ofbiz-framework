@@ -401,7 +401,9 @@ public class WorldPayEvents {
     }
 
     private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
-        if (Debug.verboseOn()) Debug.logVerbose("Setting payment preferences..", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Setting payment preferences..", MODULE);
+        }
         List<GenericValue> paymentPrefs = null;
         try {
             paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference")

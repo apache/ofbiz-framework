@@ -61,7 +61,7 @@ public class InventoryServices {
 
     public final static String MODULE = InventoryServices.class.getName();
     private static final String RESOURCE = "ProductUiLabels";
-    public static final MathContext generalRounding = new MathContext(10);
+    public static final MathContext GEN_ROUNDING = new MathContext(10);
 
     public static Map<String, Object> prepareInventoryTransfer(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -193,17 +193,17 @@ public class InventoryServices {
                 }
             } else if ("SERIALIZED_INV_ITEM".equals(inventoryType)) {
                 // set the status to avoid re-moving or something
-              if (newItem != null) {
+                if (newItem != null) {
                     newItem.refresh();
                     newItem.set("statusId", "INV_BEING_TRANSFERED");
                     newItem.store();
                     results.put("inventoryItemId", newItem.get("inventoryItemId"));
-              } else {
+                } else {
                     inventoryItem.refresh();
                     inventoryItem.set("statusId", "INV_BEING_TRANSFERED");
                     inventoryItem.store();
                     results.put("inventoryItemId", inventoryItem.get("inventoryItemId"));
-              }
+                }
             }
 
             return results;
@@ -696,7 +696,8 @@ public class InventoryServices {
 
                // if there is no quantity for the associated product in ProductAssoc entity, default it to 1.0
                if (assocQuantity == null) {
-                   Debug.logWarning("ProductAssoc from [" + productAssoc.getString("productId") + "] to [" + productAssoc.getString("productIdTo") + "] has no quantity, assuming 1.0", MODULE);
+                   Debug.logWarning("ProductAssoc from [" + productAssoc.getString("productId") + "] to [" + productAssoc.getString("productIdTo")
+                           + "] has no quantity, assuming 1.0", MODULE);
                    assocQuantity = BigDecimal.ONE;
                }
 
@@ -718,8 +719,8 @@ public class InventoryServices {
                // Figure out what the QOH and ATP inventory would be with this associated product
                BigDecimal currentQuantityOnHandTotal = (BigDecimal) resultOutput.get("quantityOnHandTotal");
                BigDecimal currentAvailableToPromiseTotal = (BigDecimal) resultOutput.get("availableToPromiseTotal");
-               BigDecimal tmpQuantityOnHandTotal = currentQuantityOnHandTotal.divideToIntegralValue(assocQuantity, generalRounding);
-               BigDecimal tmpAvailableToPromiseTotal = currentAvailableToPromiseTotal.divideToIntegralValue(assocQuantity, generalRounding);
+               BigDecimal tmpQuantityOnHandTotal = currentQuantityOnHandTotal.divideToIntegralValue(assocQuantity, GEN_ROUNDING);
+               BigDecimal tmpAvailableToPromiseTotal = currentAvailableToPromiseTotal.divideToIntegralValue(assocQuantity, GEN_ROUNDING);
 
                // reset the minimum QOH and ATP quantities if those quantities for this product are less
                if (minQuantityOnHandTotal == null || tmpQuantityOnHandTotal.compareTo(minQuantityOnHandTotal) < 0) {
@@ -730,8 +731,9 @@ public class InventoryServices {
                }
 
                if (Debug.verboseOn()) {
-                   Debug.logVerbose("productIdTo = " + productIdTo + " assocQuantity = " + assocQuantity + "current QOH " + currentQuantityOnHandTotal +
-                        "currentATP = " + currentAvailableToPromiseTotal + " minQOH = " + minQuantityOnHandTotal + " minATP = " + minAvailableToPromiseTotal, MODULE);
+                   Debug.logVerbose("productIdTo = " + productIdTo + " assocQuantity = " + assocQuantity + "current QOH " + currentQuantityOnHandTotal
+                   + "currentATP = " + currentAvailableToPromiseTotal + " minQOH = " + minQuantityOnHandTotal + " minATP = "
+                   + minAvailableToPromiseTotal, MODULE);
                }
            }
           // the final QOH and ATP quantities are the minimum of all the products
@@ -744,7 +746,6 @@ public class InventoryServices {
         result.put("quantityOnHandTotal", quantityOnHandTotal);
         return result;
     }
-
 
     public static Map<String, Object> getProductInventorySummaryForItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -847,8 +848,6 @@ public class InventoryServices {
         results.put("mktgPkgQOHMap", mktgPkgQohMap);
         return results;
     }
-
-
     public static Map<String, Object> getProductInventoryAndFacilitySummary(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -967,8 +966,7 @@ public class InventoryServices {
                         EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                         EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
-                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
-                   ),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)),
                 EntityOperator.AND);
 
             try (EntityListIterator salesUsageIt = EntityQuery.use(delegator).from(salesUsageViewEntity).where(cond).queryIterator()) {
@@ -987,8 +985,7 @@ public class InventoryServices {
                                 EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
                                 EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                                 EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
-                                EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
-                                ),
+                                EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)),
                         EntityOperator.AND);
 
                 try (EntityListIterator productionUsageIt = EntityQuery.use(delegator).from(productionUsageViewEntity).where(conditions).queryIterator()) {
@@ -1013,5 +1010,4 @@ public class InventoryServices {
         }
         return result;
     }
-
 }

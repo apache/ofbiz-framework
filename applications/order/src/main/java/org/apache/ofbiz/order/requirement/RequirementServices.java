@@ -119,7 +119,7 @@ public class RequirementServices {
                 BigDecimal requiredQuantity = requirement.getBigDecimal("quantity");
 
                 // get an available supplier product, preferably the one with the smallest minimum quantity to order, followed by price
-                String supplierKey =  partyId + "^" + productId;
+                String supplierKey = partyId + "^" + productId;
                 GenericValue supplierProduct = suppliers.get(supplierKey);
                 if (supplierProduct == null) {
                     // TODO: it is possible to restrict to quantity > minimumOrderQuantity, but then the entire requirement must be skipped
@@ -171,8 +171,7 @@ public class RequirementServices {
                                 EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
                                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_REJECTED", "ORDER_CANCELLED")),
                                 EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_REJECTED", "ITEM_CANCELLED")),
-                                EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)
-                               ), EntityOperator.AND);
+                                EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)), EntityOperator.AND);
                     GenericValue count = EntityQuery.use(delegator).select("quantityOrdered").from("OrderItemQuantityReportGroupByProduct").where(prodConditions).queryFirst();
                     if (count != null) {
                         sold = count.getBigDecimal("quantityOrdered");

@@ -1099,7 +1099,7 @@ public class ProductEvents {
             try {
                 product = ProductWorker.findProduct(delegator, productId);
             } catch (GenericEntityException e) {
-                productId =  null;
+                productId = null;
                 Debug.logError(e, MODULE);
             }
         }

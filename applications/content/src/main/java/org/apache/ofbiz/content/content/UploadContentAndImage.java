@@ -197,7 +197,9 @@ public class UploadContentAndImage {
 
             String ftlDataResourceId = drid;
 
-            if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, MODULE);
+            }
             // Create or update summary text subContent
             if (passedParams.containsKey("summaryData")) {
                 Map<String, Object> sumContext = new HashMap<>();
@@ -280,7 +282,9 @@ public class UploadContentAndImage {
                 imgContext.put("mapKey", "IMAGE");
                 imgContext.put("dataTemplateTypeId", "NONE");
                 imgContext.put("rootDir", "rootDir");
-                if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]imgContext " + imgContext, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("[UploadContentAndImage]imgContext " + imgContext, MODULE);
+                }
                 Map<String, Object> imgResults = dispatcher.runSync("persistContentAndAssoc", imgContext);
                 if (ServiceUtil.isError(imgResults)) {
                     String errorMessage = ServiceUtil.getErrorMessage(imgResults);

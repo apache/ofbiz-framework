@@ -326,7 +326,7 @@ public class VerifyPickSession implements Serializable {
     protected void checkReservedQty(String orderId, Locale locale) throws GeneralException {
         List<String> errorList = new LinkedList<>();
         for (VerifyPickSessionRow pickRow : this.getPickRows(orderId)) {
-            BigDecimal reservedQty =  this.getReservedQty(pickRow.getOrderId(), pickRow.getOrderItemSeqId(), pickRow.getShipGroupSeqId());
+            BigDecimal reservedQty = this.getReservedQty(pickRow.getOrderId(), pickRow.getOrderItemSeqId(), pickRow.getShipGroupSeqId());
             BigDecimal verifiedQty = this.getReadyToVerifyQuantity(pickRow.getOrderId(), pickRow.getOrderItemSeqId());
             if (verifiedQty.compareTo(reservedQty) != 0) {
                 errorList.add(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorVerifiedQtyDoesNotMatchTheReservedQtyForItem", UtilMisc.toMap("productId", pickRow.getProductId(), "verifiedQty", pickRow.getReadyToVerifyQty(), "reservedQty", reservedQty), locale));

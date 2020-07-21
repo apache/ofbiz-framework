@@ -51,8 +51,8 @@ public class PermissionRecorder {
 
     private static final String MODULE = PermissionRecorder.class.getName();
 
-    private static final String[] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
-    private static final String[] fieldTitles = { "Purpose", "Operation", "Role", "Status", "Privilege"};
+    private static final String[] opFields = {"contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
+    private static final String[] fieldTitles = {"Purpose", "Operation", "Role", "Status", "Privilege"};
 
     public PermissionRecorder() {
         isOn = UtilProperties.propertyValueEqualsIgnoreCase("content", "permissionRecorderOn", "true");

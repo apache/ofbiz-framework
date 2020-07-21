@@ -193,7 +193,7 @@ public class PackingServices {
                             } catch (NumberFormatException nex) {
                             }
                         }
-                        for (int numPackage=0; numPackage<numPackages; numPackage++) {
+                        for (int numPackage = 0; numPackage < numPackages; numPackage++) {
                             session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq+numPackage, weightSeq, updateQuantity);
                         }
                     } catch (GeneralException e) {

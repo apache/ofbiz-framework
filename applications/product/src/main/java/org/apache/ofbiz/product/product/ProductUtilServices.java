@@ -72,8 +72,7 @@ public final class ProductUtilServices {
         EntityCondition conditionOne = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("isVariant", EntityOperator.EQUALS, "Y"),
                 EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.NOT_EQUAL, null),
-                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)
-               ), EntityOperator.AND);
+                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)), EntityOperator.AND);
 
         try (EntityListIterator eliOne = EntityQuery.use(delegator).from("Product").where(conditionOne).queryIterator()) {
             GenericValue productOne = null;
@@ -103,8 +102,7 @@ public final class ProductUtilServices {
             // get all non-discontinued virtuals, see if all variant ProductAssocs are expired, if discontinue
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, "Y"),
-                    EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                   ), EntityOperator.AND);
+                    EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))), EntityOperator.AND);
             try (EntityListIterator eli = EntityQuery.use(delegator).from("Product").where(condition).queryIterator()) {
                 GenericValue product = null;
                 int numSoFar = 0;
@@ -144,8 +142,7 @@ public final class ProductUtilServices {
         String errMsg = null;
         EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.NOT_EQUAL, null),
-                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)
-               ), EntityOperator.AND);
+                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)), EntityOperator.AND);
 
         try (EntityListIterator eli = EntityQuery.use(delegator).from("Product").where(condition).queryIterator()) {
             GenericValue product = null;
@@ -190,8 +187,7 @@ public final class ProductUtilServices {
 
         EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, nowTimestamp),
-                EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)
-               ), EntityOperator.AND);
+                EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)), EntityOperator.AND);
         EntityCondition havingCond = EntityCondition.makeCondition("productIdCount", EntityOperator.GREATER_THAN, 1L);
 
         try (EntityListIterator eli = EntityQuery.use(delegator).select("productId", "productCategoryId", "productIdCount").from(dve).where(condition).having(havingCond).queryIterator()) {
@@ -246,8 +242,7 @@ public final class ProductUtilServices {
                 EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_VARIANT"),
                 EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null),
                         EntityOperator.OR,
-                        EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, nowTimestamp))
-               ), EntityOperator.AND);
+                        EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, nowTimestamp))), EntityOperator.AND);
         EntityCondition havingCond = EntityCondition.makeCondition("productIdToCount", EntityOperator.EQUALS, 1L);
         EntityQuery eq = EntityQuery.use(delegator)
                 .select("productId", "productIdToCount")
@@ -282,8 +277,7 @@ public final class ProductUtilServices {
                     EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_VARIANT"),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, nowTimestamp)),
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
-                    EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                   ), EntityOperator.AND);
+                    EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))), EntityOperator.AND);
             eq = EntityQuery.use(delegator).
                     select("productId", "productIdToCount").
                     from(dve)
@@ -650,8 +644,7 @@ public final class ProductUtilServices {
                     EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
-                            EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                    ), EntityOperator.AND);
+                            EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))), EntityOperator.AND);
 
             try (EntityListIterator productFeatureAndApplEli = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where(condition).queryIterator()) {
                 GenericValue productFeatureAndAppl = null;
@@ -699,8 +692,7 @@ public final class ProductUtilServices {
                                 EntityCondition.makeCondition("productFeatureId", EntityOperator.EQUALS, productFeatureId),
                                 EntityCondition.makeCondition("productFeatureGroupId", EntityOperator.EQUALS, productFeatureGroupId),
                                 EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
-                                EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                                ), EntityOperator.AND);
+                                EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))), EntityOperator.AND);
                         if (EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where(condition).queryCount() == 0) {
                             // if no valid ones, create one
                             GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productFeatureId", productFeatureId, "fromDate", nowTimestamp));
@@ -715,8 +707,7 @@ public final class ProductUtilServices {
                     condition = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, subProductCategoryId),
                             EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
-                            EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                            ), EntityOperator.AND);
+                            EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))), EntityOperator.AND);
                     try (EntityListIterator productFeatureCatGrpApplEli = EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl").where(condition).queryIterator()) {
                         GenericValue productFeatureCatGrpAppl = null;
                         while ((productFeatureCatGrpAppl = productFeatureCatGrpApplEli.next()) != null) {
@@ -725,8 +716,7 @@ public final class ProductUtilServices {
                                     EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, productCategoryId),
                                     EntityCondition.makeCondition("productFeatureGroupId", EntityOperator.EQUALS, productFeatureGroupId),
                                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
-                                    EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                                    ), EntityOperator.AND);
+                                    EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))), EntityOperator.AND);
                             if (EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl").where(checkCondition).queryCount() == 0) {
                                 // if no valid ones, create one
                                 GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureCatGrpAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productCategoryId", productCategoryId, "fromDate", nowTimestamp));

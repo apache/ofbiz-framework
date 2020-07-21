@@ -65,7 +65,7 @@ public class ShoppingCartServices {
     private static final String MODULE = ShoppingCartServices.class.getName();
     private static final String RES_ERROR = "OrderErrorUiLabels";
 
-    public static final MathContext generalRounding = new MathContext(10);
+    public static final MathContext GEN_ROUNDING = new MathContext(10);
     public static Map<String, Object> assignItemShipGroup(DispatchContext dctx, Map<String, Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         Integer fromGroupIndex = (Integer) context.get("fromGroupIndex");
@@ -859,7 +859,7 @@ public class ShoppingCartServices {
                 if (amount.compareTo(BigDecimal.ZERO) > 0) {
                     // If, in the quote, an amount is set, we need to
                     // pass to the cart the quoteUnitPrice/amount value.
-                    quoteUnitPrice = quoteUnitPrice.divide(amount, generalRounding);
+                    quoteUnitPrice = quoteUnitPrice.divide(amount, GEN_ROUNDING);
                 }
 
                 //rental product data
