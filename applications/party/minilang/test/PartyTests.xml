@@ -709,23 +709,6 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testCreatePartyRelationshipType" short-description="Test the service createPartyRelationshipType" login-required="false">
-        <set field="serviceCtx.partyRelationshipTypeId" value="TEST_TYPE"/>
-        <set field="serviceCtx.partyRelationshipName" value="Test Type"/>
-        <set field="serviceCtx.description" value="This is a test type to test service."/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="createPartyRelationshipType" in-map-name="serviceCtx"/>
-        <entity-one entity-name="PartyRelationshipType" value-field="partyRelationshipType">
-            <field-map field-name="partyRelationshipTypeId" value="TEST_TYPE"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="partyRelationshipType"/></not>
-        </assert>
-        <check-errors/>
-    </simple-method>
 
     <simple-method method-name="testCreatePersonAndUserLogin" short-description="Test the service to create person and user login" login-required="false">
         <set field="serviceCtx.partyId" value="DemoPerson"/>
