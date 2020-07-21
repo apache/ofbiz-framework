@@ -360,7 +360,9 @@ public final class EntityUtil {
 
         List<T> result = new ArrayList<>();
         result.addAll(values);
-        if (Debug.verboseOn()) Debug.logVerbose("Sorting " + values.size() + " values, orderBy=" + orderBy.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sorting " + values.size() + " values, orderBy=" + orderBy.toString(), MODULE);
+        }
         result.sort(new OrderByList(orderBy));
         return result;
     }

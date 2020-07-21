@@ -173,7 +173,7 @@ public class UtilTimer {
      * @return A String with the timing information, the timer String
      */
     public String timerString(int level, String message) {
-        // String retString =  "[[" + message + ": seconds since start: " + secondsSinceStart() + ",since last(" + lastMessage + "):" + secondsSinceLast() + "]]";
+        // String retString = "[[" + message + ": seconds since start: " + secondsSinceStart() + ",since last(" + lastMessage + "):" + secondsSinceLast() + "]]";
 
         StringBuilder retStringBuf = new StringBuilder();
 

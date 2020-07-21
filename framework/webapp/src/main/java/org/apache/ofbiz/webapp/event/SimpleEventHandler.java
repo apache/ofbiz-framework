@@ -55,7 +55,9 @@ public class SimpleEventHandler implements EventHandler {
         String eventName = event.invoke;
         Locale locale = UtilHttp.getLocale(request);
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Set path/method]: " + xmlResource + " / " + eventName, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Set path/method]: " + xmlResource + " / " + eventName, MODULE);
+        }
 
         if (xmlResource == null) {
             throw new EventHandlerException("XML Resource (eventPath) cannot be null");
@@ -64,12 +66,16 @@ public class SimpleEventHandler implements EventHandler {
             throw new EventHandlerException("Event Name (eventMethod) cannot be null");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SIMPLE Event", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Processing]: SIMPLE Event", MODULE);
+        }
         try {
             int timeout = Integer.max(event.transactionTimeout, 0);
             beganTransaction = TransactionUtil.begin(timeout);
             String eventReturn = SimpleMethod.runSimpleEvent(xmlResource, eventName, request, response);
-            if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + eventReturn, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[Event Return]: " + eventReturn, MODULE);
+            }
             return eventReturn;
         } catch (MiniLangException e) {
             Debug.logError(e, MODULE);

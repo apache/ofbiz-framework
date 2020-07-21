@@ -76,7 +76,9 @@ public final class EntityEcaCondition implements java.io.Serializable {
             throw new GenericEntityException("Cannot have null Value or DispatchContext!");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose(this.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose(this.toString(), MODULE);
+        }
 
         // condition-service; run the service and return the reply result
         if (isService) {
@@ -107,7 +109,9 @@ public final class EntityEcaCondition implements java.io.Serializable {
             rhsValue = value.get(rhsValueName);
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
+        }
 
         // evaluate the condition & invoke the action(s)
         List<Object> messages = new LinkedList<>();

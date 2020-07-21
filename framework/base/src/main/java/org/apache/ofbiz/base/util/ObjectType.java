@@ -286,7 +286,7 @@ public class ObjectType {
             Node node = (Node) obj;
 
 
-            String nodeValue =  node.getTextContent();
+            String nodeValue = node.getTextContent();
 
             if (nodeValue == null) {
                 /* We can't get the text value of Document, Document Type and Notation Node,

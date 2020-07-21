@@ -404,7 +404,7 @@ public class CoreEvents {
                 }
             } else if (servicePathObject instanceof Collection<?>) {
                 Collection<?> servicePathColl = UtilGenerics.cast(servicePathObject);
-                int count=0;
+                int count = 0;
                 servicePathMap = new HashMap<>();
                 for (Object value: servicePathColl) {
                     servicePathMap.put("_" + count + "_", value);

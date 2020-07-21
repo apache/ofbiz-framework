@@ -112,7 +112,9 @@ public class ServiceEcaCondition implements java.io.Serializable {
             throw new GenericServiceException("Cannot have null Service, Context or DispatchContext!");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose(this.toString() + ", In the context: " + context, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose(this.toString() + ", In the context: " + context, MODULE);
+        }
 
         // condition-service; run the service and return the reply result
         if (isService) {
@@ -173,7 +175,9 @@ public class ServiceEcaCondition implements java.io.Serializable {
             }
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
+        }
 
         // evaluate the condition & invoke the action(s)
         List<Object> messages = new LinkedList<>();

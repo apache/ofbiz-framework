@@ -48,7 +48,7 @@ final class StartupControlPanel {
         Config config = null;
         try {
             loadGlobalOfbizSystemProperties("ofbiz.system.props");
-            config =  new Config(ofbizCommands);
+            config = new Config(ofbizCommands);
         } catch (StartupException e) {
             fullyTerminateSystem(e);
         }

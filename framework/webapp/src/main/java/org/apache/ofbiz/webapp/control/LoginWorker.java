@@ -362,9 +362,6 @@ public final class LoginWorker {
                 if (UtilValidate.isNotEmpty(formParams)) {
                     session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
                 }
-
-                //if (Debug.infoOn()) Debug.logInfo("checkLogin: PathInfo=" + request.getPathInfo(), MODULE);
-
                 return "error";
             }
         }

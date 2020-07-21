@@ -132,7 +132,7 @@ public class EntityPermissionChecker {
             permissionConditionGetter.init(delegator);
             passed = checkPermissionMethod(delegator, partyId,  entityName, entityIdList, auxiliaryValueGetter, relatedRoleGetter, permissionConditionGetter);
             if (!passed && displayFailCond) {
-                 String errMsg =  "Permission is denied. \nThese are the conditions of which one must be met:\n"
+                 String errMsg = "Permission is denied. \nThese are the conditions of which one must be met:\n"
                      + permissionConditionGetter.dumpAsText();
                  List<Object> errorMessageList = UtilGenerics.cast(context.get("errorMessageList"));
                  errorMessageList.add(errMsg);
@@ -495,11 +495,13 @@ public class EntityPermissionChecker {
     public static boolean checkPermissionMethod(Delegator delegator, String partyId,  String entityName, List<? extends Object> entityIdList, AuxiliaryValueGetter auxiliaryValueGetter, RelatedRoleGetter relatedRoleGetter, PermissionConditionGetter permissionConditionGetter) throws GenericEntityException {
 
         permissionConditionGetter.init(delegator);
-        if (Debug.verboseOn()) Debug.logVerbose(permissionConditionGetter.dumpAsText(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose(permissionConditionGetter.dumpAsText(), MODULE);
+        }
         boolean passed = false;
 
         boolean checkAncestors = false;
-        boolean hasRoleOperation =  checkHasRoleOperations(partyId, permissionConditionGetter, delegator);
+        boolean hasRoleOperation = checkHasRoleOperations(partyId, permissionConditionGetter, delegator);
         if (hasRoleOperation) {
             return true;
         }
@@ -695,16 +697,22 @@ public class EntityPermissionChecker {
         Delegator delegator = entity.getDelegator();
         String pkFieldName = modelEntity.getFirstPkFieldName();
         String entityId = entity.getString(pkFieldName);
-        if (Debug.verboseOn()) Debug.logVerbose("\n\nIN hasMatch: entityId:" + entityId + " partyId:" + partyId + " checkAncestors:" + checkAncestors, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("\n\nIN hasMatch: entityId:" + entityId + " partyId:" + partyId + " checkAncestors:" + checkAncestors, MODULE);
+        }
         boolean isMatch = false;
         permissionConditionGetter.restart();
         List<String> auxiliaryValueList = null;
         if (auxiliaryValueGetter != null) {
            auxiliaryValueGetter.init(delegator, entityId);
-           auxiliaryValueList =   auxiliaryValueGetter.getList();
-            if (Debug.verboseOn()) Debug.logVerbose(auxiliaryValueGetter.dumpAsText(), MODULE);
+           auxiliaryValueList = auxiliaryValueGetter.getList();
+            if (Debug.verboseOn()) {
+                Debug.logVerbose(auxiliaryValueGetter.dumpAsText(), MODULE);
+            }
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("NO AUX GETTER", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("NO AUX GETTER", MODULE);
+            }
         }
         List<String> roleValueList = null;
         if (relatedRoleGetter != null) {
@@ -713,17 +721,23 @@ public class EntityPermissionChecker {
             } else {
                 relatedRoleGetter.init(delegator, entityId, partyId, entity);
             }
-            roleValueList =   relatedRoleGetter.getList();
-            if (Debug.verboseOn()) Debug.logVerbose(relatedRoleGetter.dumpAsText(), MODULE);
+            roleValueList = relatedRoleGetter.getList();
+            if (Debug.verboseOn()) {
+                Debug.logVerbose(relatedRoleGetter.dumpAsText(), MODULE);
+            }
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("NO ROLE GETTER", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("NO ROLE GETTER", MODULE);
+            }
         }
 
         String targStatusId = null;
         if (modelEntity.getField("statusId") != null) {
             targStatusId = entity.getString("statusId");
         }
-            if (Debug.verboseOn()) Debug.logVerbose("STATUS:" + targStatusId, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("STATUS:" + targStatusId, MODULE);
+            }
 
         while (permissionConditionGetter.getNext()) {
             String roleConditionId = permissionConditionGetter.getRoleValue();
@@ -735,7 +749,9 @@ public class EntityPermissionChecker {
             boolean roleCond = (roleConditionId == null || roleConditionId.equals("_NA_") || (roleValueList != null && roleValueList.contains(roleConditionId)));
 
             if (auxiliaryCond && statusCond && roleCond) {
-                if (Debug.verboseOn()) Debug.logVerbose("MATCHED: role:" + roleConditionId + " status:" + statusConditionId + " aux:" + auxiliaryConditionId, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("MATCHED: role:" + roleConditionId + " status:" + statusConditionId + " aux:" + auxiliaryConditionId, MODULE);
+                }
                     isMatch = true;
                     break;
             }

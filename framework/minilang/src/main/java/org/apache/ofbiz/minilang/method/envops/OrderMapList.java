@@ -36,7 +36,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;order-map-list&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class OrderMapList extends MethodOperation {

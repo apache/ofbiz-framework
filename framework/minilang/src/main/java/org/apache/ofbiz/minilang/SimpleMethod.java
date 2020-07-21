@@ -75,7 +75,6 @@ import org.w3c.dom.Element;
  * (see <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html" target="_blank">ServiceLoader</a>)
  * </li>
  * </ul>
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class SimpleMethod extends MiniLangElement {
@@ -541,10 +540,14 @@ public final class SimpleMethod extends MiniLangElement {
             if (UtilValidate.isEmpty(response)) {
                 if (forceError) {
                     // override response code, always use error code
-                    if (Debug.verboseOn()) Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", MODULE);
+                    }
                     response = defaultErrorCode;
                 } else {
-                    if (Debug.verboseOn()) Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", MODULE);
+                    }
                     response = defaultSuccessCode;
                 }
             }

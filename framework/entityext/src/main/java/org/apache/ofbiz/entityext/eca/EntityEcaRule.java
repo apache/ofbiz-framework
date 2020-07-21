@@ -140,7 +140,7 @@ public final class EntityEcaRule implements java.io.Serializable {
 
         if (!fieldsToLoad.isEmpty()) {
             Delegator delegator = dctx.getDelegator();
-            GenericValue oldValue =  EntityQuery.use(delegator).from(entityName).where(value.getPrimaryKey()).queryOne();
+            GenericValue oldValue = EntityQuery.use(delegator).from(entityName).where(value.getPrimaryKey()).queryOne();
             if (UtilValidate.isNotEmpty(oldValue)) {
                 for (String fieldName : fieldsToLoad) {
                     value.put(fieldName, oldValue.get(fieldName));

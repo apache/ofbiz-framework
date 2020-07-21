@@ -94,7 +94,9 @@ public class JmsServiceEngine extends AbstractEngine {
         String xmlContext = null;
 
         try {
-            if (Debug.verboseOn()) Debug.logVerbose("Serializing Context --> " + context, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Serializing Context --> " + context, MODULE);
+            }
             xmlContext = JmsSerializer.serialize(context);
         } catch (SerializeException | IOException e) {
             throw new GenericServiceException("Cannot serialize context.", e);
@@ -163,7 +165,9 @@ public class JmsServiceEngine extends AbstractEngine {
             Message message = makeMessage(session, modelService, context);
 
             publisher.publish(message);
-            if (Debug.verboseOn()) Debug.logVerbose("Sent JMS Message to " + topicName, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Sent JMS Message to " + topicName, MODULE);
+            }
 
             // close the connections
             publisher.close();
@@ -222,7 +226,9 @@ public class JmsServiceEngine extends AbstractEngine {
             Message message = makeMessage(session, modelService, context);
 
             sender.send(message);
-            if (Debug.verboseOn()) Debug.logVerbose("Sent JMS Message to " + queueName, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Sent JMS Message to " + queueName, MODULE);
+            }
 
             // close the connections
             sender.close();

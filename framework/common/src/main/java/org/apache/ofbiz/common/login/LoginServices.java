@@ -73,7 +73,6 @@ public class LoginServices {
 
     /**
      * Login service to authenticate username and password
-     * 
      * @return Map of results including (userLogin) GenericValue object
      */
     public static Map<String, Object> userLogin(DispatchContext ctx, Map<String, ?> context) {
@@ -611,7 +610,6 @@ public class LoginServices {
 
     /**
      * Creates a UserLogin
-     * 
      * @param ctx
      *            The DispatchContext that this service is operating in
      * @param context
@@ -716,7 +714,6 @@ public class LoginServices {
 
     /**
      * Updates UserLogin Password info
-     * 
      * @param ctx
      *            The DispatchContext that this service is operating in
      * @param context
@@ -855,7 +852,6 @@ public class LoginServices {
 
     /**
      * Updates the UserLoginId for a party, replicating password, etc from current login and expiring the old login.
-     * 
      * @param ctx
      *            The DispatchContext that this service is operating in
      * @param context
@@ -963,7 +959,6 @@ public class LoginServices {
 
     /**
      * Updates UserLogin Security info
-     * 
      * @param ctx
      *            The DispatchContext that this service is operating in
      * @param context

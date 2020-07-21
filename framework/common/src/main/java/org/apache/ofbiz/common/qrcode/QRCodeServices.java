@@ -86,7 +86,7 @@ public class QRCodeServices {
         Delegator delegator = ctx.getDelegator();
 
         if (UtilValidate.isEmpty(message)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ParameterCannotEmpty", new Object[] { "message" }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ParameterCannotEmpty", new Object[] {"message" }, locale));
         }
         if (width == null) {
             width = Integer.parseInt(EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.width", "200", delegator));
@@ -99,7 +99,7 @@ public class QRCodeServices {
         }
         if (height < MIN_SIZE || height > MAX_SIZE) {
             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError",
-                    new Object[] { "height", String.valueOf(height), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE) }, locale));
+                    new Object[] {"height", String.valueOf(height), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE) }, locale));
         }
         if (UtilValidate.isEmpty(format)) {
             format = EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.format", "jpg", delegator);

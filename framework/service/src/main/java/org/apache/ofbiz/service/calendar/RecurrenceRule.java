@@ -174,21 +174,27 @@ public class RecurrenceRule {
      */
     public long getEndTime() {
         if (rule == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Rule is null.", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Rule is null.", MODULE);
+            }
             return -1;
         }
         long time = 0;
         java.sql.Timestamp stamp = null;
 
         stamp = rule.getTimestamp("untilDateTime");
-        if (Debug.verboseOn()) Debug.logVerbose("Stamp value: " + stamp, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Stamp value: " + stamp, MODULE);
+        }
 
         if (stamp != null) {
             long nanos = stamp.getNanos();
             time = stamp.getTime();
             time += (nanos / 1000000);
         }
-        if (Debug.verboseOn()) Debug.logVerbose("Returning time: " + time, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Returning time: " + time, MODULE);
+        }
         return time;
     }
 

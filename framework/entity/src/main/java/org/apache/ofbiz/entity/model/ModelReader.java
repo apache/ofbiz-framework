@@ -419,7 +419,9 @@ public class ModelReader implements Serializable {
                                             String message = "Existing relationship with the same name, but different specs found from what would be auto-created for Entity ["
                                                     + relatedEnt.getEntityName() + "] and relationship to entity [" + curModelEntity.getEntityName() + "] title [" + title
                                                     + "]; would auto-create: type [" + newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
-                                            if (Debug.verboseOn()) Debug.logVerbose(message, MODULE);
+                                            if (Debug.verboseOn()) {
+                                                Debug.logVerbose(message, MODULE);
+                                            }
                                         }
                                     }
                                 }

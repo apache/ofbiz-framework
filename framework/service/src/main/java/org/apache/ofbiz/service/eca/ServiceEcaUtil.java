@@ -185,7 +185,9 @@ public final class ServiceEcaUtil {
             return;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Running ECA (" + event + ").", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Running ECA (" + event + ").", MODULE);
+        }
         Set<String> actionsRun = new TreeSet<>();
         for (ServiceEcaRule eca: rules) {
             eca.eval(serviceName, dctx, context, result, isError, isFailure, actionsRun);

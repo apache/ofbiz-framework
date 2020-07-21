@@ -1179,7 +1179,7 @@ public class GenericDelegator implements Delegator {
                 updatedEntities = this.findList(entityName, condition, null, null, null, false);
             }
 
-            int rowsAffected =  helper.storeByCondition(this, modelEntity, fieldsToSet, condition);
+            int rowsAffected = helper.storeByCondition(this, modelEntity, fieldsToSet, condition);
             if (rowsAffected > 0) {
                 this.clearCacheLine(entityName);
             }
@@ -2662,7 +2662,9 @@ public class GenericDelegator implements Delegator {
                 Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " does not implement the DistributedCacheClear interface, distributed cache clearing will be disabled", MODULE);
             }
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", MODULE);
+            }
         }
         return null;
     }

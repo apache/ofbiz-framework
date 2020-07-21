@@ -286,7 +286,7 @@ public class ModelEntityChecker {
         }
     }
 
-    protected static final String[] rwArray = { "ABORT", "ABS", "ABSOLUTE",
+    protected static final String[] rwArray = {"ABORT", "ABS", "ABSOLUTE",
             "ACCEPT", "ACCES", "ACCESS", "ACS", "ACTION", "ACTIVATE", "ADD", "ADDFORM",
             "ADMIN", "AFTER", "AGGREGATE", "ALIAS", "ALL", "ALLOCATE", "ALTER",
             "ANALYZE", "AND", "ANDFILENAME", "ANY", "ANYFINISH", "APPEND",

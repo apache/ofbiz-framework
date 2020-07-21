@@ -47,7 +47,9 @@ public class OfbizContentTransform implements TemplateTransformModel {
         String  result = "";
         Object obj = args.get(key);
         if (obj != null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + obj.getClass().getName(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Arg Object : " + obj.getClass().getName(), MODULE);
+            }
             if (obj instanceof TemplateScalarModel) {
                 TemplateScalarModel s = (TemplateScalarModel) obj;
                 try {

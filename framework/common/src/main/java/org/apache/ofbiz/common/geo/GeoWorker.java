@@ -84,7 +84,7 @@ public final class GeoWorker {
         if (UtilValidate.isEmpty(geoIdByTypeMapOrig)) {
             return geoIdByTypeMapOrig;
         }
-        Map<String, String> geoIdByTypeMapTemp =  new LinkedHashMap<>();
+        Map<String, String> geoIdByTypeMapTemp = new LinkedHashMap<>();
         for (Map.Entry<String, String> geoIdByTypeEntry: geoIdByTypeMapOrig.entrySet()) {
             List<GenericValue> geoAssocList = EntityQuery.use(delegator)
                                                          .from("GeoAssoc")
@@ -97,7 +97,7 @@ public final class GeoWorker {
             }
         }
         geoIdByTypeMapTemp = expandGeoRegionDeep(geoIdByTypeMapTemp, delegator);
-        Map<String, String> geoIdByTypeMapNew =  new LinkedHashMap<>();
+        Map<String, String> geoIdByTypeMapNew = new LinkedHashMap<>();
         // add the temp Map first, then the original over top of it, ie give the original priority over the sub/expanded values
         geoIdByTypeMapNew.putAll(geoIdByTypeMapTemp);
         geoIdByTypeMapNew.putAll(geoIdByTypeMapOrig);

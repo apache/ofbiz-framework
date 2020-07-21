@@ -196,7 +196,9 @@ public class ContextFilter implements Filter {
         while (initParamEnum.hasMoreElements()) {
             String initParamName = initParamEnum.nextElement();
             String initParamValue = config.getServletContext().getInitParameter(initParamName);
-            if (Debug.verboseOn()) Debug.logVerbose("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value [" + initParamValue + "]", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value [" + initParamValue + "]", MODULE);
+            }
             config.getServletContext().setAttribute(initParamName, initParamValue);
         }
     }

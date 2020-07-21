@@ -163,7 +163,9 @@ public final class ServiceDispatcher {
         String dispatcherKey = delegator != null ? delegator.getDelegatorName() : "null";
         sd = dispatchers.get(dispatcherKey);
         if (sd == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", MODULE);
+            }
             sd = new ServiceDispatcher(delegator);
             ServiceDispatcher cachedDispatcher = dispatchers.putIfAbsent(dispatcherKey, sd);
             if (cachedDispatcher == null) {
@@ -285,8 +287,10 @@ public final class ServiceDispatcher {
             }
 
             if (Debug.verboseOn() || modelService.debug) {
-                if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.runSync] : invoking service " + modelService.name + " [" + modelService.location +
-                    "/" + modelService.invoke + "] (" + modelService.engineName + ")", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[ServiceDispatcher.runSync] : invoking service " + modelService.name + " [" + modelService.location +
+                            "/" + modelService.invoke + "] (" + modelService.engineName + ")", MODULE);
+                }
             }
 
             Map<String, Object> context = new HashMap<>();
@@ -629,7 +633,9 @@ public final class ServiceDispatcher {
             if (resultStr.length() > 10240) {
                 resultStr = resultStr.substring(0, 10226) + "...[truncated]";
             }
-            if (Debug.verboseOn()) Debug.logVerbose("Sync service [" + localName + "/" + modelService.name + "] finished with response [" + resultStr + "]", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Sync service [" + localName + "/" + modelService.name + "] finished with response [" + resultStr + "]", MODULE);
+            }
         }
         if (modelService.metrics != null) {
             modelService.metrics.recordServiceRate(1, timeToRun);
@@ -653,8 +659,10 @@ public final class ServiceDispatcher {
             UtilTimer.timerLog(localName + " / " + service.name, "ASync service started...", MODULE);
         }
         if (Debug.verboseOn() || service.debug) {
-            if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.name + " [" + service.location + "/" + service.invoke +
-                "] (" + service.engineName + ")", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.name + " [" + service.location + "/" + service.invoke +
+                        "] (" + service.engineName + ")", MODULE);
+            }
         }
 
         Map<String, Object> context = new HashMap<>();
@@ -969,7 +977,9 @@ public final class ServiceDispatcher {
     private GenericValue getLoginObject(String service, String localName, String username, String password, String jwtToken, Locale locale) throws GenericServiceException {
         Map<String, Object> context = UtilMisc.toMap("login.username", username, "login.password", password, "login.token", jwtToken, "isServiceAuth", true, "locale", locale);
 
-        if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", MODULE);
+        }
 
         // get the dispatch context and service model
         DispatchContext dctx = getLocalContext(localName);

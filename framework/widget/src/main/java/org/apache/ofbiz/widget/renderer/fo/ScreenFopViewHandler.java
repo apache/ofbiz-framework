@@ -107,7 +107,9 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         if (!screenOutString.startsWith("<?xml")) {
             screenOutString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + screenOutString;
         }
-        if (Debug.verboseOn()) Debug.logVerbose("XSL:FO Screen Output: " + screenOutString, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("XSL:FO Screen Output: " + screenOutString, MODULE);
+        }
 
         if (UtilValidate.isEmpty(contentType)) {
             contentType = modelTheme.getContentType(getName());

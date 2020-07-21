@@ -323,7 +323,9 @@ public class EmailServices {
         if (!"Y".equalsIgnoreCase(mailEnabled)) {
             // no error; just return as if we already processed
             Debug.logImportant("Mail notifications disabled in general.properties; mail with subject [" + subject + "] not sent to addressee [" + sendTo + "]", MODULE);
-            if (Debug.verboseOn()) Debug.logVerbose("What would have been sent, the addressee: " + sendTo + " subject: " + subject + " context: " + context, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("What would have been sent, the addressee: " + sendTo + " subject: " + subject + " context: " + context, MODULE);
+            }
             results.put("messageWrapper", new MimeMessageWrapper(session, mail));
             return results;
         }

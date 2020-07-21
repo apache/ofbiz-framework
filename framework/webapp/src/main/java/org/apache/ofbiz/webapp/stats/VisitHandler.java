@@ -220,7 +220,9 @@ public class VisitHandler {
                             // first try to get the current ID from the visitor cookie
                             String cookieVisitorId = null;
                             Cookie[] cookies = request.getCookies();
-                            if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, MODULE);
+                            if (Debug.verboseOn()) {
+                                Debug.logVerbose("Cookies:" + cookies, MODULE);
+                            }
                             if (cookies != null) {
                                 for (int i = 0; i < cookies.length; i++) {
                                     if (cookies[i].getName().equals(visitorCookieName)) {
@@ -230,7 +232,9 @@ public class VisitHandler {
                                 }
                             }
 
-                            if (Debug.infoOn()) Debug.logInfo("Found visitorId [" + cookieVisitorId + "] in cookie", MODULE);
+                            if (Debug.infoOn()) {
+                                Debug.logInfo("Found visitorId [" + cookieVisitorId + "] in cookie", MODULE);
+                            }
 
                             if (UtilValidate.isEmpty(cookieVisitorId)) {
                                 // no visitor cookie? create visitor and send back cookie too

@@ -185,14 +185,14 @@ public class DispatchContext implements Serializable {
             throw new GenericServiceException("Model service is null! Should never happen.");
         }
         switch (modeInt) {
-            case 1:
-                newContext = model.makeValid(context, ModelService.IN_PARAM, true, null);
-                break;
-            case 2:
-                newContext = model.makeValid(context, ModelService.OUT_PARAM, true, null);
-                break;
-            default:
-                throw new GenericServiceException("Invalid mode, should be either IN or OUT");
+        case 1:
+            newContext = model.makeValid(context, ModelService.IN_PARAM, true, null);
+            break;
+        case 2:
+            newContext = model.makeValid(context, ModelService.OUT_PARAM, true, null);
+            break;
+        default:
+            throw new GenericServiceException("Invalid mode, should be either IN or OUT");
         }
         return newContext;
     }

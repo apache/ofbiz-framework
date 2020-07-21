@@ -227,7 +227,7 @@ public class CommonServices {
      * This service does not have required parameters and does not validate
      */
      public static Map<String, Object> echoService(DispatchContext dctx, Map<String, ?> context) {
-         Map<String, Object> result =  new LinkedHashMap<>();
+         Map<String, Object> result = new LinkedHashMap<>();
          result.putAll(context);
          result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
          return result;
@@ -385,7 +385,7 @@ public class CommonServices {
         String fileName = (String) context.get("_uploadFile_fileName");
         String contentType = (String) context.get("_uploadFile_contentType");
 
-        Map<String, Object> createCtx =  new LinkedHashMap<>();
+        Map<String, Object> createCtx = new LinkedHashMap<>();
         createCtx.put("binData", array);
         createCtx.put("dataResourceTypeId", "OFBIZ_FILE");
         createCtx.put("dataResourceName", fileName);
@@ -407,7 +407,7 @@ public class CommonServices {
 
         GenericValue dataResource = (GenericValue) createResp.get("dataResource");
         if (dataResource != null) {
-            Map<String, Object> contentCtx =  new LinkedHashMap<>();
+            Map<String, Object> contentCtx = new LinkedHashMap<>();
             contentCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
             contentCtx.put("localeString", ((Locale) context.get("locale")).toString());
             contentCtx.put("contentTypeId", "DOCUMENT");
@@ -516,7 +516,7 @@ public class CommonServices {
         List<Map<String, Object>> metricsMapList = new LinkedList<>();
         Collection<Metrics> metricsList = MetricsFactory.getMetrics();
         for (Metrics metrics : metricsList) {
-            Map<String, Object> metricsMap =  new LinkedHashMap<>();
+            Map<String, Object> metricsMap = new LinkedHashMap<>();
             metricsMap.put("name", metrics.getName());
             metricsMap.put("serviceRate", metrics.getServiceRate());
             metricsMap.put("threshold", metrics.getThreshold());

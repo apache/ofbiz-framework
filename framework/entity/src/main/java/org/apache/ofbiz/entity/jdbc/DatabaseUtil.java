@@ -489,7 +489,9 @@ public class DatabaseUtil {
 
             if (refTableInfoMap == null) {
                 // uh oh, something happened while getting info...
-                if (Debug.verboseOn()) Debug.logVerbose("Ref Table Info Map is null", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Ref Table Info Map is null", MODULE);
+                }
             } else {
                 for (ModelEntity entity: modelEntityList) {
                     String entityName = entity.getEntityName();
@@ -534,7 +536,9 @@ public class DatabaseUtil {
                             // if not, create one
                             String noFkMessage = "No Foreign Key Constraint [" + relConstraintName + "] found for entity [" + entityName + "]";
                             if (messages != null) messages.add(noFkMessage);
-                            if (Debug.infoOn()) Debug.logInfo(noFkMessage, MODULE);
+                            if (Debug.infoOn()) {
+                                Debug.logInfo(noFkMessage, MODULE);
+                            }
 
                             if (addMissing) {
                                 String errMsg = createForeignKey(entity, modelRelation, relModelEntity, datasourceInfo.getConstraintNameClipLength(), datasourceInfo.getFkStyle(), datasourceInfo.getUseFkInitiallyDeferred());
@@ -568,7 +572,9 @@ public class DatabaseUtil {
                     }
                 }
             }
-            if (Debug.infoOn()) Debug.logInfo("Created " + numFksCreated + " fk refs", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Created " + numFksCreated + " fk refs", MODULE);
+            }
         }
 
         // make sure each one-relation has an index
@@ -585,7 +591,9 @@ public class DatabaseUtil {
 
             if (tableIndexListMap == null) {
                 // uh oh, something happened while getting info...
-                if (Debug.verboseOn()) Debug.logVerbose("Ref Table Info Map is null", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Ref Table Info Map is null", MODULE);
+                }
             } else {
                 for (ModelEntity entity: modelEntityList) {
                     String entityName = entity.getEntityName();
@@ -629,7 +637,9 @@ public class DatabaseUtil {
                                 // if not, create one
                                 String noIdxMessage = "No Index [" + relConstraintName + "] found for entity [" + entityName + "]";
                                 if (messages != null) messages.add(noIdxMessage);
-                                if (Debug.infoOn()) Debug.logInfo(noIdxMessage, MODULE);
+                                if (Debug.infoOn()) {
+                                    Debug.logInfo(noIdxMessage, MODULE);
+                                }
 
                                 if (addMissing) {
                                     String errMsg = createForeignKeyIndex(entity, modelRelation, datasourceInfo.getConstraintNameClipLength());
@@ -669,7 +679,9 @@ public class DatabaseUtil {
                                 // if not, create one
                                 String noIdxMessage = "No Index [" + relIndexName + "] found for entity [" + entityName + "]";
                                 if (messages != null) messages.add(noIdxMessage);
-                                if (Debug.infoOn()) Debug.logInfo(noIdxMessage, MODULE);
+                                if (Debug.infoOn()) {
+                                    Debug.logInfo(noIdxMessage, MODULE);
+                                }
 
                                 if (addMissing) {
                                     String errMsg = createDeclaredIndex(entity, modelIndex);
@@ -922,7 +934,9 @@ public class DatabaseUtil {
         }
 
         printDbMiscData(dbData, connection);
-        if (Debug.infoOn()) Debug.logInfo("Getting Table Info From Database", MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Getting Table Info From Database", MODULE);
+        }
 
         // get ALL tables from this database
         TreeSet<String> tableNames = new TreeSet<>();
@@ -988,11 +1002,8 @@ public class DatabaseUtil {
                                 && !"BASE TABLE".equalsIgnoreCase(tableType)) {
                             continue;
                         }
-
                         // String remarks = tableSet.getString("REMARKS");
                         tableNames.add(tableName);
-                        // if (Debug.infoOn()) Debug.logInfo("Found table named [" + tableName + "] 
-                        // of type [" + tableType + "] with remarks: " + remarks, MODULE);
                     } catch (SQLException e) {
                         String message = "Error getting table information... Error was:" + e.toString();
                         Debug.logError(message, MODULE);
@@ -1056,7 +1067,9 @@ public class DatabaseUtil {
                 return null;
             }
 
-            if (Debug.infoOn()) Debug.logInfo("Getting Column Info From Database", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Getting Column Info From Database", MODULE);
+            }
 
             Map<String, Map<String, ColumnCheckInfo>> colInfo = new HashMap<>();
             try {
@@ -1263,7 +1276,9 @@ public class DatabaseUtil {
          }
          */
 
-        if (Debug.infoOn()) Debug.logInfo("Getting Foreign Key (Reference) Info From Database", MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Getting Foreign Key (Reference) Info From Database", MODULE);
+        }
 
         Map<String, Map<String, ReferenceCheckInfo>> refInfo = new HashMap<>();
 
@@ -1318,13 +1333,17 @@ public class DatabaseUtil {
                         rcInfo.fkName = rcInfo.fkName.toUpperCase();
                     }
 
-                    if (Debug.verboseOn()) Debug.logVerbose("Got: " + rcInfo.toString(), MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("Got: " + rcInfo.toString(), MODULE);
+                    }
 
                     Map<String, ReferenceCheckInfo> tableRefInfo = refInfo.get(rcInfo.fkTableName);
                     if (tableRefInfo == null) {
                         tableRefInfo = new HashMap<>();
                         refInfo.put(rcInfo.fkTableName, tableRefInfo);
-                        if (Debug.verboseOn()) Debug.logVerbose("Adding new Map for table: " + rcInfo.fkTableName, MODULE);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("Adding new Map for table: " + rcInfo.fkTableName, MODULE);
+                        }
                     }
                     if (!tableRefInfo.containsKey(rcInfo.fkName)) totalFkRefs++;
                     tableRefInfo.put(rcInfo.fkName, rcInfo);
@@ -1336,7 +1355,9 @@ public class DatabaseUtil {
                 }
             }
 
-            // if (Debug.infoOn()) Debug.logInfo("There are " + totalFkRefs + " in the database", MODULE);
+            // if (Debug.infoOn()) {
+            // Debug.logInfo("There are " + totalFkRefs + " in the database", MODULE)
+            // };
             try {
                 rsCols.close();
             } catch (SQLException e) {
@@ -1344,8 +1365,9 @@ public class DatabaseUtil {
                 Debug.logError(message, MODULE);
                 if (messages != null) messages.add(message);
             }
-            // }
-            if (Debug.infoOn()) Debug.logInfo("There are " + totalFkRefs + " foreign key refs in the database", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("There are " + totalFkRefs + " foreign key refs in the database", MODULE);
+            }
 
         } catch (SQLException e) {
             String message = "Error getting fk reference meta data Error was:" + e.toString() + ". Not checking fk refs.";
@@ -1397,7 +1419,9 @@ public class DatabaseUtil {
             if (messages != null) messages.add(message);
         }
 
-        if (Debug.infoOn()) Debug.logInfo("Getting Index Info From Database", MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Getting Index Info From Database", MODULE);
+        }
 
         Map<String, Set<String>> indexInfo = new HashMap<>();
         try {
@@ -1446,7 +1470,9 @@ public class DatabaseUtil {
                         if (tableIndexList == null) {
                             tableIndexList = new TreeSet<>();
                             indexInfo.put(tableName, tableIndexList);
-                            if (Debug.verboseOn()) Debug.logVerbose("Adding new Map for table: " + tableName, MODULE);
+                            if (Debug.verboseOn()) {
+                                Debug.logVerbose("Adding new Map for table: " + tableName, MODULE);
+                            }
                         }
                         // Need the check here, because an index can contain multiple columns,
                         // and this is represented by having multiple rows in rsCols.
@@ -1460,7 +1486,9 @@ public class DatabaseUtil {
                     }
                 }
 
-                // if (Debug.infoOn()) Debug.logInfo("There are " + totalIndices + " indices in the database", MODULE);
+                // if (Debug.infoOn()) {
+                // Debug.logInfo("There are " + totalIndices + " indices in the database", MODULE);
+                //}
                 if (rsCols != null) {
                     try {
                         rsCols.close();
@@ -1471,7 +1499,9 @@ public class DatabaseUtil {
                     }
                 }
             }
-            if (Debug.infoOn()) Debug.logInfo("There are " + totalIndices + " indices in the database", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("There are " + totalIndices + " indices in the database", MODULE);
+            }
 
         } catch (SQLException e) {
             String message = "Error getting fk reference meta data Error was:" + e.toString() + ". Not checking fk refs.";
@@ -1484,7 +1514,9 @@ public class DatabaseUtil {
             } catch (SQLException e) {
                 String message = "Unable to close database connection, continuing anyway... Error was:" + e.toString();
                 Debug.logError(message, MODULE);
-                if (messages != null) messages.add(message);
+                if (messages != null) {
+                    messages.add(message);
+                }
             }
         }
         return indexInfo;
@@ -1664,7 +1696,9 @@ public class DatabaseUtil {
             sqlBuf.append(this.datasourceInfo.getCollate());
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[createTable] sql=" + sqlBuf.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[createTable] sql=" + sqlBuf.toString(), MODULE);
+        }
         try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sqlBuf.toString());
         } catch (SQLException e) {
@@ -1699,7 +1733,9 @@ public class DatabaseUtil {
 
         StringBuilder sqlBuf = new StringBuilder("DROP TABLE ");
         sqlBuf.append(entity.getTableName(datasourceInfo));
-        if (Debug.verboseOn()) Debug.logVerbose("[deleteTable] sql=" + sqlBuf.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[deleteTable] sql=" + sqlBuf.toString(), MODULE);
+        }
         try (Connection connection = getConnectionLogged(messages); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sqlBuf.toString());
         } catch (SQLException e) {
@@ -1744,7 +1780,9 @@ public class DatabaseUtil {
         }
 
         String sql = sqlBuf.toString();
-        if (Debug.infoOn()) Debug.logInfo("[addColumn] sql=" + sql, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("[addColumn] sql=" + sql, MODULE);
+        }
         try (Connection connection = getConnection(); Statement  stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
@@ -1771,7 +1809,9 @@ public class DatabaseUtil {
             }
 
             String sql2 = sql2Buf.toString();
-            if (Debug.infoOn()) Debug.logInfo("[addColumn] sql failed, trying sql2=" + sql2, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("[addColumn] sql failed, trying sql2=" + sql2, MODULE);
+            }
             try (Connection connection = getConnection(); Statement  stmt = connection.createStatement()) {
                 stmt.executeUpdate(sql2);
             } catch (SQLException e2) {
@@ -1811,7 +1851,9 @@ public class DatabaseUtil {
         sqlBuf.append(newName);
 
         String sql = sqlBuf.toString();
-        if (Debug.infoOn()) Debug.logInfo("[renameColumn] sql=" + sql, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("[renameColumn] sql=" + sql, MODULE);
+        }
         try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
@@ -1853,10 +1895,14 @@ public class DatabaseUtil {
         sqlBuf1.append(tempName);
 
         String sql1 = sqlBuf1.toString();
-        if (Debug.infoOn()) Debug.logInfo("[moveData] sql=" + sql1, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("[moveData] sql=" + sql1, MODULE);
+        }
         try (Connection connection = getConnectionLogged(messages); Statement stmt = connection.createStatement()) {
             int changed = stmt.executeUpdate(sql1);
-            if (Debug.infoOn()) Debug.logInfo("[moveData] " + changed + " records updated", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("[moveData] " + changed + " records updated", MODULE);
+            }
         } catch (SQLException e) {
             String thisMsg = "SQL Exception while executing the following:\n" + sql1 + "\nError was: " + e.toString();
             if (messages != null)
@@ -1872,7 +1918,9 @@ public class DatabaseUtil {
         sqlBuf2.append(tempName);
 
         String sql2 = sqlBuf2.toString();
-        if (Debug.infoOn()) Debug.logInfo("[dropColumn] sql=" + sql2, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("[dropColumn] sql=" + sql2, MODULE);
+        }
         try (Connection connection = getConnectionLogged(messages); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql2);
         } catch (SQLException e) {
@@ -2020,7 +2068,9 @@ public class DatabaseUtil {
         }
         sqlBuf.append(fkConstraintClause);
 
-        if (Debug.verboseOn()) Debug.logVerbose("[createForeignKey] sql=" + sqlBuf.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[createForeignKey] sql=" + sqlBuf.toString(), MODULE);
+        }
         try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sqlBuf.toString());
         } catch (SQLException e) {
@@ -2172,7 +2222,9 @@ public class DatabaseUtil {
         }
         sqlBuf.append(relConstraintName);
 
-        if (Debug.verboseOn()) Debug.logVerbose("[deleteForeignKey] sql=" + sqlBuf.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[deleteForeignKey] sql=" + sqlBuf.toString(), MODULE);
+        }
         try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sqlBuf.toString());
         } catch (SQLException e) {
@@ -2232,7 +2284,9 @@ public class DatabaseUtil {
             entity.colNameString(entity.getPkFieldsUnmodifiable(), sqlBuf, "");
             sqlBuf.append(")");
 
-            if (Debug.verboseOn()) Debug.logVerbose("[createPrimaryKey] sql=" + sqlBuf.toString(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[createPrimaryKey] sql=" + sqlBuf.toString(), MODULE);
+            }
             try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
                 stmt.executeUpdate(sqlBuf.toString());
             } catch (SQLException e) {
@@ -2291,7 +2345,9 @@ public class DatabaseUtil {
                 // DEJ20050502 not sure why this is here, shouldn't be needed and some dbs don't support like this, ie when used with PRIMARY KEY: sqlBuf.append(" CASCADE");
             }
 
-            if (Debug.verboseOn()) Debug.logVerbose("[deletePrimaryKey] sql=" + sqlBuf.toString(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[deletePrimaryKey] sql=" + sqlBuf.toString(), MODULE);
+            }
             try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
                 stmt.executeUpdate(sqlBuf.toString());
             } catch (SQLException e) {
@@ -2354,7 +2410,9 @@ public class DatabaseUtil {
 
     public String createDeclaredIndex(ModelEntity entity, ModelIndex modelIndex) {
         String createIndexSql = makeIndexClause(entity, modelIndex);
-        if (Debug.verboseOn()) Debug.logVerbose("[createForeignKeyIndex] index sql=" + createIndexSql, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[createForeignKeyIndex] index sql=" + createIndexSql, MODULE);
+        }
 
         try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(createIndexSql);
@@ -2432,7 +2490,9 @@ public class DatabaseUtil {
                     retMsgsBuffer.append("\n");
                 }
                 retMsgsBuffer.append(retMsg);
-                if (Debug.infoOn()) Debug.logInfo(retMsg, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo(retMsg, MODULE);
+                }
             }
         }
 
@@ -2456,7 +2516,9 @@ public class DatabaseUtil {
         indexSqlBuf.append(modelIndex.getName());
 
         String deleteIndexSql = indexSqlBuf.toString();
-        if (Debug.verboseOn()) Debug.logVerbose("[deleteDeclaredIndex] index sql=" + deleteIndexSql, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[deleteDeclaredIndex] index sql=" + deleteIndexSql, MODULE);
+        }
 
         try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(deleteIndexSql);
@@ -2524,7 +2586,9 @@ public class DatabaseUtil {
             return "Error creating foreign key index clause, see log for details";
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[createForeignKeyIndex] index sql=" + createIndexSql, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[createForeignKeyIndex] index sql=" + createIndexSql, MODULE);
+        }
 
         try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(createIndexSql);
@@ -2629,7 +2693,9 @@ public class DatabaseUtil {
 
         String deleteIndexSql = indexSqlBuf.toString();
 
-        if (Debug.verboseOn()) Debug.logVerbose("[deleteForeignKeyIndex] index sql=" + deleteIndexSql, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[deleteForeignKeyIndex] index sql=" + deleteIndexSql, MODULE);
+        }
 
         try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(deleteIndexSql);
@@ -2693,7 +2759,9 @@ public class DatabaseUtil {
                 sqlTableBuf.append(this.datasourceInfo.getCollate());
             }
 
-            if (Debug.verboseOn()) Debug.logVerbose("[updateCharacterSetAndCollation] character-set and collate sql=" + sqlTableBuf, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[updateCharacterSetAndCollation] character-set and collate sql=" + sqlTableBuf, MODULE);
+            }
 
             try (Statement stmt = connection.createStatement()) {
                 stmt.executeUpdate(sqlTableBuf.toString());
@@ -2741,7 +2809,9 @@ public class DatabaseUtil {
                     }
                 }
 
-                if (Debug.verboseOn()) Debug.logVerbose("[updateCharacterSetAndCollation] character-set and collate sql=" + sqlBuf, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[updateCharacterSetAndCollation] character-set and collate sql=" + sqlBuf, MODULE);
+                }
                 try (Statement stmt = connection.createStatement()) {
                     stmt.executeUpdate(sqlBuf.toString());
                 } catch (SQLException e) {

@@ -406,7 +406,7 @@ public class EntityQuery {
         if (!this.useCache && !this.filterByDate) {
             efo.setMaxRows(1);
         }
-        GenericValue result =  EntityUtil.getFirst(query(efo));
+        GenericValue result = EntityUtil.getFirst(query(efo));
         return result;
     }
 
@@ -415,7 +415,7 @@ public class EntityQuery {
      */
     public GenericValue queryOne() throws GenericEntityException {
         this.searchPkOnly = true;
-        GenericValue result =  EntityUtil.getOnly(queryList());
+        GenericValue result = EntityUtil.getOnly(queryList());
         return result;
     }
 

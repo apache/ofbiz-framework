@@ -548,12 +548,16 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Map<String, String> requiredInfo = new HashMap<>();
         Map<String, String> optionalInfo = new HashMap<>();
 
-        if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, MODULE);
+        }
 
         // do not validate results with errors
         if (mode.equals(OUT_PARAM) && context != null && context.containsKey(RESPONSE_MESSAGE)) {
             if (RESPOND_ERROR.equals(context.get(RESPONSE_MESSAGE)) || RESPOND_FAIL.equals(context.get(RESPONSE_MESSAGE))) {
-                if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", MODULE);
+                }
                 return;
             }
         }
@@ -615,14 +619,18 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 }
                 requiredNames.append(key);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, MODULE);
-
-            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - " +
-                requiredTest.size() + " / " + requiredInfo.size(), MODULE);
-            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - " +
-                optionalTest.size() + " / " + optionalInfo.size(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, MODULE);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - " +
+                        requiredTest.size() + " / " + requiredInfo.size(), MODULE);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - " +
+                        optionalTest.size() + " / " + optionalInfo.size(), MODULE);
+            }
         }
-
         try {
             validate(requiredInfo, requiredTest, true, this, mode, locale);
             validate(optionalInfo, optionalTest, false, this, mode, locale);
@@ -1060,7 +1068,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         // old permission checking
         if (this.containsPermissions()) {
             for (ModelPermGroup group: this.permissionGroups) {
-                if (Debug.verboseOn()) Debug.logVerbose(" Permission : Analyse " + group.toString(), MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose(" Permission : Analyse " + group.toString(), MODULE);
+                }
                 Map<String, Object> permResult = group.evalPermissions(dctx, context);
                 if (!ServiceUtil.isSuccess(permResult)) {
                     ServiceUtil.addErrors(permGroupErrors, null, permResult);
@@ -1141,7 +1151,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 if (group != null) {
                     for (GroupServiceModel sm: group.getServices()) {
                         implServices.add(new ModelServiceIface(sm.getName(), sm.isOptional()));
-                        if (Debug.verboseOn()) Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", MODULE);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", MODULE);
+                        }
                     }
                 }
             }

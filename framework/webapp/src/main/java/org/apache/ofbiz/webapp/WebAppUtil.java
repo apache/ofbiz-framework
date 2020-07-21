@@ -194,7 +194,9 @@ public final class WebAppUtil {
             if (UtilValidate.isEmpty(delegatorName)) {
                 delegatorName = "default";
             }
-            if (Debug.verboseOn()) Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, MODULE);
+            }
             delegator = DelegatorFactory.getDelegator(delegatorName);
             servletContext.setAttribute("delegator", delegator);
             if (delegator == null) {

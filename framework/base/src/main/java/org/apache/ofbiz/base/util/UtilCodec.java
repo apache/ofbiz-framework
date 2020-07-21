@@ -53,7 +53,7 @@ public class UtilCodec {
     private static final UrlCodec urlCodec = new UrlCodec();
     private static final List<Codec> codecs;
     // From https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Event_Handlers 
-    private static final List<String> jsEventList = Arrays.asList(new String[] { "onAbort", "onActivate",
+    private static final List<String> jsEventList = Arrays.asList(new String[] {"onAbort", "onActivate",
             "onAfterPrint", "onAfterUpdate", "onBeforeActivate", "onBeforeCopy", "onBeforeCut", "onBeforeDeactivate",
             "onBeforeEditFocus", "onBeforePaste", "onBeforePrint", "onBeforeUnload", "onBeforeUpdate", "onBegin",
             "onBlur", "onBounce", "onCellChange", "onChange", "onClick", "onContextMenu", "onControlSelect", "onCopy",

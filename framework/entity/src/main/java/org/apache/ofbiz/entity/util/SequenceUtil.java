@@ -289,7 +289,9 @@ public class SequenceUtil {
             }
 
             maxSeqId = curSeqId + bankSize;
-            if (Debug.infoOn()) Debug.logInfo("Got bank of sequenced IDs for [" + this.seqName + "]; curSeqId=" + curSeqId + ", maxSeqId=" + maxSeqId + ", bankSize=" + bankSize, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Got bank of sequenced IDs for [" + this.seqName + "]; curSeqId=" + curSeqId + ", maxSeqId=" + maxSeqId + ", bankSize=" + bankSize, MODULE);
+            }
         }
     }
 }

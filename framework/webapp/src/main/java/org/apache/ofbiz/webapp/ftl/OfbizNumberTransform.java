@@ -49,7 +49,9 @@ public class OfbizNumberTransform implements TemplateTransformModel {
         String result = "";
         Object o = args.get(key);
         if (o != null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + o.getClass().getName(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Arg Object : " + o.getClass().getName(), MODULE);
+            }
             if (o instanceof TemplateScalarModel) {
                 TemplateScalarModel s = (TemplateScalarModel) o;
                 try {
@@ -67,7 +69,9 @@ public class OfbizNumberTransform implements TemplateTransformModel {
     private static Double getNumber(Map<String, Object> args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
-            if (Debug.verboseOn()) Debug.logVerbose("Number Object : " + o.getClass().getName(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Number Object : " + o.getClass().getName(), MODULE);
+            }
 
             // handle nulls better
             if (o == null) {
@@ -114,7 +118,9 @@ public class OfbizNumberTransform implements TemplateTransformModel {
             @Override
             public void close() throws IOException {
                 try {
-                    if (Debug.verboseOn()) Debug.logVerbose("params: " + number + " " + format + " " + locale, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("params: " + number + " " + format + " " + locale, MODULE);
+                    }
                     Locale localeObj = null;
                     Delegator delegator = null;
                     // Load the locale from the session

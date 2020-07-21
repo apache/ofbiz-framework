@@ -1117,7 +1117,7 @@ public final class ComponentConfig {
                 this.basePermission = basePermStr.split(",");
             } else {
                 // default base permission is NONE
-                this.basePermission = new String[] { "NONE" };
+                this.basePermission = new String[] {"NONE" };
             }
             // trim the permissions (remove spaces)
             for (int i = 0; i < this.basePermission.length; i++) {

@@ -441,7 +441,10 @@ public class EntitySyncContext {
             }
         }
         if (entitiesSkippedForKnownNext > 0) {
-            if (Debug.infoOn()) Debug.logInfo("In assembleValuesToCreate skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known create times", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("In assembleValuesToCreate skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList
+                        + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known create times", MODULE);
+            }
         }
 
         // TEST SECTION: leave false for normal use
@@ -593,7 +596,10 @@ public class EntitySyncContext {
         }
 
         if (entitiesSkippedForKnownNext > 0) {
-            if (Debug.infoOn()) Debug.logInfo("In assembleValuesToStore skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known update times", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("In assembleValuesToStore skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList
+                        + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known update times", MODULE);
+            }
         }
 
         // TEST SECTION: leave false for normal use
@@ -862,7 +868,9 @@ public class EntitySyncContext {
             }
         }
 
-        if (Debug.infoOn()) Debug.logInfo("Finished save Final Sync Results [" + entitySyncId + "]: totalRows=" + totalRows + ", totalRowsToCreate=" + totalRowsToCreate + ", totalRowsToStore=" + totalRowsToStore + ", totalRowsToRemove=" + totalRowsToRemove, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Finished save Final Sync Results [" + entitySyncId + "]: totalRows=" + totalRows + ", totalRowsToCreate=" + totalRowsToCreate + ", totalRowsToStore=" + totalRowsToStore + ", totalRowsToRemove=" + totalRowsToRemove, MODULE);
+        }
     }
 
     public Set<String> makeEntityNameToUseSet() {
@@ -882,7 +890,10 @@ public class EntitySyncContext {
 
         List<ModelEntity> entityModelToUseList = EntityGroupUtil.getModelEntitiesFromRecords(entitySyncIncludes, delegator, true);
 
-        if (Debug.infoOn()) Debug.logInfo("In makeEntityModelToUseList for EntitySync with ID [" + entitySync.get("entitySyncId") + "] syncing " + entityModelToUseList.size() + " entities", MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("In makeEntityModelToUseList for EntitySync with ID [" + entitySync.get("entitySyncId") + "] syncing "
+                    + entityModelToUseList.size() + " entities", MODULE);
+        }
         return entityModelToUseList;
     }
 
@@ -910,7 +921,10 @@ public class EntitySyncContext {
                     }
                 }
             }
-            if (Debug.infoOn()) Debug.logInfo("No currentRunStartTime was stored on the EntitySync record, so searched for the earliest value and got: " + currentRunStartTime, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("No currentRunStartTime was stored on the EntitySync record, so searched for the earliest value and got: "
+                        + currentRunStartTime, MODULE);
+            }
             return currentRunStartTime;
         } else {
             return lastSuccessfulSynchTime;

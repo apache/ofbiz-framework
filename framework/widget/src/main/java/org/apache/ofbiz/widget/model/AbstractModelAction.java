@@ -318,7 +318,9 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
+                }
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {
@@ -399,7 +401,9 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
+                }
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {

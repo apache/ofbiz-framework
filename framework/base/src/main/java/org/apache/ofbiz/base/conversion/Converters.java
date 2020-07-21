@@ -193,7 +193,9 @@ OUTER:
         sb.append(targetClass.getName());
         String key = sb.toString();
         if (converterMap.putIfAbsent(key, converter) == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Registered converter " + converter.getClass().getName(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Registered converter " + converter.getClass().getName(), MODULE);
+            }
         }
     }
 

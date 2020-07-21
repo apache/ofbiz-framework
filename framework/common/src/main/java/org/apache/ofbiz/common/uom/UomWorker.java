@@ -99,7 +99,7 @@ public class UomWorker {
         if (originalValue == null || uomId == null || uomIdTo == null) return null;
         if (uomId.equals(uomIdTo)) return originalValue;
 
-        Map<String, Object> svcInMap =  new LinkedHashMap<>();
+        Map<String, Object> svcInMap = new LinkedHashMap<>();
         svcInMap.put("originalValue", originalValue);
         svcInMap.put("uomId", uomId);
         svcInMap.put("uomIdTo", uomIdTo);

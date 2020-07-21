@@ -140,7 +140,9 @@ public final class UtilProperties implements Serializable {
     private static Number getPropertyNumber(String resource, String name, Number defaultNumber, String type) {
         String str = getPropertyValue(resource, name);
         if (UtilValidate.isEmpty(str)) {
-            if (Debug.verboseOn()) Debug.logVerbose("The property " + resource + ":" + name + " is empty, using defaultNumber " + defaultNumber + ".", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("The property " + resource + ":" + name + " is empty, using defaultNumber " + defaultNumber + ".", MODULE);
+            }
             return defaultNumber;
         }
         try {

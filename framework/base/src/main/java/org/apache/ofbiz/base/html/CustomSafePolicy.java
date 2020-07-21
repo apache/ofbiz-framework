@@ -34,7 +34,6 @@ import org.owasp.html.PolicyFactory;
  * (please don't go look it up). The rules for Slashdot are fairly strict: users
  * can only submit the following HTML tags and no CSS: {@code <b>}, {@code <u>},
  * {@code <i>}, {@code <a>}, {@code <blockquote>}.
- * 
  * Accordingly, we've built a policy file that allows fairly similar
  * functionality. All text-formatting tags that operate directly on the font,
  * color or emphasis have been allowed.

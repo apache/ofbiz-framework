@@ -270,7 +270,9 @@ public class UelFunctions {
             } catch (NoSuchMethodException | NullPointerException | SecurityException e) {
                 Debug.logError(e, "Error while initializing UelFunctions.Functions instance", MODULE);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", MODULE);
+            }
         }
         @Override
         public Method resolveFunction(String prefix, String localName) {

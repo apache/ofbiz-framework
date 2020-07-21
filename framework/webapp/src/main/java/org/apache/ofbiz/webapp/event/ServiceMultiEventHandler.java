@@ -104,7 +104,9 @@ public class ServiceMultiEventHandler implements EventHandler {
         if (serviceName == null) {
             throw new EventHandlerException("Service name (eventMethod) cannot be null");
         }
-        if (Debug.verboseOn()) Debug.logVerbose("[Set mode/service]: " + mode + "/" + serviceName, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Set mode/service]: " + mode + "/" + serviceName, MODULE);
+        }
 
         // some needed info for when running the service
         Locale locale = UtilHttp.getLocale(request);
@@ -125,8 +127,12 @@ public class ServiceMultiEventHandler implements EventHandler {
             throw new EventHandlerException("Problems getting the service model");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SERVICE Event", MODULE);
-        if (Debug.verboseOn()) Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Processing]: SERVICE Event", MODULE);
+        }
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), MODULE);
+        }
 
         // check if we are using per row submit
         boolean useRowSubmit = request.getParameter("_useRowSubmit") == null ? false :

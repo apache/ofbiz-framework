@@ -1408,7 +1408,9 @@ public class ModelViewEntity extends ModelEntity {
                 value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, new HashMap<>());
             }
 
-            if (Debug.verboseOn()) Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, MODULE);
+            }
 
             Object rhs = null;
             if (value != null) {

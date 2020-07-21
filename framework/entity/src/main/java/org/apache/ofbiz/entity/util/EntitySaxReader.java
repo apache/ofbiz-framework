@@ -297,7 +297,9 @@ public class EntitySaxReader extends DefaultHandler {
 
     @Override
     public void endElement(String namespaceURI, String localName, String fullNameString) throws SAXException {
-        if (Debug.verboseOn()) Debug.logVerbose("endElement: localName=" + localName + ", fullName=" + fullNameString + ", numberRead=" + numberRead, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("endElement: localName=" + localName + ", fullName=" + fullNameString + ", numberRead=" + numberRead, MODULE);
+        }
         if ("entity-engine-xml".equals(fullNameString)) {
             return;
         }
@@ -331,7 +333,9 @@ public class EntitySaxReader extends DefaultHandler {
                     context.put("doc", nodeModel);
                     template.process(context, outWriter);
                     String s = outWriter.toString();
-                    if (Debug.verboseOn()) Debug.logVerbose("transformed xml: " + s, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("transformed xml: " + s, MODULE);
+                    }
 
                     EntitySaxReader reader = new EntitySaxReader(delegator);
                     reader.setUseTryInsertMethod(this.useTryInsertMethod);
@@ -453,7 +457,9 @@ public class EntitySaxReader extends DefaultHandler {
 
     @Override
     public void startElement(String namepsaceURI, String localName, String fullNameString, Attributes attributes) throws SAXException {
-        if (Debug.verboseOn()) Debug.logVerbose("startElement: localName=" + localName + ", fullName=" + fullNameString + ", attributes=" + attributes, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("startElement: localName=" + localName + ", fullName=" + fullNameString + ", attributes=" + attributes, MODULE);
+        }
         if ("entity-engine-xml".equals(fullNameString)) {
             // check the maintain-timestamp flag
             CharSequence maintainTx = attributes.getValue("maintain-timestamps");

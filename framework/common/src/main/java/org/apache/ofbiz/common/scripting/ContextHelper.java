@@ -146,7 +146,7 @@ public final class ContextHelper {
     public Map<String, Object> getParameters() {
         Map<String, Object> parameters = UtilGenerics.cast(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
         if (parameters == null) {
-            parameters =  new LinkedHashMap<>();
+            parameters = new LinkedHashMap<>();
             this.context.setAttribute(ScriptUtil.PARAMETERS_KEY, parameters, ScriptContext.ENGINE_SCOPE);
         }
         return parameters;
@@ -167,7 +167,7 @@ public final class ContextHelper {
     public Map<String, Object> getResults() {
         Map<String, Object> results = UtilGenerics.cast(this.context.getAttribute(ScriptUtil.RESULT_KEY));
         if (results == null) {
-            results =  new LinkedHashMap<>();
+            results = new LinkedHashMap<>();
             this.context.setAttribute(ScriptUtil.RESULT_KEY, results, ScriptContext.ENGINE_SCOPE);
         }
         return results;
