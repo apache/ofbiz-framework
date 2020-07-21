@@ -724,7 +724,6 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
             [tempName:'Tests.xml', newName:"${pluginResourceName}Tests.xml", location:'testdef'],
             [tempName:'UiLabels.xml', newName:"${pluginResourceName}UiLabels.xml", location:'config'],
             [tempName:'index.jsp', newName:'index.jsp', location:"webapp/${webappName}"],
-            [tempName:'error.jsp', newName:'error.jsp', location:"webapp/${webappName}/error"],
             [tempName:'controller.xml', newName:'controller.xml', location:"webapp/${webappName}/WEB-INF"],
             [tempName:'web.xml', newName:'web.xml', location:"webapp/${webappName}/WEB-INF"],
             [tempName:'CommonScreens.xml', newName:'CommonScreens.xml', location:'widget'],

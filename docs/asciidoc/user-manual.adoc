@@ -170,3 +170,7 @@ include::../../applications/order/src/docs/asciidoc/order.adoc[leveloffset=+2]
 include::../../applications/party/src/docs/asciidoc/party.adoc[leveloffset=+2]
 
 include::../../applications/product/src/docs/asciidoc/product.adoc[leveloffset=+2]
+
+// Plugins Business Applications
+
+include::../../plugins/docs/asciidoc/plugins-user-manual.adoc[leveloffset=+1]

@@ -289,9 +289,10 @@ https://cwiki.apache.org/confluence/display/OFBIZ/Framework+Configuration+Guide[
 
 include::../../framework/base/src/docs/asciidoc/email.adoc[leveloffset=+2]
 
-include::../../plugins/ldap/src/docs/asciidoc/SingleSignOn.adoc[leveloffset=+2]
-
 include::../../framework/security/src/docs/asciidoc/security.adoc[leveloffset=+1]
 
 == Appendices
 
+// Developers Plugins
+
+include::../../plugins/docs/asciidoc/plugins-developer-manual.adoc[leveloffset=+1]
