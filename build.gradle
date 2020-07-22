@@ -542,7 +542,7 @@ task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
     sourceDir "${rootDir}"
     sources {
         include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc'
-      }    
+      }
     outputDir file("${buildDir}/asciidoc/readme/")
 }
 
@@ -983,6 +983,19 @@ def cleanTasks = getTasksMatchingRegex(/^clean.+/)
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
     description 'Execute all cleaning tasks.'
 }
+/*
+ * With OFBIZ-11304, Checkstyle pre-push hook is installed using the
+ * com.github.jakemarsden.git-hooks Gradle plugin
+ * As the checkstyle plugin has some limitations
+ * with Gradle 3.2 we are not able to backport.
+ * See https://issues.apache.org/jira/browse/OFBIZ-11251
+ * https://issues.apache.org/jira/browse/OFBIZ-11304
+ * Hook once added cannot be removed when branch is
+ * switched, adding dummy task to avoid push failures
+ * due to absence of checkstyle plugin in R17.12
+ */
+task checkstyleMain {}
+
 
 /* ========================================================
  * Rules-based OFBiz server commands
