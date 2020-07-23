@@ -874,13 +874,20 @@ public class ModelTree extends ModelWidget {
 
             // FIXME: Using a widget model in this way is an ugly hack.
             public Link(String style, String target, String text) {
+                this(style, target, text, null);
+            }
+
+            // FIXME: Something to be replaced by a builder class, but allows us to quickly
+            // build Links to represent nodes with parameters in a tree, rather that trying
+            // to encode the parameters early in the link's target.
+            public Link(String style, String target, String text, List<Parameter> parameterList) {
                 this.encode = false;
                 this.fullPath = false;
                 this.idExdr = FlexibleStringExpander.getInstance("");
                 this.image = null;
                 this.linkType = "";
                 this.nameExdr = FlexibleStringExpander.getInstance("");
-                this.parameterList = Collections.emptyList();
+                this.parameterList = parameterList != null ? Collections.unmodifiableList(parameterList) : Collections.emptyList();
                 this.prefixExdr = FlexibleStringExpander.getInstance("");
                 this.secure = false;
                 this.styleExdr = FlexibleStringExpander.getInstance(style);

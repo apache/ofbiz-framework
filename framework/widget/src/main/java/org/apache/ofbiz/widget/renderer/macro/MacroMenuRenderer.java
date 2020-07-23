@@ -23,6 +23,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -232,9 +233,11 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         String actionUrl = "";
         StringBuilder targetParameters = new StringBuilder();
         if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
-            StringBuilder sb = new StringBuilder();
-            WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
-            actionUrl = sb.toString();
+            final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
+                    link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                    request, response);
+            actionUrl = actionUri.toString();
+
             targetParameters.append("[");
             for (Map.Entry<String, String> parameter : link.getParameterMap(context).entrySet()) {
                 if (targetParameters.length() > 1) {
@@ -255,9 +258,11 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         }
         if (UtilValidate.isNotEmpty(target)) {
             if (!"hidden-form".equals(linkType)) {
-                StringBuilder sb = new StringBuilder();
-                WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), "layered-modal".equals(linkType)?null:link.getParameterMap(context), link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
-                linkUrl = sb.toString();
+                final URI linkUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(),
+                        "layered-modal".equals(linkType) ? null : link.getParameterMap(context),
+                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                        request, response);
+                linkUrl = linkUri.toString();
             }
         }
         parameters.put("linkUrl", linkUrl);

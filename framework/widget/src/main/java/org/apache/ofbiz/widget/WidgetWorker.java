@@ -18,19 +18,16 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.security.CsrfUtil;
-import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -39,7 +36,16 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.FormElement;
 import org.jsoup.parser.Parser;
+import org.jsoup.parser.Tag;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+
+import static org.apache.ofbiz.base.util.UtilValidate.isNotEmpty;
 
 public final class WidgetWorker {
 
@@ -47,243 +53,137 @@ public final class WidgetWorker {
 
     private WidgetWorker() { }
 
-    public static void buildHyperlinkUrl(Appendable externalWriter, String target, String targetType, Map<String, String> parameterMap,
-            String prefix, boolean fullPath, boolean secure, boolean encode, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+    public static URI buildHyperlinkUri(String target, String targetType, Map<String, String> parameterMap,
+                                        String prefix, boolean fullPath, boolean secure, boolean encode,
+                                        HttpServletRequest request, HttpServletResponse response) {
         // We may get an encoded request like: &#47;projectmgr&#47;control&#47;EditTaskContents&#63;workEffortId&#61;10003
         // Try to reducing a possibly encoded string down to its simplest form: /projectmgr/control/EditTaskContents?workEffortId=10003
         // This step make sure the following appending externalLoginKey operation to work correctly
         String localRequestName = Parser.unescapeEntities(target, true);
-        localRequestName = UtilHttp.encodeAmpersands(localRequestName);
 
-        Appendable localWriter = new StringWriter();
+        final URIBuilder uriBuilder;
+        final Map<String, String> additionalParameters = new HashMap<>();
+        final String uriString;
 
         if ("intra-app".equals(targetType)) {
             if (request != null && response != null) {
                 ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
-                externalWriter.append(rh.makeLink(request, response, "/" + localRequestName, fullPath, secure, encode));
+
+                uriString = rh.makeLink(request, response, "/" + localRequestName, fullPath, secure, encode);
             } else if (prefix != null) {
-                externalWriter.append(prefix);
-                externalWriter.append(localRequestName);
+                uriString = prefix + localRequestName;
             } else {
-                externalWriter.append(localRequestName);
+                uriString = localRequestName;
             }
         } else if ("inter-app".equals(targetType)) {
-            String fullTarget = localRequestName;
-            localWriter.append(fullTarget);
+            uriString = localRequestName;
             String externalLoginKey = (String) request.getAttribute("externalLoginKey");
-            if (UtilValidate.isNotEmpty(externalLoginKey)) {
-                if (fullTarget.indexOf('?') == -1) {
-                    localWriter.append('?');
-                } else {
-                    localWriter.append("&amp;");
-                }
-                localWriter.append("externalLoginKey=");
-                localWriter.append(externalLoginKey);
-            }
+            additionalParameters.put("externalLoginKey", externalLoginKey);
         } else if ("content".equals(targetType)) {
-            appendContentUrl(localWriter, localRequestName, request);
+            uriString = getContentUrl(localRequestName, request);
         } else {
-            localWriter.append(localRequestName);
+            uriString = localRequestName;
+        }
+
+        try {
+            uriBuilder = new URIBuilder(uriString);
+        } catch (URISyntaxException e) {
+            final String msg = "Syntax error when parsing URI: " + uriString;
+            Debug.logError(e, msg, MODULE);
+            throw new RuntimeException(msg, e);
+        }
+
+        final String tokenValue = CsrfUtil.generateTokenForNonAjax(request, target);
+        if (isNotEmpty(tokenValue)) {
+            additionalParameters.put(CsrfUtil.getTokenNameNonAjax(), tokenValue);
         }
 
         if (UtilValidate.isNotEmpty(parameterMap)) {
-            String localUrl = localWriter.toString();
-            externalWriter.append(localUrl);
-            boolean needsAmp = true;
-            if (localUrl.indexOf('?') == -1) {
-                externalWriter.append('?');
-                needsAmp = false;
-            }
-
-            for (Map.Entry<String, String> parameter: parameterMap.entrySet()) {
-                String parameterValue = parameter.getValue();
-
-                if (needsAmp) {
-                    externalWriter.append("&amp;");
-                } else {
-                    needsAmp = true;
-                }
-                externalWriter.append(parameter.getKey());
-                externalWriter.append('=');
-                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-                if (simpleEncoder != null && parameterValue != null) {
-                    externalWriter.append(simpleEncoder.encode(URLEncoder.encode(parameterValue, "UTF-8")));
-                } else {
-                    externalWriter.append(parameterValue);
-                }
-            }
-        } else {
-            externalWriter.append(localWriter.toString());
+            parameterMap.forEach(uriBuilder::addParameter);
         }
 
-        String tokenValue = CsrfUtil.generateTokenForNonAjax(request, target);
-        if (UtilValidate.isNotEmpty(tokenValue)) {
-            String currentString = externalWriter.toString();
-            if (currentString.startsWith("<form")) {
-                currentString = currentString.substring(currentString.lastIndexOf("\"") + 1);
-            }
-            if (currentString.indexOf('?') == -1) {
-                externalWriter.append("?" + CsrfUtil.getTokenNameNonAjax() + "=" + tokenValue);
-            } else {
-                externalWriter.append("&amp;" + CsrfUtil.getTokenNameNonAjax() + "=" + tokenValue);
-            }
+        additionalParameters.forEach(uriBuilder::addParameter);
+
+        try {
+            return uriBuilder.build();
+        } catch (URISyntaxException e) {
+            final String msg = "Syntax error when building URI: " + uriBuilder.toString();
+            Debug.logError(e, msg, MODULE);
+            throw new RuntimeException(msg, e);
         }
     }
 
-    public static void appendContentUrl(Appendable writer, String location, HttpServletRequest request) throws IOException {
+    public static String getContentUrl(final String location, final HttpServletRequest request) {
         StringBuilder buffer = new StringBuilder();
         ContentUrlTag.appendContentPrefix(request, buffer);
-        writer.append(buffer.toString());
-        writer.append(location);
+        buffer.append(location);
+        return buffer.toString();
     }
-    public static void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target,
-            Map<String, String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
-            HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
-        if (modelFormField == null) {
-            throw new IllegalArgumentException("modelFormField in WidgetWorker.makeHyperlinkByType has turned out to be null");
-        }
-        String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
-        if ("hidden-form".equals(realLinkType)) {
-            if ("multi".equals(modelFormField.getModelForm().getType())) {
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, confirmation, modelFormField, request, response, context);
 
-                // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
-                Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
-                Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
-                if (postMultiFormWriter == null) {
-                    postMultiFormWriter = new StringWriter();
-                }
-                WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, target, targetType, targetWindow, parameterMap, modelFormField, request, response, context);
-            } else {
-                WidgetWorker.makeHiddenFormLinkForm(writer, target, targetType, targetWindow, parameterMap, modelFormField, request, response, context);
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, confirmation, modelFormField, request, response, context);
+    public static Element makeHiddenFormLinkAnchorElement(String linkStyle, String description, String confirmation,
+                                                          ModelFormField modelFormField, HttpServletRequest request,
+                                                          Map<String, Object> context) {
+        if (isNotEmpty(description) || isNotEmpty(request.getAttribute("image"))) {
+            final Element anchorElement = new Element("a");
+
+            if (isNotEmpty(linkStyle)) {
+                anchorElement.addClass(linkStyle);
             }
+
+            final String href = "javascript:document." + makeLinkHiddenFormName(context, modelFormField) + ".submit()";
+            anchorElement.attr("href", href);
+
+
+            if (isNotEmpty(modelFormField.getEvent()) && isNotEmpty(modelFormField.getAction(context))) {
+                anchorElement.attr(modelFormField.getEvent(), modelFormField.getAction(context));
+            }
+
+            if (isNotEmpty(confirmation)) {
+                anchorElement.attr("onclick", "return confirm('" + confirmation + "')");
+            }
+
+            anchorElement.text(description);
+
+            if (isNotEmpty(request.getAttribute("image"))) {
+                final Element imageElement = new Element("img");
+                imageElement.attr("src", request.getAttribute("image").toString());
+
+                anchorElement.appendChild(imageElement);
+            }
+
+            return anchorElement;
         } else {
-            WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, description, confirmation, modelFormField, request, response, context, targetWindow);
-        }
-
-    }
-    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, Map<String, String> parameterMap,
-            String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow)
-            throws IOException {
-        if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-            writer.append("<a");
-
-            if (UtilValidate.isNotEmpty(linkStyle)) {
-                writer.append(" class=\"");
-                writer.append(linkStyle);
-                writer.append("\"");
-            }
-
-            writer.append(" href=\"");
-
-            buildHyperlinkUrl(writer, target, targetType, parameterMap, null, false, false, true, request, response, context);
-
-            writer.append("\"");
-
-            if (UtilValidate.isNotEmpty(targetWindow)) {
-                writer.append(" target=\"");
-                writer.append(targetWindow);
-                writer.append("\"");
-            }
-
-            if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
-                writer.append(" ");
-                writer.append(modelFormField.getEvent());
-                writer.append("=\"");
-                writer.append(modelFormField.getAction(context));
-                writer.append('"');
-            }
-            if (UtilValidate.isNotEmpty(confirmation)) {
-                writer.append(" onclick=\"return confirm('");
-                writer.append(confirmation);
-                writer.append("')\"");
-            }
-            writer.append('>');
-
-            if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-                writer.append("<img src=\"");
-                writer.append(request.getAttribute("image").toString());
-                writer.append("\"/>");
-            }
-
-            writer.append(description);
-            writer.append("</a>");
+            return null;
         }
     }
 
-    public static void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
-        if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-            writer.append("<a");
+    public static Element makeHiddenFormLinkFormElement(String target, String targetType,
+                                              String targetWindow, Map<String, String> parameterMap,
+                                              ModelFormField modelFormField, HttpServletRequest request,
+                                              HttpServletResponse response, Map<String, Object> context) {
 
-            if (UtilValidate.isNotEmpty(linkStyle)) {
-                writer.append(" class=\"");
-                writer.append(linkStyle);
-                writer.append("\"");
-            }
+        final FormElement formElement = new FormElement(Tag.valueOf("form"), null, null);
+        formElement.attr("method", "post");
 
-            writer.append(" href=\"javascript:document.");
-            writer.append(makeLinkHiddenFormName(context, modelFormField));
-            writer.append(".submit()\"");
-
-            if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
-                writer.append(" ");
-                writer.append(modelFormField.getEvent());
-                writer.append("=\"");
-                writer.append(modelFormField.getAction(context));
-                writer.append('"');
-            }
-
-            if (UtilValidate.isNotEmpty(confirmation)) {
-                writer.append(" onclick=\"return confirm('");
-                writer.append(confirmation);
-                writer.append("')\"");
-            }
-
-            writer.append('>');
-
-            if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-                writer.append("<img src=\"");
-                writer.append(request.getAttribute("image").toString());
-                writer.append("\"/>");
-            }
-
-            writer.append(description);
-            writer.append("</a>");
-        }
-    }
-
-    public static void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, Map<String, String> parameterMap, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
-        writer.append("<form method=\"post\"");
-        writer.append(" action=\"");
         // note that this passes null for the parameterList on purpose so they won't be put into the URL
-        WidgetWorker.buildHyperlinkUrl(writer, target, targetType, null, null, false, false, true, request, response, context);
-        writer.append("\"");
+        final URI actionUri = WidgetWorker.buildHyperlinkUri(target, targetType, null, null, false, false, true,
+                request, response);
+        formElement.attr("action", actionUri.toString());
 
-        if (UtilValidate.isNotEmpty(targetWindow)) {
-            writer.append(" target=\"");
-            writer.append(targetWindow);
-            writer.append("\"");
+        if (isNotEmpty(targetWindow)) {
+            formElement.attr("target", targetWindow);
         }
 
-        writer.append(" onsubmit=\"javascript:submitFormDisableSubmits(this)\"");
+        formElement.attr("onsubmit", "javascript:submitFormDisableSubmits(this)");
+        formElement.attr("name", makeLinkHiddenFormName(context, modelFormField));
 
-        writer.append(" name=\"");
-        writer.append(makeLinkHiddenFormName(context, modelFormField));
-        writer.append("\">");
+        parameterMap.forEach((name, value) -> formElement.appendElement("input")
+                .attr("name", name)
+                .val(value)
+                .attr("type", "hidden"));
 
-        for (Map.Entry<String, String> parameter: parameterMap.entrySet()) {
-            if (parameter.getValue() != null) {
-                writer.append("<input name=\"");
-                writer.append(parameter.getKey());
-                writer.append("\" value=\"");
-                writer.append(UtilCodec.getEncoder("html").encode(parameter.getValue()));
-                writer.append("\" type=\"hidden\"/>");
-            }
-        }
-
-        writer.append("</form>");
+        return formElement;
     }
 
     public static String makeLinkHiddenFormName(Map<String, Object> context, ModelFormField modelFormField) {
@@ -302,10 +202,12 @@ public final class WidgetWorker {
             formUniqueId = (String) context.get("formUniqueId");
         }
         if (itemIndex != null) {
-            return formName + modelForm.getItemIndexSeparator() + itemIndex + iterateId + formUniqueId + modelForm.getItemIndexSeparator() + modelFormField.getName();
+            return formName + modelForm.getItemIndexSeparator() + itemIndex + iterateId + formUniqueId
+                    + modelForm.getItemIndexSeparator() + modelFormField.getName();
         }
         return formName + modelForm.getItemIndexSeparator() + modelFormField.getName();
     }
+
     public static String determineAutoLinkType(String linkType, String target, String targetType, HttpServletRequest request) {
         if ("auto".equals(linkType)) {
             if ("intra-app".equals(targetType)) {
@@ -352,9 +254,9 @@ public final class WidgetWorker {
     }
 
     public static int getPaginatorNumber(Map<String, Object> context) {
-        int paginator_number = 0;
+        int paginatorNumber = 0;
         if (context != null) {
-            Integer paginateNumberInt= (Integer) context.get("PAGINATOR_NUMBER");
+            Integer paginateNumberInt = (Integer) context.get("PAGINATOR_NUMBER");
             if (paginateNumberInt == null) {
                 paginateNumberInt = 0;
                 context.put("PAGINATOR_NUMBER", paginateNumberInt);
@@ -363,19 +265,19 @@ public final class WidgetWorker {
                     globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
                 }
             }
-            paginator_number = paginateNumberInt;
+            paginatorNumber = paginateNumberInt;
         }
-        return paginator_number;
+        return paginatorNumber;
     }
 
     public static void incrementPaginatorNumber(Map<String, Object> context) {
         Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
         if (globalCtx != null) {
-            Boolean NO_PAGINATOR = (Boolean) globalCtx.get("NO_PAGINATOR");
-            if (UtilValidate.isNotEmpty(NO_PAGINATOR)) {
+            Boolean noPaginator = (Boolean) globalCtx.get("NO_PAGINATOR");
+            if (UtilValidate.isNotEmpty(noPaginator)) {
                 globalCtx.remove("NO_PAGINATOR");
             } else {
-                Integer paginateNumberInt= (Integer) globalCtx.get("PAGINATOR_NUMBER");
+                Integer paginateNumberInt = (Integer) globalCtx.get("PAGINATOR_NUMBER");
                 if (paginateNumberInt == null) {
                     paginateNumberInt = 0;
                 }
@@ -387,12 +289,10 @@ public final class WidgetWorker {
     }
 
     public static LocalDispatcher getDispatcher(Map<String, Object> context) {
-        LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
-        return dispatcher;
+        return (LocalDispatcher) context.get("dispatcher");
     }
 
     public static Delegator getDelegator(Map<String, Object> context) {
-        Delegator delegator = (Delegator) context.get("delegator");
-        return delegator;
+        return (Delegator) context.get("delegator");
     }
 }

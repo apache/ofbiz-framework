@@ -19,6 +19,7 @@
 package org.apache.ofbiz.widget.renderer.html;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -230,8 +231,10 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             HttpServletRequest req = (HttpServletRequest) context.get("request");
             if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
                 if (req != null && res != null) {
-                    WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
-                        link.getFullPath(), link.getSecure(), link.getEncode(), req, res, context);
+                    final URI uri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(),
+                            link.getParameterMap(context), link.getPrefix(context), link.getFullPath(),
+                            link.getSecure(), link.getEncode(), req, res);
+                    writer.append(uri.toString());
                 } else if (prefix != null) {
                     writer.append(prefix).append(target);
                 } else {
