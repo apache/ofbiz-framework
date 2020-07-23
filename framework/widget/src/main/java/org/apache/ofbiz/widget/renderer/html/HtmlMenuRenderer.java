@@ -20,6 +20,7 @@ package org.apache.ofbiz.widget.renderer.html;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -361,8 +362,10 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append("<form method=\"post\"");
                 writer.append(" action=\"");
                 // note that this passes null for the parameterList on purpose so they won't be put into the URL
-                WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), null, link.getPrefix(context),
-                        link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
+                final URI uri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
+                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                        request, response);
+                writer.append(uri.toString());
                 writer.append("\"");
 
                 if (UtilValidate.isNotEmpty(targetWindow)) {
@@ -425,8 +428,10 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                     writer.append(uniqueItemName);
                     writer.append(".submit()");
             } else {
-                WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
-                        link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
+                final URI uri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), link.getParameterMap(context),
+                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                        request, response);
+                writer.append(uri.toString());
             }
             writer.append("\">");
         }

@@ -23,6 +23,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
@@ -256,10 +257,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             height = String.valueOf(modelTheme.getLinkDefaultLayeredModalHeight());
         }
         if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
-            StringBuilder sb = new StringBuilder();
-            WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context),
-                    link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
-            actionUrl = sb.toString();
+            final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
+                    link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                    request, response);
+            actionUrl = actionUri.toString();
             parameters.append("[");
             for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
                 if (parameters.length() >1) {
@@ -280,10 +281,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String text = link.getText(context);
         if (UtilValidate.isNotEmpty(target)) {
             if (!"hidden-form".equals(linkType)) {
-                StringBuilder sb = new StringBuilder();
-                WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
-                        link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
-                linkUrl = sb.toString();
+                final URI uri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), link.getParameterMap(context),
+                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                        request, response);
+                linkUrl = uri.toString();
             }
         }
         String imgStr = "";

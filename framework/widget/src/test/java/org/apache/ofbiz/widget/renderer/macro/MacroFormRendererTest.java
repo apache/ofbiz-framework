@@ -34,6 +34,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
@@ -50,6 +51,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,11 +59,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
-import static org.junit.Assert.assertThat;
 
 public class MacroFormRendererTest {
 
@@ -70,6 +72,9 @@ public class MacroFormRendererTest {
 
     @Injectable
     private HttpServletResponse response;
+
+    @Injectable
+    private FtlWriter ftlWriter;
 
     @Mocked
     private HttpSession httpSession;
@@ -92,11 +97,7 @@ public class MacroFormRendererTest {
     @Mocked
     private ModelFormField modelFormField;
 
-    @Mocked
-    private Appendable appendable;
-
-    @Mocked
-    private StringReader stringReader;
+    private final StringWriter appendable = new StringWriter();
 
     @Injectable
     private String macroLibraryPath = null;
@@ -120,7 +121,7 @@ public class MacroFormRendererTest {
                 label.getText(withNotNull());
                 result = "";
 
-                new StringReader(anyString);
+                ftlWriter.executeMacro(withNotNull(), withNotNull());
                 times = 0;
             }
         };
@@ -160,6 +161,54 @@ public class MacroFormRendererTest {
 
         macroFormRenderer.renderDisplayField(appendable, ImmutableMap.of(), displayField);
 
+        assertAndGetMacroString("renderDisplayField", ImmutableMap.of("type", "TYPE"));
+    }
+
+    @Test
+    public void displayEntityFieldMacroRenderedWithLink(@Mocked ModelFormField.DisplayEntityField displayEntityField,
+                                                        @Mocked ModelFormField.SubHyperlink subHyperlink)
+            throws IOException {
+
+        final Map<String, ConfigXMLReader.RequestMap> requestMapMap = new HashMap<>();
+
+        new Expectations() {
+            {
+                displayEntityField.getType();
+                result = "TYPE";
+
+                displayEntityField.getDescription(withNotNull());
+                result = "DESCRIPTION";
+
+                modelFormField.getTooltip(withNotNull());
+                result = "TOOLTIP";
+
+                displayEntityField.getSubHyperlink();
+                result = subHyperlink;
+
+                subHyperlink.getStyle(withNotNull());
+                result = "TestLinkStyle";
+
+                subHyperlink.getUrlMode();
+                result = "url-mode";
+
+                subHyperlink.shouldUse(withNotNull());
+                result = true;
+
+                subHyperlink.getDescription(withNotNull());
+                result = "LinkDescription";
+
+                subHyperlink.getTarget(withNotNull());
+                result = "/link/target/path";
+
+                request.getAttribute("requestMapMap");
+                result = requestMapMap;
+            }
+        };
+
+        Map<String, Object> context = new HashMap<>();
+        macroFormRenderer.renderDisplayField(appendable, context, displayEntityField);
+
+        System.out.println(appendable.toString());
         assertAndGetMacroString("renderDisplayField", ImmutableMap.of("type", "TYPE"));
     }
 
@@ -987,7 +1036,7 @@ public class MacroFormRendererTest {
         new Verifications() {
             {
                 List<String> macros = new ArrayList<>();
-                new StringReader(withCapture(macros));
+                ftlWriter.executeMacro(withNotNull(), withCapture(macros));
 
                 assertThat(macros, not(empty()));
                 final String macro = macros.get(0);
