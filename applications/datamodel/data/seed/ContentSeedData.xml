@@ -136,11 +136,14 @@ under the License.
     <RoleType description="Logged In" hasTable="N"  roleTypeId="LOGGEDIN"/>
     <RoleType roleTypeId="CONTENT" hasTable="N" description="Content Member"/>
     <RoleType roleTypeId="CONTENT_ADMIN" parentTypeId="CONTENT" hasTable="N" description="Content Administrator"/>
+    <RoleType roleTypeId="CONTENT_APPROVER" parentTypeId="CONTENT" hasTable="N" description="Content Approver"/>
     <RoleType roleTypeId="CONTENT_PUBLISHER" parentTypeId="CONTENT" hasTable="N" description="Content Publisher"/>
     <RoleType roleTypeId="CONTENT_EDITOR" parentTypeId="CONTENT" hasTable="N" description="Content Editor"/>
     <RoleType roleTypeId="CONTENT_AUTHOR" parentTypeId="CONTENT" hasTable="N" description="Content Author"/>
+    <RoleType roleTypeId="CONTENT_MANAGER" parentTypeId="CONTENT" hasTable="N" description="Content Manager"/>
     <RoleType roleTypeId="CONTENT_USER" parentTypeId="CONTENT" hasTable="N" description="Content User"/>
     <RoleType roleTypeId="CONTENT_GUEST" parentTypeId="CONTENT" hasTable="N" description="Content Guest"/>
+    <RoleType roleTypeId="CONTENT_REVIEWER" parentTypeId="CONTENT" hasTable="N" description="Content Reviewer"/>
 
     <StatusType description="Content Approval Status" hasTable="N" statusTypeId="CNTNTAPPR_STATUS"/>
     <StatusItem description="Not Ready for Approval" sequenceId="01" statusCode="NOT_READY" statusId="CNTAP_NOT_READY" statusTypeId="CNTNTAPPR_STATUS"/>

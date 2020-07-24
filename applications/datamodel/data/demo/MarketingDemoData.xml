@@ -37,6 +37,26 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="SFA_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="SFA_ADMIN"/>
 
+    <SecurityGroup groupId="MARKETINGADMIN" description="Marketing Admin, has all permissions in the Marketing plugin" groupName="Marketing Admin"/>
+    <SecurityGroupPermission groupId="MARKETINGADMIN" permissionId="MARKETING_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MARKETINGADMIN" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0" />
+
+    <SecurityGroup groupId="MARKETINGVIEW" description="Marketing View, has view permissions in the Marketing plugin" groupName="Marketing Admin"/>
+    <SecurityGroupPermission groupId="MARKETINGVIEW" permissionId="MARKETING_VIEW" fromDate="2001-05-13 12:00:00.0"/>
+    <SecurityGroupPermission groupId="MARKETINGVIEW" permissionId="OFBTOOLS_VIEW" fromDate="2001-05-13 12:00:00.0" />
+
+    <!-- UserLoginSecurityGroup groupId="MARKETING_ADMIN" -->
+    <UserLoginSecurityGroup groupId="MARKETINGADMIN" userLoginId="employee17" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- UserLoginSecurityGroup groupId="MARKETING_VIEW" -->
+    <UserLoginSecurityGroup groupId="MARKETINGVIEW" userLoginId="employee18" fromDate="2000-01-01 00:00:00.0"/>
+    
+    <UserLoginSecurityGroup groupId="CRM_ADMIN" userLoginId="employee29" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CRM_AUTHORS" userLoginId="employee32" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CRM_AUTHORS" userLoginId="employee33" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CRM_VIEWERS" userLoginId="employee30" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CRM_VIEWERS" userLoginId="employee31" fromDate="2000-01-01 00:00:00.0"/>
+    
     <!-- SFA System Property Data -->
     <SystemProperty systemResourceId="sfa" systemPropertyId="save.outgoing.directory" description="If the save.outgoing.directory is specified the file will be saved there, else it will be saved under OFBIZ_HOME"/>
 
@@ -44,8 +64,8 @@ under the License.
     <!-- demo accounts -->
     <Party partyId="sfa100" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sfa100" groupName="A profitable Account"/>
-    <PartyRole partyId="sfa100" roleTypeId="_NA_"/>
-    <PartyRole partyId="sfa100" roleTypeId="ACCOUNT"/>
+    <PartyRole partyId="sfa100" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="sfa100" roleTypeId="ACCOUNT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="sfa100" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <ContactMech contactMechId="sfa100" contactMechTypeId="POSTAL_ADDRESS"/>
     <ContactMech contactMechId="sfa101" contactMechTypeId="TELECOM_NUMBER"/>
@@ -61,52 +81,47 @@ under the License.
 
     <!-- demo contacts -->
     <Party partyId="DemoCustomer1" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoCustomer1" roleTypeId="CONTACT"/>
+    <PartyRole partyId="DemoCustomer1" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoCustomer1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="sfa100" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer1" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="sfa100" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer1" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000"/>
     <Party partyId="DemoCustomer2" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoCustomer2" roleTypeId="CONTACT"/>
+    <PartyRole partyId="DemoCustomer2" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoCustomer2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer2" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
-    <Party partyId="DemoCustomer3" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoCustomer3" roleTypeId="CONTACT"/>
-    <PartyStatus partyId="DemoCustomer3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer2" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000"/>
 
     <!-- Demo Lead Owners -->
     <Party partyId="DemoLeadOwner" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLeadOwner" firstName="Demo" lastName="LeadOwner"/>
-    <PartyRole partyId="DemoLeadOwner" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLeadOwner" roleTypeId="OWNER"/>
+    <PartyRole partyId="DemoLeadOwner" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoLeadOwner" roleTypeId="OWNER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoLeadOwner" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
     <UserLogin userLoginId="DemoLeadOwner" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="DemoLeadOwner" enabled="Y"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="DemoLeadOwner" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DemoLeadOwner1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLeadOwner1" firstName="Demo" lastName="LeadOwner1"/>
-    <PartyRole partyId="DemoLeadOwner1" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLeadOwner1" roleTypeId="OWNER"/>
+    <PartyRole partyId="DemoLeadOwner1" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoLeadOwner1" roleTypeId="OWNER" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoLeadOwner1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner1" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
     <UserLogin userLoginId="DemoLeadOwner1" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="DemoLeadOwner1" enabled="Y"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="DemoLeadOwner1" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Demo Leads -->
     <Party partyId="sfa102" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sfa102" groupName="A promising Lead Company"/>
-    <PartyRole partyId="sfa102" roleTypeId="ACCOUNT_LEAD"/>
-    <PartyRole partyId="sfa102" roleTypeId="_NA_"/>
+    <PartyRole partyId="sfa102" roleTypeId="ACCOUNT_LEAD" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="sfa102" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="sfa102" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <Party partyId="sfa101" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="sfa101" firstName="John" lastName="Lead"/>
-    <PartyRole partyId="sfa101" roleTypeId="_NA_"/>
-    <PartyRole partyId="sfa101" roleTypeId="LEAD"/>
+    <PartyRole partyId="sfa101" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="sfa101" roleTypeId="LEAD" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="sfa101" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <!-- company to lead relationship -->
-    <PartyRelationship partyIdFrom="sfa102" roleTypeIdFrom="ACCOUNT_LEAD" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="sfa102" roleTypeIdFrom="ACCOUNT_LEAD" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000"/>
     <!-- owner to lead relationship -->
-    <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
+    <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000"/>
     <ContactMech contactMechId="sfa103" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztestLead@example.com"/>
     <PartyContactMech partyId="sfa101" contactMechId="sfa103" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="sfa101" contactMechId="sfa103" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
@@ -116,41 +131,40 @@ under the License.
 
     <Party partyId="DemoLead" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead" firstName="Demo" lastName="Lead"/>
-    <PartyRole partyId="DemoLead" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLead" roleTypeId="LEAD"/>
+    <PartyRole partyId="DemoLead" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoLead" roleTypeId="LEAD" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoLead" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="DemoLead1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead1" firstName="Demo" lastName="Lead1"/>
-    <PartyRole partyId="DemoLead1" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLead1" roleTypeId="LEAD"/>
+    <PartyRole partyId="DemoLead1" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoLead1" roleTypeId="LEAD" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoLead1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="DemoLead2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead2" firstName="Demo" lastName="Lead2"/>
-    <PartyRole partyId="DemoLead2" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLead2" roleTypeId="LEAD"/>
+    <PartyRole partyId="DemoLead2" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoLead2" roleTypeId="LEAD" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoLead2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="DemoLead3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead3" firstName="Demo" lastName="Lead3"/>
-    <PartyRole partyId="DemoLead3" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLead3" roleTypeId="LEAD"/>
+    <PartyRole partyId="DemoLead3" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoLead3" roleTypeId="LEAD" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoLead3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="DemoLead4" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead4" firstName="Demo" lastName="Lead4"/>
-    <PartyRole partyId="DemoLead4" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLead4" roleTypeId="LEAD"/>
+    <PartyRole partyId="DemoLead4" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoLead4" roleTypeId="LEAD" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoLead4" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <!-- Lead Owners Team -->
     <Party partyId="DemoLeadOwnersGroup" partyTypeId="TEAM" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="DemoLeadOwnersGroup" groupName="A Group of Lead Owners"/>
-    <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="OTHER_ORGANIZATION_U"/>
+    <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="OTHER_ORGANIZATION_U" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="DemoLeadOwnersGroup" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="DemoLeadOwnersGroup" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Leads of DemoLeadOwner -->
     <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="DemoLead" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
@@ -198,9 +212,9 @@ under the License.
         verifyEmailFrom="ofbiztest@example.com" verifyEmailScreen="component://ecommerce/widget/EmailContactListScreens.xml#ContactListVerifyEmail"
         verifyEmailSubject="Subscription Verify Email" verifyEmailWebSiteId="WebStore"/>
 
-    <ContactListParty contactListId="9000" partyId="DemoCustCompany" preferredContactMechId="9021" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
-    <ContactListParty contactListId="9000" partyId="DemoCustAgent" preferredContactMechId="9023" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
-    <ContactListParty contactListId="9000" partyId="DemoCustomer" preferredContactMechId="9026" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
+    <ContactListParty contactListId="9000" partyId="DemoCustCompany" preferredContactMechId="CUSTOMER_EMAIL" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
+    <ContactListParty contactListId="9000" partyId="DemoCustAgent" preferredContactMechId="CUSTOMER_EMAIL" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
+    <ContactListParty contactListId="9000" partyId="DemoCustomer" preferredContactMechId="CUSTOMER_EMAIL" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
 
     <!-- some sample affiliate and tracking codes for marketing campaigns -->
     <MarketingCampaign statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9001" campaignName="Pay Per Click Advertising"/>

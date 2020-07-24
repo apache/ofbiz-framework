@@ -35,18 +35,18 @@ under the License.
 
     <Party partyId="TestDemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestDemoCustomer" firstName="Test" lastName="Customer"/>
-    <PartyRole partyId="TestDemoCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="TestDemoCustomer" roleTypeId="CONTACT"/>
-    <PartyRole partyId="TestDemoCustomer" roleTypeId="ACCOUNTANT"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="ACCOUNTANT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="TestDemoCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <ContactMech contactMechId="TestContactMech" contactMechTypeId="EMAIL_ADDRESS" infoString="newtest_email@example.com"/>
     <PartyContactMech partyId="TestDemoCustomer" contactMechId="TestContactMech" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="TestDemoCustomer" contactMechId="TestContactMech" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00"/>
 
-    <PartyRole partyId="TestDemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
-    <PartyRole partyId="TestDemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
-    <PartyRole partyId="TestDemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
-    <PartyRole partyId="TestDemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="END_USER_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="SHIP_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="PLACING_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
 
     <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
     <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="END_USER_CUSTOMER"/>

@@ -20,27 +20,27 @@ under the License.
 
 <entity-engine-xml>
     <Party partyId="TestCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <PartyGroup partyId="TestCompany" groupName="Your Company Name Here"/>
-    <PartyRole partyId="TestCompany" roleTypeId="BILL_FROM_VENDOR"/>
-    <PartyRole partyId="TestCompany" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyRole partyId="TestCompany" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="TestCompany" roleTypeId="ACCOUNTANT"/>
-    <PartyRole partyId="TestCompany" roleTypeId="_NA_"/>
+    <PartyGroup partyId="TestCompany" groupName="The OFBiz Test Company"/>
+    <PartyRole partyId="TestCompany" roleTypeId="BILL_FROM_VENDOR" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestCompany" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestCompany" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestCompany" roleTypeId="ACCOUNTANT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestCompany" roleTypeId="_NA_" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="TestCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="TestParty" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestParty" firstName="Test" lastName="Party"/>
-    <PartyRole partyId="TestParty" roleTypeId="CONTACT"/>
-    <PartyRole partyId="TestParty" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="TestParty" roleTypeId="ACCOUNTANT"/>
-    <PartyRole partyId="TestParty" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyRole partyId="TestParty" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestParty" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestParty" roleTypeId="ACCOUNTANT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestParty" roleTypeId="CONTENT_AUTHOR" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="TestParty" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="TestParty-1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestParty-1" firstName="Test" lastName="Party"/>
-    <PartyRole partyId="TestParty-1" roleTypeId="CONTACT"/>
-    <PartyRole partyId="TestParty-1" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="TestParty-1" roleTypeId="ACCOUNTANT"/>
+    <PartyRole partyId="TestParty-1" roleTypeId="CONTACT" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestParty-1" roleTypeId="CUSTOMER" fromDate="2001-05-13 00:00:00.0"/>
+    <PartyRole partyId="TestParty-1" roleTypeId="ACCOUNTANT" fromDate="2001-05-13 00:00:00.0"/>
     <PartyStatus partyId="TestParty-1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <ContactMech contactMechId="TestContactMech" contactMechTypeId="EMAIL_ADDRESS" infoString="newtest_email@example.com"/>
