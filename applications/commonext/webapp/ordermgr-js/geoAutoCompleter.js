@@ -81,7 +81,7 @@ function setKeyAsParameter(event, ui) {
 function getAssociatedStateList(countryId, stateId, errorId, divId) {
     var countryGeoId = jQuery("#" + countryId).val();
     var requestToSend = "getAssociatedStateList";
-    if (jQuery('#orderViewed')) {
+    if (jQuery('#orderViewed').length) {
         requestToSend = "/ordermgr/control/getAssociatedStateList"
     }
     jQuery.ajax({
