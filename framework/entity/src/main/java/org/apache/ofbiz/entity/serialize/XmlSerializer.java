@@ -233,11 +233,11 @@ public class XmlSerializer {
             }
 
             Element element = document.createElement(elementName);
-            Map<?,?> value = UtilGenerics.cast(object);
+            Map<?, ?> value = UtilGenerics.cast(object);
             Iterator<Map.Entry<?, ?>> iter = UtilGenerics.cast(value.entrySet().iterator());
 
             while (iter.hasNext()) {
-                Map.Entry<?,?> entry = iter.next();
+                Map.Entry<?, ?> entry = iter.next();
 
                 Element entryElement = document.createElement("map-Entry");
 

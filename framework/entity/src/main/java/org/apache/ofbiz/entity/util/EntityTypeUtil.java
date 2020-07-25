@@ -136,7 +136,7 @@ public final class EntityTypeUtil {
         try {
             childTypeValue = EntityQuery.use(delegator).from(entityName).where(primaryKey, childType).cache(true).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError("Error finding "+entityName+" record for type "+childType, MODULE);
+            Debug.logError("Error finding " + entityName + " record for type " + childType, MODULE);
         }
         if (childTypeValue != null) {
             if (parentType.equals(childTypeValue.getString(primaryKey))) return true;

@@ -255,14 +255,14 @@ public class JavaMailContainer implements Container {
         public void notification(StoreEvent event) {
             String typeString = "";
             switch (event.getMessageType()) {
-                case StoreEvent.ALERT:
-                    typeString = "ALERT: ";
-                    break;
-                case StoreEvent.NOTICE:
-                    typeString = "NOTICE: ";
-                    break;
-                default:
-                    Debug.logWarning("There was a case error in LoggingStoreListener.notification", MODULE);
+            case StoreEvent.ALERT:
+                typeString = "ALERT: ";
+                break;
+            case StoreEvent.NOTICE:
+                typeString = "NOTICE: ";
+                break;
+            default:
+                Debug.logWarning("There was a case error in LoggingStoreListener.notification", MODULE);
             }
 
             if (Debug.verboseOn()) {

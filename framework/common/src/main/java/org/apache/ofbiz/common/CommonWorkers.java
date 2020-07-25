@@ -147,15 +147,13 @@ public final class CommonWorkers {
             EntityCondition stateProvinceFindCond = EntityCondition.makeCondition(
                     EntityCondition.makeCondition("geoIdFrom", country),
                     EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"),
-                    EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"),
-                    		EntityCondition.makeCondition("geoTypeId", "TERRITORY"), EntityCondition.makeCondition("geoTypeId", "COUNTY")));
+                    EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"), EntityCondition.makeCondition("geoTypeId", "TERRITORY"), EntityCondition.makeCondition("geoTypeId", "COUNTY")));
             geoList.addAll(EntityQuery.use(delegator)
                                       .from("GeoAssocAndGeoToWithState")
                                       .where(stateProvinceFindCond)
                                       .orderBy(sortList)
                                       .cache(true)
-                                      .queryList()
-                          );
+                                      .queryList());
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", MODULE);
         }

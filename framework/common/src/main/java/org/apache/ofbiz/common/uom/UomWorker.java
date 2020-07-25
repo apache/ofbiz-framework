@@ -42,29 +42,29 @@ public class UomWorker {
 
     public static int[] uomTimeToCalTime(String uomId) {
         if ("TF_ms".equals(uomId)) {
-            return new int[] { Calendar.MILLISECOND, 1 };
+            return new int[] {Calendar.MILLISECOND, 1 };
         } else if ("TF_s".equals(uomId)) {
-            return new int[] { Calendar.SECOND, 1 };
+            return new int[] {Calendar.SECOND, 1 };
         } else if ("TF_min".equals(uomId)) {
-            return new int[] { Calendar.MINUTE, 1 };
+            return new int[] {Calendar.MINUTE, 1 };
         } else if ("TF_hr".equals(uomId)) {
-            return new int[] { Calendar.HOUR, 1 };
+            return new int[] {Calendar.HOUR, 1 };
         } else if ("TF_day".equals(uomId)) {
-            return new int[] { Calendar.DAY_OF_YEAR, 1 };
+            return new int[] {Calendar.DAY_OF_YEAR, 1 };
         } else if ("TF_wk".equals(uomId)) {
-            return new int[] { Calendar.WEEK_OF_YEAR, 1 };
+            return new int[] {Calendar.WEEK_OF_YEAR, 1 };
         } else if ("TF_mon".equals(uomId)) {
-            return new int[] { Calendar.MONTH, 1 };
+            return new int[] {Calendar.MONTH, 1 };
         } else if ("TF_yr".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 1 };
+            return new int[] {Calendar.YEAR, 1 };
         } else if ("TF_decade".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 10 };
+            return new int[] {Calendar.YEAR, 10 };
         } else if ("TF_score".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 20 };
+            return new int[] {Calendar.YEAR, 20 };
         } else if ("TF_century".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 100 };
+            return new int[] {Calendar.YEAR, 100 };
         } else if ("TF_millenium".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 1000 };
+            return new int[] {Calendar.YEAR, 1000 };
         }
 
         return null;

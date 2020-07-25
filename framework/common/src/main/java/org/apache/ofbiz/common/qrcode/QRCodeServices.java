@@ -205,9 +205,9 @@ public class QRCodeServices {
             result.put("bufferedImage", bufferedImage);
             return result;
         } catch (WriterException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] { e.toString() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] {e.toString() }, locale));
         } catch (ChecksumException | FormatException | NotFoundException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorVerifyQRCode", new Object[] { e.toString() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorVerifyQRCode", new Object[] {e.toString() }, locale));
         }
     }
 

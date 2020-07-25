@@ -395,8 +395,7 @@ public class ModelFormField {
                         }
                         if (simpleEncoder != null) {
                             newCol.add(simpleEncoder.encode(item.toString()));
-                        }
-                        else {
+                        } else {
                             newCol.add(item.toString());
                         }
                     }

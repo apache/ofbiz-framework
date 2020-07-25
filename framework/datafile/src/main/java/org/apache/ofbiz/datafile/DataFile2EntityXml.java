@@ -83,8 +83,7 @@ public class DataFile2EntityXml {
                 outFile.newLine();
             }
             outFile.write("</entity-engine-xml>");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DataFileException("Error writing to file " + fileName, e);
         }
 
@@ -127,8 +126,7 @@ public class DataFile2EntityXml {
                     outFile.newLine();
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Debug.logError(e, MODULE);
         }
     }

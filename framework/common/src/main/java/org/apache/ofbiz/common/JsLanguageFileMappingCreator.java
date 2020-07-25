@@ -222,8 +222,7 @@ public class JsLanguageFileMappingCreator {
             // write it as a Java file
             File file = new File(output);
             FileUtils.writeStringToFile(file, writer.toString(), encoding);
-        }
-        catch (IOException | TemplateException e) {
+        } catch (IOException | TemplateException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated", UtilMisc.toMap("errorString", e.getMessage()), (Locale) context.get("locale")));
         }

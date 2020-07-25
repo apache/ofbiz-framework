@@ -381,8 +381,7 @@ public class EntityTestSuite extends EntityTestCase {
         for (GenericValue node: nodeLevel1) {
             GenericValue testing = delegator.makeValue("Testing",
                             "testingId", delegator.getNextSeqId("Testing"),
-                            "testingTypeId", "TEST-TREE-1"
-                   );
+                            "testingTypeId", "TEST-TREE-1");
             testing.put("testingName", "leaf-#" + node.getString("testingNodeId"));
             testing.put("description", "level1 leaf");
             testing.put("comments", "No-comments");
@@ -392,8 +391,7 @@ public class EntityTestSuite extends EntityTestCase {
             newValues.add(testing);
             GenericValue member = delegator.makeValue("TestingNodeMember",
                             "testingNodeId", node.get("testingNodeId"),
-                            "testingId", testing.get("testingId")
-                   );
+                            "testingId", testing.get("testingId"));
 
             member.put("fromDate", now);
             member.put("thruDate", UtilDateTime.getNextDayStart(now));
@@ -418,14 +416,12 @@ public class EntityTestSuite extends EntityTestCase {
         for (GenericValue node: EntityQuery.use(delegator)
                                            .from("TestingNode")
                                            .where(EntityCondition.makeCondition("description", EntityOperator.LIKE, descriptionPrefix + "%"))
-                                           .queryList()
-        ) {
+                                           .queryList()) {
             if (i % 2 == 0) {
                 GenericValue testing = delegator.create("Testing", "testingId", descriptionPrefix + ":" + node.get("testingNodeId"), "testingTypeId", typeId, "description", node.get("description"));
                 GenericValue member = delegator.makeValue("TestingNodeMember",
                     "testingNodeId", node.get("testingNodeId"),
-                    "testingId", testing.get("testingId")
-                );
+                    "testingId", testing.get("testingId"));
 
                 member.put("fromDate", now);
                 member.put("thruDate", UtilDateTime.getNextDayStart(now));
@@ -446,8 +442,7 @@ public class EntityTestSuite extends EntityTestCase {
         EntityCondition isNodeWithMember = EntityCondition.makeCondition(
             EntityCondition.makeCondition("testingId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD),
             EntityOperator.AND,
-            EntityCondition.makeCondition("description", EntityOperator.LIKE, "count-views:%")
-        );
+            EntityCondition.makeCondition("description", EntityOperator.LIKE, "count-views:%"));
         List<GenericValue> nodeWithMembers = EntityQuery.use(delegator).from("TestingNodeAndMember").where(isNodeWithMember).queryList();
 
         for (GenericValue v: nodeWithMembers) {
@@ -645,8 +640,7 @@ public class EntityTestSuite extends EntityTestCase {
         EntityCondition isRoot = EntityCondition.makeCondition(
             EntityCondition.makeCondition("description", EntityOperator.LIKE, "remove-by-pk:%"),
             EntityOperator.AND,
-            EntityCondition.makeCondition("primaryParentNodeId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD)
-        );
+            EntityCondition.makeCondition("primaryParentNodeId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD));
         List<GenericValue> rootValues = EntityQuery.use(delegator).select("testingNodeId").from("TestingNode").where(isRoot).queryList();
 
         for (GenericValue value: rootValues) {

@@ -161,7 +161,7 @@ public final class KeywordSearchUtil {
                 // replace all %% with %
                 int dblPercIdx = -1;
                 while ((dblPercIdx = strSb.indexOf("%%")) >= 0) {
-                    strSb.replace(dblPercIdx, dblPercIdx+2, "%");
+                    strSb.replace(dblPercIdx, dblPercIdx + 2, "%");
                 }
                 token = strSb.toString();
             }

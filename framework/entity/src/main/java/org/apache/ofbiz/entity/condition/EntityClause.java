@@ -37,8 +37,8 @@ public class EntityClause {
     private String secondField = "";
     private ModelEntity firstModelEntity = null;
     private ModelEntity secondModelEntity = null;
-    private EntityOperator<?,?> interFieldOperation = null;
-    private EntityOperator<?,?> intraFieldOperation = null;
+    private EntityOperator<?, ?> interFieldOperation = null;
+    private EntityOperator<?, ?> intraFieldOperation = null;
 
     private Object value = null;
     public EntityClause() { }

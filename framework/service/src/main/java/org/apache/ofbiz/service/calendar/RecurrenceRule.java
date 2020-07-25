@@ -751,7 +751,7 @@ public class RecurrenceRule {
         StringBuilder sBuf = new StringBuilder();
 
         for (int i = 0; i < str.length(); i++) {
-            String thisChar = str.substring(i, i+1);
+            String thisChar = str.substring(i, i + 1);
 
             if (!hasNumber(thisChar)) {
                 sBuf.append(thisChar);

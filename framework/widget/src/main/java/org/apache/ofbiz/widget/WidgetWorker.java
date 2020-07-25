@@ -121,7 +121,7 @@ public final class WidgetWorker {
         if (UtilValidate.isNotEmpty(tokenValue)) {
             String currentString = externalWriter.toString();
             if (currentString.startsWith("<form")) {
-                currentString = currentString.substring(currentString.lastIndexOf("\"")+1);
+                currentString = currentString.substring(currentString.lastIndexOf("\"") + 1);
             }
             if (currentString.indexOf('?') == -1) {
                 externalWriter.append("?" + CsrfUtil.getTokenNameNonAjax() + "=" + tokenValue);

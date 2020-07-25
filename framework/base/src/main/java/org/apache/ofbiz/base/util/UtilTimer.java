@@ -89,7 +89,7 @@ public class UtilTimer {
      * @param MODULE The debug/log MODULE/thread to use, can be null for root MODULE
      * @return A String with the timing information, the timer String
      */
-    public String timerString(String message, String MODULE) {
+    public String timerString(String message, String module) {
         // time this call to avoid it interfering with the main timer
         long tsStart = System.currentTimeMillis();
 
@@ -108,7 +108,7 @@ public class UtilTimer {
         lastMessage = message;
         String retString = retBuf.toString();
         if (log) {
-            Debug.log(Debug.TIMING, null, retString, MODULE, "org.apache.ofbiz.base.util.UtilTimer");
+            Debug.log(Debug.TIMING, null, retString, module, "org.apache.ofbiz.base.util.UtilTimer");
         }
 
         // have lastMessageTime come as late as possible to just time what happens between calls
@@ -222,17 +222,17 @@ public class UtilTimer {
         return timer;
     }
 
-    public static void timerLog(String timerName, String message, String MODULE) {
+    public static void timerLog(String timerName, String message, String module) {
         UtilTimer timer = UtilTimer.getTimer(timerName);
         if (!timer.isRunning()) {
             timer.startTimer();
         }
 
         if (timer.getLog()) {
-            if (MODULE == null) {
-                MODULE = timer.getClass().getName();
+            if (module == null) {
+                module = timer.getClass().getName();
             }
-            timer.timerString(message, MODULE);
+            timer.timerString(message, module);
         }
     }
 
@@ -244,9 +244,9 @@ public class UtilTimer {
         UtilTimer.closeTimer(timerName, message, null);
     }
 
-    public static void closeTimer(String timerName, String message, String MODULE) {
+    public static void closeTimer(String timerName, String message, String module) {
         if (message != null) {
-            UtilTimer.timerLog(timerName, message, MODULE);
+            UtilTimer.timerLog(timerName, message, module);
         }
         staticTimers.remove(timerName);
     }

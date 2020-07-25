@@ -1138,8 +1138,7 @@ public final class LoginWorker {
                 String headerValue = request.getHeader(httpHeader);
                 if (UtilValidate.isNotEmpty(headerValue)) {
                     return LoginWorker.loginUserWithUserLoginId(request, response, headerValue);
-                }
-                else {
+                } else {
                     // empty headerValue is not good
                     return "error";
                 }
@@ -1162,8 +1161,7 @@ public final class LoginWorker {
                 String remoteUserId = request.getRemoteUser();
                 if (UtilValidate.isNotEmpty(remoteUserId)) {
                     return LoginWorker.loginUserWithUserLoginId(request, response, remoteUserId);
-                }
-                else {
+                } else {
                     // empty remoteUserId is not good
                     return "error";
                 }

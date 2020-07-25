@@ -576,8 +576,7 @@ public final class SqlJdbcUtil {
         while (curField.getEncryptMethod().isEncrypted() && model instanceof ModelViewEntity) {
             ModelViewEntity modelView = (ModelViewEntity) model;
             String entityName = modelView.getAliasedEntity(
-                    modelView.getAlias(curField.getName()).getEntityAlias(), entity.getDelegator().getModelReader()
-            ).getEntityName();
+                    modelView.getAlias(curField.getName()).getEntityAlias(), entity.getDelegator().getModelReader()).getEntityName();
             model = entity.getDelegator().getModelEntity(entityName);
         }
         String encryptionKeyName = model.getEntityName();
@@ -877,11 +876,11 @@ public final class SqlJdbcUtil {
                 }
 
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("type of field " + entityName + "." + modelField.getName() +
-                            " is " + fieldClassName + ", was expecting " + mft.getJavaType() + "; this may " +
-                            "indicate an error in the configuration or in the class, and may result " +
-                            "in an SQL-Java data conversion error. Will use the real field type: " +
-                            fieldClassName + ", not the definition.", MODULE);
+                    Debug.logVerbose("type of field " + entityName + "." + modelField.getName()
+                            + " is " + fieldClassName + ", was expecting " + mft.getJavaType() + "; this may "
+                            + "indicate an error in the configuration or in the class, and may result "
+                            + "in an SQL-Java data conversion error. Will use the real field type: "
+                            + fieldClassName + ", not the definition.", MODULE);
                 }
                 fieldType = fieldClassName;
             }

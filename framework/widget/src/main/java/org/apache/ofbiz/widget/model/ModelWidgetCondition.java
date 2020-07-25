@@ -545,8 +545,8 @@ public abstract class ModelWidgetCondition implements Serializable {
             if (fieldString == null) {
                 fieldString = "";
             }
-            Class<?>[] paramTypes = { String.class };
-            Object[] params = new Object[] { fieldString };
+            Class<?>[] paramTypes = {String.class };
+            Object[] params = new Object[] {fieldString };
             Class<?> valClass;
             try {
                 valClass = ObjectType.loadClass(className);

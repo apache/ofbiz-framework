@@ -130,8 +130,7 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         return EntityCondition.makeCondition(
             EntityCondition.makeCondition("testingCryptoTypeId", EntityOperator.IN, UtilMisc.toList("SUB_SELECT_1", "SUB_SELECT_3")),
             EntityOperator.AND,
-            EntityCondition.makeCondition("encryptedValue", EntityOperator.EQUALS, nanoTime)
-        );
+            EntityCondition.makeCondition("encryptedValue", EntityOperator.EQUALS, nanoTime));
     }
 
     protected EntityConditionSubSelect makeSubSelect(String nanoTime) {

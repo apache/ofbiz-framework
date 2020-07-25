@@ -69,7 +69,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
      * @param <V> The type of values that are compared.
      */
     @SafeVarargs
-    public <V> EntityFieldMap(EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp, V... keysValues) {
+    public <V> EntityFieldMap(EntityComparisonOperator<?, ?> compOp, EntityJoinOperator joinOp, V... keysValues) {
         this(EntityUtil.makeFields(keysValues), UtilGenerics.cast(compOp), joinOp);
     }
 
@@ -81,7 +81,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
      * @param joinOp the operator to join entries in the field map
      * @param <V> the type of values contained in {@code fieldMap}
      */
-    public <V> EntityFieldMap(Map<String, V> fieldMap, EntityComparisonOperator<?,?> compOp,
+    public <V> EntityFieldMap(Map<String, V> fieldMap, EntityComparisonOperator<?, ?> compOp,
                               EntityJoinOperator joinOp) {
         super(makeConditionList(fieldMap, UtilGenerics.cast(compOp)), joinOp);
         this.fieldMap = (fieldMap == null) ? Collections.emptyMap() : fieldMap;

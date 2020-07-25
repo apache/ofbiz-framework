@@ -483,7 +483,7 @@ public final class UelUtil {
         int closeBrace = (openBrace == -1 ? -1 : result.indexOf(']', openBrace));
         if (closeBrace != -1) {
             String base = result.substring(0, openBrace);
-            String property = result.substring(openBrace+2, closeBrace).trim();
+            String property = result.substring(openBrace + 2, closeBrace).trim();
             String end = result.substring(closeBrace + 1);
             result = base + "['insert@" + property + "']" + end;
         }

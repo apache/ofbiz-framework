@@ -153,7 +153,8 @@ public final class GroovyUtil {
                         Debug.logVerbose("Cached Groovy script at: " + location, MODULE);
                     }
                 } else {
-                    // the newly parsed script is discarded and the one found in the cache (that has been created by a concurrent thread in the meantime) is used
+                    // the newly parsed script is discarded and the one found in the cache (that has been created by a concurrent thread in the
+                    // meantime) is used
                     scriptClass = scriptClassCached;
                 }
             }
@@ -213,6 +214,6 @@ public final class GroovyUtil {
         Script script = InvokerHelper.createScript(getScriptClassFromLocation(location), getBinding(context));
         return UtilValidate.isEmpty(methodName)
                 ? script.run()
-                : script.invokeMethod(methodName, new Object[] { context });
+                : script.invokeMethod(methodName, new Object[] {context });
     }
 }

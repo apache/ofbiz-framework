@@ -276,20 +276,20 @@ public final class EntityCrypto {
         @Override
         protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
             switch (encryptMethod) {
-                case SALT:
-                    return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
-                default:
-                    return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+            case SALT:
+                return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+            default:
+                return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
             }
         }
 
         @Override
         protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
             switch (encryptMethod) {
-                case SALT:
-                    return saltedCipherService.encrypt(objBytes, key).toBase64();
-                default:
-                    return cipherService.encrypt(objBytes, key).toBase64();
+            case SALT:
+                return saltedCipherService.encrypt(objBytes, key).toBase64();
+            default:
+                return cipherService.encrypt(objBytes, key).toBase64();
             }
         }
     }
@@ -413,15 +413,15 @@ public final class EntityCrypto {
         protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
             byte[] saltBytes;
             switch (encryptMethod) {
-                case SALT:
-                    Random random = new SecureRandom();
-                    // random length 5-16
-                    saltBytes = new byte[5 + random.nextInt(11)];
-                    random.nextBytes(saltBytes);
-                    break;
-                default:
-                    saltBytes = new byte[0];
-                    break;
+            case SALT:
+                Random random = new SecureRandom();
+                // random length 5-16
+                saltBytes = new byte[5 + random.nextInt(11)];
+                random.nextBytes(saltBytes);
+                break;
+            default:
+                saltBytes = new byte[0];
+                break;
             }
             byte[] allBytes = new byte[1 + saltBytes.length + objBytes.length];
             allBytes[0] = (byte) saltBytes.length;

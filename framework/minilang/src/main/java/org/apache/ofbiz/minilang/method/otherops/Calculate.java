@@ -137,36 +137,36 @@ public final class Calculate extends MethodOperation {
         resultValue = resultValue.setScale(decimalScale, roundingMode);
         Object resultObj = null;
         switch (type) {
-            case TYPE_DOUBLE:
-                resultObj = resultValue.doubleValue();
-                break;
-            case TYPE_FLOAT:
-                resultObj = resultValue.floatValue();
-                break;
-            case TYPE_LONG:
-                resultValue = resultValue.setScale(0, roundingMode);
-                resultObj = resultValue.longValue();
-                break;
-            case TYPE_INTEGER:
-                resultValue = resultValue.setScale(0, roundingMode);
-                resultObj = resultValue.intValue();
-                break;
-            case TYPE_STRING:
-                // run the decimal-formatting
-                String decimalFormatString = decimalFormatFse.expandString(methodContext.getEnvMap());
-                DecimalFormat df = null;
-                if (!decimalFormatString.isEmpty()) {
-                    df = new DecimalFormat(decimalFormatString);
-                }
-                if (df != null && resultValue.compareTo(BigDecimal.ZERO) != 0) {
-                    resultObj = df.format(resultValue);
-                } else {
-                    resultObj = resultValue.toString();
-                }
-                break;
-            case TYPE_BIG_DECIMAL:
-                resultObj = resultValue;
-                break;
+        case TYPE_DOUBLE:
+            resultObj = resultValue.doubleValue();
+            break;
+        case TYPE_FLOAT:
+            resultObj = resultValue.floatValue();
+            break;
+        case TYPE_LONG:
+            resultValue = resultValue.setScale(0, roundingMode);
+            resultObj = resultValue.longValue();
+            break;
+        case TYPE_INTEGER:
+            resultValue = resultValue.setScale(0, roundingMode);
+            resultObj = resultValue.intValue();
+            break;
+        case TYPE_STRING:
+            // run the decimal-formatting
+            String decimalFormatString = decimalFormatFse.expandString(methodContext.getEnvMap());
+            DecimalFormat df = null;
+            if (!decimalFormatString.isEmpty()) {
+                df = new DecimalFormat(decimalFormatString);
+            }
+            if (df != null && resultValue.compareTo(BigDecimal.ZERO) != 0) {
+                resultObj = df.format(resultValue);
+            } else {
+                resultObj = resultValue.toString();
+            }
+            break;
+        case TYPE_BIG_DECIMAL:
+            resultObj = resultValue;
+            break;
         }
         fieldFma.put(methodContext.getEnvMap(), resultObj);
         return true;
@@ -282,19 +282,19 @@ public final class Calculate extends MethodOperation {
                     isFirst = false;
                 } else {
                     switch (operator) {
-                        case OPERATOR_ADD:
-                            resultValue = resultValue.add(calcop.calcValue(methodContext, scale, roundingMode));
-                            break;
-                        case OPERATOR_SUBTRACT:
-                        case OPERATOR_NEGATIVE:
-                            resultValue = resultValue.subtract(calcop.calcValue(methodContext, scale, roundingMode));
-                            break;
-                        case OPERATOR_MULTIPLY:
-                            resultValue = resultValue.multiply(calcop.calcValue(methodContext, scale, roundingMode));
-                            break;
-                        case OPERATOR_DIVIDE:
-                            resultValue = resultValue.divide(calcop.calcValue(methodContext, scale, roundingMode), scale, roundingMode);
-                            break;
+                    case OPERATOR_ADD:
+                        resultValue = resultValue.add(calcop.calcValue(methodContext, scale, roundingMode));
+                        break;
+                    case OPERATOR_SUBTRACT:
+                    case OPERATOR_NEGATIVE:
+                        resultValue = resultValue.subtract(calcop.calcValue(methodContext, scale, roundingMode));
+                        break;
+                    case OPERATOR_MULTIPLY:
+                        resultValue = resultValue.multiply(calcop.calcValue(methodContext, scale, roundingMode));
+                        break;
+                    case OPERATOR_DIVIDE:
+                        resultValue = resultValue.divide(calcop.calcValue(methodContext, scale, roundingMode), scale, roundingMode);
+                        break;
                     }
                 }
             }

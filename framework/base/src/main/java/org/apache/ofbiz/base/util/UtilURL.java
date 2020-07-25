@@ -169,7 +169,7 @@ public final class UtilURL {
         String path = fileUrl.getPath();
         if (path.startsWith(ofbizHome)) {
             // note: the +1 is to remove the leading slash
-            path = path.substring(ofbizHome.length()+1);
+            path = path.substring(ofbizHome.length() + 1);
         }
         return path;
     }

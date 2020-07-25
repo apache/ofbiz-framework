@@ -462,7 +462,7 @@ public final class TransactionUtil implements Status {
             if (tm != null && tm.getStatus() == STATUS_ACTIVE) {
                 Transaction tx = tm.getTransaction();
                 if (tx != null) {
-                     tx.enlistResource(resource);
+                    tx.enlistResource(resource);
                 }
             }
         } catch (RollbackException e) {
@@ -489,28 +489,28 @@ public final class TransactionUtil implements Status {
          * STATUS_ROLLING_BACK     9
          */
         switch (state) {
-            case Status.STATUS_ACTIVE:
-                return "Transaction Active (" + state + ")";
-            case Status.STATUS_COMMITTED:
-                return "Transaction Committed (" + state + ")";
-            case Status.STATUS_COMMITTING:
-                return "Transaction Committing (" + state + ")";
-            case Status.STATUS_MARKED_ROLLBACK:
-                return "Transaction Marked Rollback (" + state + ")";
-            case Status.STATUS_NO_TRANSACTION:
-                return "No Transaction (" + state + ")";
-            case Status.STATUS_PREPARED:
-                return "Transaction Prepared (" + state + ")";
-            case Status.STATUS_PREPARING:
-                return "Transaction Preparing (" + state + ")";
-            case Status.STATUS_ROLLEDBACK:
-                return "Transaction Rolledback (" + state + ")";
-            case Status.STATUS_ROLLING_BACK:
-                return "Transaction Rolling Back (" + state + ")";
-            case Status.STATUS_UNKNOWN:
-                return "Transaction Status Unknown (" + state + ")";
-            default:
-                return "Not a valid state code (" + state + ")";
+        case Status.STATUS_ACTIVE:
+            return "Transaction Active (" + state + ")";
+        case Status.STATUS_COMMITTED:
+            return "Transaction Committed (" + state + ")";
+        case Status.STATUS_COMMITTING:
+            return "Transaction Committing (" + state + ")";
+        case Status.STATUS_MARKED_ROLLBACK:
+            return "Transaction Marked Rollback (" + state + ")";
+        case Status.STATUS_NO_TRANSACTION:
+            return "No Transaction (" + state + ")";
+        case Status.STATUS_PREPARED:
+            return "Transaction Prepared (" + state + ")";
+        case Status.STATUS_PREPARING:
+            return "Transaction Preparing (" + state + ")";
+        case Status.STATUS_ROLLEDBACK:
+            return "Transaction Rolledback (" + state + ")";
+        case Status.STATUS_ROLLING_BACK:
+            return "Transaction Rolling Back (" + state + ")";
+        case Status.STATUS_UNKNOWN:
+            return "Transaction Status Unknown (" + state + ")";
+        default:
+            return "Not a valid state code (" + state + ")";
         }
     }
 
