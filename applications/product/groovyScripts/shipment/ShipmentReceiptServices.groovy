@@ -108,7 +108,7 @@ def receiveInventoryProduct () {
         }
     }
 
-    for (Double currentLoop = 0; currentLoop <= loops; currentLoop++) {
+    for (Double currentLoop = 0; currentLoop < loops; currentLoop++) {
         logInfo("receiveInventoryProduct Looping and creating inventory info - ${currentLoop}")
 
         // if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns); if not create one
@@ -166,7 +166,7 @@ def receiveInventoryProduct () {
         serviceInMap.inventoryItemId = currentInventoryItemId
         run service:"balanceInventoryItems", with: serviceInMap
 
-        successMessageList << "Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${currentInventoryItemId}"
+        successMessageList << "Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${currentInventoryItemId}".toString()
     }
     // return the last inventory item received
     result.inventoryItemId = currentInventoryItemId
