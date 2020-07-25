@@ -1004,7 +1004,7 @@ def createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
                 shipmentContext.statusId = "SHIPMENT_INPUT"
             } else {
                 shipmentContext.destinationFacilityId = facility.facilityId
-                shipmentContext.statusId = "PRUCH_SHIP_CREATED"
+                shipmentContext.statusId = "PURCH_SHIP_CREATED"
             }
             Map serviceResult = run service: "createShipment", with: shipmentContext
             GenericValue shipment = from("Shipment").where(shipmentId: serviceResult.shipmentId).queryOne()
@@ -1029,7 +1029,7 @@ def createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
                     run service: "issueOrderItemToShipment", with: [shipmentId: shipment.shipmentId,
                                                                     orderId: item.orderId,
                                                                     orderItemSeqId: item.orderItemSeqId,
-                                                                    shipGroupSeqId: item.shipgroupSeqId,
+                                                                    shipGroupSeqId: item.shipGroupSeqId,
                                                                     quantity: item.quantity]
                 }
             }
