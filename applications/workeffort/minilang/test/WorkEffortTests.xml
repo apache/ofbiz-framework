@@ -22,7 +22,7 @@ under the License.
                 xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="testCreateWorkEffortAndPartyAssign" short-description="Test the service createWorkEffortAndPartyAssign" login-required="false">
         <set field="serviceCtx.partyId" value="TestParty-1"/>
-        <set field="serviceCtx.roleTypeId" value="CONTACT"/>
+        <set field="serviceCtx.roleTypeId" value="CAL_OWNER"/>
         <set field="serviceCtx.statusId" value="PRTYASGN_ASSIGNED"/>
         <set field="serviceCtx.workEffortId" value="TestWorkEffort-1"/>
         <set field="serviceCtx.partyTypeId" value="PARTY_GROUP"/>
@@ -39,7 +39,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <set field="lookupKeyValue.workEffortId" from-field="workEffortId"/>
         <set field="lookupKeyValue.partyId"  value="TestParty-1"/>
-        <set field="lookupKeyValue.roleTypeId"  value="CONTACT"/>
+        <set field="lookupKeyValue.roleTypeId"  value="CAL_OWNER"/>
         <find-by-and entity-name="WorkEffortPartyAssignment" map="lookupKeyValue" list="workEffortPartyAssignmentList"/>
         <first-from-list entry="workEffortPartyAssignment" list="workEffortPartyAssignmentList"/>
         <assert>
@@ -557,23 +557,6 @@ under the License.
         <first-from-list entry="rateAmount" list="rateAmountList"/>
         <assert>
             <not><if-empty field="rateAmount"/></not>
-        </assert>
-        <check-errors/>
-    </simple-method>
-    <simple-method method-name="testUnlinkInvoiceFromTimeEntry" short-description="Test the service unlinkInvoiceFromTimeEntry" login-required="false">
-        <set field="serviceCtx.invoiceId" value="TestInvoice"/>
-        <set field="serviceCtx.timeEntryId" value="TestTimeEntry-3"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="unlinkInvoiceFromTimeEntry" in-map-name="serviceCtx"/>
-        <entity-one entity-name="TimeEntry" value-field="timeEntry">
-            <field-map field-name="timeEntryId" value="TestTimeEntry-3"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="timeEntry"/></not>
-            <if-empty field="timeEntry.invoiceId"/>
         </assert>
         <check-errors/>
     </simple-method>
