@@ -513,8 +513,7 @@ public final class ProductStoreWorker {
                     if ((product != null) && ("Y".equals(product.get("isVariant")))) {
                         if (parentProductId != null) {
                             virtualProductId = parentProductId;
-                        }
-                        else {
+                        } else {
                             virtualProductId = ProductWorker.getVariantVirtualId(product);
                         }
                         Debug.logInfo("getSurvey for virtual product " + virtualProductId, MODULE);

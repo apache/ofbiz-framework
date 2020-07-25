@@ -71,8 +71,7 @@ public final class BillingAccountWorker {
 
         List<GenericValue> billingAccountRoleList = EntityQuery.use(delegator).from("BillingAccountRole")
                 .where(EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
-                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")
-                ).filterByDate().queryList();
+                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")).filterByDate().queryList();
 
         if (billingAccountRoleList.size() > 0) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
@@ -110,8 +109,7 @@ public final class BillingAccountWorker {
                 .where(EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")
-                ).queryList();
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")).queryList();
     }
 
     /**

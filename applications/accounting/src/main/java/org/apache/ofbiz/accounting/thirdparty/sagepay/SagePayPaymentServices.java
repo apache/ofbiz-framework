@@ -187,9 +187,7 @@ public class SagePayPaymentServices {
                             "amount", billingInfo.get("amount"),
                             "currency", billingInfo.get("currency"),
                             "billingAddress", billingInfo.get("billingAddress"),
-                            "billingPostCode", billingInfo.get("billingPostCode")
-                        )
-                    );
+                            "billingPostCode", billingInfo.get("billingPostCode")));
 
             Debug.logInfo("SagePay - SagePayPaymentAuthentication result : " + paymentResult, MODULE);
 
@@ -267,9 +265,7 @@ public class SagePayPaymentServices {
                             "vpsTxId", vpsTxId,
                             "securityKey", securityKey,
                             "txAuthNo", txAuthCode,
-                            "amount", amount.toString()
-                        )
-                    );
+                            "amount", amount.toString()));
             Debug.logInfo("SagePay - SagePayPaymentAuthorisation result : " + paymentResult, MODULE);
             String status = (String) paymentResult.get("status");
             String statusDetail = (String) paymentResult.get("statusDetail");
@@ -372,9 +368,7 @@ public class SagePayPaymentServices {
                             "relatedVPSTxId", captureTransaction.get("referenceNum"),
                             "relatedVendorTxCode", captureTransaction.get("altReference"),
                             "relatedSecurityKey", captureTransaction.get("gatewayFlag"),
-                            "relatedTxAuthNo", captureTransaction.get("gatewayCode")
-                        )
-                    );
+                            "relatedTxAuthNo", captureTransaction.get("gatewayCode")));
             Debug.logInfo("SagePay - SagePayPaymentRefund result : " + paymentResult, MODULE);
 
             String status = (String) paymentResult.get("status");
@@ -414,9 +408,7 @@ public class SagePayPaymentServices {
                             "vendorTxCode", captureTransaction.get("altReference"),
                             "vpsTxId", captureTransaction.get("referenceNum"),
                             "securityKey", captureTransaction.get("gatewayFlag"),
-                            "txAuthNo", captureTransaction.get("gatewayCode")
-                        )
-                    );
+                            "txAuthNo", captureTransaction.get("gatewayCode")));
 
             Debug.logInfo("SagePay - SagePayPaymentVoid result : " + paymentResult, MODULE);
 
@@ -481,9 +473,7 @@ public class SagePayPaymentServices {
                             "releaseAmount", amount.toString(),
                             "vpsTxId", refNum,
                             "securityKey", authTransaction.get("gatewayFlag"),
-                            "txAuthNo", authTransaction.get("gatewayCode")
-                        )
-                    );
+                            "txAuthNo", authTransaction.get("gatewayCode")));
 
             Debug.logInfo("SagePay - SagePayPaymentRelease result : " + paymentResult, MODULE);
 

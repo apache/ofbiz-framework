@@ -458,8 +458,7 @@ public class ProductionRunServices {
                         "roleTypeId",  workEffortPartyAssignment.getString("roleTypeId"),
                         "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
                         "statusId",  workEffortPartyAssignment.getString("statusId"),
-                        "userLogin", userLogin
-               );
+                        "userLogin", userLogin);
                 try {
                     Map<String, Object> result = dctx.getDispatcher().runSync("assignPartyToWorkEffort", partyToWorkEffort);
                     if (ServiceUtil.isError(result)) {
@@ -497,8 +496,7 @@ public class ProductionRunServices {
                         "costComponentCalcId", costCalc.getString("costComponentCalcId"),
                         "fromDate", costCalc.get("fromDate"),
                         "thruDate", costCalc.get("thruDate"),
-                        "userLogin", userLogin
-                );
+                        "userLogin", userLogin);
 
                 try {
                     Map<String, Object> result = dctx.getDispatcher().runSync("createWorkEffortCostCalc", createCostCalc);
@@ -1669,8 +1667,7 @@ public class ProductionRunServices {
                         "roleTypeId",  workEffortPartyAssignment.getString("roleTypeId"),
                         "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
                         "statusId",  workEffortPartyAssignment.getString("statusId"),
-                        "userLogin", userLogin
-               );
+                        "userLogin", userLogin);
                 try {
                     serviceResult = dispatcher.runSync("assignPartyToWorkEffort", partyToWorkEffort);
                     if (ServiceUtil.isError(serviceResult)) {

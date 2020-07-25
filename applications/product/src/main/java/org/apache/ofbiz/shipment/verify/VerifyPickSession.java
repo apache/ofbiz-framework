@@ -125,18 +125,18 @@ public class VerifyPickSession implements Serializable {
                     BigDecimal thisQty = reservedQty.compareTo(qtyRemain) > 0 ? qtyRemain : reservedQty;
                     int thisCheck = this.checkRowForAdd(reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty);
                     switch (thisCheck) {
-                        case 2:
-                            // new verify pick row will be created
-                            reserveQtyMap.put(reservation, thisQty);
-                            qtyRemain = qtyRemain.subtract(thisQty);
-                            break;
-                        case 1:
-                            // existing verify pick row has been updated
-                            qtyRemain = qtyRemain.subtract(thisQty);
-                            break;
-                        case 0:
-                            //doing nothing
-                            break;
+                    case 2:
+                        // new verify pick row will be created
+                        reserveQtyMap.put(reservation, thisQty);
+                        qtyRemain = qtyRemain.subtract(thisQty);
+                        break;
+                    case 1:
+                        // existing verify pick row has been updated
+                        qtyRemain = qtyRemain.subtract(thisQty);
+                        break;
+                    case 0:
+                        //doing nothing
+                        break;
                     }
                 }
             }
@@ -214,20 +214,20 @@ public class VerifyPickSession implements Serializable {
     protected void createVerifyPickRow(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String originGeoId, BigDecimal quantity, Locale locale) throws GeneralException {
         // process the result; add new item if necessary
         switch (checkCode) {
-            case 0:
-                // not enough reserved
-                throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNotEnoughInventoryReservationAvailableCannotVerifyTheItem", locale));
-            case 1:
-                // we're all good to go; quantity already updated
-                break;
-            case 2:
-                // need to create a new item
-                String inventoryItemId = res.getString("inventoryItemId");
-                pickRows.add(new VerifyPickSessionRow(orderId, orderItemSeqId, shipGroupSeqId, productId, originGeoId, inventoryItemId, quantity));
-                break;
-            default:
-                // if a wrong checkCode is given
-                Debug.logError("There was a wrong checkCode given in the method createVerifyPickRow: " + checkCode, MODULE);
+        case 0:
+            // not enough reserved
+            throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNotEnoughInventoryReservationAvailableCannotVerifyTheItem", locale));
+        case 1:
+            // we're all good to go; quantity already updated
+            break;
+        case 2:
+            // need to create a new item
+            String inventoryItemId = res.getString("inventoryItemId");
+            pickRows.add(new VerifyPickSessionRow(orderId, orderItemSeqId, shipGroupSeqId, productId, originGeoId, inventoryItemId, quantity));
+            break;
+        default:
+            // if a wrong checkCode is given
+            Debug.logError("There was a wrong checkCode given in the method createVerifyPickRow: " + checkCode, MODULE);
         }
     }
 

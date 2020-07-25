@@ -568,7 +568,7 @@ public class MrpServices {
                     try {
                         InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, componentEventQuantity.negate(), null, product.get("productId") + ": " + eventDate, false, delegator);
                     } catch (GenericEntityException e) {
-                        Debug.logError("Error : findOne(\"MrpEvent\", parameters) ="+parameters+"--"+e.getMessage(), MODULE);
+                        Debug.logError("Error : findOne(\"MrpEvent\", parameters) =" + parameters + "--" + e.getMessage(), MODULE);
                         logMrpError(mrpId, node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
                     }
                 }

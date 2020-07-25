@@ -179,21 +179,21 @@ public class PackingSession implements java.io.Serializable {
 
                     int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
                     switch (thisCheck) {
-                        case 2:
-                            Debug.logInfo("Packing check returned '2' - new pack line will be created!", MODULE);
-                            toCreateMap.put(res, thisQty);
-                            qtyRemain = qtyRemain.subtract(thisQty);
-                            break;
-                        case 1:
-                            Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", MODULE);
-                            qtyRemain = qtyRemain.subtract(thisQty);
-                            break;
-                        case 0:
-                            Debug.logInfo("Packing check returned '0' - doing nothing.", MODULE);
-                            break;
-                        default:
-                            Debug.logInfo("Packing check returned '> 2' or '< 0'", MODULE);
-                            break;
+                    case 2:
+                        Debug.logInfo("Packing check returned '2' - new pack line will be created!", MODULE);
+                        toCreateMap.put(res, thisQty);
+                        qtyRemain = qtyRemain.subtract(thisQty);
+                        break;
+                    case 1:
+                        Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", MODULE);
+                        qtyRemain = qtyRemain.subtract(thisQty);
+                        break;
+                    case 0:
+                        Debug.logInfo("Packing check returned '0' - doing nothing.", MODULE);
+                        break;
+                    default:
+                        Debug.logInfo("Packing check returned '> 2' or '< 0'", MODULE);
+                        break;
                     }
                 }
             }
@@ -252,17 +252,17 @@ public class PackingSession implements java.io.Serializable {
     protected void createPackLineItem(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, BigDecimal weight, int packageSeqId) throws GeneralException {
         // process the result; add new item if necessary
         switch (checkCode) {
-            case 0:
-                // not enough reserved
-                throw new GeneralException("Not enough inventory reservation available; cannot pack the item! [201]");
-            case 1:
-                // we're all good to go; quantity already updated
-                break;
-            case 2:
-                // need to create a new item
-                String invItemId = res.getString("inventoryItemId");
-                packLines.add(new PackingSessionLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, quantity, weight, packageSeqId));
-                break;
+        case 0:
+            // not enough reserved
+            throw new GeneralException("Not enough inventory reservation available; cannot pack the item! [201]");
+        case 1:
+            // we're all good to go; quantity already updated
+            break;
+        case 2:
+            // need to create a new item
+            String invItemId = res.getString("inventoryItemId");
+            packLines.add(new PackingSessionLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, quantity, weight, packageSeqId));
+            break;
         default:
             throw new GeneralException("value of checkCode different than expected");
 
@@ -823,13 +823,13 @@ public class PackingSession implements java.io.Serializable {
 
     protected void createPackages() throws GeneralException {
         for (int i = 0; i < packageSeq; i++) {
-            String shipmentPackageSeqId = UtilFormatOut.formatPaddedNumber(i+1, 5);
+            String shipmentPackageSeqId = UtilFormatOut.formatPaddedNumber(i + 1, 5);
 
             Map<String, Object> pkgCtx = new HashMap<>();
             pkgCtx.put("shipmentId", shipmentId);
             pkgCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
-            pkgCtx.put("shipmentBoxTypeId", getShipmentBoxType(i+1));
-            pkgCtx.put("weight", getPackageWeight(i+1));
+            pkgCtx.put("shipmentBoxTypeId", getShipmentBoxType(i + 1));
+            pkgCtx.put("weight", getPackageWeight(i + 1));
             pkgCtx.put("weightUomId", getWeightUomId());
             pkgCtx.put("userLogin", userLogin);
             Map<String, Object> newPkgResp = this.getDispatcher().runSync("createShipmentPackage", pkgCtx);

@@ -181,8 +181,7 @@ public class ShipmentServices {
                     } catch (Exception e) {
                         Debug.logError(e, MODULE);
                     }
-                }
-                else {
+                } else {
                     result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
                     result.put(ModelService.ERROR_MESSAGE, "Max " + breakTypeString +
                             " must not be less than Min " + breakTypeString + ".");

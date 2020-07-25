@@ -217,8 +217,7 @@ public final class InvoiceWorker {
             invoiceItems = invoice.getRelated("InvoiceItem", null, null, false);
             invoiceItems = EntityUtil.filterByAnd(
                     invoiceItems, UtilMisc.toList(
-                            EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_IN, getTaxableInvoiceItemTypeIds(invoice.getDelegator()))
-                    ));
+                            EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_IN, getTaxableInvoiceItemTypeIds(invoice.getDelegator()))));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", MODULE);
         }
@@ -737,8 +736,7 @@ public final class InvoiceWorker {
             Delegator delegator = invoice.getDelegator();
             invoiceTaxItems = EntityQuery.use(delegator).from("InvoiceItem")
                     .where(EntityCondition.makeCondition("invoiceId", invoice.getString("invoiceId")),
-                            EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))
-                    ).queryList();
+                            EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", MODULE);
             return null;
@@ -776,8 +774,7 @@ public final class InvoiceWorker {
                     .where(EntityCondition.makeCondition("invoiceId", invoice.getString("invoiceId")),
                             EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator)),
                             EntityCondition.makeCondition("taxAuthPartyId", taxAuthPartyId),
-                            EntityCondition.makeCondition("taxAuthGeoId", taxAuthGeoId)
-                    ).queryList();
+                            EntityCondition.makeCondition("taxAuthGeoId", taxAuthGeoId)).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", MODULE);
             return null;
@@ -796,8 +793,7 @@ public final class InvoiceWorker {
              invoiceTaxItems = EntityQuery.use(delegator).from("InvoiceItem")
                      .where(EntityCondition.makeCondition("invoiceId", invoice.get("invoiceId")),
                              EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator)),
-                             EntityCondition.makeCondition("taxAuthPartyId", null)
-                     ).queryList();
+                             EntityCondition.makeCondition("taxAuthPartyId", null)).queryList();
          } catch (GenericEntityException e) {
              Debug.logError(e, "Trouble getting InvoiceItem list", MODULE);
              return null;

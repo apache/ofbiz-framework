@@ -267,7 +267,7 @@ public class ProposedOrder {
             }
             return (String) result.get("requirementId");
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), MODULE);
+            Debug.logError(e, "Error : createRequirement with parameters = "+parameters+"--" + e.getMessage(), MODULE);
             return null;
         }
     }

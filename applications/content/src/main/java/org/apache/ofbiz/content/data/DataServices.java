@@ -243,9 +243,7 @@ public class DataServices {
 
         // write the data to the file
         if (UtilValidate.isNotEmpty(textData)) {
-            try (
-                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
-            ) {
+            try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);) {
                 out.write(textData);
             } catch (IOException e) {
                 Debug.logWarning(e, MODULE);
@@ -432,9 +430,7 @@ public class DataServices {
 
             // write the data to the file
             if (UtilValidate.isNotEmpty(textData)) {
-                try (
-                        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
-                ) {
+                try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);) {
                     out.write(textData);
                 } catch (IOException e) {
                     Debug.logWarning(e, MODULE);
@@ -599,9 +595,7 @@ public class DataServices {
             Debug.logInfo("in createBinaryFileMethod, imageData:" + imageData.length, MODULE);
         }
         if (imageData != null && imageData.length > 0) {
-            try (
-                FileOutputStream out = new FileOutputStream(file);
-            ) {
+            try (FileOutputStream out = new FileOutputStream(file);) {
                 out.write(imageData);
                 if (Debug.infoOn()) {
                     Debug.logInfo("in createBinaryFileMethod, length:" + file.length(), MODULE);
@@ -652,9 +646,7 @@ public class DataServices {
             Debug.logInfo("in updateBinaryFileMethod, imageData:" + Arrays.toString(imageData), MODULE);
         }
         if (imageData != null && imageData.length > 0) {
-            try (
-                    FileOutputStream out = new FileOutputStream(file);
-                    ) {
+            try (FileOutputStream out = new FileOutputStream(file);) {
                 out.write(imageData);
                 if (Debug.infoOn()) {
                     Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), MODULE);

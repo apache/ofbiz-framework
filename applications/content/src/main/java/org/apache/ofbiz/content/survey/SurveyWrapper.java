@@ -225,8 +225,7 @@ public class SurveyWrapper {
         Template template = null;
         try (
             InputStream templateStream = templateUrl.openStream();
-            InputStreamReader templateReader = new InputStreamReader(templateStream, StandardCharsets.UTF_8);
-                ) {
+            InputStreamReader templateReader = new InputStreamReader(templateStream, StandardCharsets.UTF_8);) {
             template = new Template(templateUrl.toExternalForm(), templateReader, config);
         } catch (IOException e) {
             Debug.logError(e, "Unable to get template from URL :" + templateUrl.toExternalForm(), MODULE);
@@ -372,7 +371,7 @@ public class SurveyWrapper {
             for (String key : passThru.keySet()) {
                 if (key.toUpperCase(Locale.getDefault()).startsWith("ANSWERS_")) {
                     int splitIndex = key.indexOf('_');
-                    String questionId = key.substring(splitIndex+1);
+                    String questionId = key.substring(splitIndex + 1);
                     Map<String, Object> thisAnswer = new HashMap<>();
                     String answer = (String) passThru.remove(key);
                     thisAnswer.put("booleanResponse", answer);

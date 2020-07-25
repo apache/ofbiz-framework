@@ -796,8 +796,7 @@ public class ShoppingCartHelper {
                                 return result;
                             }
                             quantity = quantity.setScale(0, UtilNumber.getRoundingMode("order.rounding"));
-                        }
-                        else {
+                        } else {
                             quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
                         }
                         if (quantity.compareTo(BigDecimal.ZERO) < 0) {

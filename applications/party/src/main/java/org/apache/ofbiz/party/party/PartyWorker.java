@@ -222,7 +222,7 @@ public class PartyWorker {
             postalCodeExt, countryGeoId, firstName, middleName, lastName);
         GenericValue v = EntityUtil.getFirst(matching);
         if (v != null) {
-            return new String[] { v.getString("partyId"), v.getString("contactMechId") };
+            return new String[] {v.getString("partyId"), v.getString("contactMechId") };
         }
         return null;
     }
@@ -527,7 +527,7 @@ public class PartyWorker {
     }
 
     public static List<GenericValue> findPartiesById(Delegator delegator, String idToFind, String partyIdentificationTypeId)
-    throws GenericEntityException {
+        throws GenericEntityException {
         return findPartiesById(delegator, idToFind, partyIdentificationTypeId, true, false);
     }
 
@@ -563,8 +563,7 @@ public class PartyWorker {
 
                 if (UtilValidate.isEmpty(parties)) {
                     parties = UtilMisc.toList(partyToAdd);
-                }
-                else {
+                } else {
                     parties.add(partyToAdd);
                 }
             }

@@ -582,12 +582,12 @@ public class CheckOutEvents {
 
         // event return based on failureCode
         switch (failureCode) {
-            case 0:
-                return "success";
-            case 1:
-                return "fail";
-            default:
-                return "error";
+        case 0:
+            return "success";
+        case 1:
+            return "fail";
+        default:
+            return "error";
         }
     }
 

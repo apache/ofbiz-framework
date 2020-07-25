@@ -2173,7 +2173,7 @@ public class ProductSearch {
                 productSearchContext.index++;
 
 
-                EntityComparisonOperator<?,?> operator = EntityOperator.EQUALS;
+                EntityComparisonOperator<?, ?> operator = EntityOperator.EQUALS;
 
                 if (UtilValidate.isNotEmpty(include) && !include) {
                     operator = EntityOperator.NOT_EQUAL;

@@ -2959,8 +2959,7 @@ public class UpsServices {
                         Element netSummaryCharges = UtilXml.firstChildElement(negotiatedRates, "NetSummaryCharges");
                         Element grandTotal = UtilXml.firstChildElement(netSummaryCharges, "GrandTotal");
                         totalRates = UtilXml.childElementValue(grandTotal, "MonetaryValue");
-                    }
-                    else {
+                    } else {
                         // get total rates
                         Element totalCharges = UtilXml.firstChildElement(element, "TotalCharges");
                         totalRates = UtilXml.childElementValue(totalCharges, "MonetaryValue");

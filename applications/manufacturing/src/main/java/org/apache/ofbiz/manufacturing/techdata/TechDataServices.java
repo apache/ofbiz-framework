@@ -190,7 +190,7 @@ public class TechDataServices {
                         techDataCalendar = machine.getRelatedOne("TechDataCalendar", true);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError("Pb reading machine child from machineGroup"+e.getMessage(), MODULE);
+                    Debug.logError("Pb reading machine child from machineGroup" + e.getMessage(), MODULE);
                 }
             }
         }
@@ -199,7 +199,7 @@ public class TechDataServices {
                 Delegator delegator = routingTask.getDelegator();
                 techDataCalendar = EntityQuery.use(delegator).from("TechDataCalendar").where("calendarId", "DEFAULT").queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError("Pb reading TechDataCalendar DEFAULT"+e.getMessage(), MODULE);
+                Debug.logError("Pb reading TechDataCalendar DEFAULT" + e.getMessage(), MODULE);
             }
         }
         return techDataCalendar;
@@ -302,7 +302,7 @@ public class TechDataServices {
         try {
             techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
-            Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), MODULE);
+            Debug.logError("Pb reading Calendar Week associated with calendar" + e.getMessage(), MODULE);
             return ServiceUtil.returnError("Pb reading Calendar Week associated with calendar");
         }
         // TODO read TechDataCalendarExcDay to manage execption day
@@ -455,7 +455,7 @@ public class TechDataServices {
         try {
             techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
-            Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), MODULE);
+            Debug.logError("Pb reading Calendar Week associated with calendar" + e.getMessage(), MODULE);
             return ServiceUtil.returnError("Pb reading Calendar Week associated with calendar");
         }
         // TODO read TechDataCalendarExcDay to manage execption day

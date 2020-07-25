@@ -114,8 +114,7 @@ public final class InventoryWorker {
                 EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
-               );
+                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"));
         if (productIds.size() > 0) {
             condList.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIds));
         }

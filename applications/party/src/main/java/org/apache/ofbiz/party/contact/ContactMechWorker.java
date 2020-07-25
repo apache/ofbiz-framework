@@ -70,18 +70,18 @@ public class ContactMechWorker {
         String entityName = null;
         String prefix = null;
         switch (contactMechTypeId) {
-            case "POSTAL_ADDRESS":
-                entityName = "PostalAddress";
-                prefix = "pa";
-                break;
-            case "TELECOM_NUMBER":
-                entityName = "TelecomNumber";
-                prefix = "tn";
-                break;
-            case "FTP_ADDRESS":
-                entityName = "FtpAddress";
-                prefix = "fa";
-                break;
+        case "POSTAL_ADDRESS":
+            entityName = "PostalAddress";
+            prefix = "pa";
+            break;
+        case "TELECOM_NUMBER":
+            entityName = "TelecomNumber";
+            prefix = "tn";
+            break;
+        case "FTP_ADDRESS":
+            entityName = "FtpAddress";
+            prefix = "fa";
+            break;
         }
         if (entityName != null) {
             GenericValue element = delegator.makeValue(entityName);

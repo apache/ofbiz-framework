@@ -278,8 +278,7 @@ public class DhlServices {
             if (Debug.verboseOn()) {
                 Debug.logVerbose(rateResponseString, MODULE);
             }
-        }
-        catch (DhlConnectException e) {
+        } catch (DhlConnectException e) {
             String uceErrMsg = "Error sending DHL request for DHL Service Rate: " + e.toString();
             Debug.logError(e, uceErrMsg, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -291,8 +290,7 @@ public class DhlServices {
         try {
             rateResponseDocument = UtilXml.readXmlDocument(rateResponseString, false);
             return handleDhlRateResponse(rateResponseDocument, locale);
-        }
-        catch (SAXException | IOException | ParserConfigurationException e2) {
+        } catch (SAXException | IOException | ParserConfigurationException e2) {
             String excErrMsg = "Error parsing the RatingServiceResponse: " + e2.toString();
             Debug.logError(e2, excErrMsg, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,

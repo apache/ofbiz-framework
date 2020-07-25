@@ -121,15 +121,15 @@ public class BOMNode {
             if (oneChildNode != null) {
                 oneChildNode.setParentNode(this);
                 switch (type) {
-                    case BOMTree.EXPLOSION:
-                        oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, BOMTree.EXPLOSION);
-                    break;
-                    case BOMTree.EXPLOSION_MANUFACTURING:
-                        // for manufacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item
-                        if (!oneChildNode.isWarehouseManaged(null)) { // FIXME: we will need to pass a facilityId here
-                            oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, type);
-                        }
-                    break;
+                case BOMTree.EXPLOSION:
+                    oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, BOMTree.EXPLOSION);
+                break;
+                case BOMTree.EXPLOSION_MANUFACTURING:
+                    // for manufacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item
+                    if (!oneChildNode.isWarehouseManaged(null)) { // FIXME: we will need to pass a facilityId here
+                        oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, type);
+                    }
+                break;
                 }
             }
             childrenNodes.add(oneChildNode);
