@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="testCalculateProductStandardCosts" short-description="Test case for service calculateProductCosts" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <set field="serviceCtx.costComponentTypePrefix" value="EST_STD"/>
+        <call-service service-name="calculateProductCosts" in-map-name="serviceCtx"/>
+
+        <entity-and entity-name="CostComponent" list="costComponents">
+            <field-map field-name="productId" from-field="productId"/>
+        </entity-and>
+        <filter-list-by-date list="costComponents"/>
+        <set field="costTotalAmount" value="0.0" type="BigDecimal"/>
+        <iterate list="costComponents" entry="costComponent">
+            <assert>
+                <if-compare field="costComponent.costUomId" operator="equals" value="USD"/>
+                <or>
+                    <and>
+                        <if-compare field="costComponent.costComponentTypeId" operator="equals" value="EST_STD_ROUTE_COST"/>
+                        <if-compare field="costComponent.cost" operator="equals" value="10.00" type="BigDecimal"/>
+                    </and>
+                    <and>
+                        <if-compare field="costComponent.costComponentTypeId" operator="equals" value="EST_STD_MAT_COST"/>
+                        <if-compare field="costComponent.cost" operator="equals" value="39.00" type="BigDecimal"/>
+                    </and>
+                    <and>
+                        <if-compare field="costComponent.costComponentTypeId" operator="equals" value="EST_STD_OTHER_COST"/>
+                        <if-compare field="costComponent.cost" operator="equals" value="31.00" type="BigDecimal"/>
+                    </and>
+                    <and>
+                        <!--<if-compare field="costComponent.costComponentCalcId" operator="equals" value="GEN_COST_CALC"/>-->
+                        <if-compare field="costComponent.costComponentTypeId" operator="equals" value="EST_STD_GEN_COST"/>
+                        <if-compare field="costComponent.cost" operator="equals" value="4.00" type="BigDecimal"/>
+                    </and>
+                </or>
+            </assert>
+            <set field="costTotalAmount" value="${costTotalAmount + costComponent.cost}" type="BigDecimal"/>
+        </iterate>
+        <assert>
+            <if-compare field="costTotalAmount" operator="equals" value="84.00" type="BigDecimal"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetProductCost" short-description="Test case for service getProductCost" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <set field="serviceCtx.costComponentTypePrefix" value="EST_STD"/>
+        <call-service service-name="getProductCost" in-map-name="serviceCtx">
+            <result-to-field result-name="productCost"/>
+        </call-service>
+
+        <assert>
+            <if-compare field="productCost" operator="equals" value="84.00" type="BigDecimal"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+</simple-methods>

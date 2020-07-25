@@ -319,48 +319,6 @@ def massChangePaymentStatus() {
     }
     return serviceResult
 }
-def voidPayment() {
-    GenericValue payment = from("Payment").where("paymentId", parameters.paymentId).queryOne()
-    finAccountTransId = payment.finAccountTransId
-    transStatusId = 'FINACT_TRNS_CANCELED'
-    statusId = transStatusId
-    if (!payment) {
-        return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingNoPaymentsfound)
-    }
-    paymentId = parameters.paymentId
-    Map paymentStatusCtx = [:]
-    paymentStatusCtx.paymentId = paymentId
-    paymentStatusCtx.statusId = 'PMNT_VOID'
-    run service: 'setPaymentStatus', with: paymentStatusCtx
-    paymentApplications = from("PaymentApplication").where('paymentId', paymentId).queryList()
-    if (paymentApplications) {
-        paymentApplications.each{ paymentApplication ->
-            updateInvoiceCtx = from("Invoice").where('invoiceId', paymentApplication.invoiceId).queryOne()
-            if (updateInvoiceCtx.statusId == 'INVOICE_PAID') {
-                Map invoiceStatusCtx = dispatcher.getDispatchContext().makeValidContext('setInvoiceStatus', ModelService.IN_PARAM, updateInvoiceCtx)
-                invoiceStatusCtx.paidDate = ''
-                invoiceStatusCtx.statusId = 'INVOICE_READY'
-                run service: 'setInvoiceStatus', with: invoiceStatusCtx
-            }
-            Map removePaymentApplicationCtx = [:]
-            removePaymentApplicationCtx.paymentApplicationId = paymentApplication.paymentApplicationId
-            run service: 'removePaymentApplication', with: removePaymentApplicationCtx
-        }
-        acctgTransPaymentList = from('AcctgTrans').where('invoiceId', '', 'paymentId', paymentId).queryList()
-        acctgTransPaymentList.each{ acctgTransPayment ->
-            Map copyAcctgTransCtx = [:]
-            copyAcctgTransCtx.fromAcctgTransId = acctgTransPayment.acctgTransId
-            copyAcctgTransCtx.revert = 'Y'
-            acctgTransId = run service: 'copyAcctgTransAndEntries', with: copyAcctgTransCtx
-            if (acctgTransPayment.isPosted == 'Y') {
-                Map postAcctgTransMap = [:]
-                postAcctgTransMap.acctgTransId = acctgTransId
-                run service: 'postAcctgTrans', with: postAcctgTransMap
-            }
-        }
-    }
-    return success()
-}
 
 def getPaymentGroupReconciliationId() {
     paymentGroupMember = from("PaymentGroupMember").where("paymentGroupId", parameters.paymentGroupId).queryFirst()

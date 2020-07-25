@@ -267,6 +267,53 @@ under the License.
         <field-to-result field="selectedInvoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
     </simple-method>
 
+    <simple-method method-name="voidPayment" short-description="Service to void a payment">
+        <entity-one entity-name="Payment" value-field="payment"/>
+        <field-to-result field="payment.finAccountTransId" result-name="finAccountTransId"/>
+        <set field="transStatusId" value="FINACT_TRNS_CANCELED"/>
+        <field-to-result field="transStatusId" result-name="statusId"/>
+        <if-empty field="payment">
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNoPaymentsfound"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+        <set field="paymentId" from-field="parameters.paymentId"/>
+        <set field="paymentStatusCtx.paymentId" from-field="paymentId"/>
+        <set field="paymentStatusCtx.statusId" value="PMNT_VOID"/>
+        <call-service service-name="setPaymentStatus" in-map-name="paymentStatusCtx"/>
+        <get-related relation-name="PaymentApplication" value-field="payment" list="paymentApplications"/>
+        <iterate list="paymentApplications" entry="paymentApplication">
+            <get-related-one relation-name="Invoice" value-field="paymentApplication" to-value-field="updateInvoiceCtx"/>
+            <if-compare field="updateInvoiceCtx.statusId" operator="equals" value="INVOICE_PAID">
+                <set-service-fields service-name="setInvoiceStatus" map="updateInvoiceCtx" to-map="invoiceStatusCtx"/>
+                <set field="invoiceStatusCtx.paidDate" type="Timestamp" value=""/>
+                <set field="invoiceStatusCtx.statusId" value="INVOICE_READY"/>
+                <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusCtx"/>
+            </if-compare>
+            <set field="removePaymentApplicationCtx.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
+            <call-service service-name="removePaymentApplication" in-map-name="removePaymentApplicationCtx"/>
+        </iterate>
+        <entity-condition entity-name="AcctgTrans" list="acctgTransPaymentList">
+            <condition-list combine="and">
+                <condition-expr field-name="invoiceId" operator="equals" from-field="nullField"/>
+                <condition-expr field-name="paymentId" from-field="paymentId"/>
+            </condition-list>
+        </entity-condition>
+        <iterate list="acctgTransPaymentList" entry="acctgTransPayment">
+            <clear-field field="copyAcctgTransCtx"/>
+            <set field="copyAcctgTransCtx.fromAcctgTransId" from-field="acctgTransPayment.acctgTransId"/>
+            <set field="copyAcctgTransCtx.revert" value="Y"/>
+            <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx">
+                <result-to-field result-name="acctgTransId" field="postAcctgTransMap.acctgTransId"/>
+            </call-service>
+            <if-compare field="acctgTransPayment.isPosted" operator="equals" value="Y">
+                <call-service service-name="postAcctgTrans" in-map-name="postAcctgTransMap"/>
+            </if-compare>
+            <clear-field field="postAcctgTransMap"/>
+        </iterate>
+    </simple-method>
+
     <simple-method method-name="createPaymentAndPaymentGroupForInvoices" short-description="Creates Payments, PaymentApplications and PaymentGroup for the same">
         <entity-one entity-name="PaymentMethod" value-field="paymentMethod" auto-field-map="true"/>
         <entity-one entity-name="FinAccount" value-field="finAccount" auto-field-map="false">
