@@ -337,6 +337,43 @@ def getInvoicePaymentInfoListByDueDateOffset() {
     return success(invoicePaymentInfoList: filteredInvoicePaymentInfoList)
 }
 
+def voidPayment() {
+    GenericValue payment = from("Payment").where(parameters).queryOne()
+    if (!payment) {
+        return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingNoPaymentsfound)
+    }
+    String paymentId = payment.paymentId
+    Map paymentStatusCtx = [paymentId: paymentId,
+                            statusId : 'PMNT_VOID']
+    run service: 'setPaymentStatus', with: paymentStatusCtx
+    from("PaymentApplication")
+            .where(paymentId: paymentId)
+            .queryList()
+            .each { it ->
+                Map invoice = from("Invoice").where(invoiceId: it.invoiceId).queryOne()
+                if (invoice.statusId == 'INVOICE_PAID') {
+                    run service: 'setInvoiceStatus', with: [*       : invoice.getAllFields(),
+                                                            paidDate: null,
+                                                            statusId: 'INVOICE_READY']
+                }
+                run service: 'removePaymentApplication', with: [paymentApplicationId: it.paymentApplicationId]
+            }
+
+    from('AcctgTrans')
+            .where(invoiceId: null,
+                    paymentId: paymentId)
+            .queryList()
+            .each { it ->
+                Map result = run service: 'copyAcctgTransAndEntries', with: [fromAcctgTransId: it.acctgTransId,
+                                                                             revert          : 'Y']
+                if (it.isPosted == 'Y') {
+                    run service: 'postAcctgTrans', with: [acctgTransId: result.acctgTransId]
+                }
+            }
+    return success([finAccountTransId: payment.finAccountTransId,
+                    statusId         : 'FINACT_TRNS_CANCELED'])
+}
+
 def getPaymentGroupReconciliationId() {
     GenericValue paymentGroupMember = from("PaymentGroupMember")
             .where("paymentGroupId", parameters.paymentGroupId)
