@@ -22,6 +22,22 @@ under the License.
     xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createWorkEffortAndPartyAssign" short-description="Create Work Effort and assign to a party with a role">
+        <entity-one entity-name="PartyRole" value-field="partyRole">
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="roleTypeId" value="CAL_OWNER"/>
+        </entity-one>
+        <if-empty field="partyRole">
+            <entity-one entity-name="RoleType" value-field="roleType">
+                <field-map field-name="roleTypeId" value="CAL_OWNER"/>
+            </entity-one>
+            <if-not-empty field="roleType">
+                <set field="roleDescription" from-field="roleType.description"/>
+            </if-not-empty>
+            <set field="partyId" from-field="parameters.partyId"></set>
+            <add-error>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRoleAssociationRequired" />
+            </add-error>
+        </if-empty>
         <set-service-fields service-name="createWorkEffort" map="parameters" to-map="create"/>
         <call-service service-name="createWorkEffort" in-map-name="create">
             <result-to-field result-name="workEffortId"/>

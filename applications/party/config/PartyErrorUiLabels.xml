@@ -731,6 +731,9 @@
         <value xml:lang="zh">无法新建已存在的会员角色</value>
         <value xml:lang="zh-TW">無法新建已存在的團體角色</value>
     </property>
+    <property key="PartyRoleAssociationRequired">
+        <value xml:lang="en">Party id: ${partyId} should be in role: ${roleDescription}</value>
+    </property>
     <property key="partyroleservices.could_not_create_party_role_read">
         <value xml:lang="de">Akteur Rolle kann nicht erstellt werden (Lesefehler).</value>
         <value xml:lang="en">could not create party role read</value>
