@@ -46,39 +46,39 @@ public interface GenericHelper {
     /** Gets the name of the server configuration that corresponds to this helper
      *@return server configuration name
      */
-    public String getHelperName();
+    String getHelperName();
 
     /** Creates a Entity in the form of a GenericValue and write it to the database
      *@return GenericValue instance containing the new instance
      */
-    public GenericValue create(GenericValue value) throws GenericEntityException;
+    GenericValue create(GenericValue value) throws GenericEntityException;
 
     /** Find a Generic Entity by its Primary Key
      *@param primaryKey The primary key to find by.
      *@return The GenericValue corresponding to the primaryKey
      */
-    public GenericValue findByPrimaryKey(GenericPK primaryKey) throws GenericEntityException;
+    GenericValue findByPrimaryKey(GenericPK primaryKey) throws GenericEntityException;
 
     /** Find a Generic Entity by its Primary Key and only returns the values requested by the passed keys (names)
      *@param primaryKey The primary key to find by.
      *@param keys The keys, or names, of the values to retrieve; only these values will be retrieved
      *@return The GenericValue corresponding to the primaryKey
      */
-    public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set<String> keys) throws GenericEntityException;
+    GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set<String> keys) throws GenericEntityException;
 
     /** Find a number of Generic Value objects by their Primary Keys, all at once
      *@param primaryKeys A List of primary keys to find by.
      *@return List of GenericValue objects corresponding to the passed primaryKey objects
      */
-    public List<GenericValue> findAllByPrimaryKeys(List<GenericPK> primaryKeys) throws GenericEntityException;
+    List<GenericValue> findAllByPrimaryKeys(List<GenericPK> primaryKeys) throws GenericEntityException;
 
     /** Remove a Generic Entity corresponding to the primaryKey
      *@param  primaryKey  The primary key of the entity to remove.
      *@return int representing number of rows effected by this operation
      */
-    public int removeByPrimaryKey(GenericPK primaryKey) throws GenericEntityException;
+    int removeByPrimaryKey(GenericPK primaryKey) throws GenericEntityException;
 
-    public List<GenericValue> findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
+    List<GenericValue> findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
         ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy) throws GenericEntityException;
 
     /** Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
@@ -92,11 +92,11 @@ public interface GenericHelper {
      *      DONE WITH IT (preferably in a finally block), 
      *      AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
      */
-    public EntityListIterator findListIteratorByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
+    EntityListIterator findListIteratorByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
         EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
         throws GenericEntityException;
 
-    public long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
+    long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
             EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException;
 
     long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
@@ -108,7 +108,7 @@ public interface GenericHelper {
      *@param condition The condition that restricts the list of removed values
      *@return int representing number of rows effected by this operation
      */
-    public int removeByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException;
+    int removeByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException;
 
     /** Stores a group of values in a single query
      *@param modelEntity The ModelEntity of the Entity as defined in the entity XML file
@@ -117,18 +117,18 @@ public interface GenericHelper {
      *@return int representing number of rows effected by this operation
      *@throws GenericEntityException
      */
-    public int storeByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException;
+    int storeByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException;
 
     /** Store the Entity from the GenericValue to the persistent store
      *@param value GenericValue instance containing the entity
      *@return int representing number of rows effected by this operation
      */
-    public int store(GenericValue value) throws GenericEntityException;
+    int store(GenericValue value) throws GenericEntityException;
 
     /** Check the datasource to make sure the entity definitions are correct, optionally adding missing entities or fields on the server
      *@param modelEntities Map of entityName names and ModelEntity values
      *@param messages List to put any result messages in
      *@param addMissing Flag indicating whether or not to add missing entities and fields on the server
      */
-    public void checkDataSource(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) throws GenericEntityException;
+    void checkDataSource(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) throws GenericEntityException;
 }

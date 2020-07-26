@@ -218,8 +218,7 @@ public class DataFile {
 
             try {
                 outStream.write(line.getBytes(StandardCharsets.UTF_8));
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new DataFileException("Could not write to stream;", e);
             }
 

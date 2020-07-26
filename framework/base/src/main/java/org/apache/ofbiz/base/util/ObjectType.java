@@ -120,13 +120,13 @@ public class ObjectType {
         if (className.endsWith("[]")) {
             if (Character.isLowerCase(className.charAt(0)) && className.indexOf(".") < 0) {
                 String prefix = className.substring(0, 1).toUpperCase(Locale.getDefault());
-               // long and boolean have other prefix than first letter
-               if (className.startsWith("long")) {
-                   prefix = "J";
-               } else if (className.startsWith("boolean")) {
-                   prefix = "Z";
-               }
-               className = "[" + prefix;
+                // long and boolean have other prefix than first letter
+                if (className.startsWith("long")) {
+                    prefix = "J";
+                } else if (className.startsWith("boolean")) {
+                    prefix = "Z";
+                }
+                className = "[" + prefix;
             } else {
                 Class<?> arrayClass = loadClass(className.replace("[]", ""), loader);
                 className = "[L" + arrayClass.getName().replace("[]", "") + ";";

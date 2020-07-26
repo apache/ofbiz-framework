@@ -119,8 +119,7 @@ public final class ServiceDispatcher {
                     origDelegator = DelegatorFactory.getDelegator(this.delegator.getOriginalDelegatorName());
                 }
                 this.jm = JobManager.getInstance(origDelegator, enableJM);
-            }
-            catch (GeneralRuntimeException e) {
+            } catch (GeneralRuntimeException e) {
                 Debug.logWarning(e.getMessage(), MODULE);
             }
         } else {
@@ -197,10 +196,10 @@ public final class ServiceDispatcher {
         localContext.remove(local.getName());
         if (localContext.size() == 0) {
             try {
-                 this.shutdown();
-             } catch (GenericServiceException e) {
-                 Debug.logError(e, "Trouble shutting down ServiceDispatcher!", MODULE);
-             }
+                this.shutdown();
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Trouble shutting down ServiceDispatcher!", MODULE);
+            }
         }
     }
 

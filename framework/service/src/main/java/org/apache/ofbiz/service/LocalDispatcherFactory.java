@@ -30,5 +30,5 @@ public interface LocalDispatcherFactory {
      * @param name
      * @param delegator
      */
-    public LocalDispatcher createLocalDispatcher(String name, Delegator delegator);
+    LocalDispatcher createLocalDispatcher(String name, Delegator delegator);
 }

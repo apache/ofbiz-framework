@@ -128,7 +128,7 @@ public class FormRenderer {
     }
 
     private static Predicate<ModelFormField> filteringIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered) {
-       return  modelFormField -> {
+        return modelFormField -> {
             FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
             // render hidden/ignored field widget

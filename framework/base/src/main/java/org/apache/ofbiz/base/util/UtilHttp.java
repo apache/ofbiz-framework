@@ -333,7 +333,7 @@ public final class UtilHttp {
                         paramMap.put(name, paramValue);
                     } else {
                         if (paramMap.get(name) instanceof Collection<?>) {
-                            List<String> valueList  = UtilGenerics.cast(paramMap.get(name));
+                            List<String> valueList = UtilGenerics.cast(paramMap.get(name));
                             valueList.add(paramValue);
                             paramMap.put(name, valueList);
                         } else {
@@ -1532,7 +1532,7 @@ public final class UtilHttp {
         String maxRowIndex = "";
         int rowDelimiterLength = MULTI_ROW_DELIMITER.length();
         for (String parameterName: requestMap.keySet()) {
-            int rowDelimiterIndex = (parameterName != null? parameterName.indexOf(MULTI_ROW_DELIMITER): -1);
+            int rowDelimiterIndex = (parameterName != null ? parameterName.indexOf(MULTI_ROW_DELIMITER) : -1);
             if (rowDelimiterIndex > 0) {
                 String thisRowIndex = parameterName.substring(rowDelimiterIndex + rowDelimiterLength);
                 if (thisRowIndex.indexOf("_") > -1) {

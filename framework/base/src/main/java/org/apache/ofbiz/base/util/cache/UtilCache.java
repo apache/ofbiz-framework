@@ -227,7 +227,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
 
     public V putIfAbsentAndGet(K key, V value) {
         V cachedValue = putIfAbsent(key, value);
-        return (cachedValue != null? cachedValue: value);
+        return (cachedValue != null ? cachedValue : value);
     }
 
     CacheLine<V> createSoftRefCacheLine(final Object key, V value, long loadTimeNanos, long expireTimeNanos) {

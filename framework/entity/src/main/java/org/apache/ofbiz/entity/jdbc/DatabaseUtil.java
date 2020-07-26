@@ -318,15 +318,15 @@ public class DatabaseUtil {
 
                                 // NOTE: this may need a toUpperCase in some cases, keep an eye on it, okay just compare with ignore case
                                 if (!ccInfo.typeName.equalsIgnoreCase(typeName)) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
-                                            entity.getEntityName() + "] is of type [" + ccInfo.typeName + "] in the database, but is defined as type [" +
-                                            typeName + "] in the entity definition.";
+                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity ["
+                                            + entity.getEntityName() + "] is of type [" + ccInfo.typeName + "] in the database, but is defined as type ["
+                                            + typeName + "] in the entity definition.";
                                     Debug.logError(message, MODULE);
                                     if (messages != null) messages.add(message);
                                 }
                                 if (columnSize != -1 && ccInfo.columnSize != -1 && columnSize != ccInfo.columnSize && (columnSize * 3) != ccInfo.columnSize) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
-                                            entity.getEntityName() + "] has a column size of [" + ccInfo.columnSize +
+                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity ["
+                                            + entity.getEntityName() + "] has a column size of [" + ccInfo.columnSize +
                                             "] in the database, but is defined to have a column size of [" + columnSize + "] in the entity definition.";
                                     Debug.logWarning(message, MODULE);
                                     if (messages != null) messages.add(message);
@@ -336,8 +336,8 @@ public class DatabaseUtil {
                                     }
                                 }
                                 if (decimalDigits != -1 && decimalDigits != ccInfo.decimalDigits) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
-                                            entity.getEntityName() + "] has a decimalDigits of [" + ccInfo.decimalDigits +
+                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity ["
+                                            + entity.getEntityName() + "] has a decimalDigits of [" + ccInfo.decimalDigits +
                                             "] in the database, but is defined to have a decimalDigits of [" + decimalDigits + "] in the entity definition.";
                                     Debug.logWarning(message, MODULE);
                                     if (messages != null) messages.add(message);
@@ -345,14 +345,14 @@ public class DatabaseUtil {
 
                                 // do primary key matching check
                                 if (checkPks && ccInfo.isPk && !field.getIsPk()) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
-                                            entity.getEntityName() + "] IS a primary key in the database, but IS NOT a primary key in the entity definition. The primary key for this table needs to be re-created or modified so that this column is NOT part of the primary key.";
+                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity ["
+                                            + entity.getEntityName() + "] IS a primary key in the database, but IS NOT a primary key in the entity definition. The primary key for this table needs to be re-created or modified so that this column is NOT part of the primary key.";
                                     Debug.logError(message, MODULE);
                                     if (messages != null) messages.add(message);
                                 }
                                 if (checkPks && !ccInfo.isPk && field.getIsPk()) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
-                                            entity.getEntityName() + "] IS NOT a primary key in the database, but IS a primary key in the entity definition. The primary key for this table needs to be re-created or modified to add this column to the primary key. Note that data may need to be added first as a primary key column cannot have an null values.";
+                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity ["
+                                            + entity.getEntityName() + "] IS NOT a primary key in the database, but IS a primary key in the entity definition. The primary key for this table needs to be re-created or modified to add this column to the primary key. Note that data may need to be added first as a primary key column cannot have an null values.";
                                     Debug.logError(message, MODULE);
                                     if (messages != null) messages.add(message);
                                 }
@@ -459,13 +459,13 @@ public class DatabaseUtil {
             List<Future<AbstractCountingCallable>> disFutures = new LinkedList<>();
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getIndexesSize() > 0) {
-                    disFutures.add(executor.submit(new AbstractCountingCallable(curEntity,  modelEntities) {
-                    @Override
-                    public AbstractCountingCallable call() throws Exception {
-                        count = createDeclaredIndices(entity, messages);
-                        return this;
-                    }
-                }));
+                    disFutures.add(executor.submit(new AbstractCountingCallable(curEntity, modelEntities) {
+                        @Override
+                        public AbstractCountingCallable call() throws Exception {
+                            count = createDeclaredIndices(entity, messages);
+                            return this;
+                        }
+                    }));
 
                 }
             }
@@ -1200,40 +1200,40 @@ public class DatabaseUtil {
 
     public int checkPrimaryKeyInfo(ResultSet rsPks, String lookupSchemaName, boolean needsUpperCase, Map<String, Map<String, ColumnCheckInfo>> colInfo, Collection<String> messages) throws SQLException {
         int pkCount = 0;
-            while (rsPks.next()) {
-                pkCount++;
-                try {
-                    String tableName = ColumnCheckInfo.fixupTableName(rsPks.getString("TABLE_NAME"), lookupSchemaName, needsUpperCase);
-                    String columnName = rsPks.getString("COLUMN_NAME");
-                    if (needsUpperCase && columnName != null) {
-                        columnName = columnName.toUpperCase();
-                    }
-                    Map<String, ColumnCheckInfo> tableColInfo = colInfo.get(tableName);
-                    if (tableColInfo == null) {
-                        // not looking for info on this table
-                        continue;
-                    }
-                    ColumnCheckInfo ccInfo = tableColInfo.get(columnName);
-                    if (ccInfo == null) {
-                        // this isn't good, what to do?
-                        Debug.logWarning("Got primary key information for a column that we didn't get column information for: tableName=[" + tableName + "], columnName=[" + columnName + "]", MODULE);
-                        continue;
-                    }
-
-
-                    // KEY_SEQ short => sequence number within primary key
-                    // PK_NAME String => primary key name (may be null)
-
-                    ccInfo.isPk = true;
-                    ccInfo.pkSeq = rsPks.getShort("KEY_SEQ");
-                    ccInfo.pkName = rsPks.getString("PK_NAME");
-                } catch (SQLException e) {
-                    String message = "Error getting primary key info for column. Error was:" + e.toString();
-                    Debug.logError(message, MODULE);
-                    if (messages != null) messages.add(message);
+        while (rsPks.next()) {
+            pkCount++;
+            try {
+                String tableName = ColumnCheckInfo.fixupTableName(rsPks.getString("TABLE_NAME"), lookupSchemaName, needsUpperCase);
+                String columnName = rsPks.getString("COLUMN_NAME");
+                if (needsUpperCase && columnName != null) {
+                    columnName = columnName.toUpperCase();
+                }
+                Map<String, ColumnCheckInfo> tableColInfo = colInfo.get(tableName);
+                if (tableColInfo == null) {
+                    // not looking for info on this table
                     continue;
                 }
+                ColumnCheckInfo ccInfo = tableColInfo.get(columnName);
+                if (ccInfo == null) {
+                    // this isn't good, what to do?
+                    Debug.logWarning("Got primary key information for a column that we didn't get column information for: tableName=[" + tableName + "], columnName=[" + columnName + "]", MODULE);
+                    continue;
+                }
+
+
+                // KEY_SEQ short => sequence number within primary key
+                // PK_NAME String => primary key name (may be null)
+
+                ccInfo.isPk = true;
+                ccInfo.pkSeq = rsPks.getShort("KEY_SEQ");
+                ccInfo.pkName = rsPks.getString("PK_NAME");
+            } catch (SQLException e) {
+                String message = "Error getting primary key info for column. Error was:" + e.toString();
+                Debug.logError(message, MODULE);
+                if (messages != null) messages.add(message);
+                continue;
             }
+        }
         return pkCount;
     }
 
@@ -2310,7 +2310,7 @@ public class DatabaseUtil {
         }
     }
 
-    public void deletePrimaryKey(ModelEntity entity, boolean usePkConstraintNames,  List<String> messages) {
+    public void deletePrimaryKey(ModelEntity entity, boolean usePkConstraintNames, List<String> messages) {
         deletePrimaryKey(entity, usePkConstraintNames, datasourceInfo.getConstraintNameClipLength(), messages);
     }
 

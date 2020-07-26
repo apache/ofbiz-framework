@@ -31,13 +31,13 @@ public interface XmlSerializable<T> {
      * @param element XML element
      * @throws SerializeException
      */
-    public T deserialize(Element element) throws SerializeException;
+    T deserialize(Element element) throws SerializeException;
 
     /**
      * Serialize the object to an XML element
      * @throws SerializeException
      */
-    public Element serialize() throws SerializeException;
+    Element serialize() throws SerializeException;
 
 }
 

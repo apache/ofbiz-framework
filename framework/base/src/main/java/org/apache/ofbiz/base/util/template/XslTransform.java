@@ -83,9 +83,9 @@ public final class XslTransform {
             Transformer transformer = tfactory.newTransformer(new StreamSource(template));
             // and apply the xsl template to the source document and save in a result string
             try (StringWriter sw = new StringWriter()) {
-            StreamResult sr = new StreamResult(sw);
-            transformer.transform(source, sr);
-            result = sw.toString();
+                StreamResult sr = new StreamResult(sw);
+                transformer.transform(source, sr);
+                result = sw.toString();
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
             }
@@ -123,11 +123,11 @@ public final class XslTransform {
         if (translet != null) {
             Transformer transformer = translet.newTransformer();
             if (params != null) {
-                for (Map.Entry<String, Object> entry: params.entrySet()) {
-                       String key = entry.getKey();
+                for (Map.Entry<String, Object> entry : params.entrySet()) {
+                    String key = entry.getKey();
                     Object val = entry.getValue();
                     transformer.setParameter(key, val);
-               }
+                }
             }
 
             DOMResult outputResult = new DOMResult(UtilXml.makeEmptyXmlDocument());

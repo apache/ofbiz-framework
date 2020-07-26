@@ -150,7 +150,7 @@ public class HtmlMenuWrapper {
         this.context.put(name, value);
     }
 
-    public void putInContext(String menuItemName, String valueName,  Object value) {
+    public void putInContext(String menuItemName, String valueName, Object value) {
         Object obj = context.get(menuItemName);
         Map<String, Object> valueMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
         if (valueMap == null) {

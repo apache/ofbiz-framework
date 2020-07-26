@@ -62,10 +62,11 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
             for (ModelMenuItem menuItem : modelMenu.getMenuItemList()) {
-               String contentId = menuItem.getAssociatedContentId(dummyMap);
-               GenericValue webSitePublishPoint = EntityQuery.use(delegator).from("WebSitePublishPoint").where("contentId", contentId).cache().queryOne();
-               String menuItemName = menuItem.getName();
-               putInContext(menuItemName, "WebSitePublishPoint", webSitePublishPoint);
+                String contentId = menuItem.getAssociatedContentId(dummyMap);
+                GenericValue webSitePublishPoint =
+                        EntityQuery.use(delegator).from("WebSitePublishPoint").where("contentId", contentId).cache().queryOne();
+                String menuItemName = menuItem.getName();
+                putInContext(menuItemName, "WebSitePublishPoint", webSitePublishPoint);
             }
         } catch (GenericEntityException e) {
             return;

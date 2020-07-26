@@ -319,9 +319,9 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             userLoginId = userLogin.getString("userLoginId");
         }
         if ((userLoginId == null && userLoginIdAtPermGrant != null)
-           || (userLoginId != null && userLoginIdAtPermGrant == null)
-           || ((userLoginId != null && userLoginIdAtPermGrant != null)
-              && !userLoginId.equals(userLoginIdAtPermGrant))) {
+                || (userLoginId != null && userLoginIdAtPermGrant == null)
+                || ((userLoginId != null && userLoginIdAtPermGrant != null)
+                && !userLoginId.equals(userLoginIdAtPermGrant))) {
             hasChanged = true;
         } else {
             if (userLoginIdAtPermGrant != null) {
@@ -421,9 +421,9 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
 
             writer.append(" href=\"");
             if ("hidden-form".equals(linkType)) {
-                    writer.append("javascript:document.");
-                    writer.append(uniqueItemName);
-                    writer.append(".submit()");
+                writer.append("javascript:document.");
+                writer.append(uniqueItemName);
+                writer.append(".submit()");
             } else {
                 WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);

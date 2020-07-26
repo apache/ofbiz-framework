@@ -58,16 +58,16 @@ public final class EntityEcaCondition implements java.io.Serializable {
             this.isService = isService;
             this.conditionService = condition.getAttribute("service-name");
         } else {
-        this.lhsValueName = condition.getAttribute("field-name");
-        this.constant = constant;
-        if (constant) {
-            this.rhsValueName = condition.getAttribute("value");
-        } else {
-            this.rhsValueName = condition.getAttribute("to-field-name");
-        }
-        this.operator = condition.getAttribute("operator");
-        this.compareType = condition.getAttribute("type");
-        this.format = condition.getAttribute("format");
+            this.lhsValueName = condition.getAttribute("field-name");
+            this.constant = constant;
+            if (constant) {
+                this.rhsValueName = condition.getAttribute("value");
+            } else {
+                this.rhsValueName = condition.getAttribute("to-field-name");
+            }
+            this.operator = condition.getAttribute("operator");
+            this.compareType = condition.getAttribute("type");
+            this.format = condition.getAttribute("format");
         }
     }
 
@@ -89,14 +89,14 @@ public final class EntityEcaCondition implements java.io.Serializable {
 
                 Boolean conditionReply = Boolean.FALSE;
                 if (ServiceUtil.isError(conditionServiceResult)) {
-                    Debug.logError("Error in condition-service : " +
-                            ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
+                    Debug.logError("Error in condition-service : "
+                            + ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
                 } else {
                     conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
                 }
                 return conditionReply;
             } catch (GenericServiceException gse) {
-                throw new GenericEntityException("Error in calling condition service "+conditionService+". "+gse.getMessage());
+                throw new GenericEntityException("Error in calling condition service " + conditionService+". " + gse.getMessage());
             }
         }
 
@@ -188,7 +188,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
 
     protected List<String> getFieldNames() {
         List<String> fieldNameList = new ArrayList<>();
-        if ( UtilValidate.isNotEmpty(lhsValueName) ) {
+        if (UtilValidate.isNotEmpty(lhsValueName)) {
             fieldNameList.add(lhsValueName);
         }
         if (!constant && UtilValidate.isNotEmpty(rhsValueName)) {

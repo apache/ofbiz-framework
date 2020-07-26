@@ -113,7 +113,7 @@ public class ModelPermission implements Serializable {
             return false;
         }
         if (action == null) {
-            Debug.logWarning("Null action passed for evaluation",  MODULE);
+            Debug.logWarning("Null action passed for evaluation", MODULE);
         }
         return security.hasEntityPermission(nameOrRole, action, userLogin);
     }

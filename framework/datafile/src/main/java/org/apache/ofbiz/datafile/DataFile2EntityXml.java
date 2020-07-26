@@ -103,8 +103,7 @@ public class DataFile2EntityXml {
             if (dataFileUrl != null && definitionUrl != null && UtilValidate.isNotEmpty(definitionName)) {
                 try {
                     dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName);
-                }
-                catch (DataFileException e) {
+                } catch (DataFileException e) {
                     Debug.logError("Error Occurred while reading Datafile, Exception: " + e, MODULE);
                 }
             }

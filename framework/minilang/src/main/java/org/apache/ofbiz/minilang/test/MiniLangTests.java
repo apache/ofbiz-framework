@@ -74,7 +74,7 @@ public class MiniLangTests extends OFBizTestCase {
         messages = context.getEnv(methodToTest.getServiceErrorMessageListName());
         assertNotNull("<check-errors> error message list", messages);
         assertTrue("<check-errors> error message text", messages.contains("This should fail"));
-        // <assert>, <not>,  and <if-empty> tests
+        // <assert>, <not>, and <if-empty> tests
         methodToTest = createSimpleMethod("<simple-method name=\"testAssert\"><assert><not><if-empty field=\"locale\"/></not></assert><check-errors/></simple-method>");
         context = createServiceMethodContext();
         result = methodToTest.exec(context);

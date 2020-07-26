@@ -445,8 +445,7 @@ public class UelFunctions {
             if (url != null) {
                 try (InputStream is = url.openStream();) {
                     document = UtilXml.readXmlDocument(is, str);
-                }
-                catch (SAXException | ParserConfigurationException e) {
+                } catch (SAXException | ParserConfigurationException e) {
                     Debug.logError(e, "Error while reading XML document " + str, MODULE);
                 }
             } else {

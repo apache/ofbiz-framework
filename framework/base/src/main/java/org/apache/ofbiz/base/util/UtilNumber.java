@@ -117,7 +117,7 @@ public final class UtilNumber {
 
         // ICU4J rule sets for the en_IN locale. To add more rules, expand this string.
         // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
-        public static final String RULE_SET_EN_IN =
+    public static final String RULE_SET_EN_IN =
              /*
              * These rules format a number in one of the two styles often used
              * on checks. %simplified formats paise as hundredths of
@@ -190,11 +190,11 @@ public final class UtilNumber {
 
         int scale = -1;
         String value = UtilProperties.getPropertyValue(file, property);
-            try {
-                scale = Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                Debug.logWarning(e, e.getMessage(), MODULE);
-            }
+        try {
+            scale = Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            Debug.logWarning(e, e.getMessage(), MODULE);
+        }
         if (scale == -1) {
             Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of " + DEFAULT_BD_SCALE + ".", MODULE);
             scale = DEFAULT_BD_SCALE;

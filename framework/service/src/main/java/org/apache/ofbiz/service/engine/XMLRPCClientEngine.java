@@ -90,7 +90,7 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         String password = null;
         String keyStoreComponent = null;
         String keyStoreName = null;
-        String keyAlias  = null;
+        String keyAlias = null;
         try {
             url = ServiceConfigUtil.getEngineParameter(engine, "url");
             if (Start.getInstance().getConfig().portOffset != 0) {

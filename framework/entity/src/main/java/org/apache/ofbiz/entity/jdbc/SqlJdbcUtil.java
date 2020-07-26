@@ -474,7 +474,7 @@ public final class SqlJdbcUtil {
             modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, whereConditions, havingConditions, orderByList, null);
             String viewConditionClause;
             if (!whereConditions.isEmpty()) {
-                viewConditionClause = EntityCondition.makeCondition(whereConditions, EntityOperator.AND).makeWhereString(modelViewEntity,  null, datasourceInfo);
+                viewConditionClause = EntityCondition.makeCondition(whereConditions, EntityOperator.AND).makeWhereString(modelViewEntity, null, datasourceInfo);
             } else {
                 viewConditionClause = null;
             }

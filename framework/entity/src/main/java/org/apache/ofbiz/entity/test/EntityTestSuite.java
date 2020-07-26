@@ -418,10 +418,11 @@ public class EntityTestSuite extends EntityTestCase {
                                            .where(EntityCondition.makeCondition("description", EntityOperator.LIKE, descriptionPrefix + "%"))
                                            .queryList()) {
             if (i % 2 == 0) {
-                GenericValue testing = delegator.create("Testing", "testingId", descriptionPrefix + ":" + node.get("testingNodeId"), "testingTypeId", typeId, "description", node.get("description"));
+                GenericValue testing = delegator.create("Testing", "testingId", descriptionPrefix + ":" + node.get("testingNodeId"), "testingTypeId",
+                        typeId, "description", node.get("description"));
                 GenericValue member = delegator.makeValue("TestingNodeMember",
-                    "testingNodeId", node.get("testingNodeId"),
-                    "testingId", testing.get("testingId"));
+                        "testingNodeId", node.get("testingNodeId"),
+                        "testingId", testing.get("testingId"));
 
                 member.put("fromDate", now);
                 member.put("thruDate", UtilDateTime.getNextDayStart(now));
@@ -440,9 +441,9 @@ public class EntityTestSuite extends EntityTestCase {
         createNodeMembers("TEST-COUNT-VIEW", "Testing Type #Count", "count-views");
 
         EntityCondition isNodeWithMember = EntityCondition.makeCondition(
-            EntityCondition.makeCondition("testingId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD),
-            EntityOperator.AND,
-            EntityCondition.makeCondition("description", EntityOperator.LIKE, "count-views:%"));
+                EntityCondition.makeCondition("testingId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD),
+                EntityOperator.AND,
+                EntityCondition.makeCondition("description", EntityOperator.LIKE, "count-views:%"));
         List<GenericValue> nodeWithMembers = EntityQuery.use(delegator).from("TestingNodeAndMember").where(isNodeWithMember).queryList();
 
         for (GenericValue v: nodeWithMembers) {
@@ -551,9 +552,12 @@ public class EntityTestSuite extends EntityTestCase {
         }
         delegator.removeByCondition("TestingNode", EntityCondition.makeCondition("description", EntityOperator.LIKE, "foreign-key-remove #%"));
         delegator.create("TestingNode", "testingNodeId", "TEST-FK-REMOVE-0", "description", "foreign-key-remove #0");
-        delegator.create("TestingNode", "testingNodeId", "TEST-FK-REMOVE-1", "primaryParentNodeId", "TEST-FK-REMOVE-0", "description", "foreign-key-remove #1");
-        delegator.create("TestingNode", "testingNodeId", "TEST-FK-REMOVE-2", "primaryParentNodeId", "TEST-FK-REMOVE-1", "description", "foreign-key-remove #2");
-        delegator.create("TestingNode", "testingNodeId", "TEST-FK-REMOVE-3", "primaryParentNodeId", "TEST-FK-REMOVE-2", "description", "foreign-key-remove #3");
+        delegator.create("TestingNode", "testingNodeId", "TEST-FK-REMOVE-1", "primaryParentNodeId", "TEST-FK-REMOVE-0", "description", "foreign-key"
+                + "-remove #1");
+        delegator.create("TestingNode", "testingNodeId", "TEST-FK-REMOVE-2", "primaryParentNodeId", "TEST-FK-REMOVE-1", "description", "foreign-key"
+                + "-remove #2");
+        delegator.create("TestingNode", "testingNodeId", "TEST-FK-REMOVE-3", "primaryParentNodeId", "TEST-FK-REMOVE-2", "description", "foreign-key"
+                + "-remove #3");
         GenericEntityException caught = null;
         try {
             EntityCondition isLevel1 = EntityCondition.makeCondition("description", EntityOperator.EQUALS, "foreign-key-remove #1");

@@ -486,24 +486,27 @@ public final class UtilProperties implements Serializable {
         return value == null ? "" : value.trim();
     }
 
-     /** Sets the specified value of the specified property name to the specified resource/properties in memory, does not persist it
-      * @param resource The name of the resource
-      * @param name The name of the property in the resource
-      * @param value The value of the property to set in memory */
-      public static void setPropertyValueInMemory(String resource, String name, String value) {
-          if (UtilValidate.isEmpty(resource)) {
+    /**
+     * Sets the specified value of the specified property name to the specified resource/properties in memory, does not persist it
+     *
+     * @param resource The name of the resource
+     * @param name     The name of the property in the resource
+     * @param value    The value of the property to set in memory
+     */
+    public static void setPropertyValueInMemory(String resource, String name, String value) {
+        if (UtilValidate.isEmpty(resource)) {
             return;
         }
-          if (UtilValidate.isEmpty(name)) {
+        if (UtilValidate.isEmpty(name)) {
             return;
         }
 
-          Properties properties = getProperties(resource);
-          if (properties == null) {
-              return;
-          }
-          properties.setProperty(name, value);
-      }
+        Properties properties = getProperties(resource);
+        if (properties == null) {
+            return;
+        }
+        properties.setProperty(name, value);
+    }
 
     // ========= Locale & Resource Based Methods ==========
 

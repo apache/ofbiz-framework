@@ -282,7 +282,7 @@ public class JWTManager {
      * @return a JWT token
      */
     public static String createJwt(Delegator delegator, Map<String, String> claims) {
-        int expirationTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800",  delegator));
+        int expirationTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
         return createJwt(delegator, claims, expirationTime);
     }
 
@@ -307,7 +307,7 @@ public class JWTManager {
      */
     public static String createJwt(Delegator delegator, Map<String, String> claims, String keySalt, int expireTime) {
         if (expireTime <= 0) {
-            expireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800",  delegator));
+            expireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
         }
 
         String key = JWTManager.getJWTKey(delegator, keySalt);

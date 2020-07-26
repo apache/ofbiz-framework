@@ -166,8 +166,8 @@ public class EmailServices {
         String sendType = (String) context.get("sendType");
         String port = (String) context.get("port");
         String socketFactoryClass = (String) context.get("socketFactoryClass");
-        String socketFactoryPort  = (String) context.get("socketFactoryPort");
-        String socketFactoryFallback  = (String) context.get("socketFactoryFallback");
+        String socketFactoryPort = (String) context.get("socketFactoryPort");
+        String socketFactoryFallback = (String) context.get("socketFactoryFallback");
         String sendVia = (String) context.get("sendVia");
         String authUser = (String) context.get("authUser");
         String authPass = (String) context.get("authPass");
@@ -524,7 +524,7 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationList)) {
             List<Map<String, ? extends Object>> bodyParts = new LinkedList<>();
             if (bodyText != null) {
-                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
+                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext, locale);
                 bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));
             } else {
                 bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));
@@ -580,7 +580,7 @@ public class EmailServices {
             isMultiPart = false;
             // store body and type for single part message in the context.
             if (bodyText != null) {
-                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
+                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext, locale);
                 serviceContext.put("body", bodyText);
             } else {
                 serviceContext.put("body", bodyWriter.toString());

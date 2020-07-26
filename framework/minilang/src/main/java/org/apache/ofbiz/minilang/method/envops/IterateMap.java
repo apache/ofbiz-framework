@@ -70,24 +70,24 @@ public final class IterateMap extends MethodOperation {
         Object oldValue = valueFma.get(methodContext.getEnvMap());
         if (oldKey != null) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("In iterate-map the key had a non-null value before entering the loop for the operation: " + this, MODULE);
+                Debug.logVerbose("In iterate-map the key had a non-null value before entering the loop for the operation: " + this, MODULE);
             }
         }
         if (oldValue != null) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("In iterate-map the value had a non-null value before entering the loop for the operation: " + this, MODULE);
+                Debug.logVerbose("In iterate-map the value had a non-null value before entering the loop for the operation: " + this, MODULE);
             }
         }
         Map<? extends Object, ? extends Object> theMap = mapFma.get(methodContext.getEnvMap());
         if (theMap == null) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Map not found with name " + mapFma + ", doing nothing: " + this, MODULE);
+                Debug.logVerbose("Map not found with name " + mapFma + ", doing nothing: " + this, MODULE);
             }
             return true;
         }
         if (theMap.size() == 0) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Map with name " + mapFma + " has zero entries, doing nothing: " + this, MODULE);
+                Debug.logVerbose("Map with name " + mapFma + " has zero entries, doing nothing: " + this, MODULE);
             }
             return true;
         }
