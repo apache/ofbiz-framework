@@ -88,8 +88,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
             localMap.put("num1", num1);
             localMap.put("num2", num2);
             result = dctx.getDispatcher().runSync("testXmlRpcLocalEngine", localMap);
-        }
-        catch (GenericServiceException e) {
+        } catch (GenericServiceException e) {
             return ServiceUtil.returnError(e.getLocalizedMessage());
         }
         if (ServiceUtil.isError(result)) {

@@ -53,15 +53,15 @@ public class FtpServices {
             throws GeneralException {
         FtpClientInterface ftpClient = null;
         switch (serverType) {
-            case "ftp":
-                ftpClient = new SimpleFtpClient();
-                break;
-            case "ftps":
-                //TODO : to implements
-                throw new GeneralException("Ftp secured transfer protocol not yet implemented");
-            case "sftp":
-                ftpClient = new SshFtpClient();
-                break;
+        case "ftp":
+            ftpClient = new SimpleFtpClient();
+            break;
+        case "ftps":
+            //TODO : to implements
+            throw new GeneralException("Ftp secured transfer protocol not yet implemented");
+        case "sftp":
+            ftpClient = new SshFtpClient();
+            break;
         }
         return ftpClient;
     }

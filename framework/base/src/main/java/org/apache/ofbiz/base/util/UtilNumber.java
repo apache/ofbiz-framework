@@ -219,7 +219,7 @@ public final class UtilNumber {
      * @deprecated Use {@link #getRoundingMode(String, String)} instead
      */
     @Deprecated
-    public static int  getBigDecimalRoundingMode(String file, String property) {
+    public static int getBigDecimalRoundingMode(String file, String property) {
         return getRoundingMode(file, property).ordinal();
     }
 

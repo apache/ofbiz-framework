@@ -756,7 +756,7 @@ public final class UtilHttp {
         if (localeObject == null) {
             Map<?, ?> userLogin = (Map<?, ?>) session.getAttribute("userLogin");
             if (userLogin == null) {
-                userLogin = (Map<?,?>) session.getAttribute("autoUserLogin");
+                userLogin = (Map<?, ?>) session.getAttribute("autoUserLogin");
             }
 
             if (userLogin != null) {

@@ -381,8 +381,7 @@ public class ShippingEvents {
                 EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "POSTAL_ADDRESS"),
                 EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.IN, UtilMisc.toList("SHIP_ORIG_LOCATION", "GENERAL_LOCATION")),
                 EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"),
-                EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate")
-        );
+                EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate"));
         EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
 
         List<GenericValue> addresses = delegator.findList("PartyContactWithPurpose", ecl, null, UtilMisc.toList("contactMechPurposeTypeId DESC"), null, false);

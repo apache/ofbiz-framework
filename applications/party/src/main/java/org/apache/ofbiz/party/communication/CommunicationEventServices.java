@@ -337,9 +337,9 @@ public class CommunicationEventServices {
                     ftpServiceMap.put("partyId", communicationEvent.getString("partyIdTo"));
                     ftpServiceMap.put("contactMechId", contactMechId);
                     // no need to create a child CommEvent if it is a single content transfer
-                    if (contents.size() == 1)
+                    if (contents.size() == 1) {
                         ftpServiceMap.put("communicationEventId", communicationEvent.get("communicationEventId"));
-                    else {
+                    } else {
                         // check if currentContent is already sent by an existing children communicationEvent
                         EntityCondition sentCond = EntityCondition.makeCondition(UtilMisc.toList(
                                 EntityCondition.makeCondition("communicationEventId", EntityOperator.IN, childrenCommunicationEventIds),
@@ -967,7 +967,7 @@ public class CommunicationEventServices {
                 // check if started with the domain name if yes remove including the dash.
                 String dn = deliveredTo.substring(deliveredTo.indexOf('@') + 1, deliveredTo.length());
                 if (deliveredTo.startsWith(dn)) {
-                    deliveredTo = deliveredTo.substring(dn.length()+1, deliveredTo.length());
+                    deliveredTo = deliveredTo.substring(dn.length() + 1, deliveredTo.length());
                 }
             }
 

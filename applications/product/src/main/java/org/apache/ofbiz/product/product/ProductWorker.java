@@ -383,8 +383,7 @@ public final class ProductWorker {
             List<GenericValue> productAppls;
             List<EntityCondition> condList = UtilMisc.toList(
                     EntityCondition.makeCondition("productId", product.getString("productId")),
-                    EntityUtil.getFilterByDateExpr()
-            );
+                    EntityUtil.getFilterByDateExpr());
             if (productFeatureApplTypeId != null) {
                 condList.add(EntityCondition.makeCondition("productFeatureApplTypeId", productFeatureApplTypeId));
             }
@@ -946,8 +945,7 @@ public final class ProductWorker {
 
                 if (UtilValidate.isEmpty(products)) {
                     products = UtilMisc.toList(productToAdd);
-                }
-                else {
+                } else {
                     products.add(productToAdd);
                 }
             }

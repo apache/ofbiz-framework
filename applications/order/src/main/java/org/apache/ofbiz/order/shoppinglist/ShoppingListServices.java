@@ -83,17 +83,17 @@ public class ShoppingListServices {
 
         if (startDate == null) {
             switch (frequency) {
-                case 5:
-                    startDate = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp(), 0, interval);
-                    break;
-                case 6:
-                    startDate = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp(), 0, interval);
-                    break;
-                case 7:
-                    startDate = UtilDateTime.getYearStart(UtilDateTime.nowTimestamp(), 0, interval);
-                    break;
-                default:
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderInvalidFrequencyForShoppingListRecurrence", locale));
+            case 5:
+                startDate = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp(), 0, interval);
+                break;
+            case 6:
+                startDate = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp(), 0, interval);
+                break;
+            case 7:
+                startDate = UtilDateTime.getYearStart(UtilDateTime.nowTimestamp(), 0, interval);
+                break;
+            default:
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderInvalidFrequencyForShoppingListRecurrence", locale));
             }
         }
 
@@ -483,10 +483,11 @@ public class ShoppingListServices {
                         reservPersons = shoppingListItem.getBigDecimal("reservPersons");
                     }
                     if (UtilValidate.isNotEmpty(productId) && quantity != null) {
-
-                    if (UtilValidate.isNotEmpty(configId)) {
-                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, listCart.getProductStoreId(), null, listCart.getWebSiteId(), listCart.getCurrency(), listCart.getLocale(), listCart.getAutoUserLogin());
-                    }
+                        if (UtilValidate.isNotEmpty(configId)) {
+                            configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId,
+                                listCart.getProductStoreId(), null, listCart.getWebSiteId(), listCart.getCurrency(), listCart.getLocale(),
+                                listCart.getAutoUserLogin());
+                        }
                         // list items are noted in the shopping cart
                         String listId = shoppingListItem.getString("shoppingListId");
                         String itemId = shoppingListItem.getString("shoppingListItemSeqId");
@@ -569,7 +570,7 @@ public class ShoppingListServices {
                 }
             }
         } catch (GenericEntityException gee) {
-            Debug.logInfo("updateShoppingListQuantitiesFromOrder error:"+gee.getMessage(), MODULE);
+            Debug.logInfo("updateShoppingListQuantitiesFromOrder error:" + gee.getMessage(), MODULE);
         }
         return result;
     }

@@ -183,8 +183,7 @@ public class DataFile {
 
         try (FileOutputStream fos = new FileOutputStream(outFile);) {
             writeDataFile(fos);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DataFileException("Error occured while writing data to file" + filename, e);
         }
     }
@@ -199,8 +198,7 @@ public class DataFile {
             writeDataFile(bos);
             outString = bos.toString("UTF-8");
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Debug.logWarning(e, MODULE);
         }
         return outString;

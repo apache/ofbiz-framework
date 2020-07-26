@@ -52,8 +52,9 @@ import freemarker.template.TransformControl;
 public class TraverseSubContentTransform implements TemplateTransformModel {
 
     private static final String MODULE = TraverseSubContentTransform.class.getName();
-    public static final String[] saveKeyNames = {"contentId", "subContentId", "mimeType", "subContentDataResourceView", "wrapTemplateId", "templateContentId", "pickWhen", "followWhen", "returnAfterPickWhen", "returnBeforePickWhen", "indent"};
-    public static final String[] removeKeyNames = {"templateContentId", "subDataResourceTypeId", "mapKey", "wrappedFTL", "nodeTrail"};
+    public static final String[] SAVE_KEY_NAMES = {"contentId", "subContentId", "mimeType", "subContentDataResourceView", "wrapTemplateId",
+            "templateContentId", "pickWhen", "followWhen", "returnAfterPickWhen", "returnBeforePickWhen", "indent"};
+    public static final String[] REMOVE_KEY_NAMES = {"templateContentId", "subDataResourceTypeId", "mapKey", "wrappedFTL", "nodeTrail"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -86,7 +87,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map<String, Object> templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
-        final Map<String, Object> savedValues = FreeMarkerWorker.saveValues(templateCtx, saveKeyNames);
+        final Map<String, Object> savedValues = FreeMarkerWorker.saveValues(templateCtx, SAVE_KEY_NAMES);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
@@ -216,14 +217,15 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                         throw new IOException("Error rendering content" + e.toString());
                     }
                 } else {
-                    if (UtilValidate.isNotEmpty(wrappedFTL))
+                    if (UtilValidate.isNotEmpty(wrappedFTL)) {
                         out.write(wrappedFTL);
+                    }
                 }
-                FreeMarkerWorker.removeValues(templateCtx, removeKeyNames);
+                FreeMarkerWorker.removeValues(templateCtx, REMOVE_KEY_NAMES);
                 FreeMarkerWorker.reloadValues(templateCtx, savedValues, env);
             }
 
-            private boolean checkWhen (GenericValue thisContent, String contentAssocTypeId) {
+            private boolean checkWhen(GenericValue thisContent, String contentAssocTypeId) {
                 boolean isPick = false;
                 Map<String, Object> assocContext = new HashMap<>();
                 if (UtilValidate.isEmpty(contentAssocTypeId)) {
@@ -274,7 +276,6 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     templateContext.put("nodeTrail", nodeTrail);
                 }
             }
-
         };
     }
 }

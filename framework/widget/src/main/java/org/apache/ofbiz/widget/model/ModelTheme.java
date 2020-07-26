@@ -137,82 +137,82 @@ public class ModelTheme implements Serializable {
         //second collect value from XML and surcharge
         for (Element childElement : UtilXml.childElementList(themeElement)) {
             switch (childElement.getNodeName()) {
-                case "widget-properties":
-                    addWidgetProperties(initWidgetPropertiesMap, childElement);
-                    break;
-                case "visual-themes":
-                    for (Element visualTheme : UtilXml.childElementList(childElement)) {
-                        initVisualThemes.put(visualTheme.getAttribute("id"), new VisualTheme(this, visualTheme));
+            case "widget-properties":
+                addWidgetProperties(initWidgetPropertiesMap, childElement);
+                break;
+            case "visual-themes":
+                for (Element visualTheme : UtilXml.childElementList(childElement)) {
+                    initVisualThemes.put(visualTheme.getAttribute("id"), new VisualTheme(this, visualTheme));
+                }
+                break;
+            case "theme-properties":
+                for (Element property : UtilXml.childElementList(childElement)) {
+                    addThemeProperty(initThemePropertiesMap, property);
+                }
+                break;
+            case "templates":
+                for (Element template : UtilXml.childElementList(childElement)) {
+                    String modelTemplateName = template.getAttribute("name");
+                    if (initModelTemplateMap.containsKey(modelTemplateName)) {
+                        ModelTemplate surchargeModelTemplate = new ModelTemplate(template);
+                        ModelTemplate originModelTemplate = initModelTemplateMap.get(modelTemplateName);
+                        initModelTemplateMap.put(modelTemplateName, new ModelTemplate(surchargeModelTemplate, originModelTemplate));
+                    } else {
+                        initModelTemplateMap.put(modelTemplateName, new ModelTemplate(template));
                     }
-                    break;
-                case "theme-properties":
-                    for (Element property : UtilXml.childElementList(childElement)) {
-                        addThemeProperty(initThemePropertiesMap, property);
-                    }
-                    break;
-                case "templates":
-                    for (Element template : UtilXml.childElementList(childElement)) {
-                        String modelTemplateName = template.getAttribute("name");
-                        if (initModelTemplateMap.containsKey(modelTemplateName)) {
-                            ModelTemplate surchargeModelTemplate = new ModelTemplate(template);
-                            ModelTemplate originModelTemplate = initModelTemplateMap.get(modelTemplateName);
-                            initModelTemplateMap.put(modelTemplateName, new ModelTemplate(surchargeModelTemplate, originModelTemplate));
-                        } else {
-                            initModelTemplateMap.put(modelTemplateName, new ModelTemplate(template));
+                }
+                break;
+            case "common-screens":
+                for (Element screenPurpose : UtilXml.childElementList(childElement)) {
+                    String defaultLocation = screenPurpose.getAttribute("default-location");
+                    for (Element screen : UtilXml.childElementList(screenPurpose)) {
+                        String name = screen.getAttribute("name");
+                        String location = screen.getAttribute("location");
+                        if (UtilValidate.isEmpty(location)) {
+                            location = defaultLocation;
                         }
-                    }
-                    break;
-                case "common-screens":
-                    for (Element screenPurpose : UtilXml.childElementList(childElement)) {
-                        String defaultLocation = screenPurpose.getAttribute("default-location");
-                        for (Element screen : UtilXml.childElementList(screenPurpose)) {
-                            String name = screen.getAttribute("name");
-                            String location = screen.getAttribute("location");
-                            if (UtilValidate.isEmpty(location)) {
-                                location = defaultLocation;
-                            }
-                            if (UtilValidate.isEmpty(location)) {
-                                Debug.logWarning("We can resolve the screen location " + name + " in the theme " + this.name + " so no added it", MODULE);
-                                continue;
-                            }
-                            initModelCommonScreensMap.put(name, location);
+                        if (UtilValidate.isEmpty(location)) {
+                            Debug.logWarning("We can resolve the screen location " + name + " in the theme " + this.name + " so no added it", MODULE);
+                            continue;
                         }
+                        initModelCommonScreensMap.put(name, location);
                     }
-                    break;
-                case "common-forms":
-                    for (Element formPurpose : UtilXml.childElementList(childElement)) {
-                        String defaultLocation = formPurpose.getAttribute("default-location");
-                        for (Element form : UtilXml.childElementList(formPurpose)) {
-                            String name = form.getAttribute("name");
-                            String location = form.getAttribute("location");
-                            if (UtilValidate.isEmpty(location)) {
-                                location = defaultLocation;
-                            }
-                            if (UtilValidate.isEmpty(location)) {
-                                Debug.logWarning("We can resolve the form location " + name + " in the theme " + this.name + " so no added it", MODULE);
-                                continue;
-                            }
-                            initModelCommonFormsMap.put(name, location);
+                }
+                break;
+            case "common-forms":
+                for (Element formPurpose : UtilXml.childElementList(childElement)) {
+                    String defaultLocation = formPurpose.getAttribute("default-location");
+                    for (Element form : UtilXml.childElementList(formPurpose)) {
+                        String name = form.getAttribute("name");
+                        String location = form.getAttribute("location");
+                        if (UtilValidate.isEmpty(location)) {
+                            location = defaultLocation;
                         }
-                    }
-                    break;
-                case "common-menus":
-                    for (Element menuPurpose : UtilXml.childElementList(childElement)) {
-                        String defaultLocation = menuPurpose.getAttribute("default-location");
-                        for (Element menu : UtilXml.childElementList(menuPurpose)) {
-                            String name = menu.getAttribute("name");
-                            String location = menu.getAttribute("location");
-                            if (UtilValidate.isEmpty(location)) {
-                                location = defaultLocation;
-                            }
-                            if (UtilValidate.isEmpty(location)) {
-                                Debug.logWarning("We can resolve the menu location " + name + " in the theme " + this.name + " so no added it", MODULE);
-                                continue;
-                            }
-                            initModelCommonMenusMap.put(name, location);
+                        if (UtilValidate.isEmpty(location)) {
+                            Debug.logWarning("We can resolve the form location " + name + " in the theme " + this.name + " so no added it", MODULE);
+                            continue;
                         }
+                        initModelCommonFormsMap.put(name, location);
                     }
-                    break;
+                }
+                break;
+            case "common-menus":
+                for (Element menuPurpose : UtilXml.childElementList(childElement)) {
+                    String defaultLocation = menuPurpose.getAttribute("default-location");
+                    for (Element menu : UtilXml.childElementList(menuPurpose)) {
+                        String name = menu.getAttribute("name");
+                        String location = menu.getAttribute("location");
+                        if (UtilValidate.isEmpty(location)) {
+                            location = defaultLocation;
+                        }
+                        if (UtilValidate.isEmpty(location)) {
+                            Debug.logWarning("We can resolve the menu location " + name + " in the theme " + this.name + " so no added it", MODULE);
+                            continue;
+                        }
+                        initModelCommonMenusMap.put(name, location);
+                    }
+                }
+                break;
             }
         }
 
@@ -292,25 +292,25 @@ public class ModelTheme implements Serializable {
     private static void addWidgetProperties(Map<String, Object> initWidgetPropertiesMap, Element widgetProperties) {
         for (Element childElement : UtilXml.childElementList(widgetProperties)) {
             switch (childElement.getNodeName()) {
-                case "default-view-size":
-                    initWidgetPropertiesMap.put("defaultViewSize", Integer.valueOf(childElement.getAttribute("value")));
-                    break;
-                case "autocompleter":
-                    initWidgetPropertiesMap.put("autocompleterDefaultDelay", Integer.valueOf(childElement.getAttribute("default-delay")));
-                    initWidgetPropertiesMap.put("autocompleterDefaultMinLength", Integer.valueOf(childElement.getAttribute("default-min-lenght")));
-                    initWidgetPropertiesMap.put("autocompleterDefaultViewSize", Integer.valueOf(childElement.getAttribute("default-view-size")));
-                    initWidgetPropertiesMap.put("autocompleterDisplayReturnField", "true".equalsIgnoreCase(childElement.getAttribute("display-return-field")));
-                    break;
-                case "lookup":
-                    initWidgetPropertiesMap.put("lookupPosition", childElement.getAttribute("position"));
-                    initWidgetPropertiesMap.put("lookupHeight", Integer.valueOf(childElement.getAttribute("height")));
-                    initWidgetPropertiesMap.put("lookupWidth", Integer.valueOf(childElement.getAttribute("width")));
-                    initWidgetPropertiesMap.put("lookupShowDescription", childElement.getAttribute("show-description"));
-                    break;
-                case "layered-modal":
-                    initWidgetPropertiesMap.put("linkDefaultLayeredModalHeight", Integer.valueOf(childElement.getAttribute("height")));
-                    initWidgetPropertiesMap.put("linkDefaultLayeredModalWidth", Integer.valueOf(childElement.getAttribute("width")));
-                    break;
+            case "default-view-size":
+                initWidgetPropertiesMap.put("defaultViewSize", Integer.valueOf(childElement.getAttribute("value")));
+                break;
+            case "autocompleter":
+                initWidgetPropertiesMap.put("autocompleterDefaultDelay", Integer.valueOf(childElement.getAttribute("default-delay")));
+                initWidgetPropertiesMap.put("autocompleterDefaultMinLength", Integer.valueOf(childElement.getAttribute("default-min-lenght")));
+                initWidgetPropertiesMap.put("autocompleterDefaultViewSize", Integer.valueOf(childElement.getAttribute("default-view-size")));
+                initWidgetPropertiesMap.put("autocompleterDisplayReturnField", "true".equalsIgnoreCase(childElement.getAttribute("display-return-field")));
+                break;
+            case "lookup":
+                initWidgetPropertiesMap.put("lookupPosition", childElement.getAttribute("position"));
+                initWidgetPropertiesMap.put("lookupHeight", Integer.valueOf(childElement.getAttribute("height")));
+                initWidgetPropertiesMap.put("lookupWidth", Integer.valueOf(childElement.getAttribute("width")));
+                initWidgetPropertiesMap.put("lookupShowDescription", childElement.getAttribute("show-description"));
+                break;
+            case "layered-modal":
+                initWidgetPropertiesMap.put("linkDefaultLayeredModalHeight", Integer.valueOf(childElement.getAttribute("height")));
+                initWidgetPropertiesMap.put("linkDefaultLayeredModalWidth", Integer.valueOf(childElement.getAttribute("width")));
+                break;
             }
         }
     }
@@ -468,21 +468,21 @@ public class ModelTheme implements Serializable {
             String errorTemplateLocation = null;
             for (Element templateFile : UtilXml.childElementList(template)) {
                 switch (templateFile.getAttribute("widget")) {
-                    case "screen":
-                        screenRendererLocation = templateFile.getAttribute("location");
-                        break;
-                    case "form":
-                        formRendererLocation = templateFile.getAttribute("location");
-                        break;
-                    case "tree":
-                        treeRendererLocation = templateFile.getAttribute("location");
-                        break;
-                    case "menu":
-                        menuRendererLocation = templateFile.getAttribute("location");
-                        break;
-                    case "error":
-                        errorTemplateLocation = templateFile.getAttribute("location");
-                        break;
+                case "screen":
+                    screenRendererLocation = templateFile.getAttribute("location");
+                    break;
+                case "form":
+                    formRendererLocation = templateFile.getAttribute("location");
+                    break;
+                case "tree":
+                    treeRendererLocation = templateFile.getAttribute("location");
+                    break;
+                case "menu":
+                    menuRendererLocation = templateFile.getAttribute("location");
+                    break;
+                case "error":
+                    errorTemplateLocation = templateFile.getAttribute("location");
+                    break;
                 }
             }
             this.screenRendererLocation = screenRendererLocation;

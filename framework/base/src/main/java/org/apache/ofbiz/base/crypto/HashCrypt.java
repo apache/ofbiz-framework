@@ -47,10 +47,10 @@ public class HashCrypt {
     private static final String MODULE = HashCrypt.class.getName();
     public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
-    private static final String PBKDF2_SHA1 ="PBKDF2-SHA1";
-    private static final String PBKDF2_SHA256 ="PBKDF2-SHA256";
-    private static final String PBKDF2_SHA384 ="PBKDF2-SHA384";
-    private static final String PBKDF2_SHA512 ="PBKDF2-SHA512";
+    private static final String PBKDF2_SHA1 = "PBKDF2-SHA1";
+    private static final String PBKDF2_SHA256 = "PBKDF2-SHA256";
+    private static final String PBKDF2_SHA384 = "PBKDF2-SHA384";
+    private static final String PBKDF2_SHA512 = "PBKDF2-SHA512";
     private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties", "password.encrypt.pbkdf2.iterations", 10000);
 
     public static MessageDigest getMessageDigest(String type) {
@@ -173,20 +173,20 @@ public class HashCrypt {
             byte[] hash = Base64.encodeBase64(skf.generateSecret(spec).getEncoded());
             String pbkdf2Type = null;
             switch (hashType) {
-                case "PBKDF2WithHmacSHA1":
-                    pbkdf2Type = PBKDF2_SHA1;
-                    break;
-                case "PBKDF2WithHmacSHA256":
-                    pbkdf2Type = PBKDF2_SHA256;
-                    break;
-                case "PBKDF2WithHmacSHA384":
-                    pbkdf2Type = PBKDF2_SHA384;
-                    break;
-                case "PBKDF2WithHmacSHA512":
-                    pbkdf2Type = PBKDF2_SHA512;
-                    break;
-                default:
-                    pbkdf2Type = PBKDF2_SHA1;
+            case "PBKDF2WithHmacSHA1":
+                pbkdf2Type = PBKDF2_SHA1;
+                break;
+            case "PBKDF2WithHmacSHA256":
+                pbkdf2Type = PBKDF2_SHA256;
+                break;
+            case "PBKDF2WithHmacSHA384":
+                pbkdf2Type = PBKDF2_SHA384;
+                break;
+            case "PBKDF2WithHmacSHA512":
+                pbkdf2Type = PBKDF2_SHA512;
+                break;
+            default:
+                pbkdf2Type = PBKDF2_SHA1;
             }
             StringBuilder sb = new StringBuilder();
             sb.append("{").append(pbkdf2Type).append("}");
@@ -206,23 +206,23 @@ public class HashCrypt {
             int typeEnd = crypted.indexOf("}");
             String hashType = crypted.substring(1, typeEnd);
             String[] parts = crypted.split("\\$");
-            int iterations = Integer.parseInt(parts[0].substring(typeEnd+1));
+            int iterations = Integer.parseInt(parts[0].substring(typeEnd + 1));
             byte[] salt = Arrays.toString(java.util.Base64.getMimeDecoder().decode(parts[1].getBytes(StandardCharsets.UTF_8))).getBytes(StandardCharsets.UTF_8);
             byte[] hash = Base64.decodeBase64(parts[2].getBytes(StandardCharsets.UTF_8));
 
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, hash.length * 8);
-            switch (hashType.substring(hashType.indexOf("-")+1)) {
-                case "SHA256":
-                    hashType = "PBKDF2WithHmacSHA256";
-                    break;
-                case "SHA384":
-                    hashType = "PBKDF2WithHmacSHA384";
-                    break;
-                case "SHA512":
-                    hashType = "PBKDF2WithHmacSHA512";
-                    break;
-                default:
-                    hashType = "PBKDF2WithHmacSHA1";
+            switch (hashType.substring(hashType.indexOf("-") + 1)) {
+            case "SHA256":
+                hashType = "PBKDF2WithHmacSHA256";
+                break;
+            case "SHA384":
+                hashType = "PBKDF2WithHmacSHA384";
+                break;
+            case "SHA512":
+                hashType = "PBKDF2WithHmacSHA512";
+                break;
+            default:
+                hashType = "PBKDF2WithHmacSHA1";
             }
             SecretKeyFactory skf = SecretKeyFactory.getInstance(hashType);
             byte[] testHash = skf.generateSecret(spec).getEncoded();

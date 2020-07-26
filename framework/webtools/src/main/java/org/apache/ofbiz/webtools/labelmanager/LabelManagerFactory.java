@@ -135,8 +135,7 @@ public class LabelManagerFactory {
                                     || labelKey.contains("check.")
                                     || (labelKey.length() == 2) // These are languages Ids
                                     || labelKey.contains("pt_") // These are languages Ids
-                                    || labelKey.contains("en_") // These are languages Ids
-                                    )) {
+                                    || labelKey.contains("en_"))) {
                         continue; // OFBIZ-8154 WIP
                     }
                     String labelComment = "";

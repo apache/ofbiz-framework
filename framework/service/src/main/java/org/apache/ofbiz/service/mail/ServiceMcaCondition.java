@@ -54,27 +54,27 @@ public class ServiceMcaCondition implements java.io.Serializable {
 
     public ServiceMcaCondition(Element condElement, int condType) {
         switch (condType) {
-            case CONDITION_FIELD:
-                // fields: from|to|subject|body|sent-date|receieved-date
-                this.fieldName = condElement.getAttribute("field-name");
-                // operators: equals|not-equals|empty|not-empty|matches|not-matches
-                this.operator = condElement.getAttribute("operator");
-                // value to compare
-                this.value = condElement.getAttribute("value");
-                break;
-            case CONDITION_HEADER:
-                // free form header name
-                this.headerName = condElement.getAttribute("header-name");
-                // operators: equals|not-equals|empty|not-empty|matches|not-matches
-                this.operator = condElement.getAttribute("operator");
-                // value to compare
-                this.value = condElement.getAttribute("value");
-                break;
-            case CONDITION_SERVICE:
-                this.serviceName = condElement.getAttribute("service-name");
-                break;
-            default:
-                Debug.logWarning("There was an error in the switch-case in ServiceMcaCondition", MODULE);
+        case CONDITION_FIELD:
+            // fields: from|to|subject|body|sent-date|receieved-date
+            this.fieldName = condElement.getAttribute("field-name");
+            // operators: equals|not-equals|empty|not-empty|matches|not-matches
+            this.operator = condElement.getAttribute("operator");
+            // value to compare
+            this.value = condElement.getAttribute("value");
+            break;
+        case CONDITION_HEADER:
+            // free form header name
+            this.headerName = condElement.getAttribute("header-name");
+            // operators: equals|not-equals|empty|not-empty|matches|not-matches
+            this.operator = condElement.getAttribute("operator");
+            // value to compare
+            this.value = condElement.getAttribute("value");
+            break;
+        case CONDITION_SERVICE:
+            this.serviceName = condElement.getAttribute("service-name");
+            break;
+        default:
+            Debug.logWarning("There was an error in the switch-case in ServiceMcaCondition", MODULE);
         }
     }
 

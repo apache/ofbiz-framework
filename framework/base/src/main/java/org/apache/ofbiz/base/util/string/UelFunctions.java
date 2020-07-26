@@ -452,8 +452,7 @@ public class UelFunctions {
             } else {
                 Debug.logError("Unable to locate XML document " + str, MODULE);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Debug.logError(e, "Error while reading XML document " + str, MODULE);
         }
         return document;

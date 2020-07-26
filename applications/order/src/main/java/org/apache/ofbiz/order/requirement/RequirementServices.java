@@ -71,8 +71,7 @@ public class RequirementServices {
         try {
             List<EntityCondition> conditions = UtilMisc.toList(
                     EntityCondition.makeCondition("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
-                    EntityUtil.getFilterByDateExpr()
-                   );
+                    EntityUtil.getFilterByDateExpr());
             if (UtilValidate.isNotEmpty(statusIds)) {
                 conditions.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, statusIds));
             } else {

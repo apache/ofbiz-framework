@@ -61,7 +61,7 @@ public interface Metrics {
     /** Returns the total number of processed events. */
     long getTotalEvents();
 
-    /** 
+    /**
      * Records the service time for <code>numEvents</code> taking
      * <code>time</code> milliseconds to be processed.
      */

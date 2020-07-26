@@ -677,7 +677,7 @@ public class ShoppingCartEvents {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting product"+e.getMessage(), MODULE);
+            Debug.logError(e, "Error getting product" + e.getMessage(), MODULE);
         }
         // Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
@@ -1847,8 +1847,7 @@ public class ShoppingCartEvents {
                             return "error";
                         }
                         quantity = quantity.setScale(0, UtilNumber.getRoundingMode("order.rounding"));
-                    }
-                    else {
+                    } else {
                         quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
                     }
                 } catch (GenericEntityException e) {

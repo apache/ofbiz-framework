@@ -236,7 +236,7 @@ public class OrderReadHelper {
             BigDecimal chargedToPaymentPref = ZERO;
             for (GenericValue payment : payments) {
                 if (payment.get("amount") != null) {
-                    chargedToPaymentPref = chargedToPaymentPref.add(payment.getBigDecimal("amount")).setScale(DECIMALS+1, ROUNDING);
+                    chargedToPaymentPref = chargedToPaymentPref.add(payment.getBigDecimal("amount")).setScale(DECIMALS + 1, ROUNDING);
                 }
             }
 
@@ -271,7 +271,7 @@ public class OrderReadHelper {
             }
             BigDecimal refundedToPaymentPref = ZERO;
             for (GenericValue returnItemResponse : returnItemResponses) {
-                refundedToPaymentPref = refundedToPaymentPref.add(returnItemResponse.getBigDecimal("responseAmount")).setScale(DECIMALS+1, ROUNDING);
+                refundedToPaymentPref = refundedToPaymentPref.add(returnItemResponse.getBigDecimal("responseAmount")).setScale(DECIMALS + 1, ROUNDING);
             }
 
             if (refundedToPaymentPref.compareTo(ZERO) == 1) {

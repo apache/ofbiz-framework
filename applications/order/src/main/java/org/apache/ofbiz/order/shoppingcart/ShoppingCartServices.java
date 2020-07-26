@@ -649,7 +649,7 @@ public class ShoppingCartServices {
             // set the item seq in the cart
             if (nextItemSeq > 0) {
                 try {
-                    cart.setNextItemSeq(nextItemSeq+1);
+                    cart.setNextItemSeq(nextItemSeq + 1);
                 } catch (GeneralException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
@@ -960,7 +960,7 @@ public class ShoppingCartServices {
         // set the item seq in the cart
         if (nextItemSeq > 0) {
             try {
-                cart.setNextItemSeq(nextItemSeq+1);
+                cart.setNextItemSeq(nextItemSeq + 1);
             } catch (GeneralException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
@@ -1103,7 +1103,7 @@ public class ShoppingCartServices {
         // set the item seq in the cart
         if (nextItemSeq > 0) {
             try {
-                cart.setNextItemSeq(nextItemSeq+1);
+                cart.setNextItemSeq(nextItemSeq + 1);
             } catch (GeneralException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());

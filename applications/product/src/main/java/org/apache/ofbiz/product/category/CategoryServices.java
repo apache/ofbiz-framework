@@ -315,7 +315,7 @@ public class CategoryServices {
                         try {
                             productCategoryMembers = ProductWorker.filterOutOfStockProducts(productCategoryMembers, dispatcher, delegator);
                         } catch (GeneralException e) {
-                            Debug.logWarning("Problem filtering out of stock products :"+e.getMessage(), MODULE);
+                            Debug.logWarning("Problem filtering out of stock products :" + e.getMessage(), MODULE);
                         }
                     }
                     // filter out the view allow before getting the sublist
@@ -407,7 +407,7 @@ public class CategoryServices {
                             productCategoryMembers = ProductWorker.filterOutOfStockProducts(productCategoryMembers, dispatcher, delegator);
                             listSize = productCategoryMembers.size();
                         } catch (GeneralException e) {
-                            Debug.logWarning("Problem filtering out of stock products :"+e.getMessage(), MODULE);
+                            Debug.logWarning("Problem filtering out of stock products :" + e.getMessage(), MODULE);
                         }
                     }
 

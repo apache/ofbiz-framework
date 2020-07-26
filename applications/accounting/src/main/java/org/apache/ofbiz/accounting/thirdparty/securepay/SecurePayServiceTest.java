@@ -90,8 +90,7 @@ public class SecurePayServiceTest extends OFBizTestCase {
                 "prodCatalogId", "DemoCatalog",
                 "quantity", new BigDecimal("2.000000"),
                 "unitPrice", new BigDecimal("59.00"),
-                "statusId", "ITEM_COMPLETED"
-                );
+                "statusId", "ITEM_COMPLETED");
         orderItems = UtilMisc.<Object>toList(orderItemMap);
         billToParty = delegator.makeValue("Party", UtilMisc.toMap("partyId", "DemoCustomer"));
         paymentGatewayConfigId = "SECUREPAY_CONFIG";
@@ -121,8 +120,7 @@ public class SecurePayServiceTest extends OFBizTestCase {
                     "billingAddress", billingAddress,
                     "shippingAddress", shippingAddress,
                     "orderId", orderId,
-                    "currency", "AUD"
-           );
+                    "currency", "AUD");
             serviceInput.put("processAmount", new BigDecimal("100.08"));
 
             // run the service
@@ -147,8 +145,7 @@ public class SecurePayServiceTest extends OFBizTestCase {
                         "referenceNum", authRefNum,
                         "paymentMethodTypeId", "CREDIT_CARD",
                         "paymentServiceTypeEnumId", "PRDS_PAY_AUTH",
-                        "currencyUomId", "AUD"
-                        ));
+                        "currencyUomId", "AUD"));
                 GenericValue checkPaymentGatewayResponse = EntityQuery.use(delegator).from("PaymentGatewayResponse").where("paymentGatewayResponseId", "testOrder1000_01").queryOne();
                 if (UtilValidate.isEmpty(checkPaymentGatewayResponse)) {
                     paymentGatewayResponse.create();
@@ -166,8 +163,7 @@ public class SecurePayServiceTest extends OFBizTestCase {
             Map<String, Object> serviceInput = UtilMisc.<String, Object>toMap(
                     "paymentConfig", configFile,
                     "orderPaymentPreference", orderPaymentPreference,
-                    "authTrans", paymentGatewayResponse
-           );
+                    "authTrans", paymentGatewayResponse);
             serviceInput.put("captureAmount", refundAmount);
 
             // run the service
@@ -197,9 +193,7 @@ public class SecurePayServiceTest extends OFBizTestCase {
         Debug.logInfo("=====[testdoRefund] starting....", MODULE);
         try {
             Map<String, Object> serviceInput = UtilMisc.toMap(
-                    "paymentConfig", configFile,
-                    "orderPaymentPreference", orderPaymentPreference
-           );
+                    "paymentConfig", configFile, "orderPaymentPreference", orderPaymentPreference);
             serviceInput.put("refundAmount", refundAmount);
             // run the service
             Map<String, Object> result = dispatcher.runSync("ofbScRefund", serviceInput);
@@ -232,8 +226,7 @@ public class SecurePayServiceTest extends OFBizTestCase {
                     "creditCard", creditCard,
                     "billingAddress", billingAddress,
                     "referenceCode", orderId,
-                    "currency", "AUD"
-           );
+                    "currency", "AUD");
             serviceInput.put("creditAmount", creditAmount);
             // run the service
             Map<String, Object> result = dispatcher.runSync("ofbScCCCredit", serviceInput);

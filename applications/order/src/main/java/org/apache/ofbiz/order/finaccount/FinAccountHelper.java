@@ -193,7 +193,7 @@ public final class FinAccountHelper {
                                 EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "ADJUSTMENT")),
                             EntityOperator.OR))
                 .queryList();
-        incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (DECIMALS+1), ROUNDING);
+        incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (DECIMALS + 1), ROUNDING);
 
         // now find sum of all transactions with decrease the value
         transSums = EntityQuery.use(delegator)
@@ -203,7 +203,7 @@ public final class FinAccountHelper {
                         EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
                         EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL"))
                 .queryList();
-        decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (DECIMALS+1), ROUNDING);
+        decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (DECIMALS + 1), ROUNDING);
 
         // the net balance is just the incrementTotal minus the decrementTotal
         return incrementTotal.subtract(decrementTotal).setScale(DECIMALS, ROUNDING);
@@ -230,7 +230,7 @@ public final class FinAccountHelper {
                         EntityCondition.makeCondition("authorizationDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime))
                 .queryList();
 
-        BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (DECIMALS+1), ROUNDING);
+        BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (DECIMALS + 1), ROUNDING);
 
         // the total available balance is transactions total minus authorizations total
         return netBalance.subtract(authorizationsTotal).setScale(DECIMALS, ROUNDING);

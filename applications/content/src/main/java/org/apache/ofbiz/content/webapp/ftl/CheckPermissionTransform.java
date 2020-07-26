@@ -53,8 +53,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
 
     private static final String MODULE = CheckPermissionTransform.class.getName();
 
-    static final String[] saveKeyNames = {"globalNodeTrail", "nodeTrail", "mode", "purposeTypeId", "statusId", "entityOperation", "targetOperation" };
-    public static final String[] removeKeyNames = {};
+    static final String[] SAVE_KEY_NAMES = {"globalNodeTrail", "nodeTrail", "mode", "purposeTypeId", "statusId", "entityOperation", "targetOperation" };
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -179,7 +178,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 }
 
                 if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
-                    FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
+                    FreeMarkerWorker.saveContextValues(templateCtx, SAVE_KEY_NAMES, savedValues);
                     if (mode == null || !"not-equals".equalsIgnoreCase(mode)) {
                         return TransformControl.EVALUATE_BODY;
                     }

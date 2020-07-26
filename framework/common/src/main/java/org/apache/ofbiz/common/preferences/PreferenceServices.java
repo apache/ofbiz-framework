@@ -87,7 +87,7 @@ public class PreferenceServices {
             }
         } catch (GeneralException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "getPreference.readFailure", new Object[] {e.getMessage() }, locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -134,7 +134,7 @@ public class PreferenceServices {
             }
         } catch (GeneralException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "getPreference.readFailure", new Object[] {e.getMessage() }, locale));
         }
         // for the 'DEFAULT' values find the related values in general properties and if found use those.
         Properties generalProperties = UtilProperties.getProperties("general");
@@ -181,7 +181,7 @@ public class PreferenceServices {
             delegator.createOrStore(rec);
         } catch (GeneralException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] {e.getMessage() }, locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -207,7 +207,7 @@ public class PreferenceServices {
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] {e.getMessage() }, locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -240,7 +240,7 @@ public class PreferenceServices {
             }
         } catch (GeneralException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] {e.getMessage() }, locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -279,7 +279,7 @@ public class PreferenceServices {
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "copyPreference.writeFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "copyPreference.writeFailure", new Object[] {e.getMessage() }, locale));
         }
 
         return ServiceUtil.returnSuccess();

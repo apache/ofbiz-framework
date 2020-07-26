@@ -46,8 +46,9 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
 
     private static final String MODULE = InjectNodeTrailCsvTransform.class.getName();
 
-    static final String[] saveKeyNames = {"nodeTrailCsv", "globalNodeTrail", "nodeTrail" };
-    static final String[] removeKeyNames = {"nodeTrailCsv" };
+    //TODO: Not being used, should be removed.
+    static final String[] SAVE_KEY_NAMES = {"nodeTrailCsv", "globalNodeTrail", "nodeTrail" };
+    static final String[] REMOVE_KEY_NAMES = {"nodeTrailCsv" };
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()

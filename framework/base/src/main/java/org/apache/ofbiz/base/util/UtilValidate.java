@@ -1097,14 +1097,14 @@ public final class UtilValidate {
         String first6digs = cc.substring(0, 6);
 
         if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19))
-            && ("4903".equals(first4digs)
-            || "4905".equals(first4digs)
-            || "4911".equals(first4digs)
-            || "4936".equals(first4digs)
-            || "564182".equals(first6digs)
-            || "633110".equals(first6digs)
-            || "6333".equals(first4digs)
-            || "6759".equals(first4digs))) {
+                && ("4903".equals(first4digs)
+                || "4905".equals(first4digs)
+                || "4911".equals(first4digs)
+                || "4936".equals(first4digs)
+                || "564182".equals(first6digs)
+                || "633110".equals(first6digs)
+                || "6333".equals(first4digs)
+                || "6759".equals(first4digs))) {
             return isCreditCard(cc);
         }
         return false;
@@ -1117,8 +1117,7 @@ public final class UtilValidate {
     private static boolean isSolo(String cc) {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
-        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) &&
-                ("63".equals(first2digs) || "6767".equals(first4digs))) {
+        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) && ("63".equals(first2digs) || "6767".equals(first4digs))) {
             return isCreditCard(cc);
         }
         return false;
@@ -1241,7 +1240,7 @@ public final class UtilValidate {
         if (("CCT_SOLO".equalsIgnoreCase(cardType)) && (isSolo(cardNumber))) {
             return true;
         }
-        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isSwitch (cardNumber))) {
+        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isSwitch(cardNumber))) {
             return true;
         }
         if (("CCT_VISAELECTRON".equalsIgnoreCase(cardType)) && (isVisaElectron(cardNumber))) {

@@ -81,7 +81,7 @@ import com.thoughtworks.xstream.XStream;
 public final class UtilXml {
 
     private static final String MODULE = UtilXml.class.getName();
-    private static final XStream xstream = createXStream();
+    private static final XStream X_STREAM = createXStream();
     private UtilXml() { }
 
     private static XStream createXStream() {
@@ -255,7 +255,7 @@ public final class UtilXml {
      * @return The deserialized <code>Object</code>
      */
     public static Object fromXml(InputStream input) {
-        return xstream.fromXML(input);
+        return X_STREAM.fromXML(input);
     }
 
     /** Deserialize an object from a <code>Reader</code>.
@@ -264,7 +264,7 @@ public final class UtilXml {
      * @return The deserialized <code>Object</code>
      */
     public static Object fromXml(Reader reader) {
-        return xstream.fromXML(reader);
+        return X_STREAM.fromXML(reader);
     }
 
     /** Deserialize an object from a <code>String</code>.
@@ -273,7 +273,7 @@ public final class UtilXml {
      * @return The deserialized <code>Object</code>
      */
     public static Object fromXml(String str) {
-        return xstream.fromXML(str);
+        return X_STREAM.fromXML(str);
     }
 
     /** Serialize an object to an XML <code>String</code>.
@@ -282,7 +282,7 @@ public final class UtilXml {
      * @return An XML <code>String</code>
      */
     public static String toXml(Object obj) {
-        return xstream.toXML(obj);
+        return X_STREAM.toXML(obj);
     }
 
     /** Serialize an object to an <code>OutputStream</code>.
@@ -291,7 +291,7 @@ public final class UtilXml {
      * @param output The <code>OutputStream</code>
      */
     public static void toXml(Object obj, OutputStream output) {
-        xstream.toXML(obj, output);
+        X_STREAM.toXML(obj, output);
     }
 
     /** Serialize an object to a <code>Writer</code>.
@@ -300,7 +300,7 @@ public final class UtilXml {
      * @param writer The <code>Writer</code>
      */
     public static void toXml(Object obj, Writer writer) {
-        xstream.toXML(obj, writer);
+        X_STREAM.toXML(obj, writer);
     }
 
     // ------------------------------------------------- //
@@ -1045,8 +1045,8 @@ public final class UtilXml {
             String dtd = UtilProperties.getSplitPropertyValue(UtilURL.fromResource("localdtds.properties"), publicId);
             if (UtilValidate.isNotEmpty(dtd)) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] resolving DTD with publicId [" + publicId +
-                            "], systemId [" + systemId + "] and the dtd file is [" + dtd + "]", MODULE);
+                    Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] resolving DTD with publicId [" + publicId
+                            + "], systemId [" + systemId + "] and the dtd file is [" + dtd + "]", MODULE);
                 }
                 try {
                     URL dtdURL = UtilURL.fromResource(dtd);
@@ -1059,8 +1059,8 @@ public final class UtilXml {
                     inputSource.setPublicId(publicId);
                     hasDTD = true;
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD input source with publicId [" +
-                                publicId + "] and the dtd file is [" + dtd + "]", MODULE);
+                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD input source with publicId ["
+                                + publicId + "] and the dtd file is [" + dtd + "]", MODULE);
                     }
                     return inputSource;
                 } catch (GeneralException | IOException e) {
@@ -1087,13 +1087,13 @@ public final class UtilXml {
                     }
                     hasDTD = true;
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD/Schema input source with publicId [" +
-                                publicId + "] and the file/resource is [" + filename + "]", MODULE);
+                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD/Schema input source with publicId ["
+                                + publicId + "] and the file/resource is [" + filename + "]", MODULE);
                     }
                     return inputSource;
                 }
-                Debug.logWarning("[UtilXml.LocalResolver.resolveEntity] could not find LOCAL DTD/Schema with publicId [" +
-                        publicId + "] and the file/resource is [" + filename + "]", MODULE);
+                Debug.logWarning("[UtilXml.LocalResolver.resolveEntity] could not find LOCAL DTD/Schema with publicId ["
+                        + publicId + "] and the file/resource is [" + filename + "]", MODULE);
                 return null;
             }
             return defaultResolver.resolveEntity(publicId, systemId);
@@ -1129,12 +1129,11 @@ public final class UtilXml {
             Matcher matcher = valueFlexExpr.matcher(exceptionMessage.toLowerCase());
             if (localResolver.hasDTD() && !matcher.find()) {
                 Debug.logError("XmlFileLoader: File "
-                    + docDescription
-                    + " process error. Line: "
-                    + String.valueOf(exception.getLineNumber())
-                    + ". Error message: "
-                    + exceptionMessage, MODULE
-               );
+                        + docDescription
+                        + " process error. Line: "
+                        + String.valueOf(exception.getLineNumber())
+                        + ". Error message: "
+                        + exceptionMessage, MODULE);
             }
         }
 
@@ -1142,12 +1141,11 @@ public final class UtilXml {
         public void fatalError(SAXParseException exception) {
             if (localResolver.hasDTD()) {
                 Debug.logError("XmlFileLoader: File "
-                    + docDescription
-                    + " process fatal error. Line: "
-                    + String.valueOf(exception.getLineNumber())
-                    + ". Error message: "
-                    + exception.getMessage(), MODULE
-               );
+                        + docDescription
+                        + " process fatal error. Line: "
+                        + String.valueOf(exception.getLineNumber())
+                        + ". Error message: "
+                        + exception.getMessage(), MODULE);
             }
         }
 
@@ -1155,12 +1153,11 @@ public final class UtilXml {
         public void warning(SAXParseException exception) {
             if (localResolver.hasDTD()) {
                 Debug.logError("XmlFileLoader: File "
-                    + docDescription
-                    + " process warning. Line: "
-                    + String.valueOf(exception.getLineNumber())
-                    + ". Error message: "
-                    + exception.getMessage(), MODULE
-               );
+                        + docDescription
+                        + " process warning. Line: "
+                        + String.valueOf(exception.getLineNumber())
+                        + ". Error message: "
+                        + exception.getMessage(), MODULE);
             }
         }
     }

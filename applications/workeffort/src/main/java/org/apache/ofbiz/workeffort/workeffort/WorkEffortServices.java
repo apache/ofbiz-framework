@@ -87,8 +87,7 @@ public class WorkEffortServices {
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
-                        EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED")
-               );
+                        EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
                 validWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(ecl).orderBy("estimatedStartDate", "priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
@@ -419,8 +418,7 @@ public class WorkEffortServices {
             // public events are always included to the "personal calendar"
             List<EntityCondition> publicEvents = UtilMisc.<EntityCondition>toList(
                     EntityCondition.makeCondition("scopeEnumId", EntityOperator.EQUALS, "WES_PUBLIC"),
-                    EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "EVENT")
-                    );
+                    EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "EVENT"));
             if (UtilValidate.isNotEmpty(partyIds)) {
                 entityExprList.add(
                         EntityCondition.makeCondition(UtilMisc.toList(

@@ -354,9 +354,7 @@ public final class CatalogWorker {
 
         return EntityUtil.getFieldListFromEntityList(
                 getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD"),
-                "productCategoryId",
-                true
-        );
+                "productCategoryId", true);
     }
 
     public static String getCatalogTopEbayCategoryId(ServletRequest request, String prodCatalogId) {

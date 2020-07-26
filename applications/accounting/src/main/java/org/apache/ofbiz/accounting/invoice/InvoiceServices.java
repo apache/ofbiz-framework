@@ -139,8 +139,7 @@ public class InvoiceServices {
             }
             result.remove("invoiceTypeId");  //remove extra parameter
             return result;
-        }
-        catch (GenericServiceException | GenericEntityException e) {
+        } catch (GenericServiceException | GenericEntityException e) {
             Debug.logError (e, "Entity/data problem creating invoice from order items: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingEntityDataProblemCreatingInvoiceFromOrderItems",
@@ -856,8 +855,7 @@ public class InvoiceServices {
             // check for previous order payments
             List<GenericValue> orderPaymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference")
                     .where(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
-                            EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")
-                    ).queryList();
+                            EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")).queryList();
             List<GenericValue> currentPayments = new LinkedList<>();
             for (GenericValue paymentPref : orderPaymentPrefs) {
                 List<GenericValue> payments = paymentPref.getRelated("Payment", null, null, false);
@@ -1619,8 +1617,7 @@ public class InvoiceServices {
                             invoiceableShipments = EntityQuery.use(delegator).from("Shipment").where(
                                     UtilMisc.toList(
                                             EntityCondition.makeCondition("primaryOrderId", EntityOperator.IN, invoiceablePrimaryOrderIds),
-                                            EntityCondition.makeCondition("shipmentId", EntityOperator.IN, shipmentIds))
-                                    ).queryList();
+                                            EntityCondition.makeCondition("shipmentId", EntityOperator.IN, shipmentIds))).queryList();
                         }
                     } else {
                         List<String> invoiceableShipmentIds = EntityUtil.getFieldListFromEntityList(toBillItems, "shipmentId", true);
@@ -3574,8 +3571,7 @@ public class InvoiceServices {
                             "currencyUomId", rec.get("currencyUomId"),
                             "description", rec.get("description"),
                             "referenceNumber", rec.get("referenceNumber") + "   Imported: orginal InvoiceId: " + currentInvoiceId,
-                            "userLogin", userLogin
-                            );
+                            "userLogin", userLogin);
 
                     // replace values if required
                     if (UtilValidate.isNotEmpty(rec.get("partyIdFromTrans"))) {
@@ -3648,8 +3644,7 @@ public class InvoiceServices {
                             "description", rec.get("itemDescription"),
                             "amount", rec.get("amount"),
                             "quantity", rec.get("quantity"),
-                            "userLogin", userLogin
-                            );
+                            "userLogin", userLogin);
 
                     if (UtilValidate.isNotEmpty(rec.get("productIdTrans"))) {
                         invoiceItem.put("productId", rec.get("productIdTrans"));

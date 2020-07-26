@@ -325,7 +325,7 @@ public class ValueLinkApi {
 
         // test the KEK
         Cipher cipher = this.getCipher(this.getKekKey(), Cipher.ENCRYPT_MODE);
-        byte[] kekTestB = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        byte[] kekTestB = {0, 0, 0, 0, 0, 0, 0, 0 };
         byte[] kekTestC = new byte[0];
         if (kekTest != null) {
             kekTestB = StringUtil.fromHexString(kekTest);
@@ -767,7 +767,7 @@ public class ValueLinkApi {
 
     // return a cipher for a key - DESede/CBC/NoPadding IV = 0
     protected Cipher getCipher(SecretKey key, int mode) {
-        byte[] zeros = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        byte[] zeros = {0, 0, 0, 0, 0, 0, 0, 0 };
         IvParameterSpec iv = new IvParameterSpec(zeros);
 
         // create the Cipher - DESede/CBC/NoPadding

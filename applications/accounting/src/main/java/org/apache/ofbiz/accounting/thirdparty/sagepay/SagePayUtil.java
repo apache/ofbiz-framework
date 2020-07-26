@@ -52,13 +52,13 @@ public final class SagePayUtil {
     (Boolean authResult, String authCode, String authFlag, BigDecimal processAmount, String authRefNum, String authAltRefNum, String authMessage) {
 
         Map<String, Object> result = new HashMap<>();
-        if (authResult != null) { result.put("authResult", authResult); }
-        if (authCode != null) { result.put("authCode", authCode); }
-        if (authFlag != null) { result.put("authFlag", authFlag); }
-        if (processAmount != null) { result.put("processAmount", processAmount); }
-        if (authRefNum != null) { result.put("authRefNum", authRefNum); }
-        if (authAltRefNum != null) { result.put("authAltRefNum", authAltRefNum); }
-        if (authMessage != null) { result.put("authMessage", authMessage); }
+        if (authResult != null) {result.put("authResult", authResult); }
+        if (authCode != null) {result.put("authCode", authCode); }
+        if (authFlag != null) {result.put("authFlag", authFlag); }
+        if (processAmount != null) {result.put("processAmount", processAmount); }
+        if (authRefNum != null) {result.put("authRefNum", authRefNum); }
+        if (authAltRefNum != null) {result.put("authAltRefNum", authAltRefNum); }
+        if (authMessage != null) {result.put("authMessage", authMessage); }
         return result;
     }
 
@@ -66,13 +66,13 @@ public final class SagePayUtil {
     (Boolean captureResult, String captureCode, String captureFlag, BigDecimal captureAmount, String captureRefNum, String captureAltRefNum, String captureMessage) {
 
         Map<String, Object> result = new HashMap<>();
-        if (captureResult != null) { result.put("captureResult", captureResult); }
-        if (captureCode != null) { result.put("captureCode", captureCode); }
-        if (captureFlag != null) { result.put("captureFlag", captureFlag); }
-        if (captureAmount != null) { result.put("captureAmount", captureAmount); }
-        if (captureRefNum != null) { result.put("captureRefNum", captureRefNum); }
-        if (captureAltRefNum != null) { result.put("captureAltRefNum", captureAltRefNum); }
-        if (captureMessage != null) { result.put("captureMessage", captureMessage); }
+        if (captureResult != null) {result.put("captureResult", captureResult); }
+        if (captureCode != null) {result.put("captureCode", captureCode); }
+        if (captureFlag != null) {result.put("captureFlag", captureFlag); }
+        if (captureAmount != null) {result.put("captureAmount", captureAmount); }
+        if (captureRefNum != null) {result.put("captureRefNum", captureRefNum); }
+        if (captureAltRefNum != null) {result.put("captureAltRefNum", captureAltRefNum); }
+        if (captureMessage != null) {result.put("captureMessage", captureMessage); }
         return result;
     }
 
@@ -80,12 +80,12 @@ public final class SagePayUtil {
     (Boolean releaseResult, String releaseCode, BigDecimal releaseAmount, String releaseRefNum, String releaseAltRefNum, String releaseMessage) {
 
         Map<String, Object> result = new HashMap<>();
-        if (releaseResult != null) { result.put("releaseResult", releaseResult); }
-        if (releaseCode != null) { result.put("releaseCode", releaseCode); }
-        if (releaseAmount != null) { result.put("releaseAmount", releaseAmount); }
-        if (releaseRefNum != null) { result.put("releaseRefNum", releaseRefNum); }
-        if (releaseAltRefNum != null) { result.put("releaseAltRefNum", releaseAltRefNum); }
-        if (releaseMessage != null) { result.put("releaseMessage", releaseMessage); }
+        if (releaseResult != null) {result.put("releaseResult", releaseResult); }
+        if (releaseCode != null) {result.put("releaseCode", releaseCode); }
+        if (releaseAmount != null) {result.put("releaseAmount", releaseAmount); }
+        if (releaseRefNum != null) {result.put("releaseRefNum", releaseRefNum); }
+        if (releaseAltRefNum != null) {result.put("releaseAltRefNum", releaseAltRefNum); }
+        if (releaseMessage != null) {result.put("releaseMessage", releaseMessage); }
         return result;
     }
 
@@ -93,11 +93,11 @@ public final class SagePayUtil {
     (Boolean refundResult, BigDecimal refundAmount, String refundRefNum, String refundAltRefNum, String refundMessage) {
 
         Map<String, Object> result = new HashMap<>();
-        if (refundResult != null) { result.put("refundResult", refundResult); }
-        if (refundAmount != null) { result.put("refundAmount", refundAmount); }
-        if (refundRefNum != null) { result.put("refundRefNum", refundRefNum); }
-        if (refundAltRefNum != null) { result.put("refundAltRefNum", refundAltRefNum); }
-        if (refundMessage != null) { result.put("refundMessage", refundMessage); }
+        if (refundResult != null) {result.put("refundResult", refundResult); }
+        if (refundAmount != null) {result.put("refundAmount", refundAmount); }
+        if (refundRefNum != null) {result.put("refundRefNum", refundRefNum); }
+        if (refundAltRefNum != null) {result.put("refundAltRefNum", refundAltRefNum); }
+        if (refundMessage != null) {result.put("refundMessage", refundMessage); }
         return result;
     }
 
@@ -105,12 +105,12 @@ public final class SagePayUtil {
     (Boolean refundResult, String refundCode, BigDecimal refundAmount, String refundRefNum, String refundAltRefNum, String refundMessage) {
 
         Map<String, Object> result = new HashMap<>();
-        if (refundResult != null) { result.put("refundResult", refundResult); }
-        if (refundCode != null) { result.put("refundCode", refundCode); }
-        if (refundAmount != null) { result.put("refundAmount", refundAmount); }
-        if (refundRefNum != null) { result.put("refundRefNum", refundRefNum); }
-        if (refundAltRefNum != null) { result.put("refundAltRefNum", refundAltRefNum); }
-        if (refundMessage != null) { result.put("refundMessage", refundMessage); }
+        if (refundResult != null) {result.put("refundResult", refundResult); }
+        if (refundCode != null) {result.put("refundCode", refundCode); }
+        if (refundAmount != null) {result.put("refundAmount", refundAmount); }
+        if (refundRefNum != null) {result.put("refundRefNum", refundRefNum); }
+        if (refundAltRefNum != null) {result.put("refundAltRefNum", refundAltRefNum); }
+        if (refundMessage != null) {result.put("refundMessage", refundMessage); }
         return result;
     }
 
@@ -132,7 +132,7 @@ public final class SagePayUtil {
         }
         String scheme = hostUrl.substring(0, 5);
         String host = hostUrl.substring(8, hostUrl.lastIndexOf(":"));
-        String port = hostUrl.substring(hostUrl.lastIndexOf(":")+1);
+        String port = hostUrl.substring(hostUrl.lastIndexOf(":") + 1);
         return getHost(host, Integer.parseInt(port), scheme);
     }
 

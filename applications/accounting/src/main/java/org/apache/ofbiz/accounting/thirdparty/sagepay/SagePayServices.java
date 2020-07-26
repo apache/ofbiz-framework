@@ -147,58 +147,58 @@ public class SagePayServices
         parameters.put("TxType", txType);
         parameters.put("Vendor", vendor);
 
-        if (vendorTxCode != null) { parameters.put("VendorTxCode", vendorTxCode); }
-        if (amount != null) { parameters.put("Amount", amount); }
-        if (currency != null) { parameters.put("Currency", currency); } //GBP/USD
-        if (description != null) { parameters.put("Description", description); }
-        if (cardHolder != null) { parameters.put("CardHolder", cardHolder); }
-        if (cardNumber != null) { parameters.put("CardNumber", cardNumber); }
-        if (expiryDate != null) { parameters.put("ExpiryDate", expiryDate); }
-        if (cardType != null) { parameters.put("CardType", cardType); }
+        if (vendorTxCode != null) {parameters.put("VendorTxCode", vendorTxCode); }
+        if (amount != null) {parameters.put("Amount", amount); }
+        if (currency != null) {parameters.put("Currency", currency); } //GBP/USD
+        if (description != null) {parameters.put("Description", description); }
+        if (cardHolder != null) {parameters.put("CardHolder", cardHolder); }
+        if (cardNumber != null) {parameters.put("CardNumber", cardNumber); }
+        if (expiryDate != null) {parameters.put("ExpiryDate", expiryDate); }
+        if (cardType != null) {parameters.put("CardType", cardType); }
 
         //start - billing details
-        if (billingSurname != null) { parameters.put("BillingSurname", billingSurname); }
-        if (billingFirstnames != null) { parameters.put("BillingFirstnames", billingFirstnames); }
-        if (billingAddress != null) { parameters.put("BillingAddress", billingAddress); }
-        if (billingAddress2 != null) { parameters.put("BillingAddress2", billingAddress2); }
-        if (billingCity != null) { parameters.put("BillingCity", billingCity); }
-        if (billingPostCode != null) { parameters.put("BillingPostCode", billingPostCode); }
-        if (billingCountry != null) { parameters.put("BillingCountry", billingCountry); }
-        if (billingState != null) { parameters.put("BillingState", billingState); }
-        if (billingPhone != null) { parameters.put("BillingPhone", billingPhone); }
+        if (billingSurname != null) {parameters.put("BillingSurname", billingSurname); }
+        if (billingFirstnames != null) {parameters.put("BillingFirstnames", billingFirstnames); }
+        if (billingAddress != null) {parameters.put("BillingAddress", billingAddress); }
+        if (billingAddress2 != null) {parameters.put("BillingAddress2", billingAddress2); }
+        if (billingCity != null) {parameters.put("BillingCity", billingCity); }
+        if (billingPostCode != null) {parameters.put("BillingPostCode", billingPostCode); }
+        if (billingCountry != null) {parameters.put("BillingCountry", billingCountry); }
+        if (billingState != null) {parameters.put("BillingState", billingState); }
+        if (billingPhone != null) {parameters.put("BillingPhone", billingPhone); }
         //end - billing details
 
         //start - delivery details
         if (isBillingSameAsDelivery != null && isBillingSameAsDelivery) {
-            if (billingSurname != null) { parameters.put("DeliverySurname", billingSurname); }
-            if (billingFirstnames != null) { parameters.put("DeliveryFirstnames", billingFirstnames); }
-            if (billingAddress != null) { parameters.put("DeliveryAddress", billingAddress); }
-            if (billingAddress2 != null) { parameters.put("DeliveryAddress2", billingAddress2); }
-            if (billingCity != null) { parameters.put("DeliveryCity", billingCity); }
-            if (billingPostCode != null) { parameters.put("DeliveryPostCode", billingPostCode); }
-            if (billingCountry != null) { parameters.put("DeliveryCountry", billingCountry); }
-            if (billingState != null) { parameters.put("DeliveryState", billingState); }
-            if (billingPhone != null) { parameters.put("DeliveryPhone", billingPhone); }
+            if (billingSurname != null) {parameters.put("DeliverySurname", billingSurname); }
+            if (billingFirstnames != null) {parameters.put("DeliveryFirstnames", billingFirstnames); }
+            if (billingAddress != null) {parameters.put("DeliveryAddress", billingAddress); }
+            if (billingAddress2 != null) {parameters.put("DeliveryAddress2", billingAddress2); }
+            if (billingCity != null) {parameters.put("DeliveryCity", billingCity); }
+            if (billingPostCode != null) {parameters.put("DeliveryPostCode", billingPostCode); }
+            if (billingCountry != null) {parameters.put("DeliveryCountry", billingCountry); }
+            if (billingState != null) {parameters.put("DeliveryState", billingState); }
+            if (billingPhone != null) {parameters.put("DeliveryPhone", billingPhone); }
         } else {
-            if (deliverySurname != null) { parameters.put("DeliverySurname", deliverySurname); }
-            if (deliveryFirstnames != null) { parameters.put("DeliveryFirstnames", deliveryFirstnames); }
-            if (deliveryAddress != null) { parameters.put("DeliveryAddress", deliveryAddress); }
-            if (deliveryAddress2 != null) { parameters.put("DeliveryAddress2", deliveryAddress2); }
-            if (deliveryCity != null) { parameters.put("DeliveryCity", deliveryCity); }
-            if (deliveryPostCode != null) { parameters.put("DeliveryPostCode", deliveryPostCode); }
-            if (deliveryCountry != null) { parameters.put("DeliveryCountry", deliveryCountry); }
-            if (deliveryState != null) { parameters.put("DeliveryState", deliveryState); }
+            if (deliverySurname != null) {parameters.put("DeliverySurname", deliverySurname); }
+            if (deliveryFirstnames != null) {parameters.put("DeliveryFirstnames", deliveryFirstnames); }
+            if (deliveryAddress != null) {parameters.put("DeliveryAddress", deliveryAddress); }
+            if (deliveryAddress2 != null) {parameters.put("DeliveryAddress2", deliveryAddress2); }
+            if (deliveryCity != null) {parameters.put("DeliveryCity", deliveryCity); }
+            if (deliveryPostCode != null) {parameters.put("DeliveryPostCode", deliveryPostCode); }
+            if (deliveryCountry != null) {parameters.put("DeliveryCountry", deliveryCountry); }
+            if (deliveryState != null) {parameters.put("DeliveryState", deliveryState); }
             if (deliveryPhone != null) {parameters.put("DeliveryPhone", deliveryPhone); }
         }
         //end - delivery details
         //end - required parameters
 
         //start - optional parameters
-        if (cv2 != null) { parameters.put("CV2", cv2); }
-        if (startDate != null) { parameters.put("StartDate", startDate); }
-        if (issueNumber != null) { parameters.put("IssueNumber", issueNumber); }
-        if (basket != null) { parameters.put("Basket", basket); }
-        if (clientIPAddress != null) { parameters.put("ClientIPAddress", clientIPAddress); }
+        if (cv2 != null) {parameters.put("CV2", cv2); }
+        if (startDate != null) {parameters.put("StartDate", startDate); }
+        if (issueNumber != null) {parameters.put("IssueNumber", issueNumber); }
+        if (basket != null) {parameters.put("Basket", basket); }
+        if (clientIPAddress != null) {parameters.put("ClientIPAddress", clientIPAddress); }
         //end - optional parameters
         //end - authentication parameters
 

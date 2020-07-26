@@ -4269,7 +4269,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 try {
                     productFacility = EntityQuery.use(delegator).from("ProductFacility").where("productId", productId, "facilityId", shipInfo.getFacilityId()).queryOne();
                 } catch (GenericEntityException e) {
-                    Debug.logError("Error :" +e.getMessage(), MODULE);
+                    Debug.logError("Error :" + e.getMessage(), MODULE);
                     e.printStackTrace();
                 }
 

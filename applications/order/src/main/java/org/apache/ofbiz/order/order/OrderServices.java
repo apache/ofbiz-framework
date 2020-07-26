@@ -3032,8 +3032,7 @@ public class OrderServices {
                 EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
-       );
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"));
 
         // get the orders
         try {
@@ -6244,8 +6243,7 @@ public class OrderServices {
             // Expire any pre-existing ALSO_BOUGHT ProductAssocs in preparation for reprocessing
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("productAssocTypeId", "ALSO_BOUGHT"),
-                    EntityCondition.makeConditionDate("fromDate", "thruDate")
-           ));
+                    EntityCondition.makeConditionDate("fromDate", "thruDate")));
             try {
                 delegator.storeByCondition("ProductAssoc", UtilMisc.toMap("thruDate", UtilDateTime.nowTimestamp()), cond);
             } catch (GenericEntityException e) {
@@ -6330,9 +6328,7 @@ public class OrderServices {
                                 EntityCondition.makeCondition("productIdTo", productIdTo),
                                 EntityCondition.makeCondition("productAssocTypeId", "ALSO_BOUGHT"),
                                 EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()),
-                                EntityCondition.makeCondition("thruDate", null)
-                       )
-               );
+                                EntityCondition.makeCondition("thruDate", null)));
                 GenericValue existingProductAssoc = null;
                 try {
                     // No point in using the cache because of the filterByDateExpr
@@ -7030,7 +7026,7 @@ public class OrderServices {
                     serviceCtx.put("orderItemSeqId", orderItemSeqId);
                     serviceCtx.put("productId", productId);
                     serviceCtx.put("allocatedQuantity", allocatedQuantity);
-                    serviceCtx.put("prioritySeqId", String.valueOf(i+1));
+                    serviceCtx.put("prioritySeqId", String.valueOf(i + 1));
                     serviceCtx.put("createdByUserLogin", userLoginId);
                     serviceCtx.put("userLogin", userLogin);
                     serviceResult = dispatcher.runSync("createAllocationPlanItem", serviceCtx);

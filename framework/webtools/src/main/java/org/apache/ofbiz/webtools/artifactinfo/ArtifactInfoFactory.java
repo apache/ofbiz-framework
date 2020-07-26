@@ -300,7 +300,7 @@ public class ArtifactInfoFactory {
     public ArtifactInfoBase getArtifactInfoByUniqueIdAndType(String uniqueId, String type) {
         if (uniqueId.contains("#")) {
             int poundIndex = uniqueId.indexOf('#');
-            return getArtifactInfoByNameAndType(uniqueId.substring(poundIndex+1), uniqueId.substring(0, poundIndex), type);
+            return getArtifactInfoByNameAndType(uniqueId.substring(poundIndex + 1), uniqueId.substring(0, poundIndex), type);
         } else {
             return getArtifactInfoByNameAndType(uniqueId, null, type);
         }
