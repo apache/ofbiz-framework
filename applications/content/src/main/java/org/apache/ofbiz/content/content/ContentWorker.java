@@ -719,13 +719,13 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             boolean isPick = booleanDataType(thisNode.get("isPick"));
             kids.add(thisNode);
             if (isPick) {
-                    Integer count = (Integer) currentNode.get("count");
-                    if (count == null) {
-                        count = 1;
-                    } else {
-                        count = count + 1;
-                    }
-                    currentNode.put("count", count);
+                Integer count = (Integer) currentNode.get("count");
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count = count + 1;
+                }
+                currentNode.put("count", count);
             }
         }
     }
@@ -971,22 +971,23 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         }
     }
 
-    public static List<Map<String, Object>> getContentAncestryNodeTrail(Delegator delegator, String contentId, String contentAssocTypeId, String direction) throws GenericEntityException {
-         List<GenericValue> contentAncestorList = new LinkedList<>();
-         List<Map<String, Object>> nodeTrail = new LinkedList<>();
-         getContentAncestry(delegator, contentId, contentAssocTypeId, direction, contentAncestorList);
-         for (GenericValue value : contentAncestorList) {
-             Map<String, Object> thisNode = ContentWorker.makeNode(value);
-             nodeTrail.add(thisNode);
-         }
-         return nodeTrail;
+    public static List<Map<String, Object>> getContentAncestryNodeTrail(Delegator delegator, String contentId, String contentAssocTypeId,
+                                                                        String direction) throws GenericEntityException {
+        List<GenericValue> contentAncestorList = new LinkedList<>();
+        List<Map<String, Object>> nodeTrail = new LinkedList<>();
+        getContentAncestry(delegator, contentId, contentAssocTypeId, direction, contentAncestorList);
+        for (GenericValue value : contentAncestorList) {
+            Map<String, Object> thisNode = ContentWorker.makeNode(value);
+            nodeTrail.add(thisNode);
+        }
+        return nodeTrail;
     }
 
     public static String getContentAncestryNodeTrailCsv(Delegator delegator, String contentId, String contentAssocTypeId, String direction) throws GenericEntityException {
-         List<GenericValue> contentAncestorList = new LinkedList<>();
-         getContentAncestry(delegator, contentId, contentAssocTypeId, direction, contentAncestorList);
-         String csv = StringUtil.join(contentAncestorList, ",");
-         return csv;
+        List<GenericValue> contentAncestorList = new LinkedList<>();
+        getContentAncestry(delegator, contentId, contentAssocTypeId, direction, contentAncestorList);
+        String csv = StringUtil.join(contentAncestorList, ",");
+        return csv;
     }
 
     public static void getContentAncestryValues(Delegator delegator, String contentId, String contentAssocTypeId, String direction, List<GenericValue> contentAncestorList) throws GenericEntityException {

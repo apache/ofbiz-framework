@@ -137,10 +137,11 @@ public class TechDataServices {
         if (listRoutingTaskAssoc != null) {
             for (GenericValue routingTaskAssoc : listRoutingTaskAssoc) {
                 if (!workEffortIdFrom.equals(routingTaskAssoc.getString("workEffortIdFrom"))
-                || !workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo"))
-                || !workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId"))
-                || !sequenceNum.equals(routingTaskAssoc.getLong("sequenceNum"))) {
-                    if (routingTaskAssoc.getTimestamp("thruDate") == null && routingTaskAssoc.getTimestamp("fromDate") == null) sequenceNumNotOk = "Y";
+                        || !workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo"))
+                        || !workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId"))
+                        || !sequenceNum.equals(routingTaskAssoc.getLong("sequenceNum"))) {
+                    if (routingTaskAssoc.getTimestamp("thruDate") == null && routingTaskAssoc.getTimestamp("fromDate") == null)
+                        sequenceNumNotOk = "Y";
                     else if (routingTaskAssoc.getTimestamp("thruDate") == null) {
                         if (thruDate == null) sequenceNumNotOk = "Y";
                         else if (thruDate.after(routingTaskAssoc.getTimestamp("fromDate"))) sequenceNumNotOk = "Y";
@@ -152,7 +153,9 @@ public class TechDataServices {
                         if (fromDate.before(routingTaskAssoc.getTimestamp("thruDate"))) sequenceNumNotOk = "Y";
                     } else if (fromDate == null) {
                         if (thruDate.after(routingTaskAssoc.getTimestamp("fromDate"))) sequenceNumNotOk = "Y";
-                    } else if (routingTaskAssoc.getTimestamp("fromDate").before(thruDate) && fromDate.before(routingTaskAssoc.getTimestamp("thruDate"))) sequenceNumNotOk = "Y";
+                    } else if (routingTaskAssoc.getTimestamp("fromDate").before(thruDate) && fromDate.before(routingTaskAssoc.getTimestamp(
+                            "thruDate")))
+                        sequenceNumNotOk = "Y";
                 } else if (createProcess) sequenceNumNotOk = "Y";
             }
         }
@@ -436,7 +439,7 @@ public class TechDataServices {
         Double capacity = (Double) position.get("capacity");
         Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateFrom.before(startAvailablePeriod)) return 0;
-        Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime()+capacity.longValue());
+        Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime() + capacity.longValue());
         if (dateFrom.after(endAvailablePeriod)) return 0;
         return dateFrom.getTime() - startAvailablePeriod.getTime();
     }

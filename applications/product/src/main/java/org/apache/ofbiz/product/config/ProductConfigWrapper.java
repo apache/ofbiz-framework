@@ -476,7 +476,7 @@ public class ProductConfigWrapper implements Serializable {
                 if (content != null) {
                     question = content.get("DESCRIPTION", "html").toString();
                 } else {
-                    question = (configItem.getString("description") != null? configItem.getString("description"): "");
+                    question = (configItem.getString("description") != null ? configItem.getString("description") : "");
                 }
             }
             return question;
@@ -490,7 +490,7 @@ public class ProductConfigWrapper implements Serializable {
                 if (content != null) {
                     description = content.get("LONG_DESCRIPTION", "html").toString();
                 } else {
-                    description = (configItem.getString("longDescription") != null? configItem.getString("longDescription"): "");
+                    description = (configItem.getString("longDescription") != null ? configItem.getString("longDescription") : "");
                 }
             }
             return description;
@@ -692,20 +692,20 @@ public class ProductConfigWrapper implements Serializable {
         }
 
         public String getOptionName() {
-            return (configOption.getString("configOptionName") != null? configOption.getString("configOptionName"): "no option name");
+            return (configOption.getString("configOptionName") != null ? configOption.getString("configOptionName") : "no option name");
         }
 
         public String getOptionName(Locale locale) {
 
-            return (configOption.getString("configOptionName") != null? (String) configOption.get("configOptionName", locale): "no option name");
+            return (configOption.getString("configOptionName") != null ? (String) configOption.get("configOptionName", locale) : "no option name");
         }
 
         public String getDescription() {
-            return (configOption.getString("description") != null? configOption.getString("description"): "no description");
+            return (configOption.getString("description") != null ? configOption.getString("description") : "no description");
         }
 
         public String getDescription(Locale locale) {
-            return (configOption.getString("description") != null? (String) configOption.get("description", locale): "no description");
+            return (configOption.getString("description") != null ? (String) configOption.get("description", locale) : "no description");
         }
 
         public String getId() {
@@ -751,20 +751,20 @@ public class ProductConfigWrapper implements Serializable {
             return this.equals(defaultConfigOption);
         }
 
-        public boolean hasVirtualComponent () {
-           List<GenericValue> components = getComponents();
-           if (UtilValidate.isNotEmpty(components)) {
-               for (GenericValue component : components) {
-                   if (isVirtualComponent(component)) {
-                       return true;
-                   }
-               }
-           }
+        public boolean hasVirtualComponent() {
+            List<GenericValue> components = getComponents();
+            if (UtilValidate.isNotEmpty(components)) {
+                for (GenericValue component : components) {
+                    if (isVirtualComponent(component)) {
+                        return true;
+                    }
+                }
+            }
 
-           return false;
-       }
+            return false;
+        }
 
-        public boolean isVirtualComponent (GenericValue component) {
+        public boolean isVirtualComponent(GenericValue component) {
             int index = getComponents().indexOf(component);
             if (index != -1) {
                 try {
@@ -806,10 +806,10 @@ public class ProductConfigWrapper implements Serializable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ConfigOption that = (ConfigOption) o;
-            return Objects.equals(availabilityDate, that.availabilityDate) &&
-                    Objects.equals(componentList, that.componentList) &&
-                    Objects.equals(getComponentOptions(), that.getComponentOptions()) &&
-                    Objects.equals(configOption, that.configOption);
+            return Objects.equals(availabilityDate, that.availabilityDate)
+                    && Objects.equals(componentList, that.componentList)
+                    && Objects.equals(getComponentOptions(), that.getComponentOptions())
+                    && Objects.equals(configOption, that.configOption);
         }
 
         @Override

@@ -754,29 +754,29 @@ public class AIMPaymentServices {
     private static void processAuthCaptureTransResult(Map<String, Object> request, Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         try {
-        Boolean authResult = (Boolean) reply.get("authResult");
-        results.put("authResult", authResult);
-        results.put("authFlag", ar.getReasonCode());
-        results.put("authMessage", ar.getReasonText());
-        results.put("captureResult", authResult);
-        results.put("captureFlag", ar.getReasonCode());
-        results.put("captureMessage", ar.getReasonText());
-        results.put("captureRefNum", ar.getTransactionId());
-        if (authResult) { //passed
-            results.put("authCode", ar.getAuthorizationCode());
-            results.put("authRefNum", ar.getTransactionId());
-            results.put("cvCode", ar.getCvResult());
-            results.put("avsCode", ar.getAvsResult());
-            if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
-                results.put("processAmount", getXAmount(request));
+            Boolean authResult = (Boolean) reply.get("authResult");
+            results.put("authResult", authResult);
+            results.put("authFlag", ar.getReasonCode());
+            results.put("authMessage", ar.getReasonText());
+            results.put("captureResult", authResult);
+            results.put("captureFlag", ar.getReasonCode());
+            results.put("captureMessage", ar.getReasonText());
+            results.put("captureRefNum", ar.getTransactionId());
+            if (authResult) { //passed
+                results.put("authCode", ar.getAuthorizationCode());
+                results.put("authRefNum", ar.getTransactionId());
+                results.put("cvCode", ar.getCvResult());
+                results.put("avsCode", ar.getAvsResult());
+                if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
+                    results.put("processAmount", getXAmount(request));
+                } else {
+                    results.put("processAmount", ar.getAmount());
+                }
             } else {
-                results.put("processAmount", ar.getAmount());
+                results.put("authCode", ar.getResponseCode());
+                results.put("processAmount", BigDecimal.ZERO);
+                results.put("authRefNum", AuthorizeResponse.ERROR);
             }
-        } else {
-            results.put("authCode", ar.getResponseCode());
-            results.put("processAmount", BigDecimal.ZERO);
-            results.put("authRefNum", AuthorizeResponse.ERROR);
-        }
         } catch (Exception ex) {
             Debug.logError(ex, MODULE);
             results.put("authCode", ar.getResponseCode());
@@ -791,7 +791,8 @@ public class AIMPaymentServices {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue payflowPro = EntityQuery.use(delegator).from("PaymentGatewayAuthorizeNet").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
+                GenericValue payflowPro = EntityQuery.use(delegator).from("PaymentGatewayAuthorizeNet").where("paymentGatewayConfigId",
+                        paymentGatewayConfigId).queryOne();
                 if (payflowPro != null) {
                     Object payflowProField = payflowPro.get(paymentGatewayConfigParameterName);
                     if (payflowProField != null) {

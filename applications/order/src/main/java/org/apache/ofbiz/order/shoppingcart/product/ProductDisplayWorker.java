@@ -246,18 +246,18 @@ public final class ProductDisplayWorker {
             }
 
             // if desired check view allow category
-                String currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
-                String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, currentCatalogId);
-                if (viewProductCategoryId != null) {
-                    for (Map.Entry<String, GenericValue> entry : products.entrySet()) {
-                        String productId = entry.getKey();
-                        if (!CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
-                            products.remove(productId);
-                            productQuantities.remove(productId);
-                            productOccurances.remove(productId);
-                        }
+            String currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
+            String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, currentCatalogId);
+            if (viewProductCategoryId != null) {
+                for (Map.Entry<String, GenericValue> entry : products.entrySet()) {
+                    String productId = entry.getKey();
+                    if (!CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
+                        products.remove(productId);
+                        productQuantities.remove(productId);
+                        productOccurances.remove(productId);
                     }
                 }
+            }
 
             List<GenericValue> reorderProds = new LinkedList<>();
             reorderProds.addAll(products.values());

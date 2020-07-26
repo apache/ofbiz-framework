@@ -1187,10 +1187,10 @@ public class CommunicationEventServices {
 
     private static List<String> getCommEventAttachmentNames(final Delegator delegator, final String communicationEventId) throws GenericEntityException {
         List<GenericValue> commEventContentAssocList = EntityQuery.use(delegator)
-            .from("CommEventContentDataResource")
-            .where(EntityCondition.makeCondition("communicationEventId", communicationEventId))
-            .filterByDate()
-            .queryList();
+                .from("CommEventContentDataResource")
+                .where(EntityCondition.makeCondition("communicationEventId", communicationEventId))
+                .filterByDate()
+                .queryList();
 
         List<String> attachmentNames = new ArrayList<>();
         for (GenericValue commEventContentAssoc : commEventContentAssocList) {
@@ -1431,7 +1431,7 @@ public class CommunicationEventServices {
                     part2Text = "";
                 }
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("Part 2 Text :\n\n" + part2Text, MODULE);
+                    Debug.logVerbose("Part 2 Text :\n\n" + part2Text, MODULE);
                 }
 
                 // find the "Action" element and obtain its value (looking for "failed")
@@ -1449,7 +1449,7 @@ public class CommunicationEventServices {
                         part3Text = "";
                     }
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("Part 3 Text :\n\n" + part3Text, MODULE);
+                        Debug.logVerbose("Part 3 Text :\n\n" + part3Text, MODULE);
                     }
 
                     // find the "Message-Id" element and obtain its value (looking for "failed")
@@ -1609,7 +1609,7 @@ public class CommunicationEventServices {
         try {
             imageUrl = FlexibleLocation.resolveLocation("component://common-theme/webapp/images/spacer.gif");
             try (InputStream imageStream = imageUrl.openStream()) {
-            UtilHttp.streamContentToBrowser(response, imageStream, 43, "image/gif", null);
+                UtilHttp.streamContentToBrowser(response, imageStream, 43, "image/gif", null);
             }
         } catch (IOException e) {
             Debug.logError(e, MODULE);

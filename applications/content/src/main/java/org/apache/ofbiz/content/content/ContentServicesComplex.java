@@ -243,30 +243,34 @@ public class ContentServicesComplex {
         List<GenericValue> contentAssocDataResourceList = new LinkedList<>();
         Locale locale = Locale.getDefault(); // TODO: this needs to be passed in
         try {
-        for (GenericValue contentAssocView : contentAssocsTypeFiltered) {
-            GenericValue contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where(UtilMisc.toMap("contentId", contentAssocView.getString("contentId"),
-                    "contentIdTo", contentAssocView.getString(contentFieldName), "contentAssocTypeId", contentAssocView.getString("caContentAssocTypeId"), 
-                    "fromDate", contentAssocView.getTimestamp("caFromDate"))).queryOne();
-            content = contentAssoc.getRelatedOne(assocRelationName, true);
-            if (UtilValidate.isNotEmpty(contentTypes)) {
-                String contentTypeId = (String) content.get("contentTypeId");
-                if (contentTypes.contains(contentTypeId)) {
+            for (GenericValue contentAssocView : contentAssocsTypeFiltered) {
+                GenericValue contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where(UtilMisc.toMap("contentId",
+                        contentAssocView.getString("contentId"),
+                        "contentIdTo", contentAssocView.getString(contentFieldName), "contentAssocTypeId", contentAssocView.getString(
+                                "caContentAssocTypeId"),
+                        "fromDate", contentAssocView.getTimestamp("caFromDate"))).queryOne();
+                content = contentAssoc.getRelatedOne(assocRelationName, true);
+                if (UtilValidate.isNotEmpty(contentTypes)) {
+                    String contentTypeId = (String) content.get("contentTypeId");
+                    if (contentTypes.contains(contentTypeId)) {
+                        contentAssocDataResourceView = delegator.makeValue(viewName);
+                        contentAssocDataResourceView.setAllFields(content, true, null, null);
+                    }
+                } else {
                     contentAssocDataResourceView = delegator.makeValue(viewName);
                     contentAssocDataResourceView.setAllFields(content, true, null, null);
                 }
-            } else {
-                contentAssocDataResourceView = delegator.makeValue(viewName);
-                contentAssocDataResourceView.setAllFields(content, true, null, null);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut",
+                        contentAssoc, contentAssocDataResourceView, new LinkedList<>(), locale);
+                String dataResourceId = content.getString("dataResourceId");
+                if (UtilValidate.isNotEmpty(dataResourceId))
+                    dataResource = content.getRelatedOne("DataResource", true);
+                if (dataResource != null) {
+                    SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceOut",
+                            dataResource, contentAssocDataResourceView, new LinkedList<>(), locale);
+                }
+                contentAssocDataResourceList.add(contentAssocDataResourceView);
             }
-            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceView, new LinkedList<>(), locale);
-            String dataResourceId = content.getString("dataResourceId");
-            if (UtilValidate.isNotEmpty(dataResourceId))
-                dataResource = content.getRelatedOne("DataResource", true);
-            if (dataResource != null) {
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceView, new LinkedList<>(), locale);
-            }
-            contentAssocDataResourceList.add(contentAssocDataResourceView);
-        }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
@@ -274,7 +278,7 @@ public class ContentServicesComplex {
 
         if (UtilValidate.isNotEmpty(orderBy)) {
             List<String> orderByList = StringUtil.split(orderBy, "|");
-           contentAssocDataResourceList = EntityUtil.orderBy(contentAssocDataResourceList, orderByList);
+            contentAssocDataResourceList = EntityUtil.orderBy(contentAssocDataResourceList, orderByList);
         }
         Map<String, Object> results = new HashMap<>();
         results.put("entityList", contentAssocDataResourceList);

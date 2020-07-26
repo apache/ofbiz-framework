@@ -110,7 +110,7 @@ public class FrameImage {
 
             // Image Frame
             BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName));
-            BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/"+frameImageName));
+            BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
 
             int bufImgType;
             if (BufferedImage.TYPE_CUSTOM == bufImg1.getType()) {
@@ -224,10 +224,10 @@ public class FrameImage {
                 result.putAll(context);
             }
         } else {
-             String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseSelectImage", locale);
-             Debug.logFatal(errMsg, MODULE);
-             result = ServiceUtil.returnError(errMsg);
-             result.putAll(context);
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseSelectImage", locale);
+            Debug.logFatal(errMsg, MODULE);
+            result = ServiceUtil.returnError(errMsg);
+            result.putAll(context);
         }
         String successMsg = UtilProperties.getMessage(RESOURCE, "ProductFrameImageSuccessfully", locale);
         result = ServiceUtil.returnSuccess(successMsg);
@@ -409,7 +409,7 @@ public class FrameImage {
             }
 
             int width = Integer.parseInt(request.getParameter("imageWidth"));
-            int height= Integer.parseInt(request.getParameter("imageHeight"));
+            int height = Integer.parseInt(request.getParameter("imageHeight"));
 
             Image newImg1 = bufImg1.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             Image newImg2 = bufImg2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -418,8 +418,8 @@ public class FrameImage {
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/preview/" + "/previewImage.jpg"));
 
         } else {
-             String errMsg = "Please select Image.";
-             request.setAttribute("_EVENT_MESSAGE_", errMsg);
+            String errMsg = "Please select Image.";
+            request.setAttribute("_EVENT_MESSAGE_", errMsg);
             return "error";
         }
         return "success";

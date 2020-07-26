@@ -117,7 +117,7 @@ public class BOMTree {
         // We load the information about the product that needs to be manufactured
         // from Product entity
         GenericValue product = EntityQuery.use(delegator).from("Product")
-                .where("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): productId))
+                .where("productId", (manufacturedAsProduct != null ? manufacturedAsProduct.getString("productIdTo") : productId))
                 .queryOne();
         if (product == null) return;
         BOMNode originalNode = new BOMNode(product, dispatcher, userLogin);
@@ -135,7 +135,7 @@ public class BOMTree {
                 productIdForRules = virtualProduct.getString("productId");
                 manufacturedAsProduct = manufacturedAsProduct(virtualProduct.getString("productId"), inDate);
                 product = EntityQuery.use(delegator).from("Product")
-                        .where("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): virtualProduct.get("productId")))
+                        .where("productId", (manufacturedAsProduct != null ? manufacturedAsProduct.getString("productIdTo") : virtualProduct.get("productId")))
                         .queryOne();
             }
         }

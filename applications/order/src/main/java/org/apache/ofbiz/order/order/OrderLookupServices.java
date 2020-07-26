@@ -632,7 +632,7 @@ public class OrderLookupServices {
         result.put("viewSize", viewSize);
         result.put("showAll", showAll);
 
-        result.put("paramList", (paramString != null? paramString: ""));
+        result.put("paramList", (paramString != null ? paramString : ""));
         result.put("orderList", orderList);
         result.put("orderListSize", orderCount);
 

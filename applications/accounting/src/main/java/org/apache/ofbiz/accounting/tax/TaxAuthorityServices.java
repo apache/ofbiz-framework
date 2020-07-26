@@ -280,11 +280,11 @@ public class TaxAuthorityServices {
         }
 
         if (orderShippingAmount != null && orderShippingAmount.compareTo(BigDecimal.ZERO) > 0) {
-           for (GenericValue prod : productWeight.keySet()) {
-               List<GenericValue> taxList = getTaxAdjustments(delegator, prod, productStore, payToPartyId, billToPartyId,
-                       taxAuthoritySet, ZERO_BASE, ZERO_BASE, ZERO_BASE, orderShippingAmount, null, productWeight.get(prod));
-               orderAdjustments.addAll(taxList);
-           }
+            for (GenericValue prod : productWeight.keySet()) {
+                List<GenericValue> taxList = getTaxAdjustments(delegator, prod, productStore, payToPartyId, billToPartyId,
+                        taxAuthoritySet, ZERO_BASE, ZERO_BASE, ZERO_BASE, orderShippingAmount, null, productWeight.get(prod));
+                orderAdjustments.addAll(taxList);
+            }
         }
         if (orderPromotionsAmount != null && orderPromotionsAmount.compareTo(BigDecimal.ZERO) != 0) {
             List<GenericValue> taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId,
@@ -300,7 +300,7 @@ public class TaxAuthorityServices {
     }
 
     private static void getTaxAuthorities(Delegator delegator, GenericValue shippingAddress,
-            Set<GenericValue> taxAuthoritySet) throws GenericEntityException {
+                                          Set<GenericValue> taxAuthoritySet) throws GenericEntityException {
         Map<String, String> geoIdByTypeMap = new HashMap<>();
         if (shippingAddress != null) {
             if (UtilValidate.isNotEmpty(shippingAddress.getString("countryGeoId"))) {
@@ -332,13 +332,13 @@ public class TaxAuthorityServices {
     }
 
     private static List<GenericValue> getTaxAdjustments(Delegator delegator, GenericValue product,
-            GenericValue productStore,
-            String payToPartyId, String billToPartyId, Set<GenericValue> taxAuthoritySet,
-            BigDecimal itemPrice, BigDecimal itemQuantity, BigDecimal itemAmount,
-            BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
-            return getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, 
-                    taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, 
-                    orderPromotionsAmount, null);
+                                                        GenericValue productStore,
+                                                        String payToPartyId, String billToPartyId, Set<GenericValue> taxAuthoritySet,
+                                                        BigDecimal itemPrice, BigDecimal itemQuantity, BigDecimal itemAmount,
+                                                        BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
+        return getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId,
+                taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount,
+                orderPromotionsAmount, null);
     }
 
     private static List<GenericValue> getTaxAdjustments(Delegator delegator, GenericValue product,

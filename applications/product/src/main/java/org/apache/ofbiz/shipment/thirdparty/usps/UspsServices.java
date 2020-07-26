@@ -536,7 +536,7 @@ public class UspsServices {
         Locale locale = (Locale) context.get("locale");
         if ((UtilValidate.isEmpty(state) && UtilValidate.isEmpty(city) && UtilValidate.isEmpty(zip5)) ||    // No state, city or zip5
              (UtilValidate.isEmpty(zip5) && (UtilValidate.isEmpty(state) || UtilValidate.isEmpty(city)))) {  // Both state and city are required if no zip5
-            Debug.logError("USPS address validation requires either zip5 or city and state",  MODULE);
+            Debug.logError("USPS address validation requires either zip5 or city and state", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsAddressValidationStateAndCityOrZipRqd", locale));
         }

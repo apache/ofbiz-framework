@@ -194,7 +194,7 @@ public class PackingServices {
                             }
                         }
                         for (int numPackage = 0; numPackage < numPackages; numPackage++) {
-                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq+numPackage, weightSeq, updateQuantity);
+                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq + numPackage, weightSeq, updateQuantity);
                         }
                     } catch (GeneralException e) {
                         Debug.logError(e, MODULE);

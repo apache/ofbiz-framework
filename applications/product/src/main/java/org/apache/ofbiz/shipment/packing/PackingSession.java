@@ -238,11 +238,11 @@ public class PackingSession implements java.io.Serializable {
     public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
         for (PackingSessionLine line: this.getLines()) {
             if (orderId.equals(line.getOrderId())
-                && orderItemSeqId.equals(line.getOrderItemSeqId())
-                && shipGroupSeqId.equals(line.getShipGroupSeqId())
-                && productId.equals(line.getProductId())
-                && inventoryItemId.equals(line.getInventoryItemId())
-                && packageSeq == line.getPackageSeq()) {
+                    && orderItemSeqId.equals(line.getOrderItemSeqId())
+                    && shipGroupSeqId.equals(line.getShipGroupSeqId())
+                    && productId.equals(line.getProductId())
+                    && inventoryItemId.equals(line.getInventoryItemId())
+                    && packageSeq == line.getPackageSeq()) {
                 return line;
             }
         }
@@ -374,13 +374,13 @@ public class PackingSession implements java.io.Serializable {
     public Map<Object, Object> getPackingSessionLinesByPackage() {
         Map<Integer, List<PackingSessionLine>> packageMap = new HashMap<>();
         for (PackingSessionLine line : packLines) {
-           int pSeq = line.getPackageSeq();
-           List<PackingSessionLine> packageLineList = packageMap.get(pSeq);
-           if (packageLineList == null) {
-               packageLineList = new LinkedList<>();
-               packageMap.put(pSeq, packageLineList);
-           }
-           packageLineList.add(line);
+            int pSeq = line.getPackageSeq();
+            List<PackingSessionLine> packageLineList = packageMap.get(pSeq);
+            if (packageLineList == null) {
+                packageLineList = new LinkedList<>();
+                packageMap.put(pSeq, packageLineList);
+            }
+            packageLineList.add(line);
         }
         Object[] keys = packageMap.keySet().toArray();
         java.util.Arrays.sort(keys);
@@ -415,11 +415,11 @@ public class PackingSession implements java.io.Serializable {
     }
 
     public BigDecimal getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId) {
-        return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId,  productId, null, -1);
+        return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId, null, -1);
     }
 
     public BigDecimal getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, int packageSeq) {
-        return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId,  productId, null, packageSeq);
+        return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId, null, packageSeq);
     }
 
     public BigDecimal getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
@@ -735,7 +735,7 @@ public class PackingSession implements java.io.Serializable {
             lookupMap.put("shipGroupSeqId", shipGroupSeqId);
         }
         try {
-            issues = this.getDelegator().findByAnd("ItemIssuance",  lookupMap, null, false);
+            issues = this.getDelegator().findByAnd("ItemIssuance", lookupMap, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
@@ -801,7 +801,7 @@ public class PackingSession implements java.io.Serializable {
         List<PackingSessionLine> processedLines = new LinkedList<>();
         for (PackingSessionLine line: this.getLines()) {
             if (this.checkLine(processedLines, line)) {
-                BigDecimal totalPacked = this.getPackedQuantity(line.getOrderId(),  line.getOrderItemSeqId(),
+                BigDecimal totalPacked = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(),
                         line.getShipGroupSeqId(), line.getProductId(), line.getInventoryItemId(), -1);
 
                 line.issueItemToShipment(shipmentId, picklistBinId, userLogin, totalPacked, getDispatcher());

@@ -1810,7 +1810,7 @@ public class PartyServices {
             // filter on infoString
             String infoString = (String) context.get("infoString");
             if (UtilValidate.isNotEmpty(infoString)) {
-                andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.LIKE, EntityFunction.UPPER("%"+infoString+"%")));
+                andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.LIKE, EntityFunction.UPPER("%"+ infoString +"%")));
                 fieldsToSelect.add("infoString");
             }
         }

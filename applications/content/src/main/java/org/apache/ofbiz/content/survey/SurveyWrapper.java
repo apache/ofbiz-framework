@@ -83,9 +83,9 @@ public class SurveyWrapper {
         this.checkParameters();
     }
 
-     public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru) {
-         this(delegator, responseId, partyId, surveyId, passThru, null);
-     }
+    public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru) {
+        this(delegator, responseId, partyId, surveyId, passThru, null);
+    }
 
     public SurveyWrapper(Delegator delegator, String surveyId) {
         this(delegator, null, null, surveyId, null);
@@ -223,9 +223,8 @@ public class SurveyWrapper {
         Configuration config = FreeMarkerWorker.getDefaultOfbizConfig();
 
         Template template = null;
-        try (
-            InputStream templateStream = templateUrl.openStream();
-            InputStreamReader templateReader = new InputStreamReader(templateStream, StandardCharsets.UTF_8);) {
+        try (InputStream templateStream = templateUrl.openStream();
+                InputStreamReader templateReader = new InputStreamReader(templateStream, StandardCharsets.UTF_8);) {
             template = new Template(templateUrl.toExternalForm(), templateReader, config);
         } catch (IOException e) {
             Debug.logError(e, "Unable to get template from URL :" + templateUrl.toExternalForm(), MODULE);
@@ -460,27 +459,27 @@ public class SurveyWrapper {
         // note this will need to be updated as new types are added
         if ("OPTION".equals(questionType)) {
             Map<String, Object> thisResult = getOptionResult(question);
-                Long questionTotal = (Long) thisResult.remove("_total");
-                if (questionTotal == null) {
-                    questionTotal = 0L;
-                }
-                // set the total responses
-                resultMap.put("_total", questionTotal);
+            Long questionTotal = (Long) thisResult.remove("_total");
+            if (questionTotal == null) {
+                questionTotal = 0L;
+            }
+            // set the total responses
+            resultMap.put("_total", questionTotal);
 
-                // create the map of option info ("_total", "_percent")
+            // create the map of option info ("_total", "_percent")
             for (Entry<String, Object> entry : thisResult.entrySet()) {
-                    Map<String, Object> optMap = new HashMap<>();
-                    Long optTotal = (Long) entry.getValue();
-                    String optId = entry.getKey();
-                    if (optTotal == null) {
-                        optTotal = 0L;
-                    }
-                    Long percent = (long) (((double) optTotal / (double) questionTotal) * 100);
-                    optMap.put("_total", optTotal);
-                    optMap.put("_percent", percent);
-                    resultMap.put(optId, optMap);
+                Map<String, Object> optMap = new HashMap<>();
+                Long optTotal = (Long) entry.getValue();
+                String optId = entry.getKey();
+                if (optTotal == null) {
+                    optTotal = 0L;
                 }
-                resultMap.put("_a_type", "option");
+                Long percent = (long) (((double) optTotal / (double) questionTotal) * 100);
+                optMap.put("_total", optTotal);
+                optMap.put("_percent", percent);
+                resultMap.put(optId, optMap);
+            }
+            resultMap.put("_a_type", "option");
         } else if ("BOOLEAN".equals(questionType)) {
             long[] thisResult = getBooleanResult(question);
             long yesPercent = thisResult[1] > 0 ? (long) (((double) thisResult[1] / (double) thisResult[0]) * 100) : 0;
@@ -527,7 +526,7 @@ public class SurveyWrapper {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            long[] result = { 0, 0, 0 };
+            long[] result = {0, 0, 0 };
             // index 0 = total responses
             // index 1 = total yes
             // index 2 = total no
@@ -566,7 +565,7 @@ public class SurveyWrapper {
     }
 
     private double[] getNumberResult(GenericValue question, int type) throws SurveyWrapperException {
-        double[] result = { 0, 0, 0 };
+        double[] result = {0, 0, 0 };
         // index 0 = total responses
         // index 1 = tally
         // index 2 = average

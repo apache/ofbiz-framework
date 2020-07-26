@@ -120,16 +120,16 @@ public class ContentManagementEvents {
                         }
                     } else if (UtilValidate.isNotEmpty(pubValue)) {
                         if ("Y".equalsIgnoreCase(pubValue)) {
-                                serviceIn.put("thruDate", UtilDateTime.nowTimestamp());
-                                Timestamp fromDate = (Timestamp) map.get(pubContentId + "FromDate");
-                                serviceIn.put("fromDate", fromDate);
-                                result = dispatcher.runSync("updateContentAssoc", serviceIn);
-                                if (ServiceUtil.isError(result)) {
-                                    String errorMessage = ServiceUtil.getErrorMessage(result);
-                                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                                    Debug.logError(errorMessage, MODULE);
-                                    return "error";
-                                }
+                            serviceIn.put("thruDate", UtilDateTime.nowTimestamp());
+                            Timestamp fromDate = (Timestamp) map.get(pubContentId + "FromDate");
+                            serviceIn.put("fromDate", fromDate);
+                            result = dispatcher.runSync("updateContentAssoc", serviceIn);
+                            if (ServiceUtil.isError(result)) {
+                                String errorMessage = ServiceUtil.getErrorMessage(result);
+                                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                                Debug.logError(errorMessage, MODULE);
+                                return "error";
+                            }
                         }
                     }
                 } catch (GenericServiceException e) {

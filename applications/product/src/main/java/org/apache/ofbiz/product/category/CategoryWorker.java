@@ -398,7 +398,7 @@ public final class CategoryWorker {
     }
     /**
      * Returns a complete category trail - can be used for exporting proper category trees.
-     * This is mostly useful when used in combination with bread-crumbs,  for building a
+     * This is mostly useful when used in combination with bread-crumbs, for building a
      * faceted index tree, or to export a category tree for migration to another system.
      * Will create the tree from root point to categoryId.
      * This method is not meant to be run on every request.

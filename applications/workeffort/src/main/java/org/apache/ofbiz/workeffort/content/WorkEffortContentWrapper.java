@@ -254,8 +254,8 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter, false);
             String outString = outWriter.toString();
             if (UtilValidate.isEmpty(outString)) {
-                outString = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
-                outString = outString == null? "" : outString;
+                outString = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName) : "";
+                outString = outString == null ? "" : outString;
             }
             outString = encoder.sanitize(outString, null);
             if (workEffortContentCache != null) {
@@ -264,8 +264,8 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             return outString;
         } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", MODULE);
-            String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
+            String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName) : "";
+            return candidateOut == null ? "" : encoder.sanitize(candidateOut, null);
         }
     }
 

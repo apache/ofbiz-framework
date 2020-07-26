@@ -303,7 +303,7 @@ public class ImageManagementServices {
         Locale locale = (Locale) context.get("locale");
         List<String> sizeTypeList = null;
         if (UtilValidate.isNotEmpty(resizeType)) {
-            sizeTypeList  = UtilMisc.toList(resizeType);
+            sizeTypeList = UtilMisc.toList(resizeType);
         } else {
             sizeTypeList = UtilMisc.toList("small","100x75", "150x112", "320x240", "640x480", "800x600", "1024x768", "1280x1024", "1600x1200");
         }

@@ -366,27 +366,27 @@ public class CheckOutHelper {
     }
 
     public Map<String, Object> setCheckOutDates(Timestamp shipBefore, Timestamp shipAfter) {
-          List<String> errorMessages = new ArrayList<>();
-          Map<String, Object> result = null;
-          String errMsg = null;
+        List<String> errorMessages = new ArrayList<>();
+        Map<String, Object> result = null;
+        String errMsg = null;
 
-          if (UtilValidate.isNotEmpty(this.cart)) {
-              this.cart.setShipBeforeDate(shipBefore);
-              this.cart.setShipAfterDate(shipAfter);
-          } else {
-              errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart",
-                                                     (cart != null ? cart.getLocale() : Locale.getDefault()));
-              errorMessages.add(errMsg);
-          }
+        if (UtilValidate.isNotEmpty(this.cart)) {
+            this.cart.setShipBeforeDate(shipBefore);
+            this.cart.setShipAfterDate(shipAfter);
+        } else {
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart",
+                    (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errorMessages.add(errMsg);
+        }
 
-          if (errorMessages.size() == 1) {
-              result = ServiceUtil.returnError(errorMessages.get(0));
-          } else if (errorMessages.size() > 0) {
-              result = ServiceUtil.returnError(errorMessages);
-          } else {
-              result = ServiceUtil.returnSuccess();
-          }
-          return result;
+        if (errorMessages.size() == 1) {
+            result = ServiceUtil.returnError(errorMessages.get(0));
+        } else if (errorMessages.size() > 0) {
+            result = ServiceUtil.returnError(errorMessages);
+        } else {
+            result = ServiceUtil.returnSuccess();
+        }
+        return result;
     }
 
 
@@ -950,11 +950,11 @@ public class CheckOutHelper {
 
     public static Map<String, Object> processPayment(String orderId, BigDecimal orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, Delegator delegator) throws GeneralException {
         // Get some payment related strings
-        String DECLINE_MESSAGE = productStore.getString("authDeclinedMessage");
-        String ERROR_MESSAGE = productStore.getString("authErrorMessage");
-        String RETRY_ON_ERROR = productStore.getString("retryFailedAuths");
-        if (RETRY_ON_ERROR == null) {
-            RETRY_ON_ERROR = "Y";
+        String declineMessage = productStore.getString("authDeclinedMessage");
+        String errMessage = productStore.getString("authErrorMessage");
+        String retryOnError = productStore.getString("retryFailedAuths");
+        if (retryOnError == null) {
+            retryOnError = "Y";
         }
 
         List<GenericValue> allPaymentPreferences = null;
@@ -1033,6 +1033,8 @@ public class CheckOutHelper {
 
         // Check the payment preferences; if we have ANY w/ status PAYMENT_NOT_AUTH invoke payment service.
         // Invoke payment processing.
+        Debug.log("==========allPaymentPreferences=======" + allPaymentPreferences);
+        Debug.log("==========onlinePaymentPrefs=======" + onlinePaymentPrefs);
         if (UtilValidate.isNotEmpty(onlinePaymentPrefs)) {
             boolean autoApproveOrder = UtilValidate.isEmpty(productStore.get("autoApproveOrder")) || "Y".equalsIgnoreCase(productStore.getString("autoApproveOrder"));
             if (orderTotal.compareTo(BigDecimal.ZERO) == 0 && autoApproveOrder) {
@@ -1078,7 +1080,7 @@ public class CheckOutHelper {
                         throw new GeneralException("Problem with order change; see above error");
                     }
                     if (UtilValidate.isEmpty(messages)) {
-                        return ServiceUtil.returnError(DECLINE_MESSAGE);
+                        return ServiceUtil.returnError(declineMessage);
                     }
                     return ServiceUtil.returnError(messages);
                 } else if ("APPROVED".equals(authResp)) {
@@ -1119,16 +1121,16 @@ public class CheckOutHelper {
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("Payment auth failed due to processor trouble.", MODULE);
                     }
-                    if (!faceToFace && "Y".equalsIgnoreCase(RETRY_ON_ERROR)) {
+                    if (!faceToFace && "Y".equalsIgnoreCase(retryOnError)) {
                         // never do this for a face to face purchase regardless of store setting
-                        return ServiceUtil.returnSuccess(ERROR_MESSAGE);
+                        return ServiceUtil.returnSuccess(errMessage);
                     }
                     boolean ok = OrderChangeHelper.cancelOrder(dispatcher, userLogin, orderId);
                     if (!ok) {
                         throw new GeneralException("Problem with order change; see above error");
                     }
                     if (UtilValidate.isEmpty(messages)) {
-                        return ServiceUtil.returnError(ERROR_MESSAGE);
+                        return ServiceUtil.returnError(errMessage);
                     }
                     return ServiceUtil.returnError(messages);
                 } else {
@@ -1140,15 +1142,15 @@ public class CheckOutHelper {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Payment auth failed due to processor trouble.", MODULE);
                 }
-                if (!faceToFace && "Y".equalsIgnoreCase(RETRY_ON_ERROR)) {
+                if (!faceToFace && "Y".equalsIgnoreCase(retryOnError)) {
                     // never do this for a face to face purchase regardless of store setting
-                    return ServiceUtil.returnSuccess(ERROR_MESSAGE);
+                    return ServiceUtil.returnSuccess(errMessage);
                 }
                 boolean ok = OrderChangeHelper.cancelOrder(dispatcher, userLogin, orderId);
                 if (!ok) {
                     throw new GeneralException("Problem with order change; see above error");
                 }
-                return ServiceUtil.returnError(ERROR_MESSAGE);
+                return ServiceUtil.returnError(errMessage);
             }
         } else {
             // Get the paymentMethodTypeIds - this will need to change when ecom supports multiple payments
@@ -1158,6 +1160,7 @@ public class CheckOutHelper {
                                            EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
             List<GenericValue> cashCodPcBaPaymentPreferences = EntityUtil.filterByOr(allPaymentPreferences, cashCodPcBaExpr);
 
+            Debug.log("==========cashCodPcBaPaymentPreferences=======" + cashCodPcBaPaymentPreferences);
             if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences)
                     && UtilValidate.isNotEmpty(allPaymentPreferences)
                     && cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
@@ -1472,31 +1475,32 @@ public class CheckOutHelper {
 
         // set ship before date
         if ((shipBeforeDate != null) && (shipBeforeDate.length() > 8)) {
-           shipBeforeDate = shipBeforeDate.trim();
-           if (shipBeforeDate.length() < 14) {
-               shipBeforeDate = shipBeforeDate + " " + "00:00:00.000";
-           }
+            shipBeforeDate = shipBeforeDate.trim();
+            if (shipBeforeDate.length() < 14) {
+                shipBeforeDate = shipBeforeDate + " " + "00:00:00.000";
+            }
 
-           try {
-               this.cart.setShipBeforeDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipBeforeDate, "Timestamp", null, null));
-           } catch (Exception e) {
-               errMsg = "Ship Before Date must be a valid date formed ";
-               result = ServiceUtil.returnError(errMsg);
-           }
+            try {
+                this.cart.setShipBeforeDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipBeforeDate, "Timestamp", null,
+                        null));
+            } catch (Exception e) {
+                errMsg = "Ship Before Date must be a valid date formed ";
+                result = ServiceUtil.returnError(errMsg);
+            }
         }
 
         // set ship after date
         if ((shipAfterDate != null) && (shipAfterDate.length() > 8)) {
-           shipAfterDate = shipAfterDate.trim();
-           if (shipAfterDate.length() < 14) {
-               shipAfterDate = shipAfterDate + " " + "00:00:00.000";
-           }
+            shipAfterDate = shipAfterDate.trim();
+            if (shipAfterDate.length() < 14) {
+                shipAfterDate = shipAfterDate + " " + "00:00:00.000";
+            }
 
-           try {
-               this.cart.setShipAfterDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipAfterDate, "Timestamp", null, null));
+            try {
+                this.cart.setShipAfterDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipAfterDate, "Timestamp", null, null));
             } catch (Exception e) {
-              errMsg = "Ship After Date must be a valid date formed ";
-              result = ServiceUtil.returnError(errMsg);
+                errMsg = "Ship After Date must be a valid date formed ";
+                result = ServiceUtil.returnError(errMsg);
             }
         }
 

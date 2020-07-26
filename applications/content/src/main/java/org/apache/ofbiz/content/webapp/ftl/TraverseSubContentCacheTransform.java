@@ -50,7 +50,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
 
     private static final String MODULE = TraverseSubContentCacheTransform.class.getName();
     static final String[] upSaveKeyNames = {"globalNodeTrail"};
-    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
+    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()

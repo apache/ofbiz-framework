@@ -50,7 +50,7 @@ import freemarker.template.TemplateTransformModel;
 public class EditRenderSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = EditRenderSubContentCacheTransform.class.getName();
-    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
+    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()

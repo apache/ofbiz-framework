@@ -140,7 +140,7 @@ public class DataServices {
             try {
                 GenericValue statusItem = EntityQuery.use(delegator).from("StatusItem").where("statusTypeId", "CONTENT_STATUS").orderBy("sequenceId").queryFirst();
                 if (statusItem != null) {
-                    dataResource.put("statusId",  statusItem.get("statusId"));
+                    dataResource.put("statusId", statusItem.get("statusId"));
                 }
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());

@@ -890,13 +890,13 @@ public class ShoppingCartHelper {
                     }
 
                     if (parameterName.toUpperCase(Locale.getDefault()).startsWith("COMMENT")) {
-                      if (!oldItemComment.equals(itemComment)) {
-                          if (security.hasEntityPermission("ORDERMGR", "_CREATE", userLogin)) {
-                              if (item != null) {
-                                  item.setItemComment(itemComment);
-                              }
-                          }
-                      }
+                        if (!oldItemComment.equals(itemComment)) {
+                            if (security.hasEntityPermission("ORDERMGR", "_CREATE", userLogin)) {
+                                if (item != null) {
+                                    item.setItemComment(itemComment);
+                                }
+                            }
+                        }
                     }
 
                     if (parameterName.toUpperCase(Locale.getDefault()).startsWith("PRICE")) {
@@ -1091,24 +1091,26 @@ public class ShoppingCartHelper {
             }
 
             try {
-                 // clear the existing order terms
-                 cart.removeOrderTerms();
-                 // set order terms based on agreement terms
-                 List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm", null, null, false));
-                 if (agreementTerms.size() > 0) {
-                      for (int i = 0; agreementTerms.size() > i;i++) {
-                           GenericValue agreementTerm = agreementTerms.get(i);
-                           String termTypeId = (String) agreementTerm.get("termTypeId");
-                           BigDecimal termValue = agreementTerm.getBigDecimal("termValue");
-                           Long termDays = (Long) agreementTerm.get("termDays");
-                           String textValue = agreementTerm.getString("textValue");
-                           cart.addOrderTerm(termTypeId, termValue, termDays, textValue);
-                      }
-                  }
+                // clear the existing order terms
+                cart.removeOrderTerms();
+                // set order terms based on agreement terms
+                List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm", null, null, false));
+                if (agreementTerms.size() > 0) {
+                    for (int i = 0; agreementTerms.size() > i; i++) {
+                        GenericValue agreementTerm = agreementTerms.get(i);
+                        String termTypeId = (String) agreementTerm.get("termTypeId");
+                        BigDecimal termValue = agreementTerm.getBigDecimal("termValue");
+                        Long termDays = (Long) agreementTerm.get("termDays");
+                        String textValue = agreementTerm.getString("textValue");
+                        cart.addOrderTerm(termTypeId, termValue, termDays, textValue);
+                    }
+                }
             } catch (GenericEntityException e) {
-                  Debug.logWarning(e.toString(), MODULE);
-                  result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreementTermsThrough", UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale())  + UtilProperties.getMessage(RES_ERROR, "OrderError", this.cart.getLocale()) + e.getMessage());
-                  return result;
+                Debug.logWarning(e.toString(), MODULE);
+                result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreementTermsThrough", UtilMisc.toMap(
+                        "agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError",
+                        this.cart.getLocale()) + e.getMessage());
+                return result;
             }
         }
         return result;
@@ -1120,10 +1122,10 @@ public class ShoppingCartHelper {
         try {
             this.cart.setCurrency(this.dispatcher, currencyUomId);
             result = ServiceUtil.returnSuccess();
-         } catch (CartItemModifyException ex) {
-             result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderSetCurrencyError", this.cart.getLocale()) + ex.getMessage());
-             return result;
-         }
+        } catch (CartItemModifyException ex) {
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderSetCurrencyError", this.cart.getLocale()) + ex.getMessage());
+            return result;
+        }
         return result;
     }
 
@@ -1144,5 +1146,4 @@ public class ShoppingCartHelper {
         result = ServiceUtil.returnSuccess();
         return result;
     }
-
 }

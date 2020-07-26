@@ -836,7 +836,7 @@ public class OrderReturnServices {
                             createAccountCtx.put("finAccountTypeId", "STORE_CREDIT_ACCT");
                             createAccountCtx.put("productStoreId", productStore.getString("productStoreId"));
                             createAccountCtx.put("currencyUomId", returnHeader.getString("currencyUomId"));
-                            createAccountCtx.put("finAccountName", "Store Credit Account for party ["+fromPartyId+"]");
+                            createAccountCtx.put("finAccountName", "Store Credit Account for party [" + fromPartyId + "]");
                             createAccountCtx.put("userLogin", userLogin);
                             Map<String, Object> createAccountResult = null;
                             try {
@@ -1751,7 +1751,7 @@ public class OrderReturnServices {
                 orderMap.put("webSiteId", orderHeader.get("webSiteId"));
                 orderMap.put("visitId", orderHeader.get("visitId"));
                 orderMap.put("currencyUom", orderHeader.get("currencyUom"));
-                orderMap.put("grandTotal",  BigDecimal.ZERO);
+                orderMap.put("grandTotal", BigDecimal.ZERO);
 
                 // make the contact mechs
                 List<GenericValue> contactMechs = new LinkedList<>();

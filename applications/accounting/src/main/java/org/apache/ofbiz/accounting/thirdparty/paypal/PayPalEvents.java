@@ -135,15 +135,17 @@ public class PayPalEvents {
         String imageUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "imageUrl", configString, "payment.paypal.image");
 
         // get the paypal account
-        String payPalAccount = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "businessEmail", configString, "payment.paypal.business");
+        String payPalAccount = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "businessEmail", configString, "payment.paypal" +
+                ".business");
 
         if (UtilValidate.isEmpty(redirectUrl)
-            || UtilValidate.isEmpty(notifyUrl)
-            || UtilValidate.isEmpty(returnUrl)
-            || UtilValidate.isEmpty(imageUrl)
-            || UtilValidate.isEmpty(payPalAccount)) {
+                || UtilValidate.isEmpty(notifyUrl)
+                || UtilValidate.isEmpty(returnUrl)
+                || UtilValidate.isEmpty(imageUrl)
+                || UtilValidate.isEmpty(payPalAccount)) {
             Debug.logError("Payment properties is not configured properly, some notify URL from PayPal is not correctly defined!", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingMerchantConfiguration", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingMerchantConfiguration",
+                    locale));
             return "error";
         }
 

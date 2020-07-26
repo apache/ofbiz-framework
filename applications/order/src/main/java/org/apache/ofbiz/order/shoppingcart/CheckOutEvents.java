@@ -891,7 +891,7 @@ public class CheckOutEvents {
             //See whether we need to return an error or not
             callResult = ServiceUtil.returnSuccess();
             if (errorMessages.size() > 0) {
-                callResult.put(ModelService.ERROR_MESSAGE_LIST,  errorMessages);
+                callResult.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }
             if (errorMaps.size() > 0) {

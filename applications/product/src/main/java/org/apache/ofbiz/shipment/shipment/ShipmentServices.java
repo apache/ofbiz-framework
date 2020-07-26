@@ -401,12 +401,12 @@ public class ShipmentServices {
         }
 
         // Calculate priority based on available data.
-        double PRIORITY_PARTY = 9;
-        double PRIORITY_ROLE = 8;
-        double PRIORITY_GEO = 4;
-        double PRIORITY_WEIGHT = 1;
-        double PRIORITY_QTY = 1;
-        double PRIORITY_PRICE = 1;
+        double priorityParty = 9;
+        double priorityRole = 8;
+        double priorityGeo = 4;
+        double priorityWeight = 1;
+        double priorityQty = 1;
+        double priorityPrice = 1;
 
         int estimateIndex = 0;
 
@@ -416,22 +416,22 @@ public class ShipmentServices {
             for (GenericValue currentEstimate: estimateList) {
                 int prioritySum = 0;
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("partyId"))) {
-                    prioritySum += PRIORITY_PARTY;
+                    prioritySum += priorityParty;
                 }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("roleTypeId"))) {
-                    prioritySum += PRIORITY_ROLE;
+                    prioritySum += priorityRole;
                 }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("geoIdTo"))) {
-                    prioritySum += PRIORITY_GEO;
+                    prioritySum += priorityGeo;
                 }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("weightBreakId"))) {
-                    prioritySum += PRIORITY_WEIGHT;
+                    prioritySum += priorityWeight;
                 }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("quantityBreakId"))) {
-                    prioritySum += PRIORITY_QTY;
+                    prioritySum += priorityQty;
                 }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("priceBreakId"))) {
-                    prioritySum += PRIORITY_PRICE;
+                    prioritySum += priorityPrice;
                 }
 
                 // there will be only one of each priority; latest will replace
@@ -684,10 +684,12 @@ public class ShipmentServices {
                     if ("00001".equals(packageSeqId)) {
                         // only need to do this for the first package
                         GenericValue rtSeg = null;
-                            rtSeg = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001").queryOne();
+                        rtSeg = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId",
+                                "00001").queryOne();
 
                         if (rtSeg == null) {
-                            rtSeg = delegator.makeValue("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001"));
+                            rtSeg = delegator.makeValue("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId",
+                                    "00001"));
                             try {
                                 delegator.create(rtSeg);
                             } catch (GenericEntityException e) {
@@ -700,7 +702,7 @@ public class ShipmentServices {
                         rtSeg.set("billingWeight", pkgInfo.get("billingWeight"));
                         rtSeg.set("actualCost", pkgInfo.get("shippingTotal"));
                         rtSeg.set("trackingIdNumber", pkgInfo.get("trackingNumber"));
-                            delegator.store(rtSeg);
+                        delegator.store(rtSeg);
                     }
 
                     Map<String, Object> pkgCtx = new HashMap<>();
@@ -709,24 +711,22 @@ public class ShipmentServices {
 
                     // first update the weight of the package
                     GenericValue pkg = null;
-                        pkg = EntityQuery.use(delegator).from("ShipmentPackage")
-                                  .where(pkgCtx)
-                                  .queryOne();
+                    pkg = EntityQuery.use(delegator).from("ShipmentPackage").where(pkgCtx).queryOne();
 
                     if (pkg == null) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                                "ProductShipmentPackageNotFound", 
-                                UtilMisc.toMap("shipmentPackageSeqId", packageSeqId, 
-                                "shipmentId", shipmentId), locale));
+                                "ProductShipmentPackageNotFound",
+                                UtilMisc.toMap("shipmentPackageSeqId", packageSeqId,
+                                        "shipmentId", shipmentId), locale));
                     }
 
                     pkg.set("weight", pkgInfo.get("packageWeight"));
-                        delegator.store(pkg);
+                    delegator.store(pkg);
 
                     // need if we are the first package (only) update the route seg info
                     pkgCtx.put("shipmentRouteSegmentId", "00001");
                     GenericValue pkgRtSeg = null;
-                        pkgRtSeg = EntityQuery.use(delegator).from("ShipmentPackageRouteSeg").where(pkgCtx).queryOne();
+                    pkgRtSeg = EntityQuery.use(delegator).from("ShipmentPackageRouteSeg").where(pkgCtx).queryOne();
 
                     if (pkgRtSeg == null) {
                         pkgRtSeg = delegator.makeValue("ShipmentPackageRouteSeg", pkgCtx);

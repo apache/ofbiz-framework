@@ -41,7 +41,7 @@ public class InventoryEventPlannedServices {
     /**
      *
      *  Create an MrpEvent.
-     *  Make an update if a record exist with same key,  (adding the event quantity to the exiting record)
+     *  Make an update if a record exist with same key, (adding the event quantity to the exiting record)
      *
      * @param ctx the dispatch context
      * @param context a map containing the parameters used to create an MrpEvent
@@ -58,7 +58,7 @@ public class InventoryEventPlannedServices {
         try {
             createOrUpdateMrpEvent(parameters, quantity, (String) context.get("facilityId"), (String) context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error : findOne(\"MrpEvent\", parameters =)"+parameters, MODULE);
+            Debug.logError(e, "Error : findOne(\"MrpEvent\", parameters =)" + parameters, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
         }
         return ServiceUtil.returnSuccess();

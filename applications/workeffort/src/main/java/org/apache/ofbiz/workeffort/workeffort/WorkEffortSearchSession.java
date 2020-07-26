@@ -193,16 +193,17 @@ public class WorkEffortSearchSession {
         }
 //      add a Work Effort Assoc Type to the search
         if (UtilValidate.isNotEmpty(parameters.get("SEARCH_WORK_EFFORT_ID"))) {
-            String workEffortId=(String) parameters.get("SEARCH_WORK_EFFORT_ID");
-            String workEffortAssocTypeId=(String) parameters.get("workEffortAssocTypeId");
-            boolean includeAllSubWorkEfforts =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_WORK_EFFORTS"));
-            searchAddConstraint(new WorkEffortSearch.WorkEffortAssocConstraint(workEffortId, workEffortAssocTypeId, includeAllSubWorkEfforts), session);
+            String workEffortId = (String) parameters.get("SEARCH_WORK_EFFORT_ID");
+            String workEffortAssocTypeId = (String) parameters.get("workEffortAssocTypeId");
+            boolean includeAllSubWorkEfforts = !"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_WORK_EFFORTS"));
+            searchAddConstraint(new WorkEffortSearch.WorkEffortAssocConstraint(workEffortId, workEffortAssocTypeId, includeAllSubWorkEfforts),
+                    session);
             constraintsChanged = true;
         }
-//      add a Work Effort Party Assignment to the search
+        //      add a Work Effort Party Assignment to the search
         if (UtilValidate.isNotEmpty(parameters.get("partyId"))) {
-            String partyId=(String) parameters.get("partyId");
-            String roleTypeId=(String) parameters.get("roleTypeId");
+            String partyId = (String) parameters.get("partyId");
+            String roleTypeId = (String) parameters.get("roleTypeId");
             searchAddConstraint(new WorkEffortSearch.PartyAssignmentConstraint(partyId, roleTypeId), session);
             constraintsChanged = true;
         }
@@ -220,9 +221,9 @@ public class WorkEffortSearchSession {
 
 //      add a WorkEfort fromDate thruDate  to the search
         if (UtilValidate.isNotEmpty(parameters.get("fromDate")) || UtilValidate.isNotEmpty(parameters.get("thruDate"))) {
-            Timestamp fromDate =null;
+            Timestamp fromDate = null;
             if (UtilValidate.isNotEmpty(parameters.get("fromDate"))) {
-                fromDate=Timestamp.valueOf((String) parameters.get("fromDate"));
+                fromDate = Timestamp.valueOf((String) parameters.get("fromDate"));
             }
 
             Timestamp thruDate = null;
