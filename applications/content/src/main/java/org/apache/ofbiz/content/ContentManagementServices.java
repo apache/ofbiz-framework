@@ -522,7 +522,8 @@ public class ContentManagementServices {
         return result;
     }
 
-    public static Map<String, Object> persistDataResourceAndDataMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException, GenericEntityException {
+    public static Map<String, Object> persistDataResourceAndDataMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext)
+            throws GenericServiceException, GenericEntityException {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
@@ -597,9 +598,10 @@ public class ContentManagementServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
                     }
                 }
+                // We don't want SHORT_TEXT and SURVEY to be caught by the last else if, hence the 2 empty else if
             } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
-            } else if ("SURVEY".startsWith(dataResourceTypeId)) {
-            } else if ("_FILE".indexOf(dataResourceTypeId) >= 0) {
+            } else if (dataResourceTypeId.startsWith("SURVEY")) {
+            } else if (dataResourceTypeId.indexOf("_FILE") >= 0) {
                 Map<String, Object> uploadImage = new HashMap<>();
                 uploadImage.put("userLogin", userLogin);
                 uploadImage.put("dataResourceId", dataResourceId);
@@ -640,9 +642,10 @@ public class ContentManagementServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
                     }
                 }
+                // We don't want SHORT_TEXT and SURVEY to be caught by the last else if, hence the 2 empty else if
             } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
-            } else if ("SURVEY".startsWith(dataResourceTypeId)) {
-            } else if ("_FILE".indexOf(dataResourceTypeId) >= 0) {
+            } else if (dataResourceTypeId.startsWith("SURVEY")) {
+            } else if (dataResourceTypeId.indexOf("_FILE") >= 0) {
                 Map<String, Object> uploadImage = new HashMap<>();
                 uploadImage.put("userLogin", userLogin);
                 uploadImage.put("dataResourceId", dataResourceId);
