@@ -585,100 +585,102 @@ public class ContentManagementServices {
           newDrContext.put("mimeTypeId", mimeTypeId);
       }
 
-      if (!dataResourceExists) { // Create
-          Map<String, Object> thisResult = dispatcher.runSync("createDataResource", newDrContext);
-          if (ServiceUtil.isError(thisResult)) {
-              throw(new Exception(ServiceUtil.getErrorMessage(thisResult)));
-          }
-          dataResourceId = (String)thisResult.get("dataResourceId");
-          if (Debug.infoOn()) {
-              Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, module);
-          }
-          dataResource = (GenericValue)thisResult.get("dataResource");
-          Map<String, Object> fileContext = new HashMap<String, Object>();
-          fileContext.put("userLogin", userLogin);
-          if ("IMAGE_OBJECT".equals(dataResourceTypeId)) {
-              if (imageDataBytes != null) {
-                  fileContext.put("dataResourceId", dataResourceId);
-                  fileContext.put("imageData", imageDataBytes);
-                  thisResult = dispatcher.runSync("createImage", fileContext);
-                  if (ServiceUtil.isError(thisResult)) {
-                      return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
-                  }
-              }
-          } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
-          } else if ("SURVEY".startsWith(dataResourceTypeId)) {
-          } else if ("_FILE".indexOf(dataResourceTypeId) >=0) {
-              Map<String, Object> uploadImage = new HashMap<String, Object>();
-              uploadImage.put("userLogin", userLogin);
-              uploadImage.put("dataResourceId", dataResourceId);
-              uploadImage.put("dataResourceTypeId", dataResourceTypeId);
-              uploadImage.put("rootDir", context.get("objectInfo"));
-              uploadImage.put("uploadedFile", imageDataBytes);
-              uploadImage.put("_uploadedFile_fileName", context.get("_imageData_fileName"));
-              uploadImage.put("_uploadedFile_contentType", context.get("_imageData_contentType"));
-              thisResult = dispatcher.runSync("attachUploadToDataResource", uploadImage);
-              if (ServiceUtil.isError(thisResult)) {
-                  return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
-              }
-          } else {
-              // assume ELECTRONIC_TEXT
-              if (UtilValidate.isNotEmpty(textData)) {
-                  fileContext.put("dataResourceId", dataResourceId);
-                  fileContext.put("textData", textData);
-                  thisResult = dispatcher.runSync("createElectronicText", fileContext);
-                  if (ServiceUtil.isError(thisResult)) {
-                      return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
-                  }
-              }
-          }
-      } else { // Update
-          Map<String, Object> thisResult = dispatcher.runSync("updateDataResource", newDrContext);
-          if (ServiceUtil.isError(thisResult)) {
-              return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
-          }
-          Map<String, Object> fileContext = new HashMap<String, Object>();
-          fileContext.put("userLogin", userLogin);
-          String forceElectronicText = (String)context.get("forceElectronicText");
-          if ("IMAGE_OBJECT".equals(dataResourceTypeId)) {
-              if (imageDataBytes != null || "true".equalsIgnoreCase(forceElectronicText)) {
-                  fileContext.put("dataResourceId", dataResourceId);
-                  fileContext.put("imageData", imageDataBytes);
-                  thisResult = dispatcher.runSync("updateImage", fileContext);
-                  if (ServiceUtil.isError(thisResult)) {
-                      return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
-                  }
-              }
-          } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
-          } else if ("SURVEY".startsWith(dataResourceTypeId)) {
-          } else if ("_FILE".indexOf(dataResourceTypeId) >=0) {
-              Map<String, Object> uploadImage = new HashMap<String, Object>();
-              uploadImage.put("userLogin", userLogin);
-              uploadImage.put("dataResourceId", dataResourceId);
-              uploadImage.put("dataResourceTypeId", dataResourceTypeId);
-              uploadImage.put("rootDir", context.get("objectInfo"));
-              uploadImage.put("uploadedFile", imageDataBytes);
-              uploadImage.put("_uploadedFile_fileName", context.get("_imageData_fileName"));
-              uploadImage.put("_uploadedFile_contentType", context.get("_imageData_contentType"));
-              thisResult = dispatcher.runSync("attachUploadToDataResource", uploadImage);
-              if (ServiceUtil.isError(thisResult)) {
-                  return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
-              }
-          } else {
-              if (UtilValidate.isNotEmpty(textData) || "true".equalsIgnoreCase(forceElectronicText)) {
-                  fileContext.put("dataResourceId", dataResourceId);
-                  fileContext.put("textData", textData);
-                  thisResult = dispatcher.runSync("updateElectronicText", fileContext);
-                  if (ServiceUtil.isError(thisResult)) {
-                      return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
-                  }
-              }
-          }
-      }
-      result.put("dataResourceId", dataResourceId);
-      result.put("drDataResourceId", dataResourceId);
-      context.put("dataResourceId", dataResourceId);
-      return result;
+        if (!dataResourceExists) { // Create
+            Map<String, Object> thisResult = dispatcher.runSync("createDataResource", newDrContext);
+            if (ServiceUtil.isError(thisResult)) {
+                throw (new GenericServiceException(ServiceUtil.getErrorMessage(thisResult)));
+            }
+            dataResourceId = (String) thisResult.get("dataResourceId");
+            if (Debug.infoOn()) {
+                Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, module);
+            }
+            dataResource = (GenericValue) thisResult.get("dataResource");
+            Map<String, Object> fileContext = new HashMap<>();
+            fileContext.put("userLogin", userLogin);
+            if ("IMAGE_OBJECT".equals(dataResourceTypeId)) {
+                if (imageDataBytes != null) {
+                    fileContext.put("dataResourceId", dataResourceId);
+                    fileContext.put("imageData", imageDataBytes);
+                    thisResult = dispatcher.runSync("createImage", fileContext);
+                    if (ServiceUtil.isError(thisResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
+                    }
+                }
+                // We don't want SHORT_TEXT and SURVEY to be caught by the last else if, hence the 2 empty else if
+            } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
+            } else if (dataResourceTypeId.startsWith("SURVEY")) {
+            } else if (dataResourceTypeId.indexOf("_FILE") >= 0) {
+                Map<String, Object> uploadImage = new HashMap<>();
+                uploadImage.put("userLogin", userLogin);
+                uploadImage.put("dataResourceId", dataResourceId);
+                uploadImage.put("dataResourceTypeId", dataResourceTypeId);
+                uploadImage.put("rootDir", context.get("objectInfo"));
+                uploadImage.put("uploadedFile", imageDataBytes);
+                uploadImage.put("_uploadedFile_fileName", context.get("_imageData_fileName"));
+                uploadImage.put("_uploadedFile_contentType", context.get("_imageData_contentType"));
+                thisResult = dispatcher.runSync("attachUploadToDataResource", uploadImage);
+                if (ServiceUtil.isError(thisResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
+                }
+            } else {
+                // assume ELECTRONIC_TEXT
+                if (UtilValidate.isNotEmpty(textData)) {
+                    fileContext.put("dataResourceId", dataResourceId);
+                    fileContext.put("textData", textData);
+                    thisResult = dispatcher.runSync("createElectronicText", fileContext);
+                    if (ServiceUtil.isError(thisResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
+                    }
+                }
+            }
+        } else { // Update
+            Map<String, Object> thisResult = dispatcher.runSync("updateDataResource", newDrContext);
+            if (ServiceUtil.isError(thisResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
+            }
+            Map<String, Object> fileContext = new HashMap<>();
+            fileContext.put("userLogin", userLogin);
+            String forceElectronicText = (String) context.get("forceElectronicText");
+            if ("IMAGE_OBJECT".equals(dataResourceTypeId)) {
+                if (imageDataBytes != null || "true".equalsIgnoreCase(forceElectronicText)) {
+                    fileContext.put("dataResourceId", dataResourceId);
+                    fileContext.put("imageData", imageDataBytes);
+                    thisResult = dispatcher.runSync("updateImage", fileContext);
+                    if (ServiceUtil.isError(thisResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
+                    }
+                }
+                // We don't want SHORT_TEXT and SURVEY to be caught by the last else if, hence the 2 empty else if
+            } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
+            } else if (dataResourceTypeId.startsWith("SURVEY")) {
+            } else if (dataResourceTypeId.indexOf("_FILE") >= 0) {
+                Map<String, Object> uploadImage = new HashMap<>();
+                uploadImage.put("userLogin", userLogin);
+                uploadImage.put("dataResourceId", dataResourceId);
+                uploadImage.put("dataResourceTypeId", dataResourceTypeId);
+                uploadImage.put("rootDir", context.get("objectInfo"));
+                uploadImage.put("uploadedFile", imageDataBytes);
+                uploadImage.put("_uploadedFile_fileName", context.get("_imageData_fileName"));
+                uploadImage.put("_uploadedFile_contentType", context.get("_imageData_contentType"));
+                thisResult = dispatcher.runSync("attachUploadToDataResource", uploadImage);
+                if (ServiceUtil.isError(thisResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
+                }
+            } else {
+                if (UtilValidate.isNotEmpty(textData) || "true".equalsIgnoreCase(forceElectronicText)) {
+                    fileContext.put("dataResourceId", dataResourceId);
+                    fileContext.put("textData", textData);
+                    thisResult = dispatcher.runSync("updateElectronicText", fileContext);
+                    if (ServiceUtil.isError(thisResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
+                    }
+                }
+            }
+        }
+        result.put("dataResourceId", dataResourceId);
+        result.put("drDataResourceId", dataResourceId);
+        context.put("dataResourceId", dataResourceId);
+        return result;
     }
 
     public static void addRoleToUser(Delegator delegator, LocalDispatcher dispatcher, Map<String, Object> serviceContext) throws GenericServiceException, GenericEntityException {
