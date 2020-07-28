@@ -1439,7 +1439,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String focusFieldName = modelForm.getFocusFieldName();
 
         // Generate CSRF name & value for form
-        String csrfNameValue = CsrfUtil.getTokenNameNonAjax() + " " +CsrfUtil.generateTokenForNonAjax(request, targ);
+        String csrfNameValue = CsrfUtil.getTokenNameNonAjax() + " " + CsrfUtil.generateTokenForNonAjax(request, targ);
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormOpen ");

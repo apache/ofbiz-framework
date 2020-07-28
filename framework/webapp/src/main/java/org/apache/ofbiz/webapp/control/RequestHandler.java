@@ -770,24 +770,25 @@ public class RequestHandler {
                 }
                 renderView(viewName, requestMap.securityExternalView, request, response, null);
             } else if ("view-last-noparam".equals(nextRequestResponse.type)) {
-                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + showSessionId(request), MODULE);
-                 }
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + showSessionId(request), MODULE);
+                }
 
-                 // check for an override view, only used if "success" = eventReturn
-                 String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
+                // check for an override view, only used if "success" = eventReturn
+                String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ?
+                        overrideViewUri : nextRequestResponse.value;
 
-                 // as a further override, look for the _SAVED and then _HOME and then _LAST session attributes
-                 if (session.getAttribute("_SAVED_VIEW_NAME_") != null) {
-                     viewName = (String) session.getAttribute("_SAVED_VIEW_NAME_");
-                 } else if (session.getAttribute("_HOME_VIEW_NAME_") != null) {
-                     viewName = (String) session.getAttribute("_HOME_VIEW_NAME_");
-                 } else if (session.getAttribute("_LAST_VIEW_NAME_") != null) {
-                     viewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
-                 } else if (UtilValidate.isNotEmpty(nextRequestResponse.value)) {
-                     viewName = nextRequestResponse.value;
-                 }
-                 renderView(viewName, requestMap.securityExternalView, request, response, null);
+                // as a further override, look for the _SAVED and then _HOME and then _LAST session attributes
+                if (session.getAttribute("_SAVED_VIEW_NAME_") != null) {
+                    viewName = (String) session.getAttribute("_SAVED_VIEW_NAME_");
+                } else if (session.getAttribute("_HOME_VIEW_NAME_") != null) {
+                    viewName = (String) session.getAttribute("_HOME_VIEW_NAME_");
+                } else if (session.getAttribute("_LAST_VIEW_NAME_") != null) {
+                    viewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
+                } else if (UtilValidate.isNotEmpty(nextRequestResponse.value)) {
+                    viewName = nextRequestResponse.value;
+                }
+                renderView(viewName, requestMap.securityExternalView, request, response, null);
             } else if ("view-home".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + showSessionId(request), MODULE);
@@ -1045,10 +1046,10 @@ public class RequestHandler {
         //Cache Headers
         boolean viewNoCache = viewMap.noCache;
         if (viewNoCache) {
-           UtilHttp.setResponseBrowserProxyNoCache(resp);
-           if (Debug.verboseOn()) {
-               Debug.logVerbose("Sending no-cache headers for view [" + nextPage + "]", MODULE);
-           }
+            UtilHttp.setResponseBrowserProxyNoCache(resp);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Sending no-cache headers for view [" + nextPage + "]", MODULE);
+            }
         } else {
             resp.setHeader("Cache-Control", "Set-Cookie");
         }

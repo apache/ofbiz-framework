@@ -347,8 +347,7 @@ public class XmlSerializer {
                 try {
                     Calendar cal = DatatypeConverter.parseDate(valStr);
                     return new java.sql.Timestamp(cal.getTimeInMillis());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Debug.logWarning("sql-Timestamp does not conform to XML Schema definition, try java.sql.Timestamp format", MODULE);
                     return java.sql.Timestamp.valueOf(valStr);
                 }

@@ -22,5 +22,5 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface ExecQueryCallbackFunctionIF {
-    public boolean processNextRow(ResultSet rs) throws SQLException;
+    boolean processNextRow(ResultSet rs) throws SQLException;
 }

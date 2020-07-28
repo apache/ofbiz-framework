@@ -30,8 +30,8 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 
 public class OrderByItem implements Comparator<GenericEntity> {
     public static final int DEFAULT = 0;
-    public static final int UPPER   = 1;
-    public static final int LOWER   = 2;
+    public static final int UPPER = 1;
+    public static final int LOWER = 2;
 
     public static final String NULLS_FIRST = "NULLS FIRST";
     public static final String NULLS_LAST = "NULLS LAST";

@@ -226,12 +226,12 @@ public class CommonServices {
      * Echo service; returns exactly what was sent.
      * This service does not have required parameters and does not validate
      */
-     public static Map<String, Object> echoService(DispatchContext dctx, Map<String, ?> context) {
-         Map<String, Object> result = new LinkedHashMap<>();
-         result.putAll(context);
-         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-         return result;
-     }
+    public static Map<String, Object> echoService(DispatchContext dctx, Map<String, ?> context) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.putAll(context);
+        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+        return result;
+    }
 
     /**
      * Return Error Service; Used for testing error handling
@@ -448,10 +448,10 @@ public class CommonServices {
         MimeMessage message = wrapper.getMessage();
         try {
             if (message.getAllRecipients() != null) {
-               Debug.logInfo("To: " + UtilMisc.toListArray(message.getAllRecipients()), MODULE);
+                Debug.logInfo("To: " + UtilMisc.toListArray(message.getAllRecipients()), MODULE);
             }
             if (message.getFrom() != null) {
-               Debug.logInfo("From: " + UtilMisc.toListArray(message.getFrom()), MODULE);
+                Debug.logInfo("From: " + UtilMisc.toListArray(message.getFrom()), MODULE);
             }
             Debug.logInfo("Subject: " + message.getSubject(), MODULE);
             if (message.getSentDate() != null) {

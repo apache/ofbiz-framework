@@ -124,7 +124,7 @@ public class StringUtil {
             return null;
         }
 
-        st = (delim != null? new StringTokenizer(str, delim): new StringTokenizer(str));
+        st = (delim != null ? new StringTokenizer(str, delim) : new StringTokenizer(str));
 
         if (st.hasMoreTokens()) {
             splitList = new LinkedList<>();

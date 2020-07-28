@@ -107,7 +107,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                 List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateCtx.get("globalNodeTrail"));
 
                 if (Debug.infoOn()) {
-                    Debug.logInfo("in InjectNodeTrailCsv(0), trail:"+trail, MODULE);
+                    Debug.logInfo("in InjectNodeTrailCsv(0), trail:" + trail, MODULE);
                 }
                 // This will build a nodeTrail if none exists
                 // Maybe only contentId or subContentId are passed in
@@ -116,15 +116,15 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                 if (UtilValidate.isEmpty(trail) || (redo != null && "true".equalsIgnoreCase(redo))) {
                     String subContentId = (String) templateCtx.get("subContentId");
                     if (Debug.infoOn()) {
-                        Debug.logInfo("in InjectNodeTrailCsv(0), subContentId:"+subContentId, MODULE);
+                        Debug.logInfo("in InjectNodeTrailCsv(0), subContentId:" + subContentId, MODULE);
                     }
                     String contentId = (String) templateCtx.get("contentId");
                     if (Debug.infoOn()) {
-                        Debug.logInfo("in InjectNodeTrailCsv(0), contentId:"+contentId, MODULE);
+                        Debug.logInfo("in InjectNodeTrailCsv(0), contentId:" + contentId, MODULE);
                     }
                     String contentAssocTypeId = (String) templateCtx.get("contentAssocTypeId");
                     if (Debug.infoOn()) {
-                        Debug.logInfo("in InjectNodeTrailCsv(0), contentAssocTypeId:"+contentAssocTypeId, MODULE);
+                        Debug.logInfo("in InjectNodeTrailCsv(0), contentAssocTypeId:" + contentAssocTypeId, MODULE);
                     }
                     try {
                         if (UtilValidate.isNotEmpty(subContentId)) {
@@ -144,7 +144,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                         throw new RuntimeException("Error getting current content. " + e.toString());
                     }
                     if (Debug.infoOn()) {
-                        Debug.logInfo("in InjectNodeTrailCsv(0), csvTrail:"+csvTrail, MODULE);
+                        Debug.logInfo("in InjectNodeTrailCsv(0), csvTrail:" + csvTrail, MODULE);
                     }
                 } else {
                     // Build nodeTrail if one does not exist
@@ -163,8 +163,8 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                                 Map<String, ? extends Object> nd = trail.get(0);
                                 String firstTrailContentId = (String) nd.get("contentId");
                                 if (UtilValidate.isNotEmpty(firstTrailContentId)
-                                    && UtilValidate.isNotEmpty(lastPassedContentId)
-                                    && firstTrailContentId.equals(lastPassedContentId)) {
+                                        && UtilValidate.isNotEmpty(lastPassedContentId)
+                                        && firstTrailContentId.equals(lastPassedContentId)) {
                                     csvTrail += "," + ContentWorker.nodeTrailToCsv(trail.subList(1, trail.size()));
                                 } else {
                                     csvTrail += "," + ContentWorker.nodeTrailToCsv(trail);

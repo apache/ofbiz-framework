@@ -155,7 +155,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                     }
                 }
                 // setup content type
-                String contentType2 = UtilValidate.isNotEmpty(mimeTypeId) ? mimeTypeId + "; charset=" +charset : contentType;
+                String contentType2 = UtilValidate.isNotEmpty(mimeTypeId) ? mimeTypeId + "; charset=" + charset : contentType;
                 String fileName = null;
                 if (UtilValidate.isNotEmpty(dataResource.getString("dataResourceName"))) {
                     fileName = dataResource.getString("dataResourceName").replace(" ", "_"); // spaces in filenames can be a problem

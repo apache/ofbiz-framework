@@ -763,7 +763,7 @@ public class FedexServices {
             if ((billingWeight != null) && (billingWeight.compareTo(BigDecimal.ZERO) > 0)) {
                 hasBillingWeight = true;
                 if (billingWeightUomId == null) {
-                    Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId + ", assuming default shipment.fedex.weightUomId of " + weightUomId + " from " + shipmentPropertiesFile,  MODULE);
+                    Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId + ", assuming default shipment.fedex.weightUomId of " + weightUomId + " from " + shipmentPropertiesFile, MODULE);
                     billingWeightUomId = weightUomId;
                 }
 
@@ -830,7 +830,7 @@ public class FedexServices {
                     if (!UtilValidate.isEmpty(boxDimensionsUom)) {
                         boxDimensionsUomId = boxDimensionsUom.getString("uomId");
                     } else {
-                        Debug.logWarning("Packaging type for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId + " is missing dimensionUomId, assuming default shipment.default.dimension.uom of " + dimensionsUomId + " from " + shipmentPropertiesFile,  MODULE);
+                        Debug.logWarning("Packaging type for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId + " is missing dimensionUomId, assuming default shipment.default.dimension.uom of " + dimensionsUomId + " from " + shipmentPropertiesFile, MODULE);
                         boxDimensionsUomId = dimensionsUomId;
                     }
                     if (dimensionsLength != null && dimensionsLength.compareTo(BigDecimal.ZERO) > 0) {
@@ -890,7 +890,7 @@ public class FedexServices {
                     // Convert weight if necessary
                     String packageWeightUomId = shipmentPackage.getString("weightUomId");
                     if (UtilValidate.isEmpty(packageWeightUomId)) {
-                        Debug.logWarning("Shipment Route Segment missing weightUomId in shipmentId " + shipmentId + ", assuming shipment.default.weight.uom of " + weightUomId + " from " + shipmentPropertiesFile,  MODULE);
+                        Debug.logWarning("Shipment Route Segment missing weightUomId in shipmentId " + shipmentId + ", assuming shipment.default.weight.uom of " + weightUomId + " from " + shipmentPropertiesFile, MODULE);
                         packageWeightUomId = weightUomId;
                     }
                     if (!packageWeightUomId.equals(weightUomId)) {
@@ -914,17 +914,18 @@ public class FedexServices {
                 }
 
                 // Populate the Freemarker context with package-related information
-                shipRequestContext.put("CustomerReference", shipmentId + ":" + shipmentRouteSegmentId + ":" + shipmentPackage.getString("shipmentPackageSeqId"));
+                shipRequestContext.put("CustomerReference", shipmentId + ":" + shipmentRouteSegmentId + ":" + shipmentPackage.getString(
+                        "shipmentPackageSeqId"));
                 shipRequestContext.put("DropoffType", dropoffType);
                 shipRequestContext.put("Packaging", packaging);
                 if (UtilValidate.isNotEmpty(dimensionsUomId)
-                    && dimensionsLength != null && dimensionsLength.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0
-                    && dimensionsWidth != null && dimensionsWidth.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0
-                    && dimensionsHeight != null && dimensionsHeight.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0) {
-                        shipRequestContext.put("DimensionsUnits", "LEN_in".equals(dimensionsUomId) ? "IN" : "CM");
-                        shipRequestContext.put("DimensionsLength", dimensionsLength.setScale(0, RoundingMode.HALF_UP).toString());
-                        shipRequestContext.put("DimensionsWidth", dimensionsWidth.setScale(0, RoundingMode.HALF_UP).toString());
-                        shipRequestContext.put("DimensionsHeight", dimensionsHeight.setScale(0, RoundingMode.HALF_UP).toString());
+                        && dimensionsLength != null && dimensionsLength.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0
+                        && dimensionsWidth != null && dimensionsWidth.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0
+                        && dimensionsHeight != null && dimensionsHeight.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0) {
+                    shipRequestContext.put("DimensionsUnits", "LEN_in".equals(dimensionsUomId) ? "IN" : "CM");
+                    shipRequestContext.put("DimensionsLength", dimensionsLength.setScale(0, RoundingMode.HALF_UP).toString());
+                    shipRequestContext.put("DimensionsWidth", dimensionsWidth.setScale(0, RoundingMode.HALF_UP).toString());
+                    shipRequestContext.put("DimensionsHeight", dimensionsHeight.setScale(0, RoundingMode.HALF_UP).toString());
                 }
                 shipRequestContext.put("Weight", weight.setScale(1, RoundingMode.UP).toString());
             }
@@ -936,7 +937,7 @@ public class FedexServices {
                 String errorMessage = "Cannot confirm Fedex shipment: Failed to render Fedex XML Ship Request Template [" + templateLocation + "].";
                 Debug.logError(e, errorMessage, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                        "FacilityShipmentFedexShipmentTemplateError", 
+                        "FacilityShipmentFedexShipmentTemplateError",
                         UtilMisc.toMap("templateLocation", templateLocation, "errorString", e.getMessage()), locale));
             }
 

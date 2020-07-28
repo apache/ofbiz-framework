@@ -714,7 +714,7 @@ public class PayPalServices {
         Map<String, String> errorMessages = getErrorMessageMap(decoder);
         if (UtilValidate.isNotEmpty(errorMessages)) {
             if (errorMessages.containsKey("10417")) {
-                // "The transaction cannot complete successfully,  Instruct the customer to use an alternative payment method"
+                // "The transaction cannot complete successfully, Instruct the customer to use an alternative payment method"
                 // I've only encountered this once and there's no indication of the cause so the temporary solution is to try again
                 boolean retry = context.get("_RETRY_") == null || (Boolean) context.get("_RETRY_");
                 if (retry) {

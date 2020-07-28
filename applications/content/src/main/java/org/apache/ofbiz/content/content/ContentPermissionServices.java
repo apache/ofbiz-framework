@@ -105,13 +105,13 @@ public class ContentPermissionServices {
         Boolean bDisplayFailCond = (Boolean) context.get("displayFailCond");
         boolean displayFailCond = false;
         if (bDisplayFailCond != null && bDisplayFailCond) {
-             displayFailCond = true;
+            displayFailCond = true;
         }
-                Debug.logInfo("displayFailCond(0):" + displayFailCond, "");
+        Debug.logInfo("displayFailCond(0):" + displayFailCond, "");
         Boolean bDisplayPassCond = (Boolean) context.get("displayPassCond");
         boolean displayPassCond = false;
         if (bDisplayPassCond != null && bDisplayPassCond) {
-             displayPassCond = true;
+            displayPassCond = true;
         }
         Debug.logInfo("displayPassCond(0):" + displayPassCond, "");
         Map<String, Object> results = new HashMap<>();
@@ -150,7 +150,7 @@ public class ContentPermissionServices {
             passedPurposes.addAll(purposesFromString);
         }
 
-        EntityPermissionChecker.StdAuxiliaryValueGetter auxGetter = new EntityPermissionChecker.StdAuxiliaryValueGetter("ContentPurpose",  "contentPurposeTypeId", "contentId");
+        EntityPermissionChecker.StdAuxiliaryValueGetter auxGetter = new EntityPermissionChecker.StdAuxiliaryValueGetter("ContentPurpose", "contentPurposeTypeId", "contentId");
         // Sometimes permissions need to be checked before an entity is created, so
         // there needs to be a method for setting a purpose list
         auxGetter.setList(passedPurposes);
@@ -163,10 +163,10 @@ public class ContentPermissionServices {
             }
             targetOperations.addAll(operationsFromString);
         }
-        EntityPermissionChecker.StdPermissionConditionGetter permCondGetter = new EntityPermissionChecker.StdPermissionConditionGetter("ContentPurposeOperation",  "contentOperationId", "roleTypeId", "statusId", "contentPurposeTypeId", "privilegeEnumId");
+        EntityPermissionChecker.StdPermissionConditionGetter permCondGetter = new EntityPermissionChecker.StdPermissionConditionGetter("ContentPurposeOperation", "contentOperationId", "roleTypeId", "statusId", "contentPurposeTypeId", "privilegeEnumId");
         permCondGetter.setOperationList(targetOperations);
 
-        EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content",  "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
+        EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content", "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
         List<String> passedRoles = UtilGenerics.cast(context.get("roleTypeList"));
         if (passedRoles == null) passedRoles = new LinkedList<>();
         String roleTypeString = (String) context.get("roleTypeString");
@@ -189,23 +189,26 @@ public class ContentPermissionServices {
             results.put("permissionStatus", "granted");
             permissionStatus = "granted";
             if (displayPassCond) {
-                 errBuf.append("\n    hasEntityPermission(" + entityAction + "): PASSED");
+                errBuf.append("\n    hasEntityPermission(" + entityAction + "): PASSED");
             }
 
         } else {
             if (displayFailCond) {
-                 errBuf.append("\n    hasEntityPermission(" + entityAction + "): FAILED");
+                errBuf.append("\n    hasEntityPermission(" + entityAction + "): FAILED");
             }
 
-            if (content != null)
+            if (content != null) {
                 entityIds.add(content);
+            }
             String quickCheckContentId = (String) context.get("quickCheckContentId");
             if (UtilValidate.isNotEmpty(quickCheckContentId)) {
-               List<String> quickList = StringUtil.split(quickCheckContentId, "|");
-               if (UtilValidate.isNotEmpty(quickList)) entityIds.addAll(quickList);
+                List<String> quickList = StringUtil.split(quickCheckContentId, "|");
+                if (UtilValidate.isNotEmpty(quickList)) {
+                    entityIds.addAll(quickList);
+                }
             }
             try {
-                boolean check = EntityPermissionChecker.checkPermissionMethod(delegator, partyId,  "Content", entityIds, auxGetter, roleGetter, permCondGetter);
+                boolean check = EntityPermissionChecker.checkPermissionMethod(delegator, partyId, "Content", entityIds, auxGetter, roleGetter, permCondGetter);
                 if (check) {
                     results.put("permissionStatus", "granted");
                 } else {
@@ -220,27 +223,27 @@ public class ContentPermissionServices {
         }
 
         if (("granted".equals(permissionStatus) && displayPassCond)
-            || ("rejected".equals(permissionStatus) && displayFailCond)) {
+                || ("rejected".equals(permissionStatus) && displayFailCond)) {
             // Don't show this if passed on 'hasEntityPermission'
             if (displayFailCond || displayPassCond) {
-              if (!passed) {
-                 errBuf.append("\n    targetOperations:");
-                 errBuf.append(targetOperations);
+                if (!passed) {
+                    errBuf.append("\n    targetOperations:");
+                    errBuf.append(targetOperations);
 
-                 String errMsg = permCondGetter.dumpAsText();
-                 errBuf.append("\n");
-                 errBuf.append(errMsg);
-                 errBuf.append("\n    partyId:");
-                 errBuf.append(partyId);
-                 errBuf.append("\n    entityIds:");
-                 errBuf.append(entityIds);
+                    String errMsg = permCondGetter.dumpAsText();
+                    errBuf.append("\n");
+                    errBuf.append(errMsg);
+                    errBuf.append("\n    partyId:");
+                    errBuf.append(partyId);
+                    errBuf.append("\n    entityIds:");
+                    errBuf.append(entityIds);
 
-                 errBuf.append("\n    auxList:");
-                 errBuf.append(auxGetter.getList());
+                    errBuf.append("\n    auxList:");
+                    errBuf.append(auxGetter.getList());
 
-                 errBuf.append("\n    roleList:");
-                 errBuf.append(roleGetter.getList());
-              }
+                    errBuf.append("\n    roleList:");
+                    errBuf.append(roleGetter.getList());
+                }
 
             }
         }

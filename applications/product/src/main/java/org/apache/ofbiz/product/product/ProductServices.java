@@ -1336,7 +1336,7 @@ public class ProductServices {
                 filenameToUse += "." + extension.getString("fileExtensionId");
             }
 
-            File makeResourceDirectory  = new File(imageServerPath + "/" + filePathPrefix);
+            File makeResourceDirectory = new File(imageServerPath + "/" + filePathPrefix);
             if (!makeResourceDirectory.exists()) {
                 if (!makeResourceDirectory.mkdirs()) {
                     Debug.logError("Directory :" + makeResourceDirectory.getPath() + ", couldn't be created", MODULE);

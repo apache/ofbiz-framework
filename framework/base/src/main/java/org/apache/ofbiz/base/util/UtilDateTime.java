@@ -70,15 +70,15 @@ public final class UtilDateTime {
     }
 
     public static int getIntervalInDays(Timestamp from, Timestamp thru) {
-        return thru != null ? (int) ((thru.getTime() - from.getTime()) / (24*60*60*1000)) : 0;
+        return thru != null ? (int) ((thru.getTime() - from.getTime()) / (24 * 60 * 60 * 1000)) : 0;
     }
 
     public static Timestamp addDaysToTimestamp(Timestamp start, int days) {
-        return new Timestamp(start.getTime() + (24L*60L*60L*1000L*days));
+        return new Timestamp(start.getTime() + (24L * 60L * 60L * 1000L * days));
     }
 
     public static Timestamp addDaysToTimestamp(Timestamp start, Double days) {
-        return new Timestamp(start.getTime() + ((int) (24L*60L*60L*1000L*days)));
+        return new Timestamp(start.getTime() + ((int) (24L * 60L * 60L * 1000L * days)));
     }
 
     public static double getInterval(Timestamp from, Timestamp thru) {

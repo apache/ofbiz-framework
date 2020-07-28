@@ -176,7 +176,7 @@ public class ProposedOrder {
                         try {
                             routingTask = routingTaskAssoc.getRelatedOne("ToWorkEffort", true);
                         } catch (GenericEntityException e) {
-                            Debug.logError(e.getMessage(),  MODULE);
+                            Debug.logError(e.getMessage(), MODULE);
                         }
                         // Calculate the estimatedStartDate
                         long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, quantity, dispatcher);
@@ -267,7 +267,7 @@ public class ProposedOrder {
             }
             return (String) result.get("requirementId");
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error : createRequirement with parameters = "+parameters+"--" + e.getMessage(), MODULE);
+            Debug.logError(e, "Error : createRequirement with parameters = " + parameters + "--" + e.getMessage(), MODULE);
             return null;
         }
     }

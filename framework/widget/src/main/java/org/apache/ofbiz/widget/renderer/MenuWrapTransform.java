@@ -70,7 +70,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
 
     private static final String MODULE = MenuWrapTransform.class.getName();
     public static final String[] upSaveKeyNames = {"globalNodeTrail"};
-    public static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
+    public static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
 
 
     @Override

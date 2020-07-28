@@ -49,7 +49,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
     private static final String MODULE = RenderSubContentAsText.class.getName();
     public static final String[] upSaveKeyNames = {"globalNodeTrail"};
-    public static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
+    public static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
     @Override
     @SuppressWarnings("unchecked")

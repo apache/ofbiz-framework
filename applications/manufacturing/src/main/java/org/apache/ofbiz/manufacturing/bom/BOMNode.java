@@ -367,7 +367,7 @@ public class BOMNode {
     }
 
     public BOMNode getRootNode() {
-        return (parentNode != null? getParentNode(): this);
+        return (parentNode != null ? getParentNode() : this);
     }
     /** Setter for property parentNode.
      * @param parentNode New value of property parentNode.
@@ -675,7 +675,7 @@ public class BOMNode {
     }
 
     public boolean isVirtual() {
-        return (product.get("isVirtual") != null? "Y".equals(product.get("isVirtual")): false);
+        return (product.get("isVirtual") != null ? "Y".equals(product.get("isVirtual")) : false);
     }
 
     public void isConfigured(List<BOMNode> arr) {

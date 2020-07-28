@@ -56,8 +56,8 @@ public class ContentJsonEvents {
         String contentId = request.getParameter("contentId");
 
         EntityCondition condition = EntityCondition.makeCondition(
-            EntityCondition.makeCondition(UtilMisc.toMap("contentId", contentId)),
-            EntityUtil.getFilterByDateExpr());
+                EntityCondition.makeCondition(UtilMisc.toMap("contentId", contentId)),
+                EntityUtil.getFilterByDateExpr());
         List<GenericValue> assocs = delegator.findList("ContentAssoc", condition, null, null, null, false);
 
         List<Map<String, Object>> nodes = new LinkedList<>();
@@ -133,8 +133,8 @@ public class ContentJsonEvents {
     public static void deleteContent(Delegator delegator, String contentId) throws GenericEntityException {
         Timestamp now = UtilDateTime.nowTimestamp();
         EntityCondition condition = EntityCondition.makeCondition(
-            EntityCondition.makeCondition(UtilMisc.toMap("contentIdTo", contentId)),
-            EntityUtil.getFilterByDateExpr());
+                EntityCondition.makeCondition(UtilMisc.toMap("contentIdTo", contentId)),
+                EntityUtil.getFilterByDateExpr());
         List<GenericValue> assocs = delegator.findList("ContentAssoc", condition, null, null, null, true);
         for (GenericValue assoc : assocs) {
             assoc.set("thruDate", now);
@@ -146,8 +146,8 @@ public class ContentJsonEvents {
     private static void deleteWebPathAliases(Delegator delegator, String contentId) throws GenericEntityException {
         Timestamp now = UtilDateTime.nowTimestamp();
         EntityCondition condition = EntityCondition.makeCondition(
-            EntityCondition.makeCondition(UtilMisc.toMap("contentId", contentId)),
-            EntityUtil.getFilterByDateExpr());
+                EntityCondition.makeCondition(UtilMisc.toMap("contentId", contentId)),
+                EntityUtil.getFilterByDateExpr());
         List<GenericValue> pathAliases = delegator.findList("WebSitePathAlias", condition, null, null, null, true);
         for (GenericValue alias : pathAliases) {
             alias.set("thruDate", now);
@@ -172,14 +172,14 @@ public class ContentJsonEvents {
         Map<String, Object> data = UtilMisc.toMap("title", (Object) contentName);
 
         Map<String, Object> attr = UtilMisc.toMap(
-            "id", assoc.get("contentIdTo"),
-            "contentId", assoc.get("contentId"),
-            "fromDate", assoc.getTimestamp("fromDate").toString(),
-            "contentAssocTypeId", assoc.get("contentAssocTypeId"));
+                "id", assoc.get("contentIdTo"),
+                "contentId", assoc.get("contentId"),
+                "fromDate", assoc.getTimestamp("fromDate").toString(),
+                "contentAssocTypeId", assoc.get("contentAssocTypeId"));
 
         Map<String, Object> node = UtilMisc.toMap("data", (Object) data, "attr", (Object) attr);
 
-        List<GenericValue> assocChildren  = content != null ? content.getRelated("FromContentAssoc", null, null, true) : null;
+        List<GenericValue> assocChildren = content != null ? content.getRelated("FromContentAssoc", null, null, true) : null;
         assocChildren = EntityUtil.filterByDate(assocChildren);
         if (!CollectionUtils.isEmpty(assocChildren)) {
             node.put("state", "closed");

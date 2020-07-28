@@ -102,7 +102,7 @@ public class CompDocEvents {
             Map<String, Object> persistResult = dispatcher.runSync("persistContentAndAssoc", persistMap);
             if (ServiceUtil.isError(persistResult)) {
                 String errMsg = "Error running serviceName, 'persistContentAndAssoc'. " + ServiceUtil.getErrorMessage(persistResult);
-                request.setAttribute("_ERROR_MESSAGE_",  "<li>" + errMsg + "</li>");
+                request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + "</li>");
                 Debug.logError(errMsg, MODULE);
                 return "error";
             }
@@ -121,7 +121,7 @@ public class CompDocEvents {
             Map<String, Object> result = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
             if (ServiceUtil.isError(result)) {
                 String errMsg = "Error running serviceName, 'persistContentRevisionAndItem'. " + ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_",  "<li>" + errMsg + "</li>");
+                request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + "</li>");
                 Debug.logError(errMsg, MODULE);
                 return "error";
             }

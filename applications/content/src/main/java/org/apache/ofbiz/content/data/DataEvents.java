@@ -359,10 +359,10 @@ public class DataEvents {
             request.setAttribute("dataResourceId", result.get("dataResourceId"));
             String dataResourceTypeId = (String) serviceInMap.get("dataResourceTypeId");
             if (dataResourceTypeId != null) {
-                 if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)
-                     || "IMAGE_OBJECT".equals(dataResourceTypeId)) {
+                if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)
+                        || "IMAGE_OBJECT".equals(dataResourceTypeId)) {
                     returnStr = dataResourceTypeId;
-                 }
+                }
             }
         }
 

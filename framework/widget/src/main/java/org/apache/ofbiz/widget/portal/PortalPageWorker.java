@@ -116,12 +116,12 @@ public class PortalPageWorker {
 
                 // Get the PortalPage ensuring that it is either owned by the user or a system page
                 EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, portalPageId),
-                    EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
-                        EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId)),
-                        EntityOperator.OR)),
-                    EntityOperator.AND);
+                        EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, portalPageId),
+                        EntityCondition.makeCondition(UtilMisc.toList(
+                                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
+                                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId)),
+                                EntityOperator.OR)),
+                        EntityOperator.AND);
                 List<GenericValue> portalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
                 if (UtilValidate.isNotEmpty(portalPages)) {
                     portalPage = EntityUtil.getFirst(portalPages);

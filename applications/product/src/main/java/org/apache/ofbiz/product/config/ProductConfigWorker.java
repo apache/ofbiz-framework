@@ -296,14 +296,14 @@ public final class ProductConfigWorker {
 
                                 if (match && (UtilValidate.isEmpty(configOptionProductOptions))) {
                                     configWrapper.configId = tempConfigId;
-                                    Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  MODULE);
+                                    Debug.logInfo("Existing configuration found with configId:"+ tempConfigId, MODULE);
                                     return;
                                 }
                             }
 
                         } else {
                             configWrapper.configId = tempConfigId;
-                            Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  MODULE);
+                            Debug.logInfo("Existing configuration found with configId:"+ tempConfigId, MODULE);
                             return;
                         }
                     }
@@ -380,7 +380,7 @@ public final class ProductConfigWorker {
 
         //save  configId to configWrapper, so we can use it in shopping cart operations
         configWrapper.configId = configId;
-        Debug.logInfo("New configId created:"+ configId,  MODULE);
+        Debug.logInfo("New configId created:"+ configId, MODULE);
         return;
     }
 

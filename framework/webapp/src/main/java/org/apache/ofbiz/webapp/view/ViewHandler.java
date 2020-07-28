@@ -31,13 +31,13 @@ public interface ViewHandler {
      * Sets the name of the view handler as declared in the controller configuration file.
      * @param name String The name of the view handler as declared in the controller configuration file.
      */
-    public void setName(String name);
+    void setName(String name);
 
     /**
      * Gets the name of the view handler as declared in the controller configuration file.
      * @return name String The name of the view handler as declared in the controller configuration file.
      */
-    public String getName();
+    String getName();
 
     /**
      * Initializes the handler. Since handlers use the singleton pattern this method should only be called
@@ -47,7 +47,7 @@ public interface ViewHandler {
      * definition files for rendering pages or handler options.
      * @throws ViewHandlerException
      */
-    public void init(ServletContext context) throws ViewHandlerException;
+    void init(ServletContext context) throws ViewHandlerException;
 
     /**
      * Render the page.
@@ -59,5 +59,5 @@ public interface ViewHandler {
      * @param response The HttpServletResponse object to be used to present the page.
      * @throws ViewHandlerException
      */
-    public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException;
+    void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException;
 }

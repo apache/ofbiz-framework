@@ -357,11 +357,11 @@ public class ProductSearch {
 
         public void finishCategoryAndFeatureConstraints() {
             if (includeCategoryIds.size() == 0 && excludeCategoryIds.size() == 0 && alwaysIncludeCategoryIds.size() == 0
-                && includeCategoryIdOrSetAndList.size() == 0 && alwaysIncludeCategoryIdOrSetAndList.size() == 0
-                && includeFeatureIds.size() == 0 && excludeFeatureIds.size() == 0 && alwaysIncludeFeatureIds.size() == 0
-                && includeFeatureIdOrSetAndList.size() == 0 && alwaysIncludeFeatureIdOrSetAndList.size() == 0
-                && includeFeatureCategoryIds.size() == 0 && excludeFeatureCategoryIds.size() == 0 && alwaysIncludeFeatureCategoryIds.size() == 0
-                && includeFeatureGroupIds.size() == 0 && excludeFeatureGroupIds.size() == 0 && alwaysIncludeFeatureGroupIds.size() == 0) {
+                    && includeCategoryIdOrSetAndList.size() == 0 && alwaysIncludeCategoryIdOrSetAndList.size() == 0
+                    && includeFeatureIds.size() == 0 && excludeFeatureIds.size() == 0 && alwaysIncludeFeatureIds.size() == 0
+                    && includeFeatureIdOrSetAndList.size() == 0 && alwaysIncludeFeatureIdOrSetAndList.size() == 0
+                    && includeFeatureCategoryIds.size() == 0 && excludeFeatureCategoryIds.size() == 0 && alwaysIncludeFeatureCategoryIds.size() == 0
+                    && includeFeatureGroupIds.size() == 0 && excludeFeatureGroupIds.size() == 0 && alwaysIncludeFeatureGroupIds.size() == 0) {
                 return;
             }
 

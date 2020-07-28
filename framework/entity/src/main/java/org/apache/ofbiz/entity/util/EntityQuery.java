@@ -128,7 +128,7 @@ public class EntityQuery {
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery from(DynamicViewEntity dynamicViewEntity) {
-        this.dynamicViewEntity  = dynamicViewEntity;
+        this.dynamicViewEntity = dynamicViewEntity;
         this.entityName = null;
         return this;
     }
@@ -313,7 +313,7 @@ public class EntityQuery {
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate() {
-        this.filterByDate  = true;
+        this.filterByDate = true;
         this.filterByDateMoment = null;
         this.filterByFieldNames = null;
         return this;
@@ -360,7 +360,7 @@ public class EntityQuery {
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate(Timestamp moment, String... filterByFieldName) {
-        this.filterByDate  = true;
+        this.filterByDate = true;
         this.filterByDateMoment = moment;
         if (filterByFieldName.length % 2 != 0) {
             throw new IllegalArgumentException("You must pass an even sized array to this method, each pair should represent a from date field name and a thru date field name");

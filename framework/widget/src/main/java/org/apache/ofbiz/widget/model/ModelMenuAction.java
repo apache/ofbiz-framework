@@ -139,10 +139,10 @@ public abstract class ModelMenuAction {
             }
 
             // If newValue is still empty, use the default value
-               if (this.defaultExdr != null) {
-                   if (ObjectType.isEmpty(newValue)) {
+            if (this.defaultExdr != null) {
+                if (ObjectType.isEmpty(newValue)) {
                     newValue = this.defaultExdr.expandString(context);
-                   }
+                }
             }
 
             if (UtilValidate.isNotEmpty(this.type)) {
@@ -161,24 +161,24 @@ public abstract class ModelMenuAction {
                 }
             }
             if (this.toScope != null && "user".equals(this.toScope)) {
-                    String originalName = this.field.getOriginalName();
-                    String currentWidgetTrail = (String) context.get("_WIDGETTRAIL_");
-                    String newKey = currentWidgetTrail + "|" + originalName;
-                    HttpSession session = (HttpSession) context.get("session");
-                    session.setAttribute(newKey, newValue);
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
-                    }
+                String originalName = this.field.getOriginalName();
+                String currentWidgetTrail = (String) context.get("_WIDGETTRAIL_");
+                String newKey = currentWidgetTrail + "|" + originalName;
+                HttpSession session = (HttpSession) context.get("session");
+                session.setAttribute(newKey, newValue);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
+                }
 
             } else if (this.toScope != null && "application".equals(this.toScope)) {
-                    String originalName = this.field.getOriginalName();
-                    String currentWidgetTrail = (String) context.get("_WIDGETTRAIL_");
-                    String newKey = currentWidgetTrail + "|" + originalName;
-                    ServletContext servletContext = (ServletContext) context.get("application");
-                    servletContext.setAttribute(newKey, newValue);
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
-                    }
+                String originalName = this.field.getOriginalName();
+                String currentWidgetTrail = (String) context.get("_WIDGETTRAIL_");
+                String newKey = currentWidgetTrail + "|" + originalName;
+                ServletContext servletContext = (ServletContext) context.get("application");
+                servletContext.setAttribute(newKey, newValue);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
+                }
 
             } else {
                 if (Debug.verboseOn()) {

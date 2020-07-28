@@ -1220,7 +1220,7 @@ public class OrderReadHelper {
         itemInfo.put("productId", item.getString("productId"));
         itemInfo.put("quantity", getOrderItemQuantity(item));
         itemInfo.put("weight", this.getItemWeight(item));
-        itemInfo.put("size",  this.getItemSize(item));
+        itemInfo.put("size", this.getItemSize(item));
         itemInfo.put("piecesIncluded", this.getItemPiecesIncluded(item));
         itemInfo.put("featureSet", this.getItemFeatureSet(item));
         return itemInfo;
@@ -1540,7 +1540,7 @@ public class OrderReadHelper {
         return getOrderItemAdjustmentList(orderItem, getAdjustments());
     }
 
-    public String getCurrentOrderItemWorkEffort(GenericValue orderItem)    {
+    public String getCurrentOrderItemWorkEffort(GenericValue orderItem) {
         String orderItemSeqId = orderItem.getString("orderItemSeqId");
         String orderId = orderItem.getString("orderId");
         Delegator delegator = orderItem.getDelegator();
@@ -2422,7 +2422,7 @@ public class OrderReadHelper {
                 Iterator<GenericValue> weIter = UtilMisc.toIterator(workEfforts);
                 while (weIter != null && weIter.hasNext()) {
                     GenericValue workEffort = weIter.next();
-                    if (workEffort.getString("workEffortId").compareTo(orderItem.getString("orderItemSeqId")) == 0)    {
+                    if (workEffort.getString("workEffortId").compareTo(orderItem.getString("orderItemSeqId")) == 0) {
                         itemTotal = itemTotal.multiply(getWorkEffortRentalQuantity(workEffort)).setScale(DECIMALS, ROUNDING);
                         break;
                     }
@@ -2490,7 +2490,7 @@ public class OrderReadHelper {
         while (itemIter != null && itemIter.hasNext()) {
             result = result.add(getOrderItemTotal(itemIter.next(), adjustments));
         }
-        return result.setScale(DECIMALS,  ROUNDING);
+        return result.setScale(DECIMALS, ROUNDING);
     }
 
     public static BigDecimal getOrderItemTotal(GenericValue orderItem, List<GenericValue> adjustments) {
@@ -2543,7 +2543,7 @@ public class OrderReadHelper {
         }
 
         BigDecimal rentalAdjustment = ZERO;
-        if (persons.compareTo(BigDecimal.ONE) == 1)    {
+        if (persons.compareTo(BigDecimal.ONE) == 1) {
             if (persons.compareTo(new BigDecimal(2)) == 1) {
                 persons = persons.subtract(new BigDecimal(2));
                 if (nthPersonPerc.signum() == 1) {

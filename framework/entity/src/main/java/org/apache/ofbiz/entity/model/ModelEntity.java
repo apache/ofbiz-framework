@@ -972,7 +972,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return colNameString(new StringBuilder(), "", flds).toString();
     }
 
-    public StringBuilder colNameString(StringBuilder sb, String prefix,  ModelField... flds) {
+    public StringBuilder colNameString(StringBuilder sb, String prefix, ModelField... flds) {
         return colNameString(Arrays.asList(flds), sb, prefix);
     }
 

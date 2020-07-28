@@ -207,8 +207,7 @@ public class DhlServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "FacilityShipmentUnableFoundShipToAddresss", locale));
                 }
-            }
-            catch (GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
             }
         }
@@ -595,7 +594,7 @@ public class DhlServices {
             if ((billingWeight != null) && (billingWeight.compareTo(BigDecimal.ZERO) > 0)) {
                 hasBillingWeight = true;
                 if (billingWeightUomId == null) {
-                    Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId,  MODULE);
+                    Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId, MODULE);
                     billingWeightUomId = "WT_lb"; // TODO: this should be specified in a properties file
                 }
                 // convert
@@ -637,7 +636,7 @@ public class DhlServices {
                 // convert weight
                 String weightUomId = (String) shipmentPackage.get("weightUomId");
                 if (weightUomId == null) {
-                    Debug.logWarning("Shipment Route Segment missing weightUomId in shipmentId " + shipmentId,  MODULE);
+                    Debug.logWarning("Shipment Route Segment missing weightUomId in shipmentId " + shipmentId, MODULE);
                     weightUomId = "WT_lb"; // TODO: this should be specified in a properties file
                 }
                 results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", DHL_WEIGHT_UOM_ID, "originalValue", packageWeight));

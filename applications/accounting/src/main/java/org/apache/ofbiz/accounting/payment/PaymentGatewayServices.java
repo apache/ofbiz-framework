@@ -985,7 +985,7 @@ public class PaymentGatewayServices {
                 releaseResult.put("orderPaymentPreference", paymentPref);
                 releaseResult.put("userLogin", userLogin);
                 Map<String, Object> resCtx = model.makeValid(releaseResult, ModelService.IN_PARAM);
-                releaseResRes = dispatcher.runSync(model.name,  resCtx);
+                releaseResRes = dispatcher.runSync(model.name, resCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Trouble processing the release results", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
@@ -1392,21 +1392,21 @@ public class PaymentGatewayServices {
                     try {
                         amountCaptured = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(captureResult.get("captureAmount"), "BigDecimal", null, locale);
 
-                    if (amountCaptured == null) {
-                        amountCaptured = (BigDecimal) captureResult.get("processAmount");
-                    }
+                        if (amountCaptured == null) {
+                            amountCaptured = (BigDecimal) captureResult.get("processAmount");
+                        }
 
-                    amountCaptured = amountCaptured.setScale(DECIMALS, ROUNDING);
+                        amountCaptured = amountCaptured.setScale(DECIMALS, ROUNDING);
 
-                    // decrease amount of next payment preference to capture
-                    amountToCapture = amountToCapture.subtract(amountCaptured);
+                        // decrease amount of next payment preference to capture
+                        amountToCapture = amountToCapture.subtract(amountCaptured);
 
-                    // add the invoiceId to the result for processing, not for a replacement order
-                    if (!isReplacementOrder(orderHeader)) {
-                        captureResult.put("invoiceId", invoiceId);
-                    }
+                        // add the invoiceId to the result for processing, not for a replacement order
+                        if (!isReplacementOrder(orderHeader)) {
+                            captureResult.put("invoiceId", invoiceId);
+                        }
 
-                    // process the capture's results
+                        // process the capture's results
                         processResult(dctx, captureResult, userLogin, paymentPref, locale);
                     } catch (GeneralException e) {
                         Debug.logError(e, "Trouble processing the result; captureResult: " + captureResult, MODULE);
@@ -3214,7 +3214,7 @@ public class PaymentGatewayServices {
                 response.put("orderPaymentPreference", paymentPref);
                 response.put("userLogin", userLogin);
                 Map<String, Object> resCtx = model.makeValid(response, ModelService.IN_PARAM);
-                responseRes = dispatcher.runSync(model.name,  resCtx);
+                responseRes = dispatcher.runSync(model.name, resCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -3244,7 +3244,7 @@ public class PaymentGatewayServices {
     }
 
     // Verify Credit Card (Manually) Service
-    public static Map<String, Object>verifyCreditCard(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> verifyCreditCard(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
@@ -3319,8 +3319,8 @@ public class PaymentGatewayServices {
         if (processAmount != null && processAmount.compareTo(new BigDecimal("100.00")) < 0) {
             result.put("authResult", Boolean.FALSE);
         }
-            result.put("customerRespMsgs", UtilMisc.toList(UtilProperties.getMessage(RESOURCE,
-                    "AccountingPaymentTestProcessorMinimumPurchase", locale)));
+        result.put("customerRespMsgs", UtilMisc.toList(UtilProperties.getMessage(RESOURCE,
+                "AccountingPaymentTestProcessorMinimumPurchase", locale)));
         if (processAmount == null) {
             result.put("authResult", null);
         }
@@ -3349,13 +3349,13 @@ public class PaymentGatewayServices {
         if (processAmount != null && processAmount.compareTo(new BigDecimal("100.00")) >= 0) {
             result.put("authResult", Boolean.TRUE);
         }
-            result.put("captureResult", Boolean.TRUE);
+        result.put("captureResult", Boolean.TRUE);
         if (processAmount != null && processAmount.compareTo(new BigDecimal("100.00")) < 0) {
             result.put("authResult", Boolean.FALSE);
         }
-            result.put("captureResult", Boolean.FALSE);
-            result.put("customerRespMsgs", UtilMisc.toList(UtilProperties.getMessage(RESOURCE,
-                    "AccountingPaymentTestProcessorMinimumPurchase", locale)));
+        result.put("captureResult", Boolean.FALSE);
+        result.put("customerRespMsgs", UtilMisc.toList(UtilProperties.getMessage(RESOURCE,
+                "AccountingPaymentTestProcessorMinimumPurchase", locale)));
         if (processAmount == null) {
             result.put("authResult", null);
         }

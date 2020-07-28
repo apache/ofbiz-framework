@@ -161,7 +161,7 @@ public class PartyContentWrapper implements ContentWrapper {
             String outString = outWriter.toString();
             if (UtilValidate.isEmpty(outString)) {
                 outString = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-                outString = outString == null? "" : outString;
+                outString = outString == null ? "" : outString;
             }
             outString = encoder.sanitize(outString, null);
             if (partyContentCache != null) {
@@ -171,7 +171,7 @@ public class PartyContentWrapper implements ContentWrapper {
         } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering PartyContent, inserting empty String", MODULE);
             String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
+            return candidateOut == null ? "" : encoder.sanitize(candidateOut, null);
         }
     }
 

@@ -87,7 +87,7 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
 
     @Override
     public ServerSocket createServerSocket(int port) throws IOException {
-        if (hostInetAddress !=  null) {
+        if (hostInetAddress != null) {
             return new ServerSocket(port, 0, hostInetAddress);
         }
         return new ServerSocket(port);

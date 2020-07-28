@@ -39,7 +39,7 @@ public interface EventHandler {
      * definition files for rendering pages or handler options.
      * @throws EventHandlerException
      */
-    public void init(ServletContext context) throws EventHandlerException;
+    void init(ServletContext context) throws EventHandlerException;
 
     /**
      * Invoke the web event
@@ -51,5 +51,5 @@ public interface EventHandler {
      *@return String Result code
      *@throws EventHandlerException
      */
-    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException;
+    String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException;
 }

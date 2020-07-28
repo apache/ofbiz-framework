@@ -194,11 +194,11 @@ public final class StartupCommandUtil {
 
     static final void highlightAndPrintErrorMessage(String errorMessage) {
         System.err.println(
-        "==============================================================================="
-        + System.lineSeparator()
-        + errorMessage
-        + System.lineSeparator()
-        + "===============================================================================");
+                "==============================================================================="
+                + System.lineSeparator()
+                + errorMessage
+                + System.lineSeparator()
+                + "===============================================================================");
     }
 
     private static final Options getOfbizStartupOptions() {

@@ -587,11 +587,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     if (supplierProduct != null && supplierProduct.getBigDecimal("lastPrice") != null) {
                         sci.setSupplierProductId(supplierProduct.getString("supplierProductId"));
                         sci.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
-                        sci.setName(ShoppingCartItem.getPurchaseOrderItemDescription(sci.getProduct(), supplierProduct, this.getLocale(), dispatcher));
+                        sci.setName(ShoppingCartItem.getPurchaseOrderItemDescription(sci.getProduct(), supplierProduct, this.getLocale(),
+                                dispatcher));
                     } else {
-                       throw new CartItemModifyException("SupplierProduct not found");
+                        throw new CartItemModifyException("SupplierProduct not found");
                     }
-                 }
+                }
                 return i;
             }
         }
@@ -600,7 +601,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if ("PURCHASE_ORDER".equals(getOrderType())) {
             supplierProduct = getSupplierProduct(productId, quantity, dispatcher);
             if (supplierProduct != null || "_NA_".equals(this.getPartyId())) {
-                 item = ShoppingCartItem.makePurchaseOrderItem(0, productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
+                item = ShoppingCartItem.makePurchaseOrderItem(0, productId, selectedAmount, quantity, features, attributes, prodCatalogId,
+                        configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
             } else {
                 throw new CartItemModifyException("SupplierProduct not found");
             }
@@ -664,55 +666,105 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /** Add an item to the shopping cart. */
     public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, HashMap<String, GenericValue> features,
-        HashMap<String, Object> attributes, String prodCatalogId, String itemType, ProductConfigWrapper configWrapper, LocalDispatcher dispatcher,
-        Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
+            HashMap<String, Object> attributes, String prodCatalogId, String itemType, ProductConfigWrapper configWrapper, LocalDispatcher dispatcher,
+            Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
         return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, null, null, null, null, null, features,
                 attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null,
                 Boolean.FALSE, Boolean.FALSE));
     }
 
-    /** Add an item to the shopping cart. */
+    /**
+     * Add an item to the shopping cart.
+     */
     public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, HashMap<String, GenericValue> features,
-        HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps,
-        Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(productId, amount, quantity, unitPrice, features, attributes, prodCatalogId, itemType, dispatcher, triggerExternalOps, triggerPriceRules, Boolean.FALSE, Boolean.FALSE);
+                            HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher,
+                            Boolean triggerExternalOps,
+                            Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(productId, amount, quantity, unitPrice, features, attributes, prodCatalogId, itemType, dispatcher, triggerExternalOps,
+                triggerPriceRules, Boolean.FALSE, Boolean.FALSE);
     }
 
-    /** Add an (rental)item to the shopping cart. */
-    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, Boolean.FALSE, Boolean.FALSE));
-    }
-
-    /** Add an (rental)item to the shopping cart. */
-    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
-    }
-
-    /** Add an (rental/aggregated)item to the shopping cart. */
-    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, null, null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
-    }
-
-    /** Add an accommodation(rental)item to the shopping cart. */
-    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId, HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, Boolean.FALSE, Boolean.FALSE));
-    }
-
-    /** Add an accommodation(rental)item to the shopping cart. */
-    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId, HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
-    }
-
-    /** Add an accommodation(rental/aggregated)item to the shopping cart. */
+    /**
+     * Add an (rental)item to the shopping cart.
+     */
     public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart,
-        BigDecimal reservLength, BigDecimal reservPersonsDbl, String accommodationMapId, String accommodationSpotId, HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps,
-                            Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersonsDbl, accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
+                            BigDecimal reservLength, BigDecimal reservPersons, HashMap<String, GenericValue> features, HashMap<String, Object> attributes,
+                            String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, null,
+                null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null,
+                Boolean.FALSE, Boolean.FALSE));
     }
 
-    /** Add an item to the shopping cart. */
-    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, null, null, null, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
+    /**
+     * Add an (rental)item to the shopping cart.
+     */
+    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart,
+                            BigDecimal reservLength, BigDecimal reservPersons, HashMap<String, GenericValue> features, HashMap<String, Object> attributes,
+                            String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules,
+                            Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, null,
+                null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null,
+                skipInventoryChecks, skipProductChecks));
+    }
+
+    /**
+     * Add an (rental/aggregated)item to the shopping cart.
+     */
+    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart,
+                            BigDecimal reservLength, BigDecimal reservPersons, HashMap<String, GenericValue> features, HashMap<String, Object> attributes,
+                            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps,
+                            Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, null,
+                null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null,
+                skipInventoryChecks, skipProductChecks));
+    }
+
+    /**
+     * Add an accommodation(rental)item to the shopping cart.
+     */
+    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart,
+                            BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
+                            HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher
+            , Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,
+                accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this,
+                triggerExternalOps, triggerPriceRules, null, Boolean.FALSE, Boolean.FALSE));
+    }
+
+    /**
+     * Add an accommodation(rental)item to the shopping cart.
+     */
+    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart,
+                            BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
+                            HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher
+            , Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,
+                accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this,
+                triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
+    }
+
+    /**
+     * Add an accommodation(rental/aggregated)item to the shopping cart.
+     */
+    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart,
+                            BigDecimal reservLength, BigDecimal reservPersonsDbl, String accommodationMapId, String accommodationSpotId,
+                            HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId,
+                            ProductConfigWrapper configWrapper, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps,
+                            Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException,
+            ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersonsDbl,
+                accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this,
+                triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
+    }
+
+    /**
+     * Add an item to the shopping cart.
+     */
+    public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, HashMap<String, GenericValue> features,
+                            HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps,
+                            Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, null, null, null, null, null, features,
+                attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
     }
 
     /** Add an item to the shopping cart. */
@@ -1183,69 +1235,74 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      */
     public void setShipBeforeDate(int idx, Timestamp shipBeforeDate) {
         CartShipInfo csi = this.getShipInfo(idx);
-        csi.shipBeforeDate  = shipBeforeDate;
+        csi.shipBeforeDate = shipBeforeDate;
     }
 
     /**
     * Set ship before date for ship group 0
     * @param shipBeforeDate
-    */
+     */
     public void setShipBeforeDate(Timestamp shipBeforeDate) {
-       this.setShipBeforeDate(0, shipBeforeDate);
+        this.setShipBeforeDate(0, shipBeforeDate);
     }
+
     /**
     * Get ship before date for a particular ship group
     * @param idx the ship group number
     * @return ship before date for a given ship group
     */
     public Timestamp getShipBeforeDate(int idx) {
-       CartShipInfo csi = this.getShipInfo(idx);
-       return csi.shipBeforeDate;
+        CartShipInfo csi = this.getShipInfo(idx);
+        return csi.shipBeforeDate;
     }
 
     /**
-    * Get ship before date for ship group 0
-    * @return ship before date for the first ship group
-    */
+     * Get ship before date for ship group 0
+     *
+     * @return ship before date for the first ship group
+     */
     public Timestamp getShipBeforeDate() {
-       return this.getShipBeforeDate(0);
-   }
+        return this.getShipBeforeDate(0);
+    }
 
-   /**
-    * Set ship after date for a particular ship group
-    * @param idx the ship group number
-    * @param shipAfterDate the ship after date to be set for the given ship group
-    */
+    /**
+     * Set ship after date for a particular ship group
+     *
+     * @param idx           the ship group number
+     * @param shipAfterDate the ship after date to be set for the given ship group
+     */
     public void setShipAfterDate(int idx, Timestamp shipAfterDate) {
         CartShipInfo csi = this.getShipInfo(idx);
         csi.shipAfterDate = shipAfterDate;
     }
 
-   /**
-    * Set ship after date for a particular ship group
-    * @param shipAfterDate the ship after date to be set for the first ship group
-    */
-    public void setShipAfterDate(Timestamp shipAfterDate) {
-       this.setShipAfterDate(0, shipAfterDate);
-   }
-
-   /**
-    * Get ship after date for a particular ship group
-    * @param idx the ship group number
-    * @return return the ship after date for the given ship group
-    */
+    /**
+     * Get ship after date for a particular ship group
+     *
+     * @param idx the ship group number
+     * @return return the ship after date for the given ship group
+     */
     public Timestamp getShipAfterDate(int idx) {
         CartShipInfo csi = this.getShipInfo(idx);
         return csi.shipAfterDate;
     }
 
-   /**
+    /**
     * Get ship after date for ship group 0
     * @return return the ship after date for the first ship group
     */
     public Timestamp getShipAfterDate() {
-       return this.getShipAfterDate(0);
-   }
+        return this.getShipAfterDate(0);
+    }
+
+    /**
+     * Set ship after date for a particular ship group
+     *
+     * @param shipAfterDate the ship after date to be set for the first ship group
+     */
+    public void setShipAfterDate(Timestamp shipAfterDate) {
+        this.setShipAfterDate(0, shipAfterDate);
+    }
 
     public void setDefaultShipBeforeDate(Timestamp defaultShipBeforeDate) {
         this.defaultShipBeforeDate = defaultShipBeforeDate != null ? (Timestamp) defaultShipBeforeDate.clone() : null;
@@ -2264,20 +2321,20 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     * @return
     */
     public int getItemShipGroupIndex(int itemId) {
-    int shipGroupIndex = this.getShipGroupSize() - 1;
-    ShoppingCartItem item = this.findCartItem(itemId);
-    int result = 0;
-    for (int i = 0; i < (shipGroupIndex + 1); i++) {
-        CartShipInfo csi = this.getShipInfo(i);
-        Iterator<ShoppingCartItem> it = csi.shipItemInfo.keySet().iterator();
-        while (it.hasNext()) {
-            ShoppingCartItem item2 = it.next();
-            if (item.equals(item2)) {
-                result = i;
+        int shipGroupIndex = this.getShipGroupSize() - 1;
+        ShoppingCartItem item = this.findCartItem(itemId);
+        int result = 0;
+        for (int i = 0; i < (shipGroupIndex + 1); i++) {
+            CartShipInfo csi = this.getShipInfo(i);
+            Iterator<ShoppingCartItem> it = csi.shipItemInfo.keySet().iterator();
+            while (it.hasNext()) {
+                ShoppingCartItem item2 = it.next();
+                if (item.equals(item2)) {
+                    result = i;
+                }
             }
         }
-    }
-    return result;
+        return result;
     }
 
     /** Sets the shipping contact mech id. */
@@ -2776,7 +2833,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return OrderReadHelper.calcOrderAdjustments(tempAdjustmentsList, this.getSubTotal(), false, true, true);
     }
     public BigDecimal getDisplayTaxIncluded() {
-        BigDecimal taxIncluded  = getDisplaySubTotal().subtract(getSubTotal());
+        BigDecimal taxIncluded = getDisplaySubTotal().subtract(getSubTotal());
         return taxIncluded.setScale(TAX_FINAL_SCALE, TAX_ROUNDING);
     }
 
@@ -4203,8 +4260,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         for (int i = 0; i < this.shipInfo.size(); i++) {
             CartShipInfo csi = shipInfo.get(i);
             if ((csi.supplierPartyId == null && supplierPartyId == null)
-                || (UtilValidate.isNotEmpty(csi.supplierPartyId) && csi.supplierPartyId.equals(supplierPartyId))) {
-                    shipGroups.put(i, csi);
+                    || (UtilValidate.isNotEmpty(csi.supplierPartyId) && csi.supplierPartyId.equals(supplierPartyId))) {
+                shipGroups.put(i, csi);
             }
         }
         return shipGroups;
@@ -4786,7 +4843,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Timestamp estimatedShipDate = null;
             if (estimatedShipDates.size() > 0) {
                 estimatedShipDates.sort(null);
-                estimatedShipDate  = estimatedShipDates.getLast();
+                estimatedShipDate = estimatedShipDates.getLast();
                 shipGroup.set("estimatedShipDate", estimatedShipDate);
             }
 

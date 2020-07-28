@@ -50,7 +50,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = WrapSubContentCacheTransform.class.getName();
     static final String[] upSaveKeyNames = {"globalNodeTrail"};
-    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
+    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()

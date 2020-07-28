@@ -108,7 +108,7 @@ public class PayflowPro {
             data.put("CUSTCODE", party.getString("partyId"));
 
             // transaction type
-            if (comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "preAuth", configString, "payment.verisign.preAuth",  "Y")) {
+            if (comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "preAuth", configString, "payment.verisign.preAuth", "Y")) {
                 data.put("TRXTYPE", "A");
                 // only support re-auth for auth types; sale types don't do it
                 if (authTrans != null) {
@@ -147,7 +147,7 @@ public class PayflowPro {
             // gather the address info
             if (ps != null) {
                 String street = ps.getString("address1") + ((UtilValidate.isNotEmpty(ps.getString("address2"))) ? " " + ps.getString("address2") : "");
-                data.put("STREET"+"["+street.length()+"]", street);
+                data.put("STREET" + "[" + street.length() + "]", street);
                 data.put("ZIP", ps.getString("postalCode"));
             }
         }
@@ -168,7 +168,7 @@ public class PayflowPro {
             Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -253,7 +253,7 @@ public class PayflowPro {
             Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -335,7 +335,7 @@ public class PayflowPro {
             Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -416,7 +416,7 @@ public class PayflowPro {
             Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -480,7 +480,7 @@ public class PayflowPro {
             Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&TOKEN=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -583,7 +583,7 @@ public class PayflowPro {
             Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&PAYERID=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -664,7 +664,7 @@ public class PayflowPro {
             Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
         }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&PAYERID=" + (new Date()).getTime() + "&RESPMSG=Testing";

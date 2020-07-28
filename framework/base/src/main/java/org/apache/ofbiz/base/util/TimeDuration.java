@@ -387,13 +387,13 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      */
     public static long toLong(TimeDuration duration) {
         return
-        (0x757B12C00L * duration.years) +
-        (0x9CA41900L * duration.months) +
-        (86400000 * (long) duration.days) +
-        (3600000 * (long) duration.hours) +
-        (60000 * (long) duration.minutes) +
-        (1000 * (long) duration.seconds) +
-        duration.milliseconds;
+                (0x757B12C00L * duration.years)
+                + (0x9CA41900L * duration.months)
+                + (86400000 * (long) duration.days)
+                + (3600000 * (long) duration.hours)
+                + (60000 * (long) duration.minutes)
+                + (1000 * (long) duration.seconds)
+                + duration.milliseconds;
     }
 
     protected static class NullDuration extends TimeDuration {

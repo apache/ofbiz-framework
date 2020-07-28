@@ -219,7 +219,7 @@ public class PartyWorker {
             String firstName, String middleName, String lastName) throws GeneralException {
 
         List<GenericValue> matching = findMatchingPersonPostalAddresses(delegator, address1, address2, city, stateProvinceGeoId, postalCode,
-            postalCodeExt, countryGeoId, firstName, middleName, lastName);
+                postalCodeExt, countryGeoId, firstName, middleName, lastName);
         GenericValue v = EntityUtil.getFirst(matching);
         if (v != null) {
             return new String[] {v.getString("partyId"), v.getString("contactMechId") };
@@ -462,7 +462,7 @@ public class PartyWorker {
                     }
                     partyList.add(associatedParty);
                 }
-                associatedParties  = currentAssociatedParties;
+                associatedParties = currentAssociatedParties;
             }
             partyIds = EntityUtil.getFieldListFromEntityList(partyList, "partyIdTo", true);
         } catch (GenericEntityException e) {

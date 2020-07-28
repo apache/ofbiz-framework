@@ -94,8 +94,7 @@ public class PromoServices {
                 GenericValue existingPromoCode = null;
                 try {
                     existingPromoCode = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoCodeId", newPromoCodeId).cache().queryOne();
-                }
-                catch (GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     Debug.logWarning("Could not find ProductPromoCode for just generated ID: " + newPromoCodeId, MODULE);
                 }
                 if (existingPromoCode == null) {

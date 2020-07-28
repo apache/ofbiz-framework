@@ -254,7 +254,7 @@ public class OrderListState implements Serializable {
             typeConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)));
         }
 
-        EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions,  EntityOperator.OR);
+        EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions, EntityOperator.OR);
         EntityCondition typeConditionsList = EntityCondition.makeCondition(typeConditions, EntityOperator.OR);
         if (statusConditions.size() > 0) {
             allConditions.add(statusConditionsList);

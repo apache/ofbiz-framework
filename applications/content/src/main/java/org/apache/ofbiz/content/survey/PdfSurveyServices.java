@@ -304,9 +304,9 @@ public class PdfSurveyServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-    Map<String, Object> results = ServiceUtil.returnSuccess();
-    results.put("acroFieldMap", acroFieldMap);
-    return results;
+        Map<String, Object> results = ServiceUtil.returnSuccess();
+        results.put("acroFieldMap", acroFieldMap);
+        return results;
     }
 
     /**

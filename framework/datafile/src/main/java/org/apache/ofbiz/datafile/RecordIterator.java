@@ -105,8 +105,7 @@ public class RecordIterator {
                 } else {
                     nextLine = new String(charData);
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new DataFileException("Error reading line #" + nextLineNum + " (index " + (nextLineNum - 1) * modelDataFile.recordLength + " length "
                                             + modelDataFile.recordLength + ") from location: " + locationInfo,
                         e);
@@ -114,8 +113,7 @@ public class RecordIterator {
         } else {
             try {
                 nextLine = br.readLine();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new DataFileException("Error reading line #" + nextLineNum + " from location: " + locationInfo, e);
             }
         }

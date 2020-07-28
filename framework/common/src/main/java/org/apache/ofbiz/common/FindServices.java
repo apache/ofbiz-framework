@@ -100,7 +100,7 @@ public class FindServices {
     public static Map<String, Map<String, Map<String, Object>>> prepareField(Map<String, ?> inputFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap) {
         // Strip the "_suffix" off of the parameter name and
         // build a three-level map of values keyed by fieldRoot name,
-        //    fld0 or fld1,  and, then, "op" or "value"
+        //    fld0 or fld1, and, then, "op" or "value"
         // ie. id
         //  - fld0
         //      - op:like
@@ -728,7 +728,7 @@ public class FindServices {
     public static Map<String, Object> buildReducedQueryString(Map<String, ?> inputFields, String entityName, Delegator delegator) {
         // Strip the "_suffix" off of the parameter name and
         // build a three-level map of values keyed by fieldRoot name,
-        //    fld0 or fld1,  and, then, "op" or "value"
+        //    fld0 or fld1, and, then, "op" or "value"
         // ie. id
         //  - fld0
         //      - op:like

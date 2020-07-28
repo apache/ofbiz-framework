@@ -326,9 +326,9 @@ public class SubscriptionServices {
 
             if (subscriptionList != null) {
                 for (GenericValue subscription : subscriptionList) {
-                	expirationCompletedDate = subscription.getTimestamp("expirationCompletedDate");
-                	if (expirationCompletedDate == null) {
-                		Calendar currentDate = Calendar.getInstance();
+                    expirationCompletedDate = subscription.getTimestamp("expirationCompletedDate");
+                    if (expirationCompletedDate == null) {
+                        Calendar currentDate = Calendar.getInstance();
                         currentDate.setTime(UtilDateTime.nowTimestamp());
                         // check if the thruDate + grace period (if provided) is earlier than today's date
                         Calendar endDateSubscription = Calendar.getInstance();
@@ -377,10 +377,11 @@ public class SubscriptionServices {
                                 Debug.logInfo("Service mentioned in serviceNameOnExpiry called with result: " + ServiceUtil.makeSuccessMessage(result, "", "", "", ""), MODULE);
                             } else if (result == null && subscriptionId != null) {
                                 Debug.logError("Subscription couldn't be expired for subscriptionId: " + subscriptionId, MODULE);
-                                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "ProductSubscriptionCouldntBeExpired", UtilMisc.toMap("subscriptionId", subscriptionId), locale));
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "ProductSubscriptionCouldntBeExpired",
+                                        UtilMisc.toMap("subscriptionId", subscriptionId), locale));
                             }
                         }
-                	}
+                    }
                 }
             }
         } catch (GenericServiceException e) {

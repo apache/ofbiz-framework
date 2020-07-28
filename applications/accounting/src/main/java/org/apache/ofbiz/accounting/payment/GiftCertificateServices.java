@@ -120,7 +120,7 @@ public class GiftCertificateServices {
                 createAccountCtx.put("finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId());
                 createAccountCtx.put("productStoreId", productStoreId);
                 createAccountCtx.put("currencyUomId", currency);
-                createAccountCtx.put("finAccountName", accountName + " for party ["+partyId+"]");
+                createAccountCtx.put("finAccountName", accountName + " for party [" + partyId + "]");
                 createAccountCtx.put("userLogin", userLogin);
                 acctResult = dispatcher.runSync("createFinAccountForStore", createAccountCtx);
                 if (ServiceUtil.isError(acctResult)) {
@@ -460,7 +460,7 @@ public class GiftCertificateServices {
                     "AccountingGiftCertificateNumberCannotProcess",
                     UtilMisc.toMap("errorString", ex.getMessage()), locale));
         }
-}
+    }
 
 
     public static Map<String, Object> giftCertificateAuthorize(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -496,13 +496,13 @@ public class GiftCertificateServices {
                         finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
                     }
                 } else {
-                        finAccount = FinAccountHelper.getFinAccountFromCode(giftCard.getString("cardNumber"), delegator);
-                        if (finAccount == null) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                                    "AccountingGiftCertificateNumberNotFound",
-                                    UtilMisc.toMap("finAccountId", ""), locale));
-                        }
-                        finAccountId = finAccount.getString("finAccountId");
+                    finAccount = FinAccountHelper.getFinAccountFromCode(giftCard.getString("cardNumber"), delegator);
+                    if (finAccount == null) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                                "AccountingGiftCertificateNumberNotFound",
+                                UtilMisc.toMap("finAccountId", ""), locale));
+                    }
+                    finAccountId = finAccount.getString("finAccountId");
                 }
             } else {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,

@@ -153,9 +153,9 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         // The other test is to only get all the children if the "leaf" node where all the
         // children of the leaf are wanted for expansion.
         if (parentCategoryId == null
-            || "ROOT".equals(parentCategoryId)
-            || (currentDataCategoryId != null && currentDataCategoryId.equals(parentCategoryId))
-            || getAll) {
+                || "ROOT".equals(parentCategoryId)
+                || (currentDataCategoryId != null && currentDataCategoryId.equals(parentCategoryId))
+                || getAll) {
             categoryNode.put("kids", subCategoryIds);
         }
         return errorMsg;
@@ -482,8 +482,8 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             mimeType = view.getString("drMimeTypeId");
         }
         if (UtilValidate.isEmpty(mimeType) && UtilValidate.isNotEmpty(dataResourceId)) {
-                GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
-                mimeType = dataResource.getString("mimeTypeId");
+            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
+            mimeType = dataResource.getString("mimeTypeId");
 
         }
         return mimeType;
@@ -623,19 +623,20 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         }
     }
 
-    public static String renderDataResourceAsText(LocalDispatcher dispatcher, Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
-             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
+    public static String renderDataResourceAsText(LocalDispatcher dispatcher, Delegator delegator, String dataResourceId,
+                                                  Map<String, Object> templateContext,
+                                                  Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         try (Writer writer = new StringWriter()) {
-        renderDataResourceAsText(dispatcher, delegator, dataResourceId, writer, templateContext, locale, targetMimeTypeId, cache, null);
-        return writer.toString();
+            renderDataResourceAsText(dispatcher, delegator, dataResourceId, writer, templateContext, locale, targetMimeTypeId, cache, null);
+            return writer.toString();
         }
     }
 
     public static String renderDataResourceAsText(LocalDispatcher dispatcher, String dataResourceId, Appendable out,
-            Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
-       renderDataResourceAsText(dispatcher, null, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache, null);
-       return out.toString();
-   }
+                                                  Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
+        renderDataResourceAsText(dispatcher, null, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache, null);
+        return out.toString();
+    }
 
     public static void renderDataResourceAsText(LocalDispatcher dispatcher, Delegator delegator, String dataResourceId,
             Appendable out, Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
@@ -720,7 +721,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 }
 
             } else if ("XSLT".equals(dataTemplateTypeId)) {
-                File targetFileLocation = new File(System.getProperty("ofbiz.home")+"/runtime/tempfiles/docbook.css");
+                File targetFileLocation = new File(System.getProperty("ofbiz.home") + "/runtime/tempfiles/docbook.css");
                 String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
                 visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);
                 modelTheme = visualTheme.getModelTheme();
@@ -885,10 +886,10 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             if (url.getHost() != null) { // is absolute
                 int c;
                 try (InputStream in = url.openStream(); StringWriter sw = new StringWriter()) {
-                while ((c = in.read()) != -1) {
-                    sw.write(c);
-                }
-                text = sw.toString();
+                    while ((c = in.read()) != -1) {
+                        sw.write(c);
+                    }
+                    text = sw.toString();
                 }
             } else {
                 String prefix = DataResourceWorker.buildRequestPrefix(delegator, locale, webSiteId, https);

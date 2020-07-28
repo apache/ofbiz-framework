@@ -112,7 +112,7 @@ public class EntityDataLoadContainer implements Container {
             }
         } else {
             // load data for a single delegator
-            loadDataForDelegator(loadDataProps, configuration, delegatorNameProp,  overrideDelegator);
+            loadDataForDelegator(loadDataProps, configuration, delegatorNameProp, overrideDelegator);
         }
     }
 

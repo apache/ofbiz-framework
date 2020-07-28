@@ -419,7 +419,7 @@ public class ValueLinkApi {
         byte[] secretKey = ka.generateSecret();
 
         if (debug) {
-            Debug.logInfo("Secret Key : " + StringUtil.toHexString(secretKey) + " / " + secretKey.length,  MODULE);
+            Debug.logInfo("Secret Key : " + StringUtil.toHexString(secretKey) + " / " + secretKey.length, MODULE);
         }
 
         // generate 3DES from secret key using VL algorithm (KEK)

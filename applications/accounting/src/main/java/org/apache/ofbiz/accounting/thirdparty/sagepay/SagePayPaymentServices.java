@@ -138,7 +138,7 @@ public class SagePayPaymentServices {
         billingInfo.put("currency", currency);
         billingInfo.put("description", orderId);
         billingInfo.put("cardNumber", cardNumber);
-        billingInfo.put("cardHolder",  nameOnCard);
+        billingInfo.put("cardHolder", nameOnCard);
         billingInfo.put("expiryDate", expireDate);
         billingInfo.put("cardType", cardType);
         billingInfo.put("cv2", securityCode);

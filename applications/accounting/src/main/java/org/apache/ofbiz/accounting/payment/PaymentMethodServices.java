@@ -48,8 +48,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class PaymentMethodServices {
 
-    public final static String MODULE = PaymentMethodServices.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String MODULE = PaymentMethodServices.class.getName();
+    private static final String RESOURCE = "AccountingUiLabels";
     private static final String RES_ERROR = "AccountingUiLabels";
 
     /**
@@ -152,15 +152,15 @@ public class PaymentMethodServices {
         context.put("cardNumber", StringUtil.removeSpaces((String) context.get("cardNumber")));
         if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber"))) {
             messages.add(
-                UtilProperties.getMessage(RESOURCE, "AccountingCreditCardNumberInvalid",
-                    UtilMisc.toMap("cardType", (String) context.get("cardType"),
-                                   "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
+                    UtilProperties.getMessage(RESOURCE, "AccountingCreditCardNumberInvalid",
+                            UtilMisc.toMap("cardType", (String) context.get("cardType"),
+                                    "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
         }
 
         if (!UtilValidate.isDateAfterToday((String) context.get("expireDate"))) {
             messages.add(
-                UtilProperties.getMessage(RESOURCE, "AccountingCreditCardExpireDateBeforeToday",
-                    UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
+                    UtilProperties.getMessage(RESOURCE, "AccountingCreditCardExpireDateBeforeToday",
+                            UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
         }
 
         if (messages.size() > 0) {
@@ -323,15 +323,15 @@ public class PaymentMethodServices {
 
         if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber"))) {
             messages.add(
-                UtilProperties.getMessage(RESOURCE, "AccountingCreditCardNumberInvalid",
-                    UtilMisc.toMap("cardType", (String) context.get("cardType"),
-                                   "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
+                    UtilProperties.getMessage(RESOURCE, "AccountingCreditCardNumberInvalid",
+                            UtilMisc.toMap("cardType", (String) context.get("cardType"),
+                                    "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
         }
 
         if (!UtilValidate.isDateAfterToday((String) context.get("expireDate"))) {
             messages.add(
-                UtilProperties.getMessage(RESOURCE, "AccountingCreditCardExpireDateBeforeToday",
-                    UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
+                    UtilProperties.getMessage(RESOURCE, "AccountingCreditCardExpireDateBeforeToday",
+                            UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
         }
 
         if (messages.size() > 0) {
@@ -921,12 +921,13 @@ public class PaymentMethodServices {
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
+
     public static Map<String, Object> createCheckAccount(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
-                GenericValue userLogin = (GenericValue) context.get("userLogin");
-                Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
         Timestamp now = UtilDateTime.nowTimestamp();
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_CREATE", "ACCOUNTING", "_CREATE");

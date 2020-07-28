@@ -68,7 +68,7 @@ public final class Iterate extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (listFma.isEmpty()) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Collection not found, doing nothing: " + this, MODULE);
+                Debug.logVerbose("Collection not found, doing nothing: " + this, MODULE);
             }
             return true;
         }
@@ -102,7 +102,7 @@ public final class Iterate extends MethodOperation {
             Collection<Object> theCollection = UtilGenerics.cast(objList);
             if (theCollection.size() == 0) {
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("Collection has zero entries, doing nothing: " + this, MODULE);
+                    Debug.logVerbose("Collection has zero entries, doing nothing: " + this, MODULE);
                 }
                 return true;
             }
@@ -128,7 +128,7 @@ public final class Iterate extends MethodOperation {
             Iterator<Object> theIterator = UtilGenerics.cast(objList);
             if (!theIterator.hasNext()) {
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("Iterator has zero entries, doing nothing: " + this, MODULE);
+                    Debug.logVerbose("Iterator has zero entries, doing nothing: " + this, MODULE);
                 }
                 return true;
             }

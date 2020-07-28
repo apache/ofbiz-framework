@@ -372,7 +372,7 @@ public class VerifyPickSession implements Serializable {
         List<VerifyPickSessionRow> processedRows = new LinkedList<>();
         for (VerifyPickSessionRow pickRow : this.getPickRows()) {
             if (this.checkLine(processedRows, pickRow)) {
-                BigDecimal totalVerifiedQty = this.getVerifiedQuantity(pickRow.getOrderId(),  pickRow.getOrderItemSeqId(), pickRow.getShipGroupSeqId(), pickRow.getProductId(), pickRow.getInventoryItemId());
+                BigDecimal totalVerifiedQty = this.getVerifiedQuantity(pickRow.getOrderId(), pickRow.getOrderItemSeqId(), pickRow.getShipGroupSeqId(), pickRow.getProductId(), pickRow.getInventoryItemId());
                 pickRow.issueItemToShipment(shipmentId, picklistBinId, userLogin, totalVerifiedQty, getDispatcher(), locale);
                 processedRows.add(pickRow);
             }

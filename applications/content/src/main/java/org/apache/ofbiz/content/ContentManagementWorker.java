@@ -303,7 +303,7 @@ public final class ContentManagementWorker {
             }
             Map<String, Object> results = null;
             results = EntityPermissionChecker.checkPermission(content, statusId, userLogin, passedPurposes, targetOperationList, roles, delegator,
-                security, entityAction);
+                    security, entityAction);
             String permissionStatus = (String) results.get("permissionStatus");
             if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
                 String[] arr = {contentId, templateTitle};
@@ -323,8 +323,8 @@ public final class ContentManagementWorker {
         List<GenericValue> relatedPubPts = null;
         try {
             relatedPubPts = EntityQuery.use(delegator).from("ContentAssoc")
-                .where("contentIdTo", parentPubPt, "contentAssocTypeId", "SUBSITE")
-                .cache().queryList();
+                    .where("contentIdTo", parentPubPt, "contentAssocTypeId", "SUBSITE")
+                    .cache().queryList();
         } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
@@ -451,8 +451,8 @@ public final class ContentManagementWorker {
     public static String getParentWebSitePublishPointId(Delegator delegator, String contentId) throws GenericEntityException {
         String contentIdTo = null;
         GenericValue contentAssoc = EntityQuery.use(delegator).from("ContentAssoc")
-            .where("contentId", contentId, "contentAssocTypeId", "SUBSITE")
-            .filterByDate().cache().queryFirst();
+                .where("contentId", contentId, "contentAssocTypeId", "SUBSITE")
+                .filterByDate().cache().queryFirst();
         if (contentAssoc != null) {
             contentIdTo = contentAssoc.getString("contentIdTo");
         }
@@ -478,7 +478,7 @@ public final class ContentManagementWorker {
         // and another map (publishPointMapAll) that points to one of the top-level points.
         List<GenericValue> allPublishPointList = getAllPublishPoints(delegator, rootPubId);
         List<String[]> publishPointList = getPermittedPublishPoints(delegator, allPublishPointList, userLogin, security, permittedAction,
-            permittedOperations, passedRoles);
+                permittedOperations, passedRoles);
         Map<String, Object> publishPointMap = new HashMap<>();
         Map<String, Object> publishPointMapAll = new HashMap<>();
         for (String[] arr : publishPointList) {
@@ -500,8 +500,8 @@ public final class ContentManagementWorker {
         List<GenericValue> assocValueList = null;
         try {
             assocValueList = EntityQuery.use(delegator).from("ContentAssoc")
-                .where("contentId", targContentId, "contentAssocTypeId", "PUBLISH_LINK")
-                .filterByDate().cache().queryList();
+                    .where("contentId", targContentId, "contentAssocTypeId", "PUBLISH_LINK")
+                    .filterByDate().cache().queryList();
         } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
@@ -544,7 +544,7 @@ public final class ContentManagementWorker {
             // TODO check if we want contentTypes to be filled/used, else this should be removed
             List<String> contentTypes = null;
             Map<String, Object> results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To",
-                null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
+                    null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
             List<GenericValue> valueList = UtilGenerics.cast(results.get("entityList"));
             if (valueList.size() > 0) {
                 GenericValue value = valueList.get(0);
@@ -583,7 +583,7 @@ public final class ContentManagementWorker {
             }
             Map<String, Object> results = null;
             results = EntityPermissionChecker.checkPermission(content, statusId, userLogin, passedPurposes, targetOperationList, roles, delegator,
-                security, entityAction);
+                    security, entityAction);
             String permissionStatus = (String) results.get("permissionStatus");
             if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
                 String[] arr = {contentId, contentName};
@@ -603,8 +603,8 @@ public final class ContentManagementWorker {
         List<GenericValue> relatedPubPts = null;
         try {
             relatedPubPts = EntityQuery.use(delegator).from("ContentAssoc")
-                .where("contentIdTo", parentPubPt, "contentAssocTypeId", "DEPARTMENT")
-                .cache().queryList();
+                    .where("contentIdTo", parentPubPt, "contentAssocTypeId", "DEPARTMENT")
+                    .cache().queryList();
 
         } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
@@ -640,7 +640,7 @@ public final class ContentManagementWorker {
             conditionMain.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList));
         }
         List<GenericValue> contentAssocs = EntityQuery.use(delegator).from("ContentAssoc").where(conditionMain)
-            .filterByDate().cache().queryList();
+                .filterByDate().cache().queryList();
         for (GenericValue contentAssoc : contentAssocs) {
             String subContentId = contentAssoc.getString("contentId");
             subLeafCount += updateStatsTopDown(delegator, subContentId, typeList);
@@ -663,9 +663,9 @@ public final class ContentManagementWorker {
             throw new RuntimeException("No entity found for id=" + contentId);
 
         List<GenericValue> contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
-            .where(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList),
-                EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId))
-            .cache().filterByDate().queryList();
+                .where(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList),
+                        EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId))
+                .cache().filterByDate().queryList();
         for (GenericValue contentAssoc : contentAssocs) {
             String contentIdTo = contentAssoc.getString("contentIdTo");
             GenericValue contentTo = EntityQuery.use(delegator).from("Content").where("contentId", contentIdTo).queryOne();

@@ -52,7 +52,7 @@ public final class EntityEcaRule implements java.io.Serializable {
     private final List<EntityEcaCondition> conditions;
     private final List<Object> actionsAndSets;
     private boolean enabled = true;
-    private final List<String> conditionFieldNames  = new ArrayList<>();
+    private final List<String> conditionFieldNames = new ArrayList<>();
 
     public EntityEcaRule(Element eca) {
         this.entityName = eca.getAttribute("entity");

@@ -555,8 +555,7 @@ public final class LoginWorker {
                 } else {
                     try {
                         userLogin.refresh();
-                    }
-                    catch (GenericEntityException e) {
+                    } catch (GenericEntityException e) {
                         Debug.logError(e, "Error refreshing userLogin value", MODULE);
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                         String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));

@@ -598,17 +598,17 @@ public class OrbitalPaymentServices {
 
     private static void printTransResult(ResponseIF response) {
         Map<String, Object> generatedResponse = new HashMap<>();
-        generatedResponse.put("isGood",  response.isGood());
+        generatedResponse.put("isGood", response.isGood());
         generatedResponse.put("isError", response.isError());
-        generatedResponse.put("isQuickResponse",  response.isQuickResponse());
+        generatedResponse.put("isQuickResponse", response.isQuickResponse());
         generatedResponse.put("isApproved", response.isApproved());
-        generatedResponse.put("isDeclined",  response.isDeclined());
-        generatedResponse.put("AuthCode",  response.getAuthCode());
-        generatedResponse.put("TxRefNum",  response.getTxRefNum());
-        generatedResponse.put("ResponseCode",  response.getResponseCode());
-        generatedResponse.put("Status",  response.getStatus());
-        generatedResponse.put("Message",  response.getMessage());
-        generatedResponse.put("AVSCode",  response.getAVSResponseCode());
+        generatedResponse.put("isDeclined", response.isDeclined());
+        generatedResponse.put("AuthCode", response.getAuthCode());
+        generatedResponse.put("TxRefNum", response.getTxRefNum());
+        generatedResponse.put("ResponseCode", response.getResponseCode());
+        generatedResponse.put("Status", response.getStatus());
+        generatedResponse.put("Message", response.getMessage());
+        generatedResponse.put("AVSCode", response.getAVSResponseCode());
         generatedResponse.put("CVV2ResponseCode", response.getCVV2RespCode());
 
         Debug.logInfo("printTransResult === " + generatedResponse.toString(), MODULE);

@@ -1062,23 +1062,24 @@ public class WorkEffortSearch {
 
             EntityConditionList<EntityExpr> dateConditions = null;
             EntityExpr dateCondition=null;
-            if (fromDate !=null && thruDate!=null) {
-            dateConditions= EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate),
-                    EntityCondition.makeCondition("lastModifiedDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate)), EntityOperator.AND);
-            } if (fromDate !=null) {
-                dateCondition=EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate);
+            if (fromDate != null && thruDate != null) {
+                dateConditions = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate),
+                        EntityCondition.makeCondition("lastModifiedDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate)), EntityOperator.AND);
+            }
+            if (fromDate != null) {
+                dateCondition = EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate);
             } else if (thruDate != null) {
                 dateCondition = EntityCondition.makeCondition("lastModifiedDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate);
             }
             EntityConditionList<? extends EntityCondition> conditions = null;
-            if (fromDate !=null && thruDate!=null) {
-                conditions=EntityCondition.makeCondition(UtilMisc.toList(
-                    dateConditions,
-                    EntityCondition.makeCondition("lastModifiedDate", EntityOperator.EQUALS, null)),
-                    EntityOperator.OR);
+            if (fromDate != null && thruDate != null) {
+                conditions = EntityCondition.makeCondition(UtilMisc.toList(
+                        dateConditions,
+                        EntityCondition.makeCondition("lastModifiedDate", EntityOperator.EQUALS, null)),
+                        EntityOperator.OR);
             } else {
-                conditions=EntityCondition.makeCondition(UtilMisc.toList(
+                conditions = EntityCondition.makeCondition(UtilMisc.toList(
                         dateCondition,
                         EntityCondition.makeCondition("lastModifiedDate", EntityOperator.EQUALS, null)),
                         EntityOperator.OR);
