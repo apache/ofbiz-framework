@@ -985,6 +985,8 @@ public final class SqlJdbcUtil {
     public static void addValueSingle(StringBuilder buffer, ModelField field, Object value, List<EntityConditionParam> params) {
         if (field != null) {
             buffer.append('?');
+        } else if (value instanceof Number) {
+            buffer.append(value);
         } else {
             buffer.append('\'');
             if (value instanceof String) {
