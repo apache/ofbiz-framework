@@ -87,7 +87,7 @@ if (toPrintOrders) {
                     orderItemMap = [:]
                     orderItemShipGrpInvResInfoList.each { orderItemShipGrpInvResInfos ->
                         orderItemShipGrpInvResInfos.each { orderItemShipGrpInvResInfo ->
-                            if (orderItemShipGrpInvResInfo.orderItemShipGrpInvRes.orderId == orderId && addInMap == "true") {
+                            if (orderItemShipGrpInvResInfo.orderItemShipGrpInvRes.orderId == orderId && "true" == addInMap) {
                                 orderItemMap.(orderHeader.orderId) = orderItemShipGrpInvResInfos
                                 addInMap = "false"
                             }
