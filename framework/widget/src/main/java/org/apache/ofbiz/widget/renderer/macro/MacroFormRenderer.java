@@ -19,10 +19,8 @@
 package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.io.StringWriter;
-import java.rmi.server.UID;
+import java.net.URI;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -94,6 +92,7 @@ import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.UtilHelpText;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.jsoup.nodes.Element;
 
 import com.ibm.icu.util.Calendar;
 
@@ -116,10 +115,17 @@ public final class MacroFormRenderer implements FormStringRenderer {
     private final HttpServletResponse response;
     private final boolean javaScriptEnabled;
     private final VisualTheme visualTheme;
+    private final FtlWriter ftlWriter;
     private boolean renderPagination = true;
     private boolean widgetCommentsEnabled = false;
 
-    public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
+    public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response)
+            throws TemplateException, IOException {
+        this(macroLibraryPath, request, response, null);
+    }
+
+    public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response,
+                             FtlWriter ftlWriter) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
@@ -127,6 +133,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.rh = RequestHandler.from(request);
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         internalEncoder = UtilCodec.getEncoder("string");
+        this.ftlWriter = ftlWriter != null ? ftlWriter : new FtlWriter(macroLibraryPath, this.visualTheme);
     }
 
     @Deprecated
@@ -143,17 +150,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     private void executeMacro(Appendable writer, String macro) {
-        try {
-            Environment environment = getEnvironment(writer);
-            environment.setVariable("visualTheme", FreeMarkerWorker.autoWrap(visualTheme, environment));
-            environment.setVariable("modelTheme", FreeMarkerWorker.autoWrap(visualTheme.getModelTheme(), environment));
-            Reader templateReader = new StringReader(macro);
-            Template template = new Template(new UID().toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
-            templateReader.close();
-            environment.include(template);
-        } catch (TemplateException | IOException e) {
-            Debug.logError(e, "Error rendering screen thru ftl, macro: " + macro, MODULE);
-        }
+        ftlWriter.executeMacro(writer, macro);
     }
 
     private Environment getEnvironment(Appendable writer) throws TemplateException, IOException {
@@ -1414,7 +1411,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String targ = modelForm.getTarget(context, targetType);
         StringBuilder linkUrl = new StringBuilder();
         if (UtilValidate.isNotEmpty(targ)) {
-            WidgetWorker.buildHyperlinkUrl(linkUrl, targ, targetType, null, null, false, false, true, request, response, context);
+            final URI linkUri = WidgetWorker.buildHyperlinkUri(targ, targetType, null, null, false, false, true,
+                    request, response);
+            linkUrl.append(linkUri.toString());
         }
         String formType = modelForm.getType();
         String targetWindow = modelForm.getTargetWindow(context);
@@ -3213,7 +3212,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
             parameterMap.put(viewIndexField, Integer.toString(viewIndex));
             parameterMap.put(viewSizeField, Integer.toString(viewSize));
             if ("multi".equals(modelForm.getType())) {
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, encodedDescription, confirmation, modelFormField, request, response, context);
+                final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
+                        encodedDescription, confirmation, modelFormField, request, context);
+                writer.append(anchorElement.outerHtml());
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
                 Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
                 Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
@@ -3221,10 +3222,17 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     postMultiFormWriter = new StringWriter();
                     wholeFormContext.put("postMultiFormWriter", postMultiFormWriter);
                 }
-                WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, target, targetType, targetWindow, parameterMap, modelFormField, request, response, context);
+                final Element hiddenFormElement = WidgetWorker.makeHiddenFormLinkFormElement(target, targetType,
+                        targetWindow, parameterMap, modelFormField, request, response, context);
+                postMultiFormWriter.append(hiddenFormElement.outerHtml());
+
             } else {
-                WidgetWorker.makeHiddenFormLinkForm(writer, target, targetType, targetWindow, parameterMap, modelFormField, request, response, context);
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, encodedDescription, confirmation, modelFormField, request, response, context);
+                final Element hiddenFormElement = WidgetWorker.makeHiddenFormLinkFormElement(target, targetType,
+                        targetWindow, parameterMap, modelFormField, request, response, context);
+                writer.append(hiddenFormElement.outerHtml());
+                final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
+                        encodedDescription, confirmation, modelFormField, request, context);
+                writer.append(anchorElement.outerHtml());
             }
         } else {
             if ("layered-modal".equals(realLinkType)) {
@@ -3254,7 +3262,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String targetWindow) throws IOException {
         if (description != null || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             StringBuilder linkUrl = new StringBuilder();
-            WidgetWorker.buildHyperlinkUrl(linkUrl, target, targetType, UtilValidate.isEmpty(request.getAttribute("uniqueItemName"))?parameterMap:null, null, false, false, true, request, response, context);
+            final URI linkUri = WidgetWorker.buildHyperlinkUri(target, targetType,
+                    UtilValidate.isEmpty(request.getAttribute("uniqueItemName")) ? parameterMap : null,
+                    null, false, false, true, request, response);
+            linkUrl.append(linkUri.toString());
             String event = "";
             String action = "";
             String imgSrc = "";
@@ -3383,38 +3394,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" />");
             executeMacro(writer, sr.toString());
         }
-    }
-
-    public void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, List<CommonWidgetModels.Parameter> parameterList, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
-        StringBuilder actionUrl = new StringBuilder();
-        WidgetWorker.buildHyperlinkUrl(actionUrl, target, targetType, null, null, false, false, true, request, response, context);
-        String name = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
-        StringBuilder parameters = new StringBuilder();
-        parameters.append("[");
-        for (CommonWidgetModels.Parameter parameter : parameterList) {
-            if (parameters.length() > 1) {
-                parameters.append(",");
-            }
-            parameters.append("{'name':'");
-            parameters.append(parameter.getName());
-            parameters.append("'");
-            parameters.append(",'value':'");
-            parameters.append(UtilCodec.getEncoder("html").encode(parameter.getValue(context)));
-            parameters.append("'}");
-        }
-        parameters.append("]");
-        StringWriter sr = new StringWriter();
-        sr.append("<@makeHiddenFormLinkForm ");
-        sr.append("actionUrl=\"");
-        sr.append(actionUrl.toString());
-        sr.append("\" name=\"");
-        sr.append(name);
-        sr.append("\" parameters=");
-        sr.append(parameters.toString());
-        sr.append(" targetWindow=\"");
-        sr.append(targetWindow);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
     }
 
     @Override
