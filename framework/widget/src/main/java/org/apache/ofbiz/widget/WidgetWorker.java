@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -60,6 +61,10 @@ public final class WidgetWorker {
         // Try to reducing a possibly encoded string down to its simplest form: /projectmgr/control/EditTaskContents?workEffortId=10003
         // This step make sure the following appending externalLoginKey operation to work correctly
         String localRequestName = Parser.unescapeEntities(target, true);
+
+        // To handle cases where target contains javascript we need to encode spaces.
+        // Example:  "javascript:set_value('system', 'system', '')" becomes "javascript:set_value('system',%20'system',%20'')
+        localRequestName = UtilHttp.encodeBlanks(localRequestName);
 
         final URIBuilder uriBuilder;
         final Map<String, String> additionalParameters = new HashMap<>();
