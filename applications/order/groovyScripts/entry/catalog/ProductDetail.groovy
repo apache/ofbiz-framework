@@ -106,6 +106,9 @@ if (product) {
     featureTypes = [:]
     featureOrder = []
 
+    variantInfoJS = new StringBuffer()
+    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n")
+
     // set this as a last viewed
     LAST_VIEWED_TO_KEEP = 10 // modify this to change the number of last viewed to keep
     lastViewedProducts = session.getAttribute("lastViewedProducts")
@@ -440,8 +443,10 @@ if (product) {
                                 variantPriceMap = runService('calculatePurchasePrice', priceContext)
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ")
+                            variantInfoJS.append("variantReqAmounts['" + variant.productId + "'] = '" + (variant.requireAmount ?: "N") + "';\n")
                             if (variantPriceMap && variantPriceMap.basePrice) {
                                 variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
+                                variantInfoJS.append("variantPrices['" + variant.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "';\n")
                             }
                             
                             // make a list of virtual variants sku with requireAmount
@@ -481,9 +486,11 @@ if (product) {
                                         }
                                         variantPriceList.add(virtualPriceMap)
                                         variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
+                                        variantInfoJS.append("variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "';\n")
                                     } else {
                                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
                                         variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                                        variantInfoJS.append("variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                                     }
                                 }
                                 
@@ -537,9 +544,11 @@ if (product) {
                         // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                         virtualVariantPriceList.add(virtualPriceMap)
                         variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
+                        variantInfoJS.append("variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(virtualPriceMap.basePrice, currencyUomId, locale, 10) + "';\n")
                     } else {
                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
                         variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                        variantInfoJS.append("variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "';\n")
                     }
                 }
                 variantPriceJS.append(" } ")
@@ -552,6 +561,8 @@ if (product) {
             }
         }
     }
+    variantInfoJS.append("</script>\n")
+    context.variantInfoJavaScript = variantInfoJS
 
     availableInventory = 0.0
 
