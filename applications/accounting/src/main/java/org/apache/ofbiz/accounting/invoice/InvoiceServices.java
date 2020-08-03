@@ -730,8 +730,8 @@ public class InvoiceServices {
                         BigDecimal thisAdjAmount = amount;
 
                         // adjustments only apply to totals when they are not tax or shipping adjustments
-                        if (!"SALES_TAX".equals(adj.getString("orderAdjustmentTypeId")) &&
-                                !"SHIPPING_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId"))) {
+                        if (!"SALES_TAX".equals(adj.getString("orderAdjustmentTypeId"))
+                                && !"SHIPPING_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId"))) {
                             // increment the invoice subtotal
                             invoiceSubTotal = invoiceSubTotal.add(thisAdjAmount).setScale(100, ROUNDING);
 
@@ -958,8 +958,8 @@ public class InvoiceServices {
             List<String> salesRepPartyIds = UtilGenerics.cast(context.get("partyIds"));
             BigDecimal amountTotal = InvoiceWorker.getInvoiceTotal(delegator, salesInvoiceId);
             if (amountTotal.signum() == 0) {
-                Debug.logWarning("Invoice [" + salesInvoiceId + "] has an amount total of [" + amountTotal + "], so no commission invoice will be " +
-                        "created", MODULE);
+                Debug.logWarning("Invoice [" + salesInvoiceId + "] has an amount total of [" + amountTotal + "], so no commission invoice will be "
+                        + "created", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "AccountingInvoiceCommissionZeroInvoiceAmount", locale));
             }
@@ -1176,8 +1176,8 @@ public class InvoiceServices {
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                 "AccountingCommissionInvoicesCreated",
                 UtilMisc.toMap("invoicesCreated", invCreated), locale));
-        Debug.logInfo("Created Commission invoices for each commission receiving parties " +
-                invCreated, MODULE);
+        Debug.logInfo("Created Commission invoices for each commission receiving parties "
+                + invCreated, MODULE);
         result.put("invoicesCreated", invoicesCreated);
         return result;
     }
@@ -2705,18 +2705,18 @@ public class InvoiceServices {
         List<String> errorMessageList = new LinkedList<>();
 
         if (debug) {
-            Debug.logInfo("updatePaymentApplicationDefBd input parameters..." +
-                    " defaultInvoiceProcessing: " + defaultInvoiceProcessing +
-                    " changeDefaultInvoiceProcessing: " + changeProcessing +
-                    " useHighestAmount: " + useHighestAmount +
-                    " paymentApplicationId: " + paymentApplicationId +
-                    " PaymentId: " + paymentId +
-                    " InvoiceId: " + invoiceId +
-                    " InvoiceItemSeqId: " + invoiceItemSeqId +
-                    " BillingAccountId: " + billingAccountId +
-                    " toPaymentId: " + toPaymentId +
-                    " amountApplied: " + amountApplied +
-                    " TaxAuthGeoId: " + taxAuthGeoId, MODULE);
+            Debug.logInfo("updatePaymentApplicationDefBd input parameters..."
+                    + " defaultInvoiceProcessing: " + defaultInvoiceProcessing
+                    + " changeDefaultInvoiceProcessing: " + changeProcessing
+                    + " useHighestAmount: " + useHighestAmount
+                    + " paymentApplicationId: " + paymentApplicationId
+                    + " PaymentId: " + paymentId
+                    + " InvoiceId: " + invoiceId
+                    + " InvoiceItemSeqId: " + invoiceItemSeqId
+                    + " BillingAccountId: " + billingAccountId
+                    + " toPaymentId: " + toPaymentId
+                    + " amountApplied: " + amountApplied
+                    + " TaxAuthGeoId: " + taxAuthGeoId, MODULE);
         }
 
         if (changeProcessing == null) {
@@ -2892,8 +2892,8 @@ public class InvoiceServices {
                 return ServiceUtil.returnError(errorMessageList);
             }
             // check the currency
-            if (billingAccount.get("accountCurrencyUomId") != null && currencyUomId != null &&
-                    !billingAccount.getString("accountCurrencyUomId").equals(currencyUomId)) {
+            if (billingAccount.get("accountCurrencyUomId") != null && currencyUomId != null
+                    && !billingAccount.getString("accountCurrencyUomId").equals(currencyUomId)) {
                 errorMessageList.add(UtilProperties.getMessage(RESOURCE, "AccountingBillingAccountCurrencyProblem",
                         UtilMisc.toMap("billingAccountId", billingAccountId,
                                 "accountCurrencyUomId", billingAccount.getString("accountCurrencyUomId"),
@@ -2930,8 +2930,8 @@ public class InvoiceServices {
                 }
 
                 // check the currency
-                if (currencyUomId != null && invoice.get("currencyUomId") != null &&
-                        !currencyUomId.equals(invoice.getString("currencyUomId"))) {
+                if (currencyUomId != null && invoice.get("currencyUomId") != null
+                        && !currencyUomId.equals(invoice.getString("currencyUomId"))) {
                     Debug.logInfo(UtilProperties.getMessage(RESOURCE, "AccountingInvoicePaymentCurrencyProblem",
                             UtilMisc.toMap("invoiceCurrency", invoice.getString("currencyUomId"), "paymentCurrency", payment.getString(
                                     "currencyUomId")), locale), MODULE);
@@ -3019,8 +3019,8 @@ public class InvoiceServices {
                     // check here for too much application if a new record is added
                     if (paymentApplicationId == null && amountApplied.compareTo(invoiceItemApplyAvailable) > 0) {
                         // new record
-                        errorMessageList.add("Invoice(" + invoiceId + ") item(" + invoiceItemSeqId + ") has  " + invoiceItemApplyAvailable + " to " +
-                                "apply but " + amountApplied + " is requested\n");
+                        errorMessageList.add("Invoice(" + invoiceId + ") item(" + invoiceItemSeqId + ") has  " + invoiceItemApplyAvailable + " to "
+                                + "apply but " + amountApplied + " is requested\n");
                         String uomId = invoice.getString("currencyUomId");
                         errorMessageList.add(UtilProperties.getMessage(RESOURCE, "AccountingInvoiceItemLessRequested",
                                 UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId,
@@ -3261,8 +3261,8 @@ public class InvoiceServices {
                 }
             }
             if (toPaymentId != null) {
-                Debug.logInfo(" toPayment(" + toPaymentId + ") amount not yet applied: " + newToPaymentApplyAvailable + " Payment(" + paymentId +
-                        ") amount not yet applied: " + newPaymentApplyAvailable + " Requested amount to apply:" + amountApplied, MODULE);
+                Debug.logInfo(" toPayment(" + toPaymentId + ") amount not yet applied: " + newToPaymentApplyAvailable + " Payment(" + paymentId
+                        + ") amount not yet applied: " + newPaymentApplyAvailable + " Requested amount to apply:" + amountApplied, MODULE);
                 toMessage = UtilProperties.getMessage(RESOURCE,
                         "AccountingApplicationToPayment",
                         UtilMisc.toMap("paymentId", toPaymentId), locale);

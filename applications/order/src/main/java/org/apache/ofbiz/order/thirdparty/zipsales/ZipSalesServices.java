@@ -56,10 +56,10 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ZipSalesServices {
 
     private static final String MODULE = ZipSalesServices.class.getName();
-    public static final String dataFile = "org/apache/ofbiz/order/thirdparty/zipsales/ZipSalesTaxTables.xml";
-    public static final String flatTable = "FlatTaxTable";
-    public static final String ruleTable = "FreightRuleTable";
     private static final String RES_ERROR = "OrderErrorUiLabels";
+    private static final String DATA_FILE = "org/apache/ofbiz/order/thirdparty/zipsales/ZipSalesTaxTables.xml";
+    private static final String FLAT_TABLE = "FlatTaxTable";
+    private static final String RULE_TABLE = "FreightRuleTable";
 
     // date formatting
     private static final String DATE_PATTERN = "yyyyMMdd";
@@ -84,7 +84,7 @@ public class ZipSalesServices {
         // load the data file
         DataFile tdf = null;
         try {
-            tdf = DataFile.makeDataFile(UtilURL.fromResource(dataFile), flatTable);
+            tdf = DataFile.makeDataFile(UtilURL.fromResource(DATA_FILE), FLAT_TABLE);
         } catch (DataFileException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToReadZipSalesDataFile", locale));
@@ -93,7 +93,8 @@ public class ZipSalesServices {
         // locate the file to be imported
         URL tUrl = UtilURL.fromResource(taxFileLocation);
         if (tUrl == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateTaxFileAtLocation", UtilMisc.toMap("taxFileLocation", taxFileLocation), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateTaxFileAtLocation", UtilMisc.toMap(
+                    "taxFileLocation", taxFileLocation), locale));
         }
 
         RecordIterator tri = null;
@@ -146,14 +147,15 @@ public class ZipSalesServices {
                 }
 
                 // console log
-                Debug.logInfo(newValue.get("zipCode") + "/" + newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"), MODULE);
+                Debug.logInfo(newValue.get("zipCode") + "/" + newValue.get("stateCode") + "/" + newValue.get("city") + "/"
+                        + newValue.get("county") + "/" + newValue.get("fromDate"), MODULE);
             }
         }
 
         // load the data file
         DataFile rdf = null;
         try {
-            rdf = DataFile.makeDataFile(UtilURL.fromResource(dataFile), ruleTable);
+            rdf = DataFile.makeDataFile(UtilURL.fromResource(DATA_FILE), RULE_TABLE);
         } catch (DataFileException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToReadZipSalesDataFile", locale));
@@ -162,7 +164,8 @@ public class ZipSalesServices {
         // locate the file to be imported
         URL rUrl = UtilURL.fromResource(ruleFileLocation);
         if (rUrl == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateRuleFileFromLocation", UtilMisc.toMap("ruleFileLocation", ruleFileLocation), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateRuleFileFromLocation", UtilMisc.toMap(
+                    "ruleFileLocation", ruleFileLocation), locale));
         }
 
         RecordIterator rri = null;
@@ -202,7 +205,8 @@ public class ZipSalesServices {
                     }
 
                     // console log
-                    Debug.logInfo(newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"), MODULE);
+                    Debug.logInfo(newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get(
+                            "fromDate"), MODULE);
                 }
             }
         }
@@ -262,7 +266,8 @@ public class ZipSalesServices {
         return result;
     }
 
-    private static List<GenericValue>getItemTaxList(Delegator delegator, GenericValue item, String zipCode, String city, BigDecimal itemAmount, BigDecimal shippingAmount, boolean isUseTax) throws GeneralException {
+    private static List<GenericValue> getItemTaxList(Delegator delegator, GenericValue item, String zipCode, String city, BigDecimal itemAmount,
+                                                     BigDecimal shippingAmount, boolean isUseTax) throws GeneralException {
         List<GenericValue> adjustments = new LinkedList<>();
 
         // check the item for tax status
@@ -272,7 +277,8 @@ public class ZipSalesServices {
         }
 
         // lookup the records
-        List<GenericValue> zipLookup = EntityQuery.use(delegator).from("ZipSalesTaxLookup").where("zipCode", zipCode).orderBy("-fromDate").queryList();
+        List<GenericValue> zipLookup =
+                EntityQuery.use(delegator).from("ZipSalesTaxLookup").where("zipCode", zipCode).orderBy("-fromDate").queryList();
         if (UtilValidate.isEmpty(zipLookup)) {
             throw new GeneralException("The zip code entered is not valid.");
         }
@@ -381,71 +387,72 @@ public class ZipSalesServices {
                         char[] conditions = condition.toCharArray();
                         for (int i = 0; i < conditions.length; i++) {
                             switch (conditions[i]) {
-                            case 'A' :
+                            case 'A':
                                 // SHIPPING CHARGE SEPARATELY STATED ON INVOICE
                                 qualify = true; // OFBiz does this by default
                                 break;
-                            case 'B' :
+                            case 'B':
                                 // SHIPPING CHARGE SEPARATED ON INVOICE FROM HANDLING OR SIMILAR CHARGES
                                 qualify = false; // we do not support this currently
                                 break;
-                            case 'C' :
+                            case 'C':
                                 // ITEM NOT SOLD FOR GUARANTEED SHIPPED PRICE
                                 qualify = false; // we don't support this currently
                                 break;
-                            case 'D' :
+                            case 'D':
                                 // SHIPPING CHARGE IS COST ONLY
                                 qualify = false; // we assume a handling charge is included
                                 break;
-                            case 'E' :
+                            case 'E':
                                 // SHIPPED DIRECTLY TO PURCHASER
                                 qualify = true; // this is true, unless gifts do not count?
                                 break;
-                            case 'F' :
+                            case 'F':
                                 // SHIPPED VIA COMMON CARRIER
                                 qualify = true; // best guess default
                                 break;
-                            case 'G' :
+                            case 'G':
                                 // SHIPPED VIA CONTRACT CARRIER
                                 qualify = false; // best guess default
                                 break;
-                            case 'H' :
+                            case 'H':
                                 // SHIPPED VIA VENDOR EQUIPMENT
                                 qualify = false; // best guess default
                                 break;
-                            case 'I' :
+                            case 'I':
                                 // SHIPPED F.O.B. ORIGIN
                                 qualify = false; // no clue
                                 break;
-                            case 'J' :
+                            case 'J':
                                 // SHIPPED F.O.B. DESTINATION
                                 qualify = false; // no clue
                                 break;
-                            case 'K' :
+                            case 'K':
                                 // F.O.B. IS PURCHASERS OPTION
                                 qualify = false; // no clue
                                 break;
-                            case 'L' :
+                            case 'L':
                                 // SHIPPING ORIGINATES OR TERMINATES IN DIFFERENT STATES
                                 qualify = true; // not determined at order time, no way to know
                                 break;
-                            case 'M' :
+                            case 'M':
                                 // PROOF OF VENDOR ACTING AS SHIPPING AGENT FOR PURCHASER
                                 qualify = false; // no clue
                                 break;
-                            case 'N' :
+                            case 'N':
                                 // SHIPPED FROM VENDOR LOCATION
                                 qualify = true; // sure why not
                                 break;
-                            case 'O' :
+                            case 'O':
                                 // SHIPPING IS BY PURCHASER OPTION
                                 qualify = false; // most online stores require shipping
                                 break;
-                            case 'P' :
+                            case 'P':
                                 // CREDIT ALLOWED FOR SHIPPING CHARGE PAID BY PURCHASER TO CARRIER
                                 qualify = false; // best guess default
                                 break;
-                            default: break;
+                            default:
+                                break;
                             }
                         }
                     }
@@ -477,7 +484,8 @@ public class ZipSalesServices {
         BigDecimal taxRate = comboTaxRate;
         BigDecimal taxCalc = taxableAmount.multiply(taxRate);
 
-        adjustments.add(delegator.makeValue("OrderAdjustment", UtilMisc.toMap("amount", taxCalc, "orderAdjustmentTypeId", "SALES_TAX", "comments", taxRate, "description", "Sales Tax (" + stateCode + ")")));
+        adjustments.add(delegator.makeValue("OrderAdjustment", UtilMisc.toMap("amount", taxCalc, "orderAdjustmentTypeId", "SALES_TAX", "comments",
+                taxRate, "description", "Sales Tax (" + stateCode + ")")));
 
         return adjustments;
     }

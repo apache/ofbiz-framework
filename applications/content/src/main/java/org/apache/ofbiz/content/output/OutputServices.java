@@ -82,7 +82,7 @@ import freemarker.template.TemplateException;
  */
 public class OutputServices {
 
-    public final static String MODULE = OutputServices.class.getName();
+    private static final String MODULE = OutputServices.class.getName();
 
     protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
     private static final String RESOURCE = "ContentUiLabels";

@@ -235,11 +235,11 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         String candidateFieldName = ModelUtil.dbNameToVarName(workEffortContentTypeId);
         String cacheKey;
         if (contentId != null) {
-            cacheKey = contentId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId +
-                    CACHE_KEY_SEPARATOR + workEffort.get("workEffortId");
+            cacheKey = contentId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
+                    + CACHE_KEY_SEPARATOR + workEffort.get("workEffortId");
         } else {
-            cacheKey = workEffortContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId +
-                    CACHE_KEY_SEPARATOR + workEffort.get("workEffortId");
+            cacheKey = workEffortContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
+                    + CACHE_KEY_SEPARATOR + workEffort.get("workEffortId");
         }
 
         try {

@@ -350,7 +350,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 || rendered.contains("<a")) {
             rendered = encoder.sanitize(rendered, contentTypeId);
         }
-        return rendered; 
+        return rendered;
     }
 
     public static String renderContentAsText(LocalDispatcher dispatcher, String contentId, Appendable out, Map<String, Object> templateContext,
@@ -1039,7 +1039,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         Map<String, Object> permResults = new HashMap<>();
         String skipPermissionCheck = (String) context.get("skipPermissionCheck");
 
-        if (UtilValidate.isEmpty(skipPermissionCheck) 
+        if (UtilValidate.isEmpty(skipPermissionCheck)
                 || (!"true".equalsIgnoreCase(skipPermissionCheck) && !"granted".equalsIgnoreCase(skipPermissionCheck))) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             Map<String, Object> serviceInMap = new HashMap<>();

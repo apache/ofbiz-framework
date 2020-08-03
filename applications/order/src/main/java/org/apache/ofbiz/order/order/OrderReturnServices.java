@@ -390,15 +390,15 @@ public class OrderReturnServices {
         boolean returnable = true;
 
         // first check returnable flag
-        if (product != null && product.get("returnable") != null &&
-                "N".equalsIgnoreCase(product.getString("returnable"))) {
+        if (product != null && product.get("returnable") != null
+                && "N".equalsIgnoreCase(product.getString("returnable"))) {
             // the product is not returnable at all
             returnable = false;
         }
 
         // next check support discontinuation
-        if (product != null && product.get("supportDiscontinuationDate") != null &&
-                !UtilDateTime.nowTimestamp().before(product.getTimestamp("supportDiscontinuationDate"))) {
+        if (product != null && product.get("supportDiscontinuationDate") != null
+                && !UtilDateTime.nowTimestamp().before(product.getTimestamp("supportDiscontinuationDate"))) {
             // support discontinued either now or in the past
             returnable = false;
         }
@@ -2297,8 +2297,8 @@ public class OrderReturnServices {
                     if ((returnItemResponse != null) && (orderId != null)) {
                         // TODO should we filter on payment's status (PMNT_SENT, PMNT_RECEIVED)
                         GenericValue payment = returnItemResponse.getRelatedOne("Payment", false);
-                        if ((payment != null) && (payment.getBigDecimal("amount") != null) &&
-                                !paymentList.contains(payment.get("paymentId"))) {
+                        if ((payment != null) && (payment.getBigDecimal("amount") != null)
+                                && !paymentList.contains(payment.get("paymentId"))) {
                             UtilMisc.addToBigDecimalInMap(returnAmountByOrder, orderId, payment.getBigDecimal("amount"));
                             paymentList.add(payment.getString("paymentId"));  // make sure we don't add duplicated payment amount
                         }
@@ -2397,8 +2397,8 @@ public class OrderReturnServices {
                     // we don't have the returnItemSeqId but before we consider this
                     // an header adjustment we try to get a return item in this return
                     // associated to the same order item to which the adjustments refers (if any)
-                    if (UtilValidate.isNotEmpty(orderAdjustment.getString("orderItemSeqId")) &&
-                            !"_NA_".equals(orderAdjustment.getString("orderItemSeqId"))) {
+                    if (UtilValidate.isNotEmpty(orderAdjustment.getString("orderItemSeqId"))
+                            && !"_NA_".equals(orderAdjustment.getString("orderItemSeqId"))) {
                         returnItem = EntityQuery.use(delegator).from("ReturnItem")
                                 .where("returnId", returnId, "orderId", orderAdjustment.getString("orderId"), "orderItemSeqId", orderAdjustment.getString("orderItemSeqId"))
                                 .queryFirst();

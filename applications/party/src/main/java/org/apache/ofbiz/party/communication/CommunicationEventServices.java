@@ -908,9 +908,9 @@ public class CommunicationEventServices {
             Address[] addressesBCC = wrapper.getBcc();
             String messageId = wrapper.getMessageId().replaceAll("[<>]", "");
 
-            String aboutThisEmail = "message [" + messageId + "] from [" +
-                    ((addressesFrom == null || addressesFrom[0] == null) ? "not found" : addressesFrom[0].toString()) + "] to [" +
-                    ((addressesTo == null || addressesTo[0] == null) ? "not found" : addressesTo[0].toString()) + "]";
+            String aboutThisEmail = "message [" + messageId + "] from ["
+                    + ((addressesFrom == null || addressesFrom[0] == null) ? "not found" : addressesFrom[0].toString()) + "] to ["
+                    + ((addressesTo == null || addressesTo[0] == null) ? "not found" : addressesTo[0].toString()) + "]";
 
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Processing Incoming Email " + aboutThisEmail, MODULE);

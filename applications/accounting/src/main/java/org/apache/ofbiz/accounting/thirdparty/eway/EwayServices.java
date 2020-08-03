@@ -83,7 +83,7 @@ public class EwayServices {
         }
 
         // send the request
-        GatewayConnector con = new GatewayConnector(); 
+        GatewayConnector con = new GatewayConnector();
         GatewayResponse reply;
         try {
              reply = con.sendRequest(req);
@@ -209,7 +209,7 @@ public class EwayServices {
             req.setCardExpiryYear(exp[1]);
         }
         // send the request
-        GatewayConnector con = new GatewayConnector(); 
+        GatewayConnector con = new GatewayConnector();
         GatewayResponse reply;
         try {
              reply = con.sendRequest(req);

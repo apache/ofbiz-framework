@@ -140,7 +140,8 @@ public class RequirementServices {
                 // for good identification, get the UPCA type (UPC code)
                 GenericValue gid = gids.get(productId);
                 if (gid == null) {
-                    gid = EntityQuery.use(delegator).from("GoodIdentification").where("goodIdentificationTypeId", "UPCA", "productId", requirement.get("productId")).queryOne();
+                    gid = EntityQuery.use(delegator).from("GoodIdentification").where("goodIdentificationTypeId", "UPCA", "productId",
+                            requirement.get("productId")).queryOne();
                     gids.put(productId, gid);
                 }
                 if (gid != null) union.put("idValue", gid.get("idValue"));
@@ -150,7 +151,8 @@ public class RequirementServices {
                     String inventoryKey = facilityId + "^" + productId;
                     Map<String, Object> inventory = inventories.get(inventoryKey);
                     if (inventory == null) {
-                        inventory = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
+                        inventory = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId",
+                                facilityId));
                         if (ServiceUtil.isError(inventory)) {
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(inventory));
                         }
@@ -166,12 +168,15 @@ public class RequirementServices {
                 BigDecimal sold = productsSold.get(productId);
                 if (sold == null) {
                     EntityCondition prodConditions = EntityCondition.makeCondition(UtilMisc.toList(
-                                EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
-                                EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
-                                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_REJECTED", "ORDER_CANCELLED")),
-                                EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_REJECTED", "ITEM_CANCELLED")),
-                                EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)), EntityOperator.AND);
-                    GenericValue count = EntityQuery.use(delegator).select("quantityOrdered").from("OrderItemQuantityReportGroupByProduct").where(prodConditions).queryFirst();
+                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
+                            EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                            EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_REJECTED",
+                                    "ORDER_CANCELLED")),
+                            EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_REJECTED",
+                                    "ITEM_CANCELLED")),
+                            EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)), EntityOperator.AND);
+                    GenericValue count = EntityQuery.use(delegator).select("quantityOrdered").from("OrderItemQuantityReportGroupByProduct")
+                            .where(prodConditions).queryFirst();
                     if (count != null) {
                         sold = count.getBigDecimal("quantityOrdered");
                         if (sold != null) productsSold.put(productId, sold);
@@ -206,7 +211,8 @@ public class RequirementServices {
         }
     }
 
-    // note that this service is designed to work only when a sales order status changes from CREATED -> APPROVED because HOLD -> APPROVED is too complex
+    // note that this service is designed to work only when a sales order status changes from CREATED -> APPROVED because HOLD -> APPROVED is too
+    // complex
     public static Map<String, Object> createAutoRequirementsForOrder(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
@@ -220,9 +226,11 @@ public class RequirementServices {
                 Debug.logInfo("ProductStore for order ID " + orderId + " not found, requirements not created", MODULE);
                 return ServiceUtil.returnSuccess();
             }
-            List<GenericValue> orderItemAndShipGroups = EntityQuery.use(delegator).select("orderId", "shipGroupSeqId", "orderItemSeqId").from("OrderItemAndShipGroupAssoc").where("orderId", orderId).distinct().queryList();
+            List<GenericValue> orderItemAndShipGroups = EntityQuery.use(delegator).select("orderId", "shipGroupSeqId", "orderItemSeqId").from(
+                    "OrderItemAndShipGroupAssoc").where("orderId", orderId).distinct().queryList();
             for (GenericValue orderItemAndShipGroup : orderItemAndShipGroups) {
-                GenericValue item = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderItemAndShipGroup.getString("orderId"), "orderItemSeqId", orderItemAndShipGroup.getString("orderItemSeqId")).queryOne();
+                GenericValue item = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderItemAndShipGroup.getString("orderId"),
+                        "orderItemSeqId", orderItemAndShipGroup.getString("orderItemSeqId")).queryOne();
                 GenericValue product = item.getRelatedOne("Product", false);
                 if (product == null) continue;
                 if ((!"PRODRQM_AUTO".equals(product.get("requirementMethodEnumId"))
@@ -233,15 +241,18 @@ public class RequirementServices {
                 BigDecimal cancelQuantity = item.getBigDecimal("cancelQuantity");
                 BigDecimal required = quantity.subtract(cancelQuantity == null ? BigDecimal.ZERO : cancelQuantity);
                 if (required.compareTo(BigDecimal.ZERO) <= 0) continue;
-                GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", orderItemAndShipGroup.getString("shipGroupSeqId")).cache().queryOne();
-                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", orderItemShipGroup.getString("facilityId"), "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
+                GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId",
+                        orderItemAndShipGroup.getString("shipGroupSeqId")).cache().queryOne();
+                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", orderItemShipGroup.getString("facilityId"),
+                        "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
                 Map<String, Object> results = dispatcher.runSync("createRequirement", input);
                 if (ServiceUtil.isError(results)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
                 }
                 String requirementId = (String) results.get("requirementId");
 
-                input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"), "requirementId", requirementId, "quantity", required);
+                input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"),
+                        "requirementId", requirementId, "quantity", required);
                 results = dispatcher.runSync("createOrderRequirementCommitment", input);
                 if (ServiceUtil.isError(results)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
@@ -253,7 +264,8 @@ public class RequirementServices {
         return ServiceUtil.returnSuccess();
     }
 
-    // note that this service is designed to work only when a sales order status changes from CREATED -> APPROVED because HOLD -> APPROVED is too complex
+    // note that this service is designed to work only when a sales order status changes from CREATED -> APPROVED because HOLD -> APPROVED is too
+    // complex
     public static Map<String, Object> createATPRequirementsForOrder(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
@@ -288,22 +300,26 @@ public class RequirementServices {
                 if (product == null) continue;
 
                 if (!("PRODRQM_ATP".equals(product.get("requirementMethodEnumId"))
-                    || ("PRODRQM_ATP".equals(productStore.get("requirementMethodEnumId")) && product.get("requirementMethodEnumId") == null))) continue;
+                        || ("PRODRQM_ATP".equals(productStore.get("requirementMethodEnumId")) && product.get("requirementMethodEnumId") == null)))
+                    continue;
 
                 BigDecimal quantity = item.getBigDecimal("quantity");
                 BigDecimal cancelQuantity = item.getBigDecimal("cancelQuantity");
                 BigDecimal ordered = quantity.subtract(cancelQuantity == null ? BigDecimal.ZERO : cancelQuantity);
                 if (ordered.compareTo(BigDecimal.ZERO) <= 0) continue;
 
-                // get the minimum stock for this facility (if not configured assume a minimum of zero, ie create requirements when it goes into backorder)
-                GenericValue productFacility = EntityQuery.use(delegator).from("ProductFacility").where("facilityId", facilityId, "productId", product.get("productId")).queryOne();
+                // get the minimum stock for this facility (if not configured assume a minimum of zero, ie create requirements when it goes into
+                // backorder)
+                GenericValue productFacility = EntityQuery.use(delegator).from("ProductFacility").where("facilityId", facilityId, "productId",
+                        product.get("productId")).queryOne();
                 BigDecimal minimumStock = BigDecimal.ZERO;
                 if (productFacility != null && productFacility.get("minimumStock") != null) {
                     minimumStock = productFacility.getBigDecimal("minimumStock");
                 }
 
                 // get the facility ATP for product, which should be updated for this item's reservation
-                Map<String, Object> results = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("userLogin", userLogin, "productId", product.get("productId"), "facilityId", facilityId));
+                Map<String, Object> results = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("userLogin", userLogin,
+                        "productId", product.get("productId"), "facilityId", facilityId));
                 if (ServiceUtil.isError(results)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
                 }
@@ -320,22 +336,26 @@ public class RequirementServices {
                         EntityOperator.AND);
                 List<GenericValue> requirements = EntityQuery.use(delegator).from("Requirement").where(ecl).queryList();
                 for (GenericValue requirement : requirements) {
-                    pendingRequirements = pendingRequirements.add(requirement.get("quantity") == null ? BigDecimal.ZERO : requirement.getBigDecimal("quantity"));
+                    pendingRequirements = pendingRequirements.add(requirement.get("quantity") == null ? BigDecimal.ZERO
+                            : requirement.getBigDecimal("quantity"));
                 }
 
-                // the minimum stock is an upper bound, therefore we either require up to the minimum stock or the input required quantity, whichever is less
+                // the minimum stock is an upper bound, therefore we either require up to the minimum stock or the input required quantity,
+                // whichever is less
                 BigDecimal shortfall = minimumStock.subtract(atp).subtract(pendingRequirements);
                 BigDecimal required = ordered.compareTo(shortfall) < 0 ? ordered : shortfall;
                 if (required.compareTo(BigDecimal.ZERO) <= 0) continue;
 
-                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
+                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"),
+                        "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
                 results = dispatcher.runSync("createRequirement", input);
                 if (ServiceUtil.isError(results)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
                 }
                 String requirementId = (String) results.get("requirementId");
 
-                input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"), "requirementId", requirementId, "quantity", required);
+                input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"),
+                        "requirementId", requirementId, "quantity", required);
                 results = dispatcher.runSync("createOrderRequirementCommitment", input);
                 if (ServiceUtil.isError(results)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
@@ -347,21 +367,22 @@ public class RequirementServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> updateRequirementsToOrdered (DispatchContext ctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> updateRequirementsToOrdered(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         try {
-            for (GenericValue orderItem: orh.getOrderItems()) {
+            for (GenericValue orderItem : orh.getOrderItems()) {
                 GenericValue orderRequirementCommitment = EntityQuery.use(delegator).from("OrderRequirementCommitment")
                         .where(UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId")))
                         .queryFirst();
                 if (orderRequirementCommitment != null) {
                     String requirementId = orderRequirementCommitment.getString("requirementId");
                     /* Change status of requirement to ordered */
-                    Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "requirementId", requirementId, "statusId", "REQ_ORDERED", "quantity", orderItem.getBigDecimal("quantity"));
+                    Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "requirementId", requirementId, "statusId",
+                            "REQ_ORDERED", "quantity", orderItem.getBigDecimal("quantity"));
                     // TODO: check service result for an error return
                     Map<String, Object> results = dispatcher.runSync("updateRequirement", inputMap);
                     if (ServiceUtil.isError(results)) {

@@ -59,9 +59,9 @@ import com.ibm.icu.util.Calendar;
  */
 public class InventoryServices {
 
-    public final static String MODULE = InventoryServices.class.getName();
+    private static final String MODULE = InventoryServices.class.getName();
     private static final String RESOURCE = "ProductUiLabels";
-    public static final MathContext GEN_ROUNDING = new MathContext(10);
+    private static final MathContext GEN_ROUNDING = new MathContext(10);
 
     public static Map<String, Object> prepareInventoryTransfer(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();

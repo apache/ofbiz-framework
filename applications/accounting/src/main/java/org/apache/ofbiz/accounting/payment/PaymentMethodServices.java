@@ -101,7 +101,7 @@ public class PaymentMethodServices {
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "AccountingPaymentMethodCannotBeDeletedWriteFailure", 
+                    "AccountingPaymentMethodCannotBeDeletedWriteFailure",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
@@ -294,7 +294,7 @@ public class PaymentMethodServices {
         }
         if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingCreditCardUpdateWithoutPermission", UtilMisc.toMap("partyId", partyId, 
+                    "AccountingCreditCardUpdateWithoutPermission", UtilMisc.toMap("partyId", partyId,
                             "paymentMethodId", paymentMethodId), locale));
         }
 
@@ -307,7 +307,7 @@ public class PaymentMethodServices {
             // get the masked card number from the db
             String origCardNumber = creditCard.getString("cardNumber");
             int cardLength = origCardNumber.length() - 4;
-            // use builder for better performance 
+            // use builder for better performance
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < cardLength; i++) {
                 builder.append("*");
@@ -472,7 +472,7 @@ public class PaymentMethodServices {
 
         // expire the payment method
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map<String, Object> expireCtx = UtilMisc.<String, Object>toMap("userLogin", userLogin, 
+        Map<String, Object> expireCtx = UtilMisc.<String, Object>toMap("userLogin", userLogin,
                 "paymentMethodId", paymentMethodId);
         Map<String, Object> expireResp;
         try {
@@ -753,7 +753,7 @@ public class PaymentMethodServices {
             if (tempVal == null) {
                 // no value found, create a new one
                 newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
-                    UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, 
+                    UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId,
                             "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
             }
         }
@@ -883,7 +883,7 @@ public class PaymentMethodServices {
             if (tempVal == null) {
                 // no value found, create a new one
                 newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, 
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId,
                                 "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
             }
         }

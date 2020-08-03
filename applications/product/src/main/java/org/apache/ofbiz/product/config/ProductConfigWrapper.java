@@ -535,9 +535,9 @@ public class ProductConfigWrapper implements Serializable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ConfigItem that = (ConfigItem) o;
-            return Objects.equals(getConfigItem(), that.getConfigItem()) &&
-                    Objects.equals(getConfigItemAssoc(), that.getConfigItemAssoc()) &&
-                    Objects.equals(getOptions(), that.getOptions());
+            return Objects.equals(getConfigItem(), that.getConfigItem())
+                    && Objects.equals(getConfigItemAssoc(), that.getConfigItemAssoc())
+                    && Objects.equals(getOptions(), that.getOptions());
         }
 
         @Override

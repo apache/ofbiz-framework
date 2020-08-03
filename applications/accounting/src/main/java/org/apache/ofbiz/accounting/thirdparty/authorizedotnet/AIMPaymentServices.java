@@ -50,7 +50,7 @@ import com.ibm.icu.util.Calendar;
 public class AIMPaymentServices {
 
     private static final String MODULE = AIMPaymentServices.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
 
     // The list of refund failure response codes that would cause the ccRefund service
     // to attempt to void the refund's associated authorization transaction.  This list
@@ -460,7 +460,7 @@ public class AIMPaymentServices {
             AIMRequest.put("x_cpversion", cpVersion);
         }
 
-        // Check duplicateWindow time frame. If same transaction happens in the predefined time frame then return error. 
+        // Check duplicateWindow time frame. If same transaction happens in the predefined time frame then return error.
         String duplicateWindow = props.getProperty("duplicateWindow");
         if (UtilValidate.isNotEmpty(duplicateWindow)) {
             AIMRequest.put("x_duplicate_window", props.getProperty("duplicateWindow"));

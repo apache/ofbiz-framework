@@ -547,8 +547,8 @@ public class ProductionRunServices {
             ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
             if (productionRun.exist()) {
 
-                if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId")) &&
-                        !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
+                if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId"))
+                        && !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunPrinted", locale));
                 }
 
@@ -877,8 +877,8 @@ public class ProductionRunServices {
             // change the production run task status to PRUN_RUNNING
             // if necessary change the production run (header) status to PRUN_RUNNING
             if (!allPrecTaskCompletedOrRunning) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskCannotStartPrevTasksNotCompleted"
-                        , locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ManufacturingProductionRunTaskCannotStartPrevTasksNotCompleted", locale));
             }
             if ("PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskCannotStartDocsNotPrinted",
@@ -1352,8 +1352,8 @@ public class ProductionRunServices {
             ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
             if (productionRun.exist()) {
 
-                if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId")) &&
-                        !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
+                if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId"))
+                        && !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunPrinted", locale));
                 }
 
@@ -3430,8 +3430,8 @@ public class ProductionRunServices {
                     "workEffortPurposeTypeId", "WEPT_PRODUCTION_RUN",
                     "currentStatusId", "CAL_COMPLETED");
             serviceContext.put("workEffortName",
-                    "Decomposing product [" + inventoryItem.getString("productId") + "] inventory item [" + inventoryItem.getString("inventoryItemId") +
-                            "]");
+                    "Decomposing product [" + inventoryItem.getString("productId") + "] inventory item [" + inventoryItem.getString("inventoryItemId")
+                            + "]");
             serviceContext.put("facilityId", inventoryItem.getString("facilityId"));
             serviceContext.put("estimatedStartDate", now);
             serviceContext.put("userLogin", userLogin);

@@ -718,8 +718,8 @@ public class ICalConverter {
             workEffortId = (String) context.get("workEffortId");
         }
         if (!workEffortId.equals(context.get("workEffortId"))) {
-            Debug.logWarning("Spoof attempt: received calendar workEffortId " + workEffortId +
-                    " on URL workEffortId " + context.get("workEffortId"), MODULE);
+            Debug.logWarning("Spoof attempt: received calendar workEffortId " + workEffortId
+                    + " on URL workEffortId " + context.get("workEffortId"), MODULE);
             return ICalWorker.createForbiddenResponse(null);
         }
         Delegator delegator = (Delegator) context.get("delegator");
@@ -762,8 +762,8 @@ public class ICalConverter {
                         replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
                         responseProps = storeWorkEffort(component, context);
                     } else {
-                        Debug.logWarning("Spoof attempt: unrelated workEffortId " + workEffortId +
-                                " on URL workEffortId " + context.get("workEffortId"), MODULE);
+                        Debug.logWarning("Spoof attempt: unrelated workEffortId " + workEffortId
+                                + " on URL workEffortId " + context.get("workEffortId"), MODULE);
                         responseProps = ICalWorker.createForbiddenResponse(null);
                     }
                 } else if (hasCreatePermission) {

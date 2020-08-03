@@ -115,7 +115,7 @@ public class OrderTestServices {
         }
         if (productsList.size() == 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage("OrderUiLabels",
-                    "OrderCreateTestSalesOrderSingleError", 
+                    "OrderCreateTestSalesOrderSingleError",
                     UtilMisc.toMap("productCategoryId", productCategoryId), locale));
         }
 

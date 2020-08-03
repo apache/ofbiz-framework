@@ -1889,8 +1889,8 @@ public class ShoppingCartEvents {
                 Map<String, Object> itemAttributes = UtilMisc.<String, Object>toMap("itemDesiredDeliveryDate", itemDesiredDeliveryDateStr);
 
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
-                    Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + null +
-                            ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, MODULE);
+                    Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + null
+                            + ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, MODULE);
                     result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
                                                   null, itemType, itemDescription, null,
                                                   amount, quantity, null, null, null, null, null, null,
@@ -2094,8 +2094,8 @@ public class ShoppingCartEvents {
                     shipGroupSeqId = (String) paramMap.remove("shipGroupSeqId" + thisSuffix);
                 }
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
-                    Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + null +
-                            ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, MODULE);
+                    Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + null
+                            + ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, MODULE);
                     HttpSession session = request.getSession();
                     GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
                     Map<String, Object> appendOrderItemMap = new HashMap<>();

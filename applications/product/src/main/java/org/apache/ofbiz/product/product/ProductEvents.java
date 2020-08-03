@@ -1139,7 +1139,7 @@ public class ProductEvents {
      * in fields where BigDecimal display. Blank meaning null, vs. 0 which means 0
      * @param bigDecimalString
      * @return a BigDecimal for the parsed value
-     * @throws GeneralException 
+     * @throws GeneralException
      */
     public static BigDecimal parseBigDecimalFromParameter(String bigDecimalString, HttpServletRequest request) throws GeneralException {
         Locale locale = UtilHttp.getLocale(request);

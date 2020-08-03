@@ -141,7 +141,7 @@ public class PriceServices {
 
         // if currencyUomId is null get from properties file, if nothing there assume USD (USD: American Dollar) for now
         String currencyDefaultUomId = (String) context.get("currencyUomId");
-        String currencyUomIdTo = (String) context.get("currencyUomIdTo"); 
+        String currencyUomIdTo = (String) context.get("currencyUomIdTo");
         if (UtilValidate.isEmpty(currencyDefaultUomId)) {
             if (productStore != null && UtilValidate.isNotEmpty(productStore.getString("defaultCurrencyUomId"))) {
                 currencyDefaultUomId = productStore.getString("defaultCurrencyUomId");

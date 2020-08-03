@@ -51,9 +51,9 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ValueLinkServices {
 
     private static final String MODULE = ValueLinkServices.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
-    public final static String RES_ERROR = "AccountingErrorUiLabels";
-    public final static String RES_ORDER = "OrderUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
+    private static final String RES_ERROR = "AccountingErrorUiLabels";
+    private static final String RES_ORDER = "OrderUiLabels";
 
     // generate/display new public/private/kek keys
     public static Map<String, Object> createKeys(DispatchContext dctx, Map<String, Object> context) {

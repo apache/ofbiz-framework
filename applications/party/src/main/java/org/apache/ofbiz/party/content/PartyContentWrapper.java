@@ -140,11 +140,11 @@ public class PartyContentWrapper implements ContentWrapper {
         String candidateFieldName = ModelUtil.dbNameToVarName(partyContentTypeId);
         String cacheKey;
         if (contentId != null) {
-            cacheKey = contentId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId +
-                    CACHE_KEY_SEPARATOR + party.get("partyId");
+            cacheKey = contentId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
+                    + CACHE_KEY_SEPARATOR + party.get("partyId");
         } else {
-            cacheKey = partyContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId +
-                    CACHE_KEY_SEPARATOR + party.get("partyId");
+            cacheKey = partyContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
+                    + CACHE_KEY_SEPARATOR + party.get("partyId");
         }
 
         try {

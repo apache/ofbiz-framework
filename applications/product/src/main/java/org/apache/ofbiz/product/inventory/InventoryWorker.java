@@ -39,7 +39,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public final class InventoryWorker {
 
-    public final static String MODULE = InventoryWorker.class.getName();
+    private static final String MODULE = InventoryWorker.class.getName();
 
     private InventoryWorker() { }
 

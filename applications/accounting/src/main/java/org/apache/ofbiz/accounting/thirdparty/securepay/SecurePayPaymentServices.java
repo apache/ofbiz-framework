@@ -43,7 +43,7 @@ import securepay.jxa.api.Txn;
 public class SecurePayPaymentServices {
 
     private static final String MODULE = SecurePayPaymentServices.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
 
     public static Map<String, Object> doAuth(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");

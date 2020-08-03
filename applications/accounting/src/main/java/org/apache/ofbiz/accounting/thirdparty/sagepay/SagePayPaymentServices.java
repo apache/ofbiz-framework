@@ -45,7 +45,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class SagePayPaymentServices {
 
     private static final String MODULE = SagePayPaymentServices.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
 
     private static Map<String, String> buildCustomerBillingInfo(Map<String, Object> context) {
         Debug.logInfo("SagePay - Entered buildCustomerBillingInfo", MODULE);

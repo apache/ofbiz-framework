@@ -73,7 +73,7 @@ public class VCard {
      * @param dctx
      * @param context
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public static Map<String, Object> importVCard(DispatchContext dctx, Map<String, ? extends Object> context) throws IOException {
         LocalDispatcher dispatcher = dctx.getDispatcher();

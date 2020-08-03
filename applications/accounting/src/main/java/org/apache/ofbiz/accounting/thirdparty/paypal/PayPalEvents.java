@@ -115,8 +115,8 @@ public class PayPalEvents {
         String company = UtilFormatOut.checkEmpty(productStore.getString("companyName"), "");
 
         // create the item name
-        String itemName = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " " +
-                                 (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
+        String itemName = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " "
+                                 + (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
         String itemNumber = "0";
 
         // get the redirect url
@@ -135,8 +135,8 @@ public class PayPalEvents {
         String imageUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "imageUrl", configString, "payment.paypal.image");
 
         // get the paypal account
-        String payPalAccount = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "businessEmail", configString, "payment.paypal" +
-                ".business");
+        String payPalAccount = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "businessEmail", configString, "payment.paypal"
+                + ".business");
 
         if (UtilValidate.isEmpty(redirectUrl)
                 || UtilValidate.isEmpty(notifyUrl)
@@ -184,7 +184,7 @@ public class PayPalEvents {
         return "success";
     }
 
-    /** PayPal Call-Back Event 
+    /** PayPal Call-Back Event
      * @throws IOException */
     public static String payPalIPN(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = UtilHttp.getLocale(request);

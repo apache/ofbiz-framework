@@ -186,7 +186,7 @@ public class GatewayResponse {
             case "ewayTrxnReference":
                 txTrxnReference = value;
                 break;
-            case "ewayBeagleScore": 
+            case "ewayBeagleScore":
                 if (!value.equals("")) {
                     txBeagleScore = Double.parseDouble(value);
                 }

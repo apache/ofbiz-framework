@@ -74,7 +74,7 @@ public class CategoryServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem reading product categories: " + e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "categoryservices.problems_reading_category_entity", 
+                    "categoryservices.problems_reading_category_entity",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -228,8 +228,8 @@ public class CategoryServices {
         boolean activeOnly = (context.get("activeOnly") == null || (Boolean) context.get("activeOnly"));
 
         // checkViewAllow defaults to false, must be set to true and pass the prodCatalogId to enable
-        boolean checkViewAllow = (prodCatalogId != null && context.get("checkViewAllow") != null &&
-                (Boolean) context.get("checkViewAllow"));
+        boolean checkViewAllow = (prodCatalogId != null && context.get("checkViewAllow") != null
+                && (Boolean) context.get("checkViewAllow"));
 
         String viewProductCategoryId = null;
         if (checkViewAllow) {

@@ -277,7 +277,7 @@ public class ContentPermissionServices {
         }
         if (contentTo == null || contentFrom == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "ContentContentToOrFromIsNull", 
+                    "ContentContentToOrFromIsNull",
                     UtilMisc.toMap("contentTo", contentTo, "contentFrom", contentFrom), locale));
         }
         Map<String, Object> permResults = new HashMap<>();

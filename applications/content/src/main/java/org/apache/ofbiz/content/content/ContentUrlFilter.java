@@ -42,7 +42,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
 public class ContentUrlFilter implements Filter {
-    public final static String MODULE = ContentUrlFilter.class.getName();
+    private static final String MODULE = ContentUrlFilter.class.getName();
     private FilterConfig config;
 
     @Override
@@ -67,7 +67,7 @@ public class ContentUrlFilter implements Filter {
                             .orderBy("createdDate DESC").queryFirst();
                     if (contentDataResourceView != null) {
                         GenericValue content = EntityQuery.use(delegator).from("ContentAssoc")
-                                .where("contentAssocTypeId", "ALTERNATIVE_URL", 
+                                .where("contentAssocTypeId", "ALTERNATIVE_URL",
                                         "contentIdTo", contentDataResourceView.get("contentId"))
                                 .filterByDate().queryFirst();
                         if (content != null) {

@@ -219,8 +219,8 @@ public class ProductServices {
             // check to see if introductionDate hasn't passed yet
             if (productTo.get("introductionDate") != null && nowTimestamp.before(productTo.getTimestamp("introductionDate"))) {
                 if (Debug.verboseOn()) {
-                    String excMsg = "Tried to view the Product " + productTo.getString("productName") +
-                        " (productId: " + productTo.getString("productId") + ") as a variant. This product has not yet been made available for sale, so not adding for view.";
+                    String excMsg = "Tried to view the Product " + productTo.getString("productName")
+                            + " (productId: " + productTo.getString("productId") + ") as a variant. This product has not yet been made available for sale, so not adding for view.";
 
                     Debug.logVerbose(excMsg, MODULE);
                 }
@@ -230,8 +230,8 @@ public class ProductServices {
             // check to see if salesDiscontinuationDate has passed
             if (productTo.get("salesDiscontinuationDate") != null && nowTimestamp.after(productTo.getTimestamp("salesDiscontinuationDate"))) {
                 if (Debug.verboseOn()) {
-                    String excMsg = "Tried to view the Product " + productTo.getString("productName") +
-                        " (productId: " + productTo.getString("productId") + ") as a variant. This product is no longer available for sale, so not adding for view.";
+                    String excMsg = "Tried to view the Product " + productTo.getString("productName")
+                            + " (productId: " + productTo.getString("productId") + ") as a variant. This product is no longer available for sale, so not adding for view.";
 
                     Debug.logVerbose(excMsg, MODULE);
                 }

@@ -100,7 +100,7 @@ public class ProposedOrder {
      *   <li>For the bought product, the first ProductFacility.daysToShip is used to calculated the startDate</li>
      * </ul>
      * @return
-     * <ul> 
+     * <ul>
      * <li>if ProposedOrder.isBuild a Map with all the routingTaskId as keys and estimatedStartDate as value.</li>
      * <li>else null.</li>
      * </ul>

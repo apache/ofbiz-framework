@@ -106,7 +106,7 @@ import freemarker.template.TemplateException;
 public class DataResourceWorker  implements org.apache.ofbiz.widget.content.DataResourceWorkerInterface {
 
     private static final String MODULE = DataResourceWorker.class.getName();
-    public static final String err_resource = "ContentErrorUiLabels";
+    private static final String ERR_RESOURCE = "ContentErrorUiLabels";
 
     /**
      * Traverses the DataCategory parent/child structure and put it in categoryNode. Returns non-null error string if there is an error.
@@ -217,7 +217,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         }
 
         if (lst.size() == 0) {
-            String errMsg = UtilProperties.getMessage(DataResourceWorker.err_resource, "dataResourceWorker.no_files_uploaded", locale);
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "dataResourceWorker.no_files_uploaded", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
             return "error";

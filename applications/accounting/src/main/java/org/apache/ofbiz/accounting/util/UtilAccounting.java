@@ -119,8 +119,8 @@ public final class UtilAccounting {
         String parentTypeId = paymentType.getString("parentTypeId");
 
         // isPaymentTypeRecurse => otherwise, we have to go to the grandparent (recurse)
-        return !(parentTypeId == null) &&
-                (parentTypeId.equals(inputTypeId) || isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType", false), inputTypeId));
+        return !(parentTypeId == null)
+                && (parentTypeId.equals(inputTypeId) || isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType", false), inputTypeId));
     }
 
 

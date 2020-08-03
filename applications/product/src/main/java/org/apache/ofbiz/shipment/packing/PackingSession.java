@@ -425,8 +425,8 @@ public class PackingSession implements java.io.Serializable {
     public BigDecimal getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
         BigDecimal total = BigDecimal.ZERO;
         for (PackingSessionLine line: this.getLines()) {
-            if (orderId.equals(line.getOrderId()) && orderItemSeqId.equals(line.getOrderItemSeqId()) &&
-                    shipGroupSeqId.equals(line.getShipGroupSeqId()) && productId.equals(line.getProductId())) {
+            if (orderId.equals(line.getOrderId()) && orderItemSeqId.equals(line.getOrderItemSeqId())
+                    && shipGroupSeqId.equals(line.getShipGroupSeqId()) && productId.equals(line.getProductId())) {
                 if (inventoryItemId == null || inventoryItemId.equals(line.getInventoryItemId())) {
                     if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
                         total = total.add(line.getQuantity());

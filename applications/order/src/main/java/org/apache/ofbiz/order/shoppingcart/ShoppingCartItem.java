@@ -697,8 +697,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.quantityUsedPerPromoCandidate = new HashMap<>(item.quantityUsedPerPromoCandidate);
         this.quantityUsedPerPromoFailed = new HashMap<>(item.quantityUsedPerPromoFailed);
         this.quantityUsedPerPromoActual = new HashMap<>(item.quantityUsedPerPromoActual);
-        this.additionalProductFeatureAndAppls = item.getAdditionalProductFeatureAndAppls() == null ?
-                null : new HashMap<>(item.getAdditionalProductFeatureAndAppls());
+        this.additionalProductFeatureAndAppls = item.getAdditionalProductFeatureAndAppls() == null
+                ? null : new HashMap<>(item.getAdditionalProductFeatureAndAppls());
         if (item.getAlternativeOptionProductIds() != null) {
             List<String> tempAlternativeOptionProductIds = new LinkedList<>();
             tempAlternativeOptionProductIds.addAll(item.getAlternativeOptionProductIds());
@@ -980,9 +980,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                     }
                     if (exceptionCapacity.compareTo(quantity.add(usedCapacity)) < 0) {
                         resultMessage = resultMessage.concat(exceptionDateStartTime.toString().substring(0, 10) + ", ");
-                        Debug.logInfo("No rental fixed Asset available: " + exceptionCapacity +
-                                " already used: " + usedCapacity +
-                                " Requested now: " + quantity, MODULE);
+                        Debug.logInfo("No rental fixed Asset available: " + exceptionCapacity
+                                + " already used: " + usedCapacity + " Requested now: " + quantity, MODULE);
                     }
                 }
             }

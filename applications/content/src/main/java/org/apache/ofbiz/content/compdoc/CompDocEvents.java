@@ -44,7 +44,6 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.webapp.event.CoreEvents;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 
@@ -53,6 +52,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
  */
 public class CompDocEvents {
     private static final String MODULE = CompDocEvents.class.getName();
+    private static final String ERR_RESOURCE = "WebappUiLabels";
 
     /**
      *
@@ -81,10 +81,10 @@ public class CompDocEvents {
                 EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error running serviceName persistContentAndAssoc", MODULE);
-                String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.error_modelservice_for_srv_name", locale);
                 request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + " [" + "persistContentAndAssoc" + "]: " + e.toString());
                 return "error";
-           }
+            }
         }
 
         ModelService modelService = null;

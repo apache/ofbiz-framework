@@ -64,7 +64,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class UploadContentAndImage {
 
     private static final String MODULE = UploadContentAndImage.class.getName();
-    public static final String err_resource = "ContentErrorUiLabels";
+    private static final String ERR_RESOURCE = "ContentErrorUiLabels";
 
     public UploadContentAndImage() { }
 
@@ -92,7 +92,7 @@ public class UploadContentAndImage {
             }
 
             if (lst.size() == 0) {
-                String errMsg = UtilProperties.getMessage(UploadContentAndImage.err_resource, "uploadContentAndImage.no_files_uploaded", locale);
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "uploadContentAndImage.no_files_uploaded", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
                 return "error";

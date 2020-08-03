@@ -346,13 +346,13 @@ public class CheckOutHelper {
                 boolean singleUse = singleUsePayments.contains(checkOutPaymentId);
                 ShoppingCart.CartPaymentInfo inf = cart.addPaymentAmount(checkOutPaymentId, paymentAmount, singleUse);
                 if (finAccountId != null) {
-                    inf.finAccountId = finAccountId;
+                    inf.setFinAccountId(finAccountId);
                 }
                 if (securityCode != null) {
-                    inf.securityCode = securityCode;
+                    inf.setSecurityCode(securityCode);
                 }
                 if (refNum != null) {
-                    inf.refNum[0] = refNum;
+                    inf.setRefNum(refNum);
                 }
             }
         } else if (cart.getGrandTotal().compareTo(BigDecimal.ZERO) != 0) {
@@ -374,8 +374,8 @@ public class CheckOutHelper {
             this.cart.setShipBeforeDate(shipBefore);
             this.cart.setShipAfterDate(shipAfter);
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart",
-                    (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null
+                    ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
         }
 
@@ -826,14 +826,14 @@ public class CheckOutHelper {
             }
 
             // need to manually clear the order adjustments
-            csi.shipTaxAdj.clear();
-            csi.shipTaxAdj.addAll(orderAdj);
+            csi.clearShipTaxAdj();
+            csi.addShipTaxAdj(orderAdj);
         }
     }
 
     private Map<String, Object> makeTaxContext(int shipGroup, GenericValue shipAddress, Map<Integer, ShoppingCartItem> shoppingCartItemIndexMap, String originFacilityId, boolean skipEmptyAddresses) {
         ShoppingCart.CartShipInfo csi = cart.getShipInfo(shipGroup);
-        int totalItems = csi.shipItemInfo.size();
+        int totalItems = csi.getShipItemInfo().size();
 
         List<GenericValue> product = new ArrayList<>(totalItems);
         List<BigDecimal> amount = new ArrayList<>(totalItems);
@@ -841,12 +841,12 @@ public class CheckOutHelper {
         List<BigDecimal> quantity = new ArrayList<>(totalItems);
         List<BigDecimal> shipAmt = new ArrayList<>(totalItems);
 
-        Iterator<ShoppingCartItem> it = csi.shipItemInfo.keySet().iterator();
+        Iterator<ShoppingCartItem> it = csi.getShipItemInfo().keySet().iterator();
         for (int i = 0; i < totalItems; i++) {
             ShoppingCartItem cartItem = it.next();
             ShoppingCart.CartShipInfo.CartShipItemInfo itemInfo = csi.getShipItemInfo(cartItem);
             product.add(i, cartItem.getProduct());
-            amount.add(i, cartItem.getItemSubTotal(itemInfo.quantity));
+            amount.add(i, cartItem.getItemSubTotal(itemInfo.getItemQuantity()));
             price.add(i, cartItem.getBasePrice());
             quantity.add(i, cartItem.getQuantity());
             shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
@@ -857,7 +857,7 @@ public class CheckOutHelper {
         List<GenericValue> allAdjustments = cart.getAdjustments();
         BigDecimal orderPromoAmt = OrderReadHelper.calcOrderPromoAdjustmentsBd(allAdjustments);
 
-        BigDecimal shipAmount = csi.shipEstimate;
+        BigDecimal shipAmount = csi.getShipEstimate();
         if (shipAddress == null) {
             shipAddress = cart.getShippingAddress(shipGroup);
         }
@@ -1033,8 +1033,6 @@ public class CheckOutHelper {
 
         // Check the payment preferences; if we have ANY w/ status PAYMENT_NOT_AUTH invoke payment service.
         // Invoke payment processing.
-        Debug.log("==========allPaymentPreferences=======" + allPaymentPreferences);
-        Debug.log("==========onlinePaymentPrefs=======" + onlinePaymentPrefs);
         if (UtilValidate.isNotEmpty(onlinePaymentPrefs)) {
             boolean autoApproveOrder = UtilValidate.isEmpty(productStore.get("autoApproveOrder")) || "Y".equalsIgnoreCase(productStore.getString("autoApproveOrder"));
             if (orderTotal.compareTo(BigDecimal.ZERO) == 0 && autoApproveOrder) {
@@ -1160,7 +1158,6 @@ public class CheckOutHelper {
                                            EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
             List<GenericValue> cashCodPcBaPaymentPreferences = EntityUtil.filterByOr(allPaymentPreferences, cashCodPcBaExpr);
 
-            Debug.log("==========cashCodPcBaPaymentPreferences=======" + cashCodPcBaPaymentPreferences);
             if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences)
                     && UtilValidate.isNotEmpty(allPaymentPreferences)
                     && cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
@@ -1182,8 +1179,6 @@ public class CheckOutHelper {
                     }
                 }
 
-            } else {
-                // There is nothing to do, we just treat this as a success
             }
         }
 
@@ -1245,7 +1240,7 @@ public class CheckOutHelper {
                 EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS, EntityFunction.UPPER(shippingAddress)),
                 EntityOperator.AND,
                 EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
-        String errMsg=null;
+        String errMsg = null;
 
         List<GenericValue> paymentMethods = this.cart.getPaymentMethods();
         for (GenericValue paymentMethod : paymentMethods) {
@@ -1303,8 +1298,8 @@ public class CheckOutHelper {
 
     public Map<String, Object> failedBlacklistCheck(GenericValue userLogin, GenericValue productStore) {
         Map<String, Object> result;
-        String errMsg=null;
-        String REJECT_MESSAGE = productStore.getString("authFraudMessage");
+        String errMsg = null;
+        String rejectMessage = productStore.getString("authFraudMessage");
         String orderId = this.cart.getOrderId();
 
         try {
@@ -1325,7 +1320,7 @@ public class CheckOutHelper {
         // set the order/item status - reverse inv
         OrderChangeHelper.rejectOrder(dispatcher, userLogin, orderId);
         result = ServiceUtil.returnSuccess();
-        result.put(ModelService.ERROR_MESSAGE, REJECT_MESSAGE);
+        result.put(ModelService.ERROR_MESSAGE, rejectMessage);
 
         // wipe the cart and session
         this.cart.clear();
@@ -1617,20 +1612,20 @@ public class CheckOutHelper {
                     Debug.logVerbose("Remaining total is - " + newAmount, MODULE);
                 }
                 if (newAmount.compareTo(BigDecimal.ZERO) > 0) {
-                    info.amount = newAmount;
+                    info.setAmount(newAmount);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, MODULE);
+                        Debug.logVerbose("Set null paymentMethodId - " + info.getPaymentMethodId() + " / " + newAmount, MODULE);
                     }
                 } else {
-                    info.amount = BigDecimal.ZERO;
+                    info.setAmount(BigDecimal.ZERO);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, MODULE);
+                        Debug.logVerbose("Set null paymentMethodId - " + info.getPaymentMethodId() + " / " + BigDecimal.ZERO, MODULE);
                     }
                 }
                 if (!setOverflow) {
-                    info.overflow = true;
+                    info.setOverflow(true);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Set overflow flag on payment - " + info.paymentMethodId, MODULE);
+                        Debug.logVerbose("Set overflow flag on payment - " + info.getPaymentMethodId(), MODULE);
                     }
                 }
             }

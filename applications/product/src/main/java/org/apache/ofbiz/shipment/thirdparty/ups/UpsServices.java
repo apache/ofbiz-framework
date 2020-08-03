@@ -183,8 +183,8 @@ public class UpsServices {
 
             GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
             if (destTelecomNumber == null) {
-                String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and " +
-                        "shipmentRouteSegmentId " + shipmentRouteSegmentId;
+                String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and "
+                        + "shipmentRouteSegmentId " + shipmentRouteSegmentId;
                 Debug.logError(missingErrMsg, MODULE);
                 // for now we won't require the dest phone number, but is it required?
             }
@@ -272,8 +272,8 @@ public class UpsServices {
             BigDecimal codSurchargePackageAmount = null;
 
             if (allowCOD) {
-                codSurchargeAmount = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeAmount", resource, "shipment" +
-                        ".ups.cod.surcharge.amount", "");
+                codSurchargeAmount = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeAmount", resource, "shipment"
+                        + ".ups.cod.surcharge.amount", "");
                 if (UtilValidate.isEmpty(codSurchargeAmount)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsSurchargeAmountIsNotConfigurated",
                             locale));
@@ -284,13 +284,13 @@ public class UpsServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsSurchargeCurrencyIsNotConfigurated",
                             locale));
                 }
-                String codSurchargeApplyToPackages = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeApplyToPackage"
-                        , resource, "shipment.ups.cod.surcharge.applyToPackages", "");
+                String codSurchargeApplyToPackages = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId,
+                        "codSurchargeApplyToPackage", resource, "shipment.ups.cod.surcharge.applyToPackages", "");
                 if (UtilValidate.isEmpty(codSurchargeApplyToPackages)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsApplyToPackagesIsNotConfigured", locale));
                 }
-                codFundsCode = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codFundsCode", resource, "shipment.ups.cod" +
-                        ".codFundsCode", "");
+                codFundsCode = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codFundsCode", resource, "shipment.ups.cod"
+                        + ".codFundsCode", "");
                 if (UtilValidate.isEmpty(codFundsCode)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsCodFundsCodeIsNotConfigured", locale));
                 }
@@ -360,13 +360,13 @@ public class UpsServices {
                     "Goods for Shipment " + shipment.get("shipmentId") + " from " + ordersDescription, shipmentConfirmRequestDoc);
 
             // Child of Shipment: Shipper
-            String shipperNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperNumber", resource, "shipment.ups" +
-                    ".shipper.number", "");
+            String shipperNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperNumber", resource, "shipment.ups"
+                    + ".shipper.number", "");
             Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ?
-                    originPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ?
-                    originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName"))
+                    ? originPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName"))
+                    ? originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "PhoneNumber", originPhoneNumber, shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "ShipperNumber", shipperNumber, shipmentConfirmRequestDoc);
 
@@ -386,10 +386,10 @@ public class UpsServices {
 
             // Child of Shipment: ShipTo
             Element shipToElement = UtilXml.addChildElement(shipmentElement, "ShipTo", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipToElement, "CompanyName", UtilValidate.isNotEmpty(destPostalAddress.getString("toName")) ?
-                    destPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipToElement, "AttentionName", UtilValidate.isNotEmpty(destPostalAddress.getString("attnName")) ?
-                    destPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipToElement, "CompanyName", UtilValidate.isNotEmpty(destPostalAddress.getString("toName"))
+                    ? destPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipToElement, "AttentionName", UtilValidate.isNotEmpty(destPostalAddress.getString("attnName"))
+                    ? destPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             if (UtilValidate.isNotEmpty(destPhoneNumber)) {
                 UtilXml.addChildElementValue(shipToElement, "PhoneNumber", destPhoneNumber, shipmentConfirmRequestDoc);
             }
@@ -429,10 +429,10 @@ public class UpsServices {
 
             // Child of Shipment: SoldTo
             Element soldToElement = UtilXml.addChildElement(shipmentElement, "SoldTo", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(soldToElement, "CompanyName", UtilValidate.isNotEmpty(destPostalAddress.getString("toName")) ?
-                    destPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(soldToElement, "AttentionName", UtilValidate.isNotEmpty(destPostalAddress.getString("attnName")) ?
-                    destPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(soldToElement, "CompanyName", UtilValidate.isNotEmpty(destPostalAddress.getString("toName"))
+                    ? destPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(soldToElement, "AttentionName", UtilValidate.isNotEmpty(destPostalAddress.getString("attnName"))
+                    ? destPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             if (UtilValidate.isNotEmpty(destPhoneNumber)) {
                 UtilXml.addChildElementValue(soldToElement, "PhoneNumber", destPhoneNumber, shipmentConfirmRequestDoc);
             }
@@ -1163,8 +1163,8 @@ public class UpsServices {
                 try {
                     shipmentPackageRouteSeg.set("packageServiceCost", new BigDecimal(packageServiceOptionsMonetaryValue));
                 } catch (NumberFormatException e) {
-                    String excErrMsg = "Error parsing the packageServiceOptionsMonetaryValue [" + packageServiceOptionsMonetaryValue + "] for " +
-                            "Package [" + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + "]: " + e.toString();
+                    String excErrMsg = "Error parsing the packageServiceOptionsMonetaryValue [" + packageServiceOptionsMonetaryValue + "] for "
+                            + "Package [" + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + "]: " + e.toString();
                     Debug.logError(e, excErrMsg, MODULE);
                     errorList.add(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsErrorParsingServiceOptionsMonetaryValue",
                             UtilMisc.toMap("serviceOptionsMonetaryValue", serviceOptionsMonetaryValue, "errorString", e.toString()), locale));
@@ -1202,8 +1202,8 @@ public class UpsServices {
                             fileOut.flush();
                         } catch (IOException e) {
                             Debug.logInfo(e,
-                                    "Could not save UPS IntlSign LabelImage GIF file: [[[" + packageLabelInternationalSignatureGraphicImageString + "]]] " +
-                                            "to file: " + outFileName, MODULE);
+                                    "Could not save UPS IntlSign LabelImage GIF file: [[[" + packageLabelInternationalSignatureGraphicImageString + "]]] "
+                                            + "to file: " + outFileName, MODULE);
                         }
                     }
                     if (packageLabelHTMLImageStringDecoded != null) {
@@ -1311,8 +1311,8 @@ public class UpsServices {
             }
 
             // add ShipmentRouteSegment carrierServiceStatusId, check before all UPS services
-            if (!"SHRSCS_CONFIRMED".equals(shipmentRouteSegment.getString("carrierServiceStatusId")) &&
-                    !"SHRSCS_ACCEPTED".equals(shipmentRouteSegment.getString("carrierServiceStatusId"))) {
+            if (!"SHRSCS_CONFIRMED".equals(shipmentRouteSegment.getString("carrierServiceStatusId"))
+                    && !"SHRSCS_ACCEPTED".equals(shipmentRouteSegment.getString("carrierServiceStatusId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsRouteSegmentStatusMustBeConfirmedOrAccepted",
                         UtilMisc.toMap("shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentId", shipmentId, "shipmentRouteSegmentStatus",
                                 shipmentRouteSegment.getString("carrierServiceStatusId")), locale));
@@ -1874,10 +1874,10 @@ public class UpsServices {
         Element accessRequestElement = accessRequestDocument.getDocumentElement();
         String accessLicenseNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessLicenseNumber", serviceConfigProps,
                 "shipment.ups.access.license.number", "");
-        String userId = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessUserId", serviceConfigProps, "shipment.ups.access" +
-                ".user.id", "");
-        String password = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessPassword", serviceConfigProps, "shipment.ups" +
-                ".access.password", "");
+        String userId = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessUserId", serviceConfigProps, "shipment.ups.access"
+                + ".user.id", "");
+        String password = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessPassword", serviceConfigProps, "shipment.ups"
+                + ".access.password", "");
         UtilXml.addChildElementValue(accessRequestElement, "AccessLicenseNumber", accessLicenseNumber, accessRequestDocument);
         UtilXml.addChildElementValue(accessRequestElement, "UserId", userId, accessRequestDocument);
         UtilXml.addChildElementValue(accessRequestElement, "Password", password, accessRequestDocument);
@@ -1961,8 +1961,8 @@ public class UpsServices {
         }
         conStr = conStr + upsService;
 
-        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout", resource, "shipment.ups.connect" +
-                ".timeout", "60");
+        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout", resource, "shipment.ups.connect"
+                + ".timeout", "60");
         int timeout = 60;
         try {
             timeout = Integer.parseInt(timeOutStr);
@@ -2024,8 +2024,8 @@ public class UpsServices {
         }
 
         // grab the pickup type; if none is defined we will assume daily pickup
-        String pickupType = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperPickupType", serviceConfigProps, "shipment" +
-                ".ups.shipper.pickup.type", "01");
+        String pickupType = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperPickupType", serviceConfigProps, "shipment"
+                + ".ups.shipper.pickup.type", "01");
 
         // if we're drop shipping from a supplier, then the address is given to us
         GenericValue shipFromAddress = (GenericValue) context.get("shipFromAddress");
@@ -2124,16 +2124,16 @@ public class UpsServices {
         }
 
         // package info
-        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight", serviceConfigProps, "shipment" +
-                ".ups.max.estimate.weight", "99");
+        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight", serviceConfigProps, "shipment"
+                + ".ups.max.estimate.weight", "99");
         BigDecimal maxWeight;
         try {
             maxWeight = new BigDecimal(maxWeightStr);
         } catch (NumberFormatException e) {
             maxWeight = new BigDecimal("99");
         }
-        String minWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "minEstimateWeight", serviceConfigProps, "shipment" +
-                ".ups.min.estimate.weight", ".1");
+        String minWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "minEstimateWeight", serviceConfigProps, "shipment"
+                + ".ups.min.estimate.weight", ".1");
         BigDecimal minWeight;
         try {
             minWeight = new BigDecimal(minWeightStr);
@@ -2428,8 +2428,8 @@ public class UpsServices {
 
             GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
             if (destTelecomNumber == null) {
-                String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and " +
-                        "shipmentRouteSegmentId " + shipmentRouteSegmentId;
+                String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and "
+                        + "shipmentRouteSegmentId " + shipmentRouteSegmentId;
                 Debug.logError(missingErrMsg, MODULE);
             }
             String destPhoneNumber = null;
@@ -2508,13 +2508,13 @@ public class UpsServices {
             UtilXml.addChildElementValue(returnServiceElement, "Code", String.valueOf(RET_SERVICE_CODE), shipmentConfirmRequestDoc);
 
             // Child of Shipment: Shipper
-            String shipperNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperNumber", resource, "shipment.ups" +
-                    ".shipper.number", "");
+            String shipperNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperNumber", resource, "shipment.ups"
+                    + ".shipper.number", "");
             Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ?
-                    originPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ?
-                    originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName"))
+                    ? originPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName"))
+                    ? originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "PhoneNumber", originPhoneNumber, shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "ShipperNumber", shipperNumber, shipmentConfirmRequestDoc);
 
@@ -2532,10 +2532,10 @@ public class UpsServices {
 
             // Child of Shipment: ShipTo
             Element shipToElement = UtilXml.addChildElement(shipmentElement, "ShipTo", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipToElement, "CompanyName", UtilValidate.isNotEmpty(destPostalAddress.getString("toName")) ?
-                    destPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipToElement, "AttentionName", UtilValidate.isNotEmpty(destPostalAddress.getString("attnName")) ?
-                    destPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipToElement, "CompanyName", UtilValidate.isNotEmpty(destPostalAddress.getString("toName"))
+                    ? destPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipToElement, "AttentionName", UtilValidate.isNotEmpty(destPostalAddress.getString("attnName"))
+                    ? destPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             if (UtilValidate.isNotEmpty(destPhoneNumber)) {
                 UtilXml.addChildElementValue(shipToElement, "PhoneNumber", destPhoneNumber, shipmentConfirmRequestDoc);
             }
@@ -2556,10 +2556,10 @@ public class UpsServices {
 
             // Child of Shipment: ShipFrom
             Element shipFromElement = UtilXml.addChildElement(shipmentElement, "ShipFrom", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipFromElement, "CompanyName", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ?
-                    originPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipFromElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ?
-                    originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipFromElement, "CompanyName", UtilValidate.isNotEmpty(originPostalAddress.getString("toName"))
+                    ? originPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipFromElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName"))
+                    ? originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipFromElement, "PhoneNumber", originPhoneNumber, shipmentConfirmRequestDoc);
             Element shipFromAddressElement = UtilXml.addChildElement(shipFromElement, "Address", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipFromAddressElement, "AddressLine1", originPostalAddress.getString("address1"),
@@ -2605,8 +2605,8 @@ public class UpsServices {
             Element emailMessageElement = UtilXml.addChildElement(labelDeliveryElement, "EMailMessage", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(emailMessageElement, "EMailAddress", recipientEmail, shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(emailMessageElement, "FromEMailAddress", senderEmail, shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(emailMessageElement, "FromName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ?
-                    originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(emailMessageElement, "FromName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName"))
+                    ? originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(emailMessageElement, "Memo", defaultReturnLabelMemo, shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(emailMessageElement, "Subject", defaultReturnLabelSubject, shipmentConfirmRequestDoc);
 
@@ -2618,8 +2618,8 @@ public class UpsServices {
             Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", shipmentConfirmRequestDoc);
             Element packageWeightUnitOfMeasurementElement = UtilXml.addChildElement(packageElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(packageWeightUnitOfMeasurementElement, "Code", "LBS", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(packageWeightElement, "Weight", EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight" +
-                    ".value", delegator), shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(packageWeightElement, "Weight", EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight"
+                    + ".value", delegator), shipmentConfirmRequestDoc);
 
             String shipmentConfirmRequestString = null;
             try {
@@ -2846,8 +2846,8 @@ public class UpsServices {
 
             GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
             if (destTelecomNumber == null) {
-                String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and " +
-                        "shipmentRouteSegmentId " + shipmentRouteSegmentId;
+                String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and "
+                        + "shipmentRouteSegmentId " + shipmentRouteSegmentId;
                 Debug.logError(missingErrMsg, MODULE);
                 // for now we won't require the dest phone number, but is it required?
             }
@@ -2870,8 +2870,8 @@ public class UpsServices {
             }
 
             // grab the pickup type; if none is defined we will assume daily pickup
-            String pickupType = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperPickupType", resource, "shipment.ups" +
-                    ".shipper.pickup.type", "01");
+            String pickupType = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "shipperPickupType", resource, "shipment.ups"
+                    + ".shipper.pickup.type", "01");
 
             // grab the customer classification; if none is defined we will assume daily pickup
             String customerClassification = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "customerClassification", resource,
@@ -2905,13 +2905,13 @@ public class UpsServices {
             // shipment info
             Element shipmentElement = UtilXml.addChildElement(rateRequestElement, "Shipment", rateRequestDoc);
             Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", rateRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ?
-                    originPostalAddress.getString("toName") : "", rateRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ?
-                    originPostalAddress.getString("attnName") : "", rateRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName"))
+                    ? originPostalAddress.getString("toName") : "", rateRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName"))
+                    ? originPostalAddress.getString("attnName") : "", rateRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "PhoneNumber", originPhoneNumber, rateRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "ShipperNumber", EntityUtilProperties.getPropertyValue("shipment", "shipment.ups.shipper" +
-                    ".number", delegator), rateRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "ShipperNumber", EntityUtilProperties.getPropertyValue("shipment", "shipment.ups.shipper"
+                    + ".number", delegator), rateRequestDoc);
 
             Element shipperAddressElement = UtilXml.addChildElement(shipperElement, "Address", rateRequestDoc);
             UtilXml.addChildElementValue(shipperAddressElement, "AddressLine1", originPostalAddress.getString("address1"), rateRequestDoc);
@@ -2927,10 +2927,10 @@ public class UpsServices {
 
             // Child of Shipment: ShipTo
             Element shipToElement = UtilXml.addChildElement(shipmentElement, "ShipTo", rateRequestDoc);
-            UtilXml.addChildElementValue(shipToElement, "CompanyName", UtilValidate.isNotEmpty(destPostalAddress.getString("toName")) ?
-                    destPostalAddress.getString("toName") : "", rateRequestDoc);
-            UtilXml.addChildElementValue(shipToElement, "AttentionName", UtilValidate.isNotEmpty(destPostalAddress.getString("attnName")) ?
-                    destPostalAddress.getString("attnName") : "", rateRequestDoc);
+            UtilXml.addChildElementValue(shipToElement, "CompanyName", UtilValidate.isNotEmpty(destPostalAddress.getString("toName"))
+                    ? destPostalAddress.getString("toName") : "", rateRequestDoc);
+            UtilXml.addChildElementValue(shipToElement, "AttentionName", UtilValidate.isNotEmpty(destPostalAddress.getString("attnName"))
+                    ? destPostalAddress.getString("attnName") : "", rateRequestDoc);
             if (UtilValidate.isNotEmpty(destPhoneNumber)) {
                 UtilXml.addChildElementValue(shipToElement, "PhoneNumber", destPhoneNumber, rateRequestDoc);
             }
@@ -2951,10 +2951,10 @@ public class UpsServices {
 
             // Child of Shipment: ShipFrom
             Element shipFromElement = UtilXml.addChildElement(shipmentElement, "ShipFrom", rateRequestDoc);
-            UtilXml.addChildElementValue(shipFromElement, "CompanyName", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ?
-                    originPostalAddress.getString("toName") : "", rateRequestDoc);
-            UtilXml.addChildElementValue(shipFromElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ?
-                    originPostalAddress.getString("attnName") : "", rateRequestDoc);
+            UtilXml.addChildElementValue(shipFromElement, "CompanyName", UtilValidate.isNotEmpty(originPostalAddress.getString("toName"))
+                    ? originPostalAddress.getString("toName") : "", rateRequestDoc);
+            UtilXml.addChildElementValue(shipFromElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName"))
+                    ? originPostalAddress.getString("attnName") : "", rateRequestDoc);
             UtilXml.addChildElementValue(shipFromElement, "PhoneNumber", originPhoneNumber, rateRequestDoc);
             Element shipFromAddressElement = UtilXml.addChildElement(shipFromElement, "Address", rateRequestDoc);
             UtilXml.addChildElementValue(shipFromAddressElement, "AddressLine1", originPostalAddress.getString("address1"), rateRequestDoc);
@@ -3011,9 +3011,9 @@ public class UpsServices {
                             rateRequestDoc);
                     UtilXml.addChildElementValue(dimensionsElement, "Height", UtilValidate.isNotEmpty(boxHeight) ? "" + boxHeight.intValue() : "",
                             rateRequestDoc);
-                } else if
-                (UtilValidate.isNotEmpty(shipmentPackage.get("boxLength")) && UtilValidate.isNotEmpty(shipmentPackage.get("boxWidth")) &&
-                                UtilValidate.isNotEmpty(shipmentPackage.get("boxHeight"))) {
+                } else if (UtilValidate.isNotEmpty(shipmentPackage.get("boxLength"))
+                        && UtilValidate.isNotEmpty(shipmentPackage.get("boxWidth"))
+                        && UtilValidate.isNotEmpty(shipmentPackage.get("boxHeight"))) {
                     Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", rateRequestDoc);
                     Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", rateRequestDoc);
                     UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", ModelService.IN_PARAM, rateRequestDoc);

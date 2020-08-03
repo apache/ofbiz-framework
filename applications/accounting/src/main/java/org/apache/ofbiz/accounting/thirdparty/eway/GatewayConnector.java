@@ -73,9 +73,9 @@ public class GatewayConnector {
      * @param request the request object, can be any of the 3 supported payment
      * methods. Its data have to be filled in by its setter methods before
      * calling sendRequest().
-     * @return the response object, containing the gateway's response to the 
+     * @return the response object, containing the gateway's response to the
      * request
-     * @throws Exception in case of networking and xml parsing errors 
+     * @throws Exception in case of networking and xml parsing errors
      */
     public GatewayResponse sendRequest(GatewayRequest request) throws Exception {
         // determine the gateway url to be used, based on the request type

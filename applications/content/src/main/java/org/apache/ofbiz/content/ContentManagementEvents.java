@@ -233,9 +233,9 @@ public class ContentManagementEvents {
                         // disable existing link
                         if (UtilValidate.isNotEmpty(origSubContentId) && origFromDate != null) {
                             List<GenericValue> oldActiveValues = EntityQuery.use(delegator).from("ContentAssoc")
-                                    .where("contentId", targContentId, 
-                                            "contentIdTo", origSubContentId, 
-                                            "contentAssocTypeId", "PUBLISH_LINK", 
+                                    .where("contentId", targContentId,
+                                            "contentIdTo", origSubContentId,
+                                            "contentAssocTypeId", "PUBLISH_LINK",
                                             "thruDate", null)
                                     .queryList();
                             for (GenericValue cAssoc : oldActiveValues) {
@@ -295,9 +295,9 @@ public class ContentManagementEvents {
                 } else if (UtilValidate.isNotEmpty(origSubContentId)) {
                     // if no current link is passed in, look to see if there is an existing link(s) that must be disabled
                     List<GenericValue> oldActiveValues = EntityQuery.use(delegator).from("ContentAssoc")
-                            .where("contentId", targContentId, 
-                                    "contentIdTo", origSubContentId, 
-                                    "contentAssocTypeId", "PUBLISH_LINK", 
+                            .where("contentId", targContentId,
+                                    "contentIdTo", origSubContentId,
+                                    "contentAssocTypeId", "PUBLISH_LINK",
                                     "thruDate", null)
                             .queryList();
                     for (GenericValue cAssoc : oldActiveValues) {

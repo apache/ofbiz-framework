@@ -49,9 +49,9 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 
 public class CatalogUrlFilter implements Filter {
 
-    public final static String MODULE = CatalogUrlFilter.class.getName();
-    public static final String PRODUCT_REQUEST = "product";
-    public static final String CATEGORY_REQUEST = "category";
+    private static final String MODULE = CatalogUrlFilter.class.getName();
+    private static final String PRODUCT_REQUEST = "product";
+    private static final String CATEGORY_REQUEST = "category";
     private static String defaultLocaleString;
     private static String redirectUrl;
 

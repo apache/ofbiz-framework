@@ -44,7 +44,6 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.webapp.event.CoreEvents;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
 
 import com.lowagie.text.Document;
@@ -61,13 +60,14 @@ import com.lowagie.text.pdf.PdfReader;
 public class CompDocServices {
     private static final String MODULE = CompDocServices.class.getName();
     private static final String RESOURCE = "ContentUiLabels";
+    private static final String ERR_RESOURCE = "WebappUiLabels";
 
     /**
-     *
      * Creates the topmost Content entity of a Composite Document tree.
      * Also creates an "empty" Composite Document Instance Content entity.
      * Creates ContentRevision/Item records for each, as well.
-     * @param dctx the dispatch context
+     *
+     * @param dctx    the dispatch context
      * @param context the context
      * @return Creates the topmost Content entity of a Composite Document tree
      */
@@ -85,8 +85,9 @@ public class CompDocServices {
                 EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error running serviceName persistContentAndAssoc", MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(CoreEvents.err_resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
-           }
+                return ServiceUtil.returnError(UtilProperties.getMessage(ERR_RESOURCE, "ContentNoContentFound",
+                        UtilMisc.toMap("contentId", contentId), locale));
+            }
         }
 
         ModelService modelService = null;
@@ -94,14 +95,15 @@ public class CompDocServices {
             modelService = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
         } catch (GenericServiceException e) {
             Debug.logError("Error getting model service for serviceName, 'persistContentAndAssoc'. " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.error_modelservice_for_srv_name", locale));
         }
         Map<String, Object> persistMap = modelService.makeValid(context, ModelService.IN_PARAM);
         persistMap.put("userLogin", userLogin);
         try {
             Map<String, Object> persistContentResult = dispatcher.runSync("persistContentAndAssoc", persistMap);
             if (ServiceUtil.isError(persistContentResult)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, persistContentResult);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError",
+                        UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, persistContentResult);
             }
 
             contentId = (String) persistContentResult.get("contentId");
@@ -121,7 +123,8 @@ public class CompDocServices {
             return result;
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error running serviceName, 'persistContentAndAssoc'. " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale) + e.toString());
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError",
+                    UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale) + e.toString());
         }
     }
 
@@ -148,7 +151,8 @@ public class CompDocServices {
             }
 
             List<GenericValue> compDocParts = EntityQuery.use(delegator)
-                    .select("rootRevisionContentId", "itemContentId", "maxRevisionSeqId", "contentId", "dataResourceId", "contentIdTo", "contentAssocTypeId", "fromDate", "sequenceNum")
+                    .select("rootRevisionContentId", "itemContentId", "maxRevisionSeqId", "contentId", "dataResourceId", "contentIdTo",
+                            "contentAssocTypeId", "fromDate", "sequenceNum")
                     .from("ContentAssocRevisionItemView")
                     .where(exprList)
                     .orderBy("sequenceNum").filterByDate().queryList();
@@ -168,11 +172,13 @@ public class CompDocServices {
                 byte[] inputByteArray = null;
                 PdfReader reader = null;
                 if (inputMimeType != null && "application/pdf".equals(inputMimeType)) {
-                    ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
+                    ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale,
+                            rootDir);
                     inputByteArray = byteBuffer.array();
                     reader = new PdfReader(inputByteArray);
                 } else if (inputMimeType != null && "text/html".equals(inputMimeType)) {
-                    ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
+                    ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale,
+                            rootDir);
                     inputByteArray = byteBuffer.array();
                     String s = new String(inputByteArray, "UTF-8");
                     Debug.logInfo("text/html string:" + s, MODULE);
@@ -271,11 +277,12 @@ public class CompDocServices {
                 dataResourceId = content.getString("dataResourceId");
                 Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, MODULE);
                 dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
-             } else {
-                GenericValue contentRevisionItem = EntityQuery.use(delegator).from("ContentRevisionItem").where("contentId", contentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId).cache().queryOne();
+            } else {
+                GenericValue contentRevisionItem = EntityQuery.use(delegator).from("ContentRevisionItem").where("contentId", contentId,
+                        "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId).cache().queryOne();
                 if (contentRevisionItem == null) {
                     throw new ViewHandlerException("ContentRevisionItem record not found for contentId=" + contentId
-                                                   + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
+                            + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
                 }
                 Debug.logInfo("SCVH(1)- contentRevisionItem:" + contentRevisionItem, MODULE);
                 Debug.logInfo("SCVH(2)-contentId=" + contentId
@@ -330,9 +337,11 @@ public class CompDocServices {
                         inputByteArray = outByteBuffer.array();
                     } else {
                         // Fill in acroForm
-                        Map<String, Object> survey2AcroFieldResults = dispatcher.runSync("setAcroFieldsFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
+                        Map<String, Object> survey2AcroFieldResults = dispatcher.runSync("setAcroFieldsFromSurveyResponse",
+                                UtilMisc.toMap("surveyResponseId", surveyResponseId));
                         if (ServiceUtil.isError(survey2AcroFieldResults)) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorSettingAcroFields", locale), null, null, survey2AcroFieldResults);
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorSettingAcroFields", locale), null,
+                                    null, survey2AcroFieldResults);
                         }
 
                         ByteBuffer outByteBuffer = (ByteBuffer) survey2AcroFieldResults.get("outByteBuffer");

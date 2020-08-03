@@ -58,7 +58,7 @@ import paypal.payflow.SDKProperties;
 public class PayflowPro {
 
     private static final String MODULE = PayflowPro.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
 
     /**
      * Authorize credit card payment service. Service wrapper around PayFlow Pro API.
@@ -443,7 +443,7 @@ public class PayflowPro {
         String configString = "payment.properties";
 
         if (cart == null || cart.items().size() <= 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", 
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels",
                     "AccountingPayPalShoppingCartIsEmpty", locale));
         }
 
@@ -592,7 +592,7 @@ public class PayflowPro {
         Map<String, String> responseMap = parseResponse(resp);
         if (!"0".equals(responseMap.get("RESULT"))) {
             Debug.logError("A problem occurred while requesting the checkout details from paypal: Result = " + responseMap.get("RESULT") + ", Message = " + responseMap.get("RESPMSG"), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", 
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels",
                     "AccountingPayPalCommunicationError", locale));
         }
 

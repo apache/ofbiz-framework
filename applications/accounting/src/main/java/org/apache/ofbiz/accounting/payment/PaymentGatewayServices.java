@@ -130,8 +130,8 @@ public class PaymentGatewayServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " " + 
-                    orderPaymentPreferenceId);
+                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " "
+                    + orderPaymentPreferenceId);
         }
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
 
@@ -237,7 +237,7 @@ public class PaymentGatewayServices {
                                             orderPaymentPreference.set("paymentMethodId", otherPaymentMethodAndCreditCard.getString("paymentMethodId"));
                                             Map<String, Object> authRetryResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, transAmount);
                                             try {
-                                                boolean processRetryResult = processResult(dctx, authPaymentResult, userLogin, 
+                                                boolean processRetryResult = processResult(dctx, authPaymentResult, userLogin,
                                                         orderPaymentPreference, locale);
 
                                                 if (processRetryResult) {
@@ -303,7 +303,7 @@ public class PaymentGatewayServices {
         } catch (GeneralException e) {
             Debug.logError(e, "Error processing payment authorization", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "AccountingPaymentCannotBeAuthorized", 
+                    "AccountingPaymentCannotBeAuthorized",
                     UtilMisc.toMap("errroString", e.toString()), locale));
         }
     }
@@ -728,14 +728,13 @@ public class PaymentGatewayServices {
             if (orderPaymentPreferenceId != null) {
                 paymentPref = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
                 orderId = paymentPref.getString("orderId");
-            }
-            else {
+            } else {
                 orderId = (String) context.get("orderId");
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " " + 
-                    orderPaymentPreferenceId);
+                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " "
+                    + orderPaymentPreferenceId);
         }
 
         // get the payment preferences
@@ -776,11 +775,11 @@ public class PaymentGatewayServices {
             try {
                 releaseResult = dispatcher.runSync("releaseOrderPaymentPreference", releaseContext);
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Problem calling releaseOrderPaymentPreference service for orderPaymentPreferenceId" + 
-                        paymentPref.getString("orderPaymentPreferenceId"), MODULE);
+                Debug.logError(e, "Problem calling releaseOrderPaymentPreference service for orderPaymentPreferenceId"
+                        + paymentPref.getString("orderPaymentPreferenceId"), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " " +
-                        paymentPref.getString("orderPaymentPreferenceId"));
+                        "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " "
+                        + paymentPref.getString("orderPaymentPreferenceId"));
             }
             if (ServiceUtil.isError(releaseResult)) {
                 Debug.logError(ServiceUtil.getErrorMessage(releaseResult), MODULE);
@@ -873,7 +872,7 @@ public class PaymentGatewayServices {
         } else {
             Debug.logError("Credit failed for pref : " + paymentPref, MODULE);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
-                    "AccountingTroubleCallingCreditOrderPaymentPreferenceService", 
+                    "AccountingTroubleCallingCreditOrderPaymentPreferenceService",
                     UtilMisc.toMap("paymentPref", paymentPref), locale));
         }
         return ServiceUtil.returnSuccess();
@@ -896,19 +895,19 @@ public class PaymentGatewayServices {
         try {
             paymentPref = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Problem getting OrderPaymentPreference for orderPaymentPreferenceId " + 
-                    orderPaymentPreferenceId, MODULE);
+            Debug.logWarning(e, "Problem getting OrderPaymentPreference for orderPaymentPreferenceId "
+                    + orderPaymentPreferenceId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " " + 
-                    orderPaymentPreferenceId);
+                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " "
+                    + orderPaymentPreferenceId);
         }
         // Error if no OrderPaymentPreference was found
         if (paymentPref == null) {
-            Debug.logWarning("Could not find OrderPaymentPreference with orderPaymentPreferenceId: " + 
-                    orderPaymentPreferenceId, MODULE);
+            Debug.logWarning("Could not find OrderPaymentPreference with orderPaymentPreferenceId: "
+                    + orderPaymentPreferenceId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " " + 
-                    orderPaymentPreferenceId);
+                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " "
+                    + orderPaymentPreferenceId);
         }
         // Get the OrderHeader
         GenericValue orderHeader = null;
@@ -922,8 +921,8 @@ public class PaymentGatewayServices {
         }
         // Error if no OrderHeader was found
         if (orderHeader == null) {
-            Debug.logWarning("Could not find OrderHeader with orderId: " + 
-                    orderId + "; not processing payments.", MODULE);
+            Debug.logWarning("Could not find OrderHeader with orderId: "
+                    + orderId + "; not processing payments.", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
         }
@@ -948,14 +947,14 @@ public class PaymentGatewayServices {
             if (serviceName == null) {
                 Debug.logWarning("No payment release service for - " + paymentPref.getString("paymentMethodTypeId"), MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
-                        "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " " + 
-                        paymentPref.getString("paymentMethodTypeId"));
+                        "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " "
+                        + paymentPref.getString("paymentMethodTypeId"));
             }
         } else {
             Debug.logWarning("No payment release settings found for - " + paymentPref.getString("paymentMethodTypeId"), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
-                    "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " " + 
-                    paymentPref.getString("paymentMethodTypeId"));
+                    "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " "
+                    + paymentPref.getString("paymentMethodTypeId"));
         }
         if (UtilValidate.isEmpty(paymentConfig)) {
             paymentConfig = "payment.properties";
@@ -989,8 +988,8 @@ public class PaymentGatewayServices {
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Trouble processing the release results", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
-                        "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " " +
-                        e.getMessage());
+                        "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " "
+                        + e.getMessage());
             }
             if (releaseResRes != null && ServiceUtil.isError(releaseResRes)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResRes));
@@ -1077,8 +1076,8 @@ public class PaymentGatewayServices {
         } else {
             Debug.logError("Release failed for pref : " + paymentPref, MODULE);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ORDER,
-                    "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " " +
-                    paymentPref);
+                    "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " "
+                    + paymentPref);
         }
         return ServiceUtil.returnSuccess();
     }
@@ -1117,7 +1116,7 @@ public class PaymentGatewayServices {
         } catch (GenericEntityException e) {
             Debug.logError("Trouble getting OrderItemBilling(s) from Invoice #" + invoiceId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingProblemLookingUpOrderItemBilling", 
+                    "AccountingProblemLookingUpOrderItemBilling",
                     UtilMisc.toMap("billFields", invoiceId), locale));
         }
 
@@ -1146,7 +1145,7 @@ public class PaymentGatewayServices {
         if (testOrderId == null || !allSameOrder) {
             Debug.logWarning("Attempt to settle Invoice #" + invoiceId + " which contained none/multiple orders", MODULE);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
-                    "AccountingInvoiceCannotBeSettle", 
+                    "AccountingInvoiceCannotBeSettle",
                     UtilMisc.toMap("invoiceId", invoiceId), locale));
         }
 
@@ -1297,8 +1296,9 @@ public class PaymentGatewayServices {
                         captureResult.put("captureResult", Boolean.TRUE);
                         captureResult.put("orderPaymentPreference", paymentPref);
                         if (context.get("captureRefNum") == null) {
-                            captureResult.put("captureRefNum", ""); // FIXME: this is an hack to avoid a service validation error for processCaptureResult (captureRefNum is mandatory, but it is not used for billing accounts)
-                        }                                                
+                            captureResult.put("captureRefNum", "");
+                            // FIXME: this is an hack to avoid a service validation error for processCaptureResult (captureRefNum is mandatory, but it is not used for billing accounts)
+                        }
 
                         // process the capture's results
                         try {
@@ -1586,12 +1586,12 @@ public class PaymentGatewayServices {
         return results;
     }
 
-    private static Map<String, Object> capturePayment(DispatchContext dctx, GenericValue userLogin, OrderReadHelper orh, 
+    private static Map<String, Object> capturePayment(DispatchContext dctx, GenericValue userLogin, OrderReadHelper orh,
             GenericValue paymentPref, BigDecimal amount, Locale locale) {
         return capturePayment(dctx, userLogin, orh, paymentPref, amount, null, locale);
     }
 
-    private static Map<String, Object> capturePayment(DispatchContext dctx, GenericValue userLogin, OrderReadHelper orh, 
+    private static Map<String, Object> capturePayment(DispatchContext dctx, GenericValue userLogin, OrderReadHelper orh,
             GenericValue paymentPref, BigDecimal amount, GenericValue authTrans, Locale locale) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         // look up the payment configuration settings
@@ -1677,12 +1677,12 @@ public class PaymentGatewayServices {
                 captureContext.put("processAmount", amount);
             } else {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "AccountingPaymentServiceMissingAmount", 
+                        "AccountingPaymentServiceMissingAmount",
                         UtilMisc.toMap("serviceName", serviceName, "inParams", inParams), locale));
             }
         } catch (GenericServiceException ex) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingPaymentServiceCannotGetModel", 
+                    "AccountingPaymentServiceCannotGetModel",
                     UtilMisc.toMap("serviceName", serviceName), locale));
         }
 
@@ -1788,7 +1788,7 @@ public class PaymentGatewayServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static boolean processResult(DispatchContext dctx, Map<String, Object> result, GenericValue userLogin, 
+    private static boolean processResult(DispatchContext dctx, Map<String, Object> result, GenericValue userLogin,
             GenericValue paymentPreference, Locale locale) throws GeneralException {
         Boolean authResult = (Boolean) result.get("authResult");
         Boolean captureResult = (Boolean) result.get("captureResult");
@@ -2029,12 +2029,12 @@ public class PaymentGatewayServices {
         return getAuthTransaction(paymentPreference);
     }
 
-    private static void processCaptureResult(DispatchContext dctx, Map<String, Object> result, GenericValue userLogin, 
+    private static void processCaptureResult(DispatchContext dctx, Map<String, Object> result, GenericValue userLogin,
             GenericValue paymentPreference, Locale locale) throws GeneralException {
         processCaptureResult(dctx, result, userLogin, paymentPreference, null, locale);
     }
 
-    private static void processCaptureResult(DispatchContext dctx, Map<String, Object> result, GenericValue userLogin, 
+    private static void processCaptureResult(DispatchContext dctx, Map<String, Object> result, GenericValue userLogin,
             GenericValue paymentPreference, String authServiceType, Locale locale) throws GeneralException {
         if (result == null) {
             throw new GeneralException("Null capture result sent to processCaptureResult; fatal error");
@@ -2084,7 +2084,7 @@ public class PaymentGatewayServices {
         }
     }
 
-    private static void processReAuthFromCaptureFailure(DispatchContext dctx, Map<String, Object> result, BigDecimal amount, 
+    private static void processReAuthFromCaptureFailure(DispatchContext dctx, Map<String, Object> result, BigDecimal amount,
             GenericValue userLogin, GenericValue paymentPreference, Locale locale) throws GeneralException {
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
@@ -2280,8 +2280,8 @@ public class PaymentGatewayServices {
             } else {
                 // otherwise default to Company and print a big warning about this
                 partyIdTo = EntityUtilProperties.getPropertyValue("general", "ORGANIZATION_PARTY", "Company", delegator);
-                Debug.logWarning("Using default value of [" + partyIdTo + "] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference [" +
-                        paymentPreference.getString("orderPaymentPreferenceId") + "]", MODULE);
+                Debug.logWarning("Using default value of [" + partyIdTo + "] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference ["
+                        + paymentPreference.getString("orderPaymentPreferenceId") + "]", MODULE);
             }
 
 
@@ -2347,8 +2347,8 @@ public class PaymentGatewayServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " " + 
-                    orderPaymentPreferenceId);
+                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " "
+                    + orderPaymentPreferenceId);
         }
         // call the service refundPayment
         Map<String, Object> refundResponse = null;
@@ -2383,8 +2383,8 @@ public class PaymentGatewayServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get OrderHeader from OrderPaymentPreference", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " " + 
-                    e.toString());
+                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " "
+                    + e.toString());
         }
 
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
@@ -2699,7 +2699,7 @@ public class PaymentGatewayServices {
 
         EntityQuery eq = EntityQuery.use(delegator)
                 .from("OrderPaymentPreference")
-                .where(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), 
+                .where(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"),
                         EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo))
                 .orderBy("orderId");
         try (EntityListIterator eli = eq.queryIterator()) {
@@ -3087,19 +3087,19 @@ public class PaymentGatewayServices {
         try {
             paymentPref = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Problem getting OrderPaymentPreference for orderPaymentPreferenceId " + 
-                    orderPaymentPreferenceId, MODULE);
+            Debug.logWarning(e, "Problem getting OrderPaymentPreference for orderPaymentPreferenceId "
+                    + orderPaymentPreferenceId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " " + 
-                    orderPaymentPreferenceId);
+                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " "
+                    + orderPaymentPreferenceId);
         }
         // Error if no OrderPaymentPreference was found
         if (paymentPref == null) {
-            Debug.logWarning("Could not find OrderPaymentPreference with orderPaymentPreferenceId: " + 
-                    orderPaymentPreferenceId, MODULE);
+            Debug.logWarning("Could not find OrderPaymentPreference with orderPaymentPreferenceId: "
+                    + orderPaymentPreferenceId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " " + 
-                    orderPaymentPreferenceId);
+                    "AccountingProblemGettingOrderPaymentPreferences", locale) + " "
+                    + orderPaymentPreferenceId);
         }
         // Get the OrderHeader
         GenericValue orderHeader = null;

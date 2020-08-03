@@ -96,10 +96,10 @@ public class SecurePayServiceTest extends OFBizTestCase {
         paymentGatewayConfigId = "SECUREPAY_CONFIG";
         refundAmount = new BigDecimal("100.08");
         orderPaymentPreference = delegator.makeValue("OrderPaymentPreference", UtilMisc.toMap(
-            "orderPaymentPreferenceId", "testOrder1000_01", 
-            "orderId", "Demo1002", 
-            "paymentMethodTypeId", "CREDIT_CARD", 
-            "maxAmount", new BigDecimal("200.00"), 
+            "orderPaymentPreferenceId", "testOrder1000_01",
+            "orderId", "Demo1002",
+            "paymentMethodTypeId", "CREDIT_CARD",
+            "maxAmount", new BigDecimal("200.00"),
             "statusId", "PAYMENT_AUTHORIZED"));
         GenericValue checkOrderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", "testOrder1000_01").queryOne();
         if (UtilValidate.isEmpty(checkOrderPaymentPreference)) {

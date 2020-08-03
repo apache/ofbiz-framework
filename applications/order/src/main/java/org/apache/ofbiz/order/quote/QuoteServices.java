@@ -70,7 +70,7 @@ public class QuoteServices {
 
         if (quote == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "OrderOrderQuoteCannotBeFound", 
+                    "OrderOrderQuoteCannotBeFound",
                     UtilMisc.toMap("quoteId", quoteId), locale));
         }
 
@@ -82,15 +82,15 @@ public class QuoteServices {
         }
         if (productStoreEmail == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
-                    "ProductProductStoreEmailSettingsNotValid", 
-                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"), 
+                    "ProductProductStoreEmailSettingsNotValid",
+                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"),
                             "emailType", emailType), locale));
         }
         String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
         if (UtilValidate.isEmpty(bodyScreenLocation)) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
-                    "ProductProductStoreEmailSettingsNotValidBodyScreenLocation", 
-                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"), 
+                    "ProductProductStoreEmailSettingsNotValidBodyScreenLocation",
+                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"),
                             "emailType", emailType), locale));
         }
         sendMap.put("bodyScreenUri", bodyScreenLocation);

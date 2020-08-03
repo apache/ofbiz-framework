@@ -61,7 +61,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ShippingEvents {
 
     private static final String MODULE = ShippingEvents.class.getName();
-    private static final List<String> fieldNameGeoIds = UtilMisc.toList("countryGeoId", "countyGeoId", "stateProvinceGeoId", "municipalityGeoId", "postalCodeGeoId");
+    private static final List<String> FIELD_NAME_GEO_IDS = UtilMisc.toList("countryGeoId", "countyGeoId", "stateProvinceGeoId", "municipalityGeoId",
+            "postalCodeGeoId");
 
     public static String getShipEstimate(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
@@ -105,8 +106,10 @@ public class ShippingEvents {
         String productStoreShipMethId = cart.getProductStoreShipMethId(groupNo);
 
         return getShipGroupEstimate(dispatcher, delegator, cart.getOrderType(), shipmentMethodTypeId, carrierPartyId, null,
-                cart.getShippingContactMechId(groupNo), cart.getProductStoreId(), cart.getSupplierPartyId(groupNo), cart.getShippableItemInfo(groupNo),
-                cart.getShippableWeight(groupNo), cart.getShippableQuantity(groupNo), cart.getShippableTotal(groupNo), cart.getPartyId(), productStoreShipMethId);
+                cart.getShippingContactMechId(groupNo), cart.getProductStoreId(), cart.getSupplierPartyId(groupNo),
+                cart.getShippableItemInfo(groupNo),
+                cart.getShippableWeight(groupNo), cart.getShippableQuantity(groupNo), cart.getShippableTotal(groupNo), cart.getPartyId(),
+                productStoreShipMethId);
     }
 
     public static Map<String, Object> getShipEstimate(LocalDispatcher dispatcher, Delegator delegator, OrderReadHelper orh, String shipGroupSeqId) {
@@ -132,27 +135,32 @@ public class ShippingEvents {
         String partyId = null;
         GenericValue partyObject = orh.getPlacingParty();
         if (partyObject != null) {
-             partyId = partyObject.getString("partyId");
+            partyId = partyObject.getString("partyId");
         }
         return getShipGroupEstimate(dispatcher, delegator, orh.getOrderTypeId(), shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId,
-                contactMechId, orh.getProductStoreId(), supplierPartyId, orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeight(shipGroupSeqId),
+                contactMechId, orh.getProductStoreId(), supplierPartyId, orh.getShippableItemInfo(shipGroupSeqId),
+                orh.getShippableWeight(shipGroupSeqId),
                 orh.getShippableQuantity(shipGroupSeqId), orh.getShippableTotal(shipGroupSeqId), partyId, null);
     }
 
     // version with no support for using the supplier's address as the origin
     public static Map<String, Object> getShipGroupEstimate(LocalDispatcher dispatcher, Delegator delegator, String orderTypeId,
-            String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
-            String productStoreId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
-            BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
+                                                           String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId,
+                                                           String shippingContactMechId,
+                                                           String productStoreId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight,
+                                                           BigDecimal shippableQuantity,
+                                                           BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
         return getShipGroupEstimate(dispatcher, delegator, orderTypeId, shipmentMethodTypeId, carrierPartyId,
                 carrierRoleTypeId, shippingContactMechId, productStoreId, null, itemInfo,
                 shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId);
     }
 
     public static Map<String, Object> getShipGroupEstimate(LocalDispatcher dispatcher, Delegator delegator, String orderTypeId,
-            String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
-            String productStoreId, String supplierPartyId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
-            BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
+                                                           String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId,
+                                                           String shippingContactMechId,
+                                                           String productStoreId, String supplierPartyId, List<Map<String, Object>> itemInfo,
+                                                           BigDecimal shippableWeight, BigDecimal shippableQuantity,
+                                                           BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
         return getShipGroupEstimate(dispatcher, delegator, orderTypeId,
                 shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingContactMechId,
                 productStoreId, supplierPartyId, itemInfo, shippableWeight, shippableQuantity,
@@ -160,9 +168,12 @@ public class ShippingEvents {
     }
 
     public static Map<String, Object> getShipGroupEstimate(LocalDispatcher dispatcher, Delegator delegator, String orderTypeId,
-            String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
-            String productStoreId, String supplierPartyId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
-            BigDecimal shippableTotal, String partyId, String productStoreShipMethId, BigDecimal totalAllowance) {
+                                                           String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId,
+                                                           String shippingContactMechId,
+                                                           String productStoreId, String supplierPartyId, List<Map<String, Object>> itemInfo,
+                                                           BigDecimal shippableWeight, BigDecimal shippableQuantity,
+                                                           BigDecimal shippableTotal, String partyId, String productStoreShipMethId,
+                                                           BigDecimal totalAllowance) {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
         List<String> errorMessageList = new LinkedList<>();
 
@@ -189,7 +200,8 @@ public class ShippingEvents {
             try {
                 GenericValue originAddress = getShippingOriginContactMech(delegator, supplierPartyId);
                 if (originAddress == null) {
-                    return ServiceUtil.returnError("Cannot find the origin shipping address (SHIP_ORIG_LOCATION) for the supplier with ID ["+supplierPartyId+"].  Will not be able to calculate drop shipment estimate.");
+                    return ServiceUtil.returnError("Cannot find the origin shipping address (SHIP_ORIG_LOCATION) for the supplier with ID ["
+                            + supplierPartyId + "].  Will not be able to calculate drop shipment estimate.");
                 }
                 shippingOriginContactMechId = originAddress.getString("contactMechId");
             } catch (GeneralException e) {
@@ -260,17 +272,19 @@ public class ShippingEvents {
 
         // Calculate the allowance price(Already included in Product's default/list price)
         // using shippingAllowance percent and deduct it from Actual Shipping Cost.
-        if (BigDecimal.ZERO.compareTo(shippingTotal) < 0 && UtilValidate.isNotEmpty(totalAllowance) && BigDecimal.ZERO.compareTo(totalAllowance) < 0) {
-            BigDecimal shippingAllowancePercent = storeShipMethod.getBigDecimal("allowancePercent") != null ? storeShipMethod.getBigDecimal("allowancePercent") : BigDecimal.ZERO;
+        if (BigDecimal.ZERO.compareTo(shippingTotal) < 0 && UtilValidate.isNotEmpty(totalAllowance)
+                && BigDecimal.ZERO.compareTo(totalAllowance) < 0) {
+            BigDecimal shippingAllowancePercent = storeShipMethod.getBigDecimal("allowancePercent") != null ? storeShipMethod.getBigDecimal(
+                    "allowancePercent") : BigDecimal.ZERO;
             totalAllowance = totalAllowance.multiply(shippingAllowancePercent.divide(BigDecimal.valueOf(100)));
             shippingTotal = shippingTotal.subtract(totalAllowance);
         }
 
-        // Check if minimum price is set for any Shipping Option, if yes, 
+        // Check if minimum price is set for any Shipping Option, if yes,
         // compare it with total shipping and use greater of the two.
         BigDecimal minimumPrice = storeShipMethod.getBigDecimal("minimumPrice");
         if (UtilValidate.isNotEmpty(minimumPrice) && shippingTotal.compareTo(minimumPrice) < 0) {
-             shippingTotal = minimumPrice;
+            shippingTotal = minimumPrice;
         }
 
         // return the totals
@@ -279,7 +293,8 @@ public class ShippingEvents {
         return responseResult;
     }
 
-    public static BigDecimal getGenericShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map<String, ? extends Object>context) throws GeneralException {
+    public static BigDecimal getGenericShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map<String, ? extends Object> context)
+            throws GeneralException {
         // invoke the generic estimate service next -- append to estimate amount
         Map<String, Object> genericEstimate = null;
         BigDecimal genericShipAmt = null;
@@ -299,6 +314,7 @@ public class ShippingEvents {
         }
         return genericShipAmt;
     }
+
     public static String getShipmentCustomMethod(Delegator delegator, String shipmentCustomMethodId) {
         String serviceName = null;
         GenericValue customMethod = null;
@@ -313,7 +329,8 @@ public class ShippingEvents {
         return serviceName;
     }
 
-    public static BigDecimal getExternalShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map<String, Object> context) throws GeneralException {
+    public static BigDecimal getExternalShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map<String, Object> context)
+            throws GeneralException {
         String shipmentCustomMethodId = storeShipMeth.getString("shipmentCustomMethodId");
         Delegator delegator = dispatcher.getDelegator();
         String serviceName = "";
@@ -330,8 +347,9 @@ public class ShippingEvents {
             //If all estimates are not turned off, check for the individual one
             if ("true".equals(doEstimates)) {
                 String dothisEstimate = EntityUtilProperties.getPropertyValue("shipment", "shipment.doratecheck." + serviceName, "true", delegator);
-                if ("false".equals(dothisEstimate))
-                 serviceName = null;
+                if ("false".equals(dothisEstimate)) {
+                    serviceName = null;
+                }
             } else {
                 //Rate checks inhibited
                 serviceName = null;
@@ -349,8 +367,10 @@ public class ShippingEvents {
                 // invoke the service
                 Map<String, Object> serviceResp = null;
                 try {
-                    Debug.logInfo("Service : " + serviceName + " / shipmentGatewayConfigId : " + shipmentGatewayConfigId + " / configProps : " + configProps + " -- " + context, MODULE);
-                    // because we don't want to blow up too big or rollback the transaction when this happens, always have it run in its own transaction...
+                    Debug.logInfo("Service : " + serviceName + " / shipmentGatewayConfigId : " + shipmentGatewayConfigId + " / configProps : "
+                            + configProps + " -- " + context, MODULE);
+                    // because we don't want to blow up too big or rollback the transaction when this happens, always have it run in its own
+                    // transaction...
                     serviceResp = dispatcher.runSync(serviceName, context, 0, true);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Shipment Service Error", MODULE);
@@ -363,7 +383,8 @@ public class ShippingEvents {
                 } else if (ServiceUtil.isFailure(serviceResp)) {
                     String errMsg = "Failure getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp);
                     Debug.logError(errMsg, MODULE);
-                    // should not throw an Exception here, otherwise getShipGroupEstimate would return an error, causing all sorts of services like add or update order item to abort
+                    // should not throw an Exception here, otherwise getShipGroupEstimate would return an error, causing all sorts of services like
+                    // add or update order item to abort
                 } else {
                     externalShipAmt = (BigDecimal) serviceResp.get("shippingEstimateAmount");
                 }
@@ -379,28 +400,31 @@ public class ShippingEvents {
         List<EntityCondition> conditions = UtilMisc.toList(
                 EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, supplierPartyId),
                 EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "POSTAL_ADDRESS"),
-                EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.IN, UtilMisc.toList("SHIP_ORIG_LOCATION", "GENERAL_LOCATION")),
+                EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.IN, UtilMisc.toList("SHIP_ORIG_LOCATION",
+                        "GENERAL_LOCATION")),
                 EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"),
                 EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate"));
         EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
 
-        List<GenericValue> addresses = delegator.findList("PartyContactWithPurpose", ecl, null, UtilMisc.toList("contactMechPurposeTypeId DESC"), null, false);
+        List<GenericValue> addresses = delegator.findList("PartyContactWithPurpose", ecl, null, UtilMisc.toList("contactMechPurposeTypeId DESC"),
+                null, false);
 
         GenericValue generalAddress = null;
         GenericValue originAddress = null;
         for (GenericValue address : addresses) {
-            if ("GENERAL_LOCATION".equals(address.get("contactMechPurposeTypeId")))
+            if ("GENERAL_LOCATION".equals(address.get("contactMechPurposeTypeId"))) {
                 generalAddress = address;
-            else if ("SHIP_ORIG_LOCATION".equals(address.get("contactMechPurposeTypeId")))
+            } else if ("SHIP_ORIG_LOCATION".equals(address.get("contactMechPurposeTypeId"))) {
                 originAddress = address;
+            }
         }
         return originAddress != null ? originAddress : generalAddress;
     }
 
     public static GenericValue getShippingOriginContactMechFromFacility(Delegator delegator, String facilityId) throws GeneralException {
-         GenericValue address = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION"));
-         if (address != null) return address;
-         return ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("GENERAL_LOCATION"));
+        GenericValue address = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION"));
+        if (address != null) return address;
+        return ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("GENERAL_LOCATION"));
     }
 
     private static List<String> getGeoIdFromPostalContactMech(Delegator delegator, GenericValue address) {
@@ -418,7 +442,7 @@ public class ShippingEvents {
             }
             if (addressGV != null) {
                 GenericValue finalAddressGV = addressGV;
-                geoIds = fieldNameGeoIds.stream()
+                geoIds = FIELD_NAME_GEO_IDS.stream()
                         .filter(key -> finalAddressGV.get(key) != null)
                         .map(key -> finalAddressGV.getString(key))
                         .collect(Collectors.toList());
@@ -428,7 +452,8 @@ public class ShippingEvents {
     }
 
     public static List<GenericValue> getShipmentTimeEstimates(Delegator delegator, String shipmentMethodTypeId,
-            String partyId, String roleTypeId, GenericValue shippingAddress, GenericValue originAddress) {
+                                                              String partyId, String roleTypeId, GenericValue shippingAddress,
+                                                              GenericValue originAddress) {
         //Retrieve origin Geo
         List<String> geoIdFroms = getGeoIdFromPostalContactMech(delegator, originAddress);
         //Retrieve destination Geo
@@ -438,7 +463,7 @@ public class ShippingEvents {
 
 
     public static List<GenericValue> getShipmentTimeEstimates(Delegator delegator, String shipmentMethodTypeId,
-            String partyId, String roleTypeId, List<String> geoIdFroms, List<String> geoIdTos) {
+                                                              String partyId, String roleTypeId, List<String> geoIdFroms, List<String> geoIdTos) {
 
         List<GenericValue> shippingTimeEstimates = new LinkedList<>();
         if ("NO_SHIPPING".equals(shipmentMethodTypeId)) {
@@ -497,8 +522,9 @@ public class ShippingEvents {
 
     /**
      * Return the {@link GenericValue} ShipmentTimeEstimate matching the carrier shipment method
+     *
      * @param storeCarrierShipMethod ShipmentMethod used for estimation
-     * @param shippingTimeEstimates available configured estimation
+     * @param shippingTimeEstimates  available configured estimation
      * @return
      */
     public static GenericValue getShippingTimeEstimate(GenericValue storeCarrierShipMethod, List<GenericValue> shippingTimeEstimates) {
@@ -516,15 +542,18 @@ public class ShippingEvents {
 
     /**
      * Return the number of days estimated for shipping
+     *
      * @param dispatcher
      * @param storeCarrierShipMethod ShipmentMethod used for estimation
-     * @param shippingTimeEstimates available configured estimation
+     * @param shippingTimeEstimates  available configured estimation
      * @return
      */
-    public static Double getShippingTimeEstimateInDay(LocalDispatcher dispatcher, GenericValue storeCarrierShipMethod, List<GenericValue> shippingTimeEstimates) {
+    public static Double getShippingTimeEstimateInDay(LocalDispatcher dispatcher, GenericValue storeCarrierShipMethod,
+                                                      List<GenericValue> shippingTimeEstimates) {
         GenericValue shippingTimeEstimate = getShippingTimeEstimate(storeCarrierShipMethod, shippingTimeEstimates);
         if (shippingTimeEstimate == null) return null;
-        BigDecimal leadTimeConverted = UomWorker.convertUom(shippingTimeEstimate.getBigDecimal("leadTime"), shippingTimeEstimate.getString("leadTimeUomId"), "TF_day", dispatcher);
+        BigDecimal leadTimeConverted = UomWorker.convertUom(shippingTimeEstimate.getBigDecimal("leadTime"),
+                shippingTimeEstimate.getString("leadTimeUomId"), "TF_day", dispatcher);
         return leadTimeConverted != null ? leadTimeConverted.setScale(2, RoundingMode.UP).doubleValue() : null;
     }
 }

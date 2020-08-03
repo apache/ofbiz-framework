@@ -354,8 +354,8 @@ public class OrderReadHelper {
                     GenericValue shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", false);
 
                     if (shipmentMethodType != null) {
-                        return UtilFormatOut.checkNull(shipGroup.getString("carrierPartyId")) + " " +
-                                UtilFormatOut.checkNull(shipmentMethodType.getString("description"));
+                        return UtilFormatOut.checkNull(shipGroup.getString("carrierPartyId")) + " "
+                                + UtilFormatOut.checkNull(shipmentMethodType.getString("description"));
                     }
                 }
                 return UtilFormatOut.checkNull(shipGroup.getString("carrierPartyId"));
@@ -1256,7 +1256,7 @@ public class OrderReadHelper {
     public BigDecimal getOrderGrandTotal() {
         if (totalPrice == null) {
             totalPrice = getOrderGrandTotal(getValidOrderItems(), getAdjustments());
-        }// else already set
+        } // else already set
         return totalPrice;
     }
 
@@ -2849,7 +2849,7 @@ public class OrderReadHelper {
     /**
      * When you call this function after a OrderReadHelper instantiation
      * all OrderItemAttributes related to the orderHeader are load on local cache
-     * to optimize database call, after we just filter the cache with attributeName and 
+     * to optimize database call, after we just filter the cache with attributeName and
      * orderItemSeqId wanted.
      * @param orderItemSeqId
      * @param attributeName

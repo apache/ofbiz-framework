@@ -54,7 +54,7 @@ public class SubscriptionServices {
     private static final String MODULE = SubscriptionServices.class.getName();
     private static final String RESOURCE = "ProductUiLabels";
     private static final String RES_ERROR = "ProductErrorUiLabels";
-    private static final String RES_ORDERError = "OrderErrorUiLabels";
+    private static final String RES_ORDER_ERROR = "OrderErrorUiLabels";
 
     public static Map<String, Object> processExtendSubscription(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -261,13 +261,13 @@ public class SubscriptionServices {
                 String partyId = (String) orderRole.get("partyId");
                 subContext.put("partyId", partyId);
             } else {
-                return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ORDERError,
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ORDER_ERROR,
                         "OrderErrorCannotGetOrderRoleEntity",
                         UtilMisc.toMap("itemMsgInfo", orderId), locale));
             }
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             if (orderHeader == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDERError,
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER_ERROR,
                         "OrderErrorNoValidOrderHeaderFoundForOrderId",
                         UtilMisc.toMap("orderId", orderId), locale));
             }

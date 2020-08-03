@@ -76,8 +76,8 @@ public class ShipmentServices {
             productStoreShipMeth = EntityQuery.use(delegator).from("ProductStoreShipmentMeth").where("productStoreShipMethId", productStoreShipMethId).queryOne();
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "ProductStoreShipmentMethodCannotRetrieve", 
-                    UtilMisc.toMap("productStoreShipMethId", productStoreShipMethId, 
+                    "ProductStoreShipmentMethodCannotRetrieve",
+                    UtilMisc.toMap("productStoreShipMethId", productStoreShipMethId,
                             "errorString", e.toString()), locale));
         }
 
@@ -152,7 +152,7 @@ public class ShipmentServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "ProductShipmentCostEstimateRemoveError", 
+                    "ProductShipmentCostEstimateRemoveError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
         return ServiceUtil.returnSuccess();
@@ -183,8 +183,8 @@ public class ShipmentServices {
                     }
                 } else {
                     result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-                    result.put(ModelService.ERROR_MESSAGE, "Max " + breakTypeString +
-                            " must not be less than Min " + breakTypeString + ".");
+                    result.put(ModelService.ERROR_MESSAGE, "Max " + breakTypeString
+                            + " must not be less than Min " + breakTypeString + ".");
                     return false;
                 }
             }
@@ -364,7 +364,7 @@ public class ShipmentServices {
         if (estimateList.size() < 1) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
                     "ProductShipmentCostEstimateCannotFoundForCarrier",
-                    UtilMisc.toMap("carrierPartyId", carrierPartyId, 
+                    UtilMisc.toMap("carrierPartyId", carrierPartyId,
                             "shipmentMethodTypeId", shipmentMethodTypeId), locale));
         }
 
@@ -883,7 +883,7 @@ public class ShipmentServices {
             GenericValue shipmentRouteSeg = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
             if (shipmentRouteSeg == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "ProductShipmentRouteSegmentNotFound", 
+                        "ProductShipmentRouteSegmentNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId,
                                 "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
@@ -1059,8 +1059,8 @@ public class ShipmentServices {
         }
         if (productStoreEmail == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
-                    "ProductProductStoreEmailSettingsNotValid", 
-                    UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"), 
+                    "ProductProductStoreEmailSettingsNotValid",
+                    UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
                             "emailType", "PRDS_ODR_SHIP_COMPLT"), localePar));
         }
         // the override screenUri
@@ -1130,19 +1130,19 @@ public class ShipmentServices {
             GenericValue primaryOrderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false);
             if (primaryOrderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "ProductShipmentPrimaryOrderHeaderNotFound", 
+                        "ProductShipmentPrimaryOrderHeaderNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId), locale));
             }
             String productStoreId = primaryOrderHeader.getString("productStoreId");
             if (UtilValidate.isEmpty(productStoreId)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "ProductShipmentPrimaryOrderHeaderProductStoreNotFound", 
+                        "ProductShipmentPrimaryOrderHeaderProductStoreNotFound",
                         UtilMisc.toMap("productStoreId", productStoreId, "shipmentId", shipmentId), locale));
             }
             GenericValue primaryOrderItemShipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup", false);
             if (primaryOrderItemShipGroup == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "ProductShipmentPrimaryOrderHeaderItemShipGroupNotFound", 
+                        "ProductShipmentPrimaryOrderHeaderItemShipGroupNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId), locale));
             }
             String shipmentMethodTypeId = primaryOrderItemShipGroup.getString("shipmentMethodTypeId");
@@ -1157,7 +1157,7 @@ public class ShipmentServices {
                 shipmentGatewayConfig.put("configProps", productStoreShipmentMeth.getString("configProps"));
             } else {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "ProductStoreShipmentMethodNotFound", 
+                        "ProductStoreShipmentMethodNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId), locale));
             }
         } catch (GenericEntityException gee) {

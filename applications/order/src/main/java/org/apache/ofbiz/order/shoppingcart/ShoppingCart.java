@@ -26,7 +26,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -137,8 +136,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     private List<ShoppingCartItem> cartLines = new LinkedList<>();
     private Map<String, ShoppingCartItemGroup> itemGroupByNumberMap = new HashMap<>();
-    protected long nextGroupNumber = 1;
-    protected List<CartPaymentInfo> paymentInfo = new LinkedList<>();
+    private long nextGroupNumber = 1;
+    private List<CartPaymentInfo> paymentInfo = new LinkedList<>();
     private List<CartShipInfo> shipInfo = new LinkedList<>();
     private Map<String, String> contactMechIdsMap = new HashMap<>();
     private Map<String, String> orderAttributes = new HashMap<>();
@@ -169,36 +168,36 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private transient Delegator delegator = null;
     private String delegatorName = null;
 
-    protected String productStoreId = null;
-    protected boolean doPromotions = true;
-    protected String transactionId = null;
-    protected String facilityId = null;
-    protected String webSiteId = null;
-    protected String terminalId = null;
-    protected String autoOrderShoppingListId = null;
+    private String productStoreId = null;
+    private boolean doPromotions = true;
+    private String transactionId = null;
+    private String facilityId = null;
+    private String webSiteId = null;
+    private String terminalId = null;
+    private String autoOrderShoppingListId = null;
 
     /** General partyId for the Order, all other IDs default to this one if not specified explicitly */
-    protected String orderPartyId = null;
+    private String orderPartyId = null;
 
     // sales order parties
-    protected String placingCustomerPartyId = null;
-    protected String billToCustomerPartyId = null;
-    protected String shipToCustomerPartyId = null;
-    protected String endUserCustomerPartyId = null;
+    private String placingCustomerPartyId = null;
+    private String billToCustomerPartyId = null;
+    private String shipToCustomerPartyId = null;
+    private String endUserCustomerPartyId = null;
 
     // purchase order parties
-    protected String billFromVendorPartyId = null;
-    protected String shipFromVendorPartyId = null;
-    protected String supplierAgentPartyId = null;
+    private String billFromVendorPartyId = null;
+    private String shipFromVendorPartyId = null;
+    private String supplierAgentPartyId = null;
 
-    protected GenericValue userLogin = null;
-    protected GenericValue autoUserLogin = null;
+    private GenericValue userLogin = null;
+    private GenericValue autoUserLogin = null;
 
-    protected Locale locale;  // holds the locale from the user session
-    protected String currencyUom = null;
-    protected boolean holdOrder = false;
-    protected Timestamp orderDate = null;
-    protected Timestamp cancelBackOrderDate = null;
+    private Locale locale;  // holds the locale from the user session
+    private String currencyUom = null;
+    private boolean holdOrder = false;
+    private Timestamp orderDate = null;
+    private Timestamp cancelBackOrderDate = null;
 
     /** don't allow empty constructor */
     protected ShoppingCart() { }
@@ -311,6 +310,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this(delegator, productStoreId, null, locale, currencyUom);
     }
 
+    /** get delegator */
     public Delegator getDelegator() {
         if (delegator == null) {
             delegator = DelegatorFactory.getDelegator(delegatorName);
@@ -318,14 +318,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return delegator;
     }
 
+    /** get product store */
     public String getProductStoreId() {
         return this.productStoreId;
     }
 
+    /** get do promotions */
     public boolean getDoPromotions() {
         return this.doPromotions;
     }
 
+    /** set do promotions */
     public void setDoPromotions(boolean doPromotions) {
         this.doPromotions = doPromotions;
     }
@@ -335,9 +338,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      * - some items in the cart may not be valid in any catalog in the new store
      * - promotions need to be recalculated for the products that remain
      * - what else? lots of settings on the ProductStore...
-     *
      * So for now this can only be called if the cart is empty... otherwise it wil throw an exception
-     *
      */
     public void setProductStoreId(String productStoreId) {
         if ((productStoreId == null && this.productStoreId == null) || (productStoreId != null && productStoreId.equals(this.productStoreId))) {
@@ -351,42 +352,52 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
+    /** get transaction id */
     public String getTransactionId() {
         return this.transactionId;
     }
 
+    /** set transaction id */
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
 
+    /** get terminal id */
     public String getTerminalId() {
         return this.terminalId;
     }
 
+    /** set terminal id */
     public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
     }
 
+    /** get auto order shopping list id */
     public String getAutoOrderShoppingListId() {
         return this.autoOrderShoppingListId;
     }
 
+    /** set auto order shopping list id */
     public void setAutoOrderShoppingListId(String autoOrderShoppingListId) {
         this.autoOrderShoppingListId = autoOrderShoppingListId;
     }
 
+    /** get facility id */
     public String getFacilityId() {
         return this.facilityId;
     }
 
+    /** set facility id */
     public void setFacilityId(String facilityId) {
         this.facilityId = facilityId;
     }
 
+    /**  get locale */
     public Locale getLocale() {
         return locale;
     }
 
+    /**  set locale */
     public void setLocale(Locale locale) {
         this.locale = locale;
         for (ShoppingCartItem cartItem : cartLines) {
@@ -394,6 +405,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
+    /**  set order name */
     public void setOrderName(String orderName) {
         this.orderName = orderName;
     }
@@ -401,56 +413,55 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public String getOrderName() {
         return orderName;
     }
-
+    /** set work effort id */
     public void setWorkEffortId(String workEffortId) {
         this.workEffortId = workEffortId;
     }
-
+    /** get workeffort id */
     public String getWorkEffortId() {
         return workEffortId;
     }
-
+    /** set attribute */
     public void setAttribute(String name, Object value) {
         this.attributes.put(name, value);
     }
-
+    /** remove attribute */
     public void removeAttribute(String name) {
         this.attributes.remove(name);
     }
-
+    /** get attribute */
     @SuppressWarnings("unchecked")
     public <T> T getAttribute(String name) {
         return (T) this.attributes.get(name);
     }
-
+    /** remove order attribute */
     public void removeOrderAttribute(String name) {
         this.orderAttributes.remove(name);
     }
-
+    /** set order attribute */
     public void setOrderAttribute(String name, String value) {
         this.orderAttributes.put(name, value);
     }
-
+    /** get order attribute */
     public String getOrderAttribute(String name) {
         return this.orderAttributes.get(name);
     }
-
+    /** set hold order */
     public void setHoldOrder(boolean b) {
         this.holdOrder = b;
     }
-
+    /** get hold order */
     public boolean getHoldOrder() {
         return this.holdOrder;
     }
-
+    /** set order date */
     public void setOrderDate(Timestamp t) {
         this.orderDate = t != null ? (Timestamp) t.clone() : null;
     }
-
+    /** get order date */
     public Timestamp getOrderDate() {
         return this.orderDate != null ? (Timestamp) this.orderDate.clone() : null;
     }
-
     /** Sets the currency for the cart. */
     public void setCurrency(LocalDispatcher dispatcher, String currencyUom) throws CartItemModifyException {
         if (isReadOnlyCart()) {
@@ -724,8 +735,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      */
     public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart,
                             BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
-                            HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher
-            , Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
+                            HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher,
+            Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
         return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,
                 accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this,
                 triggerExternalOps, triggerPriceRules, null, Boolean.FALSE, Boolean.FALSE));
@@ -736,8 +747,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      */
     public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart,
                             BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
-                            HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher
-            , Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+                            HashMap<String, GenericValue> features, HashMap<String, Object> attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher,
+            Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
         return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,
                 accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this,
                 triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
@@ -849,6 +860,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     // =============== some misc utility methods, mostly for dealing with lists of items =================
+    /** remove extra items */
     public void removeExtraItems(List<ShoppingCartItem> multipleItems, LocalDispatcher dispatcher, int maxItems) throws CartItemModifyException {
         // if 1 or 0 items, do nothing
         if (multipleItems.size() <= maxItems) {
@@ -886,6 +898,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return productList;
     }
 
+    /** Ensure item total quantity */
     public void ensureItemsQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity) throws CartItemModifyException {
         for (ShoppingCartItem item : cartItems) {
             if (item.getQuantity() != quantity) {
@@ -894,6 +907,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
+    /** Ensure item total quantity */
     public BigDecimal ensureItemsTotalQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity) throws CartItemModifyException {
         BigDecimal quantityRemoved = BigDecimal.ZERO;
         // go through the items and reduce quantityToKeep by the item quantities until it is 0, then remove the remaining...
@@ -930,6 +944,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return false;
     }
 
+    /** contain all work effort cart item check */
     public boolean containAllWorkEffortCartItems() {
         // Check for existing cart item.
         for (ShoppingCartItem cartItem : this.cartLines) {
@@ -997,6 +1012,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     }
 
+    /** find an item from the cart object. */
     public ShoppingCartItem findCartItem(String orderItemSeqId) {
         if (orderItemSeqId != null) {
             for (int i = 0; i < this.cartLines.size(); i++) {
@@ -1010,6 +1026,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return null;
     }
 
+    /** Remove an item from the cart object. */
     public void removeCartItem(ShoppingCartItem item, LocalDispatcher dispatcher) throws CartItemModifyException {
         if (item == null) {
             return;
@@ -1325,14 +1342,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public Timestamp getDefaultShipAfterDate() {
-       return this.defaultShipAfterDate != null ? (Timestamp) this.defaultShipAfterDate.clone() : null;
+        return this.defaultShipAfterDate != null ? (Timestamp) this.defaultShipAfterDate.clone() : null;
     }
     public void setDefaultReserveAfterDate(Timestamp defaultReserveAfterDate) {
-       this.defaultReserveAfterDate = defaultReserveAfterDate != null ? (Timestamp) defaultReserveAfterDate.clone() : null;
+        this.defaultReserveAfterDate = defaultReserveAfterDate != null ? (Timestamp) defaultReserveAfterDate.clone() : null;
     }
 
     public Timestamp getDefaultReserveAfterDate() {
-       return this.defaultReserveAfterDate != null ? (Timestamp) this.defaultReserveAfterDate.clone() : null;
+        return this.defaultReserveAfterDate != null ? (Timestamp) this.defaultReserveAfterDate.clone() : null;
     }
 
     public String getOrderPartyId() {
@@ -1784,11 +1801,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return this.getPaymentInfo(id).amount;
     }
 
+    /** adds a payment ref */
     public void addPaymentRef(String id, String ref, String authCode) {
         this.getPaymentInfo(id).refNum[0] = ref;
         this.getPaymentInfo(id).refNum[1] = authCode;
     }
 
+    /** get a payment ref */
     public String getPaymentRef(String id) {
         for (CartPaymentInfo inf : paymentInfo) {
             if (inf.paymentMethodId.equals(id) || inf.paymentMethodTypeId.equals(id)) {
@@ -1809,10 +1828,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return total;
     }
 
+    /** returns size of paymentInfo */
     public int selectedPayments() {
         return paymentInfo.size();
     }
 
+    /** is Payment Selected */
     public boolean isPaymentSelected(String id) {
         CartPaymentInfo inf = this.getPaymentInfo(id);
         return paymentInfo.contains(inf);
@@ -3029,12 +3050,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public boolean isOrderTermSet() {
-       return orderTermSet;
+        return orderTermSet;
     }
 
     public void setOrderTermSet(boolean orderTermSet) {
-         this.orderTermSet = orderTermSet;
-     }
+        this.orderTermSet = orderTermSet;
+    }
 
     public boolean hasOrderTerm(String termTypeId) {
         if (termTypeId == null) {
@@ -3049,12 +3070,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public boolean isReadOnlyCart() {
-       return readOnlyCart;
+        return readOnlyCart;
     }
 
     public void setReadOnlyCart(boolean readOnlyCart) {
-         this.readOnlyCart = readOnlyCart;
-     }
+        this.readOnlyCart = readOnlyCart;
+    }
 
     /** go through the order adjustments and remove all adjustments with the given type */
     public void removeAdjustmentByType(String orderAdjustmentTypeId) {
@@ -3207,7 +3228,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return shippingApplies;
     }
-
     /** Returns true when there are taxable items in the cart */
     public boolean taxApplies() {
         boolean taxApplies = false;
@@ -3219,7 +3239,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return taxApplies;
     }
-
     /** Returns a Map of all features applied to products in the cart with quantities for a specific ship group. */
     public Map<String, BigDecimal> getFeatureIdQtyMap(int idx) {
         CartShipInfo info = this.getShipInfo(idx);
@@ -3234,44 +3253,38 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         return featureMap;
     }
-
     /** Returns true if the user wishes to view the cart everytime an item is added. */
     public boolean viewCartOnAdd() {
         return viewCartOnAdd;
     }
-
     /** Returns true if the user wishes to view the cart everytime an item is added. */
     public void setViewCartOnAdd(boolean viewCartOnAdd) {
         this.viewCartOnAdd = viewCartOnAdd;
     }
-
     /** Returns the order ID associated with this cart or null if no order has been created yet. */
     public String getOrderId() {
         return this.orderId;
     }
-
     /** Returns the first attempt order ID associated with this cart or null if no order has been created yet. */
     public String getFirstAttemptOrderId() {
         return this.firstAttemptOrderId;
     }
-
     /** Sets the orderId associated with this cart. */
     public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
-
+    /** set next item seq */
     public void setNextItemSeq(long seq) throws GeneralException {
         if (this.nextItemSeq != 1) {
             throw new GeneralException("Cannot set the item sequence once the sequence has been incremented!");
         }
         this.nextItemSeq = seq;
     }
-
     /** TODO: Sets the first attempt orderId for this cart. */
     public void setFirstAttemptOrderId(String orderId) {
         this.firstAttemptOrderId = orderId;
     }
-
+    /** remove all free shipping product promo action */
     public void removeAllFreeShippingProductPromoActions() {
         this.freeShippingProductPromoActions.clear();
     }
@@ -3289,32 +3302,34 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return;
         }
         // is this a free shipping action?
-        if (!"PROMO_FREE_SHIPPING".equals(productPromoAction.getString("productPromoActionEnumId")))
-         {
+        if (!"PROMO_FREE_SHIPPING".equals(productPromoAction.getString("productPromoActionEnumId"))) {
             return; // Changed 1-5-04 by Si Chen
         }
-
         // to easily make sure that no duplicate exists, do a remove first
         this.removeFreeShippingProductPromoAction(productPromoAction.getPrimaryKey());
         this.freeShippingProductPromoActions.add(productPromoAction);
     }
+    /** get free shipping product promo action */
     public List<GenericValue> getFreeShippingProductPromoActions() {
         return this.freeShippingProductPromoActions;
     }
-
+    /** remove all desired alternative gift by action */
     public void removeAllDesiredAlternateGiftByActions() {
         this.desiredAlternateGiftByAction.clear();
     }
+    /** set all desired alternative gift by action */
     public void setDesiredAlternateGiftByAction(GenericPK productPromoActionPK, String productId) {
         this.desiredAlternateGiftByAction.put(productPromoActionPK, productId);
     }
+    /** get desired alternate gift by action */
     public String getDesiredAlternateGiftByAction(GenericPK productPromoActionPK) {
         return this.desiredAlternateGiftByAction.get(productPromoActionPK);
     }
+    /** get all desired alternative gift by action copy */
     public Map<GenericPK, String> getAllDesiredAlternateGiftByActionCopy() {
         return new HashMap<>(this.desiredAlternateGiftByAction);
     }
-
+    /** add product promo use */
     public void addProductPromoUse(String productPromoId, String productPromoCodeId, BigDecimal totalDiscountAmount, BigDecimal quantityLeftInActions, Map<ShoppingCartItem, BigDecimal> usageInfoMap) {
         if (UtilValidate.isNotEmpty(productPromoCodeId) && !this.productPromoCodes.contains(productPromoCodeId)) {
             throw new IllegalStateException("Cannot add a use to a promo code use for a code that has not been entered.");
@@ -3324,7 +3339,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         this.productPromoUseInfoList.add(new ProductPromoUseInfo(productPromoId, productPromoCodeId, totalDiscountAmount, quantityLeftInActions, usageInfoMap));
     }
-
+    /** remove product promo use */
     public void removeProductPromoUse(String productPromoId) {
         if (!productPromoId.isEmpty()) {
             int index = -1;
@@ -3339,23 +3354,22 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
     }
-
+    /** clear out info for general promo use */
     public void clearProductPromoUseInfo() {
-        // clear out info for general promo use
         this.productPromoUseInfoList.clear();
     }
-
+    /** clear cart item use in promo info */
     public void clearCartItemUseInPromoInfo() {
         // clear out info about which cart items have been used in promos
         for (ShoppingCartItem cartLine : this) {
             cartLine.clearPromoRuleUseInfo();
         }
     }
-
+    /** get product promo use info iter */
     public Iterator<ProductPromoUseInfo> getProductPromoUseInfoIter() {
         return productPromoUseInfoList.iterator();
     }
-
+    /** get product promo total */
     public BigDecimal getProductPromoTotal() {
         BigDecimal totalDiscount = BigDecimal.ZERO;
         List<GenericValue> cartAdjustments = this.getAdjustments();
@@ -3399,7 +3413,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return totalDiscount;
     }
-
+    /** get product promo use count */
     public int getProductPromoUseCount(String productPromoId) {
         if (productPromoId == null) {
             return 0;
@@ -3412,7 +3426,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return useCount;
     }
-
+    /** get product promo code use */
     public int getProductPromoCodeUse(String productPromoCodeId) {
         if (productPromoCodeId == null) {
             return 0;
@@ -3425,7 +3439,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return useCount;
     }
-
+    /** clear all promotion information */
     public void clearAllPromotionInformation() {
         this.clearAllPromotionAdjustments();
 
@@ -3436,7 +3450,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.clearProductPromoUseInfo();
         this.clearCartItemUseInPromoInfo();
     }
-
+    /** clear all promotion adjustments */
     public void clearAllPromotionAdjustments() {
         // remove cart adjustments from promo actions
         List<GenericValue> cartAdjustments = this.getAdjustments();
@@ -3464,7 +3478,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
     }
-
+    /** clear all adjustments */
     public void clearAllAdjustments() {
         // remove all the promotion information (including adjustments)
         clearAllPromotionInformation();
@@ -3475,7 +3489,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             checkItem.getAdjustments().clear();
         }
     }
-
+    /** clear all item status */
     public void clearAllItemStatus() {
         for (ShoppingCartItem item : this) {
             item.setStatusId(null);
@@ -3504,17 +3518,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return checkResult;
     }
-
+    /** get product promo codes entered */
     public Set<String> getProductPromoCodesEntered() {
         return this.productPromoCodes;
     }
-
+    /** reset promo rule use */
     public synchronized void resetPromoRuleUse(String productPromoId, String productPromoRuleId) {
         for (ShoppingCartItem cartItem : this) {
             cartItem.resetPromoRuleUse(productPromoId, productPromoRuleId);
         }
     }
-
+    /** confirm promo rule use */
     public synchronized void confirmPromoRuleUse(String productPromoId, String productPromoRuleId) {
         for (ShoppingCartItem cartItem : this) {
             cartItem.confirmPromoRuleUse(productPromoId, productPromoRuleId);
@@ -3564,7 +3578,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
     }
-
+    /** get additional party role map */
     public Map<String, List<String>> getAdditionalPartyRoleMap() {
         return additionalPartyRole;
     }
@@ -3579,7 +3593,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      * @param item
      * @param dispatcher
      */
-    public String getAggregatedInstanceId (ShoppingCartItem item, LocalDispatcher dispatcher) {
+    public String getAggregatedInstanceId(ShoppingCartItem item, LocalDispatcher dispatcher) {
         if (UtilValidate.isEmpty(item.getConfigWrapper()) || UtilValidate.isEmpty(item.getConfigWrapper().getConfigId())) {
             return null;
         }
@@ -3638,7 +3652,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             //create a new WorkEffortGoodStandard based on existing one of AGGREGATED product .
             //Another approach could be to get WorkEffortGoodStandard of the AGGREGATED product while creating production run.
-            GenericValue productionRunTemplate = EntityQuery.use(delegator).from("WorkEffortGoodStandard").where("productId", item.getProductId(), "workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE", "statusId", "WEGS_CREATED").filterByDate().queryFirst();
+            GenericValue productionRunTemplate = EntityQuery.use(delegator).from("WorkEffortGoodStandard").where("productId", item.getProductId(),
+                    "workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE", "statusId", "WEGS_CREATED").filterByDate().queryFirst();
             if (productionRunTemplate != null) {
                 serviceContext.clear();
                 serviceContext.put("workEffortId", productionRunTemplate.getString("workEffortId"));
@@ -3658,7 +3673,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return newProductId;
     }
-
+    /** make order item groups */
     public List<GenericValue> makeOrderItemGroups() {
         List<GenericValue> result = new LinkedList<>();
         for (ShoppingCart.ShoppingCartItemGroup itemGroup : this.itemGroupByNumberMap.values()) {
@@ -3724,11 +3739,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
     }
-
+    /** make order items */
     public List<GenericValue> makeOrderItems(LocalDispatcher dispatcher) {
         return makeOrderItems(false, false, dispatcher);
     }
-
+    /** make order items */
     public List<GenericValue> makeOrderItems(boolean explodeItems, boolean replaceAggregatedId, LocalDispatcher dispatcher) {
         // do the explosion
         if (explodeItems && dispatcher != null) {
@@ -3849,9 +3864,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if ("SHIPPING_CHARGES".equals(orderAdjustment.get("orderAdjustmentTypeId"))) {
                 Iterator<GenericValue> fsppas = this.freeShippingProductPromoActions.iterator();
 
-                while (fsppas.hasNext()) {
+                //while (fsppas.hasNext()) {
                     // TODO - we need to change the way free shipping promotions work
-                }
+                //}
             }
         }
 
@@ -3964,6 +3979,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return allInfos;
     }
 
+    /** make product promo uses */
     public List<GenericValue> makeProductPromoUses() {
         List<GenericValue> productPromoUses = new LinkedList<>();
         String partyId = this.getPartyId();
@@ -4064,15 +4080,15 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return groups;
     }
-
+    /** get ship info size */
     public int getShipInfoSize() {
         return this.shipInfo.size();
     }
-
+    /** make All Order Item Attributes */
     public List<GenericValue> makeAllOrderItemAttributes() {
         return makeAllOrderItemAttributes(null, ALL);
     }
-
+    /** make All Order Item Attributes */
     public List<GenericValue> makeAllOrderItemAttributes(String orderId, int mode) {
 
         // now build order item attributes
@@ -4103,11 +4119,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return result;
         }
     }
-
+    /** make All Order Attributes */
     public List<GenericValue> makeAllOrderAttributes() {
         return makeAllOrderAttributes(null, ALL);
     }
-
+    /** make all order attributes */
     public List<GenericValue> makeAllOrderAttributes(String orderId, int mode) {
 
         List<GenericValue> allOrderAttributes = new LinkedList<>();
@@ -4143,7 +4159,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return allOrderAttributes;
     }
-
+    /** make all order item associations */
     public List<GenericValue> makeAllOrderItemAssociations() {
         List<GenericValue> allOrderItemAssociations = new LinkedList<>();
 
@@ -4188,7 +4204,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return allOrderItemAssociations;
     }
-
     /** Returns a Map of cart values to pass to the storeOrder service */
     public Map<String, Object> makeCartMap(LocalDispatcher dispatcher, boolean explodeItems) {
         Map<String, Object> result = new HashMap<>();
@@ -4249,12 +4264,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return result;
     }
 
+    /** get line list ordered by base price */
     public List<ShoppingCartItem> getLineListOrderedByBasePrice(boolean ascending) {
         List<ShoppingCartItem> result = new ArrayList<>(this.cartLines);
         result.sort(new BasePriceOrderComparator(ascending));
         return result;
     }
 
+    /** get ship groups by supplier */
     public TreeMap<Integer, CartShipInfo> getShipGroupsBySupplier(String supplierPartyId) {
         TreeMap<Integer, CartShipInfo> shipGroups = new TreeMap<>();
         for (int i = 0; i < this.shipInfo.size(); i++) {
@@ -4513,23 +4530,23 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             this.groupName = itemGroup.groupName;
             this.parentGroup = parentGroup;
         }
-
+        /** get group number */
         public String getGroupNumber() {
             return this.groupNumber;
         }
-
+        /** get group name */
         public String getGroupName() {
             return this.groupName;
         }
-
+        /** set group name */
         public void setGroupName(String str) {
             this.groupName = str;
         }
-
-        public ShoppingCartItemGroup getParentGroup () {
+        /** get parent group */
+        public ShoppingCartItemGroup getParentGroup() {
             return this.parentGroup;
         }
-
+        /** make order item group */
         protected GenericValue makeOrderItemGroup(Delegator delegator) {
             GenericValue orderItemGroup = delegator.makeValue("OrderItemGroup");
             orderItemGroup.set("orderItemGroupSeqId", this.getGroupNumber());
@@ -4539,13 +4556,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             return orderItemGroup;
         }
-
+        /** inherit parents parent */
         public void inheritParentsParent() {
             if (this.parentGroup != null) {
                 this.parentGroup = this.parentGroup.getParentGroup();
             }
         }
-
+        /** has code */
         @Override
         public int hashCode() {
             final int prime = 31;
@@ -4556,6 +4573,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return result;
         }
 
+        /** equals */
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof ShoppingCartItemGroup) {
@@ -4583,11 +4601,25 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             this.usageInfoMap = usageInfoMap;
         }
 
-        public String getProductPromoId() { return this.productPromoId; }
-        public String getProductPromoCodeId() { return this.productPromoCodeId; }
-        public BigDecimal getTotalDiscountAmount() { return this.totalDiscountAmount; }
-        public BigDecimal getQuantityLeftInActions() { return this.quantityLeftInActions; }
-        public Map<ShoppingCartItem, BigDecimal> getUsageInfoMap() { return this.usageInfoMap; }
+        public String getProductPromoId() {
+            return this.productPromoId;
+        }
+
+        public String getProductPromoCodeId() {
+            return this.productPromoCodeId;
+        }
+
+        public BigDecimal getTotalDiscountAmount() {
+            return this.totalDiscountAmount;
+        }
+
+        public BigDecimal getQuantityLeftInActions() {
+            return this.quantityLeftInActions;
+        }
+
+        public Map<ShoppingCartItem, BigDecimal> getUsageInfoMap() {
+            return this.usageInfoMap;
+        }
         public BigDecimal getUsageWeight() {
             Iterator<Entry<ShoppingCartItem, BigDecimal>> lineItems = this.usageInfoMap.entrySet().iterator();
             BigDecimal totalAmount = BigDecimal.ZERO;
@@ -4603,7 +4635,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         @Override
         public int compareTo(ProductPromoUseInfo other) {
-                return other.getUsageWeight().compareTo(getUsageWeight());
+            return other.getUsageWeight().compareTo(getUsageWeight());
         }
 
         @Override
@@ -4670,82 +4702,146 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public static class CartShipInfo implements Serializable {
-        public Map<ShoppingCartItem, CartShipItemInfo> shipItemInfo = new HashMap<>();
-        public List<GenericValue> shipTaxAdj = new LinkedList<>();
-        public String orderTypeId = null;
+        private Map<ShoppingCartItem, CartShipItemInfo> shipItemInfo = new HashMap<>();
+        private List<GenericValue> shipTaxAdj = new LinkedList<>();
+        private String orderTypeId = null;
         private String internalContactMechId = null;
-        public String telecomContactMechId = null;
-        public String shipmentMethodTypeId = null;
-        public String supplierPartyId = null;
-        public String supplierAgreementId = null;
-        public String carrierRoleTypeId = null;
-        public String carrierPartyId = null;
+        private String telecomContactMechId = null;
+        private String shipmentMethodTypeId = null;
+        private String supplierPartyId = null;
+        private String supplierAgreementId = null;
+        private String carrierRoleTypeId = null;
+        private String carrierPartyId = null;
         private String facilityId = null;
-        public String giftMessage = null;
-        public String shippingInstructions = null;
-        public String maySplit = "N";
-        public String isGift = "N";
-        public BigDecimal shipEstimate = BigDecimal.ZERO;
-        public Timestamp shipBeforeDate = null;
-        public Timestamp shipAfterDate = null;
+        private String giftMessage = null;
+        private String shippingInstructions = null;
+        private String maySplit = "N";
+        private String isGift = "N";
+        private BigDecimal shipEstimate = BigDecimal.ZERO;
+        private Timestamp shipBeforeDate = null;
+        private Timestamp shipAfterDate = null;
         private String shipGroupSeqId = null;
         private String associatedShipGroupSeqId = null;
-        public String vendorPartyId = null;
-        public String productStoreShipMethId = null;
-        public Map<String, Object> attributes = new HashMap<>();
+        private String vendorPartyId = null;
+        private String productStoreShipMethId = null;
+        private Map<String, Object> attributes = new HashMap<>();
 
+        /** set ship before date */
+        public void setShipBeforeDate(Timestamp shipBeforeDate) {
+            this.shipBeforeDate = shipBeforeDate;
+        }
+        /** set ship after date */
+        public void setShipAfterDate(Timestamp shipAfterDate) {
+            this.shipAfterDate = shipAfterDate;
+        }
+        /** get ship item info */
+        public Map<ShoppingCartItem, CartShipItemInfo> getShipItemInfo() {
+            return this.shipItemInfo;
+        }
+        /** set attribute */
         public void setAttribute(String name, Object value) {
             this.attributes.put(name, value);
         }
-
+        /** set gift message */
+        public void setGiftMessage(String giftMessage) {
+            this.giftMessage = giftMessage;
+        }
+        /** set shipping instructions */
+        public void setShippingInstructions(String shippingInstructions) {
+            this.shippingInstructions = shippingInstructions;
+        }
+        /** remove attribute */
         public void removeAttribute(String name) {
             this.attributes.remove(name);
         }
-
+        /** get attribute */
         @SuppressWarnings("unchecked")
         public <T> T getAttribute(String name) {
             return (T) this.attributes.get(name);
         }
-
-        public String getOrderTypeId() { return orderTypeId; }
-
-        public String getContactMechId() { return internalContactMechId; }
+        /** get order type id */
+        public String getOrderTypeId() {
+            return orderTypeId;
+        }
+        /** get contact mech id */
+        public String getContactMechId() {
+            return internalContactMechId;
+        }
+        /** set contact mech id */
         public void setContactMechId(String contactMechId) {
             this.internalContactMechId = contactMechId;
         }
-
-        public String getCarrierPartyId() { return carrierPartyId; }
-        public String getSupplierPartyId() { return supplierPartyId; }
-        public String getSupplierAgreementId() { return supplierAgreementId; }
-        public String getShipmentMethodTypeId() { return shipmentMethodTypeId; }
-        public BigDecimal getShipEstimate() { return shipEstimate; }
-
-        public String getShipGroupSeqId() { return shipGroupSeqId; }
+        /** get carrier party id */
+        public String getCarrierPartyId() {
+            return carrierPartyId;
+        }
+        /** set carrier party id */
+        public void setCarrierPartyId(String carrierPartyId) {
+            this.carrierPartyId = carrierPartyId;
+        }
+        /** get supplier party id */
+        public String getSupplierPartyId() {
+            return supplierPartyId;
+        }
+        /** set supplier party id */
+        public void setSupplierPartyId(String supplierPartyId) {
+            this.supplierPartyId = supplierPartyId;
+        }
+        /** get supplier agreement id */
+        public String getSupplierAgreementId() {
+            return supplierAgreementId;
+        }
+        /** get shipment method type id */
+        public String getShipmentMethodTypeId() {
+            return shipmentMethodTypeId;
+        }
+        /** set shipment method type id */
+        public void setShipmentMethodTypeId(String shipmentMethodTypeId) {
+            this.shipmentMethodTypeId = shipmentMethodTypeId;
+        }
+        /** get ship estimate */
+        public BigDecimal getShipEstimate() {
+            return shipEstimate;
+        }
+        /** get ship group seq id */
+        public String getShipGroupSeqId() {
+            return shipGroupSeqId;
+        }
+        /** set ship group seq id */
         public void setShipGroupSeqId(String shipGroupSeqId) {
             this.shipGroupSeqId = shipGroupSeqId;
         }
-
-        public String getAssociatedShipGroupSeqId() { return associatedShipGroupSeqId; }
+        /** get associated ship groups eq id */
+        public String getAssociatedShipGroupSeqId() {
+            return associatedShipGroupSeqId;
+        }
+        /** set associated ship grou seq id */
         public void setAssociatedShipGroupSeqId(String shipGroupSeqId) {
             this.associatedShipGroupSeqId = shipGroupSeqId;
         }
-
-        public String getFacilityId() { return facilityId; }
+        /** get facility Id */
+        public String getFacilityId() {
+            return facilityId;
+        }
+        /** set facility id */
         public void setFacilityId(String facilityId) {
             this.facilityId = facilityId;
         }
-
-        public String getVendorPartyId() { return vendorPartyId;}
+        /** get vendor party */
+        public String getVendorPartyId() {
+            return vendorPartyId;
+        }
+        /** set vendor party */
         public void setVendorPartyId(String vendorPartyId) {
             this.vendorPartyId = vendorPartyId;
         }
-
+        /** set may split */
         public void setMaySplit(Boolean maySplit) {
             if (UtilValidate.isNotEmpty(maySplit)) {
                 this.maySplit = maySplit ? "Y" : "N";
             }
         }
-
+        /** get origin address */
         public GenericValue getOriginAddress(ShoppingCart cart) {
             GenericValue originAddress = null;
             Delegator delegator = cart.delegator;
@@ -4778,6 +4874,19 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             return originAddress;
         }
+        /** clear all tax info */
+        public void clearShipTaxAdj() {
+            this.shipTaxAdj.clear();
+        }
+        /** add ship tax adj */
+        public void addShipTaxAdj(GenericValue shipTaxAdj) {
+            this.shipTaxAdj.add(shipTaxAdj);
+        }
+        /** add ship tax adj */
+        public void addShipTaxAdj(List<GenericValue> shipTaxAdj) {
+            this.shipTaxAdj.addAll(shipTaxAdj);
+        }
+        /** clear all tax info */
         public void clearAllTaxInfo() {
             this.shipTaxAdj.clear();
             for (CartShipItemInfo itemInfo : shipItemInfo.values()) {
@@ -4785,11 +4894,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
+        /** make Item Ship Group And Assoc */
         @Deprecated
         public List<GenericValue> makeItemShipGroupAndAssoc(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, String shipGroupSeqId, boolean newShipGroup) {
             return makeItemShipGroupAndAssoc(dispatcher, delegator, cart, shipGroupSeqId);
         }
 
+        /** make item ship group assoc */
         public List<GenericValue> makeItemShipGroupAndAssoc(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, String shipGroupSeqId) {
             List<GenericValue> values = new LinkedList<>();
 
@@ -4936,6 +5047,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return values;
         }
 
+        /** set item info */
         public CartShipItemInfo setItemInfo(ShoppingCartItem item, BigDecimal quantity, List<GenericValue> taxAdj) {
             CartShipItemInfo itemInfo = shipItemInfo.get(item);
             if (itemInfo == null) {
@@ -4956,18 +5068,22 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return itemInfo;
         }
 
+        /** set item info */
         public CartShipItemInfo setItemInfo(ShoppingCartItem item, List<GenericValue> taxAdj) {
             return setItemInfo(item, BigDecimal.ONE.negate(), taxAdj);
         }
 
+        /** set item info */
         public CartShipItemInfo setItemInfo(ShoppingCartItem item, BigDecimal quantity) {
             return setItemInfo(item, quantity, null);
         }
 
+        /** get ship item info */
         public CartShipItemInfo getShipItemInfo(ShoppingCartItem item) {
             return shipItemInfo.get(item);
         }
 
+        /** get ship items */
         public Set<ShoppingCartItem> getShipItems() {
             return shipItemInfo.keySet();
         }
@@ -5016,6 +5132,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
+        /** get total tax */
         public BigDecimal getTotalTax(ShoppingCart cart) {
             List<GenericValue> taxAdjustments = new LinkedList<>();
             taxAdjustments.addAll(shipTaxAdj);
@@ -5027,6 +5144,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return taxTotal;
         }
 
+        /** get total */
         public BigDecimal getTotal() {
             BigDecimal shipItemTotal = BigDecimal.ZERO;
             for (CartShipItemInfo info : shipItemInfo.values()) {
@@ -5038,9 +5156,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         public static class CartShipItemInfo implements Serializable {
             public List<GenericValue> itemTaxAdj = new LinkedList<>();
-            public ShoppingCartItem item = null;
-            public BigDecimal quantity = BigDecimal.ZERO;
-
+            private ShoppingCartItem item = null;
+            private BigDecimal quantity = BigDecimal.ZERO;
+            /** get item tax adj*/
+            public List<GenericValue> getItemTaxAdj() {
+                return this.itemTaxAdj;
+            }
+            /** get item tax */
             public BigDecimal getItemTax(ShoppingCart cart) {
                 BigDecimal itemTax = BigDecimal.ZERO;
 
@@ -5051,15 +5173,15 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
                 return itemTax.setScale(TAX_SCALE, TAX_ROUNDING);
             }
-
+            /** get item */
             public ShoppingCartItem getItem() {
                 return this.item;
             }
-
+            /** get item qty */
             public BigDecimal getItemQuantity() {
                 return this.quantity;
             }
-
+            /** get item sub total */
             public BigDecimal getItemSubTotal() {
                 return item.getItemSubTotal(quantity);
             }
@@ -5067,19 +5189,86 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public static class CartPaymentInfo implements Serializable, Comparable<Object> {
-        public String paymentMethodTypeId = null;
-        public String paymentMethodId = null;
-        public String finAccountId = null;
-        public String securityCode = null;
-        public String postalCode = null;
-        public String[] refNum = new String[2];
-        public String track2 = null;
-        public BigDecimal amount = null;
-        public boolean singleUse = false;
-        public boolean isPresent = false;
-        public boolean isSwiped = false;
-        public boolean overflow = false;
-
+        private String paymentMethodTypeId = null;
+        private String paymentMethodId = null;
+        private String finAccountId = null;
+        private String securityCode = null;
+        private String postalCode = null;
+        private String[] refNum = new String[2];
+        private String track2 = null;
+        private BigDecimal amount = null;
+        private boolean singleUse = false;
+        private boolean isPresent = false;
+        private boolean isSwiped = false;
+        private boolean overflow = false;
+        /** set postal code */
+        public void setPostalCode(String postalCode) {
+            this.postalCode = postalCode;
+        }
+        /** set payment method id */
+        public void setPaymentMethodId(String paymentMethodId) {
+            this.paymentMethodId = paymentMethodId;
+        }
+        /** get payment method id */
+        public String getPaymentMethodId() {
+            return this.paymentMethodId;
+        }
+        /** get payment method type id */
+        public String getPaymentMethodTypeId() {
+            return this.paymentMethodTypeId;
+        }
+        /** set overflow */
+        public void setOverflow(boolean overflow) {
+            this.overflow = overflow;
+        }
+        /** get overflow */
+        public boolean getOverflow() {
+            return this.overflow;
+        }
+        /** set is swiped */
+        public void setIsSwiped(boolean isSwiped) {
+            this.isSwiped = isSwiped;
+        }
+        /** get is swiped */
+        public boolean getIsSwiped() {
+            return this.isSwiped;
+        }
+        /** set finaccount id */
+        public void setFinAccountId(String finAccountId) {
+            this.finAccountId = finAccountId;
+        }
+        /** get finaccount id */
+        public String getFinAccountId() {
+            return this.finAccountId;
+        }
+        /** set security code */
+        public void setSecurityCode(String securityCode) {
+            this.securityCode = securityCode;
+        }
+        /** get security code */
+        public String getSecurityCode() {
+            return this.securityCode;
+        }
+        /** set refNum and auth code */
+        public void setRefNum(String refNum, String authCode) {
+            this.refNum[0] = refNum;
+            if (UtilValidate.isNotEmpty(authCode)) {
+                this.refNum[1] = authCode;
+            }
+        }
+        /** set refNum*/
+        public void setRefNum(String refNum) {
+            setRefNum(refNum, null);
+        }
+        /** set amount */
+        public void setAmount(BigDecimal amount) {
+            this.amount = amount;
+        }
+        /** get amount */
+        public BigDecimal getAmount() {
+            return this.amount;
+        }
+        /** get value object */
         public GenericValue getValueObject(Delegator delegator) {
             String entityName = null;
             Map<String, String> lookupFields = null;
@@ -5101,7 +5290,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             return null;
         }
-
+        /** get billing address */
         public GenericValue getBillingAddress(Delegator delegator) {
             GenericValue valueObj = this.getValueObject(delegator);
             GenericValue postalAddress = null;
@@ -5137,6 +5326,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return postalAddress;
         }
 
+        /** make order payment info */
         public List<GenericValue> makeOrderPaymentInfos(Delegator delegator, ShoppingCart cart) {
             BigDecimal maxAmount = BigDecimal.ZERO;
             GenericValue valueObj = this.getValueObject(delegator);
@@ -5199,7 +5389,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                             opp.set("securityCode", securityCode);
                         }
                         if (track2 != null) {
-                           opp.set("track2", track2);
+                            opp.set("track2", track2);
                         }
                         if (paymentMethodId != null || "FIN_ACCOUNT".equals(paymentMethodTypeId)) {
                             opp.set("statusId", "PAYMENT_NOT_AUTH");
@@ -5259,6 +5449,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return values;
         }
 
+        /** compare to */
         @Override
         public int compareTo(Object o) {
             CartPaymentInfo that = (CartPaymentInfo) o;
@@ -5310,7 +5501,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             return pmtCmp;
         }
-
+        /** hash code */
         @Override
         public int hashCode() {
             final int prime = 31;
@@ -5329,7 +5520,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             result = prime * result + ((track2 == null) ? 0 : track2.hashCode());
             return result;
         }
-
+        /** equals */
         @Override
         public boolean equals(Object obj) {
             if (this == obj) {
@@ -5408,38 +5599,45 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             return true;
         }
-
+        /** to string */
         @Override
         public String toString() {
             return "Pm: " + paymentMethodId + " / PmType: " + paymentMethodTypeId + " / Amt: " + amount + " / Ref: " + refNum[0] + "!" + refNum[1];
         }
     }
 
+    /** get order attributes */
     public Map<String, String> getOrderAttributes() {
         return orderAttributes;
     }
 
+    /** set order attributes */
     public void setOrderAttributes(Map<String, String> orderAttributes) {
         this.orderAttributes = orderAttributes;
     }
 
+    /** get order status id */
     public String getOrderStatusId() {
         return orderStatusId;
     }
 
+    /** set order status id */
     public void setOrderStatusId(String orderStatusId) {
         this.orderStatusId = orderStatusId;
     }
 
+    /** get order status string */
     public String getOrderStatusString() {
         return orderStatusString;
     }
 
+    /**  set order status string */
     public void setOrderStatusString(String orderStatusString) {
         this.orderStatusString = orderStatusString;
     }
 
-    public static BigDecimal getMinimumOrderQuantity(Delegator delegator, BigDecimal itemBasePrice, String itemProductId) throws GenericEntityException {
+    public static BigDecimal getMinimumOrderQuantity(Delegator delegator, BigDecimal itemBasePrice, String itemProductId)
+            throws GenericEntityException {
         BigDecimal minQuantity = BigDecimal.ZERO;
         BigDecimal minimumOrderPrice = BigDecimal.ZERO;
 

@@ -82,8 +82,8 @@ public class GlEvents {
             }
 
         }
-        Map<String, Object> fieldMap = UtilMisc.toMap("glReconciliationName", "Reconciliation at date " + UtilDateTime.nowTimestamp(), "glAccountId"
-                , glAccountId, "organizationPartyId", organizationPartyId, "reconciledDate", UtilDateTime.nowTimestamp(), "reconciledBalance",
+        Map<String, Object> fieldMap = UtilMisc.toMap("glReconciliationName", "Reconciliation at date " + UtilDateTime.nowTimestamp(), "glAccountId",
+                glAccountId, "organizationPartyId", organizationPartyId, "reconciledDate", UtilDateTime.nowTimestamp(), "reconciledBalance",
                 reconciledBalance, "userLogin", userLogin);
         Map<String, Object> glReconResult = null;
         try {

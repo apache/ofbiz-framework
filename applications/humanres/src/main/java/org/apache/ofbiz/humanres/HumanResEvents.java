@@ -161,7 +161,7 @@ public class HumanResEvents {
                     josonMap.put("title", title);
                     //Check child existing
                     List<GenericValue> childOfSubComs = EntityQuery.use(delegator).from("PartyRelationship")
-                            .where("partyIdFrom", catId, 
+                            .where("partyIdFrom", catId,
                                     "partyRelationshipTypeId", "GROUP_ROLLUP")
                                     .filterByDate().queryList();
                     //check employee position
@@ -220,7 +220,7 @@ public class HumanResEvents {
                     GenericValue emplContext = EntityQuery.use(delegator).from("EmplPositionType").where("emplPositionTypeId", typeId).queryOne();
                     String title = null;
                     if (UtilValidate.isNotEmpty(emplContext)) {
-                        title = (String) emplContext.get("description") + " " +"["+ emplId +"]";
+                        title = (String) emplContext.get("description") + " " + "[" + emplId +"]";
                     }
                     String hrefStr = "emplPositionView?emplPositionId=" + emplId;
                     emplAttrMap.put("href", hrefStr);

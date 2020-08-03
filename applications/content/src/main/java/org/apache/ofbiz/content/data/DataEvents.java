@@ -51,7 +51,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class DataEvents {
 
     private static final String MODULE = DataEvents.class.getName();
-    public static final String err_resource = "ContentErrorUiLabels";
+    private static final String ERR_RESOURCE = "ContentErrorUiLabels";
 
     public static String uploadImage(HttpServletRequest request, HttpServletResponse response) {
         return DataResourceWorker.uploadAndStoreImage(request, "dataResourceId", "imageData");
@@ -328,7 +328,7 @@ public class DataEvents {
             if (mode != null && "UPDATE".equals(mode)) {
                 result = dispatcher.runSync("updateDataResource", serviceInMap);
                 if (ServiceUtil.isError(result)) {
-                    String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_update_service", locale);
+                    String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "dataEvents.error_call_update_service", locale);
                     String errorMsg = ServiceUtil.getErrorMessage(result);
                     Debug.logError(errorMsg, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -338,7 +338,7 @@ public class DataEvents {
                 mode = "CREATE";
                 result = dispatcher.runSync("createDataResource", serviceInMap);
                 if (ServiceUtil.isError(result)) {
-                    String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_create_service", locale);
+                    String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "dataEvents.error_call_create_service", locale);
                     String errorMsg = ServiceUtil.getErrorMessage(result);
                     Debug.logError(errorMsg, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);

@@ -45,7 +45,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public final class LayoutWorker {
 
     private static final String MODULE = LayoutWorker.class.getName();
-    private static final String err_resource = "ContentErrorUiLabels";
+    private static final String ERR_RESOURCE = "ContentErrorUiLabels";
 
     private LayoutWorker() { }
 
@@ -81,10 +81,10 @@ public final class LayoutWorker {
             lst = UtilGenerics.cast(request.getAttribute("fileItems"));
         }
         if (lst.size() == 0) {
-            String errMsg = UtilProperties.getMessage(err_resource,
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                     "layoutEvents.no_files_uploaded", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return ServiceUtil.returnError(UtilProperties.getMessage(err_resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(ERR_RESOURCE,
                     "layoutEvents.no_files_uploaded", locale));
         }
 
@@ -108,7 +108,7 @@ public final class LayoutWorker {
         }
 
         if (imageFi == null) {
-            String errMsg = UtilProperties.getMessage(err_resource,
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                     "layoutEvents.image_null", UtilMisc.toMap("imageFi", imageFi), locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return null;

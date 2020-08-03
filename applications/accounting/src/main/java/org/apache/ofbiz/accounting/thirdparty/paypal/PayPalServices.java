@@ -83,7 +83,7 @@ import com.paypal.sdk.services.NVPCallerServices;
 public class PayPalServices {
 
     private static final String MODULE = PayPalServices.class.getName();
-    public final static String RESOURCE = "AccountingErrorUiLabels";
+    private static final String RESOURCE = "AccountingErrorUiLabels";
 
     // Used to maintain a weak reference to the ShoppingCart for customers who have gone to PayPal to checkout
     // so that we can quickly grab the cart, perform shipment estimates and send the info back to PayPal.
@@ -456,8 +456,8 @@ public class PayPalServices {
                     // No email found so we'll need to create one but first check if it should be PRIMARY or just BILLING
                     long primaryEmails = EntityQuery.use(delegator)
                             .from("PartyContactWithPurpose")
-                            .where("partyId", partyId, 
-                                    "contactMechTypeId", "EMAIL_ADDRESS", 
+                            .where("partyId", partyId,
+                                    "contactMechTypeId", "EMAIL_ADDRESS",
                                     "contactMechPurposeTypeId", "PRIMARY_EMAIL")
                             .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                             .queryCount();
@@ -597,9 +597,9 @@ public class PayPalServices {
             try {
                 GenericValue shipmentMethod = EntityQuery.use(delegator)
                         .from("ProductStoreShipmentMethView")
-                        .where("productStoreId", cart.getProductStoreId(), 
-                                "partyId", shipMethodSplit[0], 
-                                "roleTypeId", "CARRIER", 
+                        .where("productStoreId", cart.getProductStoreId(),
+                                "partyId", shipMethodSplit[0],
+                                "roleTypeId", "CARRIER",
                                 "description", shippingMethodTypeDesc)
                         .queryFirst();
                 cart.setAllShipmentMethodTypeId(shipmentMethod.getString("shipmentMethodTypeId"));

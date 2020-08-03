@@ -67,7 +67,7 @@ public class ProductStoreEvents {
                         Map<String, String> dataAttrMap = new HashMap<>();
 
                         dataAttrMap.put("onClick", onclickFunction + "('" + productStoreGroupId + "')");
-                        String hrefStr = "EditProductStoreGroupAndAssoc"; 
+                        String hrefStr = "EditProductStoreGroupAndAssoc";
                         dataAttrMap.put("href", hrefStr);
 
                         dataMap.put("attr", dataAttrMap);

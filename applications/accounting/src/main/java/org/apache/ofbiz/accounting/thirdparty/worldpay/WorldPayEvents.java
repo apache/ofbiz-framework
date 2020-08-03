@@ -226,8 +226,8 @@ public class WorldPayEvents {
         // get the currency
         String defCur = UtilFormatOut.checkEmpty(productStore.getString("defaultCurrencyUomId"), "USD");
         // order description
-        String description = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " " +
-                                 (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
+        String description = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " "
+                                 + (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " " + company : "");
         // check the instId - very important
         if (instId == null || "NONE".equals(instId)) {
             Debug.logError("Worldpay InstId not found, cannot continue", MODULE);
