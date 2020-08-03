@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URLEncoder;
 import java.rmi.server.UID;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -2211,6 +2212,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isEmpty(lastViewName)) {
             lastViewName = "";
         }
+        lastViewName = URLEncoder.encode(lastViewName, "UTF-8");
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
