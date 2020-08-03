@@ -52,7 +52,7 @@ public class SimpleMethodTest extends OFBizTestCase {
     /**
      * Tests of Simple Method
      * @param caseName test case name
-     * @param mainElement DOM main element 
+     * @param mainElement DOM main element
      */
     public SimpleMethodTest(String caseName, Element mainElement) {
         this(caseName, mainElement.getAttribute("location"), mainElement.getAttribute("name"));

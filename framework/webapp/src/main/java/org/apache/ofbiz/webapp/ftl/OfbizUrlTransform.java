@@ -58,7 +58,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class OfbizUrlTransform implements TemplateTransformModel {
 
-    public final static String MODULE = OfbizUrlTransform.class.getName();
+    private static final String MODULE = OfbizUrlTransform.class.getName();
 
     @SuppressWarnings("rawtypes")
     private static boolean checkBooleanArg(Map args, String key, boolean defaultValue) {

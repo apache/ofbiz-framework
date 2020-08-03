@@ -117,7 +117,7 @@ public final class EmptyCondition extends MethodOperation implements Conditional
     }
 
     /**
-     * A &lt;if-empty&gt; element factory. 
+     * A &lt;if-empty&gt; element factory.
      */
     public static final class EmptyConditionFactory extends ConditionalFactory<EmptyCondition> implements Factory<EmptyCondition> {
         @Override

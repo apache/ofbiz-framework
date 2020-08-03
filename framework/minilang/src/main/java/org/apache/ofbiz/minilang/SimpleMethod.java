@@ -75,25 +75,94 @@ import org.w3c.dom.Element;
  * (see <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html" target="_blank">ServiceLoader</a>)
  * </li>
  * </ul>
+ *
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class SimpleMethod extends MiniLangElement {
 
     private static final String MODULE = SimpleMethod.class.getName();
-    private static final String err_resource = "MiniLangErrorUiLabels";
-    private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name", "dispatcher-name", "user-login-name"};
+    private static final String ERR_RESOURCE = "MiniLangErrorUiLabels";
+    private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name",
+            "dispatcher-name", "user-login-name"};
     private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
-    private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
-    private static final UtilCache<String, SimpleMethod> simpleMethodsResourceCache = UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
+    private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache =
+            UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
+    private static final UtilCache<String, SimpleMethod> simpleMethodsResourceCache =
+            UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
 
     static {
         Map<String, MethodOperation.Factory<MethodOperation>> mapFactories = new HashMap<>();
-        Iterator<MethodOperation.Factory<MethodOperation>> it = UtilGenerics.cast(ServiceLoader.load(MethodOperation.Factory.class, SimpleMethod.class.getClassLoader()).iterator());
+        Iterator<MethodOperation.Factory<MethodOperation>> it = UtilGenerics.cast(ServiceLoader.load(MethodOperation.Factory.class,
+                SimpleMethod.class.getClassLoader()).iterator());
         while (it.hasNext()) {
             MethodOperation.Factory<MethodOperation> factory = it.next();
             mapFactories.put(factory.getName(), factory);
         }
         methodOperationFactories = Collections.unmodifiableMap(mapFactories);
+    }
+
+    private final String defaultErrorCode;
+    private final String defaultSuccessCode;
+    private final String eventErrorMessageListName;
+    private final String eventErrorMessageName;
+    private final String eventEventMessageListName;
+    private final String eventEventMessageName;
+    private final String eventRequestName;
+    private final String eventResponseCodeName;
+    private final String eventResponseName;
+    private final String eventSessionName;
+    private final String fromLocation;
+    private final boolean loginRequired;
+    private final String methodName;
+    private final List<MethodOperation> methodOperations;
+    private final String serviceErrorMessageListName;
+    private final String serviceErrorMessageMapName;
+    private final String serviceErrorMessageName;
+    private final String serviceResponseMessageName;
+    private final String serviceSuccessMessageListName;
+    private final String serviceSuccessMessageName;
+    private final String shortDescription;
+    private final boolean useTransaction;
+    public SimpleMethod(Element simpleMethodElement, String fromLocation) throws MiniLangException {
+        super(simpleMethodElement, null);
+        if (MiniLangValidate.validationOn()) {
+            String locationMsg = " File = ".concat(fromLocation);
+            if (simpleMethodElement.getAttribute("method-name").isEmpty()) {
+                MiniLangValidate.handleError("Element must include the \"method-name\" attribute.".concat(locationMsg), null, simpleMethodElement);
+            }
+            for (int i = 0; i < DEPRECATED_ATTRIBUTES.length; i++) {
+                if (!simpleMethodElement.getAttribute(DEPRECATED_ATTRIBUTES[i]).isEmpty()) {
+                    MiniLangValidate.handleError("Attribute \"" + DEPRECATED_ATTRIBUTES[i] + "\" is deprecated (no replacement)." + locationMsg,
+                            null, simpleMethodElement);
+                }
+            }
+        }
+        boolean elementModified = autoCorrect(simpleMethodElement);
+        if (elementModified && MiniLangUtil.autoCorrectOn()) {
+            MiniLangUtil.flagDocumentAsCorrected(simpleMethodElement);
+        }
+        this.fromLocation = fromLocation;
+        methodName = simpleMethodElement.getAttribute("method-name");
+        shortDescription = simpleMethodElement.getAttribute("short-description");
+        defaultErrorCode = UtilXml.elementAttribute(simpleMethodElement, "default-error-code", "error");
+        defaultSuccessCode = UtilXml.elementAttribute(simpleMethodElement, "default-success-code", "success");
+        eventRequestName = UtilXml.elementAttribute(simpleMethodElement, "event-request-object-name", "request");
+        eventSessionName = UtilXml.elementAttribute(simpleMethodElement, "event-session-object-name", "session");
+        eventResponseName = UtilXml.elementAttribute(simpleMethodElement, "event-response-object-name", "response");
+        eventResponseCodeName = UtilXml.elementAttribute(simpleMethodElement, "event-response-code-name", "_response_code_");
+        eventErrorMessageName = UtilXml.elementAttribute(simpleMethodElement, "event-error-message-name", "_error_message_");
+        eventErrorMessageListName = UtilXml.elementAttribute(simpleMethodElement, "event-error-message-list-name", "_error_message_list_");
+        eventEventMessageName = UtilXml.elementAttribute(simpleMethodElement, "event-event-message-name", "_event_message_");
+        eventEventMessageListName = UtilXml.elementAttribute(simpleMethodElement, "event-event-message-list-name", "_event_message_list_");
+        serviceResponseMessageName = UtilXml.elementAttribute(simpleMethodElement, "service-response-message-name", "responseMessage");
+        serviceErrorMessageName = UtilXml.elementAttribute(simpleMethodElement, "service-error-message-name", "errorMessage");
+        serviceErrorMessageListName = UtilXml.elementAttribute(simpleMethodElement, "service-error-message-list-name", "errorMessageList");
+        serviceErrorMessageMapName = UtilXml.elementAttribute(simpleMethodElement, "service-error-message-map-name", "errorMessageMap");
+        serviceSuccessMessageName = UtilXml.elementAttribute(simpleMethodElement, "service-success-message-name", "successMessage");
+        serviceSuccessMessageListName = UtilXml.elementAttribute(simpleMethodElement, "service-success-message-list-name", "successMessageList");
+        loginRequired = !"false".equals(simpleMethodElement.getAttribute("login-required"));
+        useTransaction = !"false".equals(simpleMethodElement.getAttribute("use-transaction"));
+        methodOperations = Collections.unmodifiableList(readOperations(simpleMethodElement, this));
     }
 
     // This method is needed only during the v1 to v2 transition
@@ -210,6 +279,7 @@ public final class SimpleMethod extends MiniLangElement {
      * The ordering in the List is the same as the XML file.
      * <p>This method is used by unit test framework to run tests in the order they appear in the XML file.
      * Method caching is bypassed since the methods are executed only once.</p>
+     *
      * @param xmlResource
      * @param loader
      * @return
@@ -242,7 +312,8 @@ public final class SimpleMethod extends MiniLangElement {
                 methodOperations.add(methodOp);
                 DeprecatedOperation depOp = methodOp.getClass().getAnnotation(DeprecatedOperation.class);
                 if (depOp != null) {
-                    MiniLangValidate.handleError("The " + nodeName + " operation has been deprecated in favor of the " + depOp.value() + " operation", simpleMethod, curOperElem);
+                    MiniLangValidate.handleError("The " + nodeName + " operation has been deprecated in favor of the " + depOp.value()
+                            + " operation", simpleMethod, curOperElem);
                 }
             }
         }
@@ -250,15 +321,18 @@ public final class SimpleMethod extends MiniLangElement {
         return methodOperations;
     }
 
-    public static String runSimpleEvent(String xmlResource, String methodName, HttpServletRequest request, HttpServletResponse response) throws MiniLangException {
+    public static String runSimpleEvent(String xmlResource, String methodName, HttpServletRequest request, HttpServletResponse response)
+            throws MiniLangException {
         return runSimpleMethod(xmlResource, methodName, new MethodContext(request, response, null));
     }
 
-    public static String runSimpleEvent(String xmlResource, String methodName, HttpServletRequest request, HttpServletResponse response, ClassLoader loader) throws MiniLangException {
+    public static String runSimpleEvent(String xmlResource, String methodName, HttpServletRequest request, HttpServletResponse response,
+                                        ClassLoader loader) throws MiniLangException {
         return runSimpleMethod(xmlResource, methodName, new MethodContext(request, response, loader));
     }
 
-    public static String runSimpleEvent(URL xmlURL, String methodName, HttpServletRequest request, HttpServletResponse response, ClassLoader loader) throws MiniLangException {
+    public static String runSimpleEvent(URL xmlURL, String methodName, HttpServletRequest request, HttpServletResponse response, ClassLoader loader)
+            throws MiniLangException {
         return runSimpleMethod(xmlURL, methodName, new MethodContext(request, response, loader));
     }
 
@@ -279,19 +353,22 @@ public final class SimpleMethod extends MiniLangElement {
         return simpleMethod.exec(methodContext);
     }
 
-    public static Map<String, Object> runSimpleService(String xmlResource, String methodName, DispatchContext ctx, Map<String, ? extends Object> context) throws MiniLangException {
+    public static Map<String, Object> runSimpleService(String xmlResource, String methodName, DispatchContext ctx,
+                                                       Map<String, ? extends Object> context) throws MiniLangException {
         MethodContext methodContext = new MethodContext(ctx, context, null);
         runSimpleMethod(xmlResource, methodName, methodContext);
         return methodContext.getResults();
     }
 
-    public static Map<String, Object> runSimpleService(String xmlResource, String methodName, DispatchContext ctx, Map<String, ? extends Object> context, ClassLoader loader) throws MiniLangException {
+    public static Map<String, Object> runSimpleService(String xmlResource, String methodName, DispatchContext ctx,
+                                                       Map<String, ? extends Object> context, ClassLoader loader) throws MiniLangException {
         MethodContext methodContext = new MethodContext(ctx, context, loader);
         runSimpleMethod(xmlResource, methodName, methodContext);
         return methodContext.getResults();
     }
 
-    public static Map<String, Object> runSimpleService(URL xmlURL, String methodName, DispatchContext ctx, Map<String, ? extends Object> context, ClassLoader loader) throws MiniLangException {
+    public static Map<String, Object> runSimpleService(URL xmlURL, String methodName, DispatchContext ctx, Map<String, ? extends Object> context,
+                                                       ClassLoader loader) throws MiniLangException {
         MethodContext methodContext = new MethodContext(ctx, context, loader);
         runSimpleMethod(xmlURL, methodName, methodContext);
         return methodContext.getResults();
@@ -299,7 +376,8 @@ public final class SimpleMethod extends MiniLangElement {
 
     /**
      * Execs the given operations returning true if all return true, or returning false and stopping if any return false.
-     * @throws MiniLangException 
+     *
+     * @throws MiniLangException
      */
     public static boolean runSubOps(List<MethodOperation> methodOperations, MethodContext methodContext) throws MiniLangException {
         Assert.notNull("methodOperations", methodOperations, "methodContext", methodContext);
@@ -311,80 +389,6 @@ public final class SimpleMethod extends MiniLangElement {
         return true;
     }
 
-    private final String defaultErrorCode;
-    private final String defaultSuccessCode;
-    private final String eventErrorMessageListName;
-    private final String eventErrorMessageName;
-    private final String eventEventMessageListName;
-    private final String eventEventMessageName;
-    private final String eventRequestName;
-    private final String eventResponseCodeName;
-    private final String eventResponseName;
-    private final String eventSessionName;
-    private final String fromLocation;
-    private final boolean loginRequired;
-    private final String methodName;
-    private final List<MethodOperation> methodOperations;
-    private final String serviceErrorMessageListName;
-    private final String serviceErrorMessageMapName;
-    private final String serviceErrorMessageName;
-    private final String serviceResponseMessageName;
-    private final String serviceSuccessMessageListName;
-    private final String serviceSuccessMessageName;
-    private final String shortDescription;
-    private final boolean useTransaction;
-
-    public SimpleMethod(Element simpleMethodElement, String fromLocation) throws MiniLangException {
-        super(simpleMethodElement, null);
-        if (MiniLangValidate.validationOn()) {
-            String locationMsg = " File = ".concat(fromLocation);
-            if (simpleMethodElement.getAttribute("method-name").isEmpty()) {
-                MiniLangValidate.handleError("Element must include the \"method-name\" attribute.".concat(locationMsg), null, simpleMethodElement);
-            }
-            for (int i = 0; i < DEPRECATED_ATTRIBUTES.length; i++) {
-                if (!simpleMethodElement.getAttribute(DEPRECATED_ATTRIBUTES[i]).isEmpty()) {
-                    MiniLangValidate.handleError("Attribute \"" + DEPRECATED_ATTRIBUTES[i] + "\" is deprecated (no replacement)." + locationMsg, null, simpleMethodElement);
-                }
-            }
-        }
-        boolean elementModified = autoCorrect(simpleMethodElement);
-        if (elementModified && MiniLangUtil.autoCorrectOn()) {
-            MiniLangUtil.flagDocumentAsCorrected(simpleMethodElement);
-        }
-        this.fromLocation = fromLocation;
-        methodName = simpleMethodElement.getAttribute("method-name");
-        shortDescription = simpleMethodElement.getAttribute("short-description");
-        defaultErrorCode = UtilXml.elementAttribute(simpleMethodElement, "default-error-code", "error");
-        defaultSuccessCode = UtilXml.elementAttribute(simpleMethodElement, "default-success-code", "success");
-        eventRequestName = UtilXml.elementAttribute(simpleMethodElement, "event-request-object-name", "request");
-        eventSessionName = UtilXml.elementAttribute(simpleMethodElement, "event-session-object-name", "session");
-        eventResponseName = UtilXml.elementAttribute(simpleMethodElement, "event-response-object-name", "response");
-        eventResponseCodeName = UtilXml.elementAttribute(simpleMethodElement, "event-response-code-name", "_response_code_");
-        eventErrorMessageName = UtilXml.elementAttribute(simpleMethodElement, "event-error-message-name", "_error_message_");
-        eventErrorMessageListName = UtilXml.elementAttribute(simpleMethodElement, "event-error-message-list-name", "_error_message_list_");
-        eventEventMessageName = UtilXml.elementAttribute(simpleMethodElement, "event-event-message-name", "_event_message_");
-        eventEventMessageListName = UtilXml.elementAttribute(simpleMethodElement, "event-event-message-list-name", "_event_message_list_");
-        serviceResponseMessageName = UtilXml.elementAttribute(simpleMethodElement, "service-response-message-name", "responseMessage");
-        serviceErrorMessageName = UtilXml.elementAttribute(simpleMethodElement, "service-error-message-name", "errorMessage");
-        serviceErrorMessageListName = UtilXml.elementAttribute(simpleMethodElement, "service-error-message-list-name", "errorMessageList");
-        serviceErrorMessageMapName = UtilXml.elementAttribute(simpleMethodElement, "service-error-message-map-name", "errorMessageMap");
-        serviceSuccessMessageName = UtilXml.elementAttribute(simpleMethodElement, "service-success-message-name", "successMessage");
-        serviceSuccessMessageListName = UtilXml.elementAttribute(simpleMethodElement, "service-success-message-list-name", "successMessageList");
-        loginRequired = !"false".equals(simpleMethodElement.getAttribute("login-required"));
-        useTransaction = !"false".equals(simpleMethodElement.getAttribute("use-transaction"));
-        methodOperations = Collections.unmodifiableList(readOperations(simpleMethodElement, this));
-    }
-
-    public void addErrorMessage(MethodContext methodContext, String message) {
-        String messageListName = methodContext.getMethodType() == MethodContext.EVENT ? getEventErrorMessageListName() : getServiceErrorMessageListName();
-        addMessage(methodContext, messageListName, message);
-    }
-
-    public void addMessage(MethodContext methodContext, String message) {
-        String messageListName = methodContext.getMethodType() == MethodContext.EVENT ? getEventEventMessageListName() : getServiceSuccessMessageListName();
-        addMessage(methodContext, messageListName, message);
-    }
-
     private static void addMessage(MethodContext methodContext, String messageListName, String message) {
         List<String> messages = methodContext.getEnv(messageListName);
         if (messages == null) {
@@ -394,19 +398,55 @@ public final class SimpleMethod extends MiniLangElement {
         messages.add(message);
     }
 
-    /** Execute the Simple Method operations */
+    private static String getDelegatorEnvName() {
+        return "delegator";
+    }
+
+    private static String getDispatcherEnvName() {
+        return "dispatcher";
+    }
+
+    private static String getParameterMapName() {
+        return "parameters";
+    }
+
+    private static String getSecurityEnvName() {
+        return "security";
+    }
+
+    public static String getUserLoginEnvName() {
+        return "userLogin";
+    }
+
+    public void addErrorMessage(MethodContext methodContext, String message) {
+        String messageListName = methodContext.getMethodType() == MethodContext.EVENT ? getEventErrorMessageListName()
+                : getServiceErrorMessageListName();
+        addMessage(methodContext, messageListName, message);
+    }
+
+    public void addMessage(MethodContext methodContext, String message) {
+        String messageListName = methodContext.getMethodType() == MethodContext.EVENT ? getEventEventMessageListName()
+                : getServiceSuccessMessageListName();
+        addMessage(methodContext, messageListName, message);
+    }
+
+    /**
+     * Execute the Simple Method operations
+     */
     public String exec(MethodContext methodContext) throws MiniLangException {
         if (methodContext.isTraceOn()) {
-            outputTraceMessage(methodContext, "Begin simple-method. Script is running as " + (methodContext.getMethodType() == MethodContext.EVENT ? "an event." : "a service."));
+            outputTraceMessage(methodContext, "Begin simple-method. Script is running as " + (methodContext.getMethodType() == MethodContext.EVENT
+                    ? "an event." : "a service."));
         }
         Locale locale = methodContext.getLocale();
         GenericValue userLogin = methodContext.getUserLogin();
         if (loginRequired) {
             if (userLogin == null) {
-                Map<String, Object> messageMap = UtilMisc.<String, Object> toMap("shortDescription", shortDescription);
-                String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.must_logged_process", messageMap, locale) + ".";
+                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("shortDescription", shortDescription);
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "simpleMethod.must_logged_process", messageMap, locale) + ".";
                 if (methodContext.isTraceOn()) {
-                    outputTraceMessage(methodContext, "login-required attribute set to \"true\" but UserLogin GenericValue was not found, returning error message:", errMsg);
+                    outputTraceMessage(methodContext,
+                            "login-required attribute set to \"true\" but UserLogin GenericValue was not found, returning error message:", errMsg);
                 }
                 return returnError(methodContext, errMsg);
             }
@@ -437,7 +477,7 @@ public final class SimpleMethod extends MiniLangElement {
             try {
                 beganTransaction = TransactionUtil.begin();
             } catch (GenericTransactionException e) {
-                String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.error_begin_transaction", locale) + ": " + e.getMessage();
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "simpleMethod.error_begin_transaction", locale) + ": " + e.getMessage();
                 if (methodContext.isTraceOn()) {
                     outputTraceMessage(methodContext, "An exception was thrown while beginning a transaction, returning error message:", errMsg);
                 }
@@ -454,7 +494,7 @@ public final class SimpleMethod extends MiniLangElement {
             finished = runSubOps(methodOperations, methodContext);
         } catch (Throwable t) {
             // make SURE nothing gets thrown through
-            String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.error_running", locale) + ": " + t.getMessage();
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "simpleMethod.error_running", locale) + ": " + t.getMessage();
             if (methodContext.isTraceOn()) {
                 outputTraceMessage(methodContext, "An exception was thrown while running sub-elements, error message was:", errMsg);
             }
@@ -495,7 +535,8 @@ public final class SimpleMethod extends MiniLangElement {
             if (UtilValidate.isEmpty(response)) {
                 if (forceError) {
                     // override response code, always use error code
-                    Debug.logInfo("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", MODULE);
+                    Debug.logInfo("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode
+                            + "]", MODULE);
                     response = defaultErrorCode;
                 } else {
                     Debug.logInfo("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", MODULE);
@@ -541,12 +582,14 @@ public final class SimpleMethod extends MiniLangElement {
                 if (forceError) {
                     // override response code, always use error code
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", MODULE);
+                        Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code ["
+                                + defaultErrorCode + "]", MODULE);
                     }
                     response = defaultErrorCode;
                 } else {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", MODULE);
+                        Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]",
+                                MODULE);
                     }
                     response = defaultSuccessCode;
                 }
@@ -579,7 +622,8 @@ public final class SimpleMethod extends MiniLangElement {
             }
             // rollback here passing beganTransaction to either rollback, or set rollback only
             try {
-                TransactionUtil.rollback(beganTransaction, "Error in simple-method [" + this.getShortDescription() + "]: " + summaryErrorStringBuffer, null);
+                TransactionUtil.rollback(beganTransaction, "Error in simple-method [" + this.getShortDescription() + "]: "
+                        + summaryErrorStringBuffer, null);
             } catch (GenericTransactionException e) {
                 String errMsg = "Error trying to rollback transaction, could not process method: " + e.getMessage();
                 if (methodContext.isTraceOn()) {
@@ -621,14 +665,6 @@ public final class SimpleMethod extends MiniLangElement {
 
     public String getDefaultSuccessCode() {
         return this.defaultSuccessCode;
-    }
-
-    private static String getDelegatorEnvName() {
-        return "delegator";
-    }
-
-    private static String getDispatcherEnvName() {
-        return "dispatcher";
     }
 
     public String getEventErrorMessageListName() {
@@ -684,14 +720,6 @@ public final class SimpleMethod extends MiniLangElement {
         return this.methodOperations;
     }
 
-    private static String getParameterMapName() {
-        return "parameters";
-    }
-
-    private static String getSecurityEnvName() {
-        return "security";
-    }
-
     public String getServiceErrorMessageListName() {
         return this.serviceErrorMessageListName;
     }
@@ -723,10 +751,6 @@ public final class SimpleMethod extends MiniLangElement {
     @Override
     public SimpleMethod getSimpleMethod() {
         return this;
-    }
-
-    public static String getUserLoginEnvName() {
-        return "userLogin";
     }
 
     public boolean getUseTransaction() {

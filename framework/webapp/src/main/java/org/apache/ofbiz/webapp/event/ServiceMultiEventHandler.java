@@ -135,12 +135,12 @@ public class ServiceMultiEventHandler implements EventHandler {
         }
 
         // check if we are using per row submit
-        boolean useRowSubmit = request.getParameter("_useRowSubmit") == null ? false :
-                "Y".equalsIgnoreCase(request.getParameter("_useRowSubmit"));
+        boolean useRowSubmit = request.getParameter("_useRowSubmit") == null ? false
+                : "Y".equalsIgnoreCase(request.getParameter("_useRowSubmit"));
 
         // check if we are to also look in a global scope (no delimiter)
-        boolean checkGlobalScope = request.getParameter("_checkGlobalScope") == null ? true :
-                !"N".equalsIgnoreCase(request.getParameter("_checkGlobalScope"));
+        boolean checkGlobalScope = request.getParameter("_checkGlobalScope") == null ? true
+                : !"N".equalsIgnoreCase(request.getParameter("_checkGlobalScope"));
 
         // The number of multi form rows is retrieved
         int rowCount = UtilHttp.getMultiFormRowCount(request);
@@ -187,11 +187,11 @@ public class ServiceMultiEventHandler implements EventHandler {
                 String curSuffix = UtilHttp.getMultiRowDelimiter() + i;
                 boolean rowSelected = false;
                 if (UtilValidate.isNotEmpty(request.getAttribute(UtilHttp.getRowSubmitPrefix() + i))) {
-                    rowSelected = request.getAttribute(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
-                    "Y".equalsIgnoreCase((String) request.getAttribute(UtilHttp.getRowSubmitPrefix() + i));
+                    rowSelected = request.getAttribute(UtilHttp.getRowSubmitPrefix() + i) == null ? false
+                    : "Y".equalsIgnoreCase((String) request.getAttribute(UtilHttp.getRowSubmitPrefix() + i));
                 } else {
-                    rowSelected = request.getParameter(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
-                    "Y".equalsIgnoreCase(request.getParameter(UtilHttp.getRowSubmitPrefix() + i));
+                    rowSelected = request.getParameter(UtilHttp.getRowSubmitPrefix() + i) == null ? false
+                    : "Y".equalsIgnoreCase(request.getParameter(UtilHttp.getRowSubmitPrefix() + i));
                 }
 
                 // make sure we are to process this row
@@ -310,7 +310,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                     result = dispatcher.runSync(serviceName, serviceContext);
                 } catch (ServiceAuthException e) {
                     // not logging since the service engine already did
-                    errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNonNestedMessage());
+                    errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i + "): " + e.getNonNestedMessage());
                 } catch (ServiceValidationException e) {
                     // not logging since the service engine already did
                     request.setAttribute("serviceValidationException", e);
@@ -320,11 +320,11 @@ public class ServiceMultiEventHandler implements EventHandler {
                             errorMessages.add("Service invocation error on row (" + i + "): " + message);
                         }
                     } else {
-                        errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNonNestedMessage());
+                        errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i + "): " + e.getNonNestedMessage());
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Service invocation error", MODULE);
-                    errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNested() + messageSuffixStr);
+                    errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i + "): " + e.getNested() + messageSuffixStr);
                 }
 
                 if (result == null) {

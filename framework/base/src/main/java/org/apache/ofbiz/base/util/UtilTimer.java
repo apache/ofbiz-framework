@@ -87,7 +87,7 @@ public class UtilTimer {
     /**
      * Creates a string with information including the passed message, the last passed message and the time since the last call, and the time since
      * the beginning
-     * 
+     *
      * @param message
      *            A message to put into the timer String
      * @param className

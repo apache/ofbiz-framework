@@ -26,7 +26,7 @@ import org.apache.ofbiz.minilang.method.MethodContext;
  */
 public interface Conditional {
 
-    public boolean checkCondition(MethodContext methodContext) throws MiniLangException;
+    boolean checkCondition(MethodContext methodContext) throws MiniLangException;
 
-    public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext);
+    void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext);
 }

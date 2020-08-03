@@ -116,7 +116,7 @@ public final class CheckPermission extends MethodOperation {
     }
 
     /**
-     * A &lt;check-permission&gt; element factory. 
+     * A &lt;check-permission&gt; element factory.
      */
     public static final class CheckPermissionFactory implements Factory<CheckPermission> {
         @Override

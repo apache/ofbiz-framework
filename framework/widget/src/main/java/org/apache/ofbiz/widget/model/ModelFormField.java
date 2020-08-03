@@ -1037,7 +1037,7 @@ public class ModelFormField {
      * @see <code>widget-form.xsd</code>
      */
     public static class CheckField extends FieldInfoWithOptions {
-        public final static String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
+        public static final String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
         private final FlexibleStringExpander allChecked;
 
         private CheckField(CheckField original, ModelFormField modelFormField) {
@@ -1685,9 +1685,9 @@ public class ModelFormField {
                 if (!this.format.isEmpty()) {
                     formatVal = this.format.expandString(context);
                 } else {
-                    formatVal = this.type.endsWith("-number")?
-                        this.type.replaceFirst("-number", "")
-                        :"default";
+                    formatVal = this.type.endsWith("-number")
+                        ? this.type.replaceFirst("-number", "")
+                        : "default";
                 }
                 Delegator delegator = (Delegator) context.get("delegator");
                 try {
@@ -3881,13 +3881,15 @@ public class ModelFormField {
             Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen), context);
 
             if (retVal instanceof Boolean) {
-                shouldIgnore =(Boolean) retVal;
+                shouldIgnore = (Boolean) retVal;
             } else {
-                throw new IllegalArgumentException("Return value from ignore-when condition eval was not a Boolean: "  + (retVal != null ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
+                throw new IllegalArgumentException("Return value from ignore-when condition eval was not a Boolean: " + (retVal != null
+                        ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
             }
 
         } catch (CompilationFailedException e) {
-            String errMsg = "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form " + this.modelForm.getName() + ": " + e.toString();
+            String errMsg =
+                    "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form " + this.modelForm.getName() + ": " + e.toString();
             Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }

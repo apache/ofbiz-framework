@@ -146,12 +146,12 @@ public class ModelReader implements Serializable {
 
         // check to see if entity with same name has already been read
         if (entityCache.containsKey(entityName) && !redefinedEntity) {
-            Debug.logWarning("Entity " + entityName +
-                    " is defined more than once, most recent will over-write " +
-                    "previous definition(s)", MODULE);
-            Debug.logWarning("Entity " + entityName + " was found in " +
-                    entityResourceHandler + ", but was already defined in " +
-                    entityResourceHandlerMap.get(entityName).toString(), MODULE);
+            Debug.logWarning("Entity " + entityName
+                    + " is defined more than once, most recent will over-write "
+                    + "previous definition(s)", MODULE);
+            Debug.logWarning("Entity " + entityName + " was found in "
+                    + entityResourceHandler + ", but was already defined in "
+                    + entityResourceHandlerMap.get(entityName).toString(), MODULE);
         }
 
         // add entityName, entityFileName pair to entityResourceHandlerMap map
@@ -188,8 +188,8 @@ public class ModelReader implements Serializable {
                 }
             }
         } else {
-            Debug.logWarning("-- -- ENTITYGEN ERROR:getModelEntity: Could not create " +
-                    "entity for entityName: " + entityName, MODULE);
+            Debug.logWarning("-- -- ENTITYGEN ERROR:getModelEntity: Could not create "
+                    + "entity for entityName: " + entityName, MODULE);
         }
         return modelEntity;
     }
@@ -345,8 +345,8 @@ public class ModelReader implements Serializable {
                             Iterator<ModelRelation> relationsIter = curModelEntity.getRelationsIterator();
                             while (relationsIter.hasNext()) {
                                 ModelRelation modelRelation = relationsIter.next();
-                                if (("one".equals(modelRelation.getType()) 
-                                        || "one-nofk".equals(modelRelation.getType())) 
+                                if (("one".equals(modelRelation.getType())
+                                        || "one-nofk".equals(modelRelation.getType()))
                                         && !modelRelation.isAutoRelation()) {
                                     ModelEntity relatedEnt = null;
                                     try {
@@ -406,7 +406,7 @@ public class ModelReader implements Serializable {
                                     } else {
                                         if (newRel.equals(existingRelation)) {
                                             // don't warn if the target title+entity = current title+entity
-                                            if (Debug.infoOn() 
+                                            if (Debug.infoOn()
                                                     && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle() + modelRelation.getRelEntityName())) {
                                                 // String errorMsg = "Relation already exists to entity[] with title ["
                                                 // + targetTitle + "], from entity[]";

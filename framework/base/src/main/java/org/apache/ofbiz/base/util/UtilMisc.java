@@ -572,8 +572,8 @@ public final class UtilMisc {
             String extension = localeString.substring(6);
             locale = new Locale(language, country, extension);
         } else {
-            Debug.logWarning("Do not know what to do with the localeString [" + localeString + "], should be length 2, 5, or greater than 6, " +
-                "returning null", MODULE);
+            Debug.logWarning("Do not know what to do with the localeString [" + localeString + "], should be length 2, 5, or greater than 6, "
+                    + "returning null", MODULE);
         }
 
         return locale;

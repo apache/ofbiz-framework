@@ -759,9 +759,9 @@ public class EntitySyncContext {
             setSplitStartTime();
 
             // total the rows saved so far, and gather some info about them before saving
-            this.totalRowsPerSplit = this.toCreateInserted + this.toCreateNotUpdated + this.toCreateUpdated +
-                    this.toStoreInserted + this.toStoreNotUpdated + this.toStoreUpdated +
-                    this.toRemoveAlreadyDeleted + this.toRemoveDeleted;
+            this.totalRowsPerSplit = this.toCreateInserted + this.toCreateNotUpdated + this.toCreateUpdated
+                    + this.toStoreInserted + this.toStoreNotUpdated + this.toStoreUpdated
+                    + this.toRemoveAlreadyDeleted + this.toRemoveDeleted;
             if (this.totalRowsPerSplit < this.perSplitMinItems) {
                 this.perSplitMinItems = this.totalRowsPerSplit;
             }

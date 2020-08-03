@@ -459,8 +459,8 @@ public class ModelViewEntity extends ModelEntity {
                 ModelEntity aliasedEntity = getAliasedEntity(alias.entityAlias, modelReader);
                 ModelField aliasedField = getAliasedField(aliasedEntity, alias.field, modelReader);
                 if (aliasedField == null) {
-                    Debug.logError("[" + this.getEntityName() + "]: [populateFields] ERROR: could not find ModelField for field name \"" +
-                        alias.field + "\" on entity with name: " + aliasedEntity.getEntityName(), MODULE);
+                    Debug.logError("[" + this.getEntityName() + "]: [populateFields] ERROR: could not find ModelField for field name \""
+                            + alias.field + "\" on entity with name: " + aliasedEntity.getEntityName(), MODULE);
                     continue;
                 }
                 if (alias.isPk != null) {
@@ -1065,7 +1065,7 @@ public class ModelViewEntity extends ModelEntity {
         @Override
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             if (UtilValidate.isEmpty(entityAlias)
-                    && UtilValidate.isEmpty(field) 
+                    && UtilValidate.isEmpty(field)
                     && UtilValidate.isNotEmpty(value)) {
                 colNameBuffer.append(value);
             }

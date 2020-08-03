@@ -268,10 +268,10 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * PLEASE NOTE: Because of the nature of the JDBC ResultSet interface this method can be very inefficient.
-     * It is much better to just use next() until it returns null 
+     * It is much better to just use next() until it returns null
      * For example, you could use the following to iterate through the results in an EntityListIterator:
      *
-     * GenericValue nextValue = null; 
+     * GenericValue nextValue = null;
      * while ((nextValue = (GenericValue)
      * this.next()) != null) { ... }
      *
@@ -427,14 +427,14 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     }
 
     /**
-     * Gets a partial list of results starting at start and containing at most number elements. 
+     * Gets a partial list of results starting at start and containing at most number elements.
      * Start is a one based value, i.e. 1 is the first element.
      *
      * @param start
      *            the index from which on the elements should be retrieved. Is one based.
      * @param number
      *            the maximum number of elements to get after the start index.
-     * @return A list with the retrieved elements, with the size of number or less if the result set does not contain enough values. 
+     * @return A list with the retrieved elements, with the size of number or less if the result set does not contain enough values.
      *            Empty list in case of no values or an invalid start index.
      * @throws GenericEntityException
      *            if there is an issue with the database.

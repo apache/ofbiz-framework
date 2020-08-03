@@ -2608,7 +2608,7 @@ public class GenericDelegator implements Delegator {
         this.testMode = true;
     }
 
-    public final static class TestOperation {
+    public static final class TestOperation {
         private final OperationType operation;
         private final GenericValue value;
 

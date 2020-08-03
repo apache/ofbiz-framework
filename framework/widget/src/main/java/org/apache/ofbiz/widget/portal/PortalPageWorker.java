@@ -145,7 +145,7 @@ public class PortalPageWorker {
     /**
     * Checks if the user is allowed to configure the PortalPage.
     * PortalPage configuration is allowed if he is the PortalPage owner or he has got the PORTALPAGE_ADMIN permission
-    */   
+    */
     public static Boolean userIsAllowedToConfigure(String portalPageId, Map<String, Object> context) {
         Boolean userIsAllowed = false;
 

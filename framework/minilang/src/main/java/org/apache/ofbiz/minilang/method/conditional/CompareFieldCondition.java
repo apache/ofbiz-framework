@@ -199,7 +199,7 @@ public final class CompareFieldCondition extends MethodOperation implements Cond
     }
 
     /**
-     * A &lt;if-compare-field&gt; element factory. 
+     * A &lt;if-compare-field&gt; element factory.
      */
     public static final class CompareFieldConditionFactory extends ConditionalFactory<CompareFieldCondition> implements Factory<CompareFieldCondition> {
         @Override

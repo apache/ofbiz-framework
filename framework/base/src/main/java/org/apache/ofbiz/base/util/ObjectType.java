@@ -227,24 +227,24 @@ public class ObjectType {
         try {
             return loadClass(typeName, loader);
         } catch (SecurityException se1) {
-            throw new IllegalArgumentException("Problems with classloader: security exception (" +
-                    se1.getMessage() + ")");
+            throw new IllegalArgumentException("Problems with classloader: security exception ("
+                    + se1.getMessage() + ")");
         } catch (ClassNotFoundException e1) {
             try {
                 return loadClass(LANG_PACKAGE + typeName, loader);
             } catch (SecurityException se2) {
-                throw new IllegalArgumentException("Problems with classloader: security exception (" +
-                        se2.getMessage() + ")");
+                throw new IllegalArgumentException("Problems with classloader: security exception ("
+                        + se2.getMessage() + ")");
             } catch (ClassNotFoundException e2) {
                 try {
                     return loadClass(SQL_PACKAGE + typeName, loader);
                 } catch (SecurityException se3) {
-                    throw new IllegalArgumentException("Problems with classloader: security exception (" +
-                            se3.getMessage() + ")");
+                    throw new IllegalArgumentException("Problems with classloader: security exception ("
+                            + se3.getMessage() + ")");
                 } catch (ClassNotFoundException e3) {
-                    throw new IllegalArgumentException("Cannot find and load the class of type: " + typeName +
-                            " or of type: " + LANG_PACKAGE + typeName + " or of type: " + SQL_PACKAGE + typeName +
-                            ":  (" + e3.getMessage() + ")");
+                    throw new IllegalArgumentException("Cannot find and load the class of type: " + typeName
+                            + " or of type: " + LANG_PACKAGE + typeName + " or of type: " + SQL_PACKAGE + typeName
+                            + ":  (" + e3.getMessage() + ")");
                 }
             }
         }

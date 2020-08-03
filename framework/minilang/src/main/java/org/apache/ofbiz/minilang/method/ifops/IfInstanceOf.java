@@ -118,7 +118,7 @@ public final class IfInstanceOf extends MethodOperation {
     }
 
     /**
-     * A &lt;if-instance-of&gt; element factory. 
+     * A &lt;if-instance-of&gt; element factory.
      */
     public static final class IfInstanceOfFactory implements Factory<IfInstanceOf> {
         @Override

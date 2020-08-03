@@ -40,7 +40,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public final class CommonWorkers {
 
-    public final static String MODULE = CommonWorkers.class.getName();
+    private static final String MODULE = CommonWorkers.class.getName();
 
     private CommonWorkers() { }
 

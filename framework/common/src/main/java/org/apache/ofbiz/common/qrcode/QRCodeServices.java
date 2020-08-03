@@ -247,9 +247,9 @@ public class QRCodeServices {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int pixel = pixels[y * width + x];
-                int luminance = (306 * ((pixel >> 16) & 0xFF) +
-                    601 * ((pixel >> 8) & 0xFF) +
-                    117 * (pixel & 0xFF)) >> 10;
+                int luminance = (306 * ((pixel >> 16) & 0xFF)
+                    + 601 * ((pixel >> 8) & 0xFF)
+                    + 117 * (pixel & 0xFF)) >> 10;
                 if (luminance <= 0x7F) {
                     matrix.set(x, y);
                 }

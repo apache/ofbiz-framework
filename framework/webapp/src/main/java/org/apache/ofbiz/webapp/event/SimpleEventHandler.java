@@ -41,7 +41,7 @@ public class SimpleEventHandler implements EventHandler {
 
     private static final String MODULE = SimpleEventHandler.class.getName();
     /** Contains the property file name for translation of error messages. */
-    public static final String err_resource = "WebappUiLabels";
+    private static final String ERR_RESOURCE = "WebappUiLabels";
 
     @Override
     public void init(ServletContext context) throws EventHandlerException {
@@ -79,7 +79,7 @@ public class SimpleEventHandler implements EventHandler {
             return eventReturn;
         } catch (MiniLangException e) {
             Debug.logError(e, MODULE);
-            String errMsg = UtilProperties.getMessage(SimpleEventHandler.err_resource, "simpleEventHandler.event_not_completed", (locale != null ? locale : Locale.getDefault())) + ": ";
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "simpleEventHandler.event_not_completed", (locale != null ? locale : Locale.getDefault())) + ": ";
             request.setAttribute("_ERROR_MESSAGE_", errMsg + e.getMessage());
             return "error";
         } catch (GenericTransactionException e) {

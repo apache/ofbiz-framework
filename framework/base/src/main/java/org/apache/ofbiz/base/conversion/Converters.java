@@ -74,7 +74,7 @@ public class Converters {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Getting converter: " + key, MODULE);
         }
-OUTER:
+        OUTER:
         do {
             Converter<?, ?> result = converterMap.get(key);
             if (result != null) {
@@ -113,10 +113,10 @@ OUTER:
                 addedToSet = noConversions.add(key);
             }
             if (addedToSet) {
-                Debug.logWarning("*** No converter found, converting from " +
-                        sourceClass.getName() + " to " + targetClass.getName() +
-                        ". Please report this message to the developer community so " +
-                        "a suitable converter can be created. ***", MODULE);
+                Debug.logWarning("*** No converter found, converting from "
+                        + sourceClass.getName() + " to " + targetClass.getName()
+                        + ". Please report this message to the developer community so "
+                        + "a suitable converter can be created. ***", MODULE);
             }
             throw new ClassNotFoundException("No converter found for " + key);
         } while (true);

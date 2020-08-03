@@ -287,8 +287,8 @@ public final class ServiceDispatcher {
 
             if (Debug.verboseOn() || modelService.debug) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("[ServiceDispatcher.runSync] : invoking service " + modelService.name + " [" + modelService.location +
-                            "/" + modelService.invoke + "] (" + modelService.engineName + ")", MODULE);
+                    Debug.logVerbose("[ServiceDispatcher.runSync] : invoking service " + modelService.name + " [" + modelService.location
+                            + "/" + modelService.invoke + "] (" + modelService.engineName + ")", MODULE);
                 }
             }
 
@@ -659,8 +659,8 @@ public final class ServiceDispatcher {
         }
         if (Debug.verboseOn() || service.debug) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.name + " [" + service.location + "/" + service.invoke +
-                        "] (" + service.engineName + ")", MODULE);
+                Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.name + " [" + service.location + "/" + service.invoke
+                        + "] (" + service.engineName + ")", MODULE);
             }
         }
 

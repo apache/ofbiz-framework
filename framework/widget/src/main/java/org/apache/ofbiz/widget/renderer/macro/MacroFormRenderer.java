@@ -102,7 +102,6 @@ import freemarker.template.TemplateException;
 
 /**
  * Widget Library - Form Renderer implementation based on Freemarker macros
- *
  */
 public final class MacroFormRenderer implements FormStringRenderer {
 
@@ -141,6 +140,25 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this(macroLibraryPath, request, response);
     }
 
+    private static String encodeDoubleQuotes(String htmlString) {
+        return htmlString.replaceAll("\"", "\\\\\"");
+    }
+
+    /**
+     * Extracts parameters from a target URL string, prepares them for an Ajax
+     * JavaScript call. This method is currently set to return a parameter string
+     * suitable for the Prototype.js library.
+     *
+     * @param target Target URL string
+     * @return Parameter string
+     */
+    public static String getAjaxParamsFromTarget(String target) {
+        String targetParams = UtilHttp.getQueryStringFromTarget(target);
+        targetParams = targetParams.replace("?", "");
+        targetParams = targetParams.replace("&amp;", "&");
+        return targetParams;
+    }
+
     public boolean getRenderPagination() {
         return this.renderPagination;
     }
@@ -176,10 +194,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         return value;
     }
 
-    private static String encodeDoubleQuotes(String htmlString) {
-        return htmlString.replaceAll("\"", "\\\\\"");
-    }
-
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) {
         String labelText = label.getText(context);
         if (UtilValidate.isEmpty(labelText)) {
@@ -208,7 +222,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             try {
                 size = Integer.parseInt(displayField.getSize());
             } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Error reading size of a field fieldName=" + displayField.getModelFormField().getFieldName() + " FormName= " + displayField.getModelFormField().getModelForm().getName(), MODULE);
+                Debug.logError(nfe, "Error reading size of a field fieldName=" + displayField.getModelFormField().getFieldName() + " FormName= "
+                        + displayField.getModelFormField().getModelForm().getName(), MODULE);
             }
         }
         ModelFormField.InPlaceEditor inPlaceEditor = displayField.getInPlaceEditor();
@@ -558,7 +573,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 Debug.logWarning("Invalid value for step property for field[" + paramName + "] with input-method=\"time-dropdown\" " + " Found Value [" + stepString + "]  " + e.getMessage(), MODULE);
             }
             timeValues.append("[");
-            for (int i = 0; i <= 59;) {
+            for (int i = 0; i <= 59; ) {
                 if (i != 0) {
                     timeValues.append(", ");
                 }
@@ -1584,6 +1599,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
 
     }
+
     @Override
     public void renderEmptyFormDataMessage(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
@@ -2900,8 +2916,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     /**
      * Renders the beginning boundary comment string.
-     * @param writer The writer to write to
-     * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
+     *
+     * @param writer      The writer to write to
+     * @param widgetType  The widget type: "Screen Widget", "Form Widget", etc.
      * @param modelWidget The widget
      */
     public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) {
@@ -2921,8 +2938,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     /**
      * Renders the ending boundary comment string.
-     * @param writer The writer to write to
-     * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
+     *
+     * @param writer      The writer to write to
+     * @param widgetType  The widget type: "Screen Widget", "Form Widget", etc.
      * @param modelWidget The widget
      */
     public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) {
@@ -3020,8 +3038,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
-    /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
+    /**
+     * Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
      * <code>OfbizUtil.js</code>.
+     *
      * @param updateAreas
      * @param extraParams Renderer-supplied additional target parameters
      * @param context
@@ -3062,8 +3082,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         return FlexibleStringExpander.expandString(sb.toString(), context, locale);
     }
 
-    /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
+    /**
+     * Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
      * <code>OfbizUtil.js</code>.
+     *
      * @param updateAreas
      * @param extraParams Renderer-supplied additional target parameters
      * @param context
@@ -3119,19 +3141,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         return FlexibleStringExpander.expandString(ajaxUrl, context, locale);
-    }
-
-    /** Extracts parameters from a target URL string, prepares them for an Ajax
-     * JavaScript call. This method is currently set to return a parameter string
-     * suitable for the Prototype.js library.
-     * @param target Target URL string
-     * @return Parameter string
-     */
-    public static String getAjaxParamsFromTarget(String target) {
-        String targetParams = UtilHttp.getQueryStringFromTarget(target);
-        targetParams = targetParams.replace("?", "");
-        targetParams = targetParams.replace("&amp;", "&");
-        return targetParams;
     }
 
     public void appendTooltip(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) {
@@ -3191,7 +3200,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target, Map<String, String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField, HttpServletRequest request,
-            HttpServletResponse response, Map<String, Object> context) throws IOException {
+                                    HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
         String encodedDescription = encode(description, modelFormField, context);
         // get the parameterized pagination index and size fields
@@ -3259,7 +3268,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, Map<String, String> parameterMap, String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context,
-            String targetWindow) throws IOException {
+                                    String targetWindow) throws IOException {
         if (description != null || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             StringBuilder linkUrl = new StringBuilder();
             final URI linkUri = WidgetWorker.buildHyperlinkUri(target, targetType,
@@ -3309,7 +3318,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 height = request.getAttribute("height").toString();
             }
             StringBuilder targetParameters = new StringBuilder();
-            if (UtilValidate.isNotEmpty(parameterMap) ) {
+            if (UtilValidate.isNotEmpty(parameterMap)) {
                 targetParameters.append("{");
                 for (Map.Entry<String, String> parameter : parameterMap.entrySet()) {
                     if (targetParameters.length() > 1) {

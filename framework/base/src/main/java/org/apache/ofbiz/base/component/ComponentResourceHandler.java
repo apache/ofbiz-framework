@@ -103,9 +103,9 @@ public class ComponentResourceHandler implements ResourceHandler {
         if (obj instanceof ComponentResourceHandler) {
             ComponentResourceHandler other = (ComponentResourceHandler) obj;
 
-            if (this.loaderName.equals(other.loaderName) &&
-                this.componentName.equals(other.componentName) &&
-                this.location.equals(other.location)) {
+            if (this.loaderName.equals(other.loaderName)
+                    && this.componentName.equals(other.componentName)
+                    && this.location.equals(other.location)) {
                 return true;
             }
         }

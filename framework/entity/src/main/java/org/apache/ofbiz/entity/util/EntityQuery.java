@@ -91,7 +91,7 @@ public class EntityQuery {
 
     /** Set the fields to be returned when the query is executed.
      * Note that the select methods are not additive, if a subsequent
-     * call is made to select then the existing fields for selection 
+     * call is made to select then the existing fields for selection
      * will be replaced.
      * @param fieldsToSelect - A Set of Strings containing the field names to be selected
      * @return this EntityQuery object, to enable chaining
@@ -444,7 +444,7 @@ public class EntityQuery {
         if (dynamicViewEntity == null) {
             result = delegator.findList(entityName, makeWhereCondition(useCache), havingEntityCondition, fieldsToSelect, orderBy, findOptions, useCache);
         } else {
-            try (EntityListIterator it = queryIterator()) { 
+            try (EntityListIterator it = queryIterator()) {
                 result = it.getCompleteList();
             }
         }
@@ -519,7 +519,7 @@ public class EntityQuery {
     }
 
     /**
-     * Gets a list of values (no matter which type) for a specified entity field name. 
+     * Gets a list of values (no matter which type) for a specified entity field name.
      * <p>
      * The field of the entity is first selected and the cache usage turned off to ensure no values are missing.
      * @param <T>

@@ -38,7 +38,6 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLServerSocketFactory;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509KeyManager;
@@ -170,11 +169,11 @@ public final class SSLUtil {
             }
         }
 
-        return new TrustManager[] { tm };
+        return new TrustManager[] {tm };
     }
 
     public static TrustManager[] getTrustAnyManagers() {
-        return new TrustManager[] { new TrustAnyManager() };
+        return new TrustManager[] {new TrustAnyManager() };
     }
 
     public static KeyManager[] getKeyManagers(KeyStore ks, String password, String alias) throws GeneralSecurityException {
@@ -192,14 +191,16 @@ public final class SSLUtil {
     }
 
     public static TrustManager[] getTrustManagers(KeyStore ks) {
-        return new TrustManager[] { new MultiTrustManager(ks) };
+        return new TrustManager[] {new MultiTrustManager(ks) };
     }
 
-    public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLContext(ks, password, alias, false).getSocketFactory();
     }
 
-    public static SSLContext getSSLContext(KeyStore ks, String password, String alias, boolean trustAny) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLContext getSSLContext(KeyStore ks, String password, String alias, boolean trustAny)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         KeyManager[] km = SSLUtil.getKeyManagers(ks, password, alias);
         TrustManager[] tm;
         if (trustAny) {
@@ -213,7 +214,8 @@ public final class SSLUtil {
         return context;
     }
 
-    public static SSLSocketFactory getSSLSocketFactory(String alias, boolean trustAny) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLSocketFactory getSSLSocketFactory(String alias, boolean trustAny)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLContext(alias, trustAny).getSocketFactory();
     }
 
@@ -239,11 +241,13 @@ public final class SSLUtil {
         return getSSLSocketFactory(null);
     }
 
-    public static SSLServerSocketFactory getSSLServerSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLServerSocketFactory getSSLServerSocketFactory(KeyStore ks, String password, String alias)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLContext(ks, password, alias, false).getServerSocketFactory();
     }
 
-    public static SSLServerSocketFactory getSSLServerSocketFactory(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLServerSocketFactory getSSLServerSocketFactory(String alias)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLContext(alias, false).getServerSocketFactory();
     }
 

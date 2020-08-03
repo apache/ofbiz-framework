@@ -269,7 +269,7 @@ public class JWTManager {
      * @param delegator
      * @param jwtToken
      * @param keySalt
-     * @return Map of the claims contained in the token or an error 
+     * @return Map of the claims contained in the token or an error
      */
     public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
         return validateToken(jwtToken, JWTManager.getJWTKey(delegator, keySalt));

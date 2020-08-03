@@ -152,9 +152,9 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
 
         Reader reader = new StringReader(screenOutString);
         StreamSource src = new StreamSource(reader);
-        ByteArrayOutputStream out = new ByteArrayOutputStream(); 
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
         /* Debug area, uncomment this to view the xml file generate before analyse by fop
-        try { 
+        try {
                 java.io.FileWriter fw = new java.io.FileWriter(new java.io.File(System.getProperty("ofbiz.home")+"/runtime/tempfiles/temp.xsl.fo"));
                 fw.write(screenOutString);
                 fw.close();

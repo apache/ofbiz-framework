@@ -70,7 +70,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     private static final ConcurrentHashMap<String, UtilCache<?, ?>> utilCacheTable = new ConcurrentHashMap<>();
 
     /** An index number appended to utilCacheTable names when there are conflicts. */
-    private final static ConcurrentHashMap<String, AtomicInteger> defaultIndices = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, AtomicInteger> defaultIndices = new ConcurrentHashMap<>();
 
     /** The name of the UtilCache instance, is also the key for the instance in utilCacheTable. */
     private final String name;

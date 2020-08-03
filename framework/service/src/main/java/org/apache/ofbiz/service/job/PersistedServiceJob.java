@@ -387,7 +387,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         return new Date(startTime);
     }
 
-    /* 
+    /*
      * Returns the priority stored in the JobSandbox.priority field, if no value is present
      * then it defaults to AbstractJob.getPriority()
      */

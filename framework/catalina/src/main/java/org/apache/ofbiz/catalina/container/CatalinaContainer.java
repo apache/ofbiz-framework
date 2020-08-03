@@ -135,8 +135,8 @@ public class CatalinaContainer implements Container {
         }
 
         for (Connector con: tomcat.getService().findConnectors()) {
-            Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
-                (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", MODULE);
+            Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - "
+                    + (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", MODULE);
         }
         Debug.logInfo("Started " + ServerInfo.getServerInfo(), MODULE);
         return true;
@@ -171,8 +171,8 @@ public class CatalinaContainer implements Container {
 
     private static Tomcat prepareTomcatServer(ContainerConfig.Configuration cc, Configuration.Property engineConfig)
             throws ContainerException {
-        System.setProperty(Globals.CATALINA_HOME_PROP, System.getProperty("ofbiz.home") + "/" +
-                    ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina"));
+        System.setProperty(Globals.CATALINA_HOME_PROP, System.getProperty("ofbiz.home") + "/"
+                + ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina"));
         System.setProperty(Globals.CATALINA_BASE_PROP, System.getProperty(Globals.CATALINA_HOME_PROP));
 
         Tomcat tomcat = new Tomcat();

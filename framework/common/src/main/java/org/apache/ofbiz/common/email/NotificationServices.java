@@ -48,7 +48,7 @@ import freemarker.template.TemplateException;
  * via email.
  * <p>
  * To use the NotificationService, a message specific service should be
- * defined for a particular 
+ * defined for a particular
  * <a href="http://freemarker.sourceforge.net/docs/dgui_quickstart_template.html">
  * Freemarker Template</a> mapping the required fields of the template to the
  * required attributes of the service.
@@ -70,7 +70,7 @@ import freemarker.template.TemplateException;
  * }
  * </pre>
  * <p>
- * An optional parameter available to all message templates is 
+ * An optional parameter available to all message templates is
  * <code>baseUrl</code> which can either be specified when the service is
  * invoked or let the <code>NotificationService</code> attempt to resolve it
  * as best it can, see {@link #setBaseUrl(Delegator, String, Map) setBaseUrl(Map)}

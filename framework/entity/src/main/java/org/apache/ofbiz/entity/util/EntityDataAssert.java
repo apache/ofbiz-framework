@@ -105,8 +105,8 @@ public class EntityDataAssert {
                 Object currentField = currentValue.get(nonpkFieldName);
 
                 if (checkField != null && !checkField.equals(currentField)) {
-                    errorMessages.add("Field [" + modelEntity.getEntityName() + "." + nonpkFieldName +
-                            "] did not match; file value [" + checkField + "], db value [" + currentField + "] pk [" + checkPK + "]");
+                    errorMessages.add("Field [" + modelEntity.getEntityName() + "." + nonpkFieldName
+                            + "] did not match; file value [" + checkField + "], db value [" + currentField + "] pk [" + checkPK + "]");
                 }
             }
         } catch (GenericEntityException e) {

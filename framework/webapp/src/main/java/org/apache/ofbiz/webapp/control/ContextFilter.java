@@ -171,10 +171,10 @@ public class ContextFilter implements Filter {
                     request.setAttribute("userTenantId", tenantId);
                 }
 
-                // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may 
-                // have logged in and specified a tenant, and even if no Tenant record with a matching domainName field 
-                // is found this will change the user's delegator back to the base one instead of the one for the 
-                // tenant specified on login 
+                // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may
+                // have logged in and specified a tenant, and even if no Tenant record with a matching domainName field
+                // is found this will change the user's delegator back to the base one instead of the one for the
+                // tenant specified on login
                 // httpRequest.getSession().setAttribute("delegatorName", delegator.getDelegatorName());
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Unable to get Tenant", MODULE);

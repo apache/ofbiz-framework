@@ -295,7 +295,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         String expression = new String(chars, 0, length + offset);
         int start = expression.indexOf(openBracket, offset);
         if (start == -1) {
-            return new FlexibleStringExpander[] { new ConstOffsetElem(chars, offset, length) };
+            return new FlexibleStringExpander[] {new ConstOffsetElem(chars, offset, length) };
         }
         int origLen = length;
         ArrayList<FlexibleStringExpander> strElems = new ArrayList<>();

@@ -188,7 +188,7 @@ public final class CompareCondition extends MethodOperation implements Condition
     }
 
     /**
-     * A &lt;if-compare&gt; element factory. 
+     * A &lt;if-compare&gt; element factory.
      */
     public static final class CompareConditionFactory extends ConditionalFactory<CompareCondition> implements Factory<CompareCondition> {
         @Override

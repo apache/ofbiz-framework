@@ -39,12 +39,15 @@ public class SetRequestAttributeMethod implements TemplateMethodModelEx {
 
     @Override
     public Object exec(@SuppressWarnings("rawtypes") List args) throws TemplateModelException {
-        if (args == null || args.size() != 2)
+        if (args == null || args.size() != 2) {
             throw new TemplateModelException("Invalid number of arguements");
-        if (!(args.get(0) instanceof TemplateScalarModel))
+        }
+        if (!(args.get(0) instanceof TemplateScalarModel)) {
             throw new TemplateModelException("First argument not an instance of TemplateScalarModel");
-        if (!(args.get(1) instanceof BeanModel) && !(args.get(1) instanceof TemplateNumberModel) && !(args.get(1) instanceof TemplateScalarModel))
+        }
+        if (!(args.get(1) instanceof BeanModel) && !(args.get(1) instanceof TemplateNumberModel) && !(args.get(1) instanceof TemplateScalarModel)) {
             throw new TemplateModelException("Second argument not an instance of BeanModel nor TemplateNumberModel nor TemplateScalarModel");
+        }
 
         Environment env = Environment.getCurrentEnvironment();
         BeanModel req = (BeanModel) env.getVariable("request");
@@ -52,12 +55,15 @@ public class SetRequestAttributeMethod implements TemplateMethodModelEx {
 
         String name = ((TemplateScalarModel) args.get(0)).getAsString();
         Object value = null;
-        if (args.get(1) instanceof TemplateScalarModel)
+        if (args.get(1) instanceof TemplateScalarModel) {
             value = ((TemplateScalarModel) args.get(1)).getAsString();
-        if (args.get(1) instanceof TemplateNumberModel)
+        }
+        if (args.get(1) instanceof TemplateNumberModel) {
             value = ((TemplateNumberModel) args.get(1)).getAsNumber();
-        if (args.get(1) instanceof BeanModel)
+        }
+        if (args.get(1) instanceof BeanModel) {
             value = ((BeanModel) args.get(1)).getWrappedObject();
+        }
 
         request.setAttribute(name, value);
         return new SimpleScalar("");

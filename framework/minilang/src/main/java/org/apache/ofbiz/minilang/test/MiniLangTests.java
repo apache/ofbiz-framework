@@ -92,12 +92,12 @@ public class MiniLangTests extends OFBizTestCase {
     }
 
     public void testFieldToResultOperation() throws Exception {
-        String simpleMethodXml = "<simple-method name=\"testFieldToResult\">" +
-                                 "  <set field=\"resultValue\" value=\"someResultValue\"/>" +
-                                 "  <set field=\"result1\" value=\"dynamicResultName\"/>" +
-                                 "  <field-to-result field=\"resultValue\" result-name=\"constantResultName\"/>" +
-                                 "  <field-to-result field=\"resultValue\" result-name=\"${result1}\"/>" +
-                                 "</simple-method>";
+        String simpleMethodXml = "<simple-method name=\"testFieldToResult\">"
+                + "  <set field=\"resultValue\" value=\"someResultValue\"/>"
+                + "  <set field=\"result1\" value=\"dynamicResultName\"/>"
+                + "  <field-to-result field=\"resultValue\" result-name=\"constantResultName\"/>"
+                + "  <field-to-result field=\"resultValue\" result-name=\"${result1}\"/>"
+                + "</simple-method>";
         SimpleMethod methodToTest = createSimpleMethod(simpleMethodXml);
         MethodContext context = createServiceMethodContext();
         String result = methodToTest.exec(context);

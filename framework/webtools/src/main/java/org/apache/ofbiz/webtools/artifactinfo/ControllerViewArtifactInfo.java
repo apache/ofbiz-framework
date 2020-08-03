@@ -112,8 +112,8 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
     public boolean equals(Object obj) {
         if (obj instanceof ControllerViewArtifactInfo) {
             ControllerViewArtifactInfo that = (ControllerViewArtifactInfo) obj;
-            return Objects.equals(this.controllerXmlUrl, that.controllerXmlUrl) &&
-                Objects.equals(this.viewUri, that.viewUri);
+            return Objects.equals(this.controllerXmlUrl, that.controllerXmlUrl)
+                    && Objects.equals(this.viewUri, that.viewUri);
         } else {
             return false;
         }

@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class TelecomServices {
 
-    public final static String MODULE = TelecomServices.class.getName();
+    private static final String MODULE = TelecomServices.class.getName();
 
     public static Map<String, Object> sendTelecomMessage(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();

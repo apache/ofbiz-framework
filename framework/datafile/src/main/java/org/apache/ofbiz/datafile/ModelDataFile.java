@@ -64,7 +64,6 @@ public class ModelDataFile {
     public String description = "";
     /** file enconding, by default UTF-8 is used */
     public String encodingType = "UTF-8";
-    
 
     /**
      * the End Of Line type (CRLF or CR)

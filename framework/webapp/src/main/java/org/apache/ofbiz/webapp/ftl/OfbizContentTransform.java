@@ -41,7 +41,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class OfbizContentTransform implements TemplateTransformModel {
 
-    public final static String MODULE = OfbizContentTransform.class.getName();
+    private static final String MODULE = OfbizContentTransform.class.getName();
 
     private static String getArg(Map<String, Object> args, String key) {
         String  result = "";

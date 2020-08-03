@@ -80,7 +80,7 @@ public class EntityTestSuite extends EntityTestCase {
         super(name);
     }
 
-    final static private int _level1max = 3;   // number of TestingNode entities to create
+    static final private int _level1max = 3;   // number of TestingNode entities to create
 
     public void testModels() throws Exception {
         ModelEntity modelEntity = delegator.getModelEntity("TestingType");

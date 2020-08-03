@@ -249,8 +249,8 @@ public class WebToolsServices {
                 int initialListSize = files.size();
                 int lastUnprocessedFilesCount = 0;
                 List<File> unprocessedFiles = new LinkedList<>();
-                while (files.size() > 0 &&
-                        files.size() != lastUnprocessedFilesCount) {
+                while (files.size() > 0
+                        && files.size() != lastUnprocessedFilesCount) {
                     lastUnprocessedFilesCount = files.size();
                     unprocessedFiles = new LinkedList<>();
                     for (File f: files) {

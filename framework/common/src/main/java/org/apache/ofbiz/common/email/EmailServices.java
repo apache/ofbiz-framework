@@ -87,7 +87,7 @@ import freemarker.template.TemplateException;
  */
 public class EmailServices {
 
-    public final static String MODULE = EmailServices.class.getName();
+    private static final String MODULE = EmailServices.class.getName();
 
     private static final String RESOURCE = "CommonUiLabels";
 

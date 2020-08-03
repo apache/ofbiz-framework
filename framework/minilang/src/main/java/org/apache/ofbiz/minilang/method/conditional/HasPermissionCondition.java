@@ -142,7 +142,7 @@ public final class HasPermissionCondition extends MethodOperation implements Con
     }
 
     /**
-     * A &lt;if-has-permission&gt; element factory. 
+     * A &lt;if-has-permission&gt; element factory.
      */
     public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition> implements Factory<HasPermissionCondition> {
         @Override

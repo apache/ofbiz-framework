@@ -283,13 +283,13 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                     newEntity.set(pkFieldName, pkValue);
                 }
             } else {
-                throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the create invoke option: " +
-                        "could not find a valid combination of primary key settings to do a known create operation; options include: " +
-                        "1. a single OUT pk for primary auto-sequencing, " +
-                        "2. a single INOUT pk for primary auto-sequencing with optional override, " +
-                        "3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secondary pk to sub-sequence), " +
-                        "4. a N-part pk with N-1 part IN and one party OUT only (missing pk is a sub-sequence mainly for entity assoc), " +
-                        "5. all pk fields are IN for a manually specified primary key");
+                throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the create invoke option: "
+                        + "could not find a valid combination of primary key settings to do a known create operation; options include: "
+                        + "1. a single OUT pk for primary auto-sequencing, "
+                        + "2. a single INOUT pk for primary auto-sequencing with optional override, "
+                        + "3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secondary pk to sub-sequence), "
+                        + "4. a N-part pk with N-1 part IN and one party OUT only (missing pk is a sub-sequence mainly for entity assoc), "
+                        + "5. all pk fields are IN for a manually specified primary key");
             }
         }
 

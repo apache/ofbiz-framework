@@ -146,8 +146,8 @@ public class TestRunContainer implements Container {
 
     private static void logTestSuiteResults(TestSuite suite, TestResult results) {
         Debug.logInfo("[JUNIT] Results for test suite: " + suite.getName(), MODULE);
-        Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
-                results.failureCount() + " # Errors: " + results.errorCount(), MODULE);
+        Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: "
+                + results.failureCount() + " # Errors: " + results.errorCount(), MODULE);
         if (Debug.importantOn() && !results.wasSuccessful()) {
             Debug.logInfo("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", MODULE);
             logErrorsOrFailures(results.errors());

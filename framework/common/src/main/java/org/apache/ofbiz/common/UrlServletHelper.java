@@ -43,7 +43,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 public final class UrlServletHelper {
 
-    public final static String MODULE = UrlServletHelper.class.getName();
+    private static final String MODULE = UrlServletHelper.class.getName();
 
     private UrlServletHelper() { }
 

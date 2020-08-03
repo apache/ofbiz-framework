@@ -87,7 +87,7 @@ public final class IfNotEmpty extends MethodOperation {
     }
 
     /**
-     * A &lt;if-not-empty&gt; element factory. 
+     * A &lt;if-not-empty&gt; element factory.
      */
     public static final class IfNotEmptyFactory implements Factory<IfNotEmpty> {
         @Override

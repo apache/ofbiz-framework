@@ -58,7 +58,7 @@ public class PurgeJob extends AbstractJob implements Serializable {
         }
     }
 
-    /* 
+    /*
      * Returns JobPriority.LOW
      */
     @Override

@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.job.JobManagerException;
  */
 public abstract class GenericAbstractDispatcher implements LocalDispatcher {
 
-    public static final String MODULE = GenericAbstractDispatcher.class.getName();
+    protected static final String MODULE = GenericAbstractDispatcher.class.getName();
 
     protected DispatchContext ctx = null;
     protected ServiceDispatcher dispatcher = null;

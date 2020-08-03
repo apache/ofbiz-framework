@@ -359,7 +359,8 @@ public final class TransactionUtil implements Status {
                 if (status != STATUS_NO_TRANSACTION) {
                     if (status != STATUS_MARKED_ROLLBACK) {
                         if (Debug.warningOn()) {
-                            Debug.logWarning(new Exception(causeMessage), "Calling transaction setRollbackOnly; this stack trace shows where this is happening:", MODULE);
+                            Debug.logWarning(new Exception(causeMessage),
+                                    "Calling transaction setRollbackOnly; this stack trace shows where this is happening:", MODULE);
                         }
                         ut.setRollbackOnly();
                         setSetRollbackOnlyCause(causeMessage, causeThrowable);

@@ -47,7 +47,7 @@ import org.apache.ofbiz.entity.GenericValue;
 @SuppressWarnings("serial")
 public final class EntityUtilProperties implements Serializable {
 
-    public final static String MODULE = EntityUtilProperties.class.getName();
+    private static final String MODULE = EntityUtilProperties.class.getName();
 
     private EntityUtilProperties() { }
 

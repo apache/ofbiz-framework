@@ -389,8 +389,8 @@ public final class LoginWorker {
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie). 
-        if (!session.isNew()) {  // Only do when really signing in. 
+        // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie).
+        if (!session.isNew()) {  // Only do when really signing in.
             request.changeSessionId();
         }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -941,9 +941,9 @@ public final class LoginWorker {
         String serverId = (String) request.getServletContext().getAttribute("_serverId");
         String applicationName = UtilHttp.getApplicationName(request);
         Optional<WebappInfo> webappInfo = WEBAPPS.getWebappInfo(serverId, applicationName);
-        if (userLogin != null && 
+        if (userLogin != null
                 // When using an empty mountpoint, ie using root as mountpoint. Beware: works only for 1 webapp!
-                webappInfo.map(WebappInfo::isAutologinCookieUsed).orElse(!webappInfo.isPresent())) {
+                && webappInfo.map(WebappInfo::isAutologinCookieUsed).orElse(!webappInfo.isPresent())) {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 365);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
@@ -1311,8 +1311,8 @@ public final class LoginWorker {
                 Debug.logWarning(e, "Unable to refresh UserLogin", MODULE);
             }
         }
-        return (userLogin.get("hasLoggedOut") != null ?
-                "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false);
+        return (userLogin.get("hasLoggedOut") != null
+                ? "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false);
     }
 
     /**

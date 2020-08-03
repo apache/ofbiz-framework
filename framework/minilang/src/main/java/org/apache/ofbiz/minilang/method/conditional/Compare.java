@@ -132,8 +132,8 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            if (convertedLvalue instanceof Comparable &&
-                convertedRvalue instanceof Comparable) {
+            if (convertedLvalue instanceof Comparable
+                    && convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) > 0;
             }
@@ -148,8 +148,8 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            if (convertedLvalue instanceof Comparable &&
-                convertedRvalue instanceof Comparable) {
+            if (convertedLvalue instanceof Comparable
+                    && convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) >= 0;
             }
@@ -206,8 +206,8 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            if (convertedLvalue instanceof Comparable &&
-                convertedRvalue instanceof Comparable) {
+            if (convertedLvalue instanceof Comparable
+                    && convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) <= 0;
             }

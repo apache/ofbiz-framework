@@ -70,7 +70,7 @@ import org.apache.ofbiz.service.mail.MimeMessageWrapper;
  */
 public class CommonServices {
 
-    public final static String MODULE = CommonServices.class.getName();
+    private static final String MODULE = CommonServices.class.getName();
     private static final String RESOURCE = "CommonUiLabels";
 
     /**

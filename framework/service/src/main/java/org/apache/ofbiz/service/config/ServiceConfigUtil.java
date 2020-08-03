@@ -95,7 +95,7 @@ public final class ServiceConfigUtil {
 
     /**
      * Returns the default service engine configuration (named "default").
-     * @throws GenericConfigException 
+     * @throws GenericConfigException
      */
     public static ServiceEngine getServiceEngine() throws GenericConfigException {
         return getServiceConfig().getServiceEngine(engine);

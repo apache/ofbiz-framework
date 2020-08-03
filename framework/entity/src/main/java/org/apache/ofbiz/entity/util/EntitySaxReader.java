@@ -243,10 +243,10 @@ public class EntitySaxReader extends DefaultHandler {
             throw new SAXException("A transaction error occurred reading data", e);
         }
         Debug.logImportant("Finished " + numberRead + " values from " + docDescription, MODULE);
-        if (Debug.verboseOn()) { 
-            Debug.logVerbose("  Detail created : " + numberCreated + ", skipped : " + numberSkipped +
-                    ", updated : " + numberUpdated + ", replaced : " + numberReplaced +
-                    ", deleted : " + numberDeleted, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("  Detail created : " + numberCreated + ", skipped : " + numberSkipped
+                    + ", updated : " + numberUpdated + ", replaced : " + numberReplaced
+                    + ", deleted : " + numberDeleted, MODULE);
         }
         return numberRead;
     }

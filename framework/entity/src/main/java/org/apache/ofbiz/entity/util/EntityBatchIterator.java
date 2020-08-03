@@ -26,7 +26,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 
 public class EntityBatchIterator implements Iterator<GenericValue> {
-    public static final String MODULE = EntityBatchIterator.class.getName();
+    private static final String MODULE = EntityBatchIterator.class.getName();
 
     private EntityQuery query;
     List<GenericValue> currentResultSet;

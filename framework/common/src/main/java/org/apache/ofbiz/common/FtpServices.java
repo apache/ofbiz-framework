@@ -45,7 +45,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class FtpServices {
 
-    public final static String MODULE = FtpServices.class.getName();
+    private static final String MODULE = FtpServices.class.getName();
     private static final String RESOURCE = "CommonUiLabels";
 
     public static Map<String, Object> putFile(DispatchContext dctx, Map<String, ?> context) {

@@ -125,8 +125,8 @@ public class ServiceEcaCondition implements java.io.Serializable {
 
             Boolean conditionReply = Boolean.FALSE;
             if (ServiceUtil.isError(conditionServiceResult)) {
-                Debug.logError("Error in condition-service : " +
-                        ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
+                Debug.logError("Error in condition-service : "
+                        + ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
             } else {
                 conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
             }

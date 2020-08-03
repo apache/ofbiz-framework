@@ -61,7 +61,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
     }
 
     /**
-     * A &lt;and&gt; element factory. 
+     * A &lt;and&gt; element factory.
      */
     public static final class AndConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
@@ -92,7 +92,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
     }
 
     /**
-     * A &lt;not&gt; element factory. 
+     * A &lt;not&gt; element factory.
      */
     public static final class NotConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
@@ -124,7 +124,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
     }
 
     /**
-     * A &lt;or&gt; element factory. 
+     * A &lt;or&gt; element factory.
      */
     public static final class OrConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
@@ -155,7 +155,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
     }
 
     /**
-     * A &lt;xor&gt; element factory. 
+     * A &lt;xor&gt; element factory.
      */
     public static final class XorConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override

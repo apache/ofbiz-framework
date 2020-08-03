@@ -70,19 +70,19 @@ public final class UtilFormatOut {
 
         //Resolve template to use from formatType
         String formatTypeKey = formatType + ".displaying.format";
-        String template = delegator != null ?
-                EntityUtilProperties.getPropertyValue("number", formatTypeKey, delegator):
-                UtilProperties.getPropertyValue("number", formatTypeKey);
+        String template = delegator != null
+                ? EntityUtilProperties.getPropertyValue("number", formatTypeKey, delegator)
+                : UtilProperties.getPropertyValue("number", formatTypeKey);
         if (UtilValidate.isEmpty(template)) {
-            Debug.logWarning("Number template not found for format " + formatType +
-                    ", please check your property on number for " + formatTypeKey, MODULE);
-            template = delegator != null ?
-                    EntityUtilProperties.getPropertyValue("number", "default.displaying.format", delegator):
-                    UtilProperties.getPropertyValue("number", "default.displaying.format");
+            Debug.logWarning("Number template not found for format " + formatType
+                    + ", please check your property on number for " + formatTypeKey, MODULE);
+            template = delegator != null
+                    ? EntityUtilProperties.getPropertyValue("number", "default.displaying.format", delegator)
+                    : UtilProperties.getPropertyValue("number", "default.displaying.format");
         }
         if (UtilValidate.isEmpty(template)) {
-            Debug.logWarning("Number template not found for default displaying.format" +
-                    ", please check your property on number for default.displaying.format", MODULE);
+            Debug.logWarning("Number template not found for default displaying.format"
+                    + ", please check your property on number for default.displaying.format", MODULE);
             template = "##0.00";
         }
 

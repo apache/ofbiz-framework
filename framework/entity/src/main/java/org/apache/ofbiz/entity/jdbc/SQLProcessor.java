@@ -339,8 +339,8 @@ public class SQLProcessor implements AutoCloseable {
             }
         } catch (GenericTransactionException e) {
             // nevermind, don't worry about it, but print the exc anyway
-            Debug.logWarning("[SQLProcessor.getConnection]: Exception was thrown trying to check " +
-                "transaction status: " + e.toString(), MODULE);
+            Debug.logWarning("[SQLProcessor.getConnection]: Exception was thrown trying to check "
+                    + "transaction status: " + e.toString(), MODULE);
         }
 
         if (Debug.verboseOn()) {
@@ -552,8 +552,8 @@ public class SQLProcessor implements AutoCloseable {
             }
 
         } catch (SQLException sqle) {
-            Debug.logWarning("[SQLProcessor.execQuery]: SQL Exception while executing the following:\n" +
-                sql + "\nError was:", MODULE);
+            Debug.logWarning("[SQLProcessor.execQuery]: SQL Exception while executing the following:\n"
+                    + sql + "\nError was:", MODULE);
             Debug.logWarning(sqle.getMessage(), MODULE);
             throw new GenericEntityException("SQL Exception while executing the following:" + _sql, sqle);
         } finally {

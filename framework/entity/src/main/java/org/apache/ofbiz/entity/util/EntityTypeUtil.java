@@ -56,7 +56,7 @@ public final class EntityTypeUtil {
      while (iter.hasNext()) {
      if (isType((GenericValue) iter.next(), targetType)) {
      return true;
-     }//else keep looking
+     } //else keep looking
      }
      return false;
      }*/

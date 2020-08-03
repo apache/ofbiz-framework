@@ -462,7 +462,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
         return nameList;
     }
-    
     /**
      * Creates a map of service IN parameters using Name as key and Type as value.
      * Skips internal parameters
@@ -623,12 +622,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, MODULE);
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - " +
-                        requiredTest.size() + " / " + requiredInfo.size(), MODULE);
+                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - "
+                        + requiredTest.size() + " / " + requiredInfo.size(), MODULE);
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - " +
-                        optionalTest.size() + " / " + optionalInfo.size(), MODULE);
+                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - "
+                        + optionalTest.size() + " / " + optionalInfo.size(), MODULE);
             }
         }
         try {

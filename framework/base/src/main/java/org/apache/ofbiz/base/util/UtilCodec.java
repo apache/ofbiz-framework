@@ -52,7 +52,7 @@ public class UtilCodec {
     private static final StringEncoder stringEncoder = new StringEncoder();
     private static final UrlCodec urlCodec = new UrlCodec();
     private static final List<Codec> codecs;
-    // From https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Event_Handlers 
+    // From https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Event_Handlers
     private static final List<String> jsEventList = Arrays.asList(new String[] {"onAbort", "onActivate",
             "onAfterPrint", "onAfterUpdate", "onBeforeActivate", "onBeforeCopy", "onBeforeCut", "onBeforeDeactivate",
             "onBeforeEditFocus", "onBeforePaste", "onBeforePrint", "onBeforeUnload", "onBeforeUpdate", "onBegin",
@@ -448,7 +448,7 @@ public class UtilCodec {
     /**
      * This method check if the input is safe HTML.
      * It is possible to configure a safe policy using the properties
-     * "sanitizer.safe.policy" and "sanitizer.custom.safe.policy.class". 
+     * "sanitizer.safe.policy" and "sanitizer.custom.safe.policy.class".
      * The safe policy has to implement
      * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
      *
@@ -502,7 +502,7 @@ public class UtilCodec {
     }
 
     /**
-     * A simple Map wrapper class that will do HTML encoding. 
+     * A simple Map wrapper class that will do HTML encoding.
      * To be used for passing a Map to something that will expand Strings with it as a context, etc.
      */
     public static class HtmlEncodingMapWrapper<K> implements Map<K, Object> {

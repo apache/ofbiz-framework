@@ -48,7 +48,7 @@ public class ControlActivationEventListener implements HttpSessionActivationList
     public static String showSessionId(HttpSession session) {
         boolean showSessionIdInLog = UtilProperties.propertyValueEqualsIgnoreCase("requestHandler", "show-sessionId-in-log", "Y");
         if (showSessionIdInLog) {
-            return " sessionId=" + session.getId(); 
+            return " sessionId=" + session.getId();
         }
         return " hidden sessionId by default.";
     }
