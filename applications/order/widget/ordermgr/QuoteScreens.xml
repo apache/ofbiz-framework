@@ -69,6 +69,12 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
+                <set field="asm_multipleSelectForm" value="FindQuotes"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindQuotes_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -77,6 +83,9 @@ under the License.
                             <container>
                                 <link target="EditQuote" text="${uiLabelMap.OrderCreateOrderQuote}" style="buttontext"/>
                             </container>
+                            <platform-specific>
+                                <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                            </platform-specific>
                             <include-form name="FindQuotes" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                             <include-form name="ListQuotes" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
