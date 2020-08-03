@@ -7413,23 +7413,29 @@ public class OrderServices {
                 GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
                 if (orderHeader != null && "PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {
-                    GenericValue vendor = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "BILL_FROM_VENDOR")
+                    GenericValue vendor = EntityQuery.use(delegator)
+                            .from("OrderRole")
+                            .where("orderId", orderId, "roleTypeId", "BILL_FROM_VENDOR")
                             .queryFirst();
                     if (vendor != null) {
                         String partyIdTo = vendor.getString("partyId");
                         GenericValue contactMech = PartyWorker.findPartyLatestContactMech(partyIdTo, "EMAIL_ADDRESS", delegator);
                         if (contactMech != null && contactMech.getString("infoString") != null) {
-                            GenericValue emailTemplateSetting = EntityQuery.use(delegator).from("EmailTemplateSetting")
-                                    .where("emailTemplateSettingId", emailTemplateSettingId).queryOne();
+                            GenericValue emailTemplateSetting = EntityQuery.use(delegator)
+                                    .from("EmailTemplateSetting")
+                                    .where("emailTemplateSettingId", emailTemplateSettingId)
+                                    .queryOne();
                             if (emailTemplateSetting != null) {
                                 String partyIdFrom = null;
-                                GenericValue company = EntityQuery.use(delegator).from("OrderRole")
-                                        .where("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER").queryFirst();
+                                GenericValue company = EntityQuery.use(delegator)
+                                        .from("OrderRole")
+                                        .where("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER")
+                                        .queryFirst();
                                 if (company != null) {
                                     partyIdFrom = company.getString("partyId");
                                 }
-                                Map<String, Object> bodyParameters = UtilMisc.toMap("orderId", orderId, "partyIdTo", partyIdTo, "partyIdFrom",
-                                        partyIdFrom);
+                                Map<String, Object> bodyParameters = UtilMisc.toMap("orderId", orderId, "partyIdTo", partyIdTo,
+                                        "partyIdFrom", partyIdFrom);
 
                                 Map<String, Object> emailCtx = UtilMisc.toMap("emailTemplateSettingId", emailTemplateSettingId, "sendTo",
                                         contactMech.getString("infoString"), "bodyParameters", bodyParameters);
