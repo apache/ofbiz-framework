@@ -27,8 +27,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -1010,6 +1012,15 @@ public final class UtilHttp {
             }
         }
         return buf.toString();
+    }
+
+    /**
+     * Encodes a query parameter
+     * 
+     * @throws UnsupportedEncodingException
+     */
+    public static String getEncodedParameter(String parameter) throws UnsupportedEncodingException {
+        return URLEncoder.encode(parameter, "UTF-8");
     }
 
     public static String getRequestUriFromTarget(String target) {

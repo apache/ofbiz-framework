@@ -2237,6 +2237,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isEmpty(lastViewName)) {
             lastViewName = "";
         }
+        lastViewName = UtilHttp.getEncodedParameter(lastViewName);
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
