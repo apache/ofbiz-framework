@@ -7399,4 +7399,44 @@ public class OrderServices {
         }
         return ServiceUtil.returnSuccess();
     }
+
+    public static Map<String, Object> sendPOEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String orderId = (String) context.get("orderId");
+        String emailTemplateSettingId = (String) context.get("emailTemplateSettingId");
+
+        if (orderId != null && emailTemplateSettingId != null) {
+            try {
+                GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
+
+                if (orderHeader != null && "PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {
+                    GenericValue vendor = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "BILL_FROM_VENDOR").queryFirst();
+                    if (vendor != null) {
+                        String partyIdTo = vendor.getString("partyId");
+                        GenericValue contactMech = PartyWorker.findPartyLatestContactMech(partyIdTo, "EMAIL_ADDRESS", delegator);
+                        if (contactMech != null && contactMech.getString("infoString") != null) {
+                            GenericValue emailTemplateSetting = EntityQuery.use(delegator).from("EmailTemplateSetting").where("emailTemplateSettingId", emailTemplateSettingId).queryOne();
+                            if (emailTemplateSetting != null) {
+                                String partyIdFrom = null;
+                                GenericValue company = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER").queryFirst();
+                                if (company != null) {
+                                    partyIdFrom = company.getString("partyId");
+                                }
+                                Map<String, Object> bodyParameters = UtilMisc.toMap("orderId", orderId, "partyIdTo", partyIdTo, "partyIdFrom", partyIdFrom);
+
+                                Map<String, Object> emailCtx = UtilMisc.toMap("emailTemplateSettingId", emailTemplateSettingId, "sendTo", contactMech.getString("infoString"), "bodyParameters", bodyParameters);
+                                emailCtx.put("userLogin", userLogin);
+                                dispatcher.runAsync("sendMailFromTemplateSetting", emailCtx);
+                            }
+                        }
+                    }
+                }
+            } catch (GenericEntityException | GenericServiceException e) {
+                Debug.logError(e, MODULE);
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
 }
