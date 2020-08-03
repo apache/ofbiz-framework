@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
@@ -51,6 +50,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
@@ -169,16 +169,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     private void executeMacro(Appendable writer, String macro) {
         ftlWriter.executeMacro(writer, macro);
-    }
-
-    private Environment getEnvironment(Appendable writer) throws TemplateException, IOException {
-        Environment environment = environments.get(writer);
-        if (environment == null) {
-            Map<String, Object> input = UtilMisc.toMap("key", null);
-            environment = FreeMarkerWorker.renderTemplate(macroLibrary, input, writer);
-            environments.put(writer, environment);
-        }
-        return environment;
     }
 
     private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
@@ -2322,6 +2312,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isEmpty(lastViewName)) {
             lastViewName = "";
         }
+        lastViewName = UtilHttp.getEncodedParameter(lastViewName);
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
