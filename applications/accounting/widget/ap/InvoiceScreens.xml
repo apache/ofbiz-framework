@@ -115,6 +115,12 @@ under the License.
                     <field-map field-name="paymentMethodTypeId" value="COMPANY_CHECK"/>
                 </entity-and>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="asm_multipleSelectForm" value="FindPurchaseInvoices"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindPurchaseInvoices_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -123,6 +129,9 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
+                                        <platform-specific>
+                                            <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                                        </platform-specific>
                                         <include-form name="FindPurchaseInvoices" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
